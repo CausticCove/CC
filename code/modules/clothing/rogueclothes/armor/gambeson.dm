@@ -191,6 +191,8 @@
 	desc = "A thick robe intervowen with spell-laced fabrics. Thick and protective while remaining light and breezy; the perfect gear for protecting one from the threats of the sun, the desert and the daemons, yet still allowing one to cast spells aptly."
 	naledicolor = TRUE
 	shiftable = FALSE
+/obj/item/clothing/suit/roguetown/armor/gambeson/heavy/grenzelhoft/loadout
+	armor = ARMOR_CLOTHING
 
 /obj/item/clothing/suit/roguetown/armor/gambeson/heavy/pontifex
 	name = "pontifex's kaftan"

@@ -22,6 +22,10 @@
 	item_state = "grenzelgloves"
 	sleeved = 'icons/roguetown/clothing/onmob/helpers/stonekeep_merc.dmi'
 
+/obj/item/clothing/gloves/roguetown/angle/grenzelgloves/loadout
+	armor = ARMOR_GLOVES_LEATHER //Legit normal leather
+
+
 /obj/item/clothing/gloves/roguetown/angle/grenzelgloves/blacksmith
 	name = "forge gauntlets"
 

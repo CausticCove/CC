@@ -104,6 +104,15 @@ GLOBAL_LIST_EMPTY(loadout_items)
 	name = "Nun Veil"
 	path = /obj/item/clothing/head/roguetown/nun
 
+/datum/loadout_item/bamboohat
+	name = "Worn Bamboo Hat"
+	path = /obj/item/clothing/head/roguetown/mentorhat/loadout
+
+/datum/loadout_item/grenzelhat
+	name = "Grenzelhoft Hat"
+	path = /obj/item/clothing/head/roguetown/grenzelhofthat/loadout
+
+
 /datum/loadout_item/papakha
 	name = "Papakha"
 	path = /obj/item/clothing/head/roguetown/papakha
@@ -318,6 +327,12 @@ GLOBAL_LIST_EMPTY(loadout_items)
 /datum/loadout_item/eastshirt2
 	name = "White Foreign Shirt"
 	path = /obj/item/clothing/suit/roguetown/shirt/undershirt/eastshirt2
+
+/datum/loadout_item/grenzelshirt
+	name = "Grenzelhoft Shirt"
+	path = /obj/item/clothing/suit/roguetown/armor/gambeson/heavy/grenzelhoft/loadout
+
+
 //PANTS
 /datum/loadout_item/tights
 	name = "Cloth Tights"
@@ -343,6 +358,14 @@ GLOBAL_LIST_EMPTY(loadout_items)
 	name = "Skirt"
 	path = /obj/item/clothing/under/roguetown/skirt
 
+/datum/loadout_item/grenzelpants
+	name = "Grenzelhoft Pants"
+	path = /obj/item/clothing/under/roguetown/heavy_leather_pants/grenzelpants/loadout
+
+/datum/loadout_item/easterntrou
+	name = "Black Foreign Pants"
+	path = /obj/item/clothing/under/roguetown/trou/leather/eastern
+
 //ACCESSORIES
 
 /datum/loadout_item/wrappings
@@ -360,6 +383,15 @@ GLOBAL_LIST_EMPTY(loadout_items)
 /datum/loadout_item/fingerless
 	name = "Fingerless Gloves"
 	path = /obj/item/clothing/gloves/roguetown/fingerless
+
+/datum/loadout_item/grenzelgloves
+	name = "Grenzelhoft Gloves"
+	path = /obj/item/clothing/gloves/roguetown/angle/grenzelgloves/loadout
+
+/datum/loadout_item/easterngloves
+	name = "Eastern Gloves"
+	path = 	/obj/item/clothing/gloves/roguetown/eastgloves1
+
 
 /datum/loadout_item/exoticsilkbelt
 	name = "Exotic Silk Belt"

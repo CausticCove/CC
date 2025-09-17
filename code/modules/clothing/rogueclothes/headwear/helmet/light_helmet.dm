@@ -104,6 +104,10 @@
 	detail_color = "#FFFFFF"
 	altdetail_color = "#9c2525"
 
+/obj/item/clothing/head/roguetown/grenzelhofthat/loadout
+	desc = "Whether it's monsters or fair maidens, a true Grenzelhoftian slays both."
+	armor = ARMOR_HEAD_CLOTHING
+
 /obj/item/clothing/head/roguetown/grenzelhofthat/attack_right(mob/user)
 	..()
 	if(!picked)
@@ -156,3 +160,7 @@
 	sewrepair = TRUE
 	flags_inv = HIDEEARS
 	body_parts_covered = HEAD|HAIR|EARS|NOSE|EYES
+
+/obj/item/clothing/head/roguetown/mentorhat/loadout
+	armor = ARMOR_HEAD_CLOTHING
+	desc = "A bamboo hat."
