@@ -2711,6 +2711,7 @@
 #include "modular_causticcove\code\modules\client\customizers\organ\genitals.dm"
 #include "modular_causticcove\code\modules\deadite_pac\deadite_pac.dm"
 #include "modular_causticcove\code\modules\extra_virtue\prefs.dm"
+#include "modular_causticcove\code\modules\force_open\window_breakin.dm"
 #include "modular_causticcove\code\modules\harpies\_harpy_defines.dm"
 #include "modular_causticcove\code\modules\harpies\abberant_eater.dm"
 #include "modular_causticcove\code\modules\harpies\harpy_compat.dm"
