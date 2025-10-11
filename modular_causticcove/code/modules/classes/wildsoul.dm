@@ -29,7 +29,7 @@
 	advclass_cat_rolls = list(CTAG_WILDSOUL = 20)//I don't understand how this works and it scares me
 	display_order = JDO_WILDSOUL 
 	cmode_music = 'modular_causticcove/sound/music/combat_wildsoul.ogg'
-	virtue_restrictions = list(/datum/virtue/utility/noble, /datum/virtue/utility/deathless) //no deathless bc infinite hunger + nat armor is silly
+	virtue_restrictions = list(/datum/virtue/utility/noble)
 	job_subclasses = list(
 		/datum/advclass/wildsoul/direbear,
 		/datum/advclass/wildsoul/mantid,

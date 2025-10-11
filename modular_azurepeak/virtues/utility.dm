@@ -157,10 +157,12 @@
 				to_chat(recipient, span_info("I recall my knowledge of [chosen_language]..."))
 				count--
 
-/datum/virtue/utility/deathless
+///CAUSTIC EDIT
+/*/datum/virtue/utility/deathless
 	name = "Deathless"
 	desc = "Some fell magick has rendered me inwardly unliving - I do not hunger, and I do not breathe."
-	added_traits = list(TRAIT_NOHUNGER, TRAIT_NOBREATH)
+	added_traits = list(TRAIT_NOHUNGER, TRAIT_NOBREATH)*/
+///CAUSTIC EDIT END
 
 /datum/virtue/utility/feral_appetite
 	name = "Feral Appetite"
