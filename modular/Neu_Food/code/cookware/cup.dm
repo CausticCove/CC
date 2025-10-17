@@ -45,6 +45,7 @@
 	sellprice = 0
 	force = 5
 	throwforce = 10
+	metalizer_result = /obj/item/reagent_containers/glass/cup
 
 /obj/item/reagent_containers/glass/cup/steel
 	name = "goblet"

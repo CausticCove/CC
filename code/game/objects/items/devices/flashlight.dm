@@ -149,6 +149,7 @@
 	light_height = 0
 	grid_width = 32
 	grid_height = 32
+	metalizer_result = /obj/item/flashlight/flare/torch/lantern
 
 /obj/item/flashlight/flare/torch/getonmobprop(tag)
 	. = ..()
@@ -280,9 +281,26 @@
 	smeltresult = /obj/item/rogueore/coal
 	max_integrity = 100	
 	fuel = 120 MINUTES
-	should_self_destruct = FALSE
 	possible_item_intents = list(/datum/intent/use, /datum/intent/hit, /datum/intent/mace/strike) //Reflects the fact that it is, in essence, a heavy rod of iron. 
-	extinguishable = FALSE
+	should_self_destruct = TRUE
+	extinguishable = TRUE
+	metalizer_result = null
+
+/obj/item/flashlight/flare/torch/metal/afterattack(atom/movable/A, mob/user, proximity)
+	. = ..()
+	if(!proximity)
+		return
+	if(on && (prob(50) || (user.used_intent.type == /datum/intent/use)))
+		if(ismob(A))
+			A.spark_act()
+		else
+			A.fire_act(3,3)
+
+		if (should_self_destruct)  // check if self-destruct
+			times_used += 1
+			if (times_used >= 13) //amount used before burning out
+				user.visible_message("<span class='warning'>[src] has burnt out and falls apart!</span>")
+				qdel(src)
 
 /obj/item/flashlight/flare/torch/lantern
 	name = "iron lamptern"
@@ -301,6 +319,8 @@
 	grid_height = 64
 	extinguishable = FALSE
 	weather_resistant = TRUE
+	metalizer_result = null
+	smeltresult = /obj/item/ingot/iron
 
 /obj/item/flashlight/flare/torch/lantern/afterattack(atom/movable/A, mob/user, proximity)
 	. = ..()
@@ -340,6 +360,7 @@
 	light_outer_range = 6
 	light_color ="#4ac77e"
 	on = FALSE
+	smeltresult = /obj/item/ingot/bronze
 
 /obj/item/flashlight/flare/torch/lantern/bronzelamptern/malums_lamptern //unqiue item as a dungeon reward. Functionally a kite shield and a bronze lamptern combined into one
 	name = "ancient lamptern"

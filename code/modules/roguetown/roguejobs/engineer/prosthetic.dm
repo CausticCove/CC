@@ -1,13 +1,32 @@
+/obj/item/bodypart/proc/prosthetic_attachment(var/mob/living/carbon/human/H, var/mob/user)
+	if(!ishuman(H))
+		return
+
+	if(user.zone_selected != body_zone)
+		to_chat(user, span_warning("[src] isn't the right type for [parse_zone(user.zone_selected)]."))
+		return -1
+
+	var/obj/item/bodypart/affecting = H.get_bodypart(check_zone(user.zone_selected))
+	if(affecting)
+		return
+
+	if(user.temporarilyRemoveItemFromInventory(src))
+		attach_limb(H)
+		user.visible_message(span_notice("[user] attaches [src] to [H]."))
+		return 1
+
 /////     ARMS     /////
 
 /obj/item/bodypart/l_arm/prosthetic/woodleft
 	name = "wooden left arm"
 	desc = "A left arm of wood."
 	icon = 'icons/roguetown/items/misc.dmi'
-	icon_state = "prarm"
+	icon_state = "pr_arm"
+	item_state = "pr_arm"
 	resistance_flags = FLAMMABLE
 	obj_flags = CAN_BE_HIT
-	status = BODYPART_ROBOTIC
+	status = BODYPART_ROBOTIC	//allows removals
+	static_icon = TRUE			//returns icon to initial icon state after removal under get_limb_icon
 	brute_reduction = 0
 	burn_reduction = 0
 	max_damage = 20
@@ -22,10 +41,12 @@
 	name = "bronze left arm"
 	desc = "A replacement left arm, engineered out of bronze."
 	icon = 'icons/roguetown/items/misc.dmi'
-	icon_state = "bprarm"
+	icon_state = "bp_arm"
+	prosthetic_prefix = "prs"
 	resistance_flags = FIRE_PROOF
 	obj_flags = CAN_BE_HIT
 	status = BODYPART_ROBOTIC
+	static_icon = TRUE			//returns icon to initial icon state after removal under get_limb_icon
 	brute_reduction = 0
 	burn_reduction = 0
 	max_damage = 110
@@ -38,28 +59,17 @@
 	dismember_wound = /datum/wound/bruise/large
 
 /obj/item/bodypart/l_arm/prosthetic/attack(mob/living/M, mob/user)
-	if(!ishuman(M))
-		return
-	var/mob/living/carbon/human/H = M
-	var/obj/item/bodypart/affecting = H.get_bodypart(check_zone(user.zone_selected))
-	if(affecting)
-		return
-	if(user.zone_selected != body_zone) //so we can't replace a leg with an arm, or a human arm with a monkey arm.
-		to_chat(user, span_warning("[src] isn't the right type for [parse_zone(user.zone_selected)]."))
-		return -1
-	if(user.temporarilyRemoveItemFromInventory(src))
-		attach_limb(H)
-		user.visible_message(span_notice("[user] attaches [src] to [H]."))
-		return 1
+	prosthetic_attachment(M, user)
 
 /obj/item/bodypart/r_arm/prosthetic/woodright
 	name = "wooden right arm"
 	desc = "A right arm of wood."
 	icon = 'icons/roguetown/items/misc.dmi'
-	icon_state = "prarm"
+	icon_state = "pr_arm"
 	resistance_flags = FLAMMABLE
 	obj_flags = CAN_BE_HIT
 	status = BODYPART_ROBOTIC
+	static_icon = TRUE			//returns icon to initial icon state after removal under get_limb_icon
 	brute_reduction = 0
 	burn_reduction = 0
 	max_damage = 40
@@ -74,10 +84,12 @@
 	name = "bronze right arm"
 	desc = "A replacement right arm, engineered out of bronze."
 	icon = 'icons/roguetown/items/misc.dmi'
-	icon_state = "bprarm"
+	icon_state = "bp_arm"
+	prosthetic_prefix = "prs"
 	resistance_flags = FIRE_PROOF
 	obj_flags = CAN_BE_HIT
 	status = BODYPART_ROBOTIC
+	static_icon = TRUE			//returns icon to initial icon state after removal under get_limb_icon
 	brute_reduction = 0
 	burn_reduction = 0
 	max_damage = 220
@@ -90,19 +102,7 @@
 	dismember_wound = /datum/wound/bruise/large
 
 /obj/item/bodypart/r_arm/prosthetic/attack(mob/living/M, mob/user)
-	if(!ishuman(M))
-		return
-	var/mob/living/carbon/human/H = M
-	var/obj/item/bodypart/affecting = H.get_bodypart(check_zone(user.zone_selected))
-	if(affecting)
-		return
-	if(user.zone_selected != body_zone) //so we can't replace a leg with an arm, or a human arm with a monkey arm.
-		to_chat(user, span_warning("[src] isn't the right type for [parse_zone(user.zone_selected)]."))
-		return -1
-	if(user.temporarilyRemoveItemFromInventory(src))
-		attach_limb(H)
-		user.visible_message(span_notice("[user] attaches [src] to [H]."))
-		return 1
+	prosthetic_attachment(M, user)
 
 /////     LEGS     /////
 
@@ -110,10 +110,13 @@
 	name = "wooden left leg"
 	desc = "A left leg made of wood."
 	icon = 'icons/roguetown/items/misc.dmi'
-	icon_state = "prleg"
+	icon_state = "pr_leg"
 	resistance_flags = FLAMMABLE
 	obj_flags = CAN_BE_HIT
 	status = BODYPART_ROBOTIC
+	obj_flags = CAN_BE_HIT
+	status = BODYPART_ROBOTIC
+	static_icon = TRUE			//returns icon to initial icon state after removal under get_limb_icon
 	brute_reduction = 0
 	burn_reduction = 0
 	max_damage = 40
@@ -127,7 +130,8 @@
 	name = "bronze left leg"
 	desc = "A replacement left leg, engineered out of bronze."
 	icon = 'icons/roguetown/items/misc.dmi'
-	icon_state = "bpleg"
+	icon_state = "bp_leg"
+	prosthetic_prefix = "prs"
 	resistance_flags = FIRE_PROOF
 	obj_flags = CAN_BE_HIT
 	status = BODYPART_ROBOTIC
@@ -141,30 +145,17 @@
 	smeltresult = /obj/item/ingot/bronze
 
 /obj/item/bodypart/l_leg/prosthetic/attack(mob/living/M, mob/user)
-	if(!ishuman(M))
-		return
-	var/mob/living/carbon/human/H = M
-	var/obj/item/bodypart/affecting = H.get_bodypart(check_zone(user.zone_selected))
-	if(affecting)
-		return
-	if(user.zone_selected != body_zone) //so we can't replace a leg with an arm, or a human arm with a monkey arm.
-		to_chat(user, span_warning("[src] isn't the right type for [parse_zone(user.zone_selected)]."))
-		return -1
-	if(user.temporarilyRemoveItemFromInventory(src))
-		attach_limb(H)
-		if(H.pegleg < 1)
-			H.pegleg++
-		user.visible_message(span_notice("[user] attaches [src] to [H]."))
-		return 1
+	prosthetic_attachment(M, user)
 
 /obj/item/bodypart/r_leg/prosthetic
 	name = "wooden right leg"
 	desc = "A right leg made of wood."
 	icon = 'icons/roguetown/items/misc.dmi'
-	icon_state = "prleg"
+	icon_state = "pr_leg"
 	resistance_flags = FLAMMABLE
 	obj_flags = CAN_BE_HIT
 	status = BODYPART_ROBOTIC
+	static_icon = TRUE			//returns icon to initial icon state after removal under get_limb_icon
 	brute_reduction = 0
 	burn_reduction = 0
 	max_damage = 40
@@ -178,10 +169,12 @@
 	name = "bronze right leg"
 	desc = "A replacement right leg, engineered out of bronze."
 	icon = 'icons/roguetown/items/misc.dmi'
-	icon_state = "bpleg"
+	icon_state = "bp_leg"
+	prosthetic_prefix = "prs"
 	resistance_flags = FIRE_PROOF
 	obj_flags = CAN_BE_HIT
 	status = BODYPART_ROBOTIC
+	static_icon = TRUE			//returns icon to initial icon state after removal under get_limb_icon
 	brute_reduction = 0
 	burn_reduction = 0
 	max_damage = 220
@@ -191,19 +184,6 @@
 	anvilrepair = /datum/skill/craft/engineering
 	smeltresult = /obj/item/ingot/bronze
 
+
 /obj/item/bodypart/r_leg/prosthetic/attack(mob/living/M, mob/user)
-	if(!ishuman(M))
-		return
-	var/mob/living/carbon/human/H = M
-	var/obj/item/bodypart/affecting = H.get_bodypart(check_zone(user.zone_selected))
-	if(affecting)
-		return
-	if(user.zone_selected != body_zone) //so we can't replace a leg with an arm, or a human arm with a monkey arm.
-		to_chat(user, "<span class='warning'>[src] isn't the right type for [parse_zone(user.zone_selected)].</span>")
-		return -1
-	if(user.temporarilyRemoveItemFromInventory(src))
-		attach_limb(H)
-		if(H.pegleg < 1)
-			H.pegleg++
-		user.visible_message("<span class='notice'>[user] attaches [src] to [H].</span>")
-		return 1
+	prosthetic_attachment(M, user)
