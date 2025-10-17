@@ -243,6 +243,8 @@
 	var/lockid
 	/// Lockhash goes hand in hand with lock ID. Horrible system. Still very necessary.
 	var/lockhash
+	/// Is this locked?
+	var/locked
 
 /obj/item/contraption/wood_metalizer/attack_obj(obj/O, mob/living/user)
 	..()
