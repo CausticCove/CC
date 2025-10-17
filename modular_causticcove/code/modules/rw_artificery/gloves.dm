@@ -8,7 +8,7 @@
 	var/cog_accept = TRUE
 	icon = 'modular_causticcove/icons/RW_artificery/armor.dmi'
 	mob_overlay_icon = 'modular_causticcove/icons/RW_artificery/onmob_armor.dmi'
-
+	anvilrepair = /datum/skill/craft/armorsmithing
 
     // === CONTRAPTION CORE BEHAVIOR ===
 /obj/item/clothing/gloves/roguetown/contraption/proc/battery_collapse(obj/O, mob/living/user)
@@ -49,12 +49,15 @@
 	if(istype(I, accepted_power_source))
 		if(current_charge)
 			to_chat(user, span_warning("The gauntlets already have a [initial(accepted_power_source.name)] inside!"))
+			return
 		else
 			to_chat(user, span_info("You insert the [I.name]. The gauntlets begin to hum with power."))
 			current_charge = charge_per_source
 			playsound(src, 'sound/combat/hits/blunt/woodblunt (2).ogg', 100, TRUE)
 			qdel(I)
 		return
+	else
+		activate()
 	..()
 
     // === VOLTIC ZAP ===
