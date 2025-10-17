@@ -393,7 +393,7 @@
 /obj/item/contraption/shears
 	name = "amputation shears"
 	desc = "A powered shear used for achieving a clean separation between limb and patient. Keeping the patient still is imperative to aligning the blades."
-	icon = 'icons/roguetown/items/misc.dmi'
+	icon = 'modular_causticcove/icons/RW_artificery/misc.dmi'
 	icon_state = "shears"
 	on_icon = "shears"
 	off_icon = "shears"
