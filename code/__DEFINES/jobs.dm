@@ -145,7 +145,6 @@
 
 #define HUNTER		(1<<0)
 #define FARMER		(1<<1)
-#define BUTCHER		(1<<2)
 #define FISHER		(1<<3)
 #define LUMBERJACK	(1<<4)
 #define MINER		(1<<5)
@@ -293,7 +292,9 @@
 #define JDO_GRENZELHOFT 31.1
 #define JDO_DESERT_RIDER 31.2
 #define JDO_VET 31.4
-
+//Caustic edit
+#define JDO_WILDSOUL 32.2
+//Caustic edit end
 #define JDO_VAGRANT 33
 #define JDO_ORPHAN 34
 
@@ -352,7 +353,6 @@
 	/datum/job/roguetown/villager,\
 	/datum/job/roguetown/nightmaiden,\
 	/datum/job/roguetown/beggar,\
-	/datum/job/roguetown/butcher,\
 	/datum/job/roguetown/cook,\
 	/datum/job/roguetown/knavewench,\
 	/datum/job/roguetown/lunatic,\
@@ -381,7 +381,8 @@
 	/datum/job/roguetown/mercenary/desert_rider,\
 	/datum/job/roguetown/mercenary/grenzelhoft,\
 	/datum/job/roguetown/bandit,\
-	/datum/job/roguetown/wretch
+	/datum/job/roguetown/wretch,\
+	/datum/job/roguetown/wildsoul //caustic edit
 
 #define GARRISON_ROLES \
 	/datum/job/roguetown/bogguardsman,\

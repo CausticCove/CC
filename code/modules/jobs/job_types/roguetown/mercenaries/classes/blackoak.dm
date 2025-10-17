@@ -7,6 +7,10 @@
 		/datum/species/human/halfelf,
 		/datum/species/elf/wood,
 		/datum/species/elf/dark,
+		//Caustic edit
+		/datum/species/anthromorph,
+		/datum/species/demihuman,
+		//Caustic edit end
 	)
 	outfit = /datum/outfit/job/roguetown/mercenary/blackoak
 	class_select_category = CLASS_CAT_RACIAL

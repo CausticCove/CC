@@ -11,8 +11,9 @@
 	return TRUE
 
 /client/proc/get_looc()
-	var/msg = input(src, null, "looc \"text\"") as text|null
+	var/msg = input(src, "", "looc") as text|null
 	do_looc(msg, FALSE)
+	
 
 /client/verb/looc(msg as text)
 	set name = "LOOC"
@@ -41,10 +42,13 @@
 	if(is_banned_from(ckey, "LOOC"))
 		to_chat(src, span_danger("I cannot use LOOC (perma muted)."))
 		return
-	
+	//Caustic edit
+	/*
 	if(isobserver(mob))
 		to_chat(src, span_danger("I cannot use LOOC while dead."))
 		return
+	*/
+	//Caustic edit end
 
 	if(!mob)
 		return

@@ -14,7 +14,20 @@
 	find their sanity being clawed away as they find themselves stuck in one place.<br>\
 	(+1 Constitution, +1 Willpower)"
 	species_traits = list(EYECOLOR,LIPS,STUBBLE,MUTCOLORS)
-	species_traits = list(EYECOLOR,LIPS,STUBBLE,MUTCOLORS)
+
+	///Caustic edit
+	allowed_taur_types = list(
+		/obj/item/bodypart/taur/lamia,
+		/obj/item/bodypart/taur/tent,
+		/obj/item/bodypart/taur/tentacle,
+		/obj/item/bodypart/taur/slug,
+		/obj/item/bodypart/taur/mermaid,
+		/obj/item/bodypart/taur/altnaga,
+		/obj/item/bodypart/taur/altnagatailmaw,
+		/obj/item/bodypart/taur/fatnaga,
+	)
+	///Caustic edit end
+
 	inherent_traits = list(TRAIT_WATERBREATHING, TRAIT_SEA_DRINKER)
 	possible_ages = ALL_AGES_LIST
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_MAGIC | MIRROR_PRIDE | RACE_SWAP | SLIME_EXTRACT
@@ -35,6 +48,9 @@
 		OFFSET_FACE_F = list(0,-1), OFFSET_BELT_F = list(0,0), OFFSET_BACK_F = list(0,-1), \
 		OFFSET_NECK_F = list(0,-1), OFFSET_MOUTH_F = list(0,-1), OFFSET_PANTS_F = list(0,0), \
 		OFFSET_SHIRT_F = list(0,0), OFFSET_ARMOR_F = list(0,0), OFFSET_UNDIES_F = list(0,-1), \
+		//Caustic Edit
+		OFFSET_TAUR = list(-16,0), OFFSET_TAUR_F = list(-16,0), \
+		//Caustic End
 		)
 	race_bonus = list(STAT_WILLPOWER = 1, STAT_CONSTITUTION = 1)
 	enflamed_icon = "widefire"
@@ -51,7 +67,7 @@
 		ORGAN_SLOT_LIVER = /obj/item/organ/liver,
 		ORGAN_SLOT_STOMACH = /obj/item/organ/stomach,
 		ORGAN_SLOT_APPENDIX = /obj/item/organ/appendix,
-		ORGAN_SLOT_TAIL = /obj/item/organ/tail/akula,
+		//ORGAN_SLOT_TAIL = /obj/item/organ/tail/akula, //caustic remove the customizer already gives the organ
 		ORGAN_SLOT_SNOUT = /obj/item/organ/snout/akula,
 		//ORGAN_SLOT_TESTICLES = /obj/item/organ/testicles,
 		//ORGAN_SLOT_PENIS = /obj/item/organ/penis/tapered,
@@ -77,6 +93,10 @@
 		/datum/customizer/organ/penis/anthro,
 		/datum/customizer/organ/breasts/human,
 		/datum/customizer/organ/vagina/human_anthro,
+		//Caustic edit - If the chest is human, so is the butt?
+		/datum/customizer/organ/belly/animal,
+		/datum/customizer/organ/butt/human,
+		//Caustic edit end
 		)
 	body_marking_sets = list(
 		/datum/body_marking_set/none,

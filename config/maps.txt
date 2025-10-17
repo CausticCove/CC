@@ -19,7 +19,7 @@ endmap
 map dun_manor
 endmap
 
-map dun_world
+map cove_world
 	default
 	votable
 endmap

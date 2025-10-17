@@ -125,7 +125,7 @@
 	if(prob(20))
 		if(carbon_owner)
 			carbon_owner.handle_dreams()
-			if(prob(10) && owner.health > owner.crit_threshold)
+			if(prob(10) && owner.health > owner.crit_threshold && !istype(owner.loc, /obj/belly)) //Cove edit
 				owner.emote("snore")
 
 /atom/movable/screen/alert/status_effect/asleep

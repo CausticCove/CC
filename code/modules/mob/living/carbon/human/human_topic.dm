@@ -33,9 +33,12 @@ GLOBAL_VAR_INIT(year_integer, text2num(year)) // = 2013???
 			client.prefs?.save_character()
 		if(is_legacy)
 			dat += "<center><i><font color = '#b9b9b9'; font size = 1>This is a LEGACY Profile from naive days of Psydon.</font></i></center>"
+		var/agevetted = client.check_agevet()
+		dat += "<center>This person is [agevetted ? "<font color='#1cb308'>Age Vetted.</font>" : "<font color='#aa0202'>Not Age Vetted</font>"]</center>"
 		if(valid_headshot_link(null, headshot_link, TRUE))
 			dat += ("<div align='center'><img src='[headshot_link]' width='325px' height='325px'></div>")
 		if(flavortext)
+			dat += "<br>"
 			dat += "<div align='left'>[flavortext_display]</div>"
 		if(ooc_notes)
 			dat += "<br>"
@@ -227,7 +230,7 @@ GLOBAL_VAR_INIT(year_integer, text2num(year)) // = 2013???
 			// NEXT ROW
 			dat += "<tr>"
 			dat += "<td style='width:16%;text-align:left;vertical-align: text-top'>"
-			if(intellectual && (!obscured_name || H.client?.prefs.masked_examine))
+			if(intellectual && (!obscured_name || !H.client?.prefs.masked_examine))
 				dat += "<b>STATS:</b><br><br>"
 				if(!is_guarded)
 					dat +=("STR: \Roman [H.STASTR]<br>")
@@ -395,7 +398,7 @@ GLOBAL_VAR_INIT(year_integer, text2num(year)) // = 2013???
 			dat += "</td>"
 
 			dat += "<td style='width:40%;text-align:center;vertical-align: text-top'>"
-			if(!is_guarded && !is_stupid && (!obscured_name || H.client?.prefs.masked_examine))	//We don't see Guarded people's skills at all.
+			if(!is_guarded && !is_stupid && (!obscured_name || !H.client?.prefs.masked_examine))	//We don't see Guarded people's skills at all.
 				dat += "<b>SKILLS:</b><br><br>"
 				var/list/wornstuff = list(H.backr, H.backl, H.beltl, H.beltr)
 				if(!is_normal && !is_smart)	//At minimum we get to see the skills of the weapons the person is holding, if we have them.
@@ -550,28 +553,28 @@ GLOBAL_VAR_INIT(year_integer, text2num(year)) // = 2013???
 /proc/skilldiff_report(var/input)
 	switch (input)
 		if(-6)
-			return "<font color = '#ff4ad2'>I know nothing. They -- everything.</font>"
+			return "<font color = '#ff4ad2'>I know nothing. They -- everything</font>"
 		if(-5)
-			return "<font color = '#eb0000'<i>I stand no chance against them.</i></font>"
+			return "<font color = '#eb0000'><i>I stand no chance against them</i></font>"
 		if(-4)
-			return "<font color = '#c53c3c'<i>I am inferior.</i></font>"
+			return "<font color = '#c53c3c'><i>I am inferior</i></font>"
 		if(-3)
-			return "<font color = '#db8484'<i>I am notably worse.</i></font>"
+			return "<font color = '#db8484'><i>I am notably worse</i></font>"
 		if(-2)
-			return "<font color = '#e4a1a1'<i>I am worse.</i></font>"
+			return "<font color = '#e4a1a1'><i>I am worse</i></font>"
 		if(-1)
-			return "<font color = '#f8d3d3'<i>I am slightly worse.</i></font>"
+			return "<font color = '#f8d3d3'><i>I am slightly worse</i></font>"
 		if(0)
-			return "We are equal."
+			return "We are equal"
 		if(1)
-			return "<font color = '#3f6343'> I am slightly better.</font>"
+			return "<font color = '#3f6343'>I am slightly better</font>"
 		if(2)
-			return "<font color = '#49944f'> I am better.</font>"
+			return "<font color = '#49944f'>I am better</font>"
 		if(3)
-			return "<font color = '#44db51'> I am notably better.</font>"
+			return "<font color = '#44db51'>I am notably better</font>"
 		if(4)
-			return"<font color = '#62b4be'> I am superior.</font>"
+			return"<font color = '#62b4be'>I am superior</font>"
 		if(5)
-			return "<font color = '#2bdcfc'> They have no chance in this field.</font>"
+			return "<font color = '#2bdcfc'>They have no chance in this field</font>"
 		if(6)
-			return "<font color = '#ff4ad2'> They know nothing. A whelp.</font>"
+			return "<font color = '#ff4ad2'>They know nothing. A whelp</font>"

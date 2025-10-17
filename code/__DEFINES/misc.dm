@@ -80,7 +80,12 @@
 
 //AND -1 MEANS "ABOVE", OK?, OK!?!
 #define ABOVE_SHOES_LAYER			(SHOES_LAYER-1)
-#define ABOVE_BODY_FRONT_LAYER		(BODY_FRONT_LAYER-1)
+//Caustic Cove edit, just puts this on top of all the other new layers. Also defining in seperate file doesn't work, likely because it doesn't see the above in a seperate file.
+#define BODY_FRONTER_LAYER			(BODY_FRONT_LAYER-1) // Makes mini-layers on your layers without having to add any more actual layers! Used for proper organ layers
+#define BODY_FRONTEST_LAYER			(BODY_FRONT_LAYER-2)
+#define ABOVE_BODY_FRONT_LAYER		(BODY_FRONT_LAYER-3)
+
+//Caustic Cove end
 
 //Security levels
 #define SEC_LEVEL_GREEN	0

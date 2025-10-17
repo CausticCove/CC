@@ -107,7 +107,9 @@ GLOBAL_VAR(restart_counter)
 		HandleTestRun()
 
 	update_status()
-
+	//Caustic edit
+	init_chomp_globals()
+	//Caustic edit end
 
 /world/proc/HandleTestRun()
 	//trigger things to run the whole process

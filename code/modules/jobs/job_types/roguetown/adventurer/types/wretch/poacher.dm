@@ -6,7 +6,7 @@
 	outfit = /datum/outfit/job/roguetown/wretch/poacher
 	cmode_music = 'sound/music/combat_poacher.ogg'
 	category_tags = list(CTAG_WRETCH)
-	traits_applied = list(TRAIT_DODGEEXPERT, TRAIT_WOODSMAN, TRAIT_OUTDOORSMAN)
+	traits_applied = list(TRAIT_DODGEEXPERT, TRAIT_WOODSMAN, TRAIT_OUTDOORSMAN, TRAIT_SURVIVAL_EXPERT)
 	// No straight upgrade to perception / speed to not stack one stat too high, but still stronger than MAA Skirm out of town.
 	subclass_stats = list(
 		STATKEY_PER = 2,
@@ -60,7 +60,7 @@
 		)
 	if(H.mind)
 		var/weapons = list("Dagger","Axe", "Cudgel", "My Bow Is Enough")
-		var/weapon_choice = input("Choose your weapon.", "TAKE UP ARMS") as anything in weapons
+		var/weapon_choice = input(H, "Choose your weapon.", "TAKE UP ARMS") as anything in weapons
 		H.set_blindness(0)
 		switch(weapon_choice)
 			if("Dagger")

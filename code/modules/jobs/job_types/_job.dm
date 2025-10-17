@@ -88,7 +88,7 @@
 	var/list/peopleknowme = list()
 
 	var/plevel_req = 0
-	var/min_pq = 0
+	var/min_pq = null //0
 	var/max_pq = 0
 	var/round_contrib_points = 0 //Each 10 contributor points counts as 1 PQ, up to 10 PQ.
 
@@ -240,6 +240,9 @@
 			GLOB.actors_list[H.mobid] = "[H.real_name] as Adventurer<BR>"
 		else
 			GLOB.actors_list[H.mobid] = "[H.real_name] as [H.mind.assigned_role]<BR>"
+
+	if(islist(advclass_cat_rolls))
+		hugboxify_for_class_selection(H)
 
 /client/verb/set_mugshot()
 	set category = "OOC"
@@ -497,12 +500,17 @@
 						dat += "<i><font color = '#a3ffe0'>[GLOB.roguetraits[trait]]</font></i></details>"
 					dat += "</font>"
 					dat += "<br>"
+				if(length(adv_ref.subclass_stashed_items))
+					dat += "<br><font color ='#7a4d0a'>Stashed Items:</font><font color ='#d4b164'>"
+					for(var/stashed_item in adv_ref.subclass_stashed_items)
+						dat += "<br> - <i>[stashed_item]</i>"
+					dat += "</font>"
 				dat += "</td>"	//Trait Table end
 				if(length(adv_ref.subclass_skills))
 					dat += "<td width = 50%; style='text-align:right'>"
 					var/list/notable_skills = list()
 					for(var/sk in adv_ref.subclass_skills)
-						if(adv_ref.subclass_skills[sk] > SKILL_LEVEL_JOURNEYMAN)
+						if(adv_ref.subclass_skills[sk] >= SKILL_LEVEL_JOURNEYMAN)
 							notable_skills[sk] = adv_ref.subclass_skills[sk]
 						else if(ispath(sk, /datum/skill/combat))
 							notable_skills[sk] = adv_ref.subclass_skills[sk]

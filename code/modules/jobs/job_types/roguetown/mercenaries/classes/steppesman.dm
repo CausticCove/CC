@@ -19,7 +19,7 @@
 		/datum/skill/craft/tanning = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/labor/butchering = SKILL_LEVEL_NOVICE,
 		/datum/skill/misc/swimming = SKILL_LEVEL_NOVICE,
-		/datum/skill/misc/sewing = SKILL_LEVEL_NOVICE,
+		/datum/skill/craft/sewing = SKILL_LEVEL_NOVICE,
 		/datum/skill/craft/cooking = SKILL_LEVEL_NOVICE,
 	)
 
@@ -44,7 +44,7 @@
 	H.adjust_blindness(-3)
 	if(H.mind)
 		var/classes = list("Szabrista - Saber Veteran", "Árkász - Elite Sapper", "Druzhina - Light Archer","Kozak - Light Infantry")
-		var/classchoice = input("Choose your archetypes", "Available archetypes") as anything in classes
+		var/classchoice = input(H, "Choose your archetypes", "Available archetypes") as anything in classes
 
 		switch(classchoice)
 			if("Szabrista - Saber Veteran")	//Tl;dr - medium armor class for Mount and Blade larpers who still get a saiga. Akin to Vaquero with specific drip.
@@ -75,8 +75,7 @@
 				ADD_TRAIT(H, TRAIT_MEDIUMARMOR, TRAIT_GENERIC)
 				H.dna.species.soundpack_m = new /datum/voicepack/male/evil() 	//Fits in my head all too well.
 				var/masks = list(
-				"Humen" 	= /obj/item/clothing/mask/rogue/facemask/steel/steppesman,
-				"Beast"		= /obj/item/clothing/mask/rogue/facemask/steel/steppesman/anthro,
+				"Steppesman" 	= /obj/item/clothing/mask/rogue/facemask/steel/steppesman,
 				"None"
 		)
 				var/maskchoice = input("What fits your face?", "MASK SELECTION") as anything in masks
@@ -113,8 +112,7 @@
 				ADD_TRAIT(H, TRAIT_MEDIUMARMOR, TRAIT_GENERIC)
 				H.dna.species.soundpack_m = new /datum/voicepack/male/evil()
 				var/masks = list(
-				"Humen" 	= /obj/item/clothing/mask/rogue/facemask/steel/steppesman,
-				"Beast"		= /obj/item/clothing/mask/rogue/facemask/steel/steppesman/anthro,
+				"Steppesman" 	= /obj/item/clothing/mask/rogue/facemask/steel/steppesman,
 				"None"
 		)
 				var/maskchoice = input("What fits your face?", "MASK SELECTION") as anything in masks

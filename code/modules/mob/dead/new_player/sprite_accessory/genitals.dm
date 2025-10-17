@@ -2,6 +2,7 @@
 	icon = 'icons/mob/sprite_accessory/genitals/pintle.dmi'
 	color_keys = 2
 	color_key_names = list("Member", "Skin")
+//Caustic Edit, adds dynamic state changes
 	relevant_layers = list(BODY_BEHIND_LAYER, BODY_FRONT_LAYER) //Vrell - Yes I know this is hacky but it works for now
 
 /datum/sprite_accessory/penis/adjust_appearance_list(list/appearance_list, obj/item/organ/organ, obj/item/bodypart/bodypart, mob/living/carbon/owner)
@@ -9,7 +10,7 @@
 
 /datum/sprite_accessory/penis/get_icon_state(obj/item/organ/organ, obj/item/bodypart/bodypart, mob/living/carbon/owner)
 	var/obj/item/organ/penis/pp = organ
-	if(pp.sheath_type != SHEATH_TYPE_NONE && pp.erect_state != ERECT_STATE_HARD)
+	if(pp.sheath_type != SHEATH_TYPE_NONE && pp.erect_state < 1) //Do they have a sheath type and is the state bigger than 1?
 		switch(pp.sheath_type)
 			if(SHEATH_TYPE_NORMAL)
 				if(pp.erect_state == ERECT_STATE_NONE)
@@ -21,10 +22,22 @@
 					return "slit_1"
 				else
 					return "slit_2"
+
 	if(pp.erect_state == ERECT_STATE_HARD)
-		return "[icon_state]_[min(3,pp.penis_size+1)]"
+		return "[icon_state]_[max(1, min(5, pp.penis_size))]_1"
+	if(pp.erect_state == ERECT_STATE_STIFF)
+		return "[icon_state]_[max(1, min(5, pp.penis_size))]_0"
+	if(pp.erect_state == ERECT_STATE_PARTIAL) // Not revealed if they have a sheath, see above.
+		return "[icon_state]_[max(1, min(5, pp.penis_size-1))]_0"
+
+	//Normal penis check for those without a sheath, just hang flaccid with -1 size.
+	else if(pp.sheath_type == SHEATH_TYPE_NONE && pp.erect_state == ERECT_STATE_NONE)
+		return "[icon_state]_[max(1, min(5, pp.penis_size-1))]_0"
+
+	//Penis should no longer be aroused, and is hidden, transitions with sheath states as well.
 	else
-		return "[icon_state]_[pp.penis_size]"
+		return "blank"
+//Caustic edit end
 
 /datum/sprite_accessory/penis/is_visible(obj/item/organ/organ, obj/item/bodypart/bodypart, mob/living/carbon/owner)
 	if(owner.underwear)
@@ -113,7 +126,9 @@
 /datum/sprite_accessory/breasts
 	icon = 'icons/mob/sprite_accessory/genitals/breasts.dmi'
 	color_key_name = "Breasts"
-	relevant_layers = list(BODY_ADJ_LAYER)
+	//Caustic Edit, our chests run off different layers than default
+	relevant_layers = list(BODY_BEHIND_LAYER, BODY_FRONTEST_LAYER)
+	//Caustic Edit end
 
 /datum/sprite_accessory/breasts/get_icon_state(obj/item/organ/organ, obj/item/bodypart/bodypart, mob/living/carbon/owner)
 	var/obj/item/organ/breasts/badonkers = organ

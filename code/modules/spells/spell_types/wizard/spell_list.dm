@@ -53,5 +53,7 @@ GLOBAL_LIST_INIT(learnable_spells, (list(/obj/effect/proc_holder/spell/invoked/p
 		/obj/effect/proc_holder/spell/invoked/forcewall/greater,
 		/obj/effect/proc_holder/spell/invoked/wither,
 		/obj/effect/proc_holder/spell/invoked/rebuke,
+		/obj/effect/proc_holder/spell/targeted/touch/sizespell, //Caustic edit
+		/obj/effect/proc_holder/spell/invoked/projectile/fireball/artillery,
 		)
 ))

@@ -9,7 +9,7 @@
 	outfit = /datum/outfit/job/roguetown/scribe
 	outfit_female = /datum/outfit/job/roguetown/scribe/female
 	display_order = 6
-	min_pq = 0
+	min_pq = null //0
 	max_pq = null
 
 /datum/outfit/job/roguetown/scribe

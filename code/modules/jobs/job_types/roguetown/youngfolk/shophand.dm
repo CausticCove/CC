@@ -6,25 +6,31 @@
 	total_positions = 1
 	spawn_positions = 1
 
-	allowed_races = RACES_ALL_KINDS
+	allowed_races = ACCEPTED_RACES
 	allowed_sexes = list(MALE, FEMALE)
 	allowed_ages = list(AGE_ADULT)
 
 	tutorial = "You work the largest store in the Peaks by grace of the Merchant who has shackled you to this drudgery. The work of stocking shelves and taking inventory for your employer is mind-numbing and repetitive--but at least you have a roof over your head and comfortable surroundings. With time, perhaps you will one day be more than a glorified servant."
 
-	outfit = /datum/outfit/job/roguetown/shophand
+	//outfit = /datum/outfit/job/roguetown/shophand //Caustic edit
 	display_order = JDO_SHOPHAND
 	give_bank_account = TRUE
-	min_pq = -10
+	min_pq = null //-10
 	max_pq = null
 	round_contrib_points = 2
 	cmode_music = 'sound/music/cmode/towner/combat_towner.ogg'
 
-	job_traits = list(TRAIT_SEEPRICES_SHITTY)
+	job_traits = list(TRAIT_SEEPRICES)
 	
 	advclass_cat_rolls = list(CTAG_SHOPHAND = 2)
 	job_subclasses = list(
-		/datum/advclass/shophand
+		//Caustic edit
+		// /datum/advclass/shophand
+		/datum/advclass/guildthug,
+		/datum/advclass/guildinformant,
+		/datum/advclass/hiredservant,
+		/datum/advclass/shoplackey,
+		//Caustic edit end
 	)
 
 /datum/job/roguetown/shophand/after_spawn(mob/living/L, mob/M, latejoin = TRUE)
@@ -35,7 +41,9 @@
 		H.invisibility = INVISIBILITY_MAXIMUM
 		H.become_blind("advsetup")
 
-/datum/advclass/shophand
+
+///Caustic edit, we have our own version
+/*/datum/advclass/shophand
 	name = "Shophand"
 	tutorial = "You work the largest store in the Peaks by grace of the Merchant who has shackled you to this drudgery. \
 	The work of stocking shelves and taking inventory for your employer is mind-numbing and repetitive--but at least you have a roof over your head and comfortable surroundings. \
@@ -90,3 +98,4 @@
 		H.adjust_skillrank(/datum/skill/combat/swords, 1, TRUE)
 		H.adjust_skillrank(/datum/skill/combat/maces, 1, TRUE)
 		H.change_stat(STATKEY_STR, 1)
+*/

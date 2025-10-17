@@ -160,16 +160,20 @@ GLOBAL_LIST_EMPTY(last_words)
 	// AZURE EDIT BEGIN: necra acolyte/priest deathsight trait
 	// this was a player that just died, so do the honors
 	if (client)
-		if (!gibbed)
-			var/locale = prepare_deathsight_message()
-			for (var/mob/living/player in GLOB.player_list)
-				if (player.stat == DEAD || isbrain(player))
-					continue
-				if (HAS_TRAIT(player, TRAIT_DEATHSIGHT))
-					if (HAS_TRAIT(player, TRAIT_CABAL))
-						to_chat(player, span_warning("I feel the faint passage of disjointed life essence as it flees [locale]."))
-					else
-						to_chat(player, span_warning("Veiled whispers herald the Undermaiden's gaze in my mind's eye as it turn towards [locale] for but a brief, singular moment."))
+		//Cove edit start
+		if (!istype(src.loc, /obj/belly))
+		//Cove edit end
+		//stop necrans from freaking out from digestion
+			if (!gibbed)
+				var/locale = prepare_deathsight_message()
+				for (var/mob/living/player in GLOB.player_list)
+					if (player.stat == DEAD || isbrain(player))
+						continue
+					if (HAS_TRAIT(player, TRAIT_DEATHSIGHT))
+						if (HAS_TRAIT(player, TRAIT_CABAL))
+							to_chat(player, span_warning("I feel the faint passage of disjointed life essence as it flees [locale]."))
+						else
+							to_chat(player, span_warning("Veiled whispers herald the Undermaiden's gaze in my mind's eye as it turn towards [locale] for but a brief, singular moment."))
 	// AZURE EDIT END
 
 	return TRUE

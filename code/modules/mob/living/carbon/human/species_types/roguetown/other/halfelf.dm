@@ -15,7 +15,7 @@
 	characteristics can be either more Elvish or more Humen, depending on which of their parents' genes \
 	are more predominant. In terms of cultural identity, a Half-Elf will typically choose to lean more \
 	towards either their Humen or Elvish heritages.<br>\
-	(+1 Constitution, +1 Perception)" 
+	(+1 Constitution, +1 Perception)"
 
 	skin_tone_wording = "Identity"
 	default_color = "FFFFFF"
@@ -70,6 +70,10 @@
 		/datum/customizer/organ/penis/anthro,
 		/datum/customizer/organ/breasts/human,
 		/datum/customizer/organ/vagina/human_anthro,
+		//Caustic edit
+		/datum/customizer/organ/belly/human,
+		/datum/customizer/organ/butt/human,
+		//Caustic edit end
 		)
 	body_marking_sets = list(
 		/datum/body_marking_set/none,
@@ -90,10 +94,6 @@
 		/datum/language/common,
 		/datum/language/elvish
 	)
-
-/datum/species/human/halfelf/on_species_gain(mob/living/carbon/literally_him, datum/species/old_species)
-	..()
-	languages(literally_him)
 
 /datum/species/human/halfelf/get_skin_list()
 	return list(
@@ -121,10 +121,6 @@
 		"Tafravma-kin" = SKIN_COLOR_TAFRAVMA,
 		"Yuethindrynn-kin" = SKIN_COLOR_YUETHINDRYNN
 	)
-
-/datum/species/human/halfelf/proc/languages(mob/living/carbon/human/literally_him)
-	if(literally_him.skin_tone == SKIN_COLOR_NALEDI_BORN)
-		literally_him.grant_language(/datum/language/celestial)
 
 /datum/species/human/halfelf/get_hairc_list()
 	return sortList(list(

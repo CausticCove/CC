@@ -93,6 +93,9 @@ GLOBAL_LIST_INIT(drowraider_aggro, world.file2list("strings/rt/drowaggrolines.tx
 		real_name = pick(world.file2list("strings/rt/names/elf/elfdm.txt"))
 	update_hair()
 	update_body()
+	// Caustic edit
+	head.sellprice = 40 // Drow are dangerous! They're also dangerous to get to and, depending on location, like to run into acid vats. This accounts for that.
+	// Caustic edit end
 
 /mob/living/carbon/human/species/elf/dark/drowraider/npc_idle()
 	if(m_intent == MOVE_INTENT_SNEAK)

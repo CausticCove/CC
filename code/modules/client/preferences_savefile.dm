@@ -265,6 +265,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	pda_style		= sanitize_inlist(pda_style, GLOB.pda_styles, initial(pda_style))
 	pda_color		= sanitize_hexcolor(pda_color, 6, 1, initial(pda_color))
 	key_bindings 	= sanitize_islist(key_bindings, list())
+	masked_examine  = sanitize_integer(masked_examine, 0, 1, initial(masked_examine))
 	
 	//ROGUETOWN
 	parallax = PARALLAX_INSANE
@@ -416,6 +417,8 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	else
 		virtuetwo = new /datum/virtue/none
 
+	load_extra_virtue(S)
+
 /datum/preferences/proc/_load_loadout(S)
 	var/loadout_type
 	S["loadout"] >> loadout_type
@@ -433,6 +436,18 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	S["loadout3"] >> loadout_type3
 	if (loadout_type3)
 		loadout3 = new loadout_type3()
+
+/datum/preferences/proc/_load_loadout4(S)
+	var/loadout_type4
+	S["loadout4"] >> loadout_type4
+	if (loadout_type4)
+		loadout4 = new loadout_type4()
+
+/datum/preferences/proc/_load_loadout5(S)
+	var/loadout_type5
+	S["loadout5"] >> loadout_type5
+	if (loadout_type5)
+		loadout5 = new loadout_type5()
 
 /datum/preferences/proc/_load_height(S)
 	var/preview_height
@@ -520,15 +535,19 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 
 	_load_virtue(S)
 	_load_flaw(S)
-
+	//Caustic edit
+	_load_sizecat(S)
+	_load_pickupable(S)
+	//Caustic edit end
 	_load_culinary_preferences(S)
-
 	// LETHALSTONE edit: jank-ass load our statpack choice
 	_load_statpack(S)
 
 	_load_loadout(S)
 	_load_loadout2(S)
 	_load_loadout3(S)
+	_load_loadout4(S)
+	_load_loadout5(S)
 
 	_load_combat_music(S)
 
@@ -672,6 +691,9 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 
 	S["customizer_entries"] >> customizer_entries
 	validate_customizer_entries()
+	if(parent.prefs_vr)
+		parent.prefs_vr.load_vore()
+	//load_vore_prefs(S)
 
 	return TRUE
 
@@ -775,6 +797,16 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 		WRITE_FILE(S["loadout3"] , loadout3.type)
 	else
 		WRITE_FILE(S["loadout3"] , null)
+	//Cove edit start
+	if(loadout4)
+		WRITE_FILE(S["loadout4"] , loadout4.type)
+	else
+		WRITE_FILE(S["loadout4"] , null)
+	if(loadout5)
+		WRITE_FILE(S["loadout5"] , loadout5.type)
+	else
+		WRITE_FILE(S["loadout5"] , null)
+	//Cove edit end
 
 	//Familiar Files
 	WRITE_FILE(S["familiar_name"] , familiar_prefs.familiar_name)
@@ -787,7 +819,12 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	WRITE_FILE(S["familiar_ooc_notes_display"] , familiar_prefs.familiar_ooc_notes_display)
 	WRITE_FILE(S["familiar_ooc_extra"] , familiar_prefs.familiar_ooc_extra)
 	WRITE_FILE(S["familiar_ooc_extra_link"] , familiar_prefs.familiar_ooc_extra_link)
-
+	//Caustic edit
+	//save_vore_prefs(S)
+	save_sizecat(S)
+	save_extra_virtue(S)
+	save_pickupable(S)
+	//Caustic edit end
 	return TRUE
 
 

@@ -78,6 +78,10 @@
 		/datum/customizer/organ/vagina/human,
 		/datum/customizer/organ/horns/tusks,
 		/datum/customizer/organ/ears/halforc,
+		//Caustic edit
+		/datum/customizer/organ/belly/human,
+		/datum/customizer/organ/butt/human,
+		//Caustic edit end
 		)
 	languages = list(
 		/datum/language/common,

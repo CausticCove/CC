@@ -54,7 +54,7 @@ LICH SKELETONS
 	H.adjust_skillrank(/datum/skill/craft/carpentry, 2, TRUE)
 	H.adjust_skillrank(/datum/skill/craft/masonry, 2, TRUE)
 	H.adjust_skillrank(/datum/skill/craft/crafting, 2, TRUE)
-	H.adjust_skillrank(/datum/skill/misc/sewing, 2, TRUE)
+	H.adjust_skillrank(/datum/skill/craft/sewing, 2, TRUE)
 
 	head = /obj/item/clothing/head/roguetown/helmet/heavy/paalloy
 	shirt = /obj/item/clothing/suit/roguetown/armor/chainmail/paalloy
@@ -67,7 +67,7 @@ LICH SKELETONS
 	beltl = /obj/item/quiver/javelin/paalloy
 	H.adjust_blindness(-3)
 	var/weapons = list("Gladius","Kopesh","Shortsword","Axe", "Flail")
-	var/weapon_choice = input("Choose your weapon.", "TAKE UP ARMS") as anything in weapons
+	var/weapon_choice = input(H, "Choose your weapon.", "TAKE UP ARMS") as anything in weapons
 	H.set_blindness(0)
 	switch(weapon_choice)
 		if("Gladius")
@@ -121,7 +121,7 @@ LICH SKELETONS
 	H.adjust_skillrank(/datum/skill/craft/carpentry, 2, TRUE)
 	H.adjust_skillrank(/datum/skill/craft/masonry, 2, TRUE)
 	H.adjust_skillrank(/datum/skill/craft/crafting, 2, TRUE)
-	H.adjust_skillrank(/datum/skill/misc/sewing, 2, TRUE)
+	H.adjust_skillrank(/datum/skill/craft/sewing, 2, TRUE)
 
 	head = /obj/item/clothing/head/roguetown/helmet/heavy/paalloy
 	shirt = /obj/item/clothing/suit/roguetown/armor/chainmail/paalloy
@@ -133,7 +133,7 @@ LICH SKELETONS
 	beltr = /obj/item/rogueweapon/huntingknife/idagger/steel/padagger
 	H.adjust_blindness(-3)
 	var/weapons = list("Recurve Bow","Yew Longbow", "Crossbow", "Sling")
-	var/weapon_choice = input("Choose your weapon.", "TAKE UP ARMS") as anything in weapons
+	var/weapon_choice = input(H, "Choose your weapon.", "TAKE UP ARMS") as anything in weapons
 	H.set_blindness(0)
 	switch(weapon_choice)
 		if("Recurve Bow")
@@ -188,7 +188,7 @@ LICH SKELETONS
 	H.adjust_skillrank(/datum/skill/craft/carpentry, 2, TRUE)
 	H.adjust_skillrank(/datum/skill/craft/masonry, 2, TRUE)
 	H.adjust_skillrank(/datum/skill/craft/crafting, 2, TRUE)
-	H.adjust_skillrank(/datum/skill/misc/sewing, 2, TRUE)
+	H.adjust_skillrank(/datum/skill/craft/sewing, 2, TRUE)
 
 	head = /obj/item/clothing/head/roguetown/helmet/heavy/guard/paalloy
 	shirt = /obj/item/clothing/suit/roguetown/armor/chainmail/hauberk/paalloy
@@ -198,7 +198,7 @@ LICH SKELETONS
 
 	H.adjust_blindness(-3)
 	var/weapons = list("Greatsword", "Bardiche", "Grand Mace", "Mace + Shield","Spear", "Warhammer + Shield")
-	var/weapon_choice = input("Choose your weapon.", "TAKE UP ARMS") as anything in weapons
+	var/weapon_choice = input(H, "Choose your weapon.", "TAKE UP ARMS") as anything in weapons
 	H.set_blindness(0)
 	switch(weapon_choice)
 		if("Greatsword")
@@ -257,7 +257,7 @@ LICH SKELETONS
 	H.adjust_skillrank(/datum/skill/craft/carpentry, 4, TRUE)
 	H.adjust_skillrank(/datum/skill/craft/masonry, 4, TRUE)
 	H.adjust_skillrank(/datum/skill/craft/crafting, 4, TRUE)
-	H.adjust_skillrank(/datum/skill/misc/sewing, 4, TRUE)
+	H.adjust_skillrank(/datum/skill/craft/sewing, 4, TRUE)
 	H.adjust_skillrank(/datum/skill/craft/traps, 4, TRUE)
 	H.adjust_skillrank(/datum/skill/craft/engineering, 4, TRUE)
 	H.adjust_skillrank(/datum/skill/labor/mining, 4, TRUE)

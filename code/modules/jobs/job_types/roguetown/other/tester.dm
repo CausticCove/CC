@@ -10,7 +10,7 @@
 	total_positions = 0
 	spawn_positions = 0
 #endif
-	min_pq = null //no pq
+	min_pq = null //null //no pq
 	allowed_sexes = list(MALE, FEMALE)
 	allowed_races = RACES_ALL_KINDS
 	tutorial = ""

@@ -10,6 +10,8 @@
 	var/paths = subtypesof(/datum/reagent)
 	GLOB.chemical_reagents_list = list()
 
+	
+
 	for(var/path in paths)
 		var/datum/reagent/D = new path()
 		GLOB.chemical_reagents_list[path] = D

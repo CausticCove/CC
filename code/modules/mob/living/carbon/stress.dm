@@ -1,4 +1,5 @@
-GLOBAL_LIST_INIT(stress_messages, world.file2list("strings/rt/stress_messages.txt"))
+//Cove edit
+//GLOBAL_LIST_INIT(stress_messages, world.file2list("strings/rt/stress_messages.txt"))
 
 /mob/proc/add_stress(event_type)
 	return
@@ -123,14 +124,19 @@ GLOBAL_LIST_INIT(stress_messages, world.file2list("strings/rt/stress_messages.tx
 				to_chat(src, span_boldred("I'M FREAKING OUT!!!"))
 				play_mental_break_indicator()
 				apply_status_effect(/datum/status_effect/mood/vbad)
-
+	//Caustic edit
+	/*
 	if(new_stress >=13)
+
 		if(!HAS_TRAIT(src, TRAIT_EORAN_CALM) && !HAS_TRAIT(src, TRAIT_EORAN_SERENE))
 			random_stress_message()
 
 	if(new_stress >= 20)
 		if(!HAS_TRAIT(src, TRAIT_EORAN_CALM) && !HAS_TRAIT(src, TRAIT_EORAN_SERENE))
 			roll_streak_freakout()
+	*/
+	//Caustic edit end
+
 
 	oldstress = new_stress
 	update_stress_visual(new_stress)
@@ -176,7 +182,8 @@ GLOBAL_LIST_INIT(stress_messages, world.file2list("strings/rt/stress_messages.tx
 
 	update_client_colour()
 
-/mob/living/carbon/proc/roll_streak_freakout()
+//Cove edit
+/*/mob/living/carbon/proc/roll_streak_freakout()
 	if(stat != CONSCIOUS)
 		return
 	if(mob_timers["next_stress_freakout"])
@@ -186,7 +193,7 @@ GLOBAL_LIST_INIT(stress_messages, world.file2list("strings/rt/stress_messages.tx
 		return
 	// Randomized cooldown
 	mob_timers["next_stress_freakout"] = world.time + rand(60 SECONDS, 120 SECONDS)
-	stress_freakout()
+	stress_freakout()*/
 
 /mob/living/carbon/proc/stress_freakout()
 	to_chat(src, span_boldred("I PANIC!!!"))
@@ -215,13 +222,14 @@ GLOBAL_LIST_INIT(stress_messages, world.file2list("strings/rt/stress_messages.tx
 		animate(whole_screen, transform = newmatrix, time = 1, easing = QUAD_EASING)
 		animate(transform = -newmatrix, time = 30, easing = QUAD_EASING)
 
-/mob/living/carbon/proc/random_stress_message()
+//Cove edit
+/*/mob/living/carbon/proc/random_stress_message()
 	if(mob_timers["next_stress_message"])
 		if(world.time < mob_timers["next_stress_message"])
 			return
 	mob_timers["next_stress_message"] = world.time + rand(80 SECONDS, 160 SECONDS) //not as important as freakout
 	var/stress_message_picked = pick(GLOB.stress_messages)
-	to_chat(client, span_danger("<b>[stress_message_picked]</b>"))
+	to_chat(client, span_danger("<b>[stress_message_picked]</b>"))*/
 
 
 /mob/living/carbon/get_stress_amount()

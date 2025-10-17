@@ -12,6 +12,7 @@
 	resistance_flags = FIRE_PROOF
 	experimental_inhand = FALSE
 	salvage_amount = 0
+	salvage_result = null
 
 /obj/item/clothing/shoes/roguetown/boots
 	name = "dark boots"
@@ -120,8 +121,7 @@
 	sewrepair = TRUE
 	resistance_flags = null
 	color = "#473a30"
-	salvage_amount = 1
-	salvage_result = /obj/item/natural/hide/cured
+	salvage_result = null
 
 /obj/item/clothing/shoes/roguetown/simpleshoes/white
 	color = null
@@ -270,7 +270,7 @@
 	desc = "Gilded tombs do worm enfold."
 	icon_state = "matthiosboots"
 	armor = ARMOR_ASCENDANT
-
+/*caustic edit start
 /obj/item/clothing/shoes/roguetown/boots/armor/matthios/Initialize()
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, CURSED_ITEM_TRAIT)
@@ -280,14 +280,14 @@
 	if(QDELETED(src))
 		return
 	qdel(src)
-
+*///caustic edit end
 /obj/item/clothing/shoes/roguetown/boots/armor/zizo
 	max_integrity = ARMOR_INT_SIDE_ANTAG
 	name = "avantyne boots"
 	desc = "Plate boots. Called forth from the edge of what should be known. In Her name."
 	icon_state = "zizoboots"
 	armor = ARMOR_ASCENDANT
-
+/*caustic edit start
 /obj/item/clothing/shoes/roguetown/boots/armor/zizo/Initialize()
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, CURSED_ITEM_TRAIT)
@@ -297,7 +297,7 @@
 	if(QDELETED(src))
 		return
 	qdel(src)
-
+*///caustic edit end
 /obj/item/clothing/shoes/roguetown/boots/armor/iron
 	name = "light plated boots"
 	desc = "Boots with iron for added protection."

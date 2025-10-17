@@ -11,6 +11,7 @@
 //	update_tod_hud()
 	update_spd()
 
+	update_sight()
 //	if (client && (stat == DEAD))
 //		client.ghostize()
 
@@ -26,6 +27,10 @@
 		ranged_ability.deactivate()
 	
 	set_ssd_indicator(FALSE)
+
+	//Caustic edit
+	init_vore(TRUE)
+	//Caustic edit end
 
 /mob/living/proc/login_fade()
 	set waitfor = FALSE

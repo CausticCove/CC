@@ -13,24 +13,16 @@
 	outfit = /datum/outfit/job/roguetown/loudmouth
 	display_order = JDO_CRIER
 	give_bank_account = 15
-	min_pq = 3 // Has actual responsibility and is a key figure in town.
+	min_pq = null //3 // Has actual responsibility and is a key figure in town.
 	max_pq = null
 	round_contrib_points = 3
 
-	job_traits = list(TRAIT_INTELLECTUAL, TRAIT_ARCYNE_T1, TRAIT_MAGEARMOR, TRAIT_SEEPRICES_SHITTY)
+	job_traits = list(TRAIT_INTELLECTUAL, TRAIT_ARCYNE_T1, TRAIT_MAGEARMOR, TRAIT_SEEPRICES_SHITTY, TRAIT_HOMESTEAD_EXPERT)
 
 	advclass_cat_rolls = list(CTAG_TOWNCRIER = 2)
 	job_subclasses = list(
 		/datum/advclass/towncrier
 	)
-
-/datum/job/roguetown/crier/after_spawn(mob/living/L, mob/M, latejoin = TRUE)
-	..()
-	if(ishuman(L))
-		var/mob/living/carbon/human/H = L
-		H.advsetup = 1
-		H.invisibility = INVISIBILITY_MAXIMUM
-		H.become_blind("advsetup")
 
 /datum/advclass/towncrier
 	name = "Town Crier"

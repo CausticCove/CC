@@ -24,10 +24,14 @@
 			new_state = ERECT_STATE_NONE
 		else if(human.sexcon.arousal > 20)
 			new_state = ERECT_STATE_HARD
+		//Caustic Edit, Adds 1 more state
 		else if(human.sexcon.arousal > 10)
+			new_state = ERECT_STATE_STIFF
+		else if(human.sexcon.arousal > 0 && human.sexcon.arousal <= 10) //Shows the sheathe sprites below this threshold.
 			new_state = ERECT_STATE_PARTIAL
 		else
 			new_state = ERECT_STATE_NONE
+		//Caustic Edit End
 
 	erect_state = new_state
 	if(oldstate != erect_state && owner)
@@ -81,7 +85,7 @@
 	penis_type = PENIS_TYPE_TENTACLE
 	sheath_type = SHEATH_TYPE_NONE
 
-	
+
 /obj/item/organ/vagina
 	name = "vagina"
 	icon_state = "severedtail" //placeholder

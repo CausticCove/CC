@@ -5,7 +5,7 @@
 	faction = "Station"
 	total_positions = 0
 	spawn_positions = 0
-	min_pq = null //no pq
+	min_pq = null //null //no pq
 	max_pq = null
 	announce_latejoin = FALSE
 
@@ -65,7 +65,7 @@ NECRO SKELETONS
 		/datum/skill/craft/carpentry = SKILL_LEVEL_NOVICE,
 		/datum/skill/craft/masonry = SKILL_LEVEL_NOVICE,
 		/datum/skill/craft/crafting = SKILL_LEVEL_NOVICE,
-		/datum/skill/misc/sewing = SKILL_LEVEL_NOVICE,
+		/datum/skill/craft/sewing = SKILL_LEVEL_NOVICE,
 
 		/datum/skill/combat/polearms = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/combat/maces = SKILL_LEVEL_JOURNEYMAN,

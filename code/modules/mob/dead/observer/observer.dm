@@ -78,15 +78,6 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	icon_state = "hollow"
 	alpha = 150
 
-/mob/dead/observer/rogue/Move(n, direct)
-	if(world.time < next_gmove)
-		return
-	next_gmove = world.time + 2
-
-	setDir(direct)
-
-	. = ..()
-
 /mob/dead/observer/screye
 //	see_invisible = SEE_INVISIBLE_LIVING
 	sight = 0
@@ -388,11 +379,12 @@ Works together with spawning an observer, noted above.
 			if(force_respawn)
 				mind.remove_antag_datum(/datum/antagonist/zombie)
 				return ..()
-			var/datum/antagonist/zombie/Z = mind.has_antag_datum(/datum/antagonist/zombie)
-			if(!Z.revived)
-				if(!(world.time % 5))
-					to_chat(src, span_warning("I'm preparing to walk again."))
-				return
+			//var/datum/antagonist/zombie/Z = mind.has_antag_datum(/datum/antagonist/zombie)
+			//Caustic edit
+			//if(!Z.revived)
+			//	mind.remove_antag_datum(/datum/antagonist/zombie)
+			//	return ..()
+			//Caustic edit end
 	return ..()
 
 /mob/proc/scry_ghost()

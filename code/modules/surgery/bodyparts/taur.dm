@@ -2,7 +2,8 @@
 /obj/item/bodypart/taur
 	name = "taur"
 	desc = ""
-	icon = 'icons/mob/taurs.dmi'
+	///Caustic edit
+	icon = 'modular_causticcove/icons/mob/taurs/taurs.dmi'
 	icon_state = ""
 	attack_verb = list("hit")
 	max_damage = 200
@@ -31,7 +32,8 @@
 
 	// Clip Masks allow you to apply a clipping filter to some other parts of human rendering to avoid anything overlapping the tail.
 	// Specifically: update_inv_cloak, update_inv_shirt, update_inv_armor, and update_inv_pants.
-	var/icon/clip_mask_icon = 'icons/mob/taurs.dmi'
+	///Caustic edit
+	var/icon/clip_mask_icon = 'modular_causticcove/icons/mob/taurs/taurs.dmi'
 	var/clip_mask_state = "taur_clip_mask_def"
 	// Instantiated at runtime for speed
 	var/tmp/icon/clip_mask
@@ -71,7 +73,7 @@ GLOBAL_LIST_INIT(taur_types, subtypesof(/obj/item/bodypart/taur))
 	name = "Lamia Tail"
 
 	offset_x = -16
-	taur_icon_state = "altnaga_s"
+	taur_icon_state = "naga_s"
 
 	has_taur_color = TRUE
 
@@ -84,10 +86,171 @@ GLOBAL_LIST_INIT(taur_types, subtypesof(/obj/item/bodypart/taur))
 	has_taur_color = TRUE
 
 /obj/item/bodypart/taur/horse
-	name = "Saiga Body"
+	name = "Horse Body"
 
 	offset_x = -16
-	taur_icon_state = "saiga_s"
-	clip_mask_state = "clip_mask_saiga"
+	taur_icon_state = "horse_s"
+
+	has_taur_color = TRUE
+
+/obj/item/bodypart/taur/cow
+	name = "Cow Body"
+
+	offset_x = -16
+	taur_icon_state = "cow_s"
+
+	has_taur_color = TRUE
+
+/obj/item/bodypart/taur/lizard
+	name = "Lizard Body"
+
+	offset_x = -16
+	taur_icon_state = "lizard_s"
+
+	has_taur_color = TRUE
+
+/obj/item/bodypart/taur/tent
+	name = "Tent Body (whatever the fuck that is)"
+
+	offset_x = -16
+	taur_icon_state = "tent_s"
+
+	has_taur_color = TRUE
+
+/obj/item/bodypart/taur/tentacle
+	name = "Tentacle Body"
+
+	offset_x = -16
+	taur_icon_state = "tentacle_s"
+
+	has_taur_color = TRUE
+
+/obj/item/bodypart/taur/feline
+	name = "Feline Body"
+
+	offset_x = -16
+	taur_icon_state = "feline_s"
+
+	has_taur_color = TRUE
+
+/obj/item/bodypart/taur/slug
+	name = "Slug Body"
+
+	offset_x = -16
+	taur_icon_state = "slug_s"
+
+	has_taur_color = TRUE
+
+/obj/item/bodypart/taur/tempest
+	name = "Tempst Body"
+
+	offset_x = -16
+	taur_icon_state = "tempest_s"
+
+	has_taur_color = TRUE
+
+	has_taur_color = TRUE
+
+/obj/item/bodypart/taur/drake
+	name = "Drake Body"
+
+	offset_x = -16
+	taur_icon_state = "drake_s"
+
+	has_taur_color = TRUE
+
+/obj/item/bodypart/taur/otie
+	name = "Virgo shit dog"
+
+	offset_x = -16
+	taur_icon_state = "otie_s"
+
+	has_taur_color = TRUE
+
+/obj/item/bodypart/taur/wolf
+	name = "Wolf Body"
+
+	offset_x = -16
+	taur_icon_state = "wolf_s"
+
+	has_taur_color = TRUE
+
+/obj/item/bodypart/taur/alraune
+	name = "Alraune Body"
+
+	offset_x = -16
+	taur_icon_state = "alraune_s"
+
+	has_taur_color = FALSE
+
+/obj/item/bodypart/taur/frog
+	name = "Frog Body"
+
+	offset_x = -16
+	taur_icon_state = "frog_s"
+
+	has_taur_color = TRUE
+
+/obj/item/bodypart/taur/deer
+	name = "Deer Body"
+
+	offset_x = -16
+	taur_icon_state = "deer_s"
+
+	has_taur_color = TRUE
+
+/obj/item/bodypart/taur/wasp
+	name = "Wasp Body"
+
+	offset_x = -16
+	taur_icon_state = "wasp_s"
+
+	has_taur_color = TRUE
+
+/obj/item/bodypart/taur/fatwolf
+	name = "Fat wolf Body"
+
+	offset_x = -16
+	taur_icon_state = "fatwolf_s"
+
+	has_taur_color = TRUE
+
+/obj/item/bodypart/taur/fatfeline
+	name = "Fat feline Body"
+
+	offset_x = -16
+	taur_icon_state = "fatfeline_s"
+
+	has_taur_color = TRUE
+
+/obj/item/bodypart/taur/mermaid
+	name = "Mermaid Body"
+
+	offset_x = -16
+	taur_icon_state = "mermaid_s"
+
+	has_taur_color = TRUE
+
+/obj/item/bodypart/taur/altnaga
+	name = "Alt Naga Body"
+
+	offset_x = -16
+	taur_icon_state = "altnaga_s"
+
+	has_taur_color = TRUE
+
+/obj/item/bodypart/taur/altnagatailmaw
+	name = "Alt Naga Tailmaw Body"
+
+	offset_x = -16
+	taur_icon_state = "altnagatailmaw_s"
+
+	has_taur_color = TRUE
+
+/obj/item/bodypart/taur/fatnaga
+	name = "Fat Naga Body"
+
+	offset_x = -16
+	taur_icon_state = "fatnaga_s"
 
 	has_taur_color = TRUE

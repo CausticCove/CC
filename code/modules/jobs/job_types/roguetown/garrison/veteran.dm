@@ -7,16 +7,20 @@
 	spawn_positions = 1
 
 	allowed_sexes = list(MALE, FEMALE) //same as town guard
-	allowed_races = RACES_NO_CONSTRUCT //Constructs are too new to even exist long enough to be veterans, plus noble title.
+	allowed_races = RACES_ALL_KINDS //Caustic edit from RACES_NO_CONSTRUCT
 	tutorial = "You've known combat your entire life. There isn't a way to kill a man you havent practiced in the tapestries of war itself. You wouldn't call yourself a hero--those belong to the men left rotting in the fields where you honed your ancient trade. You don't sleep well at night anymore, you don't like remembering what you've had to do to survive. Trading adventure for stable pay was the only logical solution, and maybe someday you'll get to lay down the blade and rest your weary body..."
 	allowed_ages = list(AGE_MIDDLEAGED, AGE_OLD)
 	advclass_cat_rolls = list(CTAG_VETERAN = 20)
 	display_order = JDO_VET
 	whitelist_req = TRUE
-	give_bank_account = 35
-	min_pq = 5 //Should...probably actually be a veteran of at least a few weeks before trying to teach others
+	give_bank_account = 75 //Caustic edit Imagine being landed and starting dirt poor lmao what
+	min_pq = null //5 //Should...probably actually be a veteran of at least a few weeks before trying to teach others
 	max_pq = null
 	round_contrib_points = 2
+
+	//Caustic Edit
+	job_traits = list(TRAIT_GOODTRAINER)
+	//Caustic Edit end
 
 	cmode_music = 'sound/music/combat_veteran.ogg'
 	job_subclasses = list(
@@ -35,9 +39,6 @@
 	. = ..()
 	if(ishuman(L))
 		var/mob/living/carbon/human/H = L
-		H.advsetup = 1
-		H.invisibility = INVISIBILITY_MAXIMUM
-		H.become_blind("advsetup")
 		if(istype(H.cloak, /obj/item/clothing/cloak/half/vet))
 			var/obj/item/clothing/S = H.cloak
 			var/index = findtext(H.real_name, " ")
@@ -242,7 +243,7 @@
 	H.adjust_blindness(-3)
 	if(H.mind)
 		var/weapons = list("Sword + Recurve Bow","Axe + Crossbow","Spear + Shield")
-		var/weapon_choice = input("Choose your weapon.", "TAKE UP ARMS") as anything in weapons
+		var/weapon_choice = input(H, "Choose your weapon.", "TAKE UP ARMS") as anything in weapons
 		H.set_blindness(0)
 		switch(weapon_choice)
 			if("Sword + Recurve Bow")
@@ -272,8 +273,9 @@
 	subclass_stats = list(
 		STATKEY_WIL = 3,// two handed weapons require a LOT of stamina.
 		STATKEY_STR = 2,
-		STATKEY_CON = 1,
+		STATKEY_CON = 3,// caustic cove edit On par with normal grenzel merc
 		STATKEY_INT = 1,
+		STATKEY_PER = 1,// caustic cove edit On par with normal grenzel merc
 		STATKEY_SPD = -1
 	)
 	subclass_skills = list(
@@ -290,7 +292,7 @@
 		/datum/skill/combat/knives = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/misc/swimming = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/misc/climbing = SKILL_LEVEL_APPRENTICE,
-		/datum/skill/misc/athletics = SKILL_LEVEL_APPRENTICE,
+		/datum/skill/misc/athletics = SKILL_LEVEL_EXPERT,// caustic cove edit same as normal grenzel
 		/datum/skill/misc/reading = SKILL_LEVEL_NOVICE,
 		/datum/skill/misc/medicine = SKILL_LEVEL_JOURNEYMAN,
 	)
@@ -305,7 +307,7 @@
 	wrists = /obj/item/clothing/wrists/roguetown/bracers
 	shirt = /obj/item/clothing/suit/roguetown/armor/gambeson/heavy/grenzelhoft // You do NOT get the BLACKSTEEL CUIRASS because yours BROKE & I hate you. Go on a personal quest to replace it or something.
 	head = /obj/item/clothing/head/roguetown/grenzelhofthat
-	armor = /obj/item/clothing/suit/roguetown/armor/plate/half
+	armor = /obj/item/clothing/suit/roguetown/armor/plate/blacksteel_half_plate //Caustic Cove Edit, Fuck you whoever wrote the comment above this one.
 	pants = /obj/item/clothing/under/roguetown/heavy_leather_pants/grenzelpants
 	shoes = /obj/item/clothing/shoes/roguetown/grenzelhoft
 	gloves = /obj/item/clothing/gloves/roguetown/angle/grenzelgloves
@@ -326,23 +328,24 @@
 		H.adjust_skillrank_up_to(/datum/skill/combat/swords, 5, TRUE)
 		H.adjust_skillrank_up_to(/datum/skill/combat/axes, 5, TRUE)
 		H.adjust_skillrank_up_to(/datum/skill/combat/polearms, 5, TRUE)
-		H.adjust_skillrank_up_to(/datum/skill/misc/athletics, 4, TRUE) // two handed weapons require a LOT of stamina.
+		H.adjust_skillrank_up_to(/datum/skill/misc/athletics, 5, TRUE) // Caustic Edit, two handed weapons require a LOT of stamina.
 
 	H.adjust_blindness(-3)
 	if(H.mind)
 		var/weapons = list("Zweihander","Halberd")
-		var/weapon_choice = input("Choose your weapon.", "TAKE UP ARMS") as anything in weapons
+		var/weapon_choice = input(H, "Choose your weapon.", "TAKE UP ARMS") as anything in weapons
 		H.set_blindness(0)
 		switch(weapon_choice)
 			if("Zweihander")
-				r_hand = /obj/item/rogueweapon/greatsword/grenz
+				H.put_in_hands(new /obj/item/rogueweapon/greatsword/grenz)
 				H.adjust_skillrank(/datum/skill/combat/swords, 1, TRUE)
 				H.adjust_skillrank(/datum/skill/combat/polearms, 1, TRUE)
-				backl = /obj/item/rogueweapon/scabbard/gwstrap
+				H.equip_to_slot_or_del(new /obj/item/rogueweapon/scabbard/gwstrap, SLOT_BACK_L)
 			if("Halberd")
-				r_hand = /obj/item/rogueweapon/halberd
+				H.put_in_hands(new /obj/item/rogueweapon/halberd)
 				H.adjust_skillrank(/datum/skill/combat/axes, 1, TRUE) // SO, fun fact. The description of the grenzel halbardier says they specialize in axes, but they get no axe skill. Maybe this guy is where that rumor came from.
 				H.adjust_skillrank(/datum/skill/combat/polearms, 1, TRUE)
+				H.equip_to_slot_or_del(new /obj/item/rogueweapon/scabbard/gwstrap, SLOT_BACK_L)
 
 /datum/advclass/veteran/scout
 	name = "Former Scout"

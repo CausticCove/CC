@@ -7,14 +7,14 @@
 	total_positions = 1
 	spawn_positions = 1
 
-	allowed_races = RACES_ALL_KINDS
+	allowed_races = ACCEPTED_RACES
 	allowed_ages = ALL_AGES_LIST
 	tutorial = "Some say you're a strange individual, some say you're a cheat, while some claim you're a savant in the art of sausage making. Without your skilled hands and knifework, most of the livestocks' meat around the town would rot to waste before it could be eaten."
 
 	outfit = /datum/outfit/job/roguetown/beastmaster
 	display_order = JDO_BUTCHER
 	give_bank_account = TRUE
-	min_pq = -10
+	min_pq = null //-10
 	max_pq = null
 	round_contrib_points = 2
 

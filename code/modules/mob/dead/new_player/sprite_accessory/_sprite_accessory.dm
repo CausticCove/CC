@@ -179,6 +179,12 @@
 			return "ADJ"
 		if(BODY_FRONT_LAYER)
 			return "FRONT"
+		//Caustic Edit
+		if(BODY_FRONTER_LAYER)
+			return "FRONT"
+		if(BODY_FRONTEST_LAYER)
+			return "FRONT"
+		//Caustic End
 		if(BODY_FRONT_FRONT_LAYER)
 			return "FFRONT"
 		if(BODY_UNDER_LAYER)

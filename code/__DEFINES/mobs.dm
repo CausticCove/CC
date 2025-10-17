@@ -335,6 +335,11 @@
 #define OFFSET_ARMOR_F "wear_armorf"
 #define OFFSET_HANDS_F "handsf"
 #define OFFSET_UNDIES_F "underwearf"
+//Caustic Edit - Not sure why it only behaves if is in here, but here it is
+#define OFFSET_BUTT "butt"
+#define OFFSET_TAUR "taur"
+#define OFFSET_TAUR_F "taurf"
+//Caustic End
 
 //MINOR TWEAKS/MISC
 #define AGE_MIN				18	//youngest a character can be
@@ -425,6 +430,12 @@
 #define SKIN_COLOR_AISEEDRYNN "a3c1c9"
 #define SKIN_COLOR_GRENDUSKRA "969696"
 
+//GNOME UNIQUE SKIN TONES
+#define SKIN_COLOR_ASHEN "A79E96"
+#define SKIN_COLOR_UNDERDARK "7C8A97"
+#define SKIN_COLOR_BEACH "BE9D7B"
+#define SKIN_COLOR_PALM "795138"
+
 //WOOD ELF SKIN TONES
 #define SKIN_COLOR_GRENZEL_WOODS "fff0e9"
 #define SKIN_COLOR_DANDELION_CREEK "ffe0d1"
@@ -454,6 +465,12 @@
 #define SKIN_COLOR_NALEDI "4e3729"
 #define SKIN_COLOR_KAZENGUN "dbcca9"
 #define SKIN_COLOR_NALEDI_LIGHT "5d4c41"
+
+//DULLAHAN SKIN TONES
+#define SKIN_COLOR_PALE_GRENZELHOFT "ebdad2"
+#define SKIN_COLOR_PALE_HAMMERHOLD "ffe0d1"
+#define SKIN_COLOR_PALE_EBON "54463d"
+#define SKIN_COLOR_PALE_KAZENGUN "c9a893"
 
 //AASIMAR SKIN TONES
 #define SKIN_COLOR_CULTOR "b5a4a4"

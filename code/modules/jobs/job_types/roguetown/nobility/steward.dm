@@ -6,14 +6,14 @@
 	total_positions = 1
 	spawn_positions = 1
 
-	allowed_races = RACES_NO_CONSTRUCT
+	allowed_races = RACES_ALL_KINDS //Caustic edit from RACES_NO_CONSTRUCT
 	allowed_sexes = list(MALE, FEMALE)
 	display_order = JDO_STEWARD
 	tutorial = "Coin, Coin, Coin! Oh beautiful coin: You're addicted to it, and you hold the position as the Grand Duke's personal treasurer of both coin and information. You know the power silver and gold has on a man's mortal soul, and you know just what lengths they'll go to in order to get even more. Keep your festering economy alive- for it is the only thing you can weigh any trust into anymore."
 	outfit = /datum/outfit/job/roguetown/steward
 	give_bank_account = 22
 	noble_income = 16
-	min_pq = 3 //Please don't give the vault keys to somebody that's going to lock themselves in on accident
+	min_pq = null //3 //Please don't give the vault keys to somebody that's going to lock themselves in on accident
 	max_pq = null
 	round_contrib_points = 3
 	cmode_music = 'sound/music/combat_noble.ogg'
@@ -24,14 +24,6 @@
 	job_subclasses = list(
 		/datum/advclass/steward
 	)
-
-/datum/job/roguetown/steward/after_spawn(mob/living/L, mob/M, latejoin = TRUE)
-	..()
-	if(ishuman(L))
-		var/mob/living/carbon/human/H = L
-		H.advsetup = 1
-		H.invisibility = INVISIBILITY_MAXIMUM
-		H.become_blind("advsetup")
 
 /datum/advclass/steward
 	name = "Steward"
@@ -94,13 +86,5 @@ GLOBAL_VAR_INIT(steward_tax_cooldown, -50000) // Antispam
 	if(world.time < GLOB.steward_tax_cooldown + 600 SECONDS)
 		to_chat(src, span_warning("You must wait [round((GLOB.steward_tax_cooldown + 600 SECONDS - world.time)/600, 0.1)] minutes before adjusting taxes again! Think of the realm."))
 		return FALSE
-	var/newtax = input(src, "Set a new tax percentage (1-99)", src, SStreasury.tax_value*100) as null|num
-	if(newtax)
-		if(findtext(num2text(newtax), "."))
-			return
-		newtax = CLAMP(newtax, 1, 99)
-		if(stat)
-			return
-		SStreasury.tax_value = newtax / 100
-		priority_announce("The new tax in Azure Peak shall be [newtax] percent.", "The Steward Meddles", pick('sound/misc/royal_decree.ogg', 'sound/misc/royal_decree2.ogg'), "Captain")
-		GLOB.steward_tax_cooldown = world.time
+	var/datum/taxsetter/taxsetter = new("The Steward Meddles")
+	taxsetter.ui_interact(src)

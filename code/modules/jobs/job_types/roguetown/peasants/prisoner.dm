@@ -7,14 +7,14 @@
 	spawn_positions = 4
 
 	allowed_sexes = list(MALE, FEMALE)
-	allowed_races = RACES_ALL_KINDS
+	allowed_races = ACCEPTED_RACES
 	tutorial = "How does it feel to be the rat in the cage? You're alone and at the mercy of your captors, kept around as a hostage. You spend your days waiting for the oft chance someone comes to pay your ransom. Might as well start praying to whatever god you find solace in."
 
 	outfit = /datum/outfit/job/roguetown/prisonerr
 	bypass_jobban = TRUE
 	display_order = JDO_PRISONERR
 	give_bank_account = 10
-	min_pq = -14
+	min_pq = null //-14
 	max_pq = null
 	can_random = FALSE
 

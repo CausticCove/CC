@@ -14,6 +14,34 @@
 	skin_tone_wording = "Material"
 	default_color = "FFFFFF"
 	species_traits = list(EYECOLOR,HAIR,FACEHAIR,LIPS,STUBBLE,OLDGREY,NOBLOOD)
+	///Caustic edit
+	allowed_taur_types = list(
+		/obj/item/bodypart/taur/lamia,
+		/obj/item/bodypart/taur/spider,
+		/obj/item/bodypart/taur/horse,
+		/obj/item/bodypart/taur/cow,
+		/obj/item/bodypart/taur/lizard,
+		/obj/item/bodypart/taur/tent,
+		/obj/item/bodypart/taur/tentacle,
+		/obj/item/bodypart/taur/feline,
+		/obj/item/bodypart/taur/slug,
+		/obj/item/bodypart/taur/tempest,
+		/obj/item/bodypart/taur/drake,
+		/obj/item/bodypart/taur/otie,
+		/obj/item/bodypart/taur/wolf,
+		/obj/item/bodypart/taur/alraune,
+		/obj/item/bodypart/taur/frog,
+		/obj/item/bodypart/taur/deer,
+		/obj/item/bodypart/taur/wasp,
+		/obj/item/bodypart/taur/fatwolf,
+		/obj/item/bodypart/taur/fatfeline,
+		/obj/item/bodypart/taur/mermaid,
+		/obj/item/bodypart/taur/altnaga,
+		/obj/item/bodypart/taur/altnagatailmaw,
+		/obj/item/bodypart/taur/fatnaga,
+		/obj/item/bodypart/taur/bunny,
+	)
+	///Caustic edit end
 	default_features = MANDATORY_FEATURE_LIST
 	use_skintones = 1
 	possible_ages = ALL_AGES_LIST
@@ -39,6 +67,9 @@
 		OFFSET_FACE_F = list(0,-1), OFFSET_BELT_F = list(0,0), OFFSET_BACK_F = list(0,-1), \
 		OFFSET_NECK_F = list(0,-1), OFFSET_MOUTH_F = list(0,-1), OFFSET_PANTS_F = list(0,0), \
 		OFFSET_SHIRT_F = list(0,0), OFFSET_ARMOR_F = list(0,0), OFFSET_UNDIES_F = list(0,-1), \
+		//Caustic Edit
+		OFFSET_TAUR = list(-16,0), OFFSET_TAUR_F = list(-16,0), \
+		//Caustic End
 		)
 	race_bonus = list(STAT_WILLPOWER = 1, STAT_SPEED = -2)
 	enflamed_icon = "widefire"
@@ -55,6 +86,8 @@
 	customizers = list(
 		/datum/customizer/organ/eyes/humanoid,
 		/datum/customizer/bodypart_feature/crest,
+		/datum/customizer/bodypart_feature/hair/head/humanoid,
+		/datum/customizer/bodypart_feature/hair/facial/humanoid,
 		/datum/customizer/bodypart_feature/accessory,
 		/datum/customizer/bodypart_feature/face_detail,
 		/datum/customizer/bodypart_feature/underwear,
@@ -62,12 +95,31 @@
 		/datum/customizer/organ/penis/anthro,
 		/datum/customizer/organ/breasts/human,
 		/datum/customizer/organ/vagina/human_anthro,
+		//Caustic edit
+		/datum/customizer/organ/belly/human,
+		/datum/customizer/organ/butt/human,
+		/datum/customizer/organ/testicles/anthro,
+		/datum/customizer/organ/tail/anthro,
+		/datum/customizer/organ/tail_feature/anthro,
+		/datum/customizer/organ/snout/anthro,
+		/datum/customizer/organ/ears/anthro,
+		/datum/customizer/organ/horns/anthro,
+		/datum/customizer/organ/frills/anthro,
+		/datum/customizer/organ/wings/anthro,
+		/datum/customizer/organ/neck_feature/anthro,
+		//Caustic edit end
 		)
 	body_marking_sets = list(
 		/datum/body_marking_set/none,
 		/datum/body_marking_set/construct_plating_light,
 		/datum/body_marking_set/construct_plating_medium,
 		/datum/body_marking_set/construct_plating_heavy,
+		//Caustic edit
+		/datum/body_marking_set/belly,
+		/datum/body_marking_set/bellysocks,
+		/datum/body_marking_set/tiger,
+		/datum/body_marking_set/tiger_dark,
+		//Caustic edit end
 		)
 	body_markings = list(
 		/datum/body_marking/eyeliner,
@@ -81,11 +133,42 @@
 		/datum/body_marking/construct_standard_eyes,
 		/datum/body_marking/construct_visor_eyes,
 		/datum/body_marking/construct_psyclops_eye,
+		//Caustic edit
+		/datum/body_marking/flushed_cheeks,
+		/datum/body_marking/plain,
+		/datum/body_marking/tiger,
+		/datum/body_marking/tiger/dark,
+		/datum/body_marking/sock,
+		/datum/body_marking/socklonger,
+		/datum/body_marking/tips,
+		/datum/body_marking/bellyscale,
+		/datum/body_marking/bellyscaleslim,
+		/datum/body_marking/bellyscalesmooth,
+		/datum/body_marking/bellyscaleslimsmooth,
+		/datum/body_marking/buttscale,
+		/datum/body_marking/belly,
+		/datum/body_marking/bellyslim,
+		/datum/body_marking/butt,
+		/datum/body_marking/tie,
+		/datum/body_marking/tiesmall,
+		/datum/body_marking/backspots,
+		/datum/body_marking/front,
+		/datum/body_marking/drake_eyes,
+		/datum/body_marking/spotted,
+		/datum/body_marking/harlequin,
+		/datum/body_marking/harlequinreversed,
+		/datum/body_marking/bangs,
+		/datum/body_marking/bun,
+		//Caustic edit end
 	)
 
 /datum/species/construct/metal/check_roundstart_eligible()
 	return TRUE
-	
+
+/datum/species/construct/on_species_gain(mob/living/carbon/foreign, datum/species/old_species)
+	..()
+	foreign.AddComponent(/datum/component/abberant_eater, list(/obj/item/rogueore/coal), TRUE)
+
 /datum/species/construct/metal/get_skin_list()
 	return list(
 		"BRASS" = "dfbd6c",

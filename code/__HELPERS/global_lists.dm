@@ -65,6 +65,10 @@
 		var/datum/virtue/virtue = new path()
 		GLOB.virtues[path] = virtue
 
+	for (var/path in subtypesof(/datum/sizecat))
+		var/datum/sizecat/sc = new path()
+		GLOB.sizecats[path] = sc
+	
 	// Loadout items
 	for (var/path in subtypesof(/datum/loadout_item))
 		var/datum/loadout_item/loadout_item = new path()

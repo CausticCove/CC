@@ -171,6 +171,7 @@ SUBSYSTEM_DEF(ticker)
 				window_flash(C, ignorepref = TRUE) //let them know lobby has opened up.
 //			to_chat(world, span_boldnotice("Welcome to [station_name()]!"))
 			send2chat(new /datum/tgs_message_content("New round starting on [SSmapping.config.map_name]!"), CONFIG_GET(string/chat_announce_new_game))
+			newround()
 			current_state = GAME_STATE_PREGAME
 			//Everyone who wants to be an observer is now spawned
 			create_observers()
@@ -393,7 +394,7 @@ SUBSYSTEM_DEF(ticker)
 */
 	PostSetup()
 	log_game("GAME SETUP: postsetup success")
-
+	newroundstarted()
 	return TRUE
 
 /datum/controller/subsystem/ticker/proc/PostSetup()
@@ -493,6 +494,7 @@ SUBSYSTEM_DEF(ticker)
 				S.Fade(TRUE)
 			livings += living
 			if(ishuman(living))
+				SSrole_class_handler.setup_class_handler(living)
 				try_apply_character_post_equipment(living)
 		else
 			continue

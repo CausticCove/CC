@@ -19,7 +19,9 @@ GLOBAL_LIST_EMPTY(cached_drink_flat_icons)
 		/datum/reagent/consumable/sugar/molasses,
 		/datum/reagent/consumable/oil,
 		/datum/reagent/consumable/oil/tallow,
-		/datum/reagent/consumable/milk,
+		// Caustic Edit
+		///datum/reagent/consumable/milk,
+		// Caustic Edit end
 		/datum/reagent/consumable/milk/salted,
 	)
 
@@ -97,6 +99,7 @@ GLOBAL_LIST_EMPTY(cached_drink_flat_icons)
 		/obj/item/reagent_containers/food/snacks/rogue/meat/spider,
 		/obj/item/reagent_containers/food/snacks/rogue/dough,
 		/obj/item/reagent_containers/food/snacks/rogue/cake_base,
+		/obj/item/reagent_containers/food/snacks/rogue/frostedcakeuncooked,
 		/obj/item/reagent_containers/food/snacks/rogue/preserved,
 		/obj/item/reagent_containers/food/snacks/rogue/fruit,
 		/obj/item/reagent_containers/food/snacks/rogue/veg,

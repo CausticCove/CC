@@ -22,6 +22,23 @@
 		/datum/sprite_accessory/tail_feature/spines/long,
 		/datum/sprite_accessory/tail_feature/spines/longmeme,
 		/datum/sprite_accessory/tail_feature/spines/aquatic,
+		/// CAUSTIC EDIT
+		/datum/sprite_accessory/tail_feature/taur/lamia,
+		/datum/sprite_accessory/tail_feature/taur/horse,
+		/datum/sprite_accessory/tail_feature/taur/lizard,
+		/datum/sprite_accessory/tail_feature/taur/feline,
+		/datum/sprite_accessory/tail_feature/taur/drake,
+		/datum/sprite_accessory/tail_feature/taur/otie,
+		/datum/sprite_accessory/tail_feature/taur/wolf,
+		/datum/sprite_accessory/tail_feature/taur/deer,
+		/datum/sprite_accessory/tail_feature/taur/fatwolf,
+		/datum/sprite_accessory/tail_feature/taur/fatfeline,
+		/datum/sprite_accessory/tail_feature/taur/altnaga,
+		/datum/sprite_accessory/tail_feature/taur/altnagatailmaw,
+		/datum/sprite_accessory/tail_feature/taur/fatnaga,
+		/datum/sprite_accessory/tail_feature/taur/caustic/bunny,
+		/datum/sprite_accessory/tail_feature/taur/caustic/deerbelly,
+		/// CAUSTIC EDIT END
 		)
 
 /datum/customizer/organ/tail_feature/vox_markings

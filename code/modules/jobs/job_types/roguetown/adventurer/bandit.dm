@@ -16,7 +16,7 @@
 
 	display_order = JDO_BANDIT
 	announce_latejoin = FALSE
-	min_pq = 3
+	min_pq = null //3
 	max_pq = null
 	round_contrib_points = 5
 
@@ -27,6 +27,7 @@
 	advjob_examine = TRUE
 	always_show_on_latechoices = TRUE
 	job_reopens_slots_on_death = FALSE //no endless stream of bandits, unless the migration waves deem it so
+	job_traits = list(TRAIT_SELF_SUSTENANCE)
 	same_job_respawn_delay = 1 MINUTES
 	cmode_music = 'sound/music/cmode/antag/combat_deadlyshadows.ogg'
 	job_subclasses = list(
@@ -45,9 +46,6 @@
 		var/mob/living/carbon/human/H = L
 		if(!H.mind)
 			return
-		H.advsetup = 1
-		H.invisibility = INVISIBILITY_MAXIMUM
-		H.become_blind("advsetup")
 		H.ambushable = FALSE
 
 /datum/outfit/job/roguetown/bandit/post_equip(mob/living/carbon/human/H)

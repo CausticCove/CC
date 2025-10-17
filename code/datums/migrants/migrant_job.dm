@@ -6,14 +6,13 @@
 	job_greet_text = FALSE // Migration gives them their own greetings
 
 	allowed_races = RACES_ALL_KINDS
-
 	outfit = null
 	outfit_female = null
 
 	display_order = JDO_MIGRANT
 	show_in_credits = FALSE
 	max_pq = null
-	min_pq = -999
+	min_pq = null //-999
 	wanderer_examine = TRUE
 	advjob_examine = TRUE
 

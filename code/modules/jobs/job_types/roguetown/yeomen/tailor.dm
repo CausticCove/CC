@@ -7,13 +7,14 @@
 	total_positions = 1
 	spawn_positions = 1
 	display_order = 6
-	min_pq = 0
+	min_pq = null //0
 	selection_color = JCOLOR_YEOMAN
-	allowed_races = RACES_ALL_KINDS
+	allowed_races = ACCEPTED_RACES
 	display_order = JDO_TAILOR
+	job_traits = list(TRAIT_SEWING_EXPERT)
 	outfit = /datum/outfit/job/roguetown/tailor
 	give_bank_account = 16
-	min_pq = 0
+	min_pq = null //0
 	max_pq = null
 	round_contrib_points = 3
 	cmode_music = 'sound/music/cmode/towner/combat_towner3.ogg'
@@ -21,14 +22,6 @@
 	job_subclasses = list(
 		/datum/advclass/tailor
 	)
-
-/datum/job/roguetown/tailor/after_spawn(mob/living/L, mob/M, latejoin = TRUE)
-	..()
-	if(ishuman(L))
-		var/mob/living/carbon/human/H = L
-		H.advsetup = 1
-		H.invisibility = INVISIBILITY_MAXIMUM
-		H.become_blind("advsetup")
 
 /datum/advclass/tailor
 	name = "Tailor"
@@ -43,7 +36,7 @@
 	)
 	subclass_skills = list(
 		/datum/skill/combat/knives = SKILL_LEVEL_JOURNEYMAN,
-		/datum/skill/misc/sewing = SKILL_LEVEL_MASTER,
+		/datum/skill/craft/sewing = SKILL_LEVEL_MASTER,
 		/datum/skill/craft/crafting = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/craft/tanning = SKILL_LEVEL_EXPERT,
 		/datum/skill/misc/reading = SKILL_LEVEL_JOURNEYMAN,
@@ -73,3 +66,5 @@
 		armor = /obj/item/clothing/suit/roguetown/shirt/dress/silkdress
 	else if(should_wear_masc_clothes(H))
 		armor = /obj/item/clothing/suit/roguetown/shirt/tunic/random
+	if(H.mind)
+		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/fittedclothing)

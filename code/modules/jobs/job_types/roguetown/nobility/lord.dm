@@ -27,7 +27,7 @@ GLOBAL_LIST_EMPTY(lord_titles)
 	display_order = JDO_LORD
 	tutorial = "Elevated upon your throne through a web of intrigue and political upheaval, you are the absolute authority of these lands and at the center of every plot within it. Every man, woman and child is envious of your position and would replace you in less than a heartbeat: Show them the error of their ways."
 	whitelist_req = FALSE
-	min_pq = 10
+	min_pq = null //10
 	max_pq = null
 	round_contrib_points = 4
 	give_bank_account = 1000
@@ -37,6 +37,7 @@ GLOBAL_LIST_EMPTY(lord_titles)
 	job_subclasses = list(
 		/datum/advclass/lord/warrior,
 		/datum/advclass/lord/merchant,
+		/datum/advclass/lord/mage,
 		/datum/advclass/lord/inbred
 	)
 
@@ -45,11 +46,6 @@ GLOBAL_LIST_EMPTY(lord_titles)
 
 /datum/job/roguetown/lord/after_spawn(mob/living/L, mob/M, latejoin = TRUE)
 	. = ..()
-	if(ishuman(L))
-		var/mob/living/carbon/human/Q = L
-		Q.advsetup = 1
-		Q.invisibility = INVISIBILITY_MAXIMUM
-		Q.become_blind("advsetup")
 	if(L)
 		var/list/chopped_name = splittext(L.real_name, " ")
 		if(length(chopped_name) > 1)
@@ -73,7 +69,7 @@ GLOBAL_LIST_EMPTY(lord_titles)
 	cloak = /obj/item/clothing/cloak/lordcloak
 	belt = /obj/item/storage/belt/rogue/leather/plaquegold
 	beltl = /obj/item/storage/keyring/lord
-	backpack_contents = list(/obj/item/rogueweapon/huntingknife/idagger/steel/special = 1)
+	beltr = /obj/item/rogueweapon/lordscepter
 	id = /obj/item/scomstone/garrison
 
 /datum/outfit/job/roguetown/lord/pre_equip(mob/living/carbon/human/H)
@@ -139,7 +135,7 @@ GLOBAL_LIST_EMPTY(lord_titles)
 
 /datum/outfit/job/roguetown/lord/warrior/pre_equip(mob/living/carbon/human/H)
 	..()
-	l_hand = /obj/item/rogueweapon/lordscepter
+	backpack_contents = list(/obj/item/rogueweapon/huntingknife/idagger/steel/special = 1)
 	if(H.age == AGE_OLD)
 		H.adjust_skillrank(/datum/skill/combat/swords, 1, TRUE)
 
@@ -182,9 +178,45 @@ GLOBAL_LIST_EMPTY(lord_titles)
 
 /datum/outfit/job/roguetown/lord/merchant/pre_equip(mob/living/carbon/human/H)
 	..()
-	l_hand = /obj/item/rogueweapon/lordscepter
+	backpack_contents = list(/obj/item/rogueweapon/huntingknife/idagger/steel/special = 1)
 	if(H.mind)
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/appraise/secular)
+
+/** 
+	Mage Lord subclass. Prince mage is a thing.
+	Light on skills, has some combat skills mage normally doesn't have. 18 pts so people don't complain they are better.
+	Stats is better than mage associate and magic heir. +12 total.
+	Mage armor and no armor training.
+*/
+/datum/advclass/lord/mage
+	name = "Mage Lord"
+	tutorial = "Despite spending your younger years focused on reading and the wonders of the arcyne, it came the time for you to take the throne. Now you rule not only by crown and steel, but by spell and wit, show those who doubted your time buried in books was well spent how wrong they were."
+	outfit = /datum/outfit/job/roguetown/lord/mage
+	category_tags = list(CTAG_LORD)
+	traits_applied = list(TRAIT_NOBLE, TRAIT_MAGEARMOR, TRAIT_ARCYNE_T3)
+	subclass_stats = list(
+		STATKEY_LCK = 5,
+		STATKEY_INT = 4,
+		STATKEY_PER = 2,
+		STATKEY_WIL = 1,
+	)
+	subclass_spellpoints = 18
+	subclass_skills = list(
+		/datum/skill/combat/polearms = SKILL_LEVEL_APPRENTICE,
+		/datum/skill/combat/wrestling = SKILL_LEVEL_NOVICE,
+		/datum/skill/combat/swords = SKILL_LEVEL_APPRENTICE,
+		/datum/skill/combat/knives = SKILL_LEVEL_APPRENTICE,
+		/datum/skill/misc/athletics = SKILL_LEVEL_JOURNEYMAN,
+		/datum/skill/misc/reading = SKILL_LEVEL_MASTER,
+		/datum/skill/misc/riding = SKILL_LEVEL_APPRENTICE,
+		/datum/skill/magic/arcane = SKILL_LEVEL_JOURNEYMAN,
+		/datum/skill/craft/alchemy = SKILL_LEVEL_APPRENTICE,
+	)
+
+/datum/outfit/job/roguetown/lord/mage/pre_equip(mob/living/carbon/human/H)
+	..()
+	backpack_contents = list(/obj/item/rogueweapon/huntingknife/idagger/steel/special = 1, /obj/item/roguegem/amethyst = 1, /obj/item/spellbook_unfinished/pre_arcyne = 1)
+
 
 /** 
 	Inbred Lord subclass. A joke class, evolution of the Inbred Wastrel.
@@ -212,12 +244,12 @@ GLOBAL_LIST_EMPTY(lord_titles)
 		/datum/skill/misc/riding = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/misc/reading = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/craft/cooking = SKILL_LEVEL_NOVICE,
-		/datum/skill/misc/sewing = SKILL_LEVEL_NOVICE,
+		/datum/skill/craft/sewing = SKILL_LEVEL_NOVICE,
 	)
 
 /datum/outfit/job/roguetown/lord/inbred/pre_equip(mob/living/carbon/human/H)
 	..()
-	l_hand = /obj/item/rogueweapon/lordscepter
+	backpack_contents = list(/obj/item/rogueweapon/huntingknife/idagger/steel/special = 1)
 	H.adjust_skillrank(/datum/skill/combat/crossbows, pick(0,1), TRUE)
 	H.adjust_skillrank(/datum/skill/misc/climbing, pick(0,0,1), TRUE)
 	H.adjust_skillrank(/datum/skill/misc/athletics, pick(0,1), TRUE)
@@ -346,7 +378,7 @@ GLOBAL_LIST_EMPTY(lord_titles)
 	if(QDELETED(recruit) || QDELETED(recruiter))
 		return FALSE
 	if(HAS_TRAIT(recruit, TRAIT_NOBLE))
-		if(!HAS_TRAIT(recruit,TRAIT_OUTLANDER))
+		if(!(recruit.job in GLOB.foreign_positions))
 			recruiter.say("I HEREBY STRIP YOU, [uppertext(recruit.name)], OF NOBILITY!!")
 			REMOVE_TRAIT(recruit, TRAIT_NOBLE, TRAIT_GENERIC)
 			REMOVE_TRAIT(recruit, TRAIT_NOBLE, TRAIT_VIRTUE)
@@ -356,7 +388,6 @@ GLOBAL_LIST_EMPTY(lord_titles)
 			return FALSE
 	recruiter.say("I HEREBY GRANT YOU, [uppertext(recruit.name)], NOBILITY!")
 	ADD_TRAIT(recruit, TRAIT_NOBLE, TRAIT_GENERIC)
-	REMOVE_TRAIT(recruit, TRAIT_OUTLANDER, ADVENTURER_TRAIT)
 	return TRUE
 
 /obj/effect/proc_holder/spell/self/convertrole/servant

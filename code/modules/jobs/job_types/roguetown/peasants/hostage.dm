@@ -7,14 +7,14 @@
 	spawn_positions = 2
 
 	allowed_sexes = list(MALE, FEMALE)
-	allowed_races = RACES_ALL_KINDS
+	allowed_races = ACCEPTED_RACES
 	tutorial = "You're too valuable to outright kill yet not a free person. You either messed up really bad or got very unlucky. Either way, the crown has held you hostage until you home country pays your ransom, as if that would ever happen. Might as well start praying to whatever god you find solace in."
 
 	outfit = /datum/outfit/job/roguetown/hostage
 	bypass_jobban = TRUE
 	display_order = JDO_HOSTAGE
 	give_bank_account = 10
-	min_pq = -14
+	min_pq = null //-14
 	max_pq = null
 	can_random = FALSE
 

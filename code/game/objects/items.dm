@@ -243,6 +243,10 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	/// Angle of the icon while wielded, these are used for attack animations. Generally it's flat, but not always.
 	var/icon_angle_wielded = 0
 
+	//RATWOOD COLLAR/LEASH IMPORT
+	var/leashable = FALSE
+
+
 /obj/item/Initialize()
 	. = ..()
 	if(!pixel_x && !pixel_y && !bigboy)
@@ -452,10 +456,10 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			inspec += "\n<b>MIN.STR:</b> [minstr]"
 
 		if(force)
-			inspec += "\n<b>FORCE:</b> [get_force_string(force)]"
+			inspec += "\n<b>FORCE:</b> [get_force_string(force)] <span class='info'><a href='?src=[REF(src)];showforce=1'>{?}</a></span>"
 		if(gripped_intents && !wielded)
 			if(force_wielded)
-				inspec += "\n<b>WIELDED FORCE:</b> [get_force_string(force_wielded)]"
+				inspec += "\n<b>WIELDED FORCE:</b> [get_force_string(force_wielded)] <span class='info'><a href='?src=[REF(src)];showforcewield=1'>{?}</a></span>"
 
 		if(wbalance)
 			inspec += "\n<b>BALANCE: </b>"
@@ -463,6 +467,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 				inspec += "Heavy"
 			if(wbalance == WBALANCE_SWIFT)
 				inspec += "Swift"
+			inspec += " <span class='info'><a href='?src=[REF(src)];explainbalance=1'>{?}</a></span>"
 
 		if(wlength != WLENGTH_NORMAL)
 			inspec += "\n<b>LENGTH:</b> "
@@ -473,6 +478,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 					inspec += "Long"
 				if(WLENGTH_GREAT)
 					inspec += "Great"
+			inspec += " <span class='info'><a href='?src=[REF(src)];explainlength=1'>{?}</a></span>"
 
 		if(alt_intents)
 			inspec += "\n<b>ALT-GRIP (RIGHT CLICK WHILE IN HAND)</b>"
@@ -488,12 +494,12 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			inspec += "\n<b>BULKY</b>"
 
 		if(can_parry)
-			inspec += "\n<b>DEFENSE:</b> [wdefense_dynamic]"
+			inspec += "\n<b>DEFENSE:</b> [wdefense_dynamic] <span class='info'><a href='?src=[REF(src)];explaindef=1'>{?}</a></span>"
 
 		if(max_blade_int)
 			inspec += "\n<b>SHARPNESS:</b> "
 			var/percent = round(((blade_int / max_blade_int) * 100), 1)
-			inspec += "[percent]% ([blade_int])"
+			inspec += "[percent]% ([blade_int]) <span class='info'><a href='?src=[REF(src)];explainsharpness=1'>{?}</a></span>"
 
 		if(associated_skill && associated_skill.name)
 			inspec += "\n<b>SKILL:</b> [associated_skill.name]"
@@ -552,6 +558,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			var/ratio =	(eff_currint / eff_maxint)
 			var/percent = round((ratio * 100), 1)
 			inspec += "[percent]% ([floor(eff_currint)])"
+			if(force >= 5) // Durability is rather obvious for non-weapons
+				inspec += " <span class='info'><a href='?src=[REF(src)];explaindurability=1'>{?}</a></span>"
 
 		to_chat(usr, "[inspec.Join()]")
 
@@ -1051,7 +1059,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			max_sharp = max(max_sharp, IS_SHARP)
 	return max_sharp
 
-/obj/item/proc/get_dismemberment_chance(obj/item/bodypart/affecting, mob/user)
+/obj/item/proc/get_dismemberment_chance(obj/item/bodypart/affecting, mob/user, zone_sel)
 	if(!get_sharpness() || !affecting.can_dismember(src))
 		return 0
 
@@ -1086,14 +1094,20 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	var/probability = nuforce * (total_dam / affecting.max_damage)
 	var/hard_dismember = HAS_TRAIT(affecting, TRAIT_HARDDISMEMBER)
 	var/easy_dismember = affecting.rotted || affecting.skeletonized || HAS_TRAIT(affecting, TRAIT_EASYDISMEMBER)
+	var/easy_decapitation = HAS_TRAIT(affecting, TRAIT_EASYDECAPITATION)
 	if(affecting.owner)
 		if(!hard_dismember)
 			hard_dismember = HAS_TRAIT(affecting.owner, TRAIT_HARDDISMEMBER)
 		if(!easy_dismember)
 			easy_dismember = HAS_TRAIT(affecting.owner, TRAIT_EASYDISMEMBER)
+		if(!easy_decapitation)
+			easy_decapitation = HAS_TRAIT(affecting.owner, TRAIT_EASYDECAPITATION)
 	// If you don't have easy dismember, then you must hit 90% damage or more to dismember a limb.
 	if((affecting.get_damage() <= (affecting.max_damage * CRIT_DISMEMBER_DAMAGE_THRESHOLD)) && !easy_dismember)
 		return FALSE
+	if(easy_decapitation && zone_sel == BODY_ZONE_PRECISE_NECK)
+		// May want to include hard dismember compatibility.
+		return probability * 1.5
 	if(hard_dismember)
 		return min(probability, 5)
 	else if(easy_dismember)

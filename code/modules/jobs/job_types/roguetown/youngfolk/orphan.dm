@@ -6,7 +6,7 @@
 	total_positions = 12
 	spawn_positions = 12
 
-	allowed_races = RACES_ALL_KINDS
+	allowed_races = ACCEPTED_RACES
 	allowed_ages = list(AGE_ADULT)
 
 	tutorial = "Dozens of people end up down on their luck in the kingdom of Psydonia every day. They sometimes make something of themselves but much more often die in the streets."
@@ -14,7 +14,7 @@
 	outfit = /datum/outfit/job/roguetown/orphan
 	display_order = JDO_ORPHAN
 	show_in_credits = FALSE
-	min_pq = -30
+	min_pq = null //-30
 	max_pq = null
 	round_contrib_points = 2
 

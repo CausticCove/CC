@@ -65,7 +65,7 @@
 	icon_state = "matthioslegs"
 	prevent_crits = list(BCLASS_CUT, BCLASS_STAB, BCLASS_CHOP, BCLASS_BLUNT, BCLASS_SMASH, BCLASS_PICK)
 	armor = ARMOR_ASCENDANT
-
+/*caustic edit start
 /obj/item/clothing/under/roguetown/platelegs/matthios/Initialize()
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, CURSED_ITEM_TRAIT)
@@ -76,7 +76,7 @@
 	if(QDELETED(src))
 		return
 	qdel(src)
-
+*///caustic edit end
 
 /obj/item/clothing/under/roguetown/platelegs/zizo
 	max_integrity = ARMOR_INT_LEG_ANTAG
@@ -85,7 +85,7 @@
 	icon_state = "zizocloth"
 	armor = ARMOR_ASCENDANT
 	prevent_crits = list(BCLASS_CUT, BCLASS_STAB, BCLASS_CHOP, BCLASS_BLUNT, BCLASS_SMASH, BCLASS_PICK)
-
+/*caustic edit start
 /obj/item/clothing/under/roguetown/platelegs/zizo/Initialize()
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, CURSED_ITEM_TRAIT)
@@ -96,7 +96,7 @@
 	if(QDELETED(src))
 		return
 	qdel(src)
-
+*///caustic edit end
 /obj/item/clothing/under/roguetown/platelegs/zizo/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/item_equipped_movement_rustle, SFX_PLATE_STEP)

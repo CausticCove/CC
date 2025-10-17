@@ -468,7 +468,7 @@ GLOBAL_LIST_INIT(roleplay_readme, world.file2list("strings/rt/rp_prompt.txt"))
 		else
 			return JOB_UNAVAILABLE_SLOTFULL
 	if(length(job.vice_restrictions) || length(job.virtue_restrictions))
-		if((client.prefs.virtue?.type in job.virtue_restrictions) || (client.prefs.virtuetwo?.type in job.virtue_restrictions) || (client.prefs.charflaw?.type in job.vice_restrictions))
+		if((client.prefs.virtue?.type in job.virtue_restrictions) || (client.prefs.virtuetwo?.type in job.virtue_restrictions) || (client.prefs.extravirtue?.type in job.virtue_restrictions) ||  (client.prefs.charflaw?.type in job.vice_restrictions))
 			return JOB_UNAVAILABLE_VIRTUESVICE
 //	if(job.title == "Adventurer" && latejoin)
 //		for(var/datum/job/J in SSjob.occupations)
@@ -582,6 +582,7 @@ GLOBAL_LIST_INIT(roleplay_readme, world.file2list("strings/rt/rp_prompt.txt"))
 		GLOB.respawncounts[character.ckey] = 1
 //	add_roundplayed(character.ckey)
 	if(humanc)
+		SSrole_class_handler.setup_class_handler(humanc)
 		try_apply_character_post_equipment(humanc)
 	log_manifest(character.mind.key,character.mind,character,latejoin = TRUE)
 

@@ -88,6 +88,13 @@
 	)
 	expert_name = "Crossbower"
 
+/datum/skill/combat/firearms
+	name = "Firearms"
+	dreams = list(
+		"..."
+	)
+	expert_name = "Arquebesier"
+
 /datum/skill/combat/wrestling
 	name = "Wrestling"
 	desc = "Alongside strength, improves your chance of grabbing, and avoiding a grab from an opponent."

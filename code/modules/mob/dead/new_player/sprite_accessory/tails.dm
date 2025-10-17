@@ -155,6 +155,32 @@
 	icon_state = "lab"
 	can_wag = TRUE
 
+//Caustic Edit
+/datum/sprite_accessory/tail/large_snake
+	icon = 'modular_causticcove/icons/mob/tails/large_snake.dmi'
+	name = "Large Snake"
+	icon_state = "large_snake"
+	color_keys = 2
+	color_key_names = list("Tail", "Underbelly")
+
+/datum/sprite_accessory/tail/large_snake_plain
+	icon = 'modular_causticcove/icons/mob/tails/large_snake.dmi'
+	name = "Large Snake Plain"
+	icon_state = "large_snake_plain"	
+
+
+/datum/sprite_accessory/tail/large_tails
+	pixel_x = -16
+
+/datum/sprite_accessory/tail/large_tails/large_shark
+	icon = 'modular_causticcove/icons/mob/tails/large_shark.dmi'
+	name = "Large Shark"
+	icon_state = "large_shark"
+	color_keys = 2
+	color_key_names = list("Tail", "Underbelly")
+
+//Caustic Edit end
+
 /datum/sprite_accessory/tail/murid
 	name = "Murid"
 	icon_state = "murid"
@@ -347,6 +373,20 @@
 	can_wag = TRUE
 
 /datum/sprite_accessory/tail/tiefling/heart
+	name = "Succubus"
+	icon = 'icons/mob/sprite_accessory/tails/tiefling.dmi'
+	icon_state = "hearttail"
+	color_key_defaults = list(KEY_SKIN_COLOR)
+	can_wag = TRUE
+
+/datum/sprite_accessory/tail/dullahan
+	name = "Revenant"
+	icon = 'icons/mob/sprite_accessory/tails/tiefling.dmi'
+	icon_state = "tiebtail"
+	color_key_defaults = list(KEY_SKIN_COLOR)
+	can_wag = TRUE
+
+/datum/sprite_accessory/tail/dullahan/heart
 	name = "Succubus"
 	icon = 'icons/mob/sprite_accessory/tails/tiefling.dmi'
 	icon_state = "hearttail"

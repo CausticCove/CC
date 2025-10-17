@@ -236,10 +236,22 @@
 					visible_message(span_warning("[src] smashes into [L] with no headstart!"), span_warning("I charge into [L] too early!"))
 				if(clash_blocked)
 					visible_message(span_warning("[src] gets tripped by [L]!"), span_warning("I get tripped by [L]!"))
+					/*if(voremode)
+						if(prob(50))
+							vore_attack_instant(src, L, src) <-- TODO readd this
+						else
+							return TRUE*/
 			else
 				visible_message(span_warning("[src] charges into [L]!"), span_warning("I charge into [L]!"))
 			return TRUE
-
+	///Caustic edit
+	if(ishuman(M) && ishuman(src))
+		var/mob/living/carbon/human/srchuman = src
+		if(srchuman.handle_micro_bump_helping(M))
+			forceMove(M.loc)
+			now_pushing = FALSE
+			return TRUE
+	///Caustic edit end
 	//okay, so we didn't switch. but should we push?
 	//not if he's not CANPUSH of course
 	if(!(M.status_flags & CANPUSH))
@@ -687,6 +699,7 @@
 /mob/living/proc/setMaxHealth(newMaxHealth)
 	maxHealth = newMaxHealth
 
+
 // MOB PROCS //END
 
 /mob/living/proc/mob_sleep()
@@ -926,6 +939,8 @@
 	if(H)
 		if(H.rotted || H.skeletonized || H.brainkill)
 			return FALSE
+	else
+		return FALSE
 
 
 /mob/living/proc/update_damage_overlays()
@@ -1899,8 +1914,12 @@
 			clear_fullscreen("remote_view", 0)
 
 /mob/living/update_mouse_pointer()
-	..()
-	if (client && ranged_ability && ranged_ability.ranged_mousepointer)
+	if(!client)
+		return
+	if(!client.charging && !atkswinging)
+		if(examine_cursor_icon && client.keys_held["Shift"]) //mouse shit is hardcoded, make this non hard-coded once we make mouse modifiers bindable
+			client.mouse_pointer_icon = examine_cursor_icon
+	if(ranged_ability && ranged_ability.ranged_mousepointer)
 		client.mouse_pointer_icon = ranged_ability.ranged_mousepointer
 
 /mob/living/vv_edit_var(var_name, var_value)
@@ -2225,6 +2244,15 @@
 	if(client)
 		client.pixel_x = 0
 		client.pixel_y = 0
+	if(isdullahan(src))
+		var/mob/living/carbon/human/human = src
+		var/obj/item/organ/dullahan_vision/vision = human.getorganslot(ORGAN_SLOT_HUD)
+		var/datum/species/dullahan/species = human.dna.species
+		if(species.headless && vision.viewing_head)
+			var/obj/item/bodypart/head/dullahan/head = species.my_head
+			reset_perspective(head)
+			update_cone_show()
+			return
 	reset_perspective()
 	update_cone_show()
 //	UnregisterSignal(src, COMSIG_MOVABLE_PRE_MOVE)

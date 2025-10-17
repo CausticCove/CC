@@ -17,7 +17,7 @@
 		/datum/skill/misc/climbing = SKILL_LEVEL_EXPERT,
 		/datum/skill/misc/reading = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/craft/crafting = SKILL_LEVEL_APPRENTICE,
-		/datum/skill/misc/sewing = SKILL_LEVEL_APPRENTICE, //To make your own costumes.
+		/datum/skill/craft/sewing = SKILL_LEVEL_APPRENTICE, //To make your own costumes.
 		/datum/skill/misc/medicine = SKILL_LEVEL_APPRENTICE, //You WILL be getting neckstabbed A LOT. 
 		/datum/skill/misc/tracking = SKILL_LEVEL_EXPERT, //SNIFF OUT JUSTICE.
 	)
@@ -39,7 +39,7 @@
 		)
 	if(H.mind)
 		var/classes = list("The Watchman", "The Gadgeteer", "I AM JUSTICE INCARNATE!!!")
-		var/classchoice = input("Choose your archetypes", "Available archetypes") as anything in classes
+		var/classchoice = input(H, "Choose your archetypes", "Available archetypes") as anything in classes
 		switch(classchoice)
 			if("The Watchman") //Face-to-face CQC. No crit resist. Pure aura. Rorschach. 
 				H.set_blindness(0)
@@ -70,8 +70,8 @@
 	backl = /obj/item/rogueweapon/woodstaff/quarterstaff/steel //nonlethal takedowns
 	beltr = /obj/item/quiver/sling/iron
 	l_hand = /obj/item/grapplinghook
-	r_hand = /obj/item/smokebomb
-	beltl = /obj/item/smokebomb
+	r_hand = /obj/item/bomb/smoke
+	beltl = /obj/item/bomb/smoke
 	cloak = /obj/item/clothing/cloak/cape/puritan
 	armor = /obj/item/clothing/suit/roguetown/armor/leather/studded
 	mask = /obj/item/clothing/mask/rogue/duelmask

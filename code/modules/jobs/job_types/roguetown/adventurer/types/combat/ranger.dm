@@ -54,7 +54,7 @@
 		)
 	if(H.mind)
 		var/weapons = list("Recurve Bow","Crossbow")
-		var/weapon_choice = input("Choose your weapon.", "TAKE UP ARMS") as anything in weapons
+		var/weapon_choice = input(H, "Choose your weapon.", "TAKE UP ARMS") as anything in weapons
 		H.set_blindness(0)
 		switch(weapon_choice)
 			if("Recurve Bow")
@@ -121,7 +121,7 @@
 	tutorial = "Bombs? You've got them. Plenty of them - and the skills to make more. You've spent years training under skilled alchemists and have found the perfect mix to create some chaos - now go blow something up!"
 	outfit = /datum/outfit/job/roguetown/adventurer/bombadier
 	cmode_music = 'sound/music/cmode/adventurer/combat_outlander2.ogg'
-	traits_applied = list(TRAIT_MEDIUMARMOR)
+	traits_applied = list(TRAIT_MEDIUMARMOR, TRAIT_ALCHEMY_EXPERT) // Bombardier get an exception - alchemy is part of the gimmick.
 	subclass_stats = list(
 		STATKEY_STR = 2,
 		STATKEY_INT = 2,
@@ -210,7 +210,7 @@
 		)
 	if(H.mind)
 		var/weapons = list("Recurve Bow","Billhook","Sling","Crossbow")
-		var/weapon_choice = input("Choose your weapon.", "TAKE UP ARMS") as anything in weapons
+		var/weapon_choice = input(H, "Choose your weapon.", "TAKE UP ARMS") as anything in weapons
 		switch(weapon_choice)
 			if("Recurve Bow")
 				H.adjust_skillrank_up_to(/datum/skill/combat/bows, SKILL_LEVEL_JOURNEYMAN, TRUE)
@@ -229,7 +229,7 @@
 				backr = /obj/item/gun/ballistic/revolver/grenadelauncher/crossbow
 				beltl = /obj/item/quiver/bolts
 		var/armors = list("Light Armor","Medium Armor")
-		var/armor_choice = input("Choose your armor.", "TAKE UP ARMS") as anything in armors
+		var/armor_choice = input(H, "Choose your armor.", "TAKE UP ARMS") as anything in armors
 		switch(armor_choice)
 			if("Light Armor")
 				armor = /obj/item/clothing/suit/roguetown/armor/leather/hide

@@ -6,7 +6,7 @@
 	total_positions = 1
 	spawn_positions = 1
 
-	allowed_races = RACES_ALL_KINDS
+	allowed_races = ACCEPTED_RACES
 	allowed_sexes = list(MALE, FEMALE)
 	allowed_ages = list(AGE_ADULT)
 
@@ -15,12 +15,12 @@
 	outfit = /datum/outfit/job/roguetown/clerk
 	display_order = JDO_CLERK
 	give_bank_account = TRUE
-	min_pq = -10
+	min_pq = null //-10
 	max_pq = null
 	round_contrib_points = 2
 	advclass_cat_rolls = list(CTAG_CLERK = 2)
 
-	job_traits = list(TRAIT_SEEPRICES_SHITTY)
+	job_traits = list(TRAIT_SEEPRICES)
 	job_subclasses = list(
 		/datum/advclass/clerk
 	)
@@ -40,7 +40,7 @@
 		/datum/skill/combat/knives = SKILL_LEVEL_NOVICE,
 		/datum/skill/misc/medicine = SKILL_LEVEL_NOVICE,
 		/datum/skill/craft/cooking = SKILL_LEVEL_NOVICE,
-		/datum/skill/misc/sewing = SKILL_LEVEL_NOVICE,
+		/datum/skill/craft/sewing = SKILL_LEVEL_NOVICE,
 		/datum/skill/combat/unarmed = SKILL_LEVEL_NOVICE,
 		/datum/skill/combat/wrestling = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/craft/cooking = SKILL_LEVEL_NOVICE,
@@ -49,14 +49,6 @@
 	)
 	category_tags = list(CTAG_CLERK)
 	outfit = /datum/outfit/job/roguetown/clerk/basic
-
-/datum/job/roguetown/clerk/after_spawn(mob/living/L, mob/M, latejoin = TRUE)
-	..()
-	if(ishuman(L))
-		var/mob/living/carbon/human/H = L
-		H.advsetup = 1
-		H.invisibility = INVISIBILITY_MAXIMUM
-		H.become_blind("advsetup")
 
 /datum/outfit/job/roguetown/clerk/basic/pre_equip(mob/living/carbon/human/H)
 	..()
