@@ -18,7 +18,7 @@
 	reqs = list(/obj/item/grown/log/tree/small = 1,
 				/obj/item/ingot/iron = 1,
 				/obj/item/natural/glass = 1,
-				/obj/item/roguegear = 1)
+				/obj/item/roguegear/bronze = 1)
 	verbage_simple = "engineer"
 	verbage = "engineers"
 	skillcraft = /datum/skill/craft/engineering
@@ -61,7 +61,7 @@
 /datum/crafting_recipe/roguetown/engineering/distiller
 	name = "copper distiller"
 	result = /obj/structure/fermentation_keg/distiller
-	reqs = list(/obj/item/ingot/copper = 2, /obj/item/roguegear = 1)
+	reqs = list(/obj/item/ingot/copper = 2, /obj/item/roguegear/bronze = 1)
 	verbage_simple = "engineer"
 	verbage = "engineers"
 	skillcraft = /datum/skill/craft/engineering
@@ -193,7 +193,7 @@
 	category = "Rotational"
 	result = list(/obj/item/rotation_contraption/cog,
 				  /obj/item/rotation_contraption/cog)
-	reqs = list(/obj/item/grown/log/tree/small = 1, /obj/item/roguegear = 2, /obj/item/grown/log/tree/stick = 2)
+	reqs = list(/obj/item/grown/log/tree/small = 1, /obj/item/roguegear/bronze = 2, /obj/item/grown/log/tree/stick = 2)
 	verbage_simple = "engineer"
 	verbage = "engineers"
 	skillcraft = /datum/skill/craft/engineering
@@ -227,7 +227,7 @@
 	name = "gearbox"
 	category = "Rotational"
 	result = /obj/item/rotation_contraption/horizontal
-	reqs = list(/obj/item/roguegear = 2, /obj/item/natural/stoneblock = 2,/obj/item/grown/log/tree/stick = 2)
+	reqs = list(/obj/item/roguegear/bronze = 2, /obj/item/natural/stoneblock = 2,/obj/item/grown/log/tree/stick = 2)
 	verbage_simple = "engineer"
 	verbage = "engineers"
 	skillcraft = /datum/skill/craft/engineering
@@ -237,7 +237,7 @@
 	name = "vertical gearbox"
 	category = "Rotational"
 	result = /obj/item/rotation_contraption/vertical
-	reqs = list(/obj/item/roguegear = 2, /obj/item/natural/stoneblock = 2, /obj/item/grown/log/tree/stick = 2)
+	reqs = list(/obj/item/roguegear/bronze = 2, /obj/item/natural/stoneblock = 2, /obj/item/grown/log/tree/stick = 2)
 	verbage_simple = "engineer"
 	verbage = "engineers"
 	skillcraft = /datum/skill/craft/engineering
@@ -269,7 +269,7 @@
 				  /obj/item/rotation_contraption/minecart_rail/railbreak,
 				  /obj/item/rotation_contraption/minecart_rail/railbreak,
 				  /obj/item/rotation_contraption/minecart_rail/railbreak)
-	reqs = list(/obj/item/roguegear = 1, /obj/item/ingot/iron = 1)
+	reqs = list(/obj/item/roguegear/bronze = 1, /obj/item/ingot/iron = 1)
 	verbage_simple = "engineer"
 	verbage = "engineers"
 	skillcraft = /datum/skill/craft/engineering
@@ -280,7 +280,7 @@
 	name = "minecart"
 	category = "Minecarts"
 	result = /obj/structure/closet/crate/miningcar
-	reqs = list(/obj/item/grown/log/tree/small = 1, /obj/item/ingot/iron = 1, /obj/item/grown/log/tree/stick = 4, /obj/item/roguegear = 2)
+	reqs = list(/obj/item/grown/log/tree/small = 1, /obj/item/ingot/iron = 1, /obj/item/grown/log/tree/stick = 4, /obj/item/roguegear/bronze = 2)
 	verbage_simple = "engineer"
 	verbage = "engineers"
 	skillcraft = /datum/skill/craft/engineering

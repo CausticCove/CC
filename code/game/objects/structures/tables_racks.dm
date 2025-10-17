@@ -390,7 +390,7 @@
 	resistance_flags = FLAMMABLE
 	max_integrity = 40 //making this weak, its fragile
 	smooth = 0
-	debris = list(/obj/item/grown/log/tree/small, /obj/item/roguegear)
+	debris = list(/obj/item/grown/log/tree/small, /obj/item/roguegear/bronze)
 	climb_offset = 10
 
 
