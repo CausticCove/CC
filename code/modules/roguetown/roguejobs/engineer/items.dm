@@ -52,6 +52,8 @@
 	var/misfire_modification
 	var/name_prefix
 	var/ulevel = 0
+	icon = 'modular_causticcove/icons/RW_artificery/misc.dmi'
+
 
 /obj/item/roguegear/wood/basic
 	name = "wooden cog"
