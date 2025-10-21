@@ -246,6 +246,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	//RATWOOD COLLAR/LEASH IMPORT
 	var/leashable = FALSE
 
+	var/no_use_cd = FALSE //if true, no cooldown when interacting with it 
+
 
 /obj/item/Initialize()
 	. = ..()
