@@ -381,7 +381,6 @@
 			H.currenthand += cardname
 			user.visible_message("<span class='notice'>[user] adds a card to [user.p_their()] hand.</span>", "<span class='notice'>I add the [cardname] to your hand.</span>")
 			qdel(src)
-			H.interact(user)
 			if(H.currenthand.len > 4)
 				H.icon_state = "[deckstyle]_hand5"
 			else if(H.currenthand.len > 3)
