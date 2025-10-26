@@ -2,7 +2,7 @@
     "map_name": "Cove World",
     "map_path": "map_files/cove_world",
     "map_file": ["cove_world.dmm",
-	"vl_manor.dmm",
+	"cove_vl_manor.dmm",
 	"bandit_fortress.dmm"],
 	"traits": [{"Name": "Cove World", "Up": true}, {"Up": true, "Down": true}, {"Up": true, "Down": true}, {"Down": true},
 	{"Name": "vl_manor", "Up": true}, {"Up": true, "Down": true}, {"Down": true},
