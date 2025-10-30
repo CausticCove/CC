@@ -23,14 +23,13 @@
 	recipient.transform = recipient.transform.Scale(2, 2)
 	recipient.transform = recipient.transform.Translate(0, (0.25 * 35))
 	recipient.update_transform()
-	if(recipient.STASTR <= 14) //IF IT'S STUPID AND IT WORKS,
-		recipient.STASTR = 15
+	if(recipient.STASTR <= 13) //so, we don't use stakeys here bc this actually applies at the end of the class+statpacks, so this is our last time to rounding/bound everything
+		recipient.STASTR = 14
 	if(recipient.STAWIL <= 14)
 		recipient.STAWIL = 15
-	if(recipient.STACON <= 15)
+	if(recipient.STACON <= 14)
 		recipient.STACON = 15
-	recipient.change_stat(STATKEY_SPD, -14) //IT AIN'T STUPID
-	recipient.change_stat(STATKEY_PER, -4) //still an overwhelmingly good stat pack, all this does is make em a bit worse vs swift-based weapons and dodging type dudes (which seems fair)
+	recepient.STASPD = 1 //aka: if it works and it's stupid, it ain't stupid
 
 /datum/sizecat/small
 	name = "Small"
@@ -44,7 +43,8 @@
 	recipient.update_transform()
 	recipient.change_stat(STATKEY_STR, -5)
 	recipient.change_stat(STATKEY_WIL, -2)
-	recipient.change_stat(STATKEY_CON, -5)
+	recipient.STACON, -7
+	recipient.STASPD, -7
 	if(recipient.STASPD <= 5)
 		recepient.STASPD = 5
 	recipient.pass_flags = PASSTABLE | PASSMOB
@@ -64,7 +64,7 @@
 	recipient.change_stat(STATKEY_STR, -10)
 	recipient.change_stat(STATKEY_WIL, -4)
 	recipient.change_stat(STATKEY_CON, -10)
-	recipient.STASPD = 5 //this can actually just be a flat 5, since there's really no way to get +6 spd off spawn besides. like. A Single Class.
+	recepient.STASPD = 1//no negatives please
 	recipient.pass_flags = PASSTABLE | PASSMOB
 	recipient.adjust_skillrank(/datum/skill/misc/sneaking, 2, TRUE)
 	recipient.adjust_skillrank(/datum/skill/misc/stealing, 2, TRUE)
