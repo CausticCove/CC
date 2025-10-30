@@ -23,10 +23,14 @@
 	recipient.transform = recipient.transform.Scale(2, 2)
 	recipient.transform = recipient.transform.Translate(0, (0.25 * 35))
 	recipient.update_transform()
-	recipient.change_stat(STATKEY_STR, 8)
-	recipient.change_stat(STATKEY_WIL, 8)
-	recipient.change_stat(STATKEY_CON, 8)
-	recipient.change_stat(STATKEY_SPD, -14)
+	if(recipient.STASTR <= 14) //IF IT'S STUPID AND IT WORKS,
+		recipient.STASTR = 15
+	if(recipient.STAWIL <= 14)
+		recipient.STAWIL = 15
+	if(recipient.STACON <= 15)
+		recipient.STACON = 15
+	recipient.change_stat(STATKEY_SPD, -14) //IT AIN'T STUPID
+	recipient.change_stat(STATKEY_PER, -4) //still an overwhelmingly good stat pack, all this does is make em a bit worse vs swift-based weapons and dodging type dudes (which seems fair)
 
 /datum/sizecat/small
 	name = "Small"
@@ -41,7 +45,8 @@
 	recipient.change_stat(STATKEY_STR, -5)
 	recipient.change_stat(STATKEY_WIL, -2)
 	recipient.change_stat(STATKEY_CON, -5)
-	recipient.change_stat(STATKEY_SPD, -7)
+	if(recipient.STASPD <= 5)
+		recepient.STASPD = 5
 	recipient.pass_flags = PASSTABLE | PASSMOB
 	recipient.adjust_skillrank(/datum/skill/misc/sneaking, 1, TRUE)
 	recipient.adjust_skillrank(/datum/skill/misc/stealing, 1, TRUE)
@@ -59,7 +64,7 @@
 	recipient.change_stat(STATKEY_STR, -10)
 	recipient.change_stat(STATKEY_WIL, -4)
 	recipient.change_stat(STATKEY_CON, -10)
-	recipient.change_stat(STATKEY_SPD, -14)
+	recipient.STASPD = 5 //this can actually just be a flat 5, since there's really no way to get +6 spd off spawn besides. like. A Single Class.
 	recipient.pass_flags = PASSTABLE | PASSMOB
 	recipient.adjust_skillrank(/datum/skill/misc/sneaking, 2, TRUE)
 	recipient.adjust_skillrank(/datum/skill/misc/stealing, 2, TRUE)
