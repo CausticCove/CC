@@ -266,7 +266,7 @@
 	req_bar = /obj/item/ingot/bronze
 	additional_items = list(/obj/item/roguegear, /obj/item/grown/log/tree/small) //A little cheaper!
 	created_item = /obj/item/gun/ballistic/arquebus_pistol
-	craftdiff = 5
+	craftdiff = 4
 
 /datum/anvil_recipe/engineering/powderbag
 	name = "Powder Flask (+1 Cured Hide, +1 Internal ash, +1 Coal)"
