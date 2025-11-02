@@ -288,6 +288,13 @@
 	created_item = /obj/item/ammo_casing/caseless/rogue/bullet
 	createditem_num = 10
 	craftdiff = 2
+
+/datum/anvil_recipe/engineering/ramrod
+	name = "Firearm Ramrod"
+	req_bar = /obj/item/ingot/iron
+	created_item = /obj/item/ramrod
+	createditem_num = 1
+	craftdiff = 2
 //Caustic edit end
 
 //combat gear
