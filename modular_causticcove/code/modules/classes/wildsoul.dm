@@ -30,6 +30,7 @@
 	display_order = JDO_WILDSOUL 
 	cmode_music = 'modular_causticcove/sound/music/combat_wildsoul.ogg'
 	virtue_restrictions = list(/datum/virtue/utility/noble, /datum/virtue/utility/deathless) //no deathless bc infinite hunger + nat armor is silly
+	virtue_restrictions = list(/datum/virtue/utility/noble) // CC Edit: Removed /datum/virtue/utility/deathless because deathless is entirely removed.
 	job_subclasses = list(
 		/datum/advclass/wildsoul/direbear,
 		/datum/advclass/wildsoul/mantid,

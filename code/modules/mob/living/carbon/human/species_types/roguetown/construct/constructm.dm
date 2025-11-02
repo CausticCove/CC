@@ -167,7 +167,7 @@
 		//Caustic edit end
 	)
 
-	restricted_virtues = list(/datum/virtue/utility/noble, /datum/virtue/utility/deathless)
+	restricted_virtues = list(/datum/virtue/utility/noble) // CC Edit: Removed /datum/virtue/utility/deathless because deathless is entirely removed.
 
 /datum/species/construct/metal/check_roundstart_eligible()
 	return TRUE
