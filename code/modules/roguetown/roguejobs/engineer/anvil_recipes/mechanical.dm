@@ -273,21 +273,21 @@
 	req_bar = /obj/item/ingot/bronze
 	additional_items = list(/obj/item/natural/hide/cured, /obj/item/magic/infernal/ash, /obj/item/rogueore/coal) //Expensive bag to not blow up
 	created_item = /obj/item/powderflask
-	craftdiff = 5
+	craftdiff = 3
 
 /datum/anvil_recipe/engineering/bulletpouch
 	name = "Bullet Pouch (+1 Cured Leather)"
 	req_bar = /obj/item/ingot/iron
 	additional_items = list(/obj/item/natural/hide/cured) //Bag of bullets
 	created_item = /obj/item/quiver/bulletpouch
-	craftdiff = 5
+	craftdiff = 0
 
 /datum/anvil_recipe/engineering/leadbullets
 	name = "Firearm Bullets (x10)"
 	req_bar = /obj/item/ingot/iron
 	created_item = /obj/item/ammo_casing/caseless/rogue/bullet
 	createditem_num = 10
-	craftdiff = 5
+	craftdiff = 2
 //Caustic edit end
 
 //combat gear
