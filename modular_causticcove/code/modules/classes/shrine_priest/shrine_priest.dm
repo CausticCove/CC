@@ -1,19 +1,19 @@
 /datum/advclass/mercenary/shrine_priest
 	name = "Shrine Priest"
-	tutorial = "Your a priest or Priestess from the eastern lands of Kazengun. Trained in the arts of hunting unnatural or supernatural creatures that interrupt the balance of nature. Using your blade for the sake of others along with the miracles and rituals at your disposal to heal others or burn your foes in holy flame."
+	tutorial = "Your a Shrine Priest someone trained in the mystical arts of Kazegun not a farmer or commonfolk, the rituals you preform to comune with spirits or lay them to rest. Weither it be through prayer, or a dance of miracles and blade. For one reason or another you have left Kazegun wether to pursue a better life, coin or just seeking a fresh start."
 	allowed_sexes = list(MALE, FEMALE)
 	allowed_races = NON_DWARVEN_RACE_TYPES //no dwarf sprites
 	outfit = /datum/outfit/job/roguetown/mercenary/shrine_priest
 	subclass_languages = list(/datum/language/kazengunese)
 	class_select_category = CLASS_CAT_KAZENGUN
 	category_tags = list(CTAG_MERCENARY)
-	traits_applied = list(TRAIT_STEELHEARTED, TRAIT_CRITICAL_RESISTANCE)
+	traits_applied = list(TRAIT_STEELHEARTED, TRAIT_CRITICAL_RESISTANCE, TRAIT_RITUALIST)
 	cmode_music = 'sound/music/combat_kazengite.ogg'
 	subclass_stats = list(
-		STATKEY_INT = 2,
-		STATKEY_WIL = 1,
-		STATKEY_STR = 1,
-		STATKEY_CON = 1
+		STATKEY_CON = 2
+		STATKEY_WIL = 2
+		STATKEY_FOR = 2
+		STATKEY_STR = -1
 	)
 	subclass_skills = list(
 		/datum/skill/magic/holy = SKILL_LEVEL_APPRENTICE,
@@ -30,23 +30,25 @@
 
 /datum/outfit/job/roguetown/mercenary/shrine_priest/pre_equip(mob/living/carbon/human/H)
 	..()
-	to_chat(H, span_warning("Your a priest or Priestess from the eastern lands of Kazengun. Trained in the arts of hunting unnatural or supernatural creatures that interrupt the balance of nature. Using your blade for the sake of others along with the miracles and rituals at your disposal to heal others or burn your foes in holy flame."))
+	to_chat(H, span_warning("Your a Shrine Priest someone trained in the mystical arts of Kazegun not a farmer or commonfolk, the rituals you preform to comune with spirits or lay them to rest. Weither it be through prayer, or a dance of miracles and blade. For one reason or another you have left Kazegun wether to pursue a better life, coin or just seeking a fresh start."))
 	var/datum/devotion/C = new /datum/devotion(H, H.patron)
 	C.grant_miracles(H, cleric_tier = CLERIC_T2, passive_gain = CLERIC_REGEN_WEAK, devotion_limit = CLERIC_REQ_2)
 	head = /obj/item/clothing/head/roguetown/mentorhat
+	cloak = /obj/item/clothing/cloak/kazengun
 	gloves = /obj/item/clothing/gloves/roguetown/eastgloves1
 	pants = /obj/item/clothing/under/roguetown/heavy_leather_pants/eastpants2
 	shirt = /obj/item/clothing/suit/roguetown/shirt/undershirt/eastshirt2
 	shoes = /datum/supply_pack/rogue/wardrobe/shoes/sandals
-	neck = /obj/item/storage/belt/rogue/pouch/coins/poor
-	gloves = /obj/item/clothing/neck/roguetown/psicross/astrata
+	neck = /obj/item/clothing/neck/roguetown/psicross/astrata
+	gloves = /obj/item/clothing/gloves/roguetown/plate/kote
 	belt = /obj/item/storage/belt/rogue/leather/knifebelt/black/kazengun
 	backl = /obj/item/storage/backpack/rogue/satchel
 	backpack_contents = list(
 		/obj/item/flashlight/flare/torch/lantern,
 		/obj/item/needle,
 		/obj/item/reagent_containers/glass/bottle/rogue/healthpot,
-		/obj/item/roguekey/mercenary
+		/obj/item/roguekey/mercenary,
+		/obj/item/ritechalk
 		)
 	H.set_blindness(0)
 	beltl = /obj/item/rogueweapon/sword/sabre/mulyeog
