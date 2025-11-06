@@ -10,9 +10,9 @@
 	traits_applied = list(TRAIT_STEELHEARTED, TRAIT_CRITICAL_RESISTANCE, TRAIT_RITUALIST)
 	cmode_music = 'sound/music/combat_kazengite.ogg'
 	subclass_stats = list(
-		STATKEY_CON = 2
-		STATKEY_WIL = 2
-		STATKEY_FOR = 2
+		STATKEY_CON = 2,
+		STATKEY_WIL = 2,
+		STATKEY_FOR = 2,
 		STATKEY_STR = -1
 	)
 	subclass_skills = list(
