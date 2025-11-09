@@ -48,7 +48,7 @@
 		/obj/item/reagent_containers/glass/bottle/rogue/healthpot,
 		/obj/item/roguekey/mercenary
 		)
-	var/weapons = list("Lucerne + Shortbow","Quarterstaff + Recurve Bow")
+	var/weapons = list("Eagle's Beak + Shortbow","Naginata + Recurve Bow")
 	if(H.mind)
 		var/weapon_choice = input(H, "Choose your weapons.", "TAKE UP ARMS") as anything in weapons
 		H.set_blindness(0)
