@@ -79,7 +79,7 @@
 /datum/advclass/wildsoul/mantid
 	name = "Soul of the Mantid"
 	tutorial = "To fight head on never was your style. You prefer the subtle options; to be hidden, quiet, and strike at the opportune moment. But be wary, as that lack of brute strength and thick armor means you can't cut yourself out of an aspiring hunter's net so easily."
-	traits_applied = list(TRAIT_FERAL, TRAIT_WOODWALKER, TRAIT_DODGEEXPERT, TRAIT_PERFECT_TRACKER, TRAIT_LIGHT_STEP) // Lets try keeping the tanky traits on direbear instead. Sneaky hunter-like archetype- Should shine best in that lane.
+	traits_applied = list(TRAIT_FERAL, TRAIT_WOODWALKER, TRAIT_DODGEEXPERT, TRAIT_PERFECT_TRACKER, TRAIT_LIGHT_STEP, TRAIT_NATURAL_ARMOR) // Lets try keeping the tanky traits on direbear instead. Sneaky hunter-like archetype- Should shine best in that lane.
 	category_tags = list(CTAG_WILDSOUL)
 	subclass_stats = list(
 		STATKEY_STR = -2, // 9 stats weighted, with a focus on speed and perception for knives and bows.
@@ -114,6 +114,7 @@
 	suit = /obj/item/clothing/suit/roguetown/shirt/rags
 	belt = /obj/item/storage/belt/rogue/leather/rope
 	beltl = /obj/item/rogueweapon/huntingknife
+	H.skin_armor = new /obj/item/clothing/suit/roguetown/armor/skin_armor/natural_armor(H)
 	give_feral_eyes(H)
 
 /datum/advclass/wildsoul/lampternfly
