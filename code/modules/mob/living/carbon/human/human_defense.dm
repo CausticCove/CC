@@ -72,9 +72,9 @@
 					if(d_type in C.prevent_crits)
 						return TRUE
 				else if(skin_armor && skin_armor.obj_integrity >= 1)
-						var/obj/item/clothing/C = skin_armor
-						if(d_type in C.prevent_crits)
-							return TRUE
+					var/obj/item/clothing/C = skin_armor
+					if(d_type in C.prevent_crits)
+						return TRUE
 
 /*
 /mob/proc/checkwornweight()
