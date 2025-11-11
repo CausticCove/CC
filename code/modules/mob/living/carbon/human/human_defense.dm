@@ -65,14 +65,15 @@
 	for(var/bp in body_parts)
 		if(!bp)
 			continue
+		if(skin_armor && skin_armor.obj_integrity >= 1)
+			var/obj/item/clothing/C = skin_armor
+			C = skin_armor
+			if(d_type in C.prevent_crits)
+				return TRUE
 		if(bp && istype(bp , /obj/item/clothing))
 			var/obj/item/clothing/C = bp
 			if(zone2covered(def_zone, C.body_parts_covered_dynamic))
 				if(C.obj_integrity >= 1)
-					if(d_type in C.prevent_crits)
-						return TRUE
-				else if(skin_armor && skin_armor.obj_integrity >= 1)
-					C = skin_armor
 					if(d_type in C.prevent_crits)
 						return TRUE
 
@@ -777,14 +778,19 @@
 
 /// Helper proc that returns the worn item ref that has the highest rating covering the def_zone (targeted zone) for the d_type (damage type)
 /mob/living/carbon/human/proc/get_best_worn_armor(def_zone, d_type)
-	var/protection = 0
 	var/obj/item/clothing/used
 	if(def_zone == BODY_ZONE_TAUR)
 		def_zone = pick(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
-	var/list/body_parts = list(skin_armor, head, wear_mask, wear_wrists, gloves, wear_neck, cloak, wear_armor, wear_shirt, shoes, wear_pants, backr, backl, belt, s_store, glasses, ears, wear_ring) //Everything but pockets. Pockets are l_store and r_store. (if pockets were allowed, putting something armored, gloves or hats for example, would double up on the armor)
+	var/list/body_parts = list(head, wear_mask, wear_wrists, gloves, wear_neck, cloak, wear_armor, wear_shirt, shoes, wear_pants, backr, backl, belt, s_store, glasses, ears, wear_ring) //Everything but pockets. Pockets are l_store and r_store. (if pockets were allowed, putting something armored, gloves or hats for example, would double up on the armor)
 	for(var/bp in body_parts)
 		if(!bp)
 			continue
+		if(skin_armor) //Checks for the natural_armor first.
+			if(skin_armor.obj_integrity > 0)
+				var/obj/item/clothing/C = skin_armor
+				var/val = C.armor.getRating(d_type)
+				if(val > 0)
+					used = C
 		if(bp && istype(bp, /obj/item/clothing))
 			var/obj/item/clothing/C = bp
 			if(zone2covered(def_zone, C.body_parts_covered_dynamic))
@@ -793,15 +799,7 @@
 						continue
 				var/val = C.armor.getRating(d_type)
 				if(val > 0)
-					if(val > protection)
-						protection = val
-						used = C
-		if(!used)
-			if(skin_armor && skin_armor.obj_integrity > 0) //Checks for the natural armor last, since it's considered the "skin" of the target.
-				var/obj/item/clothing/C = skin_armor
-				var/val = C.armor.getRating(d_type)
-				protection = val
-				used = C
+					used = C
 	return used
 
 /mob/living/carbon/human/on_fire_stack(seconds_per_tick, datum/status_effect/fire_handler/fire_stacks/fire_handler)
