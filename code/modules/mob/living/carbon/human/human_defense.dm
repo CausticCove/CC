@@ -68,13 +68,13 @@
 		if(bp && istype(bp , /obj/item/clothing))
 			var/obj/item/clothing/C = bp
 			if(zone2covered(def_zone, C.body_parts_covered_dynamic))
-				if(C.obj_integrity > 1)
+				if(C.obj_integrity >= 1)
 					if(d_type in C.prevent_crits)
-				else if(skin_armor && skin_armor.obj_integrity > 1)
+						return TRUE
+				else if(skin_armor && skin_armor.obj_integrity >= 1)
 						var/obj/item/clothing/C = skin_armor
 						if(d_type in C.prevent_crits)
 							return TRUE
-						return TRUE
 
 /*
 /mob/proc/checkwornweight()
@@ -796,12 +796,12 @@
 					if(val > protection)
 						protection = val
 						used = C
-	if(!used)
-		if(skin_armor && skin_armor.obj_integrity > 0) //Checks for the natural armor last, since it's considered the "skin" of the target.
-			var/obj/item/clothing/C = skin_armor
-			var/val = C.armor.getRating(d_type)
-			protection = val
-			used = C
+		if(!used)
+			if(skin_armor && skin_armor.obj_integrity > 0) //Checks for the natural armor last, since it's considered the "skin" of the target.
+				var/obj/item/clothing/C = skin_armor
+				var/val = C.armor.getRating(d_type)
+				protection = val
+				used = C
 	return used
 
 /mob/living/carbon/human/on_fire_stack(seconds_per_tick, datum/status_effect/fire_handler/fire_stacks/fire_handler)
