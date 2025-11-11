@@ -1,6 +1,6 @@
 /datum/virtue/combat/natarmor
 	name = "Natural Armor"
-	desc = "My hide is thick and resilient, enhancing my natural defense whilst making making armor meerly vanity on my body. \
+	desc = "My hide is thick and resilient, enhancing my natural defense whilst making armor meerly vanity on my body. \
 	\n It will regenerate so long as I keep it fed... "
 	added_traits = list()
 	custom_text = "Provides you with a special, regenerative armor piece that is capable of regenerating at the cost of your hunger that covers your entire body. \
