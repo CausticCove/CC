@@ -114,6 +114,8 @@
 	suit = /obj/item/clothing/suit/roguetown/shirt/rags
 	belt = /obj/item/storage/belt/rogue/leather/rope
 	beltl = /obj/item/rogueweapon/huntingknife
+	beltr = /obj/item/quiver/arrows
+	backl = /obj/item/gun/ballistic/revolver/grenadelauncher/bow/recurve
 	H.skin_armor = new /obj/item/clothing/suit/roguetown/armor/skin_armor/natural_armor(H)
 	give_feral_eyes(H)
 
