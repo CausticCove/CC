@@ -85,7 +85,13 @@
 				target.playsound_local(src, 'sound/misc/astratascream.ogg', 100, 1)
 			if(null)
 				target.playsound_local(src, pick('modular_azurepeak/sound/mobs/abyssal/abyssal_attack.ogg','modular_azurepeak/sound/mobs/abyssal/abyssal_attack2.ogg'), 100, 1)
-
+	var/next_turf = get_step(src, get_dir(src, target))
+	for(var/obj/effect/hallucination/danger/fake_ambush/O in next_turf)
+		//You can't walk here partner... Try another way!
+		dir = pick(ALL_CARDINALS)
+		step(src, dir)
+		return
+		
 	face_atom(target) //Face the hallucinatee.
 	show_icon() //Update dir post-facing...
 	step(src, src.dir) //Step...
