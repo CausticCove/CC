@@ -24,6 +24,7 @@ GLOBAL_LIST_INIT(character_flaws, list(
 	"Critical Weakness"=/datum/charflaw/critweakness,
 	//Caustic edit
 	"Bottomless"=/datum/charflaw/bottomless,
+	"Asundered Mind"=/datum/charflaw/mind_broken,
 	//Caustic edit end
 	"Hunted"=/datum/charflaw/hunted,
 	"Random or No Flaw"=/datum/charflaw/randflaw,
@@ -480,13 +481,3 @@ GLOBAL_LIST_INIT(character_flaws, list(
 
 /datum/charflaw/critweakness/on_mob_creation(mob/user)
 	ADD_TRAIT(user, TRAIT_CRITICAL_WEAKNESS, TRAIT_GENERIC)
-
-/datum/charflaw/mind_broken
-	name = "Asundered Mind"
-	desc = "My mind is asundered, wether it was by own means or an unfortunate accident. Nothing seems real to me... \
-	\nWARNING: HALLUCINATIONS MAY JUMPSCARE YOU, PREVENT YOU FROM TELLING APART REALITY AND IMAGINATION. \
-	FURTHERMORE, THIS DOES NOT EXEMPT YOU FROM ANY RULES SET BY THE SERVER."
-
-/datum/charflaw/mind_broken/on_mob_creation(mob/user)
-	var/mob/living/carbon/human/insane_fool = user
-	insane_fool.hallucination = INFINITY

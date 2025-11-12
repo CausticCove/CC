@@ -11,7 +11,7 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 	//Special Hallucinations. Rare.
 	/datum/hallucination/fake_alert = 12,
 	/datum/hallucination/husks = 7,
-	/datum/hallucination/fake_ambush = 3,
+	/datum/hallucination/fake_ambush = 1000000,
 	/datum/hallucination/fire = 3,
 	/datum/hallucination/delusion = 2,
 	/datum/hallucination/self_delusion = 2,
@@ -492,7 +492,7 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 	..()
 	var/turf/source = random_far_turf()
 	if(!sound_type)
-		sound_type = pick("door","door hit","creepy","magic","far explosion","mech","glass","alarm","lockpick","skele","door pick")
+		sound_type = pick("door","door hit","creepy","magic","far explosion","mech","glass","alarm","lockpick","skele","door pick", "bwoinked")
 	feedback_details += "Type: [sound_type]"
 	//Strange audio
 	switch(sound_type)
@@ -529,6 +529,10 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 			target.playsound_local(source, 'sound/items/pickbad.ogg', 100, 1)
 			sleep(rand(40,80))
 			target.playsound_local(source, 'sound/items/pickgood2.ogg', 100, 1)
+		//Scaring the player, not the character...
+		if("bwoinked")
+			target.playsound_local(source, 'sound/adminhelp.ogg', 75, 1)
+			to_chat(target, span_admin("Huh?"))
 	qdel(src)
 
 /datum/hallucination/weird_sounds
@@ -536,7 +540,6 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 /datum/hallucination/weird_sounds/New(mob/living/carbon/C, forced = TRUE, sound_type)
 	set waitfor = FALSE
 	..()
-	var/turf/source = random_far_turf()
 	if(!sound_type)
 		sound_type = pick("bleed","whispers","whispers2","zizo","evil","creepy")
 	feedback_details += "Type: [sound_type]"
@@ -577,7 +580,7 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 	set waitfor = FALSE
 	..()
 	if(!message)
-		message = pick("heretic","outlaw","duke dead","priest dead","lich","ww")
+		message = pick("heretic","outlaw","duke dead","priest dead","lich","ww","weird")
 	feedback_details += "Type: [message]"
 	switch(message)
 		if("heretic")
@@ -606,6 +609,10 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 			to_chat(target, "<br><br><span class='alert'>AWOOOOOOOOOO!!! RRrrrRRrRRRRRrrrRRR RRrrrRRRrrrRRRRRrr [target.first_name()] RRrrRRRRRRRRRrrrRRR</span><br><br>")
 			SEND_SOUND(target, 'sound/misc/royal_decree.ogg')
 			SEND_SOUND(target, 'sound/vo/mobs/wwolf/howldist (1).ogg')
+		if("weird")
+			to_chat(target, "<h1 class='alert'>[target.client.key]?</h1>")
+			to_chat(target, "<br><br><span class='alert'>Are you sure you want to do this?</span><br><br>")
+			SEND_SOUND(target, 'sound/misc/excomm.ogg')
 
 /datum/hallucination/fake_alert
 
@@ -734,11 +741,16 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 
 /obj/effect/hallucination/danger/anomaly/Initialize()
 	. = ..()
+	//When examining, scare others around you...
+	name = pick("wall..", "floor..", "ground..", "others..", "... the what?..", "man..", "woman..", "..")
 	START_PROCESSING(SSobj, src)
 
 /obj/effect/hallucination/danger/anomaly/process()
-	if(prob(70))
+	//~35% or so chance to move slowly towards you.
+	if(prob(25))
 		step(src,pick(GLOB.alldirs))
+	else if(prob(50))
+		step(src,get_dir(target, src))
 
 /obj/effect/hallucination/danger/anomaly/Destroy()
 	STOP_PROCESSING(SSobj, src)
@@ -752,6 +764,9 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 /obj/effect/hallucination/danger/anomaly/Crossed(atom/movable/AM)
 	if(AM == target)
 		new /datum/hallucination/shock(target)
+		new /datum/hallucination/voices(target)
+		new /datum/hallucination/voices(target)
+		new /datum/hallucination/voices(target)
 
 /datum/hallucination/death
 
@@ -960,7 +975,10 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 		"Do you miss her?",
 		"Do you miss them?",
 		"Do you miss it?",
-		"You're not real..."
+		"You're not real...",
+		"They all whisper your name, and for what..?",
+		"You realize you don't know what's real... Right?",
+		"BWOINK!!!"
 	
 	)
 
@@ -1001,5 +1019,3 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 				carbon.emote("tremble") //This one really got to you.
 
 	qdel(src)
-
-/datum/hallucination/fake_ambush/New(mob/living/carbon/carbon, forced = TRUE)

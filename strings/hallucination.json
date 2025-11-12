@@ -5,7 +5,11 @@
 		"@pick(add_name)I'm watching you...",
 		"@pick(add_name)I know what you're doing",
 		"@pick(add_name)what are you hiding?",
-		"I saw that"
+		"I saw that",
+		"@pick(add_name), what are you doing?",
+		"You know I saw that, right?",
+		"Uhh. Weird... But Okay.",
+		"Did you really do that in front of me..?"
 	],
 
 	"conversation": [
@@ -16,15 +20,18 @@
 		"No",
 		"Nah",
 		"I doubt it",
-		"Uh...",
+		"Uh..?",
 		"Why?",
-		"But...",
+		"But..?",
 		"Hold on",
 		"Hmm",
 		"Yeah, I know",
 		"Peculiar",
 		"Yeah, I know",
-		"Peculiar"
+		"Peculiar",
+		"Err...",
+		"I don't know",
+		"No, I don't know"
 	],
 
 	"greetings": [
@@ -33,7 +40,15 @@
 		"Hi ",
 		"Hello ",
 		"Wait, ",
-		"It's "
+		"It's ",
+		"Hai ",
+		"Hey! ",
+		"Greetings, ",
+		"Hey? ",
+		"Hello there, ",
+		"Ah hello, ",
+		"Hekko ",
+		"Hu "
 	],
 
 	"getout": [
@@ -42,7 +57,15 @@
 		"@pick(add_name)go away",
 		"@pick(add_name)fuck off",
 		"OUT!",
-		"@pick(add_name)out!"
+		"@pick(add_name)out!",
+		"FUCK OFF!",
+		"Can I get some alone time?",
+		"Can you not be here right now?",
+		"Leave me alone",
+		"I'M BUSY!",
+		"LEABE ME ALONE!",
+		"Can you PL:EASE go away/",
+		"Stop that. Leave."
 	],
 
 	"weird": [
@@ -52,13 +75,26 @@
 		"khhhhh",
 		"#@§*&£",
 		"H**p m*",
-		"H-hhhhh..."
+		"H-hhhhh...",
+		"Zeezo...",
+		"Hhhhhmmmnmnn",
+		"67... HAHAHHAHAHAHHA",
+		"21... AHHAHAHHAHAHHA",
+		"Rogue... Town...",
+		"Liam... Liam...?",
+		"I EAT SHIT I EAT SHIT I EAT SHIT"
 	],
 
 	"didyouhearthat": [
 		"Did you hear that?",
 		"Did you see that?",
-		"What was that?"
+		"What was that?",
+		"What the hell was that?",
+		"Over there, did you see that?",
+		"Hey, @pick(add_name) did you see that?",
+		"I think I saw something",
+		"What whas tht?",
+		"Is that a ndeaddite?"
 	],
 
 	"add_name": [
@@ -73,7 +109,11 @@
 		"Wait, what?",
 		"@pick(add_name)wait",
 		"@pick(add_name)hold on",
-		"Uh..."
+		"Uh...",
+		"Excuse me?",
+		"Can you repeat that?",
+		"What do you mean?",
+		"You... don't mean that right?"
 	],
 
 	"aggressive": [
@@ -81,7 +121,16 @@
 		"@pick(add_name)stop it!",
 		"@pick(add_name)I'm going to kill you!",
 		"@pick(add_name)I'm going to kill you!",
-		"@pick(add_name)fuck you!"
+		"@pick(add_name)fuck you!",
+		"FIGHT ME!!!",
+		"I'LL FUCKING KILL YOU!",
+		"I DONT CARE FIGHT ME OR DIE!!!",
+		"I'LL FUCKING BLEED YOU!!!",
+		"DIE!! DIEEE!!",
+		"DRAW YOUR WEAPON!!!",
+		"PREPARE TO FIGHT ME FUCKER!!!",
+		"FUCKINJG FUHGT ME!!",
+		"JFUCK YOU~!!!"
 	],
 
 	"help": [
@@ -95,7 +144,10 @@
 		"HELP HER",
 		"HELP THEM",
 		"HELP US",
-		"HELP YOURSELF"
+		"HELP YOURSELF",
+		"HEELLKPPO MEEE",
+		"I NENE DHELP!!",
+		"IMMDIYNG HEL:!P"
 	],
 
 	"escape": [
@@ -103,7 +155,12 @@
 		"They're behind me!",
 		"It's here!",
 		"@pick(add_name)follow me!",
-		"@pick(add_name)follow me"
+		"@pick(add_name)follow me",
+		"We need to go NOW!",
+		"Fuck, Bandits, run!!",
+		"SHit there's bandits we ned to go!",
+		"Fuck there's a vamp we need to go!",
+		"There's a werewolf we need to go!"
 	],
 
 	"infection_advice": [
@@ -111,7 +168,11 @@
 		"@pick(add_name)don't get close",
 		"@pick(add_name)be careful",
 		"@pick(add_name)help me",
-		"@pick(add_name)kill me"
+		"@pick(add_name)kill me",
+		"@pick(add_name)tie me up",
+		"chain me please",
+		"decap me please",
+		"bury me please"
 	],
 
 	"people": [
@@ -125,6 +186,13 @@
 		"Duke",
 		"innkeeper",
 		"priest",
+		"mercenary",
+		"churchling",
+		"random towner",
+		"adventurer",
+		"wanderer",
+		"vagabond",
+		"bandit",
 		"%TARGETNAME%"
 	],
 
@@ -224,7 +292,10 @@
 		"You should go somewhere else. Quickly.",
 		"Good luck. You'll need it.",
 		"You have my permission. Do it.",
-		"Just do it."
+		"Just do it.",
+		"Have you ever tried to just do it?",
+		"Do it already, come on...",
+		"You know I'm letting you, right?"
 	],
 
 	"chemicals": [
