@@ -22,7 +22,7 @@
 	//job_reopens_slots_on_death = TRUE
 	//if new players take wild soul slots and die we can just uncomment this
 	selection_color = JCOLOR_YEOMAN
-	job_traits = list(TRAIT_OUTDOORSMAN, TRAIT_WILD_EATER, TRAIT_AZURENATIVE, TRAIT_SURVIVAL_EXPERT) // So they can sleep in trees, eat raw meat, avoid ambushes, and do basic wilderness survival things base
+	job_traits = list(TRAIT_OUTDOORSMAN, TRAIT_WILD_EATER, TRAIT_AZURENATIVE, TRAIT_SURVIVAL_EXPERT, TRAIT_LONGSTRIDER) // So they can sleep in trees, eat raw meat, avoid ambushes, and do basic wilderness survival things base. Also longstrider, since theyre supposed to be wildman. Makes sense that they'd have no turf slowdown, like wardens do, in the woods.
 	//Other traits like FERAL, WOODWALKER, CIVILIZEDBARBARIAN, SEEDKNOW, and STRONGBITE to be applied to subclasses
 
 	round_contrib_points = 1 //just in case we start using PQ at some point, equal to mercenary
