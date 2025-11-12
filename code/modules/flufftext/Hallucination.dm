@@ -11,10 +11,10 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 	//Special Hallucinations. Rare.
 	/datum/hallucination/fake_alert = 12,
 	/datum/hallucination/husks = 7,
-	/datum/hallucination/fake_ambush = 1000000,
 	/datum/hallucination/fire = 3,
 	/datum/hallucination/delusion = 2,
 	/datum/hallucination/self_delusion = 2,
+	/datum/hallucination/fake_ambush = 1,
 	/datum/hallucination/townannouncement = 1,
 	/datum/hallucination/shock = 1,
 	/datum/hallucination/death = 1

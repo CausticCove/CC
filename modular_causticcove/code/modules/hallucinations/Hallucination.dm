@@ -1,7 +1,7 @@
 //Imagine seeing a bunch of wolves and/or goblins or/skeletons charging at you all of a sudden and you start swinging wildly
 //People would be hella scared and startled by that and ask you MANY questions...
 /obj/effect/hallucination/danger/fake_ambush
-	name = "something!?.."
+	name = "unknown!?.."
 	desc = "OH SHIT OH SHIT OH SHIT OH SHIT OH SHIT OH SHIT OH FUCK OH FUCK OH FUCK OH FUCK OH FUCK"
 	obj_integrity = 1
 	max_integrity = 1
@@ -59,11 +59,16 @@
 		target.emote("painscream")
 		to_chat(target, span_boldred("THEY GOT ME!!!"))
 		target.playsound_local(target, 'sound/misc/stolen.ogg', 66)
+		target.overlay_fullscreen("painflash", /atom/movable/screen/fullscreen/painflash) //Fake pain...
+		target.overlay_fullscreen("brute", /atom/movable/screen/fullscreen/brute, 5) //Fake pain... boogaloo...
 		for(var/obj/effect/hallucination/danger/fake_ambush/A in range(10, target))
 			if(A.target == target)//Make sure we're actually qdel'ing our hallucinations and not others...
 				qdel(A)
 		qdel(src)
+		sleep(20)
 		to_chat(target, span_bold("Wait... What!?"))
+		target.clear_fullscreen("brute") //Was it real..?
+		target.clear_fullscreen("painflash") //Was it real..?
 	
 	if(prob(15))
 		switch(chosen_mob)
