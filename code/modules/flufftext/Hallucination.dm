@@ -1,7 +1,7 @@
 #define HAL_LINES_FILE "hallucination.json"
 GLOBAL_LIST_INIT(hallucination_list, list(
 	//Conversation hallucinations. Most common.
-	/datum/hallucination/chat = 100000,
+	/datum/hallucination/chat = 100,
 	/datum/hallucination/message = 60,
 	/datum/hallucination/voices = 50,
 	//Sound hallucinations. Uncommon.
