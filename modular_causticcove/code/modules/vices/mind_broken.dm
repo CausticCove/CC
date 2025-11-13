@@ -7,3 +7,4 @@
 /datum/charflaw/mind_broken/on_mob_creation(mob/user)
 	var/mob/living/carbon/human/insane_fool = user
 	insane_fool.hallucination = INFINITY
+	ADD_TRAIT(user, TRAIT_PSYCHOSIS, TRAIT_GENERIC) //Fancy audio effects...
