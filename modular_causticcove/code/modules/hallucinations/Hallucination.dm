@@ -154,11 +154,27 @@
 			given_loc = pick(loc_list)
 			new /obj/effect/hallucination/danger/fake_ambush(given_loc, target, chosen_mob)
 		target.playsound_local(src, pick('sound/misc/jumpscare (1).ogg','sound/misc/jumpscare (2).ogg','sound/misc/jumpscare (3).ogg','sound/misc/jumpscare (4).ogg','sound/misc/jumphumans (1).ogg','sound/misc/jumphumans (2).ogg','sound/misc/jumphumans (3).ogg'), 100)
-	sleep(100) //Garuntee jumpscare sound plays...
-	qdel(src)
+	QDEL_IN(src, 50) //Garuntee jumpscare sound plays...
 
 /datum/hallucination/door_knock/New(mob/living/carbon/carbon, forced = TRUE)
 	set waitfor = FALSE
 	..()
+	var/list/possible_doors = list()
+	var/list/chosen_door = list()
+	for(var/obj/structure/mineral_door/D in view(7, target))
+		if(D.door_opened)
+			continue
+		possible_doors += D
+	
+	chosen_door = pick(possible_doors)
+	if(chosen_door)
+		target.playsound_local(chosen_door, 'sound/foley/doors/knocking.ogg', 100, 1)
+	else if(!chosen_door)
+		if(prob(50)) //Scare the player if we can't find an in-game door. May need to be tuned louder...
+			target.playsound_local(target, 'modular_causticcove/sound/hallucinations/fake_knock_L.ogg', 100, 1)
+		else
+			target.playsound_local(target, 'modular_causticcove/sound/hallucinations/fake_knock_R.ogg', 100, 1)
 
-	for()
+	QDEL_IN(src, 30) //Garuntee knocking sound plays...
+
+

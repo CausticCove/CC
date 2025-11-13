@@ -447,8 +447,7 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 				to_chat(target, message)
 				target.create_chat_message(person, understood_language, chosen, spans, 0)
 				target.playsound_local(person, 'sound/misc/talk.ogg', 100, FALSE, -1)
-	sleep(5) //Garuntee talk sound plays...
-	qdel(src)
+	QDEL_IN(src, 5) //Garuntee talk sound plays...
 
 /datum/hallucination/message
 
@@ -557,7 +556,7 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 			sleep(rand(5,8))
 			target.playsound_local(source, 'sound/foley/bodyfall (2).ogg', 100, 1)
 
-	qdel(src)
+	QDEL_IN(src, 20) //Garuntee sounds finish.
 
 /datum/hallucination/weird_sounds
 
@@ -592,7 +591,7 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 			target.playsound_local(target, 'sound/adminhelp.ogg', 75, 1)
 			to_chat(target, span_admin("Huh?"))
 
-	qdel(src)
+	QDEL_IN(src, 20) //Garuntee sounds finish.
 
 /datum/hallucination/townannouncement
 
@@ -957,64 +956,6 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 			QDEL_NULL(target.halbody)
 	qdel(src)
 
-/datum/hallucination/voices
-	var/static/list/messages = list(
-		"YOUR FATE IS SEALED IN BLOOD AND ASHES!",
-		"SHE CALLS YOUR NAME, FOOL!",
-		"THE GODS SPIT ON YOUR WORTHLESS SOUL!",
-		"YOUR HEART BEATS FOR THEIR ASCENSION!",
-		"CLAWS TEAR AT YOUR MIND FROM WITHIN!",
-		"NO ONE WILL MOURN YOUR BROKEN CORPSE!",
-		"THEIR EYES WATCH FROM EVERY WOUND!",
-		"THE SWAMP WILL SWALLOW YOUR HOPE!",
-		"PAIN IS YOUR ONLY TRUE COMPANION!",
-		"THE CHAINS OF FATE BIND YOUR BONES!",
-		"THEY LAUGH AS YOUR MIND CRUMBLES!",
-		"THE STARS MOCK YOUR FUTILE STRUGGLE!",
-		"THE GROUND WEEPS BLOOD WHERE YOU TREAD!",
-		"THEIR WHISPERS CARVE YOUR FLESH TO DUST!",
-		"THE BEASTS SMELL YOUR FEAR AND HUNGER!",
-		"YOUR VEINS PULSE WITH THEIR MALICE!",
-		"DEATH IS TOO MERCIFUL FOR YOUR SINS!",
-		"THE BOG CLAIMS YOUR HOPELESS BONES!",
-		"THE GODS HAVE MARKED YOU FOR TORMENT!",
-		"YOUR CRIES ECHO IN AN EMPTY ABYSS!",
-		"THE SHADOWS BIND YOUR WRETCHED FATE!",
-		"YOUR MIND IS A PRISON OF THEIR DESIGN!",
-		"THE FLAMES OF YOUR GUILT CONSUME YOU!",
-		"YOUR HEART IS A TROPHY FOR HER GLORY!",
-		"THE STORM SINGS OF YOUR DOOMED PATH!",
-		"THEIR CLAWS SCRATCH YOUR NAME IN STONE!",
-		"YOUR BREATH FEEDS HIS ENDLESS HUNGER!",
-		"THE GODS LAUGH AT YOUR BROKEN DREAMS!",
-		"YOUR SHADOW BETRAYS YOU TO THE DARK!",
-		"THE SWAMP WHISPERS YOUR FINAL MOMENTS!",
-		"YOUR FLESH IS A CANVAS FOR HIS WRATH!",
-		//Now for the more tricky voices...
-		"Hey, over here.",
-		"You wanna come help me?",
-		"I really wish they didn't do that...",
-		"What?",
-		"Who? Where? You?",
-		"Are you okay?",
-		"What do you think this is?",
-		"LOOK OUT!!!",
-		"BEHIND YOU!!!",
-		"DEADDITE!!!",
-		"ZIZO!!! ZIZO!!! ZIZO!!!",
-		"You don't hate me... Right?",
-		"We're friends... Right?",
-		"Do you miss him?",
-		"Do you miss her?",
-		"Do you miss them?",
-		"Do you miss it?",
-		"You're not real...",
-		"They all whisper your name, and for what..?",
-		"You realize you don't know what's real... Right?",
-		"BWOINK!!!"
-	
-	)
-
 /datum/hallucination/voices/New(mob/living/carbon/carbon, forced = TRUE)
 	set waitfor = FALSE
 	..()
@@ -1031,7 +972,7 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 		return
 
 	var/lang = carbon.get_default_language()
-	var/picked_message = pick(messages)
+	var/picked_message = pick_list(HAL_LINES_FILE, "voices")
 	var/composed = obj.compose_message(obj, carbon.get_default_language(), picked_message)
 
 	carbon.Hear(composed, obj, lang, picked_message)
