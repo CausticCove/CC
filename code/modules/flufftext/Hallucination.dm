@@ -6,11 +6,11 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 	/datum/hallucination/voices = 40,
 	//Sound hallucinations. Uncommon. Max 35, Min 20
 	/datum/hallucination/sounds = 35,
-	/datum/hallucination/battle = 25,
+	/datum/hallucination/battle = 20,
 	/datum/hallucination/weird_sounds = 20,
+	/datum/hallucination/door_knock = 20,
 	//Special Hallucinations with unique conditions/events. Rare. Max 10, Min 1.
 	/datum/hallucination/fake_alert = 10,
-	/datum/hallucination/door_knock = 10,
 	/datum/hallucination/husks = 10,
 	/datum/hallucination/fire = 5,
 	/datum/hallucination/self_delusion = 5,
@@ -446,7 +446,7 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 				sleep(rand(8,15))
 				to_chat(target, message)
 				target.create_chat_message(person, understood_language, chosen, spans, 0)
-				target.playsound_local(person, 'sound/misc/talk.ogg', 100, FALSE, -1)
+				target.playsound_local(get_turf(person), 'sound/misc/talk.ogg', 100, FALSE, -1)
 	QDEL_IN(src, 5) //Garuntee talk sound plays...
 
 /datum/hallucination/message
@@ -508,7 +508,7 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 	..()
 	var/turf/source = random_far_turf()
 	if(!sound_type)
-		sound_type = pick("door","healing","paincollapse","door hit","creepy","magic","far explosion","mech","glass","alarm","lockpick","skele","door pick", "bwoinked")
+		sound_type = pick("door","healing","paincollapse","door hit","creepy","magic","far explosion","glass","alarm","lockpick","skele","door pick", "bwoinked")
 	feedback_details += "Type: [sound_type]"
 	//Strange audio
 	switch(sound_type)
@@ -976,7 +976,7 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 	var/composed = obj.compose_message(obj, carbon.get_default_language(), picked_message)
 
 	carbon.Hear(composed, obj, lang, picked_message)
-	target.playsound_local(obj, 'sound/misc/talk.ogg', 100, FALSE, -1)
+	target.playsound_local(get_turf(obj), 'sound/misc/talk.ogg', 100, FALSE, -1)
 
 	if(prob(20))
 		var/emote_number

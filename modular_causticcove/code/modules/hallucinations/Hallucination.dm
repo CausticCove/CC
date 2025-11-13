@@ -47,6 +47,12 @@
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 
+/obj/effect/hallucination/danger/fake_ambush/proc/helper_proc()
+	sleep(rand(10,30))
+	to_chat(target, span_bold("Wait... What!?"))
+	target.clear_fullscreen("brute") //Was it real..?
+	target.clear_fullscreen("painflash") //Was it real..?
+
 //VERY simple pathfinding.
 /obj/effect/hallucination/danger/fake_ambush/process()
 	show_icon() //Update dir / icons after Init.
@@ -64,32 +70,29 @@
 		for(var/obj/effect/hallucination/danger/fake_ambush/A in range(10, target))
 			if(A.target == target)//Make sure we're actually qdel'ing our hallucinations and not others...
 				qdel(A)
+		helper_proc()
 		qdel(src)
-		sleep(20)
-		to_chat(target, span_bold("Wait... What!?"))
-		target.clear_fullscreen("brute") //Was it real..?
-		target.clear_fullscreen("painflash") //Was it real..?
 	
 	if(prob(15))
 		switch(chosen_mob)
 			if("skele")
-				target.playsound_local(src, pick('sound/vo/mobs/skel/skeleton_rage (1).ogg','sound/vo/mobs/skel/skeleton_rage (2).ogg','sound/vo/mobs/skel/skeleton_rage (3).ogg'), 100, 0)
+				target.playsound_local(get_turf(src), pick('sound/vo/mobs/skel/skeleton_rage (1).ogg','sound/vo/mobs/skel/skeleton_rage (2).ogg','sound/vo/mobs/skel/skeleton_rage (3).ogg'), 100, 0)
 			if("goblin")
-				target.playsound_local(src, pick('sound/vo/mobs/gob/aggro (1).ogg','sound/vo/mobs/gob/aggro (2).ogg','sound/vo/mobs/gob/aggro (3).ogg','sound/vo/mobs/gob/aggro (4).ogg'), 100, 0)
+				target.playsound_local(get_turf(src), pick('sound/vo/mobs/gob/aggro (1).ogg','sound/vo/mobs/gob/aggro (2).ogg','sound/vo/mobs/gob/aggro (3).ogg','sound/vo/mobs/gob/aggro (4).ogg'), 100, 0)
 			if("dire")
-				target.playsound_local(src, pick('sound/vo/mobs/direbear/direbear_attack1.ogg','sound/vo/mobs/direbear/direbear_attack2.ogg','sound/vo/mobs/direbear/direbear_attack3.ogg'), 100, 0)
+				target.playsound_local(get_turf(src), pick('sound/vo/mobs/direbear/direbear_attack1.ogg','sound/vo/mobs/direbear/direbear_attack2.ogg','sound/vo/mobs/direbear/direbear_attack3.ogg'), 100, 0)
 			if("volf")
-				target.playsound_local(src, pick('sound/vo/mobs/vw/aggro (1).ogg','sound/vo/mobs/vw/aggro (2).ogg'), 100, 0)
+				target.playsound_local(get_turf(src), pick('sound/vo/mobs/vw/aggro (1).ogg','sound/vo/mobs/vw/aggro (2).ogg'), 100, 0)
 			if("fox")
-				target.playsound_local(src, pick('sound/vo/mobs/vw/aggro (1).ogg','sound/vo/mobs/vw/aggro (2).ogg'), 100, 0)
+				target.playsound_local(get_turf(src), pick('sound/vo/mobs/vw/aggro (1).ogg','sound/vo/mobs/vw/aggro (2).ogg'), 100, 0)
 			if("coon")
-				target.playsound_local(src, pick('sound/vo/mobs/vw/aggro (1).ogg','sound/vo/mobs/vw/aggro (2).ogg'), 100, 0)
+				target.playsound_local(get_turf(src), pick('sound/vo/mobs/vw/aggro (1).ogg','sound/vo/mobs/vw/aggro (2).ogg'), 100, 0)
 			if("badger")
-				target.playsound_local(src, pick('sound/vo/mobs/vw/aggro (1).ogg','sound/vo/mobs/vw/aggro (2).ogg'), 100, 0)
+				target.playsound_local(get_turf(src), pick('sound/vo/mobs/vw/aggro (1).ogg','sound/vo/mobs/vw/aggro (2).ogg'), 100, 0)
 			if("???")
-				target.playsound_local(src, 'sound/misc/astratascream.ogg', 100, 1)
+				target.playsound_local(get_turf(src), 'sound/misc/astratascream.ogg', 100, 1)
 			if(null)
-				target.playsound_local(src, pick('modular_azurepeak/sound/mobs/abyssal/abyssal_attack.ogg','modular_azurepeak/sound/mobs/abyssal/abyssal_attack2.ogg'), 100, 1)
+				target.playsound_local(get_turf(src), pick('modular_azurepeak/sound/mobs/abyssal/abyssal_attack.ogg','modular_azurepeak/sound/mobs/abyssal/abyssal_attack2.ogg'), 100, 1)
 	var/next_turf = get_step(src, get_dir(src, target))
 	for(var/obj/effect/hallucination/danger/fake_ambush/O in next_turf)
 		//You can't walk here partner... Try another way!
@@ -100,21 +103,21 @@
 	face_atom(target) //Face the hallucinatee.
 	show_icon() //Update dir post-facing...
 	step(src, src.dir) //Step...
-	target.playsound_local(src, pick('sound/foley/footsteps/FTGRA_A1.ogg','sound/foley/footsteps/FTGRA_A2.ogg','sound/foley/footsteps/FTGRA_A3.ogg','sound/foley/footsteps/FTGRA_A4.ogg'), 100, 1)
+	target.playsound_local(get_turf(src), pick('sound/foley/footsteps/FTGRA_A1.ogg','sound/foley/footsteps/FTGRA_A2.ogg','sound/foley/footsteps/FTGRA_A3.ogg','sound/foley/footsteps/FTGRA_A4.ogg'), 100, 1)
 	sleep(rand(2,7)) //False lag/delay to simulate SSmob ticker delay...
 
 	if(prob(33)) //RNG! Repeat!!
 		face_atom(target)
 		show_icon()
 		step(src, src.dir)
-		target.playsound_local(src, pick('sound/foley/footsteps/FTGRA_A1.ogg','sound/foley/footsteps/FTGRA_A2.ogg','sound/foley/footsteps/FTGRA_A3.ogg','sound/foley/footsteps/FTGRA_A4.ogg'), 100, 1)
+		target.playsound_local(get_turf(src), pick('sound/foley/footsteps/FTGRA_A1.ogg','sound/foley/footsteps/FTGRA_A2.ogg','sound/foley/footsteps/FTGRA_A3.ogg','sound/foley/footsteps/FTGRA_A4.ogg'), 100, 1)
 		sleep(rand(1,5))
 
 		if(prob(22)) //AND AGAIN! We got lucky!
 			face_atom(target)
 			show_icon()
 			step(src, src.dir)
-			target.playsound_local(src, pick('sound/foley/footsteps/FTGRA_A1.ogg','sound/foley/footsteps/FTGRA_A2.ogg','sound/foley/footsteps/FTGRA_A3.ogg','sound/foley/footsteps/FTGRA_A4.ogg'), 100, 1)
+			target.playsound_local(get_turf(src), pick('sound/foley/footsteps/FTGRA_A1.ogg','sound/foley/footsteps/FTGRA_A2.ogg','sound/foley/footsteps/FTGRA_A3.ogg','sound/foley/footsteps/FTGRA_A4.ogg'), 100, 1)
 
 /obj/effect/hallucination/danger/fake_ambush/attack_hand()
 	to_chat(target, span_bold("It turned to thin air..."))
@@ -161,19 +164,19 @@
 	..()
 	var/list/possible_doors = list()
 	var/list/chosen_door = list()
-	for(var/obj/structure/mineral_door/D in view(7, target))
+	for(var/obj/structure/mineral_door/D in oview(7, target))
 		if(D.door_opened)
 			continue
 		possible_doors += D
-	
-	chosen_door = pick(possible_doors)
-	if(chosen_door)
-		target.playsound_local(chosen_door, 'sound/foley/doors/knocking.ogg', 100, 1)
-	else if(!chosen_door)
+	if(possible_doors.len)
+		chosen_door = pick(possible_doors)
+	if(isobj(chosen_door)) //Only do this if we actually have a door k thx bye
+		target.playsound_local(get_turf(chosen_door), 'sound/foley/doors/knocking.ogg', 100, 1)
+	else if(!isobj(chosen_door))
 		if(prob(50)) //Scare the player if we can't find an in-game door. May need to be tuned louder...
-			target.playsound_local(target, 'modular_causticcove/sound/hallucinations/fake_knock_L.ogg', 100, 1)
+			target.playsound_local(get_step(target, WEST), 'modular_causticcove/sound/hallucinations/fake_knock_L.ogg', 100, 0)
 		else
-			target.playsound_local(target, 'modular_causticcove/sound/hallucinations/fake_knock_R.ogg', 100, 1)
+			target.playsound_local(get_step(target, EAST), 'modular_causticcove/sound/hallucinations/fake_knock_R.ogg', 100, 0)
 
 	QDEL_IN(src, 30) //Garuntee knocking sound plays...
 
