@@ -1,22 +1,23 @@
 #define HAL_LINES_FILE "hallucination.json"
 GLOBAL_LIST_INIT(hallucination_list, list(
-	//Conversation hallucinations. Most common.
+	//Conversation hallucinations. Most common. Max 100, min 40
 	/datum/hallucination/chat = 100,
 	/datum/hallucination/message = 60,
-	/datum/hallucination/voices = 50,
-	//Sound hallucinations. Uncommon.
-	/datum/hallucination/sounds = 50,
-	/datum/hallucination/battle = 30,
-	/datum/hallucination/weird_sounds = 10,
-	//Special Hallucinations. Rare.
-	/datum/hallucination/fake_alert = 14,
-	/datum/hallucination/husks = 8,
+	/datum/hallucination/voices = 40,
+	//Sound hallucinations. Uncommon. Max 35, Min 20
+	/datum/hallucination/sounds = 35,
+	/datum/hallucination/battle = 25,
+	/datum/hallucination/weird_sounds = 20,
+	//Special Hallucinations with unique conditions/events. Rare. Max 10, Min 1.
+	/datum/hallucination/fake_alert = 10,
+	/datum/hallucination/door_knock = 10,
+	/datum/hallucination/husks = 10,
 	/datum/hallucination/fire = 5,
+	/datum/hallucination/self_delusion = 5,
 	/datum/hallucination/delusion = 3,
-	/datum/hallucination/self_delusion = 3,
-	/datum/hallucination/townannouncement = 2,
-	/datum/hallucination/fake_ambush = 1,
-	/datum/hallucination/shock = 1,
+	/datum/hallucination/townannouncement = 3,
+	/datum/hallucination/fake_ambush = 3,
+	/datum/hallucination/shock = 2,
 	/datum/hallucination/death = 1
 	))
 
@@ -836,7 +837,7 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 /datum/hallucination/fire/New(mob/living/carbon/C, forced = TRUE)
 	set waitfor = FALSE
 	..()
-	fire_overlay = image('icons/mob/OnFire.dmi', target, "Standing", ABOVE_ALL_MOB_LAYER)
+	fire_overlay = image('icons/mob/OnFire.dmi', target, "Standing", -FIRE_LAYER)
 	if(target.client)
 		target.client.images += fire_overlay
 	to_chat(target, "<span class='danger'>You're set on fire!</span>")

@@ -156,3 +156,9 @@
 		target.playsound_local(src, pick('sound/misc/jumpscare (1).ogg','sound/misc/jumpscare (2).ogg','sound/misc/jumpscare (3).ogg','sound/misc/jumpscare (4).ogg','sound/misc/jumphumans (1).ogg','sound/misc/jumphumans (2).ogg','sound/misc/jumphumans (3).ogg'), 100)
 	sleep(100) //Garuntee jumpscare sound plays...
 	qdel(src)
+
+/datum/hallucination/door_knock/New(mob/living/carbon/carbon, forced = TRUE)
+	set waitfor = FALSE
+	..()
+
+	for()
