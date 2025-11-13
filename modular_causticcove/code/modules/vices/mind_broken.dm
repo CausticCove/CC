@@ -7,4 +7,6 @@
 /datum/charflaw/mind_broken/on_mob_creation(mob/user)
 	var/mob/living/carbon/human/insane_fool = user
 	insane_fool.hallucination = INFINITY
-	ADD_TRAIT(user, TRAIT_PSYCHOSIS, TRAIT_GENERIC) //Fancy audio effects...
+	if(prob(50)) //Fancy audio effects at a chance.
+		ADD_TRAIT(user, TRAIT_PSYCHOSIS, TRAIT_GENERIC)
+		to_chat(user, span_warning("I feel a little worse today..."))
