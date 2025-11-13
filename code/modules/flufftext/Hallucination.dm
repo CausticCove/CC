@@ -422,7 +422,6 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 		var/message = target.compose_message(person,understood_language,chosen,null,list(person.speech_span),face_name = TRUE)
 		feedback_details += "Type: Talk, Source: [person.real_name], Message: [message]"
 		to_chat(target, message)
-		target.playsound_local(person, 'sound/misc/talk.ogg', 100, FALSE, -1)
 		if(target.client)
 			target.client.images |= speech_overlay
 			sleep(30)
@@ -432,6 +431,7 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 			if (target.client?.prefs.chat_on_map)
 				sleep(30)
 				target.create_chat_message(person, understood_language, chosen, spans, 0)
+				target.playsound_local(person, 'sound/misc/talk.ogg', 100, FALSE, -1)
 	qdel(src)
 
 /datum/hallucination/message
