@@ -23,10 +23,10 @@
 	recipient.transform = recipient.transform.Scale(2, 2)
 	recipient.transform = recipient.transform.Translate(0, (0.25 * 35))
 	recipient.update_transform()
-	recipient.change_stat(STATKEY_STR, 8)
-	recipient.change_stat(STATKEY_WIL, 8)
-	recipient.change_stat(STATKEY_CON, 8)
-	recipient.change_stat(STATKEY_SPD, -14)
+	recipient.change_stat(STATKEY_STR, 2)
+	recipient.change_stat(STATKEY_WIL, 2)
+	recipient.change_stat(STATKEY_CON, 3)
+	recipient.change_stat(STATKEY_SPD, -5)
 
 /datum/sizecat/small
 	name = "Small"
@@ -41,7 +41,6 @@
 	recipient.change_stat(STATKEY_STR, -2)
 	recipient.change_stat(STATKEY_WIL, -2)
 	recipient.change_stat(STATKEY_CON, -3)
-	// recipient.change_stat(STATKEY_SPD, -7)
 	recipient.pass_flags = PASSTABLE | PASSMOB
 	recipient.adjust_skillrank(/datum/skill/misc/sneaking, 1, TRUE)
 	recipient.adjust_skillrank(/datum/skill/misc/stealing, 1, TRUE)
@@ -56,10 +55,10 @@
 	recipient.transform = recipient.transform.Scale(0.2, 0.2)
 	recipient.transform = recipient.transform.Translate(0, (0.25 * 8))
 	recipient.update_transform()
-	recipient.change_stat(STATKEY_STR, -10)
-	recipient.change_stat(STATKEY_WIL, -4)
-	recipient.change_stat(STATKEY_CON, -10)
-	recipient.change_stat(STATKEY_SPD, -14)
+	recipient.change_stat(STATKEY_STR, -5) // Lets try keeping stat maluses to -5, and explore other options if this isnt enough for them.
+	recipient.change_stat(STATKEY_WIL, -5)
+	recipient.change_stat(STATKEY_CON, -5)
+	recipient.change_stat(STATKEY_SPD, -5)
 	recipient.pass_flags = PASSTABLE | PASSMOB
 	recipient.adjust_skillrank(/datum/skill/misc/sneaking, 2, TRUE)
 	recipient.adjust_skillrank(/datum/skill/misc/stealing, 2, TRUE)
