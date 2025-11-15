@@ -616,9 +616,9 @@
 		to_chat(src, span_notice("You are not holding anything."))
 		return
 
-	if(!(I.grid_height <= world.icon_size || I.grid_height <= world.icon_size))
+	/*if(!(I.grid_height <= world.icon_size || I.grid_height <= world.icon_size))
 		to_chat(src,span_warning("You can't eat such a large thing !"))//yet
-		return
+		return*/
 
 	if(do_after(src, 10 SECONDS)){
 		I.forceMove(vore_selected)
