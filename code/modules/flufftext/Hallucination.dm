@@ -2,7 +2,7 @@
 GLOBAL_LIST_INIT(hallucination_list, list(
 	//Conversation hallucinations. Most common. Max 100, min 40
 	/datum/hallucination/chat = 100,
-	/datum/hallucination/message = 60,
+	/datum/hallucination/message = 40,
 	/datum/hallucination/voices = 40,
 	//Sound hallucinations. Uncommon. Max 35, Min 20
 	/datum/hallucination/sounds = 35,
@@ -34,7 +34,7 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 	var/halpick = pickweight(GLOB.hallucination_list)
 	new halpick(src, FALSE)
 
-	next_hallucination = world.time + rand(100, 600)
+	next_hallucination = world.time + rand(300, 1800) //Longer waits, more believable hallucinations.
 
 /mob/living/carbon/proc/set_screwyhud(hud_type)
 	hal_screwyhud = hud_type
@@ -446,7 +446,12 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 				sleep(rand(8,15))
 				to_chat(target, message)
 				target.create_chat_message(person, understood_language, chosen, spans, 0)
-				target.playsound_local(get_turf(person), 'sound/misc/talk.ogg', 100, FALSE, -1)
+				spawn(1)
+					target.playsound_local(get_turf(person), 'sound/misc/talk.ogg', 100, FALSE, -1)
+	if(!person)
+		//If we can't find anyone nearby, reduce the next hallucination tick to 10-30 seconds.
+		target.next_hallucination = world.time + rand(100, 300)
+
 	QDEL_IN(src, 5) //Garuntee talk sound plays...
 
 /datum/hallucination/message
@@ -976,7 +981,8 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 	var/composed = obj.compose_message(obj, carbon.get_default_language(), picked_message)
 
 	carbon.Hear(composed, obj, lang, picked_message)
-	target.playsound_local(get_turf(obj), 'sound/misc/talk.ogg', 100, FALSE, -1)
+	spawn(1)
+		target.playsound_local(get_turf(obj), 'sound/misc/talk.ogg', 100, FALSE, -1)
 
 	if(prob(20))
 		var/emote_number
