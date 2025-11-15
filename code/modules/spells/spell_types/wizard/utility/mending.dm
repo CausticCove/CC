@@ -10,7 +10,7 @@
 	no_early_release = FALSE
 	chargedloop = null
 	sound = 'sound/magic/whiteflame.ogg'
-	cost = 3
+	cost = 2
 	spell_tier = 2 // Utility. Faster repairs.
 	glow_color = GLOW_COLOR_ARCANE
 	glow_intensity = GLOW_INTENSITY_LOW
@@ -20,7 +20,6 @@
 	invocations = list("Reficio")
 	invocation_type = "shout" //can be none, whisper, emote and shout
 
-	//15% Bonus + 20 STAINT = 17% repair per tick, or ~6 or so seconds of repair time.
 	var/repair_percent = 0.15
 	var/lesser_modifier = 0 //For use with lesser mending.
 	var/int_bonus = 0.00
@@ -33,21 +32,22 @@
 
 	var/obj/item/I = targets[1]
 
-	if(!user.is_holding(I))
-		to_chat(user, span_warning("I must be holding the item in my hands to mend it."))
+	if(!user.Adjacent(I))
+		to_chat(user, span_warning("I can't reach the item from here!"))
 		return
 
 	if(!I.anvilrepair && !I.sewrepair)
 		to_chat(user, span_warning("Not even magic can mend this item!"))
 		revert_cast()
 		return
+
 	if(I.obj_integrity >= I.max_integrity && I.body_parts_covered_dynamic == I.body_parts_covered && !I.peel_count)
 		to_chat(user, span_info("[I] appears to be in perfect condition."))
 		revert_cast()
 		return
 
 	var/arcane_skill = user.get_skill_level(associated_skill)
-	var/cast_time = (lesser_modifier + 40) - ((arcane_skill * 4) - (user.STAINT / 4))
+	var/cast_time = (lesser_modifier + 40) - ((arcane_skill * 4) + (user.STAINT / 4))
 
 	for(var/i in 1 to INFINITY)
 		if(do_after(user, cast_time, target = I))
@@ -75,7 +75,7 @@
 	name = "Lesser Mending"
 	desc = "Uses arcyne energy to mend an item. Effect of repair scales off of your Intelligence. The Lesser variant repairs significantly slower."
 	recharge_time = 3 SECONDS
-	cost = 2
+	cost = 1
 	spell_tier = 1 //Lesser Mending, still just like mending but rather akin to snails pace, and is only 1 point.
 	lesser_modifier = 2.5 SECONDS //2.5 second slower per tick. Much much slower than regular mending.
 	repair_percent = 0.7
