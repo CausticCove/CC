@@ -23,10 +23,9 @@
 	recipient.transform = recipient.transform.Scale(2, 2)
 	recipient.transform = recipient.transform.Translate(0, (0.25 * 35))
 	recipient.update_transform()
-	recipient.change_stat(STATKEY_STR, 8)
-	recipient.change_stat(STATKEY_WIL, 8)
-	recipient.change_stat(STATKEY_CON, 8)
-	recipient.change_stat(STATKEY_SPD, -14)
+	recipient.change_stat(STATKEY_STR, 2)
+	recipient.change_stat(STATKEY_CON, 2)
+	recipient.change_stat(STATKEY_SPD, -4)
 
 /datum/sizecat/small
 	name = "Small"
