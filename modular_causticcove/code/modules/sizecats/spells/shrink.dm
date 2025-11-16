@@ -43,30 +43,51 @@
 /obj/item/melee/touch_attack/sizespell/proc/shrink_target(mob/living/target, mob/living/carbon/human/user)
 	if(!isliving(target))
 		return
+	if(target.cmode)
+		if(target.client)
+			to_chat(user, "<span class='warning'>They're too tense!</span>")
+			return
 	if(HAS_TRAIT(target,TRAIT_MICRO))
 		to_chat(user, "<span class='warning'>They are already small!</span>")
 		return
-	if(user == target)
-		user.visible_message(span_notice("[user] rapidly changes in size!"), span_notice("I rapidly shrink down!"))
-	else	
-		user.visible_message(span_notice("[user] touch [target], and they changes in size!"), span_notice("I touch [target] and they shrink in size!"))
-	target.apply_status_effect(/datum/status_effect/buff/shrinked)
-	qdel(src)
+	if(do_after(user, (0.75 SECONDS), target))
+		if(!user.Adjacent(target))
+			to_chat(user, span_notice("I can't reach them!"))
+			return
+		if(user == target)
+			user.visible_message(span_notice("[user] rapidly changes in size!"), span_notice("I rapidly shrink down!"))
+		else	
+			user.visible_message(span_notice("[user] touch [target], and they changes in size!"), span_notice("I touch [target] and they shrink in size!"))
+		target.apply_status_effect(/datum/status_effect/buff/shrinked)
+		qdel(src)
+	else
+		to_chat(user, span_notice("I need to stand still to shrink or enlarge them!"))
+		qdel(src)
 
 
 /obj/item/melee/touch_attack/sizespell/proc/grow_target(mob/living/target, mob/living/carbon/human/user)
 	if(!isliving(target))
 		return
+	if(target.cmode)
+		if(target.client)
+			to_chat(user, "<span class='warning'>They're too tense!</span>")
+			return
 	if(HAS_TRAIT(target,TRAIT_MACRO))
 		to_chat(user, "<span class='warning'>They are already large!</span>")
 		return
-
-	if(user == target)
-		user.visible_message(span_notice("[user] rapidly changes in size!"), span_notice("I rapidly grow up!"))
-	else	
-		user.visible_message(span_notice("[user] touch [target], and they changes in size!"), span_notice("I touch [target] and they grow in size!"))
-	target.apply_status_effect(/datum/status_effect/buff/growth)
-	qdel(src)
+	if(do_after(user, (0.75 SECONDS), target))
+		if(!user.Adjacent(target))
+			to_chat(user, span_notice("I can't reach them!"))
+			return
+		if(user == target)
+			user.visible_message(span_notice("[user] rapidly changes in size!"), span_notice("I rapidly grow up!"))
+		else	
+			user.visible_message(span_notice("[user] touch [target], and they changes in size!"), span_notice("I touch [target] and they grow in size!"))
+		target.apply_status_effect(/datum/status_effect/buff/growth)
+		qdel(src)
+	else
+		to_chat(user, span_notice("I need to stand still to shrink or enlarge them!"))
+		qdel(src)
 
 /datum/status_effect/buff/shrinked
 	id = "shrink"
