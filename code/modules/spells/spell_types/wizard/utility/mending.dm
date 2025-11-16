@@ -49,7 +49,7 @@
 	var/arcane_skill = user.get_skill_level(associated_skill)
 	var/cast_time = (lesser_modifier + 40) - ((arcane_skill * 4) + (user.STAINT / 4))
 
-	for(var/i in 1 to INFINITY)
+	for(var/i in 1 to 10)
 
 		if(!user.Adjacent(I)) //Check if the item is always near during the loop.
 			to_chat(user, span_warning("I can't reach the item from here!"))
