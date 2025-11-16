@@ -173,11 +173,8 @@
 	if(isobj(chosen_door)) //Only do this if we actually have a door k thx bye
 		target.playsound_local(get_turf(chosen_door), 'sound/foley/doors/knocking.ogg', 100, 1)
 	else if(!isobj(chosen_door))
+		var/turf/t = random_far_turf()
 		if(prob(50)) //Scare the player if we can't find an in-game door. May need to be tuned louder...
-			target.playsound_local(get_step(target, WEST), 'modular_causticcove/sound/hallucinations/fake_knock_L.ogg', 100, 0)
-		else
-			target.playsound_local(get_step(target, EAST), 'modular_causticcove/sound/hallucinations/fake_knock_R.ogg', 100, 0)
+			target.playsound_local(t, pick('modular_causticcove/sound/hallucinations/door_knock_variant1.ogg','modular_causticcove/sound/hallucinations/door_knock_variant2.ogg','modular_causticcove/sound/hallucinations/door_knock_variant3.ogg'), 100, 0)
 
 	QDEL_IN(src, 30) //Garuntee knocking sound plays...
-
-
