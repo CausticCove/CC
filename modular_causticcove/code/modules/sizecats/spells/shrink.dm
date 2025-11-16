@@ -1,6 +1,6 @@
 /obj/effect/proc_holder/spell/targeted/touch/sizespell
 	name = "Reduce/Grow Person"
-	desc = "A basic trick many apprentices would use to prank their master."
+	desc = "A basic trick many apprentices would use to prank their master. (( Abuse of this spell for combat purposes will lead to consequences from staff. ))" // Scene tool, shouldnt have combat applications. Maybe have it disable automatically when entering combat mode?
 	clothes_req = FALSE
 	spell_tier = 1
 	recharge_time = 2 MINUTES
@@ -71,7 +71,7 @@
 /datum/status_effect/buff/shrinked
 	id = "shrink"
 	alert_type = /atom/movable/screen/alert/status_effect/buff/shrinked
-	effectedstats = list(STATKEY_SPD = -14, STATKEY_STR = -10, STATKEY_CON = -10, STATKEY_WIL = -10, STATKEY_LCK = 5)
+	effectedstats = list(STATKEY_SPD = -5, STATKEY_STR = -5, STATKEY_CON = -5, STATKEY_WIL = -5) // Probably better to not have this spell give stats, since its a scene tool, eventually.
 	var/removable = FALSE
 
 /datum/status_effect/buff/shrinked/on_apply()
@@ -116,7 +116,7 @@
 /datum/status_effect/buff/growth
 	id = "growth"
 	alert_type = /atom/movable/screen/alert/status_effect/buff/growth
-	effectedstats = list(STATKEY_SPD = -14, STATKEY_STR = 6, STATKEY_CON = 6, STATKEY_WIL = 6)
+	effectedstats = list(STATKEY_SPD = -4, STATKEY_STR = 1, STATKEY_CON = 1) // Slightly lower than being actually macro, like before. Probably better to not have this spell give stats, since its a scene tool, eventually.
 	var/removable = FALSE
 
 /datum/status_effect/buff/growth/on_apply()

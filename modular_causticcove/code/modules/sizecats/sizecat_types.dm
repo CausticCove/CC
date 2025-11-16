@@ -25,7 +25,8 @@
 	recipient.update_transform()
 	recipient.change_stat(STATKEY_STR, 2)
 	recipient.change_stat(STATKEY_CON, 2)
-	recipient.change_stat(STATKEY_SPD, -4)
+	// recipient.change_stat(STATKEY_SPD, -4) // Multiplicative slowdown should cover the move speed while still letting macros dodge.
+	recipient.add_movespeed_modifier(MOVESPEED_ID_MACROMICRO, update=TRUE, priority=100, multiplicative_slowdown=1.5, movetypes=GROUND) // Base slowdown is increased by 50%, which is the equivalent of having 5 speed.
 
 /datum/sizecat/small
 	name = "Small"
@@ -57,7 +58,8 @@
 	recipient.change_stat(STATKEY_STR, -5) // Lets try keeping stat maluses to -5, and explore other options if this isnt enough for them.
 	recipient.change_stat(STATKEY_WIL, -5)
 	recipient.change_stat(STATKEY_CON, -5)
-	recipient.change_stat(STATKEY_SPD, -5)
+	// recipient.change_stat(STATKEY_SPD, -5) // Multiplicative slowdown should cover the move speed while still letting micros dodge.
+	recipient.add_movespeed_modifier(MOVESPEED_ID_MACROMICRO, update=TRUE, priority=100, multiplicative_slowdown=1.5, movetypes=GROUND) // Base slowdown is increased by 50%, which is the equivalent of having 5 speed.
 	recipient.pass_flags = PASSTABLE | PASSMOB
 	recipient.adjust_skillrank(/datum/skill/misc/sneaking, 2, TRUE)
 	recipient.adjust_skillrank(/datum/skill/misc/stealing, 2, TRUE)
