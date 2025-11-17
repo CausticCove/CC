@@ -27,8 +27,8 @@
 		/datum/skill/combat/whipsflails = SKILL_LEVEL_EXPERT, // Whips/Flails so we can use the Gilded Flail if we want.
 		/datum/skill/combat/polearms = SKILL_LEVEL_JOURNEYMAN, // Poles or maces if we're a wimp and don't want to engage with unarmed. Not ideal.
 		//Caustic edit
-		/datum/skill/combat/unarmed = SKILL_LEVEL_JOURNEYMAN,	// The sign says support cleric
-		/datum/skill/combat/wrestling = SKILL_LEVEL_JOURNEYMAN,  // The sign says support cleric
+		/datum/skill/combat/unarmed = SKILL_LEVEL_EXPERT,	// The sign says support cleric
+		/datum/skill/combat/wrestling = SKILL_LEVEL_EXPERT,  // The sign says support cleric
 		//Caustic edit end
 		/datum/skill/craft/crafting = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/craft/carpentry = SKILL_LEVEL_NOVICE,

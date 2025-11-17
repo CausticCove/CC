@@ -12,6 +12,7 @@
 		STATKEY_SPD = 3,//It's all about speed and perception
 		STATKEY_PER = 2,
 		STATKEY_WIL = 1,
+		STATKEY_STR = 1,
 		STATKEY_CON = -1
 		//Cove edit end
 	)

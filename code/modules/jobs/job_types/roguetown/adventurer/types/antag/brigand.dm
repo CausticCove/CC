@@ -11,6 +11,7 @@
 		//Cove edit
 		STATKEY_STR = 2,
 		STATKEY_CON = 2,
+		STATKEY_WIL = 1,
 		STATKEY_INT = -1
 		//Cove edit end
 	)
