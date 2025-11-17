@@ -5,7 +5,7 @@
 	weight = 7
 	earliest_start = 10 MINUTES
 	max_occurrences = 1
-	min_players = 30
+	min_players = 20 // Don't wanna get too trigger happy with this one, Ravoxians...
 
 	tags = list(
 		TAG_BATTLE,

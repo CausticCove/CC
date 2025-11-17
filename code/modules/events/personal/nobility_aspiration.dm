@@ -5,7 +5,7 @@
 	weight = 7
 	earliest_start = 5 MINUTES
 	max_occurrences = 1
-	min_players = 20
+	min_players = 20 //This is... tricky, that's for sure.
 
 /datum/round_event_control/astrata_nobility/canSpawnEvent(players_amt, gamemode, fake_check)
 	. = ..()

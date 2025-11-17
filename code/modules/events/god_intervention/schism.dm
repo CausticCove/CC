@@ -297,7 +297,8 @@ GLOBAL_LIST_EMPTY(tennite_schisms)
 	typepath = /datum/round_event/schism_within_ten
 	weight = 0.25
 	max_occurrences = 1
-	min_players = 55
+	min_players = 25 //Very rare event at 0.25 weight? Offers a lot of roleplay potential however. Challenges the strongest worshipped god with Astrata.
+						//Plus, all this event does is just reward Triumphs and add in more flavor into the game if a side wins.
 	earliest_start = 20 MINUTES
 	allowed_storytellers = list(/datum/storyteller/noc, /datum/storyteller/ravox, /datum/storyteller/necra, /datum/storyteller/xylix, /datum/storyteller/pestra, /datum/storyteller/abyssor, /datum/storyteller/dendor, /datum/storyteller/malum)
 	//Once more 'generic' god interventions are in, add to Psydon as well.

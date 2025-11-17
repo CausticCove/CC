@@ -5,7 +5,7 @@
 	weight = 7
 	earliest_start = 15 MINUTES
 	max_occurrences = 1
-	min_players = 25
+	min_players = 10 //Does anyone actually know that your last words actually get sent to necrans..?
 
 	tags = list(
 		TAG_HAUNTED,

@@ -5,7 +5,7 @@
 	weight = 7
 	earliest_start = 5 MINUTES
 	max_occurrences = 1
-	min_players = 25
+	min_players = 8 // Roleplay! Pet roleplay? ... Servant roleplay? ... <slave> roleplay!? This is just ideal roleplay potential here!
 
 /datum/round_event_control/retainer_recruitment/canSpawnEvent(players_amt, gamemode, fake_check)
 	. = ..()

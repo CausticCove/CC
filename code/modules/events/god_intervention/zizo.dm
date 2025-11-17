@@ -18,7 +18,7 @@
 	weight = 8
 	earliest_start = 25 MINUTES
 	max_occurrences = 2
-	min_players = 35
+	min_players = 20 //May need to be observed and or removed, as deaddite animals can cause infections. Shouldn't be an issue at 20 pop however.
 	allowed_storytellers = list(/datum/storyteller/zizo)
 
 /datum/round_event/zizo_pet_cementery/start()

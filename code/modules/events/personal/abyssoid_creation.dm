@@ -5,7 +5,7 @@
 	weight = 7
 	earliest_start = 5 MINUTES
 	max_occurrences = 1
-	min_players = 15
+	min_players = 10
 
 	tags = list(
 		TAG_WATER,

@@ -5,7 +5,7 @@
 	weight = 7
 	earliest_start = 20 MINUTES
 	max_occurrences = 1
-	min_players = 30
+	min_players = 8 //This is different, as you do not need to actually kill other players. NPC's work just as well. Just eat hearts!
 
 	tags = list(
 		TAG_BLOOD,

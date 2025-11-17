@@ -5,7 +5,7 @@
 	weight = 10
 	earliest_start = 10 MINUTES
 	max_occurrences = 1
-	min_players = 20
+	min_players = 12 //Like King Mockery, lets hope nobles are present. Should be an RP'd thing, I hope.
 
 	tags = list(
 		TAG_TRICKERY,
