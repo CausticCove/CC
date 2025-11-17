@@ -178,3 +178,117 @@
 			target.playsound_local(t, pick('modular_causticcove/sound/hallucinations/door_knock_variant1.ogg','modular_causticcove/sound/hallucinations/door_knock_variant2.ogg','modular_causticcove/sound/hallucinations/door_knock_variant3.ogg'), 100, 0)
 
 	QDEL_IN(src, 30) //Garuntee knocking sound plays...
+
+
+/datum/hallucination/psydon_is_here
+	var/HE_IS_HERE = FALSE
+
+/datum/hallucination/psydon_is_here/New(mob/living/carbon/carbon, forced = TRUE)
+	set waitfor = FALSE
+	..()
+	//Commence maniac turf shake once we hit the "GOD IS HERE"
+	START_PROCESSING(SSfastprocess, src)
+	SEND_SOUND(target, 'modular_causticcove/sound/hallucinations/PSYDONISHERE.ogg')
+	sleep(10 SECONDS) //Let them slowly realize the music is playing.
+	to_chat(target, "<h1 class='alert'>PSYDON IS COMING!!!</h1>")
+	sleep(46 SECONDS) //Wait for ~56 Seconds until the "GOD IS HERE" kicks in with the music (Sleep 46 seconds due to prior 10 seconds)
+	HE_IS_HERE = TRUE
+	to_chat(target, "<h1 class='alert'>PSYDON IS HERE!!!</h1>")
+	to_chat(target, "<br><br><span class='alert'>PSYDON IS HERE!!! PSYDON IS HERE!!! PSYDON IS HERE!!! PSYDON IS HERE!!! PSYDON IS HERE!!!</span><br><br>")
+	target.Stun(100)
+	target.Paralyze(100)
+	target.emote("painscream")
+	handle_visions(target, THERE_HE_IS = TRUE)
+	sleep(25 SECONDS)
+	STOP_PROCESSING(SSfastprocess, src) //Stop the process NOW!!!
+	qdel(src)
+
+/datum/hallucination/psydon_is_here/process(mob/living/carbon/carbon)
+	if(!target.mind.current)
+		STOP_PROCESSING(SSfastprocess, src)
+		return
+	if(HE_IS_HERE)
+		handle_visions(target)
+		handle_floors(target.mind.current)
+		handle_walls(target.mind.current)
+
+//MANIAC HALLUCINATION SHIT BEGIN
+/////////////////////////////////
+/datum/hallucination/psydon_is_here/proc/handle_visions(mob/living/target, THERE_HE_IS)
+	if(target.client)
+		if(prob(10)) //WE CAN'T HANDLE THIS!!!
+			target.Stun(100)
+			target.Paralyze(100)
+			if(prob(66)) //Lets not spam painscream TOO much... But let others at least slightly know something is wrong with them.
+				target.emote("painscream")
+			target.overlay_fullscreen("HE_IS_HERE", /atom/movable/screen/fullscreen/zezuspsyst_subtle)
+			target.flash_fullscreen("blackflash2")
+			if(THERE_HE_IS) //The initial sight should be longer when he first arrives as a subtle jumpscare.
+				sleep(10)
+				target.clear_fullscreen("HE_IS_HERE")
+				return
+			sleep(5)
+			target.flash_fullscreen("blackflash2")
+			target.clear_fullscreen("HE_IS_HERE")
+		
+/datum/hallucination/psydon_is_here/proc/handle_floors(mob/living/dreamer)
+	if(!dreamer.client)
+		return
+	//HE SHATTERS OUR EXPECATIONS OF WHAT DREARY REALITY WE ARE IN
+	for(var/turf/open/floor in view(dreamer))
+		if(!prob(15))
+			continue
+		if(prob(99))
+			INVOKE_ASYNC(src, PROC_REF(handle_floor_twitch), floor, dreamer)
+		else
+			INVOKE_ASYNC(src, PROC_REF(handle_floor_symbol), floor, dreamer)
+
+/datum/hallucination/psydon_is_here/proc/handle_floor_twitch(turf/open/floor, mob/living/dreamer)
+	var/mutable_appearance/fake_floor = image(floor.icon, floor, floor.icon_state, floor.layer + 0.01)
+	dreamer.client.images += fake_floor
+	var/offset_y = pick(-4, -3, -2, 2, 3, 4)
+	var/offset_x = pick(-3, -2, 2, 3)
+	var/disappearfirst = rand(1 SECONDS, 3 SECONDS) * abs(offset_y)
+	animate(fake_floor, pixel_y = offset_y, pixel_x = offset_x, time = disappearfirst, flags = ANIMATION_RELATIVE)
+	sleep(disappearfirst)
+	var/disappearsecond = rand(1 SECONDS, 3 SECONDS) * abs(offset_y)
+	animate(fake_floor, pixel_y = -offset_y, pixel_x = -offset_x, time = disappearsecond, flags = ANIMATION_RELATIVE)
+	sleep(disappearsecond)
+	dreamer.client?.images -= fake_floor
+
+/datum/hallucination/psydon_is_here/proc/handle_floor_symbol(turf/open/floor, mob/living/dreamer)
+	var/image/psydon_symbol = image('icons/roguetown/misc/rituals.dmi', floor, "psydon_chalky")
+	dreamer.client?.images += psydon_symbol
+	var/offset_y = pick(-2, -1, 1, 2)
+	var/offset_x = pick(-2, -1, 1, 2)
+	var/disappearfirst = rand(2 SECONDS, 4 SECONDS)
+	animate(psydon_symbol, pixel_y = offset_y, pixel_x = offset_x, time = disappearfirst, flags = ANIMATION_RELATIVE)
+	sleep(disappearfirst)
+	var/disappearsecond = rand(2 SECONDS, 4 SECONDS)
+	animate(psydon_symbol, pixel_y = -offset_y, pixel_x = -offset_x, time = disappearsecond, flags = ANIMATION_RELATIVE)
+	sleep(disappearsecond)
+	dreamer.client?.images -= psydon_symbol
+
+/datum/hallucination/psydon_is_here/proc/handle_walls(mob/living/dreamer)
+	if(!dreamer.client)
+		return
+	//HE IS HERE!!! HE IS HERE!!! HE IS HERE!!!
+	for(var/turf/closed/wall in view(dreamer))
+		if(!prob(2))
+			continue
+		INVOKE_ASYNC(src, PROC_REF(handle_wall_mask), wall, dreamer)
+
+/datum/hallucination/psydon_is_here/proc/handle_wall_mask(turf/closed/wall, mob/living/dreamer)
+	var/image/psydon_mask = image('icons/roguetown/clothing/masks.dmi', wall, "psydonmask")
+	dreamer.client?.images += psydon_mask
+	var/offset_y = pick(-4, -3, -2, 2, 3, 4)
+	var/offset_x = pick(-2, -1, 1, 2)
+	var/disappearfirst = rand(2 SECONDS, 4 SECONDS)
+	animate(psydon_mask, pixel_y = offset_y, pixel_x = offset_x, time = disappearfirst, flags = ANIMATION_RELATIVE)
+	sleep(disappearfirst)
+	var/disappearsecond = rand(2 SECONDS, 4 SECONDS)
+	animate(psydon_mask, pixel_y = -offset_y, pixel_x = -offset_x, time = disappearsecond, flags = ANIMATION_RELATIVE)
+	sleep(disappearsecond)
+	dreamer.client?.images -= psydon_mask
+///////////////////////////////
+//MANIAC HALLUCINATION SHIT END

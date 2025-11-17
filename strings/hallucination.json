@@ -94,7 +94,12 @@
 		"Hey, @pick(add_name) did you see that?",
 		"I think I saw something",
 		"What whas tht?",
-		"Is that a ndeaddite?"
+		"Is that a deaddite?",
+		"Is that an undead?",
+		"Was that a necromancer?",
+		"Was that a werewolf?",
+		"Was that a vampire?",
+		"Was that your mom?"
 	],
 
 	"add_name": [

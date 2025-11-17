@@ -2,23 +2,24 @@
 GLOBAL_LIST_INIT(hallucination_list, list(
 	//Conversation hallucinations. Most common. Max 100, min 40
 	/datum/hallucination/chat = 100,
-	/datum/hallucination/message = 40,
-	/datum/hallucination/voices = 40,
+	/datum/hallucination/message = 50,
+	/datum/hallucination/voices = 50,
 	//Sound hallucinations. Uncommon. Max 35, Min 20
 	/datum/hallucination/sounds = 35,
-	/datum/hallucination/battle = 20,
-	/datum/hallucination/weird_sounds = 20,
+	/datum/hallucination/battle = 25,
+	/datum/hallucination/weird_sounds = 25,
 	/datum/hallucination/door_knock = 20,
 	//Special Hallucinations with unique conditions/events. Rare. Max 10, Min 1.
 	/datum/hallucination/fake_alert = 10,
 	/datum/hallucination/husks = 10,
-	/datum/hallucination/fire = 5,
-	/datum/hallucination/self_delusion = 5,
-	/datum/hallucination/delusion = 3,
-	/datum/hallucination/townannouncement = 3,
-	/datum/hallucination/fake_ambush = 3,
-	/datum/hallucination/shock = 2,
-	/datum/hallucination/death = 1
+	/datum/hallucination/fire = 8,
+	/datum/hallucination/self_delusion = 6,
+	/datum/hallucination/delusion = 4,
+	/datum/hallucination/townannouncement = 4,
+	/datum/hallucination/fake_ambush = 4,
+	/datum/hallucination/shock = 3,
+	/datum/hallucination/death = 2,
+	/datum/hallucination/psydon_is_here = 1 //Intended to be very rare.
 	))
 
 
@@ -513,7 +514,7 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 	..()
 	var/turf/source = random_far_turf()
 	if(!sound_type)
-		sound_type = pick("door","healing","paincollapse","door hit","creepy","magic","far explosion","glass","alarm","lockpick","skele","door pick", "bwoinked")
+		sound_type = pick("door","healing","deaddite","paincollapse","door hit","creepy","magic","far explosion","glass","alarm","lockpick","skele","door pick", "bwoinked")
 	feedback_details += "Type: [sound_type]"
 	//Strange audio
 	switch(sound_type)
@@ -555,12 +556,29 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 			target.playsound_local(source, 'sound/magic/heal.ogg', 100, 1)
 			sleep(rand(80, 100))
 			target.playsound_local(source, 'sound/magic/heal.ogg', 100, 1)
+			sleep(rand(80, 100))
+			target.playsound_local(source, 'sound/magic/heal.ogg', 100, 1)
+		//OW! We fell!
 		if("paincollapse")
-			target.playsound_local(source, 'sound/vo/female/gen/painscream (8).ogg', 100, 1)
 			target.playsound_local(source, 'sound/foley/zfall.ogg', 100, 1)
-			sleep(rand(5,8))
+			sleep(rand(1,5))
+			target.playsound_local(source, 'sound/vo/female/gen/painscream (8).ogg', 100, 1)
+			sleep(10)
 			target.playsound_local(source, 'sound/foley/bodyfall (2).ogg', 100, 1)
-
+		if("deaddite") //Long-ish sound...
+			target.playsound_local(source, pick('sound/vo/mobs/zombie/f/firescream (1).ogg','sound/vo/mobs/zombie/f/firescream (2).ogg','sound/vo/mobs/zombie/f/firescream (3).ogg'), 100, 1)
+			target.playsound_local(source, pick('sound/combat/hits/onwood/woodimpact (1).ogg', 'sound/combat/hits/onwood/woodimpact (2).ogg'), 100, 1)
+			sleep(rand(CLICK_CD_MELEE, CLICK_CD_MELEE + 6))
+			target.playsound_local(source, pick('sound/combat/hits/onwood/woodimpact (1).ogg', 'sound/combat/hits/onwood/woodimpact (2).ogg'), 100, 1)
+			sleep(rand(1,3))
+			target.playsound_local(source, pick('sound/vo/mobs/zombie/f/firescream (1).ogg','sound/vo/mobs/zombie/f/firescream (2).ogg','sound/vo/mobs/zombie/f/firescream (3).ogg'), 100, 1)
+			sleep(rand(CLICK_CD_MELEE, CLICK_CD_MELEE + 6))
+			target.playsound_local(source, pick('sound/combat/hits/onwood/woodimpact (1).ogg', 'sound/combat/hits/onwood/woodimpact (2).ogg'), 100, 1)
+			sleep(rand(CLICK_CD_MELEE, CLICK_CD_MELEE + 6))
+			target.playsound_local(source, pick('sound/combat/hits/onwood/woodimpact (1).ogg', 'sound/combat/hits/onwood/woodimpact (2).ogg'), 100, 1)
+			target.playsound_local(source,'sound/combat/hits/onwood/destroywalldoor.ogg', 75, 1)
+			sleep(rand(CLICK_CD_MELEE, CLICK_CD_MELEE + 6))
+			target.playsound_local(source, pick('sound/vo/mobs/zombie/f/firescream (1).ogg','sound/vo/mobs/zombie/f/firescream (2).ogg','sound/vo/mobs/zombie/f/firescream (3).ogg'), 100, 1)
 	QDEL_IN(src, 20) //Garuntee sounds finish.
 
 /datum/hallucination/weird_sounds
@@ -569,7 +587,7 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 	set waitfor = FALSE
 	..()
 	if(!sound_type)
-		sound_type = pick("whispers","whispers2","zizo","evil","creepy","bwoinked")
+		sound_type = pick("whispers","whispers2","zizo","evil","creepy")
 	feedback_details += "Type: [sound_type]"
 	//Strange audio
 	switch(sound_type)
@@ -591,10 +609,6 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 			sleep(60)
 			target.playsound_local(target, pick('sound/misc/sting1.ogg','sound/misc/sting2.ogg','sound/misc/obey.ogg','sound/villain/hall_appear1.ogg',\
 			'sound/villain/hall_appear2.ogg','sound/villain/hall_appear3.ogg'), 80, 1)
-		//Scaring the player, not the character...
-		if("bwoinked")
-			target.playsound_local(target, 'sound/adminhelp.ogg', 75, 1)
-			to_chat(target, span_admin("Huh?"))
 
 	QDEL_IN(src, 20) //Garuntee sounds finish.
 
