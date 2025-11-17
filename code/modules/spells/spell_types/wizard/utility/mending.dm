@@ -87,3 +87,4 @@
 	spell_tier = 1 //Lesser Mending, still just like mending but rather akin to snails pace, and is only 1 point.
 	lesser_modifier = 2.5 SECONDS //2.5 second slower per tick. Much much slower than regular mending.
 	repair_percent = 0.7
+ 
