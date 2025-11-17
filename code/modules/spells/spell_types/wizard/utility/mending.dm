@@ -53,7 +53,7 @@
 
 		if(!user.Adjacent(I)) //Check if the item is always near during the loop.
 			to_chat(user, span_warning("I can't reach the item from here!"))
-			return
+			break
 
 		if(do_after(user, cast_time, target = I))
 			int_bonus = (user.STAINT * 0.01)
@@ -74,6 +74,9 @@
 						I.repair_coverage()
 						to_chat(user, span_info("[I]'s shorn layers mend together, completely."))
 				break //We finished repairs!
+		else //We gotta stand still, same with the item!
+			return
+	return //Finished the mending; Lets stop trying to repair.
 
 
 /obj/effect/proc_holder/spell/invoked/mending/lesser
