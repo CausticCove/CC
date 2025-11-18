@@ -16,8 +16,8 @@
 //ITEM INVENTORY SLOT BITMASKS
 
 #define ITEM_SLOT_PANTS			(1<<0)
-#define ITEM_SLOT_SHIRT			(1<<1)
-#define ITEM_SLOT_ARMOR			(1<<2)
+#define ITEM_SLOT_ARMOR			(1<<1)
+#define ITEM_SLOT_SHIRT			(1<<2)
 #define ITEM_SLOT_SHOES			(1<<3)
 #define ITEM_SLOT_GLOVES		(1<<4)
 #define ITEM_SLOT_RING			(1<<5)
