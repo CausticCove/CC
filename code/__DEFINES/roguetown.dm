@@ -360,6 +360,18 @@ GLOBAL_LIST_EMPTY(round_join_times)
 #define ARMOR_CLASS_MEDIUM 2
 #define ARMOR_CLASS_HEAVY 3
 
+//CC BEGIN
+
+/*
+	Defines the ratios for armors when calculating layered integrity damage.
+*/
+#define AC_NONE_RATIO 20
+#define AC_LIGHT_RATIO 40
+#define AC_MEDIUM_RATIO 60
+#define AC_HEAVY_RATIO 80
+
+//CC END
+
 /*
 	Defines for class select categories
 */
