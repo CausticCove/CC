@@ -20,39 +20,42 @@
 	if(isbodypart(def_zone))
 		var/obj/item/bodypart/CBP = def_zone
 		def_zone = CBP.body_zone
-	var/obj/item/clothing/used
 	var/protection = 0
-	used = get_best_worn_armor(def_zone, d_type)
-	if(used)
-		protection = used.armor.getRating(d_type)
-		if(!blade_dulling)
-			blade_dulling = BCLASS_BLUNT
-		if(blade_dulling == BCLASS_PEEL)	//Peel shouldn't be dealing any damage through armor, or to armor itself.
-			used.peel_coverage(def_zone, peeldivisor, src)
-			damage = 0
-			if(def_zone == BODY_ZONE_CHEST)
-				purge_peel(99)
-		if(used.blocksound)
-			playsound(loc, get_armor_sound(used.blocksound, blade_dulling), 100)
-		var/intdamage = damage
-		// Penetrative damage deals significantly less to the armor. Tentative.
-		if((damage + armor_penetration) > protection)
-			intdamage = (damage + armor_penetration) - protection
-		if(intdamfactor != 1)
-			intdamage *= intdamfactor
-		if(d_type == "blunt")
-			if(used.armor?.getRating("blunt") > 0)
-				var/bluntrating = used.armor.getRating("blunt")
-				intdamage -= intdamage * ((bluntrating / 2) / 100)	//Half of the blunt rating reduces blunt damage taken by %-age.
-		if(istype(used_weapon) && used_weapon.is_silver && ((used.smeltresult in list(/obj/item/ingot/aaslag, /obj/item/ingot/aalloy, /obj/item/ingot/purifiedaalloy)) || used.GetComponent(/datum/component/cursed_item)))
-			// Blessed silver delivers more int damage against "cursed" alloys, see component for multiplier values
-			var/datum/component/silverbless/bless = used_weapon.GetComponent(/datum/component/silverbless)
-			if(bless.is_blessed)
-				// Apply multiplier if the blessing is active.
-				intdamage = round(intdamage * bless.cursed_item_intdamage)
-		used.take_damage(intdamage, damage_flag = d_type, sound_effect = FALSE, armor_penetration = 100)
-	if(physiology)
-		protection += physiology.armor.getRating(d_type)
+	var/cur_armor = 0 //Used to index the list
+	var/used_armors = get_all_of_worn_armors(def_zone, d_type)
+	if(used_armors.len) //Check if we even have armors.
+		for(var/i in 0 to used_armors.len)
+			var/used = used_armors[cur_armor]
+			cur_armor++ //Index to the next armor piece.
+			protection = used.armor.getRating(d_type)
+			if(!blade_dulling)
+				blade_dulling = BCLASS_BLUNT
+			if(blade_dulling == BCLASS_PEEL)	//Peel shouldn't be dealing any damage through armor, or to armor itself.
+				used.peel_coverage(def_zone, peeldivisor, src)
+				damage = 0
+				if(def_zone == BODY_ZONE_CHEST)
+					purge_peel(99)
+			if(used.blocksound)
+				playsound(loc, get_armor_sound(used.blocksound, blade_dulling), 100)
+			var/intdamage = damage
+			// Penetrative damage deals significantly less to the armor. Tentative.
+			if((damage + armor_penetration) > protection)
+				intdamage = (damage + armor_penetration) - protection
+			if(intdamfactor != 1)
+				intdamage *= intdamfactor
+			if(d_type == "blunt")
+				if(used.armor?.getRating("blunt") > 0)
+					var/bluntrating = used.armor.getRating("blunt")
+					intdamage -= intdamage * ((bluntrating / 2) / 100)	//Half of the blunt rating reduces blunt damage taken by %-age.
+			if(istype(used_weapon) && used_weapon.is_silver && ((used.smeltresult in list(/obj/item/ingot/aaslag, /obj/item/ingot/aalloy, /obj/item/ingot/purifiedaalloy)) || used.GetComponent(/datum/component/cursed_item)))
+				// Blessed silver delivers more int damage against "cursed" alloys, see component for multiplier values
+				var/datum/component/silverbless/bless = used_weapon.GetComponent(/datum/component/silverbless)
+				if(bless.is_blessed)
+					// Apply multiplier if the blessing is active.
+					intdamage = round(intdamage * bless.cursed_item_intdamage)
+			used.take_damage(intdamage, damage_flag = d_type, sound_effect = FALSE, armor_penetration = 100)
+		if(physiology) //Species armor resistance.
+			protection += physiology.armor.getRating(d_type)
 	return protection
 
 /mob/living/carbon/human/proc/checkcritarmor(def_zone, d_type)
@@ -805,6 +808,31 @@
 							used = C
 	return used
 
+/// Similar to get_best_worn_armor(), but instead returns a list of all armors that protect the same spot.
+/mob/living/carbon/human/proc/get_all_of_worn_armors(def_zone, d_type)
+	var/list/used_armors_list = list()
+	if(def_zone == BODY_ZONE_TAUR)
+		def_zone = pick(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
+	var/list/body_parts = list(skin_armor, head, wear_mask, wear_wrists, gloves, wear_neck, cloak, wear_armor, wear_shirt, shoes, wear_pants, backr, backl, belt, s_store, glasses, ears, wear_ring) //Everything but pockets. Pockets are l_store and r_store. (if pockets were allowed, putting something armored, gloves or hats for example, would double up on the armor)
+	if(skin_armor)
+		var/obj/item/clothing/C = skin_armor
+		if(C.obj_integrity > 0)
+			used_armors_list += C
+	else
+		for(var/bp in body_parts) //Check for every BP of armor on them.
+			if(!bp)
+				continue
+			if(bp && istype(bp, /obj/item/clothing))
+				var/obj/item/clothing/C = bp
+				if(zone2covered(def_zone, C.body_parts_covered_dynamic)) //Check if the BP slot covers the defense zone
+					if(C.max_integrity)
+						if(C.obj_integrity <= 0)
+							continue
+					var/val = C.armor.getRating(d_type)
+					if(val > 0)
+						used_armors_list += C
+	return used_armors_list
+
 /mob/living/carbon/human/on_fire_stack(seconds_per_tick, datum/status_effect/fire_handler/fire_stacks/fire_handler)
 	//SEND_SIGNAL(src, COMSIG_HUMAN_BURNING)
 	burn_clothing(seconds_per_tick, fire_handler.stacks)
@@ -869,3 +897,26 @@
 	for(var/X in burning_items)
 		var/obj/item/I = X
 		I.fire_act(stacks * 25 * seconds_per_tick) //damage taken is reduced to 2% of this value by fire_act()
+
+
+//Used to grab the ratio for all armor pieces meant to be damaged for use with the checkarmor() proc..
+
+/mob/living/carbon/human/proc/get_armor_class_ratio(/obj/item/clothing/armor_list)
+	var/cur_armor = 0 //List indexing value
+	var/list/ratio_list = list()
+	for(var/i in 0 to armor_list.len)
+		var/used = armor_list[cur_armor]
+		cur_armor++
+		var/cur_ratio = 0
+		switch(used.armor_class)
+			if(ARMOR_CLASS_NONE)
+				cur_ratio = AC_NONE_RATIO
+			if(ARMOR_CLASS_LIGHT)
+				cur_ratio = AC_LIGHT_RATIO
+			if(ARMOR_CLASS_MEDIUM)
+				cur_ratio = AC_MEDIUM_RATIO
+			if(ARMOR_CLASS_HEAVY)
+				cur_ratio = AC_HEAVY_RATIO
+		ratio += cur_ratio
+	return ratio_list
+
