@@ -803,6 +803,7 @@
 						if(val > protection)
 							protection = val
 							used = C
+							return used //We found our first armor that's viable; lets use it now so we don't use any underlying armor.
 	return used
 
 /mob/living/carbon/human/on_fire_stack(seconds_per_tick, datum/status_effect/fire_handler/fire_stacks/fire_handler)
