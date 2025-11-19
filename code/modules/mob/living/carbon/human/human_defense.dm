@@ -23,10 +23,13 @@
 	var/protection = 0
 	var/cur_armor = 1 //Used to index the list
 	var/list/used_armors = get_all_of_worn_armors(def_zone, d_type)
+	var/list/best_armor = get_best_worn_armor(def_zone, d_type)
 
 	for(var/i in 1 to length(used_armors))
 		var/obj/item/clothing/used = used_armors[cur_armor]
-		protection = used.armor.getRating(d_type)
+		var/obj/item/clothing/best_used = best_armor
+		protection = best_armor
+		
 		if(!blade_dulling)
 			blade_dulling = BCLASS_BLUNT
 		if(blade_dulling == BCLASS_PEEL)	//Peel shouldn't be dealing any damage through armor, or to armor itself.
@@ -848,6 +851,7 @@
 					var/val = C.armor.getRating(d_type)
 					if(val > 0)
 						used_armors_list += C
+
 	return used_armors_list
 
 /mob/living/carbon/human/on_fire_stack(seconds_per_tick, datum/status_effect/fire_handler/fire_stacks/fire_handler)
