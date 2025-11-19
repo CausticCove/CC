@@ -334,6 +334,9 @@ GLOBAL_LIST_EMPTY(chosen_names)
 			dat += "</td>"
 
 			dat += "<td style='width:33%;text-align:right'>"
+			///Caustic edit
+			dat += "<a href='?_src_=prefs;preference=epilepsy;task=menu'>[epilepsy ? "Epileptic mode" : "Normal mode"]</a>"
+			///Caustic edit end
 			dat += "</td>"
 			dat += "</tr>"
 
@@ -1376,6 +1379,10 @@ Slots: [job.spawn_positions] [job.round_contrib_points ? "RCP: +[job.round_contr
 				SetAntag(user)
 	else if(href_list["preference"] == "tgui_ui_prefs")
 		tgui_pref = !tgui_pref
+	///Caustic edit
+	else if(href_list["preference"] == "epilepsy")
+		epilepsy = !epilepsy
+	///Caustic edit end
 	else if(href_list["preference"] == "triumphs")
 		user.show_triumphs_list()
 

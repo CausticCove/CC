@@ -7,6 +7,9 @@
 	noaa = TRUE
 
 /datum/intent/steal/on_mmb(atom/target, mob/living/user, params)
+	if(user.stat == DEAD || user.stat == UNCONSCIOUS || user.stat == SOFT_CRIT)
+		to_chat(user, span_warning("I can't move a muscle."))
+		return FALSE
 	if(!target.Adjacent(user))
 		return
 

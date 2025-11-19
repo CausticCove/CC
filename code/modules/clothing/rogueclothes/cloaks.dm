@@ -2014,6 +2014,10 @@
 	GLOB.lordcolor -= src
 	return ..()
 
+/obj/item/clothing/cloak/captain/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/storage/concrete/roguetown/cloak)
+
 /obj/item/clothing/cloak/kazengun
 	name = "jinbaori"
 	desc = "A simple kind of Kazengunite surcoat, worn here in the distant battlefields of Azuria to differentiate friend from foe."

@@ -12,6 +12,9 @@
 
 /datum/intent/bite/on_mmb(atom/target, mob/living/user, params)
 	var/datum/species/dullahan/user_species
+	if(user.stat == DEAD || user.stat == UNCONSCIOUS || user.stat == SOFT_CRIT)
+		to_chat(user, span_warning("I cannot move my jaw."))
+		return
 	if(isdullahan(user) && ishuman(target))
 		var/mob/living/carbon/human/target_human = target
 		var/mob/living/carbon/human/user_human = user

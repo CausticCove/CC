@@ -354,8 +354,8 @@
 //
 // Clearly super important. Obviously.
 //
-/mob/living/verb/lick(mob/living/tasted in living_mobs_in_view(1, TRUE))
-	set name = "Lick"
+/mob/living/verb/lick_taste(mob/living/tasted in living_mobs_in_view(1, TRUE))
+	set name = "Lick someone"
 	set category = "Abilities.Vore"
 	set desc = "Lick someone nearby!"
 	set popup_menu = FALSE // Stop licking by accident!
@@ -400,7 +400,7 @@
 
 //This is just the above proc but switched about.
 /mob/living/verb/smell(mob/living/smelled in living_mobs(1, TRUE))
-	set name = "Smell"
+	set name = "Smell someone"
 	set category = "Abilities.Vore"
 	set desc = "Smell someone nearby!"
 	set popup_menu = FALSE
@@ -889,6 +889,96 @@
 	var/datum/browser/popup = new(user, "[name]mvp", "Vore Prefs: [src]", 300, 700, src)
 	popup.set_content(dat)
 	popup.open()
+
+/mob/living/verb/shred_limb()
+	set name = "Damage/Remove Prey's Organ"
+	set desc = "Severely damages prey's organ. If the limb is already severely damaged, it will be torn off."
+	set category = "Abilities.Vore"
+	var/obj/item/grabbing/I = get_active_held_item()
+	if(!I)//we must be holding something
+		to_chat(src, span_notice("You are not holding anything."))
+		return
+	if(!istype(I.grabbed, /mob/living/carbon))//we must be grabbing a non simple mob
+		to_chat(src, span_notice("You can't shred that."))
+		return
+	if(!I.grab_state > 0)//the grab must be reinforced
+		to_chat(src, span_notice("You need a stronger hold."))
+		return
+	shred(I.grabbed)//now we shred
+
+/mob/living/proc/shred(var/mob/living/carbon/human/T)
+	//Let them pick any of the target's external organs
+	var/obj/item/bodypart/T_ext = tgui_input_list(src, "What do you wish to severely damage?", "Organ Choice", T.bodyparts) //D for destroy.
+	if(!T_ext) //Picking something here is critical.
+		return
+
+	//Any internal organ, if there are any
+	var/obj/item/organ/internal/T_int = tgui_input_list(src,"Do you wish to severely damage an internal organ, as well? If not, click 'I Rescind', don't forget if you damage something vital they might die.", "Organ Choice", T.getorganszone(T_ext.body_zone, subzones = TRUE))
+
+	//And a belly, if they want
+	var/obj/belly/B = tgui_input_list(src,"To where do you wish to swallow the organ if you tear if out? If you want it to fall to the floor click 'I Rescind', be WARNED that if you digest/destory the brain (or the head with it) your prey will be effectively ROUND REMOVED and reformation gems will not save them, removing the head/brain means you have to put it back on before the prey uses reformation gem, make sure you have medicine skill if you want to do that", "Organ Choice", vore_organs)
+
+	last_special = world.time + 15 SECONDS
+	visible_message(span_danger("[src] appears to be preparing to do something to [T]!")) //Let everyone know that bad times are ahead
+
+	if(!do_after(src, 15 SECONDS, target = T)) //Fifteen seconds. You have to be in a reinforced grab for this, so you're already in a bad position and tying you up would be quicker.
+		to_chat(src,span_warning("Looks like you lost your chance..."))
+		return
+
+	//Removing an internal organ
+	if(!isnull(T_int) && T_int.damage >= 3) //Internal organ and it's been severely damaged
+		T.apply_damage(50, BRUTE, T_ext) //Damage the external organ they're going through.
+		if(B)
+			T_int.forceMove(B) //Move to pred's gut
+			if(istype(T_int,/obj/item/organ/heart)){ //special heart behavior, in case we want to do some funky RP
+				if(tgui_alert(src, "Do you want to keep the heart functional ? as long as it is not destoryed the target will live","Shred Limb",list("Yes", "No")) != "Yes"){
+					T_int.Remove(T)
+				}else{
+					T_int.damage=0//so that we don't have a heart attack mid ERP
+				}
+			}else{
+				T_int.Remove(T) //stop the organ from working, without Remove you end up with a working organ outside of the body
+			}
+			visible_message(span_danger("[src] severely damages [T_int.name] of [T]!"))
+		else
+			T_int.forceMove(T.loc)
+			if(istype(T_int,/obj/item/organ/heart)){ //special heart behavior, in case we want to do some funky RP
+				if(tgui_alert(src, "Do you want to keep the heart functional ? as long as it is not destoryed the target will not suffer death due to it's lack","Shred Limb",list("Yes", "No")) != "Yes"){
+					T_int.Remove(T)
+				}else{
+					T_int.damage=0
+				}
+			}else{
+				T_int.Remove(T)
+			}
+			visible_message(span_danger("[src] severely damages [T_ext.name] of [T], resulting in their [T_int.name] coming out!"),span_warning("You tear out [T]'s [T_int.name]!"))
+
+	//Removing an external organ
+	else if(!T_int &&  T_ext.brute_dam >= 40)
+
+		//Is it groin/chest? You can't remove those.
+		if(istype(T_ext, /obj/item/bodypart/chest))
+			T.apply_damage(50, BRUTE, T_ext)
+			visible_message(span_danger("[src] severely damages [T]'s [T_ext.name]!"))
+		else if(B)
+			T_ext.drop_limb()
+			T_ext.forceMove(B)
+			visible_message(span_warning("[src] swallows [T]'s [T_ext.name] into their [lowertext(B.name)]!"))
+		else
+			T_ext.drop_limb()
+			T_ext.forceMove(T.loc)
+			visible_message(span_warning("[src] tears off [T]'s [T_ext.name]!"),span_warning("You tear off [T]'s [T_ext.name]!"))
+
+
+	//Not targeting an internal organ w/ > 3 damage , and the limb doesn't have < 30 damage.
+	else
+		if(T_int)
+			T_int.damage = 10 //Internal organs can only take damage, not brute damage.
+		T.apply_damage(50, BRUTE, T_ext)
+		visible_message(span_danger("[src] severely damages [T]'s [T_ext.name]!"))
+
+//	add_attack_logs(src,T,"Shredded (hardvore)")
+// TODO : ADD LOGGING !!!
 
 // Full screen belly overlays!
 /obj/screen/fullscreen/belly

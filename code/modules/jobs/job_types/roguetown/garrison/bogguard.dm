@@ -28,7 +28,10 @@
 	job_traits = list(TRAIT_OUTDOORSMAN, TRAIT_WOODSMAN, TRAIT_SURVIVAL_EXPERT)
 	job_subclasses = list(
 		/datum/advclass/bogguardsman/ranger,
-		/datum/advclass/bogguardsman/forester
+		/datum/advclass/bogguardsman/forester,
+		///Caustic edit
+		/datum/advclass/bogguardsman/wildsoul
+		///Caustic edit end
 	)
 
 /datum/outfit/job/roguetown/bogguardsman
