@@ -27,7 +27,7 @@ GLOBAL_LIST_INIT(character_flaws, list(
 	//Caustic edit end
 	"Hunted"=/datum/charflaw/hunted,
 	"Random or No Flaw"=/datum/charflaw/randflaw,
-	"No Flaw (3 TRIUMPHS)"=/datum/charflaw/noflaw,
+	"No Flaw (4 TRIUMPHS)"=/datum/charflaw/noflaw, // Caustic Cove Edit start - Our rounds are now 4 hours long, so this has to cost a tiny bit more!
 	))
 
 /datum/charflaw
@@ -96,9 +96,9 @@ GLOBAL_LIST_INIT(character_flaws, list(
 	name = "No Flaw"
 	desc = "I'm a normal person, how rare!"
 
-/datum/charflaw/noflaw
-	name = "No Flaw (3 TRI)"
-	desc = "I'm a normal person, how rare! (Consumes 3 triumphs or gives a random flaw.)"
+/datum/charflaw/noflaw // Caustic Cove Edit start - Our rounds are now 4 hours long, so this has to cost a tiny bit more!
+	name = "No Flaw (4 TRI)" // Edit here
+	desc = "I'm a normal person, how rare! (Consumes 4 triumphs or gives a random flaw.)"
 	var/nochekk = TRUE
 
 /datum/charflaw/noflaw/flaw_on_life(mob/user)
@@ -107,7 +107,7 @@ GLOBAL_LIST_INIT(character_flaws, list(
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		if(H.ckey)
-			if(H.get_triumphs() < 3)
+			if(H.get_triumphs() < 4) // Edit here
 				nochekk = FALSE
 				var/flawz = GLOB.character_flaws.Copy()
 				var/charflaw = pick_n_take(flawz)
@@ -122,7 +122,8 @@ GLOBAL_LIST_INIT(character_flaws, list(
 				H.charflaw.on_mob_creation(H)
 			else
 				nochekk = FALSE
-				H.adjust_triumphs(-3)
+				H.adjust_triumphs(-4) // Edit here
+// Caustic Cove Edit end
 
 /datum/charflaw/badsight
 	name = "Bad Eyesight"

@@ -422,6 +422,7 @@
 	name = "doctor's hat"
 	desc = "My cure is most effective."
 	icon_state = "physhat"
+	sewrepair = TRUE
 
 
 /obj/item/clothing/head/roguetown/helmet/tricorn

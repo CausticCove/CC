@@ -137,7 +137,13 @@
 		"Voibion" = SKIN_COLOR_VOIBION,
 		"Chyerno" = SKIN_COLOR_CHYERNO,
 		"Drema"	= SKIN_COLOR_DREMA,
-		"Chir"	= SKIN_COLOR_CHIR
+		"Chir"	= SKIN_COLOR_CHIR,
+		//Caustic edit
+		"Seeker" = SKIN_COLOR_SEEKER,
+		"Splendorous" = SKIN_COLOR_SPLENDOROUS,
+		"Witness"	= SKIN_COLOR_WITNESS,
+		"Blessed"	= SKIN_COLOR_BLESSED
+		//Caustic edit end
 	)
 
 /datum/species/tieberian/get_hairc_list()

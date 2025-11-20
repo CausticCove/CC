@@ -78,7 +78,7 @@
 	if(obj_broken)
 		obj_broken = FALSE //doesn't effect anything but the examine
 
-	 //Every 1 point of integrity is 2 points of hunger
+	//Every 1 point of integrity is 2 points of hunger
 	skin_haver.adjust_nutrition(-regen_amt * regen_cost)
 
 	//some user feed back for regeneration

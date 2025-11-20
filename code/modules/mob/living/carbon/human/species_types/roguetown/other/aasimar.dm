@@ -118,6 +118,12 @@
 		"Olympia" = SKIN_COLOR_OLYMPIA,
 		"Necral" = SKIN_COLOR_NECRAL,
 		"Abyssal" = SKIN_COLOR_ABYSSAL,
+		//Caustic edit
+		"Ruinous" = SKIN_COLOR_RUINOUS,
+		"Godshadowed" = SKIN_COLOR_GODSHADOWED,
+		"Rememberance" = SKIN_COLOR_REMEMBERANCE,
+		"Contemplative" = SKIN_COLOR_CONTEMPLATIVE
+		//Caustic edit end
 	)
 
 /datum/species/aasimar/get_hairc_list()

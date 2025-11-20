@@ -44,7 +44,7 @@
 		dump_mob()
 	if(ismob(loc))
 		var/mob/M = loc
-		M.dropItemToGround(src, get_turf(src))
+		M.forceMove(get_turf(src))
 	return ..()
 
 /obj/item/micro/container_resist(mob/living/held)
@@ -64,7 +64,7 @@
 			to_chat(M, span_warning("[held] uselessly wiggles against my grip!"))
 			to_chat(held, span_warning("You struggle against [M]'s grip!"))
 		else
-			M.dropItemToGround(src)
+			forceMove(src)
 			to_chat(M, span_warning("\The [held] wriggles out of your grip!"))
 			to_chat(held, span_warning("You wiggle out of [M]'s grip!"))
 	else if(isitem(loc))
@@ -87,8 +87,21 @@
 
 /obj/item/micro/Exited(mob/held, atom/newLoc)
 	var/mob/living/current_held = held_mob
-	. = ..()
-	if(held == current_held)
+
+	//I cannot do anything about spatials getting removed because that would be touching azure code in inappropriate places, so here is the shitcode we are doing
+
+	//First we save the spatials that are about to be removed
+	var/list/nested_locs = get_nested_locs(src)
+	var/list/preremovespatials = list()
+	for(var/channel in important_recursive_contents)
+		for(var/atom/movable/location as anything in nested_locs)
+			preremovespatials[location] = list()
+			switch(channel)
+				if(RECURSIVE_CONTENTS_CLIENT_MOBS, RECURSIVE_CONTENTS_HEARING_SENSITIVE)
+					preremovespatials[location] += channel
+
+	//We do the holder removal thing as per usual
+	if(held == current_held) //<-- not sure what is the purpose of this single line and the indent that it makes but Lira probably knows??? Not touching it.
 		current_held.set_resting(FALSE,FALSE)
 		current_held.transform = original_transform
 		current_held.update_transform()
@@ -97,6 +110,13 @@
 		original_transform = null
 		original_vis_flags = NONE
 		held_mob = null
+	. = ..()
+	
+	//Then we reapply it
+	for(var/reapplylocation in preremovespatials)
+		for(var/channeltoreapply in reapplylocation)
+			SSspatial_grid.add_grid_awareness(reapplylocation,channeltoreapply)
+
 
 /obj/item/micro/MouseDrop(mob/living/M)
 	..()
