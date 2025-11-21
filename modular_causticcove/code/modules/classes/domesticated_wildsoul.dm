@@ -35,7 +35,7 @@
 	H.adjust_blindness(-3)
 	shoes = /obj/item/clothing/shoes/roguetown/boots/furlinedanklets
 	beltl = /obj/item/rogueweapon/huntingknife/stoneknife
-	H.skin_armor = new /obj/item/clothing/suit/roguetown/armor/skin_armor/natural_armor/heavy(H)
+	H.skin_armor = new /obj/item/clothing/suit/roguetown/armor/skin_armor/natural_armor/dense(H)
 	beltl = /obj/item/rogueweapon/knuckles // A bit more civilized, why not?
 	beltr = /obj/item/signal_horn
 	neck = /obj/item/storage/keyring/guard

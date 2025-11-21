@@ -18,14 +18,14 @@
 	var/regen_cost = 2 //less is cheaper
 	var/mob/living/carbon/human/skin_haver
 
-/obj/item/clothing/suit/roguetown/armor/skin_armor/natural_armor/heavy
-	name = "heavy natural armor"
-	max_integrity = 550 //this is the ONLY armor you can get. it should be pretty tough.
-	armor = ARMOR_NATURAL_METAL
+/obj/item/clothing/suit/roguetown/armor/skin_armor/natural_armor/dense
+	name = "dense natural armor"
+	max_integrity = 400 // The classes that get this also have crit resistance and decent con as is. Might still need to lower this if they can infinitely tank anyways.
+	armor = ARMOR_NATURAL_DENSE
 	blocksound = CHAINHIT //gonna see if this sound helps differentiate it from the light nat armor
-	regen_cap = 75
-	regen_delay = 30 SECONDS
-	regen_cost = 1
+	regen_cap = 100
+	regen_delay = 60 SECONDS
+	regen_cost = 2
 
 /obj/item/clothing/suit/roguetown/armor/skin_armor/natural_armor/Initialize(mapload)
 	. = ..()
@@ -68,7 +68,7 @@
 		return
 	
 	//we can't regenerate if we have no nutrition to do it with
-	if(skin_haver.nutrition <=0)
+	if(skin_haver.nutrition <= 200)
 		return
 
 	//we can only regenerate 100 points of integrity at a time

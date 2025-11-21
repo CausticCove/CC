@@ -77,7 +77,7 @@
 	wrists = /obj/item/clothing/wrists/roguetown/bracers/leather
 	belt = /obj/item/storage/belt/rogue/leather/rope
 	beltl = /obj/item/rogueweapon/huntingknife/stoneknife
-	H.skin_armor = new /obj/item/clothing/suit/roguetown/armor/skin_armor/natural_armor/heavy(H)
+	H.skin_armor = new /obj/item/clothing/suit/roguetown/armor/skin_armor/natural_armor/dense(H)
 	give_feral_eyes(H)
 
 /datum/advclass/wildsoul/mantid
