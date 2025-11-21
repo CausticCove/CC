@@ -226,7 +226,9 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	S["tip_delay"]			>> tip_delay
 	S["pda_style"]			>> pda_style
 	S["pda_color"]			>> pda_color
-
+	///Caustic edit
+	S["epilepsy"]			>> epilepsy
+	///Caustic edit end
 	// Custom hotkeys
 	S["key_bindings"]		>> key_bindings
 
@@ -356,6 +358,9 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	WRITE_FILE(S["pda_style"], pda_style)
 	WRITE_FILE(S["pda_color"], pda_color)
 	WRITE_FILE(S["key_bindings"], key_bindings)
+	///Caustic edit
+	WRITE_FILE(S["epilepsy"], epilepsy)
+	///Caustic edit end
 	return TRUE
 
 

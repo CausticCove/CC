@@ -300,6 +300,7 @@
 		"trashFishingMod" = 0,
 		"dangerFishingMod" = 0.9,
 		"ceruleanFishingMod" = 0, // 1 on cerulean aril, 0 on everything else
+		"cheeseFishingMod" = 0 // Just for the funny gimmick of a chance for rats and rouses. // Caustic Edit
 	)
 
 /obj/item/rogueweapon/spear/trident/afterattack(obj/target, mob/user, proximity)
@@ -564,6 +565,7 @@
 		"trashFishingMod" = 0,
 		"dangerFishingMod" = 1,
 		"ceruleanFishingMod" = 0, // 1 on cerulean aril, 0 on everything else
+		"cheeseFishingMod" = 0 // Just for the funny gimmick of a chance for rats and rouses.
 	)
 
 /obj/item/rogueweapon/fishspear/depthseek //DO NOT ADD RECIPE. MEANT TO BE AN ABYSSORITE RELIC. IDEA COURTESY OF LORDINQPLAS

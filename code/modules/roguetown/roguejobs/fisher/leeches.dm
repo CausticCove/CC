@@ -13,6 +13,7 @@
 		"trashFishingMod" = 1,
 		"dangerFishingMod" = 1.1,
 		"ceruleanFishingMod" = 0, // 1 on cerulean aril, 0 on everything else
+		"cheeseFishingMod" = 0 // Just for the funny gimmick of a chance for rats and rouses. // Caustic Edit
 	)
 
 	embedding = list(

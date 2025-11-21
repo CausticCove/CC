@@ -1856,3 +1856,24 @@
 	set category = "Noises"
 
 	emote("yip", intentional = TRUE)
+
+//Hallucination specific emotes, not intended for general use.
+
+//What is that thing...
+/datum/emote/living/blank_stare
+	key = "stares_b"
+	key_third_person = "stares blankly."
+	message = "stares blankly."
+	emote_type = EMOTE_VISIBLE
+	is_animal = FALSE
+	show_runechat = TRUE
+
+//Disgusting, I hate it, I cannot help but subconsciously react.
+/datum/emote/living/lip_curl
+	key = "lip_c"
+	key_third_person = "curls their lip."
+	message = "curls their lip."
+	emote_type = EMOTE_VISIBLE
+	is_animal = FALSE	
+	show_runechat = TRUE
+

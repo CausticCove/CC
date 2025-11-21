@@ -1018,17 +1018,23 @@
 				severity = 2
 			if(40 to 60)
 				severity = 3
-				overlay_fullscreen("painflash", /atom/movable/screen/fullscreen/painflash)
+				if(!check_epilepsy())
+					overlay_fullscreen("painflash", /atom/movable/screen/fullscreen/painflash)
 			if(60 to 80)
 				severity = 4
-				overlay_fullscreen("painflash", /atom/movable/screen/fullscreen/painflash)
+				if(!check_epilepsy())
+					overlay_fullscreen("painflash", /atom/movable/screen/fullscreen/painflash)
 			if(80 to 99)
 				severity = 5
-				overlay_fullscreen("painflash", /atom/movable/screen/fullscreen/painflash)
+				if(!check_epilepsy())
+					overlay_fullscreen("painflash", /atom/movable/screen/fullscreen/painflash)
 			if(99 to INFINITY)
 				severity = 6
-				overlay_fullscreen("painflash", /atom/movable/screen/fullscreen/painflash)
-		overlay_fullscreen("brute", /atom/movable/screen/fullscreen/brute, severity)
+				if(!check_epilepsy())
+					overlay_fullscreen("painflash", /atom/movable/screen/fullscreen/painflash)
+		
+		if(!check_epilepsy())
+			overlay_fullscreen("brute", /atom/movable/screen/fullscreen/brute, severity)
 	else
 		clear_fullscreen("brute")
 		clear_fullscreen("painflash")

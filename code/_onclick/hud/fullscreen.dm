@@ -19,17 +19,19 @@
 
 
 /mob/proc/flash_fullscreen(state)
+	///Caustic edit, screen epilepsy thing
 	var/atom/movable/screen/fullscreen/flashholder/screen = screens["flashholder"]
+	if(!check_epilepsy()) //This is the only new line added, the rest of the changes are simply indenting the rest of this thing by one 
 
-	if(!screen)
-		screen = new /atom/movable/screen/fullscreen/flashholder()
-		screens["flashholder"] = screen
+		if(!screen)
+			screen = new /atom/movable/screen/fullscreen/flashholder()
+			screens["flashholder"] = screen
 
-	if(client && screen.should_show_to(src))
-		screen.update_for_view(client.view)
-		client.screen += screen
+		if(client && screen.should_show_to(src))
+			screen.update_for_view(client.view)
+			client.screen += screen
 
-	flick(state,screen)
+		flick(state,screen)
 	return screen
 
 
@@ -183,6 +185,11 @@
 
 /atom/movable/screen/fullscreen/zezuspsyst
 	icon_state = "hey"
+	layer = CRIT_LAYER
+	plane = FULLSCREEN_PLANE
+
+/atom/movable/screen/fullscreen/zezuspsyst_subtle
+	icon_state = "hey_but_way_more_subtle"
 	layer = CRIT_LAYER
 	plane = FULLSCREEN_PLANE
 
