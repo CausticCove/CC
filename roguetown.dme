@@ -2901,6 +2901,8 @@
 #include "modular_causticcove\code\modules\classes\shophand.dm"
 #include "modular_causticcove\code\modules\classes\wildsoul.dm"
 #include "modular_causticcove\code\modules\classes\shrine_priest\shrine_priest.dm"
+#include "modular_causticcove\code\modules\classes\shrine_priest\shrine_guardian.dm"
+#include "code\modules\jobs\job_types\roguetown\adventurer\types\wretch\defiler.dm"
 #include "modular_causticcove\code\modules\client\customizers\organ\genitals.dm"
 #include "modular_causticcove\code\modules\dcbot\config.dm"
 #include "modular_causticcove\code\modules\dcbot\internaltools\ahelprelay.dm"

@@ -43,6 +43,7 @@
 		///Caustic edit
 		/datum/advclass/mercenary/shrine_priest,
 		///Caustic edit end
+		/datum/advclass/mercenary/shrine_guardian, //CC ADD
 		/datum/advclass/mercenary/steppesman,
 		/datum/advclass/mercenary/warscholar,
 		/datum/advclass/mercenary/warscholar/pontifex,
