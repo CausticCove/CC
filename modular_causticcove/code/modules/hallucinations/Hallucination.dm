@@ -222,13 +222,11 @@
 			if(prob(66)) //Lets not spam painscream TOO much... But let others at least slightly know something is wrong with them.
 				target.emote("painscream")
 			target.overlay_fullscreen("HE_IS_HERE", /atom/movable/screen/fullscreen/zezuspsyst_subtle)
-			target.flash_fullscreen("blackflash2")
 			if(THERE_HE_IS) //The initial sight should be longer when he first arrives as a subtle jumpscare.
-				sleep(10)
+				sleep(25) //Long sleep to avoid epilepsy issues.
 				target.clear_fullscreen("HE_IS_HERE")
 				return
-			sleep(5)
-			target.flash_fullscreen("blackflash2")
+			sleep(15) //See above sleep
 			target.clear_fullscreen("HE_IS_HERE")
 		
 /datum/hallucination/psydon_is_here/proc/handle_floors(mob/living/dreamer)
