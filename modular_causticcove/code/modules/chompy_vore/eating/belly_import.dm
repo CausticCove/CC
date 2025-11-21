@@ -7,7 +7,7 @@
 		ui = new(user, src, "VorePanelImport", "Vore Import Panel")
 		ui.open()
 
-/datum/vore_look/import_panel/ui_act(action, list/params, datum/tgui/ui, datum/tgui_state/state)
+/datum/vore_look/import_panel/ui_act(action, list/params, datum/tgui/ui)
 	if(..())
 		return TRUE
 

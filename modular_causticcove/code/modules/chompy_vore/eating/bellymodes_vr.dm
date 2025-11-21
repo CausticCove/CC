@@ -270,6 +270,11 @@
 				items_preserved |= I
 		if(IM_DIGEST,IM_DIGEST_PARALLEL)
 			did_an_item = digest_item(I, touchable_amount)
+		if(IM_SMELTING)
+			if(I.smeltresult && I.smeltresult != /obj/item/rogueore/coal/charcoal && !istype(I, /obj/item/ingot) && I.smeltresult != /obj/item/rogueore/coal)
+				var/obj/item/ingot/newingot = new I.smeltresult(src)
+				newingot.quality = SMELTERY_LEVEL_SPOIL
+				qdel(I)
 	return did_an_item
 
 /obj/belly/proc/handle_digestion_death(mob/living/M, instant = FALSE)
