@@ -86,21 +86,20 @@
 		var/obj/item/bodypart/CBP = def_zone
 		def_zone = CBP.body_zone
 	var/list/body_parts = list(head, wear_mask, wear_wrists, wear_shirt, wear_neck, cloak, wear_armor, wear_pants, backr, backl, gloves, shoes, belt, s_store, glasses, ears, wear_ring) //Everything but pockets. Pockets are l_store and r_store. (if pockets were allowed, putting something armored, gloves or hats for example, would double up on the armor)
-	if(skin_armor)
-		var/obj/item/clothing/C = skin_armor
-		if(C.obj_integrity > 0)
+	for(var/bp in body_parts)
+		if(!bp)
+			continue
+		if(skin_armor && skin_armor.obj_integrity >= 1)
+			var/obj/item/clothing/C = skin_armor
+			C = skin_armor
 			if(d_type in C.prevent_crits)
 				return TRUE
-	else
-		for(var/bp in body_parts)
-			if(!bp)
-				continue
-			if(bp && istype(bp , /obj/item/clothing))
-				var/obj/item/clothing/C = bp
-				if(zone2covered(def_zone, C.body_parts_covered_dynamic))
-					if(C.obj_integrity > 1)
-						if(d_type in C.prevent_crits)
-							return TRUE
+		if(bp && istype(bp , /obj/item/clothing))
+			var/obj/item/clothing/C = bp
+			if(zone2covered(def_zone, C.body_parts_covered_dynamic))
+				if(C.obj_integrity >= 1)
+					if(d_type in C.prevent_crits)
+						return TRUE
 
 /*
 /mob/proc/checkwornweight()
@@ -803,30 +802,28 @@
 
 /// Helper proc that returns the worn item ref that has the highest rating covering the def_zone (targeted zone) for the d_type (damage type)
 /mob/living/carbon/human/proc/get_best_worn_armor(def_zone, d_type)
-	var/protection = 0
 	var/obj/item/clothing/used
 	if(def_zone == BODY_ZONE_TAUR)
 		def_zone = pick(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
-	var/list/body_parts = list(skin_armor, head, wear_mask, wear_wrists, gloves, wear_neck, cloak, wear_armor, wear_shirt, shoes, wear_pants, backr, backl, belt, s_store, glasses, ears, wear_ring) //Everything but pockets. Pockets are l_store and r_store. (if pockets were allowed, putting something armored, gloves or hats for example, would double up on the armor)
-	if(skin_armor)
-		var/obj/item/clothing/C = skin_armor
-		if(C.obj_integrity > 0)
-			used = C
-	else
-		for(var/bp in body_parts)
-			if(!bp)
-				continue
-			if(bp && istype(bp, /obj/item/clothing))
-				var/obj/item/clothing/C = bp
-				if(zone2covered(def_zone, C.body_parts_covered_dynamic))
-					if(C.max_integrity)
-						if(C.obj_integrity <= 0)
-							continue
-					var/val = C.armor.getRating(d_type)
-					if(val > 0)
-						if(val > protection)
-							protection = val
-							used = C
+	var/list/body_parts = list(head, wear_mask, wear_wrists, gloves, wear_neck, cloak, wear_armor, wear_shirt, shoes, wear_pants, backr, backl, belt, s_store, glasses, ears, wear_ring) //Everything but pockets. Pockets are l_store and r_store. (if pockets were allowed, putting something armored, gloves or hats for example, would double up on the armor)
+	for(var/bp in body_parts)
+		if(!bp)
+			continue
+		if(skin_armor) //Checks for the natural_armor first.
+			if(skin_armor.obj_integrity > 0)
+				var/obj/item/clothing/C = skin_armor
+				var/val = C.armor.getRating(d_type)
+				if(val > 0)
+					used = C
+		if(bp && istype(bp, /obj/item/clothing))
+			var/obj/item/clothing/C = bp
+			if(zone2covered(def_zone, C.body_parts_covered_dynamic))
+				if(C.max_integrity)
+					if(C.obj_integrity <= 0)
+						continue
+				var/val = C.armor.getRating(d_type)
+				if(val > 0)
+					used = C
 	return used
 
 /// Similar to get_best_worn_armor(), but instead returns a list of all armors that protect the same spot.
