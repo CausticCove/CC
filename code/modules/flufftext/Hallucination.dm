@@ -514,7 +514,7 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 	..()
 	var/turf/source = random_far_turf()
 	if(!sound_type)
-		sound_type = pick("door","healing","deaddite","paincollapse","door hit","creepy","magic","far explosion","glass","alarm","lockpick","skele","door pick", "bwoinked")
+		sound_type = pick("door","healing","deaddite","paincollapse","door hit","creepy","magic","far explosion","glass","alarm","lockpick","skele","door pick")
 	feedback_details += "Type: [sound_type]"
 	//Strange audio
 	switch(sound_type)
