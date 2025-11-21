@@ -68,7 +68,7 @@
 		return
 	
 	//we can't regenerate if we have no nutrition to do it with
-	if(skin_haver.nutrition <= 200)
+	if(skin_haver.nutrition <= (regen_cap * regen_cost))
 		return
 
 	//we can only regenerate 100 points of integrity at a time
