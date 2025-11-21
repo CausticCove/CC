@@ -44,6 +44,7 @@
 		/datum/advclass/wretch/plaguebearer,
 		/datum/advclass/wretch/pyromaniac,
 		/datum/advclass/wretch/vigilante,
+		/datum/advclass/wretch/shrine_defiler,
 		/datum/advclass/wretch/blackoakwyrm
 	)
 

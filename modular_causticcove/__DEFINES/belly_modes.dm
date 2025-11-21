@@ -31,6 +31,7 @@
 #define IM_DIGEST_FOOD							"Digest (Food Only)"
 #define IM_DIGEST								"Digest"
 #define IM_DIGEST_PARALLEL						"Digest (Dispersed Damage)"
+#define IM_SMELTING								"Smelting"
 
 //Stance for hostile mobs to be in while devouring someone.
 #define HOSTILE_STANCE_EATING	99
