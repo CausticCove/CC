@@ -103,7 +103,7 @@
 /datum/supply_pack/rogue/Things/Dragonscale
 	name = "Dragonscale Necklace"
 	//Caustic edit
-	cost = 500
+	cost = 750
 	//Caustic edit end
 	contains = list(/obj/item/clothing/neck/roguetown/blkknight)
 
