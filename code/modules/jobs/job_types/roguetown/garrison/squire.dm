@@ -94,6 +94,8 @@
 		/obj/item/storage/belt/rogue/pouch,
 		/obj/item/clothing/neck/roguetown/chaincoif,
 		/obj/item/reagent_containers/glass/bottle/rogue/healthpot,
+		/obj/item/repair_kit/metal,
+		/obj/item/repair_kit,
 	)
 
 /datum/advclass/squire/footman
@@ -135,8 +137,10 @@
 	backpack_contents = list(
 		/obj/item/storage/belt/rogue/pouch,
 		/obj/item/clothing/neck/roguetown/chaincoif,
-		/obj/item/reagent_containers/glass/bottle/rogue/healthpot
-	)
+		/obj/item/reagent_containers/glass/bottle/rogue/healthpot,
+		/obj/item/repair_kit/metal,
+		/obj/item/repair_kit,
+		)
 	H.adjust_blindness(-3)
 	if(H.mind)
 		var/weapons = list("Iron Sword","Cudgel",)
@@ -193,5 +197,7 @@
 		/obj/item/storage/belt/rogue/pouch,
 		/obj/item/clothing/neck/roguetown/chaincoif,
 		/obj/item/rogueweapon/scabbard/sheath,
-		/obj/item/reagent_containers/glass/bottle/rogue/healthpot
+		/obj/item/reagent_containers/glass/bottle/rogue/healthpot,
+		/obj/item/repair_kit/metal,
+		/obj/item/repair_kit,
 		)

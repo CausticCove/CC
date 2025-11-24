@@ -117,6 +117,10 @@
 		/obj/item/rogueweapon/hammer/stone = 3,
 		/obj/item/rogueweapon/tongs = 3,
 		/obj/item/rogueweapon/pick = 3,
+		/obj/item/repair_kit/bad = 3,
+		/obj/item/repair_kit/metal/bad = 2,
+		/obj/item/repair_kit = 1,
+		/obj/item/repair_kit/metal = 1,
 
 		//armor
 		/obj/item/clothing/suit/roguetown/armor/leather/studded = 2,
