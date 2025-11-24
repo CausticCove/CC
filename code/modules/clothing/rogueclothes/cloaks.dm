@@ -1644,14 +1644,16 @@
 		active_item = TRUE
 		if(user.mind.special_role == "Bandit")
 			to_chat(user, span_monkeyhive("Matthios empowers me! My body glistens with spiritual wealth!"))
-			user.change_stat(STATKEY_STR, 2)
-			user.change_stat(STATKEY_PER, 2)
-			user.change_stat(STATKEY_INT, 2)
-			user.change_stat(STATKEY_CON, 2)
-			user.change_stat(STATKEY_WIL, 2)
-			user.change_stat(STATKEY_SPD, 2)
-			user.change_stat(STATKEY_LCK, 2)
+			//Caustic edit
+			user.change_stat(STATKEY_STR, 1)
+			user.change_stat(STATKEY_PER, 1)
+			user.change_stat(STATKEY_INT, 1)
+			user.change_stat(STATKEY_CON, 1)
+			user.change_stat(STATKEY_WIL, 1)
+			user.change_stat(STATKEY_SPD, 1)
+			user.change_stat(STATKEY_LCK, 1)
 			armor = getArmor("blunt" = 100, "slash" = 100, "stab" = 100, "piercing" = 100, "fire" = 50, "acid" = 0)
+			//Caustic edit end
 		else
 			to_chat(user, span_suicide("As I don the necklace, I feel my very worth draining away.."))
 			armor = getArmor("blunt" = 0, "slash" = 0, "stab" = 0, "piercing" = 0, "fire" = 0, "acid" = 0)

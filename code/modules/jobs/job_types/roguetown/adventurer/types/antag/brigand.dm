@@ -8,12 +8,13 @@
 	cmode_music = 'sound/music/cmode/antag/combat_thewall.ogg'
 	traits_applied = list(TRAIT_MEDIUMARMOR, TRAIT_STEELHEARTED)
 	subclass_stats = list(
-		STATKEY_STR = 4,//have you seen this idiot's starting gear and skill spread??
+		//Caustic edit
+		STATKEY_STR = 2,
 		STATKEY_WIL = 2,
 		STATKEY_CON = 2,
-		STATKEY_SPD = 1,
 		STATKEY_LCK = 1,
 		STATKEY_INT = -1
+		//Caustic edit end
 	)
 	subclass_skills = list(
 		/datum/skill/combat/polearms = SKILL_LEVEL_JOURNEYMAN,
