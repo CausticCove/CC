@@ -451,7 +451,10 @@
 	warnie = "sydwarning"
 	movement_interrupt = FALSE
 	sound = 'sound/gore/flesh_eat_03.ogg'
-	invocation_type = "none"
+//Caustic Edit
+	invocations = list("Lovelies come forth!"") //Salt PR so I don't decapitate every Pestran, invocation suggested by a Pestra main
+	invocation_type = "shout"
+//Caustic Edit End
 	associated_skill = /datum/skill/magic/holy
 	antimagic_allowed = TRUE
 	recharge_time = 60 SECONDS
