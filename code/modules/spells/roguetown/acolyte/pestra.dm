@@ -452,7 +452,7 @@
 	movement_interrupt = FALSE
 	sound = 'sound/gore/flesh_eat_03.ogg'
 //Caustic Edit
-	invocations = list("Lovelies come forth!"") //Salt PR so I don't decapitate every Pestran, invocation suggested by a Pestra main
+	invocations = list("Lovelies come forth!") //Salt PR so I don't decapitate every Pestran, invocation suggested by a Pestra main
 	invocation_type = "shout"
 //Caustic Edit End
 	associated_skill = /datum/skill/magic/holy
