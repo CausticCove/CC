@@ -5,7 +5,7 @@
 	weight = 7
 	earliest_start = 20 MINUTES
 	max_occurrences = 1
-	min_players = 25
+	min_players = 8 //All you do is build inverted psicrosses! ZIZOZIZOZIZO!!!
 
 	tags = list(
 		TAG_CORRUPTION,

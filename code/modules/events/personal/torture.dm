@@ -5,7 +5,7 @@
 	weight = 7
 	earliest_start = 20 MINUTES
 	max_occurrences = 1
-	min_players = 20
+	min_players = 15 //Possible RP potential, but possible harmful scenarios. Do observe.
 
 	tags = list(
 		TAG_BLOOD,

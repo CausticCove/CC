@@ -5,7 +5,7 @@
 	weight = 10
 	earliest_start = 5 MINUTES
 	max_occurrences = 1
-	min_players = 20
+	min_players = 20 //Boring event quite honestly- I'd consider removing this or reworking this event.
 
 /datum/round_event_control/noc_literacy/canSpawnEvent(players_amt, gamemode, fake_check)
 	. = ..()

@@ -5,7 +5,7 @@
 	weight = 8
 	earliest_start = 25 MINUTES
 	max_occurrences = 1
-	min_players = 30
+	min_players = 15 //Great stat buff for Ravox Followers, only if enough worship him however, and buff applies to the *weakest* follower.
 	allowed_storytellers = list(/datum/storyteller/ravox)
 
 /datum/round_event_control/ravox_resolve/canSpawnEvent(players_amt, gamemode, fake_check)

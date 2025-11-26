@@ -5,7 +5,7 @@
 	weight = 7
 	earliest_start = 5 MINUTES
 	max_occurrences = 1
-	min_players = 20
+	min_players = 0 //OH COME ON THIS WAS 20 WEIGHT TOO ALL FOR JUST HUGGING A FUCKING TOWNER ROLE??? THIS IS PERFECT NEW PLAYER TUTORIAL MATERIAL!!!
 
 	tags = list(
 		TAG_BOON,

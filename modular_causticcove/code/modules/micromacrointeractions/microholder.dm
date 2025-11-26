@@ -64,12 +64,12 @@
 			to_chat(M, span_warning("[held] uselessly wiggles against my grip!"))
 			to_chat(held, span_warning("You struggle against [M]'s grip!"))
 		else
-			forceMove(src)
+			dump_mob()
 			to_chat(M, span_warning("\The [held] wriggles out of your grip!"))
 			to_chat(held, span_warning("You wiggle out of [M]'s grip!"))
 	else if(isitem(loc))
 		to_chat(held, span_warning("You struggle free of [loc]."))
-		forceMove(get_turf(src))
+		dump_mob()
 	
 	process()
 

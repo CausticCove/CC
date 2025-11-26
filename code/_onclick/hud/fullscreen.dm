@@ -188,6 +188,11 @@
 	layer = CRIT_LAYER
 	plane = FULLSCREEN_PLANE
 
+/atom/movable/screen/fullscreen/zezuspsyst_subtle
+	icon_state = "hey_but_way_more_subtle"
+	layer = CRIT_LAYER
+	plane = FULLSCREEN_PLANE
+
 /atom/movable/screen/fullscreen/curse
 	icon_state = "curse"
 	layer = CURSE_LAYER

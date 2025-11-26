@@ -5,7 +5,7 @@
 	weight = 7
 	earliest_start = 20 MINUTES
 	max_occurrences = 1
-	min_players = 30
+	min_players = 30 //Thiiis one is odd. It's fully antagonistic. Will keep at 30.
 
 	tags = list(
 		TAG_BLOOD,

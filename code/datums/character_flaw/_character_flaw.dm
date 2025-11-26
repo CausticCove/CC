@@ -24,6 +24,7 @@ GLOBAL_LIST_INIT(character_flaws, list(
 	"Critical Weakness"=/datum/charflaw/critweakness,
 	//Caustic edit
 	"Bottomless"=/datum/charflaw/bottomless,
+	"Asundered Mind"=/datum/charflaw/mind_broken,
 	//Caustic edit end
 	"Hunted"=/datum/charflaw/hunted,
 	"Random or No Flaw"=/datum/charflaw/randflaw,

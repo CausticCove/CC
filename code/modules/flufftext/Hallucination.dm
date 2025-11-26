@@ -1,28 +1,25 @@
 #define HAL_LINES_FILE "hallucination.json"
-/* Still needs updating:
-items
-items_other
-hudscrew
-Chat and dangerflash could use polishing*/
 GLOBAL_LIST_INIT(hallucination_list, list(
+	//Conversation hallucinations. Most common. Max 100, min 40
 	/datum/hallucination/chat = 100,
-	/datum/hallucination/message = 60,
-	/datum/hallucination/sounds = 50,
-	/datum/hallucination/voices = 40,
-	/datum/hallucination/battle = 20,
-	/datum/hallucination/dangerflash = 15,
-//	/datum/hallucination/hudscrew = 12,
-	/datum/hallucination/fake_alert = 12,
-	/datum/hallucination/weird_sounds = 8,
-	/datum/hallucination/townannouncement = 7,
-//	/datum/hallucination/items_other = 7,
-	/datum/hallucination/husks = 7,
-	/datum/hallucination/items = 4,
-	/datum/hallucination/fire = 3,
-	/datum/hallucination/self_delusion = 3,
-	/datum/hallucination/delusion = 2,
-	/datum/hallucination/shock = 1,
-	/datum/hallucination/death = 1
+	/datum/hallucination/message = 50,
+	/datum/hallucination/voices = 50,
+	//Sound hallucinations. Uncommon. Max 35, Min 20
+	/datum/hallucination/sounds = 35,
+	/datum/hallucination/battle = 25,
+	/datum/hallucination/weird_sounds = 25,
+	/datum/hallucination/door_knock = 20,
+	//Special Hallucinations with unique conditions/events. Rare. Max 10, Min 1.
+	/datum/hallucination/fake_alert = 10,
+	/datum/hallucination/husks = 10,
+	/datum/hallucination/fire = 8,
+	/datum/hallucination/self_delusion = 6,
+	/datum/hallucination/delusion = 4,
+	/datum/hallucination/townannouncement = 4,
+	/datum/hallucination/fake_ambush = 4,
+	/datum/hallucination/shock = 3,
+	/datum/hallucination/death = 2,
+	/datum/hallucination/psydon_is_here = 1 //Intended to be very rare.
 	))
 
 
@@ -38,7 +35,7 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 	var/halpick = pickweight(GLOB.hallucination_list)
 	new halpick(src, FALSE)
 
-	next_hallucination = world.time + rand(100, 600)
+	next_hallucination = world.time + rand(300, 1800) //Longer waits, more believable hallucinations.
 
 /mob/living/carbon/proc/set_screwyhud(hud_type)
 	hal_screwyhud = hud_type
@@ -142,7 +139,7 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 /datum/hallucination/battle/New(mob/living/carbon/C, forced = TRUE, battle_type)
 	set waitfor = FALSE
 	..()
-	/*var/turf/source = random_far_turf()*/
+	var/turf/source = random_far_turf()
 	if(!battle_type)
 		battle_type = pick("monster","ranged","trap","blade","ouch","assassin","grab")
 	feedback_details += "Type: [battle_type]"
@@ -150,183 +147,98 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 		if("monster")
 			var/hits = 0
 			for(var/i in 1 to rand(5, 10))
-				target.playsound_local(target, pick('sound/gore/flesh_eat_01.ogg','sound/gore/flesh_eat_02.ogg','sound/gore/flesh_eat_03.ogg','sound/gore/flesh_eat_04.ogg'), 70, 1)
-				if(prob(50))
-					addtimer(CALLBACK(target, TYPE_PROC_REF(/mob, playsound_local), target, 'sound/combat/dismemberment/dismem (1).ogg', 45, 1), rand(5,10))
+				sleep(1)
+				target.playsound_local(source, pick('sound/gore/flesh_eat_01.ogg','sound/gore/flesh_eat_02.ogg','sound/gore/flesh_eat_03.ogg','sound/gore/flesh_eat_04.ogg'), 70, 1)
+				if(prob(25))
+					target.playsound_local(source, 'sound/combat/dismemberment/dismem (1).ogg', 60, 1)
 					hits++
-				else
-					addtimer(CALLBACK(target, TYPE_PROC_REF(/mob, playsound_local), target, 'sound/combat/dismemberment/dismem (3).ogg', 35, 1), rand(5,10))
-				sleep(rand(CLICK_CD_RANGE, CLICK_CD_RANGE + 6))
+				else if (prob(25))
+					target.playsound_local(source, 'sound/combat/dismemberment/dismem (3).ogg', 50, 1)
+				sleep(rand(CLICK_CD_MELEE, CLICK_CD_MELEE + 10))
 				if(hits >= 4 && prob(40))
-					target.playsound_local(target, 'sound/combat/caught.ogg', 75, 1)
+					target.playsound_local(source, 'sound/combat/caught.ogg', 75, 1)
 					sleep(10)
-					target.playsound_local(target, 'sound/vo/female/gen/painscream (8).ogg', 70, 1)
+					target.playsound_local(source, 'sound/vo/female/gen/painscream (8).ogg', 70, 1)
 					break
 		if("ranged")
 			var/hits = 0
 			for(var/i in 1 to rand(5, 8))
-				target.playsound_local(target, 'sound/combat/Ranged/flatbow-shot-01.ogg', 55, 1)
+				target.playsound_local(source, 'sound/combat/Ranged/flatbow-shot-01.ogg', 75, 1)
+				sleep(rand(CLICK_CD_RANGE + 12, CLICK_CD_RANGE + 22))
 				if(prob(50))
-					addtimer(CALLBACK(target, TYPE_PROC_REF(/mob, playsound_local), target, 'sound/combat/hits/hi_arrow.ogg', 75, 1), rand(5,10))
+					sleep(rand(5,10))
+					target.playsound_local(target, 'sound/combat/hits/hi_arrow.ogg', 75, 1)
 					hits++
-					target.playsound_local(target, 'sound/misc/bleed (1).ogg', 90, 1)
+					target.playsound_local(source, 'sound/misc/bleed (1).ogg', 90, 1)
 				else
-					addtimer(CALLBACK(target, TYPE_PROC_REF(/mob, playsound_local), target, 'sound/combat/hits/hi_arrow3.ogg', 65, 1), rand(5,10))
-					target.playsound_local(target, 'sound/misc/bleed (2).ogg', 90, 1)
-				sleep(rand(CLICK_CD_RANGE, CLICK_CD_RANGE + 6))
+					sleep(rand(5,10))
+					target.playsound_local(source, 'sound/combat/hits/hi_arrow3.ogg', 75, 1)
+					target.playsound_local(source, 'sound/misc/bleed (2).ogg', 90, 1)
 				if(hits >= 3 && prob(50))
-					target.playsound_local(target, 'sound/combat/newstuck.ogg', 65, 1)
-					target.playsound_local(target, 'sound/vo/female/gen/painscream (8).ogg', 60, 1)
+					target.playsound_local(source, 'sound/combat/newstuck.ogg', 65, 1)
+					target.playsound_local(source, 'sound/vo/female/gen/painscream (8).ogg', 60, 1)
 					sleep(5)
-					target.playsound_local(target, 'sound/foley/bodyfall (3).ogg', 35, 1)
+					target.playsound_local(source, 'sound/foley/bodyfall (3).ogg', 50, 1)
 					break
 		if("trap")
-			target.playsound_local(target, 'sound/items/beartrap.ogg',75, 1)
-			target.playsound_local(target, 'sound/vo/female/gen/painscream (5).ogg', 50, 1)
+			target.playsound_local(source, 'sound/items/beartrap.ogg',75, 1)
+			target.playsound_local(source, 'sound/vo/female/gen/painscream (5).ogg', 50, 1)
 			for(var/i in 1 to rand(3, 8))
-				target.playsound_local(target, 'sound/misc/bleed (1).ogg', 90, 1)
+				target.playsound_local(source, 'sound/misc/bleed (1).ogg', 90, 1)
 				if(i == 4)
-					target.playsound_local(target, 'sound/foley/bodyfall (2).ogg', 55, 1)
+					target.playsound_local(source, 'sound/foley/bodyfall (2).ogg', 55, 1)
 				sleep(rand(CLICK_CD_MELEE, CLICK_CD_MELEE + 6))
-			target.playsound_local(target, 'sound/vo/female/gen/deathgurgle (2).ogg', 65, 1)
+			target.playsound_local(source, 'sound/vo/female/gen/deathgurgle (2).ogg', 65, 1)
 		if("blade")
 			var/hits = 0
 			for(var/i in 1 to rand(3, 6))
-				target.playsound_local(target, 'sound/combat/hits/bladed/genslash (1).ogg', 35, TRUE)
+				target.playsound_local(source, 'sound/combat/hits/bladed/genslash (1).ogg', 50, TRUE)
 				if(prob(60))
-					addtimer(CALLBACK(target, TYPE_PROC_REF(/mob, playsound_local), target, 'sound/combat/hits/armor/plate_slashed (1).ogg', 40, 1), rand(5,8))
+					sleep(rand(3,7))
+					target.playsound_local(target, 'sound/combat/hits/armor/plate_slashed (1).ogg', 60, 1)
 					hits++
 				else
-					addtimer(CALLBACK(target, TYPE_PROC_REF(/mob, playsound_local), target, 'sound/combat/hits/bladed/genslash (3).ogg', 45, 1), rand(3,8))
-				sleep(rand(CLICK_CD_RANGE, CLICK_CD_RANGE + 6))
+					sleep(rand(2,6))
+					target.playsound_local(target, 'sound/combat/hits/bladed/genslash (3).ogg', 45, 1)
+				sleep(rand(CLICK_CD_MELEE, CLICK_CD_MELEE + 6))
 				if(hits >= 2 && prob(80))
-					target.playsound_local(target, 'sound/vo/male/knight/pain (1).ogg', 55, 1)
+					target.playsound_local(source, 'sound/vo/male/knight/pain (1).ogg', 55, 1)
 					break
 		if("ouch") //Getting injured and fall
-			target.playsound_local(target, 'sound/vo/female/gen/painscream (4).ogg', 50, 1)
+			target.playsound_local(source, 'sound/vo/female/gen/painscream (4).ogg', 50, 1)
 			sleep(8)
-			target.playsound_local(target, 'sound/foley/bodyfall (2).ogg', 60, 1)
+			target.playsound_local(source, 'sound/foley/bodyfall (2).ogg', 60, 1)
 			sleep(20)
-			target.playsound_local(target, 'sound/vo/female/gen/deathgurgle (2).ogg', 65, 1)
+			target.playsound_local(source, 'sound/vo/female/gen/deathgurgle (2).ogg', 65, 1)
 		if("assassin") //Like a panda: Eats shoots and leaves
-			target.playsound_local(target, 'sound/combat/Ranged/crossbow-small-shot-04.ogg', 55, 1)
+			target.playsound_local(source, 'sound/combat/Ranged/crossbow-small-shot-04.ogg', 55, 1)
 			sleep(5)
-			target.playsound_local(target, 'sound/combat/hits/hi_bolt (3).ogg', 45, 1)
-			target.playsound_local(target, 'sound/combat/newstuck.ogg', 45, 1)
-			target.playsound_local(target, 'sound/vo/male/knight/pain (1).ogg', 45, 1)
-			sleep(10)
-			target.playsound_local(target, 'sound/vo/male/gen/haltyell (1).ogg', 40, 1)
+			target.playsound_local(source, 'sound/combat/hits/hi_bolt (3).ogg', 45, 1)
+			target.playsound_local(source, 'sound/combat/newstuck.ogg', 45, 1)
+			target.playsound_local(source, 'sound/vo/male/knight/pain (1).ogg', 45, 1)
+			sleep(rand(15,25))
+			target.playsound_local(source, 'sound/vo/male/gen/haltyell (1).ogg', 50, 1)
 			sleep(20)
 			for(var/i in 1 to rand(2, 8))
-				target.playsound_local(target, list('sound/combat/hits/bladed/genslash (3).ogg','sound/combat/hits/armor/plate_slashed (1).ogg',\
+				target.playsound_local(source, pick('sound/combat/hits/bladed/genslash (3).ogg','sound/combat/hits/armor/plate_slashed (1).ogg',\
 				'sound/combat/hits/bladed/genslash (2).ogg','sound/combat/hits/bladed/genslash (1).ogg'), 50, 1)
 				sleep(rand(2, 4))
-				target.playsound_local(target, 'sound/misc/bleed (1).ogg', 90, 1)
+				target.playsound_local(source, 'sound/misc/bleed (1).ogg', 90, 1)
 				sleep(rand(CLICK_CD_MELEE, CLICK_CD_MELEE + 4))
-		if("grab") // Do you have a moment to talk about our lord and savior ZIZOZIZOZIZO
-			for(var/i in 1 to rand(3, 6))
-				target.playsound_local(target, 'sound/foley/grab.ogg', 100, 0)
-				sleep(rand(CLICK_CD_MELEE, CLICK_CD_MELEE + 8))
+		if("grab") // Do you have a moment to talk about our lord and savior ZIZOZIZOZIZO!!!
+			var/aggrograb
+			for(var/i in 1 to rand(3, 8)) //Make it sound like a distant struggle.
+				if(!aggrograb)
+					target.playsound_local(source, 'sound/foley/grab.ogg', 100, 0)
+					aggrograb++
+				if(aggrograb)
+					target.playsound_local(source, 'sound/foley/struggle.ogg', 100, FALSE, -1)
+					if(prob(50))
+						aggrograb--
+				sleep(rand(CLICK_CD_MELEE, CLICK_CD_MELEE + 10))
 
 	qdel(src)
 
-/*/datum/hallucination/items_other
-
-/datum/hallucination/items_other/New(mob/living/carbon/C, forced = TRUE, item_type)
-	set waitfor = FALSE
-	..()
-	var/item
-	if(!item_type)
-		item = pick(list("esword","taser","ebow","baton","dual_esword","clockspear","ttv","flash","armblade"))
-	else
-		item = item_type
-	feedback_details += "Item: [item]"
-	var/side
-	var/image_file
-	var/image/A = null
-	var/list/mob_pool = list()
-
-	for(var/mob/living/carbon/human/M in view(7,target))
-		if(M != target)
-			mob_pool += M
-	if(!mob_pool.len)
-		return
-
-	var/mob/living/carbon/human/H = pick(mob_pool)
-	feedback_details += " Mob: [H.real_name]"
-
-	var/free_hand = H.get_empty_held_index_for_side(LEFT_HANDS)
-	if(free_hand)
-		side = "left"
-	else
-		free_hand = H.get_empty_held_index_for_side(RIGHT_HANDS)
-		if(free_hand)
-			side = "right"
-
-	if(side)
-		switch(item)
-			if("esword")
-				if(side == "right")
-					image_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
-				else
-					image_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
-				target.playsound_local(H, 'sound/blank.ogg',35,1)
-				A = image(image_file,H,"swordred", layer=ABOVE_MOB_LAYER)
-			if("dual_esword")
-				if(side == "right")
-					image_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
-				else
-					image_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
-				target.playsound_local(H, 'sound/blank.ogg',35,1)
-				A = image(image_file,H,"dualsaberred1", layer=ABOVE_MOB_LAYER)
-			if("taser")
-				if(side == "right")
-					image_file = 'icons/mob/inhands/weapons/guns_righthand.dmi'
-				else
-					image_file = 'icons/mob/inhands/weapons/guns_lefthand.dmi'
-				A = image(image_file,H,"advtaserstun4", layer=ABOVE_MOB_LAYER)
-			if("ebow")
-				if(side == "right")
-					image_file = 'icons/mob/inhands/weapons/guns_righthand.dmi'
-				else
-					image_file = 'icons/mob/inhands/weapons/guns_lefthand.dmi'
-				A = image(image_file,H,"crossbow", layer=ABOVE_MOB_LAYER)
-			if("baton")
-				if(side == "right")
-					image_file = 'icons/mob/inhands/equipment/security_righthand.dmi'
-				else
-					image_file = 'icons/mob/inhands/equipment/security_lefthand.dmi'
-				target.playsound_local(H, "sparks",75,1,-1)
-				A = image(image_file,H,"baton", layer=ABOVE_MOB_LAYER)
-			if("ttv")
-				if(side == "right")
-					image_file = 'icons/mob/inhands/weapons/bombs_righthand.dmi'
-				else
-					image_file = 'icons/mob/inhands/weapons/bombs_lefthand.dmi'
-				A = image(image_file,H,"ttv", layer=ABOVE_MOB_LAYER)
-			if("flash")
-				if(side == "right")
-					image_file = 'icons/mob/inhands/equipment/security_righthand.dmi'
-				else
-					image_file = 'icons/mob/inhands/equipment/security_lefthand.dmi'
-				A = image(image_file,H,"flashtool", layer=ABOVE_MOB_LAYER)
-			if("armblade")
-				if(side == "right")
-					image_file = 'icons/mob/inhands/antag/changeling_righthand.dmi'
-				else
-					image_file = 'icons/mob/inhands/antag/changeling_lefthand.dmi'
-				target.playsound_local(H, 'sound/blank.ogg',30,1)
-				A = image(image_file,H,"arm_blade", layer=ABOVE_MOB_LAYER)
-		if(target.client)
-			target.client.images |= A
-			sleep(rand(150,250))
-			if(item == "esword" || item == "dual_esword")
-				target.playsound_local(H, 'sound/blank.ogg',35,1)
-			if(item == "armblade")
-				target.playsound_local(H, 'sound/blank.ogg',30,1)
-			target.client.images.Remove(A)
-	qdel(src)
-*/
 /datum/hallucination/delusion
 	var/list/image/delusions = list()
 
@@ -353,8 +265,8 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 			if("monster")//Horror
 				A = image('icons/roguetown/mob/monster/horrors.dmi',H,"horror1")
 				A.name = "ZIZOZIZOZIZO"
-				target.playsound_local(H, pick('sound/combat/gib (1).ogg'), 80, 1)
-				target.playsound_local(target, pick('sound/misc/hel.ogg'), 80, 1)
+				target.playsound_local(H, pick('sound/combat/gib (1).ogg'), 60, 1)
+				target.playsound_local(target, pick('sound/misc/hel.ogg'), 60, 1)
 			if("skeleton")//skeleton
 				A = image('icons/roguetown/mob/skeleton_male.dmi',H,"z")
 				A.name = "Skeleton"
@@ -362,8 +274,8 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 			if("ww")//ww
 				A = image('icons/roguetown/mob/monster/werewolf.dmi',H,"wwolf_m")
 				A.name = "Moon Howler"
-				target.playsound_local(H, pick('sound/combat/gib (1).ogg'), 80, 1)
-				target.playsound_local(H, pick('sound/vo/mobs/wwolf/roar.ogg'), 80, 1)
+				target.playsound_local(H, pick('sound/combat/gib (1).ogg'), 60, 1)
+				target.playsound_local(H, pick('sound/vo/mobs/wwolf/roar.ogg'), 60, 1)
 			if("spider")//Spider
 				A = image('icons/roguetown/mob/monster/spider.dmi',H,"skallax")
 				A.name = "Ambush spider"
@@ -499,18 +411,9 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 		"[pick_list_replacements(HAL_LINES_FILE, "escape")]",\
 		"I was bitten by a [pick("deddite","werebeast","vampire","squire")], [pick_list_replacements(HAL_LINES_FILE, "infection_advice")]!",\
 		"[pick_list_replacements(HAL_LINES_FILE, "people")] is [pick_list_replacements(HAL_LINES_FILE, "accusations")]!",\
-		"Help!",\
 		"[pick_list_replacements(HAL_LINES_FILE, "threat")] in [pick_list_replacements(HAL_LINES_FILE, "location")][prob(50)?"!":"!!"]",\
-		"[pick("[target.first_name()] is a heretic!", "Make [target.first_name()] an outlaw!")]",\
-		"[pick("I","Squire","Somebody","They")] killed the priest!",\
-		"Duke [pick("is a Zizoid", "is a heretic")]!!")
-
-	/*var/radio_messages = list("[pick_list_replacements(HAL_LINES_FILE, "people")] is [pick_list_replacements(HAL_LINES_FILE, "accusations")]!",\
-		"Help!",\
-		"[pick_list_replacements(HAL_LINES_FILE, "threat")] in [pick_list_replacements(HAL_LINES_FILE, "location")][prob(50)?"!":"!!"]",\
-		"[pick("[target.first_name()] is a heretic!", "Make [target.first_name()] an outlaw!")]",\
-		"[pick("I","Squire","Somebody","They")] killed the priest!",\
-		"Duke [pick("is a Zizoid", "is a heretic")]!!")*/
+		"[pick("[target.first_name()] is a heretic!","Make [target.first_name()] an outlaw!")]",\
+		"[pick("I","Squire","Somebody","They")] killed the priest!")
 
 	var/mob/living/carbon/person = null
 	var/datum/language/understood_language = target.get_random_understood_language()
@@ -522,7 +425,7 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 		else
 			if(get_dist(target,H)<get_dist(target,person))
 				person = H
-	if(person/* && !force_radio*/) //Basic talk
+	if(person) //Basic talk
 		var/chosen = specific_message
 		if(!chosen)
 			chosen = capitalize(pick(speak_messages))
@@ -530,29 +433,27 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 		var/image/speech_overlay = image('icons/mob/talk.dmi', person, "default0a", layer = ABOVE_MOB_LAYER)
 		var/message = target.compose_message(person,understood_language,chosen,null,list(person.speech_span),face_name = TRUE)
 		feedback_details += "Type: Talk, Source: [person.real_name], Message: [message]"
-		to_chat(target, message)
 		if(target.client)
 			target.client.images |= speech_overlay
+			sleep(rand(8,15)) //Simulate human delay.
+			if(target.client?.prefs)
+				if(!target.client?.prefs.chat_on_map) //Only if they don't have chat_on_map prefs enabled send this message
+					to_chat(target, message)
 			sleep(30)
 			target.client.images.Remove(speech_overlay)
 		var/spans = list(person.speech_span)
 		if(target.client?.prefs)
-			if (target.client?.prefs.chat_on_map)
-				sleep(30)
+			if(target.client?.prefs.chat_on_map)
+				sleep(rand(8,15))
+				to_chat(target, message)
 				target.create_chat_message(person, understood_language, chosen, spans, 0)
-	/*else // Radio talk -- Could be updated for SCOM use by a less-amateur coder
-		var/chosen = specific_message
-		if(!chosen)
-			chosen = capitalize(pick(radio_messages))
-		chosen = replacetext(chosen, "%TARGETNAME%", target_name)
-		var/list/humans = list()
-		for(var/mob/living/carbon/human/H in GLOB.alive_mob_list)
-			humans += H
-		person = pick(humans)
-		var/message = target.compose_message(person,understood_language,chosen,"[FREQ_COMMON]",list(person.speech_span),face_name = TRUE)
-		feedback_details += "Type: Radio, Source: [person.real_name], Message: [message]"
-		to_chat(target, message)*/
-	qdel(src)
+				spawn(1)
+					target.playsound_local(get_turf(person), 'sound/misc/talk.ogg', 100, FALSE, -1)
+	if(!person)
+		//If we can't find anyone nearby, reduce the next hallucination tick to 10-30 seconds.
+		target.next_hallucination = world.time + rand(100, 300)
+
+	QDEL_IN(src, 5) //Garuntee talk sound plays...
 
 /datum/hallucination/message
 
@@ -581,7 +482,7 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 			for(var/i in 1 to 5) //increase the odds
 				message_pool.Add("<span class='notice'>[other] puts the [pick(\
 					"killersice","crimson fang","severed head","crown of Azure Peak","master's rod",\
-					"master key","vault key", "steward's key", "ritual dagger","spellbook",\
+					"master key","vault key", "steward's key", "ritual dagger","spellbook","decrepit zcross"\
 					)] into [equipped_backpack].</span>")
 
 		message_pool.Add("<B>[other]</B> [pick("laughs at [target.first_name()]'s ugly outfit","stares at [target.first_name()]","charges aggressively towards [target.first_name()]","is wondering why [target.first_name()] isn't wearing any pants...")].")
@@ -613,7 +514,7 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 	..()
 	var/turf/source = random_far_turf()
 	if(!sound_type)
-		sound_type = pick("door","door hit","creepy","magic","far explosion","mech","glass","alarm","lockpick","skele","door pick")
+		sound_type = pick("door","healing","deaddite","paincollapse","door hit","creepy","magic","far explosion","glass","alarm","lockpick","skele","door pick")
 	feedback_details += "Type: [sound_type]"
 	//Strange audio
 	switch(sound_type)
@@ -631,9 +532,9 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 			else
 				target.playsound_local(source, 'sound/magic/lightning.ogg', 80, 1)
 		if("far explosion")
-			target.playsound_local(source, 'sound/misc/explode/explosionclose (2).ogg', 60, 1)
+			target.playsound_local(source, 'sound/misc/explode/explosionclose (2).ogg', 75, 1)
 		if("glass")
-			target.playsound_local(source, pick('sound/combat/hits/onglass/glassbreak (1).ogg','sound/combat/hits/onglass/glassbreak (2).ogg'), 50, 1)
+			target.playsound_local(source, pick('sound/combat/hits/onglass/glassbreak (1).ogg','sound/combat/hits/onglass/glassbreak (2).ogg'), 66, 1)
 		if("alarm")
 			target.playsound_local(source, 'sound/misc/gold_license.ogg', 100, 0)
 		if("lockpick")
@@ -650,27 +551,46 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 			target.playsound_local(source, 'sound/items/pickbad.ogg', 100, 1)
 			sleep(rand(40,80))
 			target.playsound_local(source, 'sound/items/pickgood2.ogg', 100, 1)
-	qdel(src)
+		//Getting healed after a fight
+		if("healing")
+			target.playsound_local(source, 'sound/magic/heal.ogg', 100, 1)
+			sleep(rand(80, 100))
+			target.playsound_local(source, 'sound/magic/heal.ogg', 100, 1)
+			sleep(rand(80, 100))
+			target.playsound_local(source, 'sound/magic/heal.ogg', 100, 1)
+		//OW! We fell!
+		if("paincollapse")
+			target.playsound_local(source, 'sound/foley/zfall.ogg', 100, 1)
+			sleep(rand(1,5))
+			target.playsound_local(source, 'sound/vo/female/gen/painscream (8).ogg', 100, 1)
+			sleep(10)
+			target.playsound_local(source, 'sound/foley/bodyfall (2).ogg', 100, 1)
+		if("deaddite") //Long-ish sound...
+			target.playsound_local(source, pick('sound/vo/mobs/zombie/f/firescream (1).ogg','sound/vo/mobs/zombie/f/firescream (2).ogg','sound/vo/mobs/zombie/f/firescream (3).ogg'), 100, 1)
+			target.playsound_local(source, pick('sound/combat/hits/onwood/woodimpact (1).ogg', 'sound/combat/hits/onwood/woodimpact (2).ogg'), 100, 1)
+			sleep(rand(CLICK_CD_MELEE, CLICK_CD_MELEE + 6))
+			target.playsound_local(source, pick('sound/combat/hits/onwood/woodimpact (1).ogg', 'sound/combat/hits/onwood/woodimpact (2).ogg'), 100, 1)
+			sleep(rand(1,3))
+			target.playsound_local(source, pick('sound/vo/mobs/zombie/f/firescream (1).ogg','sound/vo/mobs/zombie/f/firescream (2).ogg','sound/vo/mobs/zombie/f/firescream (3).ogg'), 100, 1)
+			sleep(rand(CLICK_CD_MELEE, CLICK_CD_MELEE + 6))
+			target.playsound_local(source, pick('sound/combat/hits/onwood/woodimpact (1).ogg', 'sound/combat/hits/onwood/woodimpact (2).ogg'), 100, 1)
+			sleep(rand(CLICK_CD_MELEE, CLICK_CD_MELEE + 6))
+			target.playsound_local(source, pick('sound/combat/hits/onwood/woodimpact (1).ogg', 'sound/combat/hits/onwood/woodimpact (2).ogg'), 100, 1)
+			target.playsound_local(source,'sound/combat/hits/onwood/destroywalldoor.ogg', 75, 1)
+			sleep(rand(CLICK_CD_MELEE, CLICK_CD_MELEE + 6))
+			target.playsound_local(source, pick('sound/vo/mobs/zombie/f/firescream (1).ogg','sound/vo/mobs/zombie/f/firescream (2).ogg','sound/vo/mobs/zombie/f/firescream (3).ogg'), 100, 1)
+	QDEL_IN(src, 20) //Garuntee sounds finish.
 
 /datum/hallucination/weird_sounds
 
 /datum/hallucination/weird_sounds/New(mob/living/carbon/C, forced = TRUE, sound_type)
 	set waitfor = FALSE
 	..()
-	var/turf/source = random_far_turf()
 	if(!sound_type)
-		sound_type = pick("bleed","whispers","whispers2","zizo","evil","drill","laughter","creepy")
+		sound_type = pick("whispers","whispers2","zizo","evil","creepy")
 	feedback_details += "Type: [sound_type]"
 	//Strange audio
 	switch(sound_type)
-		if("bleed")
-			target.playsound_local(target, 'sound/misc/bleed (1).ogg', 80)
-			sleep(25)
-			target.playsound_local(target, 'sound/misc/bleed (2).ogg', 85)
-			sleep(25)
-			target.playsound_local(target, 'sound/misc/bleed (3).ogg', 90)
-			sleep(25)
-			target.playsound_local(target, 'sound/misc/bleed (1).ogg', 100)
 		if("whispers")
 			target.playsound_local(target, 'sound/misc/carriage1.ogg', 90)
 			sleep(25)
@@ -680,16 +600,9 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 			sleep(25)
 			target.playsound_local(target, 'sound/misc/carriage4.ogg', 100)
 		if("zizo")
-			target.playsound_local(target, 'sound/misc/zizo.ogg', 70)
+			target.playsound_local(target, 'sound/misc/zizo.ogg', 50)
 		if("evil")
 			target.playsound_local(target, 'sound/misc/evilevent.ogg', 70)
-		if("drill")
-			target.playsound_local(source, 'sound/misc/TheDrill.ogg', 90)
-		if("laughter")
-			if(prob(50))
-				target.playsound_local(source, 'sound/misc/HL (1).ogg', 60, 1)
-			else
-				target.playsound_local(source, pick('sound/misc/HL (2).ogg','sound/misc/HL (3).ogg','sound/misc/HL (5).ogg'), 60, 1)
 		if("creepy")
 			target.playsound_local(target, pick('sound/misc/sting1.ogg','sound/misc/sting2.ogg','sound/misc/obey.ogg','sound/villain/hall_appear1.ogg',\
 			'sound/villain/hall_appear2.ogg','sound/villain/hall_appear3.ogg'), 80, 1)
@@ -697,7 +610,7 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 			target.playsound_local(target, pick('sound/misc/sting1.ogg','sound/misc/sting2.ogg','sound/misc/obey.ogg','sound/villain/hall_appear1.ogg',\
 			'sound/villain/hall_appear2.ogg','sound/villain/hall_appear3.ogg'), 80, 1)
 
-	qdel(src)
+	QDEL_IN(src, 20) //Garuntee sounds finish.
 
 /datum/hallucination/townannouncement
 
@@ -705,7 +618,7 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 	set waitfor = FALSE
 	..()
 	if(!message)
-		message = pick("heretic","outlaw","duke dead","priest dead","lich","ww")
+		message = pick("heretic","outlaw","duke dead","priest dead","lich","ww","weird","atonce","return","purged")
 	feedback_details += "Type: [message]"
 	switch(message)
 		if("heretic")
@@ -726,30 +639,31 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 			SEND_SOUND(target, 'sound/misc/evilevent.ogg')
 		if("lich")
 			to_chat(target, "<h1 class='alert'>The Lich Decrees</h1>")
-			to_chat(target, "<br><br><span class='alert'>The throne is mine! Bring me [target.first_name()]...by force, if necessary</span><br><br>")
+			to_chat(target, "<br><br><span class='alert'>The throne is mine! Bring me [target.first_name()], immediately!</span><br><br>")
 			SEND_SOUND(target, 'sound/misc/royal_decree.ogg')
-			SEND_SOUND(target, 'sound/misc/zizo.ogg')
 		if("ww")
 			to_chat(target, "<h1 class='alert'>The Werewolf Decrees</h1>")
 			to_chat(target, "<br><br><span class='alert'>AWOOOOOOOOOO!!! RRrrrRRrRRRRRrrrRRR RRrrrRRRrrrRRRRRrr [target.first_name()] RRrrRRRRRRRRRrrrRRR</span><br><br>")
 			SEND_SOUND(target, 'sound/misc/royal_decree.ogg')
 			SEND_SOUND(target, 'sound/vo/mobs/wwolf/howldist (1).ogg')
+		if("weird")
+			to_chat(target, "<h1 class='alert'>[target.client.key]?</h1>")
+			to_chat(target, "<br><br><span class='alert'>Are you sure you want to do this?</span><br><br>")
+			SEND_SOUND(target, 'sound/misc/excomm.ogg')
 
-/*/datum/hallucination/hudscrew
+		if("atonce") //Now for some IC confusion with the keep...
+			to_chat(target, "<h1 class='alert'>The [SSticker.rulertype] Decrees</h1>")
+			to_chat(target, "<br><br><span class='alert'>[target.first_name()] is to be seen at the keep at ONCE, or else face punishment.</span><br><br>")
+			SEND_SOUND(target, 'sound/misc/royal_decree.ogg')
+		if("return")
+			to_chat(target, "<h1 class='alert'>The [SSticker.rulertype] Decrees</h1>")
+			to_chat(target, "<br><br><span class='alert'>[target.first_name()] is to return to town immediately for questioning or else I will have to outlaw them.</span><br><br>")
+			SEND_SOUND(target, 'sound/misc/royal_decree.ogg')
+		if("purged")
+			to_chat(target, "<h1 class='alert'>LAWS PURGED</h1>")
+			to_chat(target, "<br><br><span class='alert'>All laws of the land have been purged!</span><br><br>")
+			SEND_SOUND(target, 'sound/misc/lawspurged.ogg')
 
-/datum/hallucination/hudscrew/New(mob/living/carbon/C, forced = TRUE, screwyhud_type)
-	set waitfor = FALSE
-	..()
-	//Screwy HUD
-	var/chosen_screwyhud = screwyhud_type
-	if(!chosen_screwyhud)
-		chosen_screwyhud = pick(SCREWYHUD_CRIT,SCREWYHUD_DEAD,SCREWYHUD_HEALTHY)
-	target.set_screwyhud(chosen_screwyhud)
-	feedback_details += "Type: [target.hal_screwyhud]"
-	sleep(rand(100,250))
-	target.set_screwyhud(SCREWYHUD_NONE)
-	qdel(src)
-*/
 /datum/hallucination/fake_alert
 
 /datum/hallucination/fake_alert/New(mob/living/carbon/C, forced = TRUE, specific, duration = 150)
@@ -761,34 +675,25 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 	feedback_details += "Type: [alert_type]"
 	switch(alert_type)
 		if("bleed")
-			/*target.throw_alert(alert_type, /atom/movable/screen/alert/status_effect/debuff/bleedingt1, override = TRUE)
-			sleep(50)
+			bleed_sounds()
+			target.throw_alert(alert_type, /atom/movable/screen/alert/status_effect/debuff/bleedingt1, override = TRUE)
+			sleep(60)
+			bleed_sounds()
 			target.throw_alert(alert_type, /atom/movable/screen/alert/status_effect/debuff/bleedingt2, override = TRUE)
-			sleep(50)*/
+			sleep(60)
+			bleed_sounds()
 			target.throw_alert(alert_type, /atom/movable/screen/alert/status_effect/debuff/bleedingt3, override = TRUE)
-			target.playsound_local(target, 'sound/misc/bleed (1).ogg', 80)
-			sleep(5)
-			target.playsound_local(target, 'sound/misc/bleed (2).ogg', 85)
-			sleep(5)
-			target.playsound_local(target, 'sound/misc/bleed (3).ogg', 90)
-			sleep(5)
-			target.playsound_local(target, 'sound/misc/bleed (1).ogg', 100)
-		if("netted")
-			target.throw_alert(alert_type, /atom/movable/screen/alert/status_effect/debuff/netted, override = TRUE)
-		if("surrender")
-		//	target.throw_alert(alert_type, /atom/movable/screen/alert/status_effect/debuff/breedable, override = TRUE)
-			target.throw_alert(alert_type, /atom/movable/screen/alert/status_effect/debuff/submissive, override = TRUE)
 		if("nutrition")
-			/*target.throw_alert(alert_type, /atom/movable/screen/alert/status_effect/debuff/hungryt1, override = TRUE)
-			sleep(50)
+			target.throw_alert(alert_type, /atom/movable/screen/alert/status_effect/debuff/hungryt1, override = TRUE)
+			sleep(rand(20, 50))
 			target.throw_alert(alert_type, /atom/movable/screen/alert/status_effect/debuff/hungryt2, override = TRUE)
-			sleep(50)*/
+			sleep(rand(20, 50))
 			target.throw_alert(alert_type, /atom/movable/screen/alert/status_effect/debuff/hungryt3, override = TRUE)
 		if("thirsty")
-			/*target.throw_alert(alert_type, /atom/movable/screen/alert/status_effect/debuff/thirstyt1, override = TRUE)
-			sleep(50)
+			target.throw_alert(alert_type, /atom/movable/screen/alert/status_effect/debuff/thirstyt1, override = TRUE)
+			sleep(rand(20, 50))
 			target.throw_alert(alert_type, /atom/movable/screen/alert/status_effect/debuff/thirstyt2, override = TRUE)
-			sleep(50)*/
+			sleep(rand(20, 50))
 			target.throw_alert(alert_type, /atom/movable/screen/alert/status_effect/debuff/thirstyt3, override = TRUE)
 		if("fire")
 			target.throw_alert(alert_type, /atom/movable/screen/alert/fire, override = TRUE)
@@ -796,61 +701,17 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 	target.clear_alert(alert_type, clear_override = TRUE)
 	qdel(src)
 
-/datum/hallucination/items
-
-/datum/hallucination/items/New(mob/living/carbon/C, forced = TRUE)
-	set waitfor = FALSE
-	..()
-	//Strange items
-	if(!target.halitem)
-		target.halitem = new
-		var/obj/item/l_hand = target.get_item_for_held_index(1)
-		var/obj/item/r_hand = target.get_item_for_held_index(2)
-		var/l = rogueui_righthand
-		var/r = rogueui_lefthand
-		var/list/slots_free = list(l,r)
-		if(l_hand)
-			slots_free -= l
-		if(r_hand)
-			slots_free -= r
-		if(ishuman(target))
-			var/mob/living/carbon/human/H = target
-			if(!H.belt)
-				slots_free += rogueui_backl
-			if(!H.l_store)
-				slots_free += rogueui_beltl
-			if(!H.r_store)
-				slots_free += rogueui_beltr
-		if(slots_free.len)
-			target.halitem.screen_loc = pick(slots_free)
-			target.halitem.layer = ABOVE_HUD_LAYER
-			target.halitem.plane = ABOVE_HUD_PLANE
-			switch(rand(1,5))
-				if(1) //bottlebomb
-					target.halitem.icon = 'icons/roguetown/items/misc.dmi'
-					target.halitem.icon_state = "bbomb-lit"
-					target.halitem.name = "bottle bomb"
-				if(2) //skull
-					target.halitem.icon = 'icons/roguetown/items/valuable.dmi'
-					target.halitem.icon_state = "uw1"
-					target.halitem.name = "!!!"
-				if(3) //crown
-					target.halitem.icon = 'icons/roguetown/clothing/head.dmi'
-					target.halitem.icon_state = "serpcrown"
-					target.halitem.name = "Crown of Azure Peak"
-				if(4) //clawl
-					target.halitem.icon = 'icons/roguetown/weapons/unarmed32.dmi'
-					target.halitem.icon_state = "claw_l"
-					target.halitem.name = "ravager claws"
-				if(5) //clawr
-					target.halitem.icon = 'icons/roguetown/weapons/unarmed32.dmi'
-					target.halitem.icon_state = "claw_r"
-					target.halitem.name = "ravager claws"
-			feedback_details += "Type: [target.halitem.name]"
-			if(target.client)
-				target.client.screen += target.halitem
-			QDEL_IN(target.halitem, rand(150, 350))
-	qdel(src)
+//Just so we don't have this taking up a fuck ton of space.
+/datum/hallucination/fake_alert/proc/bleed_sounds()
+	target.playsound_local(target, pick('sound/misc/bleed (1).ogg','sound/misc/bleed (2).ogg','sound/misc/bleed (3).ogg'), 80)
+	sleep(rand(5,15))
+	target.playsound_local(target, pick('sound/misc/bleed (1).ogg','sound/misc/bleed (2).ogg','sound/misc/bleed (3).ogg'), 80)
+	sleep(rand(5,15))
+	target.playsound_local(target, pick('sound/misc/bleed (1).ogg','sound/misc/bleed (2).ogg','sound/misc/bleed (3).ogg'), 80)
+	sleep(rand(5,15))
+	target.playsound_local(target, pick('sound/misc/bleed (1).ogg','sound/misc/bleed (2).ogg','sound/misc/bleed (3).ogg'), 80)
+	sleep(rand(5,15))
+	target.playsound_local(target, pick('sound/misc/bleed (1).ogg','sound/misc/bleed (2).ogg','sound/misc/bleed (3).ogg'), 80)
 
 /datum/hallucination/dangerflash
 
@@ -930,11 +791,16 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 
 /obj/effect/hallucination/danger/anomaly/Initialize()
 	. = ..()
+	//When examining, scare others around you...
+	name = pick("wall..", "floor..", "ground..", "others..", "... the what?..", "man..", "woman..", "..")
 	START_PROCESSING(SSobj, src)
 
 /obj/effect/hallucination/danger/anomaly/process()
-	if(prob(70))
+	//~35% or so chance to move slowly towards you.
+	if(prob(25))
 		step(src,pick(GLOB.alldirs))
+	else if(prob(50))
+		step(src,get_dir(target, src))
 
 /obj/effect/hallucination/danger/anomaly/Destroy()
 	STOP_PROCESSING(SSobj, src)
@@ -948,6 +814,9 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 /obj/effect/hallucination/danger/anomaly/Crossed(atom/movable/AM)
 	if(AM == target)
 		new /datum/hallucination/shock(target)
+		new /datum/hallucination/voices(target)
+		new /datum/hallucination/voices(target)
+		new /datum/hallucination/voices(target)
 
 /datum/hallucination/death
 
@@ -971,7 +840,7 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 		if(fakemob)
 			sleep(rand(20, 50))
 			to_chat(target, "<span class='deadsay'><b>DEAD: [fakemob.name]</b> says, \"[pick("rip","F in chat","lol","lmao","Anybody else just randomly die?","anyone else just die?","wtf!","why did i just drop dead?","hey [target.first_name()]","lol poison?","you too?","was that a crossbow?",\
-			"i[prob(50)?" fucking":""] hate [pick("the ww", "the lich", "rogues", "this round","this","myself","squires","you")]")]\"</span>")
+			"i[prob(50)?" fucking":""] hate [pick("the ww","the lich","rogues","this round","this","myself","squires","you","macros","micros","the admins...")]")]\"</span>")
 	sleep(rand(70,90))
 	target.set_screwyhud(SCREWYHUD_NONE)
 	target.SetParalyzed(0)
@@ -986,10 +855,11 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 /datum/hallucination/fire/New(mob/living/carbon/C, forced = TRUE)
 	set waitfor = FALSE
 	..()
-	fire_overlay = image('icons/mob/OnFire.dmi', target, "Standing", ABOVE_MOB_LAYER)
+	fire_overlay = image('icons/mob/OnFire.dmi', target, "Standing", -FIRE_LAYER)
 	if(target.client)
 		target.client.images += fire_overlay
 	to_chat(target, "<span class='danger'>You're set on fire!</span>")
+	target.playsound_local(target, 'sound/misc/enflame.ogg', 100, 1)
 	target.throw_alert("fire", /atom/movable/screen/alert/fire, override = TRUE)
 	sleep(20)
 	for(var/i in 1 to 3)
@@ -1040,7 +910,7 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 		target.client.images |= shock_image
 		target.client.images |= electrocution_skeleton_anim
 	addtimer(CALLBACK(src, PROC_REF(reset_shock_animation)), 40)
-	target.playsound_local(get_turf(src), "sparks", 100, 1)
+	target.playsound_local(get_turf(src), pick('sound/misc/elec (1).ogg', 'sound/misc/elec (2).ogg', 'sound/misc/elec (3).ogg'), 100, 1)
 	target.staminaloss += 50
 	target.Stun(40)
 	target.jitteriness += 1000
@@ -1105,41 +975,6 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 			QDEL_NULL(target.halbody)
 	qdel(src)
 
-/datum/hallucination/voices
-	var/static/list/messages = list(
-		"YOUR FATE IS SEALED IN BLOOD AND ASHES!",
-		"SHE CALLS YOUR NAME, FOOL!",
-		"THE GODS SPIT ON YOUR WORTHLESS SOUL!",
-		"YOUR HEART BEATS FOR THEIR ASCENSION!",
-		"CLAWS TEAR AT YOUR MIND FROM WITHIN!",
-		"NO ONE WILL MOURN YOUR BROKEN CORPSE!",
-		"THEIR EYES WATCH FROM EVERY WOUND!",
-		"THE SWAMP WILL SWALLOW YOUR HOPE!",
-		"PAIN IS YOUR ONLY TRUE COMPANION!",
-		"THE CHAINS OF FATE BIND YOUR BONES!",
-		"THEY LAUGH AS YOUR MIND CRUMBLES!",
-		"THE STARS MOCK YOUR FUTILE STRUGGLE!",
-		"THE GROUND WEEPS BLOOD WHERE YOU TREAD!",
-		"THEIR WHISPERS CARVE YOUR FLESH TO DUST!",
-		"THE BEASTS SMELL YOUR FEAR AND HUNGER!",
-		"YOUR VEINS PULSE WITH THEIR MALICE!",
-		"DEATH IS TOO MERCIFUL FOR YOUR SINS!",
-		"THE BOG CLAIMS YOUR HOPELESS BONES!",
-		"THE GODS HAVE MARKED YOU FOR TORMENT!",
-		"YOUR CRIES ECHO IN AN EMPTY ABYSS!",
-		"THE SHADOWS BIND YOUR WRETCHED FATE!",
-		"YOUR MIND IS A PRISON OF THEIR DESIGN!",
-		"THE FLAMES OF YOUR GUILT CONSUME YOU!",
-		"YOUR HEART IS A TROPHY FOR HER GLORY!",
-		"THE STORM SINGS OF YOUR DOOMED PATH!",
-		"THEIR CLAWS SCRATCH YOUR NAME IN STONE!",
-		"YOUR BREATH FEEDS HIS ENDLESS HUNGER!",
-		"THE GODS LAUGH AT YOUR BROKEN DREAMS!",
-		"YOUR SHADOW BETRAYS YOU TO THE DARK!",
-		"THE SWAMP WHISPERS YOUR FINAL MOMENTS!",
-		"YOUR FLESH IS A CANVAS FOR HIS WRATH!",
-	)
-
 /datum/hallucination/voices/New(mob/living/carbon/carbon, forced = TRUE)
 	set waitfor = FALSE
 	..()
@@ -1156,12 +991,26 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 		return
 
 	var/lang = carbon.get_default_language()
-	var/picked_message = pick(messages)
+	var/picked_message = pick_list(HAL_LINES_FILE, "voices")
 	var/composed = obj.compose_message(obj, carbon.get_default_language(), picked_message)
 
 	carbon.Hear(composed, obj, lang, picked_message)
+	spawn(1)
+		target.playsound_local(get_turf(obj), 'sound/misc/talk.ogg', 100, FALSE, -1)
 
 	if(prob(20))
-		carbon.emote("whimper")
+		var/emote_number
+		emote_number = pick(1,5)
+		switch(emote_number) 
+			if(1)
+				carbon.emote("whimper")
+			if(2)
+				carbon.emote("whine")
+			if(3)
+				carbon.emote("b_stare")
+			if(4)
+				carbon.emote("lip_c")
+			if(5)
+				carbon.emote("tremble") //This one really got to you.
 
 	qdel(src)

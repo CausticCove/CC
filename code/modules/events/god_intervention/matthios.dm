@@ -5,7 +5,7 @@
 	weight = 8
 	earliest_start = 10 MINUTES
 	max_occurrences = 2
-	min_players = 20
+	min_players = 8
 	allowed_storytellers = list(/datum/storyteller/matthios)
 
 /datum/round_event/matthios_fingers/start()
