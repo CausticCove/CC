@@ -35,12 +35,6 @@ GLOBAL_LIST_EMPTY(loadout_items)
 	name = "Custom Book"
 	path = /obj/item/book/rogue/loadoutbook
 
-//Caustic Edit Start
-/datum/loadout_item/sizespell
-	name = "Scroll of Enlarge/Reduce"
-	path = /obj/item/book/granter/spell/blackstone/sizespell
-//Caustic Edit End
-
 //HATS
 /datum/loadout_item/shalal
 	name = "Keffiyeh"
