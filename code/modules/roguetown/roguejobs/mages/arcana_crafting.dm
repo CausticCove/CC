@@ -280,13 +280,13 @@
 /datum/crafting_recipe/roguetown/arcana/arcynefission1 //gives some T1 and T2 arcane material
 	name = "arcyne fission"
 	result = list(/obj/item/magic/manacrystal, /obj/item/magic/manacrystal,
-				  /obj/item/magic/manacrystal,
-				  /obj/item/magic/infernal/ash,
-				  /obj/item/magic/infernal/fang,
-				  /obj/item/magic/fairydust,
-				  /obj/item/magic/iridescentscale,
-				  /obj/item/magic/elemental/mote,
-				  /obj/item/magic/elemental/shard)
+				/obj/item/magic/manacrystal,
+				/obj/item/magic/infernal/ash,
+				/obj/item/magic/infernal/fang,
+				/obj/item/magic/fairydust,
+				/obj/item/magic/iridescentscale,
+				/obj/item/magic/elemental/mote,
+				/obj/item/magic/elemental/shard)
 	reqs = list(/obj/item/natural/cured/essence = 1,
 				/datum/reagent/water/salty = 15,
 				/obj/item/natural/clay = 5,
@@ -297,25 +297,25 @@
 /datum/crafting_recipe/roguetown/arcana/arcynefission2 //gives T1, T2, and T3 arcane material, sorry Tudon
 	name = "arcyne fission"
 	result = list(/obj/item/magic/manacrystal,
-				  /obj/item/magic/manacrystal,
-				  /obj/item/magic/manacrystal,
-				  /obj/item/magic/manacrystal,
-				  /obj/item/magic/manacrystal,
-				  /obj/item/magic/infernal/ash,
-				  /obj/item/magic/infernal/ash,
-				  /obj/item/magic/infernal/fang,
-				  /obj/item/magic/infernal/fang,
-				  /obj/item/magic/infernal/core,
-				  /obj/item/magic/fairydust,
-				  /obj/item/magic/fairydust,
-				  /obj/item/magic/iridescentscale,
-				  /obj/item/magic/iridescentscale,
-				  /obj/item/magic/heartwoodcore,
-				  /obj/item/magic/elemental/mote,
-				  /obj/item/magic/elemental/mote,
-				  /obj/item/magic/elemental/shard,
-				  /obj/item/magic/elemental/shard,
-				  /obj/item/magic/elemental/fragment,)
+				/obj/item/magic/manacrystal,
+				/obj/item/magic/manacrystal,
+				/obj/item/magic/manacrystal,
+				/obj/item/magic/manacrystal,
+				/obj/item/magic/infernal/ash,
+				/obj/item/magic/infernal/ash,
+				/obj/item/magic/infernal/fang,
+				/obj/item/magic/infernal/fang,
+				/obj/item/magic/infernal/core,
+				/obj/item/magic/fairydust,
+				/obj/item/magic/fairydust,
+				/obj/item/magic/iridescentscale,
+				/obj/item/magic/iridescentscale,
+				/obj/item/magic/heartwoodcore,
+				/obj/item/magic/elemental/mote,
+				/obj/item/magic/elemental/mote,
+				/obj/item/magic/elemental/shard,
+				/obj/item/magic/elemental/shard,
+				/obj/item/magic/elemental/fragment,)
 	reqs = list(/obj/item/phylactery = 1,
 				/datum/reagent/water/salty = 15,
 				/obj/item/natural/clay = 5,
@@ -323,9 +323,9 @@
 				/obj/item/rogueore/cinnabar = 1)
 	craftdiff = 5
 
-/datum/crafting_recipe/roguetown/arcana/findfamiliar
-	name = "scroll of find familiar"
-	result = /obj/item/book/granter/spell/blackstone/familiar
-	reqs = list(/obj/item/magic/manacrystal = 1,
-				/obj/item/paper/scroll = 1)
-	craftdiff = 1
+// /datum/crafting_recipe/roguetown/arcana/findfamiliar // Available through spell selection for 3 points
+// 	name = "scroll of find familiar"
+// 	result = /obj/item/book/granter/spell/blackstone/familiar
+// 	reqs = list(/obj/item/magic/manacrystal = 1,
+// 				/obj/item/paper/scroll = 1)
+// 	craftdiff = 1

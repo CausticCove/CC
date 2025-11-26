@@ -17,7 +17,7 @@
 
 	xp_gain = TRUE
 	spell_tier = 1
-	cost = 1
+	cost = 3
 
 	invocations = list("Appare, spiritus fidus.")
 	invocation_type = "whisper"
