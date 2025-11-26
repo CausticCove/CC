@@ -35,6 +35,7 @@ GLOBAL_LIST_EMPTY(loadout_items)
 	name = "Custom Book"
 	path = /obj/item/book/rogue/loadoutbook
 
+
 //HATS
 /datum/loadout_item/shalal
 	name = "Keffiyeh"
