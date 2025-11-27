@@ -204,7 +204,7 @@
 			H.put_in_hands(new /obj/item/rogueweapon/huntingknife/idagger/steel/kazengun, TRUE)
 			H.equip_to_slot_or_del(new /obj/item/rogueweapon/scabbard/gwstrap, SLOT_BACK_R, TRUE)
 			H.equip_to_slot_or_del(new /obj/item/rogueweapon/scabbard/sheath/kazengun, SLOT_BELT_R, TRUE)
-		if("Ashigaru") // Caustic Cove edit - A dishonorable weapon, only fit for a peasant! (Even though it's really effective, and the Daimyo secretly loves it!)
+		if("Ashigaru") // Caustic Cove edit - A dishonorable weapon, only fit for a peasant! Or maybe that's just your enemies coping and seething because they're losing. :)
 			H.adjust_skillrank_up_to(/datum/skill/combat/firearms, SKILL_LEVEL_EXPERT, TRUE)
 			H.adjust_skillrank_up_to(/datum/skill/combat/knives, SKILL_LEVEL_JOURNEYMAN, TRUE)
 			H.equip_to_slot_or_del(new /obj/item/gun/ballistic/arquebus, SLOT_BACK_R, TRUE)
