@@ -22,7 +22,7 @@
 		def_zone = CBP.body_zone
 	var/protection = 0
 	var/cur_armor = 1 //Used to index the list
-	var/list/used_armors = get_all_of_worn_armors(def_zone, d_type)
+	var/list/used_armors = get_all_of_worn_armors(def_zone, d_type) //Will return only 1 item if said item has shielding_armor = TRUE variable set and calculate damage *only* for that.
 	var/obj/item/clothing/best_used
 	for(var/i in 1 to length(used_armors))
 		var/obj/item/clothing/used = used_armors[cur_armor]
@@ -805,6 +805,8 @@
 	var/obj/item/clothing/used
 	if(def_zone == BODY_ZONE_TAUR)
 		def_zone = pick(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
+	var/new_val = 0 //We are the newest
+	var/old_val = 0 //We are the HIGHEST
 	var/list/body_parts = list(skin_armor, head, wear_mask, wear_wrists, gloves, wear_neck, cloak, wear_armor, wear_shirt, shoes, wear_pants, backr, backl, belt, s_store, glasses, ears, wear_ring) //Everything but pockets. Pockets are l_store and r_store. (if pockets were allowed, putting something armored, gloves or hats for example, would double up on the armor)
 	for(var/bp in body_parts)
 		if(!bp)
@@ -812,8 +814,8 @@
 		if(skin_armor) //Checks for the natural_armor first.
 			if(skin_armor.obj_integrity > 0)
 				var/obj/item/clothing/C = skin_armor
-				var/val = C.armor.getRating(d_type)
-				if(val > 0)
+				new_val = C.armor.getRating(d_type)
+				if(new_val > old_val)
 					used = C
 		if(bp && istype(bp, /obj/item/clothing))
 			var/obj/item/clothing/C = bp
@@ -821,8 +823,9 @@
 				if(C.max_integrity)
 					if(C.obj_integrity <= 0)
 						continue
-				var/val = C.armor.getRating(d_type)
-				if(val > 0)
+				new_val = C.armor.getRating(d_type) 
+				if(new_val > old_val) //Check ratings between old and new armor values.
+					old_val = new_val
 					used = C
 	return used
 
@@ -831,6 +834,9 @@
 	var/list/used_armors_list = list()
 	if(def_zone == BODY_ZONE_TAUR)
 		def_zone = pick(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
+	var/new_val = 0 //We are the newest
+	var/old_val
+	var/shield //Boolshit check.
 	var/list/body_parts = list(skin_armor, head, wear_mask, wear_wrists, gloves, wear_neck, cloak, wear_armor, wear_shirt, shoes, wear_pants, backr, backl, belt, s_store, glasses, ears, wear_ring) //Everything but pockets. Pockets are l_store and r_store. (if pockets were allowed, putting something armored, gloves or hats for example, would double up on the armor)
 	if(skin_armor)
 		var/obj/item/clothing/C = skin_armor
@@ -846,8 +852,16 @@
 					if(C.max_integrity)
 						if(C.obj_integrity <= 0)
 							continue
-					var/val = C.armor.getRating(d_type)
-					if(val > 0)
+					
+					new_val = C.armor.getRating(d_type)
+					if(C.shielding_armor) //Always defaults as the only armor being worn as it acts as a shield, and only the armor with the greater protection value.
+						if(new_val > old_val)
+							shield = TRUE //We have a shield, don't get any more new armors onto the list. All integrity goes to this armor piece.
+							used_armors_list = list() //Clear list-
+							used_armors_list += C //Repopulate with only the shielded item, only if it has a greater value however.
+							continue //NEXT!!! WE NEED TO SEE IF THERES ANYTHING STRONGER *SMILES*
+					if(new_val > 0 && !shield) //Check if it has any defense.
+						old_val = new_val
 						used_armors_list += C
 
 	return used_armors_list

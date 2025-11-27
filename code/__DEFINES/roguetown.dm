@@ -387,6 +387,8 @@ GLOBAL_LIST_EMPTY(round_join_times)
 #define AC_MEDIUM_RATIO 60
 #define AC_HEAVY_RATIO 80
 
+#define ARMOR_SHIELD TRUE //Used for armor types that are not meant to last permanently and act as an overshield across the entire body, I.E. Fateweaver/Dragonhide.
+
 //CC END
 
 /*
