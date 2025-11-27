@@ -19,7 +19,7 @@
 
 	announce_latejoin = FALSE
 	outfit = /datum/outfit/job/roguetown/dungeoneer
-	give_bank_account = 25
+	give_bank_account = TRUE
 	min_pq = null //0
 	max_pq = null
 	round_contrib_points = 2
@@ -75,6 +75,7 @@
 	H.verbs |= /mob/living/carbon/human/proc/torture_victim
 	pants = /obj/item/clothing/under/roguetown/trou/leather/mourning
 	shoes = /obj/item/clothing/shoes/roguetown/boots
+	saiga_shoes = /obj/item/clothing/shoes/roguetown/horseshoes
 	shirt = /obj/item/clothing/suit/roguetown/armor/gambeson/councillor//Just so I don't have to make another subtype just for it to start black.
 	armor = /obj/item/clothing/suit/roguetown/armor/leather
 	wrists = /obj/item/clothing/wrists/roguetown/bracers/leather
@@ -98,3 +99,5 @@
 		else
 			cloak = /obj/item/clothing/cloak/stabard/dungeon
 			head = /obj/item/clothing/head/roguetown/menacing
+	if(H.mind)
+		SStreasury.give_money_account(ECONOMIC_LOWER_MIDDLE_CLASS, H, "Savings.")

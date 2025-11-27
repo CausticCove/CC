@@ -23,6 +23,7 @@ GLOBAL_LIST_EMPTY(cached_drink_flat_icons)
 		///datum/reagent/consumable/milk,
 		// Caustic Edit end
 		/datum/reagent/consumable/milk/salted,
+		/datum/reagent/consumable/pumpkinspice,
 	)
 
 	var/list/drink_types = subtypesof(/datum/reagent/consumable)\
