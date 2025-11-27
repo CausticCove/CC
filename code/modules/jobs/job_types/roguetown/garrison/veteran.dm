@@ -333,7 +333,7 @@
 	wrists = /obj/item/clothing/wrists/roguetown/bracers
 	shirt = /obj/item/clothing/suit/roguetown/armor/gambeson/heavy/grenzelhoft // You do NOT get the BLACKSTEEL CUIRASS because yours BROKE & I hate you. Go on a personal quest to replace it or something.
 	head = /obj/item/clothing/head/roguetown/grenzelhofthat
-	armor = /obj/item/clothing/suit/roguetown/armor/plate/blacksteel_half_plate //Caustic Cove Edit, Fuck you whoever wrote the comment above this one.
+	armor = /obj/item/clothing/suit/roguetown/armor/plate/blacksteel //Caustic Cove Edit, Fuck you whoever wrote the comment above this one.
 	pants = /obj/item/clothing/under/roguetown/heavy_leather_pants/grenzelpants
 	shoes = /obj/item/clothing/shoes/roguetown/grenzelhoft
 	saiga_shoes = /obj/item/clothing/shoes/roguetown/horseshoes/steel
