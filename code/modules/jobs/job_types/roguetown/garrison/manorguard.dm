@@ -19,7 +19,7 @@
 	outfit = /datum/outfit/job/roguetown/manorguard
 	advclass_cat_rolls = list(CTAG_MENATARMS = 20)
 
-	give_bank_account = 22
+	give_bank_account = TRUE
 	min_pq = null //3
 	max_pq = null
 	round_contrib_points = 2
@@ -50,6 +50,7 @@
 /datum/outfit/job/roguetown/manorguard
 	cloak = /obj/item/clothing/cloak/stabard/surcoat/guard
 	shoes = /obj/item/clothing/shoes/roguetown/boots/leather/reinforced
+	saiga_shoes = /obj/item/clothing/shoes/roguetown/horseshoes
 	beltl = /obj/item/rogueweapon/mace/cudgel
 	belt = /obj/item/storage/belt/rogue/leather
 	backr = /obj/item/storage/backpack/rogue/satchel
@@ -97,7 +98,7 @@
 
 	H.adjust_blindness(-3)
 	if(H.mind)
-		var/weapons = list("Warhammer & Shield","Axe & Shield","Halberd","Greataxe")
+		var/weapons = list("Warhammer & Shield","Axe & Shield","Sword & Shield","Halberd & Sword","Greataxe & Sword")
 		var/weapon_choice = input(H, "Choose your weapon.", "TAKE UP ARMS") as anything in weapons
 		H.set_blindness(0)
 		switch(weapon_choice)
@@ -107,12 +108,20 @@
 			if("Axe & Shield")
 				beltr = /obj/item/rogueweapon/stoneaxe/woodcut/steel
 				backl = /obj/item/rogueweapon/shield/iron
-			if("Halberd")
+			if("Sword & Shield")
+				l_hand = /obj/item/rogueweapon/sword
+				beltr = /obj/item/rogueweapon/scabbard/sword
+				backl = /obj/item/rogueweapon/shield/iron
+			if("Halberd & Sword")
+				l_hand = /obj/item/rogueweapon/sword
 				r_hand = /obj/item/rogueweapon/halberd
 				backl = /obj/item/rogueweapon/scabbard/gwstrap
-			if("Greataxe")
+				beltr = /obj/item/rogueweapon/scabbard/sword
+			if("Greataxe & Sword")
+				l_hand = /obj/item/rogueweapon/sword
 				r_hand = /obj/item/rogueweapon/greataxe
 				backl = /obj/item/rogueweapon/scabbard/gwstrap
+				beltr = /obj/item/rogueweapon/scabbard/sword
 	backpack_contents = list(
 		/obj/item/rogueweapon/huntingknife/idagger/steel/special = 1,
 		/obj/item/rope/chain = 1,
@@ -151,6 +160,8 @@
 		var/helmchoice = input(H, "Choose your Helm.", "TAKE UP HELMS") as anything in helmets
 		if(helmchoice != "None")
 			head = helmets[helmchoice]
+	if(H.mind)
+		SStreasury.give_money_account(ECONOMIC_LOWER_MIDDLE_CLASS, H, "Savings.")
 
 // Ranged weapons and daggers on the side - lighter armor, but fleet!
 /datum/advclass/manorguard/skirmisher
@@ -238,6 +249,8 @@
 		var/helmchoice = input(H, "Choose your Helm.", "TAKE UP HELMS") as anything in helmets
 		if(helmchoice != "None")
 			head = helmets[helmchoice]
+	if(H.mind)
+		SStreasury.give_money_account(ECONOMIC_LOWER_MIDDLE_CLASS, H, "Savings.")
 
 
 /datum/advclass/manorguard/cavalry
@@ -265,7 +278,7 @@
 		/datum/skill/combat/bows = SKILL_LEVEL_NOVICE,			// We discourage horse archers, though.
 		/datum/skill/combat/slings = SKILL_LEVEL_NOVICE,
 		/datum/skill/misc/climbing = SKILL_LEVEL_JOURNEYMAN,
-		/datum/skill/misc/athletics = SKILL_LEVEL_JOURNEYMAN, 
+		/datum/skill/misc/athletics = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/combat/wrestling = SKILL_LEVEL_EXPERT,
 		/datum/skill/combat/unarmed = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/misc/reading = SKILL_LEVEL_NOVICE,
@@ -280,18 +293,20 @@
 
 	H.adjust_blindness(-3)
 	if(H.mind)
-		var/weapons = list("Bardiche","Sword & Shield")
+		var/weapons = list("Bardiche & Sword","Sword & Shield")
 		var/weapon_choice = input(H, "Choose your weapon.", "TAKE UP ARMS") as anything in weapons
 		H.set_blindness(0)
 		switch(weapon_choice)
-			if("Bardiche")
+			if("Bardiche & Sword")
+				l_hand = /obj/item/rogueweapon/sword
 				r_hand = /obj/item/rogueweapon/halberd/bardiche
 				backl = /obj/item/rogueweapon/scabbard/gwstrap
+				beltr = /obj/item/rogueweapon/scabbard/sword
 			if("Sword & Shield")
 				beltr = /obj/item/rogueweapon/scabbard/sword
 				r_hand = /obj/item/rogueweapon/sword/sabre
 				backl = /obj/item/rogueweapon/shield/wood
-		
+
 		backpack_contents = list(
 			/obj/item/rogueweapon/huntingknife/idagger/steel/special = 1,
 			/obj/item/rope/chain = 1,
@@ -329,3 +344,5 @@
 		var/helmchoice = input(H, "Choose your Helm.", "TAKE UP HELMS") as anything in helmets
 		if(helmchoice != "None")
 			head = helmets[helmchoice]
+	if(H.mind)
+		SStreasury.give_money_account(ECONOMIC_LOWER_MIDDLE_CLASS, H, "Savings.")

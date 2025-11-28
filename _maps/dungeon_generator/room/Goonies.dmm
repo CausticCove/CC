@@ -1210,10 +1210,6 @@
 	},
 /turf/open/floor/rogue/ruinedwood/spiral,
 /area/rogue/under/tomb/indoors)
-"IM" = (
-/mob/living/carbon/human/species/skeleton/npc/hardspread/lich,
-/turf/open/floor/rogue/carpet/lord/center,
-/area/rogue/under/tomb/indoors)
 "IS" = (
 /turf/closed/wall/mineral/rogue/wooddark,
 /area/rogue/under/tomb/cave/wet)
@@ -1548,7 +1544,6 @@
 "Qt" = (
 /obj/item/clothing/cloak/cape/blkknight,
 /obj/effect/mapping_helpers/floor_clothing_equipper,
-/mob/living/carbon/human/species/skeleton/npc/hardspread/lich,
 /turf/open/floor/rogue/ruinedwood/spiral,
 /area/rogue/under/tomb/indoors)
 "Qv" = (
@@ -1592,12 +1587,6 @@
 	dir = 8
 	},
 /area/rogue/under/tomb/lake)
-"SP" = (
-/obj/structure/lever{
-	redstone_id = "Ship2"
-	},
-/turf/open/floor/rogue/ruinedwood/spiral,
-/area/rogue/under/tomb/indoors)
 "Th" = (
 /obj/structure/closet/crate/coffin/vampire,
 /obj/structure/spider/stickyweb,
@@ -3803,7 +3792,7 @@ js
 Mf
 jn
 Qt
-SP
+oT
 jn
 Vb
 Ew
@@ -6363,7 +6352,7 @@ bM
 Yf
 Uu
 Xa
-IM
+Xa
 cO
 Uu
 ar

@@ -26,16 +26,16 @@
 						/obj/item/reagent_containers/food/snacks/fat = 1,
 						/obj/item/natural/hide = 2,
 						/obj/item/natural/bundle/bone/full = 1,
-						/obj/item/alch/sinew = 3, 
-						/obj/item/alch/bone = 1, 
+						/obj/item/alch/sinew = 3,
+						/obj/item/alch/bone = 1,
 						/obj/item/alch/viscera = 2
 						)
 	perfect_butcher_results = list(/obj/item/reagent_containers/food/snacks/rogue/meat/steak = 3,
 						/obj/item/reagent_containers/food/snacks/fat = 2,
 						/obj/item/natural/hide = 4,
 						/obj/item/natural/bundle/bone/full = 1,
-						/obj/item/alch/sinew = 3, 
-						/obj/item/alch/bone = 1, 
+						/obj/item/alch/sinew = 3,
+						/obj/item/alch/bone = 1,
 						/obj/item/alch/viscera = 2,
 						/obj/item/natural/head/saiga = 1)
 	base_intents = list(/datum/intent/simple/headbutt/saiga)
@@ -199,7 +199,7 @@
 	..()
 	deaggroprob = 30
 	if(can_buckle)
-		var/datum/component/riding/D = LoadComponent(/datum/component/riding)
+		var/datum/component/riding/D = LoadComponent(/datum/component/riding/no_ocean)
 		D.set_riding_offsets(RIDING_OFFSET_ALL, list(TEXT_NORTH = list(0, 8), TEXT_SOUTH = list(0, 8), TEXT_EAST = list(-2, 8), TEXT_WEST = list(2, 8)))
 		D.set_vehicle_dir_layer(SOUTH, ABOVE_MOB_LAYER)
 		D.set_vehicle_dir_layer(NORTH, OBJ_LAYER)
@@ -225,7 +225,7 @@
 	RegisterSignal(M, COMSIG_MOB_APPLY_DAMGE, PROC_REF(check_sprint_dismount))
 	if(!has_buckled_mobs())
 		RegisterSignal(src, COMSIG_MOB_APPLY_DAMGE, PROC_REF(check_sprint_dismount))
-	
+
 /mob/living/simple_animal/hostile/retaliate/rogue/saiga/post_unbuckle_mob(mob/living/M)
 	. = ..()
 	UnregisterSignal(M, COMSIG_MOB_APPLY_DAMGE, PROC_REF(check_sprint_dismount))

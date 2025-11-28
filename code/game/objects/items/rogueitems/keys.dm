@@ -415,11 +415,11 @@
 	icon_state = "cheesekey"
 	lockid = "priest"
 
-/obj/item/roguekey/tower
-	name = "tower key"
-	desc = "This key should open anything within the tower."
+/obj/item/roguekey/university
+	name = "university key"
+	desc = "This key should open anything within the university."
 	icon_state = "greenkey"
-	lockid = "tower"
+	lockid = "university"
 
 /obj/item/roguekey/mage
 	name = "magicians's key"

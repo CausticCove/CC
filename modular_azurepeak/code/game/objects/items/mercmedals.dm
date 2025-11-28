@@ -46,6 +46,7 @@
 	name = "mercenary medal"
 	desc = "A medal commemorating a job \"well\" done."
 	icon = 'modular_azurepeak/icons/clothing/mercmedals.dmi'
+	mob_overlay_icon = 'modular_azurepeak/icons/clothing/onmob/mercmedals.dmi'
 	icon_state = "gryphon"
 	//dropshrink = 0.75
 	resistance_flags = FIRE_PROOF

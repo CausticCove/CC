@@ -6,6 +6,8 @@
 	var/adjacency = TRUE
 	/// Determines whether this intent can be used during click cd
 	var/bypasses_click_cd = FALSE
+	/// Whether the rclick will try to get turfs as target.
+	var/prioritize_turfs = FALSE
 
 /mob/living/carbon/human/on_cmode()
 	if(!cmode)	//We just toggled it off.
@@ -107,6 +109,28 @@
 	name = "strong"
 	desc = "Your attacks have +1 strength but use more stamina. Higher critrate with brutal attacks. Intentionally fails surgery steps."
 	icon_state = "rmbstrong"
+	adjacency = FALSE
+	prioritize_turfs = TRUE
+
+/datum/rmb_intent/strong/special_attack(mob/living/user, atom/target)
+	if(!user)
+		return
+	if(user.incapacitated())
+		return
+	if(!user.mind)
+		return
+	if(user.has_status_effect(/datum/status_effect/debuff/specialcd))
+		return
+
+	var/obj/item/rogueweapon/W = user.get_active_held_item()
+	if(istype(W, /obj/item/rogueweapon) && W.special)
+		var/skillreq = W.associated_skill
+		if(W.special.custom_skill)
+			skillreq = W.special.custom_skill
+		if(user.get_skill_level(skillreq) < SKILL_LEVEL_JOURNEYMAN)
+			to_chat(user, span_info("I'm not knowledgeable enough in the arts of this weapon to use this."))
+			return
+		W.special.deploy(user, W, target)
 
 /datum/rmb_intent/swift
 	name = "swift"
@@ -190,7 +214,7 @@
 			return 
 		if(user.r_grab || user.l_grab || length(user.grabbedby)) //Not usable while grabs are in play.
 			return
-		if(!(user.mobility_flags & MOBILITY_STAND) || user.IsImmobilized() || user.IsOffBalanced()) //Not usable while we're offbalanced, immobilized or on the ground.
+		if(user.IsImmobilized() || user.IsOffBalanced()) //Not usable while we're offbalanced or immobilized
 			return
 		if(user.m_intent == MOVE_INTENT_RUN)
 			to_chat(user, span_warning("I can't focus on this while running."))
@@ -207,5 +231,14 @@
 
 /datum/rmb_intent/weak
 	name = "weak"
-	desc = "Your attacks have -1 strength and will never critically-hit. Useful for longer punishments, play-fighting, and bloodletting."
+	desc = "Your attacks have -1 strength and will never critically-hit. Useful for longer punishments, play-fighting, and bloodletting.\nRight click will attempt to steal from the target."
 	icon_state = "rmbweak"
+
+/datum/rmb_intent/weak/special_attack(mob/living/user, atom/target)
+	if(!target.Adjacent(user))
+		return
+	if(!ishuman(user) || !ishuman(target))
+		return
+	var/mob/living/carbon/human/H = user
+	H.attempt_steal(user, target)
+	. = ..()
