@@ -5,7 +5,7 @@
 	weight = 7
 	earliest_start = 15 MINUTES
 	max_occurrences = 1
-	min_players = 20
+	min_players = 12 //Kind of... Meh... Can lead to some interesting RP, and Mocking doesn't cause any harm except for verbal assault!
 
 	tags = list(
 		TAG_TRICKERY,

@@ -559,13 +559,13 @@
 				mmb_intent = null
 			else
 				mmb_intent = new INTENT_KICK(src)
-		if(QINTENT_STEAL)
-			if(mmb_intent?.type == INTENT_STEAL)
+		if(QINTENT_SPECIAL)
+			if(mmb_intent?.type == INTENT_SPECIAL)
 				qdel(mmb_intent)
 				input = null
 				mmb_intent = null
 			else
-				mmb_intent = new INTENT_STEAL(src)
+				mmb_intent = new INTENT_SPECIAL(src)
 		if(QINTENT_BITE)
 			if(mmb_intent?.type == INTENT_BITE)
 				qdel(mmb_intent)
@@ -590,7 +590,7 @@
 		if(QINTENT_SPELL)
 			if(mmb_intent)
 				qdel(mmb_intent)
-			testing("spellselect [ranged_ability]")
+
 			mmb_intent = new INTENT_SPELL(src)
 			mmb_intent.releasedrain = ranged_ability.get_fatigue_drain()
 			mmb_intent.chargedrain = ranged_ability.chargedrain

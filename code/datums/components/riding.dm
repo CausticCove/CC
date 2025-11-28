@@ -20,6 +20,10 @@
 
 	var/del_on_unbuckle_all = FALSE
 
+/datum/component/riding/no_ocean/Initialize()//no copy paste
+	. = ..()
+	forbid_turf_typecache = typecacheof(/turf/open/water/ocean/deep)
+
 /datum/component/riding/Initialize()
 	if(!ismovableatom(parent))
 		return COMPONENT_INCOMPATIBLE

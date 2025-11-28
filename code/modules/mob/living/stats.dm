@@ -81,7 +81,7 @@
 				change_stat(STATKEY_INT, -20)
 				change_stat(STATKEY_LCK, -20)
 			if(check_psychokiller(ckey(key)))
-				testing("foundpsych")
+
 				H.eye_color = "ff0000"
 				H.voice_color = "ff0000"
 
@@ -225,6 +225,8 @@
 			while(newamt > 20)
 				newamt--
 				BUFEND++
+
+			pain_threshold += amt * 10
 			STAWIL = newamt
 
 		if(STATKEY_SPD)

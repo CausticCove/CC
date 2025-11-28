@@ -27,7 +27,11 @@
 	priest_excluded = TRUE
 
 /obj/effect/proc_holder/spell/invoked/resurrect/start_recharge()
+	var/old_recharge = recharge_time
 	recharge_time = initial(recharge_time) * SSchimeric_tech.get_resurrection_multiplier()
+	// If the spell was fully charged, keep it fully charged after adjusting recharge_time
+	if(charge_counter >= old_recharge && old_recharge > 0)
+		charge_counter = recharge_time
 	. = ..()
 
 /obj/effect/proc_holder/spell/invoked/resurrect/proc/get_current_required_items()
@@ -147,7 +151,7 @@
 
 /obj/effect/proc_holder/spell/invoked/resurrect/proc/consume_items(atom/center)
 	var/list/current_required_items = get_current_required_items()
-	for(var/item_type in current_required_items )
+	for(var/item_type in current_required_items)
 		var/needed = current_required_items[item_type]
 
 		for(var/obj/item/I in range(item_radius, center))

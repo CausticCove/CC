@@ -5,7 +5,7 @@
 	weight = 10
 	earliest_start = 5 MINUTES
 	max_occurrences = 1
-	min_players = 20
+	min_players = 0 //REALLY?? THIS HAD 20 MIN_PLAYERS JUST TO EAT ROTTEN FOOD??? THIS IS LIKE NEW PLAYER STUFF TO DO AS A PESTRAN!!!
 
 	tags = list(
 		TAG_MEDICAL,

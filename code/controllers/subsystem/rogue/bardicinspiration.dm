@@ -1,9 +1,4 @@
 // Bardic Inspo time - Datum/definition setup
-
-#define BARD_T1 1
-#define BARD_T2 2
-#define BARD_T3 3
-
 GLOBAL_LIST_INIT(learnable_songst1, (list(/obj/effect/proc_holder/spell/invoked/song/dirge_fortune,
 		/obj/effect/proc_holder/spell/invoked/song/furtive_fortissimo,
 		/obj/effect/proc_holder/spell/invoked/song/intellectual_interval,
@@ -131,7 +126,7 @@ GLOBAL_LIST_INIT(learnable_songst3, (list(/obj/effect/proc_holder/spell/invoked/
 	. = ..()
 	src.holder = holder
 	holder?.inspiration = src
-	ADD_TRAIT(holder, INSPIRING_MUSICIAN, "inspiration")
+	ADD_TRAIT(holder, TRAIT_INSPIRING_MUSICIAN, "inspiration")
 
 /mob/living/carbon/human/proc/picksongs()
 	set name = "Fill Songbook"

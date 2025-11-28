@@ -5,7 +5,7 @@
 	weight = 7
 	earliest_start = 15 MINUTES
 	max_occurrences = 1
-	min_players = 20
+	min_players = 0 // IT'S A TREE SPELL TO TURN TREES INTO OTHER TREES LOL WHY WAS THIS 20??? Great for teaching new players how to cast spells!
 
 	tags = list(
 		TAG_NATURE,

@@ -5,7 +5,7 @@
 	weight = 10
 	earliest_start = 10 MINUTES
 	max_occurrences = 1
-	min_players = 25
+	min_players = 8 //The church should learn how to do this anyways, and medicine players. It'll encourage them further!
 
 	tags = list(
 		TAG_MEDICAL,

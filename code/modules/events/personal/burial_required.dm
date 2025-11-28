@@ -5,7 +5,7 @@
 	weight = 10
 	earliest_start = 15 MINUTES
 	max_occurrences = 1
-	min_players = 30
+	min_players = 8 //All you do is bury corpses!
 
 	tags = list(
 		TAG_HAUNTED,

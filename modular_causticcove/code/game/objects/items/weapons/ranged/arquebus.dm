@@ -31,7 +31,7 @@
 	load_sound = 'modular_causticcove/sound/arquebus/musketload.ogg'
 	fire_sound = "modular_causticcove/sound/arquebus/arquefire.ogg"
 	anvilrepair = /datum/skill/craft/weaponsmithing
-	smeltresult = /obj/item/ingot/steel
+	smeltresult = /obj/item/ingot/bronze
 	bolt_type = BOLT_TYPE_NO_BOLT
 	casing_ejector = FALSE
 	pickup_sound = 'modular_causticcove/sound/sheath_sounds/draw_from_holster.ogg'
@@ -288,7 +288,7 @@
 	load_sound = 'modular_causticcove/sound/arquebus/musketload.ogg'
 	fire_sound = "modular_causticcove/sound/arquebus/arquefire.ogg"
 	anvilrepair = /datum/skill/craft/weaponsmithing
-	smeltresult = /obj/item/ingot/steel
+	smeltresult = /obj/item/ash
 	bolt_type = BOLT_TYPE_NO_BOLT
 	casing_ejector = FALSE
 	pickup_sound = 'modular_causticcove/sound/sheath_sounds/draw_from_holster.ogg'

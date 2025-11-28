@@ -124,7 +124,7 @@
 			return
 		var/picked_cat = input(user, "Categories", "Shipping Ledger") as null|anything in sortList(SSmerchant.supply_cats)
 		if(!picked_cat)
-			testing("yeye")
+
 			return
 		var/list/pax = list()
 		for(var/pack in SSmerchant.supply_packs)
@@ -341,13 +341,6 @@
 	icon_state ="book6_0"
 	base_icon_state = "book6"
 	bookfile = "thefireisgone.json"
-
-/obj/item/book/rogue/blackoak
-	name = "The Noblest Struggle"
-	desc = "A small black book. All Black Oaks carry this close."
-	icon_state ="book_0"
-	base_icon_state = "book"
-	bookfile = "blackoak.json"
 
 //player made books
 /obj/item/book/rogue/tales1

@@ -30,7 +30,7 @@ GLOBAL_LIST_INIT(deadite_animal_migration_points, list())
 	typepath = /datum/round_event/deadite_migration/deadite
 	weight = 3
 	max_occurrences = 2
-	min_players = 20
+	min_players = 15 //Similar to Zizo's Pet Cemetery, do keep an eye on this event and adjust as needed. At 15 should not be an issue.
 	earliest_start = 20 MINUTES
 
 	tags = list(
@@ -180,3 +180,7 @@ GLOBAL_LIST_INIT(deadite_animal_migration_points, list())
 			return SUBTREE_RETURN_FINISH_PLANNING
 
 		return SUBTREE_RETURN_FINISH_PLANNING
+
+#undef BB_DEADITE_MIGRATION_PATH
+#undef BB_DEADITE_MIGRATION_TARGET
+#undef BB_DEADITE_TRAVEL_TARGET
