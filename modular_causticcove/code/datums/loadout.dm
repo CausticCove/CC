@@ -2,6 +2,10 @@
 
 #define ARMOR_LOADOUT_CLOTHING list("blunt" = 20, "slash" = 20, "stab" = 20, "piercing" = 0, "fire" = 0, "acid" = 0)
 
+/datum/loadout_item/sizespell //I'd have this even further up the list if I could, but I don't want to needlessly edit the Azure loadouts
+	name = "Scroll of Enlarge/Reduce"
+	path = /obj/item/book/granter/spell/blackstone/sizespell
+
 /obj/item/clothing/head/roguetown/mentorhat/loadout
 	armor = ARMOR_LOADOUT_CLOTHING
 
