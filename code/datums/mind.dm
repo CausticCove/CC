@@ -94,8 +94,6 @@ GLOBAL_LIST_EMPTY(personal_objective_minds)
 
 	var/list/notes = list() //RTD add notes button
 
-	var/active_quest = 0 //if you dont take any quest its 0. Max 2 quests for one player
-
 	var/lastrecipe
 
 	var/datum/sleep_adv/sleep_adv = null
@@ -105,7 +103,7 @@ GLOBAL_LIST_EMPTY(personal_objective_minds)
 	var/heretic_nickname 	// Nickname used for heretic commune
 
 	var/picking = FALSE		// Variable that lets the event picker see if someones getting chosen or not
-	
+
 	var/job_bitflag = NONE	// the bitflag our job applied
 
 	var/list/personal_objectives = list() // List of personal objectives not tied to the antag roles
@@ -155,6 +153,7 @@ GLOBAL_LIST_EMPTY(personal_objective_minds)
 		if(!used_title)
 			used_title = "unknown"
 		known_people[H.real_name]["FJOB"] = used_title
+		known_people[H.real_name]["FSPECIES"] = H.dna.species.name
 		var/referred_gender
 		switch(H.pronouns)
 			if(HE_HIM)
@@ -208,7 +207,7 @@ GLOBAL_LIST_EMPTY(personal_objective_minds)
 					var/heretic_text = C.get_heretic_symbol(H)
 					if (heretic_text)
 						M.known_people[H.real_name]["FHERESY"] = heretic_text
-				
+
 
 /datum/mind/proc/do_i_know(datum/mind/person, name)
 	if(!person && !name)
@@ -254,11 +253,12 @@ GLOBAL_LIST_EMPTY(personal_objective_minds)
 		var/fjob = known_people[P]["FJOB"]
 		var/fgender = known_people[P]["FGENDER"]
 		var/fage = known_people[P]["FAGE"]
+		var/fspecies = known_people[P]["FSPECIES"]
 		var/fheresy = known_people[P]["FHERESY"]
 		if(fcolor && fjob)
 			if (fheresy)
 				contents +="<B><font color=#f1d669>[fheresy]</font></B> "
-			contents += "<B><font color=#[fcolor];text-shadow:0 0 10px #8d5958, 0 0 20px #8d5958, 0 0 30px #8d5958, 0 0 40px #8d5958, 0 0 50px #e60073, 0 0 60px #8d5958, 0 0 70px #8d5958;>[P]</font></B><BR>[fjob], [capitalize(fgender)], [fage]"
+			contents += "<B><font color=#[fcolor];text-shadow:0 0 10px #8d5958, 0 0 20px #8d5958, 0 0 30px #8d5958, 0 0 40px #8d5958, 0 0 50px #e60073, 0 0 60px #8d5958, 0 0 70px #8d5958;>[P]</font></B><BR>[fjob], [capitalize(fgender)], [fspecies], [fage]"
 			contents += "<BR>"
 
 	var/datum/browser/popup = new(user, "PEOPLEIKNOW", "", 260, 400)
@@ -299,7 +299,7 @@ GLOBAL_LIST_EMPTY(personal_objective_minds)
 	if(key)
 		if(new_character.key != key)					//if we're transferring into a body with a key associated which is not ours
 			if(new_character.key)
-				testing("ghostizz")
+
 				new_character.ghostize(1)						//we'll need to ghostize so that key isn't mobless.
 	else
 		key = new_character.key
@@ -326,7 +326,7 @@ GLOBAL_LIST_EMPTY(personal_objective_minds)
 
 	RegisterSignal(new_character, COMSIG_MOB_DEATH, PROC_REF(set_death_time))
 	if(active || force_key_move)
-		testing("dotransfer to [new_character]")
+
 		new_character.key = key		//now transfer the key to link the client to our new body
 	new_character.update_fov_angles()
 	SEND_SIGNAL(old_current, COMSIG_MIND_TRANSFER, new_character)

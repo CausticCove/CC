@@ -104,7 +104,7 @@
 	if(!isliving(targets[1]))
 		revert_cast()
 		return FALSE
-	testing("revived1")
+
 	var/mob/living/target = targets[1]
 	if(!target.check_revive(user))
 		revert_cast()
@@ -128,7 +128,7 @@
 		to_chat(user, span_warning("Nothing happens."))
 		revert_cast()
 		return FALSE
-	testing("revived2")
+
 	var/mob/living/carbon/spirit/underworld_spirit = target.get_spirit()
 	//GET OVER HERE!
 	if(underworld_spirit)
@@ -174,7 +174,7 @@
 	antimagic_allowed = FALSE
 	invocations = list("Astrata show me true.")
 	invocation_type = "shout"
-	recharge_time = 120 SECONDS
+	recharge_time = 90 SECONDS
 	devotion_cost = 30
 	miracle = TRUE
 
@@ -196,12 +196,7 @@
 	alert_type = /atom/movable/screen/alert/status_effect/buff/astrata_gaze
 	duration = 20 SECONDS
 
-/datum/status_effect/buff/astrata_gaze/on_apply(assocskill)
-	if(ishuman(owner))
-		var/mob/living/carbon/human/H = owner
-		H.viewcone_override = TRUE
-		H.hide_cone()
-		H.update_cone_show()
+/datum/status_effect/buff/astrata_gaze/on_creation(mob/living/new_owner, assocskill)
 	var/per_bonus = 0
 	if(assocskill)
 		if(assocskill > SKILL_LEVEL_NOVICE)
@@ -212,6 +207,14 @@
 		duration *= 2
 	if(per_bonus > 0)
 		effectedstats = list(STATKEY_PER = per_bonus)
+	. = ..()
+
+/datum/status_effect/buff/astrata_gaze/on_apply(assocskill)
+	if(ishuman(owner))
+		var/mob/living/carbon/human/H = owner
+		H.viewcone_override = TRUE
+		H.hide_cone()
+		H.update_cone_show()
 	to_chat(owner, span_info("She shines through me! I can perceive all clear as dae!"))
 	. = ..()
 
