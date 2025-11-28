@@ -135,7 +135,6 @@ GLOBAL_LIST_INIT(peasant_positions, list(
 	"Trader",
 	"Pilgrim",
 	"Bandit",
-	"Wild Soul", //caustic edit, also i have no fucking idea how it actually gets the right class from this. but it works! somehow
 	"Court Agent",
 	"Wretch",
 ))
@@ -164,6 +163,7 @@ GLOBAL_LIST_INIT(wanderer_positions, list(
 	"Assassin",
 	"Court Agent",
 	"Wretch",
+	"Wild Soul", //caustic edit
 ))
 
 GLOBAL_LIST_INIT(roguewar_positions, list(

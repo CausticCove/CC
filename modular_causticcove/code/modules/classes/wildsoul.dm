@@ -11,6 +11,8 @@
 	outfit = null 
 	outfit_female = null 
 
+	obsfuscated_job = TRUE
+
 	show_in_credits = FALSE
 	min_pq = null
 	max_pq = null
@@ -22,7 +24,7 @@
 	//job_reopens_slots_on_death = TRUE
 	//if new players take wild soul slots and die we can just uncomment this
 	selection_color = JCOLOR_YEOMAN
-	job_traits = list(TRAIT_OUTDOORSMAN, TRAIT_WILD_EATER, TRAIT_AZURENATIVE, TRAIT_SURVIVAL_EXPERT, TRAIT_LONGSTRIDER) // So they can sleep in trees, eat raw meat, avoid ambushes, and do basic wilderness survival things base. Also longstrider, since theyre supposed to be wildman. Makes sense that they'd have no turf slowdown, like wardens do, in the woods.
+	job_traits = list(TRAIT_OUTDOORSMAN, TRAIT_WILD_EATER, TRAIT_AZURENATIVE, TRAIT_SURVIVAL_EXPERT, TRAIT_LONGSTRIDER, TRAIT_FERAL) // So they can sleep in trees, eat raw meat, avoid ambushes, and do basic wilderness survival things base. Also longstrider, since theyre supposed to be wildman. Makes sense that they'd have no turf slowdown, like wardens do, in the woods.
 	//Other traits like FERAL, WOODWALKER, CIVILIZEDBARBARIAN, SEEDKNOW, and STRONGBITE to be applied to subclasses
 
 	round_contrib_points = 1 //just in case we start using PQ at some point, equal to mercenary
@@ -40,7 +42,7 @@
 /datum/advclass/wildsoul/direbear
 	name = "Soul of the Direbear"
 	tutorial = "Strong, heavy, durable- but not swift. Not particularly wise, either, but does it matter how smart someone else is if you can crush their skull in one hand?"
-	traits_applied = list(TRAIT_CRITICAL_RESISTANCE, TRAIT_CIVILIZEDBARBARIAN, TRAIT_STRONGBITE, TRAIT_FERAL, TRAIT_NATURAL_ARMOR)
+	traits_applied = list(TRAIT_CRITICAL_RESISTANCE, TRAIT_CIVILIZEDBARBARIAN, TRAIT_STRONGBITE, TRAIT_NATURAL_ARMOR)
 	category_tags = list(CTAG_WILDSOUL)
 	subclass_stats = list(
 		STATKEY_STR = 3, // 9 points weighted, with favoring keeping durability and awareness over strength.
@@ -83,7 +85,7 @@
 /datum/advclass/wildsoul/mantid
 	name = "Soul of the Mantid"
 	tutorial = "To fight head on never was your style. You prefer the subtle options; to be hidden, quiet, and strike at the opportune moment. But be wary, as that lack of brute strength and thick armor means you can't cut yourself out of an aspiring hunter's net so easily."
-	traits_applied = list(TRAIT_FERAL, TRAIT_WOODWALKER, TRAIT_DODGEEXPERT, TRAIT_PERFECT_TRACKER, TRAIT_LIGHT_STEP, TRAIT_NATURAL_ARMOR) // Lets try keeping the tanky traits on direbear instead. Sneaky hunter-like archetype- Should shine best in that lane.
+	traits_applied = list(TRAIT_WOODWALKER, TRAIT_DODGEEXPERT, TRAIT_PERFECT_TRACKER, TRAIT_LIGHT_STEP, TRAIT_NATURAL_ARMOR) // Lets try keeping the tanky traits on direbear instead. Sneaky hunter-like archetype- Should shine best in that lane.
 	category_tags = list(CTAG_WILDSOUL)
 	subclass_stats = list(
 		STATKEY_STR = -2, // 9 stats weighted, with a focus on speed and perception for knives and bows.
@@ -130,7 +132,7 @@
 /datum/advclass/wildsoul/lampternfly
 	name = "Soul of the Lampternfly"
 	tutorial = "Some things in this world have a magical spark to them; you're one of them. Having an immensely potent arcyne nature, even without training, you're capable of commanding many magycks; but be careful, for an opposing hunter's command of a bow can prove just as deadly."
-	traits_applied = list(TRAIT_ARCYNE_T3, TRAIT_MAGEARMOR, TRAIT_FERAL, TRAIT_WOODWALKER, TRAIT_ALCHEMY_EXPERT)
+	traits_applied = list(TRAIT_ARCYNE_T3, TRAIT_MAGEARMOR, TRAIT_WOODWALKER, TRAIT_ALCHEMY_EXPERT)
 	category_tags = list(CTAG_WILDSOUL)
 	subclass_stats = list(
 		STATKEY_STR = -1, // 9 stats weighted, with a focus on their intelligence and awareness
@@ -184,7 +186,7 @@
 /datum/advclass/wildsoul/zad
 	name = "Soul of the Zad"
 	tutorial = "Wise, keenly aware, yet never settling down, you haven't eschewed the idea of creating things- rather, you've only eschewed the society that traps the world in meaningless contest. You'll reap the rewards of your own labor- even if that means dying for it."
-	traits_applied = list(TRAIT_FERAL, TRAIT_DODGEEXPERT, TRAIT_WOODWALKER, TRAIT_SEEDKNOW, TRAIT_HOMESTEAD_EXPERT, TRAIT_CICERONE) // Wise nomad stereotype, but still a capable settler. Gets homestead expert, for whoever wishes to build a home out in the woods. Also medicine expert and bootleg tools.
+	traits_applied = list(TRAIT_DODGEEXPERT, TRAIT_WOODWALKER, TRAIT_SEEDKNOW, TRAIT_HOMESTEAD_EXPERT, TRAIT_CICERONE) // Wise nomad stereotype, but still a capable settler. Gets homestead expert, for whoever wishes to build a home out in the woods. Also medicine expert and bootleg tools.
 	category_tags = list(CTAG_WILDSOUL)
 	subclass_stats = list(
 		STATKEY_STR = -1, // 9 stats weighted, with a focus on their intelligence and stamina for crafting.
