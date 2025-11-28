@@ -419,7 +419,7 @@
 	name = "university key"
 	desc = "This key should open anything within the university."
 	icon_state = "greenkey"
-	lockid = "university"
+	lockid = "tower" // original id is "university". Temp fix until Ira is done fixing the map.
 
 /obj/item/roguekey/mage
 	name = "magicians's key"
