@@ -68,7 +68,6 @@
 	ADD_TRAIT(src, TRAIT_NOFALLDAMAGE1, TRAIT_GENERIC)
 	ADD_TRAIT(src, TRAIT_CHUNKYFINGERS, TRAIT_GENERIC)
 	ADD_TRAIT(src, TRAIT_INFINITE_STAMINA, TRAIT_GENERIC)
-	ADD_TRAIT(src, TRAIT_NODEATHSIGHT, TRAIT_GENERIC)
 	AddComponent(/datum/component/footstep, footstep_type)
 
 /mob/living/simple_animal/pet/familiar/proc/can_bite()
