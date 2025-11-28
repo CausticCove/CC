@@ -49,7 +49,7 @@
 /datum/supply_pack/rogue/armor_steel/cuirass_steel
 	name = "Cuirass"
 	cost = 90 // 2 Steel
-	contains = list(/obj/item/clothing/suit/roguetown/armor/plate/half)
+	contains = list(/obj/item/clothing/suit/roguetown/armor/plate/cuirass)
 
 /datum/supply_pack/rogue/armor_steel/scalemail
 	name = "Scalemail"
@@ -70,6 +70,11 @@
 	name = "Chain Coif"
 	cost = 50 // 1 Steel
 	contains = list(/obj/item/clothing/neck/roguetown/chaincoif)
+
+/datum/supply_pack/rogue/armor_steel/chaincoif_full
+	name = "Chain Coif, Full"
+	cost = 50 // 1 Steel
+	contains = list(/obj/item/clothing/neck/roguetown/chaincoif/full)
 
 /datum/supply_pack/rogue/armor_steel/chainmantle
 	name = "Chain Mantle"
@@ -215,3 +220,8 @@
 	name = "Belt, Tasseted"
 	cost = 50 // 1 Steel
 	contains = list(/obj/item/storage/belt/rogue/leather/steel/tasset)
+
+/datum/supply_pack/rogue/armor_steel/steel/metalkit
+	name = "Armor Plates"
+	cost = 60 // 1 Steel 0.5 iron 1 leather
+	contains = list(/obj/item/repair_kit/metal)

@@ -263,7 +263,7 @@
 			flash_fullscreen("blackflash2")
 			return TRUE
 		else
-			testing("failparry")
+
 			return FALSE
 
 /mob/proc/do_parry(obj/item/W, parrydrain as num, mob/living/user)
@@ -310,3 +310,5 @@
 			record_round_statistic(STATS_PARRIES)
 		playsound(get_turf(src), pick(parry_sound), 100, FALSE)
 		return TRUE
+
+#undef STAM_DRAIN_PER_STR_DIFF_HEAVY_BAL

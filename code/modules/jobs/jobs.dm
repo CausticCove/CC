@@ -161,6 +161,7 @@ GLOBAL_LIST_INIT(wanderer_positions, list(
 	"Adventurer",
 	"Mercenary",
 	"Bandit",
+	"Assassin",
 	"Court Agent",
 	"Wretch",
 ))

@@ -15,7 +15,7 @@
 	var/budget = 0
 	var/wgain = 0
 	var/is_crafted = FALSE
-	var/keycontrol = "merchant"
+	var/keycontrol = "physician" // Yep I am defaulting it to Physician to avoid confusio with default key being merchant
 	var/obj/item/reagent_containers/glass/bottle/inserted
 	var/bottle_price = 10
 	var/bottle_sold_max = 10
@@ -23,6 +23,14 @@
 /obj/structure/roguemachine/potionseller/crafted
 	is_crafted = TRUE
 	max_integrity = 100
+
+/obj/structure/roguemachine/potionseller/examine(mob/user)
+	. = ..()
+	. += span_smallnotice("Can be unlocked with a [keycontrol] key.")
+
+// For university mage
+/obj/structure/roguemachine/potionseller/university
+	keycontrol = "university"
 
 /obj/structure/roguemachine/potionseller/Initialize()
 	. = ..()
@@ -61,7 +69,7 @@
 	if(reagents.maximum_volume < B.reagents.total_volume + reagents.total_volume)
 		to_chat(user, span_warning("Machine is filled to the lid."))
 		return
-	testing("startadd")
+
 	for(var/datum/reagent/to_add in B.reagents.reagent_list)
 		var/already_exists = FALSE
 		if(length(reagents.reagent_list))

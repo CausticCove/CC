@@ -552,7 +552,7 @@
 		return FALSE
 	if(!isliving(target))
 		if(direct_target)
-			testing("DIRECT TARGET")
+
 			if(isturf(target))
 				if(arcshot)
 					return TRUE
@@ -708,3 +708,6 @@
 		QDEL_IN(thing, duration)
 	if(cleanup)
 		cleanup_beam_segments()
+
+#undef MOVES_HITSCAN
+#undef MUZZLE_EFFECT_PIXEL_INCREMENT

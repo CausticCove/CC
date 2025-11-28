@@ -1149,7 +1149,7 @@ GLOBAL_LIST_EMPTY(external_rsc_urls)
 	if(mob)
 		if(isliving(mob)) //no ghost can call this
 			mob.ghostize(can_reenter_corpse)
-		testing("[mob] [mob.type] YEA CLIE")
+
 
 
 /client/proc/whitelisted()
@@ -1229,3 +1229,10 @@ GLOBAL_LIST_EMPTY(external_rsc_urls)
 	else
 		if(/client/verb/ooc in verbs)
 			verbs -= /client/verb/ooc
+
+#undef LIMITER_SIZE
+#undef CURRENT_SECOND
+#undef SECOND_COUNT
+#undef CURRENT_MINUTE
+#undef MINUTE_COUNT
+#undef ADMINSWARNED_AT

@@ -639,20 +639,11 @@ GLOBAL_VAR_INIT(farm_animals, FALSE)
 				continue
 			else if(!istype(M, childtype) && M.gender == MALE && !(M.flags_1 & HOLOGRAM_1)) //Better safe than sorry ;_;
 				partner = M
-				testing("[src] foudnpartner [M]")
-
-//		else if(isliving(M) && !faction_check_mob(M)) //shyness check. we're not shy in front of things that share a faction with us.
-//			testing("[src] wenotalon [M]")
-//			return //we never mate when not alone, so just abort early
-
 	if(alone && partner && children < 3)
 		var/childspawn = pickweight(childtype)
 		var/turf/target = get_turf(loc)
 		if(target)
 			return new childspawn(target)
-//			visible_message(span_warning("[src] finally gives birth."))
-//			playsound(src, 'sound/foley/gross.ogg', 100, FALSE)
-//			breedchildren--
 
 /mob/living/simple_animal/canUseTopic(atom/movable/M, be_close=FALSE, no_dexterity=FALSE, no_tk=FALSE)
 	if(incapacitated())
@@ -821,7 +812,7 @@ GLOBAL_VAR_INIT(farm_animals, FALSE)
 /mob/living/simple_animal/hostile/user_buckle_mob(mob/living/M, mob/user)
 	if(user != M)
 		return
-	var/datum/component/riding/riding_datum = GetComponent(/datum/component/riding)
+	var/datum/component/riding/riding_datum = GetComponent(/datum/component/riding/no_ocean)
 	if(riding_datum)
 		var/time2mount = 12
 		riding_datum.vehicle_move_delay = move_to_delay
@@ -853,7 +844,7 @@ GLOBAL_VAR_INIT(farm_animals, FALSE)
 	if (stat == DEAD)
 		return
 	var/oldloc = loc
-	var/datum/component/riding/riding_datum = GetComponent(/datum/component/riding)
+	var/datum/component/riding/riding_datum = GetComponent(/datum/component/riding/no_ocean)
 	if(tame && riding_datum)
 		if(riding_datum.handle_ride(user, direction))
 			riding_datum.vehicle_move_delay = move_to_delay
@@ -1014,3 +1005,5 @@ GLOBAL_VAR_INIT(farm_animals, FALSE)
 		RegisterSignal(new_grid, SPATIAL_GRID_CELL_ENTERED(SPATIAL_GRID_CONTENTS_TYPE_CLIENTS), PROC_REF(on_client_enter))
 		RegisterSignal(new_grid, SPATIAL_GRID_CELL_EXITED(SPATIAL_GRID_CONTENTS_TYPE_CLIENTS), PROC_REF(on_client_exit))
 	consider_wakeup()
+
+#undef MAX_FARM_ANIMALS
