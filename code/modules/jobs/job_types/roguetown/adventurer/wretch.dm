@@ -61,25 +61,39 @@
 /proc/wretch_select_bounty(mob/living/carbon/human/H)
 	var/bounty_poster = input(H, "Who placed a bounty on you?", "Bounty Poster") as anything in list("The Justiciary of Azuria", "The Grenzelhoftian Holy See", "The Otavan Orthodoxy")
 	// Felinid said we should gate it at 100 or so on at the lowest, so that wretch cannot ezmode it.
-	var/bounty_severity = input(H, "How severe are your crimes?", "Bounty Amount") as anything in list("Misdeed", "Harm towards lyfe", "Horrific atrocities")
+	var/bounty_total = rand(100, 400) // Just in case
+	if(istype(H.client.prefs.compliance, /datum/compliance_setting/non_belligerent))
+		var/bounty_severity_small = input(H, "How severe are your crimes?", "Bounty Amount") as anything in list("Pitiful", "Pathetic", "Inconceivable")
+		switch(bounty_severity_small)
+			if("Pitiful")
+				bounty_total = rand(25, 50)
+			if("Pathetic")
+				bounty_total = rand(50, 75)
+			if("Inconceivable")
+				bounty_total = rand(75, 100) // Let's not make it TOO profitable... Y'knnnnow?
+				if(bounty_poster == "The Justiciary of Azuria")
+					GLOB.outlawed_players += H.real_name
+				else
+					GLOB.excommunicated_players += H.real_name
+	else
+		var/bounty_severity = input(H, "How severe are your crimes?", "Bounty Amount") as anything in list("Misdeed", "Harm towards lyfe", "Horrific atrocities")
+		switch(bounty_severity)
+			if("Misdeed")
+				bounty_total = rand(100, 200)
+			if("Harm towards lyfe")
+				bounty_total = rand(200, 300)
+			if("Horrific atrocities")
+				bounty_total = rand(300, 400) // Let's not make it TOO profitable
+				if(bounty_poster == "The Justiciary of Azuria")
+					GLOB.outlawed_players += H.real_name
+				else
+					GLOB.excommunicated_players += H.real_name
 	var/race = H.dna.species
 	var/gender = H.gender
 	var/list/d_list = H.get_mob_descriptors()
 	var/descriptor_height = build_coalesce_description_nofluff(d_list, H, list(MOB_DESCRIPTOR_SLOT_HEIGHT), "%DESC1%")
 	var/descriptor_body = build_coalesce_description_nofluff(d_list, H, list(MOB_DESCRIPTOR_SLOT_BODY), "%DESC1%")
 	var/descriptor_voice = build_coalesce_description_nofluff(d_list, H, list(MOB_DESCRIPTOR_SLOT_VOICE), "%DESC1%")
-	var/bounty_total = rand(100, 400) // Just in case
-	switch(bounty_severity)
-		if("Misdeed")
-			bounty_total = rand(100, 200)
-		if("Harm towards lyfe")
-			bounty_total = rand(200, 300)
-		if("Horrific atrocities")
-			bounty_total = rand(300, 400) // Let's not make it TOO profitable
-			if(bounty_poster == "The Justiciary of Azuria")
-				GLOB.outlawed_players += H.real_name
-			else
-				GLOB.excommunicated_players += H.real_name
 	var/my_crime = input(H, "What is your crime?", "Crime") as text|null
 	if (!my_crime)
 		my_crime = "crimes against the Crown"

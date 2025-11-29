@@ -7,21 +7,22 @@ GLOBAL_LIST_EMPTY(compliance_settings)
 /datum/compliance_setting/armed_dangerous
 	name = "Armed and Dangerous"
 	desc = "You are considered to be Armed and Dangerous. \n\n\
-	You willingly allow hostile acts to be performed against you within reason, this does not allow you to enact RDM. \n\n\
-	Ambushes can, and will most likely be used by other players against you. \n\n\
-	Your bounty will be claimed with minimal, to no escalation whatsoever, as long as there is valid reason for these actions. \n\n\
-	Anyone, at any time, anywhere, may kill you or capture you without word, and you could possibly never be revived for the rest of the round.\n\n\
-	By choosing this, you are considered to be a cold-hearted killer, merciless and showing no remorse. You are, in essence, a monster who must pay for your capital crimes. \n\n\
+	You are considered a dangerous and capable individual. \n\n\
+	You willingly invite other players to engage you in combat and perform hostile acts towards you within reason. This does not allow you to enact RDM. \n\n\
+	You may be ambushed for your valuables, become a target for wretches and bandits or be hunted down for your bounty with minimal or no escalation. You should remain alert at all times \n\n\
+	As long as there is a valid reason, you may find yourself quickly involved in sudden acts of violence and combat where you may be mortally wounded or imprisoned! \n\n\
+	Those who carry bounties and have chosen to have violent crimes in their bounties such as 'mass murder, killing of guards, assassination of nobles' or similar should consider that those crimes belong in this category otherwise you may want to tone down the severity of your crimes. Although exceptions can be made in the sake for roleplay. \n\n\
+	We recommend this option for players who wish for a more dangerous experience. \n\n\
 	You cannot change this during gameplay. YOU HAVE BEEN WARNED." 
 
 /datum/compliance_setting/armed_compliant
 	name = "Armed and Compliant"
 	desc = "You are considered to be Armed and compliant. \n\n\
-	You willingly allow hostile acts to be performed against you, but only in a manner that is roleplayed or acted out. \n\n\
-	Ambushes can, and will most likely be used by other players against you. \n\n\
-	On the contrary, your bounty will be claimed with announced effort, and actions will be carried out through roleplay. \n\n\
-	This option expects you to roleplay appropriately. \n\n\
-	By choosing this, you are considered to be a bad person with bad intentions, but not too far gone that you cannot be reasoned with for your crimes. \n\n\
+	You are considered a capable individual to be approached with caution. \n\n\
+	You are willing to participate in mechanical PVP and have it performed against you so long as there has been proper escalation and build up via roleplay.\n\n\
+	By choosing this option you are inviting others to engage you in roleplay with the possibility of some combat if the situation calls for it. \n\n\
+	We recommend this option for rugged warriors or criminals who CAN be reasoned with. \n\n\
+	You may engage Armed and Dangerous individuals within reason, honoring the fact you have chosen this option for a more RP focused engagement. \n\n\
 	You cannot change this during gameplay. YOU HAVE BEEN WARNED."
 
 /datum/compliance_setting/non_belligerent

@@ -71,21 +71,31 @@
 // Changed up proc from Wretch to suit bandits bit more
 /proc/bandit_select_bounty(mob/living/carbon/human/H)
 	var/bounty_poster = input(H, "Who placed a bounty on you?", "Bounty Poster") as anything in list("The Justiciary of Azuria", "The Grenzelhoftian Holy See")
-	var/bounty_severity = input(H, "How notorious are you?", "Bounty Amount") as anything in list("Small Fish", "Bay Butcher", "Azurean Boogeyman")
+	var/bounty_total = rand(300, 600)
+	if(istype(H.client.prefs.compliance, /datum/compliance_setting/non_belligerent))
+		var/bounty_severity_small = input(H, "How notorious are you?", "Bounty Amount") as anything in list("Pitiful", "Pathetic", "Inconceivable")
+		switch(bounty_severity_small) //Expected to RP, not as much a bounty.
+			if("Pitiful")
+				bounty_total = rand(200, 250)
+			if("Pathetic")
+				bounty_total = rand(250, 300)
+			if("Inconceivable")
+				bounty_total = rand(300, 350)
+	else
+		var/bounty_severity = input(H, "How notorious are you?", "Bounty Amount") as anything in list("Small Fish", "Bay Butcher", "Azurean Boogeyman")
+		switch(bounty_severity)
+			if("Small Fish")
+				bounty_total = rand(300, 400)
+			if("Bay Butcher")
+				bounty_total = rand(400, 500)
+			if("Azurean Boogeyman")
+				bounty_total = rand(500, 600)
 	var/race = H.dna.species
 	var/gender = H.gender
 	var/list/d_list = H.get_mob_descriptors()
 	var/descriptor_height = build_coalesce_description_nofluff(d_list, H, list(MOB_DESCRIPTOR_SLOT_HEIGHT), "%DESC1%")
 	var/descriptor_body = build_coalesce_description_nofluff(d_list, H, list(MOB_DESCRIPTOR_SLOT_BODY), "%DESC1%")
 	var/descriptor_voice = build_coalesce_description_nofluff(d_list, H, list(MOB_DESCRIPTOR_SLOT_VOICE), "%DESC1%")
-	var/bounty_total = rand(300, 600)
-	switch(bounty_severity)
-		if("Small Fish")
-			bounty_total = rand(300, 400)
-		if("Bay Butcher")
-			bounty_total = rand(400, 500)
-		if("Azurean Boogeyman")
-			bounty_total = rand(500, 600)
 	var/my_crime = input(H, "What is your crime?", "Crime") as text|null
 	if (!my_crime)
 		my_crime = "Brigandry"
