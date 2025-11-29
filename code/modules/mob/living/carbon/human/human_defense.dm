@@ -76,8 +76,11 @@
 	cur_armor = 1
 	var/obj/item/clothing/used = used_armors[cur_armor]
 	for(var/i in 1 to length(used_armors))
-		if(used.peel_threshold <= used.peel_count)
-			cur_armor++
+		var/peel_goal = used.peel_threshold
+		if(peeldivisor > peel_goal)
+			peel_goal = peeldivisor
+		if(used.peel_count >= peel_goal)
+			cur_armor++ //Next; This one is fucked.
 			continue
 		if(blade_dulling == BCLASS_PEEL)	//Peel shouldn't be dealing any damage through armor, or to armor itself.
 			used.peel_coverage(def_zone, peeldivisor, src)
