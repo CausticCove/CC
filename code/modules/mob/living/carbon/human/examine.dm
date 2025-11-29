@@ -772,7 +772,7 @@
 		if(comp_type == /datum/compliance_setting/armed_compliant)
 			. += span_warning("[t_He] look[p_s()] capable.")
 		if(comp_type == /datum/compliance_setting/non_belligerent)
-			. += "[t_He] seem[p_s()] non-threatening."
+			. += span_info("[t_He] seem[p_s()] non-threatening.")
 		else if(!comp_type)
 			. += span_info("[t_He] seem[p_s()] neutral.")
 	//CC Edit End
