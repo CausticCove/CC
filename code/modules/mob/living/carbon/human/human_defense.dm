@@ -33,11 +33,6 @@
 		
 		if(!blade_dulling)
 			blade_dulling = BCLASS_BLUNT
-		if(blade_dulling == BCLASS_PEEL)	//Peel shouldn't be dealing any damage through armor, or to armor itself.
-			used.peel_coverage(def_zone, peeldivisor, src)
-			damage = 0
-			if(def_zone == BODY_ZONE_CHEST)
-				purge_peel(99)
 		if(used.blocksound)
 			playsound(loc, get_armor_sound(used.blocksound, blade_dulling), 100)
 		var/intdamage = damage
@@ -76,6 +71,20 @@
 
 	if(physiology) //Species armor resistance.
 		protection += physiology.armor.getRating(d_type)
+	
+	//Special peel check.
+	cur_armor = 1
+	var/obj/item/clothing/used = used_armors[cur_armor]
+	for(var/i in 1 to length(used_armors))
+		if(used.peel_threshold <= used.peel_count)
+			cur_armor++
+			continue
+		if(blade_dulling == BCLASS_PEEL)	//Peel shouldn't be dealing any damage through armor, or to armor itself.
+			used.peel_coverage(def_zone, peeldivisor, src)
+			damage = 0
+			if(def_zone == BODY_ZONE_CHEST)
+				purge_peel(99)
+			break //Only run once
 
 	return protection
 
