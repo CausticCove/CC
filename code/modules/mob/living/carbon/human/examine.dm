@@ -764,16 +764,18 @@
 			if(-INFINITY to -5)
 				. += span_warning("<B>[t_He] look[p_s()] much weaker than I.</B>")
 
+	//CC Edit begin
 	if((user != src) && isliving(user))
-		var/mob/living/L = user
-		var/datum/comp_type = L.client.prefs.compliance
-		switch(comp_type)
-			if(istype(comp_type, /datum/compliance_setting/armed_dangerous))
-				. += span_warning("<B>[t_He] look[p_s()] dangerous.</B>")
-			if(istype(comp_type, /datum/compliance_setting/armed_compliant))
-				. += span_warning("[t_He] look[p_s()] dangerous.")
-			if(istype(comp_type, /datum/compliance_setting/non_belligerent))
-				. += "[t_He] look[p_s()] to be harmless."
+		var/datum/comp_type = src.client.prefs.compliance
+		if(istype(comp_type, /datum/compliance_setting/armed_dangerous))
+			. += span_boldred("<B>[t_He] appear[p_s()] to be very dangerous.</B>")
+		if(istype(comp_type, /datum/compliance_setting/armed_compliant))
+			. += span_warning("[t_He] look[p_s()] capable.")
+		if(istype(comp_type, /datum/compliance_setting/non_belligerent))
+			. += "[t_He] seem[p_s()] non-threatening."
+		else
+			. += span_tinynoticeital("[t_He] seem[p_s()] neutral.")
+	//CC Edit End
 
 	if((HAS_TRAIT(user,TRAIT_INTELLECTUAL)))
 		var/mob/living/L = user

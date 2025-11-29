@@ -28,8 +28,8 @@ GLOBAL_LIST_EMPTY(compliance_settings)
 /datum/compliance_setting/non_belligerent
 	name = "Non-Belligerent"
 	desc = "You are considered to be Non-Belligerent. \n\n\
-	You do not allow combat, and are also not allowed to dish out combat against those claiming your bounties. \n\n\
-	You typically do not have a high bounty, and are locked out of choosing higher pay bounties. \n\n\
-	This tells the other person you do not wish to engage in mechanical PvP at all, outside of controlled scenarios. \n\n\
+	You do not wish to engage in combat scenarios against other players unless it is on a controlled environment. \n\n\
+	By choosing this you should be aware that you will still be held accountable of your actions if you commit crimes that merit you being chased or restrained. Just because you do not wish to engage in fights does not mean you can commit every crime. Likewise you cannot ignore your responsibilities when playing a peace keeping role.  \n\n\
+	This option is most recommend for towners and other roles who simply wish a more relaxed experience entirely focused on roleplaying. \n\n\
 	By choosing this option, you are considered to be a pacifist, or somebody who has commited petty crimes. \n\n\
 	You cannot change this during gameplay. YOU HAVE BEEN WARNED."

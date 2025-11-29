@@ -59,6 +59,7 @@
 
 // Proc for wretch to select a bounty
 /proc/wretch_select_bounty(mob/living/carbon/human/H)
+	to_chat(H, span_warn("When writing down your bounties, You should have have some tact, Expect people to weigh their behavior towards you based on the severity of your crimes. Measure your crimes based on your compliance level when possible. Extreme crimes such as 'genocide' or similar are not allowed."))
 	var/bounty_poster = input(H, "Who placed a bounty on you?", "Bounty Poster") as anything in list("The Justiciary of Azuria", "The Grenzelhoftian Holy See", "The Otavan Orthodoxy")
 	// Felinid said we should gate it at 100 or so on at the lowest, so that wretch cannot ezmode it.
 	var/bounty_total = rand(100, 400) // Just in case

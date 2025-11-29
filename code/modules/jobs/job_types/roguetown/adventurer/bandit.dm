@@ -70,6 +70,7 @@
 
 // Changed up proc from Wretch to suit bandits bit more
 /proc/bandit_select_bounty(mob/living/carbon/human/H)
+	to_chat(H, span_warn("When writing down your bounties, You should have have some tact, Expect people to weigh their behavior towards you based on the severity of your crimes. Measure your crimes based on your compliance level when possible. Extreme crimes such as 'genocide' or similar are not allowed."))
 	var/bounty_poster = input(H, "Who placed a bounty on you?", "Bounty Poster") as anything in list("The Justiciary of Azuria", "The Grenzelhoftian Holy See")
 	var/bounty_total = rand(300, 600)
 	if(istype(H.client.prefs.compliance, /datum/compliance_setting/non_belligerent))
