@@ -765,16 +765,16 @@
 				. += span_warning("<B>[t_He] look[p_s()] much weaker than I.</B>")
 
 	//CC Edit begin
-	if((user != src) && isliving(user))
-		var/datum/compliance_setting/comp_type = client?.prefs.compliance
+	if((user != src) && isliving(user) && user.client) //Checks for client as well.
+		var/datum/compliance_setting/comp_type = client.prefs.compliance
 		if(comp_type == /datum/compliance_setting/armed_dangerous)
 			. += span_boldred("<B>[t_He] appear[p_s()] to be very dangerous.</B>")
 		if(comp_type == /datum/compliance_setting/armed_compliant)
 			. += span_warning("[t_He] look[p_s()] capable.")
 		if(comp_type == /datum/compliance_setting/non_belligerent)
 			. += span_info("[t_He] seem[p_s()] non-threatening.")
-		else if(!comp_type)
-			. += span_info("[t_He] seem[p_s()] neutral.")
+		else if(!comp_type) //Debug, shouldn't be seen in normal gameplay.
+			. += span_info("[t_He] seem[p_s()] neutral..?")
 	//CC Edit End
 
 	if((HAS_TRAIT(user,TRAIT_INTELLECTUAL)))
