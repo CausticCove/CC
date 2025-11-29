@@ -765,8 +765,8 @@
 				. += span_warning("<B>[t_He] look[p_s()] much weaker than I.</B>")
 
 	//CC Edit begin
-	if((user != src) && isliving(user) && user.client) //Checks for client as well.
-		var/datum/compliance_setting/comp_type = client?.prefs.compliance
+	if(isliving(user) && (user.client?.prefs.compliance)) //Allow examining self.
+		var/datum/compliance_setting/comp_type = client.prefs.compliance
 		if(comp_type == /datum/compliance_setting/armed_dangerous)
 			. += span_boldred("<B>[t_He] appear[p_s()] to be very dangerous.</B>")
 		if(comp_type == /datum/compliance_setting/armed_compliant)
