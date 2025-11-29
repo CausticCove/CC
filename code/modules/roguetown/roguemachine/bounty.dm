@@ -229,11 +229,11 @@
 
 			//Handle Compliance
 			if(istype(new_bounty.compliance, /datum/compliance_setting/armed_dangerous))
-				new_bounty.banner += "They are Armed and Dangerous. You may approach with weapons ready for a fight and attack without word. Ambushes are permitted.<BR>"
+				new_bounty.banner += "They are Armed and Dangerous. Aproach with extreme caution!<BR>"
 			if(istype(new_bounty.compliance, /datum/compliance_setting/armed_compliant))
-				new_bounty.banner += "They are Armed and Compliant. You are to first speak civil until drawing weapons if they do not comply. Ambushes to DETAIN ONLY are permitted.<BR>"
+				new_bounty.banner += "They are Armed and Compliant. It may be possible to reason with the target, caution is advised.<BR>"
 			if(istype(new_bounty.compliance, /datum/compliance_setting/non_belligerent))
-				new_bounty.banner += "They are Non-Belligerent. You are to not harm them unless they attack first. Ambushes are NOT permitted. Expect to speak peacefully.<BR>"
+				new_bounty.banner += "They are Non-Belligerent. Target is largely non-violent, approach with care.<BR>"
 
 			new_bounty.banner += "They are a reprobate belonging to the [new_bounty.target_race] race, going by the following description: they are [new_bounty.target_height], of a [new_bounty.target_body_type] build and they have [new_bounty.target_body_prefix] physique. They speak with [new_bounty.target_voice_prefix] voice.'.<BR>"
 			new_bounty.banner += "The employer, [new_bounty.employer], offers [new_bounty.amount] mammons for the deed.<BR>"
@@ -243,11 +243,11 @@
 
 			//Handle Compliance
 			if(istype(new_bounty.compliance, /datum/compliance_setting/armed_dangerous))
-				new_bounty.banner += "They are Armed and Dangerous. You may approach with weapons ready for a fight and attack without word. Ambushes are permitted.<BR>"
+				new_bounty.banner += "They are Armed and Dangerous. Aproach with extreme caution!<BR>"
 			if(istype(new_bounty.compliance, /datum/compliance_setting/armed_compliant))
-				new_bounty.banner += "They are Armed and Compliant. You are to first speak civil until drawing weapons if they do not comply. Ambushes to DETAIN ONLY are permitted.<BR>"
+				new_bounty.banner += "They are Armed and Compliant. It may be possible to reason with the target, caution is advised.<BR>"
 			if(istype(new_bounty.compliance, /datum/compliance_setting/non_belligerent))
-				new_bounty.banner += "They are Non-Belligerent. You are to not harm them unless they attack first. Ambushes are NOT permitted. Expect to speak peacefully.<BR>"
+				new_bounty.banner += "They are Non-Belligerent. Target is largely non-violent, approach with care.<BR>"
 
 			new_bounty.banner += "By reason of the following: '[new_bounty.reason]'.<BR>"
 			new_bounty.banner += "They are a heathen belonging to the [new_bounty.target_race] race, going by the following description: they are [new_bounty.target_height], of a [new_bounty.target_body_type] build and they have [new_bounty.target_body_prefix] physique. They speak with [new_bounty.target_voice_prefix] voice.'.<BR>"
