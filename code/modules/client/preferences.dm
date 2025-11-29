@@ -223,6 +223,8 @@ GLOBAL_LIST_EMPTY(chosen_names)
 
 	var/race_bonus
 
+	var/datum/compliance_setting/compliance
+
 /datum/preferences/New(client/C)
 	parent = C
 	migrant  = new /datum/migrant_pref(src)
@@ -863,6 +865,7 @@ GLOBAL_LIST_EMPTY(chosen_names)
 	dat += "<td width='33%' align='right'>"
 	dat += "<b>Be voice:</b> <a href='?_src_=prefs;preference=schizo_voice'>[(toggles & SCHIZO_VOICE) ? "Enabled":"Disabled"]</a>"
 	dat += "<br><b>Toggle Admin Sounds:</b> <a href='?_src_=prefs;preference=hear_midis'>[(toggles & SOUND_MIDI) ? "Enabled":"Disabled"]</a>"
+	dat += "<br><b>Set Compliance:</b> <a href='?_src_=prefs;preference=compliance_setting;task=input'>[compliance ? compliance.name : "None"] </a>"
 	dat += "</td>"
 	dat += "</tr>"
 	dat += "</table>"
@@ -2408,6 +2411,26 @@ Slots: [job.spawn_positions] [job.round_contrib_points ? "RCP: +[job.round_contr
 					var/phobiaType = input(user, "What are you scared of?", "Character Preference", phobia) as null|anything in SStraumas.phobia_types
 					if(phobiaType)
 						phobia = phobiaType
+				//CC Edit Begin
+				if("compliance_setting")
+					var/list/compliance_choices = list("None")
+					for (var/path as anything in GLOB.compliance_settings)
+						var/datum/compliance_setting/compliance = GLOB.compliance_settings[path]
+						if (!compliance.name)
+							continue
+						compliance_choices[compliance.name] = compliance
+
+					var/compliance_input = tgui_input_list(user, "Choose your character's compliance, this will be used to determine your threat level against other players and your bounties.", "ARE YOU COMPLIANT?", compliance_choices)
+					if(compliance_input)
+						if(compliance_input == "None")
+							compliance = null
+							to_chat(user, "You've decided to go with the flow.")
+						else
+							compliance = compliance_choices[compliance_input]
+							to_chat(user, "<font color='yellow'><b>[compliance.name]</b></font>")
+							if(compliance.desc)
+								to_chat(user, "[compliance.desc]")
+				//CC Edit End
 
 		else
 			switch(href_list["preference"])

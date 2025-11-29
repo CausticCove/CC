@@ -466,6 +466,12 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	if (loadout_type5)
 		loadout5 = new loadout_type5()
 
+/datum/preferences/proc/_load_compliance(S)
+	var/compliance
+	S["compliance"] >> compliance
+	if (compliance)
+		compliance = new compliance()
+
 /datum/preferences/proc/_load_loadout_colours(S)
 	S["loadout_1_hex"] >> loadout_1_hex
 	S["loadout_2_hex"] >> loadout_2_hex
@@ -562,6 +568,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	//Caustic edit
 	_load_sizecat(S)
 	_load_pickupable(S)
+	_load_compliance(S)
 	//Caustic edit end
 	_load_culinary_preferences(S)
 	// LETHALSTONE edit: jank-ass load our statpack choice
@@ -837,6 +844,10 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 		WRITE_FILE(S["loadout5"] , loadout5.type)
 	else
 		WRITE_FILE(S["loadout5"] , null)
+	if(compliance)
+		WRITE_FILE(S["compliance"] , compliance.type)
+	else
+		WRITE_FILE(S["compliance"] , null)
 	//Cove edit end
 
 	//Familiar Files

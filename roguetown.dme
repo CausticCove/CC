@@ -3003,4 +3003,5 @@
 #include "modular_hearthstone\code\modules\reagents\reagent_containers\lux.dm"
 #include "modular_causticcove\code\modules\cargo\packsrogue\merchant\weapons\merch_weapons_foreign.dm"
 #include "modular_causticcove\code\modules\cargo\packsrogue\merchant\weapons\merch_weapons_ranged.dm"
+#include "modular_causticcove\code\datums\compliance.dm"
 // END_INCLUDE

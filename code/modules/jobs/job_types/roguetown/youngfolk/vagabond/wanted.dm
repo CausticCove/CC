@@ -59,7 +59,7 @@
 		var/descriptor_body = build_coalesce_description_nofluff(d_list, human, list(MOB_DESCRIPTOR_SLOT_BODY), "%DESC1%")
 		var/descriptor_voice = build_coalesce_description_nofluff(d_list, human, list(MOB_DESCRIPTOR_SLOT_VOICE), "%DESC1%")
 
-		add_bounty(human.real_name, race, gender, descriptor_height, descriptor_body, descriptor_voice, bounty_amount, FALSE, my_crime, "The Justiciary of Azuria")
+		add_bounty(human.real_name, race, gender, descriptor_height, descriptor_body, descriptor_voice, bounty_amount, FALSE, my_crime, "The Justiciary of Azuria", human.client.prefs.compliance)
 
 		if(tgui_alert(human, "Am i known criminal?", "OUTLAW", list("Nae", "Yae")) == "Yae")
 			GLOB.outlawed_players += human.real_name
