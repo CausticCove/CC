@@ -470,10 +470,10 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 		loadout5 = new loadout_type5()
 
 /datum/preferences/proc/_load_compliance(S)
-	var/compliance
-	S["compliance"] >> compliance
-	if (compliance)
-		compliance = new compliance()
+	var/compliance_type
+	S["compliance"] >> compliance_type
+	if(compliance_type)
+		compliance = new compliance_type()
 
 /datum/preferences/proc/_load_loadout_colours(S)
 	S["loadout_1_hex"] >> loadout_1_hex
@@ -651,10 +651,6 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	S["pronouns"] >> pronouns
 	S["voice_type"] >> voice_type
 	S["body_size"] >> features["body_size"]
-
-	//CC Edit Begin
-	S["compliance"]			>> compliance
-	//CC Edit End
 
 	if (!features["body_size"])
 		features["body_size"] = BODY_SIZE_NORMAL
