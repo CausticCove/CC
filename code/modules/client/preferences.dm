@@ -2429,7 +2429,7 @@ Slots: [job.spawn_positions] [job.round_contrib_points ? "RCP: +[job.round_contr
 					if(compliance_input)
 						if(compliance_input == "None")
 							compliance = null
-							to_chat(user, "You've decided to go with the flow.")
+							to_chat(user, "You must comply, please select an option.")
 						else
 							compliance = compliance_choices[compliance_input]
 							to_chat(user, "<font color='yellow'><b>[compliance.name]</b></font>")
