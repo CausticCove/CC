@@ -15,6 +15,9 @@
 /datum/migrant_pref/proc/set_active(new_state, silent = FALSE)
 	if(active == new_state)
 		return
+	if(!prefs.compliance)
+		to_chat(usr, span_boldwarning("You must set a compliance level before joining."))
+		return
 	active = new_state
 	role_preferences.Cut()
 	if(!silent && prefs.parent)
