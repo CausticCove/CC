@@ -2413,8 +2413,8 @@ Slots: [job.spawn_positions] [job.round_contrib_points ? "RCP: +[job.round_contr
 						phobia = phobiaType
 				//CC Edit Begin
 				if("compliance_setting")
-
-					if(PLAYER_READY_TO_PLAY) //So you can't enter with "None"
+					var/mob/dead/new_player/N = user
+					if(N.ready) //So you can't enter with "None"
 						to_chat(user, "You cannot change your compliance unless you unready.")
 						return
 
