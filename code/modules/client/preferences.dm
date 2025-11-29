@@ -2413,6 +2413,11 @@ Slots: [job.spawn_positions] [job.round_contrib_points ? "RCP: +[job.round_contr
 						phobia = phobiaType
 				//CC Edit Begin
 				if("compliance_setting")
+
+					if(PLAYER_READY_TO_PLAY) //So you can't enter with "None"
+						to_chat(user, "You cannot change your compliance unless you unready.")
+						return
+
 					var/list/compliance_choices = list("None")
 					for (var/path as anything in GLOB.compliance_settings)
 						var/datum/compliance_setting/compliance = GLOB.compliance_settings[path]
