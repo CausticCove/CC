@@ -766,15 +766,15 @@
 
 	//CC Edit begin
 	if((user != src) && isliving(user))
-		var/datum/comp_type = src.client.prefs.compliance
-		if(istype(comp_type, /datum/compliance_setting/armed_dangerous))
+		var/datum/compliance_setting/comp_type = client?.prefs.compliance
+		if(comp_type == /datum/compliance_setting/armed_dangerous)
 			. += span_boldred("<B>[t_He] appear[p_s()] to be very dangerous.</B>")
-		if(istype(comp_type, /datum/compliance_setting/armed_compliant))
+		if(comp_type == /datum/compliance_setting/armed_compliant)
 			. += span_warning("[t_He] look[p_s()] capable.")
-		if(istype(comp_type, /datum/compliance_setting/non_belligerent))
+		if(comp_type == /datum/compliance_setting/non_belligerent)
 			. += "[t_He] seem[p_s()] non-threatening."
-		else
-			. += span_tinynoticeital("[t_He] seem[p_s()] neutral.")
+		else if(!comp_type)
+			. += span_info("[t_He] seem[p_s()] neutral.")
 	//CC Edit End
 
 	if((HAS_TRAIT(user,TRAIT_INTELLECTUAL)))
