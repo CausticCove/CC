@@ -58,6 +58,9 @@
 /obj/item/clothing/suit/roguetown/armor/skin_armor/natural_armor/proc/regenerate(mob/living/user)
 	//mob wearing the natural armor
 	skin_haver = user
+	if(HAS_TRAIT_FROM(skin_haver, TRAIT_NOHUNGER, TRAIT_VIRTUE)) // Hard coding the incompatibility of deathless' hunger removal, since domesticated wildsoul can still have deathless. Can still be nobreath through other sources.
+		REMOVE_TRAIT(skin_haver, TRAIT_NOHUNGER, TRAIT_VIRTUE)
+		to_chat(skin_haver, span_danger("My natural armor awakens a hunger in me."))
 
 	//making sure that the thing wearing the armor is human
 	if(!istype(skin_haver))
