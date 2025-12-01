@@ -4,3 +4,4 @@
 /obj/item/ammo_casing/caseless/rogue/bullet
 	name = "arquebus shot"
 	desc = "A small metal sphere to be fired from a gun."
+	npc_simple_damage_mult = 7 // If I did my math right, crossbows have a 7 to 1 DPS advantage over literal guns against simple mobs.
