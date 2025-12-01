@@ -1,6 +1,6 @@
 
 /datum/component/infection_spreader
-	var/infection_chance = 20
+	var/infection_chance = 0 //Caustic Edit
 	//More time than a standard infection to compensate for the fact these things will dwell in the woods.
 	var/infection_timer = 5 MINUTES
 
