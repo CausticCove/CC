@@ -22,7 +22,6 @@
 	w_class = WEIGHT_CLASS_BULKY
 	randomspread = 1
 	spread = 0
-
 	can_parry = TRUE
 	minstr = 6
 	walking_stick = TRUE
@@ -35,6 +34,7 @@
 	bolt_type = BOLT_TYPE_NO_BOLT
 	casing_ejector = FALSE
 	pickup_sound = 'modular_causticcove/sound/sheath_sounds/draw_from_holster.ogg'
+	sheathe_sound = 'modular_causticcove/sound/sheath_sounds/put_back_to_holster.ogg'
 	var/spread_num = 10
 	var/damfactor = 2
 	var/reloaded = FALSE
@@ -42,6 +42,14 @@
 	var/gunpowder = FALSE
 	var/obj/item/ramrod/myrod = null
 	var/gunchannel
+
+/obj/item/gun/ballistic/arquebus/handgonne // "It's just a reskinned Arquebus?" "Always has been."
+	name = "handgonne"
+	desc = "A gunpowder weapon that shoots an armor piercing metal ball."
+	icon = 'modular_causticcove/icons/weapons/handgonne.dmi'
+	icon_state = "handgonne"
+	item_state = "handgonne"
+
 
 /obj/item/gun/ballistic/arquebus/getonmobprop(tag)
 	. = ..()
