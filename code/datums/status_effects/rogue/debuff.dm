@@ -344,6 +344,18 @@
 	desc = "You felt lyfe itself course through you, restoring your lux and your essance. You.. live - but your body aches. It still needs time to recover.."
 	icon_state = "revived"
 
+//For self revive - You didn't rot, but you still self revived at a cross in church... Pretty strong stat punishment to prevent abusing this.
+/datum/status_effect/debuff/self_revived
+	id = "revived"
+	alert_type = /atom/movable/screen/alert/status_effect/debuff/self_revived
+	effectedstats = list(STATKEY_STR = -3, STATKEY_PER = -1, STATKEY_INT = -1, STATKEY_WIL = -3, STATKEY_CON = -3, STATKEY_SPD = -2, STATKEY_LCK = -2)
+	duration = 25 MINUTES	//+10 minutes for self revive
+
+/atom/movable/screen/alert/status_effect/debuff/self_revived
+	name = "Self Revival Sickness"
+	desc = "You feel alive... Sort of. Your body is still an absolute wreck, your limbs still feel numb and your head is clouded... Luckily, the Ten were benevolent enough to give you a second chance..."
+	icon_state = "revived"
+
 //For de-rot - your body ROTTED. Harsher penalty for longer, can be fully off-set with a cure-rot potion.
 /datum/status_effect/debuff/rotted
 	id = "rotted_body"
