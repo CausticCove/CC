@@ -4,4 +4,6 @@
 /obj/item/ammo_casing/caseless/rogue/bullet
 	name = "arquebus shot"
 	desc = "A small metal sphere to be fired from a gun."
+
+/obj/projectile/bullet/reusable/bullet
 	npc_simple_damage_mult = 7
