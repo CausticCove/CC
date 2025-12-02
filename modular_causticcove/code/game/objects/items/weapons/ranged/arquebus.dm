@@ -34,7 +34,6 @@
 	bolt_type = BOLT_TYPE_NO_BOLT
 	casing_ejector = FALSE
 	pickup_sound = 'modular_causticcove/sound/sheath_sounds/draw_from_holster.ogg'
-	sheathe_sound = 'modular_causticcove/sound/sheath_sounds/put_back_to_holster.ogg'
 	var/spread_num = 10
 	var/damfactor = 2
 	var/reloaded = FALSE
