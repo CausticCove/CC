@@ -136,6 +136,10 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 		spans |= SPAN_SINGING
 		message = "[randomnote] [message] [randomnote]"
 
+	if(stat == DEAD)
+		say_dead(original_message)
+		return
+
 	if(check_emote(original_message, forced) || !can_speak_basic(original_message, ignore_spam, forced))
 		return
 
@@ -151,13 +155,6 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	else if(stat == UNCONSCIOUS && !forced)
 		if(!(unconscious_allowed_modes[message_mode]))
 			return
-
-	if(stat == DEAD)
-		//To allow for specific emotes even whilst dead for certain interactions.
-		if(check_subtler(original_message, forced) || !can_speak_basic(original_message, ignore_spam, forced))
-			return
-		say_dead(original_message)
-		return
 
 	// language comma detection.
 	var/datum/language/message_language = get_message_language(message)

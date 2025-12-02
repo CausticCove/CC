@@ -1,6 +1,7 @@
 /datum/emote/living/subtle
 	key = "subtle"
 	key_third_person = "subtleemote"
+	stat_allowed = list(CONSCIOUS, SOFT_CRIT, UNCONSCIOUS, DEAD)
 #ifdef MATURESERVER
 	message_param = "%t"
 #endif
