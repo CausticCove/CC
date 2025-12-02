@@ -36,7 +36,7 @@
 	casing_ejector = FALSE
 	pickup_sound = 'modular_causticcove/sound/sheath_sounds/draw_from_holster.ogg'
 	var/spread_num = 10
-	var/damfactor = 2
+	var/damfactor = 1
 	var/reloaded = FALSE
 	var/load_time = 50
 	var/gunpowder = FALSE
@@ -265,7 +265,6 @@
 	start_empty = TRUE
 
 
-
 /// PISTOLS
 /obj/item/gun/ballistic/arquebus_pistol // I'm gonna fucking kill someone for this copypasted bullshit, but I refuse to fix it right now. -Ace
 	name = "arquebus pistol"
@@ -293,7 +292,7 @@
 	casing_ejector = FALSE
 	pickup_sound = 'modular_causticcove/sound/sheath_sounds/draw_from_holster.ogg'
 	slot_flags = ITEM_SLOT_HIP
-	var/damfactor = 2
+	var/damfactor = 1
 	var/reloaded = FALSE
 	var/load_time = 50
 	var/gunpowder = FALSE
@@ -475,7 +474,7 @@
 	if(can_spin)
 		user.play_overhead_indicator('icons/effects/effects.dmi', "emote", 10, OBJ_LAYER)
 		user.visible_message("<span class='emote'>[user] spins [src] around their fingers [string]!</span>")
-		playsound(src, spin_sound, 100, FALSE, ignore_walls = FALSE)
+		playsound(src, spin_sound, 90, FALSE, ignore_walls = FALSE)
 		last_spunned = world.time
 		/*if(firearm_skill <= 2)
 			if(prob(35))

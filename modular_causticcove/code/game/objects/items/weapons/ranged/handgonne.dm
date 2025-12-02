@@ -37,7 +37,7 @@
 	pickup_sound = 'modular_causticcove/sound/sheath_sounds/draw_from_holster.ogg'
 	sheathe_sound = 'modular_causticcove/sound/sheath_sounds/put_back_to_holster.ogg'
 	var/spread_num = 10
-	var/damfactor = 2
+	var/damfactor = 1 // I guess this can keep its full damage for now in case it ever gets brought back.
 	var/reloaded = FALSE
 	var/load_time = 50
 	var/gunpowder = FALSE
