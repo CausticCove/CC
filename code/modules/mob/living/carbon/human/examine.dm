@@ -109,7 +109,15 @@
 				. += span_notice("A practitioner of the old ways.")
 			else
 				. += span_notice("Something about them seems... different.")
-
+// Caustic Edit Start
+		if(HAS_TRAIT(src, TRAIT_FERAL))
+			if(HAS_TRAIT(user, TRAIT_NOBLE) || HAS_TRAIT(user, TRAIT_INQUISITION) || HAS_TRAIT(user, TRAIT_WITCH))
+				. += span_warning("A savage wild-folk! Dangerous to let one's guard down around.")
+			else if(HAS_TRAIT(user, TRAIT_COMMIE) || HAS_TRAIT(user, TRAIT_CABAL) || HAS_TRAIT(user, TRAIT_HORDE) || HAS_TRAIT(user, TRAIT_DEPRAVED))
+				. += span_notice("A denizen of the wilds.")
+			else
+				. += span_notice("Something about them seems... predatory.")
+// Caustic Edit End
 		if(GLOB.lord_titles[name])
 			. += span_notice("[m3] been granted the title of \"[GLOB.lord_titles[name]]\".")
 
