@@ -137,6 +137,11 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 		message = "[randomnote] [message] [randomnote]"
 
 	if(stat == DEAD)
+		//CC EDIT BEGIN
+		//Run Subtler here in case dead for some special interactions in case someone has some special mechanic or rp flavor whilst dead.
+		if(check_subtler(original_message, forced) || !can_speak_basic(original_message, ignore_spam, forced))
+			return
+		//CC EDIT END
 		say_dead(original_message)
 		return
 
