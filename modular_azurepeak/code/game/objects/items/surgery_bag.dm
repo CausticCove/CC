@@ -46,7 +46,43 @@
 /obj/item/storage/belt/rogue/surgery_bag/empty
 	populate_contents = list(
 	)
+// Caustic Edit Start
+/obj/item/storage/belt/rogue/surgery_bag/improv
+	component_type = /datum/component/storage/concrete/roguetown/improv_surgery_bag
+	name = "improvised surgeon's bag"
 
+	populate_contents = list(
+	/obj/item/rogueweapon/huntingknife/stoneknife,
+	/obj/item/rogueweapon/surgery/saw/improv,
+	/obj/item/rogueweapon/tongs/stone,
+	/obj/item/rogueweapon/tongs/stone,
+	/obj/item/grown/log/tree/stake,
+	/obj/item/grown/log/tree/stake,
+	/obj/item/natural/bundle/cloth,
+	/obj/item/needle/thorn,
+	/obj/item/needle/thorn,
+	)
+
+/datum/component/storage/concrete/roguetown/improv_surgery_bag
+	screen_max_rows = 5
+	screen_max_columns = 5
+	max_w_class = WEIGHT_CLASS_NORMAL
+
+/datum/component/storage/concrete/roguetown/improv_surgery_bag/New(datum/P, ...)
+	. = ..()
+	can_hold = typecacheof(list(
+	/obj/item/rogueweapon/surgery,
+	/obj/item/needle,
+	/obj/item/natural/worms/leech,
+	/obj/item/reagent_containers/lux,
+	/obj/item/natural/bundle/cloth,
+	/obj/item/natural/cloth,
+	/obj/item/rogueweapon/huntingknife/stoneknife,
+	/obj/item/rogueweapon/tongs/stone,
+	/obj/item/grown/log/tree/stake
+))
+
+// Caustic Edit End
 /obj/item/storage/belt/rogue/pouch/medicine
 	populate_contents = list(
 	/obj/item/needle,

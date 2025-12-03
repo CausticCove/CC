@@ -14,7 +14,7 @@ GLOBAL_LIST_INIT(dwarfskeleton_aggro, world.file2list("strings/rt/dskeletonaggro
 	a_intent = INTENT_HELP
 	d_intent = INTENT_PARRY //even in undeath dwarves parry. Dodging aint proper dorf behavior
 	selected_default_language = /datum/language/dwarvish
-	possible_mmb_intents = list(INTENT_BITE, INTENT_JUMP, INTENT_KICK, INTENT_STEAL) //intents given in case of player controlled
+	possible_mmb_intents = list(INTENT_BITE, INTENT_JUMP, INTENT_KICK, INTENT_SPECIAL) //intents given in case of player controlled
 	possible_rmb_intents = list(/datum/rmb_intent/feint, /datum/rmb_intent/aimed, /datum/rmb_intent/strong, /datum/rmb_intent/weak)
 
 /mob/living/carbon/human/species/dwarfskeleton/ambush
@@ -75,7 +75,7 @@ GLOBAL_LIST_INIT(dwarfskeleton_aggro, world.file2list("strings/rt/dskeletonaggro
 	if(prob(50))
 		cloak = /obj/item/clothing/cloak/raincloak/mortus
 	wrists = /obj/item/clothing/wrists/roguetown/bracers/copper
-	armor = /obj/item/clothing/suit/roguetown/armor/plate/half/copper
+	armor = /obj/item/clothing/suit/roguetown/armor/plate/cuirass/copper
 	shirt = /obj/item/clothing/suit/roguetown/armor/gambeson/heavy
 	if(prob(60))
 		shirt = /obj/item/clothing/suit/roguetown/armor/gambeson

@@ -139,9 +139,9 @@
 	I = mob.get_active_held_item()
 	if(I)
 		if(I.return_blood_DNA())
-			testing("yep")
+
 		else
-			testing("nope")
+
 
 #endif
 
@@ -214,7 +214,7 @@
 // CLEANING
 
 /obj/item/natural/cloth/attack_obj(obj/O, mob/living/user)
-	testing("attackobj")
+
 	if(user.client && ((O in user.client.screen) && !user.is_holding(O)))
 		to_chat(user, span_warning("I need to take that [O.name] off before cleaning it!"))
 		return
@@ -258,7 +258,7 @@
 
 // BANDAGING
 /obj/item/natural/cloth/attack(mob/living/M, mob/user)
-	testing("attack")
+
 	bandage(M, user)
 
 /obj/item/natural/cloth/wash_act()
@@ -289,9 +289,9 @@
 	H.update_damage_overlays()
 
 	if(M == user)
-		user.visible_message(span_notice("[user] bandages [user.p_their()] [affecting]."), span_notice("I bandage my [affecting]."))
+		user.visible_message(span_notice("[user] bandages [user.p_their()] [affecting]."), span_notice("I bandage my [affecting.name]."))
 	else
-		user.visible_message(span_notice("[user] bandages [M]'s [affecting]."), span_notice("I bandage [M]'s [affecting]."))
+		user.visible_message(span_notice("[user] bandages [M]'s [affecting]."), span_notice("I bandage [M]'s [affecting.name]."))
 
 /obj/item/natural/thorn
 	name = "thorn"

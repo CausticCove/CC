@@ -388,6 +388,11 @@
 		// Check if the user is holding a black rose and the target follows Pestra.
 		if(istype(rose) && target.patron?.type == /datum/patron/divine/pestra)
 			// If the target is a Pestran and we are holding the rose, implant the component.
+			var/time_elapsed = STATION_TIME_PASSED() / (1 MINUTES)
+			if(time_elapsed < 45)
+				var/time_left = 45 - time_elapsed
+				to_chat(user, span_smallred("Pestra's rot is still preparing to bloom. Wait another [round(time_left, 0.1)] minutes."))
+				revert_cast()
 			if(!target.GetComponent(/datum/component/infestation_black_rot))
 				target.AddComponent(/datum/component/infestation_black_rot)
 				ADD_TRAIT(target, TRAIT_PESTRAS_BLESSING, TRAIT_MIRACLE)
@@ -451,7 +456,10 @@
 	warnie = "sydwarning"
 	movement_interrupt = FALSE
 	sound = 'sound/gore/flesh_eat_03.ogg'
-	invocation_type = "none"
+	//Caustic Edit
+	invocations = list("Rot, take form!") //Salt PR so I don't decapitate every Pestran, invocation suggested by a Pestra main
+	invocation_type = "shout"
+	//Caustic Edit End
 	associated_skill = /datum/skill/magic/holy
 	antimagic_allowed = TRUE
 	recharge_time = 60 SECONDS

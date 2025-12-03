@@ -58,7 +58,7 @@
 	show_icon() //Update dir / icons after Init.
 
 	if(Adjacent(target) && prob(50)) //Some chance to not stun them; To not only scare people but actually allow people to believe in false combat...
-		target.jitteriness += 500
+		target.jitteriness += 25 //Lets reduce this.
 		target.do_jitter_animation(target.jitteriness)
 		target.Stun(20)
 		target.Paralyze(30)

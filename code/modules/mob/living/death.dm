@@ -162,8 +162,10 @@ GLOBAL_LIST_EMPTY(last_words)
 	if (client)
 		//Cove edit start
 		if (!istype(src.loc, /obj/belly))
+			if(istype(src, /mob/living/simple_animal))
+				return
 		//Cove edit end
-		//stop necrans from freaking out from digestion
+		// Stop necrans from freaking out from digestion and unrevivable simplemob deaths
 			if (!gibbed)
 				var/locale = prepare_deathsight_message()
 				for (var/mob/living/player in GLOB.player_list)

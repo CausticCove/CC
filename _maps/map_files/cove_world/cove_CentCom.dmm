@@ -127,10 +127,10 @@
 /obj/item/clothing/suit/roguetown/armor/plate,
 /obj/item/clothing/suit/roguetown/armor/plate,
 /obj/item/clothing/suit/roguetown/armor/plate,
-/obj/item/clothing/suit/roguetown/armor/plate/half/fluted,
-/obj/item/clothing/suit/roguetown/armor/plate/half/fluted,
-/obj/item/clothing/suit/roguetown/armor/plate/half/fluted,
-/obj/item/clothing/suit/roguetown/armor/plate/half/fluted,
+/obj/item/clothing/suit/roguetown/armor/plate/fluted,
+/obj/item/clothing/suit/roguetown/armor/plate/fluted,
+/obj/item/clothing/suit/roguetown/armor/plate/fluted,
+/obj/item/clothing/suit/roguetown/armor/plate/fluted,
 /obj/item/clothing/suit/roguetown/armor/plate/full/fluted,
 /obj/item/clothing/suit/roguetown/armor/plate/full/fluted,
 /obj/item/clothing/suit/roguetown/armor/plate/full/fluted,
@@ -1302,10 +1302,6 @@
 "th" = (
 /turf/open/floor/rogue/woodturned,
 /area/rogue/indoors/eventarea)
-"tj" = (
-/obj/structure/chair/bench/church,
-/turf/open/floor/rogue/concrete,
-/area/rogue/under/cave/inhumen)
 "tr" = (
 /obj/effect/decal/cleanable/blood/tracks,
 /turf/open/floor/rogue/naturalstone,
@@ -1981,7 +1977,9 @@
 /turf/open/floor/rogue/hexstone,
 /area/rogue/under/cave/inhumen)
 "KG" = (
-/obj/structure/chair/bench/church/r,
+/obj/structure/chair/bench/church/r{
+	dir = 1
+	},
 /turf/open/floor/rogue/concrete,
 /area/rogue/under/cave/inhumen)
 "KZ" = (
@@ -2511,7 +2509,9 @@
 /turf/open/floor/rogue/tile/masonic,
 /area/rogue/indoors/eventarea)
 "ZN" = (
-/obj/structure/chair/bench/church/mid,
+/obj/structure/chair/bench/church/mid{
+	dir = 1
+	},
 /turf/open/floor/rogue/concrete,
 /area/rogue/under/cave/inhumen)
 "ZQ" = (
@@ -5236,7 +5236,7 @@ ol
 ws
 DT
 DT
-tj
+DT
 ws
 ws
 If
@@ -5756,7 +5756,7 @@ QT
 ws
 DT
 DT
-tj
+DT
 ws
 ws
 xL

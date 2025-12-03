@@ -6,11 +6,14 @@ GLOBAL_LIST_EMPTY(loadout_items)
 	var/path
 	var/donoritem			//autoset on new if null
 	var/list/ckeywhitelist
+	var/triumph_cost
 
 /datum/loadout_item/New()
 	if(isnull(donoritem))
 		if(ckeywhitelist)
 			donoritem = TRUE
+	if (triumph_cost)
+		desc += "<b>Costs [triumph_cost] TRIUMPH.</b>"
 
 /datum/loadout_item/proc/donator_ckey_check(key)
 	if(ckeywhitelist && ckeywhitelist.Find(key))
@@ -35,6 +38,12 @@ GLOBAL_LIST_EMPTY(loadout_items)
 	name = "Custom Book"
 	path = /obj/item/book/rogue/loadoutbook
 
+//TOOLS
+
+/datum/loadout_item/bauernwehr
+	name = "Bauernwehr (-3 TRI)"
+	path = /obj/item/rogueweapon/huntingknife/throwingknife/bauernwehr
+	triumph_cost = 3
 
 //HATS
 /datum/loadout_item/shalal
@@ -133,6 +142,10 @@ GLOBAL_LIST_EMPTY(loadout_items)
 /datum/loadout_item/jupon
 	name = "Jupon"
 	path = /obj/item/clothing/cloak/stabard/surcoat
+
+/datum/loadout_item/jupon_short
+	name = "Short Jupon"
+	path = /obj/item/clothing/cloak/stabard/surcoat/short
 
 /datum/loadout_item/cape
 	name = "Cape"
@@ -284,6 +297,34 @@ GLOBAL_LIST_EMPTY(loadout_items)
 	name = "Exotic Silk Bra"
 	path = /obj/item/clothing/suit/roguetown/shirt/exoticsilkbra
 
+/datum/loadout_item/desertbra
+	name = "Desert Bra"
+	path = /obj/item/clothing/suit/roguetown/shirt/desertbra
+
+/datum/loadout_item/deserthood
+	name = "Desert Hood"
+	path = /obj/item/clothing/head/roguetown/deserthood
+
+/datum/loadout_item/desertskirt
+	name = "Desert Skirt"
+	path = /obj/item/clothing/under/roguetown/skirt/desert
+
+/datum/loadout_item/explorerhat
+	name = "Explorer Hat"
+	path = /obj/item/clothing/head/roguetown/explorerhat
+
+/datum/loadout_item/explorervest
+	name = "Explorer Vest"
+	path = /obj/item/clothing/suit/roguetown/shirt/explorer
+
+/datum/loadout_item/fancycoat
+	name = "Fancy Coat"
+	path = /obj/item/clothing/cloak/poncho/fancycoat
+
+/datum/loadout_item/explorerpants
+	name = "Explorer Pants"
+	path = /obj/item/clothing/under/roguetown/tights/explorerpants
+
 /datum/loadout_item/bottomtunic
 	name = "Low-cut Tunic"
 	path = /obj/item/clothing/suit/roguetown/shirt/undershirt/lowcut
@@ -429,6 +470,10 @@ GLOBAL_LIST_EMPTY(loadout_items)
 	name = "Briar Mask"
 	path = /obj/item/clothing/head/roguetown/dendormask
 
+/datum/loadout_item/eorahood
+	name = "Opera Mask - Eoran Hood"
+	path = /obj/item/clothing/head/roguetown/roguehood/eorahood
+
 /datum/loadout_item/exoticsilkmask
 	name = "Exotic Silk Mask"
 	path = /obj/item/clothing/mask/rogue/exoticsilkmask
@@ -497,6 +542,10 @@ GLOBAL_LIST_EMPTY(loadout_items)
 	name = "Amulet of Abyssor"
 	path = /obj/item/clothing/neck/roguetown/psicross/abyssor
 
+/datum/loadout_item/psicross/xylix
+	name = "Amulet of Xylix"
+	path = /obj/item/clothing/neck/roguetown/psicross/xylix
+
 /datum/loadout_item/psicross/dendor
 	name = "Amulet of Dendor"
 	path = /obj/item/clothing/neck/roguetown/psicross/dendor
@@ -528,6 +577,18 @@ GLOBAL_LIST_EMPTY(loadout_items)
 /datum/loadout_item/psicross/zizo
 	name = "Decrepit Zcross"
 	path = /obj/item/clothing/neck/roguetown/psicross/inhumen/aalloy
+
+/datum/loadout_item/zcross_iron
+	name = "Iron Zcross"
+	path = /obj/item/clothing/neck/roguetown/psicross/inhumen/iron
+
+/datum/loadout_item/psicross/matthios
+	name = "Amulet of Matthios"
+	path = /obj/item/clothing/neck/roguetown/psicross/inhumen/matthios
+
+/datum/loadout_item/psicross/graggar
+	name = "Amulet of Graggar"
+	path = /obj/item/clothing/neck/roguetown/psicross/inhumen/graggar
 
 /datum/loadout_item/wedding_band
 	name = "silver wedding band"
@@ -639,3 +700,8 @@ GLOBAL_LIST_EMPTY(loadout_items)
 	name = "Donator Kit - Shroud of the Undermaiden"
 	path = /obj/item/enchantingkit/zoe
 	ckeywhitelist = list("zoetheorc")
+
+/datum/loadout_item/donator_willmbrink
+	name = "Donator Item - Royal Gown"
+	path = /obj/item/clothing/suit/roguetown/shirt/dress/royal
+	ckeywhitelist = list("willmbrink")

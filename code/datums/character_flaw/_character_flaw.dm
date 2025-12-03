@@ -17,6 +17,7 @@ GLOBAL_LIST_INIT(character_flaws, list(
 	"Bad Sight"=/datum/charflaw/badsight,
 	"Cyclops (R)"=/datum/charflaw/noeyer,
 	"Cyclops (L)"=/datum/charflaw/noeyel,
+	"Blindness"=/datum/charflaw/noeyeall,
 	"Wood Arm (R)"=/datum/charflaw/limbloss/arm_r,
 	"Wood Arm (L)"=/datum/charflaw/limbloss/arm_l,
 	"Sleepless"=/datum/charflaw/sleepless,
@@ -54,43 +55,33 @@ GLOBAL_LIST_INIT(character_flaws, list(
 	if(istype(charflaw, flaw))
 		return TRUE
 
-/mob/proc/get_flaw(flaw_type)
+/mob/proc/get_flaw()
 	return
 
-/mob/living/carbon/human/get_flaw(flaw_type)
-	if(!flaw_type)
-		return
-	if(charflaw != flaw_type)
-		return
+/mob/living/carbon/human/get_flaw()
 	return charflaw
 
 /datum/charflaw/randflaw
 	name = "Random or None"
 	desc = "A 50% chance to be given a random flaw, or a 50% chance to have NO flaw."
-	var/nochekk = TRUE
 
-/datum/charflaw/randflaw/flaw_on_life(mob/user)
-	if(!nochekk)
-		return
-	if(ishuman(user))
-		var/mob/living/carbon/human/H = user
-		if(H.ckey)
-			nochekk = FALSE
-			if(prob(50))
-				var/flawz = GLOB.character_flaws.Copy()
-				var/charflaw = pick_n_take(flawz)
-				charflaw = GLOB.character_flaws[charflaw]
-				if((charflaw == type) || (charflaw == /datum/charflaw/noflaw))
-					charflaw = pick_n_take(flawz)
-					charflaw = GLOB.character_flaws[charflaw]
-				if((charflaw == type) || (charflaw == /datum/charflaw/noflaw))
-					charflaw = pick_n_take(flawz)
-					charflaw = GLOB.character_flaws[charflaw]
-				H.charflaw = new charflaw()
-				H.charflaw.on_mob_creation(H)
-			else
-				H.charflaw = new /datum/charflaw/eznoflaw()
-				H.charflaw.on_mob_creation(H)
+/datum/charflaw/randflaw/apply_post_equipment(mob/user)
+	var/mob/living/carbon/human/H = user
+	if(prob(50))
+		var/flawz = GLOB.character_flaws.Copy()
+		var/charflaw = pick_n_take(flawz)
+		charflaw = GLOB.character_flaws[charflaw]
+		if((charflaw == type) || (charflaw == /datum/charflaw/noflaw))
+			charflaw = pick_n_take(flawz)
+			charflaw = GLOB.character_flaws[charflaw]
+		if((charflaw == type) || (charflaw == /datum/charflaw/noflaw))
+			charflaw = pick_n_take(flawz)
+			charflaw = GLOB.character_flaws[charflaw]
+		H.charflaw = new charflaw()
+		H.charflaw.on_mob_creation(H)
+	else
+		H.charflaw = new /datum/charflaw/eznoflaw()
+		H.charflaw.on_mob_creation(H)
 
 
 /datum/charflaw/eznoflaw
@@ -281,6 +272,22 @@ GLOBAL_LIST_INIT(character_flaws, list(
 	head?.add_wound(/datum/wound/facial/eyes/left/permanent)
 	H.update_fov_angles()
 
+/datum/charflaw/noeyeall
+	name = "Blindness"
+	desc = "I lost both of my eyes long ago."
+
+/datum/charflaw/noeyeall/on_mob_creation(mob/user)
+	..()
+	if(!ishuman(user))
+		return
+	var/mob/living/carbon/human/H = user
+	if(!H.wear_mask)
+		H.equip_to_slot_or_del(new /obj/item/clothing/glasses/blindfold(H), SLOT_WEAR_MASK)
+	var/obj/item/bodypart/head/head = H.get_bodypart(BODY_ZONE_HEAD)
+	head?.add_wound(/datum/wound/facial/eyes/left/permanent)
+	head?.add_wound(/datum/wound/facial/eyes/right/permanent)
+	H.update_fov_angles()
+
 /datum/charflaw/colorblind
 	name = "Colorblind"
 	desc = "I was cursed with flawed eyesight from birth, and can't discern things others can. Incompatible with Night-eyed virtue."
@@ -311,11 +318,11 @@ GLOBAL_LIST_INIT(character_flaws, list(
 
 /datum/charflaw/unintelligible/on_mob_creation(mob/user)
 	var/mob/living/carbon/human/recipient = user
-	addtimer(CALLBACK(src, .proc/unintelligible_apply, recipient), 5 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(unintelligible_apply), recipient), 5 SECONDS)
 
 /datum/charflaw/unintelligible/proc/unintelligible_apply(mob/living/carbon/human/user)
 	if(user.advsetup)
-		addtimer(CALLBACK(src, .proc/unintelligible_apply, user), 5 SECONDS)
+		addtimer(CALLBACK(src, PROC_REF(unintelligible_apply), user), 5 SECONDS)
 		return
 	user.remove_language(/datum/language/common)
 	user.adjust_skillrank(/datum/skill/misc/reading, -6, TRUE)
@@ -440,15 +447,17 @@ GLOBAL_LIST_INIT(character_flaws, list(
 	else
 		// Been conscious for ~10 minutes (whatever is the conscious timer)
 		if(last_unconsciousness + concious_timer < world.time)
-			drugged_up = FALSE
-			to_chat(user, span_blue("I'm getting drowsy..."))
+			do_sleep = TRUE
 			user.emote("yawn", forced = TRUE)
 			next_sleep = world.time + rand(7 SECONDS, 11 SECONDS)
-			do_sleep = TRUE
+			if(drugged_up)
+				to_chat(user, span_blue("The drugs keeps me awake, for now..."))
+			else
+				to_chat(user, span_blue("I'm getting drowsy..."))
 
 /proc/narcolepsy_drug_up(mob/living/living)
-	var/datum/charflaw/narcoleptic/narco = living.get_flaw(/datum/charflaw/narcoleptic)
-	if(!narco)
+	var/datum/charflaw/narcoleptic/narco = living.get_flaw()
+	if (!istype(narco, /datum/charflaw/narcoleptic))
 		return
 	narco.drugged_up = TRUE
 
@@ -463,11 +472,19 @@ GLOBAL_LIST_INIT(character_flaws, list(
 	return mammons
 
 /datum/charflaw/sleepless
-	name = "Insomnia"
+	name = "Sleepless"
 	desc = "I do not sleep. I cannot sleep. I've tried everything."
+	var/drugged_up = FALSE
+	var/dream_prob = 1000
 
 /datum/charflaw/sleepless/on_mob_creation(mob/user)
 	ADD_TRAIT(user, TRAIT_NOSLEEP, TRAIT_GENERIC)
+
+/proc/sleepless_drug_up(mob/living/living)
+	var/datum/charflaw/sleepless/sleeper = living.get_flaw()
+	if (!istype(sleeper, /datum/charflaw/sleepless))
+		return
+	sleeper.drugged_up = TRUE
 
 /datum/charflaw/mute
 	name = "Mute"
@@ -482,3 +499,20 @@ GLOBAL_LIST_INIT(character_flaws, list(
 
 /datum/charflaw/critweakness/on_mob_creation(mob/user)
 	ADD_TRAIT(user, TRAIT_CRITICAL_WEAKNESS, TRAIT_GENERIC)
+
+/datum/charflaw/leprosy
+	name = "Leper (+1 TRI)"
+	desc = "I am cursed with leprosy! Too poor to afford treatment, my skin now lays violated by lesions, my extremities are numb, and my presence disturbs even the most stalwart men."
+
+/datum/charflaw/leprosy/apply_post_equipment(mob/user)
+	var/mob/living/carbon/human/H = user
+	to_chat(user, "I am afflicted. I am outcast and weak. I am a pox on this world.")
+	ADD_TRAIT(user, TRAIT_LEPROSY, TRAIT_GENERIC)
+	H.change_stat(STATKEY_STR, -1)
+	H.change_stat(STATKEY_INT, -1)
+	H.change_stat(STATKEY_PER, -1)
+	H.change_stat(STATKEY_CON, -1)
+	H.change_stat(STATKEY_WIL, -1)
+	H.change_stat(STATKEY_SPD, -1)
+	H.change_stat(STATKEY_LCK, -1)
+	H.adjust_triumphs(1)
