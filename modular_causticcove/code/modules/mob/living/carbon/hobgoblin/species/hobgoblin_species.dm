@@ -5,17 +5,19 @@
 	inherent_traits = list(TRAIT_RESISTCOLD, 
 		TRAIT_RESISTHIGHPRESSURE, 
 		TRAIT_RESISTLOWPRESSURE, 
-		TRAIT_RADIMMUNE, 
-		TRAIT_CRITICAL_WEAKNESS, 
+		TRAIT_RADIMMUNE,
 		TRAIT_NASTY_EATER, 
-		TRAIT_LEECHIMMUNE) // For goblin armor
+		TRAIT_LEECHIMMUNE,
+		TRAIT_CRITICAL_WEAKNESS,
+		TRAIT_CRITICAL_RESISTANCE)//WE are STRONG!!! They'll be critted a lot, but resist a lot of crits! Good luck!
 	no_equip = list(SLOT_SHIRT, SLOT_WEAR_MASK, SLOT_GLOVES, SLOT_SHOES, SLOT_PANTS, SLOT_S_STORE)
 	nojumpsuit = 1
 	sexes = 1
-	offset_features = list(OFFSET_HANDS = list(0,-4), OFFSET_HANDS_F = list(0,-4))
+	offset_features = list(OFFSET_HANDS = list(0,-2), OFFSET_HANDS_F = list(0,-2))
 	damage_overlay_type = ""
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_MAGIC | MIRROR_PRIDE | RACE_SWAP | SLIME_EXTRACT
 	var/raceicon = "hobgoblin"
+	race_bonus = list(STAT_FORTUNE = 1) //We're lucky to have even reached a point to be a big bad baddy!!! 
 
 /datum/species/hobgoblin/regenerate_icons(mob/living/carbon/human/H)
 //	H.cut_overlays()
@@ -30,3 +32,6 @@
 	G.update_wearable()
 	H.update_transform()
 	return TRUE
+
+/datum/species/hobgoblin/update_damage_overlays(mob/living/carbon/human/H)
+	return
