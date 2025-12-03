@@ -1,5 +1,9 @@
+
+//These are Hoblins. A play of Hobgoblin.
+//Hoblins are stronger variants of Goblins, simply. They boast stronger stats and use pretty much the same items, except they're taller and do not flee from combat.
+
 /mob/living/carbon/human/species/hobgoblin
-	name = "hob goblin"
+	name = "hoblin"
 	icon = 'modular_causticcove/icons/mob/monster/hobgoblins/hobgoblins.dmi'
 	icon_state = "hobgoblin"
 	race = /datum/species/hobgoblin
@@ -140,8 +144,8 @@
 		QDEL_NULL(src.charflaw)
 	update_body()
 	faction = list("orcs")
-	name = "hobgoblin"
-	real_name = "hobgoblin"
+	name = "hoblin"
+	real_name = "hoblin"
 	ADD_TRAIT(src, TRAIT_NOMOOD, TRAIT_GENERIC)
 	ADD_TRAIT(src, TRAIT_NOHUNGER, TRAIT_GENERIC)
 	ADD_TRAIT(src, TRAIT_BREADY, TRAIT_GENERIC)
@@ -157,8 +161,8 @@
 
 /datum/outfit/job/roguetown/npc/hobgoblin/pre_equip(mob/living/carbon/human/H)
 	..()
-	var/chance_zjumper = 5
-	var/chance_treeclimber = 30
+	var/chance_zjumper = 25 //We are REALLY smart compared to goblins; Let us chase after these puny adventurers!!!
+	var/chance_treeclimber = 50
 
 	H.STASTR = 14
 	H.STAINT = 7 //Somewhat smart buggers!
@@ -173,29 +177,62 @@
 		H.tree_climber = TRUE
 		H.find_targets_above = TRUE // so they can taunt
 
-	var/loadout = rand(1,3)
+	var/loadout = rand(1,10)
+	//If they can make metal/plate armor, they 100% can make metal / iron weapons.
+	//Most hoblins will always be wearing armor when encountering. Hoblin armor is relatively weak due to there only being one layer. 
 	switch(loadout)
-		if(1) //tribal spear
-			r_hand = /obj/item/rogueweapon/spear/stone
-			pants = /obj/item/clothing/under/roguetown/loincloth
-		if(2) //tribal axe
-			r_hand = /obj/item/rogueweapon/stoneaxe
-			pants = /obj/item/clothing/under/roguetown/loincloth
-		if(3) //tribal club
-			r_hand = /obj/item/rogueweapon/mace/woodclub
-			pants = /obj/item/clothing/under/roguetown/loincloth
-			if(prob(10))
-				head = /obj/item/clothing/head/roguetown/helmet/leather
-/* 		if(4) //lightly armored sword/flail/daggers
+		if(1) //Spear and Leathers
+			r_hand = /obj/item/rogueweapon/spear
 			if(prob(50))
-				r_hand = /obj/item/rogueweapon/sword/iron
+				head = /obj/item/clothing/head/roguetown/helmet/hobgoblin
+			armor = /obj/item/clothing/suit/roguetown/armor/leather/hobgoblin
+		if(2) //Axe and Leathers
+			r_hand = /obj/item/rogueweapon/stoneaxe/handaxe
+			if(prob(50))
+				head = /obj/item/clothing/head/roguetown/helmet/leather/hobgoblin
+			armor = /obj/item/clothing/suit/roguetown/armor/leather/hobgoblin
+		if(3) //Mace and Leathers
+			r_hand = /obj/item/rogueweapon/mace
+			if(prob(50))
+				head = /obj/item/clothing/head/roguetown/helmet/leather/hobgoblin
+			armor = /obj/item/clothing/suit/roguetown/armor/leather/hobgoblin
+		if(4) //Iron Messser and Leathers (Strong Foe, fight with caution. Rarer chance for helms)
+			r_hand = /obj/item/rogueweapon/sword/short/messer/iron
+			if(prob(15))
+				head = /obj/item/clothing/head/roguetown/helmet/leather/hobgoblin
+			armor = /obj/item/clothing/suit/roguetown/armor/leather/hobgoblin
+		if(5)
+			r_hand = /obj/item/rogueweapon/sword/short/iron
+			l_hand = /obj/item/rogueweapon/shield/heater
+			if(prob(75)) //Armored Hobbers, SnS w/ Plate Armor, leather if they don't roll plate.
+				head = /obj/item/clothing/head/roguetown/helmet/hobgoblin
 			else
-				r_hand = /obj/item/rogueweapon/mace/spiked
-			if(prob(30))
-				l_hand = /obj/item/rogueweapon/shield/wood
-		if(5) //Dual Wielding Sadist...
-			r_hand = /obj/item/rogueweapon/huntingknife/stoneknife
-			l_hand = /obj/item/rogueweapon/huntingknife/stoneknife */
+				head = /obj/item/clothing/head/roguetown/helmet/leather/hobgoblin
+			if(prob(75))
+				armor =	/obj/item/clothing/suit/roguetown/armor/plate/cuirass/iron/hobgoblin
+			else
+				armor = /obj/item/clothing/suit/roguetown/armor/leather/hobgoblin
+		if(6) //Scary foes. Always spawn withour helmet protection to compensate for their AP potential.
+			r_hand = /obj/item/rogueweapon/mace/warhammer
+			armor = /obj/item/clothing/suit/roguetown/armor/leather/hobgoblin
+		if(7) //Hoblin variant of scary knife holder that does a lot of stabby stabby. Very scary. Spawns without helmet to compensate.
+			r_hand = /obj/item/rogueweapon/huntingknife/idagger
+			l_hand = /obj/item/rogueweapon/huntingknife/idagger
+			armor = /obj/item/clothing/suit/roguetown/armor/leather/hobgoblin
+		if(8) //This Hoblin throws a MEAN punch... Tanky variant. Always spawn with plate. No helm as per usual with these specific niches.
+			r_hand = /obj/item/rogueweapon/knuckles/bronzeknuckles
+			l_hand = /obj/item/rogueweapon/knuckles/bronzeknuckles
+			armor =	/obj/item/clothing/suit/roguetown/armor/plate/cuirass/iron/hobgoblin
+		if(9) //Spear and Shield Hoblin. Has distance to stab, and a shield to defend. Threatening, spawns in full leathers.
+			r_hand = /obj/item/rogueweapon/spear
+			l_hand = /obj/item/rogueweapon/shield/heater
+			if(prob(33))
+				head = /obj/item/clothing/head/roguetown/helmet/leather/hobgoblin
+			armor = /obj/item/clothing/suit/roguetown/armor/leather/hobgoblin
+		if(10) // The BIG BAD BOSS HOBLIN. This one is special, spawning with a Greatsword and full plate. Spawn rate should be offset by existing hoblin variants, 1/10 chance...
+			r_hand = /obj/item/rogueweapon/greatsword/iron
+			head = /obj/item/clothing/head/roguetown/helmet/hobgoblin
+			armor =	/obj/item/clothing/suit/roguetown/armor/plate/cuirass/iron/hobgoblin
 
 	H.adjust_skillrank(/datum/skill/combat/polearms, 3, TRUE)
 	H.adjust_skillrank(/datum/skill/combat/maces, 3, TRUE)

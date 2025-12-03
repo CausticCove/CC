@@ -2974,6 +2974,7 @@
 #include "modular_causticcove\code\modules\mob\living\carbon\hobgoblin\hobgoblin.dm"
 #include "modular_causticcove\code\modules\mob\living\carbon\hobgoblin\npc\hobgoblin_npc.dm"
 #include "modular_causticcove\code\modules\mob\living\carbon\hobgoblin\species\hobgoblin_species.dm"
+#include "modular_causticcove\code\modules\clothing\npc\hobgoblin_armor.dm"
 #include "modular_causticcove\code\modules\nat_armor\nat_armor.dm"
 #include "modular_causticcove\code\modules\nat_armor\virtue.dm"
 #include "modular_causticcove\code\modules\persistance\serialize.dm"
