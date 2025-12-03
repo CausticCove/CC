@@ -173,26 +173,29 @@
 		H.tree_climber = TRUE
 		H.find_targets_above = TRUE // so they can taunt
 
-	var/loadout = rand(1,4)
+	var/loadout = rand(1,3)
 	switch(loadout)
 		if(1) //tribal spear
 			r_hand = /obj/item/rogueweapon/spear/stone
+			pants = /obj/item/clothing/under/roguetown/loincloth
 		if(2) //tribal axe
 			r_hand = /obj/item/rogueweapon/stoneaxe
+			pants = /obj/item/clothing/under/roguetown/loincloth
 		if(3) //tribal club
 			r_hand = /obj/item/rogueweapon/mace/woodclub
+			pants = /obj/item/clothing/under/roguetown/loincloth
 			if(prob(10))
-				head = /obj/item/clothing/head/roguetown/helmet/leather/goblin
-		if(4) //lightly armored sword/flail/daggers
+				head = /obj/item/clothing/head/roguetown/helmet/leather
+/* 		if(4) //lightly armored sword/flail/daggers
 			if(prob(50))
 				r_hand = /obj/item/rogueweapon/sword/iron
 			else
 				r_hand = /obj/item/rogueweapon/mace/spiked
 			if(prob(30))
 				l_hand = /obj/item/rogueweapon/shield/wood
-			if(prob(23))
-				r_hand = /obj/item/rogueweapon/huntingknife/stoneknife
-				l_hand = /obj/item/rogueweapon/huntingknife/stoneknife
+		if(5) //Dual Wielding Sadist...
+			r_hand = /obj/item/rogueweapon/huntingknife/stoneknife
+			l_hand = /obj/item/rogueweapon/huntingknife/stoneknife */
 
 	H.adjust_skillrank(/datum/skill/combat/polearms, 3, TRUE)
 	H.adjust_skillrank(/datum/skill/combat/maces, 3, TRUE)

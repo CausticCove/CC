@@ -8,8 +8,7 @@
 		TRAIT_RADIMMUNE,
 		TRAIT_NASTY_EATER, 
 		TRAIT_LEECHIMMUNE,
-		TRAIT_CRITICAL_WEAKNESS,
-		TRAIT_CRITICAL_RESISTANCE)//WE are STRONG!!! They'll be critted a lot, but resist a lot of crits! Good luck!
+		TRAIT_CRITICAL_RESISTANCE)//WE are STRONG!
 	no_equip = list(SLOT_SHIRT, SLOT_WEAR_MASK, SLOT_GLOVES, SLOT_SHOES, SLOT_PANTS, SLOT_S_STORE)
 	nojumpsuit = 1
 	sexes = 1
