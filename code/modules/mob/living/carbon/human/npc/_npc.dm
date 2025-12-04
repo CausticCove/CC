@@ -853,30 +853,26 @@
 				if(length(weapon_special_intents) > 1)
 					if(possible_rmb_intents & /datum/rmb_intent/strong)
 						swap_rmb_intent(/datum/rmb_intent/strong)
-						if(Adjacent(target))
-							try_special_attack(target)
-							return TRUE //We used our special intent on the target as soon as we could.
+						try_special_attack(target)
+						return TRUE //We used our special intent on the target as soon as we could.
 
 			if(smart_combatant && prob(50)) // Only if we use rmb intents...
 				if(length(possible_rmb_intents) > 1)
 					if(!has_status_effect(/datum/status_effect/debuff/feintcd))
 						if(possible_rmb_intents & /datum/rmb_intent/feint && rmb_intent != /datum/rmb_intent/feint && prob(50))
 							swap_rmb_intent(/datum/rmb_intent/feint)
-							if(Adjacent(target))
-								try_special_attack(target)
-								return TRUE
+							try_special_attack(target)
+							return TRUE
 					else if(!has_status_effect(/datum/status_effect/debuff/clashcd))
 						if(possible_rmb_intents & /datum/rmb_intent/riposte && rmb_intent != /datum/rmb_intent/riposte && prob(50))
 							swap_rmb_intent(/datum/rmb_intent/riposte)
-							if(Adjacent(target))
-								try_special_attack(target)
-								return TRUE
+							try_special_attack(target)
+							return TRUE
 					else if(!has_status_effect(/datum/status_effect/debuff/baitcd)) //May work sometimes; more than likely it wont however.
 						if(possible_rmb_intents & /datum/rmb_intent/aimed && rmb_intent != /datum/rmb_intent/aimed) //Default to aimed as the final choice to attempt baiting.
 							swap_rmb_intent(/datum/rmb_intent/aimed)
-							if(Adjacent(target))
-								try_special_attack(target)
-								return TRUE
+							try_special_attack(target)
+							return TRUE
 
 		if(!did_we_change_intent) //Always default regardless.
 			rog_intent_change(1)
