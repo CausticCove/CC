@@ -17,7 +17,6 @@
 	a_intent = INTENT_HELP
 	possible_mmb_intents = list(INTENT_SPECIAL, INTENT_JUMP, INTENT_KICK, INTENT_BITE)
 	possible_rmb_intents = list(/datum/rmb_intent/feint, /datum/rmb_intent/swift, /datum/rmb_intent/riposte, /datum/rmb_intent/strong) //Strong intent for strong mob...
-	flee_in_pain = TRUE
 
 //////////////////   BODYPARTS	//////////////////
 	//I am going to experiment with pain with Hobgoblins, and eventually spread to other mobs if this feels right.
