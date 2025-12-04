@@ -117,8 +117,6 @@
 		return
 	if(user.incapacitated())
 		return
-	if(!user.mind)
-		return
 	if(user.has_status_effect(/datum/status_effect/debuff/specialcd))
 		return
 
@@ -153,8 +151,6 @@
 	if(!user)
 		return
 	if(user.incapacitated())
-		return
-	if(!user.mind)
 		return
 	if(user.has_status_effect(/datum/status_effect/debuff/feintcd))
 		return
