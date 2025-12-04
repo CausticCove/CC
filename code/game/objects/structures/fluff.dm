@@ -1184,13 +1184,16 @@
 /obj/structure/fluff/psycross/attack_hand(mob/user)
 	. = ..()
 	var/mob/living/carbon/H = user
-	to_chat(H, span_warning("I press my palm to the cross and focus..."))
 	if(user.mind?.antag_datums)
-		for(var/datum/antagonist/D in user.mind?.antag_datums)
-			if(istype(D, /datum/antagonist/zombie))
-				if(do_after(H, 1 MINUTES, TRUE, src))
-					self_revive(H)
-				return
+		if(living_player_count <= 15) //Only works if less than 15 people in a round. Otherwise good fucking luck lol
+			for(var/datum/antagonist/D in user.mind?.antag_datums)
+				if(istype(D, /datum/antagonist/zombie))
+					to_chat(H, span_warning("I press my palm to the cross and focus..."))
+					if(do_after(H, 1 MINUTES, TRUE, src))
+						self_revive(H)
+					return
+		else
+			to_chat(H, span_warning("I can't use this... The god's refuse, I must seek aid from someone else..."))
 	else if(do_after(H, 5 SECONDS, TRUE, src)) //Fluff interaction for RP purposes and a tiny mood boost as an alternative to praying and spamming admin chats. Works anywhere.
 		if(H.has_flaw(/datum/charflaw/addiction/godfearing))
 			H.sate_addiction() //For the especially devout...
