@@ -164,11 +164,11 @@
 	var/chance_zjumper = 25 //We are REALLY smart compared to goblins; Let us chase after these puny adventurers!!!
 	var/chance_treeclimber = 50
 
-	H.STASTR = 14
-	H.STAINT = 7 //Somewhat smart buggers!
-	H.STACON = 16
+	H.STASTR = 9 
+	H.STAINT = 5 //Somewhat smart buggers!
+	H.STACON = 12
 	H.STAWIL = 14
-	H.STASPD = 12
+	H.STASPD = 8 //But a little slow, considering that they're more tanky than bitey...
 
 	if(prob(chance_zjumper))
 		ADD_TRAIT(H, TRAIT_ZJUMP, TRAIT_GENERIC)
