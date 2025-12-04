@@ -392,7 +392,7 @@
 	layer = BULLET_HOLE_LAYER //For obvious reasons.
 	random_icon_states = list("splatter1", "splatter2", "splatter3", "splatter4", "splatter5", "splatter6")
 
-/obj/effect/decal/cleanable/blood/splatter/walls/Initialize(mapload, list/datum/disease/diseases)
+/obj/effect/decal/cleanable/blood/splatter/walls/Initialize(mapload)
 	. = ..()
 	auto_turn_destructive()
 	dir = GLOB.reverse_dir[dir]
@@ -406,3 +406,7 @@
 		src.pixel_x = 32
 	pixel_x += rand(-5,5)
 	pixel_y += rand(-5,5)
+
+/obj/effect/decal/cleanable/blood/splatter/walls/replace_decal(obj/effect/decal/cleanable/C)
+	return //We don't want to replace decals for wall turfs since these are unique. May be changed in the future if it's too much.
+	
