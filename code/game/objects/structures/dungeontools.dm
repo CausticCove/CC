@@ -108,12 +108,12 @@
 
 /obj/structure/dungeontool/mover/New()
 	..()
-	START_PROCESSING(SSobj)
+	START_PROCESSING(SSobj, src)
 
 /obj/structure/dungeontool/mover/process()
 	. = ..()
 	move_mobs()
-	
+
 /obj/structure/dungeontool/mover/proc/move_mobs()
 	var/turf/T = loc
 	if(!istype(T, /turf))
