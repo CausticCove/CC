@@ -8,7 +8,9 @@
 	rude = TRUE
 	wander = FALSE
 
-	smart_combatant = TRUE
+	//smart_combatant = TRUE
+
+	//Can use special attacks, but cannot parry or feint our foe.
 	special_attacker = TRUE
 
 /mob/living/carbon/human/species/hobgoblin/npc/ambush
