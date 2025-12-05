@@ -156,14 +156,20 @@
 
 /turf/open/floor/rogue/rooftop/Initialize()
 	. = ..()
-	icon_state = "roof"
+	if(istype(get_area(src), /area/rogue/outdoors))
+		icon_state = "snoof"
+	else
+		icon_state = "roof"
 
 /turf/open/floor/rogue/rooftop/green
 	icon_state = "roofg-arw"
 
 /turf/open/floor/rogue/rooftop/green/Initialize()
 	. = ..()
-	icon_state = "roofg"
+	if(istype(get_area(src), /area/rogue/outdoors))
+		icon_state = "snoofg"
+	else
+		icon_state = "roofg"
 
 /turf/open/floor/rogue/rooftop/green/north
 	dir = 1
@@ -293,6 +299,15 @@
 /turf/open/floor/rogue/snowpatchy/cardinal_smooth(adjacencies)
 	roguesmooth(adjacencies)
 
+/turf/open/floor/rogue/snowpatchy/Initialize()
+	. = ..()
+	if(istype(get_area(src), /area/rogue/outdoors))
+		icon_state = "snass"
+		neighborlay = "snass_edge"
+	else
+		icon_state = "snowpatchy_grass"
+		neighborlay = "snowpatchy_grassedge"
+
 /turf/open/floor/rogue/grasscold
 	name = "tundra grass"
 	desc = "Grass, frigid and touched by winter."
@@ -313,6 +328,12 @@
 /turf/open/floor/rogue/grasscold/Initialize()
 	dir = pick(GLOB.cardinals)
 	. = ..()
+	if(istype(get_area(src), /area/rogue/outdoors))
+		icon_state = "snass"
+		neighborlay = "snass_edge"
+	else
+		icon_state = "grass_red"
+		neighborlay = "grass_rededge"
 
 /turf/open/floor/rogue/grasscold/cardinal_smooth(adjacencies)
 	roguesmooth(adjacencies)
@@ -340,6 +361,12 @@
 /turf/open/floor/rogue/grassred/Initialize()
 	dir = pick(GLOB.cardinals)
 	. = ..()
+	if(istype(get_area(src), /area/rogue/outdoors))
+		icon_state = "snass"
+		neighborlay = "snass_edge"
+	else
+		icon_state = "grass_red"
+		neighborlay = "grass_rededge"
 
 /turf/open/floor/rogue/grassred/cardinal_smooth(adjacencies)
 	roguesmooth(adjacencies)
@@ -365,6 +392,12 @@
 /turf/open/floor/rogue/grassyel/Initialize()
 	dir = pick(GLOB.cardinals)
 	. = ..()
+	if(istype(get_area(src), /area/rogue/outdoors))
+		icon_state = "snass"
+		neighborlay = "snass_edge"
+	else
+		icon_state = "grass_yel"
+		neighborlay = "grass_yeledge"
 
 /turf/open/floor/rogue/grassyel/cardinal_smooth(adjacencies)
 	roguesmooth(adjacencies)
@@ -396,6 +429,12 @@
 	dir = pick(GLOB.cardinals)
 //	GLOB.dirt_list += src
 	. = ..()
+	if(istype(get_area(src), /area/rogue/outdoors))
+		icon_state = "snass"
+		neighborlay = "snass_edge"
+	else
+		icon_state = "grass"
+		neighborlay = "grassedge"
 
 /turf/open/floor/rogue/grass/cardinal_smooth(adjacencies)
 	roguesmooth(adjacencies)
@@ -515,6 +554,12 @@
 /turf/open/floor/rogue/dirt/Initialize()
 	dir = pick(GLOB.cardinals)
 	. = ..()
+	if(istype(get_area(src), /area/rogue/outdoors))
+		icon_state = "snirt"
+		neighborlay = "snirtedge"
+	else
+		icon_state = "dirt"
+		neighborlay = "dirtedge"
 	update_water()
 
 /turf/open/floor/rogue/dirt/update_water()
@@ -594,6 +639,15 @@
 
 /turf/open/floor/rogue/dirt/road/cardinal_smooth(adjacencies)
 	roguesmooth(adjacencies)
+
+/turf/open/floor/rogue/dirt/road/Initialize()
+	. = ..()
+	if(istype(get_area(src), /area/rogue/outdoors))
+		icon_state = "snoad"
+		neighborlay = "snoadedge"
+	else
+		icon_state = "road"
+		neighborlay = "roadedge"
 
 /turf/open/floor/rogue/sand
 	name = "sand"
@@ -1129,7 +1183,12 @@
 
 /turf/open/floor/rogue/cobble/Initialize()
 	. = ..()
-	icon_state = "cobblestone[rand(1,3)]"
+	if(istype(get_area(src), /area/rogue/outdoors))
+		icon_state = "snobblestone[rand(1,3)]"
+		desc = "Stone bricks carefully inlaid upon the ground for a more refined and resilient path. These are covered in a layer of rime."
+		neighborlay = "snobbleedge"
+	else
+		icon_state = "cobblestone[rand(1,3)]"
 
 /turf/open/floor/rogue/cobble/mossy
 	name = "mossy cobblestone"
@@ -1156,7 +1215,12 @@
 
 /turf/open/floor/rogue/cobble/mossy/Initialize()
 	. = ..()
-	icon_state = "mossystone[rand(1,3)]"
+	if(istype(get_area(src), /area/rogue/outdoors))
+		icon_state = "snobblestone[rand(1,3)]"
+		desc = "Stone bricks carefully inlaid upon the ground for a more refined and resilient path. These are covered in a layer of rime."
+		neighborlay = "snobbleedge"
+	else
+		icon_state = "mossystone[rand(1,3)]"
 
 /obj/effect/decal/mossy
 	name = "mossy brick floor"
@@ -1165,12 +1229,26 @@
 	icon_state = "mossyedge"
 	mouse_opacity = 0
 
+/obj/effect/decal/mossy/Initialize()
+	. = ..()
+	if(istype(get_area(src), /area/rogue/outdoors))
+		icon_state = "snobbleedge"
+	else
+		icon_state = "mossyedge"
+
 /obj/effect/decal/cobble/mossy
 	name = "mossy brick floor"
 	desc = "Dirt and moss have crept between the gaps of this stone-brick flooring. Rather fitting for an outdoor garden; not so much for a home."
 	icon = 'icons/turf/roguefloor.dmi'
 	icon_state = "mossystone_edges"
 	mouse_opacity = 0
+
+/obj/effect/decal/cobble/mossy/Initialize()
+	. = ..()
+	if(istype(get_area(src), /area/rogue/outdoors))
+		icon_state = "snobblestone_edges"
+	else
+		icon_state = "mossystone_edges"
 
 /obj/effect/decal/edge
 	name = "stone edge"
@@ -1201,6 +1279,14 @@
 						/turf/closed/mineral,
 						/turf/closed/wall/mineral)
 
+/turf/open/floor/rogue/cobblerock/Initialize()
+	. = ..()
+	if(istype(get_area(src), /area/rogue/outdoors))
+		icon_state = "snobblerock"
+		desc = "A crude path of lumpy rocks that allows feet and cart wheels alike to escape the treacherous mud. These are covered in a layer of rime."
+	else
+		icon_state = "cobblerock"
+
 /turf/open/floor/rogue/cobblerock/cardinal_smooth(adjacencies)
 	roguesmooth(adjacencies)
 
@@ -1210,6 +1296,13 @@
 	icon = 'icons/turf/roguefloor.dmi'
 	icon_state = "cobblestone_edges"
 	mouse_opacity = 0
+
+/obj/effect/decal/cobbleedge/Initialize()
+	. = ..()
+	if(istype(get_area(src), /area/rogue/outdoors))
+		icon_state = "snobblestone_edges"
+	else
+		icon_state = "cobblestone_edges"
 
 /obj/effect/decal/carpet
 	name = "exotic rug"

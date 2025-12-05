@@ -148,7 +148,10 @@
 	var/turf/target = get_step_multiz(src, UP)
 	if(istype(target, /turf/open/transparent/openspace))
 		var/obj/structure/flora/newtree/T = new(target)
-		T.base_state = "center-leaf[rand(1,2)]"
+		if(istype(get_area(src), /area/rogue/outdoors))
+			T.base_state = "center-leaf-cold1"
+		else
+			T.base_state = "center-leaf[rand(1,2)]"
 		T.update_icon()
 
 /obj/structure/flora/newtree/proc/build_branches()
@@ -224,7 +227,10 @@
 	. = ..()
 	if(base_state)
 		AddComponent(/datum/component/squeak, list('sound/foley/plantcross1.ogg','sound/foley/plantcross2.ogg','sound/foley/plantcross3.ogg','sound/foley/plantcross4.ogg'), 100)
-		base_state = "center-leaf[rand(1,2)]"
+		if(istype(get_area(src), /area/rogue/outdoors))
+			base_state = "center-leaf-cold1"
+		else
+			base_state = "center-leaf[rand(1,2)]"
 	update_icon()
 
 /obj/structure/flora/newbranch/connector
@@ -262,7 +268,10 @@
 
 /obj/structure/flora/newleaf/corner/Initialize()
 	. = ..()
-	icon_state = "corner-leaf[rand(1,2)]"
+	if(istype(get_area(src), /area/rogue/outdoors))
+		icon_state = "corner-leaf-cold1"
+	else
+		icon_state = "corner-leaf[rand(1,2)]"
 	update_icon()
 
 /obj/structure/flora/newleaf
@@ -274,5 +283,9 @@
 
 /obj/structure/flora/newleaf/Initialize()
 	. = ..()
-	icon_state = "center-leaf[rand(1,2)]"
+	if(istype(get_area(src), /area/rogue/outdoors))
+		icon_state = "center-leaf-cold1"
+	else
+		icon_state = "center-leaf[rand(1,2)]"
+
 	update_icon()
