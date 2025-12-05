@@ -156,7 +156,7 @@
 
 /turf/open/floor/rogue/rooftop/Initialize()
 	. = ..()
-	if(istype(get_area(src), /area/rogue/outdoors))
+	if(istype(get_area(src), /area/rogue/outdoors) || istype(get_area(src), /area/rogue/druidsgrove))
 		icon_state = "snoof"
 	else
 		icon_state = "roof"
@@ -166,7 +166,7 @@
 
 /turf/open/floor/rogue/rooftop/green/Initialize()
 	. = ..()
-	if(istype(get_area(src), /area/rogue/outdoors))
+	if(istype(get_area(src), /area/rogue/outdoors) || istype(get_area(src), /area/rogue/druidsgrove))
 		icon_state = "snoofg"
 	else
 		icon_state = "roofg"
@@ -301,7 +301,7 @@
 
 /turf/open/floor/rogue/snowpatchy/Initialize()
 	. = ..()
-	if(istype(get_area(src), /area/rogue/outdoors))
+	if(istype(get_area(src), /area/rogue/outdoors) || istype(get_area(src), /area/rogue/druidsgrove))
 		icon_state = "snass"
 		neighborlay = "snass_edge"
 	else
@@ -328,7 +328,7 @@
 /turf/open/floor/rogue/grasscold/Initialize()
 	dir = pick(GLOB.cardinals)
 	. = ..()
-	if(istype(get_area(src), /area/rogue/outdoors))
+	if(istype(get_area(src), /area/rogue/outdoors) || istype(get_area(src), /area/rogue/druidsgrove))
 		icon_state = "snass"
 		neighborlay = "snass_edge"
 	else
@@ -361,7 +361,7 @@
 /turf/open/floor/rogue/grassred/Initialize()
 	dir = pick(GLOB.cardinals)
 	. = ..()
-	if(istype(get_area(src), /area/rogue/outdoors))
+	if(istype(get_area(src), /area/rogue/outdoors) || istype(get_area(src), /area/rogue/druidsgrove))
 		icon_state = "snass"
 		neighborlay = "snass_edge"
 	else
@@ -392,7 +392,7 @@
 /turf/open/floor/rogue/grassyel/Initialize()
 	dir = pick(GLOB.cardinals)
 	. = ..()
-	if(istype(get_area(src), /area/rogue/outdoors))
+	if(istype(get_area(src), /area/rogue/outdoors) || istype(get_area(src), /area/rogue/druidsgrove))
 		icon_state = "snass"
 		neighborlay = "snass_edge"
 	else
@@ -429,7 +429,7 @@
 	dir = pick(GLOB.cardinals)
 //	GLOB.dirt_list += src
 	. = ..()
-	if(istype(get_area(src), /area/rogue/outdoors))
+	if(istype(get_area(src), /area/rogue/outdoors) || istype(get_area(src), /area/rogue/druidsgrove))
 		icon_state = "snass"
 		neighborlay = "snass_edge"
 	else
@@ -554,7 +554,7 @@
 /turf/open/floor/rogue/dirt/Initialize()
 	dir = pick(GLOB.cardinals)
 	. = ..()
-	if(istype(get_area(src), /area/rogue/outdoors))
+	if(istype(get_area(src), /area/rogue/outdoors) || istype(get_area(src), /area/rogue/druidsgrove))
 		icon_state = "snirt"
 		neighborlay = "snirtedge"
 	else
@@ -642,7 +642,7 @@
 
 /turf/open/floor/rogue/dirt/road/Initialize()
 	. = ..()
-	if(istype(get_area(src), /area/rogue/outdoors))
+	if(istype(get_area(src), /area/rogue/outdoors) || istype(get_area(src), /area/rogue/druidsgrove))
 		icon_state = "snoad"
 		neighborlay = "snoadedge"
 	else
@@ -1183,7 +1183,7 @@
 
 /turf/open/floor/rogue/cobble/Initialize()
 	. = ..()
-	if(istype(get_area(src), /area/rogue/outdoors))
+	if(istype(get_area(src), /area/rogue/outdoors) || istype(get_area(src), /area/rogue/druidsgrove))
 		icon_state = "snobblestone[rand(1,3)]"
 		desc = "Stone bricks carefully inlaid upon the ground for a more refined and resilient path. These are covered in a layer of rime."
 		neighborlay = "snobbleedge"
@@ -1215,7 +1215,7 @@
 
 /turf/open/floor/rogue/cobble/mossy/Initialize()
 	. = ..()
-	if(istype(get_area(src), /area/rogue/outdoors))
+	if(istype(get_area(src), /area/rogue/outdoors) || istype(get_area(src), /area/rogue/druidsgrove))
 		icon_state = "snobblestone[rand(1,3)]"
 		desc = "Stone bricks carefully inlaid upon the ground for a more refined and resilient path. These are covered in a layer of rime."
 		neighborlay = "snobbleedge"
@@ -1231,7 +1231,7 @@
 
 /obj/effect/decal/mossy/Initialize()
 	. = ..()
-	if(istype(get_area(src), /area/rogue/outdoors))
+	if(istype(get_area(src), /area/rogue/outdoors) || istype(get_area(src), /area/rogue/druidsgrove))
 		icon_state = "snobbleedge"
 	else
 		icon_state = "mossyedge"
@@ -1245,7 +1245,7 @@
 
 /obj/effect/decal/cobble/mossy/Initialize()
 	. = ..()
-	if(istype(get_area(src), /area/rogue/outdoors))
+	if(istype(get_area(src), /area/rogue/outdoors) || istype(get_area(src), /area/rogue/druidsgrove))
 		icon_state = "snobblestone_edges"
 	else
 		icon_state = "mossystone_edges"
@@ -1281,7 +1281,7 @@
 
 /turf/open/floor/rogue/cobblerock/Initialize()
 	. = ..()
-	if(istype(get_area(src), /area/rogue/outdoors))
+	if(istype(get_area(src), /area/rogue/outdoors) || istype(get_area(src), /area/rogue/druidsgrove))
 		icon_state = "snobblerock"
 		desc = "A crude path of lumpy rocks that allows feet and cart wheels alike to escape the treacherous mud. These are covered in a layer of rime."
 	else
@@ -1299,7 +1299,7 @@
 
 /obj/effect/decal/cobbleedge/Initialize()
 	. = ..()
-	if(istype(get_area(src), /area/rogue/outdoors))
+	if(istype(get_area(src), /area/rogue/outdoors) || istype(get_area(src), /area/rogue/druidsgrove))
 		icon_state = "snobblestone_edges"
 	else
 		icon_state = "cobblestone_edges"

@@ -308,7 +308,7 @@
 	var/bushtype
 
 /obj/structure/flora/roguegrass/bush/Initialize()
-	if(istype(get_area(src), /area/rogue/outdoors))
+	if(istype(get_area(src), /area/rogue/outdoors) || istype(get_area(src), /area/rogue/druidsgrove))
 		icon_state = "bush2winter"
 	else
 		icon_state = "bush2"
@@ -375,7 +375,7 @@
 			if(!looty.len)
 				to_chat(user, span_warning("Picked clean... I should try later."))
 /obj/structure/flora/roguegrass/bush/update_icon()
-	if(istype(get_area(src), /area/rogue/outdoors))
+	if(istype(get_area(src), /area/rogue/outdoors) || istype(get_area(src), /area/rogue/druidsgrove))
 		icon_state = "bush[rand(2, 4)]winter"
 	else
 		icon_state = "bush[rand(2, 4)]"
@@ -410,7 +410,7 @@
 		looty += /obj/item/reagent_containers/food/snacks/grown/rogue/pipeweed
 
 /obj/structure/flora/roguegrass/bush/westleach/Initialize()
-	if(istype(get_area(src), /area/rogue/outdoors))
+	if(istype(get_area(src), /area/rogue/outdoors) || istype(get_area(src), /area/rogue/druidsgrove))
 		icon_state = "bush1winter"
 	else
 		icon_state = "bush1"
@@ -430,7 +430,7 @@
 
 /obj/structure/flora/roguegrass/bush/wall/Initialize()
 	. = ..()
-	if(istype(get_area(src), /area/rogue/outdoors))
+	if(istype(get_area(src), /area/rogue/outdoors) || istype(get_area(src), /area/rogue/druidsgrove))
 		icon_state = "bush[pick(5,6)]winter"
 	else
 		icon_state = "bushwall[pick(1,2)]"
@@ -448,7 +448,7 @@
 
 /obj/structure/flora/roguegrass/bush/wall/tall/Initialize()
 	. = ..()
-	if(istype(get_area(src), /area/rogue/outdoors))
+	if(istype(get_area(src), /area/rogue/outdoors) || istype(get_area(src), /area/rogue/druidsgrove))
 		icon_state = "bush[pick(5,6)]winter"
 		icon = 'icons/roguetown/misc/foliage.dmi'
 	else
