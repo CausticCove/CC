@@ -48,10 +48,10 @@
 						/obj/item/chalk = 1
 						)
 	if(H.mind)
-		// H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/shapeshift/crow)
+		// H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/shapeshift/crow) // CC Edit - Replaced with Animagus
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/self/animagus) // CC Edit
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/guidance)
-		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/projectile/arcynebolt)
+		H.mind.AddSpell(new /obj/effect/proc_holder/spell/self/magicians_brick) // CC Edit - 
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/projectile/spitfire) // CC Edit
 	if(H.gender == FEMALE)
 		armor = /obj/item/clothing/suit/roguetown/armor/corset
