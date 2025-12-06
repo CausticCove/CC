@@ -242,17 +242,15 @@
 /atom/movable/screen/alert/status_effect/regen/soothing_origin
 	name = "Soothing Origin"
 	desc = "You are gently releasing healing vapors to others around you."
+	var/range = 4
 
 /datum/status_effect/regen/soothing_origin/tick()
 	. = ..()
-	var/list/hearers_in_range = SSspatial_grid.orthogonal_range_search(src, SPATIAL_GRID_CONTENTS_TYPE_HEARING, healing_range)
-	for(var/mob/living/carbon/human in hearers_in_range)
-		var/distance = get_dist(src, human)
-		if(distance > healing_range)
-			continue
-		if(!human.has_status_effect(/datum/status_effect/regen/soothing_bloom))
-			to_chat(human, "A cool mist settles on your skin, and you feel your wounds slowly close.")
-			human.apply_status_effect(/datum/status_effect/regen/soothing_bloom)
+	for(var/mob/living/living_mob in range(range, user))
+		var/distance = get_dist(src, living_mob)
+		if(!living_mob.has_status_effect(/datum/status_effect/regen/soothing_bloom))
+			to_chat(living_mob, "A cool mist settles on your skin, and you feel your wounds slowly close.")
+			living_mob.apply_status_effect(/datum/status_effect/regen/soothing_bloom)
 
 /datum/status_effect/regen/soothing_bloom
 	id = "soothing_bloom"
