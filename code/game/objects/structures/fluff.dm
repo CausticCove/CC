@@ -1185,7 +1185,7 @@
 	. = ..()
 	var/mob/living/carbon/H = user
 	if(user.mind?.antag_datums)
-		if(living_player_count() <= 15) //Only works if less than 15 people in a round. Otherwise good fucking luck lol
+		if(living_player_count() <= 25) //Only works if less than 25 people in a round. Otherwise good fucking luck lol
 			for(var/datum/antagonist/D in user.mind?.antag_datums)
 				if(istype(D, /datum/antagonist/zombie))
 					to_chat(H, span_warning("I press my palm to the cross and focus..."))
