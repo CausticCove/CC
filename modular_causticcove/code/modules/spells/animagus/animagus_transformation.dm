@@ -36,6 +36,17 @@
 	W.cmode_music_override = cmode_music_override
 	W.cmode_music_override_name = cmode_music_override_name
 
+	// CC Edit Start
+	// Transfer voregans and contents of them to the destination form
+	W.vore_organs = vore_organs.Copy()
+	W.vore_selected = vore_selected
+	for(var/obj/belly/B as anything in vore_organs)
+		B.forceMove(W)
+		B.owner = W
+	vore_organs.Cut()
+	// CC Edit End
+
+
 	for(var/datum/wound/old_wound in W.get_wounds())
 		var/obj/item/bodypart/bp = W.get_bodypart(old_wound.bodypart_owner.body_zone)
 		bp?.remove_wound(old_wound.type)
@@ -141,6 +152,17 @@
 	W.copy_known_languages_from(WA.stored_language)
 	skills?.known_skills = WA.stored_skills.Copy()
 	skills?.skill_experience = WA.stored_experience.Copy()
+
+	// CC Edit Start
+	// Transfer voregans and contents of them to the destination form
+	W.vore_organs = vore_organs.Copy()
+	W.vore_selected = vore_selected
+	for(var/obj/belly/B as anything in vore_organs)
+		B.forceMove(W)
+		B.owner = W
+	vore_organs.Cut()
+	// CC Edit End
+
 
 	//Compares the list of spells we had before transformation with those we do now. If there are any that don't match, we remove them
 	for(var/obj/effect/proc_holder/spell/self/originspell in WA.stored_spells)
