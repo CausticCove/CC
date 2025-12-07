@@ -1232,7 +1232,7 @@
 /obj/effect/decal/mossy/Initialize()
 	. = ..()
 	if(istype(get_area(src), /area/rogue/outdoors) || istype(get_area(src), /area/rogue/druidsgrove))
-		icon_state = "snobbleedge"
+		icon_state = "snossyedge"
 	else
 		icon_state = "mossyedge"
 
@@ -1300,9 +1300,16 @@
 /obj/effect/decal/cobbleedge/Initialize()
 	. = ..()
 	if(istype(get_area(src), /area/rogue/outdoors) || istype(get_area(src), /area/rogue/druidsgrove))
-		icon_state = "snobblestone_edges"
-	else
-		icon_state = "cobblestone_edges"
+		if(icon_state == "cobbleedge-n") // This shit's the only wierd one because someone, for some reason, mapped in the decal with manually set icon states EVERYWHERE
+			icon_state = "snobbleedge-n"
+		if(icon_state == "cobbleedge-e")
+			icon_state = "snobbleedge-e"
+		if(icon_state == "cobbleedge-w")
+			icon_state = "snobbleedge-w"
+		if(icon_state == "cobbleedge-sread")
+			icon_state = "snobbleedge-sread"
+		else
+			return
 
 /obj/effect/decal/carpet
 	name = "exotic rug"
