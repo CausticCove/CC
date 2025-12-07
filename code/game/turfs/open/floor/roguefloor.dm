@@ -1308,6 +1308,8 @@
 			icon_state = "snobbleedge-w"
 		if(icon_state == "cobbleedge-sread")
 			icon_state = "snobbleedge-sread"
+		if(icon_state == "cobblestone_edges")
+			icon_state = "snobblestone_edges"
 		else
 			return
 
