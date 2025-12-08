@@ -52,7 +52,7 @@
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/self/animagus) // CC Edit
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/guidance)
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/self/magicians_brick) // CC Edit - 
-		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/projectile/spitfire) // CC Edit
+		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/projectile/arcynebolt) // CC Edit
 	if(H.gender == FEMALE)
 		armor = /obj/item/clothing/suit/roguetown/armor/corset
 		shirt = /obj/item/clothing/suit/roguetown/shirt/undershirt/lowcut

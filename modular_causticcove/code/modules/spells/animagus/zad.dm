@@ -22,8 +22,8 @@
 		STACON = 2
 		STAWIL = 7
 		STAPER = 12
-		STASPD = 20
-		STALUC = 15
+		STASPD = 12
+		STALUC = 12
 
 		AddSpell(new /obj/effect/proc_holder/spell/self/zadclaws)
 		real_name = "Zad"
