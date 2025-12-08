@@ -68,6 +68,9 @@
 /obj/effect/spawner/roguemap/beartrap,
 /turf/open/floor/rogue/naturalstone,
 /area/rogue/under/tomb/cave)
+"eR" = (
+/turf/closed/indestructible/rock,
+/area/rogue/under/tomb)
 "fm" = (
 /obj/item/natural/rock/random_ore,
 /turf/open/floor/rogue/dirt/road,
@@ -275,7 +278,7 @@
 /turf/open/floor/rogue/dirt,
 /area/rogue/under/tomb)
 "yN" = (
-/turf/closed/mineral,
+/turf/closed/mineral/rogue,
 /area/rogue/under/tomb/cave)
 "zU" = (
 /obj/item/natural/stone{
@@ -1727,7 +1730,7 @@ iR
 iR
 vd
 aH
-iR
+eR
 aH
 iR
 iR
@@ -1758,7 +1761,7 @@ iR
 iR
 aH
 QX
-iR
+eR
 aH
 aH
 iR
@@ -1790,9 +1793,9 @@ iR
 iR
 iR
 iR
-iR
+eR
 yN
-iR
+eR
 iR
 iR
 iR
@@ -1822,9 +1825,9 @@ iR
 iR
 iR
 iR
-iR
+eR
 yN
-iR
+eR
 iR
 iR
 iR
@@ -1856,7 +1859,7 @@ iR
 iR
 mu
 aH
-iR
+eR
 aX
 aX
 aX
@@ -1888,7 +1891,7 @@ iR
 aH
 aH
 vg
-iR
+eR
 aX
 aX
 aX

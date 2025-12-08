@@ -160,6 +160,9 @@
 	},
 /turf/open/floor/rogue/carpet,
 /area/rogue/under/tomb/indoors)
+"gj" = (
+/turf/closed/indestructible/rock,
+/area/rogue/under/tomb)
 "gp" = (
 /obj/machinery/light/rogue/wallfire/candle/blue,
 /turf/open/floor/rogue/carpet,
@@ -1286,7 +1289,7 @@
 /turf/closed/wall/mineral/rogue/wooddark/vertical,
 /area/rogue/under/tomb/indoors)
 "YO" = (
-/turf/closed/mineral,
+/turf/closed/mineral/rogue,
 /area/rogue/under/tomb/cave)
 "YQ" = (
 /obj/structure/table/wood/crafted,
@@ -2324,8 +2327,8 @@ Qd
 Qd
 RB
 dp
-Qd
-Qd
+gj
+gj
 ZQ
 ga
 ga
@@ -2388,9 +2391,9 @@ RB
 RB
 wD
 RB
-Qd
-Qd
-Qd
+gj
+gj
+gj
 Qd
 Qd
 sg
@@ -2480,9 +2483,9 @@ Qd
 (7,1,2) = {"
 Qd
 Qd
-Qd
+gj
 YO
-Qd
+gj
 Qd
 Qd
 Qd
@@ -2514,7 +2517,7 @@ Qd
 Qd
 wT
 Ac
-Qd
+gj
 Qd
 Qd
 sg

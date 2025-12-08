@@ -756,7 +756,7 @@
 /turf/open/floor/rogue/herringbone,
 /area/rogue/under/tomb)
 "DM" = (
-/turf/closed/mineral/random,
+/turf/closed/mineral/rogue,
 /area/rogue/under/tomb/cave)
 "Ep" = (
 /turf/open/floor/rogue/ruinedwood/turned,
@@ -860,9 +860,6 @@
 "Hy" = (
 /obj/structure/roguerock,
 /turf/open/floor/rogue/dirt,
-/area/rogue/under/tomb/cave)
-"HL" = (
-/turf/closed/mineral,
 /area/rogue/under/tomb/cave)
 "HW" = (
 /obj/machinery/light/rogue/campfire/longlived,
@@ -2471,7 +2468,7 @@ KK
 DM
 DM
 DM
-HL
+DM
 MD
 MD
 MD
@@ -2503,7 +2500,7 @@ KK
 DM
 lg
 DM
-HL
+DM
 MD
 MD
 MD
@@ -2532,7 +2529,7 @@ KK
 "}
 (9,1,2) = {"
 KK
-HL
+DM
 DM
 DM
 MD
@@ -2564,9 +2561,9 @@ KK
 "}
 (10,1,2) = {"
 KK
-HL
 DM
-HL
+DM
+DM
 MD
 MD
 MD
@@ -2629,8 +2626,8 @@ KK
 (12,1,2) = {"
 KK
 DM
-HL
-HL
+DM
+DM
 DM
 MD
 MD
@@ -2662,7 +2659,7 @@ KK
 Ye
 Ep
 cR
-HL
+DM
 DM
 MD
 MD
@@ -2694,7 +2691,7 @@ NF
 UZ
 Mr
 Ep
-HL
+DM
 MD
 MD
 MD
@@ -2726,7 +2723,7 @@ Dz
 UZ
 Xc
 UZ
-HL
+DM
 DM
 MD
 MD
@@ -2760,7 +2757,7 @@ Ep
 oq
 DM
 DM
-HL
+DM
 MD
 MD
 cC
@@ -2788,7 +2785,7 @@ pj
 "}
 (17,1,2) = {"
 KK
-HL
+DM
 DM
 DM
 DM
@@ -2820,11 +2817,11 @@ pj
 "}
 (18,1,2) = {"
 KK
-HL
 DM
 DM
 DM
-HL
+DM
+DM
 MD
 cC
 CQ
@@ -2884,9 +2881,9 @@ pj
 "}
 (20,1,2) = {"
 KK
-HL
-HL
-HL
+DM
+DM
+DM
 MD
 MD
 nm
@@ -2916,9 +2913,9 @@ pj
 "}
 (21,1,2) = {"
 KK
-HL
-HL
-HL
+DM
+DM
+DM
 MD
 MD
 nm
@@ -2948,8 +2945,8 @@ pj
 "}
 (22,1,2) = {"
 KK
-HL
-HL
+DM
+DM
 MD
 mb
 NF
