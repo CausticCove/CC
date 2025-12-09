@@ -1,5 +1,8 @@
 #define ATTACKS_UNTIL_SWITCHING_UP 3 // How many attack a NPC will use on the same place before switching it up
 
+//Add to this list of FRIENDLY mobs. Any creature that cannot attack back or retaliate to an NPC.
+GLOBAL_LIST_INIT(omitted_mobs, list(/mob/living/simple_animal/hostile/retaliate/rogue/mudcrab))
+
 /mob/living/carbon/human
 	var/aggressive=0 //0= retaliate only
 	var/frustration=0
@@ -536,6 +539,9 @@
 		return FALSE
 
 	if(L.name in friends)
+		return FALSE
+	
+	if(L.type in GLOB.omitted_mobs) //Handle wildlife, I.E. Mudcrabs so we stop prioritizing them over actual combatants.
 		return FALSE
 
 	if(enemies[L])
