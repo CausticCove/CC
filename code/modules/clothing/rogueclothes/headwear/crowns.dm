@@ -13,6 +13,7 @@
 /obj/item/clothing/head/roguetown/crown/sparrowcrown
 	name = "champion's circlet"
 	desc = ""
+	slot_flags = ITEM_SLOT_HEAD|ITEM_SLOT_MASK
 	icon_state = "sparrowcrown"
 	//dropshrink = 0
 	dynamic_hair_suffix = null
@@ -32,12 +33,14 @@
 
 /obj/item/clothing/head/roguetown/nyle/consortcrown
 	name = "gem-encrusted crown"
+	slot_flags = ITEM_SLOT_HEAD|ITEM_SLOT_MASK
 	icon_state = "consortcrown"
 	item_state = "consortcrown"
 	sellprice = 100
 
 /obj/item/clothing/head/roguetown/circlet
 	name = "golden circlet"
+	slot_flags = ITEM_SLOT_HEAD|ITEM_SLOT_MASK
 	icon_state = "circlet"
 	item_state = "circlet"
 	sellprice = 50
