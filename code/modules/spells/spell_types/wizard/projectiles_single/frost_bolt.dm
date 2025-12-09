@@ -33,9 +33,9 @@
 	var/mob/living/carbon/human/H = user
 	var/datum/intent/a_intent = H.a_intent
 	if(istype(a_intent, /datum/intent/special/magicarc))
-		projectile_type = /obj/effect/proc_holder/spell/invoked/projectile/frostbolt/arc
+		projectile_type = /obj/projectile/magic/frostbolt/arc
 	else
-		projectile_type = /obj/effect/proc_holder/spell/invoked/projectile/frostbolt
+		projectile_type = /obj/projectile/magic/frostbolt
 	. = ..()
 
 /obj/effect/proc_holder/spell/self/frostbolt/cast(mob/user = usr)
