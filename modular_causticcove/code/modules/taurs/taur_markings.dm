@@ -32,69 +32,69 @@
 
 /datum/sprite_accessory/tail_feature/taur/lamia
 	name = "Lamia Taur Markings"	
-	icon = 'modular_causticcove/icons/mob/taurs/naga_markings.dmi'
+	icon = 'icons/mob/taurs/naga_markings.dmi'
 	icon_state = "naga_markings"
 
 /datum/sprite_accessory/tail_feature/taur/horse
 	name = "Horse Taur Markings"
-	icon = 'modular_causticcove/icons/mob/taurs/horse_markings.dmi'
+	icon = 'icons/mob/taurs/horse_markings.dmi'
 	icon_state = "horse_markings"
 
 /datum/sprite_accessory/tail_feature/taur/lizard
 	name = "Lizard Taur Markings"
-	icon = 'modular_causticcove/icons/mob/taurs/lizard_markings.dmi'
+	icon = 'icons/mob/taurs/lizard_markings.dmi'
 	icon_state = "lizard_markings"
 
 
 /datum/sprite_accessory/tail_feature/taur/feline
 	name = "Feline Taur Markings"
-	icon = 'modular_causticcove/icons/mob/taurs/feline_markings.dmi'
+	icon = 'icons/mob/taurs/feline_markings.dmi'
 	icon_state = "feline_markings"
 
 /datum/sprite_accessory/tail_feature/taur/drake
 	name = "Drake Taur Markings"
-	icon = 'modular_causticcove/icons/mob/taurs/drake_markings.dmi'
+	icon = 'icons/mob/taurs/drake_markings.dmi'
 	icon_state = "drake_markings"
 
 /datum/sprite_accessory/tail_feature/taur/otie
 	name = "Large Hound Markings"
-	icon = 'modular_causticcove/icons/mob/taurs/otie_markings.dmi'
+	icon = 'icons/mob/taurs/otie_markings.dmi'
 	icon_state = "otie_markings"
 
 /datum/sprite_accessory/tail_feature/taur/wolf
 	name = "Wolf Taur Markings"
-	icon = 'modular_causticcove/icons/mob/taurs/wolf_markings.dmi'
+	icon = 'icons/mob/taurs/wolf_markings.dmi'
 	icon_state = "wolf_markings"
 
 /datum/sprite_accessory/tail_feature/taur/deer
 	name = "Deer Taur Markings"
-	icon = 'modular_causticcove/icons/mob/taurs/deer_markings.dmi'
+	icon = 'icons/mob/taurs/deer_markings.dmi'
 	icon_state = "deer_markings"
 
 /datum/sprite_accessory/tail_feature/taur/fatwolf
 	name = "Fat Wolf Taur Markings"
-	icon = 'modular_causticcove/icons/mob/taurs/fatwolf_markings.dmi'
+	icon = 'icons/mob/taurs/fatwolf_markings.dmi'
 	icon_state = "fatwolf_markings"
 
 /datum/sprite_accessory/tail_feature/taur/fatfeline
 	name = "Fat Feline Taur Markings"
-	icon = 'modular_causticcove/icons/mob/taurs/fatfeline_markings.dmi'
+	icon = 'icons/mob/taurs/fatfeline_markings.dmi'
 	icon_state = "fatfeline_markings"
 
 
 /datum/sprite_accessory/tail_feature/taur/altnaga
 	name = "AltNaga Taur Markings"
-	icon = 'modular_causticcove/icons/mob/taurs/altnaga_markings.dmi'
+	icon = 'icons/mob/taurs/altnaga_markings.dmi'
 	icon_state = "altnaga_markings"
 
 /datum/sprite_accessory/tail_feature/taur/altnagatailmaw
 	name = "AltNaga Tail Maw Taur Markings"
-	icon = 'modular_causticcove/icons/mob/taurs/altnagatailmaw_markings.dmi'
+	icon = 'icons/mob/taurs/altnagatailmaw_markings.dmi'
 	icon_state = "altnagatailmaw_markings"
 
 /datum/sprite_accessory/tail_feature/taur/fatnaga
 	name = "Fat Naga Taur Markings"
-	icon = 'modular_causticcove/icons/mob/taurs/fatnaga_markings.dmi'
+	icon = 'icons/mob/taurs/fatnaga_markings.dmi'
 	icon_state = "fatnaga_markings"
 
 
@@ -105,15 +105,15 @@
 
 /datum/sprite_accessory/tail_feature/taur/caustic/bunny
 	name = "Bunny Taur Markings"
-	icon = 'modular_causticcove/icons/mob/taurs/bunnytaur_markings.dmi'
+	icon = 'icons/mob/taurs/bunnytaur_markings.dmi'
 	icon_state = "bigbunny_s"
 
 /datum/sprite_accessory/tail_feature/taur/caustic/deerbelly
 	name = "Deer Taur Belly Markings"
-	icon = 'modular_causticcove/icons/mob/taurs/taurdeer_belly.dmi'
+	icon = 'icons/mob/taurs/taurdeer_belly.dmi'
 	icon_state = "taurdeer_belly_s"
 
 
 /datum/sprite_accessory/tail_feature/large_snake
-	icon = 'modular_causticcove/icons/mob/taurs/large_snake_markings.dmi'
+	icon = 'icons/mob/taurs/large_snake_markings.dmi'
 	relevant_layers = list(BODY_BEHIND_LAYER, BODY_FRONT_LAYER)

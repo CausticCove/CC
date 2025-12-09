@@ -30,7 +30,7 @@ GLOBAL_LIST_INIT(named_belly_sizes, list(
 ))
 
 /datum/sprite_accessory/belly
-	icon = 'modular_causticcove/icons/mob/merp_organs/belly.dmi'
+	icon = 'icons/mob/merp_organs/belly.dmi'
 	color_key_name = "Belly"
 
 /datum/sprite_accessory/belly/get_icon_state(obj/item/organ/organ, obj/item/bodypart/bodypart, mob/living/carbon/owner)

@@ -1,8 +1,8 @@
 /obj/item/clothing/suit/roguetown/shirt/dress/gen/strapless
 	slot_flags = ITEM_SLOT_ARMOR|ITEM_SLOT_SHIRT
 	body_parts_covered = CHEST|GROIN
-	icon = 'modular_hearthstone/icons/obj/items/clothes/dress.dmi'
-	mob_overlay_icon = 'modular_hearthstone/icons/obj/items/clothes/on_mob/dress.dmi'
+	icon = 'icons/obj/items/clothes/dress.dmi'
+	mob_overlay_icon = 'icons/obj/items/clothes/on_mob/dress.dmi'
 	name = "strapless dress"
 	desc = "It barely covers anything at all!"
 	flags_inv = HIDEBOOB|HIDECROTCH
@@ -29,12 +29,12 @@
 	..()
 
 /obj/item/clothing/suit/roguetown/shirt/dress/gen/strapless/alt
-	mob_overlay_icon = 'modular_hearthstone/icons/obj/items/clothes/on_mob/dress.dmi'
+	mob_overlay_icon = 'icons/obj/items/clothes/on_mob/dress.dmi'
 	name = "strapless dress"
 	desc = "It barely covers anything at all!"
 	flags_inv = HIDEBOOB|HIDECROTCH
 	icon_state = "strapless2"
-	icon = 'modular_hearthstone/icons/obj/items/clothes/dress.dmi'
+	icon = 'icons/obj/items/clothes/dress.dmi'
 	salvage_result = /obj/item/natural/cloth
 	salvage_amount = 1
 

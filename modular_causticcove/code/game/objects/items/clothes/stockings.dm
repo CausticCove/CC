@@ -1,8 +1,8 @@
 /obj/item/clothing/under/roguetown/tights/stockings
 	name = "stockings"
 	desc = "A legwear made just for the pure aesthetics. Popular in courts and brothels alike."
-	icon = 'modular_hearthstone/icons/obj/items/clothes/stockings.dmi'
-	mob_overlay_icon = 'modular_hearthstone/icons/obj/items/clothes/on_mob/stockings.dmi'
+	icon = 'icons/obj/items/clothes/stockings.dmi'
+	mob_overlay_icon = 'icons/obj/items/clothes/on_mob/stockings.dmi'
 	icon_state = "stockings"
 	r_sleeve_status = SLEEVE_NOMOD
 	l_sleeve_status = SLEEVE_NOMOD

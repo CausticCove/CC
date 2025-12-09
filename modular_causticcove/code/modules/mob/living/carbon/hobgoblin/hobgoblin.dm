@@ -4,7 +4,7 @@
 
 /mob/living/carbon/human/species/hobgoblin
 	name = "hoblin"
-	icon = 'modular_causticcove/icons/mob/monster/hobgoblins/hobgoblins.dmi'
+	icon = 'icons/mob/monster/hobgoblins/hobgoblins.dmi'
 	icon_state = "hobgoblin"
 	race = /datum/species/hobgoblin
 	gender = MALE
@@ -128,7 +128,7 @@
 		src.dna.species.soundpack_f = new /datum/voicepack/other/goblin() //REMINDER TO UPDATE!!!
 		var/obj/item/headdy = get_bodypart("head")
 		if(headdy)
-			headdy.icon = 'modular_causticcove/icons/mob/monster/hobgoblins/hobgoblins.dmi'
+			headdy.icon = 'icons/mob/monster/hobgoblins/hobgoblins.dmi'
 			headdy.icon_state = "[src.dna.species.id]_head"
 			headdy.sellprice = 40 // Double the value, double the threat.
 	src.grant_language(/datum/language/orcish)

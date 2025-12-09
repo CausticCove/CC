@@ -2,7 +2,7 @@
 	name = "vore"
 
 /datum/asset/spritesheet/vore/create_spritesheets()
-	var/icon/downscaled = icon('modular_causticcove/icons/mob/vore_fullscreens/screen_full_vore_list.dmi') // preserving save data
+	var/icon/downscaled = icon('icons/mob/vore_fullscreens/screen_full_vore_list.dmi') // preserving save data
 	downscaled.Scale(240, 240)
 	InsertAll("", downscaled)
 
@@ -10,6 +10,6 @@
 	name = "fixedvore"
 
 /datum/asset/spritesheet/vore_fixed/create_spritesheets() // preserving save data
-	var/icon/downscaledVF = icon('modular_causticcove/icons/mob/vore_fullscreens/screen_full_vore.dmi')
+	var/icon/downscaledVF = icon('icons/mob/vore_fullscreens/screen_full_vore.dmi')
 	downscaledVF.Scale(240, 240)
 	InsertAll("", downscaledVF)

@@ -982,10 +982,10 @@
 
 // Full screen belly overlays!
 /obj/screen/fullscreen/belly
-	icon = 'modular_causticcove/icons/mob/vore_fullscreens/screen_full_vore_list.dmi'
+	icon = 'icons/mob/vore_fullscreens/screen_full_vore_list.dmi'
 
 /obj/screen/fullscreen/belly/fixed
-	icon = 'modular_causticcove/icons/mob/vore_fullscreens/screen_full_vore.dmi'
+	icon = 'icons/mob/vore_fullscreens/screen_full_vore.dmi'
 	icon_state = ""
 
 /mob/living/proc/vorebelly_printout() //Spew the vorepanel belly messages into chat window for copypasting.

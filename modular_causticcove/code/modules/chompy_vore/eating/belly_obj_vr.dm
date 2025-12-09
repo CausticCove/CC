@@ -717,13 +717,13 @@
 						extra_mush_color = reagents.get_color()
 					extra_mush = reagents.total_volume * metabolism_mush_ratio
 				if(!mush_overlay)
-					I = image('modular_causticcove/icons/mob/vore_fullscreens/bubbles.dmi', "mush")
+					I = image('icons/mob/vore_fullscreens/bubbles.dmi', "mush")
 					I.color = extra_mush_color
 					I.alpha = min(custom_reagents_alpha, L.max_voreoverlay_alpha)
 					I.pixel_y = -450 + ((450 / max(max_reagents, 1)) * min(max_reagents, reagents.total_volume))
 					F.add_overlay(I)
 			if(show_liquids && L.liquidbelly_visuals && mush_overlay && (owner.nutrition > 0 || max_mush == 0 || min_mush > 0 || (LAZYLEN(contents) * item_mush_val) > 0))
-				I = image('modular_causticcove/icons/mob/vore_fullscreens/bubbles.dmi', "mush")
+				I = image('icons/mob/vore_fullscreens/bubbles.dmi', "mush")
 				I.color = mush_color
 				I.alpha = min(mush_alpha, L.max_voreoverlay_alpha)
 				var/total_mush_content = owner.nutrition + LAZYLEN(contents) * item_mush_val + extra_mush
@@ -733,16 +733,16 @@
 				var/stored_y = I.pixel_y
 				F.add_overlay(I)
 				if(metabolism_overlay && metabolism_mush_ratio > 0 && extra_mush > 0)
-					I = image('modular_causticcove/icons/mob/vore_fullscreens/bubbles.dmi', "mush")
+					I = image('icons/mob/vore_fullscreens/bubbles.dmi', "mush")
 					I.color = extra_mush_color
 					I.alpha = min(mush_alpha, (extra_mush / max(total_mush_content, 1)) * mush_alpha)
 					I.pixel_y = stored_y
 					F.add_overlay(I)
 			if(show_liquids && L.liquidbelly_visuals && liquid_overlay && reagents.total_volume)
 				if(digest_mode == DM_HOLD && item_digest_mode == IM_HOLD)
-					I = image('modular_causticcove/icons/mob/vore_fullscreens/bubbles.dmi', "calm")
+					I = image('icons/mob/vore_fullscreens/bubbles.dmi', "calm")
 				else
-					I = image('modular_causticcove/icons/mob/vore_fullscreens/bubbles.dmi', "bubbles")
+					I = image('icons/mob/vore_fullscreens/bubbles.dmi', "bubbles")
 				if(custom_reagentcolor)
 					I.color = custom_reagentcolor
 				else
@@ -757,7 +757,7 @@
 			F.update_for_view(L.client.view)
 		else
 			var/obj/screen/fullscreen/F = L.overlay_fullscreen("belly", /obj/screen/fullscreen/belly/fixed, severity) //preserving save data
-			F.icon = 'modular_causticcove/icons/mob/vore_fullscreens/screen_full_vore.dmi'
+			F.icon = 'icons/mob/vore_fullscreens/screen_full_vore.dmi'
 			F.cut_overlays()
 			F.add_overlay(image(F.icon, belly_fullscreen))
 			F.add_overlay(image(F.icon, belly_fullscreen+"-2"))
@@ -776,13 +776,13 @@
 						extra_mush_color = reagents.get_color()
 					extra_mush = reagents.total_volume * metabolism_mush_ratio
 				if(!mush_overlay)
-					I = image('modular_causticcove/icons/mob/vore_fullscreens/bubbles.dmi', "mush")
+					I = image('icons/mob/vore_fullscreens/bubbles.dmi', "mush")
 					I.color = extra_mush_color
 					I.alpha = custom_reagents_alpha
 					I.pixel_y = -450 + (450 / max(max_reagents, 1) * max(min(max_reagents, reagents.total_volume), 1))
 					F.add_overlay(I)
 			if(show_liquids && L.liquidbelly_visuals && mush_overlay && (owner.nutrition > 0 || max_mush == 0 || min_mush > 0 || (LAZYLEN(contents) * item_mush_val) > 0))
-				I = image('modular_causticcove/icons/mob/vore_fullscreens/bubbles.dmi', "mush")
+				I = image('icons/mob/vore_fullscreens/bubbles.dmi', "mush")
 				I.color = mush_color
 				I.alpha = mush_alpha
 				var/total_mush_content = owner.nutrition + LAZYLEN(contents) * item_mush_val + extra_mush
@@ -792,16 +792,16 @@
 				var/stored_y = I.pixel_y
 				F.add_overlay(I)
 				if(metabolism_overlay && metabolism_mush_ratio > 0 && extra_mush > 0)
-					I = image('modular_causticcove/icons/mob/vore_fullscreens/bubbles.dmi', "mush")
+					I = image('icons/mob/vore_fullscreens/bubbles.dmi', "mush")
 					I.color = extra_mush_color
 					I.alpha = min(mush_alpha, (extra_mush / max(total_mush_content, 1)) * mush_alpha)
 					I.pixel_y = stored_y
 					F.add_overlay(I)
 			if(show_liquids && L.liquidbelly_visuals && liquid_overlay && reagents.total_volume)
 				if(digest_mode == DM_HOLD && item_digest_mode == IM_HOLD)
-					I = image('modular_causticcove/icons/mob/vore_fullscreens/bubbles.dmi', "calm")
+					I = image('icons/mob/vore_fullscreens/bubbles.dmi', "calm")
 				else
-					I = image('modular_causticcove/icons/mob/vore_fullscreens/bubbles.dmi', "bubbles")
+					I = image('icons/mob/vore_fullscreens/bubbles.dmi', "bubbles")
 				if(custom_reagentcolor)
 					I.color = custom_reagentcolor
 				else

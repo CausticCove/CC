@@ -28,7 +28,7 @@ GLOBAL_LIST_INIT(named_butt_sizes, list(
 ))
 
 /datum/sprite_accessory/butt
-	icon = 'modular_causticcove/icons/mob/merp_organs/butt.dmi'
+	icon = 'icons/mob/merp_organs/butt.dmi'
 	color_key_name = "Butt"
 	relevant_layers = list(BODY_ADJ_LAYER)
 
