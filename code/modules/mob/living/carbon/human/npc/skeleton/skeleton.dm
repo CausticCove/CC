@@ -71,7 +71,7 @@
 	head.sellprice = 20 //there's a LOT of these guys. May later change head prices depending on skeletype. Dread knights > nakeds.
 	// Caustic edit end
 
-/mob/living/carbon/human/species/skeleton/fully_heal(admin_revive)
+/mob/living/carbon/human/species/skeleton/fully_heal(admin_revive = FALSE, break_restraints = FALSE)
 	. = ..()
 	skeletonize()
 

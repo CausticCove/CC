@@ -94,6 +94,9 @@ GLOBAL_LIST_EMPTY(vampire_objects)
 	. = ..()
 	equip()
 
+	if(HAS_TRAIT(owner, TRAIT_CRITICAL_RESISTANCE))
+		REMOVE_TRAIT(owner, TRAIT_CRITICAL_RESISTANCE, null)
+
 /datum/antagonist/vampire/proc/show_clan_selection(mob/living/carbon/human/vampdude)
 	var/list/clan_options = list()
 	var/list/available_clans = list()
@@ -199,6 +202,7 @@ GLOBAL_LIST_EMPTY(vampire_objects)
 /obj/effect/landmark/start/vampirespawn/Initialize()
 	. = ..()
 	GLOB.vspawn_starts += loc
+	GLOB.secondlife_respawns += loc
 
 /obj/effect/landmark/start/vampireknight
 	name = "Death Knight"

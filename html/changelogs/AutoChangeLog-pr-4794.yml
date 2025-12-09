@@ -1,0 +1,4 @@
+author: "PPooch"
+delete-after: True
+changes:
+  - bugfix: "Fill Songbook no longer spammable for all songs."

@@ -1,0 +1,5 @@
+author: "SirSwagmeyer"
+delete-after: True
+changes:
+  - rscadd: "Added a separate mercenary for Condottierro."
+  - rscdel: "Removed dodge expert from Ambrushtahchthkt (Grenzel Crossbowman)"

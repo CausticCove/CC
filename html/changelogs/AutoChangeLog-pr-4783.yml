@@ -1,0 +1,4 @@
+author: "Antoonij"
+delete-after: True
+changes:
+  - qol: "toggleable identity concealment on masks"

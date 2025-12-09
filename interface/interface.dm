@@ -92,12 +92,15 @@
 /client/verb/changelog()
 	set name = "Changelog"
 	set category = "OOC"
-	set hidden = 1
-	src << browse('html/changelog.html', "window=changes;size=675x650")
+
+	if(!GLOB.changelog_tgui)
+		GLOB.changelog_tgui = new /datum/changelog()
+
+	GLOB.changelog_tgui.ui_interact(mob)
 	if(prefs.lastchangelog != GLOB.changelog_hash)
 		prefs.lastchangelog = GLOB.changelog_hash
 		prefs.save_preferences()
-		winset(src, "infowindow.changelog", "font-style=;")
+		winset(src, "infobuttons.changelog", "font-style=;")
 
 /client/verb/hotkeys_help()
 	set name = "_Help-Controls"

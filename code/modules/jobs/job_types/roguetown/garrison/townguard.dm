@@ -30,7 +30,7 @@
 	. = ..()
 	if(ishuman(L))
 		var/mob/living/carbon/human/H = L
-		if(istype(H.cloak, /obj/item/clothing/cloak/stabard/guard))
+		if(istype(H.cloak, /obj/item/clothing/cloak/tabard/stabard/guard))
 			var/obj/item/clothing/S = H.cloak
 			var/index = findtext(H.real_name, " ")
 			if(index)
@@ -41,7 +41,7 @@
 
 /datum/outfit/job/roguetown/guardsman
 	pants = /obj/item/clothing/under/roguetown/chainlegs
-	cloak = /obj/item/clothing/cloak/stabard/guard
+	cloak = /obj/item/clothing/cloak/tabard/stabard/guard
 	shirt = /obj/item/clothing/suit/roguetown/armor/gambeson
 	neck = /obj/item/clothing/neck/roguetown/chaincoif
 	shoes = /obj/item/clothing/shoes/roguetown/boots

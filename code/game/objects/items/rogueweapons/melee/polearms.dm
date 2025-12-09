@@ -958,6 +958,7 @@
 	max_blade_int = 300
 	wdefense = 5
 	smelt_bar_num = 3
+	special = /datum/special_intent/greatsword_swing
 
 /obj/item/rogueweapon/greatsword/getonmobprop(tag)
 	. = ..()

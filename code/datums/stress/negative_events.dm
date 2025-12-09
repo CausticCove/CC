@@ -436,3 +436,8 @@
 	timer = 10 MINUTES
 	stressadd = -2
 	desc = span_green("Since my magical accident, everything just seems so funny!")
+
+/datum/stressevent/archivist_shushed
+	timer = 1 MINUTES
+	stressadd = 4
+	desc = span_red("I was shushed by the archivist!")

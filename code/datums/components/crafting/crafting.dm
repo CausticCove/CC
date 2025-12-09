@@ -380,6 +380,9 @@
 		for(var/A in R.reqs)
 			amt = R.reqs[A]
 			surroundings = get_environment(user)
+			for(var/obj/item/I in surroundings)
+				if(!I.can_craft_with())
+					surroundings -= I
 			for(var/atom/movable/IS in surroundings)
 				if(!R.subtype_reqs && (IS.type in subtypesof(A)))
 					surroundings.Remove(IS)

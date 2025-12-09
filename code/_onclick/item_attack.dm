@@ -726,14 +726,19 @@
 	if(verb_appendix)
 		message_verb += verb_appendix
 	if(hit_area)
-		message_hit_area = " in the [span_userdanger(hit_area)]"
-	var/attack_message = "[src] is [message_verb][message_hit_area] with [I]!"
-	var/attack_message_local = "I'm [message_verb][message_hit_area] with [I]!"
+		message_hit_area = "[hit_area]"
+	var/attack_message = span_combatsecondary("[src] is [message_verb] in the [span_combatsecondarybp(message_hit_area)] with [I]!")
+	var/attack_message_local = span_danger("I'm [message_verb] in the [span_userdanger(message_hit_area)] with [I]!")
 	if(user in viewers(src, null))
-		attack_message = "[user] [message_verb] [src][message_hit_area] with [I]!"
-		attack_message_local = "[user] [message_verb] me[message_hit_area] with [I]!"
-	visible_message(span_danger("[attack_message][next_attack_msg.Join()]"),\
-		span_danger("[attack_message_local][next_attack_msg.Join()]"), null, COMBAT_MESSAGE_RANGE)
+		attack_message = span_combatsecondary("[user] [message_verb] [src] in the [span_combatsecondarybp(message_hit_area)] with [I]!")
+		attack_message_local = span_danger("[user] [message_verb] me in the [span_userdanger(message_hit_area)] with [I]!")
+
+	//Janky, but you'll see BIG TEXT for both the hits you make and take.
+	if(src != user)
+		var/attack_message_self = span_combatprimary("[user] [message_verb] [src] in the [span_combatsecondarybp(message_hit_area)] with [I]!")
+		to_chat(user, "[attack_message_self][next_attack_msg.Join()]")
+	visible_message("[attack_message][span_combatsecondarysmall(next_attack_msg.Join())]",\
+		"[attack_message_local][next_attack_msg.Join()]", null, COMBAT_MESSAGE_RANGE, list(user))	//We try not to show this to the user (attacker)
 	next_attack_msg.Cut()
 	return 1
 

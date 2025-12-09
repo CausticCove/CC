@@ -281,18 +281,22 @@ GLOBAL_LIST_INIT(primordial_wounds, init_primordial_wounds())
 
 /// Setter for any adjustments we make to our bleed_rate, propagating them to the host bodypart.
 /datum/wound/proc/set_bleed_rate(amount)
-    if(!bodypart_owner || !owner)
-        return
+	if(!owner)
+		return
 
-    // do simple bleeding
-    if(owner.simple_wounds?.len)
-        owner.simple_bleeding -= bleed_rate
-        bleed_rate = amount
-        owner.simple_bleeding += bleed_rate
-    else
-        bodypart_owner.bleeding -= bleed_rate
-        bleed_rate = amount
-        bodypart_owner.bleeding += bleed_rate
+	// do simple bleeding
+	if(owner.simple_wounds?.len)
+		owner.simple_bleeding -= bleed_rate
+		bleed_rate = amount
+		owner.simple_bleeding += bleed_rate
+		if(abs(owner.simple_bleeding) < 0.01) //Float underflow catch
+			owner.simple_wounds = list()
+			owner.simple_bleeding = 0
+			owner.bleed_rate = 0
+	else if(bodypart_owner)
+		bodypart_owner.bleeding -= bleed_rate
+		bleed_rate = amount
+		bodypart_owner.bleeding += bleed_rate
 
 /// Heals this wound by the given amount, and deletes it if it's healed completely
 /datum/wound/proc/heal_wound(heal_amount)

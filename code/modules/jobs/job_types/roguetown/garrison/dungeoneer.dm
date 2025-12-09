@@ -97,7 +97,7 @@
 			head = /obj/item/clothing/head/roguetown/necrahood
 			cloak = /obj/item/clothing/suit/roguetown/shirt/robe/necra
 		else
-			cloak = /obj/item/clothing/cloak/stabard/dungeon
+			cloak = /obj/item/clothing/cloak/tabard/stabard/dungeon
 			head = /obj/item/clothing/head/roguetown/menacing
 	if(H.mind)
 		SStreasury.give_money_account(ECONOMIC_LOWER_MIDDLE_CLASS, H, "Savings.")

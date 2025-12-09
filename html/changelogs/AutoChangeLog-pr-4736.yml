@@ -1,0 +1,17 @@
+author: "Ollanius"
+delete-after: True
+changes:
+  - rscadd: "Adds unique neckguards, bracers, and hauberks to Zizonic-, Graggarite-, and Matthisoian-exclusive armorsets."
+  - rscadd: "Adds a unique gorget, pair of bracers, and hauberk to the Vampire Lord's armorcrafting ritual."
+  - rscadd: "Adds completely new descriptions to the Vampire Lord's unique crown, armor, and clothes."
+  - rscadd: "Candlesticks can now be used as improvised weapons."
+  - balance: "Readds Master-level combat skills - alongside Athletics and Knives - to the Vampire Lord."
+  - balance: "Adds a Steel Coif, Steel Cuirass, and a set of Noble Boots to the Vampire Lord's on-spawn loadout."
+  - balance: "Performing the Rite of Armament now gives you a special neckguard, set of bracers, and hauberk."
+  - qol: "The default coloration of heavy leather gloves should now closely match other heavy leather items."
+  - qol: "Examining a scabbard or sheath now tells you how to turn them into straps, for classic-style weapon holstering."
+  - bugfix: "Vampire Lords should now receive most traits that were previously missing, including their ability to use heavy armor."
+  - bugfix: "Silver spoons, forks, bowls, platters, candlesticks, and ingots should now properly have their silver-related traits."
+  - bugfix: "Fixed a missing icon that made Ancient Ceremonial Gauntlets invisible."
+  - bugfix: "Fixed an oversight that allowed a certain Enduring weapon to be smelted down into blessed silver ingots."
+  - bugfix: "Fixed an oversight that did not properly add a 'cursed trait' to the Matthiosite helmet."

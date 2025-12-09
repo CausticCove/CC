@@ -13,7 +13,7 @@
 		/obj/item/natural/bundle/fibers = 2,
 
 		// Clothing
-		/obj/item/clothing/cloak/stabard = 3,
+		/obj/item/clothing/cloak/tabard/stabard = 3,
 		/obj/item/storage/backpack/rogue/satchel = 3,
 		/obj/item/clothing/shoes/roguetown/simpleshoes = 4,
 		/obj/item/clothing/suit/roguetown/shirt/undershirt/random = 5,
@@ -170,7 +170,7 @@
 	icon_state = "clothing"
 	loot = list(
 		// Clothing
-		/obj/item/clothing/cloak/stabard = 3,
+		/obj/item/clothing/cloak/tabard/stabard = 3,
 		/obj/item/storage/backpack/rogue/satchel = 3,
 		/obj/item/clothing/shoes/roguetown/simpleshoes = 4,
 		/obj/item/clothing/suit/roguetown/shirt/undershirt/random = 5,

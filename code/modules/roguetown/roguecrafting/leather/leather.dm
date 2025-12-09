@@ -77,12 +77,6 @@
 	reqs = list(/obj/item/natural/hide/cured = 1)
 	sellprice = 27
 
-/datum/crafting_recipe/roguetown/leather/hood
-	name = "leather hood"
-	result = /obj/item/clothing/head/roguetown/roguehood
-	reqs = list(/obj/item/natural/hide/cured = 1)
-	sellprice = 26
-
 /datum/crafting_recipe/roguetown/leather/vest
 	name = "leather vest"
 	result = /obj/item/clothing/suit/roguetown/armor/leather/vest

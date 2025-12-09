@@ -10,7 +10,7 @@
 
 /datum/intent/swing/sling/prewarning()
 	if(mastermob)
-		mastermob.visible_message(span_warning("[mastermob] swings the [masteritem]!"))
+		mastermob.visible_message(span_warning("[mastermob] swings [masteritem]!"))
 		playsound(mastermob, pick('sound/combat/Ranged/sling-draw-01.ogg'), 100, FALSE)
 
 /datum/intent/swing/sling/get_chargetime() //determines swing length. damage is in /obj/item/gun/ballistic/revolver/grenadelauncher/sling/process_fire
@@ -37,7 +37,7 @@
 
 /datum/intent/arc/sling/prewarning()
 	if(mastermob)
-		mastermob.visible_message(span_warning("[mastermob] swings the [masteritem] in an arc!"))
+		mastermob.visible_message(span_warning("[mastermob] swings [masteritem] in an arc!"))
 		playsound(mastermob, pick('sound/combat/Ranged/sling-draw-01.ogg'), 100, FALSE)
 
 /datum/intent/arc/sling/get_chargetime() //same calculations as swing but with a greater base for throwing through teammates

@@ -49,9 +49,11 @@ GLOBAL_VAR_INIT(year_integer, text2num(year)) // = 2013???
 		if(do_after(usr, time_taken, needhand = TRUE, target = src))
 			if(QDELETED(I) || QDELETED(L) || !L.remove_embedded_object(I))
 				return
-			L.receive_damage(I.embedding.embedded_unsafe_removal_pain_multiplier*I.w_class)//It hurts to rip it out, get surgery you dingus.
+			var/hort = FALSE
+			hort = L.receive_damage(I.embedding.embedded_unsafe_removal_pain_multiplier*I.w_class)//It hurts to rip it out, get surgery you dingus.
 			usr.put_in_hands(I)
-			emote("pain", TRUE)
+			if (hort)
+				emote("pain", TRUE)
 			playsound(loc, 'sound/foley/flesh_rem.ogg', 100, TRUE, -2)
 			if(usr == src)
 				usr.visible_message("<span class='notice'>[usr] rips [I] out of [usr.p_their()] [L.name]!</span>", "<span class='notice'>I successfully remove [I] from my [L.name].</span>")

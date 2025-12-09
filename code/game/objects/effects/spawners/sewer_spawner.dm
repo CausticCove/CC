@@ -13,7 +13,7 @@
 		/obj/item/natural/bundle/fibers = 4,
 
 		// Clothing
-		/obj/item/clothing/cloak/stabard = 6,
+		/obj/item/clothing/cloak/tabard/stabard = 6,
 		/obj/item/storage/backpack/rogue/satchel = 3,
 		/obj/item/clothing/shoes/roguetown/simpleshoes = 8,
 		/obj/item/clothing/suit/roguetown/shirt/undershirt/random = 10,

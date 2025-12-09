@@ -144,6 +144,8 @@
 	user.dropItemToGround(smelting_item)
 	smelting_item.forceMove(src)
 	contained_items += smelting_item
+	if(smelting_item.smelted)
+		smelting_item.smelted = FALSE
 	if(!isliving(user) || !user.mind)
 		contained_items[smelting_item] = SMELTERY_LEVEL_SPOIL
 	else

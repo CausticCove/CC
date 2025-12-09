@@ -1,0 +1,120 @@
+2025-12-01:
+  Geevies:
+  - balance: The priestly robes that Bishops and the like get are now fireproof.
+  PatapoIIIa:
+  - bugfix: Items that are explicitly blocked from being used as ingredients (e.g.,
+      full storage bags, written paper, etc.) will no longer be consumed when performing
+      multi-quantity crafting.
+  - code_imp: Synchronized the item consumption logic with the `can_craft_with()`
+      check, making the crafting system more robust against complex item states.
+2025-12-02:
+  NewyearnewmeUwu:
+  - bugfix: chaining people after walking away is no longer possible
+  PatapoIIIa:
+  - balance: Fixed an exploit that allowed infinite experience gain by repeatedly
+      reinserting and retrieving a single ingot from a lit furnace.
+  - bugfix: Ingot items now correctly reset their 'smelted' status when placed back
+      into a furnace, requiring a full smelting cycle for new experience gain.
+  - code_imp: Updated `add_item` logic for smelters.
+  - bugfix: Fixed the "type masquerade" issue for crafted long pipes, which previously
+      caused them to have flickering sprites and break after cleaning.
+  - bugfix: Fixed a bug where crafted pipes would start with residual "ashes".
+  mazzinsanity:
+  - rscadd: Added new stat roll emotes
+2025-12-03:
+  CometBlaze:
+  - rscadd: Revenant wretches can now choose the Disgraced Knight subclass
+  Geevies:
+  - rscadd: Sounds coming from z-levels above or below you will now be a bit quieter
+      and sound muffled.
+  - bugfix: Fixes examines on rings not including the 'I have' or 'He has' or 'She
+      has' before it.
+  - bugfix: Fixes fancy coats rendering over your hands when worn in the cloak layer.
+  - bugfix: Fixes cloaks in general that have sleeves, ripping their sleeves off even
+      when you don't have lost arms.
+  Ketrai:
+  - rscadd: Priest faith is unlocked
+  WeNeedMorePhoron:
+  - bugfix: Fixed bronze bullet sprite and removed an unneeded the from swinging warning
+  - rscdel: Removed forcing client music to load on aghost / ghost, which was definitely
+      causing aghost lag and may have contributed to ghost lag
+  - bugfix: Fixed runtime error related to AI mob pathing when pawn is null
+  - bugfix: Cheeles no longer cause trivial brute damage when feeding or infusing
+      blood
+  - bugfix: Embedded objects that cause no pain/damage when removed no longer trigger
+      pain sfx
+  - bugfix: Vampire Lord traits now correctly include strength unbound
+  - bugfix: Bloodpool no longer spawns broken visual tracker effects
+  - bugfix: Chains are no longer deleted when converting someone to a vampire
+  - bugfix: Migration triumph bonus now only applies if the player prioritizes that
+      role
+  - bugfix: Migration now shuffles results when all players have equal priority
+  - bugfix: Smoke effects now respect TRAIT_NOBREATH and TRAIT_NOMETABOLISM
+  - bugfix: Summoning runes can no longer be cheesed by building walls around them
+  - bugfix: Summoning runes now properly destroy walls within their range when releasing
+  - rscadd: Changelog button on top right of preferences screen
+  - rscadd: Item will remember the last intent you have selected when it is dropped,
+      and your hands will remember the last intent you had selected with that hand
+      when it was empty.
+2025-12-04:
+  WeNeedMorePhoron:
+  - bugfix: Alt right click on a massive pile of item shouldn't lag out the server
+      anymore (I'll find you)
+2025-12-05:
+  ApplePlastic:
+  - rscadd: New Martyr Sword sprite, courtesy to Zydras
+  Lamasmaster:
+  - rscadd: New T0, muffle to Matthios
+  - balance: Moved Transact back to T1
+  PPooch:
+  - bugfix: Werewolf name jank applying to normal mob hopefully squashed
+  Ryan180602:
+  - bugfix: Lickers don't get critres anymore.
+  WeNeedMorePhoron:
+  - config: Game_options.txt is now provided out of the box for locally hosted build
+      so no more zoomie speed
+  hazelrat:
+  - rscadd: Added servantry service bells to the keep. Ring them if you want attention
+      from the servants!
+  - rscadd: Added a new, quieter sound effect to service bells.
+2025-12-06:
+  Matheo351:
+  - qol: Containers on trays no longer spill their contents
+  bearrrrrrrr:
+  - rscadd: new dragon lore (or more accurately, actually put lore ingame) and sprites.
+      broodmothers renamed
+  dopamiin0:
+  - balance: briars curse also increases the wielded force of a weapon
+  - bugfix: you no longer fall asleep while doing both kinds of moondust similtaneously
+      if you're a baothan
+2025-12-07:
+  WeNeedMorePhoron:
+  - rscadd: Added blood splatter on wall from Caustic Cove made by Posshum.
+  hazelrat:
+  - rscadd: Implemented a significant expansion to the manor kitchen, also including
+      mapping changes to the council office and wine cellar.
+2025-12-08:
+  FreeStylaLT:
+  - balance: Campfires now require a tree stump, bedsheet or a bed (bedroll is fine
+      too) to heal.
+  - balance: Campfires now restore blue bar.
+  HeroWithYay:
+  - bugfix: Carrot steak and Carrot steal meal no longer make nobles throw up
+  Lamasmaster:
+  - rscadd: Swimming skill to Retinue and bandit
+  - rscadd: Athletics to Hunter
+  - balance: Swimming/Athletics for Knave
+  SillyMoff:
+  - bugfix: fixed t2 and t3 obfuscate tier
+  bearrrrrrrr:
+  - bugfix: attacks targeting feet on taurs will no longer ignore their armor
+2025-12-09:
+  Lamasmaster:
+  - bugfix: Bascinet (nonvisor) FOV
+  - rscadd: Old Knight Helmet
+  - bugfix: Desert (the other one) hood
+  Matheo351:
+  - rscadd: Added sickle's instant crop harvest ability to scythe, as well as special
+      variants of those tools (Summer Scythe and Plaguebringer Sickle)
+  SillyMoff:
+  - bugfix: fixed switching inhumen patron to matthios

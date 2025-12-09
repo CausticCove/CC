@@ -1,0 +1,6 @@
+author: "Ryan180602"
+delete-after: True
+changes:
+  - balance: "All runes except knowledge runes are locked to Novice Arcyne Training individuals."
+  - balance: "Empowerment array imbues a maximum of two buffs."
+  - balance: "Witch and Artificer get T2 Arcyne Training (Apprentice)"

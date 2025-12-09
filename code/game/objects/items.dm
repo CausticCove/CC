@@ -141,6 +141,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	var/datum/skill/associated_skill
 
 	var/list/possible_item_intents = list(/datum/intent/use)
+	var/saved_intent_index = 1 // Stores the last selected intent index when item is dropped
 
 	var/bigboy = FALSE //used to center screen_loc when in hand
 	var/wielded = FALSE
@@ -591,9 +592,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		if(istype(src, /obj/item/rogueweapon))
 			var/obj/item/rogueweapon/W = src
 			if(W.special)
-				inspec +="\n<b>SPECIAL:</b> [W.special.name]"
-				inspec +="\n<i>[W.special.desc]</i>"
-				inspec +="\n<i>This ability can be used by right clicking while in STRONG stance.</i>"
+				inspec += "[W.special.get_examine()]"
 
 		if(intdamage_factor != 1 && force >= 5)
 			inspec += "\n<b>INTEGRITY DAMAGE:</b> [intdamage_factor * 100]% <span class='info'><a href='?src=[REF(src)];explainintdamage=1'>{?}</a></span>"

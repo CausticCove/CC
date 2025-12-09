@@ -415,7 +415,7 @@ All foods are distributed among various categories. Use common sense.
 						if(!CH.grabbedby)
 							to_chat(user, span_info("[C.p_they(TRUE)] steals [C.p_their()] face from it."))
 							return FALSE
-				if(!do_mob(user, M, double_progress = TRUE))
+				if(!do_mob(user, M, double_progress = TRUE, can_move = FALSE))
 					return
 				log_combat(user, M, "fed", reagents.log_list())
 				if(istype(src, /obj/item/reagent_containers/food/snacks/grown/berries/rogue) || istype(src, /obj/item/reagent_containers/food/snacks/grown/fruit))

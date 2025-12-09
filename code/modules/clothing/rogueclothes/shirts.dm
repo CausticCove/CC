@@ -143,6 +143,7 @@
 /obj/item/clothing/suit/roguetown/shirt/tunic/noblecoat
 	name = "fancy coat"
 	desc = "A fancy tunic and coat combo. How elegant."
+	alternate_worn_layer = TABARD_LAYER
 	slot_flags = ITEM_SLOT_SHIRT|ITEM_SLOT_ARMOR|ITEM_SLOT_CLOAK
 	icon_state = "noblecoat"
 	sleevetype = "noblecoat"
@@ -711,7 +712,7 @@
 		return
 
 /obj/item/clothing/suit/roguetown/shirt/undershirt/easttats/process()
-	if(obj_integrity >= max_integrity) 
+	if(obj_integrity >= max_integrity)
 		STOP_PROCESSING(SSobj, src)
 		src.visible_message(span_notice("The [src] flow more calmly, as they finish resting and regain their strength."), vision_distance = 1)
 		return

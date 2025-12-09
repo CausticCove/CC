@@ -286,6 +286,10 @@
 	force_wielded = 25
 	wbalance = WBALANCE_NORMAL
 	icon_state = "opsyflangedmace"
+	smeltresult = /obj/item/ingot/steel
+
+/obj/item/rogueweapon/mace/cudgel/psy/old/ComponentInitialize()
+	return
 
 /obj/item/rogueweapon/mace/cudgel/psy/old/ComponentInitialize()
 	return

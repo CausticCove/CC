@@ -17,6 +17,14 @@
 	experimental_onhip = FALSE
 	var/overarmor = TRUE
 
+/obj/item/clothing/mask/rogue/attack_right(mob/user)
+	. = ..()
+
+	if(!adjustable && initial(flags_inv) & HIDEFACE)
+		flags_inv ^= HIDEFACE
+		to_chat(user, span_notice("I adjust mask to [flags_inv & HIDEFACE ? "conceal" : "reveal"] identity."))
+		user.update_inv_wear_mask()
+
 /obj/item/clothing/mask/rogue/AltRightClick(mob/user)
 	if(!istype(loc, /mob/living/carbon))
 		return
@@ -116,6 +124,7 @@
 	resistance_flags = FIRE_PROOF
 	body_parts_covered = EYES
 	anvilrepair = /datum/skill/craft/armorsmithing
+	adjustable = CAN_CADJUST
 	var/active_item = FALSE
 
 /obj/item/clothing/mask/rogue/spectacles/golden/equipped(mob/user, slot)
@@ -146,6 +155,9 @@
 		REMOVE_TRAIT(user, TRAIT_ENGINEERING_GOGGLES, "[type]")
 		user.mind.RemoveSpell(new /obj/effect/proc_holder/spell/invoked/engineeranalyze)
 		to_chat(user, span_notice("Time to stop working"))
+
+/obj/item/clothing/mask/rogue/spectacles/golden/ComponentInitialize()
+	AddComponent(/datum/component/adjustable_clothing, NECK, null, null, 'sound/foley/equip/rummaging-03.ogg', null, (UPD_HEAD|UPD_MASK))	//Standard mask
 
 /obj/item/clothing/mask/rogue/spectacles/Initialize()
 	..()

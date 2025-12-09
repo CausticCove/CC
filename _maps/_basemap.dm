@@ -1,6 +1,4 @@
-//#define LOWMEMORYMODE //uncomment this to load centcom and runtime station and thats it.
-
-#include "map_files\cove_world\cove_CentCom.dmm"
+#include "map_files\generic\CentCom.dmm"
 
 #ifndef LOWMEMORYMODE
 	#ifdef ALL_MAPS

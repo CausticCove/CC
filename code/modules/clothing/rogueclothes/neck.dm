@@ -27,7 +27,7 @@
 	icon_state = "coif"
 	item_state = "coif"
 	color = CLOTHING_BROWN
-	flags_inv = HIDEHAIR
+	flags_inv = HIDEEARS|HIDEHAIR
 	slot_flags = ITEM_SLOT_NECK|ITEM_SLOT_HEAD
 	blocksound = SOFTHIT
 	body_parts_covered = NECK|HAIR|EARS|HEAD
@@ -43,7 +43,7 @@
 	icon_state = "ccoif"
 	item_state = "ccoif"
 	color = "#ad977d"
-	flags_inv = HIDEHAIR
+	flags_inv = HIDEEARS|HIDEHAIR
 	slot_flags = ITEM_SLOT_NECK|ITEM_SLOT_HEAD
 	blocksound = SOFTHIT
 	body_parts_covered = NECK|HAIR|EARS|HEAD
@@ -78,7 +78,7 @@
 			adjustable = CADJUSTED
 			if(toggle_icon_state)
 				icon_state = "fullpadded_down"
-			flags_inv = HIDEHAIR
+			flags_inv = HIDEEARS|HIDEHAIR
 			body_parts_covered = NECK|HAIR|EARS|HEAD
 			if(ishuman(user))
 				var/mob/living/carbon/H = user
@@ -128,7 +128,7 @@
 	drop_sound = 'sound/foley/dropsound/chain_drop.ogg'
 	pickup_sound = 'sound/foley/equip/equip_armor_chain.ogg'
 	equip_sound = 'sound/foley/equip/equip_armor_chain.ogg'
-	flags_inv = HIDEHAIR
+	flags_inv = HIDEEARS|HIDEHAIR
 	armor = ARMOR_MAILLE
 	max_integrity = ARMOR_INT_SIDE_STEEL
 	resistance_flags = FIRE_PROOF
@@ -196,7 +196,7 @@
 			adjustable = CADJUSTED
 			if(toggle_icon_state)
 				icon_state = "chaincoif"
-			flags_inv = HIDEHAIR
+			flags_inv = HIDEEARS|HIDEHAIR
 			body_parts_covered = NECK|HAIR|EARS|HEAD
 			if(ishuman(user))
 				var/mob/living/carbon/H = user
@@ -740,6 +740,39 @@
 	sellprice = 222
 	smeltresult = /obj/item/roguegem/green
 	anvilrepair = /datum/skill/craft/armorsmithing
+
+//
+
+/obj/item/clothing/neck/roguetown/chaincoif/chainmantle/matthios
+	name = "gilded chain mantle"
+	desc = "The world is yours, as they say - yet, why doth the Gods still led us astray?"
+	color = "#ffc960"
+
+/obj/item/clothing/neck/roguetown/chaincoif/chainmantle/matthios/Initialize()
+	. = ..()
+	AddComponent(/datum/component/cursed_item, TRAIT_COMMIE, "ARMOR")
+
+//
+
+/obj/item/clothing/neck/roguetown/bevor/zizo
+	name = "avantyne bevor"
+	desc = "The edge of reality, though unknown to many, favors Her acolytes above all else. This avantyne neckguard wards off the unenlightened's flailing."
+	color = "#c1b18d"
+
+/obj/item/clothing/neck/roguetown/bevor/zizo/Initialize()
+	. = ..()
+	AddComponent(/datum/component/cursed_item, TRAIT_CABAL, "ARMOR")
+
+//
+
+/obj/item/clothing/neck/roguetown/gorget/steel/graggar
+	name = "vicious gorget"
+	desc = "Curled plate, cradling the neck. Once, they were chains - now, they've allowed you to break free."
+	color = "#ddc0a7"
+
+/obj/item/clothing/neck/roguetown/gorget/graggar/Initialize()
+	. = ..()
+	AddComponent(/datum/component/cursed_item, TRAIT_HORDE, "ARMOR", "RENDERED ASUNDER")
 
 //
 

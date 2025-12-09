@@ -110,6 +110,7 @@
 	desc = "Holy vestments sanctified by divine hands. Caution is advised if not a faithful."
 	icon_state = "priestrobe"
 	slot_flags = ITEM_SLOT_ARMOR|ITEM_SLOT_SHIRT
+	resistance_flags = FIRE_PROOF // astratan
 	armor = ARMOR_PADDED	//Equal to gamby
 	color = null
 

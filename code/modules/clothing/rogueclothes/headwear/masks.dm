@@ -5,6 +5,7 @@
 	icon_state = "priesthead"
 	item_state = "priesthead"
 	flags_inv = HIDEEARS|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR|HIDESNOUT
+	resistance_flags = FIRE_PROOF // astratan
 	dynamic_hair_suffix = ""
 	sewrepair = TRUE
 

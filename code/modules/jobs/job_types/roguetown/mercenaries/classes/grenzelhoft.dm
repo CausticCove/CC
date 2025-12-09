@@ -195,7 +195,7 @@
 	name = "Armbrustschutze"
 	tutorial = "You're a proved marksman with a crossbow, and learned how to set up camp and defenses in the wild. The guild needs you."
 	outfit = /datum/outfit/job/roguetown/mercenary/grenzelhoft_crossbowman
-	traits_applied = list(TRAIT_DODGEEXPERT, TRAIT_STEELHEARTED)
+	traits_applied = list(TRAIT_STEELHEARTED)
 	subclass_stats = list(
 		STATKEY_SPD = 2,
 		STATKEY_WIL = 2,
@@ -295,7 +295,7 @@
 	to_chat(H, span_warning("You are a Gefechtgelehrter - \"Combat Scholar\" - A proud magos from the Celestial Academy of Magos, who's skills in Siege Magic and Arcyne Physics are unmatched."))
 	belt = /obj/item/storage/belt/rogue/leather/battleskirt
 	backl = /obj/item/rogueweapon/woodstaff/emerald/blacksteelstaff
-	cloak = /obj/item/clothing/cloak/stabard/grenzelmage
+	cloak = /obj/item/clothing/cloak/tabard/stabard/grenzelmage
 	armor = /obj/item/clothing/suit/roguetown/armor/brigandine/light
 	//General gear regardless of class.
 	wrists = /obj/item/clothing/wrists/roguetown/bracers
