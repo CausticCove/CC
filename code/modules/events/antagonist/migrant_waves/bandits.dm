@@ -2,7 +2,7 @@
 	name = "Bandit Migration"
 	typepath = /datum/round_event/migrant_wave/bandits
 	wave_type = /datum/migrant_wave/bandit
-	max_occurrences = 2
+	max_occurrences = 0
 
 	weight = 18
 

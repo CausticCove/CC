@@ -8,11 +8,13 @@
 	cmode_music = 'sound/music/cmode/antag/combat_cutpurse.ogg' // cutpurse or deadly shadows...?
 	traits_applied = list(TRAIT_MEDIUMARMOR)
 	subclass_stats = list(
+		//Caustic edit
 		STATKEY_STR = 2,
 		STATKEY_WIL = 2,
-		STATKEY_SPD = 2,
+		STATKEY_SPD = 1,
 		STATKEY_CON = 1,
 		STATKEY_LCK = 1
+		//Caustic edit end
 	)
 	subclass_skills = list(
 		/datum/skill/combat/polearms = SKILL_LEVEL_EXPERT,

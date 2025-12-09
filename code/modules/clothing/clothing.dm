@@ -57,6 +57,9 @@
 	sellprice = 1
 	var/naledicolor = FALSE
 
+	//Used in regards to temporary/overshield armors I.E. Fateweaver/Dragonhide, magical barriers, etc. Always takes the full damage during armor integrity damage ratio calculations.
+	var/shielding_armor = FALSE
+
 /obj/item
 	var/blocking_behavior
 	var/wetness = 0

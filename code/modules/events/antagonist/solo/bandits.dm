@@ -10,8 +10,8 @@
 	shared_occurence_type = SHARED_MINOR_THREAT
 
 	restricted_roles = DEFAULT_ANTAG_BLACKLISTED_ROLES
-	base_antags = 2 //CC edit: Was originally 5
-	maximum_antags = 4 // CC edit : was originally 10
+	base_antags = 0 //CC edit: Was originally 5
+	maximum_antags = 0 // CC edit : was originally 10
 
 	earliest_start = 0 SECONDS
 
