@@ -520,6 +520,7 @@
 /obj/item/clothing/head/roguetown/maidhead
 	name = "maid headdress"
 	desc = "A decorative cloth headband clearly indicating the wearer as a maid."
+	slot_flags = ITEM_SLOT_HEAD|ITEM_SLOT_MASK
 	icon_state = "maidhead"
 	item_state = "maidhead"
 	icon = 'icons/roguetown/clothing/special/maids.dmi'
