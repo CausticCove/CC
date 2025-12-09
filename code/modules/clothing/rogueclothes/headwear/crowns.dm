@@ -24,7 +24,6 @@
 	name = "jewel of nyle"
 	icon_state = "nile"
 	body_parts_covered = null
-	slot_flags = ITEM_SLOT_HEAD // CC Edit
 	dynamic_hair_suffix = null
 	sellprice = 100
 	resistance_flags = FIRE_PROOF
