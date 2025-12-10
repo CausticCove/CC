@@ -83,6 +83,8 @@
 				mob = pick(atom_types)
 				new mob(pick(turfs))
 
+		message_admins("A patrol group has been created in [get_area_name(chosen_turf)].")
+
 /datum/random_patrol/proc/spawn_loot(loot_atom_types, loot_amt_lower, loot_amt_upper)
 	var/amt2spawn = rand(loot_amt_lower, loot_amt_upper)
 	var/treasure
@@ -105,7 +107,7 @@
 	. = ..()
 	//This should get overridden. Otherwise, if not? Well... Something fucked up.
 	event_text = "A patrol has been spotted in [get_area_name(src)]..."
-	message_admins("A patrol has been created in [get_area_name(src)] but no event_text was given!")
+	message_admins("A patrol has been created in [get_area_name(src)], but no event_text was given!")
 
 /datum/round_event/random_patrol/start()
 	. = ..()

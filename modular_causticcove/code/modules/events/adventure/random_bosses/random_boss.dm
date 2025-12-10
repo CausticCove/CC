@@ -79,10 +79,13 @@
 				treasure = pickweight(loot_atom_types)
 				new treasure(pick(turfs))
 
+		message_admins("A boss has been created in [get_area_name(chosen_turf)].")
+
 /datum/random_patrol/New(my_processing, datum/round_event_control/source)
 	. = ..()
 	//This should get overridden. Otherwise, if not? Well... Something fucked up.
-	event_text = "A patrol has been in [get_area_name(src)]... But you're not meant to see this! Alert a coder!"
+	event_text = "A boss has been spotted in [get_area_name(src)]..."
+	message_admins("A boss has been created in [get_area_name(src)], but no event_text was given!")
 
 /datum/round_event/random_patrol/start()
 	. = ..()
