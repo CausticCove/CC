@@ -105,7 +105,7 @@
 	. = ..()
 	//This should get overridden. Otherwise, if not? Well... Something fucked up.
 	event_text = "A patrol has been spotted in [get_area_name(src)]..."
-	message_admins = "A patrol has been created in [get_area_name(src)] but no event_text was given!"
+	message_admins("A patrol has been created in [get_area_name(src)] but no event_text was given!")
 
 /datum/round_event/random_patrol/start()
 	. = ..()
