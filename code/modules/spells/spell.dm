@@ -677,7 +677,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 	action.UpdateButtonIcon(status_only, force)
 
 /obj/effect/proc_holder/spell/proc/can_be_cast_by(mob/caster)
-	if((human_req || clothes_req || animagus_incompatible) && !ishuman(caster) || !isanimagus(caster)) // CC Edit
+	if((human_req || clothes_req || animagus_incompatible) && !ishuman(caster) || isanimagus(caster)) // CC Edit
 		return 0
 	return 1
 
