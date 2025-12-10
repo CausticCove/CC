@@ -5,7 +5,7 @@
 	weight = 5
 	//max_occurrences = 5 //Not used currently. Not yet at least... Will be used if it becomes a problem or too often in a round.
 	min_players = 0
-	earliest_start = 0 //Can start immediately.
+	//earliest_start = 0 //Default to 12 Minutes.
 
 	tags = list(
 		TAG_COMBAT,
@@ -113,7 +113,7 @@
 	. = ..()
 
 	//Choose our patrol at random.
-	chosen_patrol = pick(1,3)
+	chosen_patrol = rand(1,3)
 
 	switch(chosen_patrol)
 		if(1) //Trolls in the underdark!

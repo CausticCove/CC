@@ -81,19 +81,19 @@
 
 		message_admins("A boss has been created in [get_area_name(chosen_turf)].")
 
-/datum/random_patrol/New(my_processing, datum/round_event_control/source)
+/datum/random_boss/New(my_processing, datum/round_event_control/source)
 	. = ..()
 	//This should get overridden. Otherwise, if not? Well... Something fucked up.
 	event_text = "A boss has been spotted in [get_area_name(src)]..."
 	message_admins("A boss has been created in [get_area_name(src)], but no event_text was given!")
 
-/datum/round_event/random_patrol/start()
+/datum/round_event/random_boss/start()
 	. = ..()
 
 	//Choose our patrol at random.
-	chosen_patrol = pick(1)
+	chosen_boss = rand(1)
 
-	switch(chosen_patrol)
+	switch(chosen_boss)
 		if(1) //Dragon in the northern Hamlet!
 			var/D = /datum/random_boss/dragon
 			new D
