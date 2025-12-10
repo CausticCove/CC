@@ -1206,7 +1206,9 @@
 				if(!istype(get_area(user), /area/rogue/indoors/town/church/chapel))
 					to_chat(user, span_warning("I need to do this in the chapel."))
 					return FALSE
+				// CC change
 				var/name_placement = 1 //this is here as we want it to reset ONLY on a NEW marriage attempt, not mid marraige. Thank you breakpoints
+				// CC change end
 				var/marriage
 				var/obj/item/reagent_containers/food/snacks/grown/apple/A = W
 				//The MARRIAGE TEST BEGINS
