@@ -3,9 +3,9 @@
 	track = EVENT_TRACK_MODERATE
 	typepath = /datum/round_event/random_patrol
 	weight = 5
-	//max_occurrences = 5 //Not used currently. Not yet at least...
+	//max_occurrences = 5 //Not used currently. Not yet at least... Will be used if it becomes a problem or too often in a round.
 	min_players = 0
-	earliest_start = 1 SECONDS
+	earliest_start = 0 //Can start immediately.
 
 	tags = list(
 		TAG_COMBAT,
@@ -23,6 +23,7 @@
 	var/list/chosen_turf = list()
 
 	//The types of mobs/atoms we are spawning in this patrol.
+	//This also works with ambush configs as well if you wish to define preset spawns.
 	var/list/atom_types = list()
 
 	//The types of rarer mobs/atoms we are spawning in this patrol.
@@ -75,10 +76,10 @@
 						continue //Find another turf, this one is too dense...
 					turfs += T
 
-			if(prob(rare_prob))
+			if(prob(rare_prob) && rare_atom_types)
 				rare_mob = pick(rare_atom_types)
 				new rare_mob(pick(turfs))
-			else
+			else if(atom_types)
 				mob = pick(atom_types)
 				new mob(pick(turfs))
 
@@ -86,7 +87,7 @@
 	var/amt2spawn = rand(loot_amt_lower, loot_amt_upper)
 	var/treasure
 	
-	if(turfs)
+	if(turfs && loot_atom_types)
 		//Clear old turf.
 		turfs = list()
 		for(var/i in 1 to amt2spawn)
@@ -96,20 +97,21 @@
 					if(O.density)
 						continue //Find another turf, this one is too dense...
 					turfs += T
-
-			treasure = pickweight(loot_atom_types)
-			new treasure(pick(turfs))
+			if(loot_atom_types)
+				treasure = pickweight(loot_atom_types)
+				new treasure(pick(turfs))
 
 /datum/random_patrol/New(my_processing, datum/round_event_control/source)
 	. = ..()
 	//This should get overridden. Otherwise, if not? Well... Something fucked up.
-	event_text = "A patrol has been in [get_area_name(src)]... But you're not meant to see this! Alert a coder!"
+	event_text = "A patrol has been spotted in [get_area_name(src)]..."
+	message_admins = "A patrol has been created in [get_area_name(src)] but no event_text was given!"
 
 /datum/round_event/random_patrol/start()
 	. = ..()
 
 	//Choose our patrol at random.
-	chosen_patrol = pick(1,2)
+	chosen_patrol = pick(1,3)
 
 	switch(chosen_patrol)
 		if(1) //Trolls in the underdark!
@@ -118,7 +120,9 @@
 		if(2) //Goblins up north along the coast!
 			var/D = /datum/random_patrol/goblin_swarm
 			new D
-
+		if(3) //The grove's Wolf Pack!
+			var/D = /datum/random_patrol/wolf_pack
+			new D
 
 
 ///////////////////////////
@@ -157,7 +161,7 @@
 				turfs += T
 
 	chosen_turf = pick(turfs)
-	priority_announce("[event_text]", "Patrol Notice", 'sound/misc/notice.ogg')
+	priority_announce("[event_text]", "Patrol Notice: [get_area_name(get_area(chosen_turf))]", 'sound/misc/notice.ogg')
 	spawn_mobs(atom_types, rare_atom_types, rare_prob, spawn_range, amt_lower, amt_upper, turfs)
 	spawn_loot(loot_atom_types, loot_amt_lower, loot_amt_upper)
 	qdel(src) //Clean ourselves up.
@@ -199,10 +203,47 @@
 				turfs += T
 
 	chosen_turf = pick(turfs)
-	priority_announce("[event_text]", "Patrol Notice", 'sound/misc/notice.ogg')
+	priority_announce("[event_text]", "Patrol Notice: [get_area_name(get_area(chosen_turf))]", 'sound/misc/notice.ogg')
 	spawn_mobs(atom_types, rare_atom_types, rare_prob, spawn_range, amt_lower, amt_upper, turfs)
 	spawn_loot(loot_atom_types, loot_amt_lower, loot_amt_upper)
 	qdel(src) //Clean ourselves up.
 
+//Wolf Packs. They will randomly appear in the grove in big packs...
+/datum/random_patrol/wolf_pack/New(my_processing, datum/round_event_control/source)
+	. = ..()
+
+	atom_types = list(/mob/living/simple_animal/hostile/retaliate/rogue/wolf)
+
+	rare_atom_types = list()
+
+	allowed_turfs = list(/turf/open/floor/rogue/dirt,
+		/turf/open/floor/rogue/grass)
+
+	event_text = pick("Snarling, snapping jaws, light-footed patters amongst the dark of the grove... Volf Pack!",
+					"Angry growls and distant howling can be heard... Volf Pack!")
+
+	loot_atom_types = list(/obj/item/natural/bone) //Bones! We are ebil wolfies! We lubv bones!
+	loot_amt_upper = 6
+	loot_amt_lower = 4
+
+	spawn_range = 6 //PACK STAY TOGETHER WE STRONG!
+	rare_prob = 0
+	amt_upper = 8
+	amt_lower = 6
+	
+	for(var/area/rogue/outdoors/woods/southeast/A in world)
+		for(var/turf/open/T in A) 
+			if(is_type_in_list(T, allowed_turfs))
+				turfs += T
+	for(var/area/rogue/outdoors/woods/north/A in world)
+		for(var/turf/open/T in A) 
+			if(is_type_in_list(T, allowed_turfs))
+				turfs += T
+
+	chosen_turf = pick(turfs)
+	priority_announce("[event_text]", "Patrol Notice: [get_area_name(get_area(chosen_turf))]", 'sound/misc/notice.ogg')
+	spawn_mobs(atom_types, rare_atom_types, rare_prob, spawn_range, amt_lower, amt_upper, turfs)
+	spawn_loot(loot_atom_types, loot_amt_lower, loot_amt_upper)
+	qdel(src) //Clean ourselves up.
 // PATROL VARIANTS END \\
 /////////////////////////
