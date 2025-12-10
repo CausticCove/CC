@@ -5,7 +5,7 @@
 	track = EVENT_TRACK_OMENS
 	typepath = /datum/round_event/random_boss
 	weight = 3
-	max_occurrences = 2 //Maybe one or two bosses a round...
+	max_occurrences = 1
 	min_players = 0
 	earliest_start = 1 HOURS //Must be 25% through a round to actually trigger. Pretty Rare event.
 
@@ -88,13 +88,13 @@
 	. = ..()
 
 	//Choose our patrol at random.
-	chosen_patrol = pick(1,2)
+	chosen_patrol = pick(1)
 
 	switch(chosen_patrol)
 		if(1) //Dragon in the northern Hamlet!
 			var/D = /datum/random_boss/dragon
 			new D
-		if(2) //The Abyssal One awakens along the shoreline!
+		if(2) //The Abyssal One awakens along the shoreline! ... Currently unused. Dragon is always picked.
 			var/D = /datum/random_boss/fish_boss
 			new D
 
@@ -113,8 +113,8 @@
 	//Hamlet center has only cobble rock, spawn there! Mappers can modify this.
 	allowed_turfs = list(/turf/open/floor/rogue/cobblerock)
 
-	event_text = pick("A loud roar can be heard in the distance, followed by a booming thump in the earth... You swore you could feel the ground shake... The Void Dragon has awoken!!!",
-					"A heavy woosh flies overhead and shadows cast over you for a split second. A piercing roar can be heard far off in the distance... The Void Dragon has awoken!!!")
+	event_text = pick("A loud roar can be heard in the distance, followed by a booming thump in the earth... You swore you could feel the ground shake... A Dragon has awoken!!!",
+					"A heavy woosh flies overhead and shadows cast over you for a split second. A piercing roar can be heard far off in the distance... A Dragon has awoken!!!")
 
 	loot_atom_types = list(/obj/item/roguecoin/copper/pile = 1,
 						/obj/item/roguecoin/silver/pile = 1,
