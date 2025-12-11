@@ -1264,7 +1264,7 @@
 	var/turf/closed/T = null
 	var/gotdir = 0
 	var/list/dir_list = list()
-	for(var/i = 1, i <= 8; i += i)
+	for(var/i = 1, i <= 8, i += i)
 		T = get_ranged_target_turf(src, i, 1)
 
 		if(istype(T))

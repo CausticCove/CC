@@ -6,15 +6,18 @@
 	outfit = /datum/outfit/job/roguetown/bandit/roguemage
 	category_tags = list(CTAG_BANDIT)
 	cmode_music = 'sound/music/cmode/antag/combat_thewall.ogg'
-	subclass_spellpoints = 21
+	//Caustic edit
+	subclass_spellpoints = 18
+	//Caustic edit end
 	traits_applied = list(TRAIT_MAGEARMOR, TRAIT_ARCYNE_T3, TRAIT_DODGEEXPERT, TRAIT_ALCHEMY_EXPERT)
 	subclass_stats = list(
+		//Caustic edit
 		STATKEY_INT = 3,
 		STATKEY_WIL = 3,
 		STATKEY_PER = 2, // Adv mage get 2 perception so whatever. It is useful for aiming body parts but have no direct synergy with spells. 
-		STATKEY_LCK = 2,
-		STATKEY_SPD = 1,
+		STATKEY_LCK = 1,
 		STATKEY_CON = 1,
+		//Caustic edit end
 	)
 	subclass_skills = list(
 		/datum/skill/combat/polearms = SKILL_LEVEL_JOURNEYMAN, // Jman Polearms, for better parrying without making them bandit level 

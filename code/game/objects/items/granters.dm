@@ -355,6 +355,7 @@
 
 //Caustic Edit Start
 /obj/item/book/granter/spell/blackstone/sizespell // Enlarge/Reduce Size Spell
+	name = "Scroll of Reduce/Enlarge"
 	spell = /obj/effect/proc_holder/spell/targeted/touch/sizespell
 	spellname = "Reduce/Enlarge"
 	icon_state ="scrolldarkred"

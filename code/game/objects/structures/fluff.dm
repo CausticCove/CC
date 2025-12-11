@@ -1181,6 +1181,50 @@
 		leaving.Bump(src)
 		return COMPONENT_ATOM_BLOCK_EXIT
 
+/obj/structure/fluff/psycross/attack_hand(mob/user)
+	. = ..()
+	var/mob/living/carbon/H = user
+	if(user.mind?.antag_datums)
+		if(living_player_count() <= 25) //Only works if less than 25 people in a round. Otherwise good fucking luck lol
+			for(var/datum/antagonist/D in user.mind?.antag_datums)
+				if(istype(D, /datum/antagonist/zombie))
+					to_chat(H, span_warning("I press my palm to the cross and focus..."))
+					if(do_after(H, 1 MINUTES, TRUE, src))
+						self_revive(H)
+					return
+		else
+			to_chat(H, span_warning("I can't use this... The god's refuse, I must seek aid from someone else..."))
+	else if(do_after(H, 5 SECONDS, TRUE, src)) //Fluff interaction for RP purposes and a tiny mood boost as an alternative to praying and spamming admin chats. Works anywhere.
+		if(H.has_flaw(/datum/charflaw/addiction/godfearing))
+			H.sate_addiction() //For the especially devout...
+		H.visible_message(span_notice("[H] sends a silent prayer."), span_green("May the Ten forever grace us with their benevolent gaze..."))
+		H.add_stress(/datum/stressevent/psyprayer)
+
+//Most of this comes from Astrata, as she is benevolent enough to at least help bring those back to the light from the darkness they came...
+/obj/structure/fluff/psycross/proc/self_revive(mob/living/carbon/H)
+
+	//This proc works under assumption the target is already dead. In no way should this be called by dragging the already dead corpse under it to touch the cross.
+
+		//REMINDER! IT was NOT intended for people to get a FULL HEAL OUT OF THIS WITH A REVIVE PROC! I may add healing in the future or remove the fire burn!
+		//BUT YOU NEED TO SLEEP AFTERWARDS TO HEAL OR DRINK A POTION, this allows the church to still do their job if none of them can heal you!
+	if(istype(get_area(H), /area/rogue/indoors/town/church)) //Church check!
+		for(var/obj/structure/fluff/psycross/S in oview(5, H))
+			S.AOE_flash(H, range = 8)
+		H.adjustOxyLoss(-H.getOxyLoss()) //Ye Olde CPR
+		H.emote("breathgasp")
+		H.Jitter(100)
+		H.Paralyze(40) //Take some minor burn damage you vile fiend!
+		H.adjust_fire_stacks(2)
+		playsound(src, 'sound/magic/revive.ogg', 33, 0, 4)
+		playsound(src, 'sound/magic/woundheal.ogg', 100, 0, 6) //Fancy, weaker revive.
+		H.visible_message(span_notice("[H] is revived by holy light! Flames purge their rot!"), span_red("I awake from the void with a blistering pain!"))
+		H.mind.remove_antag_datum(/datum/antagonist/zombie)
+		H.remove_status_effect(/datum/status_effect/debuff/rotted_zombie) //Removes the rotted-zombie debuff if they have it - Failsafe for it.
+		H.apply_status_effect(/datum/status_effect/debuff/self_revived)	//Longer debuff for self revival. Hurts like a fuckin' TRUCK.
+		H.update_body()
+	else
+		H.visible_message(span_notice("[H] hopelessly clutches the cross, sorrow filling their cold, dead eyes..."), span_red("The Ten cannot help me here... I must find a church..."))
+
 /obj/structure/fluff/psycross/copper
 	name = "pantheon cross"
 	icon_state = "psycrosschurch"
@@ -1229,6 +1273,9 @@
 				if(!istype(get_area(user), /area/rogue/indoors/town/church/chapel))
 					to_chat(user, span_warning("I need to do this in the chapel."))
 					return FALSE
+				///Caustic edit
+				var/name_placement = 1 //this is here as we want it to reset ONLY on a NEW marriage attempt, not mid marraige. Thank you breakpoints
+				///Caustic edit end
 				var/marriage
 				var/obj/item/reagent_containers/food/snacks/grown/apple/A = W
 				//The MARRIAGE TEST BEGINS
@@ -1251,7 +1298,6 @@
 							* second. This seems to be the best way
 							* to use the least amount of variables.
 							*/
-							var/name_placement = 1
 							for(var/X in A.bitten_names)
 								//I think that guy is dead.
 								if(C.stat == DEAD)
