@@ -63,3 +63,4 @@
 
 /obj/effect/spawner/lootdrop/magic_loot_base/x3
 	lootcount = 3
+ 
