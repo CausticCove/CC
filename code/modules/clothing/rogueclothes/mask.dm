@@ -542,7 +542,7 @@
 	armor = ARMOR_PLATE
 	flags_inv = HIDEFACE|HIDESNOUT
 	prevent_crits = list(BCLASS_CUT, BCLASS_STAB, BCLASS_CHOP, BCLASS_BLUNT)
-	sellprice = 0
+	sellprice = 25
 
 /obj/item/clothing/mask/rogue/lordmask/naledi/equipped(mob/user, slot)
 	. = ..()
@@ -570,7 +570,7 @@
 	armor = ARMOR_PLATE
 	flags_inv = HIDEFACE|HIDESNOUT
 	prevent_crits = list(BCLASS_CUT, BCLASS_STAB, BCLASS_CHOP, BCLASS_BLUNT)
-	sellprice = 0
+	sellprice = 25
 
 /obj/item/clothing/mask/rogue/exoticsilkmask
 	name = "exotic silk mask"

@@ -510,7 +510,7 @@
 	desc = "'A man with nothing can still have faith!'"
 	icon_state = "psycross_w"
 	item_state = "psycross_w"
-	sellprice = 0
+	sellprice = 7
 	salvage_result = /obj/item/grown/log/tree/stick
 	salvage_amount = 1
 

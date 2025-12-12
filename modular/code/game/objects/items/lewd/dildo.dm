@@ -60,17 +60,17 @@
 	color = "#7D4033"
 	resistance_flags = FLAMMABLE
 	dildo_material = "wooden"
-	sellprice = 1
+	sellprice = 5 //Raised the price for the funny...
 
 /obj/item/dildo/iron
 	color = "#9EA48E"
 	dildo_material = "iron"
-	sellprice = 5
+	sellprice = 10
 
 /obj/item/dildo/steel
 	color = "#9BADB7"
 	dildo_material = "steel"
-	sellprice = 10
+	sellprice = 20
 
 /obj/item/dildo/silver
 	color = "#C6D5E1"

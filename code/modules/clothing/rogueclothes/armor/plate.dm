@@ -20,6 +20,7 @@
 	unequip_delay_self = 4 SECONDS
 	armor_class = ARMOR_CLASS_HEAVY
 	smelt_bar_num = 3
+	sellprice = 79 //Steel is good!
 
 /obj/item/clothing/suit/roguetown/armor/plate/ComponentInitialize()
 	. = ..()
@@ -34,6 +35,7 @@
 	boobed = FALSE	//the armor just looks better with this, makes sense and is 8 sprites less
 	max_integrity = ARMOR_INT_CHEST_PLATE_IRON
 	smeltresult = /obj/item/ingot/iron
+	sellprice = 45 //Iron, not so much.
 
 /obj/item/clothing/suit/roguetown/armor/plate/aalloy
 	name = "decrepit half-plate"
@@ -44,6 +46,7 @@
 	color = "#bb9696"
 	smeltresult = /obj/item/ingot/aaslag
 	anvilrepair = null
+	sellprice = 33 //Dude... Where did you even get this?
 
 /obj/item/clothing/suit/roguetown/armor/plate/paalloy
 	name = "ancient half-plate"
@@ -51,6 +54,7 @@
 	icon_state = "ancientplate"
 	item_state = "ancientplate"
 	smeltresult = /obj/item/ingot/aaslag
+	sellprice = 33 //Dude... Where did you even get this?
 
 /obj/item/clothing/suit/roguetown/armor/plate/paalloy/artificer
 	name = "artificed half-plate"
@@ -64,6 +68,8 @@
 	var/active_item = FALSE //Prevents issues like dragon ring giving negative str instead
 	var/legendaryarcane = FALSE
 	var/legendaryathletics = FALSE
+	sellprice = 77 //It's been MAGICALLY MELDED!
+
 /obj/item/clothing/suit/roguetown/armor/plate/paalloy/artificer/Initialize()
 	.=..()
 	update_description()
@@ -181,6 +187,7 @@
 
 	max_integrity = ARMOR_INT_CHEST_PLATE_STEEL
 	body_parts_covered = COVERAGE_FULL // Less durability than proper plate, more expensive to manufacture, and accurate to the sprite.
+	sellprice = 64
 
 /obj/item/clothing/suit/roguetown/armor/plate/fluted/graggar
 	name = "vicious half-plate"
@@ -189,6 +196,7 @@
 	max_integrity = ARMOR_INT_CHEST_PLATE_STEEL // We are probably one of the best medium armor sets. At higher integ than most(heavy armor levels, pretty much. But worse resistances, we get the bonus over the other sets of being medium and being unequippable.)
 	icon_state = "graggarplate"
 	armor = ARMOR_CUIRASS
+	sellprice = 100 //HERETIC ARMOR... But wow is it rather... Impressive... Someone would love to have this.
 
 /obj/item/clothing/suit/roguetown/armor/plate/fluted/graggar/Initialize()
 	. = ..()
@@ -202,6 +210,7 @@
 	body_parts_covered = COVERAGE_FULL // Less durability than proper plate, more expensive to manufacture, and accurate to the sprite.
 
 	max_integrity = ARMOR_INT_CHEST_PLATE_PSYDON
+	sellprice = 66
 
 /obj/item/clothing/suit/roguetown/armor/plate/fluted/ornate/equipped(mob/living/user, slot)
 	. = ..()
@@ -225,6 +234,7 @@
 	equip_delay_other = 3 SECONDS
 	strip_delay = 6 SECONDS
 	smelt_bar_num = 4
+	sellprice = 86 //Oh now we're talking!
 
 /obj/item/clothing/suit/roguetown/armor/plate/full/iron
 	name = "iron plate armor"
@@ -232,6 +242,7 @@
 	desc = "Full iron plate armor. Slow to don and doff without the aid of a good squire."
 	smeltresult = /obj/item/ingot/iron
 	max_integrity = ARMOR_INT_CHEST_PLATE_IRON
+	sellprice = 64
 
 /obj/item/clothing/suit/roguetown/armor/plate/full/samsibsa
 	name = "samsibsa scaleplate"
@@ -279,6 +290,7 @@
 	icon_state = "ornateplate"
 
 	max_integrity = ARMOR_INT_CHEST_PLATE_STEEL
+	sellprice = 100 //Oh MAN this is nice!
 
 /obj/item/clothing/suit/roguetown/armor/plate/full/fluted/ornate
 	name = "psydonic plate"
@@ -291,6 +303,7 @@
 	/// Whether the user has the Heavy Armour Trait prior to donning.
 	var/traited = FALSE
 	smelt_bar_num = 3
+	sellprice = 444 //YOU MADE WHAT!?
 
 /obj/item/clothing/suit/roguetown/armor/plate/full/fluted/ornate/equipped(mob/living/user, slot)
 	. = ..()
@@ -309,6 +322,7 @@
 	item_state = "shadowplate"
 	armor_class = ARMOR_CLASS_MEDIUM
 	allowed_race = NON_DWARVEN_RACE_TYPES
+	sellprice = 77
 
 /obj/item/clothing/suit/roguetown/armor/plate/full/fluted/ornate/ordinator
 	name = "inquisitorial ordinator's plate"
@@ -321,6 +335,7 @@
 	icon_state = "matthiosarmor"
 	max_integrity = ARMOR_INT_CHEST_PLATE_ANTAG
 	peel_threshold = 5	//-Any- weapon will require 5 peel hits to peel coverage off of this armor.
+	sellprice = 150 //Heretical armor!!!
 /*caustic edit start
 /obj/item/clothing/suit/roguetown/armor/plate/full/matthios/Initialize()
 	. = ..()
@@ -338,6 +353,7 @@
 	icon_state = "zizoplate"
 	max_integrity = ARMOR_INT_CHEST_PLATE_ANTAG
 	peel_threshold = 5	//-Any- weapon will require 5 peel hits to peel coverage off of this armor.
+	sellprice = 150 //Heretical armor!!!
 /*caustic edit start
 /obj/item/clothing/suit/roguetown/armor/plate/full/zizo/Initialize()
 	. = ..()
@@ -361,6 +377,7 @@
 	equip_delay_other = 3 SECONDS
 	strip_delay = 6 SECONDS
 	smelt_bar_num = 3
+	sellprice = 60 //Wow this is breezy.
 
 /obj/item/clothing/suit/roguetown/armor/heartfelt/lord
 	slot_flags = ITEM_SLOT_ARMOR
@@ -379,6 +396,7 @@
 	smeltresult = /obj/item/ingot/steel
 	armor_class = ARMOR_CLASS_HEAVY
 	smelt_bar_num = 4
+	sellprice = 200 //The lords armor...!
 
 /obj/item/clothing/suit/roguetown/armor/heartfelt/hand
 	slot_flags = ITEM_SLOT_ARMOR

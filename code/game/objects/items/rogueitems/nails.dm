@@ -20,7 +20,7 @@
 	slot_flags = null
 	max_integrity = 20
 	w_class = WEIGHT_CLASS_TINY
-	sellprice = 0
+	sellprice = 3
 	bundletype = /obj/item/construction/bundle/nail
 	slot_flags = ITEM_SLOT_MOUTH
 

@@ -17,6 +17,7 @@
 	armor_class = ARMOR_CLASS_MEDIUM //good idea suggested by lamaster
 	sleeved_detail = FALSE
 	boobed_detail = FALSE
+	sellprice = 27 //Fairly common armor, steel and cloth!
 
 /obj/item/clothing/suit/roguetown/armor/brigandine/Initialize()
 	. = ..()
@@ -73,6 +74,7 @@
 	smelt_bar_num = 2
 	armor_class = ARMOR_CLASS_HEAVY
 	max_integrity = ARMOR_INT_CHEST_PLATE_BRIGANDINE + 50
+	sellprice = 34
 
 /obj/item/clothing/suit/roguetown/armor/brigandine/retinue/coat
 	name = "coat of the commander"
@@ -82,6 +84,7 @@
 	var/picked = FALSE
 	sleeved_detail = TRUE
 	boobed_detail = TRUE
+	sellprice = 50
 
 /obj/item/clothing/suit/roguetown/armor/brigandine/retinue/coat/attack_right(mob/user)
 	if(picked)

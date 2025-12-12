@@ -15,6 +15,7 @@
 	anvilrepair = /datum/skill/craft/armorsmithing
 	smeltresult = /obj/item/ingot/steel
 	armor_class = ARMOR_CLASS_LIGHT //Experimental change; leave unlisted for now? Offers a weight-class advantage over the otherwise-superior hauberk. We'll see how it goes.
+	sellprice = 25 // Solid underarmor.
 
 /obj/item/clothing/suit/roguetown/armor/chainmail/iron
 	icon_state = "ihaubergeon"
@@ -35,12 +36,14 @@
 	color = "#bb9696"
 	smeltresult = /obj/item/ingot/aaslag
 	anvilrepair = null
+	sellprice = 10 //Ew. AAslag...
 
 /obj/item/clothing/suit/roguetown/armor/chainmail/paalloy
 	name = "ancient haubergeon"
 	desc = "Polished gilbranze rings and silk, woven together to form a short maille-atekon. The death of a million brought forth the ascension of Zizo; and if a million more must perish to complete Her works, then let it be done."
 	icon_state = "ancientchain"
 	smeltresult = /obj/item/ingot/aaslag
+	sellprice = 10 //Ew. AAslag...
 
 //MEDIUM ARMOR//
 
@@ -55,6 +58,7 @@
 	smeltresult = /obj/item/ingot/steel
 	armor_class = ARMOR_CLASS_MEDIUM
 	smelt_bar_num = 2
+	sellprice = 35 //Covers a lot more!
 
 /obj/item/clothing/suit/roguetown/armor/chainmail/hauberk/iron
 	name = "iron hauberk"
@@ -72,12 +76,14 @@
 	color = "#bb9696"
 	smeltresult = /obj/item/ingot/aaslag
 	anvilrepair = null
+	sellprice = 15 //Still ew. AAslag.
 
 /obj/item/clothing/suit/roguetown/armor/chainmail/hauberk/paalloy
 	name = "ancient hauberk"
 	desc = "Polished gilbranze rings and silk, woven together to form a sleeved maille-atekon. To bring the lyfeless back from decrepity, to elevate them to heights once thought unsurmountable; that is the will of Zizo, made manifest."
 	icon_state = "ancienthauberk"
 	smeltresult = /obj/item/ingot/aaslag
+	sellprice = 15 //Still ew. AAslag.
 
 /obj/item/clothing/suit/roguetown/armor/chainmail/hauberk/ornate
 	slot_flags = ITEM_SLOT_ARMOR
@@ -89,6 +95,7 @@
 	item_state = "ornatehauberk"
 	max_integrity = ARMOR_INT_CHEST_PLATE_PSYDON
 	smeltresult = /obj/item/ingot/silverblessed
+	sellprice = 150 //ooh how nice~
 
 /obj/item/clothing/suit/roguetown/armor/chainmail/bikini
 	name = "chainmail corslet"	// corslet, from the old French 'cors' or bodice, with the diminutive 'let', used to describe lightweight military armor since 1500. Chosen here to replace 'bikini', an extreme anachronism.
@@ -99,3 +106,4 @@
 	allowed_race = CLOTHED_RACES_TYPES
 	body_parts_covered = CHEST|GROIN
 	armor_class = ARMOR_CLASS_LIGHT //placed in the medium category to keep it with its parent obj
+	sellprice = 18 //Uhhh? Yeah go for it?...

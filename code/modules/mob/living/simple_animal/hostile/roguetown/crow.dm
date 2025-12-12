@@ -12,7 +12,7 @@
 	eat_effect = /datum/status_effect/debuff/uncookedfood
 	fried_type = null
 	max_integrity = 10
-	sellprice = 0
+	sellprice = 10 //It's an animal! A living being! Oh wait it has feathers and meat?...
 	blade_dulling = DULLING_CUT
 	rotprocess = null
 	static_debris = list(/obj/item/natural/feather=1)
@@ -29,7 +29,7 @@
 	tastes = list("burnt flesh" = 1)
 	eat_effect = null
 	rotprocess = SHELFLIFE_SHORT
-	sellprice = 0
+	sellprice = 12 //Yummy...
 
 /obj/item/reagent_containers/food/snacks/crow/burning(input as num)
 	. = ..()

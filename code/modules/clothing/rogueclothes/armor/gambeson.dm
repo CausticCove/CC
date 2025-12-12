@@ -18,6 +18,7 @@
 	r_sleeve_status = SLEEVE_NORMAL
 	l_sleeve_status = SLEEVE_NORMAL
 	armor_class = ARMOR_CLASS_LIGHT
+	sellprice = 16 //Lighter equipment. Still decent.
 
 /obj/item/clothing/suit/roguetown/armor/gambeson/councillor
 	color = "#646464"
@@ -27,12 +28,14 @@
 	icon_state = "dgamb"
 	body_parts_covered = COVERAGE_ALL_BUT_LEGS
 	allowed_sex = list(MALE, FEMALE)
+	sellprice = 33 //This is a very nice jacket! Where'd you get it?...
 
 /obj/item/clothing/suit/roguetown/armor/gambeson/shadowrobe
 	name = "stalker robe"
 	desc = "A thick robe in royal purple, befitting the hand, while remaining easy for them to slip about in.."
 	allowed_race = NON_DWARVEN_RACE_TYPES
 	icon_state = "shadowrobe"
+	sellprice = 88 //Hand's attire. If someone nabs this, well, they best get paid well that's for sure.
 
 
 /obj/item/clothing/suit/roguetown/armor/gambeson/light
@@ -41,7 +44,7 @@
 	armor = ARMOR_PADDED_BAD
 	max_integrity = ARMOR_INT_CHEST_LIGHT_BASE
 	prevent_crits = null // It won't help, like, at all.
-	sellprice = 10
+	sellprice = 12
 
 /obj/item/clothing/suit/roguetown/armor/gambeson/heavy
 	name = "padded gambeson"
@@ -50,7 +53,7 @@
 	prevent_crits = list(BCLASS_CUT, BCLASS_BLUNT, BCLASS_CHOP)
 	armor = ARMOR_PADDED_GOOD
 	max_integrity = ARMOR_INT_CHEST_LIGHT_MASTER
-	sellprice = 25
+	sellprice = 24
 	color = "#976E6B"
 	var/shiftable = TRUE
 	var/shifted = FALSE

@@ -19,7 +19,7 @@
 	slot_flags = null
 	max_integrity = 20
 	w_class = WEIGHT_CLASS_NORMAL
-	sellprice = 0
+	sellprice = 22
 
 /obj/item/construction/repairkit/structure/attack_obj(obj/O, mob/living/user)
 	. = ..()
