@@ -45,6 +45,7 @@
 		/obj/item/bodypart/taur/altnagatailmaw,
 		/obj/item/bodypart/taur/fatnaga,
 		/obj/item/bodypart/taur/bunny,
+		/obj/item/bodypart/taur/mammoth,
 		///Caustic edit end
 	)
 

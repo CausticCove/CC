@@ -425,3 +425,14 @@
 	west_offset = 18
 	east_offset = 18
 	south_offset = 26
+
+/datum/map_template/dungeon/room/hoblingoblin
+	mappath = "_maps/dungeon_generator/room/hoblingoblin.dmm"
+	id = "hoblin_goblin"
+	width = 24
+	height = 24
+
+	north_offset = 12
+	south_offset = 11
+	east_offset = 11
+	west_offset = 10
