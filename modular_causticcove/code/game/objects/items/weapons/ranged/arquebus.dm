@@ -1,4 +1,4 @@
-
+// All things gunpowder go below.
 /obj/item/gun/ballistic/arquebus
 	name = "arquebus rifle"
 	desc = "A gunpowder weapon that shoots an armor piercing metal ball."
@@ -42,6 +42,14 @@
 	var/gunpowder = FALSE
 	var/obj/item/ramrod/myrod = null
 	var/gunchannel
+
+/obj/item/gun/ballistic/arquebus/schioppetto // "It's just a reskinned Arquebus?" "Always has been."
+	name = "schioppetto" //"handgonne"
+	desc = "A gunpowder weapon that shoots an armor piercing metal ball, although this is a pretty antique way of doing it by todae's standards."
+	icon = 'modular_causticcove/icons/weapons/handgonne.dmi'
+	icon_state = "handgonne"
+	item_state = "handgonne"
+	// In the future, this will have more unique stats than just being a reskinned arquebus. I'm not doing that right now.
 
 /obj/item/gun/ballistic/arquebus/getonmobprop(tag)
 	. = ..()
