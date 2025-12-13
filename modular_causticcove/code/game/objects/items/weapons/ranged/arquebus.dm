@@ -44,7 +44,7 @@
 	var/gunchannel
 
 /obj/item/gun/ballistic/arquebus/schioppetto // "It's just a reskinned Arquebus?" "Always has been."
-	name = "schioppetto" //"handgonne"
+	name = "schioppo" //"handgonne"
 	desc = "A gunpowder weapon that shoots an armor piercing metal ball, although this is a pretty antique way of doing it by todae's standards."
 	icon = 'modular_causticcove/icons/weapons/handgonne.dmi'
 	icon_state = "handgonne"
