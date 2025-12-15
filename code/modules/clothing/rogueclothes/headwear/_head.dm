@@ -14,6 +14,7 @@
 	experimental_inhand = FALSE
 	var/hidesnoutADJ = FALSE
 	var/overarmor = TRUE
+	sellprice = 5
 
 /obj/item/clothing/head/roguetown/equipped(mob/user, slot)
 	. = ..()

@@ -13,6 +13,7 @@
 	color = null
 	r_sleeve_status = SLEEVE_NORMAL
 	l_sleeve_status = SLEEVE_NORMAL
+	sellprice = 80 //Very powerful armor tbh
 
 /obj/item/clothing/suit/roguetown/armor/basiceast
 	name = "simple dobo robe"
@@ -33,6 +34,7 @@
 	armor_class = ARMOR_CLASS_LIGHT
 	allowed_race = NON_DWARVEN_RACE_TYPES
 	flags_inv = HIDEBOOB|HIDECROTCH
+	sellprice = 44 // Has potential..
 
 //less integrity than a leather cuirass, incredibly weak to blunt damage - great against slash - standard leather value against stab
 //the intent for these armors is to create specific weaknesses/strengths for people to play with
@@ -44,6 +46,7 @@
 	item_state = "eastsuit2"
 	armor = ARMOR_LEATHER_STUDDED // Makes it the equivalence of studded with less integrity and better armor 
 	max_integrity = ARMOR_INT_CHEST_LIGHT_MEDIUM
+	sellprice = 70 //There we go!
 
 //craftable variation of eastsuit, essentially requiring the presence of a tailor with relevant materials
 //still weak against blunt
@@ -85,6 +88,7 @@
 	smelt_bar_num = 4
 	blocksound = SOFTHIT
 	armor_class = ARMOR_CLASS_MEDIUM
+	sellprice = 300 //It's elven! This shit is rather rare to get our hands on!!
 
 /obj/item/clothing/suit/roguetown/armor/plate/elven_plate/Initialize(mapload)
 	. = ..()

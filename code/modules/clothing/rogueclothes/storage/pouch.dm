@@ -17,6 +17,7 @@
 	grid_height = 64
 	grid_width = 32
 	component_type = /datum/component/storage/concrete/roguetown/coin_pouch
+	sellprice = 3
 
 /obj/item/storage/belt/rogue/pouch/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	. = ..()
@@ -101,6 +102,7 @@
 	grid_height = 64
 	grid_width = 32
 	component_type = /datum/component/storage/concrete/roguetown/coin_pouch/merchant
+	sellprice = 20 //Woah that's pretty...
 
 /obj/item/storage/belt/rogue/pouch/merchant/coins/Initialize() //Same as coins/rich
 	. = ..()

@@ -22,6 +22,7 @@
 
 	grid_width = 32
 	grid_height = 64
+	sellprice = 3
 
 /obj/item/clothing/shoes/ComponentInitialize()
 	. = ..()

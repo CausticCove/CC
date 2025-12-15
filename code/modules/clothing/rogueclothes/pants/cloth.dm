@@ -5,6 +5,7 @@
 	icon_state = "tights"
 	item_state = "tights"
 //	adjustable = CAN_CADJUST
+	sellprice = 3
 
 /obj/item/clothing/under/roguetown/tights/random/Initialize()
 	color = pick("#544236", "#435436", "#543836", "#79763f")

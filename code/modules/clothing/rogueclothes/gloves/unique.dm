@@ -11,6 +11,7 @@
 	blocksound = SOFTHIT
 	max_integrity = 200
 	anvilrepair = /datum/skill/craft/carpentry
+	sellprice = 100 //Elven!
 
 /obj/item/clothing/gloves/roguetown/bandages
 	name = "bandages"

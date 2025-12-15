@@ -14,6 +14,7 @@
 	anvilrepair = /datum/skill/craft/armorsmithing
 	experimental_inhand = FALSE
 	drop_sound = 'sound/foley/coinphy (1).ogg'
+	sellprice = 10
 
 /obj/item/clothing/ring/aalloy
 	name = "decrepit ring"

@@ -84,7 +84,7 @@
 	var/picked = FALSE
 	sleeved_detail = TRUE
 	boobed_detail = TRUE
-	sellprice = 50
+	sellprice = 27
 
 /obj/item/clothing/suit/roguetown/armor/brigandine/retinue/coat/attack_right(mob/user)
 	if(picked)
@@ -120,6 +120,7 @@
 	equip_delay_self = 40
 	armor_class = ARMOR_CLASS_LIGHT//steel version of the studded leather armor now
 	w_class = WEIGHT_CLASS_BULKY
+	sellprice = 22
 
 /obj/item/clothing/suit/roguetown/armor/brigandine/light/attack_right(mob/user)
 	if(detail_tag)
