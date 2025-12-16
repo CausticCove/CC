@@ -147,7 +147,7 @@
 	sleevetype = "ichainkilt"
 	sleeved = 'icons/roguetown/clothing/onmob/helpers/sleeves_pants.dmi'
 	alternate_worn_layer = (SHIRT_LAYER)
-		sellprice = 16
+	sellprice = 16
 
 /obj/item/clothing/under/roguetown/chainlegs/captain
 	name = "captain's chausses"
@@ -156,4 +156,4 @@
 	item_state = "capplateleg"
 	icon = 'icons/roguetown/clothing/special/captain.dmi'
 	mob_overlay_icon = 'icons/roguetown/clothing/special/onmob/captain.dmi'
-		sellprice = 25
+	sellprice = 25

@@ -20,7 +20,6 @@
 	allow_nesting = TRUE
 	intercept_parent_attack = FALSE
 	intercept_parent_mousedrop = FALSE
-	sellprice = 3
 
 /datum/component/storage/concrete/roguetown/hat/attackby(datum/source, obj/item/attacking_item, mob/user, params, storage_click)
 	if(is_type_in_list(attacking_item, cant_hold))
