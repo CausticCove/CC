@@ -19,6 +19,7 @@
 	minstr = 6
 	grid_width = 32
 	grid_height = 64
+	sellprice = 22 //Dastardly!
 
 /obj/item/rogueweapon/whip/getonmobprop(tag)
 	. = ..()
@@ -101,12 +102,14 @@
 	force = 25		//Same as a cudgel/sword for intent purposes. Basically a 2 range cudgel while one-handing.
 	possible_item_intents = list(/datum/intent/whip/crack/blunt, /datum/intent/whip/lash, /datum/intent/sword/strike)
 	wdefense = 1	//Akin to a cudgel, still terrible at parrying though. Better than nothing I guess; thing is used irl as a counter-weapon to knives.
+	sellprice = 27
 
 /obj/item/rogueweapon/whip/xylix
 	name = "cackle lash"
 	desc = "The chimes of this whip are said to sound as the trickster's laughter itself."
 	icon_state = "xylixwhip"
 	force = 24
+	sellprice = 30
 
 /obj/item/rogueweapon/whip/antique
 	name = "Repenta En"
@@ -114,6 +117,7 @@
 	force = 25
 	minstr = 11
 	icon_state = "gwhip"
+	sellprice = 50
 
 /obj/item/rogueweapon/whip/antique/psywhip
 	name = "Daybreak"
@@ -126,6 +130,7 @@
 	wdefense = 0
 	anvilrepair = /datum/skill/craft/weaponsmithing
 	smeltresult = /obj/item/ingot/silver
+	sellprice = 100
 
 /obj/item/rogueweapon/whip/antique/psywhip/ComponentInitialize()
 	AddComponent(\
@@ -148,6 +153,7 @@
 	wdefense = 0
 	is_silver = TRUE
 	smeltresult = /obj/item/ingot/silver
+	sellprice = 100
 
 /obj/item/rogueweapon/whip/silver/ComponentInitialize()
 	AddComponent(\
@@ -170,6 +176,7 @@
 	wdefense = 0
 	is_silver = TRUE
 	smeltresult = /obj/item/ingot/silverblessed
+	sellprice = 150
 
 /obj/item/rogueweapon/whip/psywhip_lesser/ComponentInitialize()
 	AddComponent(\
@@ -198,3 +205,4 @@
 	wdefense = 0
 	possible_item_intents = list(/datum/intent/whip/lash/holy, /datum/intent/whip/crack, /datum/intent/whip/punish) //Able to dismember at range. 'Holy' is a catchall term, in this case.
 	smeltresult = /obj/item/ingot/bronze
+	sellprice = 17
