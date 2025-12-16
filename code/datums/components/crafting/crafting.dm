@@ -791,10 +791,6 @@
 		var/obj/item/reagent_containers/R = I
 		R.volume *= modifier 
 
-	if(istype(I, /obj/item/natural/cloth)) //Better bandages? Better aid!
-		var/obj/item/natural/cloth/C = I
-		C.bandage_effectiveness *= modifier
-
 /client/verb/toggle_legacycraft()
 	set name = "Toggle legacy craft"
 	set category = "Options"
