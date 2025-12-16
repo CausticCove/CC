@@ -153,8 +153,8 @@
 	loot_atom_types = list(/obj/item/roguecoin/copper/pile = 3,
 						/obj/item/roguecoin/silver/pile = 2,
 						/obj/item/roguecoin/gold/pile = 1) //Money! We like money! Just as something to start...
-	loot_amt_upper = 7
-	loot_amt_lower = 4
+	loot_amt_upper = 0
+	loot_amt_lower = 0
 	
 	//Don't forget to change the areas! You can do more than one! See the goblin_swarm datum!
 	for(var/area/rogue/under/underdark/A in world) //Grab the areas. We always assume this exists on the map.
@@ -187,8 +187,8 @@
 	loot_atom_types = list(/obj/item/roguecoin/copper/pile = 3,
 						/obj/item/roguecoin/silver/pile = 2,
 						/obj/item/roguecoin/gold/pile = 1) //Money! We like money! Just as something to start...
-	loot_amt_upper = 6
-	loot_amt_lower = 3
+	loot_amt_upper = 0
+	loot_amt_lower = 0
 
 	spawn_range = 8 //Spread these guys out a bit. There's a lot.
 	rare_prob = 25 //Portals!? They have fuckin' PORTALS!? (DUH HOW ELSE DID THEY GET THERE!!!)
