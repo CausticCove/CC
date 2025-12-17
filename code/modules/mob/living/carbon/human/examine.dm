@@ -765,16 +765,28 @@
 				. += span_warning("<B>[t_He] look[p_s()] much weaker than I.</B>")
 
 	//CC Edit begin
-	if((user != src) && isliving(user))
-		var/datum/compliance_setting/comp_type = client?.prefs.compliance
-		if(comp_type == /datum/compliance_setting/armed_dangerous)
-			. += span_boldred("<B>[t_He] appear[p_s()] to be very dangerous.</B>")
-		if(comp_type == /datum/compliance_setting/armed_compliant)
-			. += span_warning("[t_He] look[p_s()] capable.")
-		if(comp_type == /datum/compliance_setting/non_belligerent)
-			. += span_info("[t_He] seem[p_s()] non-threatening.")
-		else if(!comp_type)
-			. += span_info("[t_He] seem[p_s()] neutral.")
+	if(isliving(user))
+		var/datum/compliance_setting/comp_type = user.client?.prefs.compliance
+		if((user != src))
+			switch(comp_type.switch_string)
+				if("armed_dangerous") //Armed and Dangerous
+					. += span_boldred("<B>[t_He] appear[p_s()] to be very dangerous.</B>")
+				if("armed_compliant") //Armed and Compliant
+					. += span_warning("[t_He] look[p_s()] capable.")
+				if("non_belligerent") //Non-Beligerent
+					. += span_info("[t_He] seem[p_s()] non-threatening.")
+				if("none")
+					. += span_info("[t_He] seem[p_s()] neutral.")
+		else
+			switch(comp_type.switch_string)
+				if("armed_dangerous") //Armed and Dangerous
+					. += span_boldred("<B>I appear very dangerous to others.</B>")
+				if("armed_compliant") //Armed and Compliant
+					. += span_warning("I look capable to others.")
+				if("non_belligerent") //Non-Beligerent
+					. += span_info("I seem non-threatening to others.")
+				if("none")
+					. += span_info("Alert a dev! You shouldn't be seeing this! How did you load into a game!?")
 	//CC Edit End
 
 	if((HAS_TRAIT(user,TRAIT_INTELLECTUAL)))
