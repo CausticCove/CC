@@ -7,7 +7,7 @@
 //	where you would want the updater procs below to run
 
 //	This also works with decimals.
-#define SAVEFILE_VERSION_MAX	33.9
+#define SAVEFILE_VERSION_MAX	34.9
 
 /*
 SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Carn
@@ -148,6 +148,9 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 
 						species_name = "Venardine"
 		_load_species(S, species_name)
+	if(current_version < 35) // Update compliance
+		var/compliance
+		S["compliance"] >> compliance
 
 /datum/preferences/proc/load_path(ckey,filename="preferences.sav")
 	if(!ckey)
@@ -466,6 +469,12 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	if (loadout_type5)
 		loadout5 = new loadout_type5()
 
+/datum/preferences/proc/_load_compliance(S)
+	var/compliance_type
+	S["compliance"] >> compliance_type
+	if(compliance_type)
+		compliance = new compliance_type()
+
 /datum/preferences/proc/_load_loadout_colours(S)
 	S["loadout_1_hex"] >> loadout_1_hex
 	S["loadout_2_hex"] >> loadout_2_hex
@@ -562,6 +571,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	//Caustic edit
 	_load_sizecat(S)
 	_load_pickupable(S)
+	_load_compliance(S)
 	//Caustic edit end
 	_load_culinary_preferences(S)
 	// LETHALSTONE edit: jank-ass load our statpack choice
@@ -641,6 +651,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	S["pronouns"] >> pronouns
 	S["voice_type"] >> voice_type
 	S["body_size"] >> features["body_size"]
+
 	if (!features["body_size"])
 		features["body_size"] = BODY_SIZE_NORMAL
 	//try to fix any outdated data if necessary
@@ -837,6 +848,10 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 		WRITE_FILE(S["loadout5"] , loadout5.type)
 	else
 		WRITE_FILE(S["loadout5"] , null)
+	if(compliance)
+		WRITE_FILE(S["compliance"] , compliance.type)
+	else
+		WRITE_FILE(S["compliance"] , null)
 	//Cove edit end
 
 	//Familiar Files

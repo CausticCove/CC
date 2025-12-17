@@ -45,13 +45,16 @@
 		if(!my_crime)
 			my_crime = "crimes against the Crown"
 		
-		var/list/bounty_cats = list(
-			"Meager" = rand(51, 200), 
-			"Moderate" = rand(101, 150), 
-			"Massive" = rand(150, 200),
-			)
+		var/list/bounty_cats = list("Meager", "Moderate", "Massive")
 		
 		var/bounty_amount = tgui_input_list(human, "How ample is your bounty?", "Blooded Gold", bounty_cats)
+		switch(bounty_amount)
+			if("Meager")
+				bounty_amount = rand(25, 100)
+			if("Moderate")
+				bounty_amount = rand(100, 150)
+			if("Massive")
+				bounty_amount = rand(150, 200)
 		var/race = human.dna.species
 		var/gender = human.gender
 		var/list/d_list = human.get_mob_descriptors()
@@ -59,7 +62,7 @@
 		var/descriptor_body = build_coalesce_description_nofluff(d_list, human, list(MOB_DESCRIPTOR_SLOT_BODY), "%DESC1%")
 		var/descriptor_voice = build_coalesce_description_nofluff(d_list, human, list(MOB_DESCRIPTOR_SLOT_VOICE), "%DESC1%")
 
-		add_bounty(human.real_name, race, gender, descriptor_height, descriptor_body, descriptor_voice, bounty_amount, FALSE, my_crime, "The Justiciary of Azuria")
+		add_bounty(human.real_name, race, gender, descriptor_height, descriptor_body, descriptor_voice, bounty_amount, FALSE, my_crime, "The Justiciary of Azuria", human.client.prefs.compliance)
 
 		if(tgui_alert(human, "Am i known criminal?", "OUTLAW", list("Nae", "Yae")) == "Yae")
 			GLOB.outlawed_players += human.real_name

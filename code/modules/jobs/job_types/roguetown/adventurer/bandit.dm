@@ -70,24 +70,35 @@
 
 // Changed up proc from Wretch to suit bandits bit more
 /proc/bandit_select_bounty(mob/living/carbon/human/H)
+	to_chat(H, span_warn("When writing down your bounties, You should have have some tact, Expect people to weigh their behavior towards you based on the severity of your crimes. Measure your crimes based on your compliance level when possible. Extreme crimes such as 'genocide' or similar are not allowed."))
 	var/bounty_poster = input(H, "Who placed a bounty on you?", "Bounty Poster") as anything in list("The Justiciary of Azuria", "The Grenzelhoftian Holy See")
-	var/bounty_severity = input(H, "How notorious are you?", "Bounty Amount") as anything in list("Small Fish", "Bay Butcher", "Azurean Boogeyman")
+	var/bounty_total = rand(300, 600)
+	if(istype(H.client.prefs.compliance, /datum/compliance_setting/non_belligerent))
+		var/bounty_severity_small = input(H, "How notorious are you?", "Bounty Amount") as anything in list("Pitiful", "Pathetic", "Inconceivable")
+		switch(bounty_severity_small) //Expected to RP, not as much a bounty.
+			if("Pitiful")
+				bounty_total = rand(200, 250)
+			if("Pathetic")
+				bounty_total = rand(250, 300)
+			if("Inconceivable")
+				bounty_total = rand(300, 350)
+	else
+		var/bounty_severity = input(H, "How notorious are you?", "Bounty Amount") as anything in list("Small Fish", "Bay Butcher", "Azurean Boogeyman")
+		switch(bounty_severity)
+			if("Small Fish")
+				bounty_total = rand(300, 400)
+			if("Bay Butcher")
+				bounty_total = rand(400, 500)
+			if("Azurean Boogeyman")
+				bounty_total = rand(500, 600)
 	var/race = H.dna.species
 	var/gender = H.gender
 	var/list/d_list = H.get_mob_descriptors()
 	var/descriptor_height = build_coalesce_description_nofluff(d_list, H, list(MOB_DESCRIPTOR_SLOT_HEIGHT), "%DESC1%")
 	var/descriptor_body = build_coalesce_description_nofluff(d_list, H, list(MOB_DESCRIPTOR_SLOT_BODY), "%DESC1%")
 	var/descriptor_voice = build_coalesce_description_nofluff(d_list, H, list(MOB_DESCRIPTOR_SLOT_VOICE), "%DESC1%")
-	var/bounty_total = rand(300, 600)
-	switch(bounty_severity)
-		if("Small Fish")
-			bounty_total = rand(300, 400)
-		if("Bay Butcher")
-			bounty_total = rand(400, 500)
-		if("Azurean Boogeyman")
-			bounty_total = rand(500, 600)
 	var/my_crime = input(H, "What is your crime?", "Crime") as text|null
 	if (!my_crime)
 		my_crime = "Brigandry"
-	add_bounty(H.real_name, race, gender, descriptor_height, descriptor_body, descriptor_voice, bounty_total, FALSE, my_crime, bounty_poster)
+	add_bounty(H.real_name, race, gender, descriptor_height, descriptor_body, descriptor_voice, bounty_total, FALSE, my_crime, bounty_poster, H.client.prefs.compliance)
 	to_chat(H, span_danger("You are a bandit! Wanted, hunted, You are a somewhat powerful role with many resources at your disposal. This role just like wretch is a soft-antag role, You are still subjected to rules of escalation. Work with your fellow bandits to accomplish your goals, preferably creating a good and interesting round and not going RDM. ")) //Caustic Cove Edit

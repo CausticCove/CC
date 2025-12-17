@@ -21,6 +21,7 @@
 	var/amount
 	var/reason
 	var/employer
+	var/datum/compliance
 
 	/// Whats displayed when consulting the bounties
 	var/banner
@@ -165,7 +166,7 @@
 	var/descriptor_voice = build_coalesce_description_nofluff(d_list, target, list(MOB_DESCRIPTOR_SLOT_VOICE), "%DESC1%")
 
 	// Finally create bounty
-	add_bounty(target.real_name, race, gender, descriptor_height, descriptor_body, descriptor_voice, amount, FALSE, reason, user.real_name)
+	add_bounty(target.real_name, race, gender, descriptor_height, descriptor_body, descriptor_voice, amount, FALSE, reason, user.real_name, target.client.prefs.compliance)
 
 	//Announce it locally and on scomm
 	playsound(src, 'sound/misc/machinetalk.ogg', 100, FALSE, -1)
@@ -175,7 +176,7 @@
 
 	message_admins("[ADMIN_LOOKUPFLW(user)] has set a bounty on [ADMIN_LOOKUPFLW(target)] with the reason of: '[reason]'")
 
-/proc/add_bounty(target_realname, race, gender, descriptor_height, descriptor_body, descriptor_voice, amount, bandit_status, reason, employer_name)
+/proc/add_bounty(target_realname, race, gender, descriptor_height, descriptor_body, descriptor_voice, amount, bandit_status, reason, employer_name, compliance)
 	var/datum/bounty/new_bounty = new /datum/bounty
 	new_bounty.amount = amount
 	new_bounty.target = target_realname
@@ -185,6 +186,7 @@
 	new_bounty.target_race = race
 	new_bounty.target_height = lowertext(descriptor_height)
 	new_bounty.target_body = lowertext(descriptor_body)
+	new_bounty.compliance = compliance
 	if(descriptor_body == "Average" || descriptor_body == "Athletic")
 		var/bro_unreal = "an "
 		new_bounty.target_body_prefix = lowertext(bro_unreal += descriptor_body)
@@ -210,14 +212,43 @@
 	switch(rand(1, 3))
 		if(1)
 			new_bounty.banner += "A dire bounty hangs upon the capture of [new_bounty.target], for '[new_bounty.reason]'.<BR>"
+
+			//Handle Compliance
+			if(istype(new_bounty.compliance, /datum/compliance_setting/armed_dangerous))
+				new_bounty.banner += "They are Armed and Dangerous. Aproach with extreme caution!<BR>"
+			if(istype(new_bounty.compliance, /datum/compliance_setting/armed_compliant))
+				new_bounty.banner += "They are Armed and Compliant. It may be possible to reason with the target, caution is advised.<BR>"
+			if(istype(new_bounty.compliance, /datum/compliance_setting/non_belligerent))
+				new_bounty.banner += "They are Non-Belligerent. Target is largely non-violent, approach with care.<BR>"
+
 			new_bounty.banner += "They are a criminal belonging to the [new_bounty.target_race] race, going by the following description: they are [new_bounty.target_height], of a [new_bounty.target_body_type] build and they have [new_bounty.target_body_prefix] physique. They speak with [new_bounty.target_voice_prefix] voice.'.<BR>"
 			new_bounty.banner += "The patron, [new_bounty.employer], offers [new_bounty.amount] mammons for the task.<BR>"
+
 		if(2)
 			new_bounty.banner += "The capture of [new_bounty.target] is wanted for '[new_bounty.reason]''.<BR>"
+
+			//Handle Compliance
+			if(istype(new_bounty.compliance, /datum/compliance_setting/armed_dangerous))
+				new_bounty.banner += "They are Armed and Dangerous. Aproach with extreme caution!<BR>"
+			if(istype(new_bounty.compliance, /datum/compliance_setting/armed_compliant))
+				new_bounty.banner += "They are Armed and Compliant. It may be possible to reason with the target, caution is advised.<BR>"
+			if(istype(new_bounty.compliance, /datum/compliance_setting/non_belligerent))
+				new_bounty.banner += "They are Non-Belligerent. Target is largely non-violent, approach with care.<BR>"
+
 			new_bounty.banner += "They are a reprobate belonging to the [new_bounty.target_race] race, going by the following description: they are [new_bounty.target_height], of a [new_bounty.target_body_type] build and they have [new_bounty.target_body_prefix] physique. They speak with [new_bounty.target_voice_prefix] voice.'.<BR>"
 			new_bounty.banner += "The employer, [new_bounty.employer], offers [new_bounty.amount] mammons for the deed.<BR>"
+
 		if(3)
 			new_bounty.banner += "[new_bounty.employer] hath offered to pay [new_bounty.amount] mammons for the capture of [new_bounty.target].<BR>"
+
+			//Handle Compliance
+			if(istype(new_bounty.compliance, /datum/compliance_setting/armed_dangerous))
+				new_bounty.banner += "They are Armed and Dangerous. Aproach with extreme caution!<BR>"
+			if(istype(new_bounty.compliance, /datum/compliance_setting/armed_compliant))
+				new_bounty.banner += "They are Armed and Compliant. It may be possible to reason with the target, caution is advised.<BR>"
+			if(istype(new_bounty.compliance, /datum/compliance_setting/non_belligerent))
+				new_bounty.banner += "They are Non-Belligerent. Target is largely non-violent, approach with care.<BR>"
+
 			new_bounty.banner += "By reason of the following: '[new_bounty.reason]'.<BR>"
 			new_bounty.banner += "They are a heathen belonging to the [new_bounty.target_race] race, going by the following description: they are [new_bounty.target_height], of a [new_bounty.target_body_type] build and they have [new_bounty.target_body_prefix] physique. They speak with [new_bounty.target_voice_prefix] voice.'.<BR>"
 	new_bounty.banner += "--------------<BR>"

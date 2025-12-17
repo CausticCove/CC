@@ -158,6 +158,9 @@ GLOBAL_LIST_INIT(roleplay_readme, world.file2list("strings/rt/rp_prompt.txt"))
 				if(length(client.prefs.ooc_notes) < MINIMUM_OOC_NOTES)
 					to_chat(src, span_boldwarning("You need at least a few words in your OOC notes in order to play."))
 					return
+				if(!client.prefs.compliance)
+					to_chat(usr, span_boldwarning("You must set a compliance level before readying up."))
+					return
 
 			if(ready != tready)
 				ready = tready
@@ -184,6 +187,10 @@ GLOBAL_LIST_INIT(roleplay_readme, world.file2list("strings/rt/rp_prompt.txt"))
 
 		if(client && client.prefs.is_active_migrant())
 			to_chat(usr, span_boldwarning("You are in the migrant queue."))
+			return
+
+		if(!client.prefs.compliance)
+			to_chat(usr, span_boldwarning("You must set a compliance level before joining the game."))
 			return
 
 		if(href_list["late_join"] == "override")
@@ -257,6 +264,10 @@ GLOBAL_LIST_INIT(roleplay_readme, world.file2list("strings/rt/rp_prompt.txt"))
 
 		if(length(client.prefs.ooc_notes) < MINIMUM_OOC_NOTES)
 			to_chat(src, span_boldwarning("You need at least a few words in your OOC notes in order to play."))
+			return
+
+		if(!client.prefs.compliance)
+			to_chat(usr, span_boldwarning("You must set a compliance level before joining."))
 			return
 
 		AttemptLateSpawn(href_list["SelectedJob"])

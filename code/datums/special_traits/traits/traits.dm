@@ -416,7 +416,7 @@
 			reason = "heresy"
 		if(7)
 			reason = "robbing a noble"
-	add_bounty(character.real_name, amount, FALSE, reason, employer)
+	add_bounty(character.real_name, amount, FALSE, reason, employer, compliance = character.client.prefs.compliance)
 	if(!silent)
 		to_chat(character, span_notice("Whether I done it or not, I have been accused of [reason], and the [employer] put a bounty on my head!"))
 

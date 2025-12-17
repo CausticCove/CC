@@ -59,31 +59,46 @@
 
 // Proc for wretch to select a bounty
 /proc/wretch_select_bounty(mob/living/carbon/human/H)
+	to_chat(H, span_warn("When writing down your bounties, You should have have some tact, Expect people to weigh their behavior towards you based on the severity of your crimes. Measure your crimes based on your compliance level when possible. Extreme crimes such as 'genocide' or similar are not allowed."))
 	var/bounty_poster = input(H, "Who placed a bounty on you?", "Bounty Poster") as anything in list("The Justiciary of Azuria", "The Grenzelhoftian Holy See", "The Otavan Orthodoxy")
 	// Felinid said we should gate it at 100 or so on at the lowest, so that wretch cannot ezmode it.
-	var/bounty_severity = input(H, "How severe are your crimes?", "Bounty Amount") as anything in list("Misdeed", "Harm towards lyfe", "Horrific atrocities")
+	var/bounty_total = rand(100, 400) // Just in case
+	if(istype(H.client.prefs.compliance, /datum/compliance_setting/non_belligerent))
+		var/bounty_severity_small = input(H, "How severe are your crimes?", "Bounty Amount") as anything in list("Pitiful", "Pathetic", "Inconceivable")
+		switch(bounty_severity_small)
+			if("Pitiful")
+				bounty_total = rand(25, 50)
+			if("Pathetic")
+				bounty_total = rand(50, 75)
+			if("Inconceivable")
+				bounty_total = rand(75, 100) // Let's not make it TOO profitable... Y'knnnnow?
+				if(bounty_poster == "The Justiciary of Azuria")
+					GLOB.outlawed_players += H.real_name
+				else
+					GLOB.excommunicated_players += H.real_name
+	else
+		var/bounty_severity = input(H, "How severe are your crimes?", "Bounty Amount") as anything in list("Misdeed", "Harm towards lyfe", "Horrific atrocities")
+		switch(bounty_severity)
+			if("Misdeed")
+				bounty_total = rand(100, 200)
+			if("Harm towards lyfe")
+				bounty_total = rand(200, 300)
+			if("Horrific atrocities")
+				bounty_total = rand(300, 400) // Let's not make it TOO profitable
+				if(bounty_poster == "The Justiciary of Azuria")
+					GLOB.outlawed_players += H.real_name
+				else
+					GLOB.excommunicated_players += H.real_name
 	var/race = H.dna.species
 	var/gender = H.gender
 	var/list/d_list = H.get_mob_descriptors()
 	var/descriptor_height = build_coalesce_description_nofluff(d_list, H, list(MOB_DESCRIPTOR_SLOT_HEIGHT), "%DESC1%")
 	var/descriptor_body = build_coalesce_description_nofluff(d_list, H, list(MOB_DESCRIPTOR_SLOT_BODY), "%DESC1%")
 	var/descriptor_voice = build_coalesce_description_nofluff(d_list, H, list(MOB_DESCRIPTOR_SLOT_VOICE), "%DESC1%")
-	var/bounty_total = rand(100, 400) // Just in case
-	switch(bounty_severity)
-		if("Misdeed")
-			bounty_total = rand(100, 200)
-		if("Harm towards lyfe")
-			bounty_total = rand(200, 300)
-		if("Horrific atrocities")
-			bounty_total = rand(300, 400) // Let's not make it TOO profitable
-			if(bounty_poster == "The Justiciary of Azuria")
-				GLOB.outlawed_players += H.real_name
-			else
-				GLOB.excommunicated_players += H.real_name
 	var/my_crime = input(H, "What is your crime?", "Crime") as text|null
 	if (!my_crime)
 		my_crime = "crimes against the Crown"
-	add_bounty(H.real_name, race, gender, descriptor_height, descriptor_body, descriptor_voice, bounty_total, FALSE, my_crime, bounty_poster)
+	add_bounty(H.real_name, race, gender, descriptor_height, descriptor_body, descriptor_voice, bounty_total, FALSE, my_crime, bounty_poster, H.client.prefs.compliance)
 	to_chat(H, span_danger("You are NOT an Antagonistic role. You are at most a 'soft-antag'. You are an outcast, an outlaw or a heretic. You are unwanted by society and potentially wanted with a bounty. Play this role in good faith and understand that sowing too much chaos will lead to consequences. This role does not give you the go ahead to attack others without warning, frag or spam skeletons in town. Your goal as a wretch is to pursue your personal goals and reach the end of the week alive and not in captivity. Remember this is HRP. ")) //Caustic Cove Edit
 
 /proc/update_wretch_slots()
