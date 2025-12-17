@@ -269,9 +269,9 @@
 	created_item = /obj/item/clothing/suit/roguetown/armor/plate/cuirass/iron
 
 /datum/anvil_recipe/armor/iron/lbrigandine
-	name = "Light Brigandine, Iron (+1 Cloth)"
-	req_bar = /obj/item/ingot/iron
-	req_blade = /obj/item/blade/iron_plate
+	name = "Light Brigandine, Steel (+1 Cloth)"
+	req_bar = /obj/item/ingot/steel
+	req_blade = /obj/item/blade/steel_plate
 	additional_items = list(/obj/item/natural/cloth)
 	created_item = /obj/item/clothing/suit/roguetown/armor/brigandine/light
 	i_type = "Armor"

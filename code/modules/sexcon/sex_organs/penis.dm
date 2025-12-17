@@ -35,15 +35,19 @@
 	var/current_arousal = arousal_data["arousal"] || 0
 	var/arousal_percent = min(100, (current_arousal / max_arousal) * 100)
 
+	//Caustic Edit
 	var/new_state = ERECT_STATE_NONE
 	switch(arousal_percent)
-		if(0 to 10)
+		if(0 to 7)
 			new_state = ERECT_STATE_NONE
-		if(11 to 35)
+		if(8 to 13)
 			new_state = ERECT_STATE_PARTIAL
-		if(36 to 100)
+		if(14 to 20)
+			new_state = ERECT_STATE_STIFF
+		if(21 to 100)
 			new_state = ERECT_STATE_HARD
 	update_erect_state(new_state)
+	//Caustic End
 
 /obj/item/organ/penis/proc/update_erect_state(new_state = ERECT_STATE_NONE)
 	var/oldstate = erect_state

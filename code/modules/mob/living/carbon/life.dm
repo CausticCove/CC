@@ -590,7 +590,7 @@ GLOBAL_LIST_INIT(ballmer_windows_me_msg, list("Yo man, what if, we like, uh, put
 				if(HAS_TRAIT(src, TRAIT_OUTDOORSMAN))
 					var/obj/structure/flora/newbranch/branch = locate() in loc
 					if(branch)
-						sleepy_mod = 0.5 // equivalent to leaning against a wall, since you get this while NOT asleep
+						sleepy_mod = 2 //Worse than a bedroll, better than nothing.
 		//Caustic edit
 		else if(istype(loc,/obj/belly))
 			sleepy_mod = 3

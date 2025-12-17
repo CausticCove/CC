@@ -1302,10 +1302,6 @@
 "th" = (
 /turf/open/floor/rogue/woodturned,
 /area/rogue/indoors/eventarea)
-"tj" = (
-/obj/structure/chair/bench/church,
-/turf/open/floor/rogue/concrete,
-/area/rogue/under/cave/inhumen)
 "tr" = (
 /obj/effect/decal/cleanable/blood/tracks,
 /turf/open/floor/rogue/naturalstone,
@@ -1981,7 +1977,9 @@
 /turf/open/floor/rogue/hexstone,
 /area/rogue/under/cave/inhumen)
 "KG" = (
-/obj/structure/chair/bench/church/r,
+/obj/structure/chair/bench/church/r{
+	dir = 1
+	},
 /turf/open/floor/rogue/concrete,
 /area/rogue/under/cave/inhumen)
 "KZ" = (
@@ -2192,6 +2190,10 @@
 /obj/item/natural/bundle/stick,
 /obj/item/rogueore/coal,
 /turf/open/floor/rogue/cobble,
+/area/rogue/under/cave/inhumen)
+"Sp" = (
+/obj/structure/closet/crate/coffin/vampire,
+/turf/open/floor/rogue/hexstone,
 /area/rogue/under/cave/inhumen)
 "Sv" = (
 /turf/open/floor/rogue/dirt,
@@ -2511,7 +2513,9 @@
 /turf/open/floor/rogue/tile/masonic,
 /area/rogue/indoors/eventarea)
 "ZN" = (
-/obj/structure/chair/bench/church/mid,
+/obj/structure/chair/bench/church/mid{
+	dir = 1
+	},
 /turf/open/floor/rogue/concrete,
 /area/rogue/under/cave/inhumen)
 "ZQ" = (
@@ -3017,7 +3021,7 @@ XV
 wN
 TS
 IT
-ws
+Sp
 ws
 fh
 tF
@@ -5236,7 +5240,7 @@ ol
 ws
 DT
 DT
-tj
+DT
 ws
 ws
 If
@@ -5756,7 +5760,7 @@ QT
 ws
 DT
 DT
-tj
+DT
 ws
 ws
 xL

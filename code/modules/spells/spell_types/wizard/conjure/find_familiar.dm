@@ -17,7 +17,7 @@
 
 	xp_gain = TRUE
 	spell_tier = 1
-	cost = 1
+	cost = 3
 
 	invocations = list("Appare, spiritus fidus.")
 	invocation_type = "whisper"
@@ -300,8 +300,8 @@
 	user.visible_message(span_notice("[awakener.summoning_emote]"))
 
 	// Apply summoner's familiar buff
-	//if (awakener.buff_given)
-	//	user.apply_status_effect(awakener.buff_given)
+	if (awakener.buff_given)
+		user.apply_status_effect(awakener.buff_given)
 
 	// Transfer player's mind to the familiar
 	if (!chosen_one.mind)

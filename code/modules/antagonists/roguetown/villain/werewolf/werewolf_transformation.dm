@@ -104,6 +104,15 @@
 	W.stored_experience = ensure_skills().skill_experience.Copy()
 	W.cmode_music_override = cmode_music_override
 	W.cmode_music_override_name = cmode_music_override_name
+	// CC Edit Start
+	// Transfer voregans and contents of them to the destination form
+	W.vore_organs = vore_organs.Copy()
+	W.vore_selected = vore_selected
+	for(var/obj/belly/B as anything in vore_organs)
+		B.forceMove(W)
+		B.owner = W
+	vore_organs.Cut()
+	// CC Edit End
 	mind.transfer_to(W)
 	skills?.known_skills = list()
 	skills?.skill_experience = list()
@@ -170,7 +179,15 @@
 	W.copy_known_languages_from(WA.stored_language)
 	skills?.known_skills = WA.stored_skills.Copy()
 	skills?.skill_experience = WA.stored_experience.Copy()
-
+	// CC Edit Start
+	// Transfer voregans and contents of them to the destination form
+	W.vore_organs = vore_organs.Copy()
+	W.vore_selected = vore_selected
+	for(var/obj/belly/B as anything in vore_organs)
+		B.forceMove(W)
+		B.owner = W
+	vore_organs.Cut()
+	// CC Edit End
 	W.RemoveSpell(new /obj/effect/proc_holder/spell/self/howl)
 	W.RemoveSpell(new /obj/effect/proc_holder/spell/self/claws)
 	W.RemoveSpell(new /obj/effect/proc_holder/spell/targeted/woundlick)

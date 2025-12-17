@@ -49,6 +49,8 @@
 			tag = tag + "_4"
 		if(breasts.breast_size == 5)
 			tag = tag + "_5"
+		if(breasts.breast_size > 5) //caustic edit
+			tag = tag + "_5"
 		return tag
 	else
 		return "bikini_f_0"
@@ -79,6 +81,8 @@
 		if(breasts.breast_size == 4)
 			tag = tag + "_4"
 		if(breasts.breast_size == 5)
+			tag = tag + "_5"
+		if(breasts.breast_size > 5) //caustic edit
 			tag = tag + "_5"
 		return tag
 	else

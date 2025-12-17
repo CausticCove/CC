@@ -240,6 +240,7 @@
 	drop_sound = 'sound/foley/dropsound/armor_drop.ogg'
 	armor_class = ARMOR_CLASS_LIGHT
 	unenchantable = TRUE
+	shielding_armor = ARMOR_SHIELD
 
 /obj/item/clothing/ring/fate_weaver/proc/dispel()
 	if(!QDELETED(src))

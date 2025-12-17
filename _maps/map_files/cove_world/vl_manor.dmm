@@ -629,7 +629,7 @@
 /area/rogue/indoors/vampire_manor)
 "kJ" = (
 /obj/structure/mannequin,
-/obj/item/clothing/suit/roguetown/armor/plate/half/aalloy,
+/obj/item/clothing/suit/roguetown/armor/plate/aalloy,
 /obj/item/clothing/shoes/roguetown/boots/aalloy,
 /obj/item/clothing/neck/roguetown/gorget/aalloy,
 /obj/item/clothing/head/roguetown/helmet/heavy/guard/aalloy,
@@ -1182,7 +1182,7 @@
 /area/rogue/indoors/vampire_manor)
 "un" = (
 /obj/structure/mannequin,
-/obj/item/clothing/suit/roguetown/armor/plate/half/aalloy,
+/obj/item/clothing/suit/roguetown/armor/plate/aalloy,
 /obj/item/clothing/shoes/roguetown/boots/aalloy,
 /obj/item/clothing/neck/roguetown/gorget/aalloy,
 /obj/item/clothing/head/roguetown/helmet/heavy/guard/aalloy,
@@ -1513,7 +1513,7 @@
 /area/rogue/indoors/vampire_manor)
 "yp" = (
 /obj/structure/mannequin,
-/obj/item/clothing/suit/roguetown/armor/plate/half/aalloy,
+/obj/item/clothing/suit/roguetown/armor/plate/aalloy,
 /obj/item/clothing/shoes/roguetown/boots/aalloy,
 /obj/item/clothing/neck/roguetown/gorget/aalloy,
 /obj/item/clothing/head/roguetown/helmet/heavy/guard/aalloy,
@@ -1775,7 +1775,7 @@
 /area/rogue/indoors/vampire_manor)
 "CR" = (
 /obj/structure/mannequin,
-/obj/item/clothing/suit/roguetown/armor/plate/half/aalloy,
+/obj/item/clothing/suit/roguetown/armor/plate/aalloy,
 /obj/item/clothing/shoes/roguetown/boots/aalloy,
 /obj/item/clothing/neck/roguetown/gorget/aalloy,
 /obj/item/clothing/head/roguetown/helmet/heavy/guard/aalloy,
@@ -2602,7 +2602,7 @@
 /area/rogue/indoors/vampire_manor)
 "Qh" = (
 /obj/structure/mannequin,
-/obj/item/clothing/suit/roguetown/armor/plate/half/aalloy,
+/obj/item/clothing/suit/roguetown/armor/plate/aalloy,
 /obj/item/clothing/shoes/roguetown/boots/aalloy,
 /obj/item/clothing/neck/roguetown/gorget/aalloy,
 /obj/item/clothing/head/roguetown/helmet/heavy/guard/aalloy,
@@ -3190,7 +3190,7 @@
 /area/rogue/indoors/vampire_manor)
 "XT" = (
 /obj/structure/mannequin,
-/obj/item/clothing/suit/roguetown/armor/plate/half/aalloy,
+/obj/item/clothing/suit/roguetown/armor/plate/aalloy,
 /obj/item/clothing/shoes/roguetown/boots/aalloy,
 /obj/item/clothing/neck/roguetown/gorget/aalloy,
 /obj/item/clothing/head/roguetown/helmet/heavy/guard/aalloy,
@@ -3270,7 +3270,7 @@
 /area/rogue/outdoors/woods)
 "YQ" = (
 /obj/structure/mannequin,
-/obj/item/clothing/suit/roguetown/armor/plate/half/aalloy,
+/obj/item/clothing/suit/roguetown/armor/plate/aalloy,
 /obj/item/clothing/shoes/roguetown/boots/aalloy,
 /obj/item/clothing/neck/roguetown/gorget/aalloy,
 /obj/item/clothing/head/roguetown/helmet/heavy/guard/aalloy,

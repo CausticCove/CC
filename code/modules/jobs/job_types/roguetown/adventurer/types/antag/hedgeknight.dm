@@ -5,16 +5,19 @@
 	allowed_races = RACES_ALL_KINDS //Caustic edit from RACES_NO_CONSTRUCT
 	outfit = /datum/outfit/job/roguetown/bandit/hedgeknight
 	category_tags = list(CTAG_BANDIT)
-	maximum_possible_slots = 2 //Too many plate armoured fellas is scawy ...
+	//Caustic edit
+	maximum_possible_slots = 1 //The right hand man of the Iconoclast
+	//Caustic edit end
 	cmode_music = 'sound/music/cmode/antag/combat_thewall.ogg' // big chungus gets the wall too
 	traits_applied = list(TRAIT_MEDIUMARMOR, TRAIT_HEAVYARMOR, TRAIT_NOBLE)
 	subclass_stats = list(
+		//Caustic edit
 		STATKEY_CON = 3, //dark souls 3 dual greatshield moment
 		STATKEY_STR = 2,
 		STATKEY_WIL = 2,
-		STATKEY_LCK = 2,
-		STATKEY_INT = 1,
-		STATKEY_SPD = 1,
+		STATKEY_LCK = 1,
+		STATKEY_SPD = -1
+		//Caustic edit end
 	)
 	subclass_skills = list(
 		/datum/skill/combat/polearms = SKILL_LEVEL_JOURNEYMAN,

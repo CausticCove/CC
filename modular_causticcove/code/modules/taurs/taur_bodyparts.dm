@@ -233,3 +233,11 @@
 	taur_icon_state = "bigbunny_s"
 
 	has_taur_color = TRUE
+
+/obj/item/bodypart/taur/mammoth
+	name = "Mammoth Body"
+
+	offset_x = -16
+	taur_icon_state = "mammoth_s"
+
+	has_taur_color = TRUE

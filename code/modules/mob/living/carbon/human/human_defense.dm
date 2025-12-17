@@ -20,18 +20,19 @@
 	if(isbodypart(def_zone))
 		var/obj/item/bodypart/CBP = def_zone
 		def_zone = CBP.body_zone
-	var/obj/item/clothing/used
 	var/protection = 0
-	used = get_best_worn_armor(def_zone, d_type)
-	if(used)
-		protection = used.armor.getRating(d_type)
+	var/cur_armor = 1 //Used to index the list
+	var/list/used_armors = get_all_of_worn_armors(def_zone, d_type) //Will return only 1 item if said item has shielding_armor = TRUE variable set and calculate damage *only* for that.
+	var/obj/item/clothing/best_used
+	for(var/i in 1 to length(used_armors))
+		var/obj/item/clothing/used = used_armors[cur_armor]
+
+		//Find the armor with the highest protection value.
+		best_used = get_best_worn_armor(def_zone, d_type)
+		protection = best_used.armor.getRating(d_type)
+		
 		if(!blade_dulling)
 			blade_dulling = BCLASS_BLUNT
-		if(blade_dulling == BCLASS_PEEL)	//Peel shouldn't be dealing any damage through armor, or to armor itself.
-			used.peel_coverage(def_zone, peeldivisor, src)
-			damage = 0
-			if(def_zone == BODY_ZONE_CHEST)
-				purge_peel(99)
 		if(used.blocksound)
 			playsound(loc, get_armor_sound(used.blocksound, blade_dulling), 100)
 		var/intdamage = damage
@@ -50,9 +51,44 @@
 			if(bless.is_blessed)
 				// Apply multiplier if the blessing is active.
 				intdamage = round(intdamage * bless.cursed_item_intdamage)
+		
+		//Integrity Spread armor ratio begins here.
+		if(length(used_armors) >= 2) //Check if we even have multiple armors.
+			var/ratio_index = 1
+			var/ratio_total = 0
+			var/list/AC_ratio = get_armor_class_ratio(used_armors)
+			for(var/ii in 1 to length(AC_ratio))
+				var/val = AC_ratio[ratio_index]
+				ratio_index++
+				ratio_total += val
+
+			if(ratio_total) //Only spread damage if the ratio has a value. Typically this will always be the case.
+				var/damage_ratio_percentage = AC_ratio[cur_armor] / ratio_total
+				intdamage *= damage_ratio_percentage
+	
 		used.take_damage(intdamage, damage_flag = d_type, sound_effect = FALSE, armor_penetration = 100)
-	if(physiology)
+		cur_armor++ //Index to the next armor piece.
+
+	if(physiology) //Species armor resistance.
 		protection += physiology.armor.getRating(d_type)
+	
+	//Special peel check.
+	cur_armor = 1
+	var/obj/item/clothing/used = used_armors[cur_armor]
+	for(var/i in 1 to length(used_armors))
+		var/peel_goal = used.peel_threshold
+		if(peeldivisor > peel_goal)
+			peel_goal = peeldivisor
+		if(used.peel_count >= peel_goal)
+			cur_armor++ //Next; This one is fucked.
+			continue
+		if(blade_dulling == BCLASS_PEEL)	//Peel shouldn't be dealing any damage through armor, or to armor itself.
+			used.peel_coverage(def_zone, peeldivisor, src)
+			damage = 0
+			if(def_zone == BODY_ZONE_CHEST)
+				purge_peel(99)
+			break //Only run once
+
 	return protection
 
 /mob/living/carbon/human/proc/checkcritarmor(def_zone, d_type)
@@ -795,6 +831,8 @@
 	var/obj/item/clothing/used
 	if(def_zone == BODY_ZONE_TAUR)
 		def_zone = pick(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
+	var/new_val = 0 //We are the newest
+	var/old_val = 0 //We are the HIGHEST
 	var/list/body_parts = list(skin_armor, head, wear_mask, wear_wrists, gloves, wear_neck, cloak, wear_armor, wear_shirt, shoes, wear_pants, backr, backl, belt, s_store, glasses, ears, wear_ring) //Everything but pockets. Pockets are l_store and r_store. (if pockets were allowed, putting something armored, gloves or hats for example, would double up on the armor)
 	for(var/bp in body_parts)
 		if(!bp)
@@ -802,8 +840,8 @@
 		if(skin_armor) //Checks for the natural_armor first.
 			if(skin_armor.obj_integrity > 0)
 				var/obj/item/clothing/C = skin_armor
-				var/val = C.armor.getRating(d_type)
-				if(val > 0)
+				new_val = C.armor.getRating(d_type)
+				if(new_val > old_val)
 					used = C
 		if(bp && istype(bp, /obj/item/clothing))
 			var/obj/item/clothing/C = bp
@@ -811,10 +849,48 @@
 				if(C.max_integrity)
 					if(C.obj_integrity <= 0)
 						continue
-				var/val = C.armor.getRating(d_type)
-				if(val > 0)
+				new_val = C.armor.getRating(d_type) 
+				if(new_val > old_val) //Check ratings between old and new armor values.
+					old_val = new_val
 					used = C
 	return used
+
+/// Similar to get_best_worn_armor(), but instead returns a list of all armors that protect the same spot.
+/mob/living/carbon/human/proc/get_all_of_worn_armors(def_zone, d_type)
+	var/list/used_armors_list = list()
+	if(def_zone == BODY_ZONE_TAUR)
+		def_zone = pick(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
+	var/new_val = 0 //We are the newest
+	var/old_val
+	var/shield //Boolshit check.
+	var/list/body_parts = list(skin_armor, head, wear_mask, wear_wrists, gloves, wear_neck, cloak, wear_armor, wear_shirt, shoes, wear_pants, backr, backl, belt, s_store, glasses, ears, wear_ring) //Everything but pockets. Pockets are l_store and r_store. (if pockets were allowed, putting something armored, gloves or hats for example, would double up on the armor)
+	if(skin_armor)
+		var/obj/item/clothing/C = skin_armor
+		if(C.obj_integrity > 0)
+			used_armors_list += C
+	else
+		for(var/bp in body_parts) //Check for every BP of armor on them.
+			if(!bp)
+				continue
+			if(bp && istype(bp, /obj/item/clothing))
+				var/obj/item/clothing/C = bp
+				if(zone2covered(def_zone, C.body_parts_covered_dynamic)) //Check if the BP slot covers the defense zone
+					if(C.max_integrity)
+						if(C.obj_integrity <= 0)
+							continue
+					
+					new_val = C.armor.getRating(d_type)
+					if(C.shielding_armor) //Always defaults as the only armor being worn as it acts as a shield, and only the armor with the greater protection value.
+						if(new_val > old_val)
+							shield = TRUE //We have a shield, don't get any more new armors onto the list. All integrity goes to this armor piece.
+							used_armors_list = list() //Clear list-
+							used_armors_list += C //Repopulate with only the shielded item, only if it has a greater value however.
+							continue //NEXT!!! WE NEED TO SEE IF THERES ANYTHING STRONGER *SMILES*
+					if(new_val > 0 && !shield) //Check if it has any defense.
+						old_val = new_val
+						used_armors_list += C
+
+	return used_armors_list
 
 /mob/living/carbon/human/on_fire_stack(seconds_per_tick, datum/status_effect/fire_handler/fire_stacks/fire_handler)
 	//SEND_SIGNAL(src, COMSIG_HUMAN_BURNING)
@@ -880,3 +956,27 @@
 	for(var/X in burning_items)
 		var/obj/item/I = X
 		I.fire_act(stacks * 25 * seconds_per_tick) //damage taken is reduced to 2% of this value by fire_act()
+
+
+//Used to grab the ratio for all armor pieces meant to be damaged for use with the checkarmor() proc.
+//Can handle either one, or multiple pieces of armor.
+
+/mob/living/carbon/human/proc/get_armor_class_ratio(armor_list)
+	var/cur_armor = 1 //List indexing value
+	var/list/ratio_list = list()
+	for(var/i in 1 to length(armor_list))
+		var/obj/item/clothing/used = armor_list[cur_armor]
+		var/cur_ratio = 0
+		switch(used.armor_class)
+			if(ARMOR_CLASS_NONE)
+				cur_ratio = AC_NONE_RATIO
+			if(ARMOR_CLASS_LIGHT)
+				cur_ratio = AC_LIGHT_RATIO
+			if(ARMOR_CLASS_MEDIUM)
+				cur_ratio = AC_MEDIUM_RATIO
+			if(ARMOR_CLASS_HEAVY)
+				cur_ratio = AC_HEAVY_RATIO
+		ratio_list += cur_ratio
+		cur_armor++
+	return ratio_list
+

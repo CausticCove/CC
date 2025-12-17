@@ -8,13 +8,18 @@
 	cmode_music = 'sound/music/combat_physician.ogg'
 	traits_applied = list(TRAIT_MEDICINE_EXPERT, TRAIT_NOSTINK, TRAIT_EMPATH, TRAIT_DODGEEXPERT, TRAIT_DECEIVING_MEEKNESS, TRAIT_ALCHEMY_EXPERT)
 	subclass_stats = list(
-		STATKEY_INT = 4,
-		STATKEY_SPD = 3,
-		STATKEY_LCK = 3
+		//Caustic edit
+		STATKEY_INT = 3,
+		STATKEY_PER = 1,
+		STATKEY_SPD = 2,
+		STATKEY_LCK = 1
+		//Caustic edit end
 	)
 	subclass_skills = list(
 		/datum/skill/combat/knives = SKILL_LEVEL_JOURNEYMAN,
-		/datum/skill/combat/swords = SKILL_LEVEL_EXPERT,
+		//Caustic edit
+		/datum/skill/combat/swords = SKILL_LEVEL_JOURNEYMAN,
+		//Caustic edit end
 		/datum/skill/combat/wrestling = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/craft/crafting = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/craft/carpentry = SKILL_LEVEL_JOURNEYMAN,
