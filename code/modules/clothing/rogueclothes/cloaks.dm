@@ -2056,6 +2056,7 @@
 	body_parts_covered = null
 	icon_state = "maidapron"
 	item_state = "maidapron"
+	slot_flags = ITEM_SLOT_BACK_L|ITEM_SLOT_BACK_R|ITEM_SLOT_CLOAK // CC Edit
 	icon = 'icons/roguetown/clothing/special/maids.dmi'
 	mob_overlay_icon = 'icons/roguetown/clothing/special/onmob/maids.dmi'
 	sleeved = 'icons/roguetown/clothing/special/onmob/maids.dmi'

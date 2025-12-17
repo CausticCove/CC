@@ -40,7 +40,7 @@
 	melee_damage_upper = 70
 	vision_range = 7
 	aggro_vision_range = 9
-	environment_smash = ENVIRONMENT_SMASH_NONE
+	environment_smash = ENVIRONMENT_SMASH_STRUCTURES //Why didn't we destroy structures before?? Dunno.
 	retreat_distance = 0
 	minimum_distance = 0
 	milkies = FALSE

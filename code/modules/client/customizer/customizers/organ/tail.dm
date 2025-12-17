@@ -78,6 +78,7 @@
 	sprite_accessories = list(
 		/datum/sprite_accessory/tail/shark,
 		/datum/sprite_accessory/tail/sharknofin,
+		/datum/sprite_accessory/tail/large_tails/large_shark, //Caustic Edit - Give the shark the large shark tail
 		)
 
 /datum/customizer/organ/tail/tiefling

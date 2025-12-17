@@ -248,7 +248,7 @@ USEBLACKLIST
 # RULESURL https://wiki.moviesfreepremium.xyz/blackstone/rules
 
 ## Github address
-GITHUBURL https://github.com/TheGreatKitsune/CausticCove
+GITHUBURL https://github.com/wewman222/CC
 
 ## Round specific stats address
 ## Link to round specific parsed logs; IE statbus. It is appended with the RoundID automatically by ticker/Reboot()
