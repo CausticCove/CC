@@ -267,7 +267,7 @@
 			if(R.craftsound)
 				playsound(T, R.craftsound, 100, TRUE)
 			var/time2use = 10
-			var/numberoftries = 0
+			//var/numberoftries = 0
 			for(var/i = 1 to 100)
 				if(do_after(user, time2use, target = user))
 					contents = get_surroundings(user)
