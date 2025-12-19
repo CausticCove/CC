@@ -3009,5 +3009,7 @@
 #include "modular_hearthstone\code\modules\mob\living\simple_animal\rogue\orc.dm"
 #include "modular_hearthstone\code\modules\mob\living\simple_animal\rogue\rogue_corpse.dm"
 #include "modular_hearthstone\code\modules\reagents\reagent_containers\lux.dm"
-#include "modular_causticcove/code/game/objects/effects/spawners/loot_magical.dm"
+#include "modular_causticcove\code\game\objects\effects\spawners\loot_magical.dm"
+#include "modular_causticcove\code\modules\spells\invoked_single_target\temperitem.dm"
+#include "modular_causticcove\code\modules\spells\components\temper_clothing.dm"
 // END_INCLUDE
