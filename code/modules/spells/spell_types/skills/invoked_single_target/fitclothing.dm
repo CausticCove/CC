@@ -1,5 +1,5 @@
 #define ENCHANT_DURATION 15 MINUTES
-#define ENCHANT_DURATION_WILDERNESS 200 MINUTES
+#define ENCHANT_DURATION_WILDERNESS 300 MINUTES
 
 /obj/effect/proc_holder/spell/invoked/fittedclothing
 	name = "Fit Clothing"
@@ -23,7 +23,8 @@
 
 	if(istype(target, /obj/item/clothing/))
 		var/obj/item/clothing/suit/roguetown/armor/clothingenchant = target
-		if((!(clothingenchant.sewrepair)||isnull(clothingenchant.sewrepair) || !(clothingenchant.armor_class <= ARMOR_CLASS_LIGHT))) //Less than Light = None
+		//Fit any sewn item.
+		if((!(clothingenchant.sewrepair)||isnull(clothingenchant.sewrepair)))
 			to_chat(user, span_warning("You can only fit light armor pieces"))
 			return
 		var/enchant_type = DURABILITY_ENCHANT

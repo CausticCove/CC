@@ -29,7 +29,8 @@
 		/datum/advclass/guildsman/blacksmith,
 		/datum/advclass/guildsman/architect
 	)
-	spells = list(/obj/effect/proc_holder/spell/invoked/takeapprentice)
+	//Every guildsman should be able to temper armor pieces.
+	spells = list(/obj/effect/proc_holder/spell/invoked/takeapprentice, /obj/effect/proc_holder/spell/invoked/temperitem)
 
 /datum/advclass/guildsman/blacksmith
 	name = "Guild Blacksmith"

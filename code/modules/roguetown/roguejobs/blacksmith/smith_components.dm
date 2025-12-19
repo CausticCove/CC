@@ -270,11 +270,11 @@
 					I.AddComponent(/datum/component/metal_glint)
 
 		I.sellprice *= modifier
-		
-		//Tailors/Seamstress can buff armor; So can smiths to a lesser degree.
-		if(modifier >= 1.3) //Only masterwork or greater, 20% integ boost at Priceless. Tailors give a flat 100 increase to light armors.
-			I.max_integrity *= (modifier - 0.2)
-			I.obj_integrity *= (modifier - 0.2)
+		//Make non-crafters have to commit to their smithing or take a virtue; Otherwise suffer integ damage for low quality goods.
+		//You also need a good statpack as well if you came here seeking answers. STR, PER, INT all work together to make good smithing quality items.
+		if(modifier < 1)
+			I.max_integrity *= modifier
+			I.obj_integrity *= modifier
 
 		if(istype(I, /obj/item/reagent_containers)) //Can't bend the shape right? Sucks to be you.
 			var/obj/item/reagent_containers/R = I

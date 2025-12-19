@@ -303,7 +303,8 @@
 							I.CheckParts(parts, R)
 							I.OnCrafted(user.dir, user)
 							I.add_fingerprint(user)
-							handle_modifiers(I, user, numberoftries, R) //This handles the modifiers for crafted items! Does not work for turfs.
+							//Remove for now but can be brought back in a later time if people want.
+							//handle_modifiers(I, user, numberoftries, R) //This handles the modifiers for crafted items! Does not work for turfs.
 					else
 						if(ispath(R.result, /turf))
 							var/turf/X = T.PlaceOnTop(R.result)
@@ -686,6 +687,8 @@
 				construct_item_repeatable(user, r)
 				user.mind.lastrecipe = r
 
+//NO RNG IS PRESENT FOR A REASON AS CRAFTING IS TYPICALLY RESERVED FOR MASS PRODUCTION. 
+//If you intend on changing this, please, *DO NOT* add any RNG here for QoL purposes.
 /datum/component/personal_crafting/proc/handle_modifiers(item, user, numberoftries, recipe)
 	var/datum/crafting_recipe/current_recipe = recipe
 	var/mob/living/crafting_user = user
@@ -694,37 +697,27 @@
 	var/total_requirements
 	var/skill_level = crafting_user.get_skill_level(current_recipe.skillcraft)
 
-	//Get total item requirements for the recipe. Bigger recipes are harder.
+	//Get total item requirements for the recipe. Bigger recipes are harder to make.
 	for(var/path as anything in current_recipe.reqs)
-		if(ispath(path, /datum/reagent))
-			total_requirements += 1
-		else if(ispath(path, /obj)) // Prevent a runtime from happening w/ datum atm until it is
-			total_requirements += 1
+		total_requirements += 1
 
 	//Every attempt you fail, lose quality by 0.5. Every 2 fails is 1 quality lost. INT will be your friend, PER slightly helps.
 	if(numberoftries)
 		for(var/i in 1 to numberoftries)
 			skill_quality--
-
-	if(crafting_user.mind) //10 INT 10 PER = 3.75 bonus skill. 20 INT 20 PER = 7.5 bonus skill. Int scales twice as hard.
-		skill_quality += (skill_level + (crafting_user.STAINT / 4) + (crafting_user.STAPER / 8))
-
-		//Higher INT results in higher RNG, every point above 10 is 0.1 multiplier. 15 = 1.5
-		// With a 5 + 4.75= 8.75 skill quality
-		// 8.75 = rand(8.75, (8.75 * 14 / 10))
-		// rand(8.75, 12.25), this results in the possibility of making PERFECT items if you're smart enough!
-		skill_quality = rand(skill_quality, (skill_quality * crafting_user.STAINT / 10)) 
-
-	//Handle the quality of the items.
 	craft_attempts = ceil(numberoftries / total_requirements)
-	skill_quality = floor((skill_quality/total_requirements))
-
-	//Every 2 failed attempts, lower quality by 1. Punishes non-crafter roles primarily.
 	skill_quality -= floor(craft_attempts * 0.5)
+
+	//Int and PER are important values for crafters. Helps improve item quality tremendously. Int scales twice as hard.
+	if(crafting_user.mind)
+		skill_quality += (skill_level + ((crafting_user.STAINT / 5) + (crafting_user.STAPER / 10)))
+
+	skill_quality = floor((skill_quality / total_requirements))
 
 	//We cannot craft items worse than our skill level. Legendary crafting always makes Staunch items.
 	//Perfect items can be made by utilizing your INT and PER values to encourage towner roles to utilize more INT and PER if they want to craft max.
-	skill_quality = max(skill_level, skill_quality)
+	if(skill_level)
+		skill_quality = max(skill_level / 2, skill_quality)
 
 	var/modifier
 	switch(skill_quality)
@@ -760,29 +753,27 @@
 	if(modifier != 1)
 		switch(modifier)
 			if(0.5)
-				I.name = "decrepit [I.name]"
 				I.desc = "[initial(I.desc)] It looks absolutely terrible. Who would want this?"
 			if(0.6)
-				I.name = "ruined [I.name]"
+				I.desc = "[initial(I.desc)] It looks ruined!"
 			if(0.75)
-				I.name = "awful [I.name]"
+				I.desc = "[initial(I.desc)] It looks awful!"
 			if(0.85)
-				I.name = "crude [I.name]"
+				I.desc = "[initial(I.desc)] It looks crudely made."
 			if(0.9)
-				I.name = "rough [I.name]"
+				I.desc = "[initial(I.desc)] It looks rough."
 			if(1.1)
-				I.name = "decent [I.name]"
+				I.desc = "[initial(I.desc)] It looks decent."
 			if(1.2)
-				I.name = "quality [I.name]"
+				I.desc = "[initial(I.desc)] It looks to be of quality."
 			if(1.3)
-				I.name = "staunch [I.name]"
+				I.desc = "[initial(I.desc)] It looks rather staunch!"
 			if(1.4)
-				I.name = "perfect [I.name]"
 				I.desc = "[initial(I.desc)] It looks perfect in every way!"
 
 	I.sellprice *= modifier
 
-	//For negative modifiers, ruin the integrity of the item made.
+	//For non-crafter roles, punish the integrity of the item created. Mainly aimed towards weapons and armors.
 	if(modifier < 1)
 		I.max_integrity *= modifier
 		I.obj_integrity *= modifier

@@ -6,7 +6,7 @@
  The enchantment will lasts for 15 minutes, and will automatically refresh in the hand of an Arcyne user.
 */
 
-/datum/component/fit_clothing
+/datum/component/temper_clothing
 	dupe_mode = COMPONENT_DUPE_UNIQUE // To avoid weird filter override this is the way..
 	var/endtime = null // How long till the conjured item disappear (Don't use duration it is messed up)
 	var/allow_refresh = TRUE // If TRUE, the item will refresh its duration when held by a X user
@@ -14,7 +14,7 @@
 	var/overridden_duration = null
 	var/enchant_type = FORCE_BLADE_ENCHANT // The type of enchantment
 
-/datum/component/fit_clothing/Initialize(duration_override, allow_refresh_override, refresh_skill_override, enchant_type_override)
+/datum/component/temper_clothing/Initialize(duration_override, allow_refresh_override, refresh_skill_override, enchant_type_override)
 	if(!istype(parent, /obj/item/clothing))
 		return COMPONENT_INCOMPATIBLE
 	var/obj/item/I = parent
@@ -39,7 +39,7 @@
 
 	addtimer(CALLBACK(src, PROC_REF(refresh_check)), new_duration)
 
-/datum/component/fit_clothing/proc/refresh_check()
+/datum/component/temper_clothing/proc/refresh_check()
 	var/obj/item/I = parent
 	var/obj/itemloc = I.loc
 	if(!allow_refresh || !refresh_skill)
@@ -68,7 +68,7 @@
 		qdel(src)
 		return
 
-/datum/component/fit_clothing/proc/apply_enchant(var/obj/item/I, is_fix = FALSE)
+/datum/component/temper_clothing/proc/apply_enchant(var/obj/item/I, is_fix = FALSE)
 	if(enchant_type == DURABILITY_ENCHANT)
 		if(!is_fix) // Obj fix already increase durability.
 			I.max_integrity += DURABILITY_INCREASE
@@ -78,7 +78,7 @@
 			I.add_filter(DURABILITY_FILTER, 2, list("type" = "outline", "color" = GLOW_COLOR_METAL, "alpha" = 100, "size" = 1))
 
 // Called when the enchantment is removed
-/datum/component/fit_clothing/proc/remove()
+/datum/component/temper_clothing/proc/remove()
 	var/obj/item/I = parent
 	if(enchant_type == DURABILITY_ENCHANT)
 		if(I.max_integrity != initial(I.max_integrity))
@@ -88,18 +88,18 @@
 	else
 		return
 
-/datum/component/fit_clothing/Destroy()
+/datum/component/temper_clothing/Destroy()
 	remove()
 	. = ..()
 
-/datum/component/fit_clothing/proc/on_examine(datum/source, mob/user, list/examine_list)
+/datum/component/temper_clothing/proc/on_examine(datum/source, mob/user, list/examine_list)
 	if(enchant_type == DURABILITY_ENCHANT)
-		examine_list += "This clothing has been fitted."
+		examine_list += "This clothing has been tempered."
 	var/remaining_minutes = round((endtime - world.time) / 600)
 	examine_list += "The fitting will last for [remaining_minutes] more minutes."
 
 // This is called right after the object is fixed and all of its force / wdefense values are reset to initial. We re-apply the relevant bonuses.
-/datum/component/fit_clothing/proc/on_fix()
+/datum/component/temper_clothing/proc/on_fix()
 	var/obj/item/I = parent
 	apply_enchant(I, TRUE)
 
