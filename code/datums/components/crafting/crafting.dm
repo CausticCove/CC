@@ -289,7 +289,7 @@
 							prob2craft += ((10-L.STAINT)*-1)*2
 					prob2craft = CLAMP(prob2craft, 0, 99)
 					if(!prob(prob2craft))
-						numberoftries++
+						//numberoftries++
 						if(user.client?.prefs.showrolls)
 							to_chat(user, span_danger("I've failed to craft \the [R.name]... [prob2craft]%"))
 							continue
@@ -702,9 +702,10 @@
 		total_requirements += 1
 
 	//Every attempt you fail, lose quality by 0.5. Every 2 fails is 1 quality lost. INT will be your friend, PER slightly helps.
-	if(numberoftries)
-		for(var/i in 1 to numberoftries)
-			skill_quality--
+	if(!numberoftries)
+		numberoftries = 1
+	for(var/i in 1 to numberoftries)
+		skill_quality--
 	craft_attempts = ceil(numberoftries / total_requirements)
 	skill_quality -= floor(craft_attempts * 0.5)
 
