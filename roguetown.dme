@@ -2990,6 +2990,10 @@
 #include "modular_causticcove\code\modules\sizecats\sizecat_types.dm"
 #include "modular_causticcove\code\modules\sizecats\sizecats.dm"
 #include "modular_causticcove\code\modules\sizecats\spells\shrink.dm"
+#include "modular_causticcove\code\modules\spells\animagus\animagus.dm"
+#include "modular_causticcove\code\modules\spells\animagus\animagus_transformation.dm"
+#include "modular_causticcove\code\modules\spells\animagus\cat.dm"
+#include "modular_causticcove\code\modules\spells\animagus\zad.dm"
 #include "modular_causticcove\code\modules\standardized_sprite\standardized_sprite_verb.dm"
 #include "modular_causticcove\code\modules\spells\invoked_single_target\temperitem.dm"
 #include "modular_causticcove\code\modules\spells\components\temper_clothing.dm"
@@ -3012,4 +3016,6 @@
 #include "modular_hearthstone\code\modules\mob\living\simple_animal\rogue\rogue_corpse.dm"
 #include "modular_hearthstone\code\modules\reagents\reagent_containers\lux.dm"
 #include "modular_causticcove\code\game\objects\effects\spawners\loot_magical.dm"
+#include "modular_causticcove\code\modules\events\adventure\random_patrols\random_patrols.dm"
+#include "modular_causticcove\code\modules\events\adventure\random_bosses\random_boss.dm"
 // END_INCLUDE

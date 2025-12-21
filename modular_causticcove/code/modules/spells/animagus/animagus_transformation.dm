@@ -1,14 +1,12 @@
-#define TRAIT_SOURCE_WILDSHAPE "wildshape_transform"
+#define TRAIT_SOURCE_ANIMAGUS "animagus_transform"
 
-/mob/living/carbon/human/species/wildshape/death(gibbed, nocutscene = FALSE)
-	wildshape_untransform(TRUE, gibbed)
+/mob/living/carbon/human/species/animagus/death(gibbed, nocutscene = FALSE)
+	animagus_untransform(TRUE, gibbed)
 
-/mob/living/carbon/human/proc/wildshape_transformation(shapepath)
+/mob/living/carbon/human/proc/animagus_transformation(shapepath)
 	if(!mind)
 		log_runtime("NO MIND ON [src.name] WHEN TRANSFORMING")
 	Paralyze(1, ignore_canstun = TRUE)
-	// for(var/obj/item/I in src) // CC Edit
-	// 	dropItemToGround(I)
 	regenerate_icons()
 	icon = null
 	var/oldinv = invisibility
@@ -17,15 +15,15 @@
 	if(client)
 		SSdroning.play_area_sound(get_area(src), client)
 
-	var/mob/living/carbon/human/species/wildshape/W = new shapepath(loc) //We crate a new mob for the wildshaping player to inhabit
+	var/mob/living/carbon/human/species/animagus/W = new shapepath(loc) //We crate a new mob for the wildshaping player to inhabit
 
 	W.set_patron(src.patron)
 	W.gender = gender
 	W.regenerate_icons()
 	W.stored_mob = src
 	W.cmode_music = 'sound/music/cmode/garrison/combat_warden.ogg'
-	playsound(W.loc, pick('sound/combat/gib (1).ogg','sound/combat/gib (2).ogg'), 200, FALSE, 3)
-	W.spawn_gibs(FALSE)
+	// playsound(W.loc, pick('sound/combat/gib (1).ogg','sound/combat/gib (2).ogg'), 200, FALSE, 3) // Arcyne comes from without, not from within like dendor's gifts
+	// W.spawn_gibs(FALSE)
 	src.forceMove(W)
 
 	W.after_creation()
@@ -47,6 +45,7 @@
 		B.owner = W
 	vore_organs.Cut()
 	// CC Edit End
+
 
 	for(var/datum/wound/old_wound in W.get_wounds())
 		var/obj/item/bodypart/bp = W.get_bodypart(old_wound.bodypart_owner.body_zone)
@@ -83,19 +82,19 @@
 	W.update_a_intents()
 
 	// temporal traits so our body won't die or snore
-	ADD_TRAIT(src, TRAIT_NOSLEEP, TRAIT_SOURCE_WILDSHAPE)
-	ADD_TRAIT(src, TRAIT_NOBREATH, TRAIT_SOURCE_WILDSHAPE)
-	ADD_TRAIT(src, TRAIT_NOPAIN, TRAIT_SOURCE_WILDSHAPE)
-	ADD_TRAIT(src, TRAIT_TOXIMMUNE, TRAIT_SOURCE_WILDSHAPE)	
-	ADD_TRAIT(src, TRAIT_NOHUNGER, TRAIT_SOURCE_WILDSHAPE)
-	ADD_TRAIT(src, TRAIT_NOMOOD, TRAIT_SOURCE_WILDSHAPE)
-	ADD_TRAIT(src, TRAIT_PACIFISM, TRAIT_SOURCE_WILDSHAPE) // just an extra layer of protection in case something will go wrong
+	ADD_TRAIT(src, TRAIT_NOSLEEP, TRAIT_SOURCE_ANIMAGUS)
+	ADD_TRAIT(src, TRAIT_NOBREATH, TRAIT_SOURCE_ANIMAGUS)
+	ADD_TRAIT(src, TRAIT_NOPAIN, TRAIT_SOURCE_ANIMAGUS)
+	ADD_TRAIT(src, TRAIT_TOXIMMUNE, TRAIT_SOURCE_ANIMAGUS)	
+	ADD_TRAIT(src, TRAIT_NOHUNGER, TRAIT_SOURCE_ANIMAGUS)
+	ADD_TRAIT(src, TRAIT_NOMOOD, TRAIT_SOURCE_ANIMAGUS)
+	ADD_TRAIT(src, TRAIT_PACIFISM, TRAIT_SOURCE_ANIMAGUS) // just an extra layer of protection in case something will go wrong
 	src.status_flags |= GODMODE // so they won't die by any means
 	invisibility = oldinv
 
 	W.gain_inherent_skills()
 
-/mob/living/carbon/human/proc/wildshape_untransform(dead,gibbed)
+/mob/living/carbon/human/proc/animagus_untransform(dead,gibbed)
 	if(!stored_mob)
 		return
 	if(!mind)
@@ -109,13 +108,13 @@
 	var/mob/living/carbon/human/W = stored_mob
 	stored_mob = null
 
-	REMOVE_TRAIT(W, TRAIT_NOSLEEP, TRAIT_SOURCE_WILDSHAPE)
-	REMOVE_TRAIT(W, TRAIT_NOBREATH, TRAIT_SOURCE_WILDSHAPE)
-	REMOVE_TRAIT(W, TRAIT_NOPAIN, TRAIT_SOURCE_WILDSHAPE)
-	REMOVE_TRAIT(W, TRAIT_TOXIMMUNE, TRAIT_SOURCE_WILDSHAPE)
-	REMOVE_TRAIT(W, TRAIT_NOHUNGER, TRAIT_SOURCE_WILDSHAPE)
-	REMOVE_TRAIT(W, TRAIT_NOMOOD, TRAIT_SOURCE_WILDSHAPE)
-	REMOVE_TRAIT(W, TRAIT_PACIFISM, TRAIT_SOURCE_WILDSHAPE)
+	REMOVE_TRAIT(W, TRAIT_NOSLEEP, TRAIT_SOURCE_ANIMAGUS)
+	REMOVE_TRAIT(W, TRAIT_NOBREATH, TRAIT_SOURCE_ANIMAGUS)
+	REMOVE_TRAIT(W, TRAIT_NOPAIN, TRAIT_SOURCE_ANIMAGUS)
+	REMOVE_TRAIT(W, TRAIT_TOXIMMUNE, TRAIT_SOURCE_ANIMAGUS)
+	REMOVE_TRAIT(W, TRAIT_NOHUNGER, TRAIT_SOURCE_ANIMAGUS)
+	REMOVE_TRAIT(W, TRAIT_NOMOOD, TRAIT_SOURCE_ANIMAGUS)
+	REMOVE_TRAIT(W, TRAIT_PACIFISM, TRAIT_SOURCE_ANIMAGUS)
 	W.status_flags &= ~GODMODE
 
 	if(dead)
@@ -149,7 +148,7 @@
 	W.forceMove(get_turf(src))
 	mind.transfer_to(W)
 
-	var/mob/living/carbon/human/species/wildshape/WA = src
+	var/mob/living/carbon/human/species/animagus/WA = src
 	W.copy_known_languages_from(WA.stored_language)
 	skills?.known_skills = WA.stored_skills.Copy()
 	skills?.skill_experience = WA.stored_experience.Copy()
@@ -176,4 +175,4 @@
 
 	qdel(src)
 
-#undef TRAIT_SOURCE_WILDSHAPE
+#undef TRAIT_SOURCE_ANIMAGUS
