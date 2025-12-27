@@ -1,3 +1,4 @@
+// This doesn't work anymore but Posshum said I can't remove it.
 
 /obj/item/gun/ballistic/handgonne
 	name = "handgonne"
