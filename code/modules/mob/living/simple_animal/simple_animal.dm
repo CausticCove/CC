@@ -137,7 +137,7 @@ GLOBAL_VAR_INIT(farm_animals, FALSE)
 
 	///If the creature has, and can use, hands.
 	var/dextrous = FALSE
-	var/dextrous_hud_type = /datum/hud/dextrous
+	var/dextrous_hud_type = /datum/hud/human
 
 	///The Status of our AI, can be set to AI_ON (On, usual processing), AI_IDLE (Will not process, but will return to AI_ON if an enemy comes near), NPC_AI_OFF (Off, Not processing ever), AI_Z_OFF (Temporarily off due to nonpresence of players).
 	var/AIStatus = AI_ON

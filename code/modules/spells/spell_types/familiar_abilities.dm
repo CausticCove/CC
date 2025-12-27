@@ -31,7 +31,7 @@
 	name = "Stillness of Stone"
 	recharge_time = 1 SECONDS
 
-/obj/effect/proc_holder/spell/self/stillness_of_stone/cast(list/targets, mob/living/simple_animal/pet/familiar/pondstone_toad/user)
+/obj/effect/proc_holder/spell/self/stillness_of_stone/cast(list/targets, mob/living/simple_animal/pet/familiar/user)
 	. = ..()
 	if(!user)
 		revert_cast()
@@ -59,7 +59,7 @@
 		user.regenerate_icons()
 	return TRUE
 
-/mob/living/simple_animal/pet/familiar/pondstone_toad/proc/revert_from_stoneform()
+/mob/living/simple_animal/pet/familiar/proc/revert_from_stoneform()
 	if(!stoneform)
 		return
 
@@ -75,12 +75,12 @@
 	)
 	regenerate_icons()
 
-/mob/living/simple_animal/pet/familiar/pondstone_toad/Move()
+/mob/living/simple_animal/pet/familiar/Move()
 	if(stoneform)
 		return FALSE
 	return ..()
 
-/mob/living/simple_animal/pet/familiar/pondstone_toad/death()
+/mob/living/simple_animal/pet/familiar/death()
 	. = ..()
 	if(stoneform)
 		revert_from_stoneform()
@@ -108,11 +108,11 @@
 	name = "Scent of the Grave"
 	recharge_time = 1 SECONDS
 
-/obj/effect/proc_holder/spell/self/scent_of_the_grave/cast(list/targets, mob/living/simple_animal/pet/familiar/gravemoss_serpent/user)
+/obj/effect/proc_holder/spell/self/scent_of_the_grave/cast(list/targets, mob/living/simple_animal/pet/familiar/user)
 	. = ..()
 
 	user.visible_message(
-		span_notice("[user.name] lifts its head, tongue flickering as it tastes the air..."),
+		span_notice("[user.name] lifts its head as it senses the air..."),
 		span_notice("You raise your head, tasting the air for the scent of the dead.")
 	)
 
@@ -151,7 +151,7 @@
 	name = "Inscription Cache"
 	recharge_time = 5 SECONDS
 
-/obj/effect/proc_holder/spell/self/inscription_cache/cast(mob/living/simple_animal/pet/familiar/rune_rat/user)
+/obj/effect/proc_holder/spell/self/inscription_cache/cast(mob/living/simple_animal/pet/familiar/user)
 	. = ..()
 	var/obj/item/held_item = user.get_active_held_item()
 	if(!held_item)
@@ -176,7 +176,7 @@
 	name = "Recall cache"
 	recharge_time = 5 SECONDS
 
-/obj/effect/proc_holder/spell/self/recall_cache/cast(mob/living/simple_animal/pet/familiar/rune_rat/user)
+/obj/effect/proc_holder/spell/self/recall_cache/cast(mob/living/simple_animal/pet/familiar/user)
 	. = ..()
 	if(!length(user.stored_books))
 		to_chat(user, "<span class='notice'>Your cache is empty.</span>")
@@ -198,7 +198,7 @@
 		revert_cast()
 		return FALSE
 
-/mob/living/simple_animal/pet/familiar/rune_rat/death()
+/mob/living/simple_animal/pet/familiar/death()
 	. = ..()
 	for (var/obj/item/stored_item in src.stored_books)
 		stored_item.forceMove(src.loc)
@@ -223,22 +223,39 @@
 	name = "Soothing Bloom"
 	recharge_time = 16 SECONDS
 
-/obj/effect/proc_holder/spell/self/soothing_bloom/cast(list/targets, mob/living/simple_animal/pet/familiar/vaporroot_wisp/user)
+/obj/effect/proc_holder/spell/self/soothing_bloom/cast(list/targets, mob/living/simple_animal/pet/familiar/user)
 	. = ..()
-
-	user.visible_message(span_notice("[user.name] releases a soothing vapor"),span_notice("You release a soothing vapor"))
-	for (var/mob/living/nearby_mob in view(SOOTHING_BLOOM_RANGE, user))
-		if(nearby_mob == user || isdead(nearby_mob))
-			continue
-		nearby_mob.apply_status_effect(/datum/status_effect/regen/soothing_bloom)
-		to_chat(nearby_mob, span_notice("A cool mist settles on your skin, and you feel your wounds slowly close."))
+	if(!user.has_status_effect(/datum/status_effect/regen/soothing_origin))
+		user.visible_message(span_notice("[user.name] releases a soothing vapor."),span_notice("You release a soothing vapor."))
+		user.apply_status_effect(/datum/status_effect/regen/soothing_origin)
+	else if(user.has_status_effect(/datum/status_effect/regen/soothing_origin))
+		user.visible_message(span_notice("[user.name] stops releasing vapors."),span_notice("You stop releasing vapors."))
+		user.remove_status_effect(/datum/status_effect/regen/soothing_origin)
 	return TRUE
+
+/datum/status_effect/regen/soothing_origin
+	id = "soothing_origin"
+	alert_type = /atom/movable/screen/alert/status_effect/regen/soothing_origin
+	duration = -1 //Toggle ability
+	var/healing_range = 2 
+	var/range = 4
+
+/atom/movable/screen/alert/status_effect/regen/soothing_origin
+	name = "Soothing Origin"
+	desc = "You are gently releasing healing vapors to others around you."
+
+/datum/status_effect/regen/soothing_origin/tick()
+	. = ..()
+	for(var/mob/living/living_mob in range(range, owner))
+		if(!living_mob.has_status_effect(/datum/status_effect/regen/soothing_bloom))
+			to_chat(living_mob, "A cool mist settles on your skin, and you feel your wounds slowly close.")
+			living_mob.apply_status_effect(/datum/status_effect/regen/soothing_bloom)
 
 /datum/status_effect/regen/soothing_bloom
 	id = "soothing_bloom"
-	tick_interval = 40 //This should give it two ticks of 1 healing per person in the radius.
+	tick_interval = 5 SECONDS //Only heals 1 HP every 5 seconds. 0.2 hp/s for a total of 2 HP every 10 seconds. Stackable with miracles/bard/campfire.
 	alert_type = /atom/movable/screen/alert/status_effect/regen/soothing_bloom
-	duration = 8 SECONDS
+	duration = 10 SECONDS
 	var/healing_on_tick = 1
 	var/outline_colour = "#129160"
 
@@ -280,7 +297,7 @@
 	desc = "Let out a piercing celestial call that disrupts all veils of shadow within sight."
 	recharge_time = 30 SECONDS
 
-/obj/effect/proc_holder/spell/self/starseers_cry/cast(list/targets, mob/living/simple_animal/pet/familiar/starfield_crow/user)
+/obj/effect/proc_holder/spell/self/starseers_cry/cast(list/targets, mob/living/simple_animal/pet/familiar/user)
 	. = ..()
 	user.visible_message(span_danger("[user.name] lets out a soul-piercing cry, the stars shimmering in their eyes!"))
 
@@ -372,7 +389,7 @@
 	name= "Phantasm Fade"
 	recharge_time = 2 MINUTES
 
-/obj/effect/proc_holder/spell/self/phantasm_fade/cast(list/targets, mob/living/simple_animal/pet/familiar/whisper_stoat/user)
+/obj/effect/proc_holder/spell/self/phantasm_fade/cast(list/targets, mob/living/simple_animal/pet/familiar/user)
 	. = ..()
 	user.visible_message(span_warning("[user.name] starts to fade into thin air!"), span_notice("You start to become invisible!"))
 	animate(user, alpha = 0, time = 1 SECONDS, easing = EASE_IN)
@@ -385,10 +402,10 @@
 	name= "Phantom Flicker"
 	recharge_time = 2 MINUTES
 
-/obj/effect/proc_holder/spell/self/phantom_flicker/cast(list/targets, mob/living/simple_animal/pet/familiar/ripplefox/user)
+/obj/effect/proc_holder/spell/self/phantom_flicker/cast(list/targets, mob/living/simple_animal/pet/familiar/user)
 	. = ..()
 
-	var/mob/living/simple_animal/pet/familiar/ripplefox/illusory_familiar = new user.type(user.loc)
+	var/mob/living/simple_animal/pet/familiar/illusory_familiar = new user.type(user.loc)
 	user.visible_message(span_notice("[user.name] blurs and darts away in two directions at once!"))
 
 	illusory_familiar.familiar_summoner = user
@@ -399,7 +416,7 @@
 
 	return TRUE
 
-/proc/delete_illusory_fam(var/mob/living/simple_animal/pet/familiar/ripplefox/illusory_familiar, var/mob/user)
+/proc/delete_illusory_fam(var/mob/living/simple_animal/pet/familiar/illusory_familiar, var/mob/user)
 	if(illusory_familiar && !QDELETED(illusory_familiar))
 		user.visible_message(span_notice("[illusory_familiar.name] flickers and vanishes into nothingness."))
 		qdel(illusory_familiar)
@@ -409,7 +426,7 @@
 	desc = "Mark this location with a name, binding it to your hidden trail."
 	recharge_time = 10 SECONDS
 
-/obj/effect/proc_holder/spell/self/lurking_step/cast(list/targets, mob/living/simple_animal/pet/familiar/mist_lynx/user)
+/obj/effect/proc_holder/spell/self/lurking_step/cast(list/targets, mob/living/simple_animal/pet/familiar/user)
 	. = ..()
 	if (!user.saved_trails)
 		user.saved_trails = list()
@@ -441,7 +458,7 @@
 	chargetime = 20
 	recharge_time = 1 MINUTES
 
-/obj/effect/proc_holder/spell/invoked/veilbound_shift/cast(list/targets, mob/living/simple_animal/pet/familiar/mist_lynx/user)
+/obj/effect/proc_holder/spell/invoked/veilbound_shift/cast(list/targets, mob/living/simple_animal/pet/familiar/user)
 	. = ..()
 	if (!user.saved_trails || !user.saved_trails.len)
 		to_chat(user, span_warning("You have no marked paths to return to."))
@@ -498,7 +515,7 @@
 	recharge_time = 30 SECONDS
 
 //I wanted a long duration aoe invisibility that would be broken by movement. But I can't make it work so, short duration it is.
-/obj/effect/proc_holder/spell/self/verdant_veil/cast(list/targets, mob/living/simple_animal/pet/familiar/hollow_antlerling/user)
+/obj/effect/proc_holder/spell/self/verdant_veil/cast(list/targets, mob/living/simple_animal/pet/familiar/user)
 	. = ..()
 	to_chat(user, span_notice("You exhale a shimmering cloud of forest illusion..."))
 	user.visible_message(span_warning("[user.name] releases a swirl of glowing leaves!"), span_notice("You feel the forest's stillness wrap around you."))
