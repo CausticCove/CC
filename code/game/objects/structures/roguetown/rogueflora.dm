@@ -308,6 +308,10 @@
 	var/bushtype
 
 /obj/structure/flora/roguegrass/bush/Initialize()
+	if(istype(get_area(src), /area/rogue/outdoors) || istype(get_area(src), /area/rogue/druidsgrove))
+		icon_state = "bush2winter"
+	else
+		icon_state = "bush2"
 	if(prob(88) && isnull(bushtype))
 		bushtype = pickweight(list(/obj/item/reagent_containers/food/snacks/grown/berries/rogue=5,
 					/obj/item/reagent_containers/food/snacks/grown/berries/rogue/poison=3,
@@ -371,7 +375,10 @@
 			if(!looty.len)
 				to_chat(user, span_warning("Picked clean... I should try later."))
 /obj/structure/flora/roguegrass/bush/update_icon()
-	icon_state = "bush[rand(2, 4)]"
+	if(istype(get_area(src), /area/rogue/outdoors) || istype(get_area(src), /area/rogue/druidsgrove))
+		icon_state = "bush[rand(2, 4)]winter"
+	else
+		icon_state = "bush[rand(2, 4)]"
 
 /obj/structure/flora/roguegrass/bush/CanAStarPass(ID, travel_dir, caller)
 	if(ismovableatom(caller))
@@ -403,6 +410,10 @@
 		looty += /obj/item/reagent_containers/food/snacks/grown/rogue/pipeweed
 
 /obj/structure/flora/roguegrass/bush/westleach/Initialize()
+	if(istype(get_area(src), /area/rogue/outdoors) || istype(get_area(src), /area/rogue/druidsgrove))
+		icon_state = "bush1winter"
+	else
+		icon_state = "bush1"
 	bushtype = /obj/item/reagent_containers/food/snacks/grown/rogue/pipeweed
 	return ..()
 
@@ -419,7 +430,10 @@
 
 /obj/structure/flora/roguegrass/bush/wall/Initialize()
 	. = ..()
-	icon_state = "bushwall[pick(1,2)]"
+	if(istype(get_area(src), /area/rogue/outdoors) || istype(get_area(src), /area/rogue/druidsgrove))
+		icon_state = "bush[pick(5,6)]winter"
+	else
+		icon_state = "bushwall[pick(1,2)]"
 
 /obj/structure/flora/roguegrass/bush/wall/update_icon()
 	return
@@ -434,7 +448,12 @@
 
 /obj/structure/flora/roguegrass/bush/wall/tall/Initialize()
 	. = ..()
-	icon_state = "tallbush[pick(1,2)]"
+	if(istype(get_area(src), /area/rogue/outdoors) || istype(get_area(src), /area/rogue/druidsgrove))
+		icon_state = "bush[pick(5,6)]winter"
+		icon = 'icons/roguetown/misc/foliage.dmi'
+	else
+		icon = 'icons/roguetown/misc/foliagetall.dmi'
+		icon_state = "tallbush[pick(1,2)]"
 
 
 /obj/structure/flora/rogueshroom
