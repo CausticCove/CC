@@ -459,7 +459,8 @@
 		if(stick.walking_stick && !stick.wielded && !user.cmode)
 			negate_slowdown = TRUE
 			break
-
+	if((isliving(user))&&(user?.movement_type == FLYING))
+		negate_slowdown = TRUE
 	if(HAS_TRAIT(user, TRAIT_LONGSTRIDER))
 		negate_slowdown = TRUE
 
@@ -1478,7 +1479,7 @@
 
 /turf/open/floor/rogue/shroud/Entered(atom/movable/AM, atom/oldLoc)
 	..()
-	if(isliving(AM))
+	if((isliving(AM))&&(!AM.movement_type == FLYING)) //if we're flying over something we shouldn't be making noise.
 		if(istype(oldLoc, type))
 			playsound(AM, "plantcross", 100, TRUE)
 

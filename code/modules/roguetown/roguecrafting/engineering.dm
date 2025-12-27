@@ -175,7 +175,7 @@
 /datum/crafting_recipe/roguetown/engineering/twentybolts
 	name = "Crossbow Bolts 20x"
 	category = "Ammo"
-	reqs = list(/obj/item/natural/wood/plank = 3, /obj/item/ingot/iron)
+	reqs = list(/obj/item/natural/wood/plank = 3, /obj/item/ingot/iron = 1)
 	result = list(/obj/item/ammo_casing/caseless/rogue/bolt,
 						/obj/item/ammo_casing/caseless/rogue/bolt,
 						/obj/item/ammo_casing/caseless/rogue/bolt,
@@ -444,7 +444,9 @@
 /datum/crafting_recipe/roguetown/engineering/impactexplosive
 	name = "explosive grenade"
 	category = "Explosives"
-	result = /obj/item/impact_grenade/explosion
+	result = list(/obj/item/impact_grenade/explosion,
+				  /obj/item/impact_grenade/explosion,
+				  /obj/item/impact_grenade/explosion,)
 	reqs = list(/obj/item/natural/clay = 1, /obj/item/paper = 1, /obj/item/alch/coaldust = 1, /obj/item/alch/firedust = 1, /obj/item/reagent_containers/food/snacks/grown/rogue/fyritius = 1)
 	structurecraft = /obj/machinery/artificer_table
 	skillcraft = /datum/skill/craft/engineering

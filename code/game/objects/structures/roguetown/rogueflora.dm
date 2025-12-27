@@ -280,6 +280,7 @@
 
 	if(isliving(AM))
 		var/mob/living/L = AM
+
 		if(L.m_intent == MOVE_INTENT_SNEAK)
 			return
 		else
@@ -328,6 +329,8 @@
 	..()
 	if(isliving(AM))
 		var/mob/living/L = AM
+		if(L.is_flying()) //you won't rustle things if you're flying above them
+			return
 		if(L.m_intent == MOVE_INTENT_RUN && (L.mobility_flags & MOBILITY_STAND))
 			if(!ishuman(L))
 				to_chat(L, span_warning("I'm cut on a thorn!"))
