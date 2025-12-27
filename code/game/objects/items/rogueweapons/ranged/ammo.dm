@@ -451,6 +451,7 @@
 	flag = "piercing"
 	armor_penetration = 200
 	speed = 0.1
+	npc_simple_damage_mult = 2 //200 Damage flat. 
 
 /obj/item/ammo_casing/caseless/rogue/bullet
 	name = "lead sphere"
@@ -462,6 +463,7 @@
 	dropshrink = 0.5
 	possible_item_intents = list(/datum/intent/use)
 	max_integrity = 0.1
+
 
 
 //mob projectiles
