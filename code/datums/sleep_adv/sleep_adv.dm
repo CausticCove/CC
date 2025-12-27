@@ -223,7 +223,7 @@
 	if(!mind.current)
 		return FALSE
 	var/has_vamp_trait = HAS_TRAIT(mind.current, TRAIT_VAMP_DREAMS)
-	if(has_vamp_trait)
+	if(has_vamp_trait && mind.current.eyesclosed) //Caustic Line Edit - Adds janky check to see if vampire's eyes are closed, so vampires can gain lower levels instantly without sleep. Someone in the future make it a coffin check?
 		return TRUE
 	if(mind.current.IsSleeping())
 		return TRUE
