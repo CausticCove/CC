@@ -224,12 +224,12 @@
 	softcap = TRUE	
 	//Caustic edit end
 	added_stashed_items = list("Trusty hoe" = /obj/item/rogueweapon/hoe)
+						//Caustic edit
 	added_skills = list(list(/datum/skill/craft/cooking, 2, 2),
 						list(/datum/skill/misc/athletics, 2, 2),
 						list(/datum/skill/labor/farming, 2, 2),
 						list(/datum/skill/labor/fishing, 2, 2),
 						list(/datum/skill/labor/lumberjacking, 2, 2),
-						//Caustic edit
 						list(/datum/skill/craft/crafting, 2, 2),
 						//Caustic edit end
 	)
@@ -247,11 +247,11 @@
 		"Bag of Food" = /obj/item/storage/roguebag/food,
 		"Hunting Knife" = /obj/item/rogueweapon/huntingknife
 	)
+						//Caustic edit
 	added_skills = list(list(/datum/skill/craft/cooking, 3, 3),
 						list(/datum/skill/labor/farming, 3, 3),
 						list(/datum/skill/labor/fishing, 3, 3),
 						list(/datum/skill/labor/lumberjacking, 2, 2),
-						//Caustic edit
 						list(/datum/skill/craft/carpentry, 2, 2),
 						list(/datum/skill/craft/crafting, 2, 2)
 						//Caustic edit end
