@@ -229,8 +229,8 @@
 						list(/datum/skill/misc/athletics, 2, 2),
 						list(/datum/skill/labor/farming, 2, 2),
 						list(/datum/skill/labor/fishing, 2, 2),
-						list(/datum/skill/labor/lumberjacking, 2, 2),
 						list(/datum/skill/craft/crafting, 2, 2),
+						list(/datum/skill/labor/lumberjacking, 2, 2)
 						//Caustic edit end
 	)
 
