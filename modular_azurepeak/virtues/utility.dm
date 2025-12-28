@@ -220,12 +220,18 @@
 	name = "Forester"
 	added_traits = list(TRAIT_HOMESTEAD_EXPERT)
 	desc = "The forest is your home, or at least, it used to be. You always long to return and roam free once again, and you have not forgotten your knowledge on how to be self sufficient."
+	//Caustic edit
+	softcap = TRUE	
+	//Caustic edit end
 	added_stashed_items = list("Trusty hoe" = /obj/item/rogueweapon/hoe)
+						//Caustic edit
 	added_skills = list(list(/datum/skill/craft/cooking, 2, 2),
 						list(/datum/skill/misc/athletics, 2, 2),
 						list(/datum/skill/labor/farming, 2, 2),
 						list(/datum/skill/labor/fishing, 2, 2),
+						list(/datum/skill/craft/crafting, 2, 2),
 						list(/datum/skill/labor/lumberjacking, 2, 2)
+						//Caustic edit end
 	)
 
 /datum/virtue/utility/homesteader
@@ -233,17 +239,22 @@
 	added_traits = list(TRAIT_HOMESTEAD_EXPERT)
 	desc= "As they say, 'hearth is where the heart is'. You are intimately familiar with the labors of lyfe, and have stowed away everything necessary to start anew: a hunting dagger, your trusty hoe, and a sack of assorted supplies."
 	triumph_cost = 3
+	//Caustic edit
+	softcap = TRUE
+	//Caustic edit end
 	added_stashed_items = list(
 		"Hoe" = /obj/item/rogueweapon/hoe,
 		"Bag of Food" = /obj/item/storage/roguebag/food,
 		"Hunting Knife" = /obj/item/rogueweapon/huntingknife
 	)
+						//Caustic edit
 	added_skills = list(list(/datum/skill/craft/cooking, 3, 3),
-						list(/datum/skill/misc/athletics, 2, 2),
 						list(/datum/skill/labor/farming, 3, 3),
 						list(/datum/skill/labor/fishing, 3, 3),
 						list(/datum/skill/labor/lumberjacking, 2, 2),
-						list(/datum/skill/combat/knives, 2, 2)
+						list(/datum/skill/craft/carpentry, 2, 2),
+						list(/datum/skill/craft/crafting, 2, 2)
+						//Caustic edit end
 	)
 
 /datum/virtue/utility/ugly
