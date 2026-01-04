@@ -77,7 +77,7 @@ GLOBAL_LIST_INIT(drowraider_aggro, world.file2list("strings/rt/drowaggrolines.tx
 	hair_color = "#DDDDDD"
 
 	head.add_bodypart_feature(new_hair)
-	head.sellprice = 40
+	head.sellprice = 65 // Caustic Cove Edit - Because drow are fucking dangerous and hard to get to and also like to run into acid vats sometimes because they're sore losers or something. :')
 
 	dna.update_ui_block(DNA_HAIR_COLOR_BLOCK)
 	dna.species.handle_body(src)
@@ -97,9 +97,6 @@ GLOBAL_LIST_INIT(drowraider_aggro, world.file2list("strings/rt/drowaggrolines.tx
 		real_name = pick(world.file2list("strings/rt/names/elf/elfdm.txt"))
 	update_hair()
 	update_body()
-	// Caustic edit
-	head.sellprice = 40 // Drow are dangerous! They're also dangerous to get to and, depending on location, like to run into acid vats. This accounts for that.
-	// Caustic edit end
 
 /mob/living/carbon/human/species/elf/dark/drowraider/npc_idle()
 	if(m_intent == MOVE_INTENT_SNEAK)
