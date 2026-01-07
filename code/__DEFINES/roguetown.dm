@@ -365,18 +365,18 @@ GLOBAL_LIST_EMPTY(round_join_times)
 /*
 	Defines the ratios for armors when calculating layered integrity damage. Higher values means a stronger ratio.
 
-	Ratios work by combining the values of both items and spreading damage across evenly. 
+	Ratios work by combining the values of both items and spreading damage across evenly.
 	If you have an armor with an AC of "none", it will only convert a small portion of the total depending on the other item's weight.
-	
+
 	Ex:
 	(individual_armor / total_ratio)
 	AC_NONE+AC_MEDIUM = 80 total_ratio
 	20/80 = 25%
 	60/80 = 75%
 
-	The Medium Armor takes 75% damage, where the NONE takes only 25% of integrity damage. 
-	If you have 2 ratio's of the same amount, 50/50. 
-	Lets look at Heavy and Light. 
+	The Medium Armor takes 75% damage, where the NONE takes only 25% of integrity damage.
+	If you have 2 ratio's of the same amount, 50/50.
+	Lets look at Heavy and Light.
 
 	40+80 = 120
 	40/120 = 33%
