@@ -382,10 +382,10 @@ GLOBAL_LIST_EMPTY(round_join_times)
 	40/120 = 33%
 	80/120 = 66% -> Your Heavy Armor takes 66% of the damage, and 33% transfers under to your underarmor.
 */
-#define AC_NONE_RATIO 20
-#define AC_LIGHT_RATIO 40
-#define AC_MEDIUM_RATIO 60
-#define AC_HEAVY_RATIO 80
+#define AC_NONE_RATIO 80 // This seems unintuitive but these are almost always "outer" armors like bracers, boots, helmets, etc which intentionally lack an AC rating. These should take the brunt of the damage.
+#define AC_LIGHT_RATIO 20
+#define AC_MEDIUM_RATIO 40
+#define AC_HEAVY_RATIO 60
 
 #define ARMOR_SHIELD TRUE //Used for armor types that are not meant to last permanently and act as an overshield across the entire body, I.E. Fateweaver/Dragonhide.
 
