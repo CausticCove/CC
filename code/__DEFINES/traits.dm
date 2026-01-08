@@ -222,6 +222,9 @@
 // ARMOR / CLOTHING GIVEN TRAITS (GIVEN BY WEARING CLOTHES/ARMOR PIECES)
 #define TRAIT_MONK_ROBE	"Holy Vestatures"
 #define TRAIT_RACISMISBAD "Heritage Vision"
+//Caustic edit
+#define TRAIT_BAOTHA_FERTILITY_BOON "Marked and shaped by Baotha"
+//Caustic edit end
 
 //Caustic edit
 #define TRAIT_NECRAS_ABATEMENT "Necra's Abatement" //keeps deadites from doing much of anything in town

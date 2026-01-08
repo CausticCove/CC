@@ -146,6 +146,10 @@
 	/// Ref to orison-like sunder object
 	var/sunder_light_obj = null
 
+	//Caustic edit
+	var/already_converted_once = FALSE
+	//Caustic edit end
+
 	/// Assoc list of culinary preferences of the mob
 	var/list/culinary_preferences = list()
 
@@ -175,5 +179,9 @@
 	var/virginity = FALSE
 	// Used to prevent certain antag from having sex
 	var/can_do_sex = TRUE
+	//Caustic edit
+	var/mpreg = FALSE
+	var/mpreg_chance = IMPREG_PROB_DEFAULT
+	//Caustic edit end
 
 	fovangle = FOV_DEFAULT

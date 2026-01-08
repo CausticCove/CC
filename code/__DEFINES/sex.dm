@@ -241,3 +241,9 @@ GLOBAL_LIST_EMPTY(locked_sex_objects)
 #define KNOTTED_NULL 0
 #define KNOTTED_AS_TOP 1
 #define KNOTTED_AS_BTM 2
+
+//Caustic edit
+#define IMPREG_PROB_DEFAULT 25
+#define IMPREG_PROB_INCREMENT 10
+#define IMPREG_PROB_MAX 95
+//Caustic edit end
