@@ -26,12 +26,15 @@
 	maxSeverityChange = 5
 	severitySteps = 5
 	immunity_type = TRAIT_SNOWSTORM_IMMUNE
-	probability = 1
+	probability = 2
 	target_trait = PARTICLEWEATHER_SNOW
 
 //Makes you a little chilly
 /datum/particle_weather/snow_gentle/weather_act(mob/living/L)
 	L.adjust_bodytemperature(-rand(1,3))
+	L.adjust_fire_stacks(-100)
+	L.SoakMob(FULL_BODY)
+	wash_atom(L,CLEAN_STRONG)
 
 
 /datum/particle_weather/snow_storm
@@ -47,12 +50,15 @@
 	maxSeverityChange = 50
 	severitySteps = 50
 	immunity_type = TRAIT_SNOWSTORM_IMMUNE
-	probability = 1
+	probability = 2
 	target_trait = PARTICLEWEATHER_SNOW
 
 //Makes you a lot little chilly
 /datum/particle_weather/snow_storm/weather_act(mob/living/L)
 	L.adjust_bodytemperature(-rand(5,15))
+	L.adjust_fire_stacks(-100)
+	L.SoakMob(FULL_BODY)
+	wash_atom(L,CLEAN_STRONG)
 
 /turf
 	var/turf_flags = TURF_EFFECT_AFFECTABLE
