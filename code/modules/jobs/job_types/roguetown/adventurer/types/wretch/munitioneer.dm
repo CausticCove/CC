@@ -18,6 +18,7 @@
 		/datum/skill/combat/knives = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/combat/maces = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/combat/axes = SKILL_LEVEL_APPRENTICE,
+		/datum/skill/combat/firearms = SKILL_LEVEL_APPRENTICE, // CC Edit - Why not? Theyre called munitioneer.
 		/datum/skill/misc/swimming = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/combat/wrestling = SKILL_LEVEL_JOURNEYMAN, 
 		/datum/skill/combat/unarmed = SKILL_LEVEL_JOURNEYMAN,
@@ -67,7 +68,7 @@
 		H.mind?.current.faction += "[H.name]_faction"
 		H.set_patron(/datum/patron/divine/malum)
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/mineroresight) // controversial, and powerful, but it means you're spending less Wretch Time just mining.
-	var/weapons = list("Path of the Hammer - Steel Warhammer", "Path of the Crossbow - Crossbow and Bolts", "Path of the Pick - Pulaski Axe")
+	var/weapons = list("Path of the Hammer - Steel Warhammer", "Path of the Crossbow - Crossbow and Bolts", "Path of the Pick - Pulaski Axe", "Path of the Gun - Arquebus") // CC Edit
 	var/weapon_choice = input(H, "Choose your weapon.", "HOT IS THE ANVYL") as anything in weapons
 	switch(weapon_choice)
 		if("Path of the Hammer - Steel Warhammer")
@@ -80,6 +81,13 @@
 		if("Path of the Pick - Pulaski Axe")
 			H.adjust_skillrank_up_to(/datum/skill/combat/axes, SKILL_LEVEL_EXPERT, TRUE)
 			H.put_in_hands(new /obj/item/rogueweapon/stoneaxe/woodcut/pick, TRUE)
+		if("Path of the Gun - Arquebus") // CC Edit - Since we have guns
+			H.adjust_skillrank_up_to(/datum/skill/combat/firearms = SKILL_LEVEL_EXPERT, SKILL_LEVEL_EXPERT, TRUE)
+			H.adjust_skillrank_up_to(/datum/skill/craft/engineering = SKILL_LEVEL_EXPERT, SKILL_LEVEL_EXPERT, TRUE) // So they can make more firearms with only one sleep cycle.
+			H.adjust_skillrank_up_to(/datum/skill/magic/arcane = SKILL_LEVEL_NOVICE, TRUE) // So they can craft infernal ash on their own without needing to take arcyne potential. They still need positive int, for this.
+			H.put_in_hands(new /obj/item/gun/ballistic/arquebus, TRUE)
+			H.put_in_hands(new /obj/item/powderflask, TRUE)
+			H.equip_to_slot_or_del(new /obj/item/quiver/bulletpouch/iron, SLOT_BELT_L, TRUE)
 	var/datum/devotion/C = new /datum/devotion(H, H.patron)
 	C.grant_miracles(H, cleric_tier = CLERIC_T1, passive_gain = CLERIC_REGEN_MINOR, devotion_limit = CLERIC_REQ_4)	//Minor regen, can level up to T4.
 	wretch_select_bounty(H)
