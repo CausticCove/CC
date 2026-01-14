@@ -1,7 +1,9 @@
 /obj/effect/decal/remains
 	name = "remains"
+	desc = "Look on my works, ye mighty, and despair!"
 	gender = PLURAL
 	icon = 'icons/effects/blood.dmi'
+	var/harvestable_bones = list(/obj/item/natural/bone = 3) //caustic edit
 
 /obj/effect/decal/remains/acid_act()
 	visible_message(span_warning("[src] dissolve[gender==PLURAL?"":"s"] into a puddle of sizzling goop!"))
@@ -10,10 +12,12 @@
 	qdel(src)
 
 /obj/effect/decal/remains/human
-	desc = ""
+	desc = "Thoughts once coursed through this vacant vessel. You will never know them."
 	icon_state = "remains"
-	var/harvestable_bones = list(/obj/item/natural/bone = 3, /obj/item/skull = 1)
-/obj/effect/decal/remains/human/attack_hand(mob/living/user)
+//caustic edit begin
+	harvestable_bones = list(/obj/item/natural/bone = 3, /obj/item/skull = 1)
+
+/obj/effect/decal/remains/attack_hand(mob/living/user)
 	. = ..()
 	user.visible_message(span_warning("[user] begins sorting through [src]."), span_warning("You begin sorting through [src]."))
 	if(do_after(user, 5 SECONDS, needhand = TRUE, target = src))
@@ -24,6 +28,8 @@
 				new item(L)
 		user.visible_message(span_warning("[user] sorts through [src]."), span_warning("You sort through [src]."))
 		qdel(src)
+		
+//caustic edit end
 /obj/effect/decal/remains/plasma
 	icon_state = "remainsplasma"
 

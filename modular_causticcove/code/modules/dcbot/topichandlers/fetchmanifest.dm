@@ -4,6 +4,7 @@
 
 /datum/world_topic/fetchmanifest/Run(list/input)
 	var/dat
-	for(var/X in GLOB.actors_list)
-		dat += "[GLOB.actors_list[X]]"
+	var/list/sortedActors = get_sorted_actors_list()
+	for(var/X in sortedActors)
+		dat += ("[sortedActors[X]["data"]["name"]]" + " as " + "[sortedActors[X]["data"]["rank"]]")
 	return dat

@@ -13,13 +13,13 @@
 		/obj/item/natural/bundle/fibers = 4,
 
 		// Clothing
-		/obj/item/clothing/cloak/stabard = 6,
+		/obj/item/clothing/cloak/tabard/stabard = 6,
 		/obj/item/storage/backpack/rogue/satchel = 3,
 		/obj/item/clothing/shoes/roguetown/simpleshoes = 8,
 		/obj/item/clothing/suit/roguetown/shirt/undershirt/random = 10,
 		/obj/item/storage/belt/rogue/leather/cloth = 8,
 		/obj/item/clothing/cloak/raincloak/mortus = 6,
-		/obj/item/clothing/head/roguetown/armingcap = 4,
+		/obj/item/clothing/head/roguetown/cap = 4,
 		/obj/item/clothing/cloak/apron/waist = 6,
 		/obj/item/storage/belt/rogue/leather/rope = 6,
 		/obj/item/clothing/under/roguetown/tights/vagrant = 8,
@@ -61,8 +61,8 @@
 
 		//medical
 		/obj/item/needle = 4,
-		/obj/item/natural/cloth = 10,
-		/obj/item/natural/bundle/cloth = 3,
+		/obj/item/natural/cloth/bandage = 10,
+		/obj/item/natural/bundle/cloth/bandage/full = 3,
 
 		//weapons
 		/obj/item/rogueweapon/mace = 2,

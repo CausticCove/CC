@@ -5,9 +5,9 @@
 	var/random_deserter_cloak = rand(1,4)
 	switch(random_deserter_cloak)
 		if(1)
-			cloak = /obj/item/clothing/cloak/stabard/bog
+			cloak = /obj/item/clothing/cloak/tabard/stabard/bog
 		if(2)
-			cloak = /obj/item/clothing/cloak/stabard/dungeon
+			cloak = /obj/item/clothing/cloak/tabard/stabard/dungeon
 		if(3)
 			cloak = /obj/item/clothing/suit/roguetown/armor/longcoat/brown
 

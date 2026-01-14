@@ -16,7 +16,7 @@
 	experimental_inhand = FALSE
 	volume = 25
 	obj_flags = CAN_BE_HIT
-	sellprice = 1
+	sellprice = 5
 	drinksounds = list('sound/items/drink_cup (1).ogg','sound/items/drink_cup (2).ogg','sound/items/drink_cup (3).ogg','sound/items/drink_cup (4).ogg','sound/items/drink_cup (5).ogg')
 	fillsounds = list('sound/items/fillcup.ogg')
 	anvilrepair = /datum/skill/craft/blacksmithing
@@ -151,7 +151,7 @@
 	icon_state = "wooden"
 	drop_sound = 'sound/foley/dropsound/wooden_drop.ogg'
 	anvilrepair = null
-	sellprice = 0
+	sellprice = 3
 	force = 5
 	throwforce = 10
 
@@ -190,6 +190,11 @@
 	is_silver = TRUE
 	force = 10
 	throwforce = 15
+
+/obj/item/reagent_containers/glass/cup/silver/pewter //ugly but better than the alternatives
+	name = "pewter goblet"
+	desc = "A pewter goblet, cheaper than silver, but with a similar shine!"
+	is_silver = FALSE
 
 /obj/item/reagent_containers/glass/cup/silver/small
 	name = "silver cup"

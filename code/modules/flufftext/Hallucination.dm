@@ -24,7 +24,7 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 
 
 /mob/living/carbon/proc/handle_hallucinations()
-	if(!hallucination)
+	if(!hallucination || !client || stat)
 		return
 
 	hallucination--

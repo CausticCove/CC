@@ -13,6 +13,12 @@
 	cost = 50
 	contains = list(/obj/item/reagent_containers/powder/herozium)
 
+// Caustic Edit
+/datum/supply_pack/rogue/drugs/suidust
+	name = "Sui Dust"
+	cost = 20
+	contains = list(/obj/item/alch/transisdust)
+// Caustic Edit End
 
 /datum/supply_pack/rogue/drugs/moondust
 	name = "Moon Dust"

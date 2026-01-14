@@ -56,8 +56,10 @@
 		var/honorary = "Ser"
 		if(should_wear_femme_clothes(H))
 			honorary = "Dame"
-		H.real_name = "[honorary] [prev_real_name]"
-		H.name = "[honorary] [prev_name]"
+		// check if they already have it to avoid stacking titles
+		if(findtextEx(H.real_name, "[honorary] ") == 0)
+			H.real_name = "[honorary] [prev_real_name]"
+			H.name = "[honorary] [prev_name]"
 
 		for(var/X in peopleknowme)
 			for(var/datum/mind/MF in get_minds(X))
@@ -78,8 +80,8 @@
 		STATKEY_CON = 2,
 		STATKEY_WIL = 2,
 		STATKEY_INT = 2,
-		STATKEY_PER = 1,
-		STATKEY_LCK = 1
+		STATKEY_PER = 2,
+		STATKEY_LCK = 2
 	)
 	subclass_skills = list(
 		/datum/skill/combat/swords = SKILL_LEVEL_EXPERT,
@@ -111,9 +113,8 @@
 	if(H.mind)
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/order/movemovemove)
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/order/takeaim)
-		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/order/onfeet)
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/order/hold)
-		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/order/focustarget)
+		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/order/onfeet)
 	H.dna.species.soundpack_m = new /datum/voicepack/male/knight()
 	H.verbs |= list(
 		/mob/living/carbon/human/proc/request_outlaw,
@@ -129,7 +130,7 @@
 			"Claymore",
 			"Great Mace",
 			"Battle Axe",
-			"Greataxe",
+			"Poleaxe",
 			"Estoc",
 			"Longsword",
 			"Flail",
@@ -148,9 +149,9 @@
 				H.adjust_skillrank_up_to(/datum/skill/combat/swords, 5, TRUE)
 				r_hand = /obj/item/rogueweapon/greatsword/zwei
 				backl = /obj/item/rogueweapon/scabbard/gwstrap
-			if("Greataxe")
+			if("Poleaxe")
 				H.adjust_skillrank_up_to(/datum/skill/combat/axes, 5, TRUE)
-				r_hand = /obj/item/rogueweapon/greataxe/steel/doublehead
+				r_hand = /obj/item/rogueweapon/greataxe/steel/knight
 				backl = /obj/item/rogueweapon/scabbard/gwstrap
 			if("Estoc")
 				H.adjust_skillrank_up_to(/datum/skill/combat/swords, 5, TRUE)

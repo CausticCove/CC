@@ -319,9 +319,16 @@
 	grind_results = list(/datum/reagent/berrypoison = 5)
 	color_index = "bad"
 
+// Caustic Edit
+/obj/item/reagent_containers/food/snacks/grown/berries/rogue/poison/examine(mob/user)
+	. = ..()
+	if(!user.get_client_color(/datum/client_colour/monochrome))
+		. += span_notice("On closer examination... These berries have a strange discoloration around the stem.")
+// Caustic Edit End
+
 /obj/item/reagent_containers/food/snacks/grown/nut
 	name = "rocknut"
-	desc = "a nut with mild stimulant properties. In powderized form, it can be used to make a zig."
+	desc = "A nut with mild stimulant properties. In powderized form, it can be used to make a zig."
 	seed = /obj/item/seeds/nut
 	icon_state = "rocknut"
 	tastes = list("nutty" = 1)

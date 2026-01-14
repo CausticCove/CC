@@ -7,29 +7,32 @@
 	flags_inv = HIDEEARS|HIDEFACE|HIDESNOUT
 	flags_cover = HEADCOVERSEYES | HEADCOVERSMOUTH
 	armor = ARMOR_PLATE
-	prevent_crits = list(BCLASS_CUT, BCLASS_STAB, BCLASS_CHOP, BCLASS_BLUNT, BCLASS_SMASH, BCLASS_TWIST, BCLASS_PICK)
 	block2add = FOV_BEHIND
 	smeltresult = /obj/item/ingot/steel
 	max_integrity = ARMOR_INT_HELMET_HEAVY_STEEL
-	armor_class = ARMOR_CLASS_MEDIUM	//Heavy helmets require at least medium armor training. Stops no-armor training plate-headgear users.
+	// CC edit. No default medium armor class here.
 	smelt_bar_num = 1
+	stack_fovs = TRUE
+	sellprice = 30 //Helmets are really important.
 
 /obj/item/clothing/head/roguetown/helmet/heavy/aalloy
 	name = "decrepit barbute"
 	desc = "Frayed bronze plates, pounded into a visored helmet. Scrapes and dents line the curved plating, weathered from centuries of neglect. The remains of a plume's stub hang atop its rim."
 	body_parts_covered = COVERAGE_HEAD
 	max_integrity = ARMOR_INT_HELMET_HEAVY_DECREPIT
-	prevent_crits = list(BCLASS_CUT, BCLASS_STAB, BCLASS_CHOP, BCLASS_BLUNT, BCLASS_TWIST)
 	icon_state = "ancientbarbute"
 	color = "#bb9696"
+	chunkcolor = "#532e25"
 	smeltresult = /obj/item/ingot/aaslag
 	anvilrepair = null
+	prevent_crits = PREVENT_CRITS_NONE
+	sellprice = 20 //Even slag helmets are better than nothing.
 
 /obj/item/clothing/head/roguetown/helmet/heavy/aalloy/attackby(obj/item/W, mob/living/user, params)
 	..()
 	if(istype(W, /obj/item/natural/feather) && !detail_tag)
-		var/choice = input(user, "Choose a color.", "Plume") as anything in colorlist
-		detail_color = colorlist[choice]
+		var/choice = input(user, "Choose a color.", "Plume") as anything in COLOR_MAP
+		detail_color = COLOR_MAP[choice]
 		detail_tag = "_detail"
 		user.visible_message(span_warning("[user] adds [W] to [src]."))
 		user.transferItemToLoc(W, src, FALSE, FALSE)
@@ -53,18 +56,20 @@
 	flags_inv = HIDEEARS
 	flags_cover = null
 	icon_state = "kazengunheavyhelm"
+	sellprice = 50
 
 /obj/item/clothing/head/roguetown/helmet/heavy/paalloy
 	name = "ancient barbute"
 	desc = "Polished gilbranze plates, pounded to form a visored helmet. Zizo commands progress, and progress commands sacrifice; let these sundered legionnaires rise again, to spill the blood of unenlightened fools. A coiled pocket is perched atop the rim, awaiting to be plumed."
 	icon_state = "ancientbarbute"
 	smeltresult = /obj/item/ingot/aaslag
+	sellprice = 20
 
 /obj/item/clothing/head/roguetown/helmet/heavy/paalloy/attackby(obj/item/W, mob/living/user, params)
 	..()
 	if(istype(W, /obj/item/natural/feather) && !detail_tag)
-		var/choice = input(user, "Choose a color.", "Plume") as anything in colorlist
-		detail_color = colorlist[choice]
+		var/choice = input(user, "Choose a color.", "Plume") as anything in COLOR_MAP
+		detail_color = COLOR_MAP[choice]
 		detail_tag = "_detail"
 		user.visible_message(span_warning("[user] adds [W] to [src]."))
 		user.transferItemToLoc(W, src, FALSE, FALSE)
@@ -93,17 +98,20 @@
 	name = "decrepit savoyard"
 	desc = "Frayed bronze plates, molded into a ventilated casket. It reeks of fetid shit, and each breath - labored and strained - is laced with flaked metal."
 	max_integrity = ARMOR_INT_HELMET_HEAVY_DECREPIT
-	prevent_crits = list(BCLASS_CUT, BCLASS_STAB, BCLASS_CHOP, BCLASS_BLUNT, BCLASS_TWIST)
 	icon_state = "ancientsavoyard"
 	color = "#bb9696"
+	chunkcolor = "#532e25"
 	smeltresult = /obj/item/ingot/aaslag
 	anvilrepair = null
+	prevent_crits = PREVENT_CRITS_NONE
+	sellprice = 20
 
 /obj/item/clothing/head/roguetown/helmet/heavy/guard/paalloy
 	name = "ancient savoyard"
 	desc = "Polished gilbranze plates, molded into a bulwark's greathelm. The Comet Syon's glare has been forever burnt into the alloy; a decayed glimpse into the world that was, before Psydon's slumber and Zizo's awakening."
 	icon_state = "ancientsavoyard"
 	smeltresult = /obj/item/ingot/aaslag
+	sellprice = 20
 
 /obj/item/clothing/head/roguetown/helmet/heavy/sheriff
 	name = "barred helmet"
@@ -114,9 +122,10 @@
 	block2add = FOV_BEHIND
 	smeltresult = /obj/item/ingot/steel
 	smelt_bar_num = 2
+	sellprice = 40
 
 /obj/item/clothing/head/roguetown/helmet/heavy/knight
-	name = "knight's helmet"
+	name = "knight's armet"
 	desc = "A noble knight's helm in the current style popular with nobility. Add a feather to show the colors of your family or allegiance."
 	icon_state = "knight"
 	item_state = "knight"
@@ -127,6 +136,7 @@
 	max_integrity = ARMOR_INT_HELMET_HEAVY_STEEL - ARMOR_INT_HELMET_HEAVY_ADJUSTABLE_PENALTY
 	smeltresult = /obj/item/ingot/steel
 	smelt_bar_num = 2
+	sellprice = 40
 
 /obj/item/clothing/head/roguetown/helmet/heavy/knight/black
 	color = CLOTHING_GREY
@@ -137,8 +147,8 @@
 /obj/item/clothing/head/roguetown/helmet/heavy/knight/attackby(obj/item/W, mob/living/user, params)
 	..()
 	if(istype(W, /obj/item/natural/feather) && !detail_tag)
-		var/choice = input(user, "Choose a color.", "Plume") as anything in colorlist
-		detail_color = colorlist[choice]
+		var/choice = input(user, "Choose a color.", "Plume") as anything in COLOR_MAP
+		detail_color = COLOR_MAP[choice]
 		detail_tag = "_detail"
 		user.visible_message(span_warning("[user] adds [W] to [src]."))
 		user.transferItemToLoc(W, src, FALSE, FALSE)
@@ -161,9 +171,20 @@
 	desc = "An ornate steel greathelm with a visor, which protects the entire head. While bulky, the fluted design excels at prolonging chivalrous bouts with fellow knights. Add a feather to show the colors of your family or allegiance."
 
 /obj/item/clothing/head/roguetown/helmet/heavy/knight/iron
-	name = "iron knight's helmet"
+	name = "iron knight's armet"
 	icon_state = "iknight"
 	desc = "A noble knight's helm made of iron."
+	smeltresult = /obj/item/ingot/iron
+	max_integrity = ARMOR_INT_HELMET_HEAVY_IRON
+	sellprice = 30
+
+/obj/item/clothing/head/roguetown/helmet/heavy/knight/old
+	name = "knight's helmet"
+	icon_state = "knightclassic"
+
+/obj/item/clothing/head/roguetown/helmet/heavy/knight/old/iron
+	name = "iron knight's helmet"
+	icon_state = "iknightclassic"
 	smeltresult = /obj/item/ingot/iron
 	max_integrity = ARMOR_INT_HELMET_HEAVY_IRON
 
@@ -174,24 +195,25 @@
 	item_state = "skettle"
 	max_integrity = ARMOR_INT_HELMET_HEAVY_STEEL
 	adjustable = CANT_CADJUST
+	sellprice = 50
 
 /obj/item/clothing/head/roguetown/helmet/heavy/knight/skettle/attackby(obj/item/W, mob/living/user, params)
 	..()
 	if(istype(W, /obj/item/natural/feather) && !detail_tag)
-		var/choice = input(user, "Choose a color.", "Plume") as anything in colorlist
+		var/choice = input(user, "Choose a color.", "Plume") as anything in COLOR_MAP
 		user.visible_message(span_warning("[user] adds [W] to [src]."))
 		user.transferItemToLoc(W, src, FALSE, FALSE)
-		detail_color = colorlist[choice]
+		detail_color = COLOR_MAP[choice]
 		detail_tag = "_detail"
 		update_icon()
 		if(loc == user && ishuman(user))
 			var/mob/living/carbon/H = user
 			H.update_inv_head()
 	if(istype(W, /obj/item/natural/cloth) && !altdetail_tag)
-		var/choicealt = input(user, "Choose a color.", "Orle") as anything in colorlist + pridelist
+		var/choicealt = input(user, "Choose a color.", "Orle") as anything in COLOR_MAP + pridelist
 		user.visible_message(span_warning("[user] adds [W] to [src]."))
 		user.transferItemToLoc(W, src, FALSE, FALSE)
-		altdetail_color = colorlist[choicealt]
+		altdetail_color = COLOR_MAP[choicealt]
 		altdetail_tag = "_detailalt"
 		if(choicealt in pridelist)
 			detail_tag = "_detailp"
@@ -211,20 +233,20 @@
 /obj/item/clothing/head/roguetown/helmet/heavy/knight/armet/attackby(obj/item/W, mob/living/user, params)
 	..()
 	if(istype(W, /obj/item/natural/feather) && !detail_tag)
-		var/choice = input(user, "Choose a color.", "Plume") as anything in colorlist
+		var/choice = input(user, "Choose a color.", "Plume") as anything in COLOR_MAP
 		user.visible_message(span_warning("[user] adds [W] to [src]."))
 		user.transferItemToLoc(W, src, FALSE, FALSE)
-		detail_color = colorlist[choice]
+		detail_color = COLOR_MAP[choice]
 		detail_tag = "_detail"
 		update_icon()
 		if(loc == user && ishuman(user))
 			var/mob/living/carbon/H = user
 			H.update_inv_head()
 	if(istype(W, /obj/item/natural/cloth) && !altdetail_tag)
-		var/choicealt = input(user, "Choose a color.", "Orle") as anything in colorlist + pridelist
+		var/choicealt = input(user, "Choose a color.", "Orle") as anything in COLOR_MAP + pridelist
 		user.visible_message(span_warning("[user] adds [W] to [src]."))
 		user.transferItemToLoc(W, src, FALSE, FALSE)
-		altdetail_color = colorlist[choicealt]
+		altdetail_color = COLOR_MAP[choicealt]
 		altdetail_tag = "_detailalt"
 		if(choicealt in pridelist)
 			detail_tag = "_detailp"
@@ -249,12 +271,12 @@
 			pic2.color = get_altdetail_color()
 		add_overlay(pic2)
 
-
 /obj/item/clothing/head/roguetown/helmet/heavy/bucket/gold
 	name = "golden helmet"
 	icon_state = "topfhelm_gold"
 	item_state = "topfhelm_gold"
 	desc = "A full-head covering helm with the engravings of Ravox. Bravery. Justice. Ever Unyielding."
+	sellprice = 200 //Beautiful...
 
 /obj/item/clothing/head/roguetown/helmet/heavy/bucket/ravox/attackby(obj/item/W, mob/living/user, params)
 	return
@@ -269,14 +291,15 @@
 	block2add = FOV_BEHIND
 	smeltresult = /obj/item/ingot/steel
 	smelt_bar_num = 2
+	sellprice = 40
 
 /obj/item/clothing/head/roguetown/helmet/heavy/bucket/attackby(obj/item/W, mob/living/user, params)
 	..()
 	if(istype(W, /obj/item/natural/cloth) && !detail_tag)
-		var/choice = input(user, "Choose a color.", "Orle") as anything in colorlist + pridelist
+		var/choice = input(user, "Choose a color.", "Orle") as anything in COLOR_MAP + pridelist
 		user.visible_message(span_warning("[user] adds [W] to [src]."))
 		user.transferItemToLoc(W, src, FALSE, FALSE)
-		detail_color = colorlist[choice]
+		detail_color = COLOR_MAP[choice]
 		detail_tag = "_detail"
 		if(choice in pridelist)
 			detail_tag = "_detailp"
@@ -304,6 +327,7 @@
 	block2add = FOV_BEHIND
 	smeltresult = /obj/item/ingot/steel
 	smelt_bar_num = 2
+	sellprice = 50 //Oh xylix! How daring!
 
 /obj/item/clothing/head/roguetown/helmet/heavy/xylixhelm/Initialize()
 	. = ..()
@@ -319,6 +343,7 @@
 	block2add = FOV_BEHIND
 	smeltresult = /obj/item/ingot/steel
 	smelt_bar_num = 2
+	sellprice = 50 //Dear astrata!
 
 /obj/item/clothing/head/roguetown/helmet/heavy/psydonbarbute
 	name = "psydonic barbute"
@@ -344,6 +369,7 @@
 	adjustable = CAN_CADJUST
 	max_integrity = ARMOR_INT_HELMET_HEAVY_STEEL - ARMOR_INT_HELMET_HEAVY_ADJUSTABLE_PENALTY
 	smeltresult = /obj/item/ingot/silver
+	sellprice = 100 //Psydon!!!
 
 /obj/item/clothing/head/roguetown/helmet/heavy/psydonhelm/getonmobprop(tag)
 	if(tag)
@@ -359,10 +385,10 @@
 /obj/item/clothing/head/roguetown/helmet/heavy/psydonhelm/attackby(obj/item/W, mob/living/user, params)
 	..()
 	if(istype(W, /obj/item/natural/cloth) && !detail_tag)
-		var/choice = input(user, "Choose a color.", "Orle") as anything in colorlist + pridelist
+		var/choice = input(user, "Choose a color.", "Orle") as anything in COLOR_MAP + pridelist
 		user.visible_message(span_warning("[user] adds [W] to [src]."))
 		user.transferItemToLoc(W, src, FALSE, FALSE)
-		detail_color = colorlist[choice]
+		detail_color = COLOR_MAP[choice]
 		detail_tag = "_detail"
 		if(choice in pridelist)
 			detail_tag = "_detailp"
@@ -371,10 +397,10 @@
 			var/mob/living/carbon/H = user
 			H.update_inv_head()
 	if(istype(W, /obj/item/natural/feather) && !altdetail_tag)
-		var/choicealt = input(user, "Choose a color.", "Plume") as anything in colorlist
+		var/choicealt = input(user, "Choose a color.", "Plume") as anything in COLOR_MAP
 		user.visible_message(span_warning("[user] adds [W] to [src]."))
 		user.transferItemToLoc(W, src, FALSE, FALSE)
-		altdetail_color = colorlist[choicealt]
+		altdetail_color = COLOR_MAP[choicealt]
 		altdetail_tag = "_detailalt"
 		update_icon()
 		if(loc == user && ishuman(user))
@@ -409,6 +435,7 @@
 	adjustable = CAN_CADJUST
 	max_integrity = ARMOR_INT_HELMET_HEAVY_STEEL - ARMOR_INT_HELMET_HEAVY_ADJUSTABLE_PENALTY
 	var/plumed = FALSE
+	sellprice = 50
 
 /obj/item/clothing/head/roguetown/helmet/heavy/ordinatorhelm/ComponentInitialize()
 	AddComponent(/datum/component/adjustable_clothing, (HEAD|EARS|HAIR), (HIDEEARS|HIDEHAIR), null, 'sound/items/visor.ogg', null, UPD_HEAD)	//Standard helmet
@@ -453,6 +480,7 @@
 	bloody_icon = 'icons/effects/blood64.dmi'
 	flags_inv = HIDEEARS|HIDEFACE|HIDEHAIR|HIDESNOUT
 	smeltresult = /obj/item/ingot/silver
+	sellprice = 150
 
 /obj/item/clothing/head/roguetown/helmet/heavy/psybucket
 	name = "psydonic bucket helmet"
@@ -463,6 +491,7 @@
 	adjustable = CAN_CADJUST
 	max_integrity = ARMOR_INT_HELMET_HEAVY_STEEL
 	smeltresult = /obj/item/ingot/silver
+	sellprice = 150
 
 /obj/item/clothing/head/roguetown/helmet/heavy/psysallet
 	name = "psydonic sallet"
@@ -473,6 +502,7 @@
 	adjustable = CAN_CADJUST
 	max_integrity = ARMOR_INT_HELMET_HEAVY_STEEL
 	smeltresult = /obj/item/ingot/silver
+	sellprice = 150
 
 /obj/item/clothing/head/roguetown/helmet/heavy/nochelm
 	name = "noc helmet"
@@ -485,6 +515,7 @@
 	block2add = FOV_BEHIND
 	smeltresult = /obj/item/ingot/steel
 	smelt_bar_num = 2
+	sellprice = 50
 
 /obj/item/clothing/head/roguetown/helmet/heavy/necrahelm
 	name = "necra helmet"
@@ -496,6 +527,7 @@
 	block2add = FOV_BEHIND
 	smeltresult = /obj/item/ingot/steel
 	smelt_bar_num = 2
+	sellprice = 50
 
 /obj/item/clothing/head/roguetown/helmet/heavy/dendorhelm
 	name = "dendor helmet"
@@ -507,6 +539,7 @@
 	block2add = FOV_BEHIND
 	smeltresult = /obj/item/ingot/steel
 	smelt_bar_num = 2
+	sellprice = 50
 
 /obj/item/clothing/head/roguetown/helmet/heavy/abyssorgreathelm
 	name = "abyssorite helmet"
@@ -518,6 +551,7 @@
 	block2add = FOV_BEHIND
 	smeltresult = /obj/item/ingot/steel
 	smelt_bar_num = 2
+	sellprice = 50
 
 /obj/item/clothing/head/roguetown/helmet/heavy/ravoxhelm
 	name = "justice eagle"
@@ -529,12 +563,13 @@
 	block2add = FOV_BEHIND
 	smeltresult = /obj/item/ingot/steel
 	smelt_bar_num = 2
+	sellprice = 50
 
 /obj/item/clothing/head/roguetown/helmet/heavy/ravoxhelm/attackby(obj/item/W, mob/living/user, params)
 	..()
 	if(istype(W, /obj/item/natural/feather) && !detail_tag)
-		var/choice = input(user, "Choose a color.", "Plume") as anything in colorlist
-		detail_color = colorlist[choice]
+		var/choice = input(user, "Choose a color.", "Plume") as anything in COLOR_MAP
+		detail_color = COLOR_MAP[choice]
 		detail_tag = "_detail"
 		user.visible_message(span_warning("[user] adds [W] to [src]."))
 		user.transferItemToLoc(W, src, FALSE, FALSE)
@@ -555,7 +590,7 @@
 	block2add = FOV_BEHIND
 	smeltresult = /obj/item/ingot/steel
 	max_integrity = ARMOR_INT_HELMET_HEAVY_STEEL - ARMOR_INT_HELMET_HEAVY_ADJUSTABLE_PENALTY
-	armor_class = null	//Needs no armor class, snowflake merc gear.
+	sellprice = 35 //Snowflake gear... Apparently
 
 /obj/item/clothing/head/roguetown/helmet/heavy/volfplate/ComponentInitialize()
 	AddComponent(/datum/component/adjustable_clothing, (HEAD|EARS|HAIR), (HIDEEARS|HIDEHAIR), null, 'sound/items/visor.ogg', null, UPD_HEAD)	//Standard helmet
@@ -591,7 +626,7 @@
 	desc = "An assembly of woven trunk, kept alive by ancient song, now twisted and warped for battle and scorn."
 	body_parts_covered = FULL_HEAD | NECK
 	armor = list("blunt" = 100, "slash" = 20, "stab" = 110, "piercing" = 40, "fire" = 0, "acid" = 0)//Resistant to blunt & stab, but very weak to slash.
-	prevent_crits = list(BCLASS_BLUNT, BCLASS_SMASH, BCLASS_TWIST, BCLASS_PICK)
+	prevent_crits = PREVENT_CRITS_ALL
 	icon = 'icons/roguetown/clothing/special/race_armor.dmi'
 	mob_overlay_icon = 'icons/roguetown/clothing/special/onmob/race_armor.dmi'
 	icon_state = "welfhead"
@@ -605,6 +640,7 @@
 	blocksound = SOFTHIT
 	experimental_inhand = FALSE
 	experimental_onhip = FALSE
+	sellprice = 277 //Woah! Elven!?
 
 /obj/item/clothing/head/roguetown/helmet/heavy/frogmouth
 	name = "froggemund helmet"
@@ -612,20 +648,22 @@
 	icon_state = "frogmouth"
 	item_state = "frogmouth"
 	emote_environment = 3
+	prevent_crits = PREVENT_CRITS_ALL
 	body_parts_covered = FULL_HEAD|NECK
 	flags_inv = HIDEEARS|HIDEFACE|HIDEHAIR
 	block2add = FOV_RIGHT|FOV_LEFT
 	max_integrity = ARMOR_INT_HELMET_HEAVY_STEEL + ARMOR_INT_HELMET_HEAVY_ADJUSTABLE_PENALTY // Worst vision. Yes.
 	smeltresult = /obj/item/ingot/steel
 	smelt_bar_num = 2
+	sellprice = 50
 
 /obj/item/clothing/head/roguetown/helmet/heavy/frogmouth/attackby(obj/item/W, mob/living/user, params)
 	..()
 	if(istype(W, /obj/item/natural/cloth) && !detail_tag)
-		var/choice = input(user, "Choose a color.", "Orle") as anything in colorlist + pridelist
+		var/choice = input(user, "Choose a color.", "Orle") as anything in COLOR_MAP + pridelist
 		user.visible_message(span_warning("[user] adds [W] to [src]."))
 		user.transferItemToLoc(W, src, FALSE, FALSE)
-		detail_color = colorlist[choice]
+		detail_color = COLOR_MAP[choice]
 		detail_tag = "_detail"
 		if(choice in pridelist)
 			detail_tag = "_detailp"
@@ -652,11 +690,17 @@
 	flags_inv = HIDEEARS|HIDEFACE|HIDESNOUT|HIDEHAIR|HIDEFACIALHAIR
 	icon_state = "matthioshelm"
 	max_integrity = ARMOR_INT_HELMET_ANTAG
+	prevent_crits = PREVENT_CRITS_ALL
 	worn_x_dimension = 64
 	worn_y_dimension = 64
 	bloody_icon = 'icons/effects/blood64.dmi'
 	experimental_inhand = FALSE
 	experimental_onhip = FALSE
+	sellprice = 200 //Heretical..!
+
+/obj/item/clothing/head/roguetown/helmet/heavy/matthios/Initialize()
+	. = ..()
+	AddComponent(/datum/component/cursed_item, TRAIT_COMMIE, "ARMOR")
 
 /obj/item/clothing/head/roguetown/helmet/heavy/graggar
 	name = "vicious helmet"
@@ -664,7 +708,9 @@
 	icon_state = "graggarplatehelm"
 	max_integrity = ARMOR_INT_HELMET_ANTAG
 	flags_inv = HIDEEARS|HIDEFACE|HIDESNOUT|HIDEHAIR|HIDEFACIALHAIR
+	prevent_crits = PREVENT_CRITS_ALL
 	var/active_item = FALSE
+	sellprice = 200 //Heretical..!
 
 /obj/item/clothing/head/roguetown/helmet/heavy/graggar/Initialize()
 	. = ..()
@@ -695,8 +741,11 @@
 	adjustable = CAN_CADJUST
 	icon_state = "zizobarbute"
 	max_integrity = ARMOR_INT_HELMET_ANTAG
+	prevent_crits = PREVENT_CRITS_ALL
 	peel_threshold = 4
+	chunkcolor = "#363030"
 	var/frogstyle = FALSE
+	sellprice = 200 //Heretical..!
 
 /obj/item/clothing/head/roguetown/helmet/heavy/zizo/MiddleClick(mob/user)
 	frogstyle = !frogstyle
@@ -736,6 +785,7 @@
 	block2add = FOV_BEHIND
 	smeltresult = /obj/item/ingot/iron
 	smelt_bar_num = 2
+	sellprice = 20
 
 /obj/item/clothing/head/roguetown/helmet/heavy/captain
 	name = "captain's helmet"
@@ -748,6 +798,7 @@
 	max_integrity = ARMOR_INT_HELMET_HEAVY_STEEL - ARMOR_INT_HELMET_HEAVY_ADJUSTABLE_PENALTY
 	smeltresult = /obj/item/ingot/steel
 	smelt_bar_num = 2
+	sellprice = 66 //Captains helm!
 
 /obj/item/clothing/head/roguetown/helmet/heavy/captain/ComponentInitialize()
 	AddComponent(/datum/component/adjustable_clothing, (HEAD|EARS|HAIR), (HIDEEARS|HIDEHAIR), null, 'sound/items/visor.ogg', null, UPD_HEAD)	//Standard helmet

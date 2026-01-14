@@ -211,22 +211,27 @@
 
 	var/modifier
 	switch(skill_quality)
-		if(BLACKSMITH_LEVEL_MIN to BLACKSMITH_LEVEL_SPOIL)
-			modifier = 0.3
+		if(-INFINITY to BLACKSMITH_LEVEL_MIN)//Literally. The worst you can possibly do. The item is totally fucking worthless.
+			modifier = 0.05
+		if((BLACKSMITH_LEVEL_MIN - 1) to BLACKSMITH_LEVEL_SPOIL)
+			modifier = 0.2
 		if(BLACKSMITH_LEVEL_AWFUL)
-			modifier = 0.5
+			modifier = 0.3
 		if(BLACKSMITH_LEVEL_CRUDE)
-			modifier = 0.8
+			modifier = 0.5
 		if(BLACKSMITH_LEVEL_ROUGH)
-			modifier = 0.9
+			modifier = 0.7
 		if(BLACKSMITH_LEVEL_COMPETENT)
 			modifier = 1
 		if(BLACKSMITH_LEVEL_FINE)
 			modifier = 1.1
 		if(BLACKSMITH_LEVEL_FLAWLESS)
 			modifier = 1.2
-		if(BLACKSMITH_LEVEL_LEGENDARY to BLACKSMITH_LEVEL_MAX)
+		if(BLACKSMITH_LEVEL_LEGENDARY to (BLACKSMITH_LEVEL_MAX - 1))
 			modifier = 1.3
+			record_round_statistic(STATS_MASTERWORKS_FORGED)
+		if(BLACKSMITH_LEVEL_MAX to INFINITY) //Can only acquire if max...
+			modifier = 1.4
 			record_round_statistic(STATS_MASTERWORKS_FORGED)
 
 	if(!modifier)
@@ -239,6 +244,9 @@
 		I.name = initial(I.name) // Reset the name first
 		if(modifier != 1)
 			switch(modifier)
+				if(0.05)
+					I.name = "crumbling [I.name]"
+					I.desc = "[initial(I.desc)] It looks worthless! Who would want this!?"
 				if(0.3)
 					I.name = "ruined [I.name]"
 				if(0.5)
@@ -255,8 +263,23 @@
 					I.name = "masterwork [I.name]"
 					I.polished = 4
 					I.AddComponent(/datum/component/metal_glint)
+				if(1.4)
+					I.name = "priceless [I.name]"
+					I.desc = "[initial(I.desc)] It looks priceless!"
+					I.polished = 4
+					I.AddComponent(/datum/component/metal_glint)
 
 		I.sellprice *= modifier
+		//Make non-crafters have to commit to their smithing or take a virtue; Otherwise suffer integ damage for low quality goods.
+		//You also need a good statpack as well if you came here seeking answers. STR, PER, INT all work together to make good smithing quality items.
+		if(modifier < 1)
+			I.max_integrity *= modifier
+			I.obj_integrity *= modifier
+
+		if(istype(I, /obj/item/reagent_containers)) //Can't bend the shape right? Sucks to be you.
+			var/obj/item/reagent_containers/R = I
+			R.volume *= modifier
+
 		if(istype(I, /obj/item/lockpick))
 			var/obj/item/lockpick/L = I
 			L.picklvl = modifier

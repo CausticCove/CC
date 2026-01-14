@@ -7,7 +7,6 @@
 //	adjustable = CAN_CADJUST
 	sewrepair = FALSE
 	armor = ARMOR_PLATE
-	prevent_crits = list(BCLASS_CUT, BCLASS_STAB, BCLASS_CHOP, BCLASS_BLUNT)
 	blocksound = PLATEHIT
 	max_integrity = ARMOR_INT_LEG_STEEL_PLATE
 	drop_sound = 'sound/foley/dropsound/armor_drop.ogg'
@@ -20,10 +19,12 @@
 	smelt_bar_num = 2
 	resistance_flags = FIRE_PROOF
 	armor_class = ARMOR_CLASS_HEAVY
+	sellprice = 40
 
 /obj/item/clothing/under/roguetown/platelegs/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/item_equipped_movement_rustle, SFX_PLATE_STEP)
+	AddComponent(/datum/component/item_equipped_movement_rustle, SFX_PLATE_STEP, 8)
+	AddComponent(/datum/component/armour_filtering/negative, TRAIT_FENCERDEXTERITY)
 
 /obj/item/clothing/under/roguetown/platelegs/iron
 	name = "iron plate chausses"
@@ -32,6 +33,7 @@
 	item_state = "iplate_legs"
 	max_integrity = ARMOR_INT_LEG_IRON_PLATE
 	smeltresult = /obj/item/ingot/iron
+	sellprice = 20
 
 /obj/item/clothing/under/roguetown/platelegs/aalloy
 	name = "decrepit plate chausses"
@@ -39,14 +41,18 @@
 	icon_state = "ancientplate_legs"
 	max_integrity = ARMOR_INT_LEG_DECREPIT_PLATE
 	color = "#bb9696"
+	chunkcolor = "#532e25"
 	smeltresult = /obj/item/ingot/aaslag
 	anvilrepair = null
+	prevent_crits = PREVENT_CRITS_NONE
+	sellprice = 10
 
 /obj/item/clothing/under/roguetown/platelegs/paalloy
 	name = "ancient plate chausses"
 	desc = "Polished gilbranze plates, layered atop silken chausses. Only the few who had embraced undeath were spared from Zizo's ascension; now, they command the undying legionnaires who march forth to sunder creation in Her name."
 	icon_state = "ancientplate_legs"
 	smeltresult = /obj/item/ingot/aaslag
+	sellprice = 10
 
 /obj/item/clothing/under/roguetown/platelegs/graggar
 	name = "vicious leggings"
@@ -54,7 +60,8 @@
 	icon_state = "graggarplatelegs"
 	armor = ARMOR_ASCENDANT
 	max_integrity = ARMOR_INT_LEG_STEEL_PLATE // Good good resistances, but less crit resist than the other ascendant armors. In trade, we can take off our pants to repair, and they are medium rather than heavy.
-	armor = ARMOR_CLASS_MEDIUM
+	armor_class = ARMOR_CLASS_MEDIUM
+	sellprice = 100 //Heretical~
 
 /obj/item/clothing/under/roguetown/platelegs/graggar/Initialize(mapload)
 	. = ..()
@@ -65,9 +72,10 @@
 	name = "gilded leggings"
 	desc = "But my outside to behold:"
 	icon_state = "matthioslegs"
-	prevent_crits = list(BCLASS_CUT, BCLASS_STAB, BCLASS_CHOP, BCLASS_BLUNT, BCLASS_SMASH, BCLASS_PICK)
+	prevent_crits = PREVENT_CRITS_ALL
 	armor = ARMOR_ASCENDANT
-/*caustic edit start
+	sellprice = 100 //Heretical~
+
 /obj/item/clothing/under/roguetown/platelegs/matthios/Initialize()
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, CURSED_ITEM_TRAIT)
@@ -78,7 +86,6 @@
 	if(QDELETED(src))
 		return
 	qdel(src)
-*///caustic edit end
 
 /obj/item/clothing/under/roguetown/platelegs/zizo
 	max_integrity = ARMOR_INT_LEG_ANTAG
@@ -86,8 +93,9 @@
 	desc = "Leg garments worn by true anointed of the Dame of Progress. In Her name."
 	icon_state = "zizocloth"
 	armor = ARMOR_ASCENDANT
-	prevent_crits = list(BCLASS_CUT, BCLASS_STAB, BCLASS_CHOP, BCLASS_BLUNT, BCLASS_SMASH, BCLASS_PICK)
-/*caustic edit start
+	prevent_crits = PREVENT_CRITS_ALL
+	sellprice = 100 //Heretical~
+
 /obj/item/clothing/under/roguetown/platelegs/zizo/Initialize()
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, CURSED_ITEM_TRAIT)
@@ -98,10 +106,10 @@
 	if(QDELETED(src))
 		return
 	qdel(src)
-*///caustic edit end
+
 /obj/item/clothing/under/roguetown/platelegs/zizo/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/item_equipped_movement_rustle, SFX_PLATE_STEP)
+	AddComponent(/datum/component/item_equipped_movement_rustle, SFX_PLATE_STEP, 8)
 
 /obj/item/clothing/under/roguetown/platelegs/skirt
 	name = "steel plate tassets"
@@ -111,3 +119,4 @@
 	item_state = "plate_skirt"
 	body_parts_covered = GROIN
 	armor_class = ARMOR_CLASS_LIGHT
+	sellprice = 38

@@ -237,3 +237,8 @@ tools/MapAtmosFixer/MapAtmosFixer/bin/*
 !/config/title_screens/images/exclude
 
 *.test.dme
+
+/.vs/
+/tools/CreditsTool/obj/
+/tools/tgs_test/obj/
+/tools/UnstandardnessTestForDM/UnstandardnessTestForDM/obj/

@@ -8,6 +8,7 @@
 	body_parts_covered = CHEST
 	salvage_result = /obj/item/natural/hide/cured
 	salvage_amount = 1
+	sellprice = 20 //Pretty... and tight!~ Pretty tight!!!
 	
 /obj/item/clothing/suit/roguetown/armor/longcoat
 	name = "longcoat"
@@ -21,6 +22,7 @@
 	r_sleeve_status = SLEEVE_NORMAL
 	l_sleeve_status = SLEEVE_NORMAL
 	allowed_sex = list(MALE, FEMALE)
+	sellprice = 23 //Nice coat.
 
 /obj/item/clothing/suit/roguetown/armor/longcoat/brown
 	color = "#997C4F"
@@ -47,6 +49,7 @@
 	sleeved = null
 	nodismemsleeves = TRUE
 	boobed = TRUE
+	sellprice = 15 //Basic worker attire. Not super pretty. Does the job.
 
 /obj/item/clothing/suit/roguetown/armor/workervest/Initialize()
 	color = pick("#94b4b6", "#ba8f9e", "#bd978c", "#92bd8c", "#c7c981")
@@ -58,7 +61,7 @@
 	icon_state = "bliaut"
 	color = null
 	armor = ARMOR_SPELLSINGER
-	prevent_crits = list(BCLASS_CUT, BCLASS_STAB, BCLASS_TWIST)
+	prevent_crits = PREVENT_CRITS_NONE
 	blocksound = SOFTHIT
 	slot_flags = ITEM_SLOT_ARMOR
 	blade_dulling = DULLING_BASHCHOP
@@ -73,6 +76,7 @@
 	armor_class = ARMOR_CLASS_LIGHT
 	allowed_sex = list(MALE, FEMALE)
 	allowed_race = CLOTHED_RACES_TYPES
+	sellprice = 37 //Ooh now that's nice~
 
 
 /obj/item/clothing/suit/roguetown/armor/silkcoat/Initialize()

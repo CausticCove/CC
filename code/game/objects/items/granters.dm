@@ -360,4 +360,11 @@
 	spellname = "Reduce/Enlarge"
 	icon_state ="scrolldarkred"
 	oneuse = TRUE
+
+/obj/item/book/granter/spell/blackstone/mirror_transform // Mirror Transform Spell
+    name = "Scroll of Mirror Transform"
+    spell = /obj/effect/proc_holder/spell/invoked/mirror_transform
+    spellname = "Mirror Transform"
+    icon_state ="scrolldarkred"
+    oneuse = TRUE
 //Caustic Edit End

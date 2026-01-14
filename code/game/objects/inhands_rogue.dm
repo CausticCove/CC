@@ -13,6 +13,7 @@
 	var/icon_y_offset = 0
 	var/always_destroy = FALSE
 	var/is_important = FALSE // If TRUE, this item is not allowed to be minted. May be useful for other things later.
+	var/vorpal = FALSE // does this item/weapon circumvent two-stage death during dismemberment? (do not add this to anything but ultra rare shit)
 //#else
 //	var/force_reupdate_inhand = FALSE
 //#endif
@@ -91,7 +92,7 @@
 	if(prob(10))	
 		turnangle = 0 //Right back at thee
 	var/turndir = turn(deflector.dir, turnangle)
-	var/dist = rand(3, 7)
+	var/dist = rand(1, 6)
 	var/turf/current_turf = get_turf(src)
 	var/turf/target_turf = get_ranged_target_turf(current_turf, turndir, dist)
 	var/soundin = pick(list('sound/combat/parry/deflect_1.ogg','sound/combat/parry/deflect_2.ogg','sound/combat/parry/deflect_3.ogg','sound/combat/parry/deflect_4.ogg','sound/combat/parry/deflect_5.ogg','sound/combat/parry/deflect_6.ogg'))

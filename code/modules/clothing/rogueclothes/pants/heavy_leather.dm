@@ -6,7 +6,6 @@
 	icon_state = "roguepants"
 	item_state = "roguepants"
 	sewrepair = TRUE
-	prevent_crits = list(BCLASS_CUT, BCLASS_CHOP, BCLASS_BLUNT, BCLASS_TWIST)
 	armor = ARMOR_LEATHER_GOOD
 	sellprice = 18
 	blocksound = SOFTHIT
@@ -17,6 +16,10 @@
 	resistance_flags = FIRE_PROOF
 	armor_class = ARMOR_CLASS_LIGHT
 	salvage_result = /obj/item/natural/hide/cured
+	sellprice = 14
+
+/obj/item/clothing/under/roguetown/heavy_leather_pants/ComponentInitialize()
+	AddComponent(/datum/component/armour_filtering/positive, TRAIT_FENCERDEXTERITY)
 
 /obj/item/clothing/under/roguetown/heavy_leather_pants/shorts
 	name = "hardened leather shorts"
@@ -24,15 +27,16 @@
 	being less protective than full trousers."
 	icon_state = "rogueshorts"
 	item_state = "rogueshorts"
-	prevent_crits = list(BCLASS_CUT, BCLASS_CHOP, BCLASS_BLUNT, BCLASS_TWIST)
 	body_parts_covered = GROIN
 	salvage_result = /obj/item/natural/hide/cured
 	salvage_amount = 1
+	sellprice = 14
 
 /obj/item/clothing/under/roguetown/heavy_leather_pants/otavan
 	name = "otavan leather trousers"
 	desc = "padded leather armor made by Otavan tailors, its quality is remarkable."
 	icon_state = "fencerpants"
+	sellprice = 24 //ooh fancy!
 
 /obj/item/clothing/under/roguetown/heavy_leather_pants/otavan/generic
 	name = "fencing breeches"
@@ -42,6 +46,7 @@
 	color = "#FFFFFF"
 	detail_color = "#5E4440"
 	allowed_race = NON_DWARVEN_RACE_TYPES
+	sellprice = 24
 
 /obj/item/clothing/under/roguetown/heavy_leather_pants/otavan/generic/update_icon()
 	cut_overlays()
@@ -69,12 +74,13 @@
 	detail_color = "#FFFFFF"
 	salvage_result = /obj/item/natural/hide/cured
 	salvage_amount = 1
+	sellprice = 14
 
 /obj/item/clothing/under/roguetown/heavy_leather_pants/grenzelpants/attack_right(mob/user)
 	..()
 	if(!picked)
-		var/choice = input(user, "Choose a color.", "Grenzelhoft colors") as anything in colorlist
-		var/playerchoice = colorlist[choice]
+		var/choice = input(user, "Choose a color.", "Grenzelhoft colors") as anything in COLOR_MAP
+		var/playerchoice = COLOR_MAP[choice]
 		picked = TRUE
 		detail_color = playerchoice
 		detail_tag = "_detail"
@@ -127,3 +133,4 @@
 	sewrepair = FALSE
 	anvilrepair = /datum/skill/craft/armorsmithing
 	smeltresult = /obj/item/ingot/bronze //Reskinned version of the Barbarian's heavy leather trousers. 1:1 functionality, but without the ability to sew-repair.
+	sellprice = 16

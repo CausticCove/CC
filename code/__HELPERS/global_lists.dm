@@ -89,6 +89,10 @@
 
 	for(var/mob/living/carbon/human/species/wildshape/shape as anything in subtypesof(/mob/living/carbon/human/species/wildshape))
 		GLOB.wildshapes[shape.name] = shape
+// CC Edit Start
+	for(var/mob/living/carbon/human/species/animagus/shape as anything in subtypesof(/mob/living/carbon/human/species/animagus))
+		GLOB.animagusshapes[shape.name] = shape
+// CC Edit End
 
 //creates every subtype of prototype (excluding prototype) and adds it to list L.
 //if no list/L is provided, one is created.

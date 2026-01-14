@@ -41,4 +41,6 @@
 	neck = /obj/item/storage/belt/rogue/pouch/coins/poor
 	belt = /obj/item/storage/belt/rogue/leather/knifebelt/black/kazengun
 	backl = /obj/item/storage/backpack/rogue/satchel
+	H.mind?.AddSpell(new /obj/effect/proc_holder/spell/invoked/minion_order)
+	H.mind?.AddSpell(new /obj/effect/proc_holder/spell/invoked/gravemark)
 	H.set_blindness(0)

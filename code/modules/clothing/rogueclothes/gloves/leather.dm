@@ -4,7 +4,7 @@
 	desc = "Gloves made out of sturdy leather. Barely offer any protection, but are better than nothing."
 	icon_state = "leather_gloves"
 	armor = ARMOR_LEATHER
-	prevent_crits = list(BCLASS_CUT, BCLASS_STAB, BCLASS_BLUNT)
+	prevent_crits = PREVENT_CRITS_NONE
 	max_integrity = ARMOR_INT_SIDE_LEATHER
 	resistance_flags = FIRE_PROOF
 	blocksound = SOFTHIT
@@ -16,6 +16,11 @@
 	unarmed_bonus = 1.1
 	color = "#66584c"
 	salvage_result = null // Recipe makes 2 so we cannot make this salvageable
+	cold_protection = 3
+	sellprice = 10
+
+/obj/item/clothing/gloves/roguetown/leather/ComponentInitialize()
+	AddComponent(/datum/component/armour_filtering/positive, TRAIT_FENCERDEXTERITY)
 
 /obj/item/clothing/gloves/roguetown/leather/black
 	color = CLOTHING_BLACK
@@ -31,6 +36,7 @@
 	drop_sound = 'sound/foley/dropsound/cloth_drop.ogg'
 	anvilrepair = null
 	sewrepair = TRUE
+	sellprice = 6
 
 /obj/item/clothing/gloves/roguetown/fingerless/shadowgloves
 	name = "fingerless gloves"
@@ -45,6 +51,7 @@
 	armor = ARMOR_MAILLE
 	max_integrity = ARMOR_INT_SIDE_HARDLEATHER
 	allowed_race = NON_DWARVEN_RACE_TYPES
+	sellprice = 30 //Elven~
 
 /obj/item/clothing/gloves/roguetown/fingerless_leather
 	name = "fingerless leather gloves"
@@ -52,7 +59,6 @@
 	manual dexterity over regular gloves."
 	icon_state = "roguegloves"
 	armor = ARMOR_LEATHER_GOOD
-	prevent_crits = list(BCLASS_CUT, BCLASS_STAB, BCLASS_BLUNT)
 	resistance_flags = FIRE_PROOF
 	blocksound = SOFTHIT
 	max_integrity = ARMOR_INT_SIDE_CLOTH
@@ -62,6 +68,7 @@
 	anvilrepair = null
 	sewrepair = TRUE
 	salvage_result = /obj/item/natural/hide/cured
+	sellprice = 10
 
 /obj/item/clothing/gloves/roguetown/otavan
 	name = "otavan leather gloves"
@@ -69,7 +76,6 @@
 	icon_state = "fencergloves"
 	item_state = "fencergloves"
 	armor = ARMOR_MAILLE
-	prevent_crits = list(BCLASS_CHOP, BCLASS_CUT, BCLASS_BLUNT, BCLASS_TWIST)
 	resistance_flags = FIRE_PROOF
 	blocksound = SOFTHIT
 	max_integrity = ARMOR_INT_SIDE_HARDLEATHER
@@ -79,6 +85,7 @@
 	anvilrepair = null
 	sewrepair = TRUE
 	allowed_race = NON_DWARVEN_RACE_TYPES
+	sellprice = 30
 
 /obj/item/clothing/gloves/roguetown/otavan/inqgloves
 	name = "inquisitorial leather gloves"
@@ -86,16 +93,17 @@
 	icon_state = "inqgloves"
 	item_state = "inqgloves"
 	salvage_result = /obj/item/natural/hide/cured
+	sellprice = 15
 
 /obj/item/clothing/gloves/roguetown/otavan/psygloves
 	name = "psydonic leather gloves"
 	desc = "Thick leather mittens, stitched and cuffed to guard His children's palms from perforation."
 	armor = ARMOR_LEATHER_GOOD
-	prevent_crits = list(BCLASS_CUT, BCLASS_STAB, BCLASS_BLUNT, BCLASS_TWIST) //Equivalent to Heavy Leather Gloves. Deinherits the durability and exclusive critprot of Otavan gloves.
 	icon_state = "psydongloves"
 	item_state = "psydongloves"
 	salvage_result = /obj/item/natural/hide/cured	
 	allowed_race = ALL_RACES_TYPES
+	sellprice = 20
 
 // Eastern gloves
 /obj/item/clothing/gloves/roguetown/eastgloves1
@@ -104,7 +112,7 @@
 	icon_state = "eastgloves1"
 	item_state = "eastgloves1"
 	armor = ARMOR_LEATHER
-	prevent_crits = list(BCLASS_CUT, BCLASS_BLUNT)
+	prevent_crits = PREVENT_CRITS_NONE
 	resistance_flags = null
 	blocksound = SOFTHIT
 	blade_dulling = DULLING_BASHCHOP
@@ -112,6 +120,7 @@
 	drop_sound = 'sound/foley/dropsound/cloth_drop.ogg'
 	anvilrepair = null
 	sewrepair = TRUE
+	sellprice = 20
 
 /obj/item/clothing/gloves/roguetown/eastgloves2
 	name = "stylish gloves"
@@ -119,7 +128,7 @@
 	icon_state = "eastgloves2"
 	item_state = "eastgloves2"
 	armor = ARMOR_LEATHER
-	prevent_crits = list(BCLASS_CUT, BCLASS_BLUNT)
+	prevent_crits = PREVENT_CRITS_NONE
 	resistance_flags = null
 	blocksound = SOFTHIT
 	blade_dulling = DULLING_BASHCHOP
@@ -127,3 +136,4 @@
 	drop_sound = 'sound/foley/dropsound/cloth_drop.ogg'
 	anvilrepair = null
 	sewrepair = TRUE
+	sellprice = 20

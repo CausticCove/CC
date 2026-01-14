@@ -18,6 +18,7 @@
 		/datum/skill/combat/wrestling = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/combat/unarmed = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/combat/staves = SKILL_LEVEL_APPRENTICE,
+		/datum/skill/combat/polearms = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/misc/swimming = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/misc/climbing = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/misc/athletics = SKILL_LEVEL_JOURNEYMAN,
@@ -92,7 +93,7 @@
 	H.cmode_music = 'sound/music/combat_holy.ogg' // left in bc i feel like monk players want their darktide TRAIT_DODGEEXPERT
 	switch(H.patron?.type)
 		if(/datum/patron/old_god)
-			cloak = /obj/item/clothing/cloak/psydontabard
+			cloak = /obj/item/clothing/cloak/tabard/psydontabard
 			mask = /obj/item/clothing/head/roguetown/roguehood/psydon
 		if(/datum/patron/divine/astrata)
 			mask = /obj/item/clothing/head/roguetown/roguehood/astrata
@@ -165,7 +166,7 @@
 
 /datum/advclass/cleric/paladin
 	name = "Paladin"
-	tutorial = "You are a holy knight, clad in maille and armed with steel. Where others of the clergy may have spent their free time studying scriptures, you devoted yourself towards fighting Psydonia's evils - a longsword in one hand, and a clenched psycross in the other."
+	tutorial = "You are a warrior of faith, clad in armor and armed with weapons to slay your foes. Where others of the clergy may have spent their free time studying scriptures, you devoted yourself towards fighting the enemies of your order head-on." //caustic edit - the original description doesn't actually fit what the class gets, and makes it seem like you can't be a ascendant paladin, which you can.
 	outfit = /datum/outfit/job/roguetown/adventurer/paladin
 	traits_applied = list(TRAIT_MEDIUMARMOR)
 	subclass_stats = list(
@@ -192,10 +193,12 @@
 		"The Verses and Acts of the Ten" = /obj/item/book/rogue/bibble,
 		"Tome of Psydon" = /obj/item/book/rogue/bibble/psy
 	)
-	extra_context = "This subclass can choose to take one of two holy items to take along: a potion of lifeblood and Novice skills in Medicine, or a silver longsword that gives Journeyman skills in Swordsmanship."
+	//Caustic edit begin - description to be more patron-agnostic. Ascendant followers can be paladins too, after all.
+	extra_context = "This subclass chooses an oath upon spawning, your oath determines a general direction for your playstyle. Healer has skills in medicine and is able to diagnose patients, Slayers are better trained in weapon-usage and gain a silver weapon, Bulwarks are trained in the usage of heavy armor."
+	//Caustic edit end
 
 /datum/outfit/job/roguetown/adventurer/paladin/pre_equip(mob/living/carbon/human/H)
-	to_chat(H, span_warning("You are a holy knight, clad in maille and armed with steel. Where others of the clergy may have spent their free time studying scriptures, you devoted yourself towards fighting Psydonia's evils - a longsword in one hand, and a clenched psycross in the other."))
+	to_chat(H, span_warning("You are a warrior of faith, clad in armor and armed with weapons to slay your foes. Where others of the clergy may have spent their free time studying scriptures, you devoted yourself to fighting the enemies of your faith head-on.")) //caustic edit
 	belt = /obj/item/storage/belt/rogue/leather
 	backl = /obj/item/storage/backpack/rogue/satchel
 	backr = /obj/item/rogueweapon/shield/iron
@@ -212,7 +215,7 @@
 	H.cmode_music = 'sound/music/cmode/church/combat_reckoning.ogg'
 	switch(H.patron?.type)
 		if(/datum/patron/old_god)
-			cloak = /obj/item/clothing/cloak/psydontabard
+			cloak = /obj/item/clothing/cloak/tabard/psydontabard
 			if(H.mind)
 				var/helmets = list("Armet","Buckethelm")
 				var/helmet_choice = input(H, "Choose your HELMET.", "WALK IN HIS LIGHT.") as anything in helmets
@@ -229,27 +232,27 @@
 					if("Cuirass")
 						armor = /obj/item/clothing/suit/roguetown/armor/plate/cuirass/fluted/ornate
 		if(/datum/patron/divine/astrata)
-			cloak = /obj/item/clothing/cloak/templar/astrata
+			cloak = /obj/item/clothing/cloak/tabard/devotee/astrata
 			head = /obj/item/clothing/head/roguetown/helmet/heavy/astratan
 			armor = /obj/item/clothing/suit/roguetown/armor/chainmail/hauberk
 		if(/datum/patron/divine/noc)
-			cloak = /obj/item/clothing/cloak/templar/noc
+			cloak = /obj/item/clothing/cloak/tabard/devotee/noc
 			head = /obj/item/clothing/head/roguetown/helmet/heavy/nochelm
 			armor = /obj/item/clothing/suit/roguetown/armor/chainmail/hauberk
 		if(/datum/patron/divine/abyssor)
-			cloak = /obj/item/clothing/cloak/abyssortabard
+			cloak = /obj/item/clothing/cloak/tabard/abyssortabard
 			head = /obj/item/clothing/head/roguetown/helmet/heavy/abyssorgreathelm
 			armor = /obj/item/clothing/suit/roguetown/armor/chainmail/hauberk
 		if(/datum/patron/divine/dendor)
-			cloak = /obj/item/clothing/cloak/templar/dendor
+			cloak = /obj/item/clothing/cloak/tabard/devotee/dendor
 			head = /obj/item/clothing/head/roguetown/helmet/heavy/dendorhelm
 			armor = /obj/item/clothing/suit/roguetown/armor/chainmail/hauberk
 		if(/datum/patron/divine/necra)
-			cloak = /obj/item/clothing/cloak/templar/necra
+			cloak = /obj/item/clothing/cloak/tabard/devotee/necra
 			head = /obj/item/clothing/head/roguetown/helmet/heavy/necrahelm
 			armor = /obj/item/clothing/suit/roguetown/armor/chainmail/hauberk
 		if (/datum/patron/divine/malum)
-			cloak = /obj/item/clothing/cloak/templar/malum
+			cloak = /obj/item/clothing/cloak/tabard/devotee/malum
 			head = /obj/item/clothing/head/roguetown/helmet/heavy/malum
 			armor = /obj/item/clothing/suit/roguetown/armor/chainmail/hauberk
 		if (/datum/patron/divine/eora)
@@ -307,17 +310,59 @@
 			if("Axe")
 				H.adjust_skillrank_up_to(/datum/skill/combat/axes, SKILL_LEVEL_JOURNEYMAN, TRUE)
 				r_hand = /obj/item/rogueweapon/stoneaxe/woodcut
-		var/oaths = list("Cleric - Medicine & Mirth","Crusader - Silver Longsword")
+		//Caustic edit begin - Make oaths more impactful and thematic.
+		var/oaths = list("Healer - Medicine & Mirth","Slayer - Silver Weapon","Bulwark - Plate Armor & Shield")
 		var/oath_choice = input(H, "Choose your OATH.", "PROFESS YOUR BLESSINGS.") as anything in oaths
 		switch(oath_choice)
-			if("Cleric - Medicine & Mirth")
-				H.adjust_skillrank_up_to(/datum/skill/misc/medicine, SKILL_LEVEL_NOVICE, TRUE)
+			if("Healer - Medicine & Mirth") //renamed from 'cleric'.
+				H.change_stat(STATKEY_INT, 1)
+				H.change_stat(STATKEY_CON, -1)
+				H.adjust_skillrank_up_to(/datum/skill/misc/medicine, SKILL_LEVEL_APPRENTICE, TRUE) // Can start at Journeyman, if you take the 'Physician's Apprentice' virtue.
 				beltl = /obj/item/reagent_containers/glass/bottle/rogue/healthpot //No needles or cloth, but a basic potion of lifeblood - similar to the Sorcerer's manna potion. Take the 'Physician's Apprentice' virtue for that, uncapped skills, and more.
-			if("Crusader - Silver Longsword")
-				H.adjust_skillrank_up_to(/datum/skill/combat/swords, SKILL_LEVEL_JOURNEYMAN, TRUE)
-				l_hand = /obj/item/rogueweapon/sword/long/silver //Turns the Paladin into a pre-Exorcist version of the Monster Hunter. Differences are +1 CON / -1 INT, access to minor miracles, and more limb coverage.
-				beltl = /obj/item/rogueweapon/scabbard/sword //Functionally, inflicts silverbane at the cost of -5 damage. Likely won't be a balancing issue, unless we start seeing +5-10 Clerics overnight.
-
+				if(!H.mind?.has_spell(/obj/effect/proc_holder/spell/invoked/diagnose/secular) || !H.mind?.has_spell(/obj/effect/proc_holder/spell/invoked/diagnose)) //gives you diagnose if you don't have it already
+					H.mind?.AddSpell(new /obj/effect/proc_holder/spell/invoked/diagnose/secular)
+			if("Bulwark - Plate Armor & Shield") //Most common depiction of paladins. Gets some heavy armor and a better shield.
+				ADD_TRAIT(H, TRAIT_HEAVYARMOR, TRAIT_GENERIC)
+				H.change_stat(STATKEY_CON, 1)
+				H.change_stat(STATKEY_SPD, -1)
+				backr = /obj/item/rogueweapon/shield/tower/metal
+				armor = /obj/item/clothing/suit/roguetown/armor/plate/iron
+			if("Slayer - Silver Weapon") //supposed to be a sort of proto-exorcist, apparently. Renamed from Crusader and added more weapon choices than just the longsword, but less than an actual exorcist.
+				var/silver = list("Silver Dagger","Silver Longsword","Silver Mace","Silver Warhammer","Silver Morningstar","Silver Whip","Silver War Axe","Silver Spear","Silver Quarterstaff")
+				var/silver_choice = input(H, "Choose your WEAPON.", "PREPARE YOUR ARMS.") as anything in silver //Trimmed down from the exorcist's usual list, only one option of each weapon-type.
+				switch(silver_choice)
+					if("Silver Dagger")
+						H.adjust_skillrank_up_to(/datum/skill/combat/knives, SKILL_LEVEL_JOURNEYMAN, TRUE)
+						l_hand = /obj/item/rogueweapon/huntingknife/idagger/silver
+						beltl = /obj/item/rogueweapon/scabbard/sheath
+					if("Silver Longsword")
+						H.adjust_skillrank_up_to(/datum/skill/combat/swords, SKILL_LEVEL_JOURNEYMAN, TRUE)
+						l_hand = /obj/item/rogueweapon/sword/long/silver
+						beltl = /obj/item/rogueweapon/scabbard/sword
+					if("Silver Mace")
+						H.adjust_skillrank_up_to(/datum/skill/combat/maces, SKILL_LEVEL_JOURNEYMAN, TRUE)
+						l_hand = /obj/item/rogueweapon/mace/steel/silver
+					if("Silver Warhammer")
+						H.adjust_skillrank_up_to(/datum/skill/combat/maces, SKILL_LEVEL_JOURNEYMAN, TRUE)
+						l_hand = /obj/item/rogueweapon/mace/warhammer/steel/silver
+					if("Silver Morningstar")
+						H.adjust_skillrank_up_to(/datum/skill/combat/whipsflails, SKILL_LEVEL_JOURNEYMAN, TRUE)
+						l_hand = /obj/item/rogueweapon/flail/sflail/silver
+					if("Silver Whip")
+						H.adjust_skillrank_up_to(/datum/skill/combat/whipsflails, SKILL_LEVEL_JOURNEYMAN, TRUE)
+						l_hand = /obj/item/rogueweapon/whip/silver
+					if("Silver War Axe")
+						H.adjust_skillrank_up_to(/datum/skill/combat/axes, SKILL_LEVEL_JOURNEYMAN, TRUE)
+						l_hand = /obj/item/rogueweapon/stoneaxe/woodcut/silver
+					if("Silver Spear")
+						H.adjust_skillrank_up_to(/datum/skill/combat/polearms, SKILL_LEVEL_JOURNEYMAN, TRUE)
+						l_hand = /obj/item/rogueweapon/spear/silver
+						r_hand = /obj/item/rogueweapon/scabbard/gwstrap
+					if("Silver Quarterstaff")
+						H.adjust_skillrank_up_to(/datum/skill/combat/staves, SKILL_LEVEL_JOURNEYMAN, TRUE)
+						l_hand = /obj/item/rogueweapon/woodstaff/quarterstaff/silver
+						r_hand = /obj/item/rogueweapon/scabbard/gwstrap
+		//Caustic edit end
 	H.set_blindness(0)
 	switch(H.patron?.type)
 		if(/datum/patron/old_god)
@@ -416,19 +461,19 @@
 	H.mind?.AddSpell(new /obj/effect/proc_holder/spell/invoked/mockery)
 	switch(H.patron?.type)
 		if(/datum/patron/old_god)
-			cloak = /obj/item/clothing/cloak/templar/psydon
+			cloak = /obj/item/clothing/cloak/tabard/devotee/psydon
 		if(/datum/patron/divine/astrata)
-			cloak = /obj/item/clothing/cloak/templar/astrata
+			cloak = /obj/item/clothing/cloak/tabard/devotee/astrata
 		if(/datum/patron/divine/noc)
-			cloak = /obj/item/clothing/cloak/templar/noc
+			cloak = /obj/item/clothing/cloak/tabard/devotee/noc
 		if(/datum/patron/divine/abyssor)
-			cloak = /obj/item/clothing/cloak/templar/abyssor
+			cloak = /obj/item/clothing/cloak/tabard/devotee/abyssor
 		if(/datum/patron/divine/dendor)
-			cloak = /obj/item/clothing/cloak/templar/dendor
+			cloak = /obj/item/clothing/cloak/tabard/devotee/dendor
 		if(/datum/patron/divine/necra)
-			cloak = /obj/item/clothing/cloak/templar/necra
+			cloak = /obj/item/clothing/cloak/tabard/devotee/necra
 		if (/datum/patron/divine/malum)
-			cloak = /obj/item/clothing/cloak/templar/malum
+			cloak = /obj/item/clothing/cloak/tabard/devotee/malum
 		if (/datum/patron/divine/eora)
 			cloak = /obj/item/clothing/cloak/templar/eora
 		if (/datum/patron/divine/ravox)
@@ -552,7 +597,7 @@
 	H.cmode_music = 'sound/music/cmode/church/combat_reckoning.ogg'
 	switch(H.patron?.type)
 		if(/datum/patron/old_god)
-			cloak = /obj/item/clothing/cloak/psydontabard
+			cloak = /obj/item/clothing/cloak/tabard/psydontabard
 			head = /obj/item/clothing/head/roguetown/roguehood/psydon
 		if(/datum/patron/divine/astrata)
 			head = /obj/item/clothing/head/roguetown/roguehood/astrata
@@ -566,6 +611,13 @@
 		if(/datum/patron/divine/dendor)
 			head = /obj/item/clothing/head/roguetown/dendormask
 			cloak = /obj/item/clothing/suit/roguetown/shirt/robe/dendor
+			ADD_TRAIT(H, TRAIT_SEEDKNOW, TRAIT_GENERIC)
+			H.adjust_skillrank(/datum/skill/labor/farming, SKILL_LEVEL_NOVICE, TRUE)
+			H.adjust_skillrank(/datum/skill/misc/climbing, SKILL_LEVEL_NOVICE, TRUE)
+			H.adjust_skillrank(/datum/skill/craft/crafting, SKILL_LEVEL_NOVICE, TRUE) // we are a litteral forest dweller, we should atleast not be cluess about such things, even abyssorites get badass combat stuff
+			H.adjust_skillrank(/datum/skill/craft/cooking, SKILL_LEVEL_NOVICE, TRUE)
+			H.adjust_skillrank(/datum/skill/labor/fishing, SKILL_LEVEL_NOVICE, TRUE)
+			H.adjust_skillrank(/datum/skill/craft/alchemy, SKILL_LEVEL_NOVICE, TRUE)
 		if(/datum/patron/divine/necra)
 			head = /obj/item/clothing/head/roguetown/necrahood
 			cloak = /obj/item/clothing/suit/roguetown/shirt/robe/necra
@@ -576,6 +628,7 @@
 			cloak = /obj/item/clothing/suit/roguetown/shirt/robe/eora
 			head = /obj/item/clothing/head/roguetown/eoramask
 			backpack_contents[/obj/item/reagent_containers/eoran_seed] = 1
+			r_hand = /obj/item/rogueweapon/huntingknife/scissors
 		if (/datum/patron/divine/xylix)
 			cloak = /obj/item/clothing/cloak/templar/xylix
 		if(/datum/patron/inhumen/zizo)

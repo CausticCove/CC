@@ -24,6 +24,9 @@
 
 	var/rapid_melee = 1			 //Number of melee attacks between each npc pool tick. Spread evenly.
 	var/melee_queue_distance = 4 //If target is close enough start preparing to hit them if we have rapid_melee enabled
+	//Caustic Cove Edit
+	var/melee_cooled_down //Attempt to enforce a melee cooldown timer, following the Ranged cooldown
+	//Caustic Cove Edit End
 
 	var/ranged_message = "fires" //Fluff text for ranged mobs
 	var/ranged_cooldown = 0 //What the current cooldown on ranged attacks is, generally world.time + ranged_cooldown_time
@@ -62,20 +65,24 @@
 	setparrytime = 30
 	dodgetime = 30
 
-
-
-
 /mob/living/simple_animal/hostile/Initialize()
 	. = ..()
 	last_aggro_loss = world.time //so we delete even if we never found a target
+	//Caustic Cove Edit
+	melee_cooled_down = world.time //Set the time to strike next to the current time so it is able to attack immediately
+	//Caustic Cove Edit End
 	if(!targets_from)
 		targets_from = src
 	wanted_objects = typecacheof(wanted_objects)
 
-
 /mob/living/simple_animal/hostile/Destroy()
 	targets_from = null
 	return ..()
+
+/mob/living/simple_animal/hostile/examine(mob/user)
+	. = ..()
+	if(user in friends)
+		. += span_notice("[src] seems friendly towards you.")
 
 /mob/living/simple_animal/hostile/Life()
 	. = ..()
@@ -283,6 +290,10 @@
 
 //What we do after closing in
 /mob/living/simple_animal/hostile/proc/MeleeAction(patience = TRUE)
+	//Caustic Cove Edit
+	melee_cooled_down = world.time + melee_cooldown
+	//Caustic Cove Edit End
+
 	if(binded)
 		return FALSE
 	if(rapid_melee > 1)
@@ -327,10 +338,14 @@
 			Goto(target,move_to_delay,minimum_distance)
 		if(target)
 			if(targets_from && isturf(targets_from.loc) && target.Adjacent(targets_from)) //If they're next to us, attack
-				MeleeAction()
+				//Caustic Cove Edit
+				if (melee_cooled_down <= world.time)
+					MeleeAction()
 			else
 				if(rapid_melee > 1 && target_distance <= melee_queue_distance)
-					MeleeAction(FALSE)
+					if (melee_cooled_down <= world.time)
+						MeleeAction(FALSE)
+				//Caustic Cove Edit End
 				in_melee = FALSE //If we're just preparing to strike do not enter sidestep mode
 			return 1
 		return 0
@@ -619,3 +634,8 @@
 		if (get_dist(M, src) < vision_range)
 			if (isturf(M.loc))
 				. += M
+
+/mob/living/simple_animal/hostile/checkdefense(datum/intent/intenty, mob/living/user)
+	if(user in friends)
+		return FALSE
+	return ..()

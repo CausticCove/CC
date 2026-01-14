@@ -7,7 +7,7 @@
 	smeltresult = /obj/item/ingot/iron
 	allowed_race = list(/datum/species/hobgoblin)
 	body_parts_covered = HEAD|EARS|HAIR|EYES|NOSE //Hoblin armor protects their very pointy noses.
-	sellprice = 0
+	sellprice = 7
 
 /obj/item/clothing/suit/roguetown/armor/plate/cuirass/iron/hobgoblin
 	name = "hoblin plate"
@@ -17,7 +17,7 @@
 	smeltresult = /obj/item/ingot/iron
 	allowed_race = list(/datum/species/hobgoblin)
 	body_parts_covered = CHEST|GROIN|ARMS|LEGS|VITALS|FEET //Hoblin armor protects their nasty feet...
-	sellprice = 0
+	sellprice = 7
 
 /obj/item/clothing/head/roguetown/helmet/leather/hobgoblin
 	name = "hoblin leather helmet"
@@ -27,7 +27,7 @@
 	smeltresult = /obj/item/ingot/iron
 	allowed_race = list(/datum/species/hobgoblin)
 	body_parts_covered = HEAD|EARS|HAIR|EYES|NOSE //Hoblin armor protects their very pointy noses.
-	sellprice = 0
+	sellprice = 4
 
 /obj/item/clothing/suit/roguetown/armor/leather/hobgoblin
 	name = "hoblin armor"
@@ -36,4 +36,4 @@
 	icon = 'modular_causticcove/icons/mob/monster/hobgoblins/hobgoblins.dmi'
 	body_parts_covered = CHEST|GROIN|ARMS|VITALS|LEGS //Leather for the legs!? What blasphemy is this!? They're SMART!?
 	allowed_race = list(/datum/species/hobgoblin)
-	sellprice = 0
+	sellprice = 4

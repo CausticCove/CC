@@ -41,7 +41,7 @@
 
 /obj/machinery/light/rogue/smelter/examine(mob/user, params)
 	. = ..()
-	. += span_info("It can hold up to [max_contained_items] ores at a time.")
+	. += span_info("It can hold up to <b>[max_contained_items] ores at a time</b>.")
 	. += span_info("Left click to insert an item. If it is a fuel item, a prompt will show on whether you want to fuel or smelt it. Right click on the furnace to put an item inside for smelting only.")
 	if(length(contained_items))
 		. += span_notice("Peeking inside, you can see:")
@@ -144,6 +144,8 @@
 	user.dropItemToGround(smelting_item)
 	smelting_item.forceMove(src)
 	contained_items += smelting_item
+	if(smelting_item.smelted)
+		smelting_item.smelted = FALSE
 	if(!isliving(user) || !user.mind)
 		contained_items[smelting_item] = SMELTERY_LEVEL_SPOIL
 	else

@@ -24,6 +24,7 @@
 	grid_width = 32
 	grid_height = 96
 	special = /datum/special_intent/flail_sweep
+	sellprice = 15 //Akin to blunt; Also rather even.
 
 /datum/intent/flail/strike
 	name = "strike"
@@ -106,12 +107,14 @@
 	color = "#bb9696"
 	smeltresult = /obj/item/ingot/aaslag
 	anvilrepair = null
+	sellprice = 10
 
 /obj/item/rogueweapon/flail/sflail/paflail
 	name = "ancient flail"
 	desc = "A spiked ball of polished gilbranze, chained to a reinforced handle. They say that His children worshipped the flail above all else, for its twirls replicated the Comet Syon's blazing flights."
 	icon_state = "aflail"
 	smeltresult = /obj/item/ingot/aaslag
+	sellprice = 10
 
 /obj/item/rogueweapon/flail/sflail
 	force = 30
@@ -119,6 +122,7 @@
 	desc = "This is a swift, steel flail. Strikes hard and far."
 	smeltresult = /obj/item/ingot/steel
 	minstr = 5
+	sellprice = 30
 
 /obj/item/rogueweapon/flail/sflail/silver
 	force = 35
@@ -129,6 +133,7 @@
 	smeltresult = /obj/item/ingot/silver
 	minstr = 12
 	is_silver = TRUE
+	sellprice = 80
 
 /obj/item/rogueweapon/flail/sflail/silver/ComponentInitialize()
 	AddComponent(\
@@ -147,6 +152,7 @@
 	icon_state = "necraflail"
 	force = 35
 	is_silver = TRUE
+	sellprice = 40
 
 /obj/item/rogueweapon/flail/sflail/necraflail/ComponentInitialize()
 	AddComponent(\
@@ -168,6 +174,7 @@
 	wdefense = 0
 	is_silver = TRUE
 	smeltresult = /obj/item/ingot/silverblessed
+	sellprice = 120
 
 /obj/item/rogueweapon/flail/sflail/psyflail/ComponentInitialize()
 	AddComponent(\
@@ -179,20 +186,6 @@
 		added_int = 50,\
 		added_def = 0,\
 	)
-	
-/obj/item/rogueweapon/flail/sflail/psyflail/old
-	name = "enduring flail"
-	desc = "An ornate flail, its silver tarnished by neglect. Bring down the COMET on the unholy."
-	icon_state = "psyflail"
-	force = 30
-	minstr = 5
-	wdefense = 0
-	is_silver = FALSE
-	smeltresult = /obj/item/ingot/steel
-	color = COLOR_FLOORTILE_GRAY
-
-/obj/item/rogueweapon/flail/sflail/psyflail/old/ComponentInitialize()
-	return
 
 /obj/item/rogueweapon/flail/sflail/psyflail/relic
 	name = "Consecratia"
@@ -219,7 +212,7 @@
 	name = "militia thresher"
 	desc = "Just like how a sling's bullet can fell a giant, so too does this great flail follow the principle of converting 'momentum' into 'plate-rupturing force'."
 	icon_state = "peasantwarflail"
-	icon = 'icons/roguetown/weapons/64.dmi'
+	icon = 'icons/roguetown/weapons/blunt64.dmi'
 	pixel_y = -16
 	pixel_x = -16
 	inhand_x_dimension = 64
@@ -237,6 +230,7 @@
 	dropshrink = 0.9
 	wdefense = 4
 	resistance_flags = FLAMMABLE
+	sellprice = 15
 
 /obj/item/rogueweapon/flail/peasantwarflail/getonmobprop(tag)
 	. = ..()
@@ -248,7 +242,7 @@
 				return list("shrink" = 0.6,"sx" = 5,"sy" = -3,"nx" = -5,"ny" = -2,"wx" = -5,"wy" = -1,"ex" = 3,"ey" = -2,"northabove" = 0,"southabove" = 1,"eastabove" = 1,"westabove" = 0,"nturn" = 7,"sturn" = -7,"wturn" = 16,"eturn" = -22,"nflip" = 8,"sflip" = 0,"wflip" = 8,"eflip" = 0)
 
 /obj/item/rogueweapon/flail/peasantwarflail/matthios
-	name = "Gilded Flail"
+	name = "gilded flail"
 	desc = "Weight of wealth in a deadly striking end."
 	icon_state = "matthiosflail"
 	sellprice = 250
@@ -272,3 +266,4 @@
 	force = 27
 	wdefense = 3
 	wbalance = WBALANCE_HEAVY
+	sellprice = 15

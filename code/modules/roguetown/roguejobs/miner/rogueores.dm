@@ -21,10 +21,10 @@
 
 
 /obj/item/rogueore/silver
-	name = "raw silver"
+	name = "raw silver" //Mechanically left unsilverified - like with ziliquae - for the sake of gameplay. Can be handwaved as not being pure enough to directly harm the unholy.
 	desc = "A gleaming ore of moonlight hue."
 	icon_state = "oresilv1"
-	smeltresult = /obj/item/ingot/silver
+	smeltresult = /obj/item/ingot/silver 
 	sellprice = 8
 
 /obj/item/rogueore/silver/Initialize()
@@ -94,6 +94,13 @@
 	icon_state = "orecinnabar"
 	grind_results = list(/datum/reagent/mercury = 15)
 	sellprice = 5
+
+/obj/item/rogueore/lithmyc
+	name = "lithmyc"
+	desc = "Strange green rocks covered in an oily film of metal-liquid, it's quite disgusting."
+	icon_state = "orelithmyc"
+	sellprice = 100
+	smeltresult = /obj/item/ingot/lithmyc
 
 /obj/item/ingot
 	name = "ingot"
@@ -186,7 +193,6 @@
 		/datum/crafting_recipe/roguetown/survival/peasantry/hoe,
 		/datum/crafting_recipe/roguetown/survival/peasantry/pitchfork,
 		/datum/crafting_recipe/roguetown/survival/quarterstaff_iron,
-		/datum/crafting_recipe/roguetown/survival/mantrap,
 		)
 
 	AddElement(
@@ -210,21 +216,22 @@
 
 /obj/item/ingot/bronze
 	name = "bronze bar"
-	desc = "A hard and durable alloy favored by engineers and followers of Ravox alike."
+	desc = "An alloy of tin and copper, humming with yet-untapped potential. The fondest friend of tinkerers, engineers, and primitives alike."
 	icon_state = "ingotbronze"
 	smeltresult = /obj/item/ingot/bronze
 	sellprice = 25
 
 /obj/item/ingot/silver
 	name = "silver bar"
-	desc = "This bar radiates purity. Treasured by the realms."
+	desc = "This bar radiates purity. Treasured by the realm, and honored for its divine properties."
 	icon_state = "ingotsilv"
 	smeltresult = /obj/item/ingot/silver
 	sellprice = 80
+	is_silver = TRUE
 
 /obj/item/ingot/steel
 	name = "steel bar"
-	desc = "This ingot is a stalwart defender of the realm."
+	desc = "This alloy of iron and coal is a stalwart defender of the realm."
 	icon_state = "ingotsteel"
 	smeltresult = /obj/item/ingot/steel
 	sellprice = 20
@@ -239,24 +246,26 @@
 //Blessed Ingots
 /obj/item/ingot/steelholy/
 	name = "holy steel bar"
-	desc = "This ingot of steel has been touched by Malum. It radiates heat, even when outside a forge."
+	desc = "This ingot of steel radiates with divine might. It radiates heat, even when outside a forge."
 	icon_state = "ingotsteelholy"
 	smeltresult = /obj/item/ingot/steel //Smelting it removes the blessing
 	sellprice = 20
 
 /obj/item/ingot/silverblessed/
 	name = "blessed silver bar"
-	desc = "This bar radiates a divine purity. Treasured by the realms and commonly found in Psydonic weaponry."
+	desc = "This bar radiates with blessed purity. It dimly glows with moonlight, even in complete darkness."
 	icon_state = "ingotsilvblessed"
 	smeltresult = /obj/item/ingot/silver //Smelting it removes the blessing
 	sellprice = 100
+	is_silver = TRUE
 
 /obj/item/ingot/silverblessed/bullion
 	name = "blessed silver bullion"
-	desc = "This bar radiates a divine purity. The Psycross and the words casted into the surface denotes the Otavan Inquisition as the point of it's origin."
+	desc = "This bar radiates with blessed purity. It is marked with the sigil of the Holy Psydonic Inquisition, and appears to've been shipped straight from Otava's treasury."
 	icon_state = "ingotsilvblessed_psy"
-	smeltresult = /obj/item/ingot/silver //Smelting it removes the blessing
+	smeltresult = /obj/item/ingot/silverblessed //Minor failsafe to ensure bullion can always be used for blessed silver recipes, in case of a filepath conflict.
 	sellprice = 100
+	is_silver = TRUE
 
 /obj/item/ingot/aalloy
 	name = "decrepit ingot"
@@ -266,7 +275,6 @@
 	color = "#bb9696"
 	sellprice = 33
 
-
 /obj/item/ingot/purifiedaalloy
 	name = "ancient alloy"
 	desc = "An ingot of polished gilbranze, teeming with forbidden knowledge. The reflection on its surface isn't yours; it smiles back at you with eternal malice."
@@ -274,13 +282,12 @@
 	smeltresult = /obj/item/ingot/purifiedaalloy
 	sellprice = 111
 
-
 /obj/item/ingot/aaslag
 	name = "glimmering slag"
 	desc = "A mass of wrought bronze, rendered lame from the forge's heat. Sometimes, dead is better."
 	icon_state = "ancientslag"
 	smeltresult = /obj/item/ingot/aaslag
-	sellprice = 1
+	sellprice = 7 //It's a bit worthless but at least you got it.
 
 //Anomalous Smeltings
 /obj/item/ingot/weeping
@@ -302,3 +309,10 @@
 	smeltresult = /obj/item/ingot/draconic
 	color = "#70b8ff"
 	sellprice = 333
+
+/obj/item/ingot/lithmyc
+	name = "lithmyc ingot"
+	desc = "A strange green ingot. It seems to be covered in an oily metal-liquid, though it refuses to leave the ingot-shape no matter how you much you try. No one in the region yet knows what the metal can be shaped into, as it's exceedingly stubborn. But, it sure seems priceless."
+	icon_state = "ingotlithmyc"
+	smeltresult = /obj/item/ingot/lithmyc
+	sellprice = 444

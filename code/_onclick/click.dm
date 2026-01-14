@@ -297,7 +297,7 @@
 					if(mobs_here.len)
 						var/mob/target = pick(mobs_here)
 						if(target)
-							if(target.Adjacent(src))
+							if(target.Adjacent(src) || (CanReach(target, W) && used_intent.effective_range_type))
 								do_attack_animation(T, used_intent.animname, used_intent.masteritem, used_intent = src.used_intent)
 								resolveAdjacentClick(target,W,params,used_hand)
 								atkswinging = null
@@ -932,7 +932,7 @@
 	return FALSE
 
 /mob/living/try_special_attack(atom/A, list/modifiers)
-	if(!rmb_intent || !cmode || istype(A, /obj/item/clothing) || istype(A, /obj/item/quiver) || istype(A, /obj/item/storage))
+	if(!rmb_intent || !cmode || A.loc == src || istype(A, /obj/item/clothing) || istype(A, /obj/item/quiver) || istype(A, /obj/item/storage) || istype(A, /obj/item/rogueweapon/scabbard))
 		return FALSE
 
 	if(next_move > world.time && !rmb_intent?.bypasses_click_cd)

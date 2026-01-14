@@ -14,7 +14,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	volume = 30
 	obj_flags = CAN_BE_HIT
-	sellprice = 1
+	sellprice = 7
 	drinksounds = list('sound/items/drink_cup (1).ogg','sound/items/drink_cup (2).ogg','sound/items/drink_cup (3).ogg','sound/items/drink_cup (4).ogg','sound/items/drink_cup (5).ogg')
 	fillsounds = list('sound/items/fillcup.ogg')
 
@@ -26,6 +26,7 @@
 /obj/item/reagent_containers/glass/bowl/iron
 	name = "iron bowl"
 	icon_state = "bowl_iron"
+	sellprice = 25
 
 /obj/item/reagent_containers/glass/bowl/gold
 	name = "gold bowl"
@@ -36,6 +37,7 @@
 	name = "silver bowl"
 	icon_state = "bowl_silver"
 	sellprice = 60
+	is_silver = TRUE
 
 /obj/item/reagent_containers/glass/bowl/update_icon()
 	cut_overlays()

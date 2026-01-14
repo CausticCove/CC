@@ -111,9 +111,12 @@
 	var/datum/inspiration/inspiration = null
 
 	var/headshot_link = null
+	var/standard_headshot_link = null //used to store headshots when swapping for antag ones
 	var/flavortext = null
 	var/ooc_notes = null
 	var/ooc_extra
+	var/rumour = null
+	var/noble_gossip = null
 	var/song_title
 	var/song_artist
 	var/received_resident_key = FALSE
@@ -136,6 +139,15 @@
 	var/datum/statpack/statpack = null // Lethalstone Port - statpacks for greater customization
 	var/second_voice	// Virtue-specific. Can be swapped to / from and changed.
 	var/original_voice
+	//setting up vars for vampire color values
+	var/vampire_skin = null
+	var/vampire_eyes = null
+	var/vampire_hair = null
+	//An alternative headshot link that can be used when users want to use it for a special role like while a vampire, werewolf, bandit, etc.
+	var/vampire_headshot_link
+	var/lich_headshot_link
+	//setting up the hooks for this, but not shown yet
+	var/werewolf_headshot_link
 
 	/// Whether our FOV cone is overridden to be hidden. Simple bool.
 	var/viewcone_override
@@ -148,6 +160,12 @@
 
 	/// Assoc list of culinary preferences of the mob
 	var/list/culinary_preferences = list()
+
+	/// List of mobs that have attacked us. Only relevant to someone with TRAIT_TEMPO.
+	var/list/tempo_attackers = list()
+
+	var/next_tempo_cull
+
 
 	var/datum/charflaw/charflaw
 

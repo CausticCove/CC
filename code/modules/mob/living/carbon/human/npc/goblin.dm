@@ -424,7 +424,7 @@
 	if(moon_goblins == 1)
 		new /mob/living/carbon/human/species/goblin/npc/moon(get_turf(src))
 	else
-		new /mob/living/carbon/human/species/goblin/npc(get_turf(src))
+		new /mob/living/carbon/human/species/goblin/npc/hell(get_turf(src))
 	gobs++
 	update_icon()
 	if(living_player_count() < 10)

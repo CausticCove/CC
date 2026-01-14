@@ -18,7 +18,7 @@
 	outfit = /datum/outfit/job/roguetown/guildmaster
 	selection_color = JCOLOR_YEOMAN
 	display_order = JDO_GUILDMASTER
-	give_bank_account = 25
+	give_bank_account = TRUE
 	min_pq = null //5 // Higher PQ requirement as it is a leadership role. Not for total newbie.
 	max_pq = null
 	round_contrib_points = 3
@@ -46,6 +46,7 @@
 		STATKEY_INT = 1,
 		STATKEY_PER = 2
 	)
+	age_mod = /datum/class_age_mod/guildmaster
 	subclass_skills = list(
 		/datum/skill/combat/axes = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/combat/maces = SKILL_LEVEL_JOURNEYMAN,
@@ -65,7 +66,7 @@
 		/datum/skill/craft/tanning = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/misc/lockpicking = SKILL_LEVEL_EXPERT,
 		/datum/skill/craft/ceramics = SKILL_LEVEL_APPRENTICE,
-		/datum/skill/craft/traps = SKILL_LEVEL_APPRENTICE,
+		/datum/skill/craft/traps = SKILL_LEVEL_EXPERT, //setting to higher level to counter an antag trap maker
 		/datum/skill/misc/reading = SKILL_LEVEL_APPRENTICE,
 		//Caustic edit
 		/datum/skill/combat/crossbows = SKILL_LEVEL_JOURNEYMAN,
@@ -108,13 +109,6 @@
 
 /datum/outfit/job/roguetown/guildmaster/choose_loadout(mob/living/carbon/human/H)
 	. = ..()
-	if(H.age == AGE_OLD)
-		H.adjust_skillrank(/datum/skill/craft/blacksmithing, 1, TRUE)
-		H.adjust_skillrank(/datum/skill/craft/armorsmithing, 1, TRUE)
-		H.adjust_skillrank(/datum/skill/craft/weaponsmithing, 1, TRUE)
-		H.adjust_skillrank(/datum/skill/craft/smelting, 1, TRUE)
-		H.adjust_skillrank(/datum/skill/craft/sewing, 1, TRUE) // Worse than the real tailor, so can't steal their job right away
-		H.adjust_skillrank(/datum/skill/craft/tanning, 1, TRUE)
 
 /mob/living/carbon/human/proc/guild_announcement()
 	set name = "Announcement"

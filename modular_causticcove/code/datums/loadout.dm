@@ -6,6 +6,10 @@
 	name = "Scroll of Enlarge/Reduce"
 	path = /obj/item/book/granter/spell/blackstone/sizespell
 
+/datum/loadout_item/mirror_transform 
+    name = "Scroll of Mirror Transform"
+    path = /obj/item/book/granter/spell/blackstone/mirror_transform
+
 /obj/item/clothing/head/roguetown/mentorhat/loadout
 	armor = ARMOR_LOADOUT_CLOTHING
 

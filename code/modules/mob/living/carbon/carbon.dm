@@ -85,11 +85,6 @@
 		H = hud_used.action_intent
 	oactive = FALSE
 	update_a_intents()
-
-	if(ishuman(src))
-		var/mob/living/carbon/human/H = src
-		if(H.has_status_effect(/datum/status_effect/buff/clash))
-			H.bad_guard(span_warning("I swapped away from the weapon!"))
 	return TRUE
 
 
@@ -590,7 +585,7 @@
 
 /mob/living/carbon
 	var/nausea = 0
-	var/bleeding_tier = 0 
+	var/bleeding_tier = 0
 
 /mob/living/carbon/proc/add_nausea(amt)
 	nausea = clamp(nausea + amt, 0, 300)
@@ -957,9 +952,6 @@
 		clear_fullscreen("critvision")
 		clear_fullscreen("DD")
 		clear_fullscreen("DDZ")
-	if(hud_used)
-		if(hud_used.stressies)
-			hud_used.stressies.update_icon()
 //	if(blood_volume <= 0)
 //		overlay_fullscreen("DD", /atom/movable/screen/fullscreen/crit/death)
 //	else
@@ -1008,36 +1000,37 @@
 	else
 		clear_fullscreen("brute")*/
 
-	var/hurtdamage = ((get_complex_pain() / (STAWIL * 10)) * 100) //what percent out of 100 to max pain
-	if(hurtdamage > 5) //float
-		var/severity = 0
-		switch(hurtdamage)
-			if(5 to 20)
-				severity = 1
-			if(20 to 40)
-				severity = 2
-			if(40 to 60)
-				severity = 3
-				if(!check_epilepsy())
-					overlay_fullscreen("painflash", /atom/movable/screen/fullscreen/painflash)
-			if(60 to 80)
-				severity = 4
-				if(!check_epilepsy())
-					overlay_fullscreen("painflash", /atom/movable/screen/fullscreen/painflash)
-			if(80 to 99)
-				severity = 5
-				if(!check_epilepsy())
-					overlay_fullscreen("painflash", /atom/movable/screen/fullscreen/painflash)
-			if(99 to INFINITY)
-				severity = 6
-				if(!check_epilepsy())
-					overlay_fullscreen("painflash", /atom/movable/screen/fullscreen/painflash)
-		
-		if(!check_epilepsy())
-			overlay_fullscreen("brute", /atom/movable/screen/fullscreen/brute, severity)
-	else
-		clear_fullscreen("brute")
-		clear_fullscreen("painflash")
+	if(show_redflash())
+		var/hurtdamage = ((get_complex_pain() / (STAWIL * 10)) * 100) //what percent out of 100 to max pain
+		if(hurtdamage > 5) //float
+			var/severity = 0
+			switch(hurtdamage)
+				if(5 to 20)
+					severity = 1
+				if(20 to 40)
+					severity = 2
+				if(40 to 60)
+					severity = 3
+					if(!check_epilepsy())
+						overlay_fullscreen("painflash", /atom/movable/screen/fullscreen/painflash)
+				if(60 to 80)
+					severity = 4
+					if(!check_epilepsy())
+						overlay_fullscreen("painflash", /atom/movable/screen/fullscreen/painflash)
+				if(80 to 99)
+					severity = 5
+					if(!check_epilepsy())
+						overlay_fullscreen("painflash", /atom/movable/screen/fullscreen/painflash)
+				if(99 to INFINITY)
+					severity = 6
+					if(!check_epilepsy())
+						overlay_fullscreen("painflash", /atom/movable/screen/fullscreen/painflash)
+			
+			if(!check_epilepsy())
+				overlay_fullscreen("brute", /atom/movable/screen/fullscreen/brute, severity)
+		else
+			clear_fullscreen("brute")
+			clear_fullscreen("painflash")
 
 /mob/living/carbon/update_health_hud(shown_health_amount)
 	if(!client || !hud_used)
@@ -1119,7 +1112,7 @@
 	update_hud_handcuffed()
 	update_mobility()
 
-/mob/living/carbon/fully_heal(admin_revive = FALSE)
+/mob/living/carbon/fully_heal(admin_revive = FALSE, break_restraints = FALSE)
 	if(reagents)
 		reagents.clear_reagents()
 		for(var/addi in reagents.addiction_list)
@@ -1141,12 +1134,13 @@
 		suiciding = FALSE
 		regenerate_limbs()
 		regenerate_organs()
+		if(reagents)
+			reagents.addiction_list = list()
+	if(break_restraints)
 		handcuffed = initial(handcuffed)
 		for(var/obj/item/restraints/R in contents) //actually remove cuffs from inventory
 			qdel(R)
 		update_handcuffed()
-		if(reagents)
-			reagents.addiction_list = list()
 	cure_all_traumas(TRAUMA_RESILIENCE_MAGIC)
 	..()
 	// heal ears after healing traits, since ears check TRAIT_DEAF trait

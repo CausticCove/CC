@@ -41,9 +41,6 @@
 		if(get_area(T) != get_area(selected_landmark)) //No more spawning in guild room...
 			continue
 
-		if(get_area(T) != get_area(selected_landmark)) //No more spawning in guild room...
-			continue
-
 		possible_turfs += T
 
 	return length(possible_turfs) ? pick(possible_turfs) : get_turf(src)

@@ -10,7 +10,7 @@
 	body_parts_covered = COVERAGE_FULL
 	icon_state = "armordress"
 	armor = ARMOR_LEATHER
-	prevent_crits = list(BCLASS_CUT, BCLASS_STAB, BCLASS_BLUNT)
+	prevent_crits = PREVENT_CRITS_NONE
 	blocksound = SOFTHIT
 	allowed_sex = list(MALE, FEMALE)
 	allowed_race = NON_DWARVEN_RACE_TYPES
@@ -22,6 +22,7 @@
 	l_sleeve_status = SLEEVE_NORMAL
 	armor_class = ARMOR_CLASS_LIGHT
 	salvage_result = /obj/item/natural/hide/cured
+	sellprice = 33
 
 /obj/item/clothing/suit/roguetown/armor/armordress/alt
 	icon_state = "armordressalt"

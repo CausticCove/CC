@@ -1,0 +1,4 @@
+author: "Tenryumi"
+delete-after: True
+changes:
+  - rscadd: "Gives all users of \"Raise Undead\" and \"Raise Formation\" Gravemark and Order Minions, as a proper skelly-maker should"

@@ -123,6 +123,7 @@ GLOBAL_LIST_EMPTY(lord_titles)
 		STATKEY_SPD = 1,
 		STATKEY_STR = 1,
 	)
+	age_mod = /datum/class_age_mod/grand_duke
 	subclass_skills = list(
 		/datum/skill/combat/polearms = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/combat/maces = SKILL_LEVEL_APPRENTICE,
@@ -140,9 +141,7 @@ GLOBAL_LIST_EMPTY(lord_titles)
 
 /datum/outfit/job/roguetown/lord/warrior/pre_equip(mob/living/carbon/human/H)
 	..()
-	backpack_contents = list(/obj/item/rogueweapon/huntingknife/idagger/steel/special = 1)
-	if(H.age == AGE_OLD)
-		H.adjust_skillrank(/datum/skill/combat/swords, 1, TRUE)
+	l_hand = /obj/item/rogueweapon/lordscepter
 
 /**
 	Merchant Lord subclass. Consider this an evolution from Sheltered Aristocrat.
@@ -210,6 +209,7 @@ GLOBAL_LIST_EMPTY(lord_titles)
 	)
 	subclass_spellpoints = 18
 	subclass_skills = list(
+		/datum/skill/combat/staves = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/combat/polearms = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/combat/wrestling = SKILL_LEVEL_NOVICE,
 		/datum/skill/combat/swords = SKILL_LEVEL_APPRENTICE,

@@ -58,6 +58,21 @@
 	hsover.hud = src
 	static_inventory += hsover
 
+	cmode_button = new /atom/movable/screen/cmode
+	cmode_button.hud = src
+	static_inventory += cmode_button
+
+	rmb_intent = new /atom/movable/screen/rmbintent(owner.client)
+	rmb_intent.hud = src
+	rmb_intent.screen_loc = rogueui_rmbintents
+	static_inventory += rmb_intent
+	rmb_intent.update_icon()
+
+	stressies = new /atom/movable/screen/stress
+	stressies.hud = src
+	stressies.screen_loc = rogueui_stress
+	static_inventory += stressies
+
 	fov = new /atom/movable/screen/fov()
 	fov.hud = src
 	static_inventory += fov

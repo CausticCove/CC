@@ -94,7 +94,7 @@
 
 /datum/component/fit_clothing/proc/on_examine(datum/source, mob/user, list/examine_list)
 	if(enchant_type == DURABILITY_ENCHANT)
-		examine_list += "This clothing has been fitted"
+		examine_list += "This clothing has been fitted."
 	var/remaining_minutes = round((endtime - world.time) / 600)
 	examine_list += "The fitting will last for [remaining_minutes] more minutes."
 

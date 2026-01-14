@@ -28,7 +28,16 @@
 
 	xp_gain = TRUE
 	miracle = FALSE
-
+//Caustic Edit
+/obj/effect/proc_holder/spell/invoked/projectile/frostbolt/cast(list/targets, mob/user = user)
+	var/mob/living/carbon/human/H = user
+	var/datum/intent/a_intent = H.a_intent
+	if(istype(a_intent, /datum/intent/special/magicarc))
+		projectile_type = /obj/projectile/magic/frostbolt/arc
+	else
+		projectile_type = /obj/projectile/magic/frostbolt
+	. = ..()
+//Caustic Edit End
 /obj/effect/proc_holder/spell/self/frostbolt/cast(mob/user = usr)
 	var/mob/living/target = user
 	target.visible_message(span_warning("[target] hurls a frosty beam!"), span_notice("You hurl a frosty beam!"))
@@ -45,6 +54,13 @@
 	speed = 1
 	nodamage = FALSE
 	var/aoe_range = 0
+
+// Caustic Edit
+/obj/projectile/magic/frostbolt/arc
+	name = "Arced Frostbolt"
+	damage = 15 // 25% damage penalty
+	arcshot = TRUE
+// Caustic Edit End
 
 /obj/projectile/magic/frostbolt/on_hit(target)
 	. = ..()

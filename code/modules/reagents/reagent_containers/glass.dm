@@ -59,7 +59,7 @@
 		if(M != user)
 			M.visible_message(span_danger("[user] attempts to feed [M] something."), \
 						span_danger("[user] attempts to feed you something."))
-			if(!do_mob(user, M, double_progress = TRUE))
+			if(!do_mob(user, M, double_progress = TRUE, can_move = FALSE))
 				return
 			if(!reagents || !reagents.total_volume)
 				return // The drink might be empty after the delay, such as by spam-feeding
@@ -201,7 +201,7 @@
 
 /obj/item/reagent_containers/glass/bucket
 	name = "bucket"
-	desc = ""
+	desc = "The means by which Abyssor is said to have taught early man to manipulate water. This one is wooden."
 	icon = 'icons/roguetown/items/misc.dmi'
 	lefthand_file = 'modular/Neu_Food/icons/food_lefthand.dmi'
 	righthand_file = 'modular/Neu_Food/icons/food_righthand.dmi'

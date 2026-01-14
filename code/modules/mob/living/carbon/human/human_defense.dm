@@ -20,79 +20,80 @@
 	if(isbodypart(def_zone))
 		var/obj/item/bodypart/CBP = def_zone
 		def_zone = CBP.body_zone
+	var/obj/item/clothing/used
 	var/protection = 0
-	var/cur_armor = 1 //Used to index the list
-	var/list/used_armors = get_all_of_worn_armors(def_zone, d_type) //Will return only 1 item if said item has shielding_armor = TRUE variable set and calculate damage *only* for that.
-	var/obj/item/clothing/best_used
-	for(var/i in 1 to length(used_armors))
-		var/obj/item/clothing/used = used_armors[cur_armor]
-
-		//Find the armor with the highest protection value.
-		best_used = get_best_worn_armor(def_zone, d_type)
-		protection = best_used.armor.getRating(d_type)
+	var/intdamage = damage
+	if(d_type != "blunt")
+		used = get_best_worn_armor(def_zone, d_type)
+		if(used)
+			protection = used.armor.getRating(d_type)
+			if(!blade_dulling)
+				blade_dulling = BCLASS_BLUNT
+			if(blade_dulling == BCLASS_PEEL)	//Peel shouldn't be dealing any damage through armor, or to armor itself.
+				used.peel_coverage(def_zone, peeldivisor, src)
+				damage = 0
+				if(def_zone == BODY_ZONE_CHEST)
+					purge_peel(99)
+			if(used.blocksound)
+				playsound(loc, get_armor_sound(used.blocksound, blade_dulling), 100)
+        
+			// Penetrative damage deals significantly less to the armor. Tentative.
+			if((damage + armor_penetration) > protection)
+				intdamage = (damage + armor_penetration) - protection
+        
+			if(intdamfactor != 1)
+				intdamage *= intdamfactor
+        
+			if(istype(used_weapon) && used_weapon.is_silver && ((used.smeltresult in list(/obj/item/ingot/aaslag, /obj/item/ingot/aalloy, /obj/item/ingot/purifiedaalloy)) || used.GetComponent(/datum/component/cursed_item)))
+				// Blessed silver delivers more int damage against "cursed" alloys, see component for multiplier values
+				var/datum/component/silverbless/bless = used_weapon.GetComponent(/datum/component/silverbless)
+				if(bless.is_blessed)
+					// Apply multiplier if the blessing is active.
+					intdamage = round(intdamage * bless.cursed_item_intdamage)
+				
+			var/tempo_bonus = get_tempo_bonus(TEMPO_TAG_ARMOR_INTEGFACTOR)
+			if(tempo_bonus)
+				intdamage *= tempo_bonus
+				
+			used.take_damage(intdamage, damage_flag = d_type, sound_effect = FALSE, armor_penetration = 100)
+	else
+		var/list/layers = get_best_worn_armor_layered(def_zone, d_type)
+		if(length(layers))
+			for(var/C in layers)
+				if(layers[C] > protection)
+					protection = layers[C]
+			if(mind)
+				if(protection > 0)
+					intdamage -= intdamage * ((protection / 1.66) / 100)	//Reduces it up to 60% (100 dmg -> 40 dmg at Blunt S armor (100))
+			if(intdamfactor != 1)
+				intdamage *= intdamfactor
+        
+			var/tempo_bonus = get_tempo_bonus(TEMPO_TAG_ARMOR_INTEGFACTOR)
+			if(tempo_bonus)
+				intdamage *= tempo_bonus
+        
+			var/layers_deep = 1
+			var/played_sound = FALSE
+			for(var/obj/item/clothing/C in layers)
+				var/actualdmg = intdamage
+				actualdmg /= layers_deep
+				C.take_damage(actualdmg, damage_flag = d_type, sound_effect = FALSE, armor_penetration = 100)
+				if(C.blocksound && !played_sound)
+					playsound(loc, get_armor_sound(C.blocksound, blade_dulling), 100)
+					played_sound = TRUE
+				layers_deep++
+			layers.Cut()
 		
-		if(!blade_dulling)
-			blade_dulling = BCLASS_BLUNT
-		if(used.blocksound)
-			playsound(loc, get_armor_sound(used.blocksound, blade_dulling), 100)
-		var/intdamage = damage
-		// Penetrative damage deals significantly less to the armor. Tentative.
-		if((damage + armor_penetration) > protection)
-			intdamage = (damage + armor_penetration) - protection
-		if(intdamfactor != 1)
-			intdamage *= intdamfactor
-		if(d_type == "blunt")
-			if(used.armor?.getRating("blunt") > 0)
-				var/bluntrating = used.armor.getRating("blunt")
-				intdamage -= intdamage * ((bluntrating / 2) / 100)	//Half of the blunt rating reduces blunt damage taken by %-age.
-		if(istype(used_weapon) && used_weapon.is_silver && ((used.smeltresult in list(/obj/item/ingot/aaslag, /obj/item/ingot/aalloy, /obj/item/ingot/purifiedaalloy)) || used.GetComponent(/datum/component/cursed_item)))
-			// Blessed silver delivers more int damage against "cursed" alloys, see component for multiplier values
-			var/datum/component/silverbless/bless = used_weapon.GetComponent(/datum/component/silverbless)
-			if(bless.is_blessed)
-				// Apply multiplier if the blessing is active.
-				intdamage = round(intdamage * bless.cursed_item_intdamage)
-		
-		//Integrity Spread armor ratio begins here.
-		if(length(used_armors) >= 2) //Check if we even have multiple armors.
-			var/ratio_index = 1
-			var/ratio_total = 0
-			var/list/AC_ratio = get_armor_class_ratio(used_armors)
-			for(var/ii in 1 to length(AC_ratio))
-				var/val = AC_ratio[ratio_index]
-				ratio_index++
-				ratio_total += val
 
-			if(ratio_total) //Only spread damage if the ratio has a value. Typically this will always be the case.
-				var/damage_ratio_percentage = AC_ratio[cur_armor] / ratio_total
-				intdamage *= damage_ratio_percentage
-	
-		used.take_damage(intdamage, damage_flag = d_type, sound_effect = FALSE, armor_penetration = 100)
-		cur_armor++ //Index to the next armor piece.
-
-	if(physiology) //Species armor resistance.
+	if(physiology)
 		protection += physiology.armor.getRating(d_type)
 	
-	//Special peel check.
-	cur_armor = 1
-	var/obj/item/clothing/used = used_armors[cur_armor]
-	for(var/i in 1 to length(used_armors))
-		var/peel_goal = used.peel_threshold
-		if(peeldivisor > peel_goal)
-			peel_goal = peeldivisor
-		if(used.peel_count >= peel_goal)
-			cur_armor++ //Next; This one is fucked.
-			continue
-		if(blade_dulling == BCLASS_PEEL)	//Peel shouldn't be dealing any damage through armor, or to armor itself.
-			used.peel_coverage(def_zone, peeldivisor, src)
-			damage = 0
-			if(def_zone == BODY_ZONE_CHEST)
-				purge_peel(99)
-			break //Only run once
-
 	return protection
 
-/mob/living/carbon/human/proc/checkcritarmor(def_zone, d_type)
-	if(!d_type)
+/mob/living/carbon/human/proc/checkcritarmor(def_zone, bclass)
+	if(!bclass)
+		return FALSE
+	if(bclass == BCLASS_PIERCE)
 		return FALSE
 	if(isbodypart(def_zone))
 		var/obj/item/bodypart/CBP = def_zone
@@ -101,18 +102,18 @@
 	for(var/bp in body_parts)
 		if(!bp)
 			continue
-		if(skin_armor && skin_armor.obj_integrity >= 1)
-			var/obj/item/clothing/C = skin_armor
-			C = skin_armor
-			if(d_type in C.prevent_crits)
-				return TRUE
 		if(bp && istype(bp , /obj/item/clothing))
 			var/obj/item/clothing/C = bp
 			if(zone2covered(def_zone, C.body_parts_covered_dynamic))
-				if(C.obj_integrity >= 1)
-					if(d_type in C.prevent_crits)
-						return TRUE
-
+				if(C.obj_integrity > 1)
+					switch(C.prevent_crits)
+						if(PREVENT_CRITS_NONE)
+							return FALSE
+						if(PREVENT_CRITS_ALL)
+							return TRUE
+						if(PREVENT_CRITS_MOST)
+							if(bclass != BCLASS_PICK)
+								return TRUE
 /*
 /mob/proc/checkwornweight()
 	return 0
@@ -242,10 +243,10 @@
 		hitpush = FALSE
 		skipcatch = TRUE
 		blocked = TRUE
-	
+
 	//Thrown item deflection -- this RETURNS if successful!
 	var/obj/item/W = get_active_held_item()
-	if(!blocked && I)
+	if(!blocked && I && cmode && mind)
 		if(W && get_dir(src, AM) == turn(get_dir(AM, src), 180))	//We are directly facing the thrown item.
 			var/diceroll = (get_skill_level(W.associated_skill)) * 10
 			if(projectile_parry_timer > world.time)
@@ -384,7 +385,7 @@
 		var/nodmg = FALSE
 		if(!apply_damage(damage, M.melee_damage_type, affecting, armor))
 			nodmg = TRUE
-			next_attack_msg += " <span class='warning'>Armor stops the damage.</span>"
+			next_attack_msg += VISMSG_ARMOR_BLOCKED
 		else
 			SEND_SIGNAL(M, COMSIG_MOB_AFTERATTACK_SUCCESS, src)
 			affecting.bodypart_attacked_by(M.a_intent.blade_class, damage - armor, M, dam_zone, crit_message = TRUE)
@@ -828,11 +829,16 @@
 
 /// Helper proc that returns the worn item ref that has the highest rating covering the def_zone (targeted zone) for the d_type (damage type)
 /mob/living/carbon/human/proc/get_best_worn_armor(def_zone, d_type)
+	var/protection = 0
 	var/obj/item/clothing/used
 	if(def_zone == BODY_ZONE_TAUR)
 		def_zone = pick(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
-	var/new_val = 0 //We are the newest
-	var/old_val = 0 //We are the HIGHEST
+	else if(get_taur_tail())
+		switch(def_zone)
+			if(BODY_ZONE_PRECISE_L_FOOT)
+				def_zone = BODY_ZONE_L_LEG
+			if(BODY_ZONE_PRECISE_R_FOOT)
+				def_zone = BODY_ZONE_R_LEG
 	var/list/body_parts = list(skin_armor, head, wear_mask, wear_wrists, gloves, wear_neck, cloak, wear_armor, wear_shirt, shoes, wear_pants, backr, backl, belt, s_store, glasses, ears, wear_ring) //Everything but pockets. Pockets are l_store and r_store. (if pockets were allowed, putting something armored, gloves or hats for example, would double up on the armor)
 	for(var/bp in body_parts)
 		if(!bp)
@@ -840,8 +846,8 @@
 		if(skin_armor) //Checks for the natural_armor first.
 			if(skin_armor.obj_integrity > 0)
 				var/obj/item/clothing/C = skin_armor
-				new_val = C.armor.getRating(d_type)
-				if(new_val > old_val)
+				var/val = C.armor.getRating(d_type)
+				if(val > protection)
 					used = C
 		if(bp && istype(bp, /obj/item/clothing))
 			var/obj/item/clothing/C = bp
@@ -849,48 +855,38 @@
 				if(C.max_integrity)
 					if(C.obj_integrity <= 0)
 						continue
-				new_val = C.armor.getRating(d_type) 
-				if(new_val > old_val) //Check ratings between old and new armor values.
-					old_val = new_val
-					used = C
+				var/val = C.armor.getRating(d_type)
+				if(val > 0)
+					if(val > protection)
+						protection = val
+						used = C
 	return used
 
-/// Similar to get_best_worn_armor(), but instead returns a list of all armors that protect the same spot.
-/mob/living/carbon/human/proc/get_all_of_worn_armors(def_zone, d_type)
-	var/list/used_armors_list = list()
+/// Helper proc that returns the worn item ref that has the highest rating covering the def_zone (targeted zone) for the d_type (damage type). Returns the whole list of items that cover def_zone, from highest rating to lowest.
+/mob/living/carbon/human/proc/get_best_worn_armor_layered(def_zone, d_type)
 	if(def_zone == BODY_ZONE_TAUR)
 		def_zone = pick(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
-	var/new_val = 0 //We are the newest
-	var/old_val
-	var/shield //Boolshit check.
+	else if(get_taur_tail())
+		switch(def_zone)
+			if(BODY_ZONE_PRECISE_L_FOOT)
+				def_zone = BODY_ZONE_L_LEG
+			if(BODY_ZONE_PRECISE_R_FOOT)
+				def_zone = BODY_ZONE_R_LEG
 	var/list/body_parts = list(skin_armor, head, wear_mask, wear_wrists, gloves, wear_neck, cloak, wear_armor, wear_shirt, shoes, wear_pants, backr, backl, belt, s_store, glasses, ears, wear_ring) //Everything but pockets. Pockets are l_store and r_store. (if pockets were allowed, putting something armored, gloves or hats for example, would double up on the armor)
-	if(skin_armor)
-		var/obj/item/clothing/C = skin_armor
-		if(C.obj_integrity > 0)
-			used_armors_list += C
-	else
-		for(var/bp in body_parts) //Check for every BP of armor on them.
-			if(!bp)
-				continue
-			if(bp && istype(bp, /obj/item/clothing))
-				var/obj/item/clothing/C = bp
-				if(zone2covered(def_zone, C.body_parts_covered_dynamic)) //Check if the BP slot covers the defense zone
-					if(C.max_integrity)
-						if(C.obj_integrity <= 0)
-							continue
-					
-					new_val = C.armor.getRating(d_type)
-					if(C.shielding_armor) //Always defaults as the only armor being worn as it acts as a shield, and only the armor with the greater protection value.
-						if(new_val > old_val)
-							shield = TRUE //We have a shield, don't get any more new armors onto the list. All integrity goes to this armor piece.
-							used_armors_list = list() //Clear list-
-							used_armors_list += C //Repopulate with only the shielded item, only if it has a greater value however.
-							continue //NEXT!!! WE NEED TO SEE IF THERES ANYTHING STRONGER *SMILES*
-					if(new_val > 0 && !shield) //Check if it has any defense.
-						old_val = new_val
-						used_armors_list += C
-
-	return used_armors_list
+	var/list/used_armor = list()
+	for(var/bp in body_parts)
+		if(!bp)
+			continue
+		if(bp && istype(bp, /obj/item/clothing))
+			var/obj/item/clothing/C = bp
+			if(zone2covered(def_zone, C.body_parts_covered_dynamic))
+				if(C.max_integrity)
+					if(C.obj_integrity <= 0)
+						continue
+				var/val = C.armor.getRating(d_type)
+				if(val > 0)
+					used_armor[C] = val
+	return used_armor
 
 /mob/living/carbon/human/on_fire_stack(seconds_per_tick, datum/status_effect/fire_handler/fire_stacks/fire_handler)
 	//SEND_SIGNAL(src, COMSIG_HUMAN_BURNING)

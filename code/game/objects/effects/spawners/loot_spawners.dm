@@ -19,10 +19,10 @@
 		/obj/item/natural/bundle/fibers = 2,
 		/obj/item/reagent_containers/food/snacks/tallow = 1,
 		//clothing
-		/obj/item/clothing/head/roguetown/armingcap = 4,
+		/obj/item/clothing/head/roguetown/cap = 4,
 		/obj/item/clothing/head/roguetown/knitcap = 4,
 		/obj/item/clothing/head/roguetown/roguehood = 1,
-		/obj/item/clothing/cloak/stabard = 3,
+		/obj/item/clothing/cloak/tabard/stabard = 3,
 		/obj/item/clothing/cloak/tabard = 3,
 		/obj/item/clothing/cloak/raincloak/mortus = 3,
 		/obj/item/clothing/cloak/apron = 3,
@@ -67,7 +67,8 @@
 		/obj/item/mundane/puzzlebox/easy = 1,
 		//medical
 		/obj/item/needle/thorn = 4,
-		/obj/item/natural/cloth = 5,
+		/obj/item/natural/cloth/bandage = 5,
+		/obj/item/natural/bundle/cloth/bandage/full = 3,
 		//weapons
 		/obj/item/gun/ballistic/revolver/grenadelauncher/bow = 2,
 		/obj/item/quiver/arrows = 2,
@@ -158,13 +159,13 @@
 		/obj/item/ingot/iron = 2,
 		/obj/item/reagent_containers/food/snacks/tallow = 1,
 		//clothing
-		/obj/item/clothing/head/roguetown/armingcap = 4,
+		/obj/item/clothing/head/roguetown/cap = 4,
 		/obj/item/clothing/head/roguetown/knitcap = 4,
 		/obj/item/clothing/head/roguetown/wizhat = 1,
 		/obj/item/clothing/head/roguetown/wizhat/black = 1,
 		/obj/item/clothing/head/roguetown/archercap = 1,
 		/obj/item/clothing/head/roguetown/roguehood/shalal/heavyhood = 1,
-		/obj/item/clothing/cloak/stabard = 3,
+		/obj/item/clothing/cloak/tabard/stabard = 3,
 		/obj/item/clothing/cloak/tabard = 3,
 		/obj/item/storage/backpack/rogue/satchel = 3,
 		/obj/item/clothing/suit/roguetown/shirt/undershirt/random = 5,
@@ -210,8 +211,8 @@
 		/obj/item/mundane/puzzlebox/easy = 1,
 		//medical
 		/obj/item/needle = 4,
-		/obj/item/natural/cloth = 5,
-		/obj/item/natural/bundle/cloth = 3,
+		/obj/item/natural/cloth/bandage = 5,
+		/obj/item/natural/bundle/cloth/bandage/full = 3,
 		//weapons
 		/obj/item/gun/ballistic/revolver/grenadelauncher/bow/recurve = 4,
 		/obj/item/gun/ballistic/revolver/grenadelauncher/crossbow = 3,
@@ -336,7 +337,8 @@
 		/obj/item/mundane/puzzlebox/impossible = 1,
 		//medical
 		/obj/item/needle = 4,
-		/obj/item/natural/bundle/cloth = 3,
+		/obj/item/natural/cloth/bandage = 5,
+		/obj/item/natural/bundle/cloth/bandage/full = 3,
 		//weapons
 		/obj/item/gun/ballistic/revolver/grenadelauncher/bow/recurve = 4,
 		/obj/item/gun/ballistic/revolver/grenadelauncher/bow/longbow  = 4,

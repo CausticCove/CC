@@ -427,7 +427,7 @@
 	update_icon()
 
 /obj/structure/roguemachine/vendor/tower
-	keycontrol = "tower"
+	keycontrol = "university"
 
 /obj/structure/roguemachine/vendor/tower/Initialize()
 	. = ..()

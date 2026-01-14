@@ -1,9 +1,9 @@
-# AZURE PEAK
+# CAUSTIC COVE
 
 | Website                   | Link                                           |
 |---------------------------|------------------------------------------------|
-| Discord | [https://discord.gg/NCFXUAgCPT](https://discord.gg/NCFXUAgCPT)
-| Code    | [https://github.com/Azure-Peak/Azure-Peak](https://github.com/GeneralPantsuIsBadAtCoding/Azure-Peak)    |
+| Discord | [https://discord.gg/ApEsEhBAMm](https://discord.gg/ApEsEhBAMm)
+| Code    | [https://github.com/CausticCove/CC](https://github.com/CausticCove/CC)    |
 | Wiki    | [https://azurepeak.miraheze.org/wiki/Main_Page](https://azurepeak.miraheze.org/wiki/Main_Page) |
 
 ## LICENSE

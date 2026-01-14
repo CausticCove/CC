@@ -7,7 +7,6 @@
 	blocksound = SOFTHIT
 	body_parts_covered = COVERAGE_ALL_BUT_LEGS
 	armor = ARMOR_PLATE
-	prevent_crits = list(BCLASS_CUT, BCLASS_STAB, BCLASS_CHOP, BCLASS_BLUNT, BCLASS_TWIST)
 	allowed_sex = list(MALE, FEMALE)
 	nodismemsleeves = TRUE
 	max_integrity = ARMOR_INT_CHEST_PLATE_BRIGANDINE
@@ -17,26 +16,29 @@
 	armor_class = ARMOR_CLASS_MEDIUM //good idea suggested by lamaster
 	sleeved_detail = FALSE
 	boobed_detail = FALSE
+	chunkcolor = "#7d9097"
+	sellprice = 27 //Fairly common armor, steel and cloth!
 
 /obj/item/clothing/suit/roguetown/armor/brigandine/Initialize()
 	. = ..()
-	AddComponent(/datum/component/item_equipped_movement_rustle, SFX_PLATE_COAT_STEP)
+	AddComponent(/datum/component/item_equipped_movement_rustle, SFX_PLATE_COAT_STEP, 6)
 
 /obj/item/clothing/suit/roguetown/armor/brigandine/attack_right(mob/user)
 	if(detail_tag)
 		return
 	var/the_time = world.time
-	var/pickedcolor = input(user, "Select a color.","Brigandine Color") as null|anything in CLOTHING_COLOR_NAMES
+	var/pickedcolor = input(user, "Select a color.","Brigandine Color") as null|anything in COLOR_MAP
 	if(!pickedcolor)
 		return
 	if(world.time > (the_time + 30 SECONDS))
 		return
 	detail_tag = "_det"
-	detail_color = clothing_color2hex(pickedcolor)
+	detail_color = COLOR_MAP[pickedcolor]
 	update_icon()
 	if(ismob(loc))
 		var/mob/L = loc
 		L.update_inv_armor()
+	chunkcolor = pickedcolor
 
 /obj/item/clothing/suit/roguetown/armor/brigandine/update_icon()
 	cut_overlays()
@@ -73,36 +75,17 @@
 	smelt_bar_num = 2
 	armor_class = ARMOR_CLASS_HEAVY
 	max_integrity = ARMOR_INT_CHEST_PLATE_BRIGANDINE + 50
+	sellprice = 34
 
 /obj/item/clothing/suit/roguetown/armor/brigandine/retinue/coat
 	name = "coat of the commander"
 	desc = "A thick boiled leather surcoat with enough plates concealed within the folds to offer superior protection. It weighs a ton and takes a great man to wear."
 	icon_state = "leathercoat"
 	item_state = "leathercoat"
-	var/picked = FALSE
 	sleeved_detail = TRUE
 	boobed_detail = TRUE
-
-/obj/item/clothing/suit/roguetown/armor/brigandine/retinue/coat/attack_right(mob/user)
-	if(picked)
-		return
-	var/the_time = world.time
-	var/pickedvalue = input(user, "Select a color", "KINGSLAYER'S GARB") as null|anything in list("Khaki", "Black")
-	if(!pickedvalue)
-		return
-	if(world.time > (the_time + 30 SECONDS))
-		return
-	if(pickedvalue == "Khaki")
-		picked = TRUE
-	else if(pickedvalue == "Black")
-		picked = TRUE
-		icon_state = "bleathercoat"
-		item_state = "bleathercoat"
-		update_icon()
-		if(ismob(loc))
-			var/mob/L = loc
-			L.update_inv_armor()
-
+	color = "#7D6653"
+	sellprice = 27
 
 /obj/item/clothing/suit/roguetown/armor/brigandine/light
 	slot_flags = ITEM_SLOT_ARMOR
@@ -113,22 +96,23 @@
 	body_parts_covered = COVERAGE_TORSO
 	armor = ARMOR_LEATHER_STUDDED
 	max_integrity = ARMOR_INT_CHEST_PLATE_BRIGANDINE
-	smeltresult = /obj/item/ingot/steel
+	smeltresult = /obj/item/ingot/iron
 	equip_delay_self = 40
 	armor_class = ARMOR_CLASS_LIGHT//steel version of the studded leather armor now
 	w_class = WEIGHT_CLASS_BULKY
+	sellprice = 22
 
 /obj/item/clothing/suit/roguetown/armor/brigandine/light/attack_right(mob/user)
 	if(detail_tag)
 		return
 	var/the_time = world.time
-	var/pickedcolor = input(user, "Select a color.","Brigandine Color") as null|anything in CLOTHING_COLOR_NAMES
+	var/pickedcolor = input(user, "Select a color.","Brigandine Color") as null|anything in COLOR_MAP
 	if(!pickedcolor)
 		return
 	if(world.time > (the_time + 30 SECONDS))
 		return
 	detail_tag = "_detail"
-	detail_color = clothing_color2hex(pickedcolor)
+	detail_color = COLOR_MAP[pickedcolor]
 	update_icon()
 	if(ismob(loc))
 		var/mob/L = loc
@@ -192,8 +176,8 @@
 /obj/item/clothing/suit/roguetown/armor/brigandine/haraate/attack_right(mob/user)
 	..()
 	if(!picked)
-		var/choice = input(user, "Choose a color.", "Uniform colors") as anything in colorlist
-		var/playerchoice = colorlist[choice]
+		var/choice = input(user, "Choose a color.", "Uniform colors") as anything in COLOR_MAP
+		var/playerchoice = COLOR_MAP[choice]
 		picked = TRUE
 		detail_color = playerchoice
 		detail_tag = "_detail"

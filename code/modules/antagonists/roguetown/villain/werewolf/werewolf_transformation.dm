@@ -15,7 +15,8 @@
 				if(loc.can_see_sky())
 					to_chat(H, span_userdanger("The moonlight scorns me... It is too late."))
 					owner.current.playsound_local(get_turf(owner.current), 'sound/music/wolfintro.ogg', 80, FALSE, pressure_affected = FALSE)
-					H.flash_fullscreen("redflash3")
+					if(H.show_redflash())
+						H.flash_fullscreen("redflash3")
 					transforming = world.time // timer
 
 	// Begin transformation
@@ -26,7 +27,8 @@
 			transformed = TRUE // Mark as transformed
 
 		else if (world.time >= transforming + 25 SECONDS) // Stage 2
-			H.flash_fullscreen("redflash3")
+			if(H.show_redflash())
+				H.flash_fullscreen("redflash3")
 			H.emote("agony", forced = TRUE)
 			to_chat(H, span_userdanger("UNIMAGINABLE PAIN!"))
 			H.Stun(30)
@@ -39,9 +41,6 @@
 
 	// Werewolf reverts to human form during the day
 	else if(transformed)
-		H.real_name = wolfname
-		H.name = wolfname
-
 		if(GLOB.tod != "night")
 			if(!untransforming)
 				untransforming = world.time // Start untransformation phase
@@ -53,7 +52,8 @@
 				untransforming = FALSE // Reset untransforming phase
 
 			else if (world.time >= untransforming) // Alert player
-				H.flash_fullscreen("redflash1")
+				if(H.show_redflash())
+					H.flash_fullscreen("redflash1")
 				to_chat(H, span_warning("Daylight shines around me... the curse begins to fade."))
 
 
@@ -89,6 +89,12 @@
 	W.gender = gender
 	W.regenerate_icons()
 	W.stored_mob = src
+
+	// Set the werewolf's name from the antagonist datum
+	var/datum/antagonist/werewolf/Were = mind.has_antag_datum(/datum/antagonist/werewolf/)
+	if(Were)
+		W.real_name = Were.wolfname
+		W.name = Were.wolfname
 	W.limb_destroyer = TRUE
 	W.ambushable = FALSE
 	W.cmode_music = 'sound/music/cmode/antag/combat_darkstar.ogg'

@@ -2,11 +2,11 @@
 	name = "Collectable Treasures"
 	desc = "Treasures are minted for 80% of its value, which is deposited into the treasury\
 	Weapons, ores and clothings are excluded.\
-	Any item worth more than 30 mammons is accepted,\
+	Any item worth more than 45 mammons is accepted,\
 	and statues, cups, rings, platters, and candlesticks are always accepted\
 	regardless of value."
 	item_type = /obj
-	payout_price = 70
+	payout_price = 60
 	mint_item = TRUE
 	percent_bounty = TRUE
 
@@ -40,6 +40,8 @@
 		return FALSE  // Thats the HEADEATER's job
 	if(istype(I, /obj/item/storage))
 		return FALSE //Anti-Exploit fix
+	if(I.get_real_price() >= 45)
+		return TRUE
 	if(I.get_real_price() > 0)
 		if(istype(I, /obj/item/roguestatue))
 			return TRUE
@@ -51,5 +53,3 @@
 			return TRUE
 		if(istype(I, /obj/item/candle))
 			return TRUE
-	if(I.get_real_price() >= 30)
-		return TRUE

@@ -19,8 +19,10 @@
 		STATKEY_CON = 1,
 		//Caustic edit end
 	)
+	age_mod = /datum/class_age_mod/bandit/rogue_mage
 	subclass_skills = list(
-		/datum/skill/combat/polearms = SKILL_LEVEL_JOURNEYMAN, // Jman Polearms, for better parrying without making them bandit level 
+		/datum/skill/combat/staves = SKILL_LEVEL_JOURNEYMAN,
+		/datum/skill/combat/polearms = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/combat/axes = SKILL_LEVEL_APPRENTICE, // They get apprentice in a wide spread of weapons for synergy with conjuration, especially if they take virtues
 		/datum/skill/combat/maces = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/combat/swords = SKILL_LEVEL_APPRENTICE,
@@ -68,10 +70,6 @@
 	if(H.age == AGE_OLD)
 		head = /obj/item/clothing/head/roguetown/wizhat/gen
 		armor = /obj/item/clothing/suit/roguetown/shirt/robe
-		H.adjust_skillrank_up_to(/datum/skill/magic/arcane, SKILL_LEVEL_MASTER, TRUE)
-		H.change_stat(STATKEY_INT, 1)
-		H.change_stat(STATKEY_PER, 1)
-		H.mind?.adjust_spellpoints(6)
 
 	if(!istype(H.patron, /datum/patron/inhumen/matthios))
 		var/inputty = input(H, "Would you like to change your patron to Matthios?", "The Transactor calls", "No") as anything in list("Yes", "No")

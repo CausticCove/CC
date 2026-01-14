@@ -27,7 +27,7 @@
 	/obj/item/needle,
 	/obj/item/natural/worms/leech,
 	/obj/item/reagent_containers/lux,
-	/obj/item/natural/bundle/cloth,
+	/obj/item/natural/bundle/cloth/bandage,
 	/obj/item/natural/cloth))
 
 /datum/component/storage/concrete/roguetown/messkit
@@ -185,6 +185,10 @@
 	allow_dump_out = TRUE
 	dump_time = 40
 	collection_mode = COLLECT_SAME
+
+/datum/component/storage/concrete/tray/spill_contents(obj/A)
+	if (A.throwing)
+		. = ..()
 
 /datum/component/storage/concrete/tray/New(datum/P, ...)
 	. = ..()

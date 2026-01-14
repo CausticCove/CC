@@ -127,7 +127,7 @@ GLOBAL_LIST_INIT(dwarfskeleton_aggro, world.file2list("strings/rt/dskeletonaggro
 	gloves = /obj/item/clothing/gloves/roguetown/plate
 	wrists = /obj/item/clothing/wrists/roguetown/bracers
 	pants = /obj/item/clothing/under/roguetown/platelegs
-	cloak = /obj/item/clothing/cloak/stabard/dungeon
+	cloak = /obj/item/clothing/cloak/tabard/stabard/dungeon
 	neck = /obj/item/clothing/neck/roguetown/chaincoif
 	shirt = /obj/item/clothing/suit/roguetown/armor/gambeson/heavy
 	armor = /obj/item/clothing/suit/roguetown/armor/plate/scale

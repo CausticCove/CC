@@ -17,7 +17,7 @@
 	muteinmouth = TRUE
 	var/listening = TRUE
 	var/speaking = TRUE
-	sellprice = 0
+	sellprice = 222 //It's a lovely ring. Why wouldn't it have a sell price?
 	grid_width = 32
 	grid_height = 32
 
@@ -72,8 +72,6 @@
 	return ..()
 
 /obj/item/mattcoin/proc/repeat_message(message, atom/A, tcolor, message_language)
-	if(A == src)
-		return
 	if(!ismob(loc))
 		return
 	if(tcolor)

@@ -3,7 +3,6 @@
 	desc = "Plate gauntlets made out of steel. Good all-around protection for the hands."
 	icon_state = "gauntlets"
 	armor = ARMOR_PLATE
-	prevent_crits = list(BCLASS_CHOP, BCLASS_CUT, BCLASS_BLUNT, BCLASS_TWIST)
 	resistance_flags = FIRE_PROOF
 	blocksound = PLATEHIT
 	max_integrity = ARMOR_INT_SIDE_STEEL
@@ -14,10 +13,14 @@
 	equip_sound = 'sound/foley/equip/equip_armor_plate.ogg'
 	anvilrepair = /datum/skill/craft/armorsmithing
 	smeltresult = /obj/item/ingot/steel
+	sellprice = 17
 
 	grid_width = 64
 	grid_height = 32
 	unarmed_bonus = 1.2
+
+/obj/item/clothing/gloves/roguetown/plate/ComponentInitialize()
+	AddComponent(/datum/component/armour_filtering/positive, TRAIT_FENCERDEXTERITY)
 
 /obj/item/clothing/gloves/roguetown/plate/iron
 	name = "iron plate gauntlets"
@@ -25,6 +28,7 @@
 	icon_state = "igauntlets"
 	smeltresult = /obj/item/ingot/iron
 	max_integrity = ARMOR_INT_SIDE_IRON
+	sellprice = 12
 
 /obj/item/clothing/gloves/roguetown/plate/aalloy
 	name = "decrepit plate gauntlets"
@@ -32,20 +36,25 @@
 	icon_state = "agauntlets"
 	max_integrity = ARMOR_INT_SIDE_DECREPIT
 	color = "#bb9696"
+	chunkcolor = "#532e25"
 	smeltresult = /obj/item/ingot/aaslag
 	anvilrepair = null
+	prevent_crits = PREVENT_CRITS_NONE
+	sellprice = 5
 
 /obj/item/clothing/gloves/roguetown/plate/paalloy
 	name = "ancient plate gauntlets"
 	desc = "Polished gilbranze mechanisms, meticulously interconnected to shroud splayed hands. 'Mercy' and 'innocence' are concepts paraded by the unenlightened; spill their blood without guilt, so that the world may yet be remade in Her image." 
 	icon_state = "agauntlets"
 	smeltresult = /obj/item/ingot/aaslag
+	sellprice = 5
 
 /obj/item/clothing/gloves/roguetown/plate/graggar
 	name = "vicious gauntlets"
 	desc = "Plate gauntlets which carry the motive force of this world, violence."
 	max_integrity = ARMOR_INT_SIDE_ANTAG
 	icon_state = "graggarplategloves"
+	sellprice = 44 //Heretical~
 
 /obj/item/clothing/gloves/roguetown/plate/graggar/Initialize()
 	. = ..()
@@ -56,7 +65,7 @@
 	desc = "Many a man his life hath sold,"
 	icon_state = "matthiosgloves"
 	max_integrity = ARMOR_INT_SIDE_ANTAG
-/*caustic edit start
+
 /obj/item/clothing/gloves/roguetown/plate/matthios/Initialize()
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, CURSED_ITEM_TRAIT)
@@ -66,14 +75,16 @@
 	if(QDELETED(src))
 		return
 	qdel(src)
-*///caustic edit end
+
 
 /obj/item/clothing/gloves/roguetown/plate/zizo
 	name = "avantyne gauntlets"
 	desc = "avantyne plate gauntlets. Called forth from the edge of what should be known. In Her name."
 	icon_state = "zizogauntlets"
 	max_integrity = ARMOR_INT_SIDE_ANTAG
-/*caustic edit start
+	chunkcolor = "#363030"
+	sellprice = 44
+
 /obj/item/clothing/gloves/roguetown/plate/zizo/Initialize()
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, CURSED_ITEM_TRAIT)
@@ -83,7 +94,6 @@
 	if(QDELETED(src))
 		return
 	qdel(src)
-*///caustic edit end
 
 /obj/item/clothing/gloves/roguetown/plate/shadowgauntlets
 	name = "darkplate gauntlets"
@@ -102,12 +112,13 @@
 	color = "#FFFFFF"
 	detail_color = "#FFFFFF"
 	var/picked = FALSE
+	sellprice = 30
 
 /obj/item/clothing/gloves/roguetown/plate/kote/attack_right(mob/user)
 	..()
 	if(!picked)
-		var/choice = input(user, "Choose a color.", "Uniform colors") as anything in colorlist
-		var/playerchoice = colorlist[choice]
+		var/choice = input(user, "Choose a color.", "Uniform colors") as anything in COLOR_MAP
+		var/playerchoice = COLOR_MAP[choice]
 		picked = TRUE
 		detail_color = playerchoice
 		detail_tag = "_detail"

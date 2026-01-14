@@ -16,14 +16,17 @@
 		STATKEY_WIL = 1,
 		STATKEY_SPD = 1
 	)
+	age_mod = /datum/class_age_mod/wretch/hedge_mage
 	subclass_spellpoints = 12
 	subclass_skills = list(
 		/datum/skill/combat/polearms = SKILL_LEVEL_EXPERT, //Caustic Cove Edit
+		/datum/skill/combat/staves = SKILL_LEVEL_EXPERT, //Caustic Cove Edit
 		/datum/skill/misc/climbing = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/misc/athletics = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/combat/wrestling = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/combat/unarmed = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/misc/reading = SKILL_LEVEL_MASTER,
+		/datum/skill/misc/medicine = SKILL_LEVEL_APPRENTICE, // Have to grind a bit, but can use the ZRONK chair right away
 		/datum/skill/craft/alchemy = SKILL_LEVEL_EXPERT,
 		/datum/skill/magic/arcane = SKILL_LEVEL_EXPERT,
 		/datum/skill/misc/medicine = SKILL_LEVEL_JOURNEYMAN, //For lux extractions.
@@ -52,9 +55,6 @@
 		/obj/item/reagent_containers/glass/bottle/alchemical/healthpot = 1,	//Small health vial
 		)
 	H.dna.species.soundpack_m = new /datum/voicepack/male/wizard()
-	if(H.age == AGE_OLD)
-		H.adjust_skillrank_up_to(/datum/skill/magic/arcane, SKILL_LEVEL_MASTER, TRUE)
-		H.mind?.adjust_spellpoints(6)
 	if(H.mind)
 		H.mind?.current.faction += "[H.name]_faction"
 		H.set_patron(/datum/patron/inhumen/zizo)

@@ -42,7 +42,7 @@
 	return TRUE
 
 /datum/mob_descriptor/proc/get_standalone_text(mob/living/described)
-	return "%THEY% [get_coalesce_text(described)]"
+	return "%THEY% [get_coalesce_text(described)]."
 
 /datum/mob_descriptor/proc/get_coalesce_text(mob/living/described, list/used_verbage)
 	return "[should_add_verbage(described, used_verbage) ? "[get_verbage(described)] " : ""][get_pre_string(described)][get_description(described)][post_string]"

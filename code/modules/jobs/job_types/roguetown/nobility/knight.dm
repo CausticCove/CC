@@ -50,8 +50,10 @@
 		var/honorary = "Ser"
 		if(should_wear_femme_clothes(H))
 			honorary = "Dame"
-		H.real_name = "[honorary] [prev_real_name]"
-		H.name = "[honorary] [prev_name]"
+		// check if they already have it to avoid stacking titles
+		if(findtextEx(H.real_name, "[honorary] ") == 0)
+			H.real_name = "[honorary] [prev_real_name]"
+			H.name = "[honorary] [prev_name]"
 
 		for(var/X in peopleknowme)
 			for(var/datum/mind/MF in get_minds(X))
@@ -84,8 +86,7 @@
 		STATKEY_STR = 3,//Heavy hitters. Less con/end, high strength.
 		STATKEY_INT = 3,
 		STATKEY_CON = 1,
-		STATKEY_WIL = 1,
-		STATKEY_SPD = -1
+		STATKEY_WIL = 1
 	)
 	subclass_skills = list(
 		/datum/skill/combat/polearms = SKILL_LEVEL_EXPERT, //Polearms are pretty much explicitly a two-handed weapon, so I gave them a polearm option.
@@ -98,6 +99,7 @@
 		/datum/skill/misc/climbing = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/misc/reading = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/misc/athletics = SKILL_LEVEL_JOURNEYMAN,
+		/datum/skill/misc/swimming = SKILL_LEVEL_APPRENTICE, //This is not saving them considering plate but funny either way.
 		/datum/skill/combat/knives = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/misc/tracking = SKILL_LEVEL_APPRENTICE,
 	)
@@ -109,7 +111,7 @@
 
 	H.adjust_blindness(-3)
 	if(H.mind)
-		var/weapons = list("Claymore","Great Mace","Battle Axe","Greataxe","Estoc","Lucerne", "Partizan")
+		var/weapons = list("Claymore","Great Mace","Battle Axe","Poleaxe","Estoc","Lucerne", "Partizan")
 		var/weapon_choice = input(H, "Choose your weapon.", "TAKE UP ARMS") as anything in weapons
 		H.set_blindness(0)
 		switch(weapon_choice)
@@ -120,8 +122,8 @@
 				r_hand = /obj/item/rogueweapon/mace/goden/steel
 			if("Battle Axe")
 				r_hand = /obj/item/rogueweapon/stoneaxe/battle
-			if("Greataxe")
-				r_hand = /obj/item/rogueweapon/greataxe/steel
+			if("Poleaxe")
+				r_hand = /obj/item/rogueweapon/greataxe/steel/knight
 				backl = /obj/item/rogueweapon/scabbard/gwstrap
 			if("Estoc")
 				r_hand = /obj/item/rogueweapon/estoc
@@ -181,8 +183,9 @@
 	subclass_stats = list(
 		STATKEY_STR = 1,//Tanky, less strength, but high con/end.
 		STATKEY_INT = 1,
-		STATKEY_CON = 3,
+		STATKEY_CON = 4,//If mercenaries can have this...
 		STATKEY_WIL = 3,
+		STATKEY_PER = 1
 	)
 	subclass_skills = list(
 		/datum/skill/combat/swords = SKILL_LEVEL_EXPERT,
@@ -195,6 +198,7 @@
 		/datum/skill/misc/climbing = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/misc/reading = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/misc/athletics = SKILL_LEVEL_JOURNEYMAN,
+		/datum/skill/misc/swimming = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/combat/knives = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/misc/tracking = SKILL_LEVEL_APPRENTICE,
 	)
@@ -271,9 +275,9 @@
 	//Decent all-around stats. Nothing spectacular. Ranged/melee hybrid class on horseback.
 	subclass_stats = list(
 		STATKEY_STR = 2,
-		STATKEY_INT = 1,
+		STATKEY_INT = 2,
 		STATKEY_CON = 1,
-		STATKEY_WIL = 1,
+		STATKEY_WIL = 2,
 		STATKEY_PER = 2
 	)
 	subclass_skills = list(
@@ -288,6 +292,7 @@
 		/datum/skill/misc/climbing = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/misc/reading = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/misc/athletics = SKILL_LEVEL_JOURNEYMAN,
+		/datum/skill/misc/swimming = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/combat/knives = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/misc/tracking = SKILL_LEVEL_JOURNEYMAN,
 	)
@@ -383,7 +388,9 @@
 		STATKEY_STR = 1,
 		STATKEY_INT = 1,
 		STATKEY_WIL = 2,
-		STATKEY_SPD = 2
+		STATKEY_SPD = 2,
+		STATKEY_PER = 1,
+		STATKEY_FOR = 1
 	)
 	subclass_skills = list(
 		/datum/skill/combat/swords = SKILL_LEVEL_EXPERT, //Swords and knives class.
@@ -396,6 +403,7 @@
 		/datum/skill/misc/climbing = SKILL_LEVEL_EXPERT,
 		/datum/skill/combat/wrestling = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/misc/athletics = SKILL_LEVEL_EXPERT,
+		/datum/skill/misc/swimming = SKILL_LEVEL_APPRENTICE, //Should have Jman but wears medium/light so no
 		/datum/skill/combat/unarmed = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/misc/sneaking = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/misc/reading = SKILL_LEVEL_APPRENTICE,
@@ -410,7 +418,7 @@
 
 	H.adjust_blindness(-3)
 	if(H.mind)
-		var/weapons = list("Rapier + Longbow","Estoc + Recurve Bow","Sabre + Buckler","Whip + Crossbow","Greataxe + Sling")
+		var/weapons = list("Rapier + Longbow","Estoc + Recurve Bow","Sabre + Buckler","Whip + Crossbow","Poleaxe + Sling")
 		var/armor_options = list("Light Armor", "Medium Armor", "Medium Cuirass")
 		var/weapon_choice = input(H, "Choose your weapon.", "TAKE UP ARMS") as anything in weapons
 		var/armor_choice = input(H, "Choose your armor.", "TAKE UP ARMS") as anything in armor_options
@@ -438,10 +446,10 @@
 				backl = /obj/item/gun/ballistic/revolver/grenadelauncher/crossbow
 				beltr = /obj/item/quiver/bolts
 
-			if("Greataxe + Sling")
+			if("Poleaxe + Sling")
 				H.adjust_skillrank(/datum/skill/combat/slings, 4, TRUE)
 				H.adjust_skillrank_up_to(/datum/skill/combat/axes, 4, TRUE)
-				r_hand = /obj/item/rogueweapon/greataxe/steel
+				r_hand = /obj/item/rogueweapon/greataxe/steel/knight
 				backl = /obj/item/rogueweapon/scabbard/gwstrap
 				beltr = /obj/item/quiver/sling/iron
 				beltl = /obj/item/gun/ballistic/revolver/grenadelauncher/sling

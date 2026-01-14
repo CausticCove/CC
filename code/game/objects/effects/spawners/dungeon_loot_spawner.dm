@@ -13,13 +13,13 @@
 		/obj/item/natural/bundle/fibers = 2,
 
 		// Clothing
-		/obj/item/clothing/cloak/stabard = 3,
+		/obj/item/clothing/cloak/tabard/stabard = 3,
 		/obj/item/storage/backpack/rogue/satchel = 3,
 		/obj/item/clothing/shoes/roguetown/simpleshoes = 4,
 		/obj/item/clothing/suit/roguetown/shirt/undershirt/random = 5,
 		/obj/item/storage/belt/rogue/leather/cloth = 4,
 		/obj/item/clothing/cloak/raincloak/mortus = 3,
-		/obj/item/clothing/head/roguetown/armingcap = 4,
+		/obj/item/clothing/head/roguetown/cap = 4,
 		/obj/item/clothing/cloak/apron/waist = 3,
 		/obj/item/storage/belt/rogue/leather/rope = 3,
 		/obj/item/clothing/under/roguetown/tights/vagrant = 4,
@@ -65,8 +65,8 @@
 
 		//medical
 		/obj/item/needle = 4,
-		/obj/item/natural/cloth = 5,
-		/obj/item/natural/bundle/cloth = 3,
+		/obj/item/natural/cloth/bandage = 5,
+		/obj/item/natural/bundle/cloth/bandage/full = 3,
 
 		//weapons
 		/obj/item/rogueweapon/mace = 2,
@@ -170,13 +170,13 @@
 	icon_state = "clothing"
 	loot = list(
 		// Clothing
-		/obj/item/clothing/cloak/stabard = 3,
+		/obj/item/clothing/cloak/tabard/stabard = 3,
 		/obj/item/storage/backpack/rogue/satchel = 3,
 		/obj/item/clothing/shoes/roguetown/simpleshoes = 4,
 		/obj/item/clothing/suit/roguetown/shirt/undershirt/random = 5,
 		/obj/item/storage/belt/rogue/leather/cloth = 4,
 		/obj/item/clothing/cloak/raincloak/mortus = 3,
-		/obj/item/clothing/head/roguetown/armingcap = 4,
+		/obj/item/clothing/head/roguetown/cap = 4,
 		/obj/item/clothing/cloak/apron/waist = 3,
 		/obj/item/storage/belt/rogue/leather/rope = 3,
 		/obj/item/clothing/under/roguetown/tights/vagrant = 4,
@@ -239,8 +239,8 @@
 	loot = list(
 		//medical
 		/obj/item/needle = 4,
-		/obj/item/natural/cloth = 5,
-		/obj/item/natural/bundle/cloth = 3
+		/obj/item/natural/cloth/bandage = 5,
+		/obj/item/natural/bundle/cloth/bandage/full = 3,
 	)
 	lootcount = 2
 

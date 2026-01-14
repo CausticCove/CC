@@ -180,6 +180,8 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 	var/refundable = FALSE // If true, the spell can be refunded. This is modified at the point it is added to the user's mind by learnspell.
 	var/zizo_spell = FALSE // If this spell is fucked up & evil and can only be learned by heretics.
 
+	var/animagus_incompatible = FALSE // For excluding certain spells from being castable by witches, and possibly other classes with access to the animagus spell
+
 	var/overlay = 0
 	var/overlay_icon = 'icons/obj/wizard.dmi'
 	var/overlay_icon_state = "spell"
@@ -210,10 +212,10 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 		var/newtime = chargetime
 		//skill block
 		newtime = newtime - (chargetime * (ranged_ability_user.get_skill_level(associated_skill) * CHARGE_REDUCTION_PER_SKILL))
-		//spellbook cdr
+		//spellbook cast time reduction
 		var/obj/item/book/spellbook/sbook = ranged_ability_user.is_holding_item_of_type(/obj/item/book/spellbook)
 		if(sbook && sbook?.open)
-			newtime = newtime - (chargetime * (sbook.get_cdr()))
+			newtime = newtime - (chargetime * (sbook.get_castred()))
 		//staff cast time reduction
 		var/obj/item/rogueweapon/woodstaff/staff = ranged_ability_user.is_holding_item_of_type(/obj/item/rogueweapon/woodstaff/)
 		if(staff)
@@ -312,7 +314,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 				return FALSE
 
 	else
-		if(clothes_req || human_req)
+		if(clothes_req || human_req || animagus_incompatible) // CC Edit
 			to_chat(user, span_warning("This spell can only be cast by humans!"))
 			return FALSE
 		if(nonabstract_req && (isbrain(user)))
@@ -675,7 +677,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 	action.UpdateButtonIcon(status_only, force)
 
 /obj/effect/proc_holder/spell/proc/can_be_cast_by(mob/caster)
-	if((human_req || clothes_req) && !ishuman(caster))
+	if((human_req || clothes_req || animagus_incompatible) && !ishuman(caster) || isanimagus(caster)) // CC Edit
 		return 0
 	return 1
 
@@ -720,7 +722,12 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 				return FALSE
 			if(!H.has_active_hand())
 				return FALSE
-	
+// CC Edit Start
+	if(isanimagus(user))
+		if(animagus_incompatible)
+			return FALSE
+// CC Edit End
+
 	if((invocation_type == "whisper" || invocation_type == "shout") && isliving(user))
 		var/mob/living/living_user = user
 		if(!living_user.can_speak_vocal())

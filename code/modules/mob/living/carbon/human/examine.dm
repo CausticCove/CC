@@ -87,13 +87,23 @@
 			var/datum/job/J = SSjob.GetJob(job)
 			if(!J || J.wanderer_examine)
 				display_as_wanderer = TRUE
-		if ((valid_headshot_link(src, headshot_link, TRUE)) && (user.client?.prefs.chatheadshot))
+		var/displayed_headshot
+		var/datum/antagonist/vampire/vampireplayer = src.mind?.has_antag_datum(/datum/antagonist/vampire)
+		var/datum/antagonist/lich/lichplayer = src.mind?.has_antag_datum(/datum/antagonist/lich)
+		if(vampireplayer && (!SEND_SIGNAL(src, COMSIG_DISGUISE_STATUS))&& !isnull(vampire_headshot_link)) //vampire with their disguise down and a valid headshot
+			displayed_headshot = src.vampire_headshot_link
+		else if (lichplayer && !isnull(src.lich_headshot_link))//Lich with a valid headshot
+			displayed_headshot = src.lich_headshot_link
+		else
+			displayed_headshot = src.headshot_link
+
+		if ((valid_headshot_link(src, displayed_headshot, TRUE)) && (user.client?.prefs.chatheadshot))
 			if(display_as_wanderer)
-				. = list(span_info("ø ------------ ø\n<img src=[headshot_link] width=100 height=100/>\nThis is <EM>[used_name]</EM>, the wandering [race_name]."))
+				. = list(span_info("ø ------------ ø\n<img src=[displayed_headshot] width=100 height=100/>\nThis is <EM>[used_name]</EM>, the wandering [race_name]."))
 			else if(used_title)
-				. = list(span_info("ø ------------ ø\n<img src=[headshot_link] width=100 height=100/>\nThis is <EM>[used_name]</EM>, the [race_name] [used_title]."))
+				. = list(span_info("ø ------------ ø\n<img src=[displayed_headshot] width=100 height=100/>\nThis is <EM>[used_name]</EM>, the [race_name] [used_title]."))
 			else
-				. = list(span_info("ø ------------ ø\n<img src=[headshot_link] width=100 height=100/>\nThis is the <EM>[used_name]</EM>, the [race_name]."))
+				. = list(span_info("ø ------------ ø\n<img src=[displayed_headshot] width=100 height=100/>\nThis is the <EM>[used_name]</EM>, the [race_name]."))
 		else
 			if(display_as_wanderer)
 				. = list(span_info("ø ------------ ø\nThis is <EM>[used_name]</EM>, the wandering [race_name]."))
@@ -212,6 +222,9 @@
 		var/inquisition_text = get_inquisition_text(user)
 		if(inquisition_text)
 			. +=span_notice(inquisition_text)
+		var/clergy_text = get_clergy_text(user)
+		if(clergy_text)
+			. +=span_notice(clergy_text)
 
 		if (HAS_TRAIT(src, TRAIT_LEPROSY))
 			. += span_necrosis("A LEPER...")
@@ -234,12 +247,14 @@
 				if (THEY_THEM, THEY_THEM_F, IT_ITS)
 					. += span_redtext("[m1] repulsive!")
 
+		var/datum/antagonist/vampire/vamp_inspect = src.mind?.has_antag_datum(/datum/antagonist/vampire)
+		if(vamp_inspect && (!SEND_SIGNAL(src, COMSIG_DISGUISE_STATUS)))
+			. += span_redtext("[m3] strange glowying eyes and fangs!")
+
 		// Shouldn't be able to tell they are unrevivable through a mask as a Necran
 		if(HAS_TRAIT(src, TRAIT_DNR) && src != user)
-			if(HAS_TRAIT(user, TRAIT_DEATHSIGHT))
-				. += span_danger("They extrude a pale aura. Their soul [src.stat == DEAD ? "was not" : "is not"] clean. This is it for them.")
-			else if(user.stat == DEAD)
-				. += span_danger("This was their only chance at lyfe.")
+			if(HAS_TRAIT(user, TRAIT_DEATHSIGHT) || stat == DEAD)
+				. += span_danger("They extrude a pale aura. Their soul [stat == DEAD ? "was not" : "is not"] clean. This [stat == DEAD ? "was" : "is"] their only chance at lyfe.")
 
 	// Real medical role can tell at a glance it is a waste of time, but only if the Necra message don't come first.
 
@@ -376,7 +391,7 @@
 			str = "[m3] [cloak.get_examine_string(user)] on [m2] shoulders. "
 		str += cloak.integrity_check(is_smart)
 		if (is_stupid)					//So they can tell the named RG tabards. If they can read them, anyway.
-			if(!istype(cloak, /obj/item/clothing/cloak/stabard) && user.get_skill_level(/datum/skill/misc/reading) == 0)
+			if(!istype(cloak, /obj/item/clothing/cloak/tabard/stabard) && user.get_skill_level(/datum/skill/misc/reading) == 0)
 				str = "[m3] some kinda clothy thing on [m2] shoulders!"
 		. += str
 
@@ -483,7 +498,7 @@
 
 	//ID
 	if(wear_ring && !(SLOT_RING in obscured))
-		var/str = "[wear_ring.generate_tooltip(wear_ring.get_examine_string(user), showcrits = (is_normal || is_smart))] on [m2] hands. "
+		var/str = "[m3] [wear_ring.generate_tooltip(wear_ring.get_examine_string(user), showcrits = (is_normal || is_smart))] on [m2] hands. "
 		if(is_smart && istype(wear_ring, /obj/item/clothing/ring/active))
 			var/obj/item/clothing/ring/active/AR = wear_ring
 			if(AR.cooldowny)
@@ -530,6 +545,9 @@
 		appears_dead = TRUE
 
 	var/temp = getBruteLoss() + getFireLoss() //no need to calculate each of these twice
+
+	if (get_bodypart(BODY_ZONE_HEAD)?.grievously_wounded)
+		msg += span_bloody("<b>[p_their(TRUE)] neck is a ghastly ruin of blood and bone, barely hanging on!</b>")
 
 	if(!(user == src && src.hal_screwyhud == SCREWYHUD_HEALTHY)) //fake healthy
 		// Damage
@@ -852,6 +870,11 @@
 	if((!obscure_name || client?.prefs.masked_examine) && (flavortext || headshot_link || ooc_notes))
 		. += "<a href='?src=[REF(src)];task=view_headshot;'>Examine closer</a> [showassess ? " | <a href='?src=[REF(src)];task=assess;'>Assess</a>" : ""]"
 
+	/// Rumours & Gossip
+	if(length(rumour) || length(noble_gossip))
+		if(!obscure_name || (obscure_name && client?.prefs.masked_examine) || observer_privilege)
+			. += "<a href='?src=[REF(src)];task=view_rumours_gossip;'>Recall Rumours & Gossip</a>"
+
 	if(lip_style)
 		switch(lip_color)
 			if("red")
@@ -869,17 +892,14 @@
 		lines = build_cool_description_unknown(get_mob_descriptors_unknown(obscure_name, user), src)
 	else
 		lines = build_cool_description(get_mob_descriptors(obscure_name, user), src)
-	
+
 	var/app_str
 	if(!(user.client?.prefs?.full_examine))
 		app_str = "<details><summary>[span_info("Details")]</summary>"
 
 	for(var/line in lines)
-		var/index = 1
 		app_str += span_info(line)
-		index++
-		if(index != length(lines))
-			app_str += "<br>"
+		app_str += "<br>"
 	if(!(user.client?.prefs?.full_examine))
 		if(length(lines))
 			app_str += "</details>"
@@ -953,12 +973,13 @@
 		return
 	if(HAS_TRAIT(src, TRAIT_COMMIE) && HAS_TRAIT(examiner, TRAIT_COMMIE))
 		heretic_text += "♠"
-	else if(HAS_TRAIT(src, TRAIT_CABAL) && HAS_TRAIT(examiner, TRAIT_CABAL))
+	//Defunct as of *fsalute changes, leaving here as a symbol reference.
+	/*else if(HAS_TRAIT(src, TRAIT_CABAL) && HAS_TRAIT(examiner, TRAIT_CABAL))
 		heretic_text += "♦"
 	else if(HAS_TRAIT(src, TRAIT_HORDE) && HAS_TRAIT(examiner, TRAIT_HORDE))
 		heretic_text += "♠"
 	else if(HAS_TRAIT(src, TRAIT_DEPRAVED) && HAS_TRAIT(examiner, TRAIT_DEPRAVED))
-		heretic_text += "♥"
+		heretic_text += "♥"*/
 
 	return heretic_text
 
@@ -966,6 +987,8 @@
 // Used for Inquisition tags
 /mob/living/proc/get_inquisition_text(mob/examiner)
 	var/inquisition_text
+	if(!HAS_TRAIT(examiner, TRAIT_INQUISITION)) //If the person doing the examining doesn't have the trait, we don't need to do the other four ifs
+		return null
 	if(HAS_TRAIT(src, TRAIT_INQUISITION) && HAS_TRAIT(examiner, TRAIT_INQUISITION))
 		inquisition_text = "A fellow adherent to the Holy Otavan Inquisition's missives."
 	if(HAS_TRAIT(src, TRAIT_PURITAN) && HAS_TRAIT(examiner, TRAIT_INQUISITION))
@@ -977,6 +1000,22 @@
 
 	return inquisition_text
 
+// Used for Church tags
+/mob/living/proc/get_clergy_text(mob/examiner)
+	var/clergy_text
+	if(!HAS_TRAIT(examiner, TRAIT_CLERGY)) //If the person doing the examining doesn't have the trait, we don't need to do the other four ifs
+		return null
+	if(HAS_TRAIT(src, TRAIT_CLERGY) && HAS_TRAIT(examiner, TRAIT_CLERGY))
+		clergy_text = "A fellow member of the Azurian Church of the Ten."
+	if(HAS_TRAIT(src, TRAIT_CHOSEN) && HAS_TRAIT(examiner, TRAIT_CLERGY))
+		clergy_text = "The Bishop, the leader of my Church and Chosen of the Ten."
+	if(HAS_TRAIT(src, TRAIT_CLERGY) && HAS_TRAIT(examiner, TRAIT_CHOSEN))
+		clergy_text = "A member of the clergy under my leadership, as willed by the Ten."
+	if(HAS_TRAIT(src, TRAIT_CHOSEN) && HAS_TRAIT(examiner, TRAIT_CHOSEN))
+		clergy_text = "Myself. I am the Bishop of Azuria, voice of the Ten in these lands."
+
+	return clergy_text
+
 /// Returns antagonist-related examine text for the mob, if any. Can return null.
 /mob/living/proc/get_villain_text(mob/examiner)
 	var/villain_text
@@ -986,6 +1025,8 @@
 				villain_text = span_notice("Free man!")
 			if(HAS_TRAIT(src,TRAIT_KNOWNCRIMINAL))
 				villain_text = span_userdanger("BANDIT!")
+		if(mind.special_role == "Deadite")
+			villain_text = span_userdanger("DEADITE!")
 		if(mind.special_role == "Vampire Lord")
 			var/datum/antagonist/vampire/VD = mind.has_antag_datum(/datum/antagonist/vampire)
 			if(!SEND_SIGNAL(VD.owner, COMSIG_DISGUISE_STATUS))

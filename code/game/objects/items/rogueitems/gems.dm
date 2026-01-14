@@ -1,6 +1,6 @@
 
 /obj/item/roguegem
-	name = "mother of all gems"
+	name = "any gems" // Caustic Edit - Changed to 'Any Gems' because this is what shows up in recipes lol
 	icon_state = "ruby_cut"
 	icon = 'icons/roguetown/items/gems.dmi'
 	desc = "A debug tool to help us later"

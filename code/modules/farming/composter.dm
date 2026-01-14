@@ -78,6 +78,9 @@
 
 /obj/structure/composter/proc/try_handle_adding_compost(obj/item/attacking_item, mob/user, batch_process)
 	var/compost_value = 0
+	// Putting compost back in returns an identical value as it took to produce.
+	if(istype(attacking_item, /obj/item/compost))
+		compost_value = COMPOST_PER_PRODUCED_ITEM
 	if(istype(attacking_item, /obj/item/reagent_containers/food/snacks))
 		compost_value = 150
 	if(istype(attacking_item, /obj/item/natural/chaff))
@@ -181,7 +184,7 @@
 
 /obj/item/compost
 	name = "compost"
-	desc = "Decomposed produce ready to give life to plants."
+	desc = "Decomposed produce ready to give life to plants. It is warm to the touch."
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "ash"
 	color = "#ffac38"

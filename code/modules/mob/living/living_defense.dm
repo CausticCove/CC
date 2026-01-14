@@ -60,7 +60,7 @@
 	if(!P.nodamage && on_hit_state != BULLET_ACT_BLOCK)
 		if(!apply_damage(P.damage, P.damage_type, def_zone, armor))
 			nodmg = TRUE
-			next_attack_msg += " <span class='warning'>Armor stops the damage.</span>"
+			next_attack_msg += VISMSG_ARMOR_BLOCKED
 		apply_effects(stun = P.stun, knockdown = P.knockdown, unconscious = P.unconscious, slur = P.slur, stutter = P.stutter, eyeblur = P.eyeblur, drowsy = P.drowsy, blocked = armor, stamina = P.stamina, jitter = P.jitter, paralyze = P.paralyze, immobilize = P.immobilize)
 		if(!nodmg)
 			if(P.dismemberment)
@@ -130,7 +130,7 @@
 			var/nodmg = FALSE
 			if(!apply_damage(I.throwforce, I.damtype, zone, armor))
 				nodmg = TRUE
-				next_attack_msg += " <span class='warning'>Armor stops the damage.</span>"
+				next_attack_msg += VISMSG_ARMOR_BLOCKED
 			if(!nodmg)
 				if(iscarbon(src))
 					var/obj/item/bodypart/affecting = get_bodypart(zone)
@@ -196,7 +196,7 @@
 
 //proc to upgrade a simple pull into a more aggressive grab.
 /mob/living/proc/grippedby(mob/living/carbon/user, instant = FALSE)
-	user.changeNext_move(CLICK_CD_GRABBING * 2 - user.STASPD)
+	user.changeNext_move(CLICK_CD_TRACKING)
 	var/skill_diff = 0
 	var/combat_modifier = 1
 	if(user.mind)
@@ -245,9 +245,9 @@
 			to_chat(user, span_warning("I struggle with [src]!"))
 		playsound(src.loc, 'sound/foley/struggle.ogg', 100, FALSE, -1)
 		user.Immobilize(2 SECONDS)
-		user.changeNext_move(2 SECONDS)
+		user.changeNext_move(CLICK_CD_TRACKING)
 		src.Immobilize(1 SECONDS)
-		src.changeNext_move(1 SECONDS)
+		src.changeNext_move(CLICK_CD_GRABBING)
 		if(user.badluck(5))
 			badluckmessage(user)
 			user.stop_pulling()
