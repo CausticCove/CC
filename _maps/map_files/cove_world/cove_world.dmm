@@ -62637,6 +62637,9 @@
 	pixel_y = 0;
 	pixel_x = 12
 	},
+/obj/structure/roguemachine/withdraw{
+	pixel_y = -32
+	},
 /turf/open/floor/rogue/hexstone,
 /area/rogue/indoors/town/steward)
 "prN" = (
@@ -66341,6 +66344,7 @@
 /obj/structure/fluff/walldeco/church/line{
 	dir = 4
 	},
+/obj/machinery/light/rogue/oven/east,
 /turf/open/floor/rogue/hexstone,
 /area/rogue/indoors/town/steward)
 "qmM" = (
