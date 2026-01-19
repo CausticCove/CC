@@ -69,12 +69,18 @@
 	update_icon()
 
 	if(!isliving(AM))
-		if(is_type_in_list(AM, eatablez))
+		if(is_type_in_list(AM, eatablez))//cc edit start
+			if(istype(AM, /obj/item/bodypart))
+				visible_message(span_danger("[src] spits out [AM]!"))
+				playsound(src,'sound/misc/maneaterspit.ogg', 100)
+				var/turf/target = get_ranged_target_turf(src, pick(GLOB.alldirs), 1)
+				AM.throw_at(target,3,2)
+				return TRUE//cc edit end
 			last_eat = world.time
 			playsound(src,'sound/misc/eat.ogg', rand(30,60), TRUE)
 			AM.forceMove(src)
-			seednutrition += 10
-		return
+			seednutrition += 20
+			return
 
 	var/mob/living/victim = AM
 	if(victim == planter)
@@ -84,8 +90,9 @@
 	if(victim.m_intent == MOVE_INTENT_SNEAK)
 		return
 
-	buckle_mob(victim, TRUE, check_loc = FALSE)
-	visible_message(span_warningbig("[src] begins to gnaw on [victim]!"))
+	buckle_mob(victim, TRUE, check_loc = FALSE)//cc edit
+	playsound(loc, list('sound/vo/mobs/plant/attack (1).ogg','sound/vo/mobs/plant/attack (2).ogg','sound/vo/mobs/plant/attack (3).ogg','sound/vo/mobs/plant/attack (4).ogg'), 100, FALSE, -1)
+	visible_message(span_userdanger("[src] begins to gnaw on [victim]! RESIST as many times as you can or become a chew toy!"))//edit end
 	addtimer(CALLBACK(src, PROC_REF(begin_eat), victim), 3 SECONDS, TIMER_OVERRIDE|TIMER_UNIQUE|TIMER_STOPPABLE)
 
 /obj/structure/flora/roguegrass/maneater/real/proc/begin_eat(mob/living/victim, var/chew_factor = 1)
@@ -93,8 +100,8 @@
 		return
 	if(!(has_buckled_mobs() && victim.buckled))
 		return
-
-	visible_message(span_warning("[src] chews on [victim]!"))
+//cc edit
+	visible_message(span_userdanger("[src] chews on [victim]!"))//edit end
 
 	playsound(src,'sound/misc/eat.ogg', rand(30,60), TRUE)
 	if(!iscarbon(victim))
@@ -104,9 +111,9 @@
 		var/obj/item/bodypart/limb = victim.get_bodypart(zone)
 		if(!limb)
 			begin_eat(victim)
-		victim.flash_fullscreen("redflash3")
+		victim.flash_fullscreen("redflash3")//Cc edit start
 		playsound(loc, list('sound/vo/mobs/plant/attack (1).ogg','sound/vo/mobs/plant/attack (2).ogg','sound/vo/mobs/plant/attack (3).ogg','sound/vo/mobs/plant/attack (4).ogg'), 100, FALSE, -1)
-		if(prob(chew_factor * 15))
+		if(limb.get_damage() > 110)
 			if(limb.dismember(damage = 20))
 				limb.forceMove(src)
 				seednutrition += 25
@@ -116,7 +123,7 @@
 					return
 				maneater_spit_out(victim)
 		else
-			victim.run_armor_check(zone, BCLASS_CUT, damage = 20)
+			victim.apply_damage(60, BRUTE, zone, victim.run_armor_check(zone, BCLASS_CUT, damage = 60))//edit end
 
 	if(victim.stat == DEAD || victim.stat == UNCONSCIOUS)
 		if(!victim.mind)
@@ -167,22 +174,48 @@
 		user.visible_message(span_warning("[user] tries to pull [M] free of [src]!"))
 	else
 		user.visible_message(span_warning("[user] tries to break free of [src]!"))
-
-	if(do_after(user, 1.5 SECONDS, FALSE, src, TRUE, null, FALSE, TRUE))
-		user.visible_message(span_warning("[M] stops struggling!"))
-		return
+//cc edit start
 	if(!prob(time2mount))
-		user_unbuckle_mob(M, user, break_factor * 1.5)
-	..()
+		if(do_after(M, 0.75 SECONDS, target = src))
+			user_unbuckle_mob(M, user, break_factor * 1.5)
+	..() //cc edit end
 
 /obj/structure/flora/roguegrass/maneater/real/user_buckle_mob(mob/living/M, mob/living/user) //Don't want them getting put on the rack other than by spiking
 	return
 
 /obj/structure/flora/roguegrass/maneater/real/attackby(obj/item/W, mob/user, params)
-	..()
+	..()//Cc edit start
+	var/oldagg = aggroed
 	aggroed = world.time
 	update_icon()
+//cc edit start
+	if(!W)
+		return TRUE
 
+	// If item is one of the edible types, handle feeding behaviour
+	if(is_type_in_list(W, eatablez))
+		// Do not consume bodyparts — spit them out instead
+		if(istype(W, /obj/item/bodypart))
+			visible_message(span_danger("[src] spits out [W]!"))
+			playsound(src,'sound/misc/maneaterspit.ogg', 100)
+			var/turf/target = get_ranged_target_turf(src, pick(GLOB.alldirs), 1)
+			W.throw_at(target,3,2)
+			return TRUE
+
+		// Otherwise, 'eat' the item like when it crosses the plant
+		last_eat = world.time
+		playsound(src,'sound/misc/eat.ogg', rand(30,60), TRUE)
+		if(W.loc)
+			W.forceMove(src)
+		seednutrition += 20
+
+		if(!oldagg)
+			START_PROCESSING(SSobj, src)
+
+		return TRUE
+
+	return TRUE
+//cc edit end
 
 //JUVENILE MANEATER
 
@@ -213,7 +246,13 @@
 	if(isliving(AM))
 		return
 
-	if(is_type_in_list(AM, eatablez))
+	if(is_type_in_list(AM, eatablez))//cc edit start
+		if(istype(AM, /obj/item/bodypart))
+			visible_message(span_danger("[src] spits out [AM]!"))
+			playsound(src,'sound/misc/maneaterspit.ogg', 100)
+			var/turf/target = get_ranged_target_turf(src, pick(GLOB.alldirs), 1)
+			AM.throw_at(target,3,2)
+			return TRUE//edit end
 		last_eat = world.time
 		playsound(src,'sound/misc/eat.ogg', rand(30,60), TRUE)
 		AM.forceMove(src)
