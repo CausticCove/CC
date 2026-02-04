@@ -1729,6 +1729,11 @@
 /obj/effect/decal/remains/bigrat,
 /turf/open/floor/rogue/ruinedwood,
 /area/rogue/indoors/banditcamp)
+"Rn" = (
+/obj/effect/landmark/start/gnolllate,
+/obj/effect/landmark/start/gnoll,
+/turf/open/floor/rogue/dirt/road,
+/area/rogue/outdoors/banditcamp)
 "Rr" = (
 /obj/structure/bed/rogue/inn/wool,
 /obj/structure/fluff/walldeco/med3{
@@ -1990,6 +1995,11 @@
 /obj/item/clothing/mask/rogue/ragmask,
 /obj/item/clothing/mask/rogue/ragmask,
 /obj/item/clothing/mask/rogue/ragmask,
+/obj/item/roguekey/bandit,
+/obj/item/roguekey/bandit,
+/obj/item/roguekey/bandit,
+/obj/item/roguekey/bandit,
+/obj/item/roguekey/bandit,
 /turf/open/floor/rogue/dirt,
 /area/rogue/indoors/banditcamp)
 "Yh" = (
@@ -12226,7 +12236,7 @@ ty
 WK
 YK
 YK
-YK
+Rn
 YK
 WK
 TU

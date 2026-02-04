@@ -41,6 +41,7 @@
 		TRAIT_NUDIST,
 		TRAIT_HERESIARCH, //Just because I'm putting their spawns here, that's all.
 		TRAIT_ZURCH,
+		TRAIT_BANDITCAMP, //Caustic Edit - Changing it to be the Bandit Camp instead!
 	)
 	inherent_biotypes = MOB_HUMANOID
 	armor = 30

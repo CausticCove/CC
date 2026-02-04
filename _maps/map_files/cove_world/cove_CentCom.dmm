@@ -2117,12 +2117,6 @@
 /obj/effect/solid_invisible_barrier,
 /turf/open/floor/rogue/underworld/space/quiet,
 /area/rogue)
-"Oe" = (
-/obj/effect/decal/cleanable/blood,
-/obj/effect/landmark/start/gnoll,
-/obj/effect/landmark/start/gnolllate,
-/turf/open/floor/rogue/blocks,
-/area/rogue/under/cave/inhumen)
 "Of" = (
 /obj/structure/flora/rogueshroom{
 	icon_state = "mush3"
@@ -7389,7 +7383,7 @@ kX
 kX
 Qn
 jy
-Oe
+Vm
 Vm
 Qn
 kX
