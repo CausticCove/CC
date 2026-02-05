@@ -4,8 +4,8 @@
 	department_flag = ANTAGONIST
 	antag_job = TRUE // whoever wrote this, I'm- gghrhhah!
 	faction = "Station"
-	total_positions = 4 //1 //Caustic Edit - Increased count
-	spawn_positions = 4 //1 //Caustic Edit - Increased count
+	total_positions = 0 //4 //1 //Caustic Edit - Disabled until fully handled properly.
+	spawn_positions = 0 //4 //1 //Caustic Edit - Disabled until fully handled properly.
 	allowed_races = RACES_NO_CONSTRUCT
 	tutorial = "You have proven yourself worthy to Graggar, and he's granted you his blessing most divine. Now you hunt for worthy opponents, seeking out those strong enough to make you bleed."
 	outfit = null
