@@ -113,6 +113,14 @@ export const VoreBellySelectionAndCustomization = (props: {
                 </>
               )}
             </Tabs.Tab>
+            <Tabs.Tab onClick={() => act('exportpanel')}>
+              Export
+              <Icon name="file-export" ml={0.5} />
+            </Tabs.Tab>
+            <Tabs.Tab onClick={() => act('importpanel')}>
+              Import
+              <Icon name="file-import" ml={0.5} />
+            </Tabs.Tab>
             <Divider />
             {showSearch && (
               <>

@@ -19,7 +19,6 @@
 	var/list/valid_names = list()
 	var/list/valid_lists = list()
 	var/list/updated = list()
-
 	for(var/list/raw_list in input_data)
 		if(length(valid_names) >= BELLIES_MAX)
 			break
@@ -787,25 +786,25 @@
 			new_belly.tail_extra_overlay2 = new_tail_extra_overlay2
 		*/
 		if(istext(belly_data["belly_fullscreen_color"]))
-			var/new_belly_fullscreen_color = sanitize_hexcolor(belly_data["belly_fullscreen_color"],new_belly.belly_fullscreen_color)
+			var/new_belly_fullscreen_color = sanitize_hexcolor(belly_data["belly_fullscreen_color"], 6, 0, new_belly.belly_fullscreen_color)
 			new_belly.belly_fullscreen_color = new_belly_fullscreen_color
 
 		if(istext(belly_data["belly_fullscreen_color2"]))
-			var/new_belly_fullscreen_color2 = sanitize_hexcolor(belly_data["belly_fullscreen_color2"],new_belly.belly_fullscreen_color2)
+			var/new_belly_fullscreen_color2 = sanitize_hexcolor(belly_data["belly_fullscreen_color2"], 6, 0, new_belly.belly_fullscreen_color2)
 			new_belly.belly_fullscreen_color2 = new_belly_fullscreen_color2
 		else if(istext(belly_data["belly_fullscreen_color_secondary"])) // Inter server support between virgo and chomp!
-			var/new_belly_fullscreen_color2 = sanitize_hexcolor(belly_data["belly_fullscreen_color_secondary"],new_belly.belly_fullscreen_color2)
+			var/new_belly_fullscreen_color2 = sanitize_hexcolor(belly_data["belly_fullscreen_color_secondary"], 6, 0, new_belly.belly_fullscreen_color2)
 			new_belly.belly_fullscreen_color2 = new_belly_fullscreen_color2
 
 		if(istext(belly_data["belly_fullscreen_color3"]))
-			var/new_belly_fullscreen_color3 = sanitize_hexcolor(belly_data["belly_fullscreen_color3"],new_belly.belly_fullscreen_color3)
+			var/new_belly_fullscreen_color3 = sanitize_hexcolor(belly_data["belly_fullscreen_color3"], 6, 0, new_belly.belly_fullscreen_color3)
 			new_belly.belly_fullscreen_color3 = new_belly_fullscreen_color3
 		else if(istext(belly_data["belly_fullscreen_color_trinary"])) // Inter server support between virgo and chomp!
-			var/new_belly_fullscreen_color3 = sanitize_hexcolor(belly_data["belly_fullscreen_color_trinary"],new_belly.belly_fullscreen_color3)
+			var/new_belly_fullscreen_color3 = sanitize_hexcolor(belly_data["belly_fullscreen_color_trinary"], 6, 0, new_belly.belly_fullscreen_color3)
 			new_belly.belly_fullscreen_color3 = new_belly_fullscreen_color3
 
 		if(istext(belly_data["belly_fullscreen_color4"]))
-			var/new_belly_fullscreen_color4 = sanitize_hexcolor(belly_data["belly_fullscreen_color4"],new_belly.belly_fullscreen_color4)
+			var/new_belly_fullscreen_color4 = sanitize_hexcolor(belly_data["belly_fullscreen_color4"], 6, 0,new_belly.belly_fullscreen_color4)
 			new_belly.belly_fullscreen_color4 = new_belly_fullscreen_color4
 
 		if(istext(belly_data["belly_fullscreen_alpha"]))
@@ -1065,11 +1064,11 @@
 				new_belly.reagent_mode_flags += new_belly.reagent_mode_flag_list[reagent_flag]
 
 		if(istext(belly_data["custom_reagentcolor"]))
-			var/custom_reagentcolor = sanitize_hexcolor(belly_data["custom_reagentcolor"],new_belly.custom_reagentcolor)
+			var/custom_reagentcolor = sanitize_hexcolor(belly_data["custom_reagentcolor"], 6, 0, new_belly.custom_reagentcolor)
 			new_belly.custom_reagentcolor = custom_reagentcolor
 
 		if(istext(belly_data["mush_color"]))
-			var/mush_color = sanitize_hexcolor(belly_data["mush_color"],new_belly.mush_color)
+			var/mush_color = sanitize_hexcolor(belly_data["mush_color"], 6, 0, new_belly.mush_color)
 			new_belly.mush_color = mush_color
 
 		if(istext(belly_data["mush_alpha"]))
