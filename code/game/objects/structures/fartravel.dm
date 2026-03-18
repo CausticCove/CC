@@ -27,11 +27,19 @@
 	if(alert("Are you sure you want to [departing_mob == user ? "depart the round for good (you" : "send this person away (they"] will be removed from the current round, the job slot freed)?", "Departing", "Confirm", "Cancel") != "Confirm")
 		return
 	//CC Edit Begin
-	if(user.mind?.antag_datums)
-		for(var/datum/antagonist/D in user.mind?.antag_datums)
+	//Deaddites must have a client to depart willingly, otherwise you must cure them to send clientless bodies.
+	var/deaddite_confirm = FALSE
+	if(departing_mob.mind?.antag_datums) 
+		for(var/datum/antagonist/D in departing_mob.mind?.antag_datums)
 			if(istype(D, /datum/antagonist/zombie))
-				if(alert(user, "Far Travelling as a zombie will result in a 5 minute respawn timer. Are you sure you want to revive?",, "Yes", "No") == "Yes")
-					GLOB.deaddite_respawn_delays[user.ckey] = world.time + 5 MINUTES + 5 SECONDS //5 Second compensation from the do_after to ensure timer is actually 5 mins.
+				if(!departing_mob.client)
+					to_chat(user, "<span class='warning'>This one is a deaddite, they must be cured before they can use the far travel.</span>")
+					return
+				if(alert(departing_mob, "Far Travelling as a zombie will result in a 10 minute respawn delay. Are you sure you want to revive?",, "Yes", "No") == "Yes")
+					deaddite_confirm = TRUE
+				else
+					to_chat(departing_mob, "<span class='warning'>I decided that I should cure what ails me...</span>")
+					return
 	//CC Edit End
 	if(user.incapacitated() || QDELETED(departing_mob) || (departing_mob != user && departing_mob.client) || get_dist(src, dropping) > 2 || get_dist(src, user) > 2)
 		return //Things have changed since the alert happened.
@@ -87,5 +95,9 @@
 		var/list/embeds = departing_mob.get_embedded_objects()
 		for(var/thing in embeds)
 			QDEL_NULL(thing)
+	//CC Edit Begin
+	if(deaddite_confirm && departing_mob == user)
+		GLOB.deaddite_respawn_delays[user.ckey] = world.time + 10 MINUTES
+	//CC Edit End
 	QDEL_NULL(departing_mob)
 
