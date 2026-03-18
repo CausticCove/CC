@@ -31,7 +31,9 @@ GLOBAL_VAR_INIT(adventurer_hugbox_duration_still, 3 MINUTES)
 	advjob_examine = TRUE
 	always_show_on_latechoices = TRUE
 	job_reopens_slots_on_death = TRUE
+	//CC Edit Begin
 	same_job_respawn_delay = 5 MINUTES
+	//CC Edit End
 
 	cmode_music = 'sound/music/cmode/adventurer/combat_outlander2.ogg'
 
