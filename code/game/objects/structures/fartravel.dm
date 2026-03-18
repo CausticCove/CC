@@ -26,6 +26,13 @@
 		return
 	if(alert("Are you sure you want to [departing_mob == user ? "depart the round for good (you" : "send this person away (they"] will be removed from the current round, the job slot freed)?", "Departing", "Confirm", "Cancel") != "Confirm")
 		return
+	//CC Edit Begin
+	if(user.mind?.antag_datums)
+		for(var/datum/antagonist/D in user.mind?.antag_datums)
+			if(istype(D, /datum/antagonist/zombie))
+				if(alert(user, "Far Travelling as a zombie will result in a 5 minute respawn timer. Are you sure you want to revive?",, "Yes", "No") == "Yes")
+					GLOB.deaddite_respawn_delays[user.ckey] = world.time + 5 MINUTES + 5 SECONDS //5 Second compensation from the do_after to ensure timer is actually 5 mins.
+	//CC Edit End
 	if(user.incapacitated() || QDELETED(departing_mob) || (departing_mob != user && departing_mob.client) || get_dist(src, dropping) > 2 || get_dist(src, user) > 2)
 		return //Things have changed since the alert happened.
 	user.visible_message("<span class='warning'>[user] [departing_mob == user ? "is trying to depart from [SSticker.realm_name]!" : "is trying to send [departing_mob] away!"]</span>", "<span class='notice'>You [departing_mob == user ? "are trying to depart from [SSticker.realm_name]." : "are trying to send [departing_mob] away."]</span>")

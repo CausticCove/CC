@@ -272,6 +272,9 @@ GLOBAL_LIST_EMPTY(noticeboard_posts)
 GLOBAL_LIST_EMPTY(premium_noticeboardposts)
 GLOBAL_LIST_EMPTY(job_respawn_delays)
 GLOBAL_LIST_EMPTY(round_join_times)
+//CC Edit Begin
+GLOBAL_LIST_EMPTY(deaddite_respawn_delays)
+//CC Edit End
 
 //stress levels
 #define STRESS_MAX 30

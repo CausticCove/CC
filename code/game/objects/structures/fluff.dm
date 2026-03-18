@@ -1182,10 +1182,11 @@
 		leaving.Bump(src)
 		return COMPONENT_ATOM_BLOCK_EXIT
 
+//CC Edit Begin
 /obj/structure/fluff/psycross/attack_hand(mob/user)
 	. = ..()
 	var/mob/living/carbon/H = user
-	if(user.mind?.antag_datums)
+/* 	if(user.mind?.antag_datums)
 		if(living_player_count() <= 25) //Only works if less than 25 people in a round. Otherwise good fucking luck lol
 			for(var/datum/antagonist/D in user.mind?.antag_datums)
 				if(istype(D, /datum/antagonist/zombie))
@@ -1194,8 +1195,8 @@
 						self_revive(H)
 					return
 		else
-			to_chat(H, span_warning("I can't use this... The god's refuse, I must seek aid from someone else..."))
-	else if(do_after(H, 5 SECONDS, TRUE, src)) //Fluff interaction for RP purposes and a tiny mood boost as an alternative to praying and spamming admin chats. Works anywhere.
+			to_chat(H, span_warning("I can't use this... The god's refuse, I must seek aid from someone else...")) */
+	if(do_after(H, 5 SECONDS, TRUE, src)) //Fluff interaction for RP purposes and a tiny mood boost as an alternative to praying and spamming admin chats. Works anywhere.
 		if(H.has_flaw(/datum/charflaw/addiction/godfearing))
 			H.sate_addiction() //For the especially devout...
 		H.visible_message(span_notice("[H] sends a silent prayer."), span_green("May the Ten forever grace us with their benevolent gaze..."))
@@ -1203,7 +1204,6 @@
 
 //Most of this comes from Astrata, as she is benevolent enough to at least help bring those back to the light from the darkness they came...
 /obj/structure/fluff/psycross/proc/self_revive(mob/living/carbon/H)
-
 	//This proc works under assumption the target is already dead. In no way should this be called by dragging the already dead corpse under it to touch the cross.
 
 		//REMINDER! IT was NOT intended for people to get a FULL HEAL OUT OF THIS WITH A REVIVE PROC! I may add healing in the future or remove the fire burn!
@@ -1225,6 +1225,7 @@
 		H.update_body()
 	else
 		H.visible_message(span_notice("[H] hopelessly clutches the cross, sorrow filling their cold, dead eyes..."), span_red("The Ten cannot help me here... I must find a church..."))
+//CC Edit End
 
 /obj/structure/fluff/psycross/copper
 	name = "pantheon cross"

@@ -191,7 +191,9 @@
 	desc = "Call upon the Undermaiden to guide you to a lost soul."
 	overlay_state = "necraeye"
 	sound = 'sound/magic/whiteflame.ogg'
-	releasedrain = 30
+	//CC Edit Begin
+	releasedrain = 10
+	//CC Edit End
 	chargedrain = 0.5
 	max_targets = 0
 	cast_without_targets = TRUE
@@ -200,8 +202,10 @@
 	req_items = list(/obj/item/clothing/neck/roguetown/psicross)
 	invocations = list("Undermaiden, guide my hand to those who have lost their way.")
 	invocation_type = "whisper"
-	recharge_time = 15 SECONDS
-	devotion_cost = 35
+	//CC Edit Begin
+	recharge_time = 5 SECONDS
+	devotion_cost = 3
+	//CC Edit End
 
 /obj/effect/proc_holder/spell/targeted/locate_dead/cast(list/targets, mob/living/user = usr)
 	. = ..()

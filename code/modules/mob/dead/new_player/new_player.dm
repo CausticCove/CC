@@ -322,6 +322,12 @@ GLOBAL_LIST_INIT(roleplay_readme, world.file2list("strings/rt/rp_prompt.txt"))
 			if(usr.ckey in GLOB.job_respawn_delays)
 				var/remaining_time = round((GLOB.job_respawn_delays[usr.ckey] - world.time) / 10)
 				return "You must wait [remaining_time] seconds before playing as an [jobtitle] again."
+		//CC Edit Begin
+		if(JOB_UNAVAILABLE_DEADDITE_TRAVEL)
+			if(usr.ckey in GLOB.deaddite_respawn_delays)
+				var/remaining_time = round((GLOB.deaddite_respawn_delays[usr.ckey] - world.time) / 10)
+				return "You've recently far traveled as a deaddite, please wait for [remaining_time] seconds before respawning."
+		//CC Edit End
 		if(JOB_UNAVAILABLE_VIRTUESVICE)
 			return "[jobtitle] is restricted by your Virtues or Vices."
 		if(JOB_UNAVAILABLE_PQ)
@@ -406,6 +412,11 @@ GLOBAL_LIST_INIT(roleplay_readme, world.file2list("strings/rt/rp_prompt.txt"))
 	if((job.same_job_respawn_delay) && (ckey in GLOB.job_respawn_delays))
 		if(world.time < GLOB.job_respawn_delays[ckey])
 			return JOB_UNAVAILABLE_JOB_COOLDOWN
+	//CC Edit Begin
+	if((ckey in GLOB.deaddite_respawn_delays))
+		if(world.time < GLOB.deaddite_respawn_delays[ckey])
+			return JOB_UNAVAILABLE_DEADDITE_TRAVEL
+	//CC Edit End
 	if((job.current_positions >= job.total_positions) && job.total_positions != -1)
 		if(job.title == "Assistant")
 			if(isnum(client.player_age) && client.player_age <= 14) //Newbies can always be assistants
