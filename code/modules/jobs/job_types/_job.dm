@@ -118,7 +118,9 @@
 	var/always_show_on_latechoices = FALSE
 
 	/// Cooldown for joining as this job again, if it was your last job
-	var/same_job_respawn_delay = FALSE
+	//CC Edit Begin
+	var/same_job_respawn_delay = 3 MINUTES
+	//CC Edit End
 
 	/// This job re-opens slots if someone dies as it
 	var/job_reopens_slots_on_death = FALSE

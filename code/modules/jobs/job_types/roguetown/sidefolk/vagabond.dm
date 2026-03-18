@@ -15,7 +15,7 @@
 	advjob_examine = FALSE
 	always_show_on_latechoices = TRUE
 	job_reopens_slots_on_death = TRUE
-	same_job_respawn_delay = 10 SECONDS
+	same_job_respawn_delay = 1.5 MINUTES
 	announce_latejoin = FALSE
 
 	advclass_cat_rolls = list(CTAG_VAGABOND = 20)
