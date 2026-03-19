@@ -7,4 +7,7 @@
 	\n NOTE: OVRRIDES ANY WORN ARMOR ON THE BODY, WORN ARMOR WEIGHT CLASS STILL APPLIES DEBUFFS. "
 
 /datum/virtue/combat/natarmor/apply_to_human(mob/living/carbon/human/recipient)
-	recipient.skin_armor = new /obj/item/clothing/suit/roguetown/armor/skin_armor/natural_armor(recipient)
+	//CC Edit Begin
+	if(!recipient.skin_armor)
+	//CC Edit End
+		recipient.skin_armor = new /obj/item/clothing/suit/roguetown/armor/skin_armor/natural_armor(recipient)
