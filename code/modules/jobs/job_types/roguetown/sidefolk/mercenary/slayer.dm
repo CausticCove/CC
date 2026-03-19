@@ -43,7 +43,9 @@
 	if(H.mind)
 		to_chat(H, span_warning("You are a Slayer - an elite hunter of monsters, hailing from the windy peaks of the dwarven Mountainhomes. Your devotion is matched only by your unbridled fury. You forgo defense, entrusting your life to the Ten and make a living by selling your trophies."))
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/self/axedance)
-		armor = /obj/item/clothing/suit/roguetown/armor/regenerating/slayer
+		//CC Edit Begin
+		H.skin_armor = /obj/item/clothing/suit/roguetown/armor/regenerating/slayer
+		//CC Edit End
 		pants = /obj/item/clothing/under/roguetown/heavy_leather_pants
 		backr = /obj/item/storage/backpack/rogue/satchel
 		belt = /obj/item/storage/belt/rogue/leather/slayer

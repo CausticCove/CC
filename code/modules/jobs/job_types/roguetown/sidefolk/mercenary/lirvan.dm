@@ -55,7 +55,9 @@
 	beltr = /obj/item/storage/belt/rogue/pouch/coins/mid
 	beltl = /obj/item/rogueweapon/sword/sabre
 	neck = /obj/item/clothing/neck/roguetown/gorget/steel/gold
-	armor = /obj/item/clothing/suit/roguetown/armor/regenerating/skin/disciple/lirvas
+	//CC Edit Begin
+	H.skin_armor = /obj/item/clothing/suit/roguetown/armor/regenerating/skin/disciple/lirvas
+	//CC Edit End
 	pants = /obj/item/clothing/under/roguetown/chainlegs/kilt/gold
 	shoes = /obj/item/clothing/shoes/roguetown/sandals
 	gloves = /obj/item/clothing/gloves/roguetown/angle

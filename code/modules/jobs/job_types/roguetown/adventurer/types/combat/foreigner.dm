@@ -572,7 +572,9 @@
 				ADD_TRAIT(H, TRAIT_NOPAINSTUN, TRAIT_GENERIC) //Lite!Barbarian.
 				head = /obj/item/clothing/head/roguetown/helmet/bronzegladiator
 				wrists = /obj/item/clothing/wrists/roguetown/bracers/cloth/gladiator
-				armor = /obj/item/clothing/suit/roguetown/armor/regenerating/skin/disciple/gladiator
+				//CC Edit Begin
+				H.skin_armor = /obj/item/clothing/suit/roguetown/armor/regenerating/skin/disciple/gladiator
+				//CC Edit End
 				pants = /obj/item/clothing/under/roguetown/loincloth/brown
 				shirt = /obj/item/clothing/suit/roguetown/shirt/tribalrag/gladiator
 				belt = /obj/item/storage/belt/rogue/leather/battleskirt/breechcloth/red

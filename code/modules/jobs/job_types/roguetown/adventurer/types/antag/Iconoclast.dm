@@ -74,7 +74,9 @@
 				mask = /obj/item/clothing/mask/rogue/eyepatch
 				wrists = /obj/item/clothing/wrists/roguetown/bracers/cloth/monk
 				gloves = /obj/item/clothing/gloves/roguetown/bandages/weighted
-				armor = /obj/item/clothing/suit/roguetown/armor/regenerating/skin/iconoclast
+				//CC Edit Begin
+				H.skin_armor = /obj/item/clothing/suit/roguetown/armor/regenerating/skin/iconoclast
+				//CC Edit End
 				shirt = /obj/item/clothing/suit/roguetown/shirt/robe/monk/holy
 				ADD_TRAIT(H, TRAIT_GNARLYDIGITS, TRAIT_GENERIC)
 				ADD_TRAIT(H, TRAIT_CYCLOPS_RIGHT, TRAIT_GENERIC)
