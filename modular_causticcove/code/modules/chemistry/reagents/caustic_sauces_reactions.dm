@@ -512,7 +512,7 @@
 	bottle_name = "bronze bullion"
 	bottle_desc = "A container of an especially spicy 'barbeque' sauce."
 	reagent_to_brew = /datum/reagent/consumable/sauce/bronze_bullion
-	needed_reagents = list(/datum/brewing_recipe/molasses = 100)
+	needed_reagents = list(/datum/reagent/consumable/sugar/molasses = 100)
 	needed_items = list(/obj/item/reagent_containers/food/snacks/rogue/veg/garlick_clove = 3, /obj/item/alch/mentha = 1)
 	brewed_amount = 3
 	brew_time = 3 MINUTES
@@ -524,7 +524,7 @@
 	bottle_name = "dead horse sauce"
 	bottle_desc = "A container of an especially sweet 'barbeque' sauce."
 	reagent_to_brew = /datum/reagent/consumable/sauce/dead_horse_sauce
-	needed_reagents = list(/datum/brewing_recipe/molasses = 100)
+	needed_reagents = list(/datum/reagent/consumable/sugar/molasses = 100)
 	needed_items = list(/obj/item/reagent_containers/food/snacks/grown/fruit/tomato = 3, /obj/item/alch/mentha = 1)
 	brewed_amount = 3
 	brew_time = 3 MINUTES
@@ -536,7 +536,7 @@
 	bottle_name = "milk of quartz"
 	bottle_desc = "A container of an especially savory 'barbeque' sauce."
 	reagent_to_brew = /datum/reagent/consumable/sauce/milk_of_quartz
-	needed_reagents = list(/datum/brewing_recipe/molasses = 100, /datum/reagent/consumable/milk = 50)
+	needed_reagents = list(/datum/reagent/consumable/sugar/molasses = 100, /datum/reagent/consumable/milk = 50)
 	needed_items = list(/obj/item/alch/mentha = 1)
 	brewed_amount = 3
 	brew_time = 3 MINUTES
@@ -548,7 +548,7 @@
 	bottle_name = "milk of quartz"
 	bottle_desc = "A container of an especially sour 'dressing' sauce."
 	reagent_to_brew = /datum/reagent/consumable/sauce/native_lye
-	needed_reagents = list(/datum/brewing_recipe/molasses = 100)
+	needed_reagents = list(/datum/reagent/consumable/sugar/molasses = 100)
 	needed_items = list(/obj/item/reagent_containers/food/snacks/grown/fruit/lemon = 2, /obj/item/reagent_containers/food/snacks/rogue/veg/garlick_clove = 3, )
 	brewed_amount = 3
 	brew_time = 3 MINUTES

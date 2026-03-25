@@ -77,8 +77,13 @@
 		else if(slice(W, user))
 			return 1
 	update_cooktime(user)
+	//CC EDIT Sauce application code
 	for(var/datum/reagent/R in W.reagents.reagent_list)
 		if(istype(W, /obj/item/reagent_containers))
+			var/datum/component/sauced_food/sauced = src.GetComponent(/datum/component/sauced_food)
+			if(sauced)
+				to_chat(user, "Already has sauce!")
+				return COMPONENT_INCOMPATIBLE
 			if(istype(R, /datum/reagent/consumable/sauce))
 				playsound(get_turf(user), 'sound/foley/dropsound/gen_drop.ogg', 30, TRUE, -1)
 				to_chat(user, "Applying sauce...")
@@ -89,7 +94,7 @@
 					src.AddComponent(/datum/component/sauced_food, new_sauce_level, new_sauce_type)
 					src.name = src.name + " with " + typecastedR.name
 					src.desc = src.desc + " " + typecastedR.description
-					W.reagents.remove_reagent(R, 5)
+					W.reagents.remove_reagent(R.type, 5)
 					return
 	..()
 
@@ -334,13 +339,13 @@
 /datum/component/sauced_food/proc/on_food_eaten(datum/source, mob/living/eater, mob/living/feeder)
 	SIGNAL_HANDLER
 	if(sauce_effect == 1)
-		eater.apply_status_effect(/datum/status_effect/buff/spicy_sauce, sauce_power * 60 SECONDS)
+		eater.apply_status_effect(/datum/status_effect/buff/spicy_sauce, 5 MINUTES)
 	if(sauce_effect == 2)
-		eater.apply_status_effect(/datum/status_effect/buff/savory_sauce, sauce_power * 60 SECONDS)
+		eater.apply_status_effect(/datum/status_effect/buff/savory_sauce, 5 MINUTES)
 	if(sauce_effect == 3)
-		eater.apply_status_effect(/datum/status_effect/buff/sweet_sauce, sauce_power * 60 SECONDS)
+		eater.apply_status_effect(/datum/status_effect/buff/sweet_sauce, 5 MINUTES)
 	if(sauce_effect == 4)
-		eater.apply_status_effect(/datum/status_effect/buff/sour_sauce, sauce_power * 60 SECONDS)
+		eater.apply_status_effect(/datum/status_effect/buff/sour_sauce, 5 MINUTES)
 		
 
 /obj/item/reagent_containers/food/snacks/rogue/sauce // base sauce, TECHNICALLY SPICES due to their solid nature
