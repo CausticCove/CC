@@ -109,6 +109,7 @@
 /obj/machinery/light/Initialize(mapload)
 	. = ..()
 	fog_parter_effect = new fog_parter_effect(get_turf(src), light_outer_range)
+	update(0) //CC Edit - Turn these fricken lights on.
 	return INITIALIZE_HINT_LATELOAD
 
 /obj/machinery/light/LateInitialize()
