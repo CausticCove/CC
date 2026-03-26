@@ -24,6 +24,10 @@
 	update_icon()
 	if(!roundstart_forbid)
 		seton(TRUE)
+	//CC Edit Begin - LET THERE BE LIGHT!!!
+	if(light_system == STATIC_LIGHT) 
+		update_light()
+	//CC Edit Begin - LET THERE BE LIGHT!!!
 	. = ..()
 
 /obj/machinery/light/rogue/weather_trigger(W)
