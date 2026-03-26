@@ -75,7 +75,7 @@
 
 /obj/item/flashlight/flare/light/Initialize()
 	. = ..()
-	soundloop = new(list(src), FALSE)
+	soundloop = new(src, FALSE)
 	on = TRUE
 	START_PROCESSING(SSobj, src)
 

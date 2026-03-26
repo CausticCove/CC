@@ -15,7 +15,7 @@
 
 /obj/structure/respawn_portal/Initialize()
 	. = ..()
-	soundloop = new(list(src), FALSE)
+	soundloop = new(src, FALSE)
 	soundloop.start()
 
 /obj/structure/respawn_portal/attack_ghost(mob/dead/observer/user) //Bit Jank for now but just copied over the Reform Option code... Maybe this will work? If a Ghost escapes the belly somehow lol
