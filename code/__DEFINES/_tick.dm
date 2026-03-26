@@ -7,9 +7,9 @@
 #define TICK_LIMIT_RUNNING (max(100 - TICK_BYOND_RESERVE - MAPTICK_LAST_INTERNAL_TICK_USAGE, MAPTICK_MC_MIN_RESERVE))
 
 /// Tick limit used to resume things in stoplag
-#define TICK_LIMIT_TO_RUN 50 //CC Edit
+#define TICK_LIMIT_TO_RUN 60 //CC Edit
 /// Tick limit for MC while running
-#define TICK_LIMIT_MC 90 //CC Edit
+#define TICK_LIMIT_MC 80 //CC Edit
 /// Tick limit while initializing
 #define TICK_LIMIT_MC_INIT_DEFAULT 98
 
