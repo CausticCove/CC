@@ -74,11 +74,6 @@ GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 	else
 		if(path == /turf/open/transparent/openspace)
 			isopenspa = TRUE
-	//CC Edit; The Path returns a value but the value is 2 points, ex. (25, 250), which obviously isn't a turf. It's causing this to freak out.
-	// So let's check these turfs way way earlier before we continue.
-	if(!(istype(path, /turf)))
-		return FALSE
-	var/turf/W = new path(src)
 
 	var/old_opacity = opacity
 	var/old_dynamic_lighting = dynamic_lighting
@@ -106,6 +101,10 @@ GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 	//We do this here so anything that doesn't want to persist can clear itself
 	var/list/old_comp_lookup = comp_lookup?.Copy()
 	var/list/old_signal_procs = signal_procs?.Copy()
+	//CC Edit; The Path returns a value but the value is 2 points, ex. (25, 250), which obviously isn't a turf. It's causing this to freak out.
+	if(!path) //This doesn't do anything but it'll stay until we can figure out what's causing these errant path's.
+		return
+	var/turf/W = new path(src)
 
 	// WARNING WARNING
 	// Turfs DO NOT lose their signals when they get replaced, REMEMBER THIS
