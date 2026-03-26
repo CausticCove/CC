@@ -27,6 +27,7 @@ SUBSYSTEM_DEF(weather)
 		C.update_weather()
 
 	while(current_run.len)
+		stoplag(1) //CC Edit
 		var/atom/thing = current_run[current_run.len]
 		current_run.len--
 		if(!thing || QDELETED(thing))
