@@ -49,7 +49,7 @@ SUBSYSTEM_DEF(lighting)
 	var/i = 0
 	var/list/queue = current_sources
 	while(i < length(queue)) //we don't use for loop here because i cannot be changed during an iteration
-		i += 1
+		i++
 
 		var/datum/light_source/L = queue[i]
 		L.update_corners()
@@ -77,7 +77,7 @@ SUBSYSTEM_DEF(lighting)
 	// UPDATE CORNERS QUEUE
 	queue = corners_queue
 	while(i < length(queue)) //we don't use for loop here because i cannot be changed during an iteration
-		i += 1
+		i++
 
 		var/datum/lighting_corner/C = queue[i]
 		C.needs_update = FALSE //update_objects() can call qdel if the corner is storing no data
@@ -102,7 +102,7 @@ SUBSYSTEM_DEF(lighting)
 	// UPDATE OBJECTS QUEUE
 	queue = objects_queue
 	while(i < length(queue)) //we don't use for loop here because i cannot be changed during an iteration
-		i += 1
+		i++
 
 		var/atom/movable/lighting_object/O = queue[i]
 		if(QDELETED(O))
