@@ -689,7 +689,7 @@
 /turf/open/floor/rogue/cobble/mossy,
 /area/rogue/under/tomb/indoors)
 "OS" = (
-/obj/structure/flora/rogueshroom/happy/random,
+/obj/effect/spawner/lootdrop/rogueshroom/happy/random,
 /turf/open/floor/rogue/dirt,
 /area/rogue/under/tomb/cave)
 "Pf" = (
@@ -955,7 +955,7 @@
 /turf/open/floor/rogue/concrete,
 /area/rogue/under/tomb/indoors)
 "Zx" = (
-/obj/structure/flora/rogueshroom/happy/random,
+/obj/effect/spawner/lootdrop/rogueshroom/happy/random,
 /turf/open/floor/rogue/dirt,
 /area/rogue/under/tomb)
 "ZN" = (

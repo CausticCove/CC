@@ -99,7 +99,7 @@
 /turf/open/floor/rogue/herringbone,
 /area/rogue/under/tomb/cave)
 "O" = (
-/obj/structure/flora/rogueshroom/happy/random,
+/obj/effect/spawner/lootdrop/rogueshroom/happy/random,
 /turf/open/floor/rogue/volcanic,
 /area/rogue/under/tomb/cave)
 "P" = (

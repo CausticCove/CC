@@ -196,14 +196,14 @@
 /turf/open/floor/rogue/dirt/road,
 /area/rogue/under/tomb/wilds/bog)
 "Mq" = (
-/obj/structure/flora/rogueshroom/happy/random,
+/obj/effect/spawner/lootdrop/rogueshroom/happy/random,
 /turf/closed/mineral/rogue/bedrock,
 /area/rogue/under/tomb/wilds/bog)
 "NI" = (
 /turf/closed/mineral/rogue/bedrock,
 /area/rogue/under/tomb/indoors)
 "NT" = (
-/obj/structure/flora/rogueshroom/happy/random,
+/obj/effect/spawner/lootdrop/rogueshroom/happy/random,
 /turf/open/floor/rogue/dirt/ambush,
 /area/rogue/under/tomb/wilds/bog)
 "NY" = (
@@ -240,7 +240,7 @@
 /turf/open/floor/rogue/dirt/ambush,
 /area/rogue/under/tomb/wilds/bog)
 "Tr" = (
-/obj/structure/flora/rogueshroom/happy/random,
+/obj/effect/spawner/lootdrop/rogueshroom/happy/random,
 /turf/open/floor/rogue/dirt/road,
 /area/rogue/under/tomb/wilds/bog)
 "Vj" = (

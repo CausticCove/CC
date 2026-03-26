@@ -15,11 +15,11 @@
 /turf/closed/wall/mineral/rogue/wood,
 /area/rogue/under/tomb/cave)
 "fy" = (
-/obj/structure/flora/rogueshroom/happy/random,
+/obj/effect/spawner/lootdrop/rogueshroom/happy/random,
 /turf/open/floor/rogue/dirt/ambush,
 /area/rogue/under/tomb/cave)
 "fE" = (
-/obj/structure/flora/rogueshroom/happy/random,
+/obj/effect/spawner/lootdrop/rogueshroom/happy/random,
 /turf/closed/mineral/rogue/bedrock,
 /area/rogue/under/tomb/cave)
 "ha" = (
@@ -38,7 +38,7 @@
 /turf/open/floor/rogue/blocks/paving/vert,
 /area/rogue/under/tomb/cave)
 "jG" = (
-/obj/structure/flora/rogueshroom/happy/random,
+/obj/effect/spawner/lootdrop/rogueshroom/happy/random,
 /turf/open/floor/rogue/dirt/road,
 /area/rogue/under/tomb/cave)
 "kc" = (
