@@ -97,15 +97,13 @@ GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 	SEND_SIGNAL(src, COMSIG_TURF_CHANGE, path, new_baseturfs, flags, post_change_callbacks)
 
 	changing_turf = TRUE
+	qdel(src)	//Just get the side effects and call Destroy
 	//We do this here so anything that doesn't want to persist can clear itself
 	var/list/old_comp_lookup = comp_lookup?.Copy()
 	var/list/old_signal_procs = signal_procs?.Copy()
-	//CC Edit: This shouldn't runtime yet here we are... it's already checked above, so the path was nulled sometime between here and there? Logs don't lie.
-	if(path == null) //Possibly due to some turfs being deleted / swapped from multiple map generators. Just make a check if it's null.
+	if(!path) //CC Edit: This shouldn't runtime yet here we are... it's already checked above, so the path was nulled sometime between here and there? Logs don't lie.
 		return
 	var/turf/W = new path(src)
-
-	qdel(src)	//CC Edit - Moved further down the proc [//Just get the side effects and call Destroy]
 
 	// WARNING WARNING
 	// Turfs DO NOT lose their signals when they get replaced, REMEMBER THIS
