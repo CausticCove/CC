@@ -80,7 +80,7 @@
 	pixel_y = 11;
 	pixel_x = 14
 	},
-/obj/item/roguegem/random,
+/obj/effect/spawner/lootdrop/roguegem/random,
 /turf/open/floor/rogue/ruinedwood,
 /area/rogue/under/tomb/cave)
 "qW" = (

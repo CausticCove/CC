@@ -333,8 +333,8 @@
 				explosion(get_turf(target), light_impact_range = 1, flame_range = 1, smoke = FALSE)
 				new /obj/item/roguecoin/silver/pile(target.loc)
 				new /obj/item/roguecoin/gold/pile(target.loc)
-				new /obj/item/roguegem/random(target.loc)
-				new /obj/item/roguegem/random(target.loc)
+				new /obj/effect/spawner/lootdrop/roguegem/random(target.loc)
+				new /obj/effect/spawner/lootdrop/roguegem/random(target.loc)
 
 				var/list/possible_limbs = list()
 				for(var/zone in list(BODY_ZONE_R_ARM, BODY_ZONE_L_ARM, BODY_ZONE_R_LEG, BODY_ZONE_L_LEG))

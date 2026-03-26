@@ -1727,7 +1727,7 @@
 /obj/item/candle/yellow/lit{
 	pixel_y = 8
 	},
-/obj/item/roguegem/random,
+/obj/effect/spawner/lootdrop/roguegem/random,
 /turf/open/floor/rogue/churchbrick,
 /area/rogue/under/tomb/indoors/church)
 "yj" = (

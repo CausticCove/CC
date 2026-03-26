@@ -22,5 +22,5 @@
 
 	for(var/obj/structure/flora/bush/B in world)
 		if(prob(1))
-			new /obj/item/roguegem/random(B)
+			new /obj/effect/spawner/lootdrop/roguegem/random(B)
  */

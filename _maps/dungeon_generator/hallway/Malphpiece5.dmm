@@ -16,7 +16,7 @@
 "f" = (
 /obj/structure/fluff/walldeco/vinez/offset,
 /obj/item/rogueweapon/pick/militia,
-/obj/item/roguegem/random,
+/obj/effect/spawner/lootdrop/roguegem/random,
 /turf/open/floor/rogue/volcanic,
 /area/rogue/under/tomb/cave)
 "i" = (
