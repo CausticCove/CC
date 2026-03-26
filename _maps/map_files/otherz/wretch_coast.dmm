@@ -946,8 +946,8 @@
 /turf/open/floor/rogue/blocks,
 /area/rogue/indoors/eventarea/multiz)
 "eS" = (
-/turf/closed/mineral/rogue/bedrock,
-/area/rogue)
+/turf/open/water/river/flow,
+/area/rogue/indoors/cave)
 "eT" = (
 /obj/structure/stairs/stone{
 	dir = 4
@@ -2464,6 +2464,9 @@
 /obj/structure/bed/rogue/inn/hay,
 /turf/open/floor/rogue/blocks,
 /area/rogue/indoors/vampire_manor)
+"mO" = (
+/turf/open/water/river/flow/east,
+/area/rogue/indoors/cave)
 "mP" = (
 /turf/open/floor/rogue/cobble,
 /area/rogue/indoors/eventarea/multiz)
@@ -3238,6 +3241,9 @@
 /obj/machinery/light/rogue/candle/r,
 /turf/open/floor/rogue/tile/bfloorz,
 /area/rogue/indoors/vampire_manor)
+"ra" = (
+/turf/open/water/cleanshallow,
+/area/rogue/indoors/cave)
 "rc" = (
 /turf/open/floor/rogue/ruinedwood/turned,
 /area/rogue/indoors/eventarea/multiz)
@@ -9621,7 +9627,7 @@ PI
 PI
 PI
 PI
-eS
+PI
 IL
 IL
 IL
@@ -9751,7 +9757,7 @@ PI
 PI
 PI
 PI
-eS
+PI
 IL
 IL
 IL
@@ -9881,7 +9887,7 @@ PI
 PI
 PI
 PI
-eS
+PI
 IL
 IL
 IL
@@ -10011,7 +10017,7 @@ PI
 PI
 PI
 PI
-eS
+PI
 IL
 IL
 IL
@@ -10141,7 +10147,7 @@ PI
 PI
 PI
 PI
-eS
+PI
 IL
 IL
 IL
@@ -10271,7 +10277,7 @@ PI
 PI
 PI
 PI
-eS
+PI
 IL
 IL
 IL
@@ -10401,7 +10407,7 @@ PI
 PI
 PI
 PI
-eS
+PI
 IL
 IL
 IL
@@ -10531,7 +10537,7 @@ PI
 PI
 PI
 PI
-eS
+PI
 IL
 IL
 IL
@@ -10661,7 +10667,7 @@ PI
 PI
 PI
 PI
-eS
+PI
 IL
 IL
 IL
@@ -10791,7 +10797,7 @@ PI
 PI
 PI
 PI
-eS
+PI
 IL
 IL
 lB
@@ -10921,7 +10927,7 @@ PI
 PI
 PI
 PI
-eS
+PI
 IL
 IL
 ZK
@@ -11051,7 +11057,7 @@ PI
 PI
 PI
 PI
-eS
+PI
 IL
 IL
 ZK
@@ -11181,7 +11187,7 @@ PI
 PI
 PI
 PI
-eS
+PI
 IL
 IL
 jh
@@ -11311,7 +11317,7 @@ PI
 PI
 PI
 PI
-eS
+PI
 IL
 IL
 ZK
@@ -11441,7 +11447,7 @@ PI
 PI
 PI
 PI
-eS
+PI
 IL
 IL
 jh
@@ -11571,7 +11577,7 @@ PI
 PI
 PI
 PI
-eS
+PI
 IL
 IL
 ZK
@@ -11701,7 +11707,7 @@ PI
 PI
 PI
 PI
-eS
+PI
 IL
 IL
 ZK
@@ -11831,7 +11837,7 @@ PI
 PI
 PI
 PI
-eS
+PI
 IL
 IL
 IL
@@ -11961,7 +11967,7 @@ PI
 PI
 PI
 PI
-eS
+PI
 IL
 IL
 IL
@@ -12091,7 +12097,7 @@ PI
 PI
 PI
 PI
-eS
+PI
 IL
 IL
 IL
@@ -12221,7 +12227,7 @@ PI
 PI
 PI
 PI
-eS
+PI
 IL
 IL
 IL
@@ -12351,7 +12357,7 @@ PI
 PI
 PI
 PI
-eS
+PI
 IL
 IL
 IL
@@ -12481,7 +12487,7 @@ PI
 PI
 PI
 PI
-eS
+PI
 IL
 IL
 IL
@@ -12611,7 +12617,7 @@ PI
 PI
 PI
 PI
-eS
+PI
 IL
 IL
 IL
@@ -12741,7 +12747,7 @@ PI
 PI
 PI
 PI
-eS
+PI
 IL
 IL
 IL
@@ -12871,7 +12877,7 @@ PI
 PI
 PI
 PI
-eS
+PI
 IL
 IL
 IL
@@ -13001,7 +13007,7 @@ PI
 PI
 PI
 PI
-eS
+PI
 IL
 IL
 IL
@@ -13131,7 +13137,7 @@ PI
 PI
 PI
 PI
-eS
+PI
 IL
 IL
 IL
@@ -13261,7 +13267,7 @@ PI
 PI
 PI
 PI
-eS
+PI
 IL
 IL
 IL
@@ -13391,7 +13397,7 @@ PI
 PI
 PI
 PI
-eS
+PI
 IL
 IL
 IL
@@ -13521,7 +13527,7 @@ PI
 PI
 PI
 PI
-eS
+PI
 IL
 IL
 IL
@@ -13651,7 +13657,7 @@ PI
 PI
 PI
 PI
-eS
+PI
 IL
 IL
 IL
@@ -13781,7 +13787,7 @@ PI
 PI
 PI
 PI
-eS
+PI
 IL
 IL
 IL
@@ -13911,7 +13917,7 @@ PI
 PI
 PI
 PI
-eS
+PI
 IL
 IL
 IL
@@ -14041,7 +14047,7 @@ PI
 PI
 PI
 PI
-eS
+PI
 gk
 gk
 gk
@@ -14171,7 +14177,7 @@ PI
 PI
 PI
 PI
-eS
+PI
 gk
 gk
 gk
@@ -14301,7 +14307,7 @@ PI
 PI
 PI
 PI
-eS
+PI
 gk
 gk
 gk
@@ -14431,7 +14437,7 @@ PI
 PI
 PI
 PI
-eS
+PI
 gk
 gk
 gk
@@ -14561,7 +14567,7 @@ PI
 PI
 PI
 PI
-eS
+PI
 gk
 gk
 gk
@@ -14691,7 +14697,7 @@ PI
 PI
 PI
 PI
-eS
+PI
 gk
 gk
 gk
@@ -14821,7 +14827,7 @@ PI
 PI
 PI
 PI
-eS
+PI
 gk
 gk
 gk
@@ -14951,7 +14957,7 @@ PI
 PI
 PI
 PI
-eS
+PI
 gk
 gk
 gk
@@ -15081,7 +15087,7 @@ PI
 PI
 PI
 PI
-eS
+PI
 gk
 gk
 gk
@@ -15211,7 +15217,7 @@ PI
 PI
 PI
 PI
-eS
+PI
 gk
 gk
 gk
@@ -15341,7 +15347,7 @@ PI
 PI
 PI
 PI
-eS
+PI
 gk
 gk
 gk
@@ -15471,7 +15477,7 @@ PI
 PI
 PI
 PI
-eS
+PI
 gk
 gk
 gk
@@ -15601,7 +15607,7 @@ PI
 PI
 PI
 PI
-eS
+PI
 gk
 gk
 gk
@@ -15731,7 +15737,7 @@ PI
 PI
 PI
 PI
-eS
+PI
 gk
 gk
 gk
@@ -15861,7 +15867,7 @@ PI
 PI
 PI
 PI
-eS
+PI
 gk
 gk
 gk
@@ -15991,7 +15997,7 @@ PI
 PI
 PI
 PI
-eS
+PI
 gk
 gk
 gk
@@ -16121,7 +16127,7 @@ PI
 PI
 PI
 PI
-eS
+PI
 gk
 gk
 gk
@@ -16251,7 +16257,7 @@ PI
 PI
 PI
 PI
-eS
+PI
 gk
 gk
 gk
@@ -16381,7 +16387,7 @@ PI
 PI
 PI
 PI
-eS
+PI
 gk
 gk
 gk
@@ -16511,7 +16517,7 @@ PI
 PI
 PI
 PI
-eS
+PI
 gk
 gk
 gk
@@ -16641,7 +16647,7 @@ PI
 PI
 PI
 PI
-eS
+PI
 gk
 gk
 gk
@@ -16771,7 +16777,7 @@ PI
 PI
 PI
 PI
-eS
+PI
 gk
 gk
 gk
@@ -16901,7 +16907,7 @@ PI
 PI
 PI
 PI
-eS
+PI
 gk
 gk
 gk
@@ -17031,7 +17037,7 @@ PI
 PI
 PI
 PI
-eS
+PI
 gk
 gk
 gk
@@ -17161,7 +17167,7 @@ PI
 PI
 PI
 PI
-eS
+PI
 gk
 gk
 gk
@@ -17291,7 +17297,7 @@ PI
 PI
 PI
 PI
-eS
+PI
 gk
 gk
 gk
@@ -17421,7 +17427,7 @@ PI
 PI
 PI
 PI
-eS
+PI
 gk
 gk
 gk
@@ -17551,7 +17557,7 @@ PI
 PI
 PI
 PI
-eS
+PI
 gk
 gk
 gk
@@ -17681,7 +17687,7 @@ PI
 PI
 PI
 PI
-eS
+PI
 gk
 gk
 gk
@@ -17811,7 +17817,7 @@ PI
 PI
 PI
 PI
-eS
+PI
 gk
 gk
 gk
@@ -17941,7 +17947,7 @@ PI
 PI
 PI
 PI
-eS
+PI
 gk
 gk
 gk
@@ -18071,7 +18077,7 @@ PI
 PI
 PI
 PI
-eS
+PI
 gk
 gk
 gk
@@ -18201,7 +18207,7 @@ PI
 PI
 PI
 PI
-eS
+PI
 gk
 gk
 gk
@@ -18331,7 +18337,7 @@ PI
 PI
 PI
 PI
-eS
+PI
 gk
 gk
 gk
@@ -18459,9 +18465,9 @@ QI
 QI
 QI
 QI
-QI
+mO
 PI
-eS
+PI
 gk
 gk
 gk
@@ -18589,9 +18595,9 @@ nG
 nG
 nG
 nG
-nG
-PI
 eS
+PI
+PI
 gk
 gk
 gk
@@ -18719,9 +18725,9 @@ nG
 nG
 nG
 nG
-nG
-PI
 eS
+PI
+PI
 gk
 gk
 gk
@@ -18849,9 +18855,9 @@ nG
 nG
 nG
 nG
-nG
-PI
 eS
+PI
+PI
 gk
 gk
 gk
@@ -18979,9 +18985,9 @@ vU
 vU
 vU
 vU
-vU
+ra
 PI
-eS
+PI
 gk
 gk
 gk
@@ -19111,7 +19117,7 @@ pa
 rB
 PI
 PI
-eS
+PI
 gk
 gk
 gk
@@ -19241,7 +19247,7 @@ pa
 rB
 PI
 PI
-eS
+PI
 gk
 gk
 gk
@@ -19371,7 +19377,7 @@ rB
 rB
 PI
 PI
-eS
+PI
 gk
 gk
 gk
@@ -19501,7 +19507,7 @@ rB
 PI
 PI
 PI
-eS
+PI
 gk
 gk
 gk
@@ -19631,7 +19637,7 @@ rB
 PI
 PI
 PI
-eS
+PI
 gk
 gk
 gk
@@ -19761,7 +19767,7 @@ PI
 PI
 PI
 PI
-eS
+PI
 gk
 gk
 gk
