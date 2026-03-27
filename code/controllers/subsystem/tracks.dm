@@ -1,8 +1,8 @@
 PROCESSING_SUBSYSTEM_DEF(tracks)
 	name = "Tracks"
 	priority = FIRE_PRIORITY_TRACKS
-	wait = 100
-	flags = SS_BACKGROUND
+	wait = 10 SECONDS
+	flags = SS_TICKER
 	runlevels = RUNLEVEL_GAME | RUNLEVEL_POSTGAME
 
 	// Object pooling
