@@ -102,13 +102,15 @@
 	popup.open(FALSE)
 
 /obj/structure/roguemachine/scomm/process()
-	if(world.time <= next_decree)
-		return
-	next_decree = world.time + rand(3 MINUTES, 8 MINUTES)
+	//CC Edit Begin - Moves this to return earlier if we really don't have any decrees or are muted so we don't check for the time and set a new RANDOM time every process...
 	if(!GLOB.lord_decrees.len)
 		return
 	if(!speaking)
 		return
+	//CC Edit End
+	if(world.time <= next_decree)
+		return
+	next_decree = world.time + rand(3 MINUTES, 8 MINUTES)
 	say("The [SSticker.rulertype] Decrees: [pick(GLOB.lord_decrees)]", spans = list("info"))
 
 /obj/structure/roguemachine/scomm/attack_hand(mob/living/user)
