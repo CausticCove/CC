@@ -160,7 +160,7 @@ GLOBAL_LIST_EMPTY(created_sound_groups)
 	if(direct)
 		S.channel = channel
 		S.volume = volume
-	var/atom/thing = parent?.resolve() //Caustic Edit - This was causing 70k+ Runtimes in 2 hours cause Parent here was null somehow? I hope this ? prevents it.
+	var/atom/thing = parent.resolve()
 	if (!thing)
 		return
 
