@@ -103,7 +103,7 @@ GLOBAL_VAR_INIT(date_override_offset, 0)
 			SStreasury.distribute_estate_incomes()
 			SStreasury.distribute_daily_payments()
 			SStreasury.distribute_interest()
-		for(var/mob/living/player in GLOB.joined_player_list)
+		for(var/mob/living/player in GLOB.joined_player_list) //CC Edit mob_list -> joined_player_list
 			if(player.stat != DEAD && player.client)
 				player.do_time_change()
 

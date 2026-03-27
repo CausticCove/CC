@@ -100,7 +100,7 @@
 		to_chat(V, span_boldnotice("A message from [src.real_name]:[msg]"))
 	for(var/datum/mind/D in SSmapping.retainer.death_knights)
 		to_chat(D, span_boldnotice("A message from [src.real_name]:[msg]"))
-	for(var/mob/dead/observer/rogue/arcaneeye/A in GLOB.mob_list)
+	for(var/mob/dead/observer/rogue/arcaneeye/A in GLOB.player_list) //CC Edit mob_list -> player_list
 		to_chat(A, span_boldnotice("A message from [src.real_name]:[msg]"))
 
 /mob/dead/observer/rogue/arcaneeye/proc/eye_up()
