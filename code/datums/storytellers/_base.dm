@@ -119,7 +119,7 @@
 /// Add points to all tracks while respecting the multipliers.
 /datum/storyteller/proc/add_points(seconds_per_tick)
 	var/datum/controller/subsystem/gamemode/mode = SSgamemode
-	var/base_point = EVENT_POINT_GAINED_PER_SECOND * seconds_per_tick * mode.event_frequency_multiplier
+	var/base_point = EVENT_POINT_GAINED_PER_PROCESS * seconds_per_tick * mode.event_frequency_multiplier //CC Edit - Definition change.
 	for(var/track in mode.event_track_points)
 		if(track == EVENT_TRACK_OMENS)
 			if(!length(GLOB.badomens))
