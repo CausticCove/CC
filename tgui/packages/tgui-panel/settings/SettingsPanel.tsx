@@ -4,22 +4,27 @@
  * @license MIT
  */
 
-import { useDispatch, useSelector } from 'tgui/backend';
 import { Section, Stack, Tabs } from 'tgui-core/components';
-
-import { ChatPageSettings } from '../chat';
-import { changeSettingsTab } from './actions';
+import { ChatPageSettings } from '../chat/ChatPageSettings';
 import { SETTINGS_TABS } from './constants';
-import { selectActiveTab } from './selectors';
-import { SettingsGeneral } from './SettingsGeneral';
-import { TextHighlightSettings } from './TextHighlight';
+import { AdminSettings } from './SettingTabs/AdminSettings';
+import { ExportTab } from './SettingTabs/ExportTab';
+import { MessageLimits } from './SettingTabs/MessageLimits';
+import { SettingsGeneral } from './SettingTabs/SettingsGeneral';
+import { SettingsStatPanel } from './SettingTabs/SettingsStatPanel';
+import { TextHighlightSettings } from './SettingTabs/TextHighlightSettings';
+import { TTSSettings } from './SettingTabs/TTSSettings';
+import { useSettings } from './use-settings';
 
-export function SettingsPanel(props) {
-  const activeTab = useSelector(selectActiveTab);
-  const dispatch = useDispatch();
+export const SettingsPanel = (props) => {
+  const {
+    settings: { view },
+    updateSettings,
+  } = useSettings();
+  const { activeTab } = view;
 
   return (
-    <Stack fill>
+    <Stack overflow="scroll">
       <Stack.Item>
         <Section fitted fill minHeight="8em">
           <Tabs vertical>
@@ -28,11 +33,12 @@ export function SettingsPanel(props) {
                 key={tab.id}
                 selected={tab.id === activeTab}
                 onClick={() =>
-                  dispatch(
-                    changeSettingsTab({
-                      tabId: tab.id,
-                    }),
-                  )
+                  updateSettings({
+                    view: {
+                      ...view,
+                      activeTab: tab.id,
+                    },
+                  })
                 }
               >
                 {tab.name}
@@ -41,12 +47,16 @@ export function SettingsPanel(props) {
           </Tabs>
         </Section>
       </Stack.Item>
-      <Stack.Item grow basis={0}>
+      <Stack.Item width="100%" overflow="auto">
         {activeTab === 'general' && <SettingsGeneral />}
-        {activeTab === 'chatPage' && <ChatPageSettings />}
+        {activeTab === 'adminSettings' && <AdminSettings />}
+        {activeTab === 'limits' && <MessageLimits />}
+        {activeTab === 'export' && <ExportTab />}
         {activeTab === 'textHighlight' && <TextHighlightSettings />}
-        {/* {activeTab === 'statPanel' && <SettingsStatPanel />} */}
+        {activeTab === 'chatPage' && <ChatPageSettings />}
+        {activeTab === 'statPanel' && <SettingsStatPanel />}
+        {activeTab === 'ttsSettings' && <TTSSettings />}
       </Stack.Item>
     </Stack>
   );
-}
+};

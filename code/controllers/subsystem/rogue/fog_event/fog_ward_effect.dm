@@ -16,7 +16,7 @@
 /datum/status_effect/buff/fog_ward/on_apply()
 	ADD_TRAIT(owner, TRAIT_FOG_WARDED, TRAIT_MIRACLE)
 	SEND_SIGNAL(owner, COMSIG_WARDED_TRAIT_CHANGE)
-	owner.add_filter(FOG_WARD_OUTLINE, 1, list("type" = "outline", "color" = "#ffffffb3", "size" = 1))
+	owner.add_filter(FOG_WARD_OUTLINE, 1, list("type" = "outline", "color" = "#ffffffb3", "size" = 0.4)) //CC Edit, tweaked size
 	return TRUE
 
 /datum/status_effect/buff/fog_ward/process()
@@ -68,7 +68,7 @@
 /datum/status_effect/buff/fog_ward_caster/on_apply()
 	ADD_TRAIT(owner, TRAIT_FOG_WARDED, TRAIT_MIRACLE)
 	SEND_SIGNAL(owner, COMSIG_WARDED_TRAIT_CHANGE)
-	owner.add_filter(FOG_WARD_OUTLINE, 1, list("type" = "outline", "color" = "#ffffff", "size" = 2))
+	owner.add_filter(FOG_WARD_OUTLINE, 1, list("type" = "outline", "color" = "#ffffff", "size" = 0.85))  //CC Edit, tweaked size
 	return TRUE
 
 /datum/status_effect/buff/fog_ward_caster/on_remove()
@@ -108,7 +108,7 @@
 /obj/effect/proc_holder/spell/invoked/fog_ward
 	name = "Ward of the Undermaiden"
 	desc = "Call upon Necra to manifest a holy mist that dispels fog phantoms and prevents ambushes. Allies must stay close to you to maintain protection."
-	invocations = list("Necra, clear the path!", "Be gone, shades of the mist!")
+	invocations = list("Necra, clear the path!") //CC Edit, tweaked the invocation string
 	devotion_cost = 150
 	recharge_time = 3 MINUTES
 	chargetime = 2 SECONDS
@@ -138,9 +138,12 @@
 
 	return TRUE
 
-/obj/effect/proc_holder/spell/invoked/fog_ward/on_gain(mob/living/user)
+//CC Edit Begin
+// Allow Necrans to have this normally. There is no reason why they should not have this, as this actually creates runtimes due to not actually "existing" on characters.
+/* /obj/effect/proc_holder/spell/invoked/fog_ward/on_gain(mob/living/user)
 	// Check the subsystem variable to see if fog is even a possibility this round
 	if(!SSevent_scheduler.fog_scheduled)
 		qdel(src)
 		return FALSE
-	return ..()
+	return ..() */
+//CC Edit End

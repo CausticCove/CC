@@ -593,6 +593,20 @@
 	//Gets encapsulated with a warning span
 	var/list/msg = list()
 
+	//Caustic Edit - Add in the missing Virgo/Chomp code related examine strings!
+	var/list/vorestrings = list()
+	//vorestrings += examine_weight() //Nothing currently modifies this at all so... Just commented out for now until we actually add things for it.
+	vorestrings += examine_nutrition()
+	vorestrings += formatted_vore_examine()
+	vorestrings += examine_pickup_size()
+	vorestrings += examine_step_size()
+	vorestrings += examine_body_writing()
+	for(var/entry in vorestrings)
+		if(entry == "" || entry == null)
+			vorestrings -= entry
+	msg += vorestrings
+	//Caustic Edit End
+
 	var/appears_dead = FALSE
 	if(stat == DEAD || (HAS_TRAIT(src, TRAIT_FAKEDEATH)))
 		appears_dead = TRUE

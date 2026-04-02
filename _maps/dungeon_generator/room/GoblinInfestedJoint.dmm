@@ -1300,7 +1300,7 @@
 /turf/open/floor/rogue/grass,
 /area/rogue/under/tomb)
 "Zp" = (
-/obj/item/roguegem/random{
+/obj/effect/spawner/lootdrop/roguegem/random{
 	pixel_x = 0;
 	pixel_y = 0
 	},

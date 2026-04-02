@@ -9,7 +9,7 @@ GLOBAL_LIST_EMPTY(stress_test_mobs)
 
 /client/proc/performance_stress_test()
 	set name = "Performance Stress Test"
-	set category = "Debug"
+	set category = "🛠 DEBUG"
 
 	if(!check_rights(R_DEBUG))
 		return
@@ -244,7 +244,7 @@ GLOBAL_LIST_EMPTY(stress_test_mobs)
 
 /client/proc/cleanup_stress_test_mobs()
 	set name = "Cleanup Stress Test"
-	set category = "Debug"
+	set category = "🛠 DEBUG"
 
 	if(!check_rights(R_DEBUG))
 		return

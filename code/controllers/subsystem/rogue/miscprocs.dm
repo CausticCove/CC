@@ -59,7 +59,7 @@
 		return FALSE
 	return TRUE
 
-/datum/devotion/proc/update_devotion(dev_amt, prog_amt, silent = FALSE)
+/datum/devotion/proc/update_devotion(dev_amt, prog_amt, silent = FALSE, is_npc = FALSE)
 	devotion = clamp(devotion + dev_amt, 0, max_devotion)
 	holder?.hud_used?.bloodpool?.name = "Devotion: [devotion]"
 	holder?.hud_used?.bloodpool?.desc = "Devotion: [devotion]/[max_devotion]"
@@ -86,30 +86,43 @@
 		if(CLERIC_T3)
 			if(progression >= CLERIC_REQ_4)
 				level = CLERIC_T4
-	if(!holder?.mind)
-		return FALSE
+	//CC Edit
+	if(!is_npc)
+		if(!holder?.mind)
+			return FALSE
+	//CC edit
 	if(level != last_level)
-		try_add_spells(silent = silent)
+		try_add_spells(silent = silent, is_npc = is_npc) //CC Edit
 		last_level = level
 	return TRUE
 
-/datum/devotion/proc/try_add_spells(silent = FALSE)
-	if(!holder || !holder.mind)
-		return
+/datum/devotion/proc/try_add_spells(silent = FALSE, is_npc = FALSE)
+	//CC Edit
+	if(!is_npc)
+		if(!holder || !holder.mind)
+			return
 
 	if(patron)
 		if(length(patron.miracles))
 			for(var/spell_type in patron.miracles)
 				var/required_tier = patron.miracles[spell_type]			
 				if(required_tier <= level)
-					if(holder.mind.has_spell(spell_type))
+					//CC Edit
+					if(!is_npc)
+						if(holder.mind.has_spell(spell_type))
+							continue
+					else if(holder.HasSpell(spell_type))
 						continue
-
+					//CC Edit
 					var/obj/effect/proc_holder/spell/newspell = new spell_type
 					if(!silent)
 						to_chat(holder, span_boldnotice("I have unlocked a new spell: [newspell]"))
-					holder.mind.AddSpell(newspell, holder)
-					LAZYADD(granted_spells, newspell)
+					if(!is_npc)
+						holder.mind.AddSpell(newspell, holder)
+						LAZYADD(granted_spells, newspell)
+					else
+						holder.AddSpell(newspell, holder)
+						LAZYADD(granted_spells, newspell)
 		if(length(patron.traits_tier))
 			for(var/trait in patron.traits_tier)
 				var/required_tier = patron.traits_tier[trait]
@@ -124,9 +137,10 @@
 //passive_gain 		- Passive devotion gain, if any, will begin processing this datum.
 //devotion_limit	- The CLERIC_REQ max_devotion and max_progression will be set to. Devotee overrides this with its own value!
 //start_maxed		- Whether this class starts out with all devotion maxed. Mostly used by Acolytes & Priests to spawn with everything.
-/datum/devotion/proc/grant_miracles(mob/living/carbon/human/H, cleric_tier = CLERIC_T0, passive_gain = 0, devotion_limit, start_maxed = FALSE)
-	if(!H || !H.mind || !patron)
-		return
+/datum/devotion/proc/grant_miracles(mob/living/carbon/human/H, cleric_tier = CLERIC_T0, passive_gain = 0, devotion_limit, start_maxed = FALSE, is_npc = FALSE) // CC Edit added NPC check
+	if(!is_npc) // CC Edit
+		if(!H || !H.mind || !patron)
+			return
 	level = cleric_tier
 	if(devotion_limit) //Upper devotion limit - Limits gain to that tier's miracles. Mostly used by Templars / Paladins.
 		max_devotion = devotion_limit
@@ -138,15 +152,15 @@
 	if(start_maxed)		//Mainly for Acolytes & Bishops
 		max_devotion = CLERIC_REQ_4
 		devotion = max_devotion
-		update_devotion(max_devotion, CLERIC_REQ_4, silent = TRUE)
+		update_devotion(max_devotion, CLERIC_REQ_4, silent = TRUE, is_npc = is_npc)
 	else
-		update_devotion(50, 50, silent = TRUE)
+		update_devotion(50, 50, silent = TRUE, is_npc = is_npc)
 	H.verbs += list(/mob/living/carbon/human/proc/devotionreport, /mob/living/carbon/human/proc/clericpray)
 
 // Debug verb
 /mob/living/carbon/human/proc/devotionchange()
 	set name = "(DEBUG)Change Devotion"
-	set category = "-Special Verbs-"
+	set category = "✦ SPECIAL"
 
 	if(!devotion)
 		return FALSE
@@ -159,7 +173,7 @@
 
 /mob/living/carbon/human/proc/devotionreport()
 	set name = "Check Devotion"
-	set category = "Cleric"
+	set category = "CLERIC"
 
 	if(!devotion)
 		return FALSE
@@ -169,10 +183,16 @@
 
 /mob/living/carbon/human/proc/clericpray()
 	set name = "Give Prayer"
-	set category = "Cleric"
+	set category = "CLERIC"
 
 	if(!devotion)
 		return FALSE
+	//CC Edit Begin
+	//Witch's all have a god complex. Their patron still loves them however.
+	if(HAS_TRAIT(src, TRAIT_WITCH))
+		to_chat(src, span_warning("My patron has blessed me enough as is, I can do things on my own."))
+		return FALSE
+	//CC Edit End
 
 	var/prayersesh = 0
 	visible_message("[src] kneels their head in prayer to the Gods.", "I kneel my head in prayer to [devotion.patron.name].")

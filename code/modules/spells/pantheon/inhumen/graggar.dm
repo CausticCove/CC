@@ -12,6 +12,9 @@
 	miracle = TRUE
 	devotion_cost = 40
 
+	//CC Edit
+	spell_logic = LOGIC_SELFCAST
+
 /obj/effect/proc_holder/spell/self/call_to_slaughter/cast(list/targets,mob/living/user = usr)
 	for(var/mob/living/carbon/target in view(3, get_turf(user)))
 		if(istype(target.patron, /datum/patron/inhumen))
@@ -43,6 +46,9 @@
 	invocation_type = "shout"
 	invocations = list("TURN AND FACE THE BLOOD GOD!!") // VERY loud. do NOT add other invocations, this projectile can FUUUCK people up and needs to be telegraphed.
 	sound = 'sound/magic/soulsteal.ogg'
+
+	//CC Edit
+	spell_logic = LOGIC_COMBAT
 
 /obj/projectile/magic/unholy_grasp
 	name = "visceral organ net"
@@ -87,6 +93,9 @@
 	releasedrain = 30
 	miracle = TRUE
 	devotion_cost = 70
+
+	//CC Edit
+	spell_logic = LOGIC_COMBAT
 
 /obj/effect/proc_holder/spell/invoked/revel_in_slaughter/cast(list/targets, mob/living/user = usr)
 	var/mob/living/carbon/human/human = targets[1]
@@ -134,6 +143,9 @@
 	/datum/status_effect/incapacitating/paralyzed,
 	/datum/status_effect/incapacitating/stun,
 	/datum/status_effect/incapacitating/knockdown,)
+
+	//CC Edit
+	spell_logic = LOGIC_SELFCAST
 
 /obj/effect/proc_holder/spell/self/graggar_bloodrage/cast(list/targets, mob/user)
 	. = ..()

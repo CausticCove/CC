@@ -178,14 +178,18 @@
 		if(BODY_FRONT_LAYER)
 			return "FRONT"
 		//Caustic Edit
-		if(BODY_ASS_LAYER)
+		if(ASS_LAYER) //This one is the only one that is currently correct :<
 			return "ASS"
-		if(BODY_NOTSOFRONT_LAYER)
+		if(TESTICLES_LAYER) //PLEASE PLEASE PLEASE if anyone sees this, and wants to fix the names of the Iconstates in the various DMI files... I would love it. - Jon
 			return "NSFRONT"
-		if(BODY_FRONTER_LAYER)
+		if(BELLY_LAYER) //Fix me :<
 			return "FRONT"
-		if(BODY_FRONTEST_LAYER)
+		if(BREASTS_LAYER) //Me too :<
 			return "FRONT"
+		if(CROTCH_LAYER) //aAaaAAAaaa I hate the layering system
+			return "FRONT"
+		if(GLASSES_LAYER)
+			return "ADJ"
 		//Caustic End
 		if(BODY_FRONT_FRONT_LAYER)
 			return "FFRONT"

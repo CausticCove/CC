@@ -2,7 +2,7 @@ GLOBAL_LIST_EMPTY(mass_direct_intercepts)
 
 /client/proc/mass_direct()
 	set name = "Direct Mobs"
-	set category = "-GameMaster-"
+	set category = "🕮 GM"
 	if(holder)
 		holder.mass_direct_mobs()
 

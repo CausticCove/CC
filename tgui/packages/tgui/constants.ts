@@ -6,11 +6,16 @@
 
 type Gas = {
   id: string;
-  path: string;
+  // path: string;
   name: string;
   label: string;
   color: string;
 };
+
+// VOREStation Addition start
+/** 0.0 Degrees Celsius in Kelvin */
+export const T0C = 273.15;
+// VOREStation Addition end
 
 // UI states, which are mirrored from the BYOND code.
 export const UI_INTERACTIVE = 2;
@@ -32,6 +37,20 @@ export const COLORS = {
     centcom: '#00c100',
     other: '#c38312',
   },
+  // VOREStation Addition begin
+  manifest: {
+    command: '#3333FF',
+    security: '#8e0000',
+    medical: '#006600',
+    engineering: '#b27300',
+    science: '#a65ba6',
+    cargo: '#bb9040',
+    planetside: '#555555',
+    civilian: '#a32800',
+    miscellaneous: '#666666',
+    silicon: '#222222',
+  },
+  // VOREStation Addition end
   // Damage type colors
   damageType: {
     oxy: '#3498db',
@@ -53,6 +72,9 @@ export const CSS_COLORS = [
   'black',
   'blue',
   'brown',
+  'darkgray',
+  'darkgreen',
+  'maroon',
   'good',
   'green',
   'grey',
@@ -67,262 +89,185 @@ export const CSS_COLORS = [
   'violet',
   'white',
   'yellow',
-] as const;
+];
 
-export enum Direction {
-  NONE = 0,
-  NORTH = 1,
-  SOUTH = 2,
-  EAST = 4,
-  WEST = 8,
-  NORTHEAST = NORTH | EAST,
-  NORTHWEST = NORTH | WEST,
-  SOUTHEAST = SOUTH | EAST,
-  SOUTHWEST = SOUTH | WEST,
-  VERTICAL = NORTH | SOUTH,
-  HORIZONTAL = EAST | WEST,
-  ALL = NORTH | SOUTH | EAST | WEST,
-}
-
-export type CssColor = (typeof CSS_COLORS)[number];
-
-/* IF YOU CHANGE THIS KEEP IT IN SYNC WITH CHAT CSS */
+// VOREStation Edit Start
+// If you ever add a new radio channel, you can either manually update this, or
+// go use /client/verb/generate_tgui_radio_constants() in communications.dm.
 export const RADIO_CHANNELS = [
   {
-    name: 'Syndicate',
+    name: 'Mercenary',
     freq: 1213,
-    color: '#8f4a4b',
+    color: '#6D3F40',
   },
   {
-    name: 'Red Team',
-    freq: 1215,
-    color: '#ff4444',
+    name: 'Raider',
+    freq: 1277,
+    color: '#6D3F40',
   },
   {
-    name: 'Blue Team',
-    freq: 1217,
-    color: '#3434fd',
+    name: 'Special Ops',
+    freq: 1341,
+    color: '#5C5C8A',
   },
   {
-    name: 'Green Team',
-    freq: 1219,
-    color: '#34fd34',
+    name: 'AI Private',
+    freq: 1343,
+    color: '#FF00FF',
   },
   {
-    name: 'Yellow Team',
-    freq: 1221,
-    color: '#fdfd34',
-  },
-  {
-    name: 'CentCom',
-    freq: 1337,
-    color: '#2681a5',
+    name: 'Response Team',
+    freq: 1345,
+    color: '#5C5C8A',
   },
   {
     name: 'Supply',
     freq: 1347,
-    color: '#b88646',
+    color: '#5F4519',
   },
   {
     name: 'Service',
     freq: 1349,
-    color: '#6ca729',
+    color: '#6eaa2c',
   },
   {
     name: 'Science',
     freq: 1351,
-    color: '#c68cfa',
+    color: '#993399',
   },
   {
     name: 'Command',
     freq: 1353,
-    color: '#fcdf03',
+    color: '#193A7A',
   },
   {
     name: 'Medical',
     freq: 1355,
-    color: '#57b8f0',
+    color: '#008160',
   },
   {
     name: 'Engineering',
     freq: 1357,
-    color: '#f37746',
+    color: '#A66300',
   },
   {
     name: 'Security',
     freq: 1359,
-    color: '#dd3535',
+    color: '#A30000',
   },
   {
-    name: 'AI Private',
-    freq: 1447,
-    color: '#d65d95',
+    name: 'Explorer',
+    freq: 1361,
+    color: '#555555',
+  },
+  {
+    name: 'Talon',
+    freq: 1363,
+    color: '#555555',
   },
   {
     name: 'Common',
     freq: 1459,
-    color: '#1ecc43',
+    color: '#008000',
+  },
+  {
+    name: 'Entertainment',
+    freq: 1461,
+    color: '#339966',
+  },
+  {
+    name: 'Security(I)',
+    freq: 1475,
+    color: '#008000',
+  },
+  {
+    name: 'Medical(I)',
+    freq: 1485,
+    color: '#008000',
   },
 ] as const;
 
+/*
+Entries must match /code/defines/gases.dm entries.
+*/
 const GASES = [
   {
-    id: 'o2',
-    path: '/datum/gas/oxygen',
+    id: 'oxygen',
     name: 'Oxygen',
     label: 'O₂',
     color: 'blue',
   },
   {
-    id: 'n2',
-    path: '/datum/gas/nitrogen',
+    id: 'nitrogen',
     name: 'Nitrogen',
     label: 'N₂',
-    color: 'yellow',
+    color: 'green',
   },
   {
-    id: 'co2',
-    path: '/datum/gas/carbon_dioxide',
+    id: 'carbon_dioxide',
     name: 'Carbon Dioxide',
     label: 'CO₂',
     color: 'grey',
   },
   {
-    id: 'plasma',
-    path: '/datum/gas/plasma',
-    name: 'Plasma',
-    label: 'Plasma',
+    id: 'phoron',
+    name: 'Phoron',
+    label: 'Phoron',
     color: 'pink',
   },
   {
-    id: 'water_vapor',
-    path: '/datum/gas/water_vapor',
-    name: 'Water Vapor',
-    label: 'H₂O',
-    color: 'lightsteelblue',
-  },
-  {
-    id: 'hypernoblium',
-    path: '/datum/gas/hypernoblium',
-    name: 'Hyper-noblium',
-    label: 'Hyper-nob',
+    id: 'volatile_fuel',
+    name: 'Volatile Fuel',
+    label: 'EXP',
     color: 'teal',
   },
   {
-    id: 'n2o',
-    path: '/datum/gas/nitrous_oxide',
+    id: 'nitrous_oxide',
     name: 'Nitrous Oxide',
     label: 'N₂O',
-    color: 'bisque',
+    color: 'red',
   },
   {
-    id: 'no2',
-    path: '/datum/gas/nitrium',
-    name: 'Nitrium',
-    label: 'Nitrium',
-    color: 'brown',
+    id: 'methane',
+    name: 'Methane',
+    label: 'CH₄',
+    color: 'orange',
   },
   {
-    id: 'tritium',
-    path: '/datum/gas/tritium',
-    name: 'Tritium',
-    label: 'Tritium',
-    color: 'limegreen',
-  },
-  {
-    id: 'bz',
-    path: '/datum/gas/bz',
-    name: 'BZ',
-    label: 'BZ',
-    color: 'mediumpurple',
-  },
-  {
-    id: 'pluoxium',
-    path: '/datum/gas/pluoxium',
-    name: 'Pluoxium',
-    label: 'Pluoxium',
-    color: 'mediumslateblue',
-  },
-  {
-    id: 'miasma',
-    path: '/datum/gas/miasma',
-    name: 'Miasma',
-    label: 'Miasma',
-    color: 'olive',
-  },
-  {
-    id: 'freon',
-    path: '/datum/gas/freon',
-    name: 'Freon',
-    label: 'Freon',
-    color: 'paleturquoise',
-  },
-  {
-    id: 'hydrogen',
-    path: '/datum/gas/hydrogen',
-    name: 'Hydrogen',
-    label: 'H₂',
+    id: 'other',
+    name: 'Other',
+    label: 'Other',
     color: 'white',
   },
   {
-    id: 'healium',
-    path: '/datum/gas/healium',
-    name: 'Healium',
-    label: 'Healium',
-    color: 'salmon',
+    id: 'pressure',
+    name: 'Pressure',
+    label: 'Pressure',
+    color: 'average',
   },
   {
-    id: 'proto_nitrate',
-    path: '/datum/gas/proto_nitrate',
-    name: 'Proto Nitrate',
-    label: 'Proto-Nitrate',
-    color: 'greenyellow',
-  },
-  {
-    id: 'zauker',
-    path: '/datum/gas/zauker',
-    name: 'Zauker',
-    label: 'Zauker',
-    color: 'darkgreen',
-  },
-  {
-    id: 'halon',
-    path: '/datum/gas/halon',
-    name: 'Halon',
-    label: 'Halon',
-    color: 'purple',
-  },
-  {
-    id: 'helium',
-    path: '/datum/gas/helium',
-    name: 'Helium',
-    label: 'He',
-    color: 'aliceblue',
-  },
-  {
-    id: 'antinoblium',
-    path: '/datum/gas/antinoblium',
-    name: 'Antinoblium',
-    label: 'Anti-Noblium',
-    color: 'maroon',
-  },
-  {
-    id: 'nitrium',
-    path: '/datum/gas/nitrium',
-    name: 'Nitrium',
-    label: 'Nitrium',
-    color: 'brown',
+    id: 'temperature',
+    name: 'Temperature',
+    label: 'Temperature',
+    color: 'yellow',
   },
 ] as const;
 
+// VOREStation Edit End
+
 // Returns gas label based on gasId
+// Checks GASES for both id (all chars lowercase)
+// and name (each word start capitalized, to match standards in code\defines\gases.dm)
 export const getGasLabel = (gasId: string, fallbackValue?: string) => {
   if (!gasId) return fallbackValue || 'None';
 
-  const gasSearchString = gasId.toLowerCase();
+  const gasSearchId = gasId.toLowerCase();
+  const gasSearchName = gasId.replace(/(^\w{1})|(\s+\w{1})/g, (letter) =>
+    letter.toUpperCase(),
+  );
 
   for (let idx = 0; idx < GASES.length; idx++) {
-    if (GASES[idx].id === gasSearchString) {
+    if (GASES[idx].id === gasSearchId || GASES[idx].name === gasSearchName) {
       return GASES[idx].label;
     }
   }
@@ -331,13 +276,18 @@ export const getGasLabel = (gasId: string, fallbackValue?: string) => {
 };
 
 // Returns gas color based on gasId
+// Checks GASES for both id (all chars lowercase)
+// and name (each word start capitalized, to match standards in code\defines\gases.dm)
 export const getGasColor = (gasId: string) => {
   if (!gasId) return 'black';
 
-  const gasSearchString = gasId.toLowerCase();
+  const gasSearchId = gasId.toLowerCase();
+  const gasSearchName = gasId.replace(/(^\w{1})|(\s+\w{1})/g, (letter) =>
+    letter.toUpperCase(),
+  );
 
   for (let idx = 0; idx < GASES.length; idx++) {
-    if (GASES[idx].id === gasSearchString) {
+    if (GASES[idx].id === gasSearchId || GASES[idx].name === gasSearchName) {
       return GASES[idx].color;
     }
   }
@@ -346,18 +296,24 @@ export const getGasColor = (gasId: string) => {
 };
 
 // Returns gas object based on gasId
+// Checks GASES for both id (all chars lowercase)
+// and name (each word start capitalized, to match standards in code\defines\gases.dm)
 export const getGasFromId = (gasId: string): Gas | undefined => {
   if (!gasId) return;
 
-  const gasSearchString = gasId.toLowerCase();
+  const gasSearchId = gasId.toLowerCase();
+  const gasSearchName = gasId.replace(/(^\w{1})|(\s+\w{1})/g, (letter) =>
+    letter.toUpperCase(),
+  );
 
   for (let idx = 0; idx < GASES.length; idx++) {
-    if (GASES[idx].id === gasSearchString) {
+    if (GASES[idx].id === gasSearchId || GASES[idx].name === gasSearchName) {
       return GASES[idx];
     }
   }
 };
 
+/*
 // Returns gas object based on gasPath
 export const getGasFromPath = (gasPath: string): Gas | undefined => {
   if (!gasPath) return;
@@ -368,3 +324,4 @@ export const getGasFromPath = (gasPath: string): Gas | undefined => {
     }
   }
 };
+*/

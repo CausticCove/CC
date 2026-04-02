@@ -10,7 +10,7 @@
 	vice_restrictions = list(/datum/charflaw/unintelligible)
 	allowed_races = ACCEPTED_RACES
 	allowed_ages = ALL_AGES_LIST
-	cmode_music = 'sound/music/cmode/towner/combat_towner3.ogg'
+	cmode_music = 'sound/music/cmode/towner/combat_archivist.ogg' //Caustic Edit - Added Archivist-unique music!
 
 	outfit = /datum/outfit/job/roguetown/archivist
 	display_order = JDO_ARCHIVIST

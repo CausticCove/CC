@@ -82,6 +82,15 @@ GLOBAL_LIST_EMPTY(cmode_tracks_by_name)
 	credits = "T-87 SULFURHEAD - Snicker Snacker (https://www.youtube.com/@T87-Sulfurhead)"
 	musicpath = list('sound/music/cmode/adventurer/combat_outlander4.ogg') 
 
+//Caustic Edit - Added special Archivist music :3
+/datum/combat_music/archivist
+	name = "Archivist"
+	desc = "May you find your book in this place."
+	shortname = "Archivist"
+	credits = "Project Moon - Library of Ruina (Netzach Battle 1 and 2) - Compiled together and uploaded by Sanu (https://www.youtube.com/watch?v=_KFlB_bMNCY)"
+	musicpath = list('sound/music/cmode/towner/combat_archivist.ogg')
+//Caustic Edit End
+
 /datum/combat_music/ascended
 	name = "Ascended"
 	desc = "No mortal could ever comprehend the heights to which I've risen."

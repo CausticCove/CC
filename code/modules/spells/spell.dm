@@ -211,6 +211,11 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 	action_background_icon_state = ""
 	base_action = /datum/action/spell_action/spell
 
+	//CC Edit Begin
+	//This variable is used in _npc.dm to determine how a spell should be cast. Define types are listed at the top of this file.
+	var/spell_logic = LOGIC_GENERIC
+	//CC Edit End
+
 /obj/effect/proc_holder/spell/get_chargetime()
 	if(ranged_ability_user && chargetime)
 		return calculate_chargetime(ranged_ability_user)
@@ -520,7 +525,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 			var/turf/target_turf = get_turf(A)
 			var/turf/source_turf = get_turf(user)
 			//CC Edit: No more up and down turf checks, instead get the eye and see it's view
-			if(!(A in view(user.client.eye)))
+			if(!(A in view(((user.client) ? user.client.view : 7), user))) //If we cannot get a client's view default to 7. Compatibility with NPC logic.
 				to_chat(user, span_warning("I do not have line of sight! Casting on nearest tile."))
 				var/list/possible_targets = getline(source_turf, target_turf)
 				for(var/i = possible_targets.len; i > 0; i--) // Since turfs added by the getline are in ordered by distance, we need to start from the end
@@ -528,6 +533,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 					if(closest_tile in view(user.client.eye))//Same here, eye view.
 						targets[1] = closest_tile
 						break; // Found furthest tile, do not self-frag
+			//CC Edit - We assume that the NPC has an LOS when doing the check_target on retaliate.
 
 	before_cast(targets, user = user)
 	if(user && user.ckey)
@@ -630,7 +636,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell)) //needed for th
 	if(action?.button)
 		action.button.update_maptext(0)
 		action.UpdateButtonIcon()
-	if(user.mmb_intent && user.mmb_intent.mob_light)
+	if(user?.mmb_intent && user?.mmb_intent.mob_light) //CC edit
 		QDEL_NULL(user.mmb_intent.mob_light)
 
 /obj/effect/proc_holder/spell/proc/adjust_var(mob/living/target = usr, type, amount) //handles the adjustment of the var when the spell is used. has some hardcoded types

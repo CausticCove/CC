@@ -48,4 +48,4 @@ GLOBAL_LIST_INIT(named_belly_sizes, list(
 	icon_state = "pair"
 	name = "Belly"
 	color_key_defaults = list(KEY_CHEST_COLOR)
-	relevant_layers = list(BODY_BEHIND_LAYER, BODY_FRONTER_LAYER)
+	relevant_layers = list(BODY_BEHIND_LAYER, BELLY_LAYER) //Giving these their own unique layers now. PLEASE PLEASE PLEASE if anyone sees this, and wants to fix the names of the Iconstates in the various DMI files... I would love it. Check _sprite_accessory.dm as well to change what string is appended to the state. I'm leaving it as "FRONT" for now so I don't have to rename them all over AGAIN... - Jon

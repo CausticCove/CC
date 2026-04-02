@@ -16,5 +16,5 @@
 #define CLERIC_REGEN_WEAK 0.1 //Would be better to just do away with devotion entirely, but oh well.
 #define CLERIC_REGEN_MINOR 0.5
 #define CLERIC_REGEN_MAJOR 0.8
-#define CLERIC_REGEN_WITCH 0.3
+#define CLERIC_REGEN_WITCH 1.7 //CC edit. Faster witch regen. W/ Devotee it equals 2 devotion/tick. They cannot manually pray.
 #define CLERIC_REGEN_ABSOLVER 5

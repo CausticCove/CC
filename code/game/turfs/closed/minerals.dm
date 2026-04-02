@@ -345,7 +345,7 @@
 
 /turf/closed/mineral/rogue/gem
 	icon_state = "mingold"
-	mineralType = /obj/item/roguegem/random
+	mineralType = /obj/effect/spawner/lootdrop/roguegem/random
 	rockType = /obj/item/natural/rock/gem
 	spreadChance = 3
 	spread = 2

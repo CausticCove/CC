@@ -1,10 +1,11 @@
 /datum/sprite_accessory/penis
 	icon = 'icons/mob/sprite_accessory/genitals/pintle.dmi'
-//Caustic Edit, adds dynamic state changes -- Also upgrade to SPLURTS icons - Jon
+	//Caustic Edit, adds dynamic state changes -- Also upgrade to SPLURTS icons - Jon
 	//color_keys = 2
 	color_key_name = "Member"
 	color_key_names = "Member" //list("Member", "Skin")
-	relevant_layers = list(/*BODY_BEHIND_LAYER, */BODY_FRONT_LAYER) //Vrell - Yes I know this is hacky but it works for now
+	relevant_layers = list(/*BODY_BEHIND_LAYER, */CROTCH_LAYER) //Giving these their own unique layers now. PLEASE PLEASE PLEASE if anyone sees this, and wants to fix the names of the Iconstates in the various DMI files... I would love it. Check _sprite_accessory.dm as well to change what string is appended to the state. I'm leaving it as "FRONT" for now so I don't have to rename them all over AGAIN... - Jon //Vrell - Yes I know this is hacky but it works for now
+	//Caustic Edit End
 
 /datum/sprite_accessory/penis/adjust_appearance_list(list/appearance_list, obj/item/organ/organ, obj/item/bodypart/bodypart, mob/living/carbon/owner)
 	generic_gender_feature_adjust(appearance_list, organ, bodypart, owner, OFFSET_BELT, OFFSET_BELT_F)
@@ -107,7 +108,7 @@
 /datum/sprite_accessory/testicles
 	icon = 'icons/mob/sprite_accessory/genitals/gonads.dmi'
 	color_key_name = "Sack"
-	relevant_layers = list(BODY_BEHIND_LAYER, BODY_NOTSOFRONT_LAYER)
+	relevant_layers = list(BODY_BEHIND_LAYER, TESTICLES_LAYER) //Caustic Edit - Giving these their own unique layers now. PLEASE PLEASE PLEASE if anyone sees this, and wants to fix the names of the Iconstates in the various DMI files... I would love it. Check _sprite_accessory.dm as well to change what string is appended to the state. I'm leaving it as "NSFRONT" for now so I don't have to rename them all over AGAIN... - Jon
 
 /datum/sprite_accessory/testicles/adjust_appearance_list(list/appearance_list, obj/item/organ/organ, obj/item/bodypart/bodypart, mob/living/carbon/owner)
 	generic_gender_feature_adjust(appearance_list, organ, bodypart, owner, OFFSET_BELT, OFFSET_BELT_F)
@@ -142,7 +143,7 @@
 	//color_key_name = "Breasts"
 	color_keys = 2
 	color_key_names = list("Breasts", "Nipples")
-	relevant_layers = list(BODY_BEHIND_LAYER, BODY_FRONTEST_LAYER)
+	relevant_layers = list(BODY_BEHIND_LAYER, BREASTS_LAYER) //Giving these their own unique layers now. PLEASE PLEASE PLEASE if anyone sees this, and wants to fix the names of the Iconstates in the various DMI files... I would love it. Check _sprite_accessory.dm as well to change what string is appended to the state. I'm leaving it as "FRONT" for now so I don't have to rename them all over AGAIN... - Jon
 	//Caustic Edit end
 
 /datum/sprite_accessory/breasts/get_icon_state(obj/item/organ/organ, obj/item/bodypart/bodypart, mob/living/carbon/owner)
@@ -175,7 +176,7 @@
 /datum/sprite_accessory/vagina
 	icon = 'icons/mob/sprite_accessory/genitals/nethers.dmi'
 	color_key_name = "Nethers"
-	relevant_layers = list(BODY_FRONT_LAYER)
+	relevant_layers = list(CROTCH_LAYER) //Caustic Edit - Giving these their own unique layers now. PLEASE PLEASE PLEASE if anyone sees this, and wants to fix the names of the Iconstates in the various DMI files... I would love it. Check _sprite_accessory.dm as well to change what string is appended to the state. I'm leaving it as "FRONT" for now so I don't have to rename them all over AGAIN... - Jon
 
 /datum/sprite_accessory/vagina/adjust_appearance_list(list/appearance_list, obj/item/organ/organ, obj/item/bodypart/bodypart, mob/living/carbon/owner)
 	generic_gender_feature_adjust(appearance_list, organ, bodypart, owner, OFFSET_BELT, OFFSET_BELT_F)

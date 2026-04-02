@@ -146,7 +146,7 @@
 	if(mind)
 		var/datum/antagonist/vampire/VD = mind.has_antag_datum(/datum/antagonist/vampire)
 		if(VD)
-			if(statpanel("Stats"))
+			if(statpanel("STATS"))
 				stat("Vitae:", bloodpool)
 		if((mind.assigned_role == "Shepherd") || (mind.assigned_role == "Inquisitor"))
 			if(statpanel("Status"))

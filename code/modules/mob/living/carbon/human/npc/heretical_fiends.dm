@@ -140,6 +140,19 @@
 	var/obj/item/bodypart/head/head = get_bodypart(BODY_ZONE_HEAD)
 	head.sellprice = 15 // Not much
 
+	//CC Edit Begin
+	if(patron)
+		set_patron(/datum/patron/inhumen/zizo)
+		spell_caster = TRUE
+		spell_cd_offset = 15 SECONDS
+		spell_channel_duration = 1 SECONDS
+		spell_cost_limit = SPELL_STAM_LIMIT_HALF
+		var/datum/devotion/C = new /datum/devotion(src, patron)
+		C.grant_miracles(src, cleric_tier = CLERIC_T3, passive_gain = CLERIC_REGEN_MAJOR, devotion_limit = CLERIC_REQ_3, is_npc = TRUE)
+		C.devotion = C.max_devotion
+		prepare_spell_list(LOGIC_NONE)
+	//CC Edit End
+
 /datum/outfit/job/roguetown/human/northern/heretical_fiend_no_gear/zizo_cultist/pre_equip(mob/living/carbon/human/H) //Intended to be super easy to kill
 	..()
 	ADD_TRAIT(H, TRAIT_ZIZOSIGHT, TRAIT_GENERIC)

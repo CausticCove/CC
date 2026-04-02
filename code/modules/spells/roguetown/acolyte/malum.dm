@@ -23,6 +23,9 @@
 	chargedloop = /datum/looping_sound/invokegen
 	devotion_cost = 30
 
+	//CC Edit
+	spell_logic = LOGIC_SUPPORTIVE
+
 /obj/effect/proc_holder/spell/invoked/heatmetal
 	name = "Heat Metal"
 	desc= "Damages Armor, Forces target to drop a metallic weapon, heats up an ingot in tongs or smelts a single item."
@@ -74,6 +77,9 @@
 	charging_slowdown = 3
 	chargedloop = /datum/looping_sound/invokegen
 	devotion_cost = 80
+
+	//CC Edit
+	spell_logic = LOGIC_COMBAT
 
 /obj/effect/proc_holder/spell/invoked/hammerfall/cast(list/targets, mob/user = usr)
 	var/turf/fallzone = null
@@ -595,6 +601,9 @@ var/global/list/anvil_recipe_prices[][]
 	miracle = TRUE
 	devotion_cost = 30
 	var/rrange = 0
+
+	//CC Edit
+	spell_logic = LOGIC_SELFCAST
 
 /obj/effect/proc_holder/spell/self/repair/cast(mob/living/carbon/human/user)
 	var/skill = user.get_skill_level(/datum/skill/magic/holy)

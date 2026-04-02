@@ -23,3 +23,9 @@
 /datum/ambush_config/hobgoblin_band/circus
 	mob_types = list(/mob/living/carbon/human/species/hobgoblin/npc/ambush = 3,
 	/mob/living/carbon/human/species/goblin/npc/ambush = 2)
+
+//6 total mobs. 2 smalls and 4 big hoblins. You're in for a treat! Very rare ambush encounter.
+/datum/ambush_config/hobgoblin_band/theatre
+	mob_types = list(/mob/living/carbon/human/species/hobgoblin/npc/ambush = 3,
+	/mob/living/carbon/human/species/goblin/npc/ambush = 2,
+	/mob/living/carbon/human/species/hobgoblin/npc/miracle_worker/ambush = 1)

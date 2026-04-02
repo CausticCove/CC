@@ -20,6 +20,9 @@
 	associated_skill = /datum/skill/magic/arcane
 	zizo_spell = TRUE
 
+	//CC Edit
+	spell_logic =  LOGIC_DEAD
+
 /obj/effect/proc_holder/spell/invoked/raise_deadite/cast(list/targets, mob/user)
 	. = ..()
 	for(var/mob/living/carbon/human/M in targets)

@@ -1,3 +1,8 @@
+//CC Edit Begin
+//This list holds all mobs currently associated with active quests.
+GLOBAL_LIST_EMPTY(quest_mobs)
+//CC Edit End
+
 /datum/quest
 	var/title = ""
 	var/datum/weakref/quest_giver_reference
@@ -37,7 +42,7 @@
 
 /datum/quest/Destroy()
 	// Clean up mobs with quest components
-	for(var/mob/living/M in GLOB.mob_list)
+	for(var/mob/living/M in GLOB.quest_mobs)
 		var/datum/component/quest_object/Q = M.GetComponent(/datum/component/quest_object)
 		if(Q && Q.quest_ref?.resolve() == src)
 			M.remove_filter("quest_item_outline")

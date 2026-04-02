@@ -76,11 +76,11 @@
 	/// The title of the TGUI window
 	var/title
 	// Whether to use a big modal variant for very large text input
-	var/bigmodal
+	//var/bigmodal
 	/// The TGUI UI state that will be returned in ui_state(). Default: always_state
 	var/datum/ui_state/state
 
-/datum/tgui_input_text/New(mob/user, message, title, default, max_length, multiline, encode, timeout, ui_state, bigmodal)
+/datum/tgui_input_text/New(mob/user, message, title, default, max_length, multiline, encode, timeout, ui_state/*, bigmodal*/)
 	src.default = default
 	src.encode = encode
 	src.max_length = max_length
@@ -88,7 +88,7 @@
 	src.multiline = multiline
 	src.title = title
 	src.state = ui_state
-	src.bigmodal = bigmodal
+	//src.bigmodal = bigmodal
 	if (timeout)
 		src.timeout = timeout
 		start_time = world.time
@@ -130,7 +130,7 @@
 	data["swapped_buttons"] = FALSE // !user.read_preference(/datum/preference/toggle/tgui_swapped_buttons)
 	data["title"] = title
 	data["spellcheck"] = FALSE // user.read_preference(/datum/preference/toggle/tgui_use_spellcheck)
-	data["bigmodal"] = bigmodal
+	//data["bigmodal"] = bigmodal
 	return data
 
 /datum/tgui_input_text/ui_data(mob/user)

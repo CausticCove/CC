@@ -3,7 +3,6 @@
 (function () {
   // Utility functions
   var hasOwn = Object.prototype.hasOwnProperty;
-
   var assign = function (target) {
     for (var i = 1; i < arguments.length; i++) {
       var source = arguments[i];
@@ -15,7 +14,6 @@
     }
     return target;
   };
-
   var parseMetaTag = function (name) {
     var content = document.getElementById(name).getAttribute('content');
     if (content === '[' + name + ']') {
@@ -31,9 +29,17 @@
 
   // Expose inlined metadata
   Byond.windowId = parseMetaTag('tgui:windowId');
+  Byond.storageCdn = parseMetaTag('tgui:storagecdn');
 
   // Backwards compatibility
   window.__windowId__ = Byond.windowId;
+
+  // Trident engine version
+  Byond.TRIDENT = (function () {
+    const groups = navigator.userAgent.match(/Trident\/(\d+).+?;/i);
+    const majorVersion = groups && groups[1];
+    return majorVersion ? parseInt(majorVersion, 10) : null;
+  })();
 
   // Blink engine version
   Byond.BLINK = (function () {
@@ -179,13 +185,45 @@
     }
   };
 
+  const MAX_PACKET_SIZE = 1024;
+
   Byond.sendMessage = function (type, payload) {
     var message =
       typeof type === 'string' ? { type: type, payload: payload } : type;
     // JSON-encode the payload
+
     if (message.payload !== null && message.payload !== undefined) {
       message.payload = JSON.stringify(message.payload);
+
+      if (!Byond.TRIDENT && message.payload.length > MAX_PACKET_SIZE && type !== "payloadChunk") {
+        const chunks = [];
+
+        for (
+          let i = 0, charsLength = message.payload.length;
+          i < charsLength;
+          i += MAX_PACKET_SIZE
+        ) {
+          chunks.push(message.payload.substring(i, i + MAX_PACKET_SIZE));
+        }
+
+        for (let i = 0; i < chunks.length; i++) {
+          const to_send = chunks[i];
+
+          message = {
+            type: type,
+            packet: to_send,
+            packetId: i + 1,
+            totalPackets: chunks.length,
+            tgui: 1,
+            window_id: Byond.windowId,
+          };
+          Byond.topic(message);
+        }
+
+        return;
+      }
     }
+
     // Append an identifying header
     assign(message, {
       tgui: 1,

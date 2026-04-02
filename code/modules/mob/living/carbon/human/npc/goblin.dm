@@ -230,6 +230,7 @@
 			headdy.icon_state = "[src.dna.species.id]_head"
 			headdy.sellprice = 20
 	src.grant_language(/datum/language/orcish)
+	language_holder.only_speaks_language = /datum/language/orcish //CC Edit - Only speak Orcish for when we cast spells.
 	var/obj/item/organ/eyes/eyes = src.getorganslot(ORGAN_SLOT_EYES)
 	if(eyes)
 		eyes.Remove(src,1)

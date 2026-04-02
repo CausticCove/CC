@@ -221,7 +221,10 @@ GLOBAL_PROTECT(admin_verbs_debug)
 	/client/proc/set_tod_override,
 	/client/proc/stresstest_chat,
 	/client/proc/performance_stress_test, // Uncomment these if you tick the performance stress test .dm file
-	/client/proc/cleanup_stress_test_mobs
+	/client/proc/cleanup_stress_test_mobs,
+	//CC Edit
+	/client/proc/allow_broser_inspect
+	//CC Edit End
 	)
 GLOBAL_LIST_INIT(admin_verbs_possess, list(/proc/possess, GLOBAL_PROC_REF(release)))
 GLOBAL_PROTECT(admin_verbs_possess)
@@ -349,7 +352,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 
 /client/proc/hide_most_verbs()//Allows you to keep some functionality while hiding some verbs
 	set name = "Adminverbs - Hide Most"
-	set category = "Prefs - Admin"
+	set category ="🌣 A-PREFS"
 
 	verbs.Remove(/client/proc/hide_most_verbs, GLOB.admin_verbs_hideable)
 	verbs += /client/proc/show_verbs
@@ -360,7 +363,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 
 /client/proc/hide_verbs()
 	set name = "Adminverbs - Hide All"
-	set category = "Prefs - Admin"
+	set category ="🌣 A-PREFS"
 
 	remove_admin_verbs()
 	verbs += /client/proc/show_verbs
@@ -371,7 +374,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 
 /client/proc/show_verbs()
 	set name = "Adminverbs - Show"
-	set category = "Prefs - Admin"
+	set category ="🌣 A-PREFS"
 
 	verbs -= /client/proc/show_verbs
 	add_admin_verbs()
@@ -380,7 +383,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Show Adminverbs") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/set_context_menu_enabled()
-	set category = "Prefs - Admin"
+	set category ="🌣 A-PREFS"
 	set name = "Toggle Context Menu"
 	if(!holder)
 		return
@@ -388,7 +391,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 	to_chat(src, show_popup_menus ? "Right click menus are now enabled" : "Right click menus are now disabled")
 
 /client/proc/open_bounty_menu()
-	set category = "-Admin-"
+	set category = "⚡︎ ADMIN"
 	set name = "View Bounty List"
 	if(!holder)
 		return
@@ -407,7 +410,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 		to_chat(mob, "No bounties are currently active.")
 
 /client/proc/toggle_aghost_invis()
-	set category = "Prefs - Admin"
+	set category ="🌣 A-PREFS"
 	set name = "Aghost (Toggle Invisibility)"
 	if (!holder)
 		return
@@ -415,7 +418,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 	to_chat(src, aghost_toggle ? "Aghosting will now turn your mob invisible." : "Aghost will no longer turn your mob invisible.")
 
 /client/proc/admin_ghost()
-	set category = "-Admin-"
+	set category = "⚡︎ ADMIN"
 	set name = "Aghost"
 	if(!holder)
 		return
@@ -465,7 +468,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 
 /client/proc/invisimin()
 	set name = "Invisimin"
-	set category = "Prefs - Admin"
+	set category ="🌣 A-PREFS"
 	set desc = ""
 	if(holder && mob)
 		if(mob.invisibility == INVISIBILITY_OBSERVER)
@@ -477,7 +480,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 
 /client/proc/check_antagonists()
 	set name = "Check Antags"
-	set category = "-GameMaster-"
+	set category = "🕮 GM"
 	if(holder)
 		holder.check_antagonists()
 		log_admin("[key_name(usr)] checked antagonists.")	//for tsar~
@@ -486,7 +489,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Check Antagonists") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/set_tod_override()
-	set category = "Debug"
+	set category = "🕮 GM"
 	set name = "SetTODOverride"
 	var/list/TODs = list("dawn","day","dusk","night")
 	var/choice = input(src,"","Set time of day override") as null|anything in TODs
@@ -500,7 +503,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 
 /client/proc/stresstest_chat()
 	set name = "Stress Chat"
-	set category = "Debug"
+	set category = "🛠 DEBUG"
 	set hidden = TRUE
 
 	if(!holder)
@@ -530,7 +533,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 
 /client/proc/ban_panel()
 	set name = "Banning Panel"
-	set category = "-Admin-"
+	set category = "⚡︎ ADMIN"
 	if(!check_rights(R_BAN))
 		return
 	holder.ban_panel()
@@ -538,7 +541,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 
 /client/proc/unban_panel()
 	set name = "Unbanning Panel"
-	set category = "-Admin-"
+	set category = "⚡︎ ADMIN"
 	if(!check_rights(R_BAN))
 		return
 	holder.unban_panel()
@@ -546,14 +549,14 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 
 /client/proc/game_panel()
 	set name = "Game Panel"
-	set category = "-Admin-"
+	set category = "⚡︎ ADMIN"
 	if(holder)
 		holder.Game()
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Game Panel") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/secrets()
 	set name = "Secrets"
-	set category = "-Admin-"
+	set category = "⚡︎ ADMIN"
 	set hidden = 1
 	if (holder)
 		holder.Secrets()
@@ -561,7 +564,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 
 /client/proc/poll_panel()
 	set name = "Server Poll Management"
-	set category = "-Server-"
+	set category = "⚡︎ ADMIN"
 	if(!check_rights(R_POLL))
 		return
 	holder.poll_list_panel()
@@ -587,7 +590,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 	GLOB.stealthminID["[ckey]"] = "@[num2text(num)]"
 
 /client/proc/stealth()
-	set category = "Prefs - Admin"
+	set category ="🌣 A-PREFS"
 	set name = "Stealth Mode"
 	if(holder)
 		if(holder.fakekey)
@@ -615,7 +618,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Stealth Mode") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/drop_bomb()
-	set category = "-GameMaster-"
+	set category = "🕮 GM"
 	set name = "Bomb..."
 	set desc = ""
 
@@ -657,7 +660,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Drop Bomb") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/drop_dynex_bomb()
-	set category = "-GameMaster-"
+	set category = "🕮 GM"
 	set name = "Bomb - DynEx..."
 	set desc = ""
 
@@ -670,7 +673,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Drop Dynamic Bomb") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/get_dynex_range()
-	set category = "Debug"
+	set category = "🛠 DEBUG"
 	set name = "Get DynEx Range"
 	set desc = ""
 
@@ -681,7 +684,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 	to_chat(usr, "Estimated Explosive Range: (Devastation: [round(range*0.25)], Heavy: [round(range*0.5)], Light: [round(range)])")
 
 /client/proc/get_dynex_power()
-	set category = "Debug"
+	set category = "🛠 DEBUG"
 	set name = "Get DynEx Power"
 	set desc = ""
 
@@ -692,7 +695,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 	to_chat(usr, "Estimated Explosive Power: [power]")
 
 /client/proc/set_dynex_scale()
-	set category = "Debug"
+	set category = "🛠 DEBUG"
 	set name = "Set DynEx Scale"
 	set desc = ""
 
@@ -704,7 +707,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 	message_admins("[key_name_admin(usr)] has  modified Dynamic Explosion Scale: [ex_scale]")
 
 /client/proc/give_spell(mob/T in GLOB.mob_list)
-	set category = "-GameMaster-"
+	set category = "🕮 GM"
 	set name = "Give Spell"
 	set desc = ""
 
@@ -728,7 +731,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 		message_admins(span_danger("Spells given to mindless mobs will not be transferred in mindswap or cloning!"))
 
 /client/proc/remove_spell(mob/T in GLOB.mob_list)
-	set category = "-GameMaster-"
+	set category = "🕮 GM"
 	set name = "Remove Spell"
 	set desc = ""
 
@@ -741,7 +744,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 			SSblackbox.record_feedback("tally", "admin_verb", 1, "Remove Spell") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/object_say(obj/O in world)
-	set category = "-Special Verbs-"
+	set category = "🕮 GM"
 	set name = "OSay"
 	set desc = ""
 	var/message = input(usr, "What do you want the message to be?", "Make Sound") as text | null
@@ -753,7 +756,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Object Say") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/force_say(mob/living/L in GLOB.mob_list)
-	set category = "-Special Verbs-"
+	set category = "🕮 GM"
 	set name = "Force Speech"
 	set desc = ""
 	
@@ -780,7 +783,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 
 /client/proc/togglebuildmodeself()
 	set name = "Toggle Build Mode"
-	set category = "-Special Verbs-"
+	set category = "🕮 GM"
 	if (!(holder.rank.rights & R_BUILD))
 		return
 	if(src.mob)
@@ -790,7 +793,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 
 /client/proc/deadmin()
 	set name = "Deadmin"
-	set category = "Prefs - Admin"
+	set category ="🌣 A-PREFS"
 	set desc = ""
 
 	if(!holder)
@@ -809,7 +812,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 
 /client/proc/readmin()
 	set name = "Readmin"
-	set category = "-Admin-"
+	set category = "⚡︎ ADMIN"
 	set desc = ""
 
 	var/datum/admins/A = GLOB.deadmins[ckey]
@@ -835,7 +838,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 
 /client/proc/toggle_AI_interact()
 	set name = "Toggle Admin AI Interact"
-	set category = "-Admin-"
+	set category = "⚡︎ ADMIN"
 	set desc = ""
 	set hidden = 1
 
@@ -848,7 +851,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 
 /client/proc/toggle_lobby_ooc()
 	set name = "Show/Hide Lobby OOC"
-	set category = "Prefs - Admin"
+	set category ="🌣 A-PREFS"
 	set desc = "Toggle seeing lobby OOC messages while not in the lobby."
 	if(!holder)
 		return
@@ -856,7 +859,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 	to_chat(src, span_interface("Lobby OOC visibility is now [show_lobby_ooc ? "ON" : "OFF"]."))
 
 /client/proc/end_party()
-	set category = "-GameMaster-"
+	set category = "🕮 GM"
 	set name = "EndPlaytest"
 	set hidden = 1
 	if(!holder)
@@ -870,7 +873,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 
 /client/proc/delete_player_book()
 	set name = "Database Delete Player Book"
-	set category = "Debug"
+	set category = "🛠 DEBUG"
 	set desc = ""
 	if(!holder)
 		return
@@ -883,7 +886,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 
 /client/proc/pull_book_file_names()
 	set name = "Database Book File Names"
-	set category = "Debug"
+	set category = "🛠 DEBUG"
 	set desc = ""
 	if(!holder)
 		return
@@ -897,7 +900,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 
 /client/proc/amend_player_book()
 	set name = "Database Amend Player Book"
-	set category = "Debug"
+	set category = "🛠 DEBUG"
 	set desc = ""
 	if(!holder)
 		return
@@ -910,7 +913,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 		to_chat(src, span_notice("Either the book file doesn't exist or you have failed to type something in properly (you can look up the file name by the verb 'database book file names'"))
 
 /client/proc/remove_bounty()
-	set category = "-Admin-"
+	set category = "⚡︎ ADMIN"
 	set name = "Remove Bounty"
 	if(!holder)
 		return
@@ -938,7 +941,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 	to_chat(src, "Error. Bounty no longer active.") 
 
 /client/proc/enable_browser_debug()
-	set category = "Debug"
+	set category = "🛠 DEBUG"
 	set name = "Enable Browser Debug"
 	if(!holder)
 		return

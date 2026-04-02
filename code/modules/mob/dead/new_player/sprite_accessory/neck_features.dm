@@ -1,6 +1,6 @@
 /datum/sprite_accessory/neck_feature
 	abstract_type = /datum/sprite_accessory/neck_feature
-	relevant_layers = list(BODY_ADJ_LAYER)
+	relevant_layers = list(GLASSES_LAYER) //Caustic Edit - Moving layers from BODY_ADJ_LAYER to GLASSES_LAYER, this puts it above breasts and belly but still under neck
 
 /datum/sprite_accessory/neck_feature/adjust_appearance_list(list/appearance_list, obj/item/organ/organ, obj/item/bodypart/bodypart, mob/living/carbon/owner)
 	generic_gender_feature_adjust(appearance_list, organ, bodypart, owner, OFFSET_NECK, OFFSET_NECK_F)

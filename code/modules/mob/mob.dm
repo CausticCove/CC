@@ -572,7 +572,7 @@ GLOBAL_VAR_INIT(mobids, 1)
  */
 /mob/verb/memory()
 	set name = "Notes"
-	set category = "Memory"
+	set category = "IC"
 	set desc = ""
 	if(mind)
 		mind.show_memory(src)
@@ -584,7 +584,7 @@ GLOBAL_VAR_INIT(mobids, 1)
  */
 /mob/verb/add_memory(msg as message)
 	set name = "AddNote"
-	set category = "Memory"
+	set category = "IC"
 	if(mind)
 		if (world.time < memory_throttle_time)
 			return
@@ -605,7 +605,7 @@ GLOBAL_VAR_INIT(mobids, 1)
  */
 /mob/verb/abandon_mob()
 	set name = "{ABANDON MOB}"
-	set category = "Options"
+	set category = "OPTIONS"
 	set hidden = 1
 	if(!check_rights(0))
 		return
@@ -753,7 +753,7 @@ GLOBAL_VAR_INIT(mobids, 1)
 
 	var/datum/controller/subsystem/statpanel/SS = SSstatpanel
 
-	if(statpanel("RoundInfo"))
+	if(statpanel("TIME")) //CCEdit to the statpanel name
 		for(var/line in SS.base_roundinfo_text)
 			stat(null, line)
 
@@ -794,7 +794,7 @@ GLOBAL_VAR_INIT(mobids, 1)
 				var/datum/controller/subsystem/SSsub = entry["subsystem"]
 				stat(entry["title"], SSsub.statclick.update(entry["msg"]))
 				
-		if(statpanel("Tickets"))
+		if(statpanel("TICKETS")) //CC Edit 
 			GLOB.ahelp_tickets.stat_entry()
 
 		if(length(GLOB.sdql2_queries))

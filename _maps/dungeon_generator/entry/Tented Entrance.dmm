@@ -1,29 +1,29 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
 /turf/open/floor/rogue/hexstone,
-/area/rogue)
+/area/rogue/under/tomb/cave)
 "e" = (
 /obj/structure/table/wood{
 	icon_state = "tablewood1"
 	},
 /turf/open/floor/rogue/hexstone,
-/area/rogue)
+/area/rogue/under/tomb/cave)
 "f" = (
 /obj/machinery/light/rogue/torchholder/r,
 /turf/open/floor/rogue/ruinedwood/spiral,
-/area/rogue)
+/area/rogue/under/tomb/cave)
 "i" = (
 /turf/closed/wall/mineral/rogue/decostone/end{
 	dir = 8
 	},
-/area/rogue)
+/area/rogue/under/tomb/cave)
 "j" = (
 /turf/closed/mineral/rogue/bedrock,
-/area/rogue)
+/area/rogue/under/tomb/cave)
 "l" = (
 /obj/machinery/light/rogue/torchholder/r,
 /turf/open/floor/rogue/hexstone,
-/area/rogue)
+/area/rogue/under/tomb/cave)
 "m" = (
 /obj/item/flashlight/flare/torch,
 /obj/item/flashlight/flare/torch{
@@ -38,121 +38,121 @@
 	icon_state = "tablewood1"
 	},
 /turf/open/floor/rogue/hexstone,
-/area/rogue)
+/area/rogue/under/tomb/cave)
 "p" = (
 /obj/structure/fluff/railing/border{
 	dir = 9
 	},
 /turf/open/transparent/openspace,
-/area/rogue)
+/area/rogue/under/tomb/cave)
 "r" = (
 /obj/structure/stairs{
 	dir = 1
 	},
 /turf/open/floor/rogue/ruinedwood/spiral,
-/area/rogue)
+/area/rogue/under/tomb/cave)
 "v" = (
 /obj/structure/fluff/railing/border{
 	dir = 6
 	},
 /turf/open/transparent/openspace,
-/area/rogue)
+/area/rogue/under/tomb/cave)
 "w" = (
 /obj/structure/stairs,
 /turf/open/floor/rogue/hexstone,
-/area/rogue)
+/area/rogue/under/tomb/cave)
 "x" = (
 /obj/item/reagent_containers/glass/bottle/waterskin,
 /obj/structure/table/wood{
 	icon_state = "tablewood1"
 	},
 /turf/open/floor/rogue/hexstone,
-/area/rogue)
+/area/rogue/under/tomb/cave)
 "y" = (
 /obj/machinery/light/rogue/torchholder/l,
 /turf/open/floor/rogue/hexstone,
-/area/rogue)
+/area/rogue/under/tomb/cave)
 "z" = (
 /obj/structure/fluff/railing/border{
 	dir = 8
 	},
 /turf/open/transparent/openspace,
-/area/rogue)
+/area/rogue/under/tomb/cave)
 "A" = (
 /obj/structure/fluff/railing/border{
 	dir = 5
 	},
 /turf/open/transparent/openspace,
-/area/rogue)
+/area/rogue/under/tomb/cave)
 "C" = (
 /turf/open/floor/rogue/ruinedwood/spiral,
-/area/rogue)
+/area/rogue/under/tomb/cave)
 "D" = (
 /turf/open/transparent/openspace,
-/area/rogue)
+/area/rogue/under/tomb/cave)
 "F" = (
 /turf/closed/wall/mineral/rogue/decostone,
-/area/rogue)
+/area/rogue/under/tomb/cave)
 "G" = (
 /obj/effect/dungeon_directional_helper/south,
 /turf/open/floor/rogue/hexstone,
-/area/rogue)
+/area/rogue/under/tomb/cave)
 "H" = (
 /obj/effect/dungeon_directional_helper/west,
 /turf/open/floor/rogue/hexstone,
-/area/rogue)
+/area/rogue/under/tomb/cave)
 "I" = (
 /obj/effect/dungeon_directional_helper/east,
 /turf/open/floor/rogue/hexstone,
-/area/rogue)
+/area/rogue/under/tomb/cave)
 "K" = (
 /obj/structure/fluff/railing/border{
 	dir = 10
 	},
 /turf/open/transparent/openspace,
-/area/rogue)
+/area/rogue/under/tomb/cave)
 "N" = (
 /obj/effect/dungeon_directional_helper/north,
 /turf/open/floor/rogue/hexstone,
-/area/rogue)
+/area/rogue/under/tomb/cave)
 "P" = (
 /obj/structure/stairs,
 /turf/open/floor/rogue/ruinedwood/spiral,
-/area/rogue)
+/area/rogue/under/tomb/cave)
 "R" = (
 /turf/closed/wall/mineral/rogue/decostone/end{
 	dir = 4
 	},
-/area/rogue)
+/area/rogue/under/tomb/cave)
 "T" = (
 /obj/machinery/light/rogue/torchholder/l,
 /turf/open/floor/rogue/ruinedwood/spiral,
-/area/rogue)
+/area/rogue/under/tomb/cave)
 "U" = (
 /obj/structure/fluff/railing/border{
 	dir = 4
 	},
 /turf/open/transparent/openspace,
-/area/rogue)
+/area/rogue/under/tomb/cave)
 "V" = (
 /obj/structure/roguetent,
 /turf/open/floor/rogue/hexstone,
-/area/rogue)
+/area/rogue/under/tomb/cave)
 "W" = (
 /obj/structure/dungeon_exit,
 /turf/open/floor/rogue/ruinedwood/spiral,
-/area/rogue)
+/area/rogue/under/tomb/cave)
 "X" = (
 /obj/structure/stairs{
 	dir = 1
 	},
 /turf/open/floor/rogue/hexstone,
-/area/rogue)
+/area/rogue/under/tomb/cave)
 "Y" = (
 /turf/closed/wall/mineral/rogue/decostone/long{
 	dir = 1
 	},
-/area/rogue)
+/area/rogue/under/tomb/cave)
 
 (1,1,1) = {"
 j

@@ -1,5 +1,5 @@
 /client/proc/fix_next_move()
-	set category = "Debug"
+	set category = "🛠 DEBUG"
 	set name = "Unfreeze Everyone"
 	var/largest_move_time = 0
 	var/largest_click_time = 0
@@ -30,7 +30,7 @@
 	return
 
 /client/proc/radio_report()
-	set category = "Debug"
+	set category = "🛠 DEBUG"
 	set name = "Radio report"
 
 	var/output = "<b>Radio Report</b><hr>"
@@ -58,7 +58,7 @@
 
 /client/proc/reload_admins()
 	set name = "Reload Admins"
-	set category = "-Server-"
+	set category = "🖳︎ SERVER"
 
 	if(!src.holder)
 		return
@@ -73,7 +73,7 @@
 
 /client/proc/reload_whitelist()
 	set name = "Reload Whitelist"
-	set category = "-Server-"
+	set category = "🖳︎ SERVER"
 
 	if(!src.holder)
 		return

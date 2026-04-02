@@ -108,7 +108,7 @@
 			host.vore_selected.update_internal_overlay()
 			. = TRUE
 		if("b_custom_reagentcolor")
-			var/newcolor = sanitize_hexcolor(lowertext(params["val"]))
+			var/newcolor = sanitize_hexcolor(lowertext(params["val"]), include_crunch = TRUE)
 			if(newcolor)
 				host.vore_selected.custom_reagentcolor = newcolor
 			else
@@ -143,7 +143,7 @@
 			host.vore_selected.update_internal_overlay()
 			. = TRUE
 		if("b_mush_color")
-			var/newcolor = sanitize_hexcolor(lowertext(params["val"]))
+			var/newcolor = sanitize_hexcolor(lowertext(params["val"]), include_crunch = TRUE)
 			if(newcolor)
 				host.vore_selected.mush_color = newcolor
 				host.vore_selected.update_internal_overlay()
@@ -200,7 +200,7 @@
 			host.vore_selected.update_internal_overlay()
 			. = TRUE
 		if("b_custom_ingested_color")
-			var/newcolor = sanitize_hexcolor(lowertext(params["val"]))
+			var/newcolor = sanitize_hexcolor(lowertext(params["val"]), include_crunch = TRUE)
 			if(newcolor)
 				host.vore_selected.custom_ingested_color = newcolor
 			else

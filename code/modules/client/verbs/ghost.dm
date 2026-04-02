@@ -63,7 +63,7 @@ GLOBAL_LIST_INIT(ghost_verbs, list(
 
 /mob/verb/returntolobby()
 	set name = "{RETURN TO LOBBY}"
-	set category = "Options"
+	set category = "OPTIONS"
 	set hidden = 1
 
 	if(key)

@@ -86,7 +86,7 @@ SUBSYSTEM_DEF(events)
 // REEEEEEEEE
 /client/proc/forceEvent()
 	set name = "Trigger Event"
-	set category = "-GameMaster-"
+	set category = "🕮 GM"
 	if(!holder ||!check_rights(R_FUN))
 		return
 	holder.forceEvent(usr)
@@ -96,7 +96,7 @@ SUBSYSTEM_DEF(events)
 
 /client/proc/forceGamemode()
 	set name = "Open Storyteller Panel"
-	set category = "-GameMaster-"
+	set category = "🕮 GM"
 	if(!holder ||!check_rights(R_FUN))
 		return
 	holder.forceGamemode(usr)

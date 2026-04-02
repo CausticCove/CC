@@ -130,8 +130,9 @@
 		return
 	if(user.incapacitated())
 		return
-	if(!user.mind)
-		return
+	if(user.client) //CC Edit - Check for NPC handling since this got removed for some reason and hoblins couldn't use specials.
+		if(!user.mind)
+			return
 	if(user.has_status_effect(/datum/status_effect/debuff/specialcd))
 		return
 

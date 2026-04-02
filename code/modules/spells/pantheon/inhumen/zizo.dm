@@ -16,6 +16,9 @@
 	recharge_time = 10 SECONDS
 	hide_charge_effect = TRUE // Left handed magick babe
 
+	//CC Edit
+	spell_logic = LOGIC_COMBAT
+
 /obj/effect/proc_holder/spell/invoked/projectile/profane/miracle
 	miracle = TRUE
 	devotion_cost = 15
@@ -134,6 +137,9 @@
 		)
 	hide_charge_effect = TRUE
 
+	//CC Edit
+	spell_logic = LOGIC_NONE
+
 /obj/effect/proc_holder/spell/invoked/rituos/miracle
 	miracle = TRUE
 	devotion_cost = 120
@@ -243,6 +249,9 @@
 	miracle = TRUE
 	devotion_cost = 30
 	range = 2
+
+	//CC Edit
+	spell_logic = LOGIC_NONE // Just a total stamina an devotion drain.
 
 /obj/effect/proc_holder/spell/self/zizo_snuff/cast(list/targets, mob/user = usr)
 	. = ..()

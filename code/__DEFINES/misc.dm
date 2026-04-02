@@ -15,42 +15,48 @@
 #define ISDIAGONALDIR(d) (d&(d-1))
 
 //Human Overlays Indexes/////////
-#define JOYBRINGER_LAYER		55
-#define BLACK_ROT_LAYER			54
-#define POTENCE_LAYER			53
-#define MUTATIONS_LAYER			52		//mutations. Tk headglows, cold resistance glow, etc
-#define CLOAK_BEHIND_LAYER		51
-#define HANDS_BEHIND_LAYER		50
-#define BELT_BEHIND_LAYER		49
-#define BACK_BEHIND_LAYER		48
-#define BODY_BEHIND_LAYER		47		//certain mutantrace features (tail when looking south) that must appear behind the body parts
-#define BODY_UNDER_LAYER		46		// Things under the bodyparts but above the "behind body" layer
-#define BODYPARTS_LAYER			45		//Initially "AUGMENTS", this was repurposed to be a catch-all bodyparts flag
-#define BODY_ADJ_LAYER			44		//certain mutantrace features (snout, body markings) that must appear above the body parts
-#define BODY_LAYER				43		//underwear, undershirts, socks, eyes, lips(makeup)
-#define FRONT_MUTATIONS_LAYER	42		//mutations that should appear above body, body_adj and bodyparts layer (e.g. laser eyes)
-#define DAMAGE_LAYER			41		//damage indicators (cuts and burns)
-#define LEG_PART_LAYER			40
-#define LEGWEAR_LAYER			39
-#define PANTS_LAYER				38
-#define LEG_DAMAGE_LAYER		37
-#define LEGSLEEVE_LAYER			36
-#define SHOES_LAYER				35
-#define SHOESLEEVE_LAYER		34
-#define SHIRT_LAYER				33
-#define WRISTS_LAYER			32
-#define ARMOR_LAYER				31
-#define TABARD_LAYER			30
-#define BELT_LAYER				29		//only when looking south
-#define UNDER_CLOAK_LAYER		28
-#define HANDS_PART_LAYER		27
-#define GLOVES_LAYER			26
-#define ARM_DAMAGE_LAYER		25
-#define SHIRTSLEEVE_LAYER		24
-#define WRISTSLEEVE_LAYER		23
-#define ARMORSLEEVE_LAYER		22
-#define GLOVESLEEVE_LAYER		21
-#define RING_LAYER				20
+//Caustic Edit - I give up, I tried to avoid adding new layers for genitals and everything, but I think I have to at this point aaaaaa.
+#define JOYBRINGER_LAYER		60
+#define BLACK_ROT_LAYER			59
+#define POTENCE_LAYER			58
+#define MUTATIONS_LAYER			57		//mutations. Tk headglows, cold resistance glow, etc
+#define CLOAK_BEHIND_LAYER		56
+#define HANDS_BEHIND_LAYER		55
+#define BELT_BEHIND_LAYER		54
+#define BACK_BEHIND_LAYER		53
+#define BODY_BEHIND_LAYER		52		//certain mutantrace features (tail when looking south) that must appear behind the body parts
+#define BODY_UNDER_LAYER		51		// Things under the bodyparts but above the "behind body" layer
+#define BODYPARTS_LAYER			50		//Initially "AUGMENTS", this was repurposed to be a catch-all bodyparts flag
+#define BODY_ADJ_LAYER			49		//certain mutantrace features (snout, body markings) that must appear above the body parts
+#define BODY_LAYER				48		//underwear, undershirts, socks, eyes, lips(makeup)
+#define FRONT_MUTATIONS_LAYER	47		//mutations that should appear above body, body_adj and bodyparts layer (e.g. laser eyes)
+#define DAMAGE_LAYER			46		//damage indicators (cuts and burns)
+#define LEG_PART_LAYER			45
+#define LEGWEAR_LAYER			44
+#define PANTS_LAYER				43
+#define LEG_DAMAGE_LAYER		42
+#define LEGSLEEVE_LAYER			41
+#define SHOES_LAYER				40
+#define SHOESLEEVE_LAYER		39
+#define ASS_LAYER				38		//Caustic Added
+#define TESTICLES_LAYER			37		//Caustic Added
+#define CROTCH_LAYER			36		//Caustic Added
+#define SHIRT_LAYER				35
+#define WRISTS_LAYER			34
+#define ARMOR_LAYER				33
+#define TABARD_LAYER			32
+#define BELT_LAYER				31		//only when looking south
+#define UNDER_CLOAK_LAYER		30
+#define HANDS_PART_LAYER		29
+#define GLOVES_LAYER			28
+#define ARM_DAMAGE_LAYER		27
+#define SHIRTSLEEVE_LAYER		26
+#define WRISTSLEEVE_LAYER		25
+#define ARMORSLEEVE_LAYER		24
+#define GLOVESLEEVE_LAYER		23
+#define RING_LAYER				22
+#define BELLY_LAYER				21		//Caustic Added
+#define BREASTS_LAYER			20		//Caustic Added
 #define GLASSES_LAYER			19
 #define NECK_LAYER				18
 #define CLOAK_LAYER				17		//only when looking north or west/east
@@ -70,7 +76,8 @@
 #define SUNDER_LAYER			3
 #define FIRE_LAYER				2		//If you're on fire
 #define TURF_LAYER				1		//If you're on fire
-#define TOTAL_LAYERS			55		//KEEP THIS UP-TO-DATE OR SHIT WILL BREAK ;_;
+#define TOTAL_LAYERS			60		//KEEP THIS UP-TO-DATE OR SHIT WILL BREAK ;_;
+//Caustic Edit End
 
 #define BACK_CLOAK_SOUTH_LAYER		(BODY_BEHIND_LAYER+1)
 
@@ -83,8 +90,6 @@
 //AND -1 MEANS "ABOVE", OK?, OK!?!
 #define ABOVE_SHOES_LAYER			(SHOES_LAYER-1)
 //Caustic Cove edit, just puts this on top of all the other new layers. Also defining in seperate file doesn't work, likely because it doesn't see the above in a seperate file.
-#define BODY_ASS_LAYER				(LEG_PART_LAYER-1)
-#define BODY_NOTSOFRONT_LAYER		(BODY_FRONT_LAYER+1)
 #define BODY_FRONTER_LAYER			(BODY_FRONT_LAYER-1) // Makes mini-layers on your layers without having to add any more actual layers! Used for proper organ layers
 #define BODY_FRONTEST_LAYER			(BODY_FRONT_LAYER-2)
 #define ABOVE_BODY_FRONT_LAYER		(BODY_FRONT_LAYER-3)

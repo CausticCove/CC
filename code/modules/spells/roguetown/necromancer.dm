@@ -19,6 +19,9 @@
 	miracle = FALSE
 	zizo_spell = TRUE
 
+	//CC Edit
+	spell_logic = LOGIC_COMBAT
+
 /obj/effect/proc_holder/spell/invoked/bonechill/cast(list/targets, mob/living/user)
 	..()
 	if(!isliving(targets[1]))
@@ -57,6 +60,9 @@
 	miracle = FALSE
 	hide_charge_effect = TRUE
 
+	//CC Edit
+	spell_logic = LOGIC_COMBAT
+
 /obj/effect/proc_holder/spell/invoked/eyebite/cast(list/targets, mob/living/user)
 	..()
 	if(!isliving(targets[1]))
@@ -89,14 +95,18 @@
 	var/to_spawn = 4
 	hide_charge_effect = TRUE
 
+	//CC Edit
+	spell_logic = LOGIC_STRUCTURE
+
 /obj/effect/proc_holder/spell/invoked/raise_undead_formation/cast(list/targets, mob/living/user)
 	..()
 	// Caustic Edit Start
 	// Just in case the user doesn't have the spells to manage their minions
-	if(!user.mind.has_spell(/obj/effect/proc_holder/spell/invoked/minion_order))
-		user.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/minion_order)
-	if(!user.mind.has_spell(/obj/effect/proc_holder/spell/invoked/gravemark))
-		user.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/gravemark)
+	if(user.client) // Only add to clients.
+		if(!user.mind.has_spell(/obj/effect/proc_holder/spell/invoked/minion_order))
+			user.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/minion_order)
+		if(!user.mind.has_spell(/obj/effect/proc_holder/spell/invoked/gravemark))
+			user.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/gravemark)
 	// Caustic Edit End
 
 	if(istype(get_area(user), /area/rogue/indoors/ravoxarena))
@@ -170,12 +180,16 @@
 	recharge_time = 30 SECONDS
 	hide_charge_effect = TRUE
 
+	//CC Edit
+	spell_logic = LOGIC_STRUCTURE
+
 /obj/effect/proc_holder/spell/invoked/raise_undead_guard/cast(list/targets, mob/living/user)
 	..()
 	// Caustic Edit Start - Adds Gravmark
 	// We don't give "Order Minion" here because it by design does not work with the stronger undead.
-	if(!user.mind.has_spell(/obj/effect/proc_holder/spell/invoked/gravemark))
-		user.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/gravemark)
+	if(user.client) //Only add to clients.
+		if(!user.mind.has_spell(/obj/effect/proc_holder/spell/invoked/gravemark))
+			user.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/gravemark)
 	// Caustic Edit End
 
 	if(istype(get_area(user), /area/rogue/indoors/ravoxarena))
@@ -191,7 +205,7 @@
 	new /obj/effect/temp_visual/gib_animation(T, "gibbed-h")
 	var/mob/living/skeleton_new = new /mob/living/carbon/human/species/skeleton/npc/bogguard(T, user)
 	spawn(11) //Ashamed of this but I hate how after_creation() uses spawn too and I'm not making a timer for this. Proc needs a look-over. - Ryan
-		skeleton_new.faction |= list("cabal", "[user.mind.current.real_name]_faction")
+		skeleton_new.faction |= list("cabal", "[user.real_name]_faction")
 	return TRUE
 
 
@@ -209,6 +223,9 @@
 	gesture_required = TRUE
 	chargedloop = /datum/looping_sound/invokegen
 	no_early_release = TRUE
+
+	//CC Edit
+	spell_logic = LOGIC_NONE
 
 /obj/effect/proc_holder/spell/invoked/tame_undead/cast(list/targets, mob/living/user)
 	..()
@@ -259,6 +276,9 @@
 	associated_skill = /datum/skill/magic/arcane
 	recharge_time = 15 SECONDS
 
+	//CC Edit
+	spell_logic = LOGIC_COMBAT
+
 /obj/effect/proc_holder/spell/invoked/gravemark
 	name = "Gravemark"
 	desc = "Adds or removes a target from the list of allies exempt from your undead's aggression."
@@ -270,6 +290,9 @@
 	antimagic_allowed = TRUE
 	recharge_time = 15 SECONDS
 	hide_charge_effect = TRUE
+
+	//CC Edit
+	spell_logic = LOGIC_NONE //It would apply over and over and take em on and off its not worth it.
 
 /obj/effect/proc_holder/spell/invoked/gravemark/cast(list/targets, mob/living/user)
 	. = ..()

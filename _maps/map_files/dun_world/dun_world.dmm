@@ -1556,8 +1556,8 @@
 /turf/open/transparent/openspace,
 /area/rogue/druidsgrove)
 "aqV" = (
-/obj/item/roguegem/random,
-/obj/item/roguegem/random,
+/obj/effect/spawner/lootdrop/roguegem/random,
+/obj/effect/spawner/lootdrop/roguegem/random,
 /turf/open/floor/rogue/metal/barograte/open,
 /area/rogue/under/underdark/north)
 "arh" = (
@@ -2606,7 +2606,7 @@
 /turf/open/floor/rogue/dirt/road,
 /area/rogue/outdoors/mountains)
 "aEe" = (
-/obj/item/roguegem/random,
+/obj/effect/spawner/lootdrop/roguegem/random,
 /turf/open/floor/rogue/dirt,
 /area/rogue/under/cave)
 "aEf" = (
@@ -6541,9 +6541,9 @@
 	locked = 1;
 	lockid = "shop"
 	},
-/obj/item/roguegem/random,
-/obj/item/roguegem/random,
-/obj/item/roguegem/random,
+/obj/effect/spawner/lootdrop/roguegem/random,
+/obj/effect/spawner/lootdrop/roguegem/random,
+/obj/effect/spawner/lootdrop/roguegem/random,
 /turf/open/floor/rogue/hexstone,
 /area/rogue/indoors/town/shop)
 "bxZ" = (
@@ -8731,7 +8731,7 @@
 /turf/open/floor/carpet/red,
 /area/rogue/indoors/town)
 "bYM" = (
-/obj/item/roguegem/random,
+/obj/effect/spawner/lootdrop/roguegem/random,
 /turf/open/floor/rogue/naturalstone,
 /area/rogue/outdoors/mountains)
 "bYP" = (
@@ -20870,7 +20870,7 @@
 /area/rogue/under/cave/mazedungeon)
 "eFe" = (
 /obj/structure/closet/crate/chest,
-/obj/item/roguegem/random,
+/obj/effect/spawner/lootdrop/roguegem/random,
 /turf/open/floor/rogue/naturalstone,
 /area/rogue/under/cave)
 "eFg" = (
@@ -21744,7 +21744,7 @@
 /turf/open/floor/rogue/cobble,
 /area/rogue/outdoors/mountains/decap/gunduzirak)
 "eON" = (
-/obj/item/roguegem/random,
+/obj/effect/spawner/lootdrop/roguegem/random,
 /turf/open/floor/rogue/dirt,
 /area/rogue/indoors/cave/southern)
 "ePg" = (
@@ -28285,7 +28285,7 @@
 /turf/open/floor/rogue/AzureSand,
 /area/rogue/outdoors/rtfield)
 "gmT" = (
-/obj/item/roguegem/random,
+/obj/effect/spawner/lootdrop/roguegem/random,
 /turf/open/floor/rogue/dirt,
 /area/rogue/under/cavewet/bogcaves/north)
 "gmX" = (
@@ -35067,7 +35067,7 @@
 /turf/open/floor/rogue/concrete,
 /area/rogue/under/town/sewer)
 "hKU" = (
-/obj/item/roguegem/random,
+/obj/effect/spawner/lootdrop/roguegem/random,
 /turf/open/floor/rogue/dirt,
 /area/rogue/under/cave/orcdungeon)
 "hKV" = (
@@ -35802,7 +35802,7 @@
 /area/rogue/outdoors/rtfield)
 "hUo" = (
 /obj/structure/closet/crate/chest,
-/obj/item/roguegem/random,
+/obj/effect/spawner/lootdrop/roguegem/random,
 /turf/open/floor/rogue/naturalstone,
 /area/rogue/under/cavewet/bogcaves/north)
 "hUv" = (
@@ -38612,7 +38612,7 @@
 /turf/open/floor/rogue/churchmarble,
 /area/rogue/under/cave/scarymaze)
 "iyf" = (
-/obj/item/roguegem/random,
+/obj/effect/spawner/lootdrop/roguegem/random,
 /turf/open/floor/rogue/dirt/road,
 /area/rogue/indoors/cave/east)
 "iys" = (
@@ -41611,7 +41611,7 @@
 /turf/open/floor/rogue/hexstone,
 /area/rogue/indoors/shelter/mountains/decap)
 "jiu" = (
-/obj/structure/flora/rogueshroom/happy/random,
+/obj/effect/spawner/lootdrop/rogueshroom/happy/random,
 /turf/open/floor/rogue/dirt,
 /area/rogue/indoors/cave)
 "jiA" = (
@@ -48587,7 +48587,7 @@
 /turf/open/floor/rogue/ruinedwood/spiral,
 /area/rogue/outdoors/town)
 "kHr" = (
-/obj/item/roguegem/random,
+/obj/effect/spawner/lootdrop/roguegem/random,
 /turf/open/floor/rogue/naturalstone,
 /area/rogue/under/cave)
 "kHS" = (
@@ -51853,7 +51853,7 @@
 /obj/structure/table/wood/long_table,
 /obj/item/ingot/steel,
 /obj/item/ingot/steel,
-/obj/item/roguegem/random,
+/obj/effect/spawner/lootdrop/roguegem/random,
 /turf/open/floor/rogue/hexstone,
 /area/rogue/under/cave/fishmandungeon)
 "lpL" = (
@@ -55112,7 +55112,7 @@
 /turf/open/floor/rogue/concrete,
 /area/rogue/indoors/town)
 "lZg" = (
-/obj/item/roguegem/random,
+/obj/effect/spawner/lootdrop/roguegem/random,
 /turf/open/floor/rogue/dirt,
 /area/rogue/indoors/cave)
 "lZk" = (
@@ -62499,7 +62499,7 @@
 /obj/effect/decal/cleanable/dirt/cobweb{
 	dir = 1
 	},
-/obj/item/roguegem/random,
+/obj/effect/spawner/lootdrop/roguegem/random,
 /turf/open/floor/rogue/naturalstone,
 /area/rogue/outdoors/mountains)
 "nLC" = (
@@ -65241,7 +65241,7 @@
 "orC" = (
 /obj/structure/closet/crate/chest/lootbox,
 /obj/machinery/light/rogue/candle/blue,
-/obj/item/roguegem/random,
+/obj/effect/spawner/lootdrop/roguegem/random,
 /turf/open/floor/rogue/tile,
 /area/rogue/indoors/shelter/mountains/decap)
 "orD" = (
@@ -68093,7 +68093,7 @@
 	dir = 10;
 	pixel_y = 1
 	},
-/obj/item/roguegem/random,
+/obj/effect/spawner/lootdrop/roguegem/random,
 /turf/open/floor/rogue/cobble/mossy,
 /area/rogue/outdoors/bog/south)
 "oTN" = (
@@ -83720,7 +83720,7 @@
 	locked = 1;
 	lockid = "psy_bog_dung_lootkey_two"
 	},
-/obj/item/roguegem/random,
+/obj/effect/spawner/lootdrop/roguegem/random,
 /turf/open/floor/rogue/naturalstone,
 /area/rogue/under/cave/his_vault)
 "suY" = (
@@ -84029,7 +84029,7 @@
 	lockid = "craftermaster"
 	},
 /obj/effect/spawner/lootdrop/roguetown/dungeon/money,
-/obj/item/roguegem/random,
+/obj/effect/spawner/lootdrop/roguegem/random,
 /obj/effect/spawner/lootdrop/roguetown/dungeon/money,
 /obj/structure/roguemachine/atm,
 /obj/effect/spawner/lootdrop/roguetown/dungeon/money,
@@ -84244,7 +84244,7 @@
 /turf/open/transparent/openspace,
 /area/rogue/indoors)
 "sAq" = (
-/obj/item/roguegem/random,
+/obj/effect/spawner/lootdrop/roguegem/random,
 /turf/open/floor/rogue/cobblerock,
 /area/rogue/outdoors/mountains/decap)
 "sAr" = (
@@ -84503,7 +84503,7 @@
 /turf/open/floor/rogue/ruinedwood/spiral,
 /area/rogue/indoors)
 "sDO" = (
-/obj/structure/flora/rogueshroom/happy/random,
+/obj/effect/spawner/lootdrop/rogueshroom/happy/random,
 /turf/open/floor/rogue/dirt/road,
 /area/rogue/under/underdark/north)
 "sDQ" = (
@@ -85432,7 +85432,7 @@
 /turf/open/floor/rogue/dirt/road,
 /area/rogue/outdoors/rtfield)
 "sOE" = (
-/obj/item/roguegem/random,
+/obj/effect/spawner/lootdrop/roguegem/random,
 /turf/open/floor/rogue/naturalstone,
 /area/rogue/outdoors/mountains/decap/minotaurfort)
 "sOH" = (
@@ -85526,7 +85526,7 @@
 /turf/open/floor/rogue/cobblerock,
 /area/rogue/outdoors/town)
 "sPU" = (
-/obj/item/roguegem/random,
+/obj/effect/spawner/lootdrop/roguegem/random,
 /turf/open/floor/rogue/naturalstone,
 /area/rogue/indoors/cave)
 "sPX" = (
@@ -92747,8 +92747,8 @@
 /area/rogue/under/town/basement/keep)
 "uuc" = (
 /obj/structure/table/vtable,
-/obj/item/roguegem/random,
-/obj/item/roguegem/random,
+/obj/effect/spawner/lootdrop/roguegem/random,
+/obj/effect/spawner/lootdrop/roguegem/random,
 /turf/open/floor/rogue/churchbrick,
 /area/rogue/under/cave/mazedungeon)
 "uuh" = (
@@ -96447,7 +96447,7 @@
 /obj/structure/fluff/walldeco/bigpainting/lake,
 /obj/effect/spawner/lootdrop/valuable_jewelry_spawner,
 /obj/effect/spawner/lootdrop/valuable_jewelry_spawner,
-/obj/item/roguegem/random,
+/obj/effect/spawner/lootdrop/roguegem/random,
 /turf/open/floor/rogue/carpet/lord/center,
 /area/rogue/under/cave/licharena/bossroom)
 "vkz" = (
@@ -98836,7 +98836,7 @@
 	},
 /obj/effect/spawner/lootdrop/valuable_jewelry_spawner,
 /obj/effect/spawner/lootdrop/valuable_jewelry_spawner,
-/obj/item/roguegem/random,
+/obj/effect/spawner/lootdrop/roguegem/random,
 /turf/open/floor/rogue/carpet/lord/center,
 /area/rogue/under/cave/licharena/bossroom)
 "vLw" = (
@@ -99163,7 +99163,7 @@
 /area/rogue/indoors/town/garrison)
 "vOE" = (
 /mob/living/simple_animal/hostile/retaliate/rogue/infernal/imp,
-/obj/item/roguegem/random,
+/obj/effect/spawner/lootdrop/roguegem/random,
 /turf/open/floor/rogue/church,
 /area/rogue/under/cave/goblinfort)
 "vOG" = (
@@ -103838,7 +103838,7 @@
 /area/rogue/outdoors/rtfield/eora)
 "wPD" = (
 /obj/structure/closet/crate/chest/neu_fancy,
-/obj/item/roguegem/random,
+/obj/effect/spawner/lootdrop/roguegem/random,
 /turf/open/floor/rogue/ruinedwood,
 /area/rogue/indoors/shelter)
 "wPE" = (
@@ -104135,7 +104135,7 @@
 /turf/open/floor/rogue/metal/barograte/open,
 /area/rogue/under/underdark/south)
 "wSV" = (
-/obj/item/roguegem/random,
+/obj/effect/spawner/lootdrop/roguegem/random,
 /turf/open/floor/rogue/naturalstone,
 /area/rogue/outdoors/rtfield)
 "wSY" = (
@@ -109821,7 +109821,7 @@
 /area/rogue/indoors/shelter/mountains/decap)
 "ygz" = (
 /obj/structure/closet/crate/chest/neu_fancy,
-/obj/item/roguegem/random,
+/obj/effect/spawner/lootdrop/roguegem/random,
 /turf/open/floor/rogue/herringbone,
 /area/rogue/under/cave/dungeon1/gethsmane/inner)
 "ygB" = (

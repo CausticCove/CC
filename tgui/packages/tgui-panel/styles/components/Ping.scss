@@ -14,6 +14,7 @@
   min-width: 4em;
   max-width: 5em;
   text-align: right;
+  user-select: 'none';
 }
 
 .Ping__indicator {
@@ -25,4 +26,5 @@
   height: 0.5em;
   background-color: hsl(0, 0%, 53.3%);
   border-radius: var(--border-radius-medium);
+  user-select: 'none';
 }

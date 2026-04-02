@@ -572,7 +572,7 @@
 /turf/open/floor/rogue/dirt/road,
 /area/rogue/under/tomb)
 "XO" = (
-/obj/structure/flora/rogueshroom/happy/random,
+/obj/effect/spawner/lootdrop/rogueshroom/happy/random,
 /turf/open/water/swamp,
 /area/rogue/under/tomb/cave)
 "XV" = (

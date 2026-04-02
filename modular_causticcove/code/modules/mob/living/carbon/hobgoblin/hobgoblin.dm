@@ -11,12 +11,13 @@
 	bodyparts = list(/obj/item/bodypart/chest/hobgoblin, /obj/item/bodypart/head/hobgoblin, /obj/item/bodypart/l_arm/hobgoblin,
 					/obj/item/bodypart/r_arm/hobgoblin, /obj/item/bodypart/r_leg/hobgoblin, /obj/item/bodypart/l_leg/hobgoblin)
 	rot_type = /datum/component/rot/corpse/goblin
-	var/hobgob_outfit = /datum/outfit/job/roguetown/npc/hobgoblin
+	var/hobgob_outfit = /datum/outfit/job/roguetown/npc/hobgoblin/default
 	ambushable = FALSE
 	base_intents = list(INTENT_HELP, INTENT_DISARM, INTENT_GRAB, /datum/intent/unarmed/claw)
 	a_intent = INTENT_HELP
 	possible_mmb_intents = list(INTENT_SPECIAL, INTENT_JUMP, INTENT_KICK, INTENT_BITE)
 	possible_rmb_intents = list(/datum/rmb_intent/feint, /datum/rmb_intent/swift, /datum/rmb_intent/riposte, /datum/rmb_intent/strong) //Strong intent for strong mob...
+
 
 //////////////////   BODYPARTS	//////////////////
 	//I am going to experiment with pain with Hobgoblins, and eventually spread to other mobs if this feels right.
@@ -132,6 +133,7 @@
 			headdy.icon_state = "[src.dna.species.id]_head"
 			headdy.sellprice = 40 // Double the value, double the threat.
 	src.grant_language(/datum/language/orcish)
+	language_holder.only_speaks_language = /datum/language/orcish //Only speak Orcish for when we cast spells.
 	var/obj/item/organ/eyes/eyes = src.getorganslot(ORGAN_SLOT_EYES)
 	if(eyes)
 		eyes.Remove(src,1)
@@ -158,7 +160,7 @@
 
 //////////////////   OUTFITS	//////////////////
 
-/datum/outfit/job/roguetown/npc/hobgoblin/pre_equip(mob/living/carbon/human/H)
+/datum/outfit/job/roguetown/npc/hobgoblin/default/pre_equip(mob/living/carbon/human/H)
 	..()
 	var/chance_zjumper = 25 //We are REALLY smart compared to goblins; Let us chase after these puny adventurers!!!
 	var/chance_treeclimber = 50
@@ -243,3 +245,48 @@
 	H.adjust_skillrank(/datum/skill/combat/wrestling, 3, TRUE) // Average Advent Dueler
 	H.adjust_skillrank(/datum/skill/misc/swimming, 3, TRUE)
 	H.adjust_skillrank(/datum/skill/misc/climbing, 3, TRUE)
+
+
+/datum/outfit/job/roguetown/npc/hobgoblin/miracle_worker/pre_equip(mob/living/carbon/human/H)
+	..()
+	var/chance_zjumper = 5
+	var/chance_treeclimber = 50
+
+	H.STASTR = 6
+	H.STAINT = 12 //We commune with Graggar! We're smarter than the rest.
+	H.STACON = 8
+	H.STAWIL = 6
+	H.STASPD = 12
+
+	if(prob(chance_zjumper))
+		ADD_TRAIT(H, TRAIT_ZJUMP, TRAIT_GENERIC)
+		H.find_targets_above = TRUE
+	if(prob(chance_treeclimber))
+		H.tree_climber = TRUE
+		H.find_targets_above = TRUE // so they can taunt
+
+	var/loadout = rand(1,2)
+
+	switch(loadout)
+		if(1) //Spear and Leathers
+			r_hand = /obj/item/rogueweapon/spear/bonespear
+			if(prob(50))
+				head = /obj/item/clothing/head/roguetown/helmet/hobgoblin
+			neck = /obj/item/clothing/neck/roguetown/psicross/inhumen/graggar
+		if(2) //Axe and Leathers
+			r_hand = /obj/item/rogueweapon/woodstaff/quarterstaff/iron
+			if(prob(50))
+				head = /obj/item/clothing/head/roguetown/helmet/leather/hobgoblin
+			neck = /obj/item/clothing/neck/roguetown/psicross/inhumen/graggar
+
+	H.adjust_skillrank(/datum/skill/combat/polearms, 3, TRUE)
+	H.adjust_skillrank(/datum/skill/combat/maces, 1, TRUE)
+	H.adjust_skillrank(/datum/skill/combat/axes, 1, TRUE)
+	H.adjust_skillrank(/datum/skill/combat/swords, 1, TRUE)
+	H.adjust_skillrank(/datum/skill/combat/knives, 1, TRUE)
+	H.adjust_skillrank(/datum/skill/combat/shields, 1, TRUE)
+	H.adjust_skillrank(/datum/skill/combat/unarmed, 2, TRUE)
+	H.adjust_skillrank(/datum/skill/combat/wrestling, 2, TRUE) // Average Advent Dueler
+	H.adjust_skillrank(/datum/skill/misc/swimming, 4, TRUE)
+	H.adjust_skillrank(/datum/skill/misc/climbing, 4, TRUE)
+	H.adjust_skillrank(/datum/skill/misc/athletics, 3, TRUE) //Spellcasters!

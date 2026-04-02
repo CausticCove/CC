@@ -815,7 +815,17 @@
 	static_debris = null
 	mush_animate = FALSE
 
-/obj/structure/flora/rogueshroom/happy/random
+//CC Edit Begin - Because holy shit these Hdels.
+/obj/effect/spawner/lootdrop/rogueshroom/happy/random
+	loot = list(/obj/structure/flora/rogueshroom/happy	= 249,
+		/obj/structure/flora/rogueshroom/happy/white	= 249,
+		/obj/structure/flora/rogueshroom/happy/fat   	= 249,
+		/obj/structure/flora/rogueshroom/happy/angel 	= 249,
+		/obj/structure/flora/rogueshroom/happy/metal 	= 1,
+	)
+	fan_out_items = FALSE
+
+/* /obj/structure/flora/rogueshroom/happy/random
 
 /obj/structure/flora/rogueshroom/happy/random/Initialize()
 	. = ..()
@@ -828,7 +838,8 @@
 	)
 	var/mushroom_type = pickweight(mushroom_types)
 	new mushroom_type(loc)
-	qdel(src)
+	qdel(src) */
+//CC Edit End - For future reference, loot drops are way more efficient than deleting a whole mushroom object. 
 
 /obj/structure/flora/rogueshroom/happy/New(loc)
 	..()

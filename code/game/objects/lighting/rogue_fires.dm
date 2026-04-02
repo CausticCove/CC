@@ -269,6 +269,11 @@
 	. = ..()
 	START_PROCESSING(SSobj,AM)
 
+//This thing does NOT light! I am NOT wanting to process this!
+/obj/machinery/light/rogue/torchholder/process()
+	STOP_PROCESSING(SSmachines, src)
+	
+
 //CC Edit end
 
 /obj/machinery/light/rogue/torchholder/c

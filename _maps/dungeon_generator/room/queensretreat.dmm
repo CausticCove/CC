@@ -552,7 +552,7 @@
 	},
 /obj/structure/table/wood,
 /obj/effect/spawner/lootdrop/general_loot_hi,
-/obj/item/roguegem/random,
+/obj/effect/spawner/lootdrop/roguegem/random,
 /turf/open/floor/rogue/ruinedwood/spiral,
 /area/rogue/under/tomb/indoors/royal)
 "vK" = (

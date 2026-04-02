@@ -1,5 +1,5 @@
 /client/proc/Debug2()
-	set category = "Debug"
+	set category = "🛠 DEBUG"
 	set name = "Debug-Game"
 	if(!check_rights(R_DEBUG))
 		return
@@ -26,7 +26,7 @@ Because if you select a player mob as owner it tries to do the proc for
 But you can call procs that are of type /mob/living/carbon/human/proc/ for that player.
 */
 /client/proc/cmd_admin_animalize(mob/M in GLOB.mob_list)
-	set category = "-GameMaster-"
+	set category = "🕮 GM"
 	set name = "Make Simple Animal"
 
 	if(!SSticker.HasRoundStarted())
@@ -46,7 +46,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 
 //TODO: merge the vievars version into this or something maybe mayhaps
 /client/proc/cmd_debug_del_all(object as text)
-	set category = "Debug"
+	set category = "🛠 DEBUG"
 	set name = "Del-All"
 
 	var/list/matches = get_fancy_list_of_atom_types()
@@ -69,7 +69,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Delete All") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/cmd_assume_direct_control(mob/M in GLOB.mob_list)
-	set category = "-Admin-"
+	set category = "⚡︎ ADMIN"
 	set name = "Direct control..."
 	set desc = ""
 
@@ -211,7 +211,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	cmd_admin_areatest(FALSE)
 
 /client/proc/cmd_admin_dress(mob/M in GLOB.mob_list)
-	set category = "-GameMaster-"
+	set category = "🕮 GM"
 	set name = "Select Loadout"
 	if(!(ishuman(M) || isobserver(M)))
 		alert("Invalid mob")
@@ -1322,7 +1322,7 @@ GLOBAL_LIST_EMPTY(loadout_selected_advclasses)
 	to_chat(target, span_notice("Job traits have been copied, but your racial traits remain unchanged."))
 
 /client/proc/cmd_debug_mob_lists()
-	set category = "Debug"
+	set category = "🛠 DEBUG"
 	set name = "Debug Mob Lists"
 	set desc = ""
 
@@ -1343,7 +1343,7 @@ GLOBAL_LIST_EMPTY(loadout_selected_advclasses)
 			to_chat(usr, jointext(GLOB.joined_player_list,","))
 
 /client/proc/cmd_display_del_log()
-	set category = "Debug"
+	set category = "🛠 DEBUG"
 	set name = "Display del() Log"
 	set desc = ""
 
@@ -1372,21 +1372,21 @@ GLOBAL_LIST_EMPTY(loadout_selected_advclasses)
 	usr << browse(dellog.Join(), "window=dellog")
 
 /client/proc/cmd_display_overlay_log()
-	set category = "Debug"
+	set category = "🛠 DEBUG"
 	set name = "Display overlay Log"
 	set desc = ""
 
 	render_stats(SSoverlays.stats, src)
 
 /client/proc/cmd_display_init_log()
-	set category = "Debug"
+	set category = "🛠 DEBUG"
 	set name = "Display Initialize() Log"
 	set desc = ""
 
 	usr << browse(replacetext(SSatoms.InitLog(), "\n", "<br>"), "window=initlog")
 
 /client/proc/debug_huds(i as num)
-	set category = "Debug"
+	set category = "🛠 DEBUG"
 	set name = "Debug HUDs"
 	set desc = ""
 
@@ -1395,7 +1395,7 @@ GLOBAL_LIST_EMPTY(loadout_selected_advclasses)
 	debug_variables(GLOB.huds[i])
 
 /client/proc/jump_to_ruin()
-	set category = "Debug"
+	set category = "🛠 DEBUG"
 	set name = "Jump to Ruin"
 	set desc = ""
 	if(!holder)
@@ -1427,7 +1427,7 @@ GLOBAL_LIST_EMPTY(loadout_selected_advclasses)
 		to_chat(usr, span_italics("[template.description]"))
 
 /client/proc/toggle_medal_disable()
-	set category = "Debug"
+	set category = "🛠 DEBUG"
 	set name = "Toggle Medal Disable"
 	set desc = ""
 
@@ -1441,7 +1441,7 @@ GLOBAL_LIST_EMPTY(loadout_selected_advclasses)
 	log_admin("[key_name(src)] [SSachievements.hub_enabled ? "disabled" : "enabled"] the medal hub lockout.")
 
 /client/proc/view_runtimes()
-	set category = "Debug"
+	set category = "🛠 DEBUG"
 	set name = "View Runtimes"
 	set desc = ""
 
@@ -1451,7 +1451,7 @@ GLOBAL_LIST_EMPTY(loadout_selected_advclasses)
 	GLOB.error_cache.show_to(src)
 
 /client/proc/pump_random_event()
-	set category = "Debug"
+	set category = "🛠 DEBUG"
 	set name = "Pump Random Event"
 	set desc = ""
 	if(!holder)
@@ -1502,10 +1502,21 @@ GLOBAL_LIST_EMPTY(loadout_selected_advclasses)
 	profile_show(src, sort)
 
 /client/proc/reload_configuration()
-	set category = "Debug"
+	set category = "🛠 DEBUG"
 	set name = "Reload Configuration"
 	set desc = ""
 	if(!check_rights(R_DEBUG))
 		return
 	if(alert(usr, "Are you absolutely sure you want to reload the configuration from the default path on the disk, wiping any in-round modificatoins?", "Really reset?", "No", "Yes") == "Yes")
 		config.admin_reload()
+
+
+//CC Edit: Heck TGUI, seriously, why is this missing!
+/client/proc/allow_broser_inspect()
+	set category = "Debug"
+	set name = "Allow Browser Inspect"
+	set desc = ""
+	if(!check_rights(R_DEBUG))
+		return
+	to_chat(src, span_notice("You can now right click to use inspect on browsers."))
+	winset(src, null, list("browser-options" = "+devtools"))

@@ -484,7 +484,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 /mob/dead/observer/returntolobby(modifier as num)
 	set name = "{RETURN TO LOBBY}"
-	set category = "Options"
+	set category = "OPTIONS"
 	set hidden = 1
 	if (CONFIG_GET(flag/norespawn))
 		return

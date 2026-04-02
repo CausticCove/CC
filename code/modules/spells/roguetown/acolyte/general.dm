@@ -17,6 +17,9 @@
 	miracle = TRUE
 	devotion_cost = 10
 
+	//CC Edit
+	spell_logic = LOGIC_HEAL
+
 /obj/effect/proc_holder/spell/invoked/lesser_heal/cast(list/targets, mob/living/user)
 	. = ..()
 
@@ -108,6 +111,9 @@
 	miracle = TRUE
 	devotion_cost = 20
 
+	//CC Edit
+	spell_logic = LOGIC_SUPPORTIVE
+
 /obj/effect/proc_holder/spell/invoked/heal/cast(list/targets, mob/living/user)
 	. = ..()
 	if(isliving(targets[1]))
@@ -154,6 +160,9 @@
 	miracle = TRUE
 	devotion_cost = 10
 
+	//CC Edit
+	spell_logic = LOGIC_HEAL
+
 /obj/effect/proc_holder/spell/invoked/regression/cast(list/targets, mob/living/user)
 	. = ..()
 	if(isliving(targets[1]))
@@ -185,6 +194,9 @@
 	recharge_time = 20 SECONDS
 	miracle = TRUE
 	devotion_cost = 20
+
+	//CC Edit
+	spell_logic = LOGIC_SUPPORTIVE
 
 /obj/effect/proc_holder/spell/invoked/convergence/cast(list/targets, mob/living/user)
 	. = ..()
@@ -229,6 +241,9 @@
 	var/blood = 0
 	miracle = TRUE
 	devotion_cost = 30
+
+	//CC Edit
+	spell_logic = LOGIC_SUPPORTIVE
 
 /obj/effect/proc_holder/spell/invoked/stasis/cast(list/targets, mob/user = usr)
 	if(isliving(targets[1]))
@@ -337,6 +352,9 @@
 	var/delay = 4.5 SECONDS	//Reduced to 1.5 seconds with Legendary
 	devotion_cost = 100
 
+	//CC Edit
+	spell_logic = LOGIC_HEAL //May not work as intended due to requiring a targeted limb.
+
 /obj/effect/proc_holder/spell/invoked/wound_heal/cast(list/targets, mob/user = usr)
 	if(ishuman(targets[1]))
 	
@@ -413,6 +431,9 @@
 	var/vol_per_skill = 1	//54 with legendary
 	var/delay = 0.5 SECONDS
 
+	//CC Edit
+	spell_logic = LOGIC_HEAL_STATIONARY
+
 /obj/effect/proc_holder/spell/invoked/blood_heal/cast(list/targets, mob/user = usr)
 	if(ishuman(targets[1]))
 		var/mob/living/carbon/human/target = targets[1]
@@ -460,14 +481,30 @@
 					if(target.blood_volume >= BLOOD_VOLUME_NORMAL && !user_informed)
 						to_chat(UH, span_info("They're at a healthy blood level, but I can keep going."))
 						user_informed = TRUE
+						//CC Edit Begin
+						if(UH.mode) //Reminder this calls view(7, src) so only use on NPC's.
+							UH.allow_movement_again(TRUE)
+						//CC edit End
 				else
 					UH.visible_message(span_warning("Severs the bloodlink from [target]!"))
 					bloodbeam.End()
+					//CC Edit Begin
+					if(UH.mode) //Reminder this calls view(7, src) so only use on NPC's.
+						UH.allow_movement_again(TRUE)
+					//CC edit End
 					return TRUE
 			else
 				UH.visible_message(span_warning("Severs the bloodlink from [target]!"))
 				bloodbeam.End()
+				//CC Edit Begin
+				if(UH.mode) //Reminder this calls view(7, src) so only use on NPC's.
+					UH.allow_movement_again(TRUE)
+				//CC edit End
 				return TRUE
+		//CC Edit Begin
+		if(UH.mode) //Reminder this calls view(7, src) so only use on NPC's.
+			UH.allow_movement_again(TRUE)
+		//CC edit End
 		bloodbeam.End()
 		return TRUE
 	revert_cast()

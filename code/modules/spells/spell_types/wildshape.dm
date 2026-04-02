@@ -56,7 +56,16 @@
 		
 		choices[shape.name] = icon_img
 
-	var/new_wildshape_type = show_radial_menu(user, user, choices)
+	//CC Edit Begin
+	//Grab all of the possible choices and show a radial menu. If there is none, default to picking the first one.
+	//This should never runtime unless possible_shapes is empty.
+	var/new_wildshape_type
+	if(length(choices) > 1)
+		new_wildshape_type = show_radial_menu(user, user, choices)
+
+	if(!new_wildshape_type)
+		new_wildshape_type = choices[1]
+	//CC Edit End
 
 	if(!new_wildshape_type)
 		revert_cast()

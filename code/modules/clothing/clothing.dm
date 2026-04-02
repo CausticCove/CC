@@ -602,9 +602,11 @@ BLIND     // can't see anything
 
 	if(showcrits)
 		if(!prevent_crits)
+			str += "<br>"
 			str += "<text-align: center>"
 			str += "<b><font color = '#aa2121'>CRIT SUSCEPTIBLE!</font></b>"
 		else if(prevent_crits == PREVENT_CRITS_ALL)
+			str += "<br>"
 			str += "<text-align: center>"
 			str += "<b><font color = '#6890a7'>PICK RESISTANT</font></b>"
 

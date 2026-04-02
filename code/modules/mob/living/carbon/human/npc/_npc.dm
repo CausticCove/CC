@@ -1,6 +1,40 @@
 #define ATTACKS_UNTIL_SWITCHING_UP 3 // How many attack a NPC will use on the same place before switching it up
 GLOBAL_LIST_INIT(eatlines, world.file2list("strings/rt/evileatlines.txt"))
 
+//CC Edit Begin
+
+// These are internal variables that are handled with the check_target_type() proc
+// These are cached in last_targets in an alist for quickly referencing the targets so we do not have to check on each retaliate
+
+//For simple mobs or mobs with no mind.
+#define TARGET_SIMPLE 0 
+//For ranged mobs, this includes archers, mages, and throwers alike.
+#define TARGET_LIKELY_RANGED 1
+//For melee mobs. This is self explanatory.
+#define TARGET_LIKELY_MELEE 2
+//For when the likelihood is above a certain threshold on both. Treat our targets in a special way.
+#define TARGET_LIKELY_BOTH 3
+//For when we are uncertain and need to check. Resets when we go back to idle.
+#define TARGET_UNCERTAIN 4
+
+//This is the actual style type, we compare this to the target type and return true or false.
+#define STYLE_BOTH 3
+
+#define STYLE_MELEE 2
+
+#define STYLE_RANGED 1
+
+#define STYLE_SIMPLE 0
+
+//Spells will not be casted if under A FOURTH of our stamina.
+#define SPELL_STAM_LIMIT_QUARTER 4
+//Spells will not be casted if under A THIRD of our stamina.
+#define SPELL_STAM_LIMIT_THIRD 3
+//Spells will not be casted if under HALF of our stamina.
+#define SPELL_STAM_LIMIT_HALF 2
+
+//CC Edit End
+
 /mob/living/carbon/human
 	var/aggressive=0 //0= retaliate only
 	var/frustration=0
@@ -62,6 +96,50 @@ GLOBAL_LIST_INIT(eatlines, world.file2list("strings/rt/evileatlines.txt"))
 
 	//If we utilize our intents further outside of strong intent.
 	var/smart_combatant = FALSE
+
+	//CC Edit Begin
+	//////
+	//Do not use or define these variables unless you know what you're doing.
+
+	//Internal Var - utilized for stationary spellcasting spells. Please see the '/obj/effect/proc_holder/spell/invoked/blood_heal/cast(' proc for a better example.
+	var/allow_movement = TRUE
+
+	//Internal Var - Determines the target's fighting style. Picks between Melee, Ranged, or Both. Simple mobs are handled differently.
+	//This is used internally alongside check_target_style() to check if the target is ranged, or melee, upon first encounter.
+	var/target_type = TARGET_UNCERTAIN 
+
+	//Internal Var - The last targets we were targeting until we went back to idle. Cache all of the target's fighting styles unless a new target joins us.
+	var/list/last_targets = alist()
+
+	//Internal Var - Retains the target we need to keep healing until said target is back to a certain threshold.
+	var/list/cur_heal_target = list()
+
+	//////
+
+	//If we utilize spells when casting. Spell casting logic is handled in the proc /handle_spell_casting_logic()
+	var/spell_caster = FALSE
+	
+	//The offset to apply to spells on mobs so they take longer to cast each time they're cast. By default this is 1 second. You can also reduce spell CD's with this as well.
+	//If a spell's CD is below 0 it will not apply any CD on a spell. The mob will still burn through energy upon casting.
+	var/spell_cd_offset = 1 SECONDS
+
+	//How long we will channel stationary spells for until we are allowed to move again. Default is 3 seconds. Negative values do not work.
+	var/spell_channel_duration = 3 SECONDS
+
+	//The limit at which mobs will not fire spells if their /STAMINA/ gets below THIS amount. Default is set to SPELL_COST_QUARTER
+	//You can override this with a custom input to set a certain limit outside of these defines as well.
+	var/spell_cost_limit = SPELL_STAM_LIMIT_THIRD
+
+	//The minimum distance we should path towards our target. This is primarily for ranged mobs like mages who are not active fighters. 
+	//They do not have appropriate fleeing AI or kiting AI, I do not want this nor should they have this as it'd be REALLY annoying to fight NPC's with those mechanics.
+	//They WILL however chase after a target that hits them with a melee weapon or ANY object for as long as they remain within their aggro range for making them not have awkward melee fighting mechanics.
+	var/min_dis_to_target = 1
+
+	//Added to the value for when to consider going back to their minimum distance. For example: When min_dis_to_target is set to 3, and tether_distance is set to 1, an NPC will chase a target
+	// For up to 4 tiles before returning to their default 3 tile minimum distance. Useful for handling melee combat and making the melee combat flow feel better for when an NPC returns to their default ranged state.
+	var/tether_distance = 3 // Default is 3. Mobs will most likely not lose melee aggro unless the target fully runs away.
+
+	//CC Edit End
 
 /mob/living/carbon/human/Initialize()
 	. = ..()
@@ -150,6 +228,7 @@ GLOBAL_LIST_INIT(eatlines, world.file2list("strings/rt/evileatlines.txt"))
 			// don't return, taunting is a free action
 	if(!handle_combat())
 		if(mode == NPC_AI_IDLE && !pickupTarget)
+			allow_movement = TRUE // CC Edit - Default to allowing movement to ensure we aren't frozen when we go out of combat.
 			npc_idle()
 			if(del_on_deaggro && last_aggro_loss && (world.time >= last_aggro_loss + del_on_deaggro))
 				if(deaggrodel())
@@ -340,6 +419,11 @@ GLOBAL_LIST_INIT(eatlines, world.file2list("strings/rt/evileatlines.txt"))
 /// progress along an existing path or cancel it
 /// returns # of steps taken
 /mob/living/carbon/human/proc/move_along_path()
+	//CC Edit
+	//If we are not allowed to move, we shouldn't move again until we are able to.
+	if(!allow_movement)
+		return
+	//CC Edit
 	if(!length(myPath))
 		// no path, quit early
 		NPC_THINK("Tried to move along a nonexistent path?!")
@@ -466,7 +550,7 @@ GLOBAL_LIST_INIT(eatlines, world.file2list("strings/rt/evileatlines.txt"))
 		var/const/MAX_RANGE_FIND = 32
 		NPC_THINK("Pathfinding to [pathfinding_target]...")
 		is_currently_pathing = TRUE
-		myPath = get_path_to(src, turf_of_target, TYPE_PROC_REF(/turf, Heuristic_cardinal_3d), MAX_RANGE_FIND + 1, 250, 1, adjacent = TYPE_PROC_REF(/turf, reachableTurftest3d))
+		myPath = get_path_to(src, turf_of_target, TYPE_PROC_REF(/turf, Heuristic_cardinal_3d), MAX_RANGE_FIND + 1, 250, 1, adjacent = TYPE_PROC_REF(/turf, reachableTurftest3d), mintargetdist = min_dis_to_target) //CC Edit added in the mintargetdist; Wow this line is long!
 		is_currently_pathing = FALSE
 		if(length(myPath))
 			myPath -= get_turf(src) // remove the turf we start on
@@ -526,6 +610,20 @@ GLOBAL_LIST_INIT(eatlines, world.file2list("strings/rt/evileatlines.txt"))
 /mob/living/carbon/human/proc/should_target(mob/living/L)
 	if(HAS_TRAIT(src, TRAIT_PACIFISM))
 		return FALSE
+
+	//CC Edit Begin
+	if(src.z != L.z) //If our target isn't on our Z level then we should move around randomly to prevent cheese.
+		var/possible_turfs = list()
+		for(var/turf/T in view(5, src)) //Lets not roam TOO far now...
+			possible_turfs += T
+		var/turf/my_turf = get_turf(src)
+		var/turf/target_turf = get_turf(pick(possible_turfs))
+		if(my_turf.Distance_cardinal_3d(target_turf, src) > 1)
+			if(!length(myPath)) // create a new path to the target
+				clear_path()
+				start_pathing_to(target_turf)
+		return FALSE
+	//CC Edit End
 
 	if(L == src)
 		return FALSE
@@ -637,8 +735,11 @@ GLOBAL_LIST_INIT(eatlines, world.file2list("strings/rt/evileatlines.txt"))
 				validate_path()
 				var/turf/my_turf = get_turf(src)
 				var/turf/target_turf = get_turf(target)
+				var/distance = my_turf.Distance_cardinal_3d(target_turf, src)
 				// only path if we're more than one tile away
-				if(my_turf.Distance_cardinal_3d(target_turf, src) > 1)
+				if(distance > min_dis_to_target) //CC Edit
+					if(distance > initial(min_dis_to_target) + tether_distance) // CC Edit - Only reset our min_dis to target if they're outside our initial distance + tether_distance.
+						min_dis_to_target = initial(min_dis_to_target)
 					if(!length(myPath)) // create a new path to the target
 						start_pathing_to(target)
 
@@ -667,10 +768,33 @@ GLOBAL_LIST_INIT(eatlines, world.file2list("strings/rt/evileatlines.txt"))
 			if(frustration >= 15)
 				back_to_idle()
 				return TRUE
+			
+			//CC Edit Begin
+			//Unused until the sidestep proc can be figured out. I am currently stumped.
+/* 
+			if(check_target_style(STYLE_RANGED)) //Attempt to dodge ranged attacks
+				face_atom(target)
+				npc_try_sidestep_projectile()
+				//Someone with more knowledge on debugging touch this I do not know what this is sadly. Im sorry in advance.
+				NPC_THINK("Sidestepped an attack using [steps_moved_this_turn] moves out of [maxStepsTick]!") 
+				//Update our pathing and immediately continue heading towards our target after attempting a sidestep.
+				if(.)
+					validate_path()
+					clear_path()
+					start_pathing_to(target) // regenerate path now that we've jumped
+ */
+			//CC Edit End
+
+			//Attempt to cast a spell at the enemy in our LOS. Do not cast without LOS.
+			//Spellcasters can be expensive mobs so try and use them sparingly.
+			//If you're stood on top of a spellcaster they will not cast spells on you.
+			if(spell_caster && !has_status_effect(/datum/status_effect/debuff/spell_cooldown_npc))
+				if(target in oview(7, src)) //Only called if we don't have a cooldown active.
+					handle_spell_casting_logic()
 
 			// if we COULD attack, check rection time
 			var/should_frustrate = TRUE
-			if(Adjacent(target) && isturf(target.loc))	// if right next to perp
+			if(Adjacent(target) && isturf(target.loc)) // if right next to perp
 				frustration = 0
 				face_atom(target)
 				if(prob(40))
@@ -690,10 +814,10 @@ GLOBAL_LIST_INIT(eatlines, world.file2list("strings/rt/evileatlines.txt"))
 				. = monkey_attack(target)
 				steps_moved_this_turn++ // an attack costs, currently, 1 movement step
 				NPC_THINK("Used [steps_moved_this_turn] moves out of [maxStepsTick]!")
-				if(.) // attack was successful, try to backstep. todo: generalise to post-attack behaviour?
+				if(. && check_target_style(STYLE_MELEE)) // attack was successful, try to backstep only if they mainly use melee. todo: generalise to post-attack behaviour?
 					npc_try_backstep()
 					return
-			else if(should_frustrate) // not next to perp, and we didn't fail due to reaction time
+			else if(should_frustrate) // not next to perp, and we didn't fail due to reaction time, or they're a ranged user we can't backstep
 				frustration++
 
 		if(NPC_AI_FLEE)
@@ -836,9 +960,15 @@ GLOBAL_LIST_INIT(eatlines, world.file2list("strings/rt/evileatlines.txt"))
 	if(HAS_TRAIT(victim, TRAIT_CHUNKYFINGERS))
 		make_grab_chance = 30 // we can't use normal weapons, so try to grapple harder because we don't care about having a free hand
 		use_grab_chance = 50
+  //Caustic Edit - Add VNPC handling
 	if(prob(25) && is_voracious_npc && target.allowmobvore && target.devourable)
 		make_grab_chance = 70
 		use_grab_chance = 80
+  //Caustic Edit End
+	//CC Edit Begin
+	if(check_target_style(STYLE_RANGED)) //If target is ranged we shouldn't give them the chance to run away again just to shoot us later.
+		make_grab_chance = Weapon ? 15 : 40
+	//CC Edit End
 	// we always try to move our grab into our offhand where possible, so no need to worry about main-hand weapons
 	var/obj/item/grabbing/the_grab = OffWeapon
 	if(istype(the_grab)) // if we already have a grab in our offhand, we might want to use it
@@ -880,8 +1010,8 @@ GLOBAL_LIST_INIT(eatlines, world.file2list("strings/rt/evileatlines.txt"))
 						swap_rmb_intent(/datum/rmb_intent/strong)
 						try_special_attack(target)
 						return TRUE //We used our special intent on the target as soon as we could.
-
-			if(smart_combatant && prob(50)) // Only if we use rmb intents...
+			//CC Edit - check_target_style
+			if(check_target_style(STYLE_MELEE || check_target_style(STYLE_BOTH)) && smart_combatant && prob(50)) // Only if we use rmb intents and the target is melee
 				if(possible_rmb_intents)
 					if(!has_status_effect(/datum/status_effect/debuff/feintcd))
 						if(possible_rmb_intents & /datum/rmb_intent/feint && rmb_intent != /datum/rmb_intent/feint && prob(50))
@@ -982,6 +1112,13 @@ GLOBAL_LIST_INIT(eatlines, world.file2list("strings/rt/evileatlines.txt"))
 		if(!target)
 			emote("aggro")
 		target = L
+		//CC Edit Begin
+		//Handle the target's combat type and check if it's the same type or not if we are in combat.
+		if(!(last_targets[target])) //If we are not apart of last_targets
+			check_target_type() //Target is added to the list after checking.
+		else
+			target_type = last_targets[target] //Update our target type to change how we approach our new target
+		//CC Edit End
 		if(pathfinding_target != target)
 			clear_path() // Cancel pathfinding so that we can pursue our new enemy.
 		enemies |= L
@@ -989,7 +1126,8 @@ GLOBAL_LIST_INIT(eatlines, world.file2list("strings/rt/evileatlines.txt"))
 
 /mob/living/carbon/human/attackby(obj/item/W, mob/user, params)
 	. = ..()
-	if((W.force) && (!target) && (W.damtype != STAMINA) )
+	min_dis_to_target = 1 //CC Edit - Reduce our minimum distance to 1 if we get attacked by our target
+	if((W.force) && (!target) && (W.damtype != STAMINA))
 		retaliate(user)
 
 /mob/living/carbon/human/proc/npc_taunt_target()
@@ -1097,3 +1235,367 @@ GLOBAL_LIST_INIT(eatlines, world.file2list("strings/rt/evileatlines.txt"))
 	name = "Swapped Intent Cooldown (NPC)"
 	desc = "I swapped my weapon intent, I must wait before I can do it again."
 	icon_state = "strikecd"
+
+//CC Edit Begin
+
+//In essence this proc checks the target and determines what type of combatant they are.
+// Check Target -> Is target Melee? -> Is target Ranged? -> Is target Both?
+// Caches the target by type : Melee, Ranged, or Both
+
+//Checks by evaluating what kind of combatant the target may be and should only run once per target, we then cache our target to an alist with the associated type.
+// We will ALWAYS assume what we see first on our target is what they will remain to be when we first encounter them.
+// This can make combat varied in many ways.
+/mob/living/carbon/human/proc/check_target_type()
+	//We are assuming at this point we do have a target.
+	if(!(target.mind)) //Other NPC's are treated with basic logic so we do not try fancy tricks on our opponents.
+		return TARGET_SIMPLE
+		
+	//The likelihood of being a ranged target.
+	var/ranged_likelihood
+	//The likelihood of being a melee target. We give leniency towards people primarily being melee.
+	var/melee_likelihood
+
+	var/obj/item/targets_primary_weapon = target.get_active_held_item()
+	var/obj/item/targets_secondary_weapon = target.get_inactive_held_item()
+
+	
+	//Check how many spells the target has and divide the total for a rating.
+	var/targets_spell_count = length(target.mind.spell_list)
+	if(targets_spell_count)
+		var/spell_rating = rating_divisor(targets_spell_count, 2) //Every 2 spells earns 1 rating
+		for(var/i in 1 to spell_rating)
+			ranged_likelihood++
+
+	//The more powerful the melee weapon, the more likely they're melee. Every 7 force combined
+	var/rating_force = rating_divisor(targets_primary_weapon?.force_dynamic, 7) + rating_divisor(targets_secondary_weapon?.force_dynamic, 7)
+
+	if(rating_force)
+		for(var/i in 1 to rating_force)
+			melee_likelihood++
+	
+	//Then we check more of the finer details.
+	if(istype(targets_primary_weapon, /obj/item/gun) || istype(targets_secondary_weapon, /obj/item/gun)) //They're holding a ranged weapon.
+		ranged_likelihood += 5 //Ranged weapon. Most likely ranged.
+
+	//We cache our targets to the list after running this proc once.
+	if(melee_likelihood > ranged_likelihood)
+		if(!(last_targets[target])) //If not in last_targets put them there
+			last_targets[target] = TARGET_LIKELY_MELEE
+			target_type = TARGET_LIKELY_MELEE 
+		return TARGET_LIKELY_MELEE
+	else if(ranged_likelihood > melee_likelihood)
+		if(!(last_targets[target])) //If not in last_targets put them there
+			last_targets[target] = TARGET_LIKELY_RANGED
+			target_type = TARGET_LIKELY_RANGED
+		return TARGET_LIKELY_RANGED
+	else if(ranged_likelihood == melee_likelihood)
+		if(!(last_targets[target])) //If not in last_targets put them there
+			last_targets[target] = TARGET_LIKELY_BOTH
+			target_type = TARGET_LIKELY_BOTH
+		return TARGET_LIKELY_BOTH
+	else
+		return TARGET_UNCERTAIN //We should only make a check if we're actually hurt.
+
+//More amt = higher rating
+//This is used to calculate the rating of a target's abilities to measure their likelihood of being ranged or melee.
+/mob/living/carbon/human/proc/rating_divisor(num, dividen)
+	if(num < dividen)
+		return FALSE //Cannot make a divisor out of a value lower than this or num is NULL or ZERO
+	num = (num / dividen)
+	return floor(num) //Floor it!!!
+
+// This proc is what actually checks and compares the style types and effectively acts as a key to access different movesets. 
+// If a target is melee, and the type of combat is melee, return true.
+/mob/living/carbon/human/proc/check_target_style(type_of_combat)
+	switch(type_of_combat)
+		if(STYLE_MELEE)
+			if(last_targets[target] == STYLE_MELEE)
+				return TRUE
+		if(STYLE_RANGED)
+			if(last_targets[target] == STYLE_RANGED)
+				return TRUE
+		if(STYLE_SIMPLE)
+			if(last_targets[target] == STYLE_SIMPLE)
+				return TRUE
+		if(STYLE_BOTH)
+			if(last_targets[target] == STYLE_BOTH)
+				return TRUE
+	return FALSE //If we don't match the same style don't consider doing these attacks/moves/mechanics, etc.
+
+
+//Sidestepping Projectile Mob Logic
+
+//In essence this proc will make it so that when running at a target they will attempt to sidestep projectiles on occasion in order to attempt to avoid being hit.
+
+//Not sure how to implement this at the time. I'll need some extra help regarding this.
+/* 
+/mob/living/carbon/human/proc/npc_try_sidestep_projectile(atom/dodge_tile)
+	var/const/base_sidestep_chance = 100 //DO NOT COMMIT THIS PLEASE I SWEAR TO GOD ME IF THIS GOES IN 
+	// For every point of STASPD above 10 you get an extra 5% juke chance
+	var/const/min_spd_for_sidestep = 8
+	var/const/sidestep_chance_per_spd = 5
+	if(mind?.has_antag_datum(/datum/antagonist/zombie)) // Deaddites cannot sidestep
+		return 
+	if(!target)
+		return 
+	if(steps_moved_this_turn >= maxStepsTick) // no movement left over
+		return 
+	var/sidestep_spd_bonus = STASPD > min_spd_for_sidestep ? (STASPD - min_spd_for_sidestep) * sidestep_chance_per_spd : 0
+
+	if(!prob(base_sidestep_chance + sidestep_spd_bonus))
+		NPC_THINK("Failed projectile sidestep roll ([base_juke_chance + juke_spd_bonus]%)!")
+		return FALSE
+	NPC_THINK("Succeeded projectile sidestep roll ([base_juke_chance + juke_spd_bonus]%)!")
+
+	var/list/newPath = list()
+	for(var/turf/T in get_adjacent_turfs(src))
+		newPath += T //Add all of the side turfs into our possible path's
+
+	if(!length(newPath))
+		return FALSE
+	// Pick only one of these path's to choose from
+	myPath = pick(newPath)
+	var/old_pathfinding_target = pathfinding_target
+	pathfinding_target = myPath[1]
+	steps_moved_this_turn += move_along_path()
+	pathfinding_target = old_pathfinding_target
+	tempfixeye = FALSE
+	if(!fixedeye)
+		nodirchange = FALSE
+	return TRUE // Sidestep Succeeded
+ */
+
+/mob/living/carbon/human/proc/handle_spell_casting_logic()
+	//Check if we have any spells in our spell list.
+	if(!length(mob_spell_list))
+		if(spell_caster) //Secondary check to make sure the mob isn't actually a spell caster with a messed up spell list.
+			//If we ARE messed up, default to an arcyne bolt and notify admins.
+			AddSpell(new /obj/effect/proc_holder/spell/invoked/projectile/arcynebolt)
+			message_admins("NOTICE: NPC - A [src.real_name] AT [AREACOORD(src)] ATTEMPTED TO CAST A SPELL WITHOUT A SPELL LIST. DEFAULTING TO ARCYNE BOLT.")
+		return
+
+	//Do not cast on anything that isn't living.
+	if(!isliving(target))
+		return
+
+	var/old_target = target
+
+	//We randomly select an available spell from our spell list.
+	var/obj/effect/proc_holder/spell/cur_spell = pick(mob_spell_list)
+
+	//Clamp our spellss range for calculation between 1-8 tiles. NPC's cannot look very far.
+	var/spell_range = clamp(cur_spell?.range, 1, 8)
+
+	//Calculate our spell resources before we continue.
+	if(!handle_spell_resources(cur_spell)) //Returns FALSE if we cannot cast the spell.
+		return
+
+	//If we have logic.
+	if(cur_spell?.spell_logic && prob(75)) //Don't garuntee casting the spell ALL the time.
+		ranged_ability = cur_spell
+		switch(cur_spell.spell_logic)
+
+			if(1) //No Logic - Cast at our target directly without any other special checks. Often the default for most granted spells.
+				NPC_THINK("ATTEMPTED TO CAST SPELL WITH NO LOGIC! DEFAULTING TO CASTING AT TARGET!")
+				cast_spell_at(cur_spell, target)
+
+			if(2) //Combat Logic - Cast at our target and avoid allies.
+				if(target.faction[1] != faction[1])
+					//Check for mobs in a line and return FALSE if we find an ally.
+					if(check_line_for_allies(src, target))
+						return FALSE
+					//Until I can find a way to "fake" charging with a proc check, we'll just have to cast normally like this without any telegraphing... Like simplemobs...
+					cast_spell_at(cur_spell, target)
+				else
+					NPC_THINK("ATTEMPTED TO CAST A COMBATIVE SPELL AT AN ALLY SOMEHOW! ABORTING!!!")
+
+			if(3) //Support Logic - Attempt to cast on one of our allies. Do not cast on our enemy.
+				if(target.faction[1] != faction[1])
+					for(var/mob/living/M in view(spell_range, src))
+						if(M.stat == DEAD || M.stat == UNCONSCIOUS)
+							continue //Can't support what's already down.
+						if(M.faction[1] == faction[1])
+							target = M
+							break
+				if(target.faction[1] == faction[1]) //We found an ally!
+					cast_spell_at(cur_spell, target)
+					target = old_target //Reset our target back to our original target.
+				else
+					NPC_THINK("FAILED TO LOCATE AN ALLY TO CAST A SUPPORTIVE SPELL! ABORTING!!!")
+
+			if(4) //Utility Logic - Cast either on our target, or on our allies. Attempt to prioritze allies.
+				if(target.faction[1] != faction[1])
+					for(var/mob/living/M in view(spell_range, src))
+						if(M.stat == DEAD || M.stat == UNCONSCIOUS)
+							continue //Can't support what's already down.
+						if(M.faction[1] == faction[1])
+							target = M
+							break
+				//If we can't find an ally we can just cast it at our enemy.
+				cast_spell_at(cur_spell, target)
+				target = old_target //Reset our target back to our original target.
+
+			if(5) //Self Casting Logic - Cast only on ourselves. This spell is better that way for us.
+				target = src
+				cast_spell_at(cur_spell, target)
+				target = old_target
+
+			if(6) //Healing Logic - Only heals allies that are actively injured. Keeps healing the same target until they are fully healed.
+				if(length(cur_heal_target))
+					var/mob/living/M = cur_heal_target[1]
+					if(M.stat != DEAD || M.stat != UNCONSCIOUS)
+						cur_heal_target -= M
+						return //Can't heal what's already dead!
+					else if(length(M.get_wounds()))
+						target = M
+					else
+						NPC_THINK("Our allies are fully healed! No longer casting healing miracles!")
+						cur_heal_target -= M //Get outta here!
+						return
+				else if(target.faction[1] != faction[1])
+					for(var/mob/living/M in view(spell_range, src))
+						if(M.stat == DEAD || M.stat == UNCONSCIOUS)
+							continue //Can't heal what's already downed.
+						if(M.faction[1] == faction[1])
+							if(length(M.get_wounds()))
+								target = M
+								cur_heal_target += M
+								break
+							else
+								NPC_THINK("Can't locate a wound on this target, checking the next one!")
+								continue
+				if(target.faction[1] == faction[1])
+					cast_spell_at(cur_spell, target)
+					target = old_target
+ 
+			if(7) //Structure Logic - Place anywhere nearby that is not in the path to our target. Might be a bit expensive but shouldn't affect too much.
+				var/list/possible_loc = list()
+				for(var/turf/open/T in oview(3, src))
+					if(T in get_line(src, target))
+						continue
+					possible_loc += T
+				target = pick(possible_loc)
+				cast_spell_at(cur_spell, target)
+				target = old_target
+
+			if(8) //Stationary Logic - Will cast a spell and attempt to remain still for as long as possible. Useful for blood transfer spells for example.
+				if(length(cur_heal_target))
+					var/mob/living/M = cur_heal_target[1]
+					if(M.stat != DEAD || M.stat != UNCONSCIOUS)
+						cur_heal_target -= M
+						return //Can't heal what's already dead!
+					else if(length(M.get_wounds()))
+						target = M
+					else
+						NPC_THINK("Our allies are fully healed! No longer casting healing miracles!")
+						cur_heal_target -= M //Get outta here!
+						return
+				else if(target.faction[1] != faction[1])
+					for(var/mob/living/M in oview(spell_range, src))
+						if(M.faction[1] == faction[1])
+							if(length(M.get_wounds())) // If wounded provide heals.
+								target = M
+								cur_heal_target += M
+							break
+				if(target.faction[1] == faction[1])
+					cast_spell_at(cur_spell, target, stationary = TRUE)
+					target = old_target
+
+			if(9) // Dead Logic - Spell will only target mobs that are dead. Primarily for spells that require a corpse. Currently untested.
+				for(var/mob/living/M in view(spell_range, src))
+					if(M.stat == DEAD)
+						target = M
+						break
+				if(target == old_target)
+					NPC_THINK("Failed to locate a corpse!")
+					return 
+				cast_spell_at(cur_spell, target)
+				target = old_target //Reset our target back to our original target.
+
+		//Apply the spell casting CD regardless of if wether they could cast it or not. Duration lasts as long as the used spell's recharge time.
+		var/duration = spell_cd_offset //Defaults to the spell_cd_offset if we do not have a recharge time.
+		if(cur_spell.recharge_time)
+			duration = cur_spell.recharge_time + spell_cd_offset
+		if(duration > 0)
+			apply_status_effect(/datum/status_effect/debuff/spell_cooldown_npc, duration)
+
+//Handles the resources for casting spells. Only affects energy and devotion costs.
+/mob/living/carbon/human/proc/handle_spell_resources(obj/effect/proc_holder/spell/cur_spell)
+	//Handle stamina check.
+	if(stamina > (max_stamina / spell_cost_limit))
+		return FALSE // We are below our limit, give us a moment to recover!
+
+	//Handle devotion costs
+	if(cur_spell?.devotion_cost)
+		if(!devotion)
+			message_admins("NOTICE: NPC - A [src.real_name] AT [AREACOORD(src)] ATTEMPTED TO CAST A SPELL WITH DEVOTION COST /WITHOUT/ A DEVOTION DATUM ATTACHED.")
+			return FALSE //These mobs should spawn with a devotion datum or else they can't cast miracle spells.
+		if(cur_spell.devotion_cost > devotion.devotion)
+			NPC_THINK("I don't have enough resources to cast this!")
+			return FALSE
+		sleep(1) //Don't run too quickly now.
+		devotion?.update_devotion(-cur_spell.devotion_cost)
+		return TRUE
+
+	//Handle energy costs
+	if(cur_spell?.releasedrain)
+		if(cur_spell.releasedrain > energy)
+			NPC_THINK("I don't have enough resources to cast this!")
+			return FALSE
+		sleep(1) //Don't run too quickly now.
+		stamina_add(cur_spell.releasedrain)
+		return TRUE
+
+//Simple get_line proc that iterates and checks each tile if there's mobs of the same faction in it.
+/mob/living/carbon/human/proc/check_line_for_allies(us, them)
+	var/list/line = get_line(us, them)
+	for(var/i in 1 to length(line))
+		for(var/mob/living/M in line[i].contents) //This throws an error on compile but it works as intended.
+			if(M.faction[1] == faction[1])
+				NPC_THINK("Couldn't cast a spell at a target because an ally was in the way!")
+				return TRUE
+
+//Will need to add more. For now simply retains the spell.
+/mob/living/carbon/human/proc/cast_spell_at(obj/effect/proc_holder/spell/cur_spell, target, stationary)
+	target = list(target) //Make the target a list so that it doesn't return nothing when indexing on spells.
+	cur_spell.perform(target, user = src)
+	if(stationary)
+		steps_moved_this_turn = 100 //We shouldn't move any further.
+		allow_movement = FALSE
+		addtimer(CALLBACK(src, PROC_REF(allow_movement_again), TRUE), spell_channel_duration)
+
+/mob/living/carbon/human/proc/allow_movement_again(bool)
+	if(bool)
+		allow_movement = TRUE
+		for(var/mob/living/L in view(7, src)) // Check for enemies around us to immediately on the same Z as we are and start moving again if we do find them.
+			if(should_target(L))
+				if(retaliate(L))
+					start_pathing_to(target)
+		return
+	allow_movement = FALSE
+
+//This proc gets rid of spells that are not able to be utilized within given parameters. Called only at the end of an pre_equip for an outfit.
+/mob/living/carbon/human/proc/prepare_spell_list(list/logic_types)
+	if(length(logic_types))
+		logic_types = logic_types
+	else //If no given types dish out everything except for LOGIC_NONE, remove that.
+		logic_types = list(0)
+	//Only check for spells that actually can be used.
+	if(!client || !mind)
+		for(var/obj/effect/proc_holder/spell/S in mob_spell_list)
+			if((S.spell_logic in logic_types))
+				mob_spell_list -= S //Remove spells with matching logic from our list.
+
+//NPC SPECIFIC DEBUFF FOR SPELL CASTING, DO NOT USE ANYWHERE ELSE.
+/datum/status_effect/debuff/spell_cooldown_npc
+	id = "spell_cooldown_npc"
+	alert_type = /atom/movable/screen/alert/status_effect/debuff/spell_cooldown_npc
+	duration = 5 SECONDS //Overridden by the spell duration. Defaults to 5 seconds if otherwise.
+	status_type = STATUS_EFFECT_UNIQUE
+
+/atom/movable/screen/alert/status_effect/debuff/spell_cooldown_npc
+	name = "Spell Cooldown (NPC)"
+	desc = "I've casted my spell! I must wait before I can cast again."
+	icon_state = "strikecd"
+
+//CC Edit End

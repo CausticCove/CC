@@ -30,6 +30,9 @@
 	if(target == world)
 		target = GLOB.clients
 
+	if(islist(target) && !LAZYLEN(target))
+		return
+
 	// Build a message
 	var/message = list()
 	if(type) message["type"] = type
@@ -75,6 +78,9 @@
 		CRASH("Empty or null string in to_chat proc call.")
 	if(target == world)
 		target = GLOB.clients
+
+	if(islist(target) && !LAZYLEN(target))
+		return
 
 	// Build a message
 	var/message = list()

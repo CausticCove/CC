@@ -124,7 +124,7 @@
 	var/mob/living/carbon/spirit/capturedsoul = null
 	var/list/souloptions = list()
 	var/list/itemstore = list()
-	for(var/mob/living/carbon/spirit/S in GLOB.mob_list)
+	for(var/mob/living/carbon/spirit/S in GLOB.player_list) //CC Edit mob_list -> player_list
 		if(S.summoned)
 			continue
 		if(!S.client)
@@ -134,7 +134,7 @@
 	if(!pickedsoul)
 		to_chat(user, span_warning("I was unable to commune with a soul."))
 		return
-	for(var/mob/living/carbon/spirit/P in GLOB.mob_list)
+	for(var/mob/living/carbon/spirit/P in GLOB.player_list) //CC Edit mob_list -> player_list
 		if(P.livingname == pickedsoul)
 			to_chat(P, "<font color='blue'>You feel yourself being pulled out of the Underworld.</font>")
 			sleep(2 SECONDS)

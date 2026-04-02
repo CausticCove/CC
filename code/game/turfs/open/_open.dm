@@ -134,3 +134,13 @@
 
 /turf/open/proc/ClearWet()//Nuclear option of immediately removing slipperyness from the tile instead of the natural drying over time
 	qdel(GetComponent(/datum/component/wet_floor))
+
+//CC Edit Begin
+//Not sure where to place this.
+/turf/open/can_traverse_safely(atom/movable/traveler)
+	//CC Edit Begin
+	if(active_hotspot) //Used for NPC logic when traversing. They shouldn't be willingly walking into fire!
+		return FALSE
+	return TRUE
+	//CC Edit End
+//CC Edit End

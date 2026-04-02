@@ -568,7 +568,7 @@
 
 /mob/living/Stat()
 	..()
-	if(statpanel("Stats"))
+	if(statpanel("STATS"))
 		stat("STR: \Roman [STASTR]")
 		stat("PER: \Roman [STAPER]")
 		stat("INT: \Roman [STAINT]")

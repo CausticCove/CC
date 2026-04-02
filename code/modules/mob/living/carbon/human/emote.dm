@@ -9,7 +9,7 @@
 
 /mob/living/carbon/human/verb/emote_cry()
 	set name = "Cry"
-	set category = "Noises"
+	set category = "NOISES"
 
 	emote("cry", intentional = TRUE)
 
@@ -61,7 +61,7 @@
 
 /mob/living/carbon/human/verb/emote_eyebrow()
 	set name = "Raise Eyebrow"
-	set category = "Emotes"
+	set category = "EMOTES"
 
 	emote("eyebrow", intentional = TRUE)
 
@@ -73,7 +73,7 @@
 
 /mob/living/carbon/human/verb/emote_psst()
 	set name = "Psst"
-	set category = "Noises"
+	set category = "NOISES"
 
 	emote("psst", intentional = TRUE)
 
@@ -86,7 +86,7 @@
 
 /mob/living/carbon/human/verb/emote_grumble()
 	set name = "Grumble"
-	set category = "Noises"
+	set category = "NOISES"
 
 	emote("grumble", intentional = TRUE)
 

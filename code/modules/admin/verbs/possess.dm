@@ -49,7 +49,7 @@
 
 /proc/givetestverbs(mob/M in GLOB.mob_list)
 	set desc = ""
-	set category = "Debug"
+	set category = "🛠 DEBUG"
 	set name = "Give Possessing Verbs"
 	M.verbs += /proc/possess
 	M.verbs += /proc/release

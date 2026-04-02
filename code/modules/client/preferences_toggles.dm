@@ -14,7 +14,7 @@
 
 /datum/verbs/menu/Settings/verb/setup_character()
 	set name = "Game Preferences"
-	set category = "Options"
+	set category = "OPTIONS"
 	set desc = ""
 	set hidden = 1
 	usr.client.prefs.current_tab = 1
@@ -23,7 +23,7 @@
 
 /client/verb/setup_character()
 	set name = "Game Preferences"
-	set category = "Options"
+	set category = "OPTIONS"
 	set desc = ""
 	if(prefs)
 		usr.client.prefs.current_tab = 1
@@ -31,7 +31,7 @@
 
 /client/verb/toggle_fullscreen()
 	set name = "ToggleFullscreen"
-	set category = "Options"
+	set category = "OPTIONS"
 	set desc = ""
 	if(prefs)
 		prefs.toggles ^= TOGGLE_FULLSCREEN
@@ -39,7 +39,7 @@
 		toggle_fullscreeny(prefs.toggles & TOGGLE_FULLSCREEN)
 
 /client/verb/toggle_screenshake()
-	set category = "Options"
+	set category = "OPTIONS"
 	set name = "Toggle Screen Shake"
 	if(prefs)
 		prefs.shake = !prefs.shake
@@ -50,7 +50,7 @@
 			to_chat(src, "Screen shake disabled.")
 
 /client/verb/masked_examine() //Caustic Edit - Just... fixing this up everywhere it's used to be consistent. And not stupidly inversed? If this is true, it's ALLOWING the info.
-	set category = "Options"
+	set category = "OPTIONS"
 	set name = "Toggle Masked Examine"
 	if(prefs)
 		prefs.masked_examine = !prefs.masked_examine
@@ -61,7 +61,7 @@
 			to_chat(src, "Your character information will no longer be viewable when masked.") //Caustic Edit End
 
 /client/verb/mute_animal_emotes()
-	set category = "Options"
+	set category = "OPTIONS"
 	set name = "Toggle Animal Noise Emotes"
 	if(prefs)
 		prefs.mute_animal_emotes = !prefs.mute_animal_emotes
@@ -72,7 +72,7 @@
 			to_chat(src, "You will now hear animal sound emotes.")
 
 /client/verb/autoconsume()
-	set category = "Options"
+	set category = "OPTIONS"
 	set name = "Toggle AutoConsume"
 	if(prefs)
 		prefs.autoconsume = !prefs.autoconsume
@@ -83,7 +83,7 @@
 			to_chat(src, "You will no longer try to repeatedly consume/feed food/drinks")
 
 /client/verb/toggle_ERP() // Alters if other people can use the ERP panel ON you.
-	set category = "Options"
+	set category = "OPTIONS"
 	set name = "Toggle ERP Panel"
 	if(prefs)
 		prefs.sexable = !prefs.sexable
@@ -94,7 +94,7 @@
 			to_chat(src, "Others can't touch you.")
 
 /client/verb/toggle_compliance_notifs() // The messages need to be on-by-default while this is in its early stages.
-	set category = "Options"
+	set category = "OPTIONS"
 	set name = "Toggle Compliance Notifs"
 	if(prefs)
 		prefs.compliance_notifs = !prefs.compliance_notifs
@@ -105,7 +105,7 @@
 			to_chat(src, "You will no longer be notified in chat when toggling Compliance Mode.")
 
 /client/verb/toggle_examine_blocks()
-	set category = "Options"
+	set category = "OPTIONS"
 	set name = "Toggle Examine Blocks"
 	if(prefs)
 		prefs.no_examine_blocks = !prefs.no_examine_blocks
@@ -116,7 +116,7 @@
 			to_chat(src, "You will now see examined items in boxes.")
 
 /client/verb/toggle_autopunctuation()
-	set category = "Options"
+	set category = "OPTIONS"
 	set name = "Toggle Autopunctuation"
 	if(prefs)
 		prefs.no_autopunctuate = !prefs.no_autopunctuate
@@ -127,7 +127,7 @@
 			to_chat(src, "Your messages will now be automatically punctuated.")
 
 /client/verb/toggle_language_fonts()
-	set category = "Options"
+	set category = "OPTIONS"
 	set name = "Toggle Language Fonts"
 	if(prefs)
 		prefs.no_language_fonts = !prefs.no_language_fonts
@@ -138,7 +138,7 @@
 			to_chat(src, "You will now see languages in their stylized fonts.")
 
 /client/verb/toggle_language_icon()
-	set category = "Options"
+	set category = "OPTIONS"
 	set name = "Toggle Language Icon"
 	if(prefs)
 		prefs.no_language_icon = !prefs.no_language_icon
@@ -149,7 +149,7 @@
 			to_chat(src, "You will now see the language icon in front of a language.")
 
 /client/verb/toggle_redflash()
-	set category = "Options"
+	set category = "OPTIONS"
 	set name = "Toggle Red Screen Flash"
 	if(prefs)
 		prefs.no_redflash = !prefs.no_redflash
@@ -160,7 +160,7 @@
 
 /client/verb/toggle_lobby_music()
 	set name = "Toggle Lobby Music"
-	set category = "Options"
+	set category = "OPTIONS"
 	set desc = ""
 	if(prefs)
 		prefs.toggles ^= SOUND_LOBBY
@@ -187,14 +187,14 @@
 
 /client/verb/stop_sounds_rogue()
 	set name = "StopSounds"
-	set category = "Options"
+	set category = "OPTIONS"
 	set desc = ""
 	if(mob)
 		SEND_SOUND(mob, sound(null))
 
 /client/verb/cmode_strip()
 	set name = "Combat Mode Stripping"
-	set category = "Options"
+	set category = "OPTIONS"
 	set desc = ""
 	if(prefs)
 		prefs.combat_toggles ^= CMODE_STRIPPING
@@ -203,7 +203,7 @@
 
 /client/verb/antighost()
 	set name = "Toggle Antighost"
-	set category = "Options"
+	set category = "OPTIONS"
 	set desc = ""
 	if(prefs)
 		prefs.ghost_toggles ^= TOGGLE_ANTIGHOST
@@ -211,7 +211,7 @@
 	to_chat(src, "You are currently[prefs.ghost_toggles & TOGGLE_ANTIGHOST ? " not" : ""] orbitable.")
 
 /client/verb/mood_messages_in_chat()
-	set category = "Options"
+	set category = "OPTIONS"
 	set name = "Toggle Mood Messages"
 
 	if(prefs)
@@ -222,7 +222,7 @@
 	in your chat. Sufficiently severe mood messages are shown in chat regardless of this toggle.")
 
 /client/verb/attack_blip_frequency()
-	set category = "Options"
+	set category = "OPTIONS"
 	set name = "Change Attack Sound Frequency"
 
 	var/choice = input(src, "How often do you wish to hear your character emote on successful hits?", "ATTACK NOISE FREQUENCY") as null|anything in GLOB.attack_blip_pref_list
@@ -240,7 +240,7 @@
 	to_chat(src, "Your character will [text] voice their successful attacks.")
 
 /client/verb/toggle_xptext() // Whether the user can see the balloon XP pop ups.
-	set category = "Options"
+	set category = "OPTIONS"
 	set name = "Toggle XP Text"
 	if(prefs)
 		prefs.combat_toggles ^= XP_TEXT
@@ -248,7 +248,7 @@
 	to_chat(src, "You will[prefs.combat_toggles & XP_TEXT ? "" : " not"] see XP pop ups.")
 
 /client/verb/toggle_hitzonetext() // Whether the user can see a text popup for where they got hit.
-	set category = "Options"
+	set category = "OPTIONS"
 	set name = "Toggle Hitzone Text"
 	if(prefs)
 		prefs.combat_toggles ^= HITZONE_TEXT
@@ -256,7 +256,7 @@
 	to_chat(src, "You will[prefs.combat_toggles & HITZONE_TEXT ? "" : " not"] see floating text for where you were hit.")
 
 /client/verb/toggle_floatingtext() // Whether the user can see the balloon pop ups at all.
-	set category = "Options"
+	set category = "OPTIONS"
 	set name = "Toggle Floating Text"
 	if(prefs)
 		prefs.combat_toggles ^= FLOATING_TEXT
@@ -265,7 +265,7 @@
 
 /client/verb/toggle_deadchat() // Whether the user can see DSAY or not.
 	set name = "Show/Hide Deadchat"
-	set category = "Options"
+	set category = "OPTIONS"
 	set desc ="Toggles seeing deadchat"
 
 	if(prefs)
@@ -382,7 +382,7 @@ TOGGLE_CHECKBOX(/datum/verbs/menu/Settings/Ghost, togglemidroundantag)()
 /*
 TOGGLE_CHECKBOX(/datum/verbs/menu/Settings/Sound, toggletitlemusic)()
 	set name = "LobbyMusic"
-	set category = "Options"
+	set category = "OPTIONS"
 	set desc = ""
 	set hidden = 1
 	usr.client.prefs.toggles ^= SOUND_LOBBY
@@ -486,7 +486,7 @@ TOGGLE_CHECKBOX(/datum/verbs/menu/Settings/Sound, toggle_announcement_sound)()
 
 /datum/verbs/menu/Settings/Sound/verb/stop_client_sounds()
 	set name = "Stop Sounds"
-	set category = "Options"
+	set category = "OPTIONS"
 	set desc = ""
 	SEND_SOUND(usr, sound(null))
 	var/client/C = usr.client
@@ -649,7 +649,7 @@ GLOBAL_LIST_INIT(ghost_orbits, list(GHOST_ORBIT_CIRCLE,GHOST_ORBIT_TRIANGLE,GHOS
 //Admin Preferences
 /client/proc/toggleadminhelpsound()
 	set name = "Hear/Silence Adminhelps"
-	set category = "Prefs - Admin"
+	set category ="🌣 A-PREFS"
 	set desc = ""
 	set hidden = 1
 	if(!holder)
@@ -661,7 +661,7 @@ GLOBAL_LIST_INIT(ghost_orbits, list(GHOST_ORBIT_CIRCLE,GHOST_ORBIT_TRIANGLE,GHOS
 
 /client/proc/toggleannouncelogin()
 	set name = "Do/Don't Announce Login"
-	set category = "Prefs - Admin"
+	set category ="🌣 A-PREFS"
 	set desc = ""
 	if(!holder)
 		return
@@ -672,7 +672,7 @@ GLOBAL_LIST_INIT(ghost_orbits, list(GHOST_ORBIT_CIRCLE,GHOST_ORBIT_TRIANGLE,GHOS
 
 /client/proc/toggle_hear_radio()
 	set name = "Show/Hide Radio Chatter"
-	set category = "Prefs - Admin"
+	set category ="🌣 A-PREFS"
 	set desc = ""
 	set hidden = 1
 	if(!holder)
@@ -684,7 +684,7 @@ GLOBAL_LIST_INIT(ghost_orbits, list(GHOST_ORBIT_CIRCLE,GHOST_ORBIT_TRIANGLE,GHOS
 
 /client/proc/toggleprayers()
 	set name = "Show/Hide Prayers"
-	set category = "Prefs - Admin"
+	set category ="🌣 A-PREFS"
 	set desc = ""
 	if(!holder)
 		return
@@ -695,7 +695,7 @@ GLOBAL_LIST_INIT(ghost_orbits, list(GHOST_ORBIT_CIRCLE,GHOST_ORBIT_TRIANGLE,GHOS
 
 /client/proc/toggle_prayer_sound()
 	set name = "Toggle Prayer Sounds"
-	set category = "Prefs - Admin"
+	set category ="🌣 A-PREFS"
 	set desc = ""
 	if(!holder)
 		return
@@ -706,7 +706,7 @@ GLOBAL_LIST_INIT(ghost_orbits, list(GHOST_ORBIT_CIRCLE,GHOST_ORBIT_TRIANGLE,GHOS
 
 /client/proc/colorasay()
 	set name = "Set Asay Color"
-	set category = "Prefs - Admin"
+	set category ="🌣 A-PREFS"
 	set desc = ""
 	if(!holder)
 		return
@@ -723,7 +723,7 @@ GLOBAL_LIST_INIT(ghost_orbits, list(GHOST_ORBIT_CIRCLE,GHOST_ORBIT_TRIANGLE,GHOS
 /client/proc/resetasaycolor()
 	set name = "Reset your Admin Say Color"
 	set desc = ""
-	set category = "Prefs - Admin"
+	set category ="🌣 A-PREFS"
 	if(!holder)
 		return
 	if(!CONFIG_GET(flag/allow_admin_asaycolor))
@@ -733,7 +733,7 @@ GLOBAL_LIST_INIT(ghost_orbits, list(GHOST_ORBIT_CIRCLE,GHOST_ORBIT_TRIANGLE,GHOS
 	prefs.save_preferences()
 
 /client/proc/hearallasghost()
-	set category = "Prefs - Admin"
+	set category ="🌣 A-PREFS"
 	set name = "HearAllAsAdmin"
 	if(!holder)
 		return
@@ -749,7 +749,7 @@ GLOBAL_LIST_INIT(ghost_orbits, list(GHOST_ORBIT_CIRCLE,GHOST_ORBIT_TRIANGLE,GHOS
 		to_chat(src, span_info("I will hear like a mortal."))
 
 /client/proc/hearglobalLOOC()
-	set category = "Prefs - Admin"
+	set category ="🌣 A-PREFS"
 	set name = "Show/Hide Global LOOC"
 	if(!holder)
 		return
@@ -763,7 +763,7 @@ GLOBAL_LIST_INIT(ghost_orbits, list(GHOST_ORBIT_CIRCLE,GHOST_ORBIT_TRIANGLE,GHOS
 		to_chat(src, span_info("I will now only hear LOOC chatter around me."))
 
 /client/proc/togglespawnmessages()
-	set category = "Prefs - Admin"
+	set category ="🌣 A-PREFS"
 	set name = "Show/Hide Spawn Logs"
 	if(!holder)
 		return
@@ -774,7 +774,7 @@ GLOBAL_LIST_INIT(ghost_orbits, list(GHOST_ORBIT_CIRCLE,GHOST_ORBIT_TRIANGLE,GHOS
 	to_chat(src, "You will [prefs.admin_chat_toggles & CHAT_ADMINSPAWN ? "see" : "not see any"] spawn logs.")
 
 /client/verb/full_examine()
-	set category = "Options"
+	set category = "OPTIONS"
 	set name = "Toggle Full Examine"
 	if(prefs)
 		prefs.full_examine = !prefs.full_examine

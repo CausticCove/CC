@@ -4,7 +4,6 @@ import { Window } from 'tgui/layouts';
 import { Box, Section, Stack, TextArea } from 'tgui-core/components';
 import { isEscape, KEY } from 'tgui-core/keys';
 import type { BooleanLike } from 'tgui-core/react';
-
 import { InputButtons } from './common/InputButtons';
 import { Loader } from './common/Loader';
 
@@ -17,7 +16,6 @@ type TextInputData = {
   timeout: number;
   title: string;
   spellcheck: BooleanLike;
-  bigmodal?: boolean;
 };
 
 export const sanitizeMultiline = (toSanitize: string) => {
@@ -39,12 +37,11 @@ export const TextInputModal = (props) => {
     timeout,
     title,
     spellcheck,
-    bigmodal,
   } = data;
 
   const [input, setInput] = useState(placeholder || '');
 
-  const onType = (value: string) => {
+  function onType(value: string) {
     if (value === input) {
       return;
     }
@@ -52,19 +49,15 @@ export const TextInputModal = (props) => {
       ? sanitizeMultiline(value)
       : removeAllSkiplines(value);
     setInput(sanitizedInput);
-  };
+  }
 
   const visualMultiline = multiline || input.length >= 30;
   // Dynamically changes the window height based on the message.
-  const dynamicHeight = message.length > 30 ? 
-    (message.length / 40) * 18 : 18;
-
-  let windowHeight =
-    135 + dynamicHeight +
+  const windowHeight =
+    135 +
+    (message.length > 30 ? Math.ceil(message.length / 4) : 0) +
     (visualMultiline ? 75 : 0) +
     (message.length && large_buttons ? 5 : 0);
-  if (bigmodal) windowHeight = 425; // Override and just make a big modal for FT / OOC Notes
-  const windowWidth = bigmodal ? 530 : 325;
 
   function handleKeyDown(event: React.KeyboardEvent<HTMLDivElement>) {
     if (event.key === KEY.Enter && (!visualMultiline || !event.shiftKey)) {
@@ -74,8 +67,13 @@ export const TextInputModal = (props) => {
       act('cancel');
     }
   }
+
+  // This is the length of the input in terms of unicode code points.
+  // Should be equivalent to what length_char would output for the same string in BYOND.
+  const char_length = [...input].length;
+
   return (
-    <Window title={title} width={windowWidth} height={windowHeight}>
+    <Window title={title} width={325} height={windowHeight}>
       {timeout && <Loader value={timeout} />}
       <Window.Content onKeyDown={handleKeyDown}>
         <Section fill>
@@ -88,6 +86,7 @@ export const TextInputModal = (props) => {
                 autoFocus
                 autoSelect
                 fluid
+                spellcheck={!!spellcheck}
                 userMarkup={{ u: '_', i: '|', b: '+' }}
                 height={multiline || input.length >= 30 ? '100%' : '1.8rem'}
                 maxLength={max_length}
@@ -100,7 +99,7 @@ export const TextInputModal = (props) => {
             <Stack.Item>
               <InputButtons
                 input={input}
-                message={`${input.length}`}
+                message={`${char_length}/${max_length || '∞'}`}
               />
             </Stack.Item>
           </Stack>

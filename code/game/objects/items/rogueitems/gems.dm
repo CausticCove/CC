@@ -204,7 +204,27 @@
 	name = "naledic amythortz"
 	desc = "A deep lavender crystal, crackling with magical energy. To a Disciple, it might simply be a keepsake from pilgrimages abroad: but to a Sojourner, it is the leyline to their arcyne-enchanted form of martial combat. </br>This gemstone can be applied to a yet-unfinished spelltome by those with arcyne potential, in order to recall more spells."
 
-/obj/item/roguegem/random
+//CC Edit Begin - Like the Mushrooms, gems should also respect lootdrop spawners for better performance and less strain on the GC.
+/obj/effect/spawner/lootdrop/roguegem/random
+	lootcount =  1 //Its 1 by default but lets make sure to always stay 1.
+	loot = list(/obj/item/roguegem/ruby = 5, 
+		/obj/item/roguegem/green = 15, 
+		/obj/item/roguegem/blue = 10, 
+		/obj/item/roguegem/yellow = 20,
+		/obj/item/roguegem/violet = 10,
+		/obj/item/roguegem/diamond = 5,
+		/obj/item/riddleofsteel = 1,
+		/obj/item/rogueore/silver = 3,
+		/obj/item/roguegem/onyxa = 5,
+		/obj/item/roguegem/jade = 3,
+		/obj/item/roguegem/coral = 3,
+		/obj/item/roguegem/turq = 3,
+		/obj/item/roguegem/amber = 3,
+		/obj/item/roguegem/opal = 3,
+		/obj/item/roguegem/blood_diamond = 1)
+	fan_out_items = FALSE
+
+/* /obj/item/roguegem/random
 	name = "random gem"
 	desc = "You shouldn't be seeing this."
 	icon_state = null
@@ -228,8 +248,8 @@
 		/obj/item/roguegem/blood_diamond = 1)
 	var/pickgem = pickweight(newgem)
 	new pickgem(get_turf(src))
-	qdel(src)
-
+	qdel(src) */
+//CC Edit End - Performance Improving for the GC
 
 /// riddle
 

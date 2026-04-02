@@ -27,6 +27,9 @@
 	invocation_type = "whisper" // It is a fake stealth spell (lockpicking is very loud)
 	associated_skill = /datum/skill/magic/holy
 
+	//CC Edit
+	spell_logic = LOGIC_NONE //This serves 0 purpose to an NPC.
+
 /obj/item/melee/touch_attack/lesserknock
 	name = "Spectral Lockpick"
 	desc = "A faintly glowing lockpick that appears to be held together by the mysteries of the arcyne. To dispel it, simply use it on anything that isn't a door."

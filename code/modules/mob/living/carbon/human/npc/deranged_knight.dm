@@ -101,12 +101,45 @@ GLOBAL_LIST_INIT(hedgeknight_aggro, world.file2list("strings/rt/hedgeknightaggro
 	switch(preset)
 		if("graggar")
 			ADD_TRAIT(src, TRAIT_HORDE, TRAIT_GENERIC)
+			//CC Edit
+			set_patron(/datum/patron/inhumen/graggar)
+			spell_caster = TRUE
+			spell_cd_offset = 15 SECONDS
+			spell_channel_duration = 1 SECONDS
+			spell_cost_limit = SPELL_STAM_LIMIT_HALF
+			var/datum/devotion/C = new /datum/devotion(src, src.patron)
+			C.grant_miracles(src, cleric_tier = CLERIC_T2, passive_gain = CLERIC_REGEN_WEAK, devotion_limit = CLERIC_REQ_2, is_npc = TRUE)
+			C.devotion = C.max_devotion
+			prepare_spell_list(LOGIC_NONE, LOGIC_HEAL_STATIONARY)
+			//CC Edit
 			equipOutfit(new /datum/outfit/job/roguetown/quest_miniboss/graggar)
 		if ("matthios")
 			ADD_TRAIT(src, TRAIT_COMMIE, TRAIT_GENERIC)
+			//CC Edit
+			set_patron(/datum/patron/inhumen/matthios)
+			spell_caster = TRUE
+			spell_cd_offset = 15 SECONDS
+			spell_channel_duration = 1 SECONDS
+			spell_cost_limit = SPELL_STAM_LIMIT_HALF
+			var/datum/devotion/C = new /datum/devotion(src, src.patron)
+			C.grant_miracles(src, cleric_tier = CLERIC_T2, passive_gain = CLERIC_REGEN_WEAK, devotion_limit = CLERIC_REQ_2, is_npc = TRUE)
+			C.devotion = C.max_devotion
+			prepare_spell_list(LOGIC_NONE, LOGIC_HEAL_STATIONARY)
+			//CC Edit
 			equipOutfit(new /datum/outfit/job/roguetown/quest_miniboss/matthios)
 		if ("zizo")
 			ADD_TRAIT(src, TRAIT_CABAL, TRAIT_GENERIC)
+			//CC Edit
+			set_patron(/datum/patron/inhumen/zizo)
+			spell_caster = TRUE
+			spell_cd_offset = 15 SECONDS
+			spell_channel_duration = 1 SECONDS
+			spell_cost_limit = SPELL_STAM_LIMIT_HALF
+			var/datum/devotion/C = new /datum/devotion(src, src.patron)
+			C.grant_miracles(src, cleric_tier = CLERIC_T2, passive_gain = CLERIC_REGEN_WEAK, devotion_limit = CLERIC_REQ_2, is_npc = TRUE)
+			C.devotion = C.max_devotion
+			prepare_spell_list(LOGIC_NONE, LOGIC_HEAL_STATIONARY)
+			//CC Edit
 			equipOutfit(new /datum/outfit/job/roguetown/quest_miniboss/zizo)
 		if ("hedgeknight")
 			if(prob(50))

@@ -13,7 +13,7 @@
 
 /mob/verb/insidePanel()
 	set name = "Vore Panel"
-	set category = "Vore"
+	set category = "VORE"
 
 	if(SSticker.current_state == GAME_STATE_STARTUP)
 		return
@@ -875,8 +875,8 @@
 		available_options += "Transform"
 		available_options += "Health Check"
 	// Add Reforming
-	/*if(isobserver(target))
-		available_options += "Reform"*/
+	if(isobserver(target))
+		available_options += "Reform"
 
 	if(isliving(target))
 		var/mob/living/datarget = target
