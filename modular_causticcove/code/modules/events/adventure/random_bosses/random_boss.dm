@@ -105,12 +105,9 @@
 ///////////////////////////
 // BOSS VARIANTS BEGIN \\
 
-//Remember! Change the name after /base/ to make a new datum path and to not override anything.
-//Copy and edit the variables within to your liking, this is the default patrol that will spawn in the underdark.
 /datum/random_boss/dragon/New(my_processing, datum/round_event_control/source)
 	. = ..()
 
-	//BIG EVIL BOSS DRAGON!!!
 	atom_types = list(/mob/living/simple_animal/hostile/retaliate/rogue/dragon/broodmother)
 
 	//Hamlet center has only cobble rock, spawn there! Mappers can modify this.
@@ -121,12 +118,11 @@
 
 	loot_atom_types = list(/obj/item/roguecoin/copper/pile = 1,
 						/obj/item/roguecoin/silver/pile = 1,
-						/obj/item/roguecoin/gold/pile = 3) //Money! You get a ton of rewards when it dies via dragon rings and books as well!!!
-	loot_amt_upper = 12
-	loot_amt_lower = 8
+						/obj/item/roguecoin/gold/pile = 2) //Money! You get a ton of rewards when it dies via dragon rings and books as well!!!
+	loot_amt_upper = 8
+	loot_amt_lower = 4
 	loot_spread = 4
 	
-	//WE SPAWN... IN THE HAMLET!!! THIS IS OUR HOME!!! BUZZ OFF!!! Plus we'll be hurting nearby skeletons giving players time to react upon approach.
 	for(var/area/rogue/outdoors/beach/forest/hamlet/A in world)
 		for(var/turf/open/T in A) //Check the turf.
 			if(is_type_in_list(T, allowed_turfs))

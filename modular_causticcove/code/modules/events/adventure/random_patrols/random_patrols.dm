@@ -163,7 +163,8 @@
 				turfs += T
 
 	chosen_turf = pick(turfs)
-	priority_announce("[event_text]", "Patrol Notice: [get_area_name(get_area(chosen_turf))]", 'sound/misc/notice.ogg')
+	// Removing the announcement and associated noise; This felt a little... Immersion breaking, all things considered.
+	// priority_announce("[event_text]", "Patrol Notice: [get_area_name(get_area(chosen_turf))]", 'sound/misc/notice.ogg')
 	spawn_mobs(atom_types, rare_atom_types, rare_prob, spawn_range, amt_lower, amt_upper, turfs)
 	spawn_loot(loot_atom_types, loot_amt_lower, loot_amt_upper)
 	qdel(src) //Clean ourselves up.
@@ -205,7 +206,8 @@
 				turfs += T
 
 	chosen_turf = pick(turfs)
-	priority_announce("[event_text]", "Patrol Notice: [get_area_name(get_area(chosen_turf))]", 'sound/misc/notice.ogg')
+	// Removing the announcement and associated noise; This felt a little... Immersion breaking, all things considered.
+	//priority_announce("[event_text]", "Patrol Notice: [get_area_name(get_area(chosen_turf))]", 'sound/misc/notice.ogg')
 	spawn_mobs(atom_types, rare_atom_types, rare_prob, spawn_range, amt_lower, amt_upper, turfs)
 	spawn_loot(loot_atom_types, loot_amt_lower, loot_amt_upper)
 	qdel(src) //Clean ourselves up.
@@ -243,7 +245,8 @@
 				turfs += T
 
 	chosen_turf = pick(turfs)
-	priority_announce("[event_text]", "Patrol Notice: [get_area_name(get_area(chosen_turf))]", 'sound/misc/notice.ogg')
+	// Removing the announcement and associated noise; This felt a little... Immersion breaking, all things considered.
+	//priority_announce("[event_text]", "Patrol Notice: [get_area_name(get_area(chosen_turf))]", 'sound/misc/notice.ogg')
 	spawn_mobs(atom_types, rare_atom_types, rare_prob, spawn_range, amt_lower, amt_upper, turfs)
 	spawn_loot(loot_atom_types, loot_amt_lower, loot_amt_upper)
 	qdel(src) //Clean ourselves up.
