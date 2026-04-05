@@ -8,14 +8,14 @@
 	chargedrain = 1
 	chargetime = 2 SECONDS
 	no_early_release = TRUE
-	recharge_time = 1 MINUTES
+	recharge_time = 15 MINUTES //CC Edit - 1 Min -> 15 mins
 
 	warnie = "spellwarning"
 	no_early_release = TRUE
 	movement_interrupt = TRUE
 	antimagic_allowed = FALSE
 	charging_slowdown = 3
-	cost = 1
+	cost = 3 //CC Edit - Make it on line with Malum's miracle
 	spell_tier = 1 // Spellblade tier.
 
 	invocations = list("Instrumentum Exoriantur!")

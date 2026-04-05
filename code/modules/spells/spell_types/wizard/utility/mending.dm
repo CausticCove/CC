@@ -82,12 +82,13 @@
 
 	return TRUE
 
+//CC Edit - Lesser Mending
 /obj/effect/proc_holder/spell/invoked/mending/lesser
 	name = "Lesser Mending"
 	desc = "Uses arcyne energy to mend an item. Effect of repair scales off of your Intelligence. The Lesser variant repairs significantly slower."
 	recharge_time = 3 SECONDS
-	cost = 1
+	cost = 3 // From 1 -> 3, for those of higher tier, look at normal mending for cheaper spell and better results.
 	spell_tier = 1 //Lesser Mending, still just like mending but rather akin to snails pace, and is only 1 point.
 	lesser_modifier = 2.5 SECONDS //2.5 second slower per tick. Much much slower than regular mending.
 	repair_percent = 0.7
- 
+ //CC Edit - Lesser Mending
