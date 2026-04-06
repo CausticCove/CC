@@ -70,6 +70,7 @@
 		/datum/skill/misc/reading = SKILL_LEVEL_APPRENTICE,
 		//Caustic edit
 		/datum/skill/combat/crossbows = SKILL_LEVEL_JOURNEYMAN,
+		/datum/skill/misc/athletics = SKILL_LEVEL_NOVICE, //Caustic edit, added to allow artificer armor to activate on strength mode
 		/datum/skill/combat/firearms = SKILL_LEVEL_JOURNEYMAN //caustic edit
 	)
 

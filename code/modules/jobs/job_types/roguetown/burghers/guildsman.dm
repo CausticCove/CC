@@ -56,6 +56,7 @@
 		/datum/skill/craft/weaponsmithing = SKILL_LEVEL_MASTER,
 		/datum/skill/craft/smelting = SKILL_LEVEL_EXPERT,
 		/datum/skill/craft/engineering = SKILL_LEVEL_NOVICE, // 1 Engineering to allow them to sub for Artificer role occaisonally
+		/datum/skill/misc/athletics = SKILL_LEVEL_NOVICE, //CC edit, added to allow artificer armor to activate on strength mode
 		/datum/skill/misc/reading = SKILL_LEVEL_APPRENTICE,
 	)
 
@@ -136,7 +137,8 @@
 		/datum/skill/misc/reading = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/craft/ceramics = SKILL_LEVEL_JOURNEYMAN,	//Just for basic pottery/glass stuff.
 		/datum/skill/combat/crossbows = SKILL_LEVEL_APPRENTICE,//CAUSTIC EDIT
-		/datum/skill/combat/firearms = SKILL_LEVEL_APPRENTICE //Caustic edit end, same as crossbows
+		/datum/skill/combat/firearms = SKILL_LEVEL_APPRENTICE, //Caustic edit end, same as crossbows
+		/datum/skill/misc/athletics = SKILL_LEVEL_NOVICE //CC edit, added to allow artificer armor to activate on strength mode
 	)
 
 /datum/outfit/job/roguetown/guildsman/artificer/pre_equip(mob/living/carbon/human/H)
