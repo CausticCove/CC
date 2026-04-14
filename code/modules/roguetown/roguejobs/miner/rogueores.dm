@@ -8,6 +8,19 @@
 	grid_width = 64
 	grid_height = 32
 
+/obj/item/rogueore/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/rogueweapon/tongs))
+		var/obj/item/rogueweapon/tongs/T = I
+		if (loc in user.contents)
+			to_chat(user, span_warning("I can't take out \the [src] from inside."))
+			return
+		if(!T.ore && !T.hingot)
+			forceMove(T)
+			T.ore = src
+			T.update_icon()
+			return
+	..()
+
 /obj/item/rogueore/gold
 	name = "raw gold"
 	desc = "A clump of dirty lustrous nuggets!"
@@ -168,7 +181,7 @@
 		if (loc in user.contents)
 			to_chat(user, span_warning("I can't take out \the [src] from inside."))
 			return
-		if(!T.hingot)
+		if(!T.hingot && !T.ore)
 			forceMove(T)
 			T.hingot = src
 			T.hott = null

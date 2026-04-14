@@ -1,0 +1,131 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/turf/open/floor/rogue/rooftop/green/north,
+/area/rogue/outdoors/town/roofs)
+"b" = (
+/obj/machinery/light/rogue/oven/south,
+/obj/item/reagent_containers/food/snacks/badrecipe,
+/turf/open/floor/rogue/dirt,
+/area/rogue/indoors/shelter/woods)
+"d" = (
+/obj/item/ash{
+	pixel_x = 10;
+	pixel_y = -7
+	},
+/turf/open/floor/rogue/dirt,
+/area/rogue/indoors/shelter/woods)
+"g" = (
+/obj/item/ash{
+	pixel_x = 10;
+	pixel_y = -7
+	},
+/turf/closed/wall/mineral/rogue/stonebrick,
+/area/rogue/indoors/shelter/woods)
+"k" = (
+/obj/item/ash{
+	pixel_y = 2;
+	pixel_x = -12
+	},
+/turf/open/floor/rogue/dirt,
+/area/rogue/indoors/shelter/woods)
+"o" = (
+/obj/item/ash,
+/turf/open/floor/rogue/twig,
+/area/rogue/indoors/shelter/woods)
+"r" = (
+/turf/open/transparent/openspace,
+/area/rogue/outdoors/town/roofs)
+"t" = (
+/obj/item/ash,
+/turf/open/floor/rogue/dirt,
+/area/rogue/indoors/shelter/woods)
+"E" = (
+/obj/item/ash{
+	pixel_x = -7
+	},
+/mob/living/carbon/human/species/skeleton/npc/mediumspread,
+/turf/open/floor/rogue/dirt,
+/area/rogue/indoors/shelter/woods)
+"F" = (
+/obj/item/ash{
+	pixel_x = -7
+	},
+/obj/item/rogueore/coal/charcoal,
+/turf/open/floor/rogue/dirt,
+/area/rogue/indoors/shelter/woods)
+"H" = (
+/obj/structure/roguewindow,
+/turf/open/floor/rogue/twig,
+/area/rogue/indoors/shelter/woods)
+"J" = (
+/turf/closed/wall/mineral/rogue/decowood,
+/area/rogue/indoors/shelter/woods)
+"L" = (
+/obj/item/ash,
+/obj/item/ash{
+	pixel_x = 10;
+	pixel_y = -7
+	},
+/turf/open/floor/rogue/dirt,
+/area/rogue/indoors/shelter/woods)
+"P" = (
+/turf/closed/wall/mineral/rogue/wooddark,
+/area/rogue/indoors/shelter/woods)
+"R" = (
+/obj/item/ash{
+	pixel_x = 5;
+	pixel_y = 12
+	},
+/obj/item/rogueore/coal/charcoal,
+/turf/open/floor/rogue/dirt,
+/area/rogue/indoors/shelter/woods)
+
+(1,1,1) = {"
+P
+J
+L
+P
+"}
+(2,1,1) = {"
+g
+b
+o
+R
+"}
+(3,1,1) = {"
+H
+E
+d
+t
+"}
+(4,1,1) = {"
+P
+J
+F
+k
+"}
+
+(1,1,2) = {"
+a
+a
+a
+r
+"}
+(2,1,2) = {"
+r
+r
+r
+r
+"}
+(3,1,2) = {"
+r
+r
+r
+r
+"}
+(4,1,2) = {"
+r
+r
+r
+r
+"}

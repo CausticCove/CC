@@ -424,6 +424,45 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 				S.verb_yell = initial(S.verb_yell)
 		remove_status_effect(/datum/status_effect/thaumaturgy)
 	// AZURE EDIT END
+	//CC Edit Begin - Thaumaturgical Comms
+	else if (has_status_effect(/datum/status_effect/thaumaturgical_communication))
+		spans |= SPAN_ITALICS
+		var/datum/status_effect/thaumaturgical_communication/buff = locate() in status_effects
+		var/channel_type = buff.talking_to //Who are we talking to? Everyone? Church? Ascendants? Patrons only?
+		//If we are in the church, we speak to all who have devotion. (You need to take Devotee to be able to hear these for example.)
+		for(var/mob/living/carbon/human/H in GLOB.player_list)
+			//All church members can hear these messages. Anyone with devotion can also hear these messages.
+			if(H.devotion || (H.job in GLOB.church_positions))
+				if(H.has_status_effect(/datum/status_effect/thaumaturgical_silence))
+					continue
+				
+				//Check for channel types.
+				if(channel_type == SPEAKING_TO_CHURCH_ONLY) //Don't send this message to folk who aren't in the church clergy.
+				//These are messages directly from the church itself, thus they have more governing power compared to other voices that may NOT be from the church.
+					if(!(H.job in GLOB.church_positions))
+						continue
+					to_chat(H, span_centcomradio("A powerful voice echoes, ''[message]''"))
+					continue
+				else if(channel_type == SPEAKING_TO_ASCENDANTS_ONLY) //Don't send this message to folk who aren't ascendant followers.
+					if(!istype(H.patron, /datum/patron/inhumen))
+						continue 
+					to_chat(H, span_cult("A wretched voice echoes, ''[message]''"))
+					continue
+				else if(channel_type == SPEAKING_TO_SAME_PATRONS_ONLY) //Don't send this message to folk who aren't the same patron.
+					if(H.patron != patron)
+						continue 
+					to_chat(H, span_resonate("A familiar voice echoes, ''[message]''"))
+					continue
+				else
+					if(job in GLOB.church_positions)
+						//These are messages directly from the church itself, thus they have more governing power compared to other voices that may NOT be from the church.
+						to_chat(H, span_centcomradio("A powerful voice echoes, ''[message]''"))
+						continue
+
+					to_chat(H, span_prefix("A voice echoes, ''[message]''")) // Weaker, non-church voice gets a different color.
+					continue
+
+		remove_status_effect(/datum/status_effect/thaumaturgical_communication)
 	var/list/listening = get_hearers_in_view(message_range+eavesdrop_range, source)
 	var/list/the_dead = list()
 //	var/list/yellareas	//CIT CHANGE - adds the ability for yelling to penetrate walls and echo throughout areas

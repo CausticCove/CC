@@ -1,0 +1,109 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/turf/closed/wall/mineral/rogue/decowood,
+/area/rogue/indoors/shelter/woods)
+"i" = (
+/obj/item/grown/log/tree/small,
+/turf/open/floor/rogue/ruinedwood,
+/area/rogue/indoors/shelter/woods)
+"j" = (
+/turf/open/floor/rogue/twig,
+/area/rogue/indoors/shelter/woods)
+"q" = (
+/obj/structure/closet/crate/chest/neu,
+/obj/effect/spawner/lootdrop/roguetown/sewers,
+/turf/open/floor/rogue/ruinedwood,
+/area/rogue/indoors/shelter/woods)
+"u" = (
+/mob/living/carbon/human/species/skeleton/npc/mediumspread,
+/turf/open/floor/rogue/twig,
+/area/rogue/indoors/shelter/woods)
+"v" = (
+/obj/structure/bed/rogue/shit,
+/turf/open/floor/rogue/ruinedwood,
+/area/rogue/indoors/shelter/woods)
+"A" = (
+/obj/item/grown/log/tree/small,
+/turf/open/floor/rogue/dirt/road,
+/area/rogue/indoors/shelter/woods)
+"B" = (
+/turf/open/floor/rogue/dirt/road,
+/area/rogue/indoors/shelter/woods)
+"G" = (
+/turf/open/floor/rogue/rooftop/green/north,
+/area/rogue/outdoors/town/roofs)
+"I" = (
+/obj/structure/table/wood/poor,
+/turf/open/floor/rogue/twig,
+/area/rogue/indoors/shelter/woods)
+"K" = (
+/obj/structure/mineral_door/wood/deadbolt{
+	dir = 8
+	},
+/turf/open/floor/rogue/dirt/road,
+/area/rogue/indoors/shelter/woods)
+"T" = (
+/turf/closed/wall/mineral/rogue/wooddark,
+/area/rogue/indoors/shelter/woods)
+"W" = (
+/obj/structure/roguewindow,
+/turf/open/floor/rogue/twig,
+/area/rogue/indoors/shelter/woods)
+
+(1,1,1) = {"
+T
+a
+W
+a
+T
+"}
+(2,1,1) = {"
+B
+q
+j
+u
+a
+"}
+(3,1,1) = {"
+a
+I
+i
+v
+A
+"}
+(4,1,1) = {"
+T
+a
+K
+a
+T
+"}
+
+(1,1,2) = {"
+G
+G
+G
+G
+G
+"}
+(2,1,2) = {"
+G
+G
+G
+G
+G
+"}
+(3,1,2) = {"
+G
+G
+G
+G
+G
+"}
+(4,1,2) = {"
+G
+G
+G
+G
+G
+"}

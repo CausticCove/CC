@@ -17,7 +17,7 @@
 	display_order = JDO_APOTHECARY
 	give_bank_account = TRUE
 
-	min_pq = null //0
+	min_pq = 0
 	max_pq = null
 	round_contrib_points = 5
 

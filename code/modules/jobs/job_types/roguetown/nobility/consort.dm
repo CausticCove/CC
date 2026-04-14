@@ -17,7 +17,7 @@
 	display_order = JDO_LADY
 	give_bank_account = TRUE
 	noble_income = 22
-	min_pq = null //10
+	min_pq = 10
 	max_pq = null
 	round_contrib_points = 3
 	vice_restrictions = list(/datum/charflaw/mute, /datum/charflaw/unintelligible) //Needs to use the throat - sometimes

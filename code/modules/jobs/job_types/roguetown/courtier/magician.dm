@@ -16,7 +16,7 @@
 	outfit = /datum/outfit/job/roguetown/magician
 	whitelist_req = TRUE
 	give_bank_account = TRUE
-	min_pq = null //4 //High potential for abuse, lovepotion/killersice/greater fireball is not for the faint of heart
+	min_pq = 8 //CC Edit - See comment on the right, from 4 -> 8 PQ. //High potential for abuse, lovepotion/killersice/greater fireball is not for the faint of heart
 	max_pq = null
 	round_contrib_points = 2
 	cmode_music = 'sound/music/cmode/nobility/combat_courtmage.ogg'

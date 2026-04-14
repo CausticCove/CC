@@ -1,0 +1,503 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/turf/open/floor/rogue/blocks,
+/area/rogue/outdoors/beach/forest/south)
+"d" = (
+/turf/closed/wall/mineral/rogue/tent{
+	dir = 4
+	},
+/area/rogue/outdoors/beach/forest/south)
+"g" = (
+/obj/effect/spawner/lootdrop/general_loot_mid,
+/obj/structure/table/wood/poor,
+/turf/open/floor/rogue/blocks,
+/area/rogue/outdoors/beach/forest/south)
+"h" = (
+/obj/structure/fluff/railing/fence,
+/turf/open/floor/rogue/twig,
+/area/rogue/outdoors/beach/forest/south)
+"i" = (
+/obj/effect/decal/remains/bigrat,
+/turf/open/floor/rogue/blocks,
+/area/rogue/outdoors/beach/forest/south)
+"j" = (
+/obj/structure/closet/crate/chest/wicker,
+/obj/effect/spawner/lootdrop/cheap_clutter_spawner,
+/turf/open/floor/rogue/twig,
+/area/rogue/outdoors/beach/forest/south)
+"l" = (
+/obj/structure/stairs/helper{
+	dir = 1
+	},
+/turf/open/floor/rogue/twig,
+/area/rogue/outdoors/beach/forest/south)
+"n" = (
+/turf/closed/wall/mineral/rogue/tent{
+	dir = 1
+	},
+/area/rogue/outdoors/beach/forest/south)
+"o" = (
+/obj/structure/stairs{
+	dir = 1
+	},
+/turf/open/floor/rogue/blocks,
+/area/rogue/outdoors/beach/forest/south)
+"p" = (
+/obj/structure/closet/crate/chest/wicker,
+/obj/effect/spawner/lootdrop/general_loot_mid,
+/turf/open/floor/rogue/blocks,
+/area/rogue/outdoors/beach/forest/south)
+"r" = (
+/obj/structure/fluff/railing/fence{
+	dir = 8
+	},
+/mob/living/carbon/human/species/goblin/npc,
+/turf/open/floor/rogue/twig,
+/area/rogue/outdoors/beach/forest/south)
+"u" = (
+/obj/structure/fluff/railing/fence{
+	dir = 8
+	},
+/turf/open/floor/rogue/twig,
+/area/rogue/outdoors/beach/forest/south)
+"v" = (
+/obj/structure/flora/roguegrass/herb/random,
+/turf/open/floor/rogue/grass,
+/area/rogue/outdoors/beach/forest/south)
+"w" = (
+/turf/open/floor/rogue/dirt,
+/area/rogue/outdoors/beach/forest/south)
+"x" = (
+/turf/closed/wall/mineral/rogue/tent{
+	dir = 8
+	},
+/area/rogue/outdoors/beach/forest/south)
+"y" = (
+/mob/living/carbon/human/species/hobgoblin/npc,
+/turf/open/floor/rogue/dirt,
+/area/rogue/outdoors/beach/forest/south)
+"z" = (
+/obj/structure/closet/crate/chest/old_crate,
+/obj/effect/spawner/lootdrop/general_loot_mid,
+/obj/effect/spawner/lootdrop/general_loot_mid,
+/turf/open/floor/rogue/blocks,
+/area/rogue/outdoors/beach/forest/south)
+"A" = (
+/turf/open/floor/rogue/grass,
+/area/rogue/outdoors/beach/forest/south)
+"B" = (
+/obj/machinery/light/rogue/firebowl/stump,
+/turf/open/floor/rogue/twig,
+/area/rogue/outdoors/beach/forest/south)
+"C" = (
+/turf/open/floor/rogue/twig,
+/area/rogue/outdoors/beach/forest/south)
+"F" = (
+/obj/machinery/light/rogue/firebowl/stump,
+/turf/open/floor/rogue/blocks,
+/area/rogue/outdoors/beach/forest/south)
+"G" = (
+/mob/living/carbon/human/species/hobgoblin/npc,
+/turf/open/floor/rogue/twig,
+/area/rogue/outdoors/beach/forest/south)
+"I" = (
+/turf/closed/wall/mineral/rogue/tent,
+/area/rogue/outdoors/beach/forest/south)
+"M" = (
+/turf/open/transparent/openspace,
+/area/rogue/outdoors/beach/forest/south)
+"N" = (
+/obj/effect/spawner/lootdrop/cheap_tableware_spawner,
+/obj/structure/table/wood/poor,
+/turf/open/floor/rogue/blocks,
+/area/rogue/outdoors/beach/forest/south)
+"P" = (
+/mob/living/carbon/human/species/goblin/npc,
+/turf/open/floor/rogue/blocks,
+/area/rogue/outdoors/beach/forest/south)
+"Q" = (
+/obj/structure/fluff/railing/fence{
+	dir = 8
+	},
+/obj/structure/fluff/railing/fence{
+	dir = 1
+	},
+/turf/open/floor/rogue/twig,
+/area/rogue/outdoors/beach/forest/south)
+"R" = (
+/turf/closed/wall/mineral/rogue/stone,
+/area/rogue/outdoors/beach/forest/south)
+"S" = (
+/obj/structure/stairs{
+	dir = 1
+	},
+/turf/open/floor/rogue/twig,
+/area/rogue/outdoors/beach/forest/south)
+"T" = (
+/obj/structure/fluff/railing/fence{
+	dir = 1
+	},
+/turf/open/floor/rogue/twig,
+/area/rogue/outdoors/beach/forest/south)
+"V" = (
+/obj/structure/roguetent,
+/turf/open/floor/rogue/grass,
+/area/rogue/outdoors/beach/forest/south)
+"W" = (
+/obj/structure/flora/newtree,
+/turf/open/floor/rogue/dirt,
+/area/rogue/outdoors/beach/forest/south)
+"X" = (
+/obj/structure/closet/crate/chest/old_crate,
+/obj/effect/spawner/lootdrop/roguetown/dungeon/misc,
+/obj/effect/spawner/lootdrop/general_loot_hi,
+/obj/effect/spawner/lootdrop/general_loot_hi,
+/turf/open/floor/rogue/twig,
+/area/rogue/outdoors/beach/forest/south)
+"Y" = (
+/turf/closed/wall/mineral/rogue/wood,
+/area/rogue/outdoors/beach/forest/south)
+"Z" = (
+/mob/living/carbon/human/species/goblin/npc,
+/turf/open/floor/rogue/twig,
+/area/rogue/outdoors/beach/forest/south)
+
+(1,1,1) = {"
+A
+A
+A
+A
+w
+W
+w
+A
+A
+A
+A
+"}
+(2,1,1) = {"
+v
+A
+w
+A
+A
+R
+R
+d
+R
+R
+y
+"}
+(3,1,1) = {"
+v
+w
+A
+R
+R
+R
+N
+a
+a
+R
+w
+"}
+(4,1,1) = {"
+A
+A
+A
+R
+z
+a
+a
+a
+P
+R
+Y
+"}
+(5,1,1) = {"
+A
+Y
+d
+R
+a
+i
+C
+B
+a
+a
+n
+"}
+(6,1,1) = {"
+A
+I
+C
+C
+G
+C
+C
+C
+C
+C
+V
+"}
+(7,1,1) = {"
+w
+I
+a
+Y
+C
+Y
+S
+a
+C
+W
+n
+"}
+(8,1,1) = {"
+w
+I
+a
+C
+C
+C
+a
+p
+C
+C
+Y
+"}
+(9,1,1) = {"
+A
+R
+a
+Y
+C
+Y
+o
+a
+C
+C
+R
+"}
+(10,1,1) = {"
+A
+R
+a
+C
+a
+a
+a
+G
+C
+C
+R
+"}
+(11,1,1) = {"
+A
+R
+F
+a
+g
+C
+C
+C
+j
+C
+n
+"}
+(12,1,1) = {"
+A
+R
+R
+x
+x
+x
+x
+R
+R
+x
+Y
+"}
+(13,1,1) = {"
+w
+A
+w
+w
+A
+A
+A
+w
+w
+w
+w
+"}
+
+(1,1,2) = {"
+M
+M
+M
+M
+M
+M
+M
+M
+M
+M
+M
+"}
+(2,1,2) = {"
+M
+M
+Q
+u
+u
+u
+r
+M
+M
+M
+M
+"}
+(3,1,2) = {"
+M
+M
+C
+Y
+B
+Y
+C
+M
+M
+M
+M
+"}
+(4,1,2) = {"
+M
+M
+C
+X
+C
+C
+C
+M
+M
+M
+M
+"}
+(5,1,2) = {"
+M
+M
+M
+M
+C
+M
+M
+M
+M
+M
+M
+"}
+(6,1,2) = {"
+M
+M
+M
+M
+C
+M
+M
+M
+M
+M
+M
+"}
+(7,1,2) = {"
+M
+M
+M
+T
+C
+l
+M
+M
+C
+M
+h
+"}
+(8,1,2) = {"
+M
+M
+M
+G
+C
+C
+C
+C
+C
+B
+h
+"}
+(9,1,2) = {"
+M
+M
+M
+C
+C
+l
+M
+M
+Z
+C
+h
+"}
+(10,1,2) = {"
+M
+M
+M
+M
+M
+M
+M
+M
+M
+M
+M
+"}
+(11,1,2) = {"
+M
+M
+M
+M
+M
+M
+M
+M
+M
+M
+M
+"}
+(12,1,2) = {"
+M
+M
+M
+M
+M
+M
+M
+M
+M
+M
+M
+"}
+(13,1,2) = {"
+M
+M
+M
+M
+M
+M
+M
+M
+M
+M
+M
+"}

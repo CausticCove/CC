@@ -1,0 +1,665 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"ag" = (
+/turf/open/floor/rogue/grass,
+/area/rogue/outdoors/woods/north)
+"aZ" = (
+/obj/effect/landmark/chest_or_mimic/loot_chest,
+/turf/open/floor/carpet/stellar,
+/area/rogue/indoors/cave)
+"bw" = (
+/obj/structure/bed/rogue/inn,
+/obj/item/bedsheet/rogue/wool,
+/mob/living/carbon/human/species/human/northern/thief,
+/turf/open/floor/carpet/royalblack,
+/area/rogue/indoors/town)
+"cQ" = (
+/turf/open/floor/rogue/ruinedwood/turned,
+/area/rogue/indoors/town)
+"de" = (
+/obj/structure/flora/roguegrass,
+/obj/structure/flora/newtree,
+/turf/open/floor/rogue/grass,
+/area/rogue/outdoors/woods/north)
+"dj" = (
+/obj/effect/decal/cleanable/debris/stony,
+/turf/open/floor/carpet/royalblack,
+/area/rogue/indoors/cave)
+"do" = (
+/obj/structure/flora/roguegrass/herb/random,
+/turf/open/floor/rogue/grass,
+/area/rogue/outdoors/woods/north)
+"dV" = (
+/obj/effect/decal/cleanable/debris/woody,
+/turf/closed/wall/mineral/rogue/craftstone{
+	density = 0
+	},
+/area/rogue/indoors/cave)
+"em" = (
+/obj/effect/decal/cleanable/blood/footprints/mud,
+/obj/item/reagent_containers/powder/salt,
+/turf/open/floor/carpet/royalblack,
+/area/rogue/indoors/cave)
+"fq" = (
+/obj/structure/table/wood/fancy/blue,
+/obj/item/candle/candlestick/gold/lit{
+	pixel_y = 9
+	},
+/turf/open/floor/rogue/herringbone,
+/area/rogue/indoors/cave)
+"fu" = (
+/obj/structure/flora/roguegrass,
+/turf/open/floor/rogue/dirt,
+/area/rogue/outdoors/woods/north)
+"fU" = (
+/turf/open/transparent/openspace,
+/area/rogue/outdoors/mountains)
+"gL" = (
+/obj/structure/chair/wood/rogue/chair5{
+	dir = 1
+	},
+/turf/open/floor/rogue/herringbone,
+/area/rogue/indoors/cave)
+"hu" = (
+/obj/structure/ladder,
+/obj/effect/decal/cleanable/blood/footprints/mud,
+/turf/open/floor/carpet/royalblack,
+/area/rogue/indoors/town)
+"ik" = (
+/obj/item/reagent_containers/powder/herozium,
+/obj/structure/table/wood/fancy/black,
+/obj/effect/decal/cleanable/debris/stony,
+/turf/open/floor/rogue/herringbone,
+/area/rogue/indoors/cave)
+"iS" = (
+/mob/living/carbon/human/species/human/northern/thief,
+/obj/structure/chair/wood/rogue/chair5{
+	dir = 1
+	},
+/turf/open/floor/rogue/herringbone,
+/area/rogue/indoors/cave)
+"jD" = (
+/turf/closed/wall/mineral/rogue/craftstone,
+/area/rogue/indoors/town)
+"lw" = (
+/obj/structure/closet/crate/chest/crate,
+/obj/item/clothing/suit/roguetown/shirt/tunic/black,
+/obj/item/clothing/under/roguetown/trou,
+/obj/effect/spawner/lootdrop/roguetown/dungeon/misc,
+/obj/item/clothing/head/roguetown/fisherhat,
+/turf/open/floor/rogue/ruinedwood/turned,
+/area/rogue/indoors/town)
+"ly" = (
+/obj/effect/decal/cleanable/blood/footprints/mud{
+	dir = 4
+	},
+/turf/closed/wall/mineral/rogue/craftstone{
+	density = 0
+	},
+/area/rogue/indoors/cave)
+"lF" = (
+/mob/living/carbon/human/species/human/northern/thief,
+/turf/open/floor/rogue/herringbone,
+/area/rogue/indoors/cave)
+"mB" = (
+/obj/structure/flora/roguegrass,
+/obj/structure/flora/roguegrass/herb/random,
+/turf/open/floor/rogue/grass,
+/area/rogue/outdoors/woods/north)
+"oy" = (
+/obj/structure/closet/crate/chest/crate,
+/obj/effect/decal/cleanable/debris/stony,
+/obj/effect/decal/cleanable/debris/woody,
+/obj/item/reagent_containers/powder/moondust_purest,
+/turf/open/floor/carpet/stellar,
+/area/rogue/indoors/cave)
+"pt" = (
+/turf/closed/wall/mineral/rogue/wooddark/slitted,
+/area/rogue/indoors/town)
+"px" = (
+/turf/closed/wall/mineral/rogue/decowood,
+/area/rogue/indoors/town)
+"pG" = (
+/obj/effect/decal/cleanable/debris/stony,
+/turf/open/floor/rogue/herringbone,
+/area/rogue/indoors/cave)
+"pN" = (
+/turf/closed/wall/mineral/rogue/craftstone{
+	density = 0
+	},
+/area/rogue/indoors/town)
+"sf" = (
+/obj/structure/table/wood/fancy/blue,
+/obj/item/clothing/ring/aalloy,
+/turf/open/floor/rogue/herringbone,
+/area/rogue/indoors/cave)
+"sJ" = (
+/obj/structure/flora/newtree,
+/turf/open/floor/rogue/grass,
+/area/rogue/outdoors/woods/north)
+"ta" = (
+/obj/effect/decal/cleanable/debris/stony,
+/obj/effect/decal/cleanable/dirt/cobweb,
+/turf/open/floor/carpet/royalblack,
+/area/rogue/indoors/cave)
+"tD" = (
+/obj/effect/decal/cleanable/dirt/cobweb,
+/turf/open/floor/rogue/herringbone,
+/area/rogue/indoors/cave)
+"uL" = (
+/obj/structure/closet/crate/chest/crate,
+/obj/effect/decal/cleanable/debris/woody,
+/obj/effect/decal/cleanable/debris/stony,
+/obj/item/reagent_containers/powder/moondust,
+/turf/open/floor/carpet/stellar,
+/area/rogue/indoors/cave)
+"vm" = (
+/obj/structure/mineral_door/wood/deadbolt{
+	dir = 1
+	},
+/turf/open/floor/rogue/ruinedwood/turned,
+/area/rogue/indoors/town)
+"vv" = (
+/obj/structure/chair/wood/rogue{
+	dir = 1
+	},
+/turf/open/floor/rogue/ruinedwood/turned,
+/area/rogue/indoors/town)
+"vJ" = (
+/obj/structure/table/wood/fancy/blue,
+/turf/open/floor/rogue/herringbone,
+/area/rogue/indoors/cave)
+"wd" = (
+/obj/effect/decal/cleanable/debris/stony,
+/obj/effect/decal/cleanable/dirt/cobweb{
+	dir = 4
+	},
+/obj/structure/ladder,
+/turf/open/floor/carpet/royalblack,
+/area/rogue/indoors/cave)
+"wF" = (
+/obj/structure/trap/wall_projectile{
+	dir = 1
+	},
+/turf/open/floor/carpet/royalblack,
+/area/rogue/indoors/town)
+"wQ" = (
+/obj/item/reagent_containers/powder/salt,
+/turf/open/floor/carpet/royalblack,
+/area/rogue/indoors/cave)
+"yl" = (
+/obj/structure/mineral_door/wood/deadbolt{
+	dir = 4
+	},
+/turf/open/floor/rogue/ruinedwood/turned,
+/area/rogue/indoors/town)
+"yT" = (
+/obj/structure/closet/crate/chest/crate,
+/obj/effect/decal/cleanable/debris/stony,
+/obj/effect/decal/cleanable/debris/woody,
+/obj/item/reagent_containers/powder/herozium,
+/turf/open/floor/carpet/stellar,
+/area/rogue/indoors/cave)
+"Aw" = (
+/obj/effect/decal/cleanable/dirt/cobweb{
+	dir = 8
+	},
+/turf/open/floor/rogue/herringbone,
+/area/rogue/indoors/cave)
+"Ca" = (
+/obj/structure/closet/crate/chest/crate,
+/obj/item/reagent_containers/powder/ozium,
+/turf/open/floor/carpet/stellar,
+/area/rogue/indoors/cave)
+"Ci" = (
+/obj/structure/rack/rogue,
+/obj/item/clothing/gloves/roguetown/leather,
+/turf/open/floor/rogue/ruinedwood/turned,
+/area/rogue/indoors/town)
+"Da" = (
+/obj/machinery/light/rogue/hearth,
+/obj/item/cooking/pan,
+/turf/open/floor/rogue/ruinedwood/turned,
+/area/rogue/indoors/town)
+"Dw" = (
+/turf/open/floor/rogue/rooftop/green/north,
+/area/rogue/outdoors/beach/forest/south)
+"DU" = (
+/obj/effect/decal/cleanable/blood/footprints/mud,
+/turf/open/floor/carpet/royalblack,
+/area/rogue/indoors/cave)
+"FT" = (
+/obj/structure/closet/crate/chest/crate,
+/obj/item/reagent_containers/powder/flour,
+/obj/item/reagent_containers/powder/salt,
+/turf/open/floor/carpet/royalblack,
+/area/rogue/indoors/cave)
+"GA" = (
+/turf/open/floor/carpet/royalblack,
+/area/rogue/indoors/cave)
+"GL" = (
+/turf/open/transparent/openspace,
+/area/rogue/outdoors/beach/forest/south)
+"GM" = (
+/obj/structure/closet/crate/chest/crate,
+/obj/structure/closet/crate/chest/crate,
+/obj/item/reagent_containers/powder/ozium,
+/turf/open/floor/carpet/stellar,
+/area/rogue/indoors/cave)
+"Ij" = (
+/obj/structure/trap/shock,
+/turf/open/floor/carpet/royalblack,
+/area/rogue/indoors/town)
+"Jo" = (
+/obj/structure/flora/roguegrass,
+/turf/open/floor/rogue/grass,
+/area/rogue/outdoors/woods/north)
+"Ju" = (
+/obj/structure/roguemachine/drugmachine{
+	density = 0;
+	pixel_y = 32
+	},
+/obj/structure/chair/wood/rogue/chair5,
+/turf/open/floor/rogue/herringbone,
+/area/rogue/indoors/cave)
+"Lm" = (
+/turf/closed/wall/mineral/rogue/craftstone,
+/area/rogue/indoors/cave)
+"Ma" = (
+/turf/closed/mineral/random/rogue,
+/area/rogue/indoors/cave)
+"MG" = (
+/obj/machinery/light/rogue/candle/weak/l,
+/turf/open/floor/rogue/herringbone,
+/area/rogue/indoors/cave)
+"Nw" = (
+/obj/effect/decal/cleanable/blood/footprints/mud{
+	dir = 4
+	},
+/turf/open/floor/carpet/royalblack,
+/area/rogue/indoors/cave)
+"NO" = (
+/obj/effect/decal/cleanable/debris/stony,
+/obj/effect/decal/cleanable/debris/woody,
+/turf/open/floor/rogue/herringbone,
+/area/rogue/indoors/cave)
+"NX" = (
+/obj/structure/table/wood/poor,
+/obj/item/natural/clay/claystatue,
+/turf/open/floor/rogue/ruinedwood/turned,
+/area/rogue/indoors/town)
+"OC" = (
+/mob/living/carbon/human/species/human/northern/thief,
+/obj/structure/chair/wood/rogue/chair5,
+/turf/open/floor/carpet/royalblack,
+/area/rogue/indoors/cave)
+"Pk" = (
+/turf/open/floor/carpet/stellar,
+/area/rogue/indoors/cave)
+"Py" = (
+/mob/living/carbon/human/species/human/northern/thief,
+/obj/machinery/light/rogue/candle/weak/l,
+/turf/open/floor/rogue/herringbone,
+/area/rogue/indoors/cave)
+"QO" = (
+/obj/effect/decal/cleanable/blood/footprints/mud,
+/turf/open/floor/carpet/royalblack,
+/area/rogue/indoors/town)
+"Rt" = (
+/turf/open/floor/rogue/dirt,
+/area/rogue/outdoors/woods/north)
+"Sr" = (
+/obj/structure/chair/wood/rogue{
+	dir = 8
+	},
+/turf/open/floor/rogue/ruinedwood/turned,
+/area/rogue/indoors/town)
+"UA" = (
+/obj/structure/roguewindow,
+/turf/open/floor/rogue/ruinedwood/turned,
+/area/rogue/indoors/town)
+"Vd" = (
+/obj/item/reagent_containers/powder/ozium,
+/obj/structure/table/wood/fancy/black,
+/turf/open/floor/rogue/herringbone,
+/area/rogue/indoors/cave)
+"XV" = (
+/mob/living/carbon/human/species/human/northern/thief,
+/obj/structure/chair/wood/rogue/chair5,
+/obj/effect/decal/cleanable/debris/stony,
+/turf/open/floor/rogue/herringbone,
+/area/rogue/indoors/cave)
+"Yw" = (
+/turf/open/floor/rogue/rooftop/green/north,
+/area/rogue/outdoors/mountains)
+"YQ" = (
+/turf/closed/wall/mineral/rogue/stone,
+/area/rogue/indoors/town)
+"Zn" = (
+/obj/machinery/light/rogue/campfire/fireplace{
+	pixel_y = 32
+	},
+/turf/open/floor/rogue/ruinedwood/turned,
+/area/rogue/indoors/town)
+"ZU" = (
+/obj/structure/table/wood/poor,
+/obj/item/natural/clay/clayfancyvase{
+	pixel_y = 9;
+	pixel_x = -7
+	},
+/turf/open/floor/rogue/ruinedwood/turned,
+/area/rogue/indoors/town)
+
+(1,1,1) = {"
+Ma
+yT
+Ca
+aZ
+yT
+Ma
+"}
+(2,1,1) = {"
+Ma
+oy
+Pk
+uL
+GM
+Ma
+"}
+(3,1,1) = {"
+Lm
+Lm
+Lm
+dV
+Lm
+Lm
+"}
+(4,1,1) = {"
+Lm
+tD
+Py
+NO
+MG
+Lm
+"}
+(5,1,1) = {"
+Lm
+XV
+Vd
+sf
+gL
+Lm
+"}
+(6,1,1) = {"
+Lm
+Ju
+fq
+ik
+iS
+Lm
+"}
+(7,1,1) = {"
+Lm
+OC
+ik
+vJ
+gL
+Lm
+"}
+(8,1,1) = {"
+Lm
+dj
+GA
+lF
+pG
+Lm
+"}
+(9,1,1) = {"
+Lm
+Nw
+dj
+GA
+Aw
+Lm
+"}
+(10,1,1) = {"
+Lm
+ly
+Lm
+Lm
+Lm
+Lm
+"}
+(11,1,1) = {"
+Lm
+ta
+em
+DU
+wd
+Lm
+"}
+(12,1,1) = {"
+Lm
+FT
+GA
+dj
+wQ
+Lm
+"}
+(13,1,1) = {"
+Lm
+Lm
+Lm
+Lm
+Lm
+Lm
+"}
+
+(1,1,2) = {"
+pt
+px
+px
+px
+px
+pt
+"}
+(2,1,2) = {"
+px
+ZU
+vv
+cQ
+Ci
+UA
+"}
+(3,1,2) = {"
+px
+Sr
+cQ
+cQ
+cQ
+px
+"}
+(4,1,2) = {"
+px
+cQ
+cQ
+cQ
+wF
+vm
+"}
+(5,1,2) = {"
+px
+lw
+cQ
+cQ
+Da
+UA
+"}
+(6,1,2) = {"
+pt
+YQ
+yl
+YQ
+jD
+pt
+"}
+(7,1,2) = {"
+px
+NX
+cQ
+cQ
+YQ
+ag
+"}
+(8,1,2) = {"
+YQ
+Zn
+cQ
+cQ
+YQ
+mB
+"}
+(9,1,2) = {"
+px
+bw
+cQ
+Ij
+YQ
+de
+"}
+(10,1,2) = {"
+pt
+px
+jD
+pN
+jD
+jD
+"}
+(11,1,2) = {"
+Jo
+sJ
+jD
+QO
+hu
+jD
+"}
+(12,1,2) = {"
+fu
+sJ
+jD
+jD
+jD
+jD
+"}
+(13,1,2) = {"
+ag
+do
+ag
+sJ
+ag
+Rt
+"}
+
+(1,1,3) = {"
+Dw
+Dw
+Yw
+Yw
+Yw
+Yw
+"}
+(2,1,3) = {"
+Dw
+Dw
+Yw
+Yw
+Yw
+Yw
+"}
+(3,1,3) = {"
+Dw
+Dw
+Yw
+Yw
+Yw
+Yw
+"}
+(4,1,3) = {"
+Dw
+Dw
+Yw
+Yw
+Yw
+Yw
+"}
+(5,1,3) = {"
+Dw
+Dw
+Yw
+Yw
+Yw
+Yw
+"}
+(6,1,3) = {"
+Dw
+Dw
+Yw
+Yw
+Yw
+Yw
+"}
+(7,1,3) = {"
+Dw
+Dw
+Yw
+Yw
+Yw
+fU
+"}
+(8,1,3) = {"
+Dw
+Dw
+Yw
+Yw
+Yw
+fU
+"}
+(9,1,3) = {"
+Dw
+Dw
+Yw
+Yw
+Yw
+fU
+"}
+(10,1,3) = {"
+Dw
+Dw
+Yw
+Yw
+Yw
+fU
+"}
+(11,1,3) = {"
+GL
+GL
+Yw
+Yw
+Yw
+fU
+"}
+(12,1,3) = {"
+GL
+GL
+Yw
+Yw
+Yw
+fU
+"}
+(13,1,3) = {"
+GL
+GL
+fU
+fU
+fU
+fU
+"}

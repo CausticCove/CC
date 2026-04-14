@@ -1,0 +1,448 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/turf/open/transparent/openspace,
+/area/rogue/outdoors/mountains)
+"b" = (
+/obj/structure/table/wood/poor,
+/turf/open/floor/rogue/dirt/road,
+/area/rogue/indoors/shelter/woods)
+"d" = (
+/turf/open/transparent/openspace,
+/area/rogue/outdoors/town/roofs)
+"e" = (
+/turf/open/floor/rogue/ruinedwood/turned,
+/area/rogue/indoors/shelter/woods)
+"f" = (
+/obj/item/chair/stool/bar/rogue/crafted,
+/turf/open/floor/rogue/dirt/road,
+/area/rogue/indoors/shelter/woods)
+"g" = (
+/turf/open/floor/rogue/ruinedwood,
+/area/rogue/indoors/shelter/woods)
+"h" = (
+/obj/structure/roguewindow,
+/turf/open/floor/rogue/ruinedwood,
+/area/rogue/indoors/shelter/woods)
+"i" = (
+/obj/structure/roguewindow,
+/turf/open/floor/rogue/twig,
+/area/rogue/indoors/shelter/woods)
+"j" = (
+/obj/structure/flora/newtree,
+/turf/open/floor/rogue/dirt/road,
+/area/rogue/indoors/shelter/woods)
+"k" = (
+/mob/living/carbon/human/species/skeleton/npc/mediumspread,
+/turf/open/floor/rogue/ruinedwood,
+/area/rogue/indoors/shelter/woods)
+"l" = (
+/obj/structure/stairs,
+/turf/open/transparent/openspace,
+/area/rogue/indoors/shelter/woods)
+"m" = (
+/obj/structure/table/wood,
+/turf/open/floor/rogue/ruinedwood,
+/area/rogue/indoors/shelter/woods)
+"o" = (
+/obj/structure/fluff/railing/corner,
+/turf/open/floor/rogue/ruinedwood/turned,
+/area/rogue/indoors/shelter/woods)
+"p" = (
+/obj/structure/table/wood/large_table/south_west,
+/turf/open/floor/rogue/ruinedwood,
+/area/rogue/indoors/shelter/woods)
+"r" = (
+/turf/open/floor/rogue/twig,
+/area/rogue/indoors/shelter/woods)
+"s" = (
+/obj/item/grown/log/tree/small,
+/turf/open/floor/rogue/dirt/road,
+/area/rogue/indoors/shelter/woods)
+"u" = (
+/turf/open/floor/rogue/dirt/road,
+/area/rogue/outdoors/woods/southeast)
+"v" = (
+/obj/structure/roguetent,
+/turf/open/floor/rogue/dirt/road,
+/area/rogue/indoors/shelter/woods)
+"w" = (
+/turf/closed/wall/mineral/rogue/decowood,
+/area/rogue/indoors/shelter/woods)
+"x" = (
+/obj/item/grown/log/tree/stick,
+/turf/open/floor/rogue/rooftop/green/north,
+/area/rogue/outdoors/town/roofs)
+"y" = (
+/obj/item/grown/log/tree/stick,
+/turf/open/floor/rogue/dirt/road,
+/area/rogue/indoors/shelter/woods)
+"z" = (
+/obj/structure/stairs,
+/turf/open/floor/rogue/ruinedwood,
+/area/rogue/indoors/shelter/woods)
+"A" = (
+/turf/open/floor/rogue/dirt,
+/area/rogue/outdoors/woods/southeast)
+"B" = (
+/turf/closed/wall/mineral/rogue/wooddark/end,
+/area/rogue/indoors/shelter/woods)
+"C" = (
+/obj/structure/fluff/alch,
+/turf/open/floor/rogue/ruinedwood,
+/area/rogue/indoors/shelter/woods)
+"D" = (
+/turf/closed/wall/mineral/rogue/decowood,
+/area/rogue/outdoors/woods/southeast)
+"E" = (
+/turf/open/water/swamp,
+/area/rogue/outdoors/woods/southeast)
+"G" = (
+/turf/open/floor/rogue/dirt/road,
+/area/rogue/indoors/shelter/woods)
+"H" = (
+/obj/item/grown/log/tree/stick,
+/turf/open/floor/rogue/ruinedwood/turned,
+/area/rogue/indoors/shelter/woods)
+"J" = (
+/turf/closed/wall/mineral/rogue/wooddark,
+/area/rogue/outdoors/woods/southeast)
+"M" = (
+/turf/open/transparent/openspace,
+/area/rogue/indoors/shelter/woods)
+"N" = (
+/obj/structure/table/wood/poor,
+/turf/open/floor/rogue/ruinedwood,
+/area/rogue/indoors/shelter/woods)
+"O" = (
+/obj/structure/chair/stool/rogue,
+/turf/open/floor/rogue/ruinedwood,
+/area/rogue/indoors/shelter/woods)
+"Q" = (
+/obj/item/grown/log/tree/stick,
+/turf/open/floor/rogue/ruinedwood,
+/area/rogue/indoors/shelter/woods)
+"R" = (
+/obj/structure/bed/rogue/shit,
+/turf/open/floor/rogue/ruinedwood/turned,
+/area/rogue/indoors/shelter/woods)
+"S" = (
+/turf/closed/wall/mineral/rogue/wooddark/vertical,
+/area/rogue/indoors/shelter/woods)
+"U" = (
+/obj/structure/fluff/railing/border/west,
+/turf/open/floor/rogue/ruinedwood/turned,
+/area/rogue/indoors/shelter/woods)
+"V" = (
+/turf/open/floor/rogue/rooftop/green/north,
+/area/rogue/outdoors/town/roofs)
+"W" = (
+/turf/closed/wall/mineral/rogue/wooddark,
+/area/rogue/indoors/shelter/woods)
+"X" = (
+/turf/closed/wall/mineral/rogue/wooddark/end/west,
+/area/rogue/indoors/shelter/woods)
+"Z" = (
+/obj/structure/fluff/railing/border/west,
+/mob/living/carbon/human/species/skeleton/npc/mediumspread,
+/turf/open/floor/rogue/ruinedwood/turned,
+/area/rogue/indoors/shelter/woods)
+
+(1,1,1) = {"
+W
+w
+h
+h
+w
+w
+W
+"}
+(2,1,1) = {"
+w
+Q
+g
+z
+S
+B
+w
+"}
+(3,1,1) = {"
+h
+p
+s
+y
+G
+C
+h
+"}
+(4,1,1) = {"
+h
+m
+f
+G
+k
+O
+h
+"}
+(5,1,1) = {"
+w
+g
+g
+G
+g
+N
+w
+"}
+(6,1,1) = {"
+W
+w
+v
+w
+W
+w
+W
+"}
+(7,1,1) = {"
+s
+g
+g
+r
+s
+E
+E
+"}
+(8,1,1) = {"
+w
+y
+G
+G
+w
+E
+E
+"}
+(9,1,1) = {"
+w
+G
+j
+G
+s
+E
+A
+"}
+(10,1,1) = {"
+h
+b
+G
+G
+G
+A
+A
+"}
+(11,1,1) = {"
+W
+D
+u
+D
+J
+A
+A
+"}
+
+(1,1,2) = {"
+V
+W
+w
+w
+w
+w
+W
+"}
+(2,1,2) = {"
+V
+w
+M
+M
+l
+e
+w
+"}
+(3,1,2) = {"
+V
+i
+Z
+U
+U
+o
+i
+"}
+(4,1,2) = {"
+V
+w
+H
+R
+R
+X
+W
+"}
+(5,1,2) = {"
+V
+W
+w
+i
+w
+W
+V
+"}
+(6,1,2) = {"
+V
+V
+V
+V
+V
+V
+V
+"}
+(7,1,2) = {"
+d
+d
+V
+V
+V
+a
+a
+"}
+(8,1,2) = {"
+V
+d
+d
+x
+V
+a
+a
+"}
+(9,1,2) = {"
+V
+d
+d
+d
+d
+a
+a
+"}
+(10,1,2) = {"
+V
+V
+d
+d
+d
+a
+a
+"}
+(11,1,2) = {"
+x
+V
+d
+V
+V
+a
+a
+"}
+
+(1,1,3) = {"
+a
+V
+V
+V
+V
+V
+V
+"}
+(2,1,3) = {"
+a
+V
+V
+V
+V
+V
+V
+"}
+(3,1,3) = {"
+a
+V
+V
+V
+V
+V
+V
+"}
+(4,1,3) = {"
+a
+V
+V
+V
+V
+V
+V
+"}
+(5,1,3) = {"
+a
+V
+V
+V
+V
+V
+a
+"}
+(6,1,3) = {"
+a
+a
+a
+a
+a
+a
+a
+"}
+(7,1,3) = {"
+a
+a
+a
+a
+a
+a
+a
+"}
+(8,1,3) = {"
+a
+a
+a
+a
+a
+a
+a
+"}
+(9,1,3) = {"
+a
+a
+a
+a
+a
+a
+a
+"}
+(10,1,3) = {"
+a
+a
+a
+a
+a
+a
+a
+"}
+(11,1,3) = {"
+a
+a
+a
+a
+a
+a
+a
+"}

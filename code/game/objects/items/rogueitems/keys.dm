@@ -941,6 +941,8 @@
 	w_class = WEIGHT_CLASS_TINY
 	dropshrink = 0.75
 	var/lockhash = 0
+	grid_height = 32
+	grid_width = 32
 
 /obj/item/customblank/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/rogueweapon/hammer))
@@ -974,7 +976,9 @@
 	w_class = WEIGHT_CLASS_SMALL
 	dropshrink = 0.75
 	var/lockhash = 0
-
+	grid_height = 32
+	grid_width = 32
+	
 /obj/item/customlock/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/rogueweapon/hammer))
 		var/input = input(user, "What would you like to set the lock ID to?", "", 0) as num

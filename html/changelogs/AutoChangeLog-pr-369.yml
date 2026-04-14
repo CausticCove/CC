@@ -1,0 +1,4 @@
+author: "Posshum"
+delete-after: True
+changes:
+  - rscadd: "Added the startup of variant structures."

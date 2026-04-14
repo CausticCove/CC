@@ -282,7 +282,7 @@
 			if("onbelt")
 				return list("shrink" = 0.5,"sx" = -2,"sy" = -5,"nx" = 4,"ny" = -5,"wx" = 0,"wy" = -5,"ex" = 2,"ey" = -5,"nturn" = 0,"sturn" = 0,"wturn" = 0,"eturn" = 0,"nflip" = 0,"sflip" = 0,"wflip" = 0,"eflip" = 0,"northabove" = 0,"southabove" = 1,"eastabove" = 1,"westabove" = 0)
 
-
+//Caustic Edit - Relative reworking of tongs to allow picking up and inserting ore into furnaces using them.
 /obj/item/rogueweapon/tongs
 	force = 10
 	possible_item_intents = list(/datum/intent/mace/strike)
@@ -297,6 +297,7 @@
 	tool_behaviour = TOOL_IMPROVISED_HEMOSTAT
 	associated_skill = /datum/skill/craft/blacksmithing	//Tongs don't do a lot of damage and have 3 defense. This associated skill should be alright.
 	var/obj/item/ingot/hingot = null
+	var/obj/item/rogueore/ore = null
 	var/hott = FALSE
 	smeltresult = /obj/item/ingot/iron
 	grid_width = 32
@@ -320,11 +321,14 @@
 
 /obj/item/rogueweapon/tongs/update_icon()
 	. = ..()
-	if(!hingot)
+	if(!hingot && !ore)
 		icon_state = "tongs"
 	else
-		if(hott)
-			icon_state = "tongsi1"
+		if(hingot)
+			if(hott)
+				icon_state = "tongsi1"
+			else
+				icon_state = "tongsi0"
 		else
 			icon_state = "tongsi0"
 
@@ -340,12 +344,21 @@
 			hingot = null
 			hott = FALSE
 			update_icon()
+	
+	if(ore)
+		if(isturf(user.loc))
+			ore.forceMove(get_turf(user))
+			ore = null
+			update_icon()
 
 /obj/item/rogueweapon/tongs/dropped()
 	. = ..()
 	if(hingot)
 		hingot.forceMove(get_turf(src))
 		hingot = null
+	if(ore)
+		ore.forceMove(get_turf(src))
+		ore = null
 	hott = FALSE
 	update_icon()
 
@@ -369,11 +382,14 @@
 
 /obj/item/rogueweapon/tongs/stone/update_icon()
 	. = ..()
-	if(!hingot)
+	if(!hingot && !ore)
 		icon_state = "stonetongs"
 	else
-		if(hott)
-			icon_state = "stonetongsi1"
+		if(hingot)
+			if(hott)
+				icon_state = "stonetongsi1"
+			else
+				icon_state = "stonetongsi0"
 		else
 			icon_state = "stonetongsi0"
 
@@ -389,11 +405,14 @@
 
 /obj/item/rogueweapon/tongs/aalloy/update_icon()
 	. = ..()
-	if(!hingot)
+	if(!hingot && !ore)
 		icon_state = "atongs"
 	else
-		if(hott)
-			icon_state = "atongsi1"
+		if(hingot)
+			if(hott)
+				icon_state = "atongsi1"
+			else
+				icon_state = "atongsi0"
 		else
 			icon_state = "atongsi0"
 
@@ -409,11 +428,14 @@
 
 /obj/item/rogueweapon/tongs/bronze/update_icon()
 	. = ..()
-	if(!hingot)
+	if(!hingot && !ore)
 		icon_state = "bronzetongs"
 	else
-		if(hott)
-			icon_state = "bronzetongsi1"
+		if(hingot)
+			if(hott)
+				icon_state = "bronzetongsi1"
+			else
+				icon_state = "bronzetongsi0"
 		else
 			icon_state = "bronzetongsi0"
 
@@ -429,10 +451,14 @@
 
 /obj/item/rogueweapon/tongs/blacksteel/update_icon()
 	. = ..()
-	if(!hingot)
+	if(!hingot && !ore)
 		icon_state = "bs_tongs"
 	else
-		if(hott)
-			icon_state = "bs_tongsi1"
+		if(hingot)
+			if(hott)
+				icon_state = "bs_tongsi1"
+			else
+				icon_state = "bs_tongsi0"
 		else
 			icon_state = "bs_tongsi0"
+//Caustic Edit End

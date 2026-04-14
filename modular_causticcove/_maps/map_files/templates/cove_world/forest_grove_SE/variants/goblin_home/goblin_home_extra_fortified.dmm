@@ -1,0 +1,382 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/turf/closed/wall/mineral/rogue/wood,
+/area/rogue/indoors/shelter/woods)
+"b" = (
+/turf/open/floor/rogue/rooftop/green/north,
+/area/rogue/outdoors/town/roofs)
+"c" = (
+/obj/machinery/light/rogue/firebowl/stump,
+/turf/open/floor/rogue/twig,
+/area/rogue/outdoors/town/roofs)
+"h" = (
+/turf/open/transparent/openspace,
+/area/rogue/indoors/shelter/woods)
+"i" = (
+/mob/living/carbon/human/species/goblin/npc/ambush,
+/turf/open/floor/rogue/twig,
+/area/rogue/indoors/shelter/woods)
+"j" = (
+/obj/structure/rack/rogue,
+/obj/item/flashlight/flare/torch/metal,
+/obj/effect/spawner/lootdrop/magic_loot_base,
+/turf/open/floor/rogue/ruinedwood,
+/area/rogue/indoors/shelter/woods)
+"m" = (
+/turf/open/floor/rogue/twig,
+/area/rogue/indoors/shelter/woods)
+"n" = (
+/turf/closed/wall/mineral/rogue/decowood,
+/area/rogue/indoors/shelter/woods)
+"o" = (
+/obj/structure/table/wood/poor,
+/obj/effect/spawner/lootdrop/general_loot_hi,
+/turf/open/floor/rogue/twig,
+/area/rogue/indoors/shelter/woods)
+"s" = (
+/obj/structure/bed/rogue/shit,
+/turf/open/floor/rogue/twig,
+/area/rogue/indoors/shelter/woods)
+"v" = (
+/mob/living/carbon/human/species/goblin/npc/ambush,
+/turf/open/floor/rogue/ruinedwood,
+/area/rogue/indoors/shelter/woods)
+"w" = (
+/turf/open/transparent/openspace,
+/area/rogue/outdoors/mountains)
+"A" = (
+/obj/structure/closet/crate/drawer,
+/obj/item/clothing/shoes/roguetown/boots/furlinedboots,
+/obj/effect/spawner/lootdrop/magic_loot_base,
+/obj/effect/spawner/lootdrop/magic_loot_base,
+/turf/open/floor/rogue/twig,
+/area/rogue/indoors/shelter/woods)
+"B" = (
+/turf/closed/wall/mineral/rogue/wooddark,
+/area/rogue/indoors/shelter/woods)
+"D" = (
+/mob/living/carbon/human/species/hobgoblin/npc,
+/turf/open/floor/rogue/ruinedwood,
+/area/rogue/indoors/shelter/woods)
+"E" = (
+/obj/structure/roguetent,
+/turf/open/floor/rogue/twig,
+/area/rogue/indoors/shelter/woods)
+"F" = (
+/obj/structure/mineral_door/wood,
+/turf/open/floor/rogue/twig,
+/area/rogue/indoors/shelter/woods)
+"L" = (
+/turf/open/water/swamp/deep,
+/area/rogue/outdoors/woods/south)
+"M" = (
+/obj/structure/roguewindow,
+/turf/open/floor/rogue/twig,
+/area/rogue/indoors/shelter/woods)
+"N" = (
+/turf/open/floor/rogue/ruinedwood,
+/area/rogue/indoors/shelter/woods)
+"Q" = (
+/mob/living/carbon/human/species/hobgoblin/npc,
+/turf/open/floor/rogue/twig,
+/area/rogue/indoors/shelter/woods)
+"R" = (
+/turf/open/water/swamp,
+/area/rogue/outdoors/woods/south)
+"S" = (
+/turf/closed/wall/mineral/rogue/tent,
+/area/rogue/indoors/shelter/woods)
+"T" = (
+/obj/structure/rack/rogue,
+/obj/effect/spawner/lootdrop/magic_loot_base,
+/obj/effect/spawner/lootdrop/magic_loot_base,
+/turf/open/floor/rogue/ruinedwood,
+/area/rogue/indoors/shelter/woods)
+"U" = (
+/turf/open/floor/rogue/dirt,
+/area/rogue/outdoors/woods/south)
+"V" = (
+/obj/structure/stairs,
+/turf/open/floor/rogue/ruinedwood,
+/area/rogue/indoors/shelter/woods)
+"X" = (
+/turf/open/floor/rogue/twig,
+/area/rogue/outdoors/town/roofs)
+"Z" = (
+/obj/item/flashlight/flare/torch,
+/mob/living/carbon/human/species/goblin/npc/ambush,
+/turf/open/floor/rogue/twig,
+/area/rogue/indoors/shelter/woods)
+
+(1,1,1) = {"
+R
+R
+R
+a
+S
+a
+B
+"}
+(2,1,1) = {"
+L
+R
+U
+E
+m
+A
+n
+"}
+(3,1,1) = {"
+U
+U
+U
+a
+m
+Z
+n
+"}
+(4,1,1) = {"
+B
+n
+n
+B
+F
+n
+B
+"}
+(5,1,1) = {"
+n
+T
+v
+m
+m
+N
+n
+"}
+(6,1,1) = {"
+n
+j
+N
+m
+m
+N
+n
+"}
+(7,1,1) = {"
+B
+n
+m
+B
+i
+N
+a
+"}
+(8,1,1) = {"
+a
+N
+D
+N
+N
+m
+S
+"}
+(9,1,1) = {"
+E
+m
+N
+V
+n
+m
+S
+"}
+(10,1,1) = {"
+a
+S
+a
+n
+a
+S
+a
+"}
+
+(1,1,2) = {"
+w
+w
+w
+X
+X
+X
+b
+"}
+(2,1,2) = {"
+w
+w
+w
+X
+c
+X
+b
+"}
+(3,1,2) = {"
+w
+w
+w
+X
+X
+X
+b
+"}
+(4,1,2) = {"
+B
+n
+n
+a
+E
+a
+B
+"}
+(5,1,2) = {"
+n
+s
+v
+m
+N
+N
+M
+"}
+(6,1,2) = {"
+n
+o
+N
+m
+Q
+N
+n
+"}
+(7,1,2) = {"
+B
+n
+n
+B
+E
+B
+a
+"}
+(8,1,2) = {"
+S
+i
+N
+N
+N
+N
+S
+"}
+(9,1,2) = {"
+S
+m
+m
+h
+V
+N
+S
+"}
+(10,1,2) = {"
+a
+S
+S
+a
+S
+S
+a
+"}
+
+(1,1,3) = {"
+w
+w
+w
+w
+w
+w
+w
+"}
+(2,1,3) = {"
+w
+w
+w
+w
+w
+w
+w
+"}
+(3,1,3) = {"
+w
+w
+w
+w
+w
+w
+w
+"}
+(4,1,3) = {"
+b
+b
+b
+b
+b
+b
+b
+"}
+(5,1,3) = {"
+b
+b
+b
+b
+b
+b
+b
+"}
+(6,1,3) = {"
+b
+b
+b
+b
+b
+X
+b
+"}
+(7,1,3) = {"
+b
+b
+b
+b
+b
+X
+X
+"}
+(8,1,3) = {"
+X
+X
+X
+X
+X
+X
+X
+"}
+(9,1,3) = {"
+X
+X
+X
+X
+X
+X
+X
+"}
+(10,1,3) = {"
+X
+X
+X
+X
+X
+X
+X
+"}

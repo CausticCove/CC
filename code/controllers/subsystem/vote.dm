@@ -188,14 +188,15 @@ SUBSYSTEM_DEF(vote)
 		if(!(usr.ckey in voted))
 			if(vote && 1<=vote && vote<=choices.len)
 				voted += usr.ckey
-				var/vote_power = 1
+				//Caustic Edit - Re-tweaking the vote power to be 2 ghosts to 1 living
+				var/vote_power = 2
 				/*if(usr.client.holder)
 					vote_power += 5*/
 				if(ishuman(usr))
 					var/mob/living/carbon/H = usr
 					if(H.stat != DEAD)
-						vote_power += 3
-					if(H.job)
+						vote_power += 2
+					/*if(H.job)
 						var/list/list_of_powerful = list("Grand Duke", "Bishop")
 						if(H.job in list_of_powerful)
 							vote_power += 5
@@ -203,7 +204,8 @@ SUBSYSTEM_DEF(vote)
 							if(H.mind)
 								for(var/datum/antagonist/D in H.mind.antag_datums)
 									if(D.increase_votepwr)
-										vote_power += 3
+										vote_power += 3*/
+				//Caustic Edit End
 				if(mode in everyone_is_equal)
 					vote_power = 1
 				choices[choices[vote]] += vote_power //check this

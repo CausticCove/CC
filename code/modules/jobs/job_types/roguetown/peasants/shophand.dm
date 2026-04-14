@@ -16,7 +16,7 @@
 	//outfit = /datum/outfit/job/roguetown/shophand //Caustic edit
 	display_order = JDO_SHOPHAND
 	give_bank_account = TRUE
-	min_pq = null //-10
+	min_pq = -10
 	max_pq = null
 	round_contrib_points = 2
 	cmode_music = 'sound/music/cmode/towner/combat_towner.ogg'

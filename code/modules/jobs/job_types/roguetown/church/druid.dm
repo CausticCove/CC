@@ -15,7 +15,7 @@
 
 	display_order = JDO_DRUID
 	give_bank_account = TRUE
-	min_pq = null //0
+	min_pq = 1 //CC Edit - Druid is like the Acolyte of Dendor
 	max_pq = null
 	round_contrib_points = 2
 	cmode_music = 'sound/music/cmode/garrison/combat_warden.ogg' // this was originally druid music. i think its ok to have druids share it w/ wardens.

@@ -14,7 +14,7 @@
 	display_order = JDO_VETERAN
 	whitelist_req = TRUE
 	give_bank_account = 75 //Caustic edit Imagine being landed and starting dirt poor lmao what
-	min_pq = null //5 //Should...probably actually be a veteran of at least a few weeks before trying to teach others
+	min_pq = 5 //Should...probably actually be a veteran of at least a few weeks before trying to teach others
 	max_pq = null
 	round_contrib_points = 2
 

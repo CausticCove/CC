@@ -7,14 +7,13 @@
 	total_positions = 1
 	spawn_positions = 1
 	display_order = 6
-	min_pq = null //0
 	selection_color = JCOLOR_BURGHER
 	allowed_races = ACCEPTED_RACES
 	display_order = JDO_TAILOR
 	job_traits = list(TRAIT_SEWING_EXPERT)
 	outfit = /datum/outfit/job/roguetown/tailor
 	give_bank_account = TRUE
-	min_pq = null //0
+	min_pq = 0
 	max_pq = null
 	round_contrib_points = 3
 	cmode_music = 'sound/music/cmode/towner/combat_towner3.ogg'

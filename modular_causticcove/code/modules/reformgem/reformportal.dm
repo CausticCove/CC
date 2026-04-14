@@ -43,8 +43,8 @@
 
 		if(isliving(T.body_backup))
 			var/mob/living/body_backup = T.body_backup
-			body_backup.revive(TRUE)
-			body_backup.forceMove(T.loc)
+			body_backup.revive(TRUE, TRUE) //Second true enables removal of the Zombie Antag Datum
+			body_backup.forceMove(src.loc) //Make sure to move the body to the TILE of the portal! Whoops lol
 			body_backup.enabled = TRUE
 			//body_backup.ajourn = 0
 			body_backup.key = T.key

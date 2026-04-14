@@ -5,7 +5,7 @@
 	allowed_races = RACES_ALL_KINDS
 	outfit = /datum/outfit/job/roguetown/mercenary/forlorn
 	class_select_category = CLASS_CAT_RANESHENI
-	min_pq = null //2
+	min_pq = 5 //CC Edit - From 3 to 5 Please don't be advent+
 	cmode_music = 'sound/music/combat_blackstar.ogg'
 	subclass_languages = list(/datum/language/celestial)
 	category_tags = list(CTAG_MERCENARY)

@@ -1,0 +1,103 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"b" = (
+/turf/open/floor/rogue/dirt,
+/area/rogue/indoors/shelter/woods)
+"d" = (
+/obj/item/grown/log/tree/stick,
+/turf/open/floor/rogue/dirt/road,
+/area/rogue/indoors/shelter/woods)
+"h" = (
+/obj/effect/decal/cleanable/blood/footprints/mud{
+	dir = 4
+	},
+/turf/open/floor/rogue/dirt/road,
+/area/rogue/indoors/shelter/woods)
+"j" = (
+/obj/structure/flora/newtree,
+/turf/open/floor/rogue/dirt/road,
+/area/rogue/indoors/shelter/woods)
+"o" = (
+/obj/structure/table/wood/poor,
+/obj/item/paper{
+	info = "I swore I left my house here... It didn't just grow legs and walk away... Right?"
+	},
+/turf/open/floor/rogue/dirt/road,
+/area/rogue/indoors/shelter/woods)
+"A" = (
+/obj/effect/decal/cleanable/blood/footprints/mud{
+	dir = 4
+	},
+/turf/open/floor/rogue/dirt,
+/area/rogue/indoors/shelter/woods)
+"L" = (
+/turf/open/floor/rogue/dirt/road,
+/area/rogue/indoors/shelter/woods)
+"R" = (
+/turf/open/transparent/openspace,
+/area/rogue/indoors/shelter/woods)
+"Z" = (
+/obj/item/chair/stool/bar/rogue/crafted,
+/turf/open/floor/rogue/dirt/road,
+/area/rogue/indoors/shelter/woods)
+
+(1,1,1) = {"
+A
+L
+L
+L
+"}
+(2,1,1) = {"
+L
+Z
+o
+A
+"}
+(3,1,1) = {"
+h
+d
+j
+L
+"}
+(4,1,1) = {"
+j
+b
+d
+A
+"}
+(5,1,1) = {"
+A
+L
+L
+b
+"}
+
+(1,1,2) = {"
+R
+R
+R
+R
+"}
+(2,1,2) = {"
+R
+R
+R
+R
+"}
+(3,1,2) = {"
+R
+R
+R
+R
+"}
+(4,1,2) = {"
+R
+R
+R
+R
+"}
+(5,1,2) = {"
+R
+R
+R
+R
+"}

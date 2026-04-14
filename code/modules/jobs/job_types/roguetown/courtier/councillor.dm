@@ -16,7 +16,7 @@
 
 	give_bank_account = TRUE
 	noble_income = 20
-	min_pq = null //1 //Probably a bad idea to have a complete newbie advising the monarch
+	min_pq = 3 // CC Edit - From 1 to 3, Councillor should know what they're doing. //Probably a bad idea to have a complete newbie advising the monarch
 	max_pq = null
 	round_contrib_points = 2
 	cmode_music = 'sound/music/combat_noble.ogg'

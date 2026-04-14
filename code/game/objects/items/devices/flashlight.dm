@@ -172,7 +172,7 @@
 	. = ..()
 
 /obj/item/flashlight/flare/torch/process() //CC Note: This proc basically just... deals with fuel stuff, isn't needed for static torches!
-	//open_flame(heat) CC Edit THIS DOES NOTHING!!
+	open_flame(heat) //CC Edit - Actually this does do something, it looks like if it's on a mob, or on the ground, it will attempt to light that turf on fire.
 	if(!fuel || !on)
 		turn_off()
 		//STOP_PROCESSING(SSobj, src) CC Edit: turn_off already stops processing
@@ -244,21 +244,47 @@
 			return TRUE
 	return ..()
 
+//Caustic Edit - Thrown Torches light things on fire! Code pretty much borrowed from above.
 /obj/item/flashlight/flare/torch/afterattack(atom/movable/A, mob/user, proximity)
 	. = ..()
 	if (!proximity)
 		return
 	if (on && (prob(50) || (user.used_intent.type == /datum/intent/use)))
-		if (ismob(A))
-			A.spark_act()
+		if(ismob(A))
+			if(prob(50))
+				A.spark_act()
+			else
+				A.fire_act(1,5)
 		else
 			A.fire_act(3,3)
 
-		if (should_self_destruct)  // check if self-destruct
-			times_used += 1
-			if (times_used >= 8) //amount used before burning out
+		handle_useage(user)
+
+/obj/item/flashlight/flare/torch/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
+	..()
+	if(istype(src, /obj/item/flashlight/flare/torch/lantern)) //Only let exposed flame torches actually light people on fire!
+		return
+	if(hit_atom && on && prob(50))
+		if(ismob(hit_atom))
+			if(prob(50))
+				hit_atom.spark_act()
+			else
+				hit_atom.fire_act(2,5)
+		else
+			hit_atom.fire_act(3,3)
+
+		handle_useage()
+
+/obj/item/flashlight/flare/torch/proc/handle_useage(mob/user = null)
+	if(should_self_destruct)  // check if self-destruct
+		times_used += 1
+		if (times_used >= 8) //amount used before burning out
+			if(user)
 				user.visible_message("<span class='warning'>[src] has burnt out and falls apart!</span>")
-				qdel(src)
+			else
+				src.visible_message("<span class='warning'>[src] has burnt out and falls apart!</span>")
+			qdel(src)
+//Caustic Edit End
 
 /obj/item/flashlight/flare/torch/spark_act()
 	fire_act()

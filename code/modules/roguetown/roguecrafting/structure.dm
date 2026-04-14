@@ -885,8 +885,8 @@
 	name = "greater campfire"
 	category = "Misc"
 	result = /obj/machinery/light/rogue/campfire/densefire
-	reqs = list(/obj/item/grown/log/tree/stick = 2,
-				/obj/item/natural/stone = 2)
+	reqs = list(/obj/item/grown/log/tree/stick = 4,
+				/obj/item/natural/stone = 4) //CC Edit - Higher Cost for crafting in favor of good buffs regardless of resting. (From 2 for stones/sticks to 4 for stones/sticks)
 	verbage_simple = "build"
 	verbage = "builds"
 

@@ -12,7 +12,7 @@
 	outfit = /datum/outfit/job/roguetown/cook
 	display_order = JDO_COOK
 	give_bank_account = 25
-	min_pq = null //-10
+	min_pq = -10
 	max_pq = null
 	round_contrib_points = 2
 	cmode_music = 'sound/music/cmode/towner/combat_towner2.ogg'

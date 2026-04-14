@@ -21,9 +21,10 @@
 
 /obj/item/melee/touch_attack/orison
 	name = "\improper lesser prayer"
+	//CC Edit - Description Addition
 	desc = "The fundamental teachings of theology return to you:\n \
 		<b>Fill</b>: Beseech your Divine to create a small quantity of water in a container that you touch for some devotion.\n \
-		<b>Touch</b>: Direct a sliver of divine thaumaturgy into your being, causing your voice to become LOUD when you next speak. Known to sometimes scare the rats inside the SCOMlines. Can be used on light sources at range, and it will cause them flicker.\n \
+		<b>Touch</b>: Direct a sliver of divine thaumaturgy into your being, causing your voice to become LOUD when you next speak. Known to sometimes scare the rats inside the SCOMlines. Can be used on light sources at range, and it will cause them flicker. You may also use this to speak to others of the same patron, or to all if you're from the church. Aim for your MOUTH to speak to others, aim for your NECK to change who you direct your voice towards, and aim for your EARS to silence, or unsilence the utterances of others.\n \
 		<b>Use</b>: Issue a prayer for illumination, causing you or another living creature to begin glowing with light for five minutes - this stacks each time you cast it, with no upper limit. Using thaumaturgy on a person will remove this blessing from them, and MMB on your praying hand will remove any light blessings from yourself."
 	catchphrase = null
 	possible_item_intents = list(/datum/intent/fill, INTENT_HELP, /datum/intent/use)
@@ -32,9 +33,10 @@
 	icon_state = "grabbing_greyscale"
 	color = "#FFFFFF"
 	var/right_click = FALSE
-	var/thaumaturgy_devotion = 10
+	var/thaumaturgy_devotion = 30 //CC Edit - Thaumaturgy has been buffed and tweaked, now costs 30 devotion to cast as opposed to 10. 
 	var/light_devotion = 5
 	var/water_moisten = 2
+	var/speaking_to = SPEAKING_TO_ALL // CC Edit - Speak Defines for who we comm to. Defaults to all.
 
 /obj/item/melee/touch_attack/orison/attack_self()
 	qdel(src)
@@ -53,17 +55,42 @@
 			fatigue_used = create_water(target, user)
 			if (fatigue_used)
 				qdel(src)
-		if (INTENT_HELP)
-			fatigue_used = thaumaturgy(target, user)
-			if (fatigue_used)
-				user.devotion?.update_devotion(-fatigue_used)
-				qdel(src)
+
 		if (/datum/intent/use)
 			fatigue_used = cast_light(target, user)
 			if (fatigue_used)
 				user.devotion?.update_devotion(-fatigue_used)
 				qdel(src)
 
+		if (INTENT_HELP)
+			//CC Edit - Thaumaturgical Comms
+
+			//Handle Ear Muting
+			if(user.zone_selected == BODY_ZONE_PRECISE_EARS)
+				if(!user.has_status_effect(/datum/status_effect/thaumaturgical_silence))
+					fatigue_used = thaumaturgy(target, user, adjust_hearing = 1) //we are muting our comms
+				else if(user.has_status_effect(/datum/status_effect/thaumaturgical_silence))
+					fatigue_used = thaumaturgy(target, user, adjust_hearing = 2) //we are unmuting our comms
+
+			//Handle devotion comms
+			else if(user.zone_selected == BODY_ZONE_PRECISE_MOUTH)
+				if(!user.has_status_effect(/datum/status_effect/thaumaturgical_silence))
+					fatigue_used = thaumaturgy(target, user, patron_link = TRUE) //patron_link is the global patron-specific comms.
+				else
+					//No talking whilst muted.
+					to_chat(user, span_warn("I cannot speak to others until I remove the silence I put upon myself."))
+
+			//Change who we speak to.
+			else if(user.zone_selected == BODY_ZONE_PRECISE_NECK)
+				change_who_we_speak_to(user)
+
+			else //Default to normal otherwise.
+				fatigue_used = thaumaturgy(target, user)
+				
+			if (fatigue_used)
+				user.devotion?.update_devotion(-fatigue_used)
+				qdel(src)
+			//CC Edit - Thaumaturgical Comms
 #define BLESSINGOFLIGHT_FILTER "bol_glow"
 
 /atom/movable/screen/alert/status_effect/light_buff
@@ -150,11 +177,95 @@
 	potency = skill_power
 	return ..()
 
-/obj/item/melee/touch_attack/orison/proc/thaumaturgy(thing, mob/living/carbon/human/user)
+//CC Edit
+/atom/movable/screen/alert/status_effect/thaumaturgical_communication
+	name = "Thaumaturgical Throat"
+	desc = "The power of my god will make the next thing I say be heard to all of their disciples across the land!"
+	icon_state = "stressvg"
+
+/datum/status_effect/thaumaturgical_communication
+	id = "thaumaturgical_communication"
+	alert_type = /atom/movable/screen/alert/status_effect/thaumaturgical_communication
+	duration = 30 SECONDS
+	var/talking_to = SPEAKING_TO_ALL
+
+/datum/status_effect/thaumaturgical_communication/on_creation(mob/living/new_owner, speaking_to)
+	. = ..()
+	talking_to = speaking_to
+
+/atom/movable/screen/alert/status_effect/thaumaturgical_silence
+	name = "Thaumaturgical Silence"
+	desc = "I've indefinitely hushed the messages of others through my patron, and the church. Peace at last..."
+	icon_state = "stressvb"
+
+/datum/status_effect/thaumaturgical_silence
+	id = "thaumaturgical_silence"
+	alert_type = /atom/movable/screen/alert/status_effect/thaumaturgical_silence
+	duration = -1
+//CC Edit
+
+/obj/item/melee/touch_attack/orison/proc/change_who_we_speak_to(mob/living/carbon/human/user)
+	//Swap them out one by one.
+	if(speaking_to == SPEAKING_TO_ALL)
+		if(istype(user.patron, /datum/patron/inhumen))
+			speaking_to = SPEAKING_TO_ASCENDANTS_ONLY
+			to_chat(user, span_notice("I will now only speak to fellow ascendants."))
+			return
+		else if(user.job in GLOB.church_positions)
+			speaking_to = SPEAKING_TO_CHURCH_ONLY
+			to_chat(user, span_notice("I will now only speak to fellow clergy members of the church."))
+			return
+		else
+			speaking_to = SPEAKING_TO_SAME_PATRONS_ONLY
+			to_chat(user, span_notice("I will now only speak to disciples who worship the same patron as I."))
+			return
+			
+	if(speaking_to == SPEAKING_TO_CHURCH_ONLY || speaking_to == SPEAKING_TO_ASCENDANTS_ONLY)
+		speaking_to = SPEAKING_TO_SAME_PATRONS_ONLY
+		to_chat(user, span_notice("I will now only speak to disciples who worship the same patron as I."))
+		return
+	
+	if(speaking_to == SPEAKING_TO_SAME_PATRONS_ONLY)
+		speaking_to = SPEAKING_TO_ALL
+		to_chat(user, span_notice("I will now speak to everyone who can listen."))
+		return
+
+/obj/item/melee/touch_attack/orison/proc/thaumaturgy(thing, mob/living/carbon/human/user, patron_link, adjust_hearing)
 	var/holy_skill = user.get_skill_level(attached_spell.associated_skill)
+	var/cast_time = 50 - (holy_skill * 5)
+
+	//CC Edit - Thaumaturgical Comms
+	if((thing == user) && adjust_hearing == 1) //Muting the comms.
+		user.visible_message(span_notice("[user] raises [user.p_their()] hands to their head, a quiet prayer muttering from [user.p_their()] lips..."))
+		if (!user.has_status_effect(/datum/status_effect/thaumaturgical_silence))
+			if (do_after(user, (cast_time / 2), target = user)) //Half the cast time for muting
+				user.apply_status_effect(/datum/status_effect/thaumaturgical_silence)
+				user.visible_message(span_notice("[user] closes [user.p_their()] eyes peacefully."), span_notice("I've silenced the voices of others using thaumaturgy."))
+				return thaumaturgy_devotion
+
+	if((thing == user) && adjust_hearing == 2) //Unmuting the comms.
+		user.visible_message(span_notice("[user] raises [user.p_their()] hands to their head, a quiet prayer muttering from [user.p_their()] lips..."))
+		if (user.has_status_effect(/datum/status_effect/thaumaturgical_silence))
+			if (do_after(user, (cast_time / 2), target = user)) //Half the cast time for muting
+				user.remove_status_effect(/datum/status_effect/thaumaturgical_silence)
+				user.visible_message(span_notice("[user] opens [user.p_their()] eyes with a faint flash of light."), span_notice("I can now hear the voices of others using thaumaturgy."))
+				return thaumaturgy_devotion
+
+	if((thing == user) && patron_link)
+		user.visible_message(span_notice("[user] raises [user.p_their()] head high, hushed prayers spilling from [user.p_their()] lips..."), span_notice("O holy [user.patron.name], may you allow me to speak through you to other disciples..."))
+		
+		if (!user.has_status_effect(/datum/status_effect/thaumaturgical_communication))
+			if (do_after(user, cast_time, target = user))
+				user.apply_status_effect(/datum/status_effect/thaumaturgical_communication, speaking_to)
+				user.visible_message(span_notice("[user] throws open [user.p_their()] eyes, suddenly emboldened!"), span_notice("A feeling of power wells up in my throat: speak, and those devoted enough will hear me from anywhere!"))
+				return thaumaturgy_devotion
+		else
+			to_chat(user, span_notice("I'm already empowered with divine thaumaturgy! I should speak!"))
+			return
+
+	//CC Edit - Thaumaturgical Link
 	if (thing == user)
 		// give us a buff that makes our next spoken thing really loud and also cause any linked, un-muted scom to shriek out the phrase at a 15% chance
-		var/cast_time = 50 - (holy_skill * 5)
 		user.visible_message(span_notice("[user] lowers [user.p_their()] head solemnly, whispered prayers spilling from [user.p_their()] lips..."), span_notice("O holy [user.patron.name], share unto me a sliver of your power..."))
 		
 		if (!user.has_status_effect(/datum/status_effect/thaumaturgy))

@@ -2,11 +2,11 @@
 
 (function () {
   // Utility functions
-  var hasOwn = Object.prototype.hasOwnProperty;
-  var assign = function (target) {
-    for (var i = 1; i < arguments.length; i++) {
-      var source = arguments[i];
-      for (var key in source) {
+  const hasOwn = Object.prototype.hasOwnProperty;
+  const assign = function (target) {
+    for (let i = 1; i < arguments.length; i++) {
+      const source = arguments[i];
+      for (const key in source) {
         if (hasOwn.call(source, key)) {
           target[key] = source[key];
         }
@@ -14,8 +14,8 @@
     }
     return target;
   };
-  var parseMetaTag = function (name) {
-    var content = document.getElementById(name).getAttribute('content');
+  const parseMetaTag = function (name) {
+    const content = document.getElementById(name).getAttribute('content');
     if (content === '[' + name + ']') {
       return null;
     }
@@ -25,7 +25,7 @@
   // BYOND API object
   // ------------------------------------------------------
 
-  var Byond = (window.Byond = {});
+  const Byond = (window.Byond = {});
 
   // Expose inlined metadata
   Byond.windowId = parseMetaTag('tgui:windowId');
@@ -43,18 +43,18 @@
 
   // Blink engine version
   Byond.BLINK = (function () {
-    var groups = navigator.userAgent.match(/Chrome\/(\d+)\./);
-    var majorVersion = groups && groups[1];
+    const groups = navigator.userAgent.match(/Chrome\/(\d+)\./);
+    const majorVersion = groups && groups[1];
     return majorVersion ? parseInt(majorVersion, 10) : null;
   })();
 
   // Basic checks to detect whether this page runs in BYOND
-  var isByond =
-    (Byond.BLINK !== null || window.cef_to_byond) &&
+  const isByond =
+    (Byond.TRIDENT !== null || Byond.BLINK !== null || window.cef_to_byond) &&
     location.hostname === '127.0.0.1' &&
     location.search !== '?external';
-  //As of BYOND 515 the path doesn't seem to include tmp dir anymore if you're trying to open tgui in external browser and looking why it doesn't work
-  //&& location.pathname.indexOf('/tmp') === 0
+  // As of BYOND 515 the path doesn't seem to include tmp dir anymore if you're trying to open tgui in external browser and looking why it doesn't work
+  // && location.pathname.indexOf('/tmp') === 0
 
   // Version constants
   Byond.IS_BYOND = isByond;
@@ -66,7 +66,7 @@
   Byond.__callbacks__ = [];
 
   // Reviver for BYOND JSON
-  var byondJsonReviver = function (key, value) {
+  const byondJsonReviver = function (key, value) {
     if (typeof value === 'object' && value !== null && value.__number__) {
       return parseFloat(value.__number__);
     }
@@ -81,15 +81,15 @@
       return;
     }
     // Build the URL
-    var url = (path || '') + '?';
-    var i = 0;
+    let url = (path || '') + '?';
+    let i = 0;
     if (params) {
-      for (var key in params) {
+      for (const key in params) {
         if (hasOwn.call(params, key)) {
           if (i++ > 0) {
             url += '&';
           }
-          var value = params[key];
+          let value = params[key];
           if (value === null || value === undefined) {
             value = '';
           }
@@ -111,7 +111,7 @@
     }
     // Send an HTTP request to DreamSeeker's HTTP server.
     // Allows sending much bigger payloads.
-    var xhr = new XMLHttpRequest();
+    const xhr = new XMLHttpRequest();
     xhr.open('GET', url);
     xhr.send();
   };
@@ -120,8 +120,8 @@
     if (!window.Promise) {
       throw new Error('Async calls require API level of ES2015 or later.');
     }
-    var index = Byond.__callbacks__.length;
-    var promise = new window.Promise(function (resolve) {
+    const index = Byond.__callbacks__.length;
+    const promise = new window.Promise((resolve) => {
       Byond.__callbacks__.push(resolve);
     });
     Byond.call(
@@ -147,14 +147,14 @@
     if (id === null) {
       id = '';
     }
-    var isArray = propName instanceof Array;
-    var isSpecific = propName && propName !== '*' && !isArray;
-    var promise = Byond.callAsync('winget', {
+    const isArray = propName instanceof Array;
+    const isSpecific = propName && propName !== '*' && !isArray;
+    let promise = Byond.callAsync('winget', {
       id: id,
       property: (isArray && propName.join(',')) || propName || '*',
     });
     if (isSpecific) {
-      promise = promise.then(function (props) {
+      promise = promise.then((props) => {
         return props[propName];
       });
     }
@@ -167,7 +167,7 @@
     } else if (typeof id === 'object') {
       return Byond.call('winset', id);
     }
-    var props = {};
+    const props = {};
     if (typeof propName === 'string') {
       props[propName] = propValue;
     } else {
@@ -188,7 +188,7 @@
   const MAX_PACKET_SIZE = 1024;
 
   Byond.sendMessage = function (type, payload) {
-    var message =
+    let message =
       typeof type === 'string' ? { type: type, payload: payload } : type;
     // JSON-encode the payload
 
@@ -243,7 +243,7 @@
   };
 
   Byond.subscribeTo = function (type, listener) {
-    var _listener = function (_type, payload) {
+    const _listener = function (_type, payload) {
       if (_type === type) {
         listener(payload);
       }
@@ -255,45 +255,45 @@
   // Asset loaders
   // ------------------------------------------------------
 
-  var RETRY_ATTEMPTS = 5;
-  var RETRY_WAIT_INITIAL = 500;
-  var RETRY_WAIT_INCREMENT = 500;
+  const RETRY_ATTEMPTS = 5;
+  const RETRY_WAIT_INITIAL = 500;
+  const RETRY_WAIT_INCREMENT = 500;
 
-  var loadedAssetByUrl = {};
+  const loadedAssetByUrl = {};
 
-  var isStyleSheetLoaded = function (node, url) {
-    var styleSheet = node.sheet;
+  const isStyleSheetLoaded = function (node, url) {
+    const styleSheet = node.sheet;
     if (styleSheet) {
       return styleSheet.rules.length > 0;
     }
     return false;
   };
 
-  var injectNode = function (node) {
+  const injectNode = function (node) {
     if (!document.body) {
-      setTimeout(function () {
+      setTimeout(() => {
         injectNode(node);
       });
       return;
     }
-    var refs = document.body.childNodes;
-    var ref = refs[refs.length - 1];
+    const refs = document.body.childNodes;
+    const ref = refs[refs.length - 1];
     ref.parentNode.insertBefore(node, ref.nextSibling);
   };
 
-  var loadAsset = function (options) {
-    var url = options.url;
-    var type = options.type;
-    var sync = options.sync;
-    var attempt = options.attempt || 0;
+  const loadAsset = function (options) {
+    const url = options.url;
+    const type = options.type;
+    const sync = options.sync;
+    const attempt = options.attempt || 0;
     if (loadedAssetByUrl[url]) {
       return;
     }
     loadedAssetByUrl[url] = options;
     // Generic retry function
-    var retry = function () {
+    const retry = function () {
       if (attempt >= RETRY_ATTEMPTS) {
-        var errorMessage =
+        let errorMessage =
           'Error: Failed to load the asset ' +
           "'" +
           url +
@@ -307,7 +307,7 @@
         throw new Error(errorMessage);
       }
       setTimeout(
-        function () {
+        () => {
           loadedAssetByUrl[url] = null;
           options.attempt += 1;
           loadAsset(options);
@@ -317,7 +317,7 @@
     };
     // JS specific code
     if (type === 'js') {
-      var node = document.createElement('script');
+      let node = document.createElement('script');
       node.type = 'text/javascript';
       node.crossOrigin = 'anonymous';
       node.src = url;
@@ -337,7 +337,7 @@
     }
     // CSS specific code
     if (type === 'css') {
-      var node = document.createElement('link');
+      let node = document.createElement('link');
       node.type = 'text/css';
       node.rel = 'stylesheet';
       node.crossOrigin = 'anonymous';
@@ -347,7 +347,7 @@
       if (!sync) {
         node.media = 'only x';
       }
-      var removeNodeAndRetry = function () {
+      const removeNodeAndRetry = function () {
         node.parentNode.removeChild(node);
         node = null;
         retry();
@@ -385,10 +385,10 @@
     if (window.navigator.msSaveBlob) {
       window.navigator.msSaveBlob(blob, filename);
     } else if (window.showSaveFilePicker) {
-      var accept = {};
+      const accept = {};
       accept[blob.type] = [ext];
 
-      var opts = {
+      const opts = {
         suggestedName: filename,
         types: [
           {
@@ -422,7 +422,7 @@
 window.onerror = function (msg, url, line, col, error) {
   window.onerror.errorCount = (window.onerror.errorCount || 0) + 1;
   // Proper stacktrace
-  var stack = error && error.stack;
+  let stack = error && error.stack;
   // Ghetto stacktrace
   if (!stack) {
     stack = msg + '\n   at ' + url + ':' + line;
@@ -434,8 +434,8 @@ window.onerror = function (msg, url, line, col, error) {
   stack = window.__augmentStack__(stack, error);
   // Print error to the page
   if (Byond.strictMode) {
-    var errorRoot = document.getElementById('FatalError');
-    var errorStack = document.getElementById('FatalError__stack');
+    const errorRoot = document.getElementById('FatalError');
+    const errorStack = document.getElementById('FatalError__stack');
     if (errorRoot) {
       errorRoot.className = 'FatalError FatalError--visible';
       if (window.onerror.__stack__) {
@@ -443,11 +443,11 @@ window.onerror = function (msg, url, line, col, error) {
       } else {
         window.onerror.__stack__ = stack;
       }
-      var textProp = 'textContent';
+      const textProp = 'textContent';
       errorStack[textProp] = window.onerror.__stack__;
     }
     // Set window geometry
-    var setFatalErrorGeometry = function () {
+    const setFatalErrorGeometry = function () {
       Byond.winset(Byond.windowId, {
         titlebar: true,
         'is-visible': true,
@@ -482,7 +482,7 @@ window.onerror = function (msg, url, line, col, error) {
 
 // Catch unhandled promise rejections
 window.onunhandledrejection = function (e) {
-  var msg = 'UnhandledRejection';
+  let msg = 'UnhandledRejection';
   if (e.reason) {
     msg += ': ' + (e.reason.message || e.reason.description || e.reason);
     if (e.reason.stack) {
@@ -508,10 +508,10 @@ window.update = function (rawMessage) {
     return;
   }
   // Parse the message
-  var message = Byond.parseJson(rawMessage);
+  const message = Byond.parseJson(rawMessage);
   // Notify listeners
-  var listeners = window.update.listeners;
-  for (var i = 0; i < listeners.length; i++) {
+  const listeners = window.update.listeners;
+  for (let i = 0; i < listeners.length; i++) {
     listeners[i](message.type, message.payload);
   }
 };
@@ -525,23 +525,23 @@ window.update.flushQueue = function (listener) {
   if (window.update.queueActive) {
     window.update.queueActive = false;
     if (window.setTimeout) {
-      window.setTimeout(function () {
+      window.setTimeout(() => {
         window.update.queue = [];
       }, 0);
     }
   }
   // Process queued messages on provided listener
-  var queue = window.update.queue;
-  for (var i = 0; i < queue.length; i++) {
-    var message = Byond.parseJson(queue[i]);
+  const queue = window.update.queue;
+  for (let i = 0; i < queue.length; i++) {
+    const message = Byond.parseJson(queue[i]);
     listener(message.type, message.payload);
   }
 };
 
 window.replaceHtml = function (inline_html) {
-  var children = document.body.childNodes;
+  const children = document.body.childNodes;
 
-  for (var i = 0; i < children.length; i++) {
+  for (let i = 0; i < children.length; i++) {
     if (children[i].nodeValue == ' tgui:inline-html-start ') {
       while (children[i].nodeValue != ' tgui:inline-html-end ') {
         children[i].remove();

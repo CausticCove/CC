@@ -142,7 +142,7 @@
 	id = /datum/reagent/water
 	results = list(/datum/reagent/water = 1)
 	required_reagents = list(/datum/reagent/water/gross = 1)
-	required_temp = 375
+	required_temp = 350 //CC edit, lowering so people have time to not have water boil over
 
 /datum/reagent/water/bathwater
 	taste_description = "bathwater"
@@ -178,7 +178,7 @@
 	id = /datum/reagent/water
 	results = list(/datum/reagent/water = 1)
 	required_reagents = list(/datum/reagent/water/salty = 1)
-	required_temp = 375
+	required_temp = 350 //CC edit, lowering so people have time to not have water boil over
 
 /datum/chemical_reaction/saltwaterboil/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)

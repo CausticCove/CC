@@ -1,0 +1,124 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/turf/closed/wall/mineral/rogue/decowood,
+/area/rogue/indoors/shelter/woods)
+"i" = (
+/obj/structure/chair/stool/rogue{
+	pixel_y = 12
+	},
+/turf/open/floor/rogue/ruinedwood,
+/area/rogue/indoors/shelter/woods)
+"j" = (
+/mob/living/carbon/human/species/human/northern/militia/deserter,
+/turf/open/floor/rogue/ruinedwood,
+/area/rogue/indoors/shelter/woods)
+"q" = (
+/obj/structure/closet/crate/chest/neu,
+/obj/effect/spawner/lootdrop/roguetown/sewers,
+/obj/item/book/rogue/cooking,
+/turf/open/floor/rogue/ruinedwood,
+/area/rogue/indoors/shelter/woods)
+"u" = (
+/obj/structure/bed/rogue{
+	dir = 8
+	},
+/turf/open/floor/rogue/ruinedwood,
+/area/rogue/indoors/shelter/woods)
+"v" = (
+/turf/open/floor/rogue/ruinedwood,
+/area/rogue/indoors/shelter/woods)
+"A" = (
+/obj/structure/mineral_door/wood/deadbolt{
+	dir = 8
+	},
+/turf/open/floor/rogue/ruinedwood,
+/area/rogue/indoors/shelter/woods)
+"G" = (
+/turf/open/floor/rogue/rooftop/green/north,
+/area/rogue/outdoors/town/roofs)
+"I" = (
+/obj/structure/table/wood/poor,
+/obj/structure/rack/rogue/shelf,
+/obj/item/reagent_containers/food/snacks/rogue/bun{
+	pixel_y = 11;
+	pixel_x = -6
+	},
+/obj/item/reagent_containers/food/snacks/grown/apple{
+	pixel_x = -7;
+	pixel_y = 39;
+	rotprocess = 54000;
+	name = "ripe apple"
+	},
+/obj/item/reagent_containers/food/snacks/rogue/cheddarwedge{
+	pixel_x = 4;
+	pixel_y = 39;
+	rotprocess = 54000;
+	name = "fresh wedge of cheese"
+	},
+/turf/open/floor/rogue/ruinedwood,
+/area/rogue/indoors/shelter/woods)
+"T" = (
+/turf/closed/wall/mineral/rogue/wooddark,
+/area/rogue/indoors/shelter/woods)
+"W" = (
+/obj/structure/roguewindow,
+/turf/open/floor/rogue/ruinedwood,
+/area/rogue/indoors/shelter/woods)
+
+(1,1,1) = {"
+T
+a
+W
+a
+T
+"}
+(2,1,1) = {"
+a
+q
+j
+u
+a
+"}
+(3,1,1) = {"
+a
+I
+i
+v
+a
+"}
+(4,1,1) = {"
+T
+a
+W
+A
+T
+"}
+
+(1,1,2) = {"
+G
+G
+G
+G
+G
+"}
+(2,1,2) = {"
+G
+G
+G
+G
+G
+"}
+(3,1,2) = {"
+G
+G
+G
+G
+G
+"}
+(4,1,2) = {"
+G
+G
+G
+G
+G
+"}

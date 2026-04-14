@@ -12,7 +12,7 @@
 	outfit = /datum/outfit/job/roguetown/bathmaster
 	display_order = JDO_BATHMASTER
 	give_bank_account = 20
-	min_pq = null //1
+	min_pq = 1
 	max_pq = null
 	bypass_lastclass = TRUE
 	round_contrib_points = 3

@@ -1063,6 +1063,7 @@
 					body_backup.enabled = TRUE
 					//body_backup.ajourn = 0
 					body_backup.key = T.key
+					body_backup.mind.remove_antag_datum(/datum/antagonist/zombie)
 					//body_backup.teleop = null
 					T.body_backup = null
 					host.vore_selected.release_specific_contents(T, TRUE)

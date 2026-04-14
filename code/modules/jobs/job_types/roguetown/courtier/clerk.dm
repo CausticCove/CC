@@ -16,7 +16,7 @@
 	outfit = /datum/outfit/job/roguetown/clerk
 	display_order = JDO_CLERK
 	give_bank_account = TRUE
-	min_pq = null //-10
+	min_pq = -10
 	max_pq = null
 	round_contrib_points = 2
 	advclass_cat_rolls = list(CTAG_CLERK = 2)

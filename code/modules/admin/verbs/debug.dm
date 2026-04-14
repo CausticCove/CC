@@ -1513,7 +1513,7 @@ GLOBAL_LIST_EMPTY(loadout_selected_advclasses)
 
 //CC Edit: Heck TGUI, seriously, why is this missing!
 /client/proc/allow_broser_inspect()
-	set category = "Debug"
+	set category = "🛠 DEBUG"
 	set name = "Allow Browser Inspect"
 	set desc = ""
 	if(!check_rights(R_DEBUG))

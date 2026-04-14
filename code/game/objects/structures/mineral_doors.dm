@@ -68,6 +68,7 @@
 	. = ..()
 	. += span_info("Right clicking the door with a key will attempt to lock it.")
 	. += span_info("Left clicking the door with a key will attempt to unlock it.")
+	. += span_info("Similarly, doing the same but with an empty hand, and a keyring with a valid key in or on your belt, or on your wrist will also lock/unlock the door.") //Caustic Edit - Adding in this QOL bit!
 	. += span_info("Kicking an unlocked door will open or close it. Kicking a locked door, if sufficiently strong, can force it open!")
 
 /obj/structure/mineral_door/onkick(mob/user)
@@ -226,7 +227,7 @@
 	last_bump = world.time
 	if(ismob(AM))
 		var/mob/user = AM
-		if(HAS_TRAIT(user, TRAIT_BASHDOORS))
+		if(HAS_TRAIT(user, TRAIT_BASHDOORS) && user.cmode) //Caustic Edit - Tweak so that door bashing only happens when in combat mode. Otherwise you are being careful enough.
 			if(locked)
 				user.visible_message(span_warning("[user] bashes into [src]!"))
 				take_damage(200, "brute", "blunt", 1)
@@ -249,6 +250,14 @@
 				else
 					addtimer(CALLBACK(src, PROC_REF(Close), FALSE), 25)
 
+//Caustic Edit - Add helper proc for just iterating through contents of storage items for a key/keyring.
+/obj/structure/mineral_door/proc/check_for_key_in_storage(var/obj/item/storage/bag, mob/user)
+	for(var/obj/item/I in bag.contents)
+		if(istype(I, /obj/item/roguekey) || istype(I, /obj/item/storage/keyring))
+			trykeylock(I, user)
+			return TRUE
+	return FALSE
+//Caustic Edit End
 
 /obj/structure/mineral_door/attack_paw(mob/user)
 	return attack_hand(user)
@@ -269,6 +278,35 @@
 			if(L.m_intent == MOVE_INTENT_SNEAK)
 				to_chat(user, span_warning("This door is locked."))
 				return
+			//Caustic Edit - Add in QOL to open doors when the keyring is in or on your belt, or on your wrist!
+			if(ishuman(user))
+				var/mob/living/carbon/human/humanuser = user
+				if(humanuser.beltl)
+					if(istype(humanuser.beltl, /obj/item/roguekey) || istype(humanuser.beltl, /obj/item/storage/keyring))
+						src.attackby(humanuser.beltl, user)
+						return
+					if(istype(humanuser.beltl, /obj/item/storage))
+						if(check_for_key_in_storage(humanuser.beltl, humanuser))
+							return
+				if(humanuser.beltr)
+					if(istype(humanuser.beltr, /obj/item/roguekey) || istype(humanuser.beltr, /obj/item/storage/keyring))
+						src.attackby(humanuser.beltr, user)
+						return
+					if(istype(humanuser.beltr, /obj/item/storage))
+						if(check_for_key_in_storage(humanuser.beltr, humanuser))
+							return
+				if(humanuser.belt)
+					if(istype(humanuser.belt, /obj/item/storage))
+						if(check_for_key_in_storage(humanuser.belt, humanuser))
+							return
+				if(humanuser.wear_wrists)
+					if(istype(humanuser.wear_wrists, /obj/item/roguekey) || istype(humanuser.wear_wrists, /obj/item/storage/keyring))
+						src.attackby(humanuser.wear_wrists, user)
+						return
+					if(istype(humanuser.wear_wrists, /obj/item/storage))
+						if(check_for_key_in_storage(humanuser.wear_wrists, humanuser))
+							return
+			//Caustic Edit End
 		if(world.time >= last_bump+20)
 			last_bump = world.time
 			playsound(src, 'sound/foley/doors/knocking.ogg', 100)
@@ -488,6 +526,36 @@
 			door_rattle()
 			return
 		trykeylock(item, user)
+	//Caustic Edit - Add in QOL to open doors when the keyring is in or on your belt, or on your wrist!
+	else if(!item && !locked)
+		if(ishuman(user))
+			var/mob/living/carbon/human/humanuser = user
+			if(humanuser.beltl)
+				if(istype(humanuser.beltl, /obj/item/roguekey) || istype(humanuser.beltl, /obj/item/storage/keyring))
+					trykeylock(humanuser.beltl, user)
+					return
+				if(istype(humanuser.beltl, /obj/item/storage))
+					if(check_for_key_in_storage(humanuser.beltl, humanuser))
+						return
+			if(humanuser.beltr)
+				if(istype(humanuser.beltr, /obj/item/roguekey) || istype(humanuser.beltr, /obj/item/storage/keyring))
+					trykeylock(humanuser.beltr, user)
+					return
+				if(istype(humanuser.beltr, /obj/item/storage))
+					if(check_for_key_in_storage(humanuser.beltr, humanuser))
+						return
+			if(humanuser.belt)
+				if(istype(humanuser.belt, /obj/item/storage))
+					if(check_for_key_in_storage(humanuser.belt, humanuser))
+						return
+			if(humanuser.wear_wrists)
+				if(istype(humanuser.wear_wrists, /obj/item/roguekey) || istype(humanuser.wear_wrists, /obj/item/storage/keyring))
+					trykeylock(humanuser.wear_wrists, user)
+					return
+				if(istype(humanuser.wear_wrists, /obj/item/storage))
+					if(check_for_key_in_storage(humanuser.wear_wrists, humanuser))
+						return
+	//Caustic Edit End
 	else
 		return ..()
 

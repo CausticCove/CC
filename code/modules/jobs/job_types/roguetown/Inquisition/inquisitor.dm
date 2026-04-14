@@ -17,7 +17,7 @@
 	display_order = JDO_INQUISITOR
 	advclass_cat_rolls = list(CTAG_INQUSITOR = 20)
 	give_bank_account = 30
-	min_pq = null //10
+	min_pq = 10
 	max_pq = null
 	round_contrib_points = 2
 	job_subclasses = list(

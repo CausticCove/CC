@@ -102,7 +102,7 @@
 
 			///// If user clicked on themselves
 			if(src == G.grabbee && is_vore_predator(src))
-				if(istype(victim) && !victim.client && !victim.ai_controller)
+				if(istype(victim) && !victim.client && victim.key)
 					log_and_message_admins("attempted to eat [key_name_admin(victim)] whilst they were AFK ([G.grabbed ? ADMIN_JMP(victim) : "null"])", src)
 				if(feed_grabbed_to_self(src, victim))
 					qdel(G)
@@ -112,7 +112,7 @@
 
 			///// If user clicked on their grabbed target
 			else if((src == G.grabbed) && (istype(attacker.a_intent, INTENT_GRAB)) && (attacker.zone_selected == BODY_ZONE_CHEST) && (is_vore_predator(G.grabbed)))
-				if(istype(victim) && !victim.client && !victim.ai_controller) //Check whether the victim is: A carbon mob, has no client, but has a ckey. This should indicate an SSD player.
+				if(istype(victim) && !victim.client && victim.key) //Check whether the victim is: A carbon mob, has no client, but has a ckey. This should indicate an SSD player.
 					log_and_message_admins("attempted to force feed themselves to [key_name_admin(G.grabbed)] whilst they were AFK ([G.grabbed ? ADMIN_JMP(victim) : "null"])", attacker)
 				if(!victim.feeding)
 					to_chat(user, span_notice("[G.grabbed] isn't willing to be fed."))

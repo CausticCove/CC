@@ -682,7 +682,7 @@
 	body_parts_covered = CHEST
 	boobed = TRUE
 	sewrepair = TRUE
-	flags_inv = null
+	flags_inv = HIDEBOOB //Caustic Edit - This was null for some reason?
 	slot_flags = ITEM_SLOT_SHIRT
 	salvage_result = /obj/item/natural/silk
 	salvage_amount = 2
@@ -696,7 +696,7 @@
 	body_parts_covered = CHEST
 	boobed = FALSE
 	sewrepair = TRUE
-	flags_inv = null
+	flags_inv = HIDEBOOB //Caustic Edit - This was null for some reason?
 	slot_flags = ITEM_SLOT_SHIRT
 	salvage_result = /obj/item/natural/fibers
 	salvage_amount = 3

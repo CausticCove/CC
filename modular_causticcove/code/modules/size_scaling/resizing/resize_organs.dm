@@ -47,3 +47,14 @@
 		return
 	
 	ass.organ_size = size
+
+/*
+/mob/living/carbon/human/verb/adjust_assets()
+	set name = "Adjust Assets"
+	set desc = "An OOC way to adjust the size of your parts, intended for use in scenes and the like!"
+	set category = "OOC"
+
+	var/list/assets = list("Belly", "Breasts", "Penis", "Testicles", "Butt")
+	var/asset_choice = tgui_input_list(src, "What asset do you want to adjust?", "Adjust Assets", assets)
+*/
+

@@ -1,0 +1,296 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/obj/structure/fluff/railing/border/west,
+/obj/structure/flora/roguegrass/water/reeds,
+/turf/open/floor/rogue/dirt,
+/area/rogue/outdoors/woods/south)
+"c" = (
+/turf/open/floor/rogue/rooftop/green/west,
+/area/rogue/outdoors/mountains)
+"d" = (
+/obj/structure/stairs/stone,
+/turf/open/floor/rogue/naturalstone,
+/area/rogue/outdoors/woods/south)
+"e" = (
+/turf/open/floor/rogue/herringbone,
+/area/rogue/outdoors/mountains)
+"f" = (
+/turf/closed/wall/mineral/rogue/roofwall/outercorner,
+/area/rogue/outdoors/mountains)
+"g" = (
+/turf/closed/wall/mineral/rogue/stonebrick,
+/area/rogue/outdoors/mountains)
+"h" = (
+/turf/closed/wall/mineral/rogue/roofwall/outercorner/dir1,
+/area/rogue/outdoors/mountains)
+"i" = (
+/turf/closed/wall/mineral/rogue/roofwall/middle/dir4,
+/area/rogue/outdoors/mountains)
+"k" = (
+/obj/structure/stairs/stone,
+/turf/open/floor/rogue/herringbone,
+/area/rogue/outdoors/mountains)
+"l" = (
+/obj/structure/fluff/railing/border/north,
+/turf/open/floor/rogue/naturalstone,
+/area/rogue/outdoors/woods/south)
+"m" = (
+/obj/structure/stairs/stone{
+	dir = 1
+	},
+/turf/open/floor/rogue/naturalstone,
+/area/rogue/outdoors/woods/south)
+"p" = (
+/turf/closed/wall/mineral/rogue/roofwall/outercorner/dir4,
+/area/rogue/outdoors/mountains)
+"r" = (
+/turf/open/transparent/openspace,
+/area/rogue/outdoors/mountains)
+"s" = (
+/turf/open/floor/rogue/rooftop/green/east,
+/area/rogue/outdoors/mountains)
+"t" = (
+/obj/structure/stairs/stone,
+/obj/machinery/light/rogue/candle/off/l,
+/turf/open/floor/rogue/herringbone,
+/area/rogue/outdoors/mountains)
+"u" = (
+/obj/structure/fluff/railing/border/east,
+/turf/open/floor/rogue/naturalstone,
+/area/rogue/outdoors/woods/south)
+"w" = (
+/obj/structure/fluff/railing/border/west,
+/turf/open/transparent/openspace,
+/area/rogue/outdoors/mountains)
+"z" = (
+/obj/structure/fluff/railing/border/north,
+/obj/structure/closet/crate/chest/loot_chest/locked,
+/turf/open/floor/rogue/naturalstone,
+/area/rogue/outdoors/woods/south)
+"B" = (
+/obj/structure/fluff/railing/corner/south_west,
+/turf/closed/wall/mineral/rogue/stonebrick,
+/area/rogue/outdoors/woods/south)
+"C" = (
+/obj/structure/fluff/railing/border,
+/obj/structure/flora/roguegrass/water/reeds,
+/turf/open/floor/rogue/dirt,
+/area/rogue/outdoors/woods/south)
+"D" = (
+/obj/structure/stairs/stone{
+	dir = 1
+	},
+/obj/machinery/light/rogue/candle/off/r,
+/turf/open/floor/rogue/herringbone,
+/area/rogue/outdoors/mountains)
+"F" = (
+/obj/structure/stairs/stone{
+	dir = 1
+	},
+/turf/open/floor/rogue/herringbone,
+/area/rogue/outdoors/mountains)
+"H" = (
+/obj/structure/fluff/railing/border/west,
+/turf/open/floor/rogue/naturalstone,
+/area/rogue/outdoors/woods/south)
+"J" = (
+/obj/structure/fluff/railing/corner/north_east,
+/turf/closed/wall/mineral/rogue/stonebrick,
+/area/rogue/outdoors/woods/south)
+"K" = (
+/obj/structure/fluff/railing/corner{
+	dir = 6
+	},
+/turf/closed/wall/mineral/rogue/stonebrick,
+/area/rogue/outdoors/woods/south)
+"M" = (
+/turf/closed/wall/mineral/rogue/stonebrick,
+/area/rogue/outdoors/woods/south)
+"O" = (
+/obj/structure/fluff/railing/border,
+/turf/open/floor/rogue/naturalstone,
+/area/rogue/outdoors/woods/south)
+"Q" = (
+/obj/structure/fluff/railing/border/east,
+/turf/open/transparent/openspace,
+/area/rogue/outdoors/mountains)
+"R" = (
+/turf/closed/wall/mineral/rogue/roofwall/middle/dir8,
+/area/rogue/outdoors/mountains)
+"S" = (
+/turf/open/transparent/openspace,
+/area/rogue/outdoors/woods/south)
+"T" = (
+/obj/structure/fluff/railing/border/east,
+/turf/closed/wall/mineral/rogue/stonebrick,
+/area/rogue/outdoors/mountains)
+"U" = (
+/obj/structure/fluff/railing/corner,
+/turf/closed/wall/mineral/rogue/stonebrick,
+/area/rogue/outdoors/woods/south)
+"X" = (
+/obj/structure/fluff/railing/border/west,
+/turf/closed/wall/mineral/rogue/stonebrick,
+/area/rogue/outdoors/mountains)
+"Y" = (
+/turf/closed/wall/mineral/rogue/roofwall/outercorner/dir8,
+/area/rogue/outdoors/mountains)
+
+(1,1,1) = {"
+M
+M
+u
+J
+S
+S
+S
+K
+u
+M
+M
+"}
+(2,1,1) = {"
+d
+M
+M
+l
+S
+S
+S
+C
+M
+M
+m
+"}
+(3,1,1) = {"
+d
+M
+M
+z
+S
+S
+S
+O
+M
+M
+m
+"}
+(4,1,1) = {"
+M
+M
+a
+U
+S
+S
+S
+B
+H
+M
+M
+"}
+
+(1,1,2) = {"
+g
+g
+Q
+T
+Q
+Q
+Q
+T
+Q
+g
+g
+"}
+(2,1,2) = {"
+r
+t
+e
+e
+e
+e
+e
+e
+e
+F
+r
+"}
+(3,1,2) = {"
+r
+k
+e
+e
+e
+e
+e
+e
+e
+D
+r
+"}
+(4,1,2) = {"
+g
+g
+w
+X
+w
+w
+w
+X
+w
+g
+g
+"}
+
+(1,1,3) = {"
+c
+c
+c
+c
+c
+c
+c
+c
+c
+c
+c
+"}
+(2,1,3) = {"
+f
+R
+R
+R
+R
+R
+R
+R
+R
+R
+p
+"}
+(3,1,3) = {"
+h
+i
+i
+i
+i
+i
+i
+i
+i
+i
+Y
+"}
+(4,1,3) = {"
+s
+s
+s
+s
+s
+s
+s
+s
+s
+s
+s
+"}

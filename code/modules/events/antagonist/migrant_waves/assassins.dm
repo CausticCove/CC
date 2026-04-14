@@ -2,7 +2,7 @@
 	name = "Assassin Migration"
 	typepath = /datum/round_event/migrant_wave/assassins
 	wave_type = /datum/migrant_wave/assassin
-	max_occurrences = 2
+	max_occurrences = 0 //Caustic Edit - Turn off Assassins (again)
 
 	weight = 10
 

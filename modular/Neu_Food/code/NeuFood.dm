@@ -76,6 +76,26 @@
 			return 1
 		else if(slice(W, user))
 			return 1
+	update_cooktime(user)
+	//CC EDIT Sauce application code
+	for(var/datum/reagent/R in W.reagents.reagent_list)
+		if(istype(W, /obj/item/reagent_containers))
+			var/datum/component/sauced_food/sauced = src.GetComponent(/datum/component/sauced_food)
+			if(sauced)
+				to_chat(user, "Already has sauce!")
+				return COMPONENT_INCOMPATIBLE
+			if(istype(R, /datum/reagent/consumable/sauce))
+				playsound(get_turf(user), 'sound/foley/dropsound/gen_drop.ogg', 30, TRUE, -1)
+				to_chat(user, "Applying sauce...")
+				if(do_after(user,short_cooktime, target = src))
+					var/datum/reagent/consumable/sauce/typecastedR = R
+					var/new_sauce_level = typecastedR.sauce_level
+					var/new_sauce_type = typecastedR.sauce_type
+					src.AddComponent(/datum/component/sauced_food, new_sauce_level, new_sauce_type)
+					src.name = src.name + " with " + typecastedR.name
+					src.desc = src.desc + " " + typecastedR.description
+					W.reagents.remove_reagent(R.type, 5)
+					return
 	..()
 
 /* added to proc
@@ -297,3 +317,103 @@
 	name = "pumpkin spice"
 	description = ""
 	color = "#ffffff"
+
+/* ------------- SAUCE APPLYING CODE --------------*/
+
+//Sauce stuff
+
+/datum/component/sauced_food
+	dupe_mode = COMPONENT_DUPE_UNIQUE
+	var/sauce_power
+	var/sauce_effect
+
+/datum/component/sauced_food/Initialize(var/new_sauce_level, var/new_sauce_type)
+	if(!isitem(parent) || !istype(parent, /obj/item/reagent_containers/food/snacks))
+		return COMPONENT_INCOMPATIBLE
+	sauce_effect = new_sauce_type
+	sauce_power = new_sauce_level
+
+	var/obj/item/reagent_containers/food/snacks/F = parent
+	RegisterSignal(F, COMSIG_FOOD_EATEN, .proc/on_food_eaten)
+
+/datum/component/sauced_food/proc/on_food_eaten(datum/source, mob/living/eater, mob/living/feeder)
+	SIGNAL_HANDLER
+	if(sauce_effect == 1)
+		eater.apply_status_effect(/datum/status_effect/buff/spicy_sauce, 5 MINUTES)
+	if(sauce_effect == 2)
+		eater.apply_status_effect(/datum/status_effect/buff/savory_sauce, 5 MINUTES)
+	if(sauce_effect == 3)
+		eater.apply_status_effect(/datum/status_effect/buff/sweet_sauce, 5 MINUTES)
+	if(sauce_effect == 4)
+		eater.apply_status_effect(/datum/status_effect/buff/sour_sauce, 5 MINUTES)
+		
+
+/obj/item/reagent_containers/food/snacks/rogue/sauce // base sauce, TECHNICALLY SPICES due to their solid nature
+	icon = 'modular/Neu_Food/icons/unused.dmi' // Still need a backup file lol
+	desc = ""
+	slices_num = 0
+	list_reagents = list(/datum/reagent/consumable/nutriment = 1)
+	foodtype = GRAIN
+	drop_sound = 'sound/foley/dropsound/gen_drop.ogg'
+	cooktime = 30 SECONDS
+	var/sauce_type
+	var/sauce_level
+
+/obj/item/reagent_containers/food/snacks/rogue/sauce/spicy
+	name = "spicy spice"
+	tastes = list("rice" = 1, "cheese" = 1, "egg" = 1)
+	list_reagents = list(/datum/reagent/consumable/nutriment = MEAL_GOOD)
+	desc = "A mound of spicy spice"
+	icon = 'modular/Neu_Food/icons/cooked/cooked_rice.dmi'
+	icon_state = "riceeggcheese"
+	faretype = FARE_LAVISH
+	rotprocess = SHELFLIFE_LONG
+	sauce_type = 1
+	sauce_level = 1
+
+
+/*/obj/item/reagent_containers/food/snacks/rogue/attackby(obj/item/I, mob/living/user, params)
+	update_cooktime(user)
+	if(istype(I, /obj/item/reagent_containers/food/snacks/rogue/sauce))
+		playsound(get_turf(user), 'sound/foley/dropsound/gen_drop.ogg', 30, TRUE, -1)
+		to_chat(user, "Applying spice...")
+		if(do_after(user,short_cooktime, target = src))
+			var/obj/item/reagent_containers/food/snacks/rogue/sauce/typecastedI = I
+			var/new_sauce_level = typecastedI.sauce_level
+			var/new_sauce_type = typecastedI.sauce_type
+			user.adjust_experience(/datum/skill/craft/cooking, user.STAINT * 0.8)
+			src.AddComponent(/datum/component/sauced_food, new_sauce_level, new_sauce_type)
+			src.name = src.name + " with " + I.name
+			qdel(I)
+	/*if(istype(I, /obj/item/reagent_containers))
+		for(var/datum/reagent/R in I.reagents.reagent_list)
+			if(istype(R, /datum/reagent/consumable/sauce))
+				playsound(get_turf(user), 'sound/foley/dropsound/gen_drop.ogg', 30, TRUE, -1)
+				to_chat(user, "Applying sauce...")
+				if(do_after(user,short_cooktime, target = src))
+					var/datum/reagent/consumable/sauce/typecastedR = R
+					var/new_sauce_level = typecastedR.sauce_level
+					var/new_sauce_type = typecastedR.sauce_type
+					user.adjust_experience(/datum/skill/craft/cooking, user.STAINT * 0.8)
+					src.AddComponent(/datum/component/sauced_food, new_sauce_level, new_sauce_type)
+					src.name = src.name + " with " + R.name
+					I.reagents.remove_reagent(typecastedR, 1)
+					return*/
+
+/obj/item/reagent_containers/food/snacks/rogue/attackby(obj/item/I, mob/living/user, params)
+	update_cooktime(user)
+	for(var/datum/reagent/R in I.reagents.reagent_list)
+		if(istype(I, /obj/item/reagent_containers))
+			if(istype(R, /datum/reagent/consumable/sauce))
+				playsound(get_turf(user), 'sound/foley/dropsound/gen_drop.ogg', 30, TRUE, -1)
+				to_chat(user, "Applying sauce...")
+				if(do_after(user,short_cooktime, target = src))
+					var/datum/reagent/consumable/sauce/typecastedR = R
+					var/new_sauce_level = typecastedR.sauce_level
+					var/new_sauce_type = typecastedR.sauce_type
+					user.adjust_experience(/datum/skill/craft/cooking, user.STAINT * 0.8)
+					src.AddComponent(/datum/component/sauced_food, new_sauce_level, new_sauce_type)
+					src.name = src.name + " with " + typecastedR.name
+					src.desc = src.desc + " " + typecastedR.description
+					I.reagents.remove_reagent(R, 5)
+					return*/

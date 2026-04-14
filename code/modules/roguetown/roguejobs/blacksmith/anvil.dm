@@ -45,7 +45,7 @@
 
 			// Pick up ingot with tongs
 			if(istype(current_workpiece, /obj/item/ingot))
-				if(T.hingot)
+				if(T.hingot || T.ore) //Caustic Edit - Allow picking up of Ores with Tongs
 					to_chat(user, span_warning("You're already holding something with your tongs!"))
 					return
 				current_workpiece.forceMove(T)

@@ -575,6 +575,9 @@
 	if(!owner)
 		thing.forceMove(get_turf(src))
 		return
+	if(ishuman(thing))
+		var/mob/living/carbon/human/H = thing
+		ADD_TRAIT(H, TRAIT_WEATHER_PROTECTED, "vorebelly")
 	thing.enter_belly(src) // Atom movable proc, does nothing by default. Overridden in children for special behavior.
 	if(owner && istype(owner.loc,/turf/open) && !cycle_sloshed && reagents.total_volume > 0)
 		var/S = pick(GLOB.slosh)
@@ -666,6 +669,9 @@
 	. = ..()
 	if(QDELETED(owner))
 		return
+	if(ishuman(thing))
+		var/mob/living/carbon/human/H = thing
+		REMOVE_TRAIT(H, TRAIT_WEATHER_PROTECTED, "vorebelly")
 	thing.exit_belly(src) // atom movable proc, does nothing by default. Overridden in children for special behavior.
 	if(isbelly(thing.loc))
 		var/obj/belly/NB = thing.loc

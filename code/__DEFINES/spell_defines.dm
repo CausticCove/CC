@@ -50,4 +50,11 @@
 #define LOGIC_HEAL_STATIONARY 8
 //The spell requires the caster to only target nearby targets that are DEAD. This is used with the Necromancer and any possible Revival spells.
 #define LOGIC_DEAD 9
+
+//Handles the Orison Thaumaturgy comms.
+#define SPEAKING_TO_ALL "all"
+#define SPEAKING_TO_SAME_PATRONS_ONLY "same_patrons"
+#define SPEAKING_TO_CHURCH_ONLY "church_only"
+#define SPEAKING_TO_ASCENDANTS_ONLY "ascendants_only"
+
 //CC Edit End

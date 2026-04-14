@@ -1,0 +1,378 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/turf/open/floor/rogue/blocks,
+/area/rogue/outdoors/beach/forest/south)
+"j" = (
+/obj/structure/closet/crate/chest/wicker,
+/turf/open/floor/rogue/grass,
+/area/rogue/outdoors/beach/forest/south)
+"v" = (
+/obj/structure/flora/roguegrass/herb/random,
+/turf/open/floor/rogue/grass,
+/area/rogue/outdoors/beach/forest/south)
+"w" = (
+/turf/open/floor/rogue/dirt,
+/area/rogue/outdoors/beach/forest/south)
+"z" = (
+/mob/living/simple_animal/hostile/retaliate/rogue/bigrat,
+/obj/structure/closet/crate/chest/old_crate,
+/turf/open/floor/rogue/blocks,
+/area/rogue/outdoors/beach/forest/south)
+"A" = (
+/turf/open/floor/rogue/grass,
+/area/rogue/outdoors/beach/forest/south)
+"F" = (
+/obj/structure/closet/crate/chest/old_crate,
+/obj/effect/spawner/lootdrop/roguetown/dungeon/misc,
+/turf/open/floor/rogue/blocks,
+/area/rogue/outdoors/beach/forest/south)
+"M" = (
+/turf/open/transparent/openspace,
+/area/rogue/outdoors/beach/forest/south)
+"R" = (
+/turf/closed/wall/mineral/rogue/stone,
+/area/rogue/outdoors/beach/forest/south)
+"W" = (
+/obj/structure/flora/newtree,
+/turf/open/floor/rogue/dirt,
+/area/rogue/outdoors/beach/forest/south)
+
+(1,1,1) = {"
+A
+A
+A
+A
+w
+W
+w
+A
+A
+A
+A
+"}
+(2,1,1) = {"
+v
+A
+w
+A
+A
+R
+R
+a
+R
+R
+w
+"}
+(3,1,1) = {"
+v
+w
+A
+R
+R
+R
+a
+a
+a
+R
+w
+"}
+(4,1,1) = {"
+A
+A
+A
+R
+z
+a
+a
+a
+a
+R
+w
+"}
+(5,1,1) = {"
+A
+A
+A
+R
+a
+a
+A
+A
+a
+a
+A
+"}
+(6,1,1) = {"
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+A
+"}
+(7,1,1) = {"
+w
+w
+a
+A
+w
+A
+A
+a
+A
+W
+A
+"}
+(8,1,1) = {"
+w
+A
+a
+A
+A
+A
+a
+a
+A
+A
+w
+"}
+(9,1,1) = {"
+A
+R
+a
+A
+A
+A
+a
+a
+A
+w
+R
+"}
+(10,1,1) = {"
+A
+R
+a
+A
+a
+a
+a
+A
+A
+A
+R
+"}
+(11,1,1) = {"
+A
+R
+F
+a
+a
+A
+A
+A
+j
+w
+w
+"}
+(12,1,1) = {"
+A
+R
+R
+A
+w
+w
+w
+R
+R
+w
+w
+"}
+(13,1,1) = {"
+w
+A
+w
+w
+A
+A
+A
+w
+w
+w
+w
+"}
+
+(1,1,2) = {"
+M
+M
+M
+M
+M
+M
+M
+M
+M
+M
+M
+"}
+(2,1,2) = {"
+M
+M
+M
+M
+M
+M
+M
+M
+M
+M
+M
+"}
+(3,1,2) = {"
+M
+M
+M
+M
+M
+M
+M
+M
+M
+M
+M
+"}
+(4,1,2) = {"
+M
+M
+M
+M
+M
+M
+M
+M
+M
+M
+M
+"}
+(5,1,2) = {"
+M
+M
+M
+M
+M
+M
+M
+M
+M
+M
+M
+"}
+(6,1,2) = {"
+M
+M
+M
+M
+M
+M
+M
+M
+M
+M
+M
+"}
+(7,1,2) = {"
+M
+M
+M
+M
+M
+M
+M
+M
+M
+M
+M
+"}
+(8,1,2) = {"
+M
+M
+M
+M
+M
+M
+M
+M
+M
+M
+M
+"}
+(9,1,2) = {"
+M
+M
+M
+M
+M
+M
+M
+M
+M
+M
+M
+"}
+(10,1,2) = {"
+M
+M
+M
+M
+M
+M
+M
+M
+M
+M
+M
+"}
+(11,1,2) = {"
+M
+M
+M
+M
+M
+M
+M
+M
+M
+M
+M
+"}
+(12,1,2) = {"
+M
+M
+M
+M
+M
+M
+M
+M
+M
+M
+M
+"}
+(13,1,2) = {"
+M
+M
+M
+M
+M
+M
+M
+M
+M
+M
+M
+"}

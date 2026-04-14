@@ -7,11 +7,13 @@
 	list_reagents = list(/datum/reagent/consumable/nutriment = SNACK_DECENT)
 	eat_effect = /datum/status_effect/debuff/uncookedfood
 	possible_item_intents = list(/datum/intent/food, /datum/intent/splash)
-	fat_yield = 20
+	fat_yield = 30
 	//CC Edit Begin
 	diet_types = list("Meats")
 	diet_change_amount = FOOD_DIETARY_VALUE_POOR - 1 //Pure fat isn't... Ideal to your health.
 	//CC Edit End
+
+
 
 /obj/item/reagent_containers/food/snacks/fat/attackby(obj/item/I, mob/living/user, params)
 	var/found_table = locate(/obj/structure/table) in (loc)

@@ -1,0 +1,1800 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"aC" = (
+/turf/closed/mineral/rogue/bedrock,
+/area/rogue/outdoors/mountains)
+"aX" = (
+/obj/structure/fluff/walldeco/church/line{
+	dir = 4
+	},
+/obj/structure/flora/roguetree/underworld,
+/turf/open/floor/rogue/underworld/road{
+	dir = 6
+	},
+/area/rogue/underworld/graveyard)
+"bc" = (
+/obj/structure/fluff/walldeco/church/line{
+	dir = 4
+	},
+/turf/open/floor/rogue/cobblerock,
+/area/rogue/underworld/graveyard)
+"bO" = (
+/obj/structure/flora/roguetree/underworld{
+	icon_state = "screaming3"
+	},
+/turf/open/floor/rogue/underworld/road,
+/area/rogue/underworld/graveyard)
+"cF" = (
+/obj/structure/fluff/walldeco/church/line{
+	dir = 4
+	},
+/turf/open/floor/rogue/dirt/road,
+/area/rogue/underworld/graveyard)
+"cP" = (
+/obj/structure/stairs/stone{
+	dir = 8
+	},
+/obj/structure/fluff/railing/border,
+/turf/open/floor/rogue/grass,
+/area/rogue/underworld/graveyard)
+"cT" = (
+/obj/structure/bars/cemetery,
+/turf/open/floor/rogue/grassred,
+/area/rogue/outdoors/woods/north)
+"db" = (
+/obj/machinery/light/rogue/candle/floorcandle,
+/obj/structure/fluff/statue/myth,
+/turf/open/floor/rogue/dirt,
+/area/rogue/underworld/graveyard)
+"de" = (
+/obj/structure/flora/newtree,
+/turf/open/floor/rogue/grass,
+/area/rogue/outdoors/woods/north)
+"dp" = (
+/obj/structure/closet/dirthole/grave,
+/turf/open/floor/rogue/dirt,
+/area/rogue/underworld/graveyard)
+"ds" = (
+/obj/structure/fluff/railing/corner/south_west,
+/turf/open/floor/rogue/cobblerock,
+/area/rogue/underworld/graveyard)
+"dQ" = (
+/turf/open/floor/rogue/dirt,
+/area/rogue/outdoors/woods/north)
+"ea" = (
+/turf/open/floor/rogue/underworld/road{
+	dir = 5
+	},
+/area/rogue/underworld/graveyard)
+"ek" = (
+/obj/structure/fluff/railing/corner/north_east,
+/turf/open/floor/rogue/dirt,
+/area/rogue/underworld/graveyard)
+"eu" = (
+/obj/structure/fluff/walldeco/church/line,
+/turf/open/floor/rogue/dirt,
+/area/rogue/underworld/graveyard)
+"fy" = (
+/obj/structure/fluff/walldeco/church/line{
+	dir = 4
+	},
+/obj/structure/fluff/walldeco/church/line{
+	dir = 8;
+	pixel_y = 0
+	},
+/turf/open/floor/rogue/dirt,
+/area/rogue/underworld/graveyard)
+"fP" = (
+/obj/machinery/light/rogue/candle/blue{
+	pixel_y = -32
+	},
+/obj/item/roguebin/water/gross,
+/turf/open/floor/rogue/blocks,
+/area/rogue/underworld/graveyard)
+"gh" = (
+/obj/structure/fluff/railing/border/west,
+/obj/structure/fluff/railing/border,
+/mob/living/carbon/human/species/skeleton/npc/no_equipment,
+/turf/open/floor/rogue/cobblerock,
+/area/rogue/underworld/graveyard)
+"gt" = (
+/obj/structure/stairs/stone{
+	dir = 4
+	},
+/obj/structure/fluff/railing/border,
+/turf/open/floor/rogue/grass,
+/area/rogue/underworld/graveyard)
+"gy" = (
+/turf/open/floor/rogue/grassyel,
+/area/rogue/outdoors/woods/north)
+"gK" = (
+/mob/living/carbon/human/species/skeleton/npc/supereasy,
+/turf/open/floor/rogue/cobblerock,
+/area/rogue/underworld/graveyard)
+"gZ" = (
+/obj/structure/winch{
+	redstone_id = "graveyard_entrance"
+	},
+/turf/open/floor/rogue/dirt,
+/area/rogue/underworld/graveyard)
+"hy" = (
+/obj/structure/flora/roguegrass/bush/wall,
+/turf/open/floor/rogue/grass,
+/area/rogue/outdoors/woods/north)
+"hU" = (
+/obj/structure/stairs/stone,
+/turf/open/floor/rogue/grass,
+/area/rogue/underworld/graveyard)
+"jg" = (
+/obj/structure/fluff/psycross/necra/cloth,
+/turf/open/floor/rogue/grass,
+/area/rogue/outdoors/woods/north)
+"jJ" = (
+/obj/structure/fluff/walldeco/church/line{
+	dir = 8;
+	pixel_y = 0
+	},
+/turf/open/floor/rogue/dirt/road,
+/area/rogue/underworld/graveyard)
+"kr" = (
+/turf/open/floor/rogue/rooftop/green,
+/area/rogue/outdoors/mountains)
+"kN" = (
+/obj/structure/fluff/walldeco/church/line{
+	dir = 1
+	},
+/obj/item/bouquet/rosa{
+	pixel_y = 17;
+	pixel_x = 16
+	},
+/turf/open/floor/rogue/cobblerock,
+/area/rogue/underworld/graveyard)
+"kO" = (
+/obj/structure/fluff/walldeco/church/line{
+	dir = 1
+	},
+/obj/structure/fluff/walldeco/church/line,
+/turf/open/floor/rogue/dirt/road,
+/area/rogue/underworld/graveyard)
+"kT" = (
+/obj/structure/flora/roguegrass/bush/wall,
+/turf/open/floor/rogue/dirt/road,
+/area/rogue/underworld/graveyard)
+"lx" = (
+/obj/structure/fluff/railing/corner/south_west,
+/turf/open/floor/rogue/underworld/road{
+	dir = 1
+	},
+/area/rogue/underworld/graveyard)
+"lz" = (
+/obj/structure/fluff/statue,
+/turf/open/floor/rogue/dirt,
+/area/rogue/underworld/graveyard)
+"ma" = (
+/turf/open/floor/rogue/grass,
+/area/rogue/outdoors/woods/north)
+"na" = (
+/obj/structure/flora/roguetree/underworld{
+	icon_state = "screaming2"
+	},
+/turf/open/floor/rogue/underworld/road{
+	dir = 1
+	},
+/area/rogue/underworld/graveyard)
+"nh" = (
+/obj/structure/fluff/statue/femalestatue/zizo{
+	pixel_y = 0
+	},
+/turf/open/floor/rogue/underworld/road{
+	dir = 1
+	},
+/area/rogue/underworld/graveyard)
+"nX" = (
+/obj/structure/fluff/railing/corner,
+/obj/structure/flora/roguegrass,
+/turf/open/floor/rogue/grass,
+/area/rogue/underworld/graveyard)
+"pu" = (
+/obj/structure/closet/dirthole/grave,
+/obj/item/roguegem/random,
+/turf/open/floor/rogue/dirt,
+/area/rogue/underworld/graveyard)
+"pN" = (
+/obj/structure/flora/roguegrass/bush/wall,
+/turf/open/floor/rogue/grassyel,
+/area/rogue/outdoors/woods/north)
+"pR" = (
+/obj/structure/flora/roguegrass,
+/obj/structure/flora/roguegrass/bush/wall,
+/turf/open/floor/rogue/dirt,
+/area/rogue/outdoors/woods/north)
+"qj" = (
+/obj/structure/fluff/railing/border/east,
+/obj/structure/fluff/railing/border,
+/turf/open/floor/rogue/dirt/road,
+/area/rogue/underworld/graveyard)
+"qF" = (
+/turf/closed/wall/mineral/rogue/wooddark,
+/area/rogue/outdoors/woods/north)
+"rg" = (
+/obj/structure/stairs/stone{
+	dir = 4
+	},
+/obj/structure/fluff/railing/border/north,
+/turf/open/floor/rogue/grass,
+/area/rogue/underworld/graveyard)
+"rF" = (
+/obj/structure/fluff/signage{
+	name = "Z HAS GRASPED THESE LANDS!!! BEWARE!!!"
+	},
+/turf/open/floor/rogue/dirt,
+/area/rogue/outdoors/woods/north)
+"rK" = (
+/obj/structure/gate/bars{
+	redstone_id = "graveyard_entrance";
+	name = "old gate";
+	max_integrity = 500;
+	desc = "A large portculis, designed to close vertically and to be extremely difficult to break through. When you aren't sure if you'll win a fight, try putting three inches of steel between you and your enemy. This one appears to be rusted from years of exposure, rendering its integrity far weaker than other gates."
+	},
+/turf/open/floor/rogue/dirt,
+/area/rogue/outdoors/woods/north)
+"rZ" = (
+/obj/structure/flora/roguegrass,
+/turf/open/floor/rogue/grass,
+/area/rogue/underworld/graveyard)
+"sq" = (
+/obj/structure/stairs/stone{
+	dir = 4
+	},
+/turf/open/floor/rogue/grass,
+/area/rogue/underworld/graveyard)
+"st" = (
+/obj/structure/closet/dirthole/closed/loot,
+/obj/effect/spawner/lootdrop/roguetown/dungeon/medical,
+/turf/open/floor/rogue/dirt,
+/area/rogue/underworld/graveyard)
+"sH" = (
+/obj/structure/bars/cemetery,
+/turf/open/floor/rogue/dirt,
+/area/rogue/outdoors/woods/north)
+"sI" = (
+/obj/structure/fluff/statue{
+	desc = "Dead stone designed to compel living minds. The engravement reads. 'Here rests the body of Brandon. Known for his love of ale and life. May he know nothing but peace beyond our realm.'"
+	},
+/obj/machinery/light/rogue/candle/floorcandle,
+/turf/open/floor/rogue/dirt,
+/area/rogue/underworld/graveyard)
+"tk" = (
+/turf/open/floor/rogue/underworld/road{
+	dir = 10
+	},
+/area/rogue/underworld/graveyard)
+"tA" = (
+/obj/structure/closet/dirthole/closed/loot,
+/obj/structure/closet/crate/chest/loot_chest/locked,
+/turf/open/floor/rogue/dirt,
+/area/rogue/underworld/graveyard)
+"tK" = (
+/turf/open/floor/rogue/grassred,
+/area/rogue/outdoors/woods/north)
+"tW" = (
+/obj/structure/fluff/railing/corner,
+/turf/open/floor/rogue/underworld/road{
+	dir = 1
+	},
+/area/rogue/underworld/graveyard)
+"tY" = (
+/turf/closed/mineral/random/rogue/high,
+/area/rogue/outdoors/mountains)
+"ut" = (
+/obj/structure/flora/newtree,
+/turf/open/floor/rogue/grassred,
+/area/rogue/outdoors/woods/north)
+"uF" = (
+/mob/living/carbon/human/species/skeleton/npc/supereasy,
+/turf/open/floor/rogue/dirt,
+/area/rogue/underworld/graveyard)
+"uU" = (
+/obj/structure/fluff/walldeco/church/line{
+	dir = 8;
+	pixel_y = 0
+	},
+/turf/open/floor/rogue/cobblerock,
+/area/rogue/underworld/graveyard)
+"vn" = (
+/obj/structure/flora/roguetree/underworld,
+/turf/open/floor/rogue/underworld/road{
+	dir = 1
+	},
+/area/rogue/underworld/graveyard)
+"vJ" = (
+/obj/structure/fluff/walldeco/church/line{
+	dir = 1
+	},
+/turf/open/floor/rogue/grass,
+/area/rogue/underworld/graveyard)
+"vQ" = (
+/obj/structure/flora/roguetree/underworld{
+	icon_state = "screaming2"
+	},
+/turf/open/floor/rogue/underworld/road,
+/area/rogue/underworld/graveyard)
+"wa" = (
+/obj/machinery/light/rogue/candle/floorcandle,
+/obj/structure/fluff/statue,
+/turf/open/floor/rogue/dirt,
+/area/rogue/underworld/graveyard)
+"wh" = (
+/obj/structure/fluff/railing/corner/north_east,
+/turf/open/floor/rogue/grass,
+/area/rogue/underworld/graveyard)
+"wq" = (
+/mob/living/carbon/human/species/skeleton/npc/no_equipment,
+/turf/open/floor/rogue/dirt,
+/area/rogue/underworld/graveyard)
+"wY" = (
+/turf/open/floor/rogue/cobblerock,
+/area/rogue/underworld/graveyard)
+"xk" = (
+/turf/open/floor/rogue/rooftop/green/west,
+/area/rogue/outdoors/mountains)
+"xG" = (
+/obj/structure/fluff/statue/small,
+/obj/machinery/light/rogue/candle/floorcandle,
+/turf/open/floor/rogue/dirt,
+/area/rogue/underworld/graveyard)
+"xT" = (
+/obj/structure/fluff/walldeco/church/line{
+	dir = 1
+	},
+/turf/open/floor/rogue/cobblerock,
+/area/rogue/underworld/graveyard)
+"yj" = (
+/obj/structure/fluff/railing/border/west,
+/mob/living/carbon/human/species/skeleton/npc/hard,
+/turf/open/floor/rogue/underworld/road{
+	dir = 1
+	},
+/area/rogue/underworld/graveyard)
+"yA" = (
+/turf/open/floor/rogue/rooftop/green/north,
+/area/rogue/outdoors/mountains)
+"yH" = (
+/obj/structure/mineral_door/wood/donjon/stone,
+/turf/open/floor/rogue/blocks,
+/area/rogue/underworld/graveyard)
+"yM" = (
+/obj/structure/fluff/walldeco/church/line{
+	dir = 1
+	},
+/turf/open/floor/rogue/dirt,
+/area/rogue/underworld/graveyard)
+"zg" = (
+/obj/machinery/light/rogue/candle/blue,
+/obj/structure/table/wood,
+/obj/item/burial_shroud,
+/obj/item/burial_shroud,
+/obj/item/burial_shroud,
+/obj/item/burial_shroud,
+/obj/item/burial_shroud,
+/turf/open/floor/rogue/blocks,
+/area/rogue/underworld/graveyard)
+"zi" = (
+/turf/open/floor/rogue/underworld/road{
+	dir = 1
+	},
+/area/rogue/underworld/graveyard)
+"zk" = (
+/obj/structure/stairs/stone{
+	dir = 8
+	},
+/obj/structure/fluff/railing/border/north,
+/turf/open/floor/rogue/cobblerock,
+/area/rogue/underworld/graveyard)
+"zu" = (
+/obj/structure/fluff/railing/corner/south_east,
+/obj/structure/flora/roguegrass,
+/mob/living/carbon/human/species/skeleton/npc/no_equipment,
+/turf/open/floor/rogue/grass,
+/area/rogue/underworld/graveyard)
+"zM" = (
+/obj/structure/fluff/railing/corner/south_east,
+/turf/open/floor/rogue/grass,
+/area/rogue/underworld/graveyard)
+"Ai" = (
+/obj/machinery/light/rogue/candle/blue{
+	pixel_y = -32
+	},
+/turf/open/floor/rogue/blocks,
+/area/rogue/underworld/graveyard)
+"Au" = (
+/obj/structure/closet/dirthole/closed/loot,
+/obj/effect/spawner/lootdrop/roguetown/dungeon/clothing,
+/turf/open/floor/rogue/dirt,
+/area/rogue/underworld/graveyard)
+"AT" = (
+/obj/structure/bars/cemetery,
+/turf/open/floor/rogue/grassyel,
+/area/rogue/outdoors/woods/north)
+"AZ" = (
+/obj/structure/flora/newtree,
+/turf/open/floor/rogue/dirt,
+/area/rogue/outdoors/woods/north)
+"Bm" = (
+/turf/closed/mineral/random/rogue/med,
+/area/rogue/outdoors/mountains)
+"Bt" = (
+/obj/structure/fluff/railing/border,
+/turf/open/floor/rogue/underworld/road{
+	dir = 1
+	},
+/area/rogue/underworld/graveyard)
+"CR" = (
+/turf/open/floor/rogue/underworld/road{
+	dir = 6
+	},
+/area/rogue/underworld/graveyard)
+"CW" = (
+/obj/structure/winch{
+	redstone_id = "graveyard_entrance"
+	},
+/turf/open/floor/rogue/dirt/road,
+/area/rogue/outdoors/woods/north)
+"DY" = (
+/turf/open/floor/rogue/underworld/road{
+	dir = 4
+	},
+/area/rogue/underworld/graveyard)
+"Ee" = (
+/obj/structure/bars/cemetery,
+/turf/open/floor/rogue/cobblerock,
+/area/rogue/outdoors/woods/north)
+"El" = (
+/obj/structure/bars/cemetery,
+/turf/open/floor/rogue/grass,
+/area/rogue/outdoors/woods/north)
+"Eo" = (
+/turf/open/transparent/openspace,
+/area/rogue/outdoors/mountains)
+"EJ" = (
+/obj/structure/fluff/walldeco/church/line{
+	dir = 4
+	},
+/turf/open/floor/rogue/underworld/road{
+	dir = 5
+	},
+/area/rogue/underworld/graveyard)
+"EP" = (
+/obj/structure/stairs/stone{
+	dir = 1
+	},
+/turf/open/floor/rogue/cobblerock,
+/area/rogue/underworld/graveyard)
+"EV" = (
+/turf/open/floor/rogue/ruinedwood/spiral,
+/area/rogue/outdoors/mountains)
+"Fk" = (
+/turf/open/floor/rogue/underworld/road{
+	dir = 9
+	},
+/area/rogue/underworld/graveyard)
+"FA" = (
+/obj/structure/fluff/railing/border/east,
+/obj/structure/fluff/railing/border/north,
+/turf/open/floor/rogue/dirt/road,
+/area/rogue/underworld/graveyard)
+"Gp" = (
+/obj/structure/flora/roguegrass,
+/turf/open/floor/rogue/grassyel,
+/area/rogue/outdoors/woods/north)
+"GA" = (
+/obj/structure/fluff/railing/corner/south_west,
+/turf/open/floor/rogue/grass,
+/area/rogue/underworld/graveyard)
+"GH" = (
+/obj/structure/flora/roguegrass/bush/wall,
+/turf/open/floor/rogue/dirt,
+/area/rogue/underworld/graveyard)
+"GU" = (
+/obj/structure/fluff/walldeco/church/line{
+	dir = 4
+	},
+/turf/open/floor/rogue/underworld/road{
+	dir = 8
+	},
+/area/rogue/underworld/graveyard)
+"Hn" = (
+/obj/structure/bars/cemetery,
+/turf/open/floor/rogue/ruinedwood/spiral,
+/area/rogue/outdoors/mountains)
+"HI" = (
+/obj/structure/stairs/stone{
+	dir = 1
+	},
+/obj/structure/fluff/railing/border/west,
+/turf/open/floor/rogue/dirt/road,
+/area/rogue/underworld/graveyard)
+"In" = (
+/obj/structure/fluff/railing/corner/north_east,
+/turf/open/floor/rogue/cobblerock,
+/area/rogue/underworld/graveyard)
+"Io" = (
+/obj/structure/fluff/walldeco/church/line,
+/obj/structure/fluff/walldeco/church/line{
+	dir = 4
+	},
+/turf/open/floor/rogue/underworld/road{
+	dir = 8
+	},
+/area/rogue/underworld/graveyard)
+"IA" = (
+/obj/structure/fluff/walldeco/church/line,
+/obj/structure/closet/dirthole/closed/loot,
+/obj/item/roguegem/ruby,
+/turf/open/floor/rogue/dirt,
+/area/rogue/underworld/graveyard)
+"Jp" = (
+/turf/open/floor/rogue/blocks,
+/area/rogue/underworld/graveyard)
+"JX" = (
+/obj/structure/fluff/railing/border/east,
+/turf/open/floor/rogue/underworld/road{
+	dir = 1
+	},
+/area/rogue/underworld/graveyard)
+"Kj" = (
+/obj/structure/flora/roguegrass/bush/wall,
+/turf/open/floor/rogue/dirt,
+/area/rogue/outdoors/woods/north)
+"Li" = (
+/obj/structure/fluff/walldeco/church/line{
+	dir = 1
+	},
+/obj/structure/fluff/walldeco/church/line,
+/turf/open/floor/rogue/grass,
+/area/rogue/underworld/graveyard)
+"LN" = (
+/obj/structure/fluff/statue/small{
+	desc = "A small statue depicting an elven woman bearing a harp. The engraving reads: 'Here lay the body of Ashley, known to many as the broken tree widow. While her late yills were marred with darkness, her smile never faded.'"
+	},
+/obj/machinery/light/rogue/candle/floorcandle,
+/turf/open/floor/rogue/dirt,
+/area/rogue/underworld/graveyard)
+"LU" = (
+/obj/structure/table/wood/long_table/right,
+/obj/item/needle,
+/obj/item/natural/bundle/cloth/bandage,
+/obj/item/natural/bundle/cloth/bandage/full,
+/turf/open/floor/rogue/blocks,
+/area/rogue/underworld/graveyard)
+"LY" = (
+/obj/structure/stairs/stone{
+	dir = 8
+	},
+/turf/open/floor/rogue/cobblerock,
+/area/rogue/underworld/graveyard)
+"Mf" = (
+/obj/structure/closet/dirthole/closed/loot,
+/obj/effect/spawner/lootdrop/roguetown/dungeon/misc,
+/turf/open/floor/rogue/dirt,
+/area/rogue/underworld/graveyard)
+"Mh" = (
+/turf/open/floor/rogue/grass,
+/area/rogue/underworld/graveyard)
+"MP" = (
+/obj/structure/stairs/stone,
+/obj/structure/fluff/railing/border/west,
+/turf/open/floor/rogue/cobblerock,
+/area/rogue/underworld/graveyard)
+"NA" = (
+/turf/open/floor/rogue/rooftop/green/corner1/direight,
+/area/rogue/outdoors/mountains)
+"NF" = (
+/turf/open/floor/rogue/rooftop/green/corner1/dirone,
+/area/rogue/outdoors/mountains)
+"NY" = (
+/obj/structure/fluff/railing/border/west,
+/obj/structure/fluff/railing/border/north,
+/turf/open/floor/rogue/grass,
+/area/rogue/underworld/graveyard)
+"Oc" = (
+/obj/structure/fluff/railing/corner/south_east,
+/turf/open/floor/rogue/underworld/road{
+	dir = 1
+	},
+/area/rogue/underworld/graveyard)
+"Ow" = (
+/turf/open/floor/rogue/rooftop/green/corner1/dirfive,
+/area/rogue/outdoors/mountains)
+"OC" = (
+/obj/structure/fluff/walldeco/church/line,
+/turf/open/floor/rogue/grass,
+/area/rogue/underworld/graveyard)
+"OT" = (
+/obj/structure/flora/roguetree/underworld,
+/turf/open/floor/rogue/underworld/road,
+/area/rogue/underworld/graveyard)
+"OV" = (
+/obj/structure/stairs/stone{
+	dir = 1
+	},
+/obj/structure/fluff/railing/border/east,
+/turf/open/floor/rogue/cobblerock,
+/area/rogue/underworld/graveyard)
+"Pd" = (
+/obj/structure/closet/dirthole/closed/loot,
+/obj/effect/spawner/lootdrop/roguetown/dungeon/money,
+/turf/open/floor/rogue/dirt,
+/area/rogue/underworld/graveyard)
+"Pv" = (
+/obj/structure/fluff/railing/corner/north_east,
+/mob/living/carbon/human/species/skeleton/npc/hard,
+/turf/open/floor/rogue/underworld/road{
+	dir = 1
+	},
+/area/rogue/underworld/graveyard)
+"PC" = (
+/obj/structure/fluff/railing/border/north,
+/turf/open/floor/rogue/underworld/road{
+	dir = 1
+	},
+/area/rogue/underworld/graveyard)
+"PH" = (
+/turf/open/floor/rogue/underworld/road,
+/area/rogue/underworld/graveyard)
+"Qw" = (
+/obj/structure/fluff/railing/corner,
+/turf/open/floor/rogue/cobblerock,
+/area/rogue/underworld/graveyard)
+"QY" = (
+/turf/closed/wall/mineral/rogue/craftstone,
+/area/rogue/underworld/graveyard)
+"Rb" = (
+/turf/open/floor/rogue/rooftop/green/corner1,
+/area/rogue/outdoors/mountains)
+"Rd" = (
+/turf/open/floor/rogue/church,
+/area/rogue/outdoors/mountains)
+"Su" = (
+/obj/structure/fluff/walldeco/church/line{
+	dir = 8;
+	pixel_y = 0
+	},
+/turf/open/floor/rogue/grass,
+/area/rogue/underworld/graveyard)
+"Sw" = (
+/obj/structure/flora/roguegrass,
+/obj/structure/bars/cemetery,
+/turf/open/floor/rogue/dirt,
+/area/rogue/outdoors/woods/north)
+"SO" = (
+/obj/structure/closet/dirthole/closed/loot,
+/turf/open/floor/rogue/dirt,
+/area/rogue/underworld/graveyard)
+"Uf" = (
+/obj/structure/table/wood/long_table,
+/obj/item/storage/belt/rogue/surgery_bag/full{
+	pixel_y = 10
+	},
+/obj/machinery/light/rogue/candle/blue,
+/obj/item/clothing/cloak/apron/cook{
+	name = "barber's apron"
+	},
+/turf/open/floor/rogue/blocks,
+/area/rogue/underworld/graveyard)
+"Uq" = (
+/mob/living/carbon/human/species/skeleton/npc/hard,
+/turf/open/floor/rogue/blocks,
+/area/rogue/underworld/graveyard)
+"Ur" = (
+/obj/structure/fluff/railing/corner/south_west,
+/turf/open/floor/rogue/underworld/road{
+	dir = 9
+	},
+/area/rogue/underworld/graveyard)
+"UJ" = (
+/turf/open/floor/rogue/dirt/road,
+/area/rogue/underworld/graveyard)
+"UR" = (
+/turf/open/floor/rogue/rooftop/green/east,
+/area/rogue/outdoors/mountains)
+"VX" = (
+/obj/structure/flora/roguegrass,
+/turf/closed/wall/mineral/rogue/wooddark,
+/area/rogue/outdoors/woods/north)
+"Wm" = (
+/turf/open/floor/rogue/dirt,
+/area/rogue/underworld/graveyard)
+"Wp" = (
+/obj/structure/table/optable,
+/turf/open/floor/rogue/blocks,
+/area/rogue/underworld/graveyard)
+"XB" = (
+/obj/structure/fluff/railing/corner/south_east,
+/turf/open/floor/rogue/cobblerock,
+/area/rogue/underworld/graveyard)
+"XC" = (
+/obj/structure/flora/roguegrass/bush/wall,
+/turf/open/floor/rogue/grassred,
+/area/rogue/outdoors/woods/north)
+"XZ" = (
+/obj/structure/stairs/stone,
+/obj/structure/fluff/railing/border/east,
+/turf/open/floor/rogue/grass,
+/area/rogue/underworld/graveyard)
+"YS" = (
+/obj/structure/fluff/walldeco/church/line{
+	dir = 8;
+	pixel_y = 0
+	},
+/turf/open/floor/rogue/dirt,
+/area/rogue/underworld/graveyard)
+"YU" = (
+/obj/structure/fluff/walldeco/church/line,
+/turf/open/floor/rogue/dirt/road,
+/area/rogue/underworld/graveyard)
+"ZT" = (
+/obj/structure/fluff/walldeco/church/line{
+	dir = 1
+	},
+/turf/open/floor/rogue/dirt/road,
+/area/rogue/underworld/graveyard)
+
+(1,1,1) = {"
+gy
+gy
+hy
+hy
+ma
+de
+de
+de
+Kj
+ma
+ma
+dQ
+pR
+AZ
+de
+Gp
+Kj
+pR
+gy
+dQ
+ma
+"}
+(2,1,1) = {"
+gy
+qF
+sH
+qF
+El
+El
+El
+qF
+El
+sH
+qF
+El
+El
+qF
+sH
+sH
+El
+qF
+AT
+VX
+ma
+"}
+(3,1,1) = {"
+pN
+sH
+GH
+GH
+wY
+bc
+kT
+cF
+cF
+UJ
+ea
+CR
+Wm
+Wm
+Wm
+Wm
+GH
+GH
+Wm
+Sw
+ma
+"}
+(4,1,1) = {"
+pN
+El
+GH
+ea
+YU
+xG
+kO
+wa
+Mf
+xT
+ea
+vQ
+CR
+QY
+QY
+QY
+QY
+QY
+GH
+sH
+XC
+"}
+(5,1,1) = {"
+Kj
+sH
+ea
+aX
+Io
+st
+Li
+lz
+SO
+xT
+gK
+ea
+Wm
+QY
+Uf
+Jp
+fP
+QY
+Wm
+sH
+ut
+"}
+(6,1,1) = {"
+ma
+qF
+eu
+sI
+IA
+uU
+rZ
+fy
+fy
+Wm
+wY
+zi
+Wm
+QY
+LU
+Uq
+Wp
+QY
+uF
+qF
+pR
+"}
+(7,1,1) = {"
+gy
+sH
+UJ
+jJ
+jJ
+wY
+YU
+LN
+dp
+kN
+wY
+bO
+DY
+QY
+zg
+Jp
+Ai
+QY
+Wm
+El
+Kj
+"}
+(8,1,1) = {"
+pN
+sH
+Wm
+wq
+Wm
+wY
+UJ
+jJ
+jJ
+UJ
+wY
+CR
+Wm
+QY
+QY
+yH
+QY
+QY
+GH
+El
+Kj
+"}
+(9,1,1) = {"
+pN
+sH
+Wm
+ea
+uF
+wY
+Fk
+zi
+zM
+In
+wY
+zu
+wh
+Wm
+Wm
+wY
+CR
+OT
+GH
+El
+dQ
+"}
+(10,1,1) = {"
+gy
+qF
+CR
+vQ
+CR
+Fk
+bO
+Oc
+qj
+rg
+sq
+gt
+FA
+ek
+wY
+wY
+Wm
+Fk
+gZ
+qF
+rF
+"}
+(11,1,1) = {"
+gy
+sH
+Wm
+EJ
+cF
+wY
+CR
+ds
+MP
+Oc
+JX
+Pv
+HI
+Qw
+wY
+wY
+wq
+Wm
+Wm
+rK
+dQ
+"}
+(12,1,1) = {"
+gy
+Ee
+eu
+db
+tA
+xT
+wY
+wY
+hU
+Bt
+nh
+PC
+EP
+wY
+wY
+wY
+wY
+wY
+wY
+dQ
+jg
+"}
+(13,1,1) = {"
+pN
+sH
+Wm
+YS
+YS
+wY
+Wm
+XB
+XZ
+lx
+yj
+tW
+OV
+In
+Wm
+wq
+UJ
+bc
+Wm
+dQ
+ma
+"}
+(14,1,1) = {"
+pN
+qF
+Wm
+Wm
+Wm
+wY
+Fk
+ds
+gh
+zk
+LY
+cP
+NY
+tW
+Wm
+wq
+YU
+pu
+yM
+qF
+CW
+"}
+(15,1,1) = {"
+pN
+AT
+Wm
+Wm
+wq
+wY
+CR
+bO
+Ur
+Qw
+wY
+GA
+nX
+vQ
+CR
+Wm
+OC
+xG
+vJ
+El
+hy
+"}
+(16,1,1) = {"
+tY
+cT
+UJ
+cF
+cF
+wY
+UJ
+GU
+cF
+UJ
+gK
+Wm
+Wm
+CR
+ea
+ea
+Mh
+Su
+rZ
+El
+Kj
+"}
+(17,1,1) = {"
+tY
+cT
+YU
+LN
+Pd
+xT
+YU
+LN
+Au
+xT
+wY
+Wm
+wq
+Wm
+na
+PH
+Wm
+Wm
+Wm
+El
+Kj
+"}
+(18,1,1) = {"
+tY
+tY
+UJ
+uU
+uU
+gK
+UJ
+jJ
+jJ
+UJ
+wY
+wY
+wY
+wY
+bc
+zi
+uF
+Wm
+Wm
+qF
+Kj
+"}
+(19,1,1) = {"
+tY
+tY
+Wm
+CR
+vn
+tk
+CR
+cF
+cF
+UJ
+wY
+Fk
+bO
+YU
+st
+ZT
+Wm
+PH
+PH
+El
+Kj
+"}
+(20,1,1) = {"
+tY
+tY
+Wm
+Wm
+Fk
+zi
+YU
+db
+tA
+xT
+wY
+Wm
+CR
+OC
+xG
+vJ
+CR
+OT
+CR
+El
+de
+"}
+(21,1,1) = {"
+tY
+tY
+Wm
+GH
+GH
+GH
+UJ
+jJ
+jJ
+kT
+wY
+Wm
+Wm
+Mh
+Su
+rZ
+Fk
+Wm
+GH
+sH
+AZ
+"}
+(22,1,1) = {"
+tY
+tY
+cT
+qF
+sH
+El
+sH
+qF
+sH
+sH
+qF
+sH
+El
+qF
+sH
+sH
+El
+qF
+sH
+qF
+ma
+"}
+(23,1,1) = {"
+Bm
+Bm
+hy
+ma
+hy
+hy
+tK
+tK
+pN
+pN
+gy
+tK
+ut
+de
+ma
+Kj
+hy
+dQ
+Kj
+ma
+hy
+"}
+
+(1,1,2) = {"
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+"}
+(2,1,2) = {"
+Eo
+Hn
+Eo
+Hn
+Eo
+Eo
+Eo
+Hn
+Eo
+Eo
+Hn
+Eo
+Eo
+Hn
+Eo
+Eo
+Eo
+Hn
+Eo
+Hn
+Eo
+"}
+(3,1,2) = {"
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+"}
+(4,1,2) = {"
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Ow
+yA
+yA
+yA
+NF
+Eo
+Eo
+Eo
+"}
+(5,1,2) = {"
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+UR
+Rd
+Rd
+Rd
+xk
+Eo
+Eo
+Eo
+"}
+(6,1,2) = {"
+Eo
+Hn
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+UR
+Rd
+Rd
+Rd
+xk
+Eo
+Hn
+Eo
+"}
+(7,1,2) = {"
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+UR
+Rd
+Rd
+Rd
+xk
+Eo
+Eo
+Eo
+"}
+(8,1,2) = {"
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+NA
+kr
+kr
+kr
+Rb
+Eo
+Eo
+Eo
+"}
+(9,1,2) = {"
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+"}
+(10,1,2) = {"
+Eo
+Hn
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Hn
+Eo
+"}
+(11,1,2) = {"
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+EV
+Eo
+"}
+(12,1,2) = {"
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+EV
+Eo
+"}
+(13,1,2) = {"
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+EV
+Eo
+"}
+(14,1,2) = {"
+Eo
+Hn
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Hn
+Eo
+"}
+(15,1,2) = {"
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+"}
+(16,1,2) = {"
+aC
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+"}
+(17,1,2) = {"
+aC
+aC
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+"}
+(18,1,2) = {"
+aC
+aC
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Hn
+Eo
+"}
+(19,1,2) = {"
+aC
+aC
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+"}
+(20,1,2) = {"
+aC
+aC
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+"}
+(21,1,2) = {"
+aC
+aC
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+"}
+(22,1,2) = {"
+aC
+aC
+Eo
+Hn
+Eo
+Eo
+Eo
+Hn
+Eo
+Eo
+Hn
+Eo
+Eo
+Hn
+Eo
+Eo
+Eo
+Hn
+Eo
+Hn
+Eo
+"}
+(23,1,2) = {"
+tY
+tY
+tY
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+Eo
+"}

@@ -20,7 +20,7 @@
 	display_order = JDO_BATHWORKER
 	give_bank_account = TRUE
 	can_random = FALSE
-	min_pq = null //-10
+	min_pq = -10
 	max_pq = null
 	round_contrib_points = 2
 	advjob_examine = TRUE

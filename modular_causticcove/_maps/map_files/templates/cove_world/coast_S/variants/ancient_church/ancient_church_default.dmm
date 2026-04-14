@@ -1,0 +1,517 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/turf/open/transparent/openspace,
+/area/rogue/outdoors/beach/forest/south)
+"b" = (
+/obj/structure/flora/roguegrass/herb/random,
+/turf/open/floor/rogue/grass,
+/area/rogue/outdoors/beach/forest/south)
+"c" = (
+/obj/structure/bars/cemetery,
+/turf/open/floor/rogue/dirt,
+/area/rogue/outdoors/beach/forest/south)
+"d" = (
+/obj/structure/closet/crate/chest/old_crate,
+/obj/effect/spawner/lootdrop/roguetown/dungeon/medical,
+/turf/open/floor/rogue/blocks,
+/area/rogue/outdoors/beach/forest/south)
+"g" = (
+/obj/item/reagent_containers/food/snacks/crow{
+	dir = 1
+	},
+/turf/open/floor/rogue/rooftop/north,
+/area/rogue/outdoors/beach/forest/south)
+"h" = (
+/obj/structure/bars/cemetery,
+/turf/open/floor/rogue/grass,
+/area/rogue/outdoors/beach/forest/south)
+"i" = (
+/obj/item/reagent_containers/food/snacks/crow,
+/turf/open/floor/rogue/rooftop/north,
+/area/rogue/outdoors/beach/forest/south)
+"j" = (
+/mob/living/carbon/human/species/skeleton/npc/mediumspread,
+/turf/open/floor/rogue/grass,
+/area/rogue/outdoors/beach/forest/south)
+"k" = (
+/obj/structure/mineral_door/bars,
+/turf/open/floor/rogue/grass,
+/area/rogue/outdoors/beach/forest/south)
+"l" = (
+/obj/structure/flora/newtree,
+/turf/open/floor/rogue/dirt,
+/area/rogue/outdoors/beach/forest/south)
+"n" = (
+/turf/closed/wall/mineral/rogue/stone,
+/area/rogue/outdoors/beach/forest/south)
+"r" = (
+/obj/structure/table/wood/long_table/right,
+/obj/item/clothing/neck/roguetown/psicross,
+/turf/open/floor/rogue/blocks,
+/area/rogue/outdoors/beach/forest/south)
+"s" = (
+/obj/structure/closet/crate/roguecloset,
+/obj/item/clothing/cloak/raincloak/mortus,
+/obj/item/rogueweapon/shovel,
+/turf/open/floor/rogue/blocks,
+/area/rogue/outdoors/beach/forest/south)
+"v" = (
+/obj/structure/closet/dirthole/closed/loot,
+/obj/structure/gravemarker,
+/turf/open/floor/rogue/grass,
+/area/rogue/outdoors/beach/forest/south)
+"x" = (
+/turf/open/floor/rogue/dirt,
+/area/rogue/outdoors/beach/forest/south)
+"y" = (
+/obj/structure/mineral_door/bars,
+/turf/open/floor/rogue/dirt,
+/area/rogue/outdoors/beach/forest/south)
+"A" = (
+/obj/structure/fluff/psycross,
+/turf/open/floor/rogue/blocks,
+/area/rogue/outdoors/beach/forest/south)
+"B" = (
+/obj/structure/closet/dirthole/closed/loot,
+/obj/structure/gravemarker,
+/turf/open/floor/rogue/dirt/road,
+/area/rogue/outdoors/beach/forest/south)
+"D" = (
+/turf/open/floor/rogue/rooftop/north,
+/area/rogue/outdoors/beach/forest/south)
+"I" = (
+/turf/open/floor/rogue/blocks,
+/area/rogue/outdoors/beach/forest/south)
+"K" = (
+/obj/machinery/light/rogue/firebowl/standing/blue,
+/turf/open/floor/rogue/blocks,
+/area/rogue/outdoors/beach/forest/south)
+"N" = (
+/obj/structure/table/wood/long_table,
+/obj/item/reagent_containers/glass/bottle/rogue/redwine,
+/turf/open/floor/rogue/blocks,
+/area/rogue/outdoors/beach/forest/south)
+"P" = (
+/obj/structure/bars,
+/turf/open/floor/rogue/blocks,
+/area/rogue/outdoors/beach/forest/south)
+"Q" = (
+/turf/closed/wall/mineral/rogue/stone/blue_moss,
+/area/rogue/outdoors/beach/forest/south)
+"R" = (
+/turf/open/floor/rogue/grass,
+/area/rogue/outdoors/beach/forest/south)
+"T" = (
+/mob/living/carbon/human/species/skeleton/npc/mediumspread,
+/turf/open/floor/rogue/blocks,
+/area/rogue/outdoors/beach/forest/south)
+"W" = (
+/obj/structure/gravemarker,
+/obj/structure/closet/dirthole/grave,
+/turf/open/floor/rogue/dirt/road,
+/area/rogue/outdoors/beach/forest/south)
+"Y" = (
+/obj/effect/landmark/start/wretchlate,
+/turf/open/floor/rogue/rooftop/north,
+/area/rogue/outdoors/beach/forest/south)
+"Z" = (
+/obj/structure/mineral_door/wood/deadbolt{
+	dir = 4;
+	locked = 1
+	},
+/turf/open/floor/rogue/blocks,
+/area/rogue/outdoors/beach/forest/south)
+
+(1,1,1) = {"
+x
+x
+x
+c
+c
+c
+c
+c
+c
+h
+c
+x
+"}
+(2,1,1) = {"
+x
+x
+x
+c
+x
+x
+x
+R
+R
+R
+c
+x
+"}
+(3,1,1) = {"
+l
+x
+x
+y
+x
+x
+x
+b
+R
+j
+c
+x
+"}
+(4,1,1) = {"
+x
+x
+x
+k
+R
+R
+R
+R
+R
+R
+c
+x
+"}
+(5,1,1) = {"
+x
+x
+x
+h
+W
+R
+v
+B
+R
+W
+c
+x
+"}
+(6,1,1) = {"
+x
+x
+x
+h
+R
+R
+R
+R
+x
+x
+c
+x
+"}
+(7,1,1) = {"
+x
+x
+R
+h
+R
+R
+n
+n
+Z
+n
+n
+x
+"}
+(8,1,1) = {"
+x
+b
+R
+n
+n
+n
+n
+d
+I
+s
+n
+x
+"}
+(9,1,1) = {"
+x
+x
+R
+n
+A
+I
+I
+I
+I
+I
+n
+n
+"}
+(10,1,1) = {"
+x
+x
+R
+n
+N
+I
+I
+I
+I
+I
+I
+P
+"}
+(11,1,1) = {"
+x
+l
+R
+n
+r
+I
+I
+T
+I
+K
+n
+n
+"}
+(12,1,1) = {"
+x
+x
+R
+Q
+A
+I
+I
+I
+n
+n
+n
+x
+"}
+(13,1,1) = {"
+x
+x
+x
+Q
+Q
+n
+n
+Q
+Q
+x
+x
+x
+"}
+(14,1,1) = {"
+x
+x
+x
+R
+R
+j
+x
+R
+R
+x
+x
+x
+"}
+
+(1,1,2) = {"
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+"}
+(2,1,2) = {"
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+"}
+(3,1,2) = {"
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+"}
+(4,1,2) = {"
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+"}
+(5,1,2) = {"
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+"}
+(6,1,2) = {"
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+"}
+(7,1,2) = {"
+a
+a
+a
+a
+a
+a
+D
+D
+D
+D
+D
+a
+"}
+(8,1,2) = {"
+a
+a
+a
+D
+D
+D
+D
+D
+i
+D
+D
+a
+"}
+(9,1,2) = {"
+a
+a
+a
+D
+D
+D
+D
+D
+D
+D
+D
+D
+"}
+(10,1,2) = {"
+a
+a
+a
+D
+D
+D
+D
+Y
+D
+D
+D
+D
+"}
+(11,1,2) = {"
+a
+a
+a
+D
+D
+D
+D
+D
+D
+D
+D
+a
+"}
+(12,1,2) = {"
+a
+a
+a
+D
+D
+g
+D
+D
+D
+D
+D
+a
+"}
+(13,1,2) = {"
+a
+a
+a
+D
+D
+D
+D
+D
+D
+a
+a
+a
+"}
+(14,1,2) = {"
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+"}

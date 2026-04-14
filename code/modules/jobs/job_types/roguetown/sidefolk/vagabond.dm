@@ -25,7 +25,7 @@
 	outfit = /datum/outfit/job/roguetown/vagabond
 	display_order = JDO_VAGABOND
 	show_in_credits = FALSE
-	min_pq = null //-30
+	min_pq = -30
 	max_pq = null
 	round_contrib_points = 2
 

@@ -29,7 +29,7 @@ GLOBAL_LIST_EMPTY(heretical_players)
 	outfit = /datum/outfit/job/roguetown/priest
 	display_order = JDO_BISHOP
 	give_bank_account = TRUE
-	min_pq = null //5 // You should know the basics of things if you're going to lead the town's entire religious sector
+	min_pq = 15 //CC Edit - 5 to 15. This is a very important role. // You should know the basics of things if you're going to lead the town's entire religious sector
 	max_pq = null
 	round_contrib_points = 5
 

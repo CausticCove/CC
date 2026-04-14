@@ -52,13 +52,20 @@
 /obj/machinery/light/rogue/smelter/attackby(obj/item/attacking_item, mob/living/user, params)
 	if(istype(attacking_item, /obj/item/rogueweapon/tongs))
 		var/obj/item/rogueweapon/tongs/tongs = attacking_item
-		if(tongs.hingot)
+		//Caustic Edit - Add Tongs ability to put ore in Smelters
+		if(tongs.hingot || tongs.ore)
 			if(length(contained_items) >= max_contained_items)
 				to_chat(user, span_warn("\The [src] is already full!"))
 				return
-			add_item(tongs.hingot, user)
-			tongs.hingot = null
+			if(tongs.hingot)
+				add_item(tongs.hingot, user)
+				tongs.hingot = null
+			else
+				add_item(tongs.ore, user)
+				tongs.ore = null
+
 			tongs.update_icon()
+		//Caustic Edit End
 		else
 			if(actively_smelting) // Prevents an exp gain exploit. - Foxtrot
 				to_chat(user, span_warning("\The [src] is currently smelting. Wait for it to finish, or douse it with water to retrieve items from it."))
@@ -69,7 +76,10 @@
 			var/obj/item/item_to_remove = contained_items[contained_items.len]
 			contained_items -= item_to_remove
 			item_to_remove.forceMove(tongs)
-			tongs.hingot = item_to_remove
+			if(istype(item_to_remove, /obj/item/ingot))
+				tongs.hingot = item_to_remove
+			else
+				tongs.ore = item_to_remove
 			if(user.mind && isliving(user) && tongs.hingot?.smeltresult) // Prevents an exploit with coal and runtimes with everything else
 				if(!istype(tongs.hingot, /obj/item/rogueore) && tongs.hingot?.smelted) // Burning items to ash won't level smelting.
 					var/mob/living/L = user

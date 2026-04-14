@@ -45,7 +45,7 @@
 	maximum_antags = 2
 
 	earliest_start = 0 SECONDS
-	max_occurrences = 2
+	max_occurrences = 0 //Caustic Edit - Turn off Assassins (again)
 
 	weight = 10
 

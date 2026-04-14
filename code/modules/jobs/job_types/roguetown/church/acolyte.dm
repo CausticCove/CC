@@ -14,7 +14,7 @@
 
 	display_order = JDO_ACOLYTE
 	give_bank_account = TRUE
-	min_pq = null //1 //A step above sexton, should funnel new players to the sexton role to learn miracles at a more sedate pace
+	min_pq = 1 //A step above sexton, should funnel new players to the sexton role to learn miracles at a more sedate pace
 	max_pq = null
 	round_contrib_points = 5
 

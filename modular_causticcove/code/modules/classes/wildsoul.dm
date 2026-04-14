@@ -14,7 +14,7 @@
 	obsfuscated_job = TRUE
 
 	show_in_credits = FALSE
-	min_pq = null
+	min_pq = 1
 	max_pq = null
 	announce_latejoin = FALSE
 	wanderer_examine = TRUE

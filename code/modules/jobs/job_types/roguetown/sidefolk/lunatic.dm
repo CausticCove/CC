@@ -14,7 +14,7 @@
 	outfit = /datum/outfit/job/roguetown/lunatic
 	bypass_lastclass = TRUE
 	bypass_jobban = FALSE
-	min_pq = null //100 //the magic of an allowlist server.
+	min_pq = 100 //the magic of an allowlist server.
 	max_pq = null
 	tutorial = "The Lunatic, shunned by society and a magnet for misfortune. Your task is simple yet perilous: survive by any means, though your very existence invites danger from every corner. It is said that Azure Peak drives those most familiar with it, the most insane."
 	display_order = JDO_LUNATIC

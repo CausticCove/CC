@@ -171,7 +171,7 @@
 	timer = 4 MINUTES
 
 /datum/stressevent/campfire
-	stressadd = -1
+	stressadd = -3	//CC Edit - Boost the mood bonus as compensation for requiring sleep to heal/regen energy.
 	desc = span_green("The warmth of the fire is comforting.")
 	timer = 5 MINUTES
 

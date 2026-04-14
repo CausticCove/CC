@@ -17,7 +17,7 @@
 	display_order = JDO_APPRENTICE
 	give_bank_account = TRUE
 
-	min_pq = null //0
+	min_pq = 4 //CC Edit - Keep em away from newbies.
 	max_pq = null
 	round_contrib_points = 2
 	cmode_music = 'sound/music/cmode/nobility/combat_courtmage.ogg'

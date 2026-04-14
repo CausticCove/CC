@@ -1,0 +1,81 @@
+//MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
+"a" = (
+/turf/open/floor/rogue/rooftop/green/north,
+/area/rogue/outdoors/town/roofs)
+"h" = (
+/obj/structure/flora/roguetree/stump/log,
+/turf/open/floor/rogue/dirt/road,
+/area/rogue/indoors/shelter/woods)
+"q" = (
+/obj/structure/roguewindow,
+/turf/open/floor/rogue/twig,
+/area/rogue/indoors/shelter/woods)
+"r" = (
+/turf/open/floor/rogue/ruinedwood/turned,
+/area/rogue/indoors/shelter/woods)
+"t" = (
+/turf/closed/wall/mineral/rogue/decowood,
+/area/rogue/indoors/shelter/woods)
+"x" = (
+/turf/closed/wall/mineral/rogue/wooddark,
+/area/rogue/indoors/shelter/woods)
+"C" = (
+/obj/structure/bed/rogue/shit,
+/turf/open/floor/rogue/ruinedwood/turned,
+/area/rogue/indoors/shelter/woods)
+"G" = (
+/turf/open/floor/rogue/dirt/road,
+/area/rogue/indoors/shelter/woods)
+"H" = (
+/turf/open/floor/rogue/twig,
+/area/rogue/indoors/shelter/woods)
+
+(1,1,1) = {"
+x
+q
+q
+x
+"}
+(2,1,1) = {"
+G
+h
+H
+t
+"}
+(3,1,1) = {"
+G
+r
+C
+t
+"}
+(4,1,1) = {"
+x
+t
+t
+x
+"}
+
+(1,1,2) = {"
+a
+a
+a
+a
+"}
+(2,1,2) = {"
+a
+a
+a
+a
+"}
+(3,1,2) = {"
+a
+a
+a
+a
+"}
+(4,1,2) = {"
+a
+a
+a
+a
+"}
