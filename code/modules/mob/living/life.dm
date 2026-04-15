@@ -52,6 +52,9 @@
 			for(var/datum/wound/wound as anything in get_wounds())
 				if(wound?.severity <= WOUND_SEVERITY_MODERATE)
 					wound.heal_wound(0.4)
+				//CC Edit - Crit Vulnerability
+				if(wound?.severity <= WOUND_SEVERITY_CRIT_VULNERABLE)
+					wound.heal_wound(1) //Can recover from vulnerability without sleeping. Takes 5 minutes.
 
 	if(!stat && HAS_TRAIT(src, TRAIT_LYCANRESILENCE) && !HAS_TRAIT(src, TRAIT_PARALYSIS))
 		if(src.has_status_effect(/datum/status_effect/fire_handler/fire_stacks/sunder) || src.has_status_effect(/datum/status_effect/fire_handler/fire_stacks/sunder/blessed))

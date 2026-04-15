@@ -156,6 +156,9 @@
 	if(user)
 		if(user.goodluck(2))
 			dam += 10
+		//CC Edit - Critically Vulnerable
+		if(user && critically_vulnerable)
+			dam += 7 //Garuntee bonus damage on any attack, getting a crit makes this 14 damage combined on the limb.
 		if(istype(user.rmb_intent, /datum/rmb_intent/weak) || bclass == BCLASS_PEEL)
 			do_crit = FALSE
 
@@ -256,6 +259,9 @@
 	if(user && dam)
 		if(user.goodluck(2))
 			dam += 10
+	//CC Edit - Critically Vulnerable
+	if(user && critically_vulnerable)
+		dam += 7
 	if((bclass == BCLASS_PUNCH) && (user && dam))
 		if(user && HAS_TRAIT(user, TRAIT_CIVILIZEDBARBARIAN))
 			dam += 15
@@ -332,6 +338,9 @@
 	if(user && dam)
 		if(user.goodluck(2))
 			dam += 10
+	//CC Edit - Critically Vulnerable
+	if(user && critically_vulnerable)
+		dam += 7
 	if((bclass in GLOB.cbt_classes) && (zone_precise == BODY_ZONE_PRECISE_GROIN))
 		var/cbt_multiplier = 1
 		if(user && HAS_TRAIT(user, TRAIT_NUTCRACKER))
@@ -419,6 +428,9 @@
 	if(user && dam)
 		if(user.goodluck(2))
 			dam += 10
+	//CC Edit - Critically Vulnerable
+	if(user && critically_vulnerable)
+		dam += 7
 	if((bclass in GLOB.dislocation_bclasses) && (total_dam >= max_damage))
 		used = round(damage_dividend * 20 + (dam / 3))
 		if(prob(used))
@@ -699,6 +711,9 @@
 		returned_flags |= SURGERY_BROKEN
 	if(has_wound(/datum/wound/slash/vein))
 		returned_flags |= SURGERY_CUTVEIN
+	//CC Edit - Wound Vulnerability
+	if(has_wound(/datum/wound/critical_vulnerability))
+		returned_flags |= SURGERY_VULNERABLE
 	for(var/datum/wound/puncture/drilling/drilling in wounds)
 		if(drilling.is_sewn())
 			continue

@@ -200,6 +200,10 @@ GLOBAL_LIST_INIT(primordial_wounds, init_primordial_wounds())
 /datum/wound/proc/on_bodypart_loss(obj/item/bodypart/affected)
 	if(disabling)
 		affected.update_disabled()
+	//Only add vulnerability when a mob is healed.
+	if(critical) //Check if the wound is a critical wound. If so, add vulnerability.
+		//CC Edit - Add Crit Vulnerability
+		affected.add_wound(/datum/wound/critical_vulnerability, crit_message)
 
 /// Returns whether or not this wound can be applied to a given mob
 /datum/wound/proc/can_apply_to_mob(mob/living/affected)

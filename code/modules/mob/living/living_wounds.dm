@@ -64,6 +64,9 @@
 	if(has_status_effect(/datum/status_effect/buff/fortify))
 		heal_amount *= 1.5
 	for(var/datum/wound/wound as anything in get_wounds())
+		//CC Edit - Crit Vulnerability, don't heal these without specific items or procedures.
+		if(wound.severity == WOUND_SEVERITY_CRIT_VULNERABLE)
+			continue
 		if(isnull(wound))
 			continue
 		if(heal_amount <= 0)
