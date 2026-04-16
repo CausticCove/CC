@@ -435,6 +435,9 @@
 		var/datum/status_effect/black_rot/rot = target.has_status_effect(/datum/status_effect/black_rot)
 		var/list/wCount = target.get_wounds()
 
+		if(!do_mob(user, target, 0.6 SECONDS, FALSE)) //CC Edit
+			return
+
 		//CC Edit - Vulnerable Wound Mending, Heartblood Canisters fully clear.
 		if(length(wCount))
 			for(var/datum/wound/critical_vulnerability/W in wCount)
@@ -442,8 +445,6 @@
 
 		if(!rot)
 			to_chat(user, span_infection("[target] isn't infected with black rot currently."))
-			return
-		if(!do_mob(user, target, 0.6 SECONDS, FALSE))
 			return
 		if(target == user)
 			target.visible_message(span_notice("[user] drinks some heartblood."), span_notice("I drink the heartblood, feeling it fight the rot within."))
@@ -460,6 +461,9 @@
 		var/list/wCount = target.get_wounds()
 		var/list/possibleVulnToPurge = list()
 
+		if(!do_mob(user, target, 0.6 SECONDS, FALSE)) // CC Edit
+			return
+
 		//CC Edit - Vulnerable Wound Mending, Heartblood Vials only clear 1 random vulnerable wound.
 		if(length(wCount))
 			for(var/datum/wound/critical_vulnerability/W in wCount)
@@ -471,8 +475,6 @@
 
 		if(!rot)
 			to_chat(user, span_infection("[target] isn't infected with black rot currently."))
-			return
-		if(!do_mob(user, target, 0.6 SECONDS, FALSE))
 			return
 		if(target == user)
 			target.visible_message(span_notice("[user] drinks some heartblood."), span_notice("I drink the heartblood, feeling it fight the rot within."))
