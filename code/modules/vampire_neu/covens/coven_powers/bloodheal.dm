@@ -46,7 +46,7 @@
 	owner.adjustToxLoss(-HEAL_MULTIPLIER * level, 0)
 	owner.adjustOrganLoss(ORGAN_SLOT_BRAIN, -HEAL_MULTIPLIER * level)
 	owner.adjustCloneLoss(-HEAL_MULTIPLIER * level, 0)
-	owner.heal_wounds(level * 5)
+	owner.heal_wounds(level * 5, heal_vuln = TRUE) //CC Edit - Heal Vuln bypass.
 	if(level >= 3) // only affects masquearade breaching bloodheals
 		if(prob(15)) // 15% chance to proc
 			owner.visible_message(

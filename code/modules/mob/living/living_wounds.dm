@@ -59,13 +59,13 @@
 		return wound
 
 /// Loops through our list of wounds healing them until we run out of healing or all wounds are healed
-/mob/living/proc/heal_wounds(heal_amount, list/specific_types)
+/mob/living/proc/heal_wounds(heal_amount, list/specific_types, heal_vuln = FALSE) //CC Edit for healing vuln wounds as a bypass.
 	var/healed_any = FALSE
 	if(has_status_effect(/datum/status_effect/buff/fortify))
 		heal_amount *= 1.5
 	for(var/datum/wound/wound as anything in get_wounds())
 		//CC Edit - Crit Vulnerability, don't heal these without specific items or procedures.
-		if(wound.severity == WOUND_SEVERITY_CRIT_VULNERABLE)
+		if(!heal_vuln && wound.severity == WOUND_SEVERITY_CRIT_VULNERABLE)
 			continue
 		if(isnull(wound))
 			continue
