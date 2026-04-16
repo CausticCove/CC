@@ -19,10 +19,5 @@
 	if(wCount.len > 0)
 		M.heal_wounds(5) //Fast wound healing.
 		for(var/datum/wound/critical_vulnerability/W in wCount)
-			W.heal_wound(16) //Heals vulnerabilities very quickly. Only need ~20u to fully heal a crit vulnerable limb.
+			W.heal_wound(16) //Heals vulnerabilities very quickly. Only need ~20u to fully heal a crit vulnerable limb. Full heals the body.
 	..()
-
-/datum/alch_cauldron_recipe/wound_potion
-	name = "Elixir of Wound Healing"
-	smells_like = "iron"
-	output_reagents = list(/datum/reagent/medicine/woundpot = 90)

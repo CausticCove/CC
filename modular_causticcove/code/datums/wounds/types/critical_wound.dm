@@ -31,9 +31,11 @@
 	//If our limb is not vulnerable, make it vulnerable.
 	if(!affected.critically_vulnerable)
 		affected.critically_vulnerable = TRUE
+		to_chat(owner, span_bignotice(" My [affected.name] is now Vulnerable to future damage, I should seek a doctor or miracle worker to remedy this. "))
 
 /datum/wound/critical_vulnerability/on_bodypart_loss(obj/item/bodypart/affected)
 	. = ..()
 	//If our wound is removed, remove our limb's vulnerability.
 	if(affected.critically_vulnerable)
 		affected.critically_vulnerable = FALSE
+		to_chat(owner, span_bignotice(" My [affected.name] is no longer Vulnerable."))
