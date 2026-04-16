@@ -15,7 +15,7 @@
 	clotting_threshold = null
 	sewn_clotting_threshold = null
 	mob_overlay = " " //No overlay.
-	whp = 300 //5 Minutes to heal with sleep. Should get a better item to heal this or see a doctor.
+	whp = 300 //5 Minutes to heal with sleep. Should get a better item to heal this during your sleep, like simple health pots, or seek a doctor to repair it quicker.
 	woundpain = 0
 	sew_threshold = 9999 //Shouldn't be sewable.
 	can_sew = FALSE
@@ -31,11 +31,11 @@
 	//If our limb is not vulnerable, make it vulnerable.
 	if(!affected.critically_vulnerable)
 		affected.critically_vulnerable = TRUE
-		to_chat(owner, span_bignotice(" My [affected.name] is now VULNERABLE to future damage, I should seek a doctor or miracle worker to remedy this. "))
+		to_chat(owner, span_bignotice(" My [affected.name] is now VULNERABLE to future damage, I should seek a doctor or miracle worker to remedy this quicker. "))
 
 /datum/wound/critical_vulnerability/on_bodypart_loss(obj/item/bodypart/affected)
 	. = ..()
-	//If our wound is removed, remove our limb's vulnerability.
+	//If our wound is removed, remove our limb's vulnerability. Notify the player as well.
 	if(affected.critically_vulnerable)
 		affected.critically_vulnerable = FALSE
 		to_chat(owner, span_bignotice(" My [affected.name] is no longer VULNERABLE. "))

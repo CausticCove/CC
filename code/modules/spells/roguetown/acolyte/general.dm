@@ -84,6 +84,8 @@
 		human.emote("agony")
 		return FALSE
 	//cc edit
+	for(var/datum/wound/critical_vulnerability/W in target.get_wounds())
+		W.heal_wound(W.whp + 10) //Miracles can fix vulnerable wounds instantly.
 	target.apply_status_effect(/datum/status_effect/buff/healing, healing)
 	target.visible_message(message_out, message_self)
 

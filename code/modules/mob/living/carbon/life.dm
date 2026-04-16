@@ -579,6 +579,12 @@ GLOBAL_LIST_INIT(ballmer_windows_me_msg, list("Yo man, what if, we like, uh, put
 				for(var/datum/wound/wound as anything in affecting.wounds)
 					if(!wound.sleep_healing)
 						continue
+					//CC Edit - VULNERABLE Wound healing
+					if(wound.severity == WOUND_SEVERITY_CRIT_VULNERABLE)
+						if(sleepy_mod < 3)
+							continue //Don't heal if we aren't in a bed with a blanket... Get cozy.
+						if(istype(get_area(src), /area/rogue/indoors/town) || istype(get_area(src), /area/rogue/under/cave/inhumen))
+							sleepy_mod *= 10 //Heal much much faster in town.
 					wound.heal_wound(wound.sleep_healing * sleepy_mod)
 			adjustToxLoss(-sleepy_mod)
 	else

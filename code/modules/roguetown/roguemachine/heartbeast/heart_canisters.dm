@@ -433,6 +433,13 @@
 /obj/item/heart_blood_canister/filled/attack(mob/living/target, mob/living/user)
 	if(istype(target))
 		var/datum/status_effect/black_rot/rot = target.has_status_effect(/datum/status_effect/black_rot)
+		var/list/wCount = target.get_wounds()
+
+		//CC Edit - Vulnerable Wound Mending, Heartblood Canisters fully clear.
+		if(length(wCount))
+			for(var/datum/wound/critical_vulnerability/W in wCount)
+				W.remove_from_bodypart() //Remove every wound.
+
 		if(!rot)
 			to_chat(user, span_infection("[target] isn't infected with black rot currently."))
 			return
@@ -450,6 +457,18 @@
 /obj/item/heart_blood_vial/filled/attack(mob/living/target, mob/living/user)
 	if(istype(target))
 		var/datum/status_effect/black_rot/rot = target.has_status_effect(/datum/status_effect/black_rot)
+		var/list/wCount = target.get_wounds()
+		var/list/possibleVulnToPurge = list()
+
+		//CC Edit - Vulnerable Wound Mending, Heartblood Vials only clear 1 random vulnerable wound.
+		if(length(wCount))
+			for(var/datum/wound/critical_vulnerability/W in wCount)
+				possibleVulnToPurge += W
+
+		if(length(possibleVulnToPurge))
+			var/datum/wound/wToPurge = pick(possibleVulnToPurge)
+			wToPurge.remove_from_bodypart()
+
 		if(!rot)
 			to_chat(user, span_infection("[target] isn't infected with black rot currently."))
 			return

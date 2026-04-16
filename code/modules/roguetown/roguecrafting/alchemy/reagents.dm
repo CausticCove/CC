@@ -17,6 +17,9 @@
 		M.blood_volume = min(M.blood_volume+15, BLOOD_VOLUME_NORMAL)
 	var/list/wCount = M.get_wounds()
 	if(wCount.len > 0)
+		//CC Edit - Wound Vulnerability
+		for(var/datum/wound/critical_vulnerability/W in wCount)
+			W.heal_wound(4) //Heals at a quarter the rate, needs ~ 80u to clear all vulnerable wounds. That's 2 normal bottle's worth, which can naturally fade overtime.
 		M.heal_wounds(3) //at a motabalism of .5 U a tick this translates to 120WHP healing with 20 U Most wounds are unsewn 15-100. This is powerful on single wounds but rapidly weakens at multi wounds.
 	if(volume > 0.99)
 		M.adjustBruteLoss(-1.75  * REAGENTS_EFFECT_MULTIPLIER, 0)
@@ -42,6 +45,9 @@
 		M.blood_volume = min(M.blood_volume+20, BLOOD_VOLUME_NORMAL)
 	var/list/wCount = M.get_wounds()
 	if(wCount.len > 0)
+		//CC Edit - Vulnerability
+		for(var/datum/wound/critical_vulnerability/W in wCount)
+			W.heal_wound(8) //Heals at half the rate, needs ~ 40u to clear all vulnerable wounds.
 		M.heal_wounds(6) //at a motabalism of .5 U a tick this translates to 240WHP healing with 20 U Most wounds are unsewn 15-100.
 	if(volume > 0.99)
 		M.adjustBruteLoss(-7  * REAGENTS_EFFECT_MULTIPLIER, 0)
