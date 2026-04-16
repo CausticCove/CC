@@ -3139,6 +3139,7 @@
 #include "modular_causticcove\code\modules\persistance\serialize.dm"
 #include "modular_causticcove\code\modules\reformgem\reformgem.dm"
 #include "modular_causticcove\code\modules\reformgem\reformportal.dm"
+#include "modular_causticcove\code\modules\roguecrafting\alchemy\reagents.dm"
 #include "modular_causticcove\code\modules\roguecrafting\blacksmith.dm"
 #include "modular_causticcove\code\modules\roguecrafting\items.dm"
 #include "modular_causticcove\code\modules\roguecrafting\leather.dm"

@@ -430,6 +430,9 @@ GLOBAL_LIST_INIT(primordial_wounds, init_primordial_wounds())
 				playsound(owner, 'sound/combat/wound_tear.ogg', 100, TRUE)
 				owner.visible_message(span_crit("The wound gushes open from [bodypart_owner.owner]'s <b>[bodyzone2readablezone(bodypart_to_zone(bodypart_owner))]</b>, nicking an artery!"))
 				is_maxed = TRUE
+				//CC Edit - Critical Vulnerability
+				//When a wound turns into an artery wound, it should also be considered critical. This applies wound vulnerability on that limb once the wound is healed/mended.
+				critical = TRUE
 			clotting_rate = CLOT_RATE_ARTERY
 			clotting_threshold = CLOT_THRESHOLD_ARTERY
 	if(!is_maxed)
