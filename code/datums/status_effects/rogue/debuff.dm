@@ -383,8 +383,8 @@
 /datum/status_effect/debuff/self_revived
 	id = "revived"
 	alert_type = /atom/movable/screen/alert/status_effect/debuff/self_revived
-	effectedstats = list(STATKEY_STR = -3, STATKEY_PER = -1, STATKEY_INT = -1, STATKEY_WIL = -3, STATKEY_CON = -3, STATKEY_SPD = -2, STATKEY_LCK = -2)
-	duration = 25 MINUTES	//+10 minutes for self revive
+	effectedstats = list(STATKEY_STR = -5, STATKEY_PER = -3, STATKEY_INT = -6, STATKEY_WIL = -3, STATKEY_CON = -8, STATKEY_SPD = -4, STATKEY_LCK = -20)
+	duration = 35 MINUTES	//+20 minutes for self revive
 
 /atom/movable/screen/alert/status_effect/debuff/self_revived
 	name = "Self Revival Sickness"
