@@ -9,22 +9,17 @@
 	traits_applied = list(TRAIT_CAUTIOUS_FISHER, TRAIT_HOMESTEAD_EXPERT)
 	subclass_stats = list(
 		STATKEY_PER = 2,
-		STATKEY_LCK = 2,
+		STATKEY_LCK = 3,
 		STATKEY_SPD = 1
 	)
 	age_mod = /datum/class_age_mod/fisher
 	subclass_skills = list(
 		/datum/skill/labor/fishing = SKILL_LEVEL_EXPERT,
-		/datum/skill/combat/swords = SKILL_LEVEL_NOVICE,
-		/datum/skill/combat/axes = SKILL_LEVEL_NOVICE,
-		/datum/skill/combat/maces = SKILL_LEVEL_NOVICE,
-		/datum/skill/combat/crossbows = SKILL_LEVEL_NOVICE,
 		/datum/skill/misc/athletics = SKILL_LEVEL_JOURNEYMAN,
-		/datum/skill/combat/bows = SKILL_LEVEL_NOVICE,
 		/datum/skill/combat/wrestling = SKILL_LEVEL_APPRENTICE, //Wrestling down those nasty carp.
 		/datum/skill/combat/unarmed = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/combat/knives = SKILL_LEVEL_JOURNEYMAN,
-		/datum/skill/combat/polearms = SKILL_LEVEL_NOVICE,
+		/datum/skill/combat/polearms = SKILL_LEVEL_APPRENTICE, //Polefishing.
 		/datum/skill/misc/swimming = SKILL_LEVEL_EXPERT,
 		/datum/skill/misc/climbing = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/craft/crafting = SKILL_LEVEL_APPRENTICE,
@@ -35,7 +30,6 @@
 		/datum/skill/misc/medicine = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/misc/sneaking = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/craft/cooking = SKILL_LEVEL_APPRENTICE,
-		/datum/skill/craft/carpentry = SKILL_LEVEL_NOVICE,
 	)
 	maximum_possible_slots = 20 // Should not fill, just a hack to make it shows what types of towners are in round
 

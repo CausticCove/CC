@@ -8,10 +8,10 @@
 	traits_applied = list(TRAIT_TRAINED_SMITH, TRAIT_SMITHING_EXPERT, TRAIT_RITUALIST)
 	maximum_possible_slots = 1 // do we need TWO antag weapon factories?
 	subclass_stats = list(
-		STATKEY_STR = 2,
+		STATKEY_STR = 3,
 		STATKEY_CON = 2,
 		STATKEY_INT = 2,
-		STATKEY_PER = 1 // heretic that trades armor for crafting skills. 9 statspread, like guildsmaster.
+		STATKEY_PER = 1 // heretic that trades armor for crafting skills. 8 statspread
 	)
 	subclass_skills = list(
 		/datum/skill/combat/crossbows = SKILL_LEVEL_APPRENTICE,

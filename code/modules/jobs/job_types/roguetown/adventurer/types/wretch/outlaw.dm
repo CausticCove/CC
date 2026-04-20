@@ -11,8 +11,8 @@
 	extra_context = "Fleet-Footed grants Light Steps and +1 to Sneaking, Marksmanship grants +1 PERCEPTION and +1 to Crossbows, Athleticism grants +1 CONSTITUTION and +1 to Athletics, Night-Burglar grants Night Vision and +1 to Lockpicking, Master-Tracker grants Perfect Tracker + Sleuth and +1 to Tracking, Dualist grants Dual-Wielder and Guarded (Decieving Meekness)."
 	subclass_stats = list(
 		STATKEY_SPD = 3,
-		STATKEY_WIL = 2,
-		STATKEY_PER = 1
+		STATKEY_WIL = 2, // 6 Stat spread, on par with other combat roles as the balance for only 6 stats is that they can choose bonus skills and stats.
+		STATKEY_PER = 1,
 	)
 	subclass_skills = list(
 		/datum/skill/misc/tracking = SKILL_LEVEL_MASTER,

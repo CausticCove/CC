@@ -11,10 +11,9 @@
 	subclass_stats = list(
 		STATKEY_PER = 3,
 		STATKEY_INT = 1,
-		STATKEY_SPD = 1
+		STATKEY_SPD = 2
 	)
 	subclass_skills = list(
-		/datum/skill/combat/axes = SKILL_LEVEL_NOVICE,
 		/datum/skill/combat/wrestling = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/combat/unarmed = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/combat/knives = SKILL_LEVEL_APPRENTICE,
@@ -28,7 +27,7 @@
 		/datum/skill/craft/sewing = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/labor/butchering = SKILL_LEVEL_EXPERT,
 		/datum/skill/craft/traps = SKILL_LEVEL_JOURNEYMAN,
-		/datum/skill/misc/medicine = SKILL_LEVEL_APPRENTICE,
+		/datum/skill/misc/medicine = SKILL_LEVEL_NOVICE,
 		/datum/skill/craft/cooking = SKILL_LEVEL_NOVICE,
 		/datum/skill/misc/tracking = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/misc/reading = SKILL_LEVEL_NOVICE,
@@ -80,8 +79,8 @@
 	traits_applied = list(TRAIT_OUTDOORSMAN, TRAIT_SURVIVAL_EXPERT)
 	cmode_music = 'sound/music/cmode/towner/combat_towner2.ogg'
 	subclass_stats = list(
-		STATKEY_STR = 2,
-		STATKEY_CON = 1,
+		STATKEY_STR = 3,
+		STATKEY_CON = 2,
 		STATKEY_WIL = 1
 	)
 	subclass_skills = list(

@@ -12,12 +12,9 @@
 	subclass_stats = list(
 		STATKEY_INT = 2,
 		STATKEY_CON = 2,//Cheeese diet
-		STATKEY_WIL = 1
+		STATKEY_WIL = 2
 	)
 	subclass_skills = list(
-		/datum/skill/combat/swords = SKILL_LEVEL_NOVICE,
-		/datum/skill/combat/maces = SKILL_LEVEL_NOVICE,
-		/datum/skill/combat/axes = SKILL_LEVEL_NOVICE,
 		/datum/skill/misc/athletics = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/combat/bows = SKILL_LEVEL_NOVICE,
 		/datum/skill/combat/wrestling = SKILL_LEVEL_NOVICE,
@@ -29,7 +26,6 @@
 		/datum/skill/labor/butchering = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/craft/cooking = SKILL_LEVEL_EXPERT,
 		/datum/skill/labor/farming = SKILL_LEVEL_APPRENTICE,
-		/datum/skill/misc/medicine = SKILL_LEVEL_NOVICE,
 	)
 	maximum_possible_slots = 20 // Should not fill, just a hack to make it shows what types of towners are in round
 

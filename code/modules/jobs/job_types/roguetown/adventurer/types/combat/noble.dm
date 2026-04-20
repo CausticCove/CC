@@ -12,8 +12,6 @@
 	subclass_stats = list(
 		STATKEY_PER = 2,
 		STATKEY_INT = 2,
-		STATKEY_STR = 1,
-		STATKEY_SPD = 1,
 	)
 	subclass_skills = list(
 		/datum/skill/misc/riding = SKILL_LEVEL_EXPERT,
@@ -60,7 +58,6 @@
 		STATKEY_STR = 2,
 		STATKEY_CON = 1,
 		STATKEY_WIL = 1,
-		STATKEY_INT = 1,
 	)
 	subclass_skills = list(
 		/datum/skill/misc/riding = SKILL_LEVEL_APPRENTICE,
@@ -167,23 +164,23 @@
 	outfit = /datum/outfit/job/roguetown/adventurer/squire
 	traits_applied = list(TRAIT_SQUIRE_REPAIR)
 	subclass_stats = list(
-		STATKEY_INT = 2,
+		STATKEY_INT = 1,
 		STATKEY_STR = 1,
 		STATKEY_PER = 1,
 		STATKEY_SPD = 1,
 	)
 	subclass_skills = list(
-		/datum/skill/combat/polearms = SKILL_LEVEL_JOURNEYMAN,
+		/datum/skill/combat/polearms = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/combat/maces = SKILL_LEVEL_APPRENTICE,
-		/datum/skill/combat/swords = SKILL_LEVEL_JOURNEYMAN,
+		/datum/skill/combat/swords = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/combat/knives = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/combat/shields = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/combat/whipsflails = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/combat/wrestling = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/misc/swimming = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/combat/unarmed = SKILL_LEVEL_APPRENTICE,
-		/datum/skill/misc/athletics = SKILL_LEVEL_JOURNEYMAN,
-		/datum/skill/misc/climbing = SKILL_LEVEL_JOURNEYMAN,
+		/datum/skill/misc/athletics = SKILL_LEVEL_APPRENTICE,
+		/datum/skill/misc/climbing = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/misc/reading = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/misc/riding = SKILL_LEVEL_APPRENTICE,
 	)

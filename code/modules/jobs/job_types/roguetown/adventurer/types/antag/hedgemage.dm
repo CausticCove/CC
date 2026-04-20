@@ -15,7 +15,7 @@
 		STATKEY_WIL = 3,
 		STATKEY_PER = 2, // Adv mage get 2 perception so whatever. It is useful for aiming body parts but have no direct synergy with spells. 
 		STATKEY_LCK = 1,
-		STATKEY_CON = -1,
+		STATKEY_CON = -2,
 		//Caustic edit end
 	)
 	age_mod = /datum/class_age_mod/court_magician

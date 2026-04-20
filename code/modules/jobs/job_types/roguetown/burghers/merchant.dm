@@ -37,9 +37,11 @@
 	outfit = /datum/outfit/job/roguetown/merchant/basic
 	category_tags = list(CTAG_MERCH)
 	subclass_stats = list(
-		STATKEY_PER = 3,
-		STATKEY_INT = 2,
-		STATKEY_STR = -1
+		STATKEY_PER = 4,
+		STATKEY_INT = 3,
+		STATKEY_FOR = 2,
+		STATKEY_STR = -1, //Not a long fighter, but they got a damn good keen eye.
+		STATKEY_WIL = -1
 	)
 	subclass_skills = list(
 		/datum/skill/combat/swords = SKILL_LEVEL_JOURNEYMAN,

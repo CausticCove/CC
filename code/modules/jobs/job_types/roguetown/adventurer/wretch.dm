@@ -47,6 +47,13 @@
 		/datum/advclass/wretch/munitioneer
 	)
 
+//CC Edit - Lickers get their own unique spawn group since they play so differently from normal wretch's.
+//They fundamentally work the same way in the code as a normal Wretch, but need
+/datum/job/roguetown/wretch/licker
+	title = "Licker"
+	display_order = JDO_LICKER
+	job_subclasses = list(/datum/advclass/wretch/licker)
+
 /datum/job/roguetown/wretch/after_spawn(mob/living/L, mob/M, latejoin = TRUE)
 	..()
 	if(L)

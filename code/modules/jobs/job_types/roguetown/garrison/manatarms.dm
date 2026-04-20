@@ -70,7 +70,7 @@
 		STATKEY_STR = 2,// seems kinda lame but remember guardsman bonus!!
 		STATKEY_INT = 1,
 		STATKEY_CON = 3, //Like other footman classes their main thing is constitution more so than anything else
-		STATKEY_WIL = 1
+		STATKEY_WIL = 2
 	)
 	subclass_skills = list(
 		/datum/skill/combat/polearms = SKILL_LEVEL_EXPERT,
@@ -175,10 +175,10 @@
 	category_tags = list(CTAG_MENATARMS)
 	//Garrison ranged/speed class. Time to go wild
 	subclass_stats = list(
-		STATKEY_STR = 1, //Xbow
+		STATKEY_STR = 2, //Xbow
 		STATKEY_SPD = 2,// seems kinda lame but remember guardsman bonus!!
 		STATKEY_PER = 2,
-		STATKEY_WIL = 1
+		STATKEY_WIL = 2
 	)
 	subclass_skills = list(
 		/datum/skill/combat/knives = SKILL_LEVEL_EXPERT,
@@ -353,8 +353,9 @@
 	subclass_stats = list(
 		STATKEY_STR = 3,
 		STATKEY_CON = 2,
-		STATKEY_WIL = 2,
-		STATKEY_INT = -1//Old dungeoneer statspread more or less
+		STATKEY_WIL = 3,
+		STATKEY_PEY = 1,
+		STATKEY_INT = -2 // 8 total stats + 1 stat from -2 Int stat spread yippeee
 	)
 	subclass_skills = list(
 		/datum/skill/combat/whipsflails = SKILL_LEVEL_EXPERT,//Primary way they are meant to dispose of ppl
@@ -419,9 +420,9 @@
 	// on-par with footman, with one less CON and INT swapped out for PER
 	subclass_stats = list(
 		STATKEY_STR = 2, // seems kinda lame but remember guardsman bonus!!
-		STATKEY_PER = 1,
+		STATKEY_PER = 2,
 		STATKEY_CON = 2,
-		STATKEY_WIL = 1
+		STATKEY_WIL = 2
 	)
 	subclass_skills = list(
 		/datum/skill/combat/polearms = SKILL_LEVEL_EXPERT, // SWING THAT THING.

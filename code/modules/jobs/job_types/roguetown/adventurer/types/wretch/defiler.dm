@@ -12,7 +12,9 @@
 		STATKEY_WIL = 2,
 		STATKEY_STR = 3,
 		STATKEY_SPD = 1,
-		STATKEY_INT = 3
+		STATKEY_INT = 3,
+		STATKEY_LCK = -1, //-2 to FOR and PER in favor of +1 to STR, follows 8 stat pool for combat roles.
+		STATKEY_PER = -1,
 	)
 	subclass_spellpoints = 4
 	subclass_skills = list(

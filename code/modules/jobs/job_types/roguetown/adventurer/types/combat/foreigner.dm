@@ -11,7 +11,7 @@
 	cmode_music = 'sound/music/combat_kazengite.ogg'
 	subclass_stats = list(
 		STATKEY_STR = 2,
-		STATKEY_CON = 2,
+		STATKEY_CON = 1,
 		STATKEY_WIL = 1
 	)
 	subclass_skills = list(
@@ -21,7 +21,6 @@
 		/datum/skill/misc/athletics = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/misc/climbing = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/misc/reading = SKILL_LEVEL_NOVICE,
-		/datum/skill/craft/sewing = SKILL_LEVEL_APPRENTICE, 
 	)
 
 /datum/outfit/job/roguetown/adventurer/foreigner/pre_equip(mob/living/carbon/human/H)
@@ -47,17 +46,17 @@
 			if("Naginata")
 				r_hand = /obj/item/rogueweapon/spear/naginata
 				backr = /obj/item/rogueweapon/scabbard/gwstrap
-				H.adjust_skillrank_up_to(/datum/skill/combat/polearms, 4, TRUE)
+				H.adjust_skillrank_up_to(/datum/skill/combat/polearms, 3, TRUE)
 				armor = /obj/item/clothing/suit/roguetown/armor/basiceast/mentorsuit
 			if("Quarterstaff")
 				backr = /obj/item/rogueweapon/woodstaff/quarterstaff/steel
-				H.adjust_skillrank_up_to(/datum/skill/combat/staves, 4, TRUE)
+				H.adjust_skillrank_up_to(/datum/skill/combat/staves, 3, TRUE)
 				armor = /obj/item/clothing/suit/roguetown/armor/basiceast/mentorsuit
 			if("Hwando")
 				beltl = /obj/item/rogueweapon/sword/sabre/mulyeog
 				beltr = /obj/item/rogueweapon/scabbard/sword/kazengun
 				armor = /obj/item/clothing/suit/roguetown/armor/basiceast
-				H.adjust_skillrank_up_to(/datum/skill/combat/swords, 4, TRUE)
+				H.adjust_skillrank_up_to(/datum/skill/combat/swords, 3, TRUE)
 
 /datum/advclass/foreigner/yoruku
 	name = "Eastern Assassin"
@@ -69,21 +68,21 @@
 	cmode_music = 'sound/music/combat_kazengite.ogg'
 	traits_applied = list(TRAIT_STEELHEARTED, TRAIT_DODGEEXPERT)
 	subclass_stats = list(
-		STATKEY_SPD = 3,
+		STATKEY_SPD = 2,
 		STATKEY_PER = 1,
 		STATKEY_WIL = 1,
 	)
 	subclass_skills = list(
-		/datum/skill/misc/climbing = SKILL_LEVEL_EXPERT,
-		/datum/skill/misc/tracking = SKILL_LEVEL_EXPERT,
+		/datum/skill/misc/climbing = SKILL_LEVEL_JOURNEYMAN,
+		/datum/skill/misc/tracking = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/misc/swimming = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/combat/wrestling = SKILL_LEVEL_APPRENTICE,
-		/datum/skill/misc/lockpicking = SKILL_LEVEL_EXPERT,
-		/datum/skill/craft/traps = SKILL_LEVEL_EXPERT,
+		/datum/skill/misc/lockpicking = SKILL_LEVEL_JOURNEYMAN,
+		/datum/skill/craft/traps = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/combat/unarmed = SKILL_LEVEL_APPRENTICE,
-		/datum/skill/misc/athletics = SKILL_LEVEL_EXPERT,
+		/datum/skill/misc/athletics = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/misc/reading = SKILL_LEVEL_NOVICE,
-		/datum/skill/misc/sneaking = SKILL_LEVEL_EXPERT,
+		/datum/skill/misc/sneaking = SKILL_LEVEL_JOURNEYMAN,
 	)
 
 /datum/outfit/job/roguetown/adventurer/yoruku/pre_equip(mob/living/carbon/human/H)
@@ -140,7 +139,7 @@
 		STATKEY_CON = 3,
 		STATKEY_SPD = -1,
 		STATKEY_STR = -1,
-		STATKEY_WIL = 3,
+		STATKEY_WIL = 2,
 	)
 	subclass_skills = list(
 		/datum/skill/misc/climbing = SKILL_LEVEL_JOURNEYMAN,
@@ -182,7 +181,6 @@
 	subclass_stats = list(
 		STATKEY_SPD = 2,
 		STATKEY_PER = 1,
-		STATKEY_WIL = 1,
 		STATKEY_INT = 1,
 	)
 	subclass_skills = list(
@@ -224,16 +222,16 @@
 	cmode_music = 'sound/music/combat_desertrider.ogg'
 	traits_applied = list(TRAIT_STEELHEARTED, TRAIT_MEDIUMARMOR)
 	subclass_stats = list(
-		STATKEY_STR = 2,
+		STATKEY_STR = 1,
 		STATKEY_CON = 2,
 		STATKEY_WIL = 1,
 	)
 	subclass_skills = list(
 		/datum/skill/misc/climbing = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/misc/swimming = SKILL_LEVEL_JOURNEYMAN,
-		/datum/skill/combat/wrestling = SKILL_LEVEL_JOURNEYMAN,
-		/datum/skill/combat/unarmed = SKILL_LEVEL_JOURNEYMAN,
-		/datum/skill/misc/athletics = SKILL_LEVEL_JOURNEYMAN,
+		/datum/skill/combat/wrestling = SKILL_LEVEL_APPRENTICE,
+		/datum/skill/combat/unarmed = SKILL_LEVEL_APPRENTICE,
+		/datum/skill/misc/athletics = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/misc/reading = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/combat/swords = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/combat/whipsflails = SKILL_LEVEL_JOURNEYMAN,
@@ -277,7 +275,7 @@
 	cmode_music = 'sound/music/frei_shepherd.ogg'
 	subclass_stats = list(
 		STATKEY_WIL = 1,
-		STATKEY_PER = 2,
+		STATKEY_PER = 1,
 		STATKEY_CON = 2,
 	)
 
@@ -285,16 +283,12 @@
 		/datum/skill/combat/knives = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/combat/wrestling = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/combat/axes = SKILL_LEVEL_JOURNEYMAN,
-		/datum/skill/craft/crafting = SKILL_LEVEL_NOVICE,
-		/datum/skill/craft/carpentry = SKILL_LEVEL_APPRENTICE,
-		/datum/skill/labor/lumberjacking = SKILL_LEVEL_NOVICE,
-		/datum/skill/labor/farming = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/labor/butchering = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/craft/cooking = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/misc/athletics = SKILL_LEVEL_EXPERT,
-		/datum/skill/misc/reading = SKILL_LEVEL_JOURNEYMAN,
+		/datum/skill/misc/reading = SKILL_LEVEL_NOVICE,
 		/datum/skill/misc/climbing = SKILL_LEVEL_JOURNEYMAN,
-		/datum/skill/craft/sewing = SKILL_LEVEL_JOURNEYMAN,
+		/datum/skill/craft/sewing = SKILL_LEVEL_NOVICE,
 	)
 
 /datum/outfit/job/roguetown/adventurer/freishepherd/pre_equip(mob/living/carbon/human/H)
@@ -326,14 +320,14 @@
 	traits_applied = list(TRAIT_INTELLECTUAL, TRAIT_FENCERDEXTERITY)
 	subclass_stats = list(
 		STATKEY_INT = 2,
-		STATKEY_PER = 3,
+		STATKEY_PER = 2,
 	)
 	subclass_skills = list(
 		/datum/skill/combat/swords = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/misc/athletics = SKILL_LEVEL_EXPERT,
 		/datum/skill/combat/knives = SKILL_LEVEL_APPRENTICE,
-		/datum/skill/combat/wrestling = SKILL_LEVEL_JOURNEYMAN,
-		/datum/skill/misc/reading = SKILL_LEVEL_JOURNEYMAN,
+		/datum/skill/combat/wrestling = SKILL_LEVEL_APPRENTICE,
+		/datum/skill/misc/reading = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/misc/climbing = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/craft/sewing = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/misc/medicine = SKILL_LEVEL_APPRENTICE
@@ -406,7 +400,7 @@
 	traits_applied = list(TRAIT_STEELHEARTED, TRAIT_BLOOD_RESISTANCE)
 	subclass_stats = list(
 		STATKEY_STR = 1, //Abbreviated to +1/+3/+2/-2 for short. Seven statpoints weighed against a two- (or rather, four-) point penalty in Speed. This is intentional, as the Thespian has a lot of room to stretch their proverbial wings. 
-		STATKEY_WIL = 3, 
+		STATKEY_WIL = 2, 
 		STATKEY_CON = 2, 
 		STATKEY_SPD = -2,
 	)
@@ -511,13 +505,13 @@
 				r_hand = /obj/item/rogueweapon/katar/bronze/gladiator
 				backr = /obj/item/rogueweapon/scabbard/sword/strap
 				gloves = /obj/item/clothing/gloves/roguetown/bandages
-			if("Nothing - Skilled Pugilist, +I STR / -I WIL")
+			if("Nothing - Skilled Pugilist, +1 STR / -2 WIL")
 				H.adjust_skillrank_up_to(/datum/skill/combat/unarmed, SKILL_LEVEL_JOURNEYMAN, TRUE)
 				H.adjust_skillrank_up_to(/datum/skill/combat/wrestling, SKILL_LEVEL_JOURNEYMAN, TRUE)
 				gloves = /obj/item/clothing/gloves/roguetown/bandages/weighted
 				ADD_TRAIT(H, TRAIT_CIVILIZEDBARBARIAN, TRAIT_GENERIC)
 				H.change_stat(STATKEY_STR, 1)
-				H.change_stat(STATKEY_WIL, -1)
+				H.change_stat(STATKEY_WIL, -2)
 
 		var/bronzesidearm = list("A Javelin's Bag", "A Sling With Bronze Pellets", "A Bow With Bronze Arrows", "Another Shortsword & Skills In Dual-Wielding", "Another Messer & Skills In Dual-Wielding", "Another Khopesh & Skills In Dual-Wielding", "Another Axe & Skills In Dual-Wielding", "A Bottle Of Medicinal Fish Vinegar.. ?")
 		var/bronzesidearm_choice = input(H, "Choose your ACCOUTREMENTS.", "PREPARE YOUR OPENING ACT.") as anything in bronzesidearm
@@ -525,11 +519,11 @@
 			if("A Javelin's Bag")
 				beltl = /obj/item/quiver/javelin/bronze
 			if("A Sling With Bronze Pellets")
-				H.adjust_skillrank_up_to(/datum/skill/combat/slings, SKILL_LEVEL_JOURNEYMAN, TRUE)
+				H.adjust_skillrank_up_to(/datum/skill/combat/slings, SKILL_LEVEL_APPRENTICE, TRUE)
 				l_hand = /obj/item/gun/ballistic/revolver/grenadelauncher/sling
 				beltl = /obj/item/quiver/sling/bronze
 			if("A Bow With Bronze Arrows")
-				H.adjust_skillrank_up_to(/datum/skill/combat/bows, SKILL_LEVEL_JOURNEYMAN, TRUE)
+				H.adjust_skillrank_up_to(/datum/skill/combat/bows, SKILL_LEVEL_APPRENTICE, TRUE)
 				l_hand = /obj/item/gun/ballistic/revolver/grenadelauncher/bow/classic
 				beltl = /obj/item/quiver/bronzearrows
 			if("Another Shortsword & Skills In Dual-Wielding")
@@ -557,11 +551,10 @@
 		var/bronzediscipline = list("Thespian - Dodge Expert, -I CON / +I SPD","Gladiator - Skin-Armored & Immunity To Pain","Shieldbearer - Well-Armored & Maille Training","Bulwark - Fully-Armored & Plate Training")
 		var/bronzediscipline_choice = input(H, "Choose your DISCIPLINE.", "EMBRACE GLORY AND DEATH.") as anything in bronzediscipline
 		switch(bronzediscipline_choice)
-			if("Thespian - Dodge Expert, -I CON / +I SPD")
+			if("Thespian - Dodge Expert, -2 CON / +1 SPD")
 				ADD_TRAIT(H, TRAIT_DODGEEXPERT, TRAIT_GENERIC)
-				H.change_stat(STATKEY_SPD, 3)
-				H.change_stat(STATKEY_INT, 1)
-				H.change_stat(STATKEY_CON, -3)
+				H.change_stat(STATKEY_SPD, 1)
+				H.change_stat(STATKEY_CON, -2)
 				head = /obj/item/clothing/head/roguetown/headband/red
 				mask = /obj/item/clothing/mask/rogue/facemask/bronze
 				armor = /obj/item/clothing/suit/roguetown/armor/plate/bronze/light
@@ -1029,21 +1022,21 @@
 	cmode_music = 'sound/music/cmode/adventurer/combat_outlander2.ogg'
 	traits_applied = list(TRAIT_STEELHEARTED, TRAIT_DODGEEXPERT)
 	subclass_stats = list(
-		STATKEY_SPD = 3,
+		STATKEY_SPD = 2,
 		STATKEY_STR = 1,
 		STATKEY_WIL = 1,
 	)
 	subclass_skills = list(
-		/datum/skill/misc/climbing = SKILL_LEVEL_EXPERT,
+		/datum/skill/misc/climbing = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/misc/tracking = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/misc/swimming = SKILL_LEVEL_APPRENTICE,
-		/datum/skill/combat/wrestling = SKILL_LEVEL_EXPERT,
+		/datum/skill/combat/wrestling = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/misc/lockpicking = SKILL_LEVEL_JOURNEYMAN,
-		/datum/skill/combat/unarmed = SKILL_LEVEL_JOURNEYMAN,
-		/datum/skill/misc/athletics = SKILL_LEVEL_EXPERT,
+		/datum/skill/combat/unarmed = SKILL_LEVEL_APPRENTICE,
+		/datum/skill/misc/athletics = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/misc/reading = SKILL_LEVEL_NOVICE,
 		/datum/skill/misc/sneaking = SKILL_LEVEL_EXPERT,
-		/datum/skill/combat/knives =  SKILL_LEVEL_EXPERT,
+		/datum/skill/combat/knives =  SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/craft/cooking = SKILL_LEVEL_JOURNEYMAN,
 	)
 

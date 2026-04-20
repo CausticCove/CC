@@ -60,9 +60,9 @@
 	)
 	category_tags = list(CTAG_ARCHIVIST)
 	subclass_stats = list(
-		STATKEY_INT = 4,
+		STATKEY_INT = 8, //You're. Hella. Fucking. Smart. You have your nose in books, all day. You share and pass knowledge onto others. You're wise as hell.
 		STATKEY_CON = -1,
-		STATKEY_STR = -1
+		STATKEY_STR = -1 //But you can't fight for shit.
 	)
 	age_mod = /datum/class_age_mod/archivist
 	subclass_spellpoints = 12

@@ -68,11 +68,11 @@
 
 	category_tags = list(CTAG_SERGEANT)
 	subclass_stats = list(
-		STATKEY_STR = 2,
-		STATKEY_INT = 2,
+		STATKEY_STR = 3, //Leader role. 10 Stats. No downsides.
+		STATKEY_INT = 1,
 		STATKEY_CON = 2,//Glorified footman
 		STATKEY_PER = 1, //Gets bow-skills, so give a SMALL tad of perception to aid in bow draw.
-		STATKEY_WIL = 1,
+		STATKEY_WIL = 3,
 	)
 	subclass_skills = list(
 		/datum/skill/combat/polearms = SKILL_LEVEL_EXPERT,

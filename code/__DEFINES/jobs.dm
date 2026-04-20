@@ -217,7 +217,8 @@
 #define JDO_ASSASSIN 11
 #define JDO_BANDIT 11.1
 #define JDO_WRETCH 11.2
-#define JDO_GNOLL 11.3
+#define JDO_LICKER 11.3 // CC Edit
+#define JDO_GNOLL 11.4	// CC Edit
 
 #define BITFLAG_HOLY_WARRIOR (1<<0)
 #define BITFLAG_ROYALTY (1<<1)

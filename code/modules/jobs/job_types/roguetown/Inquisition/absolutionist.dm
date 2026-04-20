@@ -41,7 +41,7 @@
 	category_tags = list(CTAG_ABSOLVER)
 	subclass_stats = list(
 		STATKEY_CON = 7,
-		STATKEY_WIL = 3,
+		STATKEY_WIL = 4, //+1 due to -2 SPD
 		STATKEY_SPD = -2 //Originally swapped to -3, but this probably isn't as important due to the pacifism trait.
 	)
 	subclass_skills = list(

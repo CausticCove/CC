@@ -10,7 +10,9 @@
 	subclass_stats = list(
 		STATKEY_INT = 4,
 		STATKEY_PER = 3,
-		STATKEY_CON = 2
+		STATKEY_CON = 2,
+		STATKEY_STR = -1,
+		STATKEY_WIL = -1,
 	)
 	subclass_skills = list(
 		/datum/skill/combat/bows = SKILL_LEVEL_APPRENTICE,

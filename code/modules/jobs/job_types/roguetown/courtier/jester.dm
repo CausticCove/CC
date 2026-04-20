@@ -45,7 +45,7 @@
 	I.grant_inspiration(H, bard_tier = BARD_T3)
 	H.STASTR = rand(1, 21)
 	H.STAWIL = rand(1, 21)
-	H.STACON = rand(1, 21)
+	H.STACON = rand(1, 21) //This is funny. Please don't change this ever. <3
 	H.STAINT = rand(1, 21)
 	H.STAPER = rand(1, 21)
 	H.STALUC = rand(1, 21)

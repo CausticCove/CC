@@ -36,7 +36,7 @@
 	category_tags = list(CTAG_SOILBRIDE)
 	subclass_stats = list(
 		STATKEY_WIL = 2,
-		STATKEY_STR = 1,
+		STATKEY_STR = 2,
 		STATKEY_CON = 1,
 		STATKEY_SPD = 1
 	)

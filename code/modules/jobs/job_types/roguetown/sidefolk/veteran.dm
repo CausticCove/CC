@@ -59,11 +59,11 @@
 	traits_applied = list(TRAIT_BREADY, TRAIT_MEDIUMARMOR, TRAIT_STEELHEARTED)
 	subclass_stats = list(
 		STATKEY_INT = 2,
-		STATKEY_STR = 1,
+		STATKEY_STR = 1, //Vets aren't technically 'leaders' as much as they are teachers, but they are combat roles. 8 Stats should do them well.
 		STATKEY_SPD = 1,
 		STATKEY_WIL = 1,
 		STATKEY_CON = 1,
-		STATKEY_PER = 1
+		STATKEY_PER = 2
 	)
 	age_mod = /datum/class_age_mod/veteran/battlemaster
 	subclass_skills = list(
@@ -176,7 +176,7 @@
 		STATKEY_INT = 2,
 		STATKEY_STR = 1,
 		STATKEY_PER = 1,
-		STATKEY_WIL = 1
+		STATKEY_WIL = 2
 	)
 	age_mod = /datum/class_age_mod/veteran/footman
 	subclass_skills = list(
@@ -278,10 +278,9 @@
 	subclass_stats = list(
 		STATKEY_CON = 2,
 		STATKEY_WIL = 2,
-		STATKEY_STR = 1,
+		STATKEY_STR = 2,
 		STATKEY_PER = 1,
 		STATKEY_INT = 1,
-		STATKEY_SPD = -1
 	)
 	age_mod = /datum/class_age_mod/veteran/cavalryman
 	subclass_skills = list(
@@ -401,12 +400,11 @@
 	category_tags = list(CTAG_VETERAN)
 	traits_applied = list(TRAIT_MEDIUMARMOR, TRAIT_STEELHEARTED) //I am sick of fullplate grenzelvets
 	subclass_stats = list(
-		STATKEY_WIL = 3,// two handed weapons require a LOT of stamina.
+		STATKEY_WIL = 2,// two handed weapons require a LOT of stamina.
 		STATKEY_STR = 2,
-		STATKEY_CON = 3,// caustic cove edit On par with normal grenzel merc
+		STATKEY_CON = 2,// caustic cove edit On par with normal grenzel merc
 		STATKEY_INT = 1,
 		STATKEY_PER = 1,// caustic cove edit On par with normal grenzel merc
-		STATKEY_SPD = -1
 	)
 	age_mod = /datum/class_age_mod/veteran/mercenary
 	subclass_skills = list(
@@ -523,7 +521,6 @@
 		STATKEY_WIL = 1,
 		STATKEY_CON = 1,
 		STATKEY_SPD = 1,// You get -2 speed from being old.
-		STATKEY_STR = -1
 	)
 	age_mod = /datum/class_age_mod/veteran/scout
 	subclass_skills = list(
@@ -624,7 +621,7 @@
 	category_tags = list(CTAG_VETERAN)
 	traits_applied = list(TRAIT_DODGEEXPERT, TRAIT_CICERONE, TRAIT_STEELHEARTED)
 	subclass_stats = list(
-		STATKEY_INT = 3,// you are int-maxxing, especially if you go old.
+		STATKEY_INT = 5,// you are int-maxxing, especially if you go old.
 		STATKEY_PER = 1,
 		STATKEY_CON = 1,
 		STATKEY_SPD = 1,

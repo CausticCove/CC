@@ -39,10 +39,9 @@
 
 	category_tags = list(CTAG_GUILDSMEN)
 	subclass_stats = list(
-		STATKEY_STR = 2,
+		STATKEY_STR = 3,
 		STATKEY_WIL = 2,
-		STATKEY_CON = 2,
-		STATKEY_INT = 1
+		STATKEY_CON = 1,
 	)
 	age_mod = /datum/class_age_mod/guildmaster
 	subclass_skills = list(
@@ -111,9 +110,7 @@
 	subclass_stats = list(
 		STATKEY_INT = 3,
 		STATKEY_WIL = 2,
-		STATKEY_STR = 1,
-		STATKEY_CON = 1,
-		STATKEY_PER = 2
+		STATKEY_STR = 1
 	)
 	subclass_skills = list(
 		/datum/skill/combat/axes = SKILL_LEVEL_APPRENTICE,
@@ -181,8 +178,8 @@
 	traits_applied = list(TRAIT_HOMESTEAD_EXPERT) // They get extra virtue for dipping into lumberjacking
 	subclass_stats = list(
 		STATKEY_INT = 2,
-		STATKEY_WIL = 2,
-		STATKEY_LCK = 2,
+		STATKEY_WIL = 1,
+		STATKEY_LCK = 1,
 		STATKEY_STR = 1,
 		STATKEY_CON = 1,
 	)

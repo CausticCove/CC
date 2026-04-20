@@ -10,10 +10,10 @@
 	// Literally same stat spread as Atgervi Shaman
 	subclass_stats = list(
 		STATKEY_STR = 3,
-		STATKEY_CON = 2,
-		STATKEY_WIL = 1,
+		STATKEY_CON = 3,
+		STATKEY_WIL = 2,
 		STATKEY_SPD = 1,
-		STATKEY_INT = -1,
+		STATKEY_INT = -1, //-2 stats gives + 1 to Wil, total of 9 stats. Falls in like with the 8 stat pool of Town Defender Roles (Garri, Church, Town Goons)
 		STATKEY_PER = -1
 	)
 	subclass_skills = list(
@@ -28,7 +28,7 @@
 		/datum/skill/misc/sneaking = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/misc/tracking = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/misc/medicine = SKILL_LEVEL_NOVICE,
-		/datum/skill/craft/tanning = SKILL_LEVEL_APPRENTICE,
+		/datum/skill/craft/tanning = SKILL_LEVEL_NOVICE,
 		/datum/skill/craft/cooking = SKILL_LEVEL_NOVICE,
 		/datum/skill/labor/butchering = SKILL_LEVEL_NOVICE,
 	)
@@ -65,12 +65,12 @@
 				H.adjust_skillrank_up_to(/datum/skill/combat/unarmed, SKILL_LEVEL_MASTER, TRUE)
 				ADD_TRAIT(H, TRAIT_CIVILIZEDBARBARIAN, TRAIT_GENERIC)
 				armor = /obj/item/clothing/suit/roguetown/armor/regenerating/skin/disciple/berserker
-			if("Discipline - Bodybuilder")
+			if("Discipline - Bodybuilder (-2 INT)")
 				H.adjust_skillrank_up_to(/datum/skill/combat/swords, SKILL_LEVEL_EXPERT, TRUE)
 				r_hand = /obj/item/rogueweapon/greatsword/paalloy
 				armor = /obj/item/clothing/suit/roguetown/armor/manual/pushups/leather/good
 				backl = /obj/item/rogueweapon/scabbard/gwstrap
-				H.change_stat(STATKEY_INT, -3) /// Same reasoning as advent barbarian. I think it makes the subclass shit, but it is what it is.
+				H.change_stat(STATKEY_INT, -2) /// Same reasoning as advent barbarian. I think it makes the subclass shit, but it is what it is.
 			if("Katar")
 				H.adjust_skillrank_up_to(/datum/skill/combat/unarmed, SKILL_LEVEL_MASTER, TRUE)
 				beltr = /obj/item/rogueweapon/katar

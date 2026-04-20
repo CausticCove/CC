@@ -50,15 +50,16 @@
 	)
 	category_tags = list(CTAG_TOWNCRIER)
 	subclass_stats = list(
-		STATKEY_WIL = 3,
-		STATKEY_INT = 3,
-		STATKEY_SPD = 1
+		STATKEY_WIL = 2,
+		STATKEY_INT = 2,
+		STATKEY_SPD = 2
 	)
 	age_mod = /datum/class_age_mod/archivist
 	subclass_skills = list(
 		/datum/skill/misc/reading = SKILL_LEVEL_LEGENDARY,
 		/datum/skill/craft/alchemy = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/misc/medicine = SKILL_LEVEL_APPRENTICE,
+		/datum/skill/misc/athletics = SKILL_LEVEL_MASTER, // You run around a lot to get the latest news.
 		/datum/skill/misc/riding = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/combat/wrestling = SKILL_LEVEL_NOVICE,
 		/datum/skill/combat/unarmed = SKILL_LEVEL_NOVICE,

@@ -8,8 +8,11 @@
 	cmode_music = 'sound/music/cmode/towner/combat_towner2.ogg'
 	category_tags = list(CTAG_PILGRIM, CTAG_TOWNER)
 	subclass_stats = list(
-		STATKEY_STR = 1,
-		STATKEY_INT = -1
+		STATKEY_STR = 2,
+		STATKEY_WIL = 2,
+		STATKEY_CON = 1,
+		STATKEY_LCK = 2,
+		STATKEY_INT = -2
 	)
 	traits_applied = list(TRAIT_HOMESTEAD_EXPERT)
 	subclass_skills = list(
@@ -18,7 +21,7 @@
 		/datum/skill/combat/polearms = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/craft/crafting = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/craft/sewing = SKILL_LEVEL_NOVICE,
-		/datum/skill/labor/farming = SKILL_LEVEL_EXPERT,
+		/datum/skill/labor/farming = SKILL_LEVEL_MASTER, //Farmers should KNOW VERY WELL how to farm by now.
 		/datum/skill/craft/cooking = SKILL_LEVEL_NOVICE,
 		/datum/skill/misc/medicine = SKILL_LEVEL_NOVICE,
 		/datum/skill/misc/reading = SKILL_LEVEL_NOVICE,

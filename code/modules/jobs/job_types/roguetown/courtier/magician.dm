@@ -41,10 +41,10 @@
 	category_tags = list(CTAG_COURTMAGE)
 	subclass_stats = list(
 		STATKEY_INT = 5,// Automatic advanced magic for most spells. (I.E summon weapon being upgraded to steel from iron/etc)
-		STATKEY_PER = 3,
-		STATKEY_LCK = 1,// Leadership carrot, stats weight lower than usual leadership weight due to having T4 magic.
-		STATKEY_STR = -1,
-		STATKEY_CON = -1,
+		STATKEY_PER = 2,
+		STATKEY_LCK = 2,// Leadership carrot, stats weight lower than usual leadership weight due to having T4 magic.
+		STATKEY_STR = -2,
+		STATKEY_CON = -3, //Magic is scary, as fuck. They can get T4 spells but they wont be able to fight like a madman and they crave food.
 	)
 	age_mod = /datum/class_age_mod/court_magician
 	subclass_skills = list(

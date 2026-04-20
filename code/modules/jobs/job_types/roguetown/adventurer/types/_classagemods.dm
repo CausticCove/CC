@@ -231,7 +231,7 @@
 	)
 	stat_mods = list(
 		STATKEY_INT = 1,
-		STATKEY_SPD = -1,
+		STATKEY_SPD = -2,
 	)
 	sp_mod = 2
 

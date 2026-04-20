@@ -10,7 +10,7 @@
 	category_tags = list(CTAG_ADVENTURER, CTAG_COURTAGENT, CTAG_LICKER_WRETCH)
 	subclass_stats = list(
 		STATKEY_PER = 3,
-		STATKEY_SPD = 2,
+		STATKEY_SPD = 1,
 	)
 	subclass_skills = list(
 		/datum/skill/combat/crossbows = SKILL_LEVEL_APPRENTICE,
@@ -18,11 +18,6 @@
 		/datum/skill/combat/knives = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/combat/wrestling = SKILL_LEVEL_NOVICE,
 		/datum/skill/combat/unarmed = SKILL_LEVEL_NOVICE,
-		/datum/skill/labor/fishing = SKILL_LEVEL_APPRENTICE,
-		/datum/skill/labor/butchering = SKILL_LEVEL_APPRENTICE,
-		/datum/skill/craft/crafting = SKILL_LEVEL_APPRENTICE,
-		/datum/skill/craft/tanning = SKILL_LEVEL_APPRENTICE,
-		/datum/skill/craft/sewing = SKILL_LEVEL_NOVICE,
 		/datum/skill/craft/traps = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/craft/cooking = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/misc/tracking = SKILL_LEVEL_APPRENTICE,
@@ -76,7 +71,7 @@
 	subclass_languages = list(/datum/language/thievescant)
 	traits_applied = list(TRAIT_DODGEEXPERT)
 	subclass_stats = list(
-		STATKEY_PER = 2,
+		STATKEY_PER = 1,
 		STATKEY_SPD = 2,
 		STATKEY_WIL = 1,
 	)
@@ -91,7 +86,7 @@
 		/datum/skill/misc/reading = SKILL_LEVEL_NOVICE,
 		/datum/skill/craft/traps = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/misc/sneaking = SKILL_LEVEL_JOURNEYMAN,
-		/datum/skill/misc/tracking = SKILL_LEVEL_EXPERT,
+		/datum/skill/misc/tracking = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/misc/lockpicking = SKILL_LEVEL_APPRENTICE,
 	)
 
@@ -125,7 +120,7 @@
 	cmode_music = 'sound/music/cmode/adventurer/combat_outlander2.ogg'
 	traits_applied = list(TRAIT_MEDIUMARMOR, TRAIT_ALCHEMY_EXPERT, TRAIT_EXPLOSIVE_SUPPLY, TRAIT_BOMBER_EXPERT) // Bombardier get an exception - alchemy is part of the gimmick.
 	subclass_stats = list(
-		STATKEY_STR = 2,
+		STATKEY_STR = 1,
 		STATKEY_INT = 2,
 		STATKEY_CON = 1,
 	)
@@ -174,8 +169,7 @@
 	traits_applied = list(TRAIT_OUTDOORSMAN)
 	subclass_stats = list(
 		STATKEY_PER = 2,
-		STATKEY_WIL = 2,
-		STATKEY_INT = 1,
+		STATKEY_WIL = 1, //Their armor choice alters their total statpool by +1.
 	)
 	subclass_skills = list(
 		/datum/skill/misc/athletics = SKILL_LEVEL_JOURNEYMAN,
@@ -188,8 +182,6 @@
 		/datum/skill/misc/climbing = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/misc/reading = SKILL_LEVEL_NOVICE,
 		/datum/skill/misc/sneaking = SKILL_LEVEL_APPRENTICE,
-		/datum/skill/craft/tanning = SKILL_LEVEL_NOVICE, // Still a ranger, nerfed. Want more? Go do it yourself, buddy.
-		/datum/skill/labor/butchering = SKILL_LEVEL_NOVICE,
 		/datum/skill/craft/cooking = SKILL_LEVEL_NOVICE, // Won't really equate to much.
 		/datum/skill/misc/tracking = SKILL_LEVEL_JOURNEYMAN,
 	)

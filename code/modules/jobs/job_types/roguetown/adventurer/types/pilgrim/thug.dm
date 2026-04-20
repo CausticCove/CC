@@ -10,12 +10,12 @@
 	maximum_possible_slots = 2 // i dont want an army of towner thugs
 	category_tags = list(CTAG_PILGRIM, CTAG_TOWNER)
 	subclass_stats = list(
-		STATKEY_STR = 2,
-		STATKEY_WIL = 1,
+		STATKEY_STR = 3,
+		STATKEY_WIL = 3, //Town Protectors. Strong and Sturdy, if not a little dum...
 		STATKEY_CON = 2,
 		STATKEY_SPD = -1,
 		STATKEY_INT = -2,
-		STATKEY_PER = -2
+		STATKEY_PER = -1
 	)
 	subclass_skills = list(
 		/datum/skill/combat/wrestling = SKILL_LEVEL_JOURNEYMAN,
@@ -88,11 +88,11 @@
 	maximum_possible_slots = 2 // i dont want an army of towner thugs
 	category_tags = list(CTAG_PILGRIM, CTAG_TOWNER)
 	subclass_stats = list(
-		STATKEY_WIL = -2,
-		STATKEY_CON = -2,	
+		STATKEY_WIL = -1,	
 		STATKEY_STR = -1,
-		STATKEY_SPD = 2,
+		STATKEY_SPD = 3,
 		STATKEY_INT = 2,
+		STATKEY_PER = 2
 	)
 	subclass_skills = list(
 		/datum/skill/combat/wrestling = SKILL_LEVEL_NOVICE,
@@ -161,14 +161,12 @@
 	category_tags = list(CTAG_PILGRIM, CTAG_TOWNER)
 	subclass_stats = list(
 		STATKEY_STR = 2,
-		STATKEY_WIL = 2,
-		STATKEY_CON = 5,
+		STATKEY_WIL = 4,
+		STATKEY_CON = 4,
+		STATKEY_LCK = 1,
 		STATKEY_SPD = -4,
-		STATKEY_INT = -6,
+		STATKEY_INT = -3, //10 / 2 = +5 Statpoints for the TANKINESS. Can't do much else however.
 		STATKEY_PER = -3,
-		//CC edit
-		STATKEY_LCK = -1
-		//CC edit end
 	)
 	subclass_skills = list(
 		/datum/skill/combat/wrestling = SKILL_LEVEL_JOURNEYMAN,

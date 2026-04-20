@@ -34,10 +34,10 @@
 	tutorial = "While still expected to fill in for the duties of the household servantry as needed, you have styled yourself as a figure beyond them."
 	outfit = /datum/outfit/job/roguetown/seneschal/seneschal
 	subclass_stats = list(
-		STATKEY_INT = 2,
-		STATKEY_PER = 2,
-		STATKEY_LCK = 1, // Usual leadership carrot.
-		STATKEY_SPD = 1
+		STATKEY_INT = 3,
+		STATKEY_PER = 3,
+		STATKEY_LCK = 2, // 10 stats for leadership role. Next to no combat bonuses. This is a very entry level leadership role for people to learn.
+		STATKEY_SPD = 2
 	)
 	age_mod = /datum/class_age_mod/seneschal
 	subclass_skills = list(
@@ -78,10 +78,10 @@
 	tutorial = "Whether you were promoted from one or just like the frills, you stylize yourself as a head maid. Your duties and talents remain the same, though."
 	outfit = /datum/outfit/job/roguetown/seneschal/headmaid
 	subclass_stats = list(
-		STATKEY_INT = 2,
-		STATKEY_PER = 2,
-		STATKEY_LCK = 1, // Usual leadership carrot.
-		STATKEY_SPD = 1
+		STATKEY_INT = 3,
+		STATKEY_PER = 3,
+		STATKEY_LCK = 2, // Same as default.
+		STATKEY_SPD = 2
 	)
 	//CC edit
 	age_mod = /datum/class_age_mod/seneschal
@@ -120,10 +120,10 @@
 	tutorial = "You are the ruling class of manservants, the butler, and your ability to clear your throat and murmur 'I say' is without peer. Your duties and talents as seneschal remain the same, though."
 	outfit = /datum/outfit/job/roguetown/seneschal/chiefbutler
 	subclass_stats = list(
-		STATKEY_INT = 2,
-		STATKEY_PER = 2,
-		STATKEY_LCK = 1, // Usual leadership carrot.
-		STATKEY_SPD = 1
+		STATKEY_INT = 3,
+		STATKEY_PER = 3,
+		STATKEY_LCK = 2, // Same as default.
+		STATKEY_SPD = 2
 	)
 	//CC edit
 	age_mod = /datum/class_age_mod/seneschal

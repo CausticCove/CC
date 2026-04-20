@@ -14,8 +14,8 @@
 	traits_applied = list(TRAIT_TRAINED_SMITH, TRAIT_SMITHING_EXPERT)
 	subclass_stats = list(
 		STATKEY_LCK = 4,
-		STATKEY_STR = 2,
-		STATKEY_INT = 2,
+		STATKEY_STR = 3, //STR Contributes to higher skill quality in smithing.
+		STATKEY_INT = 1,
 		STATKEY_WIL = 2,
 		STATKEY_CON = 1,
 		STATKEY_PER = 1

@@ -53,7 +53,9 @@
 	subclass_stats = list(
 		STATKEY_PER = 2,//7 points weighted, same as MAA. They get temp buffs in the woods instead of in the city.
 		STATKEY_SPD = 2,
-		STATKEY_WIL = 1
+		STATKEY_WIL = 2,
+		STATKEY_FOR = 1,
+		STATKEY_INT = 1
 	)
 	subclass_skills = list(
 		/datum/skill/combat/bows = SKILL_LEVEL_EXPERT,
@@ -127,7 +129,7 @@
 	category_tags = list(CTAG_WARDEN)
 	traits_applied = list(TRAIT_MEDIUMARMOR)
 	subclass_stats = list(
-		STATKEY_STR = 2,//7 points weighted, same as MAA. They get temp buffs in the woods instead of in the city.
+		STATKEY_STR = 4, // Very strong woodsmen. +7 total stats + out of town bonus. Fear the woodsmen. High STR means they should only have a max of 7 stats anyways.
 		STATKEY_CON = 1,
 		STATKEY_WIL = 1,
 		STATKEY_PER = 1

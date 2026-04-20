@@ -15,10 +15,10 @@
 	traits_applied = list(TRAIT_AZURENATIVE, TRAIT_OUTDOORSMAN, TRAIT_BLACKOAK, TRAIT_DODGEEXPERT, TRAIT_ARCYNE_T2, TRAIT_WOODWALKER)
 	//lower-than-avg stats for wretch but their traits are insanely good
 	subclass_stats = list(
-		STATKEY_STR = 2,
-		STATKEY_SPD = 2,
-		STATKEY_INT = 2,
-		STATKEY_CON = -1
+		STATKEY_STR = 1,
+		STATKEY_SPD = 3,
+		STATKEY_INT = 3,
+		STATKEY_CON = -2 //Trade CON for +1 INT; Make those parries count!
 	)
 	subclass_spellpoints = 10
 	subclass_languages = list(/datum/language/oldazurian)

@@ -63,7 +63,7 @@
 		STATKEY_PER = 1,
 		STATKEY_CON = 1,
 		STATKEY_SPD = 1,
-		STATKEY_LCK = 1,
+		STATKEY_LCK = 4, // "Combat" role. Princes all have high luck, just like their 'parents'.
 	)
 	subclass_skills = list(
 		/datum/skill/combat/maces = SKILL_LEVEL_NOVICE,
@@ -104,11 +104,9 @@
 	traits_applied = list(TRAIT_ARCYNE_T1, TRAIT_MAGEARMOR)
 	category_tags = list(CTAG_HEIR)
 	subclass_stats = list(
-		STATKEY_STR = -1,
 		STATKEY_INT = 2,
 		STATKEY_SPD = 1,
-		STATKEY_CON = -1,
-		STATKEY_LCK = 1,
+		STATKEY_LCK = 5,
 	)
 	subclass_spellpoints = 9
 	subclass_skills = list(
@@ -147,10 +145,10 @@
 	category_tags = list(CTAG_HEIR)
 	subclass_stats = list(
 		STATKEY_PER = 2,
-		STATKEY_STR = -1,
+		STATKEY_STR = -2, //+1 to SPD due to -2 STR. 
 		STATKEY_INT = 2,
-		STATKEY_LCK = 1,
-		STATKEY_SPD = 1
+		STATKEY_LCK = 3,
+		STATKEY_SPD = 2
 	)
 	subclass_skills = list(
 		/datum/skill/combat/bows = SKILL_LEVEL_NOVICE,
@@ -199,7 +197,7 @@
 	subclass_stats = list(
 		STATKEY_STR = -2,
 		STATKEY_PER = -2,
-		STATKEY_INT = -2,
+		STATKEY_INT = -2, //Genuinely nothing good here. If your duchy is inbred; You've gotten even worse stats. Good luck. May they take pity upon you.
 		STATKEY_CON = -2,
 		STATKEY_WIL = -2,
 		STATKEY_LCK = -2
@@ -245,9 +243,9 @@
 	STATKEY_CON = -3,
 	STATKEY_SPD = 4,
 	STATKEY_PER = 2,
-	STATKEY_INT = 2,
+	STATKEY_INT = 2, //Trades combat prowess for wits and luck.
 	STATKEY_WIL = 1,
-	STATKEY_LCK = 1,
+	STATKEY_LCK = 3,
 	)
 	subclass_skills = list(
 		/datum/skill/misc/sneaking = SKILL_LEVEL_MASTER,

@@ -32,9 +32,9 @@
 	tutorial = "Clerk, tax-collector, blessed fool. You help the Steward with anything they need and perform their tasks when they are unavailable. Although you aren't a noble, it's not the worst position. The caveat? If money is misplaced or goes missing, a noble could probably weasel out of the stockades as punishment. You? Eh...well, Etrusca is lovely this time of year."
 	subclass_stats = list(
 		STATKEY_LCK = 2,
-		STATKEY_INT = 2,
-		STATKEY_SPD = 1,
-		STATKEY_STR = -1
+		STATKEY_INT = 2, 
+		STATKEY_WIL = 1, //Expect to run around and manage coins.
+		STATKEY_PER = 1
 	)
 	subclass_skills = list(
 		/datum/skill/misc/reading = SKILL_LEVEL_JOURNEYMAN,

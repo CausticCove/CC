@@ -9,11 +9,12 @@
 	traits_applied = list(TRAIT_MEDIUMARMOR)
 	subclass_stats = list(
 		//Caustic edit
-		STATKEY_STR = 2,
+		STATKEY_STR = 3,
 		STATKEY_WIL = 2,
-		STATKEY_CON = 2,
+		STATKEY_CON = 3,
 		STATKEY_LCK = 1,
-		STATKEY_INT = -1
+		STATKEY_INT = -1,
+		STATKEY_PER = -1
 		//Caustic edit end
 	)
 	subclass_skills = list(
@@ -27,7 +28,7 @@
 		/datum/skill/combat/knives = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/combat/bows = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/combat/crossbows = SKILL_LEVEL_APPRENTICE,
-		/datum/skill/craft/crafting = SKILL_LEVEL_APPRENTICE,
+		/datum/skill/craft/crafting = SKILL_LEVEL_NOVICE,
 		/datum/skill/craft/carpentry = SKILL_LEVEL_NOVICE,
 		/datum/skill/misc/reading = SKILL_LEVEL_NOVICE,
 		/datum/skill/misc/climbing = SKILL_LEVEL_JOURNEYMAN,

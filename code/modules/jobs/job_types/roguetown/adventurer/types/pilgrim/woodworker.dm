@@ -10,7 +10,7 @@
 
 	category_tags = list(CTAG_PILGRIM, CTAG_TOWNER)
 	subclass_stats = list(
-		STATKEY_STR = 2,
+		STATKEY_STR = 3,
 		STATKEY_WIL = 1,
 		STATKEY_CON = 1,
 		STATKEY_PER = 1

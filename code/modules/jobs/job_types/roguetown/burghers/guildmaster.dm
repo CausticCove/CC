@@ -39,7 +39,7 @@
 	outfit = /datum/outfit/job/roguetown/guildmaster/basic
 	category_tags = list(CTAG_GUILDSMASTER)
 	subclass_stats = list(
-		STATKEY_STR = 2,
+		STATKEY_STR = 3,
 		STATKEY_CON = 2,
 		STATKEY_WIL = 2,
 		STATKEY_INT = 1,

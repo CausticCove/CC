@@ -7,9 +7,9 @@
 	category_tags = list(CTAG_SHOPHAND)
 	subclass_stats = list(
 		STATKEY_STR = 2,
-		STATKEY_WIL = 1,
+		STATKEY_WIL = 2,
 		STATKEY_CON = 3,
-		STATKEY_INT = -1,
+		STATKEY_INT = -2,
 	)
 	subclass_skills = list(
 		/datum/skill/combat/wrestling = SKILL_LEVEL_EXPERT,
@@ -120,7 +120,7 @@
 	category_tags = list(CTAG_SHOPHAND)
 	subclass_stats = list(
 		STATKEY_SPD = 1,
-		STATKEY_INT = 1,
+		STATKEY_INT = 1, //Also somewhat a beginner role.
 		STATKEY_PER = 2,
 	)
 	subclass_skills = list(
@@ -180,7 +180,7 @@
 	subclass_stats = list(
 		STATKEY_SPD = 1,
 		STATKEY_INT = 1,
-		STATKEY_LCK = 1,
+		STATKEY_LCK = 2, //Beggar power!
 	)
 	subclass_skills = list(
 		//worse skills than a normal peasant, generally, with random bad combat skill

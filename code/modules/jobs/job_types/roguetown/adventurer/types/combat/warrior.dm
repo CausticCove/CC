@@ -12,6 +12,8 @@
 		STATKEY_STR = 2,
 		STATKEY_WIL = 1,
 		STATKEY_CON = 2,
+		STATKEY_SPD = -1,
+		STATKEY_PER = -1,
 	)
 	subclass_skills = list(
 		/datum/skill/combat/polearms = SKILL_LEVEL_APPRENTICE,
@@ -130,7 +132,6 @@
 	traits_applied = list(TRAIT_STEELHEARTED, TRAIT_DODGEEXPERT, TRAIT_DECEIVING_MEEKNESS)
 	subclass_stats = list(
 		STATKEY_INT = 2,
-		STATKEY_STR = 1,
 		STATKEY_WIL = 1,
 		STATKEY_SPD = 1,
 	)
@@ -228,6 +229,7 @@
 		STATKEY_CON = 2,
 		STATKEY_WIL = 1,
 		STATKEY_INT = -2,
+		STATKEY_PER = -2,
 	)
 	subclass_skills = list(
 		/datum/skill/combat/maces = SKILL_LEVEL_APPRENTICE,
@@ -300,12 +302,12 @@
 			head = /obj/item/clothing/head/roguetown/helmet/leather/volfhelm
 			gloves = /obj/item/clothing/gloves/roguetown/bandages/weighted
 			armor = /obj/item/clothing/suit/roguetown/armor/regenerating/skin/disciple/barbarian
-		if ("Discipline - Bodybuilder (-III INT)")
+		if ("Discipline - Bodybuilder (-2 INT)")
 			H.adjust_skillrank_up_to(/datum/skill.combat/swords, SKILL_LEVEL_JOURNEYMAN, TRUE)
 			armor = /obj/item/clothing/suit/roguetown/armor/manual/pushups/leather
 			r_hand = /obj/item/rogueweapon/greatsword/iron
 			backr = /obj/item/rogueweapon/scabbard/gwstrap
-			H.change_stat(STATKEY_INT, -3) ///This is probably waaay too much and makes this subclass completely unviable, but admins are concerned the armor might be OP.
+			H.change_stat(STATKEY_INT, -2)
 	belt = /obj/item/storage/belt/rogue/leather/battleskirt/barbarian
 	pants = /obj/item/clothing/under/roguetown/heavy_leather_pants/bronzeskirt
 	shoes = /obj/item/clothing/shoes/roguetown/boots/furlinedboots
@@ -330,9 +332,10 @@
 	outfit = /datum/outfit/job/roguetown/adventurer/ironclad
 	traits_applied = list(TRAIT_STEELHEARTED, TRAIT_HEAVYARMOR)
 	subclass_stats = list(
-		STATKEY_STR = 2,
+		STATKEY_STR = 1,
 		STATKEY_WIL = 2,
-		STATKEY_CON = 1,
+		STATKEY_CON = 2,
+		STATKEY_SPD = -2,
 	)
 	subclass_skills = list(
 		/datum/skill/combat/polearms = SKILL_LEVEL_APPRENTICE,
@@ -448,7 +451,7 @@
 	maximum_possible_slots = 5 //Not a Wretch or Towner, but still conditionally lethal for an Adventurer - especially with steel coverage and round-start access to silver weapons. Adjust the amount of available slots as needed.
 	subclass_stats = list(
 		STATKEY_STR = 2,
-		STATKEY_PER = 2,
+		STATKEY_PER = 1,
 		STATKEY_WIL = 1,
 	) //Follows the Adventurer's seven-point statblock rule. Adds an eighth point to an unoccupied statkey, when a discipline is selected.
 
@@ -574,9 +577,10 @@
 					/obj/item/reagent_containers/glass/bottle/alchemical/intpot,
 					/obj/item/reagent_containers/glass/bottle/alchemical/lucpot,
 					)
-			if("Reformist - Chainmaille & Dodge Expert (+I SPD)")
+			if("Reformist - Chainmaille & Dodge Expert (+I SPD / -I STR)")
 				ADD_TRAIT(H, TRAIT_DODGEEXPERT, TRAIT_GENERIC) //'Puritan' archetype. Closer to the Roguetown-era Inquisitor in portrayal. No armor training, but overprepared with silver throwing daggers and excellent evasive maneuvers.
 				H.change_stat(STATKEY_SPD, 1)
+				H.change_stat(STATKEY_STR, -1)
 				H.adjust_skillrank_up_to(/datum/skill/misc/sneaking, SKILL_LEVEL_JOURNEYMAN, TRUE)
 				head = /obj/item/clothing/head/roguetown/puritan
 				armor = /obj/item/clothing/suit/roguetown/shirt/undershirt/puritan
@@ -636,7 +640,7 @@
 	outfit = /datum/outfit/job/roguetown/adventurer/deprived
 	cmode_music = 'sound/music/cmode/antag/combat_darkstar.ogg'
 	traits_applied = list(TRAIT_STEELHEARTED, TRAIT_CRITICAL_RESISTANCE, TRAIT_NOPAINSTUN, TRAIT_SHIRTLESS, TRAIT_WILD_EATER, TRAIT_OUTDOORSMAN, TRAIT_HOMESTEAD_EXPERT)
-	subclass_stats = list(
+	subclass_stats = list( //Challenge class. You spawn with nothing but a lot of traits and stats. This doesn't follow the typical stat spread as any other advents.
 		STATKEY_STR = 3,
 		STATKEY_CON = 2,
 		STATKEY_WIL = 1,

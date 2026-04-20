@@ -9,9 +9,9 @@
 	subclass_stats = list(
 		STATKEY_STR = 3,
 		STATKEY_WIL = 3,
-		STATKEY_CON = 3,
-		STATKEY_PER = 2,
-		STATKEY_SPD = 2
+		STATKEY_CON = 3, //15 Stats. You have no arms or legs.
+		STATKEY_PER = 3,
+		STATKEY_SPD = 3
 	)
 
 /datum/outfit/job/roguetown/adventurer/torso/pre_equip(mob/living/carbon/human/H)

@@ -9,8 +9,7 @@
 	traits_applied = list(TRAIT_MAGEARMOR, TRAIT_ARCYNE_T3, TRAIT_ALCHEMY_EXPERT)
 	subclass_stats = list(
 		STATKEY_INT = 3,
-		STATKEY_PER = 2,
-		STATKEY_SPD = 1,
+		STATKEY_PER = 1,
 	)
 	age_mod = /datum/class_age_mod/adv_mage
 	subclass_spellpoints = 14
@@ -79,7 +78,7 @@
 	outfit = /datum/outfit/job/roguetown/adventurer/spellblade
 	traits_applied = list(TRAIT_MAGEARMOR, TRAIT_ARCYNE_T2)
 	subclass_stats = list(
-		STATKEY_STR = 2,
+		STATKEY_STR = 1,
 		STATKEY_INT = 1,
 		STATKEY_CON = 1,
 		STATKEY_WIL = 1,
@@ -151,7 +150,7 @@
 	outfit = /datum/outfit/job/roguetown/adventurer/spellsinger
 	traits_applied = list(TRAIT_MAGEARMOR, TRAIT_ARCYNE_T2, TRAIT_EMPATH, TRAIT_GOODLOVER)
 	subclass_stats = list(
-		STATKEY_INT = 2,
+		STATKEY_INT = 1,
 		STATKEY_SPD = 2,
 		STATKEY_WIL = 1,
 	)

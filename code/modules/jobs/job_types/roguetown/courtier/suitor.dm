@@ -34,7 +34,7 @@
 	subclass_stats = list(
 		STATKEY_INT = 3,
 		STATKEY_PER = 3,
-		STATKEY_WIL = 1,
+		STATKEY_WIL = 2,
 		STATKEY_SPD = 1,
 		STATKEY_LCK = 1
 	)
@@ -94,10 +94,10 @@
 	category_tags = list(CTAG_CONSORT)
 	subclass_stats = list(
 		STATKEY_SPD = 3,
-		STATKEY_INT = 1,
-		STATKEY_PER = 1,
+		STATKEY_INT = 2,
+		STATKEY_PER = 2,
 		STATKEY_WIL = 1,
-		STATKEY_LCK = 1
+		STATKEY_LCK = 2
 	)
 	subclass_skills = list(
 		/datum/skill/combat/knives = SKILL_LEVEL_JOURNEYMAN,
@@ -148,11 +148,11 @@
 	category_tags = list(CTAG_CONSORT)
 	traits_applied = list(TRAIT_MEDIUMARMOR)
 	subclass_stats = list(
-		STATKEY_INT = 2,
-		STATKEY_STR = 1,
+		STATKEY_INT = 1,
+		STATKEY_STR = 2,
 		STATKEY_PER = 1,
-		STATKEY_CON = 1,
-		STATKEY_WIL = 1,
+		STATKEY_CON = 2,
+		STATKEY_WIL = 2,
 		STATKEY_SPD = 1,
 		STATKEY_LCK = 1
 	)

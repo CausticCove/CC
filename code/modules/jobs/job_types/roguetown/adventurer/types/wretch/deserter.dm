@@ -9,11 +9,13 @@
 	maximum_possible_slots = 2 //Ideal role for fraggers. Better to limit it.
 
 	cmode_music = 'sound/music/cmode/antag/combat_thewall.ogg' // same as new hedgeknight music
-	// Deserter are the knight-equivalence. They get a balanced, straightforward 2 2 3 statspread to endure and overcome.
+	// Deserter are the knight-equivalence. They get a balanced, straightforward statspread to endure and overcome.
 	subclass_stats = list(
-		STATKEY_WIL = 3,
-		STATKEY_CON = 2,
-		STATKEY_STR = 2
+		STATKEY_WIL = 2,
+		STATKEY_CON = 2, //No downsides. You're just really good at melee combat. Nothing more. Follows 8 stat spread.
+		STATKEY_STR = 2,
+		STATKEY_INT = 1,
+		STATKEY_PER = 1
 	)
 	subclass_skills = list(
 		/datum/skill/combat/polearms = SKILL_LEVEL_EXPERT,
@@ -160,6 +162,7 @@
 		STATKEY_INT = 1,
 		STATKEY_CON = 1,
 		STATKEY_PER = 1,
+		STATKEY_LCK = 1, //Hey, maybe you'll get lucky somewhere else!
 	)
 	subclass_skills = list(
 		/datum/skill/combat/polearms = SKILL_LEVEL_EXPERT,

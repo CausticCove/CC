@@ -19,17 +19,16 @@
 	age_mod = /datum/class_age_mod/wretch/rogue_mage
 	subclass_spellpoints = 12
 	subclass_skills = list(
-		/datum/skill/combat/polearms = SKILL_LEVEL_EXPERT, //Caustic Cove Edit
-		/datum/skill/combat/staves = SKILL_LEVEL_EXPERT, //Caustic Cove Edit
+		/datum/skill/combat/polearms = SKILL_LEVEL_JOURNEYMAN, //Caustic Cove Edit
+		/datum/skill/combat/staves = SKILL_LEVEL_JOURNEYMAN, //Caustic Cove Edit
 		/datum/skill/misc/climbing = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/misc/athletics = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/combat/wrestling = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/combat/unarmed = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/misc/reading = SKILL_LEVEL_MASTER,
-		/datum/skill/misc/medicine = SKILL_LEVEL_APPRENTICE, // Have to grind a bit, but can use the ZRONK chair right away
+		/datum/skill/misc/medicine = SKILL_LEVEL_JOURNEYMAN, // Have to grind a bit, but can use the ZRONK chair right away
 		/datum/skill/craft/alchemy = SKILL_LEVEL_EXPERT,
 		/datum/skill/magic/arcane = SKILL_LEVEL_EXPERT,
-		/datum/skill/misc/medicine = SKILL_LEVEL_JOURNEYMAN, //For lux extractions.
 	)
 	subclass_stashed_items = list(
         "Sewing Kit" =  /obj/item/repair_kit,

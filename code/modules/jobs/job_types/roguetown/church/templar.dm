@@ -42,7 +42,7 @@
 	subclass_languages = list(/datum/language/grenzelhoftian)
 	traits_applied = list(TRAIT_CIVILIZEDBARBARIAN)
 	subclass_stats = list(
-		STATKEY_STR = 3,
+		STATKEY_STR = 3, //All Church Combat Roles get a bonus +1 stat edge to the 8 stat pool. They follow stricter rules and belief.
 		STATKEY_CON = 2,
 		STATKEY_WIL = 2,
 		STATKEY_SPD = 2
@@ -219,9 +219,11 @@
 	subclass_languages = list(/datum/language/grenzelhoftian)
 	traits_applied = list(TRAIT_HEAVYARMOR)
 	subclass_stats = list(
-		STATKEY_WIL = 3,
-		STATKEY_STR = 2,
+		STATKEY_WIL = 2,
+		STATKEY_STR = 2, //8 Stats + 1 due to church position. Church's Fighter. Well rounded with bonus to PER and INT as well.
 		STATKEY_CON = 2,
+		STATKEY_PER = 1,
+		STATKEY_INT = 2,
 	)
 	subclass_skills = list(
 		/datum/skill/combat/swords = SKILL_LEVEL_JOURNEYMAN,

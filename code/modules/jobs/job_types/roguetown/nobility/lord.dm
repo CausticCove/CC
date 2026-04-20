@@ -146,7 +146,7 @@ GLOBAL_LIST_EMPTY(lord_titles)
 		STATKEY_LCK = 5,
 		STATKEY_INT = 3,
 		STATKEY_WIL = 3,
-		STATKEY_PER = 2,
+		STATKEY_PER = 2, //The Duchy! 15 stat spread, luck is great.
 		STATKEY_SPD = 1,
 		STATKEY_STR = 1,
 	)
@@ -188,7 +188,7 @@ GLOBAL_LIST_EMPTY(lord_titles)
 	subclass_stats = list(
 		STATKEY_LCK = 5,
 		STATKEY_INT = 5,
-		STATKEY_PER = 4,
+		STATKEY_PER = 4, // 16 stats. Can be excused on account of no combat skills and relying on paying to get things done.
 		STATKEY_SPD = 1,
 		STATKEY_WIL = 1,
 	)
@@ -230,7 +230,7 @@ GLOBAL_LIST_EMPTY(lord_titles)
 	traits_applied = list(TRAIT_NOBLE, TRAIT_MAGEARMOR, TRAIT_ARCYNE_T3) //CC Edit: Removed dnr
 	subclass_stats = list(
 		STATKEY_LCK = 5,
-		STATKEY_INT = 4,
+		STATKEY_INT = 4, //12 Stats. Cost is T3 magic, each tier counts as 1 stat :)
 		STATKEY_PER = 2,
 		STATKEY_WIL = 1,
 	)
@@ -269,11 +269,11 @@ GLOBAL_LIST_EMPTY(lord_titles)
 	traits_applied = list(TRAIT_NOBLE, TRAIT_CRITICAL_WEAKNESS, TRAIT_NORUN, TRAIT_HEAVYARMOR, TRAIT_GOODLOVER) //CC Edit: Removed dnr
 	subclass_stats = list(
 		STATKEY_LCK = 10,
-		STATKEY_INT = -2,
-		STATKEY_PER = -2,
-		STATKEY_CON = -2,
-		STATKEY_WIL = -2,
-		STATKEY_STR = -2,
+		STATKEY_INT = -1,
+		STATKEY_PER = -1,
+		STATKEY_CON = -1, //Used to all be -2, now -1, each count as 1 point towards 15. 10 FOR and 5 STATS = 15 total.
+		STATKEY_WIL = -1,
+		STATKEY_STR = -1,
 	)
 	subclass_skills = list(
 		/datum/skill/misc/swimming = SKILL_LEVEL_APPRENTICE,

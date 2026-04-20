@@ -113,10 +113,10 @@
 	subclass_languages = list(/datum/language/thievescant)
 	traits_applied = list(TRAIT_KEENEARS, TRAIT_DODGEEXPERT, TRAIT_PERFECT_TRACKER)//Spy not a royal champion
 	subclass_stats = list(
-		STATKEY_SPD = 3,
+		STATKEY_SPD = 4,
 		STATKEY_PER = 2,
 		STATKEY_INT = 2,
-		STATKEY_LCK = 2,
+		STATKEY_LCK = 2, //10 Stat pool; Good stats honestly.
 	)
 	age_mod = /datum/class_age_mod/hand_spymaster
 	subclass_skills = list(
@@ -171,7 +171,7 @@
 	traits_applied = list(TRAIT_ALCHEMY_EXPERT, TRAIT_MAGEARMOR, TRAIT_ARCYNE_T2)
 	subclass_stats = list(
 		STATKEY_INT = 4,
-		STATKEY_PER = 3,
+		STATKEY_PER = 2, //Not 100% combat but still very smart and slippery thanks to magic.
 		STATKEY_SPD = 1,
 		STATKEY_WIL = 1,
 		STATKEY_LCK = 2,

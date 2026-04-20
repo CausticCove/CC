@@ -35,9 +35,9 @@
 	horse = /mob/living/simple_animal/hostile/retaliate/rogue/saiga/saigabuck/tame/saddled
 	category_tags = list(CTAG_COUNCILLOR)
 	subclass_stats = list(
-		STATKEY_SPD = 2,
-		STATKEY_INT = 1,
-		STATKEY_PER = 1,
+		STATKEY_SPD = 3,
+		STATKEY_INT = 2,
+		STATKEY_PER = 2, // 6 Stat pool +1 w/ STR and CON reduction.
 		STATKEY_STR = -1,
 		STATKEY_CON = -1
 	)
@@ -62,10 +62,10 @@
 	outfit = /datum/outfit/job/roguetown/councillor/advisor
 	category_tags = list(CTAG_COUNCILLOR)
 	subclass_stats = list(
-		STATKEY_INT = 3, // smart and savvy
-		STATKEY_PER = 2,
-		STATKEY_STR = -2,
-		STATKEY_CON = -1
+		STATKEY_INT = 4, // smart and savvy
+		STATKEY_PER = 4,
+		STATKEY_STR = -2, //Even less combat power however.
+		STATKEY_CON = -2
 	)
 	subclass_skills = list(
 		/datum/skill/misc/reading = SKILL_LEVEL_EXPERT,
@@ -85,10 +85,9 @@
 	outfit = /datum/outfit/job/roguetown/councillor/cofferer
 	category_tags = list(CTAG_COUNCILLOR)
 	subclass_stats = list(
-		STATKEY_WIL = 2,
-		STATKEY_INT = 2,
+		STATKEY_WIL = 3, //You're a struggler... But you persist. 
+		STATKEY_INT = 2, 
 		STATKEY_PER = 2,
-		STATKEY_STR = -1,
 		STATKEY_CON = -2
 	)
 	subclass_skills = list(

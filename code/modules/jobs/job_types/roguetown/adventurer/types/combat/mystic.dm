@@ -7,9 +7,9 @@
 	class_select_category = CLASS_CAT_MYSTIC
 	category_tags = list(CTAG_ADVENTURER, CTAG_COURTAGENT)
 	traits_applied = list(TRAIT_MAGEARMOR, TRAIT_SEEDKNOW, TRAIT_ARCYNE_T1)
-	subclass_stats = list( // stat spread of 6 points, lower than the 7 adventurer gets on average
-			STATKEY_INT = 2,
-			STATKEY_CON = 2,
+	subclass_stats = list(
+			STATKEY_INT = 1,
+			STATKEY_CON = 1,
 			STATKEY_WIL = 2,
 	)
 	age_mod = /datum/class_age_mod/mystic
@@ -102,9 +102,9 @@
 	category_tags = list(CTAG_ADVENTURER, CTAG_COURTAGENT)
 	traits_applied = list(TRAIT_MAGEARMOR, TRAIT_SEEDKNOW, TRAIT_ARCYNE_T1)
 	subclass_stats = list(
-			STATKEY_INT = 1,
-			STATKEY_CON = 3,
-			STATKEY_WIL = 2,
+			STATKEY_INT = 2,
+			STATKEY_CON = 1,
+			STATKEY_WIL = 1,
 	)
 	age_mod = /datum/class_age_mod/mystic
 	subclass_spellpoints = 4 // +2 spellpoint, added flexibility, this is a healer focussed class and should be able to a bit more than just healing with the arcyne-holy training
@@ -198,7 +198,6 @@
 	category_tags = list(CTAG_ADVENTURER, CTAG_COURTAGENT)
 	traits_applied = list(TRAIT_MAGEARMOR, TRAIT_SEEDKNOW, TRAIT_ARCYNE_T1)
 	subclass_stats = list(
-			STATKEY_STR = 1,
 			STATKEY_PER = 1,
 			STATKEY_INT = 1,
 			STATKEY_CON = 1,
@@ -298,9 +297,9 @@
 	category_tags = list(CTAG_ADVENTURER, CTAG_COURTAGENT)
 	traits_applied = list(TRAIT_MAGEARMOR, TRAIT_SEEDKNOW, TRAIT_ARCYNE_T1)
 	subclass_stats = list(
-			STATKEY_INT = 3,
+			STATKEY_INT = 2,
 			STATKEY_CON = 1,
-			STATKEY_WIL = 2,
+			STATKEY_WIL = 1,
 	)
 	age_mod = /datum/class_age_mod/mystic
 	subclass_spellpoints = 3 // +2 spellpoints, you focused on offensive training and loose on utility

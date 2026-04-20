@@ -35,10 +35,12 @@
 
 	category_tags = list(CTAG_STEWARD)
 	subclass_stats = list(
-		STATKEY_INT = 2,
+		STATKEY_INT = 3,
 		STATKEY_PER = 2,
-		STATKEY_SPD = 2,
-		STATKEY_STR = -2
+		STATKEY_SPD = 3,
+		STATKEY_WIL = 2,
+		STATKEY_STR = -2, //Does not get the +2 bonuses as they provide the entire town the power they need to do whatever else they want. Discourages Steward from entering combat too.
+		STATKEY_CON = -2,
 	)
 	subclass_skills = list(
 		/datum/skill/misc/reading = SKILL_LEVEL_LEGENDARY,
@@ -48,7 +50,7 @@
 		/datum/skill/combat/unarmed = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/misc/swimming = SKILL_LEVEL_NOVICE,
 		/datum/skill/misc/climbing = SKILL_LEVEL_NOVICE,
-		/datum/skill/misc/athletics = SKILL_LEVEL_NOVICE,
+		/datum/skill/misc/athletics = SKILL_LEVEL_JOURNEYMAN, //They run around a lot and max out Athletics to Legendary anyways in a round.
 		/datum/skill/combat/swords = SKILL_LEVEL_NOVICE,
 		/datum/skill/combat/knives = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/misc/medicine = SKILL_LEVEL_APPRENTICE,

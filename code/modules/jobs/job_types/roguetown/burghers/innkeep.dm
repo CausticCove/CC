@@ -32,11 +32,13 @@
 	outfit = /datum/outfit/job/roguetown/innkeeper/basic
 	category_tags = list(CTAG_INNKEEPER)
 	subclass_stats = list(
-		STATKEY_STR = 1,
-		STATKEY_WIL = 1,
+		STATKEY_STR = 2,
+		STATKEY_PER = 1,
+		STATKEY_WIL = 1, //10 Stat pool for leadership role.
 		STATKEY_CON = 1,
 		STATKEY_INT = 1,
-		STATKEY_SPD = 1
+		STATKEY_SPD = 2,
+		STATKEY_LCK = 2
 	)
 	age_mod = /datum/class_age_mod/innkeeper
 	subclass_skills = list(

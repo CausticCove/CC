@@ -36,10 +36,11 @@
 	category_tags = list(CTAG_BATHMOM)
 	subclass_languages = list(/datum/language/thievescant)
 	subclass_stats = list(
-		STATKEY_WIL = 2,
-		STATKEY_STR = 1,
+		STATKEY_WIL = 1,
+		STATKEY_STR = 2, // 10 Stat pool for Head Role (Bathmaster)
 		STATKEY_CON = 1,
-		STATKEY_INT = -1
+		STATKEY_INT = 2,
+		STATKEY_LCK = 4, //You've gambled your whole life taking risks to get to this point of owning a drug ring under the nose of the keep.
 	)
 	subclass_skills = list(
 		/datum/skill/combat/wrestling = SKILL_LEVEL_JOURNEYMAN,

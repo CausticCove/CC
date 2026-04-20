@@ -25,7 +25,7 @@
 	cmode_music = 'sound/music/combat_knight.ogg'
 	advclass_cat_rolls = list (CTAG_MARSHAL = 20)
 
-	job_traits = list(TRAIT_NOBLE, TRAIT_HEAVYARMOR, TRAIT_PERFECT_TRACKER)
+	job_traits = list(TRAIT_NOBLE, TRAIT_HEAVYARMOR, TRAIT_PERFECT_TRACKER, TRAIT_STEELHEARTED) //CC Edit - Should be Steel Hearted.
 	vice_restrictions = list(/datum/charflaw/mute, /datum/charflaw/unintelligible) //Needs to use the throat - sometimes
 	job_subclasses = list(
 		/datum/advclass/marshal/classic,
@@ -64,7 +64,7 @@
 	subclass_stats = list(
 		STATKEY_INT = 3,
 		STATKEY_PER = 3,
-		STATKEY_LCK = 2,
+		STATKEY_LCK = 2, //12 Stat spread. Marshal, leader of the Garrison.
 		STATKEY_CON = 1,
 		STATKEY_WIL = 1,
 		STATKEY_SPD = 1,

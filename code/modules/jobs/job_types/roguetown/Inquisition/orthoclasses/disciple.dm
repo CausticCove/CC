@@ -11,11 +11,11 @@
 		TRAIT_BLOOD_RESISTANCE
 	)
 	subclass_stats = list(
-		STATKEY_STR = 3,
-		STATKEY_WIL = 3,
-		STATKEY_CON = 3,
+		STATKEY_STR = 4,
+		STATKEY_WIL = 4, //ENDURE. THROUGH HIM WE SHALL SHOW YOU TRUE PAIN. 10 Weighted stats + 2 from the -2 to INT and SPD. STRIKE HARD!
+		STATKEY_CON = 4,
 		STATKEY_INT = -2,
-		STATKEY_SPD = -1
+		STATKEY_SPD = -2
 	)
 	subclass_skills = list(
 		/datum/skill/misc/athletics = SKILL_LEVEL_EXPERT,

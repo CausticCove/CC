@@ -37,10 +37,11 @@
 	outfit = /datum/outfit/job/roguetown/physician/basic
 	category_tags = list(CTAG_COURTPHYS)
 	subclass_stats = list(
-		STATKEY_INT = 4,
-		STATKEY_WIL = 1,
+		STATKEY_INT = 5, //10 Stat pool + 1 at a cost of STR and CON for 11 good stats and 2 negatives. Mostly just... Really smart lol
+		STATKEY_WIL = 2,
 		STATKEY_LCK = 1,
-		STATKEY_SPD = 1,
+		STATKEY_PER = 1,
+		STATKEY_SPD = 2,
 		STATKEY_STR = -1,
 		STATKEY_CON = -1,
 	)
