@@ -37,13 +37,10 @@
 	belt = /obj/item/storage/belt/rogue/leather
 	beltl = /obj/item/storage/belt/rogue/pouch/coins/poor
 	backl = /obj/item/storage/backpack/rogue/satchel
-	r_hand = /obj/item/rogueweapon/woodstaff/quarterstaff/iron
-	l_hand = /obj/item/rogueweapon/scabbard/gwstrap
+	backr = /obj/item/rogueweapon/scabbard/gwstrap
+	r_hand = /obj/item/rogueweapon/woodstaff/quarterstaff //Spellcaster! Upgrade thyne stick!
 	H.dna.species.soundpack_m = new /datum/voicepack/male/wizard()
-	backpack_contents = list(
-		/obj/item/flashlight/flare/torch = 1,
-		/obj/item/recipe_book/survival = 1,
-		)
+
 	var/datum/devotion/C = new /datum/devotion(H, H.patron)
 	C.grant_miracles(H, cleric_tier = CLERIC_T1, passive_gain = CLERIC_REGEN_MINOR, devotion_limit = CLERIC_REQ_1)
 	if(H.mind)
@@ -134,8 +131,6 @@
 	backr = /obj/item/rogueweapon/woodstaff
 	H.dna.species.soundpack_m = new /datum/voicepack/male/wizard()
 	backpack_contents = list(
-		/obj/item/flashlight/flare/torch = 1,
-		/obj/item/recipe_book/survival = 1,
 		/obj/item/roguegem/amethyst = 1, // for their starting staff or a gem-bound spellbook if they take the time to craft one, increase how fast they cast stoneskin/fortitude
 		)
 	H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/stoneskin)
@@ -233,10 +228,7 @@
 	beltr = /obj/item/rogueweapon/scabbard/sword
 	r_hand = /obj/item/rogueweapon/sword/iron
 	H.dna.species.soundpack_m = new /datum/voicepack/male/wizard()
-	backpack_contents = list(
-		/obj/item/flashlight/flare/torch = 1,
-		/obj/item/recipe_book/survival = 1,
-		)
+
 	H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/enchant_weapon)
 	H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/projectile/arcynestrike)
 	var/datum/devotion/C = new /datum/devotion(H, H.patron)
@@ -329,8 +321,6 @@
 	backr = /obj/item/rogueweapon/woodstaff
 	H.dna.species.soundpack_m = new /datum/voicepack/male/wizard()
 	backpack_contents = list(
-		/obj/item/flashlight/flare/torch = 1,
-		/obj/item/recipe_book/survival = 1,
 		/obj/item/roguegem/amethyst = 1,
 		)
 

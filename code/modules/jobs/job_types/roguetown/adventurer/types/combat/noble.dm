@@ -43,7 +43,7 @@
 	if(should_wear_femme_clothes(H))
 		shirt = /obj/item/clothing/suit/roguetown/shirt/dress/gen/purple
 		cloak = /obj/item/clothing/cloak/raincloak/purple
-	backpack_contents = list(/obj/item/recipe_book/survival = 1) // Someone gonna argue it is sovlful to not have this but whatever
+
 	var/turf/TU = get_turf(H)
 	if(TU)
 		new /mob/living/simple_animal/hostile/retaliate/rogue/saiga/tame/saddled(TU)
@@ -120,7 +120,6 @@
 	beltl = /obj/item/flashlight/flare/torch/lantern
 	backpack_contents = list(
 		/obj/item/storage/belt/rogue/pouch/coins/poor = 1,
-		/obj/item/recipe_book/survival = 1,
 		)
 	H.dna.species.soundpack_m = new /datum/voicepack/male/knight()
 	H.set_blindness(0)
@@ -201,7 +200,6 @@
 		/obj/item/storage/belt/rogue/pouch/coins/poor = 1, 
 		/obj/item/rogueweapon/hammer/iron = 1, 
 		/obj/item/rogueweapon/tongs = 1, 
-		/obj/item/recipe_book/survival = 1,
 		/obj/item/repair_kit/metal = 1,
 		/obj/item/repair_kit = 1,
 	)

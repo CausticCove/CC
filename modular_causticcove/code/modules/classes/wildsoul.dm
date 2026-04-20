@@ -161,7 +161,7 @@
 		/datum/skill/craft/sewing = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/craft/crafting = SKILL_LEVEL_APPRENTICE
 	)
-	subclass_stashed_items = list(
+	subclass_stashed_items += list(
 		"Cauldron Material" = /obj/item/ingot/iron, // So they can do the whole forest potioner cryptid gimmick without needing to make their own iron.
 	)
 	outfit = /datum/outfit/job/roguetown/wildsoul/lampternfly

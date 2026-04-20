@@ -35,10 +35,10 @@
 	..()
 	to_chat(H, span_warning("You are a treasure hunter trained in hunting for valuables. Discern what is treasure or not, your fortune could be hidden anywhere."))
 	pants = /obj/item/clothing/under/roguetown/trou/leather
-	armor = /obj/item/clothing/suit/roguetown/armor/leather/vest/sailor
+	armor = /obj/item/clothing/suit/roguetown/armor/leather
 	backl = /obj/item/storage/backpack/rogue/satchel
 	belt = /obj/item/storage/belt/rogue/leather
-	gloves = /obj/item/clothing/gloves/roguetown/fingerless_leather
+	gloves = /obj/item/clothing/gloves/roguetown/leather
 	shirt = /obj/item/clothing/suit/roguetown/armor/gambeson
 	shoes = /obj/item/clothing/shoes/roguetown/boots/leather
 	neck = /obj/item/storage/belt/rogue/pouch/coins/poor
@@ -49,7 +49,6 @@
 	backpack_contents = list(
 		/obj/item/lockpick = 1, 
 		/obj/item/rogueweapon/huntingknife = 1, 
-		/obj/item/recipe_book/survival = 1,
 		/obj/item/rogueweapon/scabbard/sheath = 1
 		)
 	if(H.mind)
@@ -109,17 +108,15 @@
 	pants = /obj/item/clothing/under/roguetown/trou/leather
 	shoes = /obj/item/clothing/shoes/roguetown/boots
 	neck = /obj/item/storage/belt/rogue/pouch/coins/poor
-	wrists = /obj/item/clothing/wrists/roguetown/bracers/leather
+	wrists = /obj/item/clothing/wrists/roguetown/bracers/leather //This is basically a Diet Wretch loadout, ngl
 	gloves = /obj/item/clothing/gloves/roguetown/fingerless
 	belt = /obj/item/storage/belt/rogue/leather/knifebelt/iron
 	cloak = /obj/item/clothing/cloak/raincloak/mortus
 	beltl = /obj/item/quiver/Warrows
 	beltr = /obj/item/rogueweapon/mace/cudgel
 	backpack_contents = list(
-		/obj/item/flashlight/flare/torch = 1,
 		/obj/item/rogueweapon/huntingknife/idagger/steel = 1,
 		/obj/item/lockpickring/mundane = 1,
-		/obj/item/recipe_book/survival = 1,
 		/obj/item/rogueweapon/scabbard/sheath = 1
 		)
 
@@ -161,13 +158,12 @@
 	gloves = /obj/item/clothing/gloves/roguetown/fingerless
 	belt = /obj/item/storage/belt/rogue/leather
 	beltl = /obj/item/flashlight/flare/torch/lantern
-	beltr = /obj/item/rogueweapon/huntingknife/idagger/steel
+	beltr = /obj/item/rogueweapon/huntingknife/idagger
 	armor = /obj/item/clothing/suit/roguetown/armor/leather/vest
 	backl = /obj/item/storage/backpack/rogue/satchel
 	cloak = /obj/item/clothing/cloak/half/red
 	backpack_contents = list(
 		/obj/item/lockpick = 1,
-		/obj/item/recipe_book/survival = 1,
 		/obj/item/rogueweapon/scabbard/sheath = 1
 		)
 	var/datum/inspiration/I = new /datum/inspiration(H)
@@ -241,7 +237,6 @@
 	backpack_contents = list(
 		/obj/item/bomb = 1,
 		/obj/item/lockpick = 1,
-		/obj/item/rogueweapon/huntingknife/idagger/steel/parrying = 1,
-		/obj/item/recipe_book/survival = 1,
+		/obj/item/rogueweapon/huntingknife/idagger/steel/parrying = 1, //Swashbucklers rely on sword play and elevated mechanical skill due to their cutlass; This is fine.
 		/obj/item/rogueweapon/scabbard/sheath = 1
 		)

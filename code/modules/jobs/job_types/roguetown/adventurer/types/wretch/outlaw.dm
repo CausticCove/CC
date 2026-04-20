@@ -31,7 +31,7 @@
 		/datum/skill/misc/lockpicking = SKILL_LEVEL_MASTER,
 		/datum/skill/craft/traps = SKILL_LEVEL_MASTER,
 	)
-	subclass_stashed_items = list(
+	subclass_stashed_items += list(
         "Sewing Kit" =  /obj/item/repair_kit,
     )
 

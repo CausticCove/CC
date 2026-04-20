@@ -33,7 +33,7 @@
 	to_chat(H, span_warning("You are a ranger well-versed in traversing untamed lands, with years of experience taking odd jobs as a pathfinder and bodyguard in areas of wilderness untraversable to common soldiery."))
 	cloak = /obj/item/clothing/cloak/raincloak/furcloak/darkgreen
 	neck = /obj/item/clothing/neck/roguetown/coif
-	armor = /obj/item/clothing/suit/roguetown/armor/leather/hide
+	armor = /obj/item/clothing/suit/roguetown/armor/leather
 	shirt = /obj/item/clothing/suit/roguetown/shirt/undershirt/green
 	wrists = /obj/item/clothing/wrists/roguetown/bracers/leather
 	gloves = /obj/item/clothing/gloves/roguetown/leather
@@ -45,7 +45,7 @@
 	backpack_contents = list(
 		/obj/item/storage/belt/rogue/pouch/coins/poor = 1,
 		/obj/item/bait = 1,
-		/obj/item/rogueweapon/huntingknife/combat = 1,
+		/obj/item/rogueweapon/huntingknife = 1,
 		/obj/item/recipe_book/survival = 1,
 		/obj/item/rogueweapon/scabbard/sheath = 1
 		)
@@ -56,11 +56,11 @@
 		switch(weapon_choice)
 			if("Recurve Bow")
 				H.adjust_skillrank_up_to(/datum/skill/combat/bows, SKILL_LEVEL_EXPERT, TRUE)
-				backr = /obj/item/gun/ballistic/revolver/grenadelauncher/bow/recurve
+				backr = /obj/item/gun/ballistic/revolver/grenadelauncher/bow //You may wanna upgrade this, dear ranger!
 				beltl = /obj/item/quiver/arrows
 			if("Crossbow")
 				H.adjust_skillrank_up_to(/datum/skill/combat/crossbows, SKILL_LEVEL_EXPERT, TRUE)
-				backr = /obj/item/gun/ballistic/revolver/grenadelauncher/crossbow
+				backr = /obj/item/gun/ballistic/revolver/grenadelauncher/crossbow/light //You may wanna upgrade this, dear ranger!
 				beltl = /obj/item/quiver/bolts
 
 /datum/advclass/ranger/wayfarer
@@ -103,9 +103,9 @@
 	armor = /obj/item/clothing/suit/roguetown/armor/leather
 	cloak = /obj/item/clothing/cloak/raincloak/mortus
 	backl = /obj/item/storage/backpack/rogue/satchel
-	beltl = /obj/item/rogueweapon/huntingknife/idagger/steel
+	beltl = /obj/item/rogueweapon/huntingknife/idagger/iron
 	beltr = /obj/item/quiver/bolts
-	backr = /obj/item/gun/ballistic/revolver/grenadelauncher/crossbow
+	backr = /obj/item/gun/ballistic/revolver/grenadelauncher/crossbow/light //You may wanna upgrade this, dear ranger!
 	backpack_contents = list(
 		/obj/item/flashlight/flare/torch = 1,
 		/obj/item/recipe_book/survival = 1,
@@ -155,7 +155,6 @@
 	backpack_contents = list(
 		/obj/item/bomb = 4,
 		/obj/item/rogueweapon/huntingknife = 1,
-		/obj/item/recipe_book/survival = 1,
 		/obj/item/rogueweapon/scabbard/sheath = 1,
 		/obj/item/flint = 1,
 		)
@@ -210,11 +209,11 @@
 		switch(weapon_choice)
 			if("Recurve Bow")
 				H.adjust_skillrank_up_to(/datum/skill/combat/bows, SKILL_LEVEL_JOURNEYMAN, TRUE)
-				backr = /obj/item/gun/ballistic/revolver/grenadelauncher/bow/recurve
+				backr = /obj/item/gun/ballistic/revolver/grenadelauncher/bow
 				beltl = /obj/item/quiver/arrows
 			if("Billhook") // Debatable here, but we love variety.
 				H.adjust_skillrank_up_to(/datum/skill/combat/polearms, SKILL_LEVEL_JOURNEYMAN, TRUE)
-				r_hand = /obj/item/rogueweapon/spear/billhook
+				r_hand = /obj/item/rogueweapon/spear/improvisedbillhook //From normal Billhook to Improvised Billhook.
 				backr = /obj/item/rogueweapon/scabbard/gwstrap
 			if("Sling")
 				H.adjust_skillrank_up_to(/datum/skill/combat/slings, SKILL_LEVEL_JOURNEYMAN, TRUE)
@@ -222,15 +221,15 @@
 				r_hand = /obj/item/gun/ballistic/revolver/grenadelauncher/sling
 			if("Crossbow") // Hunting crossbows were a thing in these times, shame we don't have an item for it.
 				H.adjust_skillrank_up_to(/datum/skill/combat/crossbows, SKILL_LEVEL_JOURNEYMAN, TRUE)
-				backr = /obj/item/gun/ballistic/revolver/grenadelauncher/crossbow
+				backr = /obj/item/gun/ballistic/revolver/grenadelauncher/crossbow/light //We have light crossbows now! Those work!
 				beltl = /obj/item/quiver/bolts
 		var/armors = list("Light Armor","Medium Armor")
 		var/armor_choice = input(H, "Choose your armor.", "TAKE UP ARMS") as anything in armors
 		switch(armor_choice)
 			if("Light Armor")
-				armor = /obj/item/clothing/suit/roguetown/armor/leather/hide
-				pants = /obj/item/clothing/under/roguetown/heavy_leather_pants
-				gloves = /obj/item/clothing/gloves/roguetown/fingerless_leather
+				armor = /obj/item/clothing/suit/roguetown/armor/leather
+				pants = /obj/item/clothing/under/roguetown/trou/leather
+				gloves = /obj/item/clothing/gloves/roguetown/leather
 				ADD_TRAIT(H, TRAIT_DODGEEXPERT, TRAIT_GENERIC)
 				H.change_stat(STATKEY_SPD, 1)
 			if("Medium Armor")

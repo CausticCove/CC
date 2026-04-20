@@ -30,7 +30,7 @@
 		/datum/skill/craft/alchemy = SKILL_LEVEL_EXPERT,
 		/datum/skill/magic/arcane = SKILL_LEVEL_EXPERT,
 	)
-	subclass_stashed_items = list(
+	subclass_stashed_items += list(
         "Sewing Kit" =  /obj/item/repair_kit,
     )
 

@@ -47,7 +47,7 @@
 		STATKEY_INT = 2,
 	)
 
-	subclass_stashed_items = list("Heartfelt Caparison" = /obj/item/caparison/heartfelt)
+	subclass_stashed_items += list("Heartfelt Caparison" = /obj/item/caparison/heartfelt)
 	subclass_virtues = list(
 		/datum/virtue/utility/riding
 	)
@@ -120,7 +120,7 @@
 		STATKEY_WIL = 2,
 	)
 
-	subclass_stashed_items = list("Heartfelt Caparison" = /obj/item/caparison/heartfelt)
+	subclass_stashed_items += list("Heartfelt Caparison" = /obj/item/caparison/heartfelt)
 	subclass_virtues = list(
 		/datum/virtue/utility/riding
 	)
@@ -178,7 +178,7 @@
 		STATKEY_SPD = 1
 	)
 
-	subclass_stashed_items = list("Heartfelt Caparison" = /obj/item/caparison/heartfelt)
+	subclass_stashed_items += list("Heartfelt Caparison" = /obj/item/caparison/heartfelt)
 	subclass_virtues = list(
 		/datum/virtue/utility/riding
 	)

@@ -27,7 +27,7 @@
 		/datum/skill/craft/crafting = SKILL_LEVEL_NOVICE,
 		/datum/skill/craft/cooking = SKILL_LEVEL_APPRENTICE
 	)
-	subclass_stashed_items = list(
+	subclass_stashed_items += list(
 		"Of Psydon" = /obj/item/book/rogue/bibble/psy
 	)
 	

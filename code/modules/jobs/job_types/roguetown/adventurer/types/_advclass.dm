@@ -48,7 +48,7 @@
 	var/subclass_spellpoints = 0
 
 	/// List of items to put in an item stash
-	var/list/subclass_stashed_items = list()
+	var/list/subclass_stashed_items = list(/obj/item/recipe_book/survival, /obj/item/flashlight/flare/torch/metal) //CC Edit - These are now default stashed items.
 
 	/// Extra fluff added to the role explanation in class selection.
 	var/extra_context

@@ -9,8 +9,8 @@
 	traits_applied = list(TRAIT_DODGEEXPERT, TRAIT_DECEIVING_MEEKNESS)
 	subclass_stats = list(
 		STATKEY_SPD = 3,
-		STATKEY_INT = 2,
-		STATKEY_WIL = 1
+		STATKEY_INT = 2, //No negative stat. But only +7
+		STATKEY_WIL = 2
 	)
 	subclass_skills = list(
 		/datum/skill/combat/swords = SKILL_LEVEL_EXPERT,

@@ -22,7 +22,7 @@
 		/datum/skill/misc/medicine = SKILL_LEVEL_APPRENTICE, //You WILL be getting neckstabbed A LOT. 
 		/datum/skill/misc/tracking = SKILL_LEVEL_EXPERT, //SNIFF OUT JUSTICE.
 	)
-	subclass_stashed_items = list(
+	subclass_stashed_items += list(
         "Sewing Kit" =  /obj/item/repair_kit,
     )
 
