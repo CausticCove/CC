@@ -29,7 +29,7 @@
 		/datum/skill/misc/medicine = SKILL_LEVEL_NOVICE,
 		/datum/skill/combat/shields = SKILL_LEVEL_JOURNEYMAN,
 	)
-	subclass_stashed_items += list(
+	subclass_stashed_items = list(
 		"Tome of Psydon" = /obj/item/book/rogue/bibble/psy
 	)
 	extra_context = "This subclass can choose between two types of armor: a set of plated hauberk, and a tasseted cuirass. Selecting the latter provides less coverage and durability, but removes the innate malus to Speed."

@@ -31,7 +31,7 @@
 	class_select_category = CLASS_CAT_HFT_COURT
 	traits_applied = list(TRAIT_NOBLE, TRAIT_HEAVYARMOR, TRAIT_HEARTFELT)
 
-	subclass_stashed_items += list("Heartfelt Caparison" = /obj/item/caparison/heartfelt)
+	subclass_stashed_items = list("Heartfelt Caparison" = /obj/item/caparison/heartfelt)
 	subclass_virtues = list(
 		/datum/virtue/utility/riding
 	)
@@ -102,7 +102,7 @@
 	class_select_category = CLASS_CAT_HFT_COURT
 	traits_applied = list(TRAIT_NOBLE, TRAIT_MAGEARMOR, TRAIT_ARCYNE_T3, TRAIT_INTELLECTUAL, TRAIT_HEARTFELT, TRAIT_ALCHEMY_EXPERT)
 
-	subclass_stashed_items += list("Heartfelt Caparison" = /obj/item/caparison/heartfelt)
+	subclass_stashed_items = list("Heartfelt Caparison" = /obj/item/caparison/heartfelt)
 	subclass_virtues = list(
 		/datum/virtue/utility/riding
 	)
@@ -180,7 +180,7 @@
 	class_select_category = CLASS_CAT_HFT_COURT
 	traits_applied = list(TRAIT_NOBLE, TRAIT_MEDIUMARMOR, TRAIT_CIVILIZEDBARBARIAN, TRAIT_STRONGBITE, TRAIT_HEARTFELT)
 
-	subclass_stashed_items += list("Heartfelt Caparison" = /obj/item/caparison/heartfelt)
+	subclass_stashed_items = list("Heartfelt Caparison" = /obj/item/caparison/heartfelt)
 	subclass_virtues = list(
 		/datum/virtue/utility/riding
 	)

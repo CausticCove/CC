@@ -57,7 +57,7 @@
 	class_select_category = CLASS_CAT_HFT_COURT
 	traits_applied = list(TRAIT_NOBLE, TRAIT_HEAVYARMOR, TRAIT_STEELHEARTED, TRAIT_HEARTFELT)
 
-	subclass_stashed_items += list("Heartfelt Caparison" = /obj/item/caparison/heartfelt)
+	subclass_stashed_items = list("Heartfelt Caparison" = /obj/item/caparison/heartfelt)
 	subclass_virtues = list(
 		/datum/virtue/utility/riding
 	)

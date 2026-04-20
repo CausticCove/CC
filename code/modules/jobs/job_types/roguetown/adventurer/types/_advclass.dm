@@ -48,7 +48,7 @@
 	var/subclass_spellpoints = 0
 
 	/// List of items to put in an item stash
-	var/list/subclass_stashed_items = list(/obj/item/recipe_book/survival, /obj/item/flashlight/flare/torch/metal) //CC Edit - These are now default stashed items.
+	var/list/subclass_stashed_items = list()
 
 	/// Extra fluff added to the role explanation in class selection.
 	var/extra_context
@@ -123,6 +123,9 @@
 	if(age_mod)
 		if(istype(age_mod))
 			age_mod.apply_age_mod(H)
+			
+	//CC Edit - Each class gets this by default.
+	subclass_stashed_items += list("Survival Book" = /obj/item/recipe_book/survival, "Metal Torch" = /obj/item/flashlight/flare/torch/metal) //CC Edit - These are now default stashed items.
 
 	if(length(subclass_stashed_items))
 		if(!H.mind)

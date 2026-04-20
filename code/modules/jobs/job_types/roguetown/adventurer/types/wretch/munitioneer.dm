@@ -36,7 +36,7 @@
 		/datum/skill/craft/smelting = SKILL_LEVEL_EXPERT,
 		/datum/skill/craft/engineering = SKILL_LEVEL_APPRENTICE
 	)
-	subclass_stashed_items += list(
+	subclass_stashed_items = list(
         "Sewing Kit" =  /obj/item/repair_kit,
     )
 /datum/outfit/job/roguetown/wretch/munitioneer/pre_equip(mob/living/carbon/human/H)

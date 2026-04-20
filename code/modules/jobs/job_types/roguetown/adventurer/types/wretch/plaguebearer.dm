@@ -30,7 +30,7 @@
 		/datum/skill/craft/alchemy = SKILL_LEVEL_MASTER, // This is literally their whole thing
 		/datum/skill/labor/farming = SKILL_LEVEL_JOURNEYMAN, // Farm ingredients so you have something to do that isn't grinding skills
 	)
-	subclass_stashed_items += list(
+	subclass_stashed_items = list(
         "Sewing Kit" =  /obj/item/repair_kit,
     )
 

@@ -36,7 +36,7 @@
 	subclass_virtues = list(
 		/datum/virtue/utility/riding
 	)
-	subclass_stashed_items += list(
+	subclass_stashed_items = list(
         "Armor Plates" =  /obj/item/repair_kit/metal,
     )
 

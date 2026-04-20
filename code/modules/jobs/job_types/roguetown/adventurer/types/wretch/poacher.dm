@@ -34,7 +34,7 @@
 		/datum/skill/craft/cooking = SKILL_LEVEL_NOVICE,
 		/datum/skill/labor/butchering = SKILL_LEVEL_NOVICE,
 	)
-	subclass_stashed_items += list(
+	subclass_stashed_items = list(
         "Sewing Kit" =  /obj/item/repair_kit,
     )
 

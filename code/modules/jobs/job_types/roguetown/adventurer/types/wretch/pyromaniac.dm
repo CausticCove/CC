@@ -29,7 +29,7 @@
 		/datum/skill/craft/engineering = SKILL_LEVEL_NOVICE,
 		/datum/skill/labor/farming = SKILL_LEVEL_NOVICE,
 	)
-	subclass_stashed_items += list(
+	subclass_stashed_items = list(
         "Armor Plates" =  /obj/item/repair_kit/metal,
     )
 /datum/outfit/job/roguetown/wretch/pyromaniac/pre_equip(mob/living/carbon/human/H)
