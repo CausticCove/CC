@@ -14,7 +14,7 @@
 		STATKEY_WIL = 3,
 		STATKEY_STR = 2, //Should give minimum required stats to use Zweihander
 		STATKEY_PER = 1,
-		STATKEY_SPD = -1 //They get heavy armor now + sword option; so lower speed.
+		STATKEY_SPD = -2 //They get heavy armor now + sword option; so lower speed.
 	)
 	subclass_skills = list(
 		/datum/skill/misc/swimming = SKILL_LEVEL_APPRENTICE,
@@ -76,7 +76,7 @@
 		STATKEY_STR = 2,//same str, worse end, more speed - actually a good tradeoff, now.
 		STATKEY_CON = 2,
 		STATKEY_WIL = 2,
-		STATKEY_SPD = 1,
+		STATKEY_SPD = 2,
 		STATKEY_PER = -1
 	)
 	subclass_skills = list(
@@ -277,9 +277,9 @@
 	traits_applied = list(TRAIT_MAGEARMOR, TRAIT_INTELLECTUAL, TRAIT_STEELHEARTED, TRAIT_ALCHEMY_EXPERT)
 	subclass_stats = list(
 		STATKEY_INT = 3,
-		STATKEY_WIL = 3,
+		STATKEY_WIL = 2,
 		STATKEY_STR = -1,
-		STATKEY_PER = 3,
+		STATKEY_PER = 2,
 		STATKEY_SPD = 1
 	)
 	extra_context = "This class gains T3 spells at Old age."
@@ -348,9 +348,9 @@
 	outfit = /datum/outfit/job/roguetown/mercenary/grenzelhoft_arquebusier
 	traits_applied = list(TRAIT_STEELHEARTED) //removing dodge expert. these are veteran marksmen
 	subclass_stats = list(
-		STATKEY_SPD = 1, //less speed compared to arbalest
+		STATKEY_SPD = 2, //less speed compared to arbalest
 		STATKEY_WIL = 2,
-		STATKEY_PER = 2,
+		STATKEY_PER = 3,
 		STATKEY_STR = 1,// 1 STR for the axe and crossbow reload. END for chopping trees, a bit of SPD for running, PER for shooting. -1 CON bc you aint a frontliner
 		STATKEY_CON = -1
 	)

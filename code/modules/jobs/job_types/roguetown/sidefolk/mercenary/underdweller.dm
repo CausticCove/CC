@@ -20,7 +20,8 @@
 		STATKEY_WIL = 2,
 		STATKEY_SPD = 1,
 		STATKEY_STR = 1,
-		STATKEY_LCK = 1
+		STATKEY_LCK = 2, //How are you alive at this point, eh?
+		STATKEY_PER = -1 
 	)
 	subclass_skills = list(
 		/datum/skill/combat/axes = SKILL_LEVEL_EXPERT,

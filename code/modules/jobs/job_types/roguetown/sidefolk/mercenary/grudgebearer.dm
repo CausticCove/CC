@@ -18,7 +18,7 @@
 		STATKEY_WIL = 3,
 		STATKEY_PER = 3,//Anvil"Strikes deftly" is based on PER
 		STATKEY_STR = 1,
-		STATKEY_SPD = -2
+		STATKEY_SPD = -4
 	)
 	subclass_skills = list(
 		/datum/skill/misc/reading = SKILL_LEVEL_EXPERT,
@@ -75,7 +75,8 @@
 		STATKEY_CON = 5,
 		STATKEY_WIL = 4,
 		STATKEY_STR = 2,
-		STATKEY_SPD = -2
+		STATKEY_SPD = -2,
+		STATKEY_PER = -2
 	)
 	subclass_skills = list(
 		/datum/skill/combat/axes = SKILL_LEVEL_EXPERT,

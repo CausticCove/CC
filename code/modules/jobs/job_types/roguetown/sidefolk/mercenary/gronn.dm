@@ -14,7 +14,7 @@
 		/datum/skill/misc/reading = SKILL_LEVEL_NOVICE,
 		/datum/skill/misc/climbing = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/craft/crafting = SKILL_LEVEL_NOVICE,
-		/datum/skill/craft/tanning = SKILL_LEVEL_APPRENTICE,
+		/datum/skill/craft/tanning = SKILL_LEVEL_NOVICE,
 		/datum/skill/labor/fishing = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/misc/swimming = SKILL_LEVEL_EXPERT, //All of you can suck my dick they're SEAMEN
 		/datum/skill/craft/sewing = SKILL_LEVEL_NOVICE,
@@ -109,9 +109,10 @@
 				H.adjust_skillrank_up_to(/datum/skill/combat/wrestling, 3, TRUE)
 				H.adjust_skillrank_up_to(/datum/skill/combat/unarmed, 2, TRUE)
 				H.adjust_skillrank_up_to(/datum/skill/craft/traps, 3, TRUE)			//Ditto
-				H.change_stat(STATKEY_CON, 2)
+				H.change_stat(STATKEY_CON, 3)
 				H.change_stat(STATKEY_WIL, 3)
 				H.change_stat(STATKEY_SPD, 2)
+				H.change_stat(STATKEY_INT, -1)
 				ADD_TRAIT(H, TRAIT_DODGEEXPERT, TRAIT_GENERIC)
 				H.dna.species.soundpack_m = new /datum/voicepack/male/evil() //Dodge builds are evil
 				var/weapons = list("Handclaws","Dual Handaxes")

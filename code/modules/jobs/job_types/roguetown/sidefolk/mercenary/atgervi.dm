@@ -11,7 +11,7 @@
 	traits_applied = list(TRAIT_MEDIUMARMOR)
 	subclass_stats = list(
 		STATKEY_WIL = 3,
-		STATKEY_CON = 3,
+		STATKEY_CON = 2,
 		STATKEY_STR = 2,
 		STATKEY_PER = 1,
 		STATKEY_SPD = -1
@@ -109,8 +109,8 @@
 	subclass_stats = list(
 		STATKEY_STR = 3,
 		STATKEY_CON = 2,
-		STATKEY_WIL = 1,
-		STATKEY_SPD = 1,
+		STATKEY_WIL = 2,
+		STATKEY_SPD = 2, //9 Stats; Has -1 in INT/PER for +1 to SPD
 		STATKEY_INT = -1,
 		STATKEY_PER = -1
 	)

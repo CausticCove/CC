@@ -39,11 +39,11 @@
 	outfit = /datum/outfit/job/roguetown/guildmaster/basic
 	category_tags = list(CTAG_GUILDSMASTER)
 	subclass_stats = list(
-		STATKEY_STR = 3,
-		STATKEY_CON = 2,
-		STATKEY_WIL = 2,
+		STATKEY_STR = 3, //Great at making amazing items at the smith.
+		STATKEY_CON = 1,
+		STATKEY_WIL = 1,
 		STATKEY_INT = 1,
-		STATKEY_PER = 2
+		STATKEY_PER = 4
 	)
 	age_mod = /datum/class_age_mod/guildmaster
 	subclass_skills = list(

@@ -78,7 +78,7 @@
 	H.adjust_skillrank(/datum/skill/misc/riding, 4, TRUE) //of course
 	H.change_stat(STATKEY_INT, 3)
 	H.change_stat(STATKEY_WIL, 3)
-	H.change_stat(STATKEY_SPD, 2) //Leadership role alongside the Duchy. 15 Stats.
+	H.change_stat(STATKEY_SPD, 2) //Leadership role alongside the Duchy. 15 Stats. 
 	H.change_stat(STATKEY_PER, 2)
 	H.change_stat(STATKEY_LCK, 5)
 	if(H.mind)

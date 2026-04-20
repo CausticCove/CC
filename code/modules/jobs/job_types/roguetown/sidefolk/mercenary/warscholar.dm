@@ -96,8 +96,8 @@
 	subclass_stats = list(
 		STATKEY_STR = 3,
 		STATKEY_SPD = 2,
-		STATKEY_WIL = 1,
-		STATKEY_PER = -1,
+		STATKEY_WIL = 2,
+		STATKEY_PER = -1, //Spell user.
 		STATKEY_CON = -1
 	)
 	subclass_skills = list(
@@ -173,8 +173,8 @@
 	outfit = /datum/outfit/job/roguetown/mercenary/warscholar_vizier
 	traits_applied = list(TRAIT_MAGEARMOR, TRAIT_ARCYNE_T2, TRAIT_ALCHEMY_EXPERT, TRAIT_NALEDI)
 	subclass_stats = list(
-		STATKEY_INT = 3,
-		STATKEY_SPD = 2,
+		STATKEY_INT = 2,
+		STATKEY_SPD = 2, //Miracle user. No downside; But less total stats.
 		STATKEY_WIL = 2,
 	)
 	subclass_skills = list(

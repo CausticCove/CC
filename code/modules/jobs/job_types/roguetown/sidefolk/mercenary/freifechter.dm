@@ -13,7 +13,7 @@
 	traits_applied = list(TRAIT_BADTRAINER, TRAIT_INTELLECTUAL, TRAIT_LONGSWORDSMAN, TRAIT_FENCERDEXTERITY)
 	subclass_stats = list(
 		STATKEY_INT = 3,
-		STATKEY_PER = 3,
+		STATKEY_PER = 3, //Freelancer, stat caps at 12 for STR and SPD, no need to change anything else.
 		STATKEY_WIL = 3
 	)
 	subclass_skills = list(
@@ -77,7 +77,7 @@
 	traits_applied = list(TRAIT_BADTRAINER, TRAIT_FENCERDEXTERITY, TRAIT_INTELLECTUAL)
 	subclass_stats = list(
 		STATKEY_CON = 2,
-		STATKEY_PER = 3,
+		STATKEY_PER = 3, //Freelancer. No downsides. Has a stat cap.
 		STATKEY_STR = 1,
 		STATKEY_WIL = 2
 	)
@@ -140,8 +140,8 @@
 	cmode_music = 'sound/music/frei_sabre.ogg'
 	traits_applied = list(TRAIT_BADTRAINER, TRAIT_INTELLECTUAL, TRAIT_FENCERDEXTERITY, TRAIT_SABRIST)
 	subclass_stats = list(
-		STATKEY_INT = 2,
-		STATKEY_PER = 3,
+		STATKEY_INT = 3,
+		STATKEY_PER = 3, //No Downsides. Has a 12 STR Statcap.
 		STATKEY_SPD = 2
 	)
 	subclass_skills = list(

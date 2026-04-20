@@ -10,10 +10,11 @@
 	cmode_music = 'sound/music/combat_condottiero.ogg'
 	traits_applied = list(TRAIT_MEDIUMARMOR)
 	subclass_stats = list(
-		STATKEY_WIL = 1,
+		STATKEY_WIL = 2,
 		STATKEY_PER = 2,
 		STATKEY_SPD = 2,
-		STATKEY_INT = 2
+		STATKEY_INT = 2,
+		STATKEY_CON = -1
 	)
 	subclass_skills = list(
 		/datum/skill/combat/swords = SKILL_LEVEL_JOURNEYMAN,
@@ -88,7 +89,8 @@
 	subclass_stats = list(
 		STATKEY_WIL = 2,
 		STATKEY_PER = 3, //sharpshooters
-		STATKEY_SPD = 2
+		STATKEY_SPD = 3,
+		STATKEY_STR = -1
 	)
 	subclass_skills = list(
 		/datum/skill/combat/crossbows = SKILL_LEVEL_MASTER, //Possibly too high, no idea.
@@ -105,8 +107,8 @@
 		/datum/skill/misc/lockpicking = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/misc/tracking = SKILL_LEVEL_EXPERT,
 		/datum/skill/craft/traps = SKILL_LEVEL_JOURNEYMAN,
-		/datum/skill/craft/crafting = SKILL_LEVEL_APPRENTICE,
-		/datum/skill/craft/sewing = SKILL_LEVEL_APPRENTICE,
+		/datum/skill/craft/crafting = SKILL_LEVEL_NOVICE,
+		/datum/skill/craft/sewing = SKILL_LEVEL_NOVICE,
 	)
 
 /datum/outfit/job/roguetown/mercenary/etrusca/balestrieri/pre_equip(mob/living/carbon/human/H)

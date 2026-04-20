@@ -15,7 +15,7 @@
 
 	traits_applied = list(TRAIT_CRITICAL_RESISTANCE, TRAIT_SHIRTLESS) //TRAIT_SHIRTLESS prevents equip on the head, armor and shirt slots and enables class-specific weapons
 	subclass_stats = list( 
-		STATKEY_STR = 2, 
+		STATKEY_STR = 2, //Stat Capped at 12
 		STATKEY_CON = 5,
 		STATKEY_WIL = 2,
 		STATKEY_INT = -3, // Brain dented in an accident involving 2 squirrels and a drunk zizite.

@@ -13,6 +13,7 @@
 		STATKEY_STR = 2,
 		STATKEY_WIL = 2,
 		STATKEY_SPD = 2,
+		STATKEY_CON = 2,
 		STATKEY_PER = -1
 	)
 	subclass_skills = list(
@@ -86,7 +87,9 @@
 	subclass_stats = list(
 		STATKEY_SPD = 3,
 		STATKEY_WIL = 2,
-		STATKEY_INT = 1,
+		STATKEY_INT = 2,
+		STATKEY_PER = 1,
+		STAKEY_FOR = -1 //Evil beginnings...
 	)
 	subclass_skills = list(
 		/datum/skill/combat/swords = SKILL_LEVEL_JOURNEYMAN,
@@ -166,7 +169,7 @@
 	subclass_stats = list(
 		STATKEY_SPD = 3,
 		STATKEY_WIL = 2,
-		STATKEY_INT = 2,
+		STATKEY_INT = 3,
 		STATKEY_PER = -1
 	)
 	subclass_spellpoints = 15

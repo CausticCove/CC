@@ -39,8 +39,9 @@
 
 	category_tags = list(CTAG_GUILDSMEN)
 	subclass_stats = list(
-		STATKEY_STR = 3,
-		STATKEY_WIL = 2,
+		STATKEY_STR = 2,
+		STATKEY_PER = 2, //Deft Strikes!
+		STATKEY_WIL = 1,
 		STATKEY_CON = 1,
 	)
 	age_mod = /datum/class_age_mod/guildmaster
@@ -108,8 +109,9 @@
 	category_tags = list(CTAG_GUILDSMEN)
 	traits_applied = list(TRAIT_ARCYNE_T2)
 	subclass_stats = list(
-		STATKEY_INT = 3,
-		STATKEY_WIL = 2,
+		STATKEY_INT = 2,
+		STATKEY_PER = 2, //Deft Strikes!
+		STATKEY_WIL = 1, 
 		STATKEY_STR = 1
 	)
 	subclass_skills = list(
@@ -178,7 +180,7 @@
 	traits_applied = list(TRAIT_HOMESTEAD_EXPERT) // They get extra virtue for dipping into lumberjacking
 	subclass_stats = list(
 		STATKEY_INT = 2,
-		STATKEY_WIL = 1,
+		STATKEY_WIL = 1, //No deft striking here.
 		STATKEY_LCK = 1,
 		STATKEY_STR = 1,
 		STATKEY_CON = 1,
