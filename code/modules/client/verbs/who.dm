@@ -44,7 +44,7 @@
 					if(C.mob.mind.special_role)
 						entry += " - <b><font color='red'>[C.mob.mind.special_role]</font></b>"
 //			entry += " [ADMIN_QUE(C.mob)]"
-			entry += " ([CheckIPCountry(C.address)])"
+			//entry += " ([CheckIPCountry(C.address)])"
 			if(C.whitelisted())
 				wled++
 				entry += "(WL)"

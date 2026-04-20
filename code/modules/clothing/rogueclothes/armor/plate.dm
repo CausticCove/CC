@@ -472,7 +472,7 @@
 
 /obj/item/clothing/suit/roguetown/armor/plate/otavan/AdjustClothes(mob/user)
 	if(loc == user)
-		playsound(user, "sound/foley/dropsound/cloth_drop.ogg", 100, TRUE, -1)
+		playsound(user, 'sound/foley/dropsound/cloth_drop.ogg', 100, TRUE, -1)
 		if(adjustable == CAN_CADJUST)
 			adjustable = CADJUSTED
 			icon_state = "fancyhalfplate"

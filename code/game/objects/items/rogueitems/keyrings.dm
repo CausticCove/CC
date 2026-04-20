@@ -60,7 +60,7 @@
 
 /obj/item/storage/keyring/Entered(atom/movable/arrived, atom/old_loc, list/atom/old_locs)
     . = ..()
-    playsound(src, "sound/items/gems (1).ogg", 100, FALSE)
+    playsound(src, 'sound/items/gems (1).ogg', 100, FALSE)
     update_desc()
 
 /obj/item/storage/keyring/Exited(atom/movable/gone, direction)

@@ -337,7 +337,7 @@
 	layer = ABOVE_MOB_LAYER
 	plane = GAME_PLANE_UPPER
 	obj_flags = CAN_BE_HIT | BLOCK_Z_OUT_DOWN
-	attacked_sound = list("sound/combat/hits/onmetal/metalimpact (1).ogg", "sound/combat/hits/onmetal/metalimpact (2).ogg")
+	attacked_sound = list('sound/combat/hits/onmetal/metalimpact (1).ogg', 'sound/combat/hits/onmetal/metalimpact (2).ogg')
 
 /obj/structure/bars/obj_break(damage_flag)
 	loud_message("A sickening, metallic scrape of bars getting broken rings out", hearing_distance = 14)
@@ -774,7 +774,7 @@
 	blade_dulling = DULLING_BASHCHOP
 	max_integrity = 450
 	destroy_sound = 'sound/combat/hits/onwood/destroyfurniture.ogg'
-	attacked_sound = list("sound/combat/hits/onmetal/metalimpact (1).ogg", "sound/combat/hits/onmetal/metalimpact (2).ogg")
+	attacked_sound = list('sound/combat/hits/onmetal/metalimpact (1).ogg', 'sound/combat/hits/onmetal/metalimpact (2).ogg')
 
 /obj/structure/fluff/alch/folding
 	name = "folding alchemical lab"
@@ -1230,7 +1230,7 @@
 	name = "pantheon cross"
 	icon_state = "psycrosschurch"
 	break_sound = null
-	attacked_sound = list("sound/combat/hits/onmetal/metalimpact (1).ogg", "sound/combat/hits/onmetal/metalimpact (2).ogg")
+	attacked_sound = list('sound/combat/hits/onmetal/metalimpact (1).ogg', 'sound/combat/hits/onmetal/metalimpact (2).ogg')
 	chance2hear = 66
 
 /obj/structure/fluff/psycross/crafted
@@ -1257,7 +1257,7 @@
 	name = "silver psydonic crucifix"
 	icon_state = "psycruci_s"
 	desc = "Constructed of Blessed Silver, this crucifix symbolises absolute faith in the ONE - For PSYDON WEEPS, for all mortal ilk. PSYDON WEEPS, for all who walk upon the soil. PSYDON WEEPS..."
-	attacked_sound = list("sound/combat/hits/onmetal/metalimpact (1).ogg", "sound/combat/hits/onmetal/metalimpact (2).ogg")
+	attacked_sound = list('sound/combat/hits/onmetal/metalimpact (1).ogg', 'sound/combat/hits/onmetal/metalimpact (2).ogg')
 	max_integrity = 450
 	chance2hear = 10
 

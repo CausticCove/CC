@@ -7,7 +7,7 @@
 	blade_dulling = DULLING_BASH
 	obj_flags = CAN_BE_HIT
 	animate_dmg = TRUE
-	attacked_sound = list("sound/combat/hits/onmetal/metalimpact (1).ogg", "sound/combat/hits/onmetal/metalimpact (2).ogg")
+	attacked_sound = list('sound/combat/hits/onmetal/metalimpact (1).ogg', 'sound/combat/hits/onmetal/metalimpact (2).ogg')
 	var/drilling = FALSE
 	var/has_reported = FALSE
 	var/drilltime = 0

@@ -87,8 +87,16 @@
 /datum/supply_pack/rogue/luxury/polishing_kit
 	name = "Polishing Kit"
 	no_name_quantity = TRUE
-	cost = 100
+	cost = 25 //CC Edit - Make this cheaper! Let failed squires use it more often! Can't use polishing cream without the squire trait anyhow!
 	contains = list(/obj/item/polishing_cream, /obj/item/armor_brush)
+
+//CC Edit - Add a restock as well. Cream is 10 mammons per bottle. Brush is 15 mammons with the polishing kit.
+/datum/supply_pack/rogue/luxury/polishing_cream_restock
+	name = "Polishing Cream (x3)"
+	no_name_quantity = TRUE
+	cost = 30
+	contains = list(/obj/item/polishing_cream, /obj/item/polishing_cream, /obj/item/polishing_cream)
+//CC Edit - Add a restock as well.
 
 /datum/supply_pack/rogue/luxury/talkstone
 	name = "Talkstone"

@@ -31,7 +31,7 @@
 	experimental_onback = TRUE
 	cartridge_wording = "musketball"
 	load_sound = 'modular_causticcove/sound/arquebus/musketload.ogg'
-	fire_sound = "modular_causticcove/sound/arquebus/arquefire.ogg"
+	fire_sound = 'modular_causticcove/sound/arquebus/arquefire.ogg'
 	anvilrepair = /datum/skill/craft/weaponsmithing
 	smeltresult = /obj/item/ingot/bronze
 	bolt_type = BOLT_TYPE_NO_BOLT
@@ -63,8 +63,8 @@
 
 
 /obj/item/gun/ballistic/arquebus/shoot_live_shot(mob/living/user as mob|obj, pointblank = 0, mob/pbtarget = null, message = 1)
-	fire_sound = pick("modular_causticcove/sound/arquebus/arquefire.ogg", "modular_causticcove/sound/arquebus/arquefire2.ogg", "modular_causticcove/sound/arquebus/arquefire3.ogg",
-				"modular_causticcove/sound/arquebus/arquefire4.ogg", "modular_causticcove/sound/arquebus/arquefire5.ogg")
+	fire_sound = pick('modular_causticcove/sound/arquebus/arquefire.ogg', 'modular_causticcove/sound/arquebus/arquefire2.ogg', 'modular_causticcove/sound/arquebus/arquefire3.ogg',
+				'modular_causticcove/sound/arquebus/arquefire4.ogg', 'modular_causticcove/sound/arquebus/arquefire5.ogg')
 	. = ..()
 
 /obj/item/gun/ballistic/arquebus/attack_right(mob/user)
@@ -72,7 +72,7 @@
 		return
 	else
 		if(myrod)
-			playsound(src, "sound/items/sharpen_short1.ogg",  100)
+			playsound(src, 'sound/items/sharpen_short1.ogg',  100)
 			to_chat(user, "<span class='warning'>I draw the ramrod from [src]!</span>")
 			var/obj/item/ramrod/AM
 			for(AM in src)
@@ -173,7 +173,7 @@
 			return
 		if((loc == user) && (user.get_inactive_held_item() != src))
 			return
-		playsound(src, "modular_causticcove/sound/arquebus/insert.ogg",  100)
+		playsound(src, 'modular_causticcove/sound/arquebus/insert.ogg',  100)
 		user.visible_message("<span class='notice'>[user] forces [A] down the barrel of [src].</span>")
 		..()
 
@@ -185,7 +185,7 @@
 			to_chat(user, "<span class='warning'>You need to be holding [A] to reload it.")
 			return*/
 		else
-			playsound(src, "modular_causticcove/sound/arquebus/pour_powder.ogg",  100)
+			playsound(src, 'modular_causticcove/sound/arquebus/pour_powder.ogg',  100)
 			if(do_after(user, load_time_skill, src))
 				user.visible_message("<span class='notice'>[user] fills [src] with gunpowder.</span>")
 				gunpowder = TRUE
@@ -198,7 +198,7 @@
 					to_chat(user, "<span class='warning'>You need to be holding [A] to reload it.")
 					return*/
 				user.visible_message("<span class='notice'>[user] begins ramming the [R.name] down the barrel of [src].</span>")
-				playsound(src, "modular_causticcove/sound/arquebus/ramrod.ogg",  100)
+				playsound(src, 'modular_causticcove/sound/arquebus/ramrod.ogg',  100)
 				if(do_after(user, load_time_skill, src))
 					user.visible_message("<span class='notice'>[user] has finished reloading [src].</span>")
 					reloaded = TRUE
@@ -206,12 +206,12 @@
 		if(reloaded && !myrod)
 			user.transferItemToLoc(R, src)
 			myrod = R
-			playsound(src, "sound/foley/musketload.ogg",  100)
+			playsound(src, 'modular_causticcove/sound/arquebus/musketload.ogg',  100)
 			user.visible_message("<span class='notice'>[user] stows [R.name] under the barrel of [src].</span>")
 		if(!chambered && !myrod)
 			user.transferItemToLoc(R, src)
 			myrod = R
-			playsound(src, "sound/foley/musketload.ogg",  100)
+			playsound(src, 'modular_causticcove/sound/arquebus/musketload.ogg',  100)
 			user.visible_message("<span class='notice'>[user] stows [R.name] under the barrel of [src] without chambering it.</span>")
 		if(!myrod == null)
 			to_chat(user, span_warning("There's already a [R.name] inside of [src]."))
@@ -293,7 +293,7 @@
 	walking_stick = FALSE
 	cartridge_wording = "musketball"
 	load_sound = 'modular_causticcove/sound/arquebus/musketload.ogg'
-	fire_sound = "modular_causticcove/sound/arquebus/arquefire.ogg"
+	fire_sound = 'modular_causticcove/sound/arquebus/arquefire.ogg'
 	anvilrepair = /datum/skill/craft/weaponsmithing
 	smeltresult = /obj/item/ash
 	bolt_type = BOLT_TYPE_NO_BOLT
@@ -341,8 +341,8 @@
 
 
 /obj/item/gun/ballistic/arquebus_pistol/shoot_live_shot(mob/living/user as mob|obj, pointblank = 0, mob/pbtarget = null, message = 1)
-	fire_sound = pick("modular_causticcove/sound/arquebus/arquefire.ogg", "modular_causticcove/sound/arquebus/arquefire2.ogg", "modular_causticcove/sound/arquebus/arquefire3.ogg",
-				"modular_causticcove/sound/arquebus/arquefire4.ogg", "modular_causticcove/sound/arquebus/arquefire5.ogg")
+	fire_sound = pick('modular_causticcove/sound/arquebus/arquefire.ogg', 'modular_causticcove/sound/arquebus/arquefire2.ogg', 'modular_causticcove/sound/arquebus/arquefire3.ogg',
+				'modular_causticcove/sound/arquebus/arquefire4.ogg', 'modular_causticcove/sound/arquebus/arquefire5.ogg')
 	. = ..()
 
 /obj/item/gun/ballistic/arquebus_pistol/attack_right(mob/user)
@@ -350,7 +350,7 @@
 		return
 	else
 		if(myrod)
-			playsound(src, "sound/items/sharpen_short1.ogg",  100)
+			playsound(src, 'sound/items/sharpen_short1.ogg',  100)
 			to_chat(user, "<span class='warning'>I draw the ramrod from [src]!</span>")
 			var/obj/item/ramrod/AM
 			for(AM in src)
@@ -386,7 +386,7 @@
 			return
 		if((loc == user) && (user.get_inactive_held_item() != src))
 			return
-		playsound(src, "modular_causticcove/sound/arquebus/insert.ogg",  100)
+		playsound(src, 'modular_causticcove/sound/arquebus/insert.ogg',  100)
 		user.visible_message("<span class='notice'>[user] forces [A] down the barrel of [src].</span>")
 		..()
 
@@ -398,7 +398,7 @@
 			to_chat(user, "<span class='warning'>You need to be holding [A] to reload it.")
 			return*/
 		else
-			playsound(src, "modular_causticcove/sound/arquebus/pour_powder.ogg",  100)
+			playsound(src, 'modular_causticcove/sound/arquebus/pour_powder.ogg',  100)
 			if(do_after(user, load_time_skill, src))
 				user.visible_message("<span class='notice'>[user] fills [src] with gunpowder.</span>")
 				gunpowder = TRUE
@@ -411,7 +411,7 @@
 					to_chat(user, "<span class='warning'>You need to be holding [A] to reload it.")
 					return*/
 				user.visible_message("<span class='notice'>[user] begins ramming the [R.name] down the barrel of [src].</span>")
-				playsound(src, "modular_causticcove/sound/arquebus/ramrod.ogg",  100)
+				playsound(src, 'modular_causticcove/sound/arquebus/ramrod.ogg',  100)
 				if(do_after(user, load_time_skill, src))
 					user.visible_message("<span class='notice'>[user] has finished reloading [src].</span>")
 					reloaded = TRUE
@@ -419,12 +419,12 @@
 		if(reloaded && !myrod)
 			user.transferItemToLoc(R, src)
 			myrod = R
-			playsound(src, "sound/foley/musketload.ogg",  100)
+			playsound(src, 'modular_causticcove/sound/arquebus/musketload.ogg',  100)
 			user.visible_message("<span class='notice'>[user] stows [R.name] under the barrel of [src].</span>")
 		if(!chambered && !myrod)
 			user.transferItemToLoc(R, src)
 			myrod = R
-			playsound(src, "sound/foley/musketload.ogg",  100)
+			playsound(src, 'modular_causticcove/sound/arquebus/musketload.ogg',  100)
 			user.visible_message("<span class='notice'>[user] stows [R.name] under the barrel of [src] without chambering it.</span>")
 		if(!myrod == null)
 			to_chat(user, span_warning("There's already a [R.name] inside of [src]."))

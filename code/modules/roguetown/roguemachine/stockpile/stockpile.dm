@@ -163,13 +163,12 @@
 					else
 						record_round_statistic(STATS_STOCKPILE_EXPANSES, amt)
 			continue
-		// Bloc to replace old vault mechanics
 		else if(istype(I,R.item_type))
 			if(!R.check_item(I))
 				continue
 			var/amt = R.get_payout_price(I)
-			var/nopay = !R.mint_item && R.held_items[stockpile_index] >= R.stockpile_limit // Check whether it is overflowed BEFORE nopaying them
-			if(!R.mint_item)
+			var/nopay = !R.transport_item && R.held_items[stockpile_index] >= R.stockpile_limit // Check whether it is overflowed BEFORE nopaying them
+			if(!R.transport_item)
 				R.held_items[stockpile_index] += 1 //stacked logs need to check for multiple
 				qdel(I)
 				if(message == TRUE)
@@ -177,10 +176,16 @@
 				if(sound == TRUE)
 					playsound(loc, 'sound/misc/hiss.ogg', 100, FALSE, -1)
 			else
-				var/mint_amt = round(SStreasury.mint_multiplier * I.get_real_price())
-				SStreasury.minted += mint_amt
-				SStreasury.give_money_treasury(mint_amt, "Minting - [I.name]", FALSE)
-				qdel(I) // Eaten to be minted!
+				var/area/A = GLOB.areas_by_type[R.transport_item]
+				if(!A && message == TRUE)
+					say("Couldn't find where to send the submission.")
+					return
+				I.submitted_to_stockpile = TRUE
+				var/list/turfs = list()
+				for(var/turf/T in A)
+					turfs += T
+				var/turf/T = pick(turfs)
+				I.forceMove(T)
 				if(sound == TRUE)
 					playsound(loc, 'sound/misc/hiss.ogg', 100, FALSE, -1)
 					playsound(loc, 'sound/misc/disposalflush.ogg', 100, FALSE, -1)

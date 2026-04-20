@@ -521,7 +521,7 @@
 				message_param = "licks %t cheek"
 			else
 				message_param = "licks %t [parse_zone(J.zone_selected)]."
-	playsound(target.loc, pick("sound/vo/lick.ogg"), 100, FALSE, -1)
+	playsound(target.loc, pick('sound/vo/lick.ogg'), 100, FALSE, -1)
 
 /datum/emote/living/spit
 	key = "spit"

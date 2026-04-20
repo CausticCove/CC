@@ -923,7 +923,7 @@
 	locksound = 'sound/foley/doors/lockmetal.ogg'
 	unlocksound = 'sound/foley/doors/lockmetal.ogg'
 	rattlesound = 'sound/foley/doors/lockrattlemetal.ogg'
-	attacked_sound = list("sound/combat/hits/onmetal/metalimpact (1).ogg", "sound/combat/hits/onmetal/metalimpact (2).ogg")
+	attacked_sound = list('sound/combat/hits/onmetal/metalimpact (1).ogg', 'sound/combat/hits/onmetal/metalimpact (2).ogg')
 	lock_strength = 200
 	lockdifficulty = 1
 	repair_cost_second = /obj/item/ingot/iron
@@ -1027,7 +1027,7 @@
 	locksound = 'sound/foley/doors/lock.ogg'
 	unlocksound = 'sound/foley/doors/unlock.ogg'
 	rattlesound = 'sound/foley/doors/lockrattlemetal.ogg'
-	attacked_sound = list("sound/combat/hits/onmetal/metalimpact (1).ogg", "sound/combat/hits/onmetal/metalimpact (2).ogg")
+	attacked_sound = list('sound/combat/hits/onmetal/metalimpact (1).ogg', 'sound/combat/hits/onmetal/metalimpact (2).ogg')
 	ridethrough = TRUE
 	swing_closed = FALSE
 	lock_strength = 150

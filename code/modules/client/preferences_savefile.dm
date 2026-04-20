@@ -220,6 +220,8 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	S["directory_gendertag"]>> directory_gendertag
 	S["directory_sexualitytag"]	>> directory_sexualitytag
 	S["directory_ad"]		>> directory_ad
+
+	S["audio_preload"]		>> audio_preload
 	///Caustic edit end
 	// Custom hotkeys
 	S["key_bindings"]		>> key_bindings
@@ -368,6 +370,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	WRITE_FILE(S["digestion_noises"], digestion_noises)
 	WRITE_FILE(S["eating_noises"], eating_noises)
 	WRITE_FILE(S["belch_noises"], belch_noises)
+	WRITE_FILE(S["audio_preload"], audio_preload)
 	///Caustic edit end
 	
 	return TRUE

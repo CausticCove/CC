@@ -501,7 +501,7 @@
 			for(var/datum/roguestock/bounty/A in SStreasury.stockpile_datums)
 				contents += "[A.name]<BR>"
 				contents += "[A.desc]<BR>"
-				contents += "Total Collected: [SStreasury.minted]<BR>"
+				contents += "Total Collected: [A.held_items[1] + A.held_items[2]]<BR>"
 				if(A.percent_bounty)
 					contents += "Bounty Price: <a href='?src=\ref[src];setbounty=\ref[A]'>[A.payout_price]%</a><BR><BR>"
 				else
@@ -516,12 +516,11 @@
 			contents += "<a href='?src=\ref[src];switchtab=[TAB_MAIN]'>\[Return\]</a><BR>"
 			contents += "<center>Statistics:<BR>"
 			contents += "Known Economic Output: [SStreasury.economic_output]m<BR>"
-			contents += "Total Rural Tax: [SStreasury.total_rural_tax]m<BR>"
+			contents += "Total Vault Income: [SStreasury.total_vault_income]m<BR>"
 			contents += "Total Deposit Tax: [SStreasury.total_deposit_tax]m<BR>"
 			contents += "Total Noble Estate Income: [SStreasury.total_noble_income]m<BR>"
 			contents += "Total Import: [SStreasury.total_import]m<BR>"
 			contents += "Total Export: [SStreasury.total_export]m<BR>"
-			contents += "Total Mammons Minted: [SStreasury.minted]m<BR>"
 			contents += "Trade Balance: [SStreasury.total_export - SStreasury.total_import]m<BR>"
 			contents  += "</center><BR>"
 		if(TAB_PAYDAY)

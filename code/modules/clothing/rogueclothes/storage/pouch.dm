@@ -348,6 +348,8 @@
 		if(!SEND_SIGNAL(src, COMSIG_TRY_STORAGE_INSERT, H, null, TRUE, TRUE))
 			SSwardrobe.recycle_object(H)
 
+/obj/item/storage/belt/rogue/pouch/food //Caustic Edit - This define was missing for this bag type? I don't think it's needed but, to mimic the ones below, here it is.
+
 /obj/item/storage/belt/rogue/pouch/food/PopulateContents()
 	new /obj/item/reagent_containers/food/snacks/rogue/crackerscooked(src)
 

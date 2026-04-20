@@ -133,7 +133,7 @@ All foods are distributed among various categories. Use common sense.
 //CC Edit: Rot refactor
 /obj/item/reagent_containers/food/snacks/proc/init_rot()
 	if(rotprocess)
-		if(!istype(loc, /obj/structure/closet/crate/chest) && ! istype(loc, /obj/item/cooking/platter)  && !istype(loc, /obj/structure/roguemachine/vendor) && !istype (loc, /obj/item/storage/backpack/rogue/artibackpack)&& !istype (loc, /obj/structure/table/cooling))
+		if(!istype(loc, /obj/structure/closet/crate/chest) && ! istype(loc, /obj/item/cooking/platter)  && !istype(loc, /obj/structure/roguemachine/vendor) && !istype (loc, /obj/item/storage/backpack/rogue/artibackpack) && !istype (loc, /obj/structure/table/cooling))
 			begin_rotting()
 
 //CC Edit: Rot refactor
@@ -209,12 +209,20 @@ All foods are distributed among various categories. Use common sense.
 		else
 			var/obj/item/reagent_containers/NU = new become_rot_type(loc)
 			var/atom/movable/location = loc
-			NU.reagents.clear_reagents()
+			NU.reagents?.clear_reagents() //Caustic Edit - This is sometimes not initiated yet it seems, and sometimes will Runtime. Adding a null check to be sure.
 			if(reagents) //CC Edit, more slopfix, because no one thought something can't have reagents
 				reagents.trans_to(NU.reagents, reagents.maximum_volume)
+			qdel(src) //Caustic Edit - This needs to delete the old item before we move the new one to replace it, otherwise it will drop it on the ground.
 			if(!location || !SEND_SIGNAL(location, COMSIG_TRY_STORAGE_INSERT, NU, null, TRUE, TRUE))
-				NU.forceMove(get_turf(NU.loc))
-			qdel(src)
+				//Caustic Edit - See if this fixes the Cheese Aging in a parcel dropping it on the ground? Otherwise does what it did before!
+				if(istype(location, /obj/item/parcel))
+					var/obj/item/parcel/package = location
+					package.contained_item = null
+					package.contained_item = NU
+					NU.forceMove(package)
+				else
+					NU.forceMove(get_turf(NU.loc))
+				//Caustic Edit End
 			record_round_statistic(STATS_FOOD_ROTTED)
 			return TRUE
 	else

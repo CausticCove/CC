@@ -247,6 +247,10 @@ GLOBAL_LIST_EMPTY(chosen_names)
 
 	var/attack_blip_frequency = ATTACK_BLIP_PREF_DEFAULT
 
+	//CC Edit - Audio Preload
+	var/audio_preload
+	var/preloaded = FALSE //Bool Check
+
 /datum/preferences/New(client/C)
 	parent = C
 	migrant  = new /datum/migrant_pref(src)

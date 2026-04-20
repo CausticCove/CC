@@ -126,11 +126,21 @@
 	data["paper_cost"] = 1
 	data["quill_cost"] = 5
 	data["letter_cost"] = 1
+	//CC Edit
+	var/datum/component/travelling_merchant/tmc = user.GetComponent(/datum/component/travelling_merchant)
+	if(tmc)
+		data["travellingmerchant_static"] = tmc.ui_static_data_fill_in()
+	//CC Edit End
 	return data
 
 /obj/structure/roguemachine/mail/ui_data(mob/user)
 	var/list/data = list()
 	data["balance"] = coin_loaded
+	//CC Edit
+	var/datum/component/travelling_merchant/tmc = user.GetComponent(/datum/component/travelling_merchant)
+	if(tmc)
+		data["travellingmerchant"] = tmc.ui_dynamic_data_fill_in()
+	//CC Edit end
 	return data
 
 /obj/structure/roguemachine/mail/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
@@ -223,6 +233,15 @@
 				coin_loaded = 0
 				update_icon()
 			return TRUE
+		//CC Edit
+		if("addToCart")
+			var/datum/component/travelling_merchant/tmc = user.GetComponent(/datum/component/travelling_merchant)
+			if(tmc)
+				tmc.add_to_cart(params["pckpath"])
+				return TRUE
+		//CC Edit End
+
+
 
 /obj/structure/roguemachine/mail/attackby(obj/item/P, mob/user, params)
 	if(istype(P, /obj/item/merctoken))
@@ -670,6 +689,7 @@
 
 	if(href_list["directory"])
 		view_directory(usr)
+		return
 
 /obj/structure/roguemachine/mail/proc/view_directory(mob/user)
 	var/dat

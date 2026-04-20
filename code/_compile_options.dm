@@ -75,7 +75,7 @@
 #define MAX_ATOM_OVERLAYS 100
 
 // Comment this to remove the PQ system
-//#define USES_PQ
+#define USES_PQ
 // Comment this to remove the SCOM restrictions
 //#define USES_SCOM_RESTRICTION
 // Comment this to remove traits based skill gating (The traits exist, but it will not have any effect)

@@ -1,10 +1,15 @@
+//Rememeber CC folk, if we are cherry picking we are using the OLD vault system. Not the new minting one!
+
 /datum/roguestock/bounty/treasure
 	name = "Collectable Treasures"
-	desc = "Treasures are minted for 80% of its value, which is deposited into the treasury. </br>Lesser weapons, clothes, and ores are excluded. </br> Insertions worth at least 30 mammons will always be depositable. </br> Statues, gemstones, utensils and rings will always deposit, regardless of value."
-	item_type = /obj
-	payout_price = 70
-	mint_item = TRUE
+	desc = "Treasures are sent to the vault, where they accrue value over time. Payout is a percentage is based on the price of the treasure, with taxes removed from the payout after."
+	item_type = /obj/item
+	payout_price = 66 // CC Edit
+	transport_item = /area/rogue/indoors/town/vault
 	percent_bounty = TRUE
+
+/obj/item
+	var/submitted_to_stockpile
 
 /datum/roguestock/bounty/treasure/get_payout_price(obj/item/I)
 	if(!I)
@@ -74,26 +79,11 @@
 			return TRUE
 		if(istype(I, /obj/item/roguegem))
 			return TRUE
-		if(istype(I, /obj/item/roguecoin/aalloy)) //Can't find a way to make these sellable to the Stockpile. If someone finds a fix, feel free to implement it.
-			return TRUE
 		if(istype(I, /obj/item/clothing/ring))
-			return TRUE
-		if(istype(I, /obj/item/reagent_containers/glass/bowl/aalloy))
-			return TRUE
-		if(istype(I, /obj/item/cooking/pan/aalloy))
-			return TRUE
-		if(istype(I, /obj/item/reagent_containers/glass/bucket/pot/aalloy))
 			return TRUE
 		if(istype(I, /obj/item/reagent_containers/glass/bucket/pot/teapot))
 			return TRUE
 		if(istype(I, /obj/item/tablecloth/silk)) //Standalone items that meet the price minimum can still be listed here, to 'brute-force' their redeemability in case of glitches.
 			return TRUE
-		if(istype(I, /obj/item/rogue/painting)) //CC Edit
-			return TRUE
-		if(istype(I, /obj/structure/fermentation_keg)) //CC Edit - Technically not mintable but we'll say we export this for goods.
-			if(I.get_real_price() > 30)
-				return TRUE
-			else
-				return FALSE
-	if(I.get_real_price() >= 100)// CC Edit - Price from 30 -> 100 //The numerical value here determines how much mammons an item needs to be worth, at the minimum, to be automatically accepted into the Stockpile.
+	if(I.get_real_price() >= 30)
 		return TRUE
