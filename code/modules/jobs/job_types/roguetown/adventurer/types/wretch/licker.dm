@@ -4,7 +4,7 @@
 	allowed_sexes = list(MALE, FEMALE)
 	allowed_races = RACES_NO_CONSTRUCT
 	outfit = /datum/outfit/job/roguetown/wretch/licker
-	category_tags = list(CTAG_WRETCH)
+	category_tags = list(CTAG_HEMOPHAGE)
 	traits_applied = list(
 		TRAIT_STEELHEARTED,
 		TRAIT_SILVER_WEAK,

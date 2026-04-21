@@ -221,12 +221,12 @@
 
 	for(var/X in peopleknowme)
 		for(var/datum/mind/MF in get_minds(X))
-			if(isnull(H.mind?.special_role) && (MF?.special_role in list(ROLE_VAMPIRE, ROLE_NBEAST, ROLE_BANDIT, ROLE_LICH, ROLE_WRETCH, ROLE_UNBOUND_DEATHKNIGHT)))
+			if(isnull(H.mind?.special_role) && (MF?.special_role in list(ROLE_VAMPIRE, ROLE_NBEAST, ROLE_BANDIT, ROLE_LICH, ROLE_WRETCH, ROLE_HEMOPHAGE, ROLE_UNBOUND_DEATHKNIGHT)))
 				continue
 			H.mind.person_knows_me(MF)
 	for(var/X in peopleiknow)
 		for(var/datum/mind/MF in get_minds(X))
-			if(isnull(H.mind?.special_role) && (MF?.special_role in list(ROLE_VAMPIRE, ROLE_NBEAST, ROLE_BANDIT, ROLE_LICH, ROLE_WRETCH, ROLE_UNBOUND_DEATHKNIGHT)))
+			if(isnull(H.mind?.special_role) && (MF?.special_role in list(ROLE_VAMPIRE, ROLE_NBEAST, ROLE_BANDIT, ROLE_LICH, ROLE_WRETCH, ROLE_HEMOPHAGE, ROLE_UNBOUND_DEATHKNIGHT)))
 				continue
 			H.mind.i_know_person(MF)
 

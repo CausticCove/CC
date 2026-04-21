@@ -53,6 +53,9 @@
 	flag = HEMOPHAGE
 	tutorial = "You have recently been embraced as a vampire. You do not know whom your sire is, strange urges, unnatural strength, a thirst you can barely control. You were outed as a monster and are now on the run, hiding from anyone who would deem you a threat to society."
 	display_order = JDO_LICKER
+	total_positions = 3
+	spawn_positions = 3
+	advclass_cat_rolls = list(CTAG_HEMOPHAGE = 20) //Garuntees only the Hemophage subclass; AKA /datum/advclass/wretch/licker
 	job_subclasses = list(/datum/advclass/wretch/licker)
 
 /datum/job/roguetown/wretch/after_spawn(mob/living/L, mob/M, latejoin = TRUE)

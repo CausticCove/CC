@@ -279,6 +279,12 @@
 		if(clergy_text)
 			. +=span_notice(clergy_text)
 
+		//CC Edit - Wanderer Examines
+		//Meant to help bring clarity when you examine someone if they are not native to Azure or not. Helps with identifying and spotting folk not apart of town.
+		if(display_as_wanderer)
+			. +=span_revenminor("An Outsider, they are not from the town.")
+		//CC Edit End
+
 		if (HAS_TRAIT(src, TRAIT_LEPROSY))
 			. += span_necrosis("A LEPER...")
 

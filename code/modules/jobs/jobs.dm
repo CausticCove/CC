@@ -178,6 +178,7 @@ GLOBAL_LIST_INIT(antagonist_positions, list( //Mostly lesser antagonists
 	"Bandit",
 	"Wretch",
 	"Gnoll",
+	"Hemophage" //CC Edit
 ))
 
 GLOBAL_LIST_INIT(inquisition_positions, list( //Self explanatory
@@ -203,7 +204,8 @@ GLOBAL_LIST_INIT(rogueoverthrow_positions, list( //Used for Aspirant / Peasant R
 	"Assassin",
 	"Bandit",
 	"Wretch",
-	"Gnoll"
+	"Gnoll",
+	"Hemophage" //CC Edit
 ))
 
 GLOBAL_LIST_INIT(roguewar_positions, list(
@@ -227,6 +229,7 @@ GLOBAL_LIST_INIT(foreign_positions, list(
 	"Mercenary", 
 	"Bandit", 
 	"Wretch",
+	"Hemophage", //CC Edit
 	"Inquisitor",
 	"Suitor",
 	"Orthodoxist",

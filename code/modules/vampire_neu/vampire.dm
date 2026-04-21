@@ -125,7 +125,7 @@ GLOBAL_LIST_EMPTY(vampire_objects)
 	var/list/clan_options = list()
 	var/list/available_clans = list()
 
-	if(vampdude.job == "Wretch")
+	if(vampdude.job == "Hemophage") //CC Edit - Hemophage
 		create_custom_clan(vampdude)
 		return
 

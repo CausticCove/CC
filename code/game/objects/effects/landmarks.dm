@@ -402,6 +402,19 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 	delete_after_roundstart = FALSE
 	jobspawn_override = list("Gnoll")
 
+//CC Edit Begin
+/obj/effect/landmark/start/hemophage
+	name = "hemophage"
+	icon_state = "arrow"
+	jobspawn_override = list("Hemophage")
+
+/obj/effect/landmark/start/hemophagelate
+	name = "hemophagelate"
+	icon_state = "arrow"
+	delete_after_roundstart = FALSE
+	jobspawn_override = list("Hemophage")
+//CC Edit End
+
 /obj/effect/landmark/start/nukeop_leader
 	name = "nukeop leader"
 	icon = 'icons/effects/landmarks_static.dmi'
