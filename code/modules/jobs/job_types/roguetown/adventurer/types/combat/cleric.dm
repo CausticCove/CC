@@ -9,11 +9,10 @@
 	class_select_category = CLASS_CAT_CLERIC
 	traits_applied = list(TRAIT_DODGEEXPERT, TRAIT_CIVILIZEDBARBARIAN)
 	subclass_stats = list(
-		STATKEY_STR = 2,
-		STATKEY_WIL = 2,
+		STATKEY_STR = 1,
+		STATKEY_WIL = 2, //ALL church roles get +1 to stats. They're each expected to play an important role and should fight against the inhumen threat.
 		STATKEY_CON = 2,
-		STATKEY_SPD = 1, //Base of +9, over the standard +7. Special clemency given to the Monk, as their playstyle is exceedingly lethal - light-to-no armor, while specializing in a dangerous melee style.
-	)
+		)
 	subclass_skills = list(
 		/datum/skill/combat/wrestling = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/combat/unarmed = SKILL_LEVEL_JOURNEYMAN,
@@ -427,6 +426,7 @@
 	traits_applied = list(TRAIT_DODGEEXPERT, TRAIT_EMPATH)
 	subclass_stats = list(
 		STATKEY_STR = 1,
+		STATKEY_INT = 1,
 		STATKEY_WIL = 1,
 		STATKEY_SPD = 2,
 	)
@@ -570,7 +570,7 @@
 	traits_applied = list()
 	subclass_stats = list(
 		STATKEY_INT = 2,
-		STATKEY_PER = 2,
+		STATKEY_PER = 1,
 		STATKEY_WIL = 1,
 		STATKEY_SPD = 1,
 	)

@@ -116,6 +116,7 @@
 #define VAMPIRE_GUARD 	(1<<7)
 #define VAMPIRE_SPAWN 	(1<<8)
 #define GNOLL			(1<<9)
+#define HEMOPHAGE		(1<<10) //CC Edit
 
 #define SLOP				(1<<11)
 

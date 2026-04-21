@@ -67,8 +67,5 @@
 		shirt = /obj/item/clothing/suit/roguetown/shirt/shortshirt/random
 	else if(should_wear_femme_clothes(H))
 		armor = /obj/item/clothing/suit/roguetown/shirt/dress/gen/random
-	backpack_contents = list(
-		/obj/item/recipe_book/survival,
-	)
 	if(H.mind)
 		SStreasury.give_money_account(ECONOMIC_LOWER_MIDDLE_CLASS, H, "Savings.")

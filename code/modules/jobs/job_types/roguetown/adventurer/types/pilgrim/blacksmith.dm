@@ -51,9 +51,7 @@
 		/obj/item/flint = 1,
 		/obj/item/rogueore/coal = 4,
 		/obj/item/rogueore/iron = 5,
-		/obj/item/flashlight/flare/torch = 1,
 		/obj/item/recipe_book/blacksmithing = 1,
-		/obj/item/recipe_book/survival = 1,
 		/obj/item/rogueweapon/scabbard/sheath = 1,
 		/obj/item/blueprint/mace_mushroom = 1
 		)

@@ -30,7 +30,6 @@
 	virtue_restrictions = list(/datum/virtue/heretic/zchurch_keyholder) //all wretch classes automatically get this
 	job_traits = list(TRAIT_STEELHEARTED, TRAIT_OUTLAW, TRAIT_HERESIARCH, TRAIT_SELF_SUSTENANCE, TRAIT_ZURCH)
 	job_subclasses = list(
-		/datum/advclass/wretch/licker,
 		/datum/advclass/wretch/deserter,
 		/datum/advclass/wretch/deserter/generic,
 		/datum/advclass/wretch/berserker,
@@ -49,8 +48,10 @@
 
 //CC Edit - Lickers get their own unique spawn group since they play so differently from normal wretch's.
 //They fundamentally work the same way in the code as a normal Wretch, but need
-/datum/job/roguetown/wretch/licker
-	title = "Licker"
+/datum/job/roguetown/wretch/licker //Uses old name in code; New display name to make them more unique opposed to the Wretch's.
+	title = "Hemophage"
+	flag = HEMOPHAGE
+	tutorial = "You have recently been embraced as a vampire. You do not know whom your sire is, strange urges, unnatural strength, a thirst you can barely control. You were outed as a monster and are now on the run, hiding from anyone who would deem you a threat to society."
 	display_order = JDO_LICKER
 	job_subclasses = list(/datum/advclass/wretch/licker)
 

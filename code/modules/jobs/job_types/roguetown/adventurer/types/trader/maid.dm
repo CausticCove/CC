@@ -52,5 +52,4 @@
 	backpack_contents = list(
 		/obj/item/rogueweapon/huntingknife = 1,
 		/obj/item/rogueweapon/scabbard/sheath = 1,
-		/obj/item/recipe_book/survival = 1
 		)

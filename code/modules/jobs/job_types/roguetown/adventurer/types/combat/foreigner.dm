@@ -1035,8 +1035,6 @@
 	head = /obj/item/clothing/head/roguetown/maidhead
 	backr = /obj/item/storage/backpack/rogue/satchel
 	backpack_contents = list(
-		/obj/item/flashlight/flare/torch = 1,
-		/obj/item/recipe_book/survival = 1,
 		/obj/item/bomb/smoke = 3,
 		)
 	neck = /obj/item/storage/belt/rogue/pouch/coins/poor

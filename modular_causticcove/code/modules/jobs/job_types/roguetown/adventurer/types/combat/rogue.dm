@@ -46,5 +46,4 @@
 		/obj/item/lockpick = 1,
 		/obj/item/rogueweapon/huntingknife = 1,
 		/obj/item/flashlight/flare/torch/lantern = 1,
-		/obj/item/recipe_book/survival = 1
 		)

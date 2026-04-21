@@ -91,11 +91,9 @@
 	backl = /obj/item/storage/backpack/rogue/backpack
 	backpack_contents = list(
 						/obj/item/flint = 1,
-						/obj/item/flashlight/flare/torch = 1,
 						/obj/item/rogueweapon/handsaw = 1,
 						/obj/item/dye_brush = 1,
 						/obj/item/recipe_book/builder = 1,
-						/obj/item/recipe_book/survival = 1,
 						/obj/item/reagent_containers/powder/salt = 3,
 						/obj/item/reagent_containers/food/snacks/rogue/cheddar = 2,
 						/obj/item/natural/cloth = 2,

@@ -51,10 +51,8 @@
 	beltl = /obj/item/rogueweapon/hammer/wood
 	backpack_contents = list(
 						/obj/item/flint = 1,
-						/obj/item/flashlight/flare/torch = 1,
 						/obj/item/rogueweapon/huntingknife = 1,
 						/obj/item/recipe_book/builder = 1,
-						/obj/item/recipe_book/survival = 1,
 						/obj/item/rogueweapon/scabbard/sheath = 1
 						)
 	if(should_wear_femme_clothes(H))

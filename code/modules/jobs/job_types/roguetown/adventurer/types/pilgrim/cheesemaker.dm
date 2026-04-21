@@ -47,7 +47,6 @@
 		/obj/item/reagent_containers/food/snacks/rogue/cheddar = 2,
 		/obj/item/natural/cloth = 2,
 		/obj/item/book/rogue/yeoldecookingmanual = 1,
-		/obj/item/recipe_book/survival = 1,
 		)
 	r_hand = /obj/item/flashlight/flare/torch
 	if(H.mind)

@@ -159,7 +159,6 @@
 						/obj/item/recipe_book/engineering = 1,
 						/obj/item/recipe_book/ceramics = 1,
 						/obj/item/recipe_book/builder = 1,
-						/obj/item/recipe_book/survival = 1,
 						/obj/item/clothing/mask/rogue/spectacles/golden = 1, //putting them in the bag because bad eye sight virtue strips these
 						/obj/item/contraption/linker = 1,
 						)
@@ -222,14 +221,12 @@
 						/obj/item/rogueweapon/handsaw = 1,
 						/obj/item/storage/belt/rogue/pouch/coins/mid = 1,
 						/obj/item/rogueweapon/chisel = 1,
-						/obj/item/flashlight/flare/torch = 1,
 						/obj/item/flint = 1,
 						/obj/item/rogueweapon/huntingknife = 1,
 						/obj/item/rogueweapon/handsaw = 1,
 						/obj/item/dye_brush = 1,
 						/obj/item/recipe_book/engineering = 1,
 						/obj/item/recipe_book/builder = 1,
-						/obj/item/recipe_book/survival = 1,
 						/obj/item/roguekey/crafterguild = 1
 						)
 	ADD_TRAIT(H, TRAIT_MASTER_CARPENTER, TRAIT_GENERIC)
