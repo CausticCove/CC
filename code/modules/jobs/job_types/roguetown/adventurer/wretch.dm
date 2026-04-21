@@ -47,7 +47,7 @@
 	)
 
 //CC Edit - Lickers get their own unique spawn group since they play so differently from normal wretch's.
-//They fundamentally work the same way in the code as a normal Wretch, but need
+//They fundamentally work the same way in the code as a normal Wretch.
 /datum/job/roguetown/wretch/licker //Uses old name in code; New display name to make them more unique opposed to the Wretch's.
 	title = "Hemophage"
 	flag = HEMOPHAGE
