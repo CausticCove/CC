@@ -114,7 +114,8 @@
 		has_opaque_atom = TRUE
 	
 	if(smooth & USES_SMOOTHING)  
-		QUEUE_SMOOTH(src) 
+		QUEUE_SMOOTH(src)
+		QUEUE_SMOOTH_NEIGHBORS(src)
 
 	ComponentInitialize()
 
@@ -450,7 +451,7 @@
 	var/turf/current_target
 	if(fake_baseturf_type)
 		if(length(fake_baseturf_type)) // We were given a list, just apply it and move on
-			baseturfs = fake_baseturf_type
+			baseturfs = baseturfs_string_list(fake_baseturf_type, src)
 			return
 		current_target = fake_baseturf_type
 	else
@@ -466,9 +467,9 @@
 	if(created_baseturf_lists[current_target])
 		var/list/premade_baseturfs = created_baseturf_lists[current_target]
 		if(length(premade_baseturfs))
-			baseturfs = premade_baseturfs.Copy()
+			baseturfs = baseturfs_string_list(premade_baseturfs.Copy(), src)
 		else
-			baseturfs = premade_baseturfs
+			baseturfs = baseturfs_string_list(premade_baseturfs, src)
 		return baseturfs
 
 	var/turf/next_target = initial(current_target.baseturfs)
@@ -489,7 +490,7 @@
 		current_target = next_target
 		next_target = initial(current_target.baseturfs)
 
-	baseturfs = new_baseturfs
+	baseturfs = baseturfs_string_list(new_baseturfs, src)
 	created_baseturf_lists[new_baseturfs[new_baseturfs.len]] = new_baseturfs.Copy()
 	return new_baseturfs
 
@@ -558,6 +559,8 @@
 	var/obj/structure/mineral_door/door = locate() in src
 	if(door && door.density && !door.locked && door.anchored) // door will have to be opened
 		. += 2 // try to avoid closed doors where possible
+	for(var/obj/O in src)
+		. += O.ai_path_weight
 
 	for(var/obj/structure/O in contents)
 		if(O.obj_flags & BLOCK_Z_OUT_DOWN)
@@ -641,7 +644,8 @@
 	if(!forced)
 		return
 	playsound(src, "bodyfall", 100, TRUE)
-	faller.drop_all_held_items()
+	if(!faller.mind)
+		faller.drop_all_held_items()
 
 /turf/proc/photograph(limit=20)
 	var/image/I = new()

@@ -43,25 +43,13 @@
 	icon_state = "circlet"
 	item_state = "circlet"
 	sellprice = 50
+
 //CC edit
 /obj/item/clothing/head/roguetown/crown/mad_duke_crown
 	name = "Crown of The Mad Duke"
 	desc = "A pristine crown, cold, heavy...it feels wrong. Your downfall"
 	icon_state = "serpcrown"
 //CC edit end
-////////////////////////
-// Triumph Exclusive! //
-////////////////////////
-
-//Purchasable via Triumphs. Blacklisted from the Stockpile and fitted with a reduced saleprice.
-/obj/item/clothing/head/roguetown/circlet/triumph
-	name = "ornate golden circlet"
-	desc = "An opulent crown, and the mantle of lesser nobility. It has been meticulously polished to turn even the slightest glimmer into a blinding glare."
-	sellprice = 33
-
-////////////
-// Carved //
-////////////
 
 /obj/item/clothing/head/roguetown/circlet/carvedgem
 	name = "generic carved gem circlet"

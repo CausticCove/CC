@@ -17,7 +17,7 @@
 	move_to_delay = 16
 	base_intents = list(/datum/intent/simple/elementalt2_unarmed)
 	butcher_results = list()
-	faction = list("elemental")
+	faction = list(FACTION_ELEMENTAL)
 	mob_biotypes = MOB_ORGANIC|MOB_BEAST
 	health = 1500
 	maxHealth = 1500
@@ -121,6 +121,7 @@
 	recharge_time = 25 SECONDS
 	overlay_state = "bloodrage"
 	chargetime = 0
+	ignore_los = 1 // this uses a different method of range
 
 /obj/effect/proc_holder/spell/self/colossus_stomp/cast(list/targets, mob/living/user = usr)
 	if(istype(user, /mob/living/simple_animal/hostile/retaliate/rogue/elemental/colossus))
@@ -144,7 +145,7 @@
 	icon_state = "rock"
 	damage = 30
 	damage_type = BRUTE
-	flag = "magic"
+	flag = "fire"
 	range = 10
 	speed = 16 //higher is slower
 

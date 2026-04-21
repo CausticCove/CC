@@ -11,6 +11,14 @@
 	var/list/categories = list("Raw Materials", "Fruit", "Vegetable", "Animal","Seafood")
 	var/datum/withdraw_tab/withdraw_tab = null
 
+/obj/structure/roguemachine/stockpile/get_mechanics_examine(mob/user)
+	. = ..()
+	. += span_info("Left-click with an open hand to check the vomitorium's stockpile. Stored mammons can be used to purchase a wide variety of materials, which're then vended out for use.")
+	. += span_info("Left-clicking the machine with an item will load it into the stockpile, rewarding you coinage in turn. Make sure to register an account with the MEISTER, first, or you won't receive any coinage.")
+	. += span_info("Right-clicking the machine will automatically load all adjacent items into the stockpile at once.")
+	. += span_info("The vomitorium's stockpile naturally refills over time. Loaded items are added to the stockpile's quantities, which can then be vended by others or exported by the Steward for profit.")
+	. += span_info("The vomitorium can also accept treasures, gemstones, and many other valuables that're particularly expensive; a portion of it is always taxed and returned to the Steward's treasury.")
+
 /obj/structure/roguemachine/stockpile/Initialize()
 	. = ..()
 	SSroguemachine.stock_machines += src
@@ -163,13 +171,12 @@
 					else
 						record_round_statistic(STATS_STOCKPILE_EXPANSES, amt)
 			continue
-		// Bloc to replace old vault mechanics
 		else if(istype(I,R.item_type))
 			if(!R.check_item(I))
 				continue
 			var/amt = R.get_payout_price(I)
-			var/nopay = !R.mint_item && R.held_items[stockpile_index] >= R.stockpile_limit // Check whether it is overflowed BEFORE nopaying them
-			if(!R.mint_item)
+			var/nopay = !R.transport_item && R.held_items[stockpile_index] >= R.stockpile_limit // Check whether it is overflowed BEFORE nopaying them
+			if(!R.transport_item)
 				R.held_items[stockpile_index] += 1 //stacked logs need to check for multiple
 				qdel(I)
 				if(message == TRUE)
@@ -177,10 +184,16 @@
 				if(sound == TRUE)
 					playsound(loc, 'sound/misc/hiss.ogg', 100, FALSE, -1)
 			else
-				var/mint_amt = round(SStreasury.mint_multiplier * I.get_real_price())
-				SStreasury.minted += mint_amt
-				SStreasury.give_money_treasury(mint_amt, "Minting - [I.name]", FALSE)
-				qdel(I) // Eaten to be minted!
+				var/area/A = GLOB.areas_by_type[R.transport_item]
+				if(!A && message == TRUE)
+					say("Couldn't find where to send the submission.")
+					return
+				I.submitted_to_stockpile = TRUE
+				var/list/turfs = list()
+				for(var/turf/T in A)
+					turfs += T
+				var/turf/T = pick(turfs)
+				I.forceMove(T)
 				if(sound == TRUE)
 					playsound(loc, 'sound/misc/hiss.ogg', 100, FALSE, -1)
 					playsound(loc, 'sound/misc/disposalflush.ogg', 100, FALSE, -1)
@@ -197,18 +210,17 @@
 			return
 
 /obj/structure/roguemachine/stockpile/attackby(obj/item/P, mob/user, params)
-	if(ishuman(user))
-		if(istype(P, /obj/item/roguecoin/aalloy))
-			return
+	if(istype(P, /obj/item/roguecoin/aalloy))
+		return
 
-		if(istype(P, /obj/item/roguecoin/inqcoin))
-			return
+	if(istype(P, /obj/item/roguecoin/inqcoin))
+		return
 
-		if(istype(P, /obj/item/roguecoin))
-			withdraw_tab.insert_coins(P)
-			return attack_hand(user)
-		else
-			attemptsell(P, user, TRUE, TRUE)
+	if(istype(P, /obj/item/roguecoin))
+		withdraw_tab.insert_coins(P)
+		return attack_hand(user)
+	else if (ishuman(user))
+		attemptsell(P, user, TRUE, TRUE)
 
 /obj/structure/roguemachine/stockpile/attack_right(mob/user)
 	if(ishuman(user))

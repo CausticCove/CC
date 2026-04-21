@@ -27,6 +27,8 @@
 #define COVERAGE_ALL_BUT_HANDFEET	( CHEST | GROIN | VITALS | LEGS | ARMS)
 #define COVERAGE_ALL_BUT_ARMFEET	( CHEST | GROIN | VITALS | LEGS )
 #define COVERAGE_FULL				( CHEST | GROIN | VITALS | LEGS | ARMS | HANDS | FEET)
+#define COVERAGE_NEARLY_FULL		( HEAD | CHEST | GROIN | VITALS | LEGS | ARMS | HANDS | FEET)
+#define COVERAGE_FULL_BODY_ACTUAL	( HEAD | HAIR | EARS | EYES | NOSE | MOUTH | NECK | CHEST | GROIN | VITALS | LEGS | ARMS | HANDS | FEET)
 
 #define COVERAGE_PANTS			( GROIN | LEGS )
 #define COVERAGE_ALL_BUT_HANDFEET_LEG		( LEGS | FEET )
@@ -78,6 +80,18 @@ Balloon Alert / Floating Text defines
 	/datum/species/dracon,\
 	/datum/species/dwarf/gnome\
 
+#define RACES_RESPECTED_NO_AASIMAR \
+	/datum/species/human/northern,\
+	/datum/species/elf/wood,\
+	/datum/species/elf/sun,\
+	/datum/species/human/halfelf,\
+	/datum/species/dwarf/mountain,\
+	/datum/species/lupian,\
+	/datum/species/vulpkanin,\
+	/datum/species/moth,\
+	/datum/species/dracon,\
+	/datum/species/dwarf/gnome\
+
 #define RACES_TOLERATED \
 	/datum/species/elf/dark,\
 	/datum/species/tieberian,\
@@ -106,6 +120,8 @@ Balloon Alert / Floating Text defines
 #define ACCEPTED_RACES list(RACES_SHUNNED, RACES_TOLERATED, RACES_RESPECTED, RACES_CONSTRUCT, RACES_DESPISED)	// CC Edit
 
 #define RACES_NO_CONSTRUCT list(RACES_SHUNNED, RACES_TOLERATED, RACES_RESPECTED, RACES_DESPISED) // CC Edit
+
+#define RACES_SHUNNED_UP_NO_AASIMAR list(RACES_SHUNNED, RACES_TOLERATED, RACES_RESPECTED_NO_AASIMAR, RACES_DESPISED) // CC Edit
 
 #define RACES_SHUNNED_UP list(RACES_SHUNNED, RACES_TOLERATED, RACES_RESPECTED, RACES_DESPISED) // CC Edit
 
@@ -309,6 +325,7 @@ GLOBAL_LIST_EMPTY(round_join_times)
 #define CTAG_GNOLL			"CAT_GNOLL"			// Wretch-esque gnolls, graggar's chosen.
 #define CTAG_GNOLL_IMPURE	"CAT_GNOLL_IMPURE"	// Reward for beating enough gnolls.
 #define CTAG_HEMOPHAGE		"CAT_HEMOPHAGE"		// CC Edit - Internal value. Use CTAG_LICKER_WRETCH instead to define the new jobs for Hemophages.
+#define CTAG_HAG			"CAT_HAG"
 
 #define CTAG_WARDEN			"CAT_WARDEN"		// Warden class - Handles warden class selector.
 #define CTAG_WATCH			"CAT_WATCH"			// Watch class - Handles Town Watch class selector
@@ -426,6 +443,10 @@ GLOBAL_LIST_EMPTY(round_join_times)
 #define CLASS_CAT_WARRIOR "Warrior"
 #define CLASS_CAT_TRADER "Trader"
 #define CLASS_CAT_NOMAD "Nomad"
+
+//Wretch categories
+#define CLASS_CAT_ACCURSED "Accursed"
+#define CLASS_CAT_BATTLEMAGE "Battlemage"
 
 //Mercenary categories
 #define CLASS_CAT_ETRUSCA "Etrusca"

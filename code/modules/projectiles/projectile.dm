@@ -112,7 +112,9 @@
 	var/nodamage = FALSE //Determines if the projectile will skip any damage inflictions
 	var/flag = "piercing" //Defines what armor to use when it hits things. Setting this to "blunt" might result in unexpected behavior (i.e. knockout on hit, figure out the root causes and excise it)
 	///How much armor this projectile pierces.
-	var/armor_penetration = 0
+	var/armor_penetration = PEN_NONE
+	/// Multiplier for integrity damage dealt to armor. 1 is default. Higher = harder on armor.
+	var/intdamfactor = 1
 	var/projectile_type = /obj/projectile
 	var/range = 50 //This will de-increment every step. When 0, it will deletze the projectile.
 	var/decayedRange			//stores original range
@@ -156,6 +158,13 @@
 	var/bonus_accuracy = 0 //bonus accuracy that cannot be affected by range drop off.
 
 	var/target_z = 0
+
+	/// Min tile distance for full damage/AP.
+	var/min_range = 0
+	/// Max tile distance for full damage/AP.
+	var/max_range = 0
+	/// Falloff factor for damage. Multiplicative.
+	var/dam_falloff_factor = 1
 
 /obj/projectile/proc/handle_drop()
 	return
@@ -202,6 +211,19 @@
 	if(range <= 0 && loc)
 		on_range()
 
+/obj/projectile/proc/check_range(turf/T)
+	if(!starting)
+		return FALSE
+	if(!istype(T))
+		T = get_turf(src)
+	if(!istype(T))
+		return FALSE
+	if(T.z != starting.z)
+		return FALSE
+	var/distance = get_dist(T, starting)
+	if((min_range && distance < min_range) || (max_range && distance > max_range))
+		return TRUE
+
 /obj/projectile/proc/on_range() //if we want there to be effects when they reach the end of their range
 //	on_hit(get_turf(src))
 	Bump(get_turf(src))
@@ -225,6 +247,7 @@
 /obj/projectile/proc/on_hit(atom/target, blocked = FALSE)
 	if(fired_from)
 		SEND_SIGNAL(fired_from, COMSIG_PROJECTILE_ON_HIT, firer, target, Angle)
+	SEND_SIGNAL(src, COMSIG_PROJECTILE_SELF_ON_HIT, firer, target, Angle)
 	var/turf/target_loca = get_turf(target)
 
 	var/hitx
@@ -256,10 +279,6 @@
 
 	var/mob/living/L = target
 
-	if (!L.mind && istype(L, /mob/living/simple_animal))
-		var/datum/component/saddleborn = L.GetComponent(/datum/component/precious_creature) // Check for Saddleborn status, lets not nuke five billion damage into something that causes a -10 mood debuff
-		if(!saddleborn)
-			damage *= npc_simple_damage_mult // bonus damage against simple.
 	if(blocked != 100) // not completely blocked
 		if(damage && L.blood_volume && damage_type == BRUTE)
 			var/splatter_dir = dir
@@ -284,6 +303,10 @@
 		log_combat(firer, L, "shot", src, reagent_note)
 	else
 		L.log_message("has been shot by [firer] with [src]", LOG_ATTACK, color="orange")
+
+	if((min_range || max_range) && !check_range(target_loca) && isliving(target))
+		var/obj/effect/temp_visual/dir_setting/attack_effect/atk_effrange = new(target_loca, target.dir)
+		atk_effrange.icon_state = "effrange"
 
 	return BULLET_ACT_HIT
 
@@ -405,7 +428,11 @@
 #define DO_NOT_QDEL 2		//Pass through.
 #define FORCE_QDEL 3		//Force deletion.
 
-/obj/projectile/proc/process_hit(turf/T, atom/target, qdel_self, hit_something = FALSE)		//probably needs to be reworked entirely when pixel movement is done.
+/obj/projectile/proc/process_hit(turf/T, atom/target, qdel_self, hit_something = FALSE) 	//probably needs to be reworked entirely when pixel movement is done.
+	if(check_range(T))
+		if(damage)
+			damage = round(damage * dam_falloff_factor)
+
 	if(QDELETED(src) || !T || !target)		//We're done, nothing's left.
 		if((qdel_self == FORCE_QDEL) || ((qdel_self == QDEL_SELF) && !temporary_unstoppable_movement && !CHECK_BITFIELD(movement_type, UNSTOPPABLE)))
 			qdel(src)
@@ -414,7 +441,9 @@
 	if(!prehit(target))
 		return process_hit(T, select_target(T), qdel_self, hit_something)		//Hit whatever else we can since that didn't work.
 	SEND_SIGNAL(target, COMSIG_PROJECTILE_PREHIT, args)
+
 	var/result = target.bullet_act(src, def_zone)
+
 	if(result == BULLET_ACT_FORCE_PIERCE)
 		if(!CHECK_BITFIELD(movement_type, UNSTOPPABLE))
 			temporary_unstoppable_movement = TRUE
@@ -831,13 +860,13 @@
 		finalize_hitscan_and_generate_tracers()
 	STOP_PROCESSING(SSprojectiles, src)
 	cleanup_beam_segments()
-	qdel(trajectory)
+	QDEL_NULL(trajectory)
 	return ..()
 
 /obj/projectile/proc/cleanup_beam_segments()
 	QDEL_LIST_ASSOC(beam_segments)
 	beam_segments = list()
-	qdel(beam_index)
+	QDEL_NULL(beam_index)
 
 /obj/projectile/proc/finalize_hitscan_and_generate_tracers(impacting = TRUE)
 	if(trajectory && beam_index)

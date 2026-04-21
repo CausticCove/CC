@@ -1,8 +1,13 @@
+// Scaling (base_antags path, no storyteller slot caps):
+//  Midround event: base=1, denom=80, max=2 → 1-79 pop: 1, 80+: 2
+//  Roundstart (Abyssor only): base=2, max=2 → always 2
 /datum/antagonist/dreamwalker
 	name = "Dreamwalker"
 	roundend_category = "Dreamwalker"
 	antagpanel_category = "Dreamwalker"
 	job_rank = ROLE_DREAMWALKER
+	storyteller_antag_flags = STORYTELLER_ANTAG_SOFT
+	storyteller_favor_flags = STORYTELLER_FAVOR_DREAMWALKER
 	confess_lines = list(
 		"MY VISION ABOVE ALL!",
 		"I'LL TAKE YOU TO MY REALM!",
@@ -13,6 +18,7 @@
 	var/traits_dreamwalker = list(
 		TRAIT_NOHUNGER,
 		TRAIT_NOBREATH,
+		TRAIT_DEATHLESS,
 		TRAIT_NOPAIN,
 		TRAIT_TOXIMMUNE,
 		TRAIT_STEELHEARTED,
@@ -67,7 +73,7 @@
 		ADD_TRAIT(body, trait, "[type]")
 	if(body.mind)
 		body.mind.RemoveAllSpells()
-		body.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/blink)
+		body.mind.AddSpell(new /datum/action/cooldown/spell/blink)
 		body.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/mark_target)
 		body.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/jaunt)
 		body.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/dream_bind)
@@ -79,10 +85,7 @@
 	var/obj/item/ritechalk/chalk = new()
 	body.put_in_hands(chalk)
 	to_chat(body, span_danger("I feel my connection to the arcyne and divine weaken as dream energies assert themselves..."))
-	REMOVE_TRAIT(body, TRAIT_ARCYNE_T1, TRAIT_GENERIC)
-	REMOVE_TRAIT(body, TRAIT_ARCYNE_T2, TRAIT_GENERIC)
-	REMOVE_TRAIT(body, TRAIT_ARCYNE_T3, TRAIT_GENERIC)
-	REMOVE_TRAIT(body, TRAIT_ARCYNE_T4, TRAIT_GENERIC)
+	REMOVE_TRAIT(body, TRAIT_ARCYNE, TRAIT_GENERIC)
 	body.devotion = null
 
 /datum/outfit/job/roguetown/dreamwalker/pre_equip(mob/living/carbon/human/H) //Equipment is located below
@@ -107,7 +110,7 @@
 	H.change_stat(STATKEY_WIL, 2)
 
 	if(H.mind)
-		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/blink)
+		H.mind.AddSpell(new /datum/action/cooldown/spell/blink)
 	H.ambushable = FALSE
 
 /datum/component/dreamwalker_repair
@@ -120,15 +123,13 @@
 	var/process_interval = 5 SECONDS
 	/// Time of last processing
 	var/last_process = 0
-	var/next_armor_peel_process = 0
-	var/next_armor_peel_interval = 1 MINUTES
 
 /datum/component/dreamwalker_repair/Initialize()
 	if(!ishuman(parent))
 		return COMPONENT_INCOMPATIBLE
 	to_chat(parent, span_userdanger("Your body pulses with strange dream energies."))
-	RegisterSignal(parent, COMSIG_ITEM_EQUIPPED, .proc/on_item_equipped)
-	RegisterSignal(parent, COMSIG_ITEM_DROPPED, .proc/on_item_dropped)
+	RegisterSignal(parent, COMSIG_MOB_EQUIPPED_ITEM, .proc/on_item_equipped)
+	RegisterSignal(parent, COMSIG_MOB_DROPITEM, .proc/on_item_dropped)
 	// Register for processing
 	START_PROCESSING(SSprocessing, src)
 
@@ -157,15 +158,6 @@
 			I.update_icon()
 		if(I.blade_int < I.max_blade_int)
 			I.add_bintegrity(min(I.blade_int + I.max_blade_int * 0.01, I.max_blade_int), src.parent) // Sharpen 1% of max sharpness
-
-	if(world.time >= next_armor_peel_process)
-		next_armor_peel_process = world.time + next_armor_peel_interval
-
-		for(var/obj/item/I in repairing_items)
-			if(istype(I, /obj/item/clothing) && I.peel_count > 0)
-				I.peel_count--
-				I.visible_message(span_notice("The dream energies snap a peeled layer of [I] back in place."))
-				break
 
 /datum/component/dreamwalker_repair/proc/on_item_equipped(mob/user, obj/item/source, slot)
 	SIGNAL_HANDLER
@@ -507,7 +499,7 @@
 				H.ignite_mob()
 			target.visible_message(span_warning("[source] ignites [target] with strange flame!"))
 		if("frost")
-			H.apply_status_effect(/datum/status_effect/buff/frostbite)
+			apply_frost_stack(H, 2)
 			target.visible_message(span_warning("[source] freezes [target] with scalding ice!"))
 		if("poison")
 			if(H.reagents)
@@ -564,9 +556,9 @@
 	item_flags = DREAM_ITEM
 	wbalance = WBALANCE_HEAVY
 	wdefense = 4
-	possible_item_intents = list(/datum/intent/sword/cut,/datum/intent/sword/chop,/datum/intent/stab, /datum/intent/sword/peel)
-	gripped_intents = list(/datum/intent/sword/cut/zwei, /datum/intent/sword/chop, /datum/intent/sword/lunge, /datum/intent/sword/thrust/estoc)
-	alt_intents = list(/datum/intent/effect/daze, /datum/intent/sword/strike, /datum/intent/sword/bash)
+	possible_item_intents = list(/datum/intent/sword/cut, /datum/intent/sword/chop, /datum/intent/sword/thrust/long)
+	gripped_intents = list(/datum/intent/sword/cut/zwei, /datum/intent/sword/chop, /datum/intent/sword/thrust/estoc/lunge, /datum/intent/sword/thrust/estoc)
+	alt_grips = list(/datum/alt_grip/mordhau/broadsword/dream_broadsword)
 
 /obj/item/rogueweapon/greatsword/bsword/dreamscape/active
 	name = "otherworldly sword"
@@ -643,9 +635,7 @@
 	desc = "Strange iridescent full plate. It reflects light as if covered in shiny oil."
 	icon_state = "dreamplate"
 	max_integrity = ARMOR_INT_CHEST_PLATE_ANTAG
-	prevent_crits = PREVENT_CRITS_ALL
 	item_flags = DREAM_ITEM
-	peel_threshold = 5
 
 /obj/item/clothing/suit/roguetown/armor/plate/full/dreamwalker/Initialize()
 	. = ..()
@@ -656,9 +646,8 @@
 	name = "otherworldly legplate"
 	desc = "Strange iridescent leg plate. It reflects light as if covered in shiny oil."
 	icon_state = "dreamlegs"
-	armor = ARMOR_ASCENDANT
+	armor = ARMOR_PLATE_BSTEEL
 	item_flags = DREAM_ITEM
-	prevent_crits = PREVENT_CRITS_ALL
 
 /obj/item/clothing/under/roguetown/platelegs/dreamwalker/Initialize()
 	. = ..()
@@ -669,7 +658,7 @@
 	name = "otherworldly boots"
 	desc = "Strange iridescent plated boots. It reflects light as if covered in shiny oil."
 	icon_state = "dreamboots"
-	armor = ARMOR_ASCENDANT
+	armor = ARMOR_PLATE_BSTEEL
 	item_flags = DREAM_ITEM
 
 /obj/item/clothing/shoes/roguetown/boots/armor/dreamwalker/Initialize()
@@ -693,7 +682,6 @@
 	adjustable = CAN_CADJUST
 	icon_state = "dreamsquidhelm"
 	max_integrity = ARMOR_INT_HELMET_ANTAG
-	peel_threshold = 4
 	item_flags = DREAM_ITEM
 	mob_overlay_icon = 'icons/roguetown/clothing/onmob/32x48/head.dmi'
 	block2add = null

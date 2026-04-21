@@ -16,6 +16,10 @@
 	var/glazed
 	// Caustic Edit end
 
+/obj/item/reagent_containers/glass/get_mechanics_examine(mob/user)
+	. = ..()
+	. += span_info("Right click on someone to offer your glass to them. If someone else offers a glass to you in response, they'll clink together in celebration!")
+
 /obj/item/reagent_containers/glass/examine(mob/user)
 	. = ..()
 	// Caustic Edit
@@ -32,14 +36,10 @@
 	is_infinite = FALSE
 
 /obj/item/reagent_containers/glass/proc/set_infinite(mob/user, delay)
-	if(is_infinite)
-		to_chat(user, span_info("It's already blessed to never run out!"))
-		return FALSE
-	else
-		is_infinite = TRUE
-		var/timer = (delay ? delay : 60 SECONDS)
-		addtimer(CALLBACK(src, PROC_REF(reset_infinite)), timer)
-		return TRUE
+	is_infinite = TRUE
+	var/timer = (delay ? delay : 60 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(reset_infinite)), timer)
+	return TRUE
 
 /datum/intent/fill
 	name = "fill"
@@ -317,7 +317,7 @@
 	dropshrink = 0.8
 	slot_flags = null
 	resistance_flags = NONE
-	armor = list("blunt" = 25, "slash" = 20, "stab" = 15, "piercing" = 0, "fire" = 75, "acid" = 50) //Weak melee protection, because you can wear it on your head
+	armor = ARMOR_BUCKET
 	slot_equipment_priority = list( \
 		SLOT_BACK, SLOT_RING,\
 		SLOT_PANTS, SLOT_ARMOR,\

@@ -389,6 +389,11 @@
 	timer = 999 MINUTES
 	desc = span_green("I'm wielding a BLESSED weapon!")
 
+/datum/stressevent/lesser_silver
+	stressadd = 8
+	timer = 999 MINUTES
+	desc = span_boldred("The silver burns! It claws at the curse within me, and I can scarcely bear its touch!")
+
 /datum/stressevent/naledimasklost
 	stressadd = 3
 	desc = span_boldred("I have lost my mask! Anyone here could be a djinn! I'm dangerously exposed!")
@@ -470,3 +475,26 @@
 	timer = 5 MINUTES
 	stressadd = 4
 	desc = span_boldred("I feel watched... did something *hear* me?")
+
+/datum/stressevent/something_stirs/telescope
+	desc = span_boldred("That THING'S red eyes are still burning in my mind...")
+
+/datum/stressevent/see_zuranus
+	timer = 5 MINUTES
+	stressadd = 4
+	desc = span_boldred("Zuranus, that basterd body. Just looking at it makes my skin crawl...")
+
+/datum/stressevent/xylix_star
+	timer = 10 MINUTES // this will anger u for a long time
+	stressadd = 2
+	desc = span_boldred("Long ago, XYLIX put up an extra star in the sky to anger NOC... seeing it is a TERRIBLE omen.")
+
+/datum/stressevent/terrible_dreams
+	timer = 10 MINUTES
+	stressadd = 3
+	desc = span_boldred("I had terrible nightmares... there's a lingering buzzing in my mind.") + span_gamedeadsay("\nIn gi rum imus Noc te et con sumi...")
+
+/datum/stressevent/pallid_outdoors
+	timer = 2 MINUTES
+	stressadd = 3
+	desc = span_red("I long for the shelter of wall and roofs. The sun and moon are too bright for me to bear!")

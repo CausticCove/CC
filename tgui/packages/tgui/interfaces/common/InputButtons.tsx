@@ -20,7 +20,7 @@ export const InputButtons = (props: InputButtonsProps) => {
   const { act, data } = useBackend<InputButtonsData>();
   const { large_buttons, swapped_buttons } = data;
   const { input, message, on_submit, on_cancel, disabled } = props;
-
+  
   let on_submit_actual = on_submit;
   if (!on_submit_actual) {
     on_submit_actual = () => {

@@ -226,7 +226,8 @@
 
 /obj/structure/roguemachine/drugmachine/obj_break(damage_flag)
 	..()
-	budget2change(budget)
+	var/turf/T = get_turf(src)
+	budget2change(budget, custom_turf = T)
 	set_light(0)
 	update_icon()
 	icon_state = "streetvendor0"
@@ -254,6 +255,16 @@
 	held_items[/obj/item/reagent_containers/powder/moondust] = list("PRICE" = rand(13,25),"NAME" = "moondust")
 	held_items[/obj/item/clothing/mask/cigarette/rollie/cannabis] = list("PRICE" = rand(12,18),"NAME" = "swampweed zig")
 	held_items[/obj/item/clothing/mask/cigarette/rollie/nicotine] = list("PRICE" = rand(5,10),"NAME" = "zig")
+	held_items[/obj/item/clothing/mask/cigarette/rollie/mentha] = list("PRICE" = rand(6,11),"NAME" = "mentha zig")
+	held_items[/obj/item/clothing/mask/cigarette/rollie/blackberry ] = list("PRICE" = rand(13,18),"NAME" = "blackberry zig")
+	held_items[/obj/item/clothing/mask/cigarette/rollie/apple] = list("PRICE" = rand(6,11),"NAME" = "apple zig")
+	held_items[/obj/item/clothing/mask/cigarette/rollie/menthaapple] = list("PRICE" = rand(9,17),"NAME" = "mentha-apple zig")
+	held_items[/obj/item/clothing/mask/cigarette/rollie/strawberry] = list("PRICE" = rand(15,20),"NAME" = "strawberry zig")
+	held_items[/obj/item/clothing/mask/cigarette/rollie/carrot] = list("PRICE" = rand(6,11),"NAME" = "carrot zig")
+	held_items[/obj/item/clothing/mask/cigarette/rollie/lime] = list("PRICE" = rand(6,11),"NAME" = "lime zig")
+	held_items[/obj/item/clothing/mask/cigarette/rollie/salvia] = list("PRICE" = rand(6,11),"NAME" = "salvia zig")
+	held_items[/obj/item/clothing/mask/cigarette/rollie/jacksberries] = list("PRICE" = rand(6,11),"NAME" = "jacksberries zig")
+	held_items[/obj/item/clothing/mask/cigarette/rollie/ziggara] = list("PRICE" = rand(20,35),"NAME" = "ziggara")
 	// Caustic Edit - Sui Dust, Mirror Transform
 	held_items[/obj/item/alch/transisdust] = list("PRICE" = rand(25,37),"NAME" = "sui dust")
 	held_items[/obj/item/book/granter/spell/blackstone/mirror_transform] = list("PRICE" = rand(30,40), "NAME" = "scroll of mirror transform")

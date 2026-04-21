@@ -2,6 +2,7 @@
 /datum/magic_item/mundane/woodcut
 	name = "woodcutting"
 	description = "It is firm like an tree."
+	glow_color = "#6B8E23"
 	var/last_used
 
 /datum/magic_item/mundane/woodcut/on_hit_structure(var/obj/item/i, var/obj/target, var/mob/living/user)
@@ -13,6 +14,7 @@
 /datum/magic_item/mundane/mining
 	name = "mining"
 	description = "It is coated with rock."
+	glow_color = "#708090"
 	var/active_item = FALSE
 	var/max_skill = FALSE
 
@@ -51,6 +53,7 @@
 /datum/magic_item/mundane/xylix
 	name = "Xylix's boon"
 	description = "It almost seems to give off the faint sound of laughter."
+	glow_color = "#DAA520"
 	var/active_item = FALSE
 
 /datum/magic_item/mundane/xylix/on_equip(var/obj/item/i, var/mob/living/user, slot)
@@ -73,6 +76,7 @@
 /datum/magic_item/mundane/unyieldinglight
 	name = "unyielding light"
 	description = "It emits a shining light."
+	glow_color = "#FFB347"
 	var/active = FALSE
 
 /datum/magic_item/mundane/unyieldinglight/on_use(var/obj/item/i, var/mob/living/user)
@@ -88,6 +92,7 @@
 /datum/magic_item/mundane/holding
 	name = "storage"
 	description = "It seems bigger on the inside."
+	glow_color = "#6dee4d"
 
 /datum/magic_item/mundane/holding/on_apply(var/obj/item/i)
 	.=..()
@@ -99,7 +104,8 @@
 
 /datum/magic_item/mundane/revealing
 	name = "revealing"
-	description = "It's light is painfully bright."
+	description = "Its light is painfully bright."
+	glow_color = "#FFB347"
 	var/active = FALSE
 
 /datum/magic_item/mundane/revealing/on_apply(var/obj/item/i)

@@ -41,7 +41,7 @@
 		TRAIT_BRITTLE,
 	)
 	inherent_biotypes = MOB_HUMANOID
-	armor = 5
+	//armor = 5 //Armor Rework from AP probably changed this? This var doesn't exist anymore apparently. Sorry Poss! - Jon
 	no_equip = list(SLOT_SHIRT, SLOT_HEAD, SLOT_WEAR_MASK, SLOT_ARMOR, SLOT_GLOVES, SLOT_SHOES, SLOT_PANTS, SLOT_CLOAK, SLOT_BELT, SLOT_BACK_R, SLOT_BACK_L, SLOT_S_STORE)
 	nojumpsuit = 1
 	sexes = 1
@@ -183,7 +183,7 @@
 		to_chat(src, span_notice("I can't fly away while being grabbed!"))
 		return
 	src.visible_message(span_notice("[src] begins to ascend!"), span_notice("You take flight..."))
-	if(do_after(src, fly_time, target))
+	if(do_after(src, fly_time, target = src))
 		if(src.pulledby == null)
 			src.zMove(UP, TRUE)
 			to_chat(src, span_notice("I fly up."))
@@ -198,7 +198,7 @@
 		to_chat(src, span_notice("I can't fly away while being grabbed!"))
 		return
 	src.visible_message(span_notice("[src] begins to descend!"), span_notice("You take flight..."))
-	if(do_after(src, fly_time, target))
+	if(do_after(src, fly_time, target = src))
 		if(src.pulledby == null)
 			src.zMove(DOWN, TRUE)
 			to_chat(src, span_notice("I fly down."))

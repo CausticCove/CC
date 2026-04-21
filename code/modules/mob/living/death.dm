@@ -90,7 +90,7 @@ GLOBAL_LIST_EMPTY(last_words)
 
 /mob/living/death(gibbed, nocutscene = FALSE)
 	var/was_dead_before = stat == DEAD
-	stat = DEAD
+	set_stat(DEAD)
 	unset_machine()
 	timeofdeath = world.time
 	tod = station_time_timestamp()
@@ -117,7 +117,7 @@ GLOBAL_LIST_EMPTY(last_words)
 	SetSleeping(0, 0)
 	reset_perspective(null)
 	reload_fullscreen()
-	update_action_buttons_icon()
+	update_mob_action_buttons()
 	update_damage_hud()
 	update_health_hud()
 	update_mobility()
@@ -162,14 +162,14 @@ GLOBAL_LIST_EMPTY(last_words)
 	if (client)
 		//Caustic Edit Start - Only send whispers for deaths _not_ in a Player's Belly. NPC ones we do want to send.
 		if(istype(src.loc, /obj/belly))
-			var/mob/living/belly_owner = src.loc.loc //The loc of the belly is the one who has it in them.blockscharging
+			var/mob/living/belly_owner = src.loc.loc //The loc of the belly is the one who has it in them.
 			if(belly_owner && belly_owner.client) //Just verify that it cast properly and then check for a client present, then it was likely a death in a scene.
 				return
 		if(istype(src, /mob/living/simple_animal))
 			return
 		//Caustic Edit End
 		// Stop necrans from freaking out from digestion and unrevivable simplemob deaths
-		if (!gibbed)
+		if (!gibbed && !( (src.mind && src.mind.has_antag_datum(/datum/antagonist/zombie)) || (src.mind && src.mind.has_antag_datum(/datum/antagonist/skeleton)) || HAS_TRAIT(src, TRAIT_SECONDLIFE) )) // because I hate being jumpscared by "OOH SOMEONE DIED IN THE CHURCH" when they're just killing a deadite with burn rot to rez them
 			var/locale = prepare_deathsight_message()
 			for (var/mob/living/player in GLOB.player_list)
 				if (player.stat == DEAD || isbrain(player))
@@ -186,5 +186,5 @@ GLOBAL_LIST_EMPTY(last_words)
 /mob/living/proc/prepare_deathsight_message()
 	var/area/A = get_area(src)
 	if(!A)
-		return "a locale wreathed in enigmatic fog" // fallback if we can't find the area somehow??
+		return "an unknown locale, wreathed in enigmatic fog" // fallback if we can't find the area somehow?? -- This was not clear enough for me ICly that it's somewhere I shouldn't care about, now it should
 	return A.deathsight_message

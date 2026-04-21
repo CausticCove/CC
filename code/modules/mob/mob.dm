@@ -43,18 +43,32 @@ GLOBAL_VAR_INIT(mobids, 1)
 	qdel(hud_used)
 	for(var/cc in client_colours)
 		qdel(cc)
-	if(used_intent)
-		qdel(used_intent)
+	used_intent = null
+	//used_rmb_intent = null //Caustic Edit - This var got commented out because it is an empty list that's never used! Wow yeah, it was. Amazing. rmb_intent is used instead and this got forgot about it seems.
 	if(a_intent && a_intent.mastermob == src)
 		a_intent.mastermob = null
+	a_intent = null
+	o_intent = null
 	QDEL_LIST(possible_a_intents)
 	QDEL_LIST(possible_offhand_intents)
+	QDEL_NULL(mmb_intent)
+	QDEL_NULL(rmb_intent)
+	QDEL_NULL(unarmed_special)
+	for(var/datum/action/A in actions)
+		A.Remove(src)
+	actions = null
+	SScrediticons.processing -= src
+	SScrediticons.currentrun -= src
 	SStreasury.remove_person(src) // Call me overly cautious I dunno when they giving dogs bank account
 	if(skills && skills.current == src)
 		var/datum/skill_holder/my_skill = skills
 		my_skill.current = null
 		QDEL_NULL(skills)
 	client_colours = null
+	last_reach_target = null
+	last_reach_tool = null
+	if(active_storage)
+		active_storage.hide_from(src)
 	ghostize(drawskip=TRUE)
 	..()
 	return QDEL_HINT_QUEUE
@@ -727,7 +741,9 @@ GLOBAL_VAR_INIT(mobids, 1)
  * For mobs this just shows the inventory
  */
 /mob/MouseDrop_T(atom/dropping, atom/user)
-	..()
+	. = ..()
+	if(.)
+		return .
 	if(ismob(dropping) && dropping != user)
 		var/mob/U = user
 		var/mob/M = dropping
@@ -1072,6 +1088,14 @@ GLOBAL_VAR_INIT(mobids, 1)
 ///Can this mob use storage
 /mob/proc/canUseStorage()
 	return FALSE
+
+/mob/proc/set_stat(new_stat)
+	if(new_stat == stat)
+		return
+	. = stat
+	stat = new_stat
+	SEND_SIGNAL(src, COMSIG_MOB_STATCHANGE, new_stat, .)
+
 /**
  * Check if the other mob has any factions the same as us
  *
@@ -1280,6 +1304,27 @@ GLOBAL_VAR_INIT(mobids, 1)
 
 	var/datum/language_holder/H = get_language_holder()
 	H.open_language_menu(usr)
+
+/// Custom pose setting
+/mob/living/carbon/human/verb/set_pose()
+	set name = "Set Pose"
+	set category = "IC"
+	set hidden = FALSE
+
+	if(stat != CONSCIOUS)
+		to_chat(src, span_warning("I can't set my pose right now."))
+		return
+	var/new_pose = tgui_input_text(src, "Set your character's pose (MARKDOWN AVAILABLE):", "SET POSE", pose_text, multiline = FALSE,  encode = FALSE, bigmodal = TRUE, max_length = 256)
+	if(isnull(new_pose))
+		return
+
+	if(!length(new_pose))
+		pose_text = ""
+		to_chat(src, span_notice("I clear my pose."))
+		return
+
+	pose_text = parsemarkdown_basic(new_pose)
+	to_chat(src, span_notice("I set my pose."))
 
 ///Adjust the nutrition of a mob
 /mob/proc/adjust_nutrition(change) //Honestly FUCK the oldcoders for putting nutrition on /mob someone else can move it up because holy hell I'd have to fix SO many typechecks

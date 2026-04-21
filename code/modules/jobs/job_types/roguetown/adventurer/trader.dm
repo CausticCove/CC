@@ -32,5 +32,8 @@
 		/datum/advclass/trader/cuisiner,
 		/datum/advclass/trader/peddler,
 		/datum/advclass/trader/servant,
-		/datum/advclass/trader/doomsayer
+		/datum/advclass/trader/doomsayer,
+		//CC Edit
+		/datum/advclass/trader/travelling_merchant
+		//CC Edit ned
 	)

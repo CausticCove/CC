@@ -42,6 +42,8 @@
 #define FORCE_MAP "_maps/roguetest.json"
 #endif
 
+// #define NO_DUNGEON //comment this to load dungeons.
+
 //Update this whenever you need to take advantage of more recent byond features
 #define MIN_COMPILER_VERSION 514
 #if DM_VERSION < MIN_COMPILER_VERSION
@@ -75,7 +77,7 @@
 #define MAX_ATOM_OVERLAYS 100
 
 // Comment this to remove the PQ system
-//#define USES_PQ
+#define USES_PQ
 // Comment this to remove the SCOM restrictions
 //#define USES_SCOM_RESTRICTION
 // Comment this to remove traits based skill gating (The traits exist, but it will not have any effect)

@@ -42,7 +42,6 @@
 		H.invisibility = INVISIBILITY_MAXIMUM
 		H.become_blind("advsetup")
 
-
 ///Caustic edit, we have our own version
 /*/datum/advclass/shophand
 	name = "Shophand"

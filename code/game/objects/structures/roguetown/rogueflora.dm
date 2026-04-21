@@ -21,6 +21,10 @@
 	alpha = 200
 	var/stump_type = /obj/structure/flora/roguetree/stump
 
+/obj/structure/flora/roguetree/get_mechanics_examine(mob/user)
+	. = ..()
+	. += span_info("Most trees can be toppled by hitting them with the 'CUT', 'CHOP', or 'REND' intents on bladed weapons. Nothing chops trees and foliage better, or quicker, than a good old fashioned axe.")
+
 /obj/structure/flora/roguetree/attack_right(mob/user)
 	handle_special_items_retrieval(user, src)
 
@@ -227,11 +231,50 @@
 	static_debris = list(/obj/item/grown/log/tree = 1)
 	climb_offset = 14
 	stump_type = FALSE
+	hidingspot = TRUE
+	var/mob/living/hiddenguy = null // So we can find them with fixed eye search
 
 /obj/structure/flora/roguetree/stump/log/Initialize()
 	. = ..()
 	icon_state = "log[rand(1,2)]"
 
+/obj/structure/flora/roguetree/stump/log/get_mechanics_examine(mob/user)
+	. = ..()
+	. += span_info("Some structures can be used as hiding places. Toggle the 'SNEAK' button on your HUD, then click the structure to hide in it. You can stop hiding by clicking the structure again, or by moving out of it.")
+
+/obj/structure/flora/roguetree/stump/log/attack_hand(mob/user)
+	if(isliving(user))
+		if(user.m_intent == MOVE_INTENT_SNEAK)
+			hideinside(user)
+			return
+
+/obj/structure/flora/roguetree/stump/log/proc/hideinside(mob/living/user)
+	var/sneak_level = user.get_skill_level(/datum/skill/misc/sneaking) || 0
+	var/sneaktime = max(10, 50 - (sneak_level * 10)) // Hard caps at 1 second at Expert and above.
+	if(user.loc == src)
+		unhide(user)
+		return
+	if(occupied)
+		to_chat(user, span_warning("Someone is already hiding inside [src]!"))
+		return
+	if(!do_after(user, sneaktime, src))
+		return
+	user.forceMove(src)
+	occupied = TRUE
+	hiddenguy = user
+	to_chat(user, span_warning("I hide inside [src]!"))
+
+/obj/structure/flora/roguetree/stump/log/proc/unhide(mob/living/user)
+	var/turf/T = get_turf(src)
+	if(!T) return
+	user.forceMove(T)
+	occupied = FALSE
+	hiddenguy = null
+	to_chat(user, span_warning("I come out from inside [src]!"))
+
+/obj/structure/flora/roguetree/stump/log/relaymove(mob/user)
+	if(user.loc == src)
+		unhide(user)
 
 //newbushes
 
@@ -246,6 +289,12 @@
 	blade_dulling = DULLING_CUT
 	debris = list(/obj/item/natural/fibers = 1)
 
+/obj/structure/flora/roguegrass/get_mechanics_examine(mob/user)
+	. = ..()
+	. += span_info("Grass, bushes, and most kinds of foliage can be sliced away by hitting them with the 'CUT', 'CHOP', or 'REND' intents on bladed weapons. Using a torch or lamptern on foliage can burn it away, as well.")
+	. += span_info("Left-clicking a bush allows you to forage through it. Most common bushes are rife with thorns, fibers, and jackberries; others can hold unique herbs and flowers, perfect for alchemists and bleeding hearts alike.")
+	. += span_info("Moving through foliage has a chance to attract an ambush. The farther you're away from civilization, the more dangerous that these ambushes can become. Most ambushes can be avoided by toggling the 'SNEAK' button on your HUD, before moving through the foliage.")
+	. += span_info("Some structures can be used as hiding places. Toggle the 'SNEAK' button on your HUD, then click the structure to hide in it. You can stop hiding by clicking the structure again, or by moving out of it.")
 
 /obj/structure/flora/roguegrass/spark_act()
 	fire_act()
@@ -310,6 +359,8 @@
 	climbable = FALSE
 	dir = SOUTH
 	debris = list(/obj/item/natural/fibers = 1, /obj/item/grown/log/tree/stick = 1)
+	hidingspot = TRUE
+	var/mob/living/hiddenguy = null // So we can find them with fixed eye search
 	var/list/looty = list()
 	var/bushtype
 
@@ -359,6 +410,9 @@
 		var/mob/living/L = user
 		user.changeNext_move(CLICK_CD_INTENTCAP)
 		playsound(src.loc, "plantcross", 50, FALSE, -1)
+		if(user.m_intent == MOVE_INTENT_SNEAK)
+			hideinside(user)
+			return
 		if(do_after(L, SEARCHTIME, target = src))
 			if(!looty.len && (world.time > res_replenish))
 				loot_replenish()
@@ -376,10 +430,41 @@
 				attack_hand(user)
 			if(!looty.len)
 				to_chat(user, span_warning("Picked clean... I should try later."))
+
+/obj/structure/flora/roguegrass/bush/proc/hideinside(mob/living/user)
+	var/sneak_level = user.get_skill_level(/datum/skill/misc/sneaking) || 0
+	var/sneaktime = max(10, 50 - (sneak_level * 10)) // Hard caps at 1 second at Expert and above.
+	if(user.loc == src)
+		unhide(user)
+		return
+	if(occupied)
+		to_chat(user, span_warning("Someone is already hiding in [src]!"))
+		return
+	if(!do_after(user, sneaktime, src))
+		return
+	user.forceMove(src)
+	occupied = TRUE
+	hiddenguy = user
+	to_chat(user, span_warning("I hide in [src]!"))
+
+/obj/structure/flora/roguegrass/bush/proc/unhide(mob/living/user)
+	var/turf/T = get_turf(src)
+	if(!T) return
+	user.forceMove(T)
+	occupied = FALSE
+	hiddenguy = null
+	to_chat(user, span_warning("I come out from [src]!"))
+
+/obj/structure/flora/roguegrass/bush/relaymove(mob/user)
+	if(user.loc == src)
+		unhide(user)
+
 /obj/structure/flora/roguegrass/bush/update_icon()
 	icon_state = "bush[rand(2, 4)]"
 
 /obj/structure/flora/roguegrass/bush/CanAStarPass(ID, travel_dir, caller)
+	if(occupied)
+		return FALSE
 	if(ismovableatom(caller))
 		var/atom/movable/mover = caller
 		if(mover.pass_flags & PASSGRILLE)
@@ -389,6 +474,8 @@
 	return ..()
 
 /obj/structure/flora/roguegrass/bush/CanPass(atom/movable/mover, turf/target)
+	if(occupied)
+		return 0
 	if(istype(mover) && (mover.pass_flags & PASSGRILLE))
 		return 1
 	if(get_dir(loc, target) == dir)
@@ -626,6 +713,8 @@
 					user.visible_message("<span class='notice'>[user] finds [B] in [src].</span>")
 					return
 			user.visible_message("<span class='warning'>[user] searches through [src].</span>")
+			if(looty.len)
+				attack_hand(user)
 			if(!looty.len)
 				to_chat(user, "<span class='warning'>Picked clean... I should try later.</span>")
 
@@ -679,6 +768,8 @@
 					user.visible_message("<span class='notice'>[user] finds [HAS_TRAIT(user, TRAIT_WOODWALKER) ? "two of " : ""][B] in [src].</span>")
 					return
 			user.visible_message("<span class='warning'>[user] searches through [src].</span>")
+			if(looty.len)
+				attack_hand(user)
 			if(!looty.len)
 				to_chat(user, "<span class='warning'>Picked clean... I should try later.</span>")
 
@@ -723,6 +814,8 @@
 						qdel(src)
 					return
 			user.visible_message("<span class='warning'>[user] searches through [src].</span>")
+			if(looty.len)
+				attack_hand(user)
 
 // cute underdark mushrooms from dreamkeep
 // now with some scary mushrooms to rectify sins against pixelart
@@ -754,6 +847,10 @@
 	var/mush_animate = TRUE
 	var/mush_scream = TRUE
 
+/obj/structure/flora/rogueshroom/get_mechanics_examine(mob/user)
+	. = ..()
+	. += span_info("Most shroomtrees can be toppled by hitting them with the 'CUT', 'CHOP', or 'REND' intents on bladed weapons. Nothing chops trees and foliage better, or quicker, than a good old fashioned axe.")
+
 /obj/structure/flora/rogueshroom/happy/Initialize()
 	. = ..()
 	if(mush_animate)
@@ -770,9 +867,20 @@
 		new rare_mush_bonus_drop(loc)
 	. = ..()
 
-/obj/structure/flora/rogueshroom/happy/examine(mob/living/user)
+/obj/structure/flora/rogueshroom/happy/examine(mob/user)
 	. = ..()
-	if(user.STAINT >= int_req && int_req || HAS_TRAIT(user, TRAIT_WOODSMAN))
+
+	var/can_special = FALSE
+	if(user?.client?.holder || istype(user, /mob/dead/observer/admin))
+		can_special = TRUE
+
+	else if(HAS_TRAIT(user, TRAIT_WOODSMAN))
+		can_special = TRUE
+	else if(istype(user, /mob/living))
+		if(int_req && hasvar(user, "STAINT") && user:STAINT >= int_req)
+			can_special = TRUE
+
+	if(can_special)
 		. += span_infection("\n[special_examine]")
 
 /obj/structure/flora/rogueshroom/happy/white
@@ -783,7 +891,7 @@
 	mush_light_power = 2
 	mush_light_color = "#e2e2e2"
 	int_req = 0
-	special_examine = "You recall the gathering of wildsmasters recently. It hasn't been long, but these mushrooms were always believed to be happy and colorful. The spores of this one are rumoured to be the cause, it's like... they collectively made a decision top stop fooling humenkind."
+	special_examine = "You recall the gathering of wildsmasters recently. It hasn't been long, but these mushrooms were always believed to be happy and colorful. The spores of this one are rumoured to be the cause, it's like... they collectively made a decision to stop fooling humenkind."
 	static_debris = list(/obj/item/natural/fibers = 1,
 						 /obj/item/grown/log/tree/small = 1)
 	rare_mush_bonus_drop = /mob/living/simple_animal/hostile/rogue/mirespider_lurker/mushroom
@@ -806,7 +914,7 @@
 /obj/structure/flora/rogueshroom/happy/angel
 	name = "grieving angel"
 	icon_state = "angelmush"
-	desc = "each of these mushrooms is believed to have sprouted out of angel tears in the long past"
+	desc = "Each of these mushrooms is believed to have sprouted out of angel tears in the long past."
 	mush_light_range = 3
 	mush_light_power = 3
 	mush_light_color = "#e2e2e2"

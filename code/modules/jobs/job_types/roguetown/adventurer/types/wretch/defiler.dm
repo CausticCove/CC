@@ -6,7 +6,7 @@
 	outfit = /datum/outfit/job/roguetown/wretch/shrine_defiler
 	subclass_languages = list(/datum/language/kazengunese)
 	category_tags = list(CTAG_WRETCH)
-	traits_applied = list(TRAIT_STEELHEARTED, TRAIT_CRITICAL_RESISTANCE, TRAIT_ZOMBIE_IMMUNE, TRAIT_MAGEARMOR, TRAIT_GRAVEROBBER, TRAIT_ARCYNE_T3)
+	traits_applied = list(TRAIT_STEELHEARTED, TRAIT_CRITICAL_RESISTANCE, TRAIT_ZOMBIE_IMMUNE, TRAIT_GRAVEROBBER, TRAIT_ARCYNE)
 	cmode_music = 'sound/music/combat_kazengite.ogg'
 	subclass_stats = list(
 		STATKEY_WIL = 2,
@@ -16,7 +16,7 @@
 		STATKEY_LCK = -1, //-2 to FOR and PER in favor of +1 to STR, follows 8 stat pool for combat roles.
 		STATKEY_PER = -1,
 	)
-	subclass_spellpoints = 4
+	subclass_mage_aspects = list("mastery" = FALSE, "major" = 0, "minor" = 0, "utilities" = 4, "ward" = TRUE)
 	subclass_skills = list(
 		/datum/skill/magic/holy = SKILL_LEVEL_EXPERT,
 		/datum/skill/misc/tracking = SKILL_LEVEL_JOURNEYMAN,

@@ -4,7 +4,7 @@
 	name = "statue"
 	icon_state = ""
 	w_class = WEIGHT_CLASS_NORMAL
-	experimental_inhand = FALSE
+	experimental_inhand = TRUE
 	smeltresult = null
 	grid_width = 32
 	grid_height = 64
@@ -207,6 +207,7 @@
 			polished = 0
 			force -= 2
 			force_wielded -= 3
+			update_force_dynamic()
 			max_integrity -= polish_bonus
 			polish_bonus = 0
 			obj_integrity = min(obj_integrity, max_integrity)
@@ -226,6 +227,7 @@
 		obj_integrity += polish_bonus
 		force += 2
 		force_wielded += 3
+		update_force_dynamic()
 		AddComponent(/datum/component/metal_glint)
 		UnregisterSignal(src, COMSIG_COMPONENT_CLEAN_ACT)
 

@@ -63,14 +63,14 @@
 	icon_state = "hobgoblin_skel_head"
 	sellprice = 2
 
-/mob/living/carbon/human/species/hobgoblin/handle_combat()
-	if(mode == NPC_AI_HUNT)
+/*/mob/living/carbon/human/species/hobgoblin/handle_combat()
+	if(mode == NPC_AI_HUNT) //Caustic - Sorry Poss, Hobbo AI is broke :<
 		if(prob(5)) //WE ARE FEARSOME!!!
 			if(prob(50))
 				emote("laugh")
 			else 
 				emote("warcry")
-	. = ..()
+	. = ..()*/
 
 /mob/living/carbon/human/species/hobgoblin/update_body()
 	remove_overlay(BODY_LAYER)
@@ -163,7 +163,7 @@
 /datum/outfit/job/roguetown/npc/hobgoblin/default/pre_equip(mob/living/carbon/human/H)
 	..()
 	var/chance_zjumper = 25 //We are REALLY smart compared to goblins; Let us chase after these puny adventurers!!!
-	var/chance_treeclimber = 50
+	//var/chance_treeclimber = 50
 
 	H.STASTR = 9 
 	H.STAINT = 5 //Somewhat smart buggers!
@@ -173,10 +173,10 @@
 
 	if(prob(chance_zjumper))
 		ADD_TRAIT(H, TRAIT_ZJUMP, TRAIT_GENERIC)
-		H.find_targets_above = TRUE
-	if(prob(chance_treeclimber))
-		H.tree_climber = TRUE
-		H.find_targets_above = TRUE // so they can taunt
+		//H.find_targets_above = TRUE //Caustic - Sorry Poss, Hobbo AI is broke :<
+	//if(prob(chance_treeclimber))
+		//H.tree_climber = TRUE
+		//H.find_targets_above = TRUE // so they can taunt
 
 	var/loadout = rand(1,10)
 	//If they can make metal/plate armor, they 100% can make metal / iron weapons.
@@ -250,7 +250,7 @@
 /datum/outfit/job/roguetown/npc/hobgoblin/miracle_worker/pre_equip(mob/living/carbon/human/H)
 	..()
 	var/chance_zjumper = 5
-	var/chance_treeclimber = 50
+	//var/chance_treeclimber = 50
 
 	H.STASTR = 6
 	H.STAINT = 12 //We commune with Graggar! We're smarter than the rest.
@@ -260,10 +260,10 @@
 
 	if(prob(chance_zjumper))
 		ADD_TRAIT(H, TRAIT_ZJUMP, TRAIT_GENERIC)
-		H.find_targets_above = TRUE
-	if(prob(chance_treeclimber))
-		H.tree_climber = TRUE
-		H.find_targets_above = TRUE // so they can taunt
+		//H.find_targets_above = TRUE //Caustic - Sorry Poss, Hobbo AI is broke :<
+	//if(prob(chance_treeclimber))
+		//H.tree_climber = TRUE
+		//H.find_targets_above = TRUE // so they can taunt
 
 	var/loadout = rand(1,2)
 

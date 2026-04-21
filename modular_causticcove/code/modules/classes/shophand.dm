@@ -50,6 +50,7 @@
 	neck = /obj/item/storage/belt/rogue/pouch/coins/poor
 	armor = /obj/item/clothing/suit/roguetown/armor/leather/heavy/coat
 	backpack_contents = list(
+		/obj/item/mini_flagpole/merchant = 1,
 		/obj/item/flashlight/flare/torch = 1,
 		/obj/item/rogueweapon/huntingknife = 1,
 		/obj/item/rogueweapon/scabbard/sheath = 1,
@@ -102,6 +103,7 @@
 	armor = /obj/item/clothing/suit/roguetown/armor/leather
 	cloak = /obj/item/clothing/cloak/raincloak/mortus
 	backpack_contents = list(
+				/obj/item/mini_flagpole/merchant = 1,
 				/obj/item/flashlight/flare/torch = 1,
 				/obj/item/rogueweapon/huntingknife/idagger/steel = 1,
 				/obj/item/rogueweapon/scabbard/sheath = 1,
@@ -141,6 +143,7 @@
 	..()
 	backr = /obj/item/storage/backpack/rogue/satchel
 	backpack_contents = list(
+				/obj/item/mini_flagpole/merchant = 1,
 				/obj/item/kitchen/rollingpin = 1,
 				/obj/item/flint = 1,
 				/obj/item/cooking/pan = 1,
@@ -228,3 +231,6 @@
 		H.adjust_skillrank(/datum/skill/combat/swords, 1, TRUE)
 		H.adjust_skillrank(/datum/skill/combat/maces, 1, TRUE)
 		H.change_stat(STATKEY_STR, 1)
+	backpack_contents = list(
+		/obj/item/mini_flagpole/merchant = 1,
+	)

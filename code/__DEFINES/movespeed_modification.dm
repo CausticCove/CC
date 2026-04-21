@@ -92,6 +92,7 @@
 
 #define MOVESPEED_ID_CELERITY                           "CELERITY_BUFF"
 #define MOVESPEED_ID_FOTV                               "FOTV_BUFF"
+#define MOVESPEED_ID_SPELL_CASTING                      "SPELL_CASTING"
 // Caustic Edit Start
 #define MOVESPEED_ID_MACROMICRO							"MACROMICRO_TRAIT"
 // Caustic Edit End

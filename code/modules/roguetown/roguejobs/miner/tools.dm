@@ -17,6 +17,8 @@
 	smeltresult = /obj/item/ingot/iron
 	grid_width = 64
 	grid_height = 64
+	var/auto_boulder = FALSE
+	is_tool = TRUE
 
 /obj/item/rogueweapon/pick/getonmobprop(tag)
 	. = ..()
@@ -28,6 +30,12 @@
 				return list("shrink" = 0.7,"sx" = 5,"sy" = -4,"nx" = -5,"ny" = -4,"wx" = -5,"wy" = -3,"ex" = 7,"ey" = -4,"northabove" = 0,"southabove" = 1,"eastabove" = 1,"westabove" = 0,"nturn" = -45,"sturn" = 45,"wturn" = -45,"eturn" = 45,"nflip" = 8,"sflip" = 0,"wflip" = 8,"eflip" = 0)
 			if("onbelt")
 				return list("shrink" = 0.5,"sx" = -2,"sy" = -5,"nx" = 4,"ny" = -5,"wx" = 0,"wy" = -5,"ex" = 2,"ey" = -5,"nturn" = 0,"sturn" = 0,"wturn" = 0,"eturn" = 0,"nflip" = 0,"sflip" = 0,"wflip" = 0,"eflip" = 0,"northabove" = 0,"southabove" = 1,"eastabove" = 1,"westabove" = 0)
+
+/obj/item/rogueweapon/pick/get_mechanics_examine(mob/user)
+	. = ..()
+	. += span_info("Left-click a rock wall to begin mining it. The amount of hits needed to destroy a rock wall scales with your Strength, your Mining skills, and the quality of your pickaxe.")
+	. += span_info("Quarrying in more distant-and-dangerous territories brings a greater chance of discovering valuable ores and gemstones. The higher your Fortune, the greater your overall chances of finding rare ores and gemstones will be.")
+	. += span_info("The boulders and smaller rocks - not to be confused with the palm-sized stones - can be further mined to potentially find more ores and gemstones.")
 
 /obj/item/rogueweapon/pick/steel
 	name = "steel pick"
@@ -54,15 +62,16 @@
 
 /obj/item/rogueweapon/pick/blacksteel
 	name = "blacksteel pick"
-	desc = "Glimmering with silvered blackness, this is a pretigious tool for miners delving into the darkness."
+	desc = "Glimmering with silvered blackness, this is a pretigious tool for miners delving into the darkness. It looks like it will strike hard enough to shatter any boulders within a rocky surface instantly."
 	possible_item_intents = list(/datum/intent/pick/bad)
-	gripped_intents = list(/datum/intent/pick/good)
+	gripped_intents = list(/datum/intent/pick)
 	force = 25
 	force_wielded = 32
 	icon_state = "blacksteelpick1"
 	item_state = "blacksteelpick1"
 	max_integrity = 800
 	smeltresult = /obj/item/ingot/blacksteel
+	auto_boulder = TRUE
 
 /obj/item/rogueweapon/pick/stone
 	name = "stone pick"

@@ -83,7 +83,7 @@
 //T0. Stands the character up, if they can stand.
 /obj/effect/proc_holder/spell/self/abyssor_wind
 	name = "Second Wind"
-	desc = "Rise if fallen, and regain some of your stamina."
+	desc = "Rise if fallen, regaining some of your stamina."
 	overlay_state = "abyssor_wind"
 	releasedrain = 10
 	chargedrain = 0
@@ -97,9 +97,6 @@
 	devotion_cost = 30
 	miracle = TRUE
 	var/stamregenmod = 5	//How many % of stamina we regain after cast, scales with holy skill.
-
-	//CC Edit
-	spell_logic = LOGIC_SELFCAST
 
 /obj/effect/proc_holder/spell/self/abyssor_wind/cast(list/targets, mob/user)
 	if(!ishuman(user))
@@ -124,22 +121,20 @@
 //T0 The Fishing
 /obj/effect/proc_holder/spell/invoked/aquatic_compulsion
 	name = "Aquatic Compulsion"
-	desc = "Compel a fish to leap out from targeted water tile and towards you."
+	desc = "Compel a random fish to leap out from targeted water tile and towards you. Standing still may yield you continuously, as long as your Devotion and stamina holds. Costs will increase over time."
 	overlay_state = "aqua"
-	releasedrain = 15
+	releasedrain = 20
 	chargedrain = 0
-	chargetime = 0.5 SECONDS
-	range = 3
+	range = 6 // so people can appreciate them leaps in fishing events
 	movement_interrupt = FALSE
 	chargedloop = null
 	sound = 'sound/foley/bubb (5).ogg'
-	invocations = list("Splash forth.")
-	invocation_type = "shout"
 	associated_skill = /datum/skill/magic/holy
 	antimagic_allowed = TRUE
-	recharge_time = 10 SECONDS
+	recharge_time = 45 SECONDS // still too short
 	miracle = TRUE
 	devotion_cost = 10
+	var/channeling
 	//Horrendous carry-over from fishing code
 	var/list/fishingMods = list(
 		"commonFishingMod" = 0.8,
@@ -150,30 +145,217 @@
 		"ceruleanFishingMod" = 0 // 1 on cerulean aril, 0 on everything else
 	)
 
+/proc/abyssor_fish_arc(atom/movable/AF, turf/T, mob/user)
+	var/turf/user_turf = get_turf(user)
+
+	var/dx_dir = T.x - user_turf.x
+	var/dy_dir = T.y - user_turf.y
+
+	var/dir_to_water
+	if(abs(dx_dir) > abs(dy_dir))
+		dir_to_water = (dx_dir > 0) ? EAST : WEST
+	else
+		dir_to_water = (dy_dir > 0) ? NORTH : SOUTH
+
+	var/turf/target_turf = get_step(user_turf, dir_to_water) || user_turf
+
+	var/dist = max(1, get_dist(T, target_turf))
+
+	if(dist == 1)
+		AF.forceMove(target_turf)
+		AF.pixel_x = 0
+		AF.pixel_y = 0
+		AF.pixel_z = 0
+		return
+
+	if(dist <= 0)
+		AF.forceMove(user_turf)
+		AF.pixel_x = 0
+		AF.pixel_y = 0
+		AF.pixel_z = 0
+		return
+
+	var/dx = (target_turf.x - T.x) * 32
+	var/dy = (target_turf.y - T.y) * 32
+
+	var/time_total = max(4, dist * 2)
+	var/time_up = round(time_total * 0.25)
+	var/time_down = time_total - time_up
+
+	var/arc_height = clamp(dist * 10 + rand(-4, 8), 12, 48)
+
+	if(abs(dx) > abs(dy))
+		arc_height *= 1.2
+
+	var/wobble_x = rand(-4, 4)
+	var/wobble_y = rand(-4, 4)
+
+	AF.pixel_x = 0
+	AF.pixel_y = 0
+	AF.pixel_z = 0
+
+	animate(AF,
+		pixel_x = (dx * 0.5) + wobble_x,
+		pixel_y = (dy * 0.5) + wobble_y,
+		pixel_z = arc_height,
+		time = time_up,
+		easing = QUAD_EASING|EASE_OUT)
+
+	animate(
+		pixel_x = dx,
+		pixel_y = dy,
+		pixel_z = 0,
+		time = time_down,
+		easing = QUAD_EASING|EASE_IN)
+
+	spawn(time_total)
+		if(!AF)
+			return
+		AF.forceMove(target_turf)
+		AF.pixel_x = 0
+		AF.pixel_y = 0
+		AF.pixel_z = 0
+
 /obj/effect/proc_holder/spell/invoked/aquatic_compulsion/cast(list/targets, mob/user = usr)
 	. = ..()
-	if(isturf(targets[1]))
-		var/turf/T = targets[1]
-		var/A = getfishingloot(user, fishingMods, T, 0.5)
-		if(A)
-			var/atom/movable/AF = new A(T)
-			if(istype(AF, /obj/item/reagent_containers/food/snacks/fish))
-				var/obj/item/reagent_containers/food/snacks/fish/F = AF
-				F.sinkable = FALSE
-				F.throw_at(get_turf(user), 5, 1, null)
-			else
-				AF.throw_at(get_turf(user), 5, 1, null)
-			record_featured_stat(FEATURED_STATS_FISHERS, user)
-			record_round_statistic(STATS_FISH_CAUGHT)
-			playsound(T, 'sound/foley/footsteps/FTWAT_1.ogg', 100)
-			teleport_to_dream(user, 10000, 1)
-			user.visible_message("<font color='yellow'>[user] makes a beckoning gesture at [T]!</font>")
-			return TRUE
-		else
-			revert_cast()
-			return FALSE
-	revert_cast()
-	return FALSE
+	if(!user || !user.client)
+		return 
+	var/mob/living/carbon/human/H = user
+	var/turf/T = targets[1]
+
+//	to_chat(user, "CAST START")
+
+	if(channeling)
+//		to_chat(user, "FAIL: already channeling")
+		to_chat(H, span_notice("<i>You are already inducing compulsion upon the abyssals.</i>"))
+		revert_cast()
+		return FALSE
+
+	if(!isturf(targets[1]))
+//		to_chat(user, "FAIL: invalid turf target")
+		revert_cast()
+		return FALSE
+
+	if(!H)
+//		to_chat(user, "FAIL: user not human")
+		revert_cast()
+		return FALSE
+
+	var/miracleskill = H.get_skill_level(/datum/skill/magic/holy)
+//	to_chat(user, "Skill: [miracleskill]")
+
+	channeling = TRUE
+	var/streak = 0
+	var/delay = clamp(((10 - miracleskill) + streak), 5, 10)
+
+//	to_chat(user, "Initial delay: [delay]")
+
+	to_chat(user, span_blue("<i>[user] makes a beckoning gesture at [T] as a white fog swirls momentarily!</i>"))
+	user.say(pick("The Dreamer commands you, splash forth.","By Abyssor's will, spring forth.","Splash forth.","Come hither, abyssals.","Leap in Abyssor's name.","I call to you, denizens of the depths."), language = /datum/language/common)
+
+	// === FIRST INSTANT PULL ===
+	if(!H.devotion || H.devotion.devotion < devotion_cost)
+//		to_chat(user, "FAIL: not enough devotion ([H.devotion?.devotion])")
+		to_chat(H, span_notice("<i>Your connection to the Dreamer is too faint...</i>"))
+		H.emote("yawn")
+		channeling = FALSE
+		revert_cast()
+		return FALSE
+
+	var/A = getfishingloot(user, fishingMods, T, 0.5)
+	if(!A)
+//		to_chat(user, "FAIL: no loot roll")
+		to_chat(user, span_warning("The waters remain still."))
+		channeling = FALSE
+		revert_cast()
+		return FALSE
+
+//	to_chat(user, "First pull success: [A]")
+
+	var/atom/movable/AF = new A(T)
+	if(!AF)
+//		to_chat(user, "FAIL: spawn failed")
+		channeling = FALSE
+		revert_cast()
+		return FALSE
+
+	var/cost = devotion_cost + (streak * (miracleskill/2))
+	H.devotion.devotion -= cost
+//	to_chat(user, "Devotion spent: [cost], remaining: [H.devotion.devotion]")
+
+	streak++
+//	to_chat(user, "Streak now: [streak]")
+
+	AF.pixel_x = 0
+	AF.pixel_y = 0
+	AF.pixel_z = 0
+
+	spawn(1)
+		abyssor_fish_arc(AF, T, user)
+
+	record_featured_stat(FEATURED_STATS_FISHERS, user)
+	record_round_statistic(STATS_FISH_CAUGHT)
+	playsound(T, 'sound/foley/footsteps/FTWAT_1.ogg', 100)
+	teleport_to_dream(user, 10000, 1)
+
+	// === LOOPED PULLING ===
+	while(TRUE)
+		if(!user || !user.client)
+			break // me when I gib myself and crash the server, on god
+
+		delay = clamp(((10 - miracleskill) + streak), 5, 10)
+//		to_chat(user, "Loop start | streak=[streak] delay=[delay] devotion=[H.devotion?.devotion]")
+
+		if(!H || !H.devotion || H.devotion.devotion < devotion_cost)
+//			to_chat(user, "BREAK: devotion too low ([H?.devotion?.devotion])")
+			to_chat(H, span_notice("<i>Your connection to the Dreamer is too faint...</i>"))
+			H?.emote("yawn")
+			break
+
+		if(!do_after(user, delay SECONDS, target = user))
+//			to_chat(user, "BREAK: do_after failed (movement/interruption)")
+			to_chat(user, span_warning("Your focus breaks, and Abyssor's pull fades."))
+			break
+
+//		to_chat(user, "do_after success")
+
+		var/A2 = getfishingloot(user, fishingMods, T, 0.5)
+		if(!A2)
+//			to_chat(user, "BREAK: no loot roll")
+			to_chat(user, span_warning("The waters remain still."))
+			break
+
+//		to_chat(user, "Loop pull success: [A2]")
+
+		var/atom/movable/AF2 = new A2(T)
+		if(!AF2)
+//			to_chat(user, "BREAK: spawn failed")
+			break
+
+		var/cost2 = devotion_cost + (streak * (miracleskill/2))
+		H.devotion.devotion -= cost2
+//		to_chat(user, "Devotion spent: [cost2], remaining: [H.devotion.devotion]")
+
+		streak++
+//		to_chat(user, "Streak now: [streak]")
+
+		AF2.pixel_x = 0
+		AF2.pixel_y = 0
+		AF2.pixel_z = 0
+
+		spawn(1)
+			abyssor_fish_arc(AF2, T, user)
+
+		record_featured_stat(FEATURED_STATS_FISHERS, user)
+		record_round_statistic(STATS_FISH_CAUGHT)
+		playsound(T, 'sound/foley/footsteps/FTWAT_1.ogg', 100)
+		teleport_to_dream(user, 10000, 1)
+
+	// === CLEANUP ===
+//	to_chat(user, "CLEANUP: channeling ended at streak=[streak]")
+
+	channeling = FALSE
+	return TRUE
 
 //T2, Abyssal Healing. Totally stole most of this from lesser heal.
 /obj/effect/proc_holder/spell/invoked/abyssheal
@@ -200,9 +382,6 @@
 	var/max_slickness = 20
 	var/max_slickness_greater_caster = 40
 	var/base_healing = 6.5
-
-	//CC Edit
-	spell_logic = LOGIC_HEAL
 
 /obj/effect/proc_holder/spell/invoked/abyssheal/cast(list/targets, mob/living/user)
 	. = ..()
@@ -287,9 +466,6 @@
 	var/townercrab = TRUE //I was looking at this for three days and i am utterly stupid for not fixing it
 	var/mob/living/simple_animal/hostile/retaliate/rogue/mossback/summoned
 
-	//CC Edit
-	spell_logic = LOGIC_STRUCTURE
-
 /obj/effect/proc_holder/spell/invoked/call_mossback/cast(list/targets, mob/living/user)
 	. = ..()
 	var/turf/T = get_turf(targets[1])
@@ -323,9 +499,6 @@
 	var/outer_tele_radius = 2
 	var/include_dense = FALSE
 	var/include_teleport_restricted = FALSE
-
-	//CC Edit
-	spell_logic = LOGIC_COMBAT
 
 /obj/effect/proc_holder/spell/invoked/call_dreamfiend/cast(list/targets, mob/living/user)
 	. = ..()
@@ -384,14 +557,15 @@
 	F = new F(spawn_turf)
 	F.ai_controller.set_blackboard_key(BB_BASIC_MOB_CURRENT_TARGET, target)
 	F.ai_controller.set_blackboard_key(BB_MAIN_TARGET, target)
-	
+	F.ai_controller.insert_blackboard_key_lazylist(BB_BASIC_MOB_RETALIATE_LIST, target)
+
 	F.visible_message(span_notice("A [F] manifests following after [target]... countless teeth bared with hostility!"))
 	return TRUE
 
 // No chargetime given this can be cast well in advance.
 /obj/effect/proc_holder/spell/invoked/abyssal_infusion
 	name = "Abyssal Infusion"
-	desc = "Consumes an anglerfish to bless target with ability to call upon Abyssal Strength."
+	desc = "Consumes an anglerfish to bless a target with ability to call upon Abyssal Strength."
 	overlay_state = "abyssal_infusion"
 	range = 7
 	no_early_release = TRUE
@@ -447,9 +621,10 @@
 
 /obj/effect/proc_holder/spell/invoked/abyssal_strength
 	name = "Abyssal Strength"
-	desc = "Buffs all your stats besides fortune, and lowers your perception."
+	desc = "Buffs all your stats besides fortune and lowers your perception."
 	overlay_state = "abyssal_strength1"
-	range = 7
+	range = 0
+	ignore_los = TRUE // this should probably be a /self spell but its not
 	no_early_release = TRUE
 	charging_slowdown = 1
 	chargetime = 2 SECONDS
@@ -467,9 +642,6 @@
 		/mob/living/simple_animal/hostile/rogue/dreamfiend/major,
 		/mob/living/simple_animal/hostile/rogue/dreamfiend/ancient
 	)
-
-	//CC Edit
-	spell_logic = LOGIC_SELFCAST
 
 /obj/effect/proc_holder/spell/invoked/abyssal_strength/cast(list/targets, mob/living/user)
 	. = ..()
@@ -583,6 +755,6 @@
 	. = ..()
 	REMOVE_TRAIT(owner, TRAIT_STRENGTH_UNCAPPED, TRAIT_MIRACLE)
 	owner.remove_filter(ABYSSAL_FILTER)
-	to_chat(owner, span_warning("the strange power fades"))
+	to_chat(owner, span_warning("The strange power fades."))
 
 #undef ABYSSAL_FILTER

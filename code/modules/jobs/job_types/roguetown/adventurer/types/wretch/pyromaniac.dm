@@ -5,6 +5,7 @@
 	allowed_races = RACES_ALL_KINDS
 	outfit = /datum/outfit/job/roguetown/wretch/pyromaniac
 	cmode_music = 'sound/music/Iconoclast.ogg'
+	class_select_category = CLASS_CAT_ROGUE
 	category_tags = list(CTAG_WRETCH)
 	traits_applied = list(TRAIT_MEDIUMARMOR, TRAIT_ALCHEMY_EXPERT, TRAIT_EXPLOSIVE_SUPPLY)
 	subclass_stats = list(
@@ -55,33 +56,23 @@
 		/obj/item/reagent_containers/glass/bottle/alchemical/healthpot = 1,	//Small health vial
 		)
 	if(H.mind)
-		var/weapons = list("Archery", "Crossbows", "BOMBS", "LET THERE BE FLAME!!!")
+		var/weapons = list("Archery", "Crossbows", "BOMBS")
 		var/weapon_choice = input(H, "Choose your weapon.", "TAKE UP ARMS") as anything in weapons
 		H.set_blindness(0)
 		switch(weapon_choice)
 			if("Archery")
 				H.adjust_skillrank_up_to(/datum/skill/combat/bows, 4, TRUE)
 				backr = /obj/item/gun/ballistic/revolver/grenadelauncher/bow/recurve
-				beltl = /obj/item/quiver/pyroarrows
+				beltl = /obj/item/quiver/arrows
+				beltr = /obj/item/runicflask/charged
 			if("Crossbows")
 				H.adjust_skillrank_up_to(/datum/skill/combat/crossbows, 4, TRUE)
 				backr = /obj/item/gun/ballistic/revolver/grenadelauncher/crossbow
-				beltl = /obj/item/quiver/pyrobolts
+				beltl = /obj/item/quiver/bolt/pyro
 			if("BOMBS") //30 bombs. 18 fire, 4 tnt, 4 impacts, 4 firegas.
 				ADD_TRAIT(H, TRAIT_BOMBER_EXPERT, TRAIT_GENERIC)
 				H.adjust_skillrank_up_to(/datum/skill/craft/engineering, 4, TRUE)
 				backr = /obj/item/twstrap/bombstrap/firebomb
 				r_hand = /obj/item/twstrap/bombstrap/bomb_and_fire
 				l_hand = /obj/item/twstrap/bombstrap/bomb_and_fire
-			if("LET THERE BE FLAME!!!")
-				H.adjust_skillrank_up_to(/datum/skill/magic/arcane, 2, TRUE)
-				backr = /obj/item/rogueweapon/woodstaff/toper
-				if(H.mind)
-					H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/touch/prestidigitation)
-					H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/projectile/fireball)
-					H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/projectile/spitfire)
-					H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/rebuke)
-					H.mind.AddSpell(new /obj/effect/proc_holder/spell/self/conjure_armor/dragonhide)
-					H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/fire_cascade)
-					H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/firewalker)
 		wretch_select_bounty(H)

@@ -220,8 +220,8 @@
 /area/rogue/under/tomb)
 "OB" = (
 /obj/structure/closet/crate/chest/gold,
-/obj/item/roguegem/green,
-/obj/effect/spawner/lootdrop/roguegem/random,
+/obj/effect/spawner/lootdrop/random_gem,
+/obj/effect/spawner/lootdrop/random_gem,
 /turf/open/floor/rogue/metal,
 /area/rogue/under/tomb)
 "Pd" = (

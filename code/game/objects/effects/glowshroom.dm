@@ -9,6 +9,7 @@ var/dendordam = 30 //FUCK YOOOOU DENDOR
 	anchored = TRUE
 	opacity = 0
 	density = FALSE
+	ai_path_weight = 8
 	icon = 'icons/roguetown/misc/foliage.dmi'
 	icon_state = "glowshroom1" //replaced in New
 	layer = SPACEVINE_LAYER //A bit high but keeps it from fucking layering UNDER EVERYTHING
@@ -139,8 +140,6 @@ var/dendordam = 30 //FUCK YOOOOU DENDOR
 			var/mob/living/L = user
 			if(world.time < (L.mob_timers["kneestinger"] + 30 SECONDS))
 				dmg = dmg/2
-			if(!istype(src, /obj/structure/glowshroom/dendorite))
-				L.consider_ambush(always = TRUE)
 			L.Immobilize(d/2 SECONDS)
 			L.apply_status_effect(/datum/status_effect/debuff/clickcd, d SECONDS)
 			L.apply_status_effect(/datum/status_effect/buff/lightningstruck, d SECONDS)

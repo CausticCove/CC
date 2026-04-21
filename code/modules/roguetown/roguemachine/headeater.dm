@@ -1,18 +1,20 @@
 // Ported from Vanderlin Gaffer PR. But this is meant to be a machine for lowpop headhunting that gives you such a poor price you'd rather sell to the merchant.
 /obj/structure/roguemachine/headeater
 	name = "HEADEATER"
-	desc = "A machine where you deposit heads of wanted creechurs and spits out coins. The makers charges a hefty fee - 60% of the bounty. Seeking the cooperation of a merchant might be more profitable."
+	desc = "A machine that indulges in humenity's oldest profession; killing. The heads of Dendor's creechers, goblins, and ambushers go in, and coins-a-plenty come \
+	out. The automation comes at a steep cost, however, almost half of each head's price will be taxed to the Merchant's Guild. You could likely garner a much fairer \
+	price by directly selling such heads to a Merchant, instead." //CC Edit - Took AP's updated description, slightly altered to account for the return ratio tweak below
 	icon = 'icons/roguetown/misc/machines.dmi'
 	icon_state = "headeater"
 	density = FALSE
 	blade_dulling = DULLING_BASH
 	pixel_y = 32
-	var/return_ratio = 0.45 // 45% cost should make it enticing enough to sell to merchant probably? Upped from 40 to account for taxation
+	var/return_ratio = 0.3 // CC Edit - .45 -> .3, should really consider selling to a merchant.
 	var/topay = 0
 
 /obj/structure/roguemachine/headeater/examine()
 	. = ..()
-	. += span_info("Right click to deposit all heads in front of the machine.")
+	. += span_info("Left-click to deposit a head into the machine, and right-click to deposit all heads in front of the machine.")
 
 /obj/structure/roguemachine/headeater/attackby(obj/item/H, mob/user, params)
 	. = ..()
@@ -51,7 +53,7 @@
 			if(!supress_message)
 				to_chat(user, span_danger("the [src] consumes [A] spitting out coins in its place!"))
 			if(paynow)
-				budget2change(tax(A.sellprice * return_ratio, user))
+				budget2change(tax(A.sellprice * return_ratio), user)
 			else
 				topay += A.sellprice * return_ratio
 			A.forceMove(src)

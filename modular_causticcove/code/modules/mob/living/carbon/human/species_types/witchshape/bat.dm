@@ -94,7 +94,7 @@
 		return
 	src.visible_message(span_notice("[src] begins to ascend!"), span_notice("You take flight..."))
 
-	if(do_after(src, fly_time, target))
+	if(do_after(src, fly_time, target = src))
 		if(src.pulledby == null)
 			src.zMove(UP, TRUE)
 			to_chat(src, span_notice("I fly up."))
@@ -110,7 +110,7 @@
 		return
 	src.visible_message(span_notice("[src] begins to descend!"), span_notice("You take flight..."))
 
-	if(do_after(src, fly_time, target))
+	if(do_after(src, fly_time, target = src))
 		if(src.pulledby == null)
 			src.zMove(DOWN, TRUE)
 			to_chat(src, span_notice("I fly down."))

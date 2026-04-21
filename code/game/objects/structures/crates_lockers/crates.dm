@@ -20,6 +20,18 @@
 	var/obj/item/paper/fluff/jobs/cargo/manifest/manifest
 	var/base_icon_state
 
+//CC EDIT
+/obj/structure/closet/crate/attackby(obj/item/W, mob/user, params)
+	if(istype(W, /obj/item/fulton) && (!opened))
+		user.visible_message("[user] attaches a fulton to the [src]", "You attach a fulton to the [src]")
+		fulton = TRUE
+		qdel(W)
+	if(istype(W,/obj/item/drop_signal_horn) && (!opened))
+		var/obj/item/drop_signal_horn/dsh = W
+		dsh.sendCrate(user, src)
+	. = ..()
+//CC EDIT END
+
 /obj/structure/closet/crate/Initialize()
 	. = ..()
 	if(!base_icon_state)

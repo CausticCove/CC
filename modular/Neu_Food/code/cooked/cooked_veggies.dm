@@ -249,7 +249,7 @@
 /obj/item/reagent_containers/food/snacks/rogue/preserved/eggplantstuffed
 	list_reagents = list(/datum/reagent/consumable/nutriment = SNACK_CHUNKY)
 	name = "stuffed aubergine"
-	desc = "Eggplant stuffed with raw meat and tomato. Delicious!"
+	desc = "Eggplant stuffed with meat and tomato. Delicious!"
 	icon = 'modular/Neu_Food/icons/cooked/cooked_veggies.dmi'
 	icon_state = "stuffedeggplant"
 	tastes = list("meat" = 1, "tomato" = 1, "aubergine" = 1)
@@ -318,7 +318,7 @@
 /obj/item/reagent_containers/food/snacks/roastseeds/pumpkin
 	name = "roasted pumpkin seeds"
 	tastes = list("toasted pumpkin seeds" = 1)
-	mill_result = /obj/item/reagent_containers/powder/pumpkin
+	mill_result = /obj/item/reagent_containers/food/snacks/pumpkinspice
 	//CC Edit Begin
 	diet_types = list("Grains")
 	diet_change_amount = FOOD_DIETARY_VALUE_GOOD //Ooo pumpkin seeds?

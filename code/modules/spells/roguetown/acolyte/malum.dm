@@ -1,6 +1,6 @@
 /obj/effect/proc_holder/spell/invoked/vigorousexchange
 	name = "Vigorous Exchange"
-	desc = "Restores the targets Energy, Twice as effective on someone else."
+	desc = "Restores the target's Energy, twice as effective on someone else."
 	action_icon = 'icons/mob/actions/malummiracles.dmi'
 	overlay_icon = 'icons/mob/actions/malummiracles.dmi'
 	overlay_state = "vigorousexchange"
@@ -23,12 +23,9 @@
 	chargedloop = /datum/looping_sound/invokegen
 	devotion_cost = 30
 
-	//CC Edit
-	spell_logic = LOGIC_SUPPORTIVE
-
 /obj/effect/proc_holder/spell/invoked/heatmetal
 	name = "Heat Metal"
-	desc= "Damages Armor, Forces target to drop a metallic weapon, heats up an ingot in tongs or smelts a single item."
+	desc= "Damages Armor, forces target to drop a metallic weapon, heats up an ingot in tongs or smelts a single item."
 	action_icon = 'icons/mob/actions/malummiracles.dmi'
 	overlay_icon = 'icons/mob/actions/malummiracles.dmi'
 	overlay_state = "heatmetal"
@@ -78,9 +75,6 @@
 	chargedloop = /datum/looping_sound/invokegen
 	devotion_cost = 80
 
-	//CC Edit
-	spell_logic = LOGIC_COMBAT
-
 /obj/effect/proc_holder/spell/invoked/hammerfall/cast(list/targets, mob/user = usr)
 	var/turf/fallzone = null
 	var/skill = user.get_skill_level(/datum/skill/magic/holy)
@@ -128,7 +122,7 @@
 
 /obj/effect/proc_holder/spell/invoked/craftercovenant
 	name = "The Crafter’s Covenant"
-	desc = "Melt a pile of valuables and convert them into a single item. Sacrifice is accepted even if its not valuable enough to make anything."
+	desc = "Melt a pile of valuables and convert them into a single item. Sacrifice is accepted even if it's not valuable enough to make anything."
 	action_icon = 'icons/mob/actions/malummiracles.dmi'
 	overlay_icon = 'icons/mob/actions/malummiracles.dmi'
 	overlay_state = "craftercovenant"
@@ -379,7 +373,7 @@ var/global/list/anvil_recipe_prices[][]
 	if (istype(recipe.created_item, /list))
 		var/list/itemlist = recipe.created_item
 		total_sellprice = total_sellprice/itemlist.len
-		itemtosend = recipe.created_item[1]
+		itemtosend = itemlist[1]
 	if (!istype(recipe.created_item, /list))
 		itemtosend = recipe.created_item
 	if (total_sellprice > 0)
@@ -582,14 +576,14 @@ var/global/list/anvil_recipe_prices[][]
 
 /obj/effect/proc_holder/spell/self/repair
 	name = "Order: Repair"
-	desc = "Repair a metal item in your hands."
+	desc = "Repairs metal items on your person." //it literally repairs everything
 	action_icon = 'icons/mob/actions/malummiracles.dmi'
 	overlay_icon = 'icons/mob/actions/malummiracles.dmi'
 	overlay_state = "repair"
 	releasedrain = 30
 	chargedrain = 0
 	chargetime = 0
-	range = 7
+	range = 0
 	warnie = "sydwarning"
 	req_items = list(/obj/item/clothing/neck/roguetown/psicross)
 	sound = 'sound/magic/timestop.ogg'
@@ -601,9 +595,7 @@ var/global/list/anvil_recipe_prices[][]
 	miracle = TRUE
 	devotion_cost = 30
 	var/rrange = 0
-
-	//CC Edit
-	spell_logic = LOGIC_SELFCAST
+	ignore_los = 1 // this uses some other weird shit for range
 
 /obj/effect/proc_holder/spell/self/repair/cast(mob/living/carbon/human/user)
 	var/skill = user.get_skill_level(/datum/skill/magic/holy)
@@ -626,27 +618,22 @@ var/global/list/anvil_recipe_prices[][]
 		if(!do_after(user, 50))
 			repair_points = 0
 			return FALSE
-		I.obj_integrity += one_fix_points
+		I.obj_integrity = min(I.obj_integrity + one_fix_points, I.max_integrity)
 		I.visible_message(span_info("[I] glows in a faint mending light."))
 		user.devotion?.update_devotion(-cost)
 		if(cost != 0)
 			to_chat(user, "<font color='purple'>I lose [cost] devotion!</font>")
 		if(I.max_integrity <= I.obj_integrity)
 			I.obj_fix()
-			if(I.peel_count)
-				I.peel_count--
-				I.visible_message(span_info("[I]'s shorn layers mend together. ([I.peel_count])."))
-				continue
-			else
-				I.repair_coverage()
-				I.visible_message(span_info("[I]'s mend together, completely."))
-				continue
+			I.repair_coverage()
+			I.visible_message(span_info("[I]'s mend together, completely."))
+			continue
 		if((user.devotion?.devotion - cost) < 0)
 			to_chat(user, span_warning("I do not have enough devotion!"))
 			return FALSE
 		cast(user)
 	revert_cast()
-	return FALSE
+	return TRUE
 
 /obj/effect/proc_holder/spell/invoked/restoration
 	name = "Order: Restoration"

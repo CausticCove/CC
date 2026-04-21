@@ -273,15 +273,13 @@
 /datum/anvil_recipe/armor/bronze/barbute
 	name = "Barbute, Bronze (+1 Bronze, +1 Cured Leather)"
 	req_bar = /obj/item/ingot/bronze
-	req_blade = /obj/item/blade/bronze_plate
-	additional_items = list(/obj/item/ingot/bronze, /obj/item/natural/hide/cured, /obj/item/natural/hide/cured)
+	additional_items = list(/obj/item/ingot/bronze, /obj/item/natural/hide/cured)
 	created_item = /obj/item/clothing/head/roguetown/helmet/heavy/bronze
 
 /datum/anvil_recipe/armor/bronze/murmillo
 	name = "Murmillo-Style Helmet, Bronze (+1 Bronze, +1 Fur)"
 	req_bar = /obj/item/ingot/bronze
-	req_blade = /obj/item/blade/bronze_plate
-	additional_items = list(/obj/item/ingot/bronze, /obj/item/natural/hide/cured)
+	additional_items = list(/obj/item/ingot/bronze, /obj/item/natural/fur)
 	created_item = /obj/item/clothing/head/roguetown/helmet/bronzegladiator
 	craftdiff = 2
 
@@ -385,7 +383,7 @@
 	req_bar = /obj/item/ingot/iron
 	req_blade = /obj/item/blade/iron_plate
 	additional_items = list(/obj/item/ingot/iron)
-	created_item = /obj/item/clothing/suit/roguetown/armor/chainmail/hauberk/iron //Caustic Edit - Fix the smelting issue turning iron into steel
+	created_item = /obj/item/clothing/suit/roguetown/armor/chainmail/hauberk/iron
 
 /datum/anvil_recipe/armor/iron/knightarmet
 	name = "Helmet, Armet, Knight, Iron (+1 Iron)"
@@ -400,6 +398,13 @@
 	req_blade = /obj/item/blade/iron_plate
 	additional_items = list(/obj/item/ingot/iron)
 	created_item = /obj/item/clothing/head/roguetown/helmet/heavy/knight/old/iron
+
+/datum/anvil_recipe/armor/iron/knightarmetgreatplume
+	name = "Helmet, Greatplumed Armet, Knight, Iron (+1 Iron)"
+	req_bar = /obj/item/ingot/iron
+	req_blade = /obj/item/blade/iron_plate
+	additional_items = list(/obj/item/ingot/iron)
+	created_item = /obj/item/clothing/head/roguetown/helmet/heavy/knight/iron/greatplume
 
 /datum/anvil_recipe/armor/iron/bucket
 	name = "Helmet, Bucket, Iron (+1 Iron)"
@@ -471,6 +476,12 @@
 	additional_items = list(/obj/item/ingot/iron, /obj/item/ingot/iron, /obj/item/natural/hide/cured)
 	created_item = /obj/item/clothing/suit/roguetown/armor/plate/iron
 
+/datum/anvil_recipe/armor/iron/bandedarmor
+	name = "Banded Armor, Iron (+1 Metal Scrap Kit, +2 Fur, +2 Cured Leather)"
+	req_bar = /obj/item/ingot/iron
+	additional_items = list(/obj/item/repair_kit/metal/bad, /obj/item/natural/fur, /obj/item/natural/fur, /obj/item/natural/hide/cured, /obj/item/natural/hide/cured)
+	created_item = /obj/item/clothing/suit/roguetown/armor/plate/iron/banded
+
 /datum/anvil_recipe/armor/iron/fullplate
 	name = "Full-Plate, Iron (+3 Iron, +1 Cured Leather)"
 	req_bar = /obj/item/ingot/iron
@@ -489,6 +500,12 @@
 	req_bar = /obj/item/ingot/iron
 	req_blade = /obj/item/blade/iron_plate
 	created_item = /obj/item/clothing/gloves/roguetown/plate/iron
+
+/datum/anvil_recipe/armor/iron/bandedgauntlets
+	name = "Banded Gauntlets, Iron (+2 Fur, + 1 Leather Gloves)"
+	req_bar = /obj/item/ingot/iron
+	additional_items = list(/obj/item/natural/fur, /obj/item/natural/fur, /obj/item/clothing/gloves/roguetown/leather)
+	created_item = /obj/item/clothing/gloves/roguetown/plate/iron/banded
 
 /datum/anvil_recipe/armor/iron/chainleg
 	name = "Chain Chausses, Iron"
@@ -574,6 +591,12 @@
 	req_bar = /obj/item/ingot/iron
 	req_blade = /obj/item/blade/iron_plate
 	created_item = /obj/item/clothing/head/roguetown/helmet/sallet/iron
+
+/datum/anvil_recipe/armor/iron/todd
+	name = "Banded Helmet, Iron (+1 Metal Scrap Kit, +2 Bones)"
+	req_bar = /obj/item/ingot/iron
+	additional_items = list(/obj/item/repair_kit/metal/bad, /obj/item/natural/bone, /obj/item/natural/bone)
+	created_item = /obj/item/clothing/head/roguetown/helmet/sallet/iron/banded
 
 /datum/anvil_recipe/armor/iron/sallet/visor
 	name = "Sallet, Visored, Iron (+1 Iron)"
@@ -719,7 +742,7 @@
 	req_bar = /obj/item/ingot/steel
 	req_blade = /obj/item/blade/steel_plate
 	additional_items = list(/obj/item/ingot/steel,/obj/item/natural/hide/cured)
-	created_item = /obj/item/clothing/suit/roguetown/armor/plate/scale/knight
+	created_item = /obj/item/clothing/suit/roguetown/armor/brigandine/heavy
 
 /datum/anvil_recipe/armor/steel/steel/brigandine
 	name = "Brigandine, Steel (+1 Steel, +2 Cloth)"
@@ -1014,6 +1037,54 @@
 	additional_items = list(/obj/item/ingot/steel, /obj/item/ingot/steel)
 	created_item = /obj/item/clothing/head/roguetown/helmet/heavy/frogmouth
 
+/datum/anvil_recipe/armor/steel/helmetbucalt
+	name = "Sugarloaf Helmet, Steel (+1 Steel)"
+	req_bar = /obj/item/ingot/steel
+	req_blade = /obj/item/blade/steel_plate
+	additional_items = list(/obj/item/ingot/steel)
+	created_item = /obj/item/clothing/head/roguetown/helmet/heavy/bucket/crusader
+
+/datum/anvil_recipe/armor/steel/helmetbarbute
+	name = "Barbute, Steel"
+	req_bar = /obj/item/ingot/steel
+	req_blade = /obj/item/blade/steel_plate
+	created_item = /obj/item/clothing/head/roguetown/helmet/heavy/barbute
+
+/datum/anvil_recipe/armor/steel/helmetbarbutevisor
+	name = "Barbute, Visored, Steel (+1 Steel)"
+	req_bar = /obj/item/ingot/steel
+	req_blade = /obj/item/blade/steel_plate
+	additional_items = list(/obj/item/ingot/steel)
+	created_item = /obj/item/clothing/head/roguetown/helmet/heavy/barbute/visor
+
+/datum/anvil_recipe/armor/steel/helmetbarbutedunk
+	name = "Barbute, Great, Steel (+1 Steel, +1 Cured Leather)"
+	req_bar = /obj/item/ingot/steel
+	req_blade = /obj/item/blade/steel_plate
+	additional_items = list(/obj/item/ingot/steel, /obj/item/natural/hide/cured)
+	created_item = /obj/item/clothing/head/roguetown/helmet/heavy/barbute/great
+
+/datum/anvil_recipe/armor/steel/helmetbuc
+	name = "Bucket Helmet, Steel (+1 Steel)"
+	req_bar = /obj/item/ingot/steel
+	req_blade = /obj/item/blade/steel_plate
+	additional_items = list(/obj/item/ingot/steel)
+	created_item = /obj/item/clothing/head/roguetown/helmet/heavy/bucket
+
+/datum/anvil_recipe/armor/steel/helmetknightarmetgreatplume
+	name = "Knight's Greatplumed Armet, Steel (+1 Steel)"
+	req_bar = /obj/item/ingot/steel
+	req_blade = /obj/item/blade/steel_plate
+	additional_items = list(/obj/item/ingot/steel)
+	created_item = /obj/item/clothing/head/roguetown/helmet/heavy/knight/greatplume
+
+/datum/anvil_recipe/armor/steel/frogmouthgreatplume
+	name = "Froggemund Helmet With Greatplume, Steel (+2 Steel)"
+	req_bar = /obj/item/ingot/steel
+	req_blade = /obj/item/blade/steel_plate
+	additional_items = list(/obj/item/ingot/steel, /obj/item/ingot/steel)
+	created_item = /obj/item/clothing/head/roguetown/helmet/heavy/frogmouth/greatplume
+
 /datum/anvil_recipe/armor/steel/belt
 	name = "Plated Belt, Steel"
 	req_bar = /obj/item/ingot/steel
@@ -1139,6 +1210,12 @@
 	req_bar = /obj/item/ingot/steelholy
 	additional_items = list(/obj/item/ingot/steelholy, /obj/item/natural/hide/cured)
 	created_item = /obj/item/clothing/head/roguetown/helmet/sallet/eoran
+
+/datum/anvil_recipe/armor/holysteel/undividedhelmtemplar
+	name = "Undivided Templar's Helmet (+1 Holy Steel, +1 Cured Leather)"
+	req_bar = /obj/item/ingot/steelholy
+	additional_items = list(/obj/item/ingot/steelholy, /obj/item/natural/hide/cured)
+	created_item = /obj/item/clothing/head/roguetown/helmet/heavy/undivided
 
 // SILVER
 
@@ -1280,6 +1357,18 @@
 	req_bar = /obj/item/ingot/gold
 	created_item = /obj/item/clothing/shoes/roguetown/horseshoes/gold
 
+/datum/anvil_recipe/armor/decorated/helmetbuc
+	name = "Bucket Helmet, Decorated (+1 Bucket Helm)"
+	req_bar = /obj/item/ingot/gold
+	additional_items = list(/obj/item/clothing/head/roguetown/helmet/heavy/bucket)
+	created_item = /obj/item/clothing/head/roguetown/helmet/heavy/bucket/gold
+
+/datum/anvil_recipe/armor/decorated/helmetbucalt
+	name = "Sugarloaf Helmet, Decorated (+1 Sugarloaf Helm)"
+	req_bar = /obj/item/ingot/gold
+	additional_items = list(/obj/item/clothing/head/roguetown/helmet/heavy/bucket/crusader)
+	created_item = /obj/item/clothing/head/roguetown/helmet/heavy/bucket/crusader/gold
+
 // BLACKSTEEL
 
 /datum/anvil_recipe/armor/blacksteel/cuirass
@@ -1323,6 +1412,12 @@
 	name = "Plate Boots, Blacksteel"
 	req_bar = /obj/item/ingot/blacksteel
 	created_item = /obj/item/clothing/shoes/roguetown/boots/armor/blacksteel/modern
+
+/datum/anvil_recipe/armor/blacksteel/modern/sugarloaf
+	name = "Sugarloaf Helmet, Blacksteel (+1 Blacksteel)"
+	req_bar = /obj/item/ingot/blacksteel
+	additional_items = list(/obj/item/ingot/blacksteel)
+	created_item = /obj/item/clothing/head/roguetown/helmet/heavy/bucket/crusader/blacksteel
 
 // BLACKSTEEL, ANCIENT
 

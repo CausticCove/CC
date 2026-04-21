@@ -74,7 +74,7 @@
 			soundfile = pick('modular_causticcove/sound/cvore/vore/shortgurgles/gurgle_m1.ogg', 'modular_causticcove/sound/cvore/vore/shortgurgles/gurgle_m2.ogg', 'modular_causticcove/sound/cvore/vore/shortgurgles/gurgle_m3.ogg')
 		else
 			soundfile = pick('modular_causticcove/sound/cvore/vore/shortgurgles/gurgle_s1.ogg', 'modular_causticcove/sound/cvore/vore/shortgurgles/gurgle_s2.ogg', 'modular_causticcove/sound/cvore/vore/shortgurgles/gurgle_s3.ogg')
-		playsound(src, soundfile, vol = g_sound_volume, vary = 1, falloff = VORE_SOUND_FALLOFF, frequency = noise_freq, preference = "eating_noises")
+		playsound(src, soundfile, vol = g_sound_volume, vary = 1, falloff = VORE_SOUND_FALLOFF, frequency = noise_freq, pref_toggle = "eating_noises")
 		//Allow those turned into items to become the recycled item
 		/*var/recycled = B?.recycle(src)
 		if(!recycled) //Caustic - Recycle-based Vore Code Item Handling here

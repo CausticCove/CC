@@ -152,6 +152,10 @@
 	. = ..()
 	. += span_info("Large cogwheels change RPM more strongly when meshed with smaller cogs, but they use more stress.")
 
+/obj/item/rotation_contraption/large_cog/get_mechanics_examine(mob/user)
+	. = ..()
+	. += span_info("Large cogwheels change RPM more strongly when meshed with smaller cogs, but they use more stress.")
+
 /obj/item/rotation_contraption/horizontal
 	placed_type = /obj/structure/gearbox
 
@@ -175,6 +179,10 @@
 	. = ..()
 	. += span_info("Waterwheels must be placed in flowing river water and turned across the current to generate power.")
 
+/obj/item/rotation_contraption/waterwheel/get_mechanics_examine(mob/user)
+	. = ..()
+	. += span_info("Waterwheels must be placed in flowing river water and turned across the current to generate power.")
+
 
 /obj/item/rotation_contraption/debug_source
 	placed_type = /obj/structure/debug_rotation_source
@@ -188,6 +196,10 @@
 	placed_type = /obj/structure/minecart_rail
 	grid_height = 64
 	grid_width = 32
+
+/obj/item/rotation_contraption/minecart_rail/get_mechanics_examine(mob/user)
+	. = ..()
+	. += span_info("Place this to build minecart track. Powered straight rails can push carts when linked into a rotational network.")
 
 /obj/item/rotation_contraption/minecart_rail/get_mechanics_examine(mob/user)
 	. = ..()

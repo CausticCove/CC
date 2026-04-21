@@ -23,14 +23,13 @@
 	round_contrib_points = 3
 	cmode_music = 'sound/music/cmode/towner/combat_retired.ogg'
 
-	job_traits = list(TRAIT_TRAINED_SMITH, TRAIT_SEEPRICES, TRAIT_SMITHING_EXPERT, TRAIT_SEWING_EXPERT, TRAIT_HOMESTEAD_EXPERT, TRAIT_ARCYNE_T2) //CC edit: upped arcyne to t2
+	job_traits = list(TRAIT_TRAINED_SMITH, TRAIT_SEEPRICES, TRAIT_SMITHING_EXPERT, TRAIT_SEWING_EXPERT, TRAIT_HOMESTEAD_EXPERT, TRAIT_ARCYNE) //CC edit: upped arcyne to t2
 	// Guildmaster get way less gate due to their role
 
 	advclass_cat_rolls = list(CTAG_GUILDSMASTER = 2)
 	job_subclasses = list(
 		/datum/advclass/guildmaster
 	)
-	spells = list(/obj/effect/proc_holder/spell/invoked/takeapprentice)
 
 /datum/advclass/guildmaster
 	name = "Guildmaster"
@@ -46,6 +45,7 @@
 		STATKEY_PER = 4
 	)
 	age_mod = /datum/class_age_mod/guildmaster
+	subclass_mage_aspects = list("mastery" = FALSE, "major" = 1, "minor" = 2, "utilities" = 6, "locked_aspects" = list(/datum/magic_aspect/battlewardry, /datum/magic_aspect/artifice), "post_aspect_spells" = list(/obj/effect/proc_holder/spell/invoked/takeapprentice), "ward" = TRUE) //Caustic Edit - With the mage 2 changes, giving Guildmaster the same thing Artficer gets with +2 Utility Points
 	subclass_skills = list(
 		/datum/skill/combat/axes = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/combat/maces = SKILL_LEVEL_JOURNEYMAN,
@@ -102,10 +102,6 @@
 		neck = /obj/item/storage/belt/rogue/pouch/coins/rich //cc edit start
 		beltl = /obj/item/storage/magebag/starter //cc edit end
 		beltr = /obj/item/storage/keyring/guildmaster
-		H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/touch/prestidigitation)
-		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/enchant_weapon)
-		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/conjure_weapon)
-		H.mind.AddSpell(new /obj/effect/proc_holder/spell/self/conjure_armor)
 		ADD_TRAIT(H, TRAIT_MASTER_CARPENTER, TRAIT_GENERIC)		
 		ADD_TRAIT(H, TRAIT_MASTER_MASON, TRAIT_GENERIC)	
 		SStreasury.give_money_account(ECONOMIC_UPPER_CLASS, H, "Savings.")
@@ -133,8 +129,7 @@
 		if(do_after(src, 15 SECONDS, target = src)) // Reduced to 15 seconds from 30 on the original Herald PR. 15 is well enough time for sm1 to shove you.
 			say(announcementinput)
 			var/sanitized_input = trim(copytext(sanitize(announcementinput), 1, MAX_MESSAGE_LEN))
-			var/accented_input = treat_message_accent(sanitized_input, strings("accent_universal.json", "universal"), 1)
-			var/treated_input = treat_message(accented_input, /datum/language/common)
+			var/treated_input = treat_message(sanitized_input, /datum/language/common)
 			priority_announce("[treated_input]", "The Guildmaster Heralds", 'sound/misc/bell.ogg', sender = src)
 			COOLDOWN_START(src, guildmaster_announcement, GUILDMASTER_ANNOUNCEMENT_COOLDOWN)
 		else

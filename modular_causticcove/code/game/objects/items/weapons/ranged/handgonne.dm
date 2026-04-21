@@ -29,13 +29,13 @@
 	experimental_onback = TRUE
 	cartridge_wording = "musketball"
 	load_sound = 'modular_causticcove/sound/arquebus/musketload.ogg'
-	fire_sound = "modular_causticcove/sound/arquebus/arquefire.ogg"
+	fire_sound = 'modular_causticcove/sound/arquebus/arquefire.ogg'
 	anvilrepair = /datum/skill/craft/weaponsmithing
 	smeltresult = /obj/item/ingot/steel
 	bolt_type = BOLT_TYPE_NO_BOLT
 	casing_ejector = FALSE
 	pickup_sound = 'modular_causticcove/sound/sheath_sounds/draw_from_holster.ogg'
-	sheathe_sound = 'modular_causticcove/sound/sheath_sounds/put_back_to_holster.ogg'
+	//sheathe_sound = 'modular_causticcove/sound/sheath_sounds/put_back_to_holster.ogg' //This is now on the holster component instead of the weapon!
 	var/spread_num = 10
 	var/damfactor = 2
 	var/reloaded = FALSE
@@ -61,8 +61,8 @@
 
 
 /obj/item/gun/ballistic/handgonne/shoot_live_shot(mob/living/user as mob|obj, pointblank = 0, mob/pbtarget = null, message = 1)
-	fire_sound = pick("modular_causticcove/sound/arquebus/arquefire.ogg", "modular_causticcove/sound/arquebus/arquefire2.ogg", "modular_causticcove/sound/arquebus/arquefire3.ogg",
-				"modular_causticcove/sound/arquebus/arquefire4.ogg", "modular_causticcove/sound/arquebus/arquefire5.ogg")
+	fire_sound = pick('modular_causticcove/sound/arquebus/arquefire.ogg', 'modular_causticcove/sound/arquebus/arquefire2.ogg', 'modular_causticcove/sound/arquebus/arquefire3.ogg',
+				'modular_causticcove/sound/arquebus/arquefire4.ogg', 'modular_causticcove/sound/arquebus/arquefire5.ogg')
 	. = ..()
 
 /obj/item/gun/ballistic/handgonne/attack_right(mob/user)
@@ -70,7 +70,7 @@
 		return
 	else
 		if(myrod)
-			playsound(src, "sound/items/sharpen_short1.ogg",  100)
+			playsound(src, 'sound/items/sharpen_short1.ogg',  100)
 			to_chat(user, "<span class='warning'>I draw the ramrod from the [src]!</span>")
 			var/obj/item/ramrod/AM
 			for(AM in src)
@@ -89,7 +89,7 @@
 	if(altgripped || wielded) //Trying to unwield it
 		ungrip(user)
 		return
-	if(alt_intents)
+	if(has_altgrip_modes())
 		altgrip(user)
 	if(gripped_intents)
 		wield(user)
@@ -97,7 +97,7 @@
 
 /obj/item/gun/ballistic/handgonne/attackby(obj/item/A, mob/user, params)
 	user.stop_sound_channel(gunchannel)
-	var/firearm_skill = (user?.mind ? user.mind.get_skill_level(/datum/skill/combat/firearms) : 1)
+	var/firearm_skill = (user?.mind ? user.get_skill_level(/datum/skill/combat/firearms) : 1)
 	var/load_time_skill = load_time - (firearm_skill*2)
 	gunchannel = SSsounds.random_available_channel()
 
@@ -110,7 +110,7 @@
 			return
 		if((loc == user) && (user.get_inactive_held_item() != src))
 			return
-		playsound(src, "modular_causticcove/sound/arquebus/insert.ogg",  100)
+		playsound(src, 'modular_causticcove/sound/arquebus/insert.ogg',  100)
 		user.visible_message("<span class='notice'>[user] forces a [A] down the barrel of the [src].</span>")
 		..()
 
@@ -119,7 +119,7 @@
 			user.visible_message("<span class='notice'>The [src] is already filled with gunpowder!</span>")
 			return
 		else
-			playsound(src, "modular_causticcove/sound/arquebus/pour_powder.ogg",  100)
+			playsound(src, 'modular_causticcove/sound/arquebus/pour_powder.ogg',  100)
 			if(do_after(user, load_time_skill, src))
 				user.visible_message("<span class='notice'>[user] fills the [src] with gunpowder.</span>")
 				gunpowder = TRUE
@@ -129,7 +129,7 @@
 		if(!reloaded)
 			if(chambered)
 				user.visible_message("<span class='notice'>[user] begins ramming the [R.name] down the barrel of the [src] .</span>")
-				playsound(src, "modular_causticcove/sound/arquebus/ramrod.ogg",  100)
+				playsound(src, 'modular_causticcove/sound/arquebus/ramrod.ogg',  100)
 				if(do_after(user, load_time_skill, src))
 					user.visible_message("<span class='notice'>[user] has finished reloading the [src].</span>")
 					reloaded = TRUE
@@ -137,12 +137,12 @@
 		if(reloaded && !myrod)
 			user.transferItemToLoc(R, src)
 			myrod = R
-			playsound(src, "sound/foley/musketload.ogg",  100)
+			playsound(src, 'modular_causticcove/sound/arquebus/musketload.ogg',  100)
 			user.visible_message("<span class='notice'>[user] stows the [R.name] under the barrel of the [src].</span>")
 		if(!chambered && !myrod)
 			user.transferItemToLoc(R, src)
 			myrod = R
-			playsound(src, "sound/foley/musketload.ogg",  100)
+			playsound(src, 'modular_causticcove/sound/arquebus/musketload.ogg',  100)
 			user.visible_message("<span class='notice'>[user] stows the [R.name] under the barrel of the [src] without chambering it.</span>")
 		if(!myrod == null)
 			to_chat(user, span_warning("There's already a [R.name] inside of the [name]."))
@@ -151,9 +151,9 @@
 
 /obj/item/gun/ballistic/handgonne/process_fire(atom/target, mob/living/user, message = TRUE, params = null, zone_override = "", bonus_spread = 0)
 
-	var/accident_chance = 0
-	var/firearm_skill = (user?.mind ? user.mind.get_skill_level(/datum/skill/combat/firearms) : 1)
-	var/turf/knockback = get_ranged_target_turf(user, turn(user.dir, 180), rand(1,2))
+	//var/accident_chance = 0 //These two vars are not used yet!
+	var/firearm_skill = (user?.mind ? user.get_skill_level(/datum/skill/combat/firearms) : 1)
+	//var/turf/knockback = get_ranged_target_turf(user, turn(user.dir, 180), rand(1,2))
 	spread = (spread_num - firearm_skill)
 	if(user.client)
 		if(user.client.chargedprog >= 100)
@@ -170,7 +170,7 @@
 	reloaded = FALSE
 	spark_act()
 
-	playsound(src, "modular_causticcove/sound/arquebus/fuse.ogg", 100)
+	playsound(src, 'modular_causticcove/sound/arquebus/fuse.ogg', 100)
 	spawn(rand(10,20))
 		..()
 		new /obj/effect/particle_effect/sparks/muzzle(get_ranged_target_turf(user, user.dir, 1))
@@ -180,7 +180,7 @@
 			new/obj/effect/particle_effect/smoke/arquebus(get_ranged_target_turf(user, user.dir, 2))
 		spawn (12)
 			new/obj/effect/particle_effect/smoke/arquebus(get_ranged_target_turf(user, user.dir, 1))
-		user.mind.adjust_experience(/datum/skill/combat/firearms, (user.STAINT*5))
+		user.adjust_experience(/datum/skill/combat/firearms, (user.STAINT*5))
 		for(var/mob/M in range(5, user))
 			if(!M.stat)
 				shake_camera(M, 3, 1)

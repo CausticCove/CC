@@ -196,11 +196,6 @@
 	cost = 50
 	contains = list(/obj/item/quiver/bodkin)
 
-/datum/supply_pack/rogue/Knave/quivers/arrows/pyro
-	name = "Quiver of Arrows - Pyroclastic"
-	cost = 100
-	contains = list(/obj/item/quiver/pyroarrows)
-
 /datum/supply_pack/rogue/Knave/quivers/arrows/poison
 	name = "Quiver of Arrows - Poison"
 	cost = 100
@@ -209,12 +204,22 @@
 /datum/supply_pack/rogue/Knave/quivers/bolts
 	name = "Quiver of Bolts"
 	cost = 30
-	contains = list(/obj/item/quiver/bolts)
+	contains = list(/obj/item/quiver/bolt/standard)
 
 /datum/supply_pack/rogue/Knave/quivers/bolts/pyro
 	name = "Quiver of Bolts - Pyroclastic"
 	cost = 100
-	contains = list(/obj/item/quiver/pyrobolts)
+	contains = list(/obj/item/quiver/bolt/pyro)
+
+/datum/supply_pack/rogue/Knave/quivers/bolts/light
+	name = "Quiver of Bolts - Light"
+	cost = 30
+	contains = list(/obj/item/quiver/bolt/light)
+
+/datum/supply_pack/rogue/Knave/runicflask
+	name = "Runic Tincture Flask"
+	cost = 50
+	contains = list(/obj/item/runicflask/charged)
 
 /////////////
 // UTILITY //

@@ -7,7 +7,7 @@
 	class_select_category = CLASS_CAT_RANESHENI
 	min_pq = 5 //CC Edit - From 3 to 5 Please don't be advent+
 	cmode_music = 'sound/music/combat_blackstar.ogg'
-	subclass_languages = list(/datum/language/celestial)
+	subclass_languages = list(/datum/language/raneshi)
 	category_tags = list(CTAG_MERCENARY)
 	traits_applied = list(TRAIT_NOPAINSTUN, TRAIT_CRITICAL_RESISTANCE) // We're going back to the original gimmick of Forlorn Hope, having Critical Resistance
 	// Since we demoted them to light armor, I think it is fair they have access to expert weapons as that is also the unarmed barbarian gimmick
@@ -102,4 +102,4 @@
 		if("Militia Goedendag (Pair)")
 			H.put_in_hands(new /obj/item/rogueweapon/woodstaff/militia)
 			H.equip_to_slot_or_del(new /obj/item/rogueweapon/woodstaff/militia, SLOT_BACK_L)
-			H.adjust_skillrank_up_to(/datum/skill/combat/polearms, SKILL_LEVEL_EXPERT)
+			H.adjust_skillrank_up_to(/datum/skill/combat/staves, SKILL_LEVEL_EXPERT)

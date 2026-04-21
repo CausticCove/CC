@@ -200,7 +200,7 @@
 		if(isliving(src))
 			var/mob/living/L = src
 			if(M.cmode || L.cmode)	//We're in combat, so we apply clickcds
-				var/clickcd = CLICK_CD_TRACKING
+				var/clickcd = CLICK_CD_WRESTLING
 				var/spdbonus = (10 - L.get_stat(STATKEY_SPD)) * 2
 				clickcd -= spdbonus
 				if(M.mind)	//No clickcd if we're grabbing a mindless mob, just frag the stupid AI
@@ -430,21 +430,21 @@
 				pulledby.moving_from_pull = src
 				pulledby.Move(T, get_dir(pulledby, T), glide_size) //the pullee tries to reach our previous position
 				pulledby.moving_from_pull = null
-	if(. && pulling && pulling == pullee && pulling != moving_from_pull) //we were pulling a thing and didn't lose it during our move.
+	if(. && pulling && pulling == pullee && pulling != moving_from_pull)
 		if(!pulling || QDELETED(pulling))
 			return
 		if(pulling.anchored)
 			stop_pulling()
 		else
 			var/pull_dir = get_dir(src, pulling)
-			//puller and pullee more than one tile away or in diagonal position
 			if(get_dist(src, pulling) > 1 || (moving_diagonally != SECOND_DIAG_STEP && ((pull_dir - 1) & pull_dir)))
-				pulling.moving_from_pull = src
+				pullee.moving_from_pull = src
 				if(pull_dir in GLOB.cardinals)
-					pulling.Move(T, get_dir(pulling, T), glide_size) //the pullee tries to reach our previous position
+					pullee.Move(T, get_dir(pullee, T), glide_size)
 				else
-					pulling.forceMove(T) // if we're moving diagonally, warp us to the old position so we can resume normal movement afterwards
-				pulling.moving_from_pull = null
+					pullee.forceMove(T)
+				if(pullee && !QDELETED(pullee))
+					pullee.moving_from_pull = null
 			check_pulling()
 
 	//glide_size strangely enough can change mid movement animation and update correctly while the animation is playing
@@ -539,18 +539,17 @@
 	A.Bumped(src)
 
 /atom/movable/proc/forceMove(atom/destination)
-	if(!destination || QDELETED(src))
+	if(QDELETED(src))
+		return FALSE
+
+	if(!destination)
 		CRASH("[src] No valid destination passed into forceMove")
 
 	var/mob/living/carbon/human/H = null
 	if(ishuman(src.loc))
 		H = src.loc
 
-	. = FALSE
-	if(destination)
-		. = doMove(destination)
-	else
-		CRASH("[src] No valid destination passed into forceMove")
+	. = doMove(destination)
 
 	if(H)
 		H.update_a_intents()
@@ -733,9 +732,18 @@
 	TT.tick()
 
 /atom/movable/proc/handle_buckled_mob_movement(newloc, direct, glide_size_override)
+	if(!has_buckled_mobs())
+		return TRUE
+	var/datum/component/riding/riding_datum = GetComponent(/datum/component/riding)
 	for(var/m in buckled_mobs)
 		var/mob/living/buckled_mob = m
+		// multi-mount affair
 		if(!buckled_mob.Move(newloc, direct, glide_size_override))
+			if(riding_datum && buckled_mob.buckled == src)
+				buckled_mob.forceMove(newloc)
+				continue
+
+			//regular ass mount
 			forceMove(buckled_mob.loc)
 			last_move = buckled_mob.last_move
 			inertia_dir = last_move
@@ -813,17 +821,9 @@ GLOBAL_VAR_INIT(pixel_diff_time, 1)
 /atom/movable/proc/do_attack_animation(atom/A, visual_effect_icon, obj/item/used_item, no_effect, item_animation_override = null, datum/intent/used_intent = null, simplified = FALSE)
 	if(used_item || !simplified)
 		var/animation_type = item_animation_override || used_intent?.get_attack_animation_type()
-		if(used_intent?.swingdelay)
-			//draw_swingdelay(A, used_intent.custom_swingdelay, used_intent.swingdelay)
-			if(isliving(src))
-				var/mob/living/L = src
-				L.play_overhead_indicator_flick('icons/mob/mob_effects.dmi', "eff_swingdelay", used_intent?.swingdelay, MOB_EFFECT_LAYER_SWINGDELAY, y_offset = 3)
-				addtimer(CALLBACK(src, PROC_REF(do_item_attack_animation), A, visual_effect_icon, used_item, animation_type, used_intent), used_intent.swingdelay)
-		else
-			do_item_attack_animation(A, visual_effect_icon, used_item, animation_type = animation_type, used_intent = used_intent)
-			return
+		do_item_attack_animation(A, visual_effect_icon, used_item, animation_type = animation_type, used_intent = used_intent)
+		return
 	wiggle(A)
-
 
 /atom/movable/proc/do_item_attack_animation(atom/A, visual_effect_icon, obj/item/used_item, animation_type = ATTACK_ANIMATION_SWIPE, datum/intent/used_intent)
 	if(used_item)
@@ -1132,16 +1132,15 @@ GLOBAL_VAR_INIT(pixel_diff_time, 1)
 	return FALSE
 
 /atom/movable/proc/get_default_language()
-	// if no language is specified, and we want to say() something, which
-	// language do we use?
 	var/datum/language_holder/H = get_language_holder()
+	if(!H)
+		return null
 
 	if(H.selected_default_language)
 		if(can_speak_in_language(H.selected_default_language))
 			return H.selected_default_language
 		else
 			H.selected_default_language = null
-
 
 	var/datum/language/chosen_langtype
 	var/highest_priority
@@ -1156,8 +1155,11 @@ GLOBAL_VAR_INIT(pixel_diff_time, 1)
 			chosen_langtype = langtype
 			highest_priority = pri
 
-	H.selected_default_language = .
 	. = chosen_langtype
+	H.selected_default_language = chosen_langtype
+
+	if(H.selected_default_language == "None")
+		H.selected_default_language = null
 
 /* End language procs */
 /atom/movable/proc/ConveyorMove(movedir)

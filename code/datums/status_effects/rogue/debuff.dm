@@ -177,7 +177,11 @@
 	id = "net"
 	alert_type = /atom/movable/screen/alert/status_effect/debuff/netted
 	effectedstats = list(STATKEY_SPD = -5, STATKEY_WIL = -2)
-//	duration = 3 MINUTES // WHY?????
+
+/datum/status_effect/debuff/netted/on_creation(mob/living/new_owner, newdur)
+	if(newdur)
+		duration = newdur
+	. = ..()
 
 /datum/status_effect/debuff/netted/on_apply()
 		. = ..()
@@ -426,6 +430,14 @@
 	effectedstats = list(STATKEY_PER = -3, STATKEY_LCK = -1)
 	duration = 8 SECONDS
 
+/datum/status_effect/debuff/dazed/skullshatter
+	effectedstats = list(STATKEY_PER = -1, STATKEY_INT = -1, STATKEY_SPD = -1)
+	duration = -1
+
+/datum/status_effect/debuff/dazed/smite
+	effectedstats = list(STATKEY_PER = -1, STATKEY_INT = -2, STATKEY_SPD = -1)
+	duration = 1 MINUTES
+
 /atom/movable/screen/alert/status_effect/debuff/dazed
 	name = "Dazed"
 	desc = "You've been smacked on the head very hard. Which way is left, again?"
@@ -449,36 +461,44 @@
 	desc = "Something has chilled me to the bone! It's hard to move."
 	icon_state = "muscles"
 
+/// wrestler verison of daze////
+/datum/status_effect/debuff/dazed/stunner
+	id = "discombobulated"
+	alert_type = /atom/movable/screen/alert/status_effect/debuff/dazed
+	effectedstats = list(STATKEY_CON = -2, STATKEY_INT = -2)
+	duration = 15 SECONDS
+	status_type = STATUS_EFFECT_REFRESH
+
 ///// Freifechter Daze Variants /////
 /datum/status_effect/debuff/dazed/longsword
 	id = "durchlauffen"
 	alert_type = /atom/movable/screen/alert/status_effect/debuff/dazed/longsword
-	effectedstats = list(STATKEY_SPD = -3, STATKEY_INT = -1)
-	duration = 10 SECONDS
+	effectedstats = list(STATKEY_WIL = -4, STATKEY_INT = -1)
+	duration = 18 SECONDS
 	status_type = STATUS_EFFECT_REFRESH
 
 /atom/movable/screen/alert/status_effect/debuff/dazed/longsword
-	name = "Master Strike"
-	desc = "How the fuck did they do that!? My ears are ringing!"
+	name = "CAN'T FUCKING BREATHE"
+	desc = "WHAT THE HELL DID THEY DO TO ME?! I NEED TO ATTACK THEM WHILE THEY'RE SWINGING SO THEY CAN'T SHATTER MY WINDPIPE!!"
 	icon_state = "mstrike"
 
 /datum/status_effect/debuff/dazed/longsword2h
 	id = "zorn ort"
 	alert_type = /atom/movable/screen/alert/status_effect/debuff/dazed/longsword2h
 	effectedstats = list(STATKEY_PER = -4, STATKEY_LCK = -3)
-	duration = 8 SECONDS
+	duration = 16 SECONDS
 	status_type = STATUS_EFFECT_REFRESH
 
 /atom/movable/screen/alert/status_effect/debuff/dazed/longsword2h
-	name = "Master Strike"
-	desc = "How the fuck did they do that!? My eye!"
+	name = "CAN'T FUCKING SEE"
+	desc = "WHAT THE HELL DID THEY DO TO ME?! I NEED TO RIPOSTE THEM WHILE THEY'RE SWINGING SO THEY CAN'T POKE MY EYES!!"
 	icon_state = "mstrike"
 
 /datum/status_effect/debuff/dazed/freisabre
 	id = "uszkodzić"
 	alert_type = /atom/movable/screen/alert/status_effect/debuff/dazed/freisabre
 	effectedstats = list(STATKEY_STR = -2, STATKEY_SPD = -3)
-	duration = 10 SECONDS
+	duration = 16 SECONDS
 	status_type = STATUS_EFFECT_REFRESH
 
 /atom/movable/screen/alert/status_effect/debuff/dazed/freisabre
@@ -530,6 +550,9 @@
 	alert_type = /atom/movable/screen/alert/status_effect/debuff/excomm
 	effectedstats = list(STATKEY_LCK = -2, STATKEY_INT = -2, STATKEY_SPD = -1, STATKEY_WIL = -1, STATKEY_CON = -1)
 	duration = -1
+
+
+
 
 /atom/movable/screen/alert/status_effect/debuff/excomm
 	name = "Excommunicated!"
@@ -814,7 +837,8 @@
 		SSdroning.play_area_sound(get_area(owner), owner.client)
 
 /datum/status_effect/debuff/joybringer_druqks/tick()
-	owner.hallucination += 3
+	if(owner.hallucination < 30) // this can stack up INFINITELY if you dont cap it like this
+		owner.hallucination += 3 // and it doesnt decay *that* fast.
 	owner.Jitter(1)
 
 	if(!prob(10))
@@ -963,9 +987,13 @@
 		return FALSE
 	var/mob/living/carbon/human/H = owner
 	var/datum/physiology/phy = H.physiology 
-	var/con_mod = H.STACON - 10 // this gets NASTY as you bleed out.
+	var/con_mod = H.STACON - 10
+	// con mod needs to be greater than 1 for scaling
 	if(con_mod > 0)
+		// ensure their gotten con mod does not go below 1 or exceed the bleedrate cap.
 		con_mod = clamp(con_mod, 1, CONSTITUTION_BLEEDRATE_CAP - 10)
+		// this ""equalizes"" high con ppl into bleeding more, but they SHOULD generally still 
+		// bleed less than if they had just 10 con. remember: this numbers gets sent THRU their con score after.
 		phy.bleed_mod = 1.15 + (con_mod * 0.1) // at 15 con you'll bleed from a wound by .825
 	else
 		phy.bleed_mod = 1.15 // if you already have low con, we're not going to turbofuck you. ok?
@@ -997,7 +1025,7 @@
 	var/mob/living/carbon/human/H = owner
 	var/datum/physiology/phy = H.physiology 
 	var/pain_mod = phy.pain_mod
-	phy.pain_mod = pain_mod * 1.75 // this then gets reduced by con, among other things. change as needed.
+	phy.pain_mod = pain_mod * 1.25 // this then gets reduced by wil, among other things. change as needed.
 	H.visible_message(span_warning("[owner] looks to be in great pain, their wounds BLACKENING!"), span_danger("EVERYTHING HURTS!! MY WOUNDS PAIN HAS INCREASED!!"))
 
 /datum/status_effect/debuff/sensitive_nerves/on_remove()
@@ -1007,7 +1035,7 @@
 	var/mob/living/carbon/human/H = owner
 	var/datum/physiology/phy = H.physiology 
 	var/pain_mod = phy.pain_mod
-	phy.pain_mod = pain_mod / 1.75 // this then gets reduced by con, among other things. change as needed.
+	phy.pain_mod = pain_mod / 1.25 // this should be a define fuuuck
 	H.visible_message(span_warning("[owner]'s wounds suddenly return to normal!"), span_warning("My magickally induced pain subsides!"))
 
 

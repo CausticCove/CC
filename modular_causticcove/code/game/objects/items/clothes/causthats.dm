@@ -7,8 +7,7 @@
 	bloody_icon_state = "dhat"
 	icon_state = "dhat"
 	item_state = "dhat"
-	prevent_crits = PREVENT_CRITS_NONE
-	armor = ARMOR_SPELLSINGER
+	armor = ARMOR_LEATHER
 	sellprice = 15
 	worn_x_dimension = 64
 	worn_y_dimension = 68
@@ -35,8 +34,7 @@
 	bloody_icon_state = "witch_bonnet"
 	icon_state = "witch_bonnet"
 	item_state = "witch_bonnet"
-	prevent_crits = PREVENT_CRITS_NONE
-	armor = ARMOR_SPELLSINGER
+	armor = ARMOR_LEATHER
 	sellprice = 18
 	worn_x_dimension = 64
 	worn_y_dimension = 68
@@ -65,9 +63,8 @@
 	detail_tag = "_detail"
 	altdetail_tag = "_detailalt"
 	bloody_icon_state = "herb_hat"
-	armor = ARMOR_PADDED_GOOD
+	armor = ARMOR_LEATHER
 	max_integrity = ARMOR_INT_HELMET_CLOTH + 70 //its a special hat made for alchemists by alchemists and not a loadout item, should be ok for a MINOR increase
-	prevent_crits = list(BCLASS_BLUNT, BCLASS_SMASH)
 	color = "#ffffff"
 	detail_color = "#FFFFFF"
 	altdetail_color = "#ffffff"

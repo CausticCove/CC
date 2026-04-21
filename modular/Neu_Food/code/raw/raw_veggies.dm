@@ -55,9 +55,9 @@
 	icon = 'modular/Neu_Food/icons/raw/raw_veggies.dmi'
 	icon_state = "garlic_clove"
 	faretype = FARE_POOR
-	desc = "A clove of garlick. Don't eat this."
-	tastes = list("pungent umami" = 1)
-	list_reagents = list(/datum/reagent/consumable/nutriment = 1)
+	desc = "A clove of garlick, fit for stewage. Don't eat this."
+	tastes = list("pungent savoriness" = 1)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 1, /datum/reagent/water/blessed = 2)
 	//CC Edit Begin
 	diet_types = list("Vegetables")
 	diet_change_amount = FOOD_DIETARY_VALUE_POOR

@@ -4,7 +4,7 @@
 	icon_state = "ore"
 	w_class = WEIGHT_CLASS_NORMAL
 	resistance_flags = FIRE_PROOF
-	experimental_inhand = FALSE
+	experimental_inhand = TRUE
 	grid_width = 64
 	grid_height = 32
 
@@ -256,7 +256,7 @@
 
 /obj/item/ingot/bronze
 	name = "bronze bar"
-	desc = "An alloy of tin and copper, humming with yet-untapped potential. The fondest friend of legionnaires, tinkerers, and homesteaders alike."
+	desc = "An alloy of tin and copper, humming with yet-untapped potential. The fondest friend of tinkerers, homesteaders, and shieldbearers alike."
 	icon_state = "ingotbronze"
 	smeltresult = /obj/item/ingot/bronze
 	sellprice = 25
@@ -267,7 +267,8 @@
 	icon_state = "ingotsilv"
 	smeltresult = /obj/item/ingot/silver
 	sellprice = 80
-	is_silver = FALSE //temporary measure to prevent people from easily metachecking vampyres. Replace with a more sophisticated alternative if-or-when available.
+	is_silver = TRUE
+	is_lesser_silver = TRUE
 
 /obj/item/ingot/steel
 	name = "steel bar"
@@ -278,7 +279,7 @@
 
 /obj/item/ingot/blacksteel
 	name = "blacksteel bar"
-	desc = "Sacrificing the holy elements of silver for raw strength, this strange and powerful ingot's origin carries dark rumors.."
+	desc = "This ingot is both mythical and mysterious; stronger - and more expensive - than any alloy currently known to Psydonia's masses. It thrumbs with an eerie blue glow, catchable for only a blink's tyme. </br>'Sacrificing the holy elements of silver for raw strength, this strange and powerful ingot's origin carries dark rumors.'"
 	icon_state = "ingotblacksteel"
 	smeltresult = /obj/item/ingot/blacksteel
 	sellprice = 100
@@ -301,7 +302,8 @@
 	icon_state = "ingotsilvblessed"
 	smeltresult = /obj/item/ingot/silver //Smelting it removes the blessing
 	sellprice = 100
-	is_silver = FALSE //Ditto.
+	is_silver = TRUE
+	is_lesser_silver = TRUE
 
 /obj/item/ingot/silverblessed/Initialize()
   ..()
@@ -313,7 +315,8 @@
 	icon_state = "ingotsilvblessed_psy"
 	smeltresult = /obj/item/ingot/silverblessed //Minor failsafe to ensure bullion can always be used for blessed silver recipes, in case of a filepath conflict.
 	sellprice = 100
-	is_silver = FALSE
+	is_silver = TRUE
+	is_lesser_silver = TRUE
 
 /obj/item/ingot/aalloy
 	name = "decrepit ingot"

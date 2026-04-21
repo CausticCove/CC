@@ -77,7 +77,8 @@ It will also call down lightning strikes from the sky, and fling people with it'
 	emote_see = null
 	environment_smash = ENVIRONMENT_SMASH_WALLS
 	base_intents = list(/datum/intent/unarmed/dragonclaw)
-	faction = list("abberant")
+	faction = list(FACTION_ABBERANT)
+	//death_loot = list(/obj/item/clothing/ring/dragon_ring = 3, /obj/item/book/granter/arcane_aspect/minor = 2, /obj/item/book/granter/arcane_aspect/major = 1) //Caustic Edit - Commenting this out because we don't have the full Summon and Ritual Changes from AP - For now?
 	obj_damage = 400	//Behold, nothing shall keep the dragon out
 	melee_damage_lower = 80
 	melee_damage_upper = 80
@@ -128,7 +129,7 @@ It will also call down lightning strikes from the sky, and fling people with it'
 	animname = "cut"
 	blade_class = BCLASS_CHOP
 	hitsound = "genslash"
-	penfactor = 60
+	penfactor = PEN_HEAVY
 	damfactor = 40
 	candodge = TRUE
 	canparry = TRUE
@@ -137,7 +138,7 @@ It will also call down lightning strikes from the sky, and fling people with it'
 
 /datum/action/innate/megafauna_attack
 	name = "Megafauna Attack"
-	icon_icon = 'icons/mob/actions/actions_spells.dmi'
+	button_icon = 'icons/mob/actions/actions_spells.dmi'
 	button_icon_state = ""
 	var/mob/living/simple_animal/hostile/retaliate/rogue/voiddragon/M
 	var/chosen_message
@@ -235,7 +236,7 @@ It will also call down lightning strikes from the sky, and fling people with it'
 
 /mob/living/simple_animal/hostile/retaliate/rogue/voiddragon/proc/TailSwipe(mob/victim)
 	var/mob/living/target = victim
-	src.visible_message(span_notice("[src] slams [target] with it's tail, knocking them to the floor!"))
+	src.visible_message(span_notice("[src] slams [target] with its tail, knocking them to the floor!"))
 	target.Paralyze(5)
 	target.apply_damage(20, BRUTE)
 	shake_camera(target, 2, 1)
@@ -358,7 +359,7 @@ It will also call down lightning strikes from the sky, and fling people with it'
 	if(stat || swooping)
 		return
 	if(manual_target)
-		target = manual_target
+		GiveTarget(manual_target)
 	if(!target)
 		return
 	playsound(loc, 'sound/vo/mobs/vdragon/drgnroar.ogg', 50, TRUE, -1)
@@ -586,7 +587,7 @@ It will also call down lightning strikes from the sky, and fling people with it'
 		return FALSE
 	if(do_after(user, 2 SECONDS, target = src))
 		user.Beam(target,icon_state="lightning[rand(1,12)]",time=5)
-		src.visible_message(span_colossus("[src] unleashes a storm of lightning from it's maw!"))
+		src.visible_message(span_colossus("[src] unleashes a storm of lightning from its maw!"))
 		cl_cd = world.time + 500
 		Bolt(user,target,30,5,user)
 		src.move_resist = initial(src.move_resist)
@@ -626,26 +627,25 @@ It will also call down lightning strikes from the sky, and fling people with it'
 	qdel(dummy)
 	return 1
 
-/obj/effect/proc_holder/spell/invoked/repulse/voiddragon
+/datum/action/cooldown/spell/repulse/voiddragon
 	name = "Tail Sweep"
 	desc = "Throw back attackers with a sweep of your tail."
 	sound = 'sound/misc/tail_swing.ogg'
-	recharge_time = 15 SECONDS
-	clothes_req = FALSE
-	cooldown_min = 150
-	invocation_type = "none"
+	cooldown_time = 15 SECONDS
+	charge_required = FALSE
+	invocation_type = INVOCATION_NONE
 	sparkle_path = /obj/effect/temp_visual/dir_setting/tailsweep
-	action_icon_state = "tailsweep"
-	action_background_icon_state = "bg_alien"
-	antimagic_allowed = FALSE
-	range = 2
+	button_icon_state = "tailsweep"
+	background_icon_state = "bg_alien"
+	spell_requirements = NONE
+	push_range = 2
 
-/obj/effect/proc_holder/spell/invoked/repulse/voiddragon/cast(list/targets, mob/user = usr)
-	if(iscarbon(user))
-		var/mob/living/carbon/C = user
+/datum/action/cooldown/spell/repulse/voiddragon/cast(atom/cast_on)
+	if(iscarbon(owner))
+		var/mob/living/carbon/C = owner
 		playsound(C.loc, 'sound/combat/hits/punch/punch_hard (3).ogg', 80, TRUE, TRUE)
 		C.spin(6, 1)
-	..(targets, user, 3)
+	return ..(cast_on)
 
 /mob/living/simple_animal/hostile/retaliate/rogue/voiddragon/death()
 	..()
@@ -653,9 +653,9 @@ It will also call down lightning strikes from the sky, and fling people with it'
 	new /obj/item/clothing/ring/dragon_ring(deathspot)
 	new /obj/item/clothing/ring/dragon_ring(deathspot)
 	new /obj/item/clothing/ring/dragon_ring(deathspot)
-	new /obj/item/book/granter/spell_points/voiddragon(deathspot)
-	new /obj/item/book/granter/spell_points/voiddragon(deathspot)
-	new /obj/item/book/granter/spell_points/voiddragon(deathspot)
+	new /obj/item/book/granter/arcane_aspect/minor(deathspot)
+	new /obj/item/book/granter/arcane_aspect/minor(deathspot)
+	new /obj/item/book/granter/arcane_aspect/major(deathspot)
 	update_icon()
 	spill_embedded_objects()
 

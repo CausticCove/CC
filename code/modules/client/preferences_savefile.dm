@@ -220,6 +220,8 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	S["directory_gendertag"]>> directory_gendertag
 	S["directory_sexualitytag"]	>> directory_sexualitytag
 	S["directory_ad"]		>> directory_ad
+
+	S["audio_preload"]		>> audio_preload
 	///Caustic edit end
 	// Custom hotkeys
 	S["key_bindings"]		>> key_bindings
@@ -368,6 +370,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	WRITE_FILE(S["digestion_noises"], digestion_noises)
 	WRITE_FILE(S["eating_noises"], eating_noises)
 	WRITE_FILE(S["belch_noises"], belch_noises)
+	WRITE_FILE(S["audio_preload"], audio_preload)
 	///Caustic edit end
 	
 	return TRUE
@@ -398,16 +401,30 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	charflaws = list()
 	var/list/charflaw_types
 	S["charflaws"] >> charflaw_types
+	var/needs_resave = FALSE
 	if(charflaw_types && length(charflaw_types))
 		for(var/flaw_type in charflaw_types)
-			if(flaw_type)
-				charflaws.Add(new flaw_type())
+			if(!ispath(flaw_type, /datum/charflaw))
+				needs_resave = TRUE
+				continue
+			var/datum/charflaw/cf = new flaw_type()
+			if(!cf)
+				needs_resave = TRUE
+				continue
+			charflaws.Add(cf)
 	// Backwards compatibility: load old single charflaw format
 	else
 		var/charflaw_type
 		S["charflaw"] >> charflaw_type
-		if(charflaw_type)
-			charflaws.Add(new charflaw_type())
+		if(ispath(charflaw_type, /datum/charflaw))
+			var/datum/charflaw/cf = new charflaw_type()
+			if(cf)
+				charflaws.Add(cf)
+	if(needs_resave)
+		var/list/cleaned_types = list()
+		for(var/datum/charflaw/cf in charflaws)
+			cleaned_types.Add(cf.type)
+		WRITE_FILE(S["charflaws"], cleaned_types)
 
 /datum/preferences/proc/_load_culinary_preferences(S)
 	var/list/loaded_culinary_preferences
@@ -435,16 +452,113 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	S["virtue"] >> virtue_type
 	S["virtuetwo"] >> virtuetwo_type
 	S["virtue_origin"] >> origin_type
-	if (virtue_type)
-		virtue = new virtue_type()
+	var/error_check = FALSE
+	var/error_found = FALSE
+	if (istype(virtue_type, /datum/virtue))
+		virtue = virtue_type
+		error_check = TRUE
+	else if(ispath(virtue_type, /datum/virtue))
+		virtue = new virtue_type
 	else
 		virtue = new /datum/virtue/none
 
-	if( virtuetwo_type)
+	if(error_check)
+		//Future-proofing sanity checks in case virtues get adjusted later. We do a full reset if we find any discrepancies.
+		var/datum/virtue/sane_virtue = new virtue.type
+		if(virtue.name != sane_virtue.name)	//We should keep the names & descs updated across saves, too
+			virtue.name = sane_virtue.name
+
+		if(virtue.desc != sane_virtue.desc)	//Not errors warranting a full reset, in theory, anyway.
+			virtue.desc = sane_virtue.desc
+
+		if(length(virtue.picked_choices) > sane_virtue.max_choices)
+			error_found = TRUE
+		
+		if(sane_virtue.max_choices != virtue.max_choices)
+			error_found = TRUE
+		
+		if(length(virtue.extra_choices) != length(sane_virtue.extra_choices))
+			error_found = TRUE
+		
+		if(!error_found)
+			for(var/choice in virtue.extra_choices)
+				if(!(choice in sane_virtue.extra_choices))
+					error_found = TRUE
+					break
+
+			var/total_ours = 0
+			var/total_sane = 0
+
+			for(var/cost in virtue.choice_costs)
+				total_ours += cost
+			for(var/cost in sane_virtue.choice_costs)
+				total_sane += cost
+
+			if(total_ours != total_sane)
+				error_found = TRUE
+
+		if(error_found)
+			qdel(virtue)
+			virtue = sane_virtue
+		else
+			qdel(sane_virtue)
+			virtue.on_load()
+
+	error_check = FALSE
+	if(istype(virtuetwo_type, /datum/virtue))
+		virtuetwo = virtuetwo_type
+		error_check = TRUE
+	else if(ispath(virtuetwo_type, /datum/virtue))
 		virtuetwo = new virtuetwo_type
 	else
 		virtuetwo = new /datum/virtue/none
-	
+
+
+	if(error_check)
+		//Future-proofing sanity checks in case virtues get adjusted later. We do a full reset if we find any discrepancies.
+		var/datum/virtue/sane_virtuetwo = new virtuetwo.type
+		error_found = FALSE
+
+		if(virtuetwo.name != sane_virtuetwo.name)	//We should keep the names & descs updated across saves, too
+			virtue.name = sane_virtuetwo.name
+
+		if(virtuetwo.desc != sane_virtuetwo.desc)	//Not errors warranting a full reset, in theory, anyway.
+			virtuetwo.desc = sane_virtuetwo.desc
+
+
+		if(length(virtuetwo.picked_choices) > sane_virtuetwo.max_choices)
+			error_found = TRUE
+		
+		if(sane_virtuetwo.max_choices != virtuetwo.max_choices)
+			error_found = TRUE
+		
+		if(length(virtuetwo.extra_choices) != length(sane_virtuetwo.extra_choices))
+			error_found = TRUE
+		
+		if(!error_found)
+			for(var/choice in virtuetwo.extra_choices)
+				if(!(choice in sane_virtuetwo.extra_choices))
+					error_found = TRUE
+					break
+
+			var/total_ours = 0
+			var/total_sane = 0
+
+			for(var/cost in virtuetwo.choice_costs)
+				total_ours += cost
+			for(var/cost in sane_virtuetwo.choice_costs)
+				total_sane += cost
+				
+			if(total_ours != total_sane)
+				error_found = TRUE
+
+		if(error_found)
+			virtuetwo = sane_virtuetwo
+			qdel(virtue)
+		else
+			qdel(sane_virtuetwo)
+			virtuetwo.on_load()
+
 	if(origin_type)
 		virtue_origin = new origin_type
 	else
@@ -488,6 +602,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	S["vampire_skin"]		>> vampire_skin
 	S["vampire_hair"]		>> vampire_hair
 	S["vampire_eyes"]		>> vampire_eyes
+	S["vampire_ears"]		>> vampire_ears
 	S["extra_language"]		>> extra_language
 	S["voice_color"]		>> voice_color
 	S["voice_pitch"]		>> voice_pitch
@@ -517,12 +632,14 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	S["taur_color"]			>> taur_color
 
 /datum/preferences/proc/_load_familiar_prefs(S)
-	S["familiar_name"]					>> familiar_prefs.familiar_name
+	S["familiar_names"]					>> familiar_prefs.familiar_names
 	S["familiar_pronouns"]				>> familiar_prefs.familiar_pronouns
-	S["familiar_specie"]				>> familiar_prefs.familiar_specie
-	S["familiar_headshot_link"]			>> familiar_prefs.familiar_headshot_link
+	S["familiar_species"]				>> familiar_prefs.familiar_species
 	S["familiar_flavortext"]			>> familiar_prefs.familiar_flavortext
+	S["familiar_flavortext_display"]	>> familiar_prefs.familiar_flavortext_display
+	S["familiar_headshot_link"]			>> familiar_prefs.familiar_headshot_link
 	S["familiar_ooc_notes"]				>> familiar_prefs.familiar_ooc_notes
+	S["familiar_ooc_notes_display"]		>> familiar_prefs.familiar_ooc_notes_display
 	S["familiar_ooc_extra"]				>> familiar_prefs.familiar_ooc_extra
 	S["familiar_ooc_extra_link"]		>> familiar_prefs.familiar_ooc_extra_link
 
@@ -656,6 +773,11 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	S["img_gallery"]	>> img_gallery
 	img_gallery = SANITIZE_LIST(img_gallery)
 
+	S["nsfw_img_gallery"]	>> nsfw_img_gallery
+	nsfw_img_gallery = SANITIZE_LIST(nsfw_img_gallery)
+
+	S["examine_theme"]		>> examine_theme
+
 	S["char_accent"]		>> char_accent
 	if (!char_accent)
 		char_accent = "No accent"
@@ -785,6 +907,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	WRITE_FILE(S["vampire_skin"]		, vampire_skin)
 	WRITE_FILE(S["vampire_hair"]		, vampire_hair)
 	WRITE_FILE(S["vampire_eyes"]		, vampire_eyes)
+	WRITE_FILE(S["vampire_ears"]		, vampire_ears)
 	WRITE_FILE(S["extra_language"]		, extra_language)
 	WRITE_FILE(S["voice_color"]			, voice_color)
 	WRITE_FILE(S["voice_pitch"]			, voice_pitch)
@@ -859,6 +982,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	WRITE_FILE(S["averse_chosen_faction"] , html_decode(averse_chosen_faction))
 	WRITE_FILE(S["song_artist"] , song_artist)
 	WRITE_FILE(S["song_title"] , song_title)
+	WRITE_FILE(S["examine_theme"] , examine_theme)
 	WRITE_FILE(S["char_accent"] , char_accent)
 	WRITE_FILE(S["voice_type"] , voice_type)
 	WRITE_FILE(S["voice_pack"] , voice_pack)
@@ -866,8 +990,8 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	WRITE_FILE(S["titles_pref"] , titles_pref)
 	WRITE_FILE(S["clothes_pref"] , clothes_pref)
 	WRITE_FILE(S["statpack"] , statpack.type)
-	WRITE_FILE(S["virtue"] , virtue.type)
-	WRITE_FILE(S["virtuetwo"], virtuetwo.type)
+	WRITE_FILE(S["virtue"] , virtue)
+	WRITE_FILE(S["virtuetwo"], virtuetwo)
 	WRITE_FILE(S["virtue_origin"], virtue_origin.type)
 	WRITE_FILE(S["race_bonus"], race_bonus)
 	WRITE_FILE(S["combat_music"], combat_music.type)
@@ -875,16 +999,19 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	WRITE_FILE(S["nsfwflavortext"] , html_decode(nsfwflavortext))
 	WRITE_FILE(S["erpprefs"] , html_decode(erpprefs))
 	WRITE_FILE(S["img_gallery"] , img_gallery)
+	WRITE_FILE(S["nsfw_img_gallery"] , nsfw_img_gallery)
 
 	WRITE_FILE(S["gear_list"], gear_list)
 
 	//Familiar Files
-	WRITE_FILE(S["familiar_name"] , familiar_prefs.familiar_name)
+	WRITE_FILE(S["familiar_names"] , familiar_prefs.familiar_names)
 	WRITE_FILE(S["familiar_pronouns"] , familiar_prefs.familiar_pronouns)
-	WRITE_FILE(S["familiar_specie"] , familiar_prefs.familiar_specie)
-	WRITE_FILE(S["familiar_headshot_link"] , familiar_prefs.familiar_headshot_link)
+	WRITE_FILE(S["familiar_species"] , familiar_prefs.familiar_species)
 	WRITE_FILE(S["familiar_flavortext"] , familiar_prefs.familiar_flavortext)
+	WRITE_FILE(S["familiar_flavortext_display"] , familiar_prefs.familiar_flavortext_display)
+	WRITE_FILE(S["familiar_headshot_link"] , familiar_prefs.familiar_headshot_link)
 	WRITE_FILE(S["familiar_ooc_notes"] , familiar_prefs.familiar_ooc_notes)
+	WRITE_FILE(S["familiar_ooc_notes_display"] , familiar_prefs.familiar_ooc_notes_display)
 	WRITE_FILE(S["familiar_ooc_extra"] , familiar_prefs.familiar_ooc_extra)
 	WRITE_FILE(S["familiar_ooc_extra_link"] , familiar_prefs.familiar_ooc_extra_link)
 
@@ -901,7 +1028,6 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	//save_pickupable(S)
 	//Caustic edit end
 	return TRUE
-
 
 #undef SAVEFILE_VERSION_MAX
 #undef SAVEFILE_VERSION_MIN

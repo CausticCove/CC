@@ -40,16 +40,25 @@
 		target.emote("painscream")
 	if(target.has_status_effect(/datum/status_effect/debuff/devitalised))
 		display_results(user, target, span_notice("You cannot draw lux from [target]; they have none left to give."),
-		"[user] extracts lux from [target]'s innards.",
-		"[user] extracts lux from [target]'s innards.")
+		"[user] fails to extract lux from [target]'s innards.",
+		"[user] fails to extract lux from [target]'s innards.")
 		return FALSE
 	else
 		display_results(user, target, span_notice("You extract a single dose of lux from [target]'s heart."),
 			"[user] extracts lux from [target]'s innards.",
 			"[user] extracts lux from [target]'s innards.")
-		new /obj/item/reagent_containers/lux(target.loc)
+		
+		var/apply_greater
+		if(isaasimar(target) && !(HAS_TRAIT(target, TRAIT_ANCIENT_HAG) || HAS_TRAIT(target, TRAIT_FEYTOUCHED)))
+			new /obj/item/reagent_containers/lux(target.loc)
+			apply_greater = TRUE
+		else if(HAS_TRAIT(target, TRAIT_ANCIENT_HAG) || HAS_TRAIT(target, TRAIT_FEYTOUCHED))
+			new /obj/item/reagent_containers/lux_moss(target.loc)
+		else
+			new /obj/item/reagent_containers/lux_impure(target.loc)
+
 		SEND_SIGNAL(user, COMSIG_LUX_EXTRACTED, target)
 		//record_featured_stat(FEATURED_STATS_CRIMINALS, user)	- This.. isn't normally criminal.
 		record_round_statistic(STATS_LUX_HARVESTED)
-		target.apply_status_effect(/datum/status_effect/debuff/devitalised)
+		target.apply_status_effect((apply_greater ? /datum/status_effect/debuff/devitalised : /datum/status_effect/debuff/devitalised/lesser))
 	return TRUE

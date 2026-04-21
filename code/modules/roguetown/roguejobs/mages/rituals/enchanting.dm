@@ -105,14 +105,6 @@
 	required_atoms = list(/obj/item/rogueore/cinnabar = 1,/obj/item/paper/scroll = 1,/obj/item/magic/infernal/fang = 1, /obj/item/magic/obsidian = 1, /obj/item/magic/melded/t1 = 1)
 	result_atoms = list(/obj/item/enchantmentscroll/thievery)
 
-/datum/runeritual/enchanting/trekk
-	name = "Longstriding"
-	desc = "Provides easy movement through rough terrain."
-	blacklisted = FALSE
-	tier = 2
-	required_atoms = list(/obj/item/rogueore/cinnabar = 1,/obj/item/paper/scroll = 1,/obj/item/magic/elemental/shard = 1, /obj/item/magic/artifact = 1, /obj/item/magic/melded/t1 = 1)
-	result_atoms = list(/obj/item/enchantmentscroll/trekk)
-
 /datum/runeritual/enchanting/smithing
 	name = "Smithing"
 	desc = "Better smithing."

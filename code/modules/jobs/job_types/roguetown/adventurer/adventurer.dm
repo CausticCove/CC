@@ -54,8 +54,9 @@ GLOBAL_VAR_INIT(adventurer_hugbox_duration_still, 3 MINUTES)
 		/datum/advclass/mystic/holyblade,
 		/datum/advclass/mystic/theurgist,
 		/datum/advclass/mage,
-		/datum/advclass/mage/spellblade,
 		/datum/advclass/mage/spellsinger,
+		/datum/advclass/mage/spellblade,
+		/datum/advclass/mage/spellfist,
 		/datum/advclass/ranger,
 		/datum/advclass/ranger/wayfarer,
 		/datum/advclass/ranger/bombadier,
@@ -75,8 +76,9 @@ GLOBAL_VAR_INIT(adventurer_hugbox_duration_still, 3 MINUTES)
 		/datum/advclass/foreigner/shepherd,
 		/datum/advclass/foreigner/fencerguy,
 		/datum/advclass/foreigner/bronzeclad,
+		/datum/advclass/foreigner/lesserblackoak,
 		//CC edit
-		/datum/advclass/foreigner/otava_maid
+		/datum/advclass/foreigner/otava_maid,
 		//CC edit end
 	)
 

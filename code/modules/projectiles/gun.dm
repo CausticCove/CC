@@ -43,6 +43,12 @@
 		QDEL_NULL(chambered)
 	return ..()
 
+/obj/item/gun/dropped(mob/user, silent)
+	. = ..()
+	if(isliving(user))
+		var/mob/living/L = user
+		L.apply_status_effect(/datum/status_effect/recent_weapon)
+
 /obj/item/gun/handle_atom_del(atom/A)
 	if(A == chambered)
 		chambered = null
@@ -101,7 +107,7 @@
 		if(!can_trigger_gun(L))
 			return
 		if(L.used_intent && L.used_intent.get_chargetime())
-			if(L.client.charge_was_blocked_by_cooldown)
+			if(L.client?.charge_was_blocked_by_cooldown)
 				L.client.charge_was_blocked_by_cooldown = FALSE
 				return
 

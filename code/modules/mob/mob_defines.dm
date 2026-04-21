@@ -118,6 +118,7 @@
 	var/list/possible_offhand_intents = list()//Living
 	var/list/possible_rmb_intents = list()
 	var/list/base_intents = list() //bare hand intents
+	var/datum/special_intent/unarmed_special //fallback special intent when no weapon is held
 	var/l_index = 1
 	var/r_index = 1
 	var/r_ua_index = 1
@@ -168,7 +169,7 @@
 	var/advjob = null
 
 	/// A list of factions that this mob is currently in, for hostile mob targetting, amongst other things
-	var/list/faction = list("neutral")
+	var/list/faction = list(FACTION_NEUTRAL)
 
 	/// The current client inhabiting this mob. Managed by login/logout
 	/// This exists so we can do cleanup in logout for occasions where a client was transfere rather then destroyed
@@ -272,7 +273,9 @@
 	var/dodgecd = FALSE
 
 	var/setparrytime = 12
-	var/dodgetime = 12
+	var/dodgetime = 0
+	var/max_dodge = MAX_DODGE_CEIL
+	var/parrydelay = 12
 	var/magearmor = 0
 
 	var/last_dodge = 0
@@ -317,6 +320,7 @@
 	var/last_client_interact = 0
 
 	var/datum/weakref/offered_item_ref
+
 
 	/// cooldown for the next time this person can offer
 	COOLDOWN_DECLARE(offer_cooldown)

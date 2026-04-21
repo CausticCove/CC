@@ -32,6 +32,11 @@
 			add_overlay(filling)
 	return
 
+/obj/machinery/light/rogue/cauldron/get_mechanics_examine(mob/user)
+	. = ..()
+	. += span_info("Left-click the cauldron with a container on the 'FEED' intent to fill it up. Likewise, left-clicking the cauldron with a container on the 'FILL' intent will gradually transfer the cauldron's brew into the container.")
+	. += span_info("Combining certain herbs, powders, and other ingredients can create a wide variety of alchemical wonders.")
+
 /obj/machinery/light/rogue/cauldron/Initialize()
 	create_reagents(500, DRAINABLE | AMOUNT_VISIBLE | REFILLABLE)
 	. = ..()
@@ -184,7 +189,7 @@
 			in_caul.forceMove(get_turf(user))
 	if(reagents)
 		chem_splash(loc, 2, list(reagents))
-	user.visible_message("<span class='info'>[user] kicks [src],spilling it's contents!</span>")
+	user.visible_message("<span class='info'>[user] kicks [src],spilling its contents!</span>")
 	playsound(src, 'sound/items/beartrap2.ogg', 100, FALSE)
 	return ..()
 

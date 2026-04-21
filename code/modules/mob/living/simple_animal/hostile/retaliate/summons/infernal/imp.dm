@@ -15,7 +15,7 @@
 	move_to_delay = 3
 	base_intents = list(/datum/intent/unarmed/claw)
 	butcher_results = list()
-	faction = list("infernal")
+	faction = list(FACTION_INFERNAL)
 	mob_biotypes = MOB_ORGANIC|MOB_BEAST
 	health = 70
 	maxHealth = 70
@@ -59,8 +59,7 @@
 	damage = 20
 	damage_type = BURN
 	nodamage = FALSE
-	armor_penetration = 0
-	flag = "magic"
+	flag = "fire"
 	hitsound = 'sound/blank.ogg'
 
 /obj/projectile/magic/firebolt/on_hit(target)

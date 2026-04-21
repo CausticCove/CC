@@ -7,14 +7,15 @@
 	miracles = list(/obj/effect/proc_holder/spell/targeted/touch/orison					= CLERIC_ORI,
 					/obj/effect/proc_holder/spell/invoked/baothavice					= CLERIC_T0,
 					/obj/effect/proc_holder/spell/self/bless_drink						= CLERIC_T0,
+					/obj/effect/proc_holder/spell/invoked/baothablessings				= CLERIC_T0,
+					/obj/effect/proc_holder/spell/self/insufflation						= CLERIC_T1,
 					/obj/effect/proc_holder/spell/targeted/touch/loversruin				= CLERIC_T1,
 					/obj/effect/proc_holder/spell/invoked/lesser_heal 					= CLERIC_T1,
-					/obj/effect/proc_holder/spell/invoked/baothablessings				= CLERIC_T1,
 					/obj/effect/proc_holder/spell/invoked/griefflower					= CLERIC_T1,
 					/obj/effect/proc_holder/spell/invoked/blood_heal					= CLERIC_T1,
 					/obj/effect/proc_holder/spell/invoked/projectile/blowingdust		= CLERIC_T2,
-					/obj/effect/proc_holder/spell/invoked/joyride						= CLERIC_T2,
-					/obj/effect/proc_holder/spell/invoked/lasthigh						= CLERIC_T3,
+					/obj/effect/proc_holder/spell/invoked/lasthigh						= CLERIC_T2,
+					/obj/effect/proc_holder/spell/invoked/joyride						= CLERIC_T3,
 					/obj/effect/proc_holder/spell/invoked/painkiller					= CLERIC_T3,
 					/obj/effect/proc_holder/spell/invoked/resurrect/baotha				= CLERIC_T4,
 	)
@@ -25,6 +26,7 @@
 	)
 	storyteller = /datum/storyteller/baotha
 	traits_tier = list(TRAIT_CRACKHEAD = CLERIC_T1)
+	crafting_recipes = list(/datum/crafting_recipe/roguetown/structure/baotha_cross_stone, /datum/crafting_recipe/roguetown/structure/baotha_cross_meat)
 
 /datum/patron/inhumen/baotha/can_pray(mob/living/follower)
 	. = ..()
@@ -34,7 +36,7 @@
 	// Allows prayer near EEEVIL psycross
 	for(var/obj/structure/fluff/psycross/zizocross/cross in view(4, get_turf(follower)))
 		if(cross.divine == TRUE)
-			to_chat(follower, span_danger("That acursed cross interupts my prayers!"))
+			to_chat(follower, span_danger("That acсursed cross interupts my prayers!"))
 			return FALSE
 		return TRUE
 	// Allows prayers in the bath house - whore.

@@ -42,12 +42,12 @@
 #define TESTICLES_LAYER			37		//Caustic Added
 #define CROTCH_LAYER			36		//Caustic Added
 #define SHIRT_LAYER				35
-#define WRISTS_LAYER			34
-#define ARMOR_LAYER				33
-#define TABARD_LAYER			32
-#define BELT_LAYER				31		//only when looking south
-#define UNDER_CLOAK_LAYER		30
-#define HANDS_PART_LAYER		29
+#define HANDS_PART_LAYER		34
+#define WRISTS_LAYER			33
+#define ARMOR_LAYER				32
+#define TABARD_LAYER			31
+#define BELT_LAYER				30		//only when looking south
+#define UNDER_CLOAK_LAYER		29
 #define GLOVES_LAYER			28
 #define ARM_DAMAGE_LAYER		27
 #define SHIRTSLEEVE_LAYER		26
@@ -67,7 +67,7 @@
 #define MOUTH_LAYER				12
 #define HEAD_LAYER				11
 #define BACK_LAYER				10		//only when looking north
-#define HANDS_LAYER				9
+#define HANDS_LAYER				9		//the item in hand, not the actual hands.
 #define HANDCUFF_LAYER			8
 #define LEGCUFF_LAYER			7
 #define BODY_FRONT_LAYER		6

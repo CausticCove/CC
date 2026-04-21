@@ -2,11 +2,16 @@
 	name = "Fuck both their holes"
 	stamina_cost = 1.0
 	intensity = 4
+	debug_erp_panel_verb = FALSE //So all in all so long as it works.
 
 /datum/sex_action/sex/double_penetration/shows_on_menu(mob/living/carbon/human/user, mob/living/carbon/human/target)
 	if(user == target)
 		return FALSE
 	if(!has_double_penis(user))
+		return FALSE
+	if(!check_location_accessible(user, user, BODY_ZONE_PRECISE_GROIN, TRUE))
+		return FALSE
+	if(!check_location_accessible(user, target, BODY_ZONE_PRECISE_GROIN, TRUE))
 		return FALSE
 	if(!target.getorganslot(ORGAN_SLOT_VAGINA))
 		return FALSE
@@ -42,7 +47,6 @@
 	user.visible_message(sex_session.spanify_force("[user] [sex_session.get_generic_force_adjective()] [is_knotting ? "knot-fucks" : "fucks"] [target]'s holes together."))
 	playsound(target, sex_session.get_force_sound(), 50, TRUE, -2, ignore_walls = FALSE)
 	do_thrust_animate(user, target, sex_session)
-
 	do_onomatopoeia(user)
 
 	sex_session.perform_sex_action(user, 3, 0, TRUE)

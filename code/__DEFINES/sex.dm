@@ -76,7 +76,7 @@ GLOBAL_LIST_EMPTY(locked_sex_objects)
 #define CHARGE_FOR_CLIMAX 100
 #define AROUSAL_HARD_ON_THRESHOLD 20
 #define CHARGE_RECHARGE_RATE (CHARGE_FOR_CLIMAX / (2 MINUTES))
-#define AROUSAL_TIME_TO_UNHORNY (5 SECONDS)
+#define AROUSAL_TIME_TO_UNHORNY (30 SECONDS)
 #define SPENT_AROUSAL_RATE (3 / (1 SECONDS))
 #define IMPOTENT_AROUSAL_LOSS_RATE (3 / (1 SECONDS))
 
@@ -250,20 +250,20 @@ GLOBAL_LIST_EMPTY(locked_sex_objects)
 #define SUBTLE_SHORT (1 << 3)
 
 #define SEX_SOUNDS_SLOW list(\
-	"sound/misc/mat/sex_clap/slow/SexSlap14.ogg",\
-	"sound/misc/mat/sex_clap/slow/SexSlap20.ogg",\
-	"sound/misc/mat/sex_clap/slow/SexSlap21.ogg",\
-	"sound/misc/mat/sex_clap/slow/SexSlap23.ogg",\
-	"sound/misc/mat/sex_clap/slow/SexSlap34.ogg",\
+	'sound/misc/mat/sex_clap/slow/SexSlap14.ogg',\
+	'sound/misc/mat/sex_clap/slow/SexSlap20.ogg',\
+	'sound/misc/mat/sex_clap/slow/SexSlap21.ogg',\
+	'sound/misc/mat/sex_clap/slow/SexSlap23.ogg',\
+	'sound/misc/mat/sex_clap/slow/SexSlap34.ogg',\
 	)
 
 #define SEX_SOUNDS_HARD list(\
-	"sound/misc/mat/sex_clap/hard/SexSmack17.ogg",\
-	"sound/misc/mat/sex_clap/hard/SexSmack18.ogg",\
-	"sound/misc/mat/sex_clap/hard/SexSmack20.ogg",\
-	"sound/misc/mat/sex_clap/hard/SexSmack21.ogg",\
-	"sound/misc/mat/sex_clap/hard/SexSmack24.ogg",\
-	"sound/misc/mat/sex_clap/hard/SexSmack26.ogg",\
+	'sound/misc/mat/sex_clap/hard/SexSmack17.ogg',\
+	'sound/misc/mat/sex_clap/hard/SexSmack18.ogg',\
+	'sound/misc/mat/sex_clap/hard/SexSmack20.ogg',\
+	'sound/misc/mat/sex_clap/hard/SexSmack21.ogg',\
+	'sound/misc/mat/sex_clap/hard/SexSmack24.ogg',\
+	'sound/misc/mat/sex_clap/hard/SexSmack26.ogg',\
 	)
 
 #define KNOTTED_NULL 0

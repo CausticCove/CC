@@ -1,9 +1,11 @@
 
 /obj/item/reagent_containers/glass/bottle/rogue/healthpot
 	list_reagents = list(/datum/reagent/medicine/healthpot = 50)
+	flags_ai_inventory = AI_ITEM_HEALING_DRINK | AI_ITEM_DRINK
 
 /obj/item/reagent_containers/glass/bottle/rogue/healthpotnew
 	list_reagents = list(/datum/reagent/medicine/stronghealth = 50)
+	flags_ai_inventory = AI_ITEM_HEALING_DRINK | AI_ITEM_DRINK
 
 /obj/item/reagent_containers/glass/bottle/rogue/manapot
 	list_reagents = list(/datum/reagent/medicine/manapot = 50)
@@ -16,6 +18,13 @@
 
 /obj/item/reagent_containers/glass/bottle/mercury
 	list_reagents = list(/datum/reagent/mercury = 50)
+
+/obj/item/reagent_containers/glass/bottle/rogue/healthpot/zarum
+	name = "bottle of medicinal fish vinegar"
+	desc = "A bottle with a mudclay cork, tethered to the bottleneck via braided twine. Fermented innard-paste and herbs makes for a \
+	disgustingly cheap medicine; an ancient concoction, resurrected for usage within the gladitorial arenas of Lirvas and Raneshen. </br>A \
+	particular variant of this, made by fermenting zardines in the Terrorbog, happens to be a very popular condiment back in Rockhill."
+	list_reagents = list(/datum/reagent/medicine/healthpot/zarum = 50)
 
 //vanderlin potion stuff//
 /obj/item/reagent_containers/glass/bottle/rogue/strongmanapot
@@ -96,10 +105,20 @@
 	list_reagents = list(/datum/reagent/consumable/ethanol/beer = 50)
 	desc = "A bottle that contains a generic housebrewed small-beer. It has an improvised corkseal made of hardened clay."
 
-/obj/item/reagent_containers/glass/bottle/rogue/triumphbeer
-	name = "bottle of beer"
-	list_reagents = list(/datum/reagent/consumable/ethanol/beer = 50)
-	desc = "A glass bottle with a laced cork-seal. It swishes with fizzled goodness; a cure to the parched throat, a remedy to the sleepless nites, and a toast for the journey ahead."
+/obj/item/reagent_containers/glass/bottle/rogue/spicedwine
+	name = "bottle of spiced wine"
+	list_reagents = list(/datum/reagent/consumable/ethanol/spicedwine = 50)
+	desc = "A glass bottle with a waxed cork-seal. Keen eyes can spot the dizzying amount of bubbles constantly frothing to the top of its tangerine-hued treasures."
+
+/obj/item/reagent_containers/glass/bottle/rogue/spicedwineaged
+	name = "bottle of aged spiced wine"
+	list_reagents = list(/datum/reagent/consumable/ethanol/spicedwine/aged = 50)
+	desc = "A glass bottle with a waxed cork-seal, and secured with cloth lacing. Errant light turns its tangerine hues into a golden-amber surprise."
+
+/obj/item/reagent_containers/glass/bottle/rogue/spicedwinedelectable
+	name = "bottle of delectable spiced wine"
+	list_reagents = list(/datum/reagent/consumable/ethanol/spicedwine/delectable = 50)
+	desc = "A glass bottle with a waxed cork-seal, further laced with silk cordage. Not even its seals can save your nostrils from imbuing a sliver of its impossibly aromatic supply."
 
 /obj/item/reagent_containers/glass/bottle/rogue/beer/zagul
 	name = "bottle of Zagul"
@@ -351,13 +370,3 @@
 /obj/item/reagent_containers/glass/bottle/claybottle/whitewine
 	list_reagents = list(/datum/reagent/consumable/ethanol/whitewine = 75)
 	desc = "A bottle with the Otavan Merchant Guild cork-seal. This one appears to be labelled as a sweet wine from the colder northern regions."
-
-
-		///////////////////////////
-		// TRIUMPH-EXCLUSIVE !   //
-		///////////////////////////
-
-/obj/item/reagent_containers/glass/bottle/alchemical/tripot
-	name = "vial of distilled triumphance"
-	desc = "The fruits of your labor, distilled into a sparkling pittance that shimmers with Azurian light. Even after the vial's emptying, it still retains that otherworldly glitterance."
-	list_reagents = list(/datum/reagent/buff/tri = 10)

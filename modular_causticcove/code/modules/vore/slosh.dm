@@ -86,5 +86,5 @@
 	if(source.buckled || source.lying || source.throwing)
 		return
 
-	playsound(source.loc, S, volume, FALSE, preference = "digestion_noises")
+	playsound(source.loc, S, volume, FALSE, pref_toggle = "digestion_noises")
 	return

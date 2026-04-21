@@ -1,7 +1,7 @@
 /// SPELL DATUMS
 
 /obj/effect/proc_holder/spell/invoked/resurrect/matthios
-	name = "Faustian Transaction"
+	name = "Rekindled Exchange"
 	desc = "Revives the target by invoking a deal with Matthios. In exchange for their lyfe returned, they will be placed\
 	in a lasting debt to Him. Any coins within their hands will be spent paying off said debt. Blood for gold."
 	debuff_type = /datum/status_effect/debuff/debt_indicator
@@ -10,11 +10,12 @@
 	sound = 'sound/magic/slimesquish.ogg'
 	chargedloop = /datum/looping_sound/invokelightning
 	harms_undead = FALSE
-	overlay_icon = 'icons/mob/actions/zizomiracles.dmi'
+	recharge_time = 2 MINUTES //Anastasis Equivalent
+	overlay_icon = 'icons/mob/actions/matthiosmiracles.dmi'
 	overlay_state = "revival"
 	action_icon_state = "revival"
-	action_icon = 'icons/mob/actions/zizomiracles.dmi'
-	required_structure = /obj/structure/fluff/psycross/zizocross
+	action_icon = 'icons/mob/actions/matthiosmiracles.dmi'
+	required_structure = /obj/structure/fluff/psycross/matthios
 
 /obj/effect/proc_holder/spell/invoked/resurrect/graggar
 	name = "Blood for Graggar"
@@ -27,11 +28,11 @@
 	sound = 'sound/magic/slimesquish.ogg'
 	chargedloop = /datum/looping_sound/invokelightning
 	harms_undead = FALSE
-	overlay_icon = 'icons/mob/actions/zizomiracles.dmi'
+	overlay_icon = 'icons/mob/actions/graggarmiracles.dmi'
 	overlay_state = "revival"
 	action_icon_state = "revival"
-	action_icon = 'icons/mob/actions/zizomiracles.dmi'
-	required_structure = /obj/structure/fluff/psycross/zizocross
+	action_icon = 'icons/mob/actions/graggarmiracles.dmi'
+	required_structure = /obj/structure/fluff/psycross/graggar
 
 /obj/effect/proc_holder/spell/invoked/resurrect/baotha
 	name = "Drive the Thorns Deep"
@@ -42,11 +43,11 @@
 	sound = 'sound/magic/slimesquish.ogg'
 	chargedloop = /datum/looping_sound/invokelightning
 	harms_undead = FALSE
-	overlay_icon = 'icons/mob/actions/zizomiracles.dmi'
+	overlay_icon = 'icons/mob/actions/baothamiracles.dmi'
 	overlay_state = "revival"
 	action_icon_state = "revival"
-	action_icon = 'icons/mob/actions/zizomiracles.dmi'
-	required_structure = /obj/structure/fluff/psycross/zizocross
+	action_icon = 'icons/mob/actions/baothamiracles.dmi'
+	required_structure = /obj/structure/fluff/psycross/baotha
 	req_items = list() // temp. baothans dont have a holy symbol. apparently one is being commed so this is just the stopgap.
 
 /obj/effect/proc_holder/spell/invoked/resurrect/zizo
@@ -84,7 +85,7 @@
 		debt_remaining = start_debt * NOBLE_MULTIPLIER
 	else
 		debt_remaining = start_debt
-	RegisterSignal(parent, COMSIG_ITEM_EQUIPPED, .proc/on_equip)
+	RegisterSignal(parent, COMSIG_MOB_EQUIPPED_ITEM, .proc/on_equip)
 
 /datum/component/debt_collector/proc/on_equip(mob/living/carbon/human/H, obj/item/I, slot)
 	SIGNAL_HANDLER
@@ -117,9 +118,7 @@
 		// We need a delay to stop the old coin pile from merging with the refund prematurely. Delay one tick :D
 		// I love coin code!!
 		spawn(1)
-			var/obj/structure/roguemachine/temp_ref = new /obj/structure/roguemachine()
-			temp_ref.budget2change(refund_budget, H)
-			qdel(temp_ref)
+			budget2change(refund_budget, H)
 
 		debt_remaining = 0
 		clear_debt(H)

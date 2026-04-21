@@ -33,6 +33,9 @@
 	/// Whether this emote is filtered by our "hear animal noises" preference.
 	var/is_animal = FALSE
 
+	/// For ranged targeted emotes, range of 2 is for adjacents
+	var/targetrange = 2 
+
 	/// Whether this emote will ONLY go through a few walls on the same z-level.
 	var/is_quiet = FALSE
 
@@ -68,13 +71,16 @@
 	if(targetted)
 		var/list/mobsadjacent = list()
 		var/mob/chosenmob
-		for(var/mob/living/M in range(user, 2))
+		for(var/mob/living/M in range(user, targetrange))
 			if(M != user)
 				mobsadjacent += M
 		if(mobsadjacent.len)
-			chosenmob = tgui_input_list(user, "[key] who?", "XYLIX", mobsadjacent)
+			chosenmob = input("[key] who?") in mobsadjacent
 		if(chosenmob)
 			if(user.Adjacent(chosenmob))
+				params = chosenmob.name
+				adjacentaction(user, chosenmob)
+			else if(targetrange > 2) //if it's a ranged targeted emote
 				params = chosenmob.name
 				adjacentaction(user, chosenmob)
 	var/raw_msg = select_message_type(user, intentional)
@@ -129,11 +135,18 @@
 			var/static/regex/regex = regex(@"[,.!?]", "g")
 			pre_color_msg = regex.Replace(pre_color_msg, "")
 			pre_color_msg = trim(pre_color_msg, MAX_MESSAGE_LEN)
-		// Checks to see if we're emoting on the body while we have a head, or if we're emoting on the head.
+		// Build the styled name for chat
+		var/styled_name
 		if(human && human.voice_color)
-			msg = "<span style='color:#[human.voice_color];text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;'><b>[emotelocation]</b></span> " + msg
+			styled_name = "<span style='color:#[human.voice_color];text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;'><b>[emotelocation]</b></span>"
 		else
-			msg = "<b>[emotelocation]</b> " + msg
+			styled_name = "<b>[emotelocation]</b>"
+		// If the message contains $n, substitute it with the name instead of prepending
+		if(findtext(msg, "$n"))
+			msg = trim(replacetext(msg, "$n", styled_name))
+			pre_color_msg = trim(replacetext(pre_color_msg, "$n", "[emotelocation]"))
+		else
+			msg = "[styled_name] [msg]"
 		for(var/mob/M in GLOB.dead_mob_list)
 			if(!M.client || isnewplayer(M))
 				continue
@@ -222,8 +235,11 @@
 				H.last_sound = used_sound
 				return used_sound
 		else
-			if(key != "burp" || user.client.prefs.belch_noises)
-				return user.get_sound(key)
+			// familiars get to do emotes with their weird planar being anatomy, so that they can caw and such
+			if(istype(user, /mob/living/simple_animal/pet/familiar))
+				var/datum/voicepack/pack2use = (user.gender==MALE)? /datum/voicepack/male : /datum/voicepack/female
+				return pack2use.get_sound(key)
+			return user.get_sound(key)
 
 /mob/living/proc/get_sound(input)
 	return

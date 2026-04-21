@@ -103,7 +103,7 @@
 
 	/// Whether the bodypart has unlimited bleeding.
 	var/unlimited_bleeding = FALSE
-	
+
 	/// Cached variable that reflects how much bleeding our wounds are applying to the limb. Handled inside each individual wound.
 	var/bleeding = 0
 
@@ -117,6 +117,9 @@
 
 	resistance_flags = FLAMMABLE
 
+/obj/item/bodypart/proc/operator""()
+	return "\proper"+name
+
 /obj/item/bodypart/proc/adjust_marking_overlays(var/list/appearance_list)
 	return
 
@@ -124,6 +127,8 @@
 	var/list/appearance_list = list()
 //	var/specific_layer = aux ? aux_layer : BODYPARTS_LAYER
 	var/specific_layer = aux_layer ? aux_layer : BODYPARTS_LAYER
+	if((specific_layer == HANDS_PART_LAYER) && (human_owner.wear_shirt)) // Arms snowflake check
+		return appearance_list
 	var/specific_render_zone = aux ? aux_zone : body_zone
 	for(var/key in specific_markings)
 		var/color = specific_markings[key]
@@ -392,7 +397,12 @@
 			. = TRUE
 	consider_processing()
 	update_disabled()
-	return update_bodypart_damage_state() || .
+	. = update_bodypart_damage_state() || .
+	if(owner)
+		var/datum/hud/hud_used = owner.hud_used
+		if(hud_used?.zone_select)
+			hud_used.zone_select.update_limb(body_zone)
+	return .
 
 //Heals brute and burn damage for the organ. Returns 1 if the damage-icon states changed at all.
 //Damage cannot go below zero.
@@ -416,7 +426,12 @@
 	consider_processing()
 	update_disabled()
 	cremation_progress = min(0, cremation_progress - ((brute_dam + burn_dam)*(100/max_damage)))
-	return update_bodypart_damage_state()
+	. = update_bodypart_damage_state()
+	if(owner)
+		var/datum/hud/hud_used = owner.hud_used
+		if(hud_used?.zone_select)
+			hud_used.zone_select.update_limb(body_zone)
+	return .
 
 //Returns total damage.
 /obj/item/bodypart/proc/get_damage(include_stamina = FALSE)
@@ -745,11 +760,13 @@
 			aux = image(limb.icon, "[prosthetic_prefix]_[aux_zone]", -aux_layer, image_dir)
 			. += aux
 
-	// Color
-	var/override_color = rotted ? SKIN_COLOR_ROT : null
-	if(is_organic && should_draw_greyscale && !skeletonized)
-		var/draw_color = mutation_color || species_color || skin_tone
-		if(rotted || (owner && HAS_TRAIT(owner, TRAIT_ROTMAN)))
+
+	var/override_color = null
+	if(rotted)
+		override_color = SKIN_COLOR_ROT
+	if(is_organic_limb() && should_draw_greyscale && !skeletonized)
+		var/draw_color =  mutation_color || species_color || skin_tone
+		if(rotted || (owner && HAS_TRAIT(owner, TRAIT_ROTMAN) && !owner.mind))
 			draw_color = SKIN_COLOR_ROT
 		if(draw_color)
 			limb.color = "#[draw_color]"

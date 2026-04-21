@@ -1,10 +1,15 @@
 /datum/sex_action/sex/anal
-	name = "Fuck their ass"
+	name = "Fuck their butt"
 	stamina_cost = 1.0
 	intensity = 4
+	debug_erp_panel_verb = FALSE //There is a better way to do this.
 
 /datum/sex_action/sex/anal/shows_on_menu(mob/living/carbon/human/user, mob/living/carbon/human/target)
 	if(user == target)
+		return FALSE
+	if(!check_location_accessible(user, user, BODY_ZONE_PRECISE_GROIN, TRUE))
+		return FALSE
+	if(!check_location_accessible(user, target, BODY_ZONE_PRECISE_GROIN, TRUE))
 		return FALSE
 	if(!user.getorganslot(ORGAN_SLOT_PENIS))
 		return FALSE
@@ -38,7 +43,6 @@
 	user.visible_message(sex_session.spanify_force("[user] [sex_session.get_generic_force_adjective()] [is_knotting ? "knot-fucks" : "fucks"] [target]'s ass."))
 	playsound(target, sex_session.get_force_sound(), 50, TRUE, -2, ignore_walls = FALSE)
 	do_thrust_animate(user, target, sex_session)
-
 	do_onomatopoeia(user)
 
 	sex_session.perform_sex_action(user, 2, 0, TRUE)
@@ -87,7 +91,6 @@
 	user.visible_message(sex_session.spanify_force("[user] [sex_session.get_generic_force_adjective()] [is_knotting ? "double-knots" : "double-fucks" ] [target]'s ass."))
 	playsound(target, sex_session.get_force_sound(), 50, TRUE, -2, ignore_walls = FALSE)
 	do_thrust_animate(user, target, sex_session)
-
 	do_onomatopoeia(user)
 
 	sex_session.perform_sex_action(user, 2, 0, TRUE)

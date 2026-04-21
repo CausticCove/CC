@@ -48,7 +48,7 @@
 		if(body_zone != BODY_ZONE_HEAD)
 			var/mob/living/carbon/human/victim = owner
 			var/d_type = "slash"
-			if(victim.run_armor_check(zone_precise, d_type, damage = damage))
+			if(victim.run_armor_check(zone_precise, d_type, armor_penetration = PEN_NONE, damage = damage))
 				to_chat(victim, span_warning("My armour just saved me from losing my [C.get_bodypart(body_zone).name]!"))
 				return FALSE
 
@@ -88,7 +88,7 @@
 				C.visible_message(span_danger("<b>[C]'s wrought skull is <span class='crit'>CLEFT NIGH IN TWAIN</span> by a fearsome blow, crumbling into a <span class='crit'>CLOUD of DUST!</span></b>"))
 				C.death()
 				return
-			
+
 			if (skeletonized)
 				C.visible_message(span_danger("<b>[C]'s bony skull is <span class='crit'>MULCHED</span> by a fearsome blow, spalling into a <span class='crit'>CLOUD of SHARDS!</span></b>"))
 				C.death()
@@ -162,7 +162,6 @@
 		if(new_turf.density)
 			break
 	throw_at(target_turf, throw_range, throw_speed)
-	owner = C
 	return TRUE
 
 /obj/item/bodypart/chest/dismember(dam_type = BRUTE, bclass = BCLASS_CUT, mob/living/user, zone_precise = src.body_zone, damage = 0, vorpal = FALSE, skip_checks = FALSE)
@@ -424,7 +423,7 @@
 		if(C.hud_used)
 			var/atom/movable/screen/inventory/hand/hand = C.hud_used.hand_slots["[held_index]"]
 			if(hand)
-				hand.update_icon()
+				hand.update_hand_vis()
 		C.update_inv_gloves()
 
 	if(special) //non conventional limb attachment
@@ -465,6 +464,9 @@
 	C.updatehealth()
 	C.queue_icon_update(PENDING_UPDATE_BODY | PENDING_UPDATE_HAIR | PENDING_UPDATE_DAMAGE)	
 	C.update_mobility()
+	var/datum/hud/hud_used = C.hud_used
+	if(hud_used?.zone_select)
+		hud_used.zone_select.rebuild_limbs()
 	return TRUE
 
 /obj/item/bodypart/head/attach_limb(mob/living/carbon/C, special)

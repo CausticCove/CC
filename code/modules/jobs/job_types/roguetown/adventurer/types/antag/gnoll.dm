@@ -28,13 +28,33 @@
 	always_show_on_latechoices = TRUE
 	job_reopens_slots_on_death = FALSE
 	same_job_respawn_delay = 1 MINUTES
-	virtue_restrictions = list(/datum/virtue/utility/noble) //Are you for real?
+	virtue_restrictions = list(
+		/datum/virtue/utility/noble,
+		/datum/virtue/combat/dualwielder, //Claws are too powerful, abusable
+		/datum/virtue/combat/combat_virtue, //They do not need shield skills or anything in here
+		/datum/virtue/utility/notable, //No resident (????) or free-money-stash gnolls
+		/datum/virtue/utility/bronzelimbs, //They should feel pain in their limbs given their state
+		/datum/virtue/movement/acrobatic, //This should be given to them when they are actually after a Hunted
+		/datum/virtue/utility/woodwalker, //This should be given to them when they are actually after a Hunted
+		/datum/virtue/combat/crossbowman,	//Absolutely not on a class like this
+		/datum/virtue/combat/bowman
+		)
 	job_subclasses = list(
 		/datum/advclass/gnoll/berserker,
 		/datum/advclass/gnoll/knight,
 		/datum/advclass/gnoll/templar,
 		/datum/advclass/gnoll/shaman,
 	)
+
+/datum/job/roguetown/gnoll/special_job_check(mob/dead/new_player/player)
+	if(is_storyteller_soft_antag_blocked())
+		return FALSE
+	return ..()
+
+/datum/job/roguetown/gnoll/special_check_latejoin(client/C)
+	if(is_storyteller_soft_antag_blocked())
+		return FALSE
+	return ..()
 
 /datum/job/roguetown/gnoll/after_spawn(mob/living/L, mob/M, latejoin = TRUE)
 	..()
@@ -85,6 +105,31 @@
 					to_chat(H, span_notice("Your name is now [H.real_name]."))
 				if("Keep Current Name")
 					to_chat(H, span_notice("You keep your name as [H.real_name]."))
+
+/proc/gnollslot_calc()
+	var/list/result = list()
+	if(is_storyteller_soft_antag_blocked())
+		result["final_slots"] = 0
+		return result
+	var/slots = 1
+	switch(get_gnoll_scaling())
+		if(GNOLL_SCALING_FLAT)
+			slots = 2
+		if(GNOLL_SCALING_DYNAMIC)
+			slots = 3
+	result["final_slots"] = slots
+	return result
+
+/proc/gnollslot_update()
+	var/datum/job/gnoll_job = SSjob.GetJob("Gnoll")
+	if(!gnoll_job)
+		return
+	if(gnoll_job.admin_slot_override)
+		return
+	var/list/scaling = gnollslot_calc()
+	var/slots = max(0, scaling["final_slots"])
+	gnoll_job.total_positions = max(gnoll_job.current_positions, slots)
+	gnoll_job.spawn_positions = max(gnoll_job.current_positions, slots)
 
 /mob/living/carbon/human/proc/gnoll_inspect_skin()
 	set name = "Inspect Pelt"

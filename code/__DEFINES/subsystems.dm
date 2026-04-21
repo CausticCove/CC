@@ -57,6 +57,9 @@
 ///In most cases you want a subsystem instead, so don't use this unless you have a good reason
 #define TIMER_LOOP				(1<<5)
 
+/// Delete the timer on parent datum Destroy() and when deltimer'd
+#define TIMER_DELETE_ME (1<<6)
+
 ///Empty ID define
 #define TIMER_ID_NULL -1
 
@@ -119,6 +122,7 @@
 #define INIT_ORDER_AI_CONTROLLERS 	55 //So the controller can get the ref
 #define INIT_ORDER_TICKER			55
 #define INIT_ORDER_WARDROBE			54
+#define INIT_ORDER_AI_IDLE_CONTROLLERS 51
 #define INIT_ORDER_MAPPING			50
 #define INIT_ORDER_DUNGEON			49
 #define INIT_ORDER_MINOR_MAPPING	47 //CC Edit for Map Templates
@@ -172,8 +176,10 @@
 // If the subsystem isn't listed here it's either DEFAULT or PROCESS (if it's a processing subsystem child)
 
 #define FIRE_PRIORITY_IDLE_NPC		5
+#define FIRE_PRIORITY_SLOW_OBJECTS 5
 #define FIRE_PRIORITY_ROLE_CLASS_HANDLER 10
 #define FIRE_PRIORITY_PING			10
+#define FIRE_PRIORITY_FARMING		10
 #define FIRE_PRIORITY_WET_FLOORS	10
 #define FIRE_PRIORITY_WATER_LEVEL	10
 #define FIRE_PRIORITY_SERVER_MAINT	10
@@ -203,11 +209,13 @@
 #define FIRE_PRIORITY_PARALLAX		65
 #define FIRE_PRIORITY_MOBS			100
 #define FIRE_PRIORITY_TGUI			110
+#define FIRE_PRIORITY_MOUSE_ENTERED	160
 #define FIRE_PRIORITY_TICKER		200
 #define FIRE_PRIORITY_ATMOS_ADJACENCY	300
 #define FIRE_PRIORITY_CHAT			400
 #define FIRE_PRIORITY_RUNECHAT		410
 #define FIRE_PRIORITY_OVERLAYS		500
+#define FIRE_PRIORITY_TIMER 		700
 #define FIRE_PRIORITY_INPUT			1000 // This must always always be the max highest priority. Player input must never be lost.
 
 // SS runlevels
@@ -250,6 +258,15 @@
 		A.flags_1 &= ~OVERLAY_QUEUED_1;\
 	} while (FALSE)
 
+/**
+	Create a new timer and add it to the queue.
+	* Arguments:
+	* * callback the callback to call on timer finish
+	* * wait deciseconds to run the timer for
+	* * flags flags for this timer, see: code\__DEFINES\subsystems.dm
+	* * timer_subsystem the subsystem to insert this timer into
+*/
+#define addtimer(args...) _addtimer(args, file = __FILE__, line = __LINE__)
 
 // Wardrobe subsystem tasks
 #define SSWARDROBE_STOCK 1

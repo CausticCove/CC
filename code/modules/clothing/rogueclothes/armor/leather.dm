@@ -3,8 +3,7 @@
 	desc = "A flexible vest, stitched together from lengths of cured leather."
 	icon_state = "roguearmor"
 	body_parts_covered = COVERAGE_TORSO
-	armor = ARMOR_LEATHER
-	prevent_crits = PREVENT_CRITS_NONE
+	armor = ARMOR_LEATHER_NPC
 	blocksound = SOFTHIT
 	blade_dulling = DULLING_BASHCHOP
 	break_sound = 'sound/foley/cloth_rip.ogg'
@@ -97,11 +96,10 @@
 	icon_state = "studleather"
 	item_state = "studleather"
 	blocksound = SOFTHIT
-	armor = ARMOR_LEATHER_STUDDED
-	prevent_crits = PREVENT_CRITS_MOST
+	armor = ARMOR_BRIGANDINE
 	nodismemsleeves = TRUE
 	body_parts_covered = COVERAGE_TORSO
-	max_integrity = ARMOR_INT_CHEST_LIGHT_MASTER
+	max_integrity = ARMOR_INT_CHEST_LIGHT_MEDIUM // 50 less durability than light brigandines.
 	smeltresult = /obj/item/ingot/iron
 	sellprice = 30
 	armor_class = ARMOR_CLASS_LIGHT
@@ -136,9 +134,8 @@
 	for its wearer, shielding from blows and weather alike."
 	icon_state = "leather_armor"
 	item_state = "leather_armor"
-	armor = ARMOR_LEATHER_GOOD
+	armor = ARMOR_LEATHER
 	max_integrity = ARMOR_INT_CHEST_LIGHT_MASTER
-	prevent_crits = PREVENT_CRITS_MOST
 	sellprice = 35 //Some solid durability...
 	color = "#7D6653"
 
@@ -148,7 +145,7 @@
 	icon_state = "roguearmor_coat"
 	item_state = "roguearmor_coat"
 	body_parts_covered = COVERAGE_ALL_BUT_ARMFEET
-	armor = ARMOR_LEATHER_GOOD
+	armor = ARMOR_LEATHER
 	max_integrity = ARMOR_INT_CHEST_LIGHT_MASTER
 	sellprice = 40
 	color = "#7D6653"
@@ -160,7 +157,7 @@
 	item_state = "confessorcoat"
 	body_parts_covered = COVERAGE_ALL_BUT_HANDFEET
 	sleeved = 'icons/roguetown/clothing/onmob/helpers/sleeves_armor.dmi'
-	armor = ARMOR_LEATHER_STUDDED
+	armor = ARMOR_LEATHER
 	max_integrity = ARMOR_INT_CHEST_LIGHT_BASE
 	color = null
 
@@ -187,13 +184,21 @@
 	body_parts_covered = COVERAGE_ALL_BUT_HANDFEET
 	color = null
 
+/obj/item/clothing/suit/roguetown/armor/leather/heavy/coat/trophyfur
+	name = "treated trophy fur robes"
+	desc = "A heavy set of hardened robes, lined with fur. The leather is composed of several creatures that were notably difficult to fell by arrow. A proof or rangership among many."
+	icon_state = "hatanga"
+	item_state = "hatanga"
+	sellprice = 100
+	color = null
+
 /obj/item/clothing/suit/roguetown/armor/leather/heavy/jacket
 	name = "hardened leather jacket"
 	desc = "A heavy leather jacket that covers the arms and protects the vitals."
 	icon_state = "leatherjacketo"
 	item_state = "leatherjacketo"
 	body_parts_covered = COVERAGE_ALL_BUT_HANDLEGS
-	armor = ARMOR_LEATHER_GOOD
+	armor = ARMOR_LEATHER
 	max_integrity = ARMOR_INT_CHEST_LIGHT_MASTER
 	sellprice = 30
 
@@ -240,15 +245,6 @@
 	max_integrity = ARMOR_INT_CHEST_LIGHT_MEDIUM
 	color = "#313131"
 
-/obj/item/clothing/suit/roguetown/armor/leather/trophyfur
-	name = "treated trophy fur robes"
-	desc = "A heavy set of hardened robes, lined with fur. The leather is composed of several creatures that were notably difficult to fell by arrow. A proof or rangership among many."
-	icon_state = "hatanga"
-	item_state = "hatanga"
-	armor = list("blunt" = 90, "slash" = 30, "stab" = 40, "piercing" = 60, "fire" = 0, "acid" = 0)
-	max_integrity = ARMOR_INT_CHEST_LIGHT_MASTER
-	sellprice = 100
-
 /obj/item/clothing/suit/roguetown/armor/leather/bikini
 	name = "leather corslet"
 	desc = "Flexible cowhide armor. Lightweight, better than nothing. Trimmed to protect the heart and hips."
@@ -285,7 +281,6 @@
 	item_state = "vest"
 	color = "#514339"
 	armor = ARMOR_CLOTHING
-	prevent_crits = list(BCLASS_CUT)
 	blocksound = SOFTHIT
 	slot_flags = ITEM_SLOT_ARMOR|ITEM_SLOT_SHIRT
 	blade_dulling = DULLING_BASHCHOP
@@ -380,3 +375,15 @@
 		if(get_detail_color())
 			pic.color = get_detail_color()
 		add_overlay(pic)
+
+/obj/item/clothing/suit/roguetown/armor/leather/heavy/tailcoat
+	name = "tailcoat"
+	desc = "A finely-sewn tailcoat often worn by those on the brink of the upper echelons of Astratan caste."
+	icon_state = "butlercoat"
+	item_state = "butlercoat"
+	detail_tag = "_detail"
+	sleeved = 'icons/roguetown/clothing/special/onmob/sleeves_maids.dmi'
+	armor = ARMOR_LEATHER
+	detail_color = CLOTHING_DARK_GREY
+	slot_flags = ITEM_SLOT_ARMOR
+	armor = ARMOR_PADDED

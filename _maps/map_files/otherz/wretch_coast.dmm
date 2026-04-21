@@ -218,6 +218,10 @@
 "aZ" = (
 /turf/open/floor/rogue/grasscold,
 /area/rogue/outdoors/banditcamp)
+"ba" = (
+/obj/structure/flagpole,
+/turf/open/floor/rogue/dirt/road,
+/area/rogue/outdoors/woods/wretch_lair)
 "bc" = (
 /obj/structure/fluff/walldeco/chains{
 	icon_state = "chains8"
@@ -7281,6 +7285,10 @@
 	},
 /turf/open/floor/rogue/cobble/mossy,
 /area/rogue/under/cave/inhumen)
+"MV" = (
+/obj/structure/flagpole,
+/turf/open/floor/rogue/grass,
+/area/rogue/outdoors/woods/vampire_lair)
 "MW" = (
 /obj/structure/stairs{
 	dir = 8
@@ -7840,6 +7848,10 @@
 /obj/structure/fluff/railing/border/north,
 /turf/open/floor/rogue/tile,
 /area/rogue/indoors/vampire_manor)
+"Qn" = (
+/obj/structure/flagpole,
+/turf/open/floor/rogue/grasscold,
+/area/rogue/outdoors/banditcamp)
 "Qo" = (
 /obj/structure/fluff/railing/border/east,
 /turf/open/floor/rogue/dirt/road,
@@ -8437,7 +8449,7 @@
 /turf/open/floor/rogue/dirt/road,
 /area/rogue/outdoors/woods/wretch_lair)
 "TO" = (
-/obj/effect/decal/cleanable/roguerune/god/dendor,
+/obj/structure/ritualcircle/dendor,
 /obj/effect/decal/cobbleedge{
 	dir = 9;
 	pixel_x = 1;
@@ -8597,7 +8609,7 @@
 /turf/open/floor/rogue/dirt,
 /area/rogue/outdoors/banditcamp)
 "UE" = (
-/obj/effect/decal/cleanable/roguerune/god/ravox,
+/obj/structure/ritualcircle/ravox,
 /obj/item/rogueweapon/sword/stone,
 /turf/open/floor/rogue/cobble,
 /area/rogue/under/cave/inhumen)
@@ -29026,7 +29038,7 @@ Ev
 Ev
 Ev
 Ev
-Ev
+ba
 Ic
 nv
 NB
@@ -29893,7 +29905,7 @@ aZ
 mv
 mv
 aZ
-aZ
+Qn
 vE
 vE
 RY
@@ -40873,7 +40885,7 @@ kn
 kn
 Hr
 DB
-DB
+MV
 fI
 fI
 fI

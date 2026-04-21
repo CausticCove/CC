@@ -31,7 +31,7 @@
 	advclass_cat_rolls = list(CTAG_WILDSOUL = 20)//I don't understand how this works and it scares me
 	display_order = JDO_WILDSOUL 
 	cmode_music = 'modular_causticcove/sound/music/combat_wildsoul.ogg'
-	virtue_restrictions = list(/datum/virtue/utility/noble, /datum/virtue/utility/deathless, /datum/virtue/utility/resident, /datum/virtue/items/rich) // Wildman McCryptidson shouldnt be anything that contradicts such. Also no deathless, cause natural armor on direbear.
+	virtue_restrictions = list(/datum/virtue/utility/noble, /datum/virtue/utility/hollow, /datum/virtue/utility/notable) // Wildman McCryptidson shouldnt be anything that contradicts such. Also no deathless, cause natural armor on direbear.
 	job_subclasses = list(
 		/datum/advclass/wildsoul/direbear,
 		/datum/advclass/wildsoul/mantid,
@@ -132,7 +132,7 @@
 /datum/advclass/wildsoul/lampternfly
 	name = "Soul of the Lampternfly"
 	tutorial = "Some things in this world have a magical spark to them; you're one of them. Having an immensely potent arcyne nature, even without training, you're capable of commanding many magycks; but be careful, for an opposing hunter's command of a bow can prove just as deadly."
-	traits_applied = list(TRAIT_ARCYNE_T3, TRAIT_MAGEARMOR, TRAIT_WOODWALKER, TRAIT_ALCHEMY_EXPERT)
+	traits_applied = list(TRAIT_ARCYNE, TRAIT_WOODWALKER, TRAIT_ALCHEMY_EXPERT)
 	category_tags = list(CTAG_WILDSOUL)
 	subclass_stats = list(
 		STATKEY_STR = -1, // 9 stats weighted, with a focus on their intelligence and awareness
@@ -141,7 +141,7 @@
 		STATKEY_SPD = 2,
 		STATKEY_LCK = 1
 	)
-	subclass_spellpoints = 12 // With their default spells, they have a total of 16 spell points before other sources.
+	subclass_mage_aspects = list("mastery" = FALSE, "major" = 1, "minor" = 1, "utilities" = 4, "ward" = TRUE)
 	subclass_skills = list( //still can't read lol
 		/datum/skill/misc/athletics = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/combat/wrestling = SKILL_LEVEL_APPRENTICE,
@@ -176,11 +176,11 @@
 	H.put_in_hands(new /obj/item/clothing/neck/roguetown/collar/leather/nomagic(H), TRUE) //either for "they tried and failed to capture me" roleplay or for people who REALLY want a challenge
 	give_feral_eyes(H)
 	if(H.mind)
-		H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/touch/nondetection) // Makes sense for them to have the tools to be hidden.
+		H.mind.AddSpell(new /datum/action/cooldown/spell/nondetection) // Makes sense for them to have the tools to be hidden.
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/blindness)
 	if(H.age == AGE_OLD)
 		H.adjust_skillrank_up_to(/datum/skill/magic/arcane, SKILL_LEVEL_EXPERT, TRUE)
-		H.mind?.adjust_spellpoints(6)
+		H.mind.mage_aspect_config["utilities"] += 2
 	H.dna.species.soundpack_m = new /datum/voicepack/male/wizard()
 
 /datum/advclass/wildsoul/zad

@@ -21,7 +21,7 @@
 	dir = get_dir(src, target)
 	switch(chosen_mob)
 		if("volf")
-			image = image('icons/roguetown/mob/monster/vol.dmi',src,"vv",OBJ_LAYER+0.01, dir)
+			image = image('icons/roguetown/mob/monster/volf.dmi',src,"vv",OBJ_LAYER+0.01, dir)
 		if("skele")
 			image = image('icons/mob/skeletons.dmi',src,"skeleton",OBJ_LAYER+0.01, dir)
 		if("goblin")

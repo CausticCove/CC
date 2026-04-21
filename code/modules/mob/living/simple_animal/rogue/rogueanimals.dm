@@ -10,7 +10,7 @@
 	response_disarm_simple = "gently push aside"
 	response_harm_continuous = "kicks"
 	response_harm_simple = "kick"
-	faction = list("rogueanimal")
+	faction = list(FACTION_ROGUEANIMAL)
 	robust_searching = 1
 	mob_biotypes = MOB_ORGANIC|MOB_BEAST
 	attack_sound = PUNCHWOOSH
@@ -136,6 +136,9 @@
 		return
 	for(var/mob/living/eattarg in around)
 		if(eattarg.stat != CONSCIOUS)
+			// Skip mobs that were ever player-controlled — don't RR player corpses
+			if(eattarg.mind || (iscarbon(eattarg) && eattarg:last_mind))
+				continue
 			foundfood += eattarg
 			L = eattarg
 			if(src.Adjacent(L))
@@ -193,7 +196,7 @@
 	aggressive = 0
 	if(enemies.len)
 		if(prob(23))
-			enemies = list()
+			clear_enemies()
 			src.visible_message(span_notice("[src] calms down."))
 			LoseTarget()
 		else
@@ -215,7 +218,7 @@
 			if(prob(deaggroprob))
 				if(mob_timers["aggro_time"])
 					if(world.time > mob_timers["aggro_time"] + 30 SECONDS)
-						enemies = list()
+						clear_enemies()
 						src.visible_message(span_info("[src] calms down."))
 						LoseTarget()
 				else

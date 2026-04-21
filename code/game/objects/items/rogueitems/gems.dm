@@ -3,7 +3,7 @@
 	name = "any gems" // Caustic Edit - Changed to 'Any Gems' because this is what shows up in recipes lol
 	icon_state = "ruby_cut"
 	icon = 'icons/roguetown/items/gems.dmi'
-	desc = "A debug tool to help us later"
+	desc = "A debug tool to help us later."
 	lefthand_file = 'icons/mob/inhands/misc/food_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/misc/food_righthand.dmi'
 	w_class = WEIGHT_CLASS_TINY
@@ -27,20 +27,16 @@
 	playsound(loc, pick('sound/items/gems (1).ogg','sound/items/gems (2).ogg'), 100, TRUE, -2)
 	..()
 
+/obj/item/roguegem/get_mechanics_examine(mob/user)
+	. = ..()
+	. += span_info("Most gemstomes are extremely valuable, and are chiefly used to create bejeweled rings and weaponry.")
+	. += span_info("Certain gemstones can be carved into ornate treasures, cutlery, and armor with the right skills and tools.")
+
 /obj/item/roguegem/green
 	name = "gemerald"
 	icon_state = "emerald_cut"
 	sellprice = 42
 	desc = "Glints with verdant brilliance."
-
-/obj/item/roguegem/green/Initialize()
-	. = ..()
-	var/static/list/slapcraft_recipe_list = list(/datum/crafting_recipe/gemstaff/emerald_staff,)
-
-	AddElement(
-		/datum/element/slapcrafting,\
-		slapcraft_recipes = slapcraft_recipe_list,\
-	)
 
 /obj/item/roguegem/blue
 	name = "blortz"
@@ -48,29 +44,11 @@
 	sellprice = 88
 	desc = "Pale blue, like a frozen tear."
 
-/obj/item/roguegem/blue/Initialize()
-	. = ..()
-	var/static/list/slapcraft_recipe_list = list(/datum/crafting_recipe/gemstaff/quartz_staff,)
-
-	AddElement(
-		/datum/element/slapcrafting,\
-		slapcraft_recipes = slapcraft_recipe_list,\
-	)
-
 /obj/item/roguegem/yellow
 	name = "toper"
 	icon_state = "topaz_cut"
 	sellprice = 34
 	desc = "Its amber hues remind you of the sunset."
-
-/obj/item/roguegem/yellow/Initialize()
-	. = ..()
-	var/static/list/slapcraft_recipe_list = list(/datum/crafting_recipe/gemstaff/toper_staff,)
-
-	AddElement(
-		/datum/element/slapcrafting,\
-		slapcraft_recipes = slapcraft_recipe_list,\
-	)
 
 /obj/item/roguegem/violet
 	name = "saffira"
@@ -78,29 +56,11 @@
 	sellprice = 56
 	desc = "This gem is admired by many wizards."
 
-/obj/item/roguegem/violet/Initialize()
-	. = ..()
-	var/static/list/slapcraft_recipe_list = list(/datum/crafting_recipe/gemstaff/sapphire_staff,)
-
-	AddElement(
-		/datum/element/slapcrafting,\
-		slapcraft_recipes = slapcraft_recipe_list,\
-	)
-
 /obj/item/roguegem/ruby
 	name = "rontz"
 	icon_state = "ruby_cut"
 	sellprice = 100
 	desc = "Its facets shine so brightly..."
-
-/obj/item/roguegem/ruby/Initialize()
-	. = ..()
-	var/static/list/slapcraft_recipe_list = list(/datum/crafting_recipe/gemstaff/ruby_staff,)
-
-	AddElement(
-		/datum/element/slapcrafting,\
-		slapcraft_recipes = slapcraft_recipe_list,\
-	)
 
 /obj/item/roguegem/diamond
 	name = "dorpel"
@@ -157,15 +117,6 @@
 	icon_state = "raw_opal"
 	sellprice = 80
 
-/obj/item/roguegem/diamond/Initialize()
-	. = ..()
-	var/static/list/slapcraft_recipe_list = list(/datum/crafting_recipe/gemstaff/diamond_staff,)
-
-	AddElement(
-		/datum/element/slapcrafting,\
-		slapcraft_recipes = slapcraft_recipe_list,\
-	)
-
 // Do NOT add these to the stockpile treasures list, they have other uses.
 /obj/item/roguegem/blood_diamond
 	name = "glut"
@@ -189,16 +140,7 @@
 /obj/item/roguegem/amethyst
 	name = "amythortz"
 	icon_state = "amethyst"
-	desc = "A deep lavender crystal, it surges with magical energy, yet it's artificial nature means it is worth little."
-
-/obj/item/roguegem/amethyst/Initialize()
-	. = ..()
-	var/static/list/slapcraft_recipe_list = list(/datum/crafting_recipe/gemstaff/amethyst_staff,)
-
-	AddElement(
-		/datum/element/slapcrafting,\
-		slapcraft_recipes = slapcraft_recipe_list,\
-	)
+	desc = "A deep lavender crystal, it surges with magical energy, yet its artificial nature means it is worth little."
 
 /obj/item/roguegem/amethyst/naledi
 	name = "naledic amythortz"
@@ -227,7 +169,8 @@
 /* /obj/item/roguegem/random
 	name = "random gem"
 	desc = "You shouldn't be seeing this."
-	icon_state = null
+	icon = 'icons/roguetown/helpers/spawnerhelpers.dmi'
+	icon_state = "roguegem"
 
 /obj/item/roguegem/random/Initialize()
 	..()
@@ -251,6 +194,28 @@
 	qdel(src) */
 //CC Edit End - Performance Improving for the GC
 
+/obj/item/roguegem/random_gemcraft
+	name = "random gemcrafting gem"
+	desc = "You shouldn't be seeing this."
+	icon = 'icons/roguetown/helpers/spawnerhelpers.dmi'
+	icon_state = "gemcraft"
+
+/obj/item/roguegem/random_gemcraft/Initialize()
+	..()
+	var/newgem = list(
+		/obj/item/roguegem/onyxa = 9, // 25%
+		/obj/item/roguegem/jade = 7, // 20%
+		/obj/item/roguegem/amber = 7, // 20%
+		/obj/item/roguegem/coral = 5, // ~15%
+		/obj/item/roguegem/turq = 4, // 11%
+		/obj/item/roguegem/opal = 3, // 8%
+		/obj/item/roguegem/oyster = 1 // it sucks and this is supposed 2 be loot. 2% chance.
+	) // 36 total
+	var/pickgem = pickweight(newgem)
+	new pickgem(get_turf(src))
+	qdel(src)
+
+
 /// riddle
 
 
@@ -270,13 +235,6 @@
 /obj/item/riddleofsteel/Initialize()
 	. = ..()
 	set_light(2, 2, 1, l_color = "#ff0d0d")
-
-	var/static/list/slapcraft_recipe_list = list(/datum/crafting_recipe/gemstaff/quartz_staff,)
-
-	AddElement(
-		/datum/element/slapcrafting,\
-		slapcraft_recipes = slapcraft_recipe_list,\
-	)
 
 /obj/item/pearl
 	name = "pearl"

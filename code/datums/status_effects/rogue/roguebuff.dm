@@ -57,12 +57,15 @@
 	duration = 8 MINUTES
 
 /datum/status_effect/buff/snackbuff/on_creation(mob/living/new_owner)
+	. = ..()
+	if(!.)
+		return FALSE
 	if(HAS_TRAIT(new_owner, TRAIT_NOHUNGER))
 		return FALSE
-	. = ..()
+	return TRUE
 
 /atom/movable/screen/alert/status_effect/buff/snackbuff
-	name = "Good snack"
+	name = "Good Snack"
 	desc = "Better than plain bread. Tasty."
 	icon_state = "foodbuff"
 
@@ -80,9 +83,12 @@
 	duration = 10 MINUTES
 
 /datum/status_effect/buff/greatsnackbuff/on_creation(mob/living/new_owner)
+	. = ..()
+	if(!.)
+		return FALSE
 	if(HAS_TRAIT(new_owner, TRAIT_NOHUNGER))
 		return FALSE
-	. = ..()
+	return TRUE
 
 /atom/movable/screen/alert/status_effect/buff/greatsnackbuff
 	name = "Great Snack!"
@@ -102,14 +108,17 @@
 	duration = 30 MINUTES
 
 /atom/movable/screen/alert/status_effect/buff/mealbuff
-	name = "Good meal"
+	name = "Good Meal"
 	desc = "A meal a day keeps the barber away, or at least it makes it slighly easier."
 	icon_state = "foodbuff"
 
 /datum/status_effect/buff/mealbuff/on_creation(mob/living/new_owner)
+	. = ..()
+	if(!.)
+		return FALSE
 	if(HAS_TRAIT(new_owner, TRAIT_NOHUNGER))
 		return FALSE
-	. = ..()
+	return TRUE
 
 /datum/status_effect/buff/mealbuff/on_apply()
 	. = ..()
@@ -124,14 +133,17 @@
 	duration = 30 MINUTES
 
 /atom/movable/screen/alert/status_effect/buff/greatmealbuff
-	name = "Great meal!"
+	name = "Great Meal!"
 	desc = "That meal was something akin to a noble's feast! It's bound to keep me energized for an entire day."
 	icon_state = "foodbuff"
 
 /datum/status_effect/buff/greatmealbuff/on_creation(mob/living/new_owner)
+	. = ..()
+	if(!.)
+		return FALSE
 	if(HAS_TRAIT(new_owner, TRAIT_NOHUNGER))
 		return FALSE
-	. = ..()
+	return TRUE
 
 /datum/status_effect/buff/greatmealbuff/on_apply()
 	. = ..()
@@ -151,7 +163,7 @@
 	. = ..()
 
 /atom/movable/screen/alert/status_effect/buff/sweet
-	name = "Sweet embrace"
+	name = "Sweet Embrace"
 	desc = "Sweets are always a sign of good luck, everything goes well when you eat some of them."
 	icon_state = "foodbuff"
 
@@ -164,17 +176,6 @@
 	alert_type = /atom/movable/screen/alert/status_effect/buff/druqks
 	effectedstats = list(STATKEY_INT = 5,STATKEY_SPD = 3,STATKEY_LCK = -5)
 	duration = 2 MINUTES
-
-/datum/status_effect/buff/druqks/baotha
-
-/datum/status_effect/buff/druqks/baotha/on_apply()
-	. = ..()
-	ADD_TRAIT(owner, TRAIT_CRACKHEAD, TRAIT_MIRACLE)
-
-/datum/status_effect/buff/druqks/baotha/on_remove()
-	. = ..()
-	REMOVE_TRAIT(owner, TRAIT_CRACKHEAD, TRAIT_MIRACLE)
-	owner.visible_message("[owner]'s eyes appear to return to normal.")
 
 /datum/status_effect/buff/druqks/on_apply()
 	. = ..()
@@ -206,6 +207,42 @@
 	desc = ""
 	icon_state = "acid"
 
+/datum/status_effect/buff/baothablessing
+	id = "druqks"
+	alert_type = /atom/movable/screen/alert/status_effect/buff/baothablessing
+	duration = 2 MINUTES
+
+/datum/status_effect/buff/baothablessing/on_apply()
+	. = ..()
+	ADD_TRAIT(owner, TRAIT_CRACKHEAD, TRAIT_MIRACLE)
+	if(owner?.client)
+		if(owner.client.screen && owner.client.screen.len)
+			var/atom/movable/screen/plane_master/game_world/PM = locate(/atom/movable/screen/plane_master/game_world) in owner.client.screen
+			PM.backdrop(owner)
+			PM = locate(/atom/movable/screen/plane_master/game_world_fov_hidden) in owner.client.screen
+			PM.backdrop(owner)
+			PM = locate(/atom/movable/screen/plane_master/game_world_above) in owner.client.screen
+			PM.backdrop(owner)
+			owner.add_stress(/datum/stressevent/high)
+
+/datum/status_effect/buff/baothablessing/on_remove()
+	if(owner?.client)
+		if(owner.client.screen && owner.client.screen.len)
+			var/atom/movable/screen/plane_master/game_world/PM = locate(/atom/movable/screen/plane_master/game_world) in owner.client.screen
+			PM.backdrop(owner)
+			PM = locate(/atom/movable/screen/plane_master/game_world_fov_hidden) in owner.client.screen
+			PM.backdrop(owner)
+			PM = locate(/atom/movable/screen/plane_master/game_world_above) in owner.client.screen
+			PM.backdrop(owner)
+			owner.remove_stress(/datum/stressevent/high)
+
+	. = ..()
+
+/atom/movable/screen/alert/status_effect/buff/baothablessing
+	name = "Baothan Blessing"
+	desc = "Baotha has blessed you with immunity to overdose. Rejoice!"
+	icon_state = "acid"
+
 /datum/status_effect/buff/ozium
 	id = "ozium"
 	alert_type = /atom/movable/screen/alert/status_effect/buff/druqks
@@ -228,9 +265,6 @@
 	effectedstats = list(STATKEY_SPD = 2, STATKEY_WIL = 2, STATKEY_INT = -2)
 	duration = 30 SECONDS
 
-/datum/status_effect/buff/moondust/nextmove_modifier()
-	return 0.8
-
 /datum/status_effect/buff/moondust/on_apply()
 	. = ..()
 	owner.add_stress(/datum/stressevent/moondust)
@@ -240,9 +274,6 @@
 	alert_type = /atom/movable/screen/alert/status_effect/buff/druqks
 	effectedstats = list(STATKEY_SPD = 3, STATKEY_WIL = 3, STATKEY_INT = -2)
 	duration = 40 SECONDS
-
-/datum/status_effect/buff/moondust_purest/nextmove_modifier()
-	return 0.8
 
 /datum/status_effect/buff/moondust_purest/on_apply()
 	. = ..()
@@ -255,21 +286,18 @@
 	duration = 80 SECONDS
 	var/originalcmode = ""
 
-/datum/status_effect/buff/herozium/nextmove_modifier()
-	return 1.2
-
 /datum/status_effect/buff/herozium/on_apply()
 	. = ..()
 	owner.add_stress(/datum/stressevent/ozium)
 	ADD_TRAIT(owner, TRAIT_NOPAIN, id)
-	ADD_TRAIT(owner, TRAIT_CRITICAL_RESISTANCE, id)
+	ADD_TRAIT(owner, TRAIT_IGNOREDAMAGESLOWDOWN, id)
 	originalcmode = owner.cmode_music
 	owner.cmode_music = 'sound/music/combat_ozium.ogg'
 
 /datum/status_effect/buff/herozium/on_remove()
 	owner.remove_stress(/datum/stressevent/ozium)
 	REMOVE_TRAIT(owner, TRAIT_NOPAIN, id)
-	REMOVE_TRAIT(owner, TRAIT_CRITICAL_RESISTANCE, id)
+	REMOVE_TRAIT(owner, TRAIT_IGNOREDAMAGESLOWDOWN, id)
 	owner.cmode_music = originalcmode
 	. = ..()
 
@@ -279,9 +307,6 @@
 	effectedstats = list(STATKEY_SPD = 4, STATKEY_WIL = 4, STATKEY_INT = -3, STATKEY_CON = -3)
 	duration = 80 SECONDS
 	var/originalcmode = ""
-
-/datum/status_effect/buff/starsugar/nextmove_modifier()
-	return 0.7
 
 /datum/status_effect/buff/starsugar/on_apply()
 	. = ..()
@@ -352,6 +377,22 @@
 
 	. = ..()
 
+/datum/status_effect/buff/abyss //for smokes
+	id = "abyss"
+	alert_type = /atom/movable/screen/alert/status_effect/buff/druqks
+	effectedstats = list(STATKEY_SPD = -1, STATKEY_PER = 1)
+	duration = 30 SECONDS
+
+/datum/status_effect/buff/abyss/on_apply()
+	. = ..()
+	ADD_TRAIT(owner, TRAIT_PSYCHOSIS, TRAIT_GENERIC)
+
+/datum/status_effect/buff/abyss/on_remove()
+	REMOVE_TRAIT(owner, TRAIT_PSYCHOSIS, TRAIT_GENERIC)
+	. = ..()
+
+
+
 /datum/status_effect/buff/fermented_crab
 	id = "fermented_crab"
 	alert_type = /atom/movable/screen/alert/status_effect/buff/fermented_crab
@@ -393,87 +434,8 @@
 	name = "Invigorated"
 	desc = "I have supped on the finest of delicacies: life!"
 
-/atom/movable/screen/alert/status_effect/buff/featherfall
-	name = "Featherfall"
-	desc = "I am somewhat protected against falling from heights."
-	icon_state = "buff"
+// Featherfall, Darkvision, Longstrider status effects moved to augmentation_status_effects.dm
 
-/datum/status_effect/buff/featherfall
-	id = "featherfall"
-	alert_type = /atom/movable/screen/alert/status_effect/buff/featherfall
-	duration = 1 MINUTES
-
-/datum/status_effect/buff/featherfall/on_apply()
-	. = ..()
-	to_chat(owner, span_warning("I feel lighter."))
-	ADD_TRAIT(owner, TRAIT_NOFALLDAMAGE2, MAGIC_TRAIT)
-
-/datum/status_effect/buff/featherfall/on_remove()
-	. = ..()
-	to_chat(owner, span_warning("The feeling of lightness fades."))
-	REMOVE_TRAIT(owner, TRAIT_NOFALLDAMAGE2, MAGIC_TRAIT)
-
-/atom/movable/screen/alert/status_effect/buff/darkvision
-	name = "Darkvision"
-	desc = "I can see in the dark somewhat."
-	icon_state = "buff"
-
-/datum/status_effect/buff/darkvision
-	id = "darkvision"
-	alert_type = /atom/movable/screen/alert/status_effect/buff/darkvision
-	duration = 15 MINUTES
-
-/datum/status_effect/buff/darkvision/on_apply(mob/living/new_owner, assocskill)
-	if(assocskill)
-		duration += 5 MINUTES * assocskill
-	. = ..()
-	to_chat(owner, span_warning("The darkness fades somewhat."))
-	ADD_TRAIT(owner, TRAIT_DARKVISION, MAGIC_TRAIT)
-
-/datum/status_effect/buff/darkvision/on_remove()
-	. = ..()
-	to_chat(owner, span_warning("The darkness returns to normal."))
-	REMOVE_TRAIT(owner, TRAIT_DARKVISION, MAGIC_TRAIT)
-
-/atom/movable/screen/alert/status_effect/buff/longstrider
-	name = "Longstrider"
-	desc = "I can easily walk through rough terrain."
-	icon_state = "longstrider"
-
-/datum/status_effect/buff/longstrider
-	id = "longstrider"
-	alert_type = /atom/movable/screen/alert/status_effect/buff/longstrider
-	duration = 15 MINUTES
-
-/datum/status_effect/buff/longstrider/on_apply()
-	. = ..()
-	to_chat(owner, span_warning("I am unburdened by the terrain."))
-	ADD_TRAIT(owner, TRAIT_LONGSTRIDER, MAGIC_TRAIT)
-
-/datum/status_effect/buff/longstrider/on_remove()
-	. = ..()
-	to_chat(owner, span_warning("The rough floors slow my travels once again."))
-	REMOVE_TRAIT(owner, TRAIT_LONGSTRIDER, MAGIC_TRAIT)
-
-/atom/movable/screen/alert/status_effect/buff/magearmor
-	name = "Weakened Barrier"
-	desc = "My magical barrier is weakened."
-	icon_state = "stressvg"
-
-/datum/status_effect/buff/magearmor
-	id = "magearmor"
-	alert_type = /atom/movable/screen/alert/status_effect/buff/magearmor
-
-/datum/status_effect/buff/magearmor/on_apply()
-	. = ..()
-	playsound(owner, 'sound/magic/magearmordown.ogg', 75, FALSE)
-	duration = (7-owner.get_skill_level(/datum/skill/magic/arcane)) MINUTES
-
-/datum/status_effect/buff/magearmor/on_remove()
-	. = ..()
-	to_chat(owner, span_warning("My magical barrier reforms."))
-	playsound(owner, 'sound/magic/magearmorup.ogg', 75, FALSE)
-	owner.magearmor = 0
 
 /atom/movable/screen/alert/status_effect/buff/guardbuffone
 	name = "Vigilant Guardsman"
@@ -575,7 +537,8 @@
 	var/block_combat_mode = FALSE
 
 /datum/status_effect/buff/healing/on_creation(mob/living/new_owner, new_healing_on_tick, is_inhumen = FALSE)
-	healing_on_tick = new_healing_on_tick
+	if(!isnull(new_healing_on_tick))
+		healing_on_tick = new_healing_on_tick
 	tech_healing_modifier = SSchimeric_tech.get_healing_multiplier()
 	if(is_inhumen)
 		// The penalty/benefit of healing tech is halved for inhumen followers
@@ -867,16 +830,23 @@
 /atom/movable/screen/alert/status_effect/buff/fortify
 	name = "Fortifying Miracle"
 	desc = "Divine intervention bolsters me and aids my recovery."
-	icon_state = "buff"
+	icon_state = "fortify"
 
+//Caustic Edit - Readd Convergence
 /atom/movable/screen/alert/status_effect/buff/convergence
 	name = "Convergence Miracle"
 	desc = "My body converges to whence it found strength and health."
 	icon_state = "buff"
+//Caustic Edit End
+
+/atom/movable/screen/alert/status_effect/debuff/diminish
+	name = "Diminished"
+	desc = "Origin magick has diminished my instincts - my movements feel sluggish and predictable, and my body feels weakened."
+	icon_state = "buff"
 
 /atom/movable/screen/alert/status_effect/buff/stasis
-	name = "Stasis Miracle"
-	desc = "A part of me has been put in stasis."
+	name = "Reversion"
+	desc = "A part of me has been left behind - I will revert soon."
 	icon_state = "buff"
 
 /atom/movable/screen/alert/status_effect/buff/censerbuff
@@ -889,21 +859,46 @@
 	alert_type = /atom/movable/screen/alert/status_effect/buff/fortify
 	duration = 1 MINUTES
 
+//Caustic Edit - Readd Convergence
+/datum/status_effect/buff/convergence
+	id = "convergence"
+	alert_type = /atom/movable/screen/alert/status_effect/buff/convergence
+	duration = 1 MINUTES
+//Caustic Edit End
+
 /datum/status_effect/buff/censerbuff
 	id = "censer"
 	alert_type = /atom/movable/screen/alert/status_effect/buff/censerbuff
 	duration = 15 MINUTES
 	effectedstats = list(STATKEY_WIL = 1, STATKEY_CON = 1)
 
-/datum/status_effect/buff/convergence //Increases all healing while it lasts.
-	id = "convergence"
-	alert_type = /atom/movable/screen/alert/status_effect/buff/convergence
+#define DIMINISH_FILTER "diminish_glow"
+/datum/status_effect/debuff/diminish
+	var/outline_colour = "#8b2fc9"
+	id = "diminish"
+	alert_type = /atom/movable/screen/alert/status_effect/debuff/diminish
 	duration = 1 MINUTES
+	effectedstats = list(STATKEY_STR = -2, STATKEY_CON = -2)
 
-/datum/status_effect/buff/stasis //Increases all healing while it lasts.
+/datum/status_effect/debuff/diminish/on_apply()
+	. = ..()
+	if(!.)
+		return
+	var/filter = owner.get_filter(DIMINISH_FILTER)
+	if(!filter)
+		owner.add_filter(DIMINISH_FILTER, 2, list("type" = "outline", "color" = outline_colour, "alpha" = 50, "size" = 1))
+	ADD_TRAIT(owner, TRAIT_REVERSE_GUIDANCE, MAGIC_TRAIT)
+
+/datum/status_effect/debuff/diminish/on_remove()
+	. = ..()
+	owner.remove_filter(DIMINISH_FILTER)
+	REMOVE_TRAIT(owner, TRAIT_REVERSE_GUIDANCE, MAGIC_TRAIT)
+#undef DIMINISH_FILTER
+
+/datum/status_effect/buff/reversion
 	id = "stasis"
 	alert_type = /atom/movable/screen/alert/status_effect/buff/stasis
-	duration = 10 SECONDS
+	duration = 15 SECONDS
 
 #define CRANKBOX_FILTER "crankboxbuff_glow"
 /atom/movable/screen/alert/status_effect/buff/churnerprotection
@@ -990,6 +985,17 @@
 
 	return TRUE
 
+/atom/movable/screen/alert/status_effect/buff/guidinglight/undivided
+	desc = "I am the light in eternal darkness!"
+	icon_state = "guiding_light_undivided"
+
+/datum/status_effect/buff/guidinglight/undivided
+	id = "guidinglight"//Admitedly don't want this to stack with Astrata's one because that would result in a flashbang.
+	alert_type = /atom/movable/screen/alert/status_effect/buff/guidinglight/undivided
+	duration = -1
+	status_type = STATUS_EFFECT_REFRESH
+	effectedstats = list(STATKEY_LCK = 1)
+	examine_text = "SUBJECTPRONOUN carries Their Light!"
 
 /datum/status_effect/buff/guidinglight/on_remove()
 	. = ..()
@@ -1288,6 +1294,8 @@
 	var/dur
 	var/sfx_on_apply = 'sound/combat/clash_initiate.ogg'
 	var/swingdelay_mod = 5
+	/// Set TRUE when guard successfully deflects a spell. Halves the guard cooldown as reward.
+	var/deflected_spell = FALSE
 	alert_type = /atom/movable/screen/alert/status_effect/buff/clash
 
 	mob_effect_icon = 'icons/mob/mob_effects.dmi'
@@ -1321,6 +1329,7 @@
 /datum/status_effect/buff/clash/proc/process_touch(mob/living/carbon/human/parent, mob/living/carbon/human/attacker, mob/living/carbon/human/defender)
 	var/obj/item/I = defender.get_active_held_item()
 	defender.process_clash(attacker, I, null)
+	return COMPONENT_HAND_NO_ATTACK
 
 /datum/status_effect/buff/clash/proc/process_attack(mob/living/parent, mob/living/target, mob/user, obj/item/I)
 	var/bad_guard = FALSE
@@ -1329,7 +1338,7 @@
 	if(U.has_status_effect(/datum/status_effect/buff/clash) && !target.has_status_effect(/datum/status_effect/buff/clash))
 		if(user == parent)
 			bad_guard = TRUE
-	if(ishuman(target) && target.get_active_held_item() && !bad_guard)
+	if(ishuman(target) && (target.get_active_held_item() || target.has_status_effect(/datum/status_effect/buff/clash)) && !bad_guard)
 		var/mob/living/carbon/human/HM = target
 		var/obj/item/IM = target.get_active_held_item()
 		var/obj/item/IU
@@ -1359,6 +1368,8 @@
 
 /datum/status_effect/buff/clash/proc/apply_cooldown()
 	var/newcd = BASE_RCLICK_CD - owner.get_tempo_bonus(TEMPO_TAG_RCLICK_CD_BONUS)
+	if(deflected_spell)
+		newcd *= 0.5
 	owner.apply_status_effect(/datum/status_effect/debuff/clashcd, newcd)
 
 //Our guard was disrupted by normal means.
@@ -1383,9 +1394,14 @@
 		playsound(H, sfx_on_apply, 100, TRUE)
 
 /datum/status_effect/buff/clash/tick()
-	if(!owner.get_active_held_item() || !(owner.mobility_flags & MOBILITY_STAND))
+	if(!(owner.mobility_flags & MOBILITY_STAND))
 		var/mob/living/carbon/human/H = owner
 		H.bad_guard()
+		return
+	if(!owner.get_active_held_item())
+		if(!ishuman(owner) || owner.get_skill_level(/datum/skill/combat/unarmed) < 3)
+			var/mob/living/carbon/human/H = owner
+			H.bad_guard(span_warning("I'm not skilled enough in the art of unarmed combat to maintain my guard without a weapon!"))
 
 /datum/status_effect/buff/clash/on_remove()
 	. = ..()
@@ -1412,29 +1428,29 @@
 	desc = span_notice("I am on guard, and ready to clash. If I am hit, I will successfully defend. Attacking will make me lose my focus.")
 	icon_state = "clash"
 
-/// Brief buffer after a successful spell deflection. This allows the player to deflect a single spell that has multiple projectiles - or if multiple projectiles are fired by different people in quick succession, for funny anime moment.
-/// While active, subsequent deflectable projectiles/spells are also deflected without requiring guard.
-/datum/status_effect/buff/spell_parry_buffer
-	id = "spell_parry_buffer"
+/// Brief buffer after a successful deflection (guard vs spells, projectiles, or weapon specials).
+/// While active, subsequent deflectable attacks are also deflected without requiring guard.
+/datum/status_effect/buff/parry_buffer
+	id = "parry_buffer"
 	duration = 1 SECONDS
-	alert_type = /atom/movable/screen/alert/status_effect/buff/spell_parry_buffer
+	alert_type = /atom/movable/screen/alert/status_effect/buff/parry_buffer
 
-/datum/status_effect/buff/spell_parry_buffer/on_apply()
+/datum/status_effect/buff/parry_buffer/on_apply()
 	. = ..()
 	RegisterSignal(owner, COMSIG_ATOM_BULLET_ACT, PROC_REF(buffer_struck_by_projectile), TRUE)
 
-/datum/status_effect/buff/spell_parry_buffer/on_remove()
+/datum/status_effect/buff/parry_buffer/on_remove()
 	UnregisterSignal(owner, COMSIG_ATOM_BULLET_ACT)
 	. = ..()
 
-/datum/status_effect/buff/spell_parry_buffer/proc/buffer_struck_by_projectile(datum/source, obj/projectile/P)
+/datum/status_effect/buff/parry_buffer/proc/buffer_struck_by_projectile(datum/source, obj/projectile/P)
 	if(P.guard_deflectable)
 		if(P.on_guard_deflect(owner, silent = TRUE))
 			return COMPONENT_ATOM_BLOCK_BULLET
 
-/atom/movable/screen/alert/status_effect/buff/spell_parry_buffer
-	name = "Spell Parry"
-	desc = span_notice("A brief window of spell deflection lingers from my guard.")
+/atom/movable/screen/alert/status_effect/buff/parry_buffer
+	name = "Parry"
+	desc = span_notice("A brief window of deflection lingers from my guard.")
 	icon_state = "clash"
 
 /atom/movable/screen/alert/status_effect/buff/clash/limbguard
@@ -1537,13 +1553,11 @@
 			mob_effect_offset_x = -6
 			mob_effect_offset_y = -9
 
-/datum/status_effect/buff/clash/limbguard/process_attack(mob/living/parent, mob/living/target, mob/user, obj/item/I)
+/datum/status_effect/buff/clash/limbguard/process_attack(mob/living/parent, mob/living/target, mob/user, obj/item/I, zone_override)
 	if(is_active)
 		if(ishuman(user) && target == owner)
 			var/mob/living/carbon/human/HM = user
-			if(check_zone(HM.zone_selected) == protected_zone)	//User has struck the exact limb that was being protected. Bad!
-				var/mob/living/carbon/human/H = owner
-				H?.purge_peel(99)
+			if(check_zone(HM.zone_selected) == protected_zone || zone_override == protected_zone)	//User has struck the exact limb that was being protected. Bad!
 				if(ishuman(user))
 					apply_debuffs(HM)
 					perform_disarm(HM)
@@ -1616,6 +1630,7 @@
 	if(attacker && check_zone(attacker.zone_selected) == protected_zone)
 		var/obj/item/I = defender.get_active_held_item()
 		defender.process_clash(attacker, I, null)	//This will strike at their hand, but not clear away the effect. They tried to grab the protected limb.
+		return COMPONENT_HAND_NO_ATTACK
 
 /datum/status_effect/buff/clash/limbguard/apply_cooldown()
 	owner.apply_status_effect(/datum/status_effect/debuff/specialcd, 60 SECONDS)
@@ -1890,7 +1905,7 @@
 		return
 
 	var/armor_block = target.run_armor_check(user.zone_selected, "blunt")
-	if(prob(armor_block))
+	if(armor_block > 0)
 		return
 
 	apply_effects(target)
@@ -1904,8 +1919,8 @@
 	if(!HAS_TRAIT(target, TRAIT_OUTLAW) || (!(target.name in user.mind.known_people)))
 		return
 
-	var/armor_block = target.run_armor_check(user.zone_selected, item.d_type)
-	if(prob(armor_block))
+	var/armor_block = target.run_armor_check(user.zone_selected, item.d_type, armor_penetration = PEN_NONE, damage = 1)
+	if(armor_block > 0)
 		return
 
 	apply_effects(target)
@@ -2045,8 +2060,14 @@
 
 /datum/status_effect/buff/dagger_boost/process()
 	. = ..()
-	if(!istype(owner.get_active_held_item(), held_dagger))
-		owner.remove_status_effect(/datum/status_effect/buff/dagger_boost)
+
+	var/mob/living/M = owner
+	if(!M || QDELETED(M))
+		qdel(src)
+		return
+
+	if(!istype(M.get_active_held_item(), held_dagger))
+		M.remove_status_effect(/datum/status_effect/buff/dagger_boost)
 
 // special lirvas dragonskin buffs
 /datum/status_effect/buff/lirvan_broken_scales
@@ -2059,6 +2080,300 @@
 	name = "Broken Scales"
 	desc = "My natural defenses are gone! I am lighter, but far weaker."
 	icon_state = "buff"
+
+/datum/status_effect/buff/stagehands_silence
+	id = "Stagehand"
+	alert_type = /atom/movable/screen/alert/status_effect/buff/stagehands_silence
+	duration = 20 MINUTES
+	// this was supposed to only apply if you had less than 12 speed but it broke whenever other spd mods applied. 
+	// i couldnt fix it, unfortunately.
+	// IF people use it to game just fucking remove it we cant have shiut in thjis codebase anymore
+	effectedstats = list(STATKEY_SPD = 1)
+
+
+/atom/movable/screen/alert/status_effect/buff/stagehands_silence
+	name = "Stangehand's Silence"
+	desc = "The slow quicken. My footsteps are quiet and I can move faster while sneaking."
+
+/datum/status_effect/buff/stagehands_silence/on_apply()
+	. = ..()
+	to_chat(owner, span_warning("My footsteps feel lighter and quieter. What is that droning sound in my head...?"))
+	// inspired by matthiosmuffle
+	ADD_TRAIT(owner, TRAIT_SILENT_FOOTSTEPS, "xylixboon")
+	ADD_TRAIT(owner, TRAIT_LIGHT_STEP, "xylixboon") 
+
+
+/datum/status_effect/buff/stagehands_silence/on_remove()
+	. = ..()
+	to_chat(owner, span_warning("The droning quiets. My footsteps are noisy, again."))
+	REMOVE_TRAIT(owner, TRAIT_SILENT_FOOTSTEPS, "xylixboon")
+	REMOVE_TRAIT(owner, TRAIT_LIGHT_STEP, "xylixboon")
+
+/datum/status_effect/buff/transparent_eyeball
+	id = "transparent_eyeball"
+	alert_type = /atom/movable/screen/alert/status_effect/buff/transparent_eyeball
+	duration = 20 MINUTES
+	// this should hook into the scrying code rather than anything here
+	// it just gives them less chance to break shit. thats it.
+
+// https://www.youtube.com/watch?v=v_UvrYT26o4
+// https://en.wikipedia.org/wiki/Transparent_eyeball
+/atom/movable/screen/alert/status_effect/buff/transparent_eyeball
+	name = "Transparent Eyeball"
+	desc = "Nepolx's red surface has blessed me... I shall find it easier to use scrying orbs." + span_gamedeadsay("\n...I AM NOTHING, I SEE ALL.")
+
+/datum/status_effect/buff/transparent_eyeball/on_apply()
+	. = ..()
+	to_chat(owner, span_gamedeadsay("I feel unbound to my mortal coil-- scrying orbs will be easier to use, for a time!"))
+
+/datum/status_effect/buff/transparent_eyeball/on_remove()
+	. = ..()
+	to_chat(owner, span_gamedeadsay("I become one with myself, again..."))
+
+/datum/status_effect/buff/hermes_trismegistus
+	id = "hermes_trismegistus"
+	alert_type = /atom/movable/screen/alert/status_effect/buff/hermes_trismegistus
+	duration = 20 MINUTES
+	var/original_skill = null // we need scope for the whole thing so this gotta b here and null
+	var/gave_buff = FALSE
+
+/atom/movable/screen/alert/status_effect/buff/hermes_trismegistus
+	name = "Hermetick Blessing" // yes, hermetick. with a k. 
+	desc = "Looking at HERMES has given me a blessing of the Stars... written words begin to make more sense." // dont ask how this works its magic biyatch
+
+/datum/status_effect/buff/hermes_trismegistus/on_apply()
+	. = ..()
+	if(owner)
+		original_skill = owner.get_skill_level(/datum/skill/misc/reading) // cache it
+		if(original_skill < SKILL_LEVEL_JOURNEYMAN)
+			owner.adjust_skillrank(/datum/skill/misc/reading, 1, TRUE) // +1 reading. this technically lets u read if ur illtierate, ithink. idk. its cool, ok.
+			gave_buff = TRUE
+
+/datum/status_effect/buff/hermes_trismegistus/on_remove()
+	. = ..()
+	if(gave_buff) // because we ensure that the buff was actually given out, and due to the 0-3 scale of it, we can just
+		owner.adjust_skillrank(/datum/skill/misc/reading, -1, TRUE) // -1 skill once it wears off and it (should) be fine.
+		to_chat(owner, span_warning("The blessing of HERMES begins to wear off. The written word loses its meaning in my skull."))
+
+//Artificer armor buff
+/datum/status_effect/buff/artificerint
+	id = "artificer_arcyne"
+	alert_type = /atom/movable/screen/alert/status_effect/buff/artificerint
+	effectedstats = list(STATKEY_INT = 3)
+
+/atom/movable/screen/alert/status_effect/buff/artificerint
+	name = "Artificer Arcyne"
+	desc = "This armor fills me with arcyne power and knowledge."
+	icon_state = "buff"
+
+/datum/status_effect/buff/artificerstr
+	id = "artificer_athletic"
+	alert_type = /atom/movable/screen/alert/status_effect/buff/artificerstr
+	effectedstats = list(STATKEY_STR = 2, STATKEY_WIL = 2)
+
+/atom/movable/screen/alert/status_effect/buff/artificerstr
+	name = "Artificer Athletic"
+	desc = "This armor fills me with atheletic power and strength."
+	icon_state = "buff"
+
+//construct buffing
+/datum/status_effect/buff/windup
+    id = "windup"
+    alert_type = /atom/movable/screen/alert/status_effect/buff/windup
+    effectedstats = list(STATKEY_SPD = 1, STATKEY_WIL = 1)
+    duration = 45 MINUTES
+
+/atom/movable/screen/alert/status_effect/buff/windup
+    name = "Drill Windup"
+    desc = "Malum's own drill has wound me up. I am faster, now."
+    icon_state = "buff"
+
+/datum/status_effect/buff/tuneup
+    id = "tuneup"
+    alert_type = /atom/movable/screen/alert/status_effect/buff/tuneup
+    effectedstats = list(STATKEY_CON = 1, STATKEY_PER = 1)
+    duration = 45 MINUTES
+
+/atom/movable/screen/alert/status_effect/buff/tuneup
+    name = "Wrench Tuneup"
+    desc = "Malum's own wrench powers me. I can withstand more damage, now."
+    icon_state = "buff"
+
+#define ORDERBRINGER_FILTER "orderbringer"
+
+/datum/status_effect/orderbringer
+	id = "orderbringer"
+	var/outline_colour = "#6BB7A0"
+	duration = -1
+	tick_interval = -1
+	examine_text = span_good("SUBJECTPRONOUN is bathed in Divine Light!")
+	alert_type = null
+
+/datum/status_effect/orderbringer/on_apply()
+	. = ..()
+
+	owner.visible_message(span_userdanger("A tide of divine light surges from [owner], it fills you with determination and hope!"))
+
+	var/filter = owner.get_filter(ORDERBRINGER_FILTER)
+	if(!filter)
+		owner.add_filter(ORDERBRINGER_FILTER, 2, list("type" = "outline", "color" = outline_colour, "alpha" = 60, "size" = 2))
+
+	var/mutable_appearance/effect = mutable_appearance('icons/effects/effects.dmi', "curse", -JOYBRINGER_LAYER, alpha = 128)
+	effect.appearance_flags = RESET_COLOR
+	effect.blend_mode = BLEND_ADD
+	effect.color = "#6BB7A0"
+
+	owner.overlays_standing[ORDERBRINGER_FILTER] = effect
+	owner.apply_overlay(ORDERBRINGER_FILTER)
+
+	RegisterSignal(owner, COMSIG_LIVING_LIFE, PROC_REF(on_life))
+
+/datum/status_effect/orderbringer/on_remove()
+	. = ..()
+
+	owner.remove_filter(ORDERBRINGER_FILTER)
+	owner.remove_overlay(ORDERBRINGER_FILTER)
+
+	UnregisterSignal(owner, COMSIG_LIVING_LIFE)
+
+/datum/status_effect/orderbringer/proc/on_life()
+	SIGNAL_HANDLER
+
+	for(var/mob/living/mob in get_hearers_in_view(2, owner))
+		if(HAS_TRAIT(mob, TRAIT_PSYDONITE) || HAS_TRAIT(mob, TRAIT_CABAL) || HAS_TRAIT(mob, TRAIT_HORDE) || HAS_TRAIT(mob, TRAIT_FREEMAN) || HAS_TRAIT(mob, TRAIT_CRACKHEAD))
+			continue
+
+		mob.apply_status_effect(/datum/status_effect/buff/fortify)
+
+#undef ORDERBRINGER_FILTER
+#define NECRACON_FILTER "necra_consecration"
+#define NECRACON_TIER_NORMAL 2
+#define NECRACON_TIER_EXPERT 3
+#define NECRACON_TIER_MASTER 4
+
+
+/datum/status_effect/buff/necran_consecration
+	id = "necra_consecrate"
+	alert_type = /atom/movable/screen/alert/status_effect/buff/necra_consecrate
+	effectedstats = list(STATKEY_CON = 1)
+	var/outline_colour ="#929186" // A dull grey.
+	var/tier = 2
+	duration = 3 SECONDS
+
+/datum/status_effect/buff/necran_consecration/on_creation(mob/living/new_owner, newtier)
+	if(newtier > NECRACON_TIER_NORMAL)
+		tier = newtier
+	. = ..()
+
+/datum/status_effect/buff/necran_consecration/refresh()
+	. = ..()
+	var/bluerestore = 0
+	if(HAS_TRAIT(owner, TRAIT_DNR))
+		bluerestore += 5
+	switch(tier)
+		if(NECRACON_TIER_NORMAL)
+			bluerestore += 5
+		if(NECRACON_TIER_EXPERT)
+			bluerestore += 8
+		if(NECRACON_TIER_MASTER)
+			bluerestore += 10
+	owner.energy_add(bluerestore)
+
+/datum/status_effect/buff/necran_consecration/on_apply()
+	. = ..()
+
+	var/bluerestore = 0
+	if(HAS_TRAIT(owner, TRAIT_DNR))
+		bluerestore += 5
+	switch(tier)
+		if(NECRACON_TIER_NORMAL)
+			bluerestore += 5
+		if(NECRACON_TIER_EXPERT)
+			bluerestore += 8
+		if(NECRACON_TIER_MASTER)
+			bluerestore += 10
+	owner.energy_add(bluerestore)
+
+	var/filter = owner.get_filter(NECRACON_FILTER)
+	if (!filter)
+		owner.add_filter(NECRACON_FILTER, 2, list("type" = "outline", "color" = outline_colour, "alpha" = 200, "size" = 1))
+	ADD_TRAIT(owner, TRAIT_ADRENALINE_RUSH, TRAIT_NECRACON)
+	if(tier > NECRACON_TIER_NORMAL)	//expert
+		ADD_TRAIT(owner, TRAIT_FORTITUDE, TRAIT_NECRACON)
+		if(HAS_TRAIT(owner, TRAIT_DNR))
+			ADD_TRAIT(owner, TRAIT_GUIDANCE, TRAIT_NECRACON)
+	if(tier > NECRACON_TIER_EXPERT && HAS_TRAIT(owner, TRAIT_DNR))	//master+
+		ADD_TRAIT(owner, TRAIT_NOPAIN, TRAIT_NECRACON)
+
+/datum/status_effect/buff/necran_consecration/on_remove()
+	. = ..()
+	owner.remove_filter(NECRACON_FILTER)
+	REMOVE_TRAIT(owner, TRAIT_ADRENALINE_RUSH, TRAIT_NECRACON)
+	if(tier > NECRACON_TIER_NORMAL)
+		REMOVE_TRAIT(owner, TRAIT_FORTITUDE, TRAIT_NECRACON)
+		REMOVE_TRAIT(owner, TRAIT_GUIDANCE, TRAIT_NECRACON)
+	if(tier > NECRACON_TIER_EXPERT)
+		REMOVE_TRAIT(owner, TRAIT_NOPAIN, TRAIT_NECRACON)
+
+
+/atom/movable/screen/alert/status_effect/buff/necra_consecrate
+	name = "Necra's Blessed Consecration"
+	desc = "Upon this ground, I hold firm. Upon this ground, Her will guides me true. Upon this ground, I will send them back to Her waiting grasp."
+	icon_state = "buff"
+
+#undef NECRACON_FILTER
+#undef NECRACON_TIER_NORMAL
+#undef NECRACON_TIER_EXPERT
+#undef NECRACON_TIER_MASTER
+
+#define EORANAURA_FILTER "eoranaura"
+
+/datum/status_effect/eoranaura
+	id = "eoranaura"
+	var/outline_colour = "#EEBBBB"
+	duration = -1
+	tick_interval = -1
+	examine_text = span_good("SUBJECTPRONOUN is bathed in Eora's Light!")
+	alert_type = null
+
+/datum/status_effect/eoranaura/on_apply()
+	. = ..()
+
+	owner.visible_message(span_userdanger("A tide of Eoran light surges from [owner], it fills you with peace and hope!"))
+
+	var/filter = owner.get_filter(EORANAURA_FILTER)
+	if(!filter)
+		owner.add_filter(EORANAURA_FILTER, 2, list("type" = "outline", "color" = outline_colour, "alpha" = 60, "size" = 2))
+
+	var/mutable_appearance/effect = mutable_appearance('icons/effects/effects.dmi', "curse", -JOYBRINGER_LAYER, alpha = 128)
+	effect.appearance_flags = RESET_COLOR
+	effect.blend_mode = BLEND_ADD
+	effect.color = "#EEBBBB"
+
+	owner.overlays_standing[EORANAURA_FILTER] = effect
+	owner.apply_overlay(EORANAURA_FILTER)
+
+	RegisterSignal(owner, COMSIG_LIVING_LIFE, PROC_REF(on_life))
+
+/datum/status_effect/eoranaura/on_remove()
+	. = ..()
+
+	owner.remove_filter(EORANAURA_FILTER)
+	owner.remove_overlay(EORANAURA_FILTER)
+
+	UnregisterSignal(owner, COMSIG_LIVING_LIFE)
+
+/datum/status_effect/eoranaura/proc/on_life()
+	SIGNAL_HANDLER
+
+	for(var/mob/living/mob in get_hearers_in_view(2, owner))
+		if(HAS_TRAIT(mob, TRAIT_PSYDONITE))
+			continue
+
+		mob.apply_status_effect(/datum/status_effect/eora_blessing)
+		mob.apply_status_effect(/datum/status_effect/buff/recuperation/eoran)
+
+#undef EORANAURA_FILTER
 
 //Sauce effects
 

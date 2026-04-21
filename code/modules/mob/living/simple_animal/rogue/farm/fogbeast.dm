@@ -29,7 +29,7 @@ GLOBAL_LIST_INIT(valid_fogbeast_colors, list("White" = COLOR_WHITE, "Gray" = COL
 	bonus_tame_chance = 15
 	footstep_type = FOOTSTEP_MOB_SHOE
 	pooptype = /obj/item/natural/poo/horse
-	faction = list("horse")
+	faction = list(FACTION_HORSE)
 	attack_verb_continuous = "tramples"
 	attack_verb_simple = "kicks"
 	melee_damage_lower = 50
@@ -50,6 +50,7 @@ GLOBAL_LIST_INIT(valid_fogbeast_colors, list("White" = COLOR_WHITE, "Gray" = COL
 	can_buckle = TRUE
 	buckle_lying = 0
 	can_saddle = TRUE
+	max_buckled_mobs = 2
 	aggressive = TRUE
 	remains_type = /obj/effect/decal/remains/saiga
 
@@ -76,16 +77,8 @@ GLOBAL_LIST_INIT(valid_fogbeast_colors, list("White" = COLOR_WHITE, "Gray" = COL
 	cut_overlays()
 	..()
 	if(stat != DEAD)
-		if(ssaddle)
-			var/mutable_appearance/saddlet = mutable_appearance(icon, "saddle-above", 4.3)
-			saddlet.appearance_flags = RESET_ALPHA|RESET_COLOR
-			add_overlay(saddlet)
-			saddlet = mutable_appearance(icon, "saddle")
-			saddlet.appearance_flags = RESET_ALPHA|RESET_COLOR
-			add_overlay(saddlet)
-		if(has_buckled_mobs())
-			var/mutable_appearance/mounted = mutable_appearance(icon, "[icon_state]_mounted", 4.3)
-			add_overlay(mounted)
+		add_saddleicon("saddle-above", "saddle")
+		add_ridericon("[icon_state]_mounted")
 
 
 /mob/living/simple_animal/hostile/retaliate/rogue/fogbeast/get_sound(input)
@@ -107,13 +100,7 @@ GLOBAL_LIST_INIT(valid_fogbeast_colors, list("White" = COLOR_WHITE, "Gray" = COL
 /mob/living/simple_animal/hostile/retaliate/rogue/fogbeast/tamed()
 	..()
 	deaggroprob = 20
-	if(can_buckle)
-		var/datum/component/riding/D = LoadComponent(/datum/component/riding/no_ocean)
-		D.set_riding_offsets(RIDING_OFFSET_ALL, list(TEXT_NORTH = list(0, 8), TEXT_SOUTH = list(0, 8), TEXT_EAST = list(-2, 8), TEXT_WEST = list(2, 8)))
-		D.set_vehicle_dir_layer(SOUTH, ABOVE_MOB_LAYER)
-		D.set_vehicle_dir_layer(NORTH, OBJ_LAYER)
-		D.set_vehicle_dir_layer(EAST, OBJ_LAYER)
-		D.set_vehicle_dir_layer(WEST, OBJ_LAYER)
+	setup_mount()
 
 /mob/living/simple_animal/hostile/retaliate/rogue/fogbeast/death()
 	unbuckle_all_mobs()
@@ -164,10 +151,12 @@ GLOBAL_LIST_INIT(valid_fogbeast_colors, list("White" = COLOR_WHITE, "Gray" = COL
 /mob/living/simple_animal/hostile/retaliate/rogue/fogbeast/proc/check_sprint_dismount()
 	SIGNAL_HANDLER
 	for(var/mob/living/carbon/human/rider in buckled_mobs)
-		if(rider.m_intent == MOVE_INTENT_RUN)
-			var/rider_skill = rider.get_skill_level(/datum/skill/misc/riding)
-			if(rider_skill < SKILL_LEVEL_MASTER)
-				violent_dismount(rider)
+		if(rider.m_intent != MOVE_INTENT_RUN)
+			continue
+		var/rider_skill = rider.get_skill_level(/datum/skill/misc/riding)
+		if(rider_skill >= SKILL_LEVEL_MASTER)
+			continue
+		violent_dismount(rider)
 
 /mob/living/simple_animal/hostile/retaliate/rogue/fogbeast/post_buckle_mob(mob/living/M)
 	. = ..()
@@ -242,7 +231,7 @@ GLOBAL_LIST_INIT(valid_fogbeast_colors, list("White" = COLOR_WHITE, "Gray" = COL
 	blade_class = BCLASS_BLUNT
 	hitsound = "punch_hard"
 	chargetime = 0
-	penfactor = 10
+	penfactor = PEN_NONE
 	swingdelay = 0
 	candodge = TRUE
 	canparry = TRUE

@@ -14,7 +14,6 @@
 	stress_generator = TRUE
 	rotation_structure = TRUE
 	initialize_dirs = CONN_DIR_FORWARD | CONN_DIR_FLIP
-
 	var/datum/looping_sound/waterwheel_loop/soundloop
 
 /obj/structure/waterwheel/get_mechanics_examine(mob/user)

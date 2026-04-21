@@ -24,7 +24,7 @@
 	round_contrib_points = 2
 
 	cmode_music = 'sound/music/cmode/garrison/combat_warden.ogg'
-	job_traits = list(TRAIT_OUTDOORSMAN, TRAIT_WOODSMAN, TRAIT_SURVIVAL_EXPERT)
+	job_traits = list(TRAIT_OUTDOORSMAN, TRAIT_WOODSMAN, TRAIT_SURVIVAL_EXPERT, TRAIT_EXPERT_HUNTER)
 	job_subclasses = list(
 		/datum/advclass/warden/ranger,
 		/datum/advclass/warden/forester,
@@ -42,7 +42,7 @@
 	backr = /obj/item/storage/backpack/rogue/satchel
 	wrists = /obj/item/clothing/wrists/roguetown/bracers/leather
 	id = /obj/item/scomstone/bad/garrison
-	job_bitflag = BITFLAG_GARRISON
+	job_bitflag = BITFLAG_GARRISON //Counts towards overall combat roles
 
 /datum/advclass/warden/ranger
 	name = "Ranger"
@@ -90,7 +90,7 @@
 	beltl = /obj/item/rogueweapon/huntingknife/idagger/warden_machete
 	backpack_contents = list(
 		/obj/item/storage/keyring/warden = 1,
-		/obj/item/flashlight/flare/torch/lantern = 1,
+		/obj/item/flashlight/flare/torch/lantern/prelit = 1,
 		/obj/item/rogueweapon/scabbard/sheath = 1,
 		/obj/item/reagent_containers/glass/bottle/rogue/healthpot = 1,
 		/obj/item/signal_horn = 1

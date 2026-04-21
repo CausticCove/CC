@@ -15,6 +15,7 @@
 	)
 	age_mod = /datum/class_age_mod/witch
 	
+	subclass_mage_aspects = list("mastery" = FALSE, "major" = 0, "minor" = 1, "utilities" = 4)
 	subclass_skills = list(
 		/datum/skill/misc/reading = SKILL_LEVEL_EXPERT,
 		/datum/skill/craft/alchemy = SKILL_LEVEL_EXPERT,
@@ -55,13 +56,14 @@
 	switch (classchoice)
 		if("Old Magick")
 			// the original witch: arcyne t2 with 9 spellpoints
-			ADD_TRAIT(H, TRAIT_ARCYNE_T2, TRAIT_GENERIC)
+			ADD_TRAIT(H, TRAIT_ARCYNE, TRAIT_GENERIC)
 			H.adjust_skillrank(/datum/skill/magic/arcane, SKILL_LEVEL_APPRENTICE, TRUE)
-			H.mind?.adjust_spellpoints(9) // twelve if you pick arcyne potential
+			H.mind?.mage_aspect_config["major"] += 1
+			H.mind?.mage_aspect_config["ward"] = TRUE
 			beltl = /obj/item/storage/magebag/starter
 			if (H.age == AGE_OLD)
 				H.adjust_skillrank(/datum/skill/magic/arcane, SKILL_LEVEL_APPRENTICE, TRUE)
-				H.mind?.adjust_spellpoints(3)
+				H.mind?.mage_aspect_config["utilities"] += 2
 		if("Godsblood")
 			//miracle witch: capped at t2 miracles. cannot pray to regain devo, but has high innate regen because of it (1.7 instead of 0.8 from major).
 			//Cannot use miracles or gain devotion when shapeshifted.
@@ -79,9 +81,8 @@
 			H.adjust_skillrank(/datum/skill/magic/holy, SKILL_LEVEL_NOVICE, TRUE)
 			D.grant_miracles(H, cleric_tier = CLERIC_T1, passive_gain = CLERIC_REGEN_MINOR, devotion_limit = CLERIC_REQ_1)
 			D.max_devotion *= 0.5
-			ADD_TRAIT(H, TRAIT_ARCYNE_T1, TRAIT_GENERIC)
+			ADD_TRAIT(H, TRAIT_ARCYNE, TRAIT_GENERIC)
 			H.adjust_skillrank(/datum/skill/magic/arcane, SKILL_LEVEL_NOVICE, TRUE)
-			H.mind?.adjust_spellpoints(6) // nine if you pick arcyne potential
 			beltl = /obj/item/storage/magebag/starter
 			neck = /obj/item/clothing/neck/roguetown/psicross/wood
 			if (H.age == AGE_OLD)
@@ -92,9 +93,9 @@
 
 		switch (classchoice)
 			if("Old Magick")
-				H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/guidance)
-				H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/fortitude)
-				H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/projectile/arcynebolt)
+				H.mind.AddSpell(new /datum/action/cooldown/spell/guidance)
+				H.mind.AddSpell(new /datum/action/cooldown/spell/fortitude)
+				H.mind.AddSpell(new /datum/action/cooldown/spell/projectile/soulshot)
 				
 	if(H.gender == FEMALE)
 		armor = /obj/item/clothing/suit/roguetown/armor/corset

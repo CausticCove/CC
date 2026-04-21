@@ -25,6 +25,12 @@
 			if(istype(src, /obj/item/rogueweapon) && !istype(src, /obj/item/rogueweapon/werewolf_claw))
 				to_chat(user, span_warning("My fingers are too misshapen to use this puny implement."))
 				return
+		// even less aggressive; allows use of tools but not weapons
+		if(HAS_TRAIT(user, TRAIT_TINYPAWS))
+			var/obj/item/rogueweapon/weapon = src
+			if(istype(weapon) && !weapon.is_tool)
+				to_chat(user, span_warning("I am too small to properly wield a weapon."))
+				return
 	if(tool_behaviour && target.tool_act(user, src, tool_behaviour))
 		return
 	if(pre_attack(target, user, params))
@@ -119,7 +125,6 @@
 	else if(_attacker_signal & COMPONENT_ITEM_NO_DEFENSE)
 		override_status = ATTACK_OVERRIDE_NODEFENSE
 
-
 	if(HAS_TRAIT(M, TRAIT_TEMPO))
 		if(ishuman(M) && ishuman(user) && user.mind)
 			var/mob/living/carbon/human/H = M
@@ -154,17 +159,23 @@
 //	if(force)
 //		user.emote("attackgrunt")
 
-	var/swingdelay = user.used_intent.swingdelay
+	var/swingdelay = user.used_intent?.swingdelay
 	var/_swingdelay_mod = SEND_SIGNAL(src, COMSIG_LIVING_SWINGDELAY_MOD)
 	if(_swingdelay_mod)
 		swingdelay += _swingdelay_mod
 
 	var/datum/intent/cached_intent = user.used_intent
-	if(swingdelay)
-		if(!user.used_intent.noaa && isnull(user.mind))
-			if(get_dist(get_turf(user), get_turf(M)) <= user.used_intent.reach)
-				user.do_attack_animation(M, user.used_intent.animname, user.used_intent.masteritem, used_intent = user.used_intent, simplified = TRUE)
-		sleep(swingdelay)
+	if(swingdelay && cached_intent.swingdelay_type)
+		if(user.add_swingdelay(cached_intent))
+			sleep(cached_intent.swingdelay)
+
+	// Getting struck w/ /disrupt swingdelay type sets our swing_state to false. 
+	// If we had the effect, but not the bool, we were interrupted. (Or something else went wrong.)
+	if(user.is_swinging() && !user.swing_state)
+		return
+
+	user.swing_state = FALSE
+
 	if(user.a_intent != cached_intent)
 		return
 	if(QDELETED(src) || QDELETED(M))
@@ -177,7 +188,7 @@
 		return
 	if((M.mobility_flags & MOBILITY_STAND))
 		if(M.checkmiss(user))
-			if(!swingdelay)
+			if(!swingdelay && !user.used_intent?.cleave)
 				if(get_dist(get_turf(user), get_turf(M)) <= user.used_intent.reach)
 					user.do_attack_animation(M, user.used_intent.animname, used_item = src, used_intent = user.used_intent, simplified = TRUE)
 			return
@@ -267,8 +278,14 @@
 			var/datum/component/arousal/CAR = user.GetComponent(/datum/component/arousal)
 			if(CAR)
 				CAR.adjust_arousal_special(src, 2)
+
+		user.changeMaxDodge(2)
+		user.dodgetime = clamp(user.dodgetime - 2, 0, CLICK_CD_DODGE)
 				
 	log_combat(user, M, "attacked", src.name, "(INTENT: [uppertext(user.used_intent.name)]) (DAMTYPE: [uppertext(damtype)])")
+
+	execute_cleave(user, get_turf(M), M)
+
 	add_fingerprint(user)
 
 
@@ -285,10 +302,45 @@
 /obj/item/proc/attack_turf(turf/T, mob/living/user, multiplier)
 	if(SEND_SIGNAL(src, COMSIG_ITEM_ATTACK_TURF, T, user) & COMPONENT_NO_ATTACK_OBJ)
 		return
+	execute_cleave(user, T)
 	if(T.max_integrity)
 		if(T.attacked_by(src, user, multiplier))
 			user.do_attack_animation(T, simplified = TRUE)
 			return TRUE
+
+/// Executes cleave secondary attacks around an origin turf. Primary is excluded from targets (if any).
+/obj/item/proc/execute_cleave(mob/living/user, turf/origin, mob/living/primary)
+	var/datum/cleave_pattern/cleave = user.used_intent?.cleave
+	if(!cleave)
+		return
+	if(primary && QDELETED(primary))
+		return
+	var/list/cleave_turfs = cleave.get_cleave_turfs(user, origin)
+	cleave_sharpness_mult = 0.5
+	// Collect targets, living first then dead
+	var/list/living_targets = list()
+	var/list/dead_targets = list()
+	for(var/turf/T in cleave_turfs)
+		for(var/mob/living/L in T)
+			if(L == primary || L == user)
+				continue
+			if(L.stat == DEAD)
+				dead_targets += L
+			else
+				living_targets += L
+	var/cleave_targets_hit = 0
+	for(var/mob/living/L in living_targets + dead_targets)
+		if(cleave.max_targets && cleave_targets_hit >= cleave.max_targets)
+			break
+		if(L.checkdefense(user.used_intent, user))
+			continue
+		if(L.attacked_by(src, user))
+			cleave_targets_hit++
+			var/tempsound = user.used_intent?.hitsound
+			if(tempsound)
+				playsound(L.loc, tempsound, 100, FALSE, -1)
+			log_combat(user, L, "cleaved", src.name, "(INTENT: [uppertext(user.used_intent.name)])")
+	cleave_sharpness_mult = 1
 
 /atom/movable/proc/attacked_by()
 	return FALSE
@@ -356,6 +408,8 @@
 						dullfactor = 0.2
 					else
 						dullfactor = 0.45 + (lumberskill * 0.15)
+						if(HAS_TRAIT(user, TRAIT_WYRD_LABOURER))
+							dullfactor *= 1.5
 						lumberjacker.mind.add_sleep_experience(/datum/skill/labor/lumberjacking, (lumberjacker.STAINT*0.2))
 					cont = TRUE
 				if(BCLASS_CHOP)
@@ -426,6 +480,8 @@
 			var/mob/living/miner = user
 			var/mineskill = miner.get_skill_level(/datum/skill/labor/mining)
 			newforce = newforce * (8+(mineskill*1.5))
+			if(HAS_TRAIT(user, TRAIT_WYRD_LABOURER))
+				newforce *= 1.5
 			shake_camera(user, 1, 1)
 			miner.mind.add_sleep_experience(/datum/skill/labor/mining, (miner.STAINT*0.2))
 		if(DULLING_SHAFT_CONJURED)
@@ -465,12 +521,10 @@
 
 /obj/attacked_by(obj/item/I, mob/living/user)
 	user.changeNext_move(CLICK_CD_INTENTCAP)
-	var/newforce = (get_complex_damage(I, user, blade_dulling) * I.demolition_mod)
+	var/newforce = get_complex_damage(I, user, blade_dulling) * user.used_intent.demolition_mod
 	if(!newforce)
-
 		return 0
 	if(newforce < damage_deflection)
-
 		return 0
 	if(user.used_intent.no_attack)
 		return 0
@@ -580,17 +634,23 @@
 	SEND_SIGNAL(src, COMSIG_ITEM_ATTACK_EFFECT_SELF, user, affecting, intent, victim, selzone)
 
 	if(is_silver && HAS_TRAIT(victim, TRAIT_SILVER_WEAK))
-		SEND_SIGNAL(victim, COMSIG_FORCE_UNDISGUISE)
-		var/datum/component/silverbless/blesscomp = GetComponent(/datum/component/silverbless)
-		if(blesscomp?.is_blessed)
-			if(!victim.has_status_effect(/datum/status_effect/fire_handler/fire_stacks/sunder))
-				to_chat(victim, span_danger("Silver rebukes my presence! My vitae smolders, and my powers wane!"))
-			victim.adjust_fire_stacks(thrown ? 1 : 3, /datum/status_effect/fire_handler/fire_stacks/sunder/blessed)
+		if(is_lesser_silver)
+			// Lesser silver only flares meaningfully on a deliberate melee strike — thrown contact does nothing,
+			// and the hit never forces a disguise off. Stacks accumulate without ignition.
+			if(!thrown)
+				victim.adjust_fire_stacks(1, /datum/status_effect/fire_handler/fire_stacks/sunder/lesser)
 		else
-			if(!victim.has_status_effect(/datum/status_effect/fire_handler/fire_stacks/sunder/blessed))
-				to_chat(victim, span_danger("Blessed silver rebukes my presence! These fires are lashing at my very soul!"))
-			victim.adjust_fire_stacks(thrown ? 1 : 3, /datum/status_effect/fire_handler/fire_stacks/sunder)
-		victim.ignite_mob()
+			SEND_SIGNAL(victim, COMSIG_FORCE_UNDISGUISE)
+			var/datum/component/silverbless/blesscomp = GetComponent(/datum/component/silverbless)
+			if(blesscomp?.is_blessed)
+				if(!victim.has_status_effect(/datum/status_effect/fire_handler/fire_stacks/sunder))
+					to_chat(victim, span_danger("Silver rebukes my presence! My vitae smolders, and my powers wane!"))
+				victim.adjust_fire_stacks(thrown ? 1 : 3, /datum/status_effect/fire_handler/fire_stacks/sunder/blessed)
+			else
+				if(!victim.has_status_effect(/datum/status_effect/fire_handler/fire_stacks/sunder/blessed))
+					to_chat(victim, span_danger("Blessed silver rebukes my presence! These fires are lashing at my very soul!"))
+				victim.adjust_fire_stacks(thrown ? 1 : 3, /datum/status_effect/fire_handler/fire_stacks/sunder)
+			victim.ignite_mob()
 
 /mob/living/attacked_by(obj/item/I, mob/living/user)
 	var/hitlim = simple_limb_hit(user.zone_selected)
@@ -685,17 +745,6 @@
 	var/verb_appendix
 	if(!I.force_dynamic)
 		return
-	if(bladec == BCLASS_PEEL)
-		if(ishuman(src))
-			var/mob/living/carbon/human/H = src
-			var/obj/item/used = H.get_best_worn_armor(hit_area, user.used_intent.item_d_type)
-			if(used)
-				if(used.peel_count)
-					verb_appendix =	" <font color ='#e7e7e7'>(\Roman[used.peel_count])</font>"
-				else
-					use_override = TRUE
-			else
-				use_override = TRUE
 	var/message_hit_area = ""
 	hit_area = parse_zone(hit_area, BP)
 	if(user.used_intent)

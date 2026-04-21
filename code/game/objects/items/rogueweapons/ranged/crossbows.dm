@@ -1,6 +1,13 @@
 
+/obj/item/gun/ballistic/revolver/grenadelauncher/crossbow/get_npc_chargetime(mob/living/user)
+	var/newtime = 40 - (user.get_skill_level(/datum/skill/combat/crossbows) * 4.25) - user.STAPER
+	if(chambered)
+		newtime *= chambered.charge_time_mult
+	return max(1, newtime)
+
 /obj/item/gun/ballistic/revolver/grenadelauncher/crossbow
 	name = "crossbow"
+	flags_ai_inventory = AI_ITEM_GUN
 	desc = "A deadly weapon that shoots a bolt with terrific power. Unlike the common bow, \
 	it uses a sophisticated mechanism to renock - and retain - its half-length bolts; a \
 	matter that relies more on raw strength than dexterity to master. </br>A favorite \
@@ -18,6 +25,7 @@
 	randomspread = 1
 	spread = 0
 	can_parry = TRUE
+	associated_skill = /datum/skill/combat/crossbows
 	wdefense = 3
 	max_integrity = 100
 	var/chargingspeed = 40
@@ -42,6 +50,10 @@
 	. += span_info("Crossbows increase in accuracy with a higher <b>PERCEPTION</b>, but deal a static amount of damage \
 	regardless of character stats.")
 	. += span_info("Crossbows cannot be nocked directly from their quiver and require time to load.")
+	if(penfactor < 0)
+		. += span_info("This weapon <b>reduces</b> bolt penetration by <b>[abs(penfactor)]</b> tier(s).")
+	else if(penfactor > 0)
+		. += span_info("This weapon <b>increases</b> bolt penetration by <b>[penfactor]</b> tier(s).")
 	if(onehanded)
 		. += span_info("This weapon can be used in one hand, at the penalty of aim time.")
 		if(HAS_TRAIT(user, TRAIT_DUALWIELDER))
@@ -87,6 +99,8 @@
 		if(c_bow.onehanded)
 			if(mastermob.get_num_arms(FALSE) < 2 || mastermob.get_inactive_held_item())
 				newtime *= 1.5 // more time if firing one-handed.
+		if(c_bow.chambered)
+			newtime *= c_bow.chambered.charge_time_mult
 		if(newtime > 1)
 			return newtime
 		else
@@ -128,7 +142,8 @@
 		if(c_bow.onehanded)
 			if(mastermob.get_num_arms(FALSE) < 2 || mastermob.get_inactive_held_item())
 				newtime *= 2 // more time if firing one-handed.
-
+		if(c_bow.chambered)
+			newtime *= c_bow.chambered.charge_time_mult
 		if(newtime > 0)
 			return newtime
 		else
@@ -203,7 +218,7 @@
 		BB.accuracy += accfactor * (user.STAPER - 8) * 3 // 8+ PER gives +3 per level. Exponential.
 		BB.bonus_accuracy += (user.STAPER - 8) // 8+ PER gives +1 per level. Does not decrease over range.
 		BB.bonus_accuracy += (user.get_skill_level(/datum/skill/combat/crossbows) * 5) // +5 per XBow level.'
-		BB.armor_penetration *= penfactor
+		BB.armor_penetration = max(PEN_NONE, BB.armor_penetration + penfactor)
 		BB.damage *= damfactor
 
 	cocked = FALSE
@@ -239,7 +254,7 @@
 	icon_state = "[item_state][cocked ? "1" : "0"]"
 
 	if(chambered && !hasloadedsprite)
-		var/mutable_appearance/ammo = mutable_appearance('icons/roguetown/weapons/ammo.dmi', chambered.icon_state)
+		var/mutable_appearance/ammo = mutable_appearance(chambered.icon, chambered.icon_state)
 		add_overlay(ammo)
 	if(chambered && hasloadedsprite)
 		icon_state = "[item_state][2]"
@@ -263,37 +278,18 @@
 	item_state = "ancientcrossbow"
 	max_integrity = 80
 
-/obj/item/gun/ballistic/revolver/grenadelauncher/crossbow/light
-	name = "stockless crossbow"
-	desc = "A deadly weapon that shoots a bolt with terrific power. The stock has been whittled down into a 'cabbit's foot'-styled grip; fletchable on the move without compromising the lethality of its bolts. Without a stock to bolster one's draw-strength, however, it means preparing each shot is more laborious than the last. </br>Rockhill's wytch-hunting folk heroes were oft-mythed to wield two of these at once."
-	icon = 'icons/roguetown/weapons/misc32.dmi'
-	icon_state = "crossbowshort0"
-	item_state = "crossbowshort"
-	possible_item_intents = list(/datum/intent/shoot/crossbow/slurbow, /datum/intent/arc/crossbow/slurbow, /datum/intent/buttstroke)
-	chargingspeed = 30
-	accfactor = 0.75
-	penfactor = 0.75 //Full damage, but reduce armor-penetration. Rough sidegrade  
-	reloadtime = 60 //Less leverage to work with, but not as difficult as larger weapons.
-	force = 13
-	movingreload = TRUE
-	onehanded = TRUE
-	slot_flags = ITEM_SLOT_BACK | ITEM_SLOT_HIP
-	w_class = WEIGHT_CLASS_SMALL //Theoretically stowable in a belt or satchel, unlike the larger variants.
-	grid_height = 96
-	grid_width = 64
-
 /datum/intent/buttstroke
 	name = "buttstroke"
 	blade_class = BCLASS_BLUNT
 	attack_verb = list("strikes", "buttstrokes")
 	hitsound = list('sound/combat/hits/blunt/woodblunt (1).ogg', 'sound/combat/hits/blunt/woodblunt (2).ogg')
 	chargetime = 0
-	penfactor = BLUNT_DEFAULT_PENFACTOR
+	penfactor = PEN_NONE
 	damfactor = 1.1 //Translates into 11 DMG for a Slurbow, 16.5 DMG for a Crossbow, and 23 DMG for a Siegebow.
 	swingdelay = 0
 	icon_state = "instrike"
 	item_d_type = "blunt"
-	intent_intdamage_factor = BLUNT_DEFAULT_INT_DAMAGEFACTOR - 50 //Reduces integrity damage modifier to +10%.
+	intent_intdamage_factor = BLUNT_DEFAULT_INT_DAMAGEFACTOR - 0.5 //Reduces integrity damage modifier to +10%.
 
 //
 
@@ -304,6 +300,7 @@
 	icon_state = "slurbow0"
 	item_state = "slurbow"
 	possible_item_intents = list(/datum/intent/shoot/crossbow/slurbow, /datum/intent/arc/crossbow/slurbow, /datum/intent/buttstroke)
+	mag_type = /obj/item/ammo_box/magazine/internal/shot/slurbow
 	chargingspeed = 20
 	damfactor = 0.6
 	accfactor = 1.3
@@ -313,11 +310,16 @@
 	movingreload = TRUE
 	onehanded = TRUE
 	slot_flags = ITEM_SLOT_BACK | ITEM_SLOT_HIP
-	penfactor = 0.5		//Bolts have 50 pen, this decreases to 25. Should only pen armor with less than 67 protection.
+	penfactor = -1	//Reduces bolt penetration by one tier. A PEN_MEDIUM bolt becomes PEN_LIGHT.
+	w_class = WEIGHT_CLASS_SMALL
 	wdefense = 2
 	max_integrity = 80
 
-//
+/obj/item/ammo_box/magazine/internal/shot/slurbow
+	ammo_type = /obj/item/ammo_casing/caseless/rogue/bolt/light
+	caliber = "lightbolt"
+	max_ammo = 1
+	start_empty = TRUE
 
 /obj/item/gun/ballistic/revolver/grenadelauncher/crossbow/heavy
 	name = "siegebow"
@@ -374,7 +376,7 @@
 	swingdelay = 6
 	icon_state = "instrike"
 	item_d_type = "blunt"
-	intent_intdamage_factor = BLUNT_DEFAULT_INT_DAMAGEFACTOR - 45 //Reduces integrity damage modifier to +15%.
+	intent_intdamage_factor = BLUNT_DEFAULT_INT_DAMAGEFACTOR - 0.45 //Reduces integrity damage modifier to +15%.
 
 /obj/item/gun/ballistic/revolver/grenadelauncher/crossbow/heavy/paalloy
 	name = "ancient siegebow"

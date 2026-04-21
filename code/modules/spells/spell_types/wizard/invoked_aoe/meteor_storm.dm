@@ -91,11 +91,13 @@
 					L.adjust_fire_stacks(8)
 					L.ignite_mob()
 					to_chat(L, span_userdanger("You're hit by a meteor!"))
+					new /obj/effect/temp_visual/spell_impact(get_turf(L), GLOW_COLOR_FIRE, SPELL_IMPACT_HIGH)
 				if(1) // Very close
 					L.adjustFireLoss(20)
 					L.adjust_fire_stacks(4)
 					L.ignite_mob()
 					to_chat(L, span_danger("Heat from the meteor sears you!"))
+					new /obj/effect/temp_visual/spell_impact(get_turf(L), GLOW_COLOR_FIRE, SPELL_IMPACT_MEDIUM)
 				if(2) // Nearby
 					L.adjustFireLoss(10)
 					L.adjust_fire_stacks(2)

@@ -292,6 +292,8 @@
 #define SHOCK_ILLUSION (1 << 2)
 ///The shock doesn't stun.
 #define SHOCK_NOSTUN (1 << 3)
+///Visual and sound effects only, no damage applied.
+#define SHOCK_VISUAL_ONLY (1 << 4)
 
 #define INCORPOREAL_MOVE_BASIC 1
 #define INCORPOREAL_MOVE_SHADOW 2 // leaves a trail of shadows
@@ -492,6 +494,8 @@
 #define SKIN_COLOR_SUNSET "7B5752"  
 #define SKIN_COLOR_DUSK "564044" 
 #define SKIN_COLOR_GILDED "e1b772"
+#define SKIN_COLOR_SELFAMBER "c9aa79"
+#define SKIN_COLOR_SELFTOPAZ "b19d68"
 #define SKIN_COLOR_SELFBRASS "d6a35b"
 
 //HUMEN SKIN TONES
@@ -648,10 +652,17 @@
 
 #define TYPING_INDICATOR_TIMEOUT 20 MINUTES
 
-// NPC Debugging
+// NPC Debugging - uncomment to enable AI debug runechat
+// #define NPC_THINK_DEBUG
 #ifdef NPC_THINK_DEBUG
-#define NPC_THINK(message) visible_message(message, runechat_message = message)
+#define AI_THINK(pawn, message) pawn.visible_message(message, runechat_message = message)
 #else
-#define NPC_THINK(message)
+#define AI_THINK(pawn, message)
 #endif
 
+// #define NPC_THINK_DEBUG_WORLD
+#ifdef NPC_THINK_DEBUG_WORLD
+#define AI_WORLD_THINK(pawn, message) to_chat(world, "<span class='boldannounce'>\[AI-WORLD\] [pawn]: [message]</span>")
+#else
+#define AI_WORLD_THINK(pawn, message)
+#endif

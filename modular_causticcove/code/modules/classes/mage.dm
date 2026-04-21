@@ -2,7 +2,7 @@
 	name = "Spellthief"
 	tutorial = "You are a rogue, either by choice or hardship. Your study of the arcyne knowledge, stolen or not, now aids in your roguish endeavors."
 	outfit = /datum/outfit/job/roguetown/adventurer/spellthief
-	traits_applied = list(TRAIT_DODGEEXPERT , TRAIT_ARCYNE_T2)
+	traits_applied = list(TRAIT_DODGEEXPERT , TRAIT_ARCYNE)
 	subclass_stats = list(
 		STATKEY_STR = -1,
 		STATKEY_INT = 2,
@@ -10,7 +10,7 @@
 		STATKEY_WIL = 1,
 		STATKEY_SPD = 2
 	)
-	subclass_spellpoints = 12
+	subclass_mage_aspects = list("mastery" = FALSE, "major" = 1, "minor" = 1, "utilities" = 4)
 	subclass_skills = list(
 		/datum/skill/misc/tracking = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/combat/knives = SKILL_LEVEL_JOURNEYMAN,
@@ -52,8 +52,8 @@
 		/obj/item/rogueweapon/scabbard/sheath = 1
 		)
 	if(H.mind)
-		H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/touch/prestidigitation)
+		//H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/touch/prestidigitation) //This might get added automatically by having the TRAIT_ARCYNE
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/invisibility)
-		H.mind.AddSpell(new /obj/effect/proc_holder/spell/targeted/touch/lesserknock)
-		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/projectile/fetch)
+		H.mind.AddSpell(new /datum/action/cooldown/spell/lesser_knock)
+		H.mind.AddSpell(new /datum/action/cooldown/spell/projectile/fetch)
 	H.grant_language(/datum/language/thievescant)

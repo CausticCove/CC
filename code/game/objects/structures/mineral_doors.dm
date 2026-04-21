@@ -66,10 +66,13 @@
 
 /obj/structure/mineral_door/get_mechanics_examine(mob/user)
 	. = ..()
-	. += span_info("Right clicking the door with a key will attempt to lock it.")
-	. += span_info("Left clicking the door with a key will attempt to unlock it.")
+	. += span_info("Right-clicking the door with a key, whether alone or on a keyring, will attempt to lock it.")
+	. += span_info("Left-clicking the door with a key, whether alone or on a keyring, will attempt to unlock it.")
 	. += span_info("Similarly, doing the same but with an empty hand, and a keyring with a valid key in or on your belt, or on your wrist will also lock/unlock the door.") //Caustic Edit - Adding in this QOL bit!
-	. += span_info("Kicking an unlocked door will open or close it. Kicking a locked door, if sufficiently strong, can force it open!")
+	. += span_info("Kicking an unlocked door will open or close it.")
+	. += span_info("Kicking a locked door has a small chance to force it open, which slightly scales with your character's Strength.")
+	. += span_info("Alternatively, doors can be bypassed by destroying them. Axes and bombs of blastpowder are the most effective choices; be mindful that such destruction can be heard from afar, however.")
+	. += span_info("Lockpicks offer a quieter alternative to bypassing doors, but can still be heard by anyone within viewing range, regardless of whatever level they're on.")
 
 /obj/structure/mineral_door/onkick(mob/user)
 	if(isSwitchingStates)
@@ -114,6 +117,7 @@
 	air_update_turf(1)
 	update_icon()
 	isSwitchingStates = FALSE
+	alert_ai_visibility_change(src)
 
 	if(close_delay != -1)
 		addtimer(CALLBACK(src, PROC_REF(Close)), close_delay)
@@ -254,8 +258,7 @@
 /obj/structure/mineral_door/proc/check_for_key_in_storage(var/obj/item/storage/bag, mob/user)
 	for(var/obj/item/I in bag.contents)
 		if(istype(I, /obj/item/roguekey) || istype(I, /obj/item/storage/keyring))
-			trykeylock(I, user)
-			return TRUE
+			return trykeylock(I, user, handempty = TRUE)
 	return FALSE
 //Caustic Edit End
 
@@ -283,15 +286,15 @@
 				var/mob/living/carbon/human/humanuser = user
 				if(humanuser.beltl)
 					if(istype(humanuser.beltl, /obj/item/roguekey) || istype(humanuser.beltl, /obj/item/storage/keyring))
-						src.attackby(humanuser.beltl, user)
-						return
+						if(trykeylock(humanuser.beltl, user, handempty = TRUE))
+							return
 					if(istype(humanuser.beltl, /obj/item/storage))
 						if(check_for_key_in_storage(humanuser.beltl, humanuser))
 							return
 				if(humanuser.beltr)
 					if(istype(humanuser.beltr, /obj/item/roguekey) || istype(humanuser.beltr, /obj/item/storage/keyring))
-						src.attackby(humanuser.beltr, user)
-						return
+						if(trykeylock(humanuser.beltr, user, handempty = TRUE))
+							return
 					if(istype(humanuser.beltr, /obj/item/storage))
 						if(check_for_key_in_storage(humanuser.beltr, humanuser))
 							return
@@ -301,8 +304,8 @@
 							return
 				if(humanuser.wear_wrists)
 					if(istype(humanuser.wear_wrists, /obj/item/roguekey) || istype(humanuser.wear_wrists, /obj/item/storage/keyring))
-						src.attackby(humanuser.wear_wrists, user)
-						return
+						if(trykeylock(humanuser.wear_wrists, user, handempty = TRUE))
+							return
 					if(istype(humanuser.wear_wrists, /obj/item/storage))
 						if(check_for_key_in_storage(humanuser.wear_wrists, humanuser))
 							return
@@ -337,7 +340,7 @@
 	if(ishuman(user))
 		var/mob/living/carbon/human/human_user = user
 		// must have a client or be trying to pass through the door
-		if(!human_user.client && !length(human_user.myPath))
+		if(!human_user.client && !human_user.ai_controller)
 			return FALSE
 		if(human_user.handcuffed)
 			return FALSE
@@ -366,6 +369,7 @@
 	air_update_turf(1)
 	update_icon()
 	isSwitchingStates = FALSE
+	alert_ai_visibility_change(src)
 
 	if(close_delay != -1)
 		addtimer(CALLBACK(src, PROC_REF(Close)), close_delay)
@@ -422,8 +426,7 @@
 	user.changeNext_move(CLICK_CD_FAST)
 	if(istype(I, /obj/item/roguekey) || istype(I, /obj/item/storage/keyring))
 		if(!locked)
-			to_chat(user, span_warning("It won't turn this way. Try turning to the right."))
-			door_rattle()
+			TryToSwitchState(user) //try to open/close
 			return
 		if(autobump == TRUE) //Attackby passes UI coordinate onclick stuff, so forcing check to TRUE
 			trykeylock(I, user, autobump)
@@ -466,10 +469,14 @@
 			return ..()
 
 /obj/structure/mineral_door/attacked_by(obj/item/I, mob/living/user)
+	var/turf/T = get_turf(src)
 	..()
 	if(obj_broken || obj_destroyed)
-		var/obj/effect/track/structure/new_track = SStracks.get_track(/obj/effect/track/structure, get_turf(src))
-		new_track.handle_creation(user)
+		if(!T)
+			return
+		var/obj/effect/track/structure/new_track = SStracks.get_track(/obj/effect/track/structure, T)
+		if(new_track)
+			new_track.handle_creation(user)
 
 /obj/structure/mineral_door/proc/repairdoor(obj/item/I, mob/user)
 	if(brokenstate)
@@ -522,7 +529,7 @@
 	var/obj/item = user.get_active_held_item()
 	if(istype(item, /obj/item/roguekey) || istype(item, /obj/item/storage/keyring))
 		if(locked)
-			to_chat(user, span_warning("It won't turn this way. Try turning to the left."))
+			to_chat(user, span_warning("The lock won't turn this way. Try turning to the left."))
 			door_rattle()
 			return
 		trykeylock(item, user)
@@ -532,15 +539,15 @@
 			var/mob/living/carbon/human/humanuser = user
 			if(humanuser.beltl)
 				if(istype(humanuser.beltl, /obj/item/roguekey) || istype(humanuser.beltl, /obj/item/storage/keyring))
-					trykeylock(humanuser.beltl, user)
-					return
+					if(trykeylock(humanuser.beltl, user, handempty = TRUE))
+						return
 				if(istype(humanuser.beltl, /obj/item/storage))
 					if(check_for_key_in_storage(humanuser.beltl, humanuser))
 						return
 			if(humanuser.beltr)
 				if(istype(humanuser.beltr, /obj/item/roguekey) || istype(humanuser.beltr, /obj/item/storage/keyring))
-					trykeylock(humanuser.beltr, user)
-					return
+					if(trykeylock(humanuser.beltr, user, handempty = TRUE))
+						return
 				if(istype(humanuser.beltr, /obj/item/storage))
 					if(check_for_key_in_storage(humanuser.beltr, humanuser))
 						return
@@ -550,8 +557,8 @@
 						return
 			if(humanuser.wear_wrists)
 				if(istype(humanuser.wear_wrists, /obj/item/roguekey) || istype(humanuser.wear_wrists, /obj/item/storage/keyring))
-					trykeylock(humanuser.wear_wrists, user)
-					return
+					if(trykeylock(humanuser.wear_wrists, user, handempty = TRUE))
+						return
 				if(istype(humanuser.wear_wrists, /obj/item/storage))
 					if(check_for_key_in_storage(humanuser.wear_wrists, humanuser))
 						return
@@ -559,18 +566,18 @@
 	else
 		return ..()
 
-/obj/structure/mineral_door/proc/trykeylock(obj/item/I, mob/user, autobump = FALSE)
+/obj/structure/mineral_door/proc/trykeylock(obj/item/I, mob/user, autobump = FALSE, handempty = FALSE) //Caustic Edit - Tweaked a bit of this proc, added handempty because of the Empty Hand QOL, so that when using this and not having the key, it can default to empty-hand interactions and not spam the chat.
 	if(door_opened || isSwitchingStates)
-		return
+		return FALSE
 	if(!keylock)
-		return
+		return FALSE
 	if(lockbroken)
 		to_chat(user, span_warning("The lock to this door is broken."))
 	user.changeNext_move(CLICK_CD_INTENTCAP)
 	if(istype(I,/obj/item/storage/keyring))
 		var/obj/item/storage/keyring/R = I
 		if(!R.contents.len)
-			return
+			return FALSE
 		var/list/keysy = shuffle(R.contents.Copy())
 		for(var/obj/item/roguekey/K in keysy)
 			if(user.cmode)
@@ -582,13 +589,14 @@
 					src.Open()
 					addtimer(CALLBACK(src, PROC_REF(Close), FALSE, TRUE), 25)
 					src.last_bumper = user
-				return
+				return TRUE
 			else
 				if(user.cmode)
 					door_rattle()
-		to_chat(user, span_warning("None of the keys on my keyring go to this door."))
-		door_rattle()
-		return
+		if(!handempty)
+			to_chat(user, span_warning("None of the keys on my keyring go to this door."))
+			door_rattle()
+		return FALSE
 	else
 		var/obj/item/roguekey/K = I
 		if(K.lockhash == lockhash || istype(K, /obj/item/roguekey/lord) || istype(K, /obj/item/roguekey/skeleton)) //master key cares not for lockhashes
@@ -597,11 +605,12 @@
 				src.Open()
 				addtimer(CALLBACK(src, PROC_REF(Close), FALSE, TRUE), 25)
 				src.last_bumper = user
-			return
+			return TRUE
 		else
-			to_chat(user, span_warning("This is not the correct key that goes to this door."))
-			door_rattle()
-		return
+			if(!handempty)
+				to_chat(user, span_warning("This is not the correct key that goes to this door."))
+				door_rattle()
+			return FALSE
 
 /obj/structure/mineral_door/proc/trypicklock(obj/item/I, mob/user)
 	if(door_opened || isSwitchingStates)
@@ -625,6 +634,9 @@
 		var/pickchance = 35
 		var/moveup = 10
 
+		var/silentpick = HAS_TRAIT(user, TRAIT_SILENT_LOCKPICK)
+		var/gildedeyes = HAS_TRAIT(user, TRAIT_GILDED_SIGHT)
+
 		picktime -= (pickskill * 10)
 		picktime = clamp(picktime, 10, 70)
 
@@ -635,6 +647,9 @@
 		pickchance += perbonus
 		pickchance *= P.picklvl
 		pickchance = clamp(pickchance, 1, 95)
+
+		if(gildedeyes && picktime <= 30) // MIGHT BE TOO STRONG, BUT WE'LL SEE -- i fuckin knew it ;_;
+			picktime = 30
 
 		if (lockdifficulty > 1) //each time the difficulty goes up, the harder the lock
 			picktime = picktime+(10*lockdifficulty)//add a flat 10 per level
@@ -657,7 +672,10 @@
 				break
 			if(prob(pickchance))
 				lockprogress += moveup
-				playsound(src.loc, pick('sound/items/pickgood1.ogg','sound/items/pickgood2.ogg'), 5, TRUE)
+				if(silentpick)
+					playsound(src.loc, pick('sound/items/pickgood1.ogg','sound/items/pickgood2.ogg'), 2, TRUE)
+				else
+					playsound(src.loc, pick('sound/items/pickgood1.ogg','sound/items/pickgood2.ogg'), 5, TRUE)
 				to_chat(user, "<span class='warning'>Click...</span>")
 				if(L.mind)
 					add_sleep_experience(L, /datum/skill/misc/lockpicking, L.STAINT/2)
@@ -676,7 +694,10 @@
 				else
 					continue
 			else
-				playsound(loc, 'sound/items/pickbad.ogg', 40, TRUE)
+				if(silentpick)
+					playsound(loc, 'sound/items/pickbad.ogg', 2, TRUE)
+				else
+					playsound(loc, 'sound/items/pickbad.ogg', 40, TRUE)
 				I.take_damage(1, BRUTE, "blunt")
 				to_chat(user, "<span class='warning'>Clack.</span>")
 				add_sleep_experience(L, /datum/skill/misc/lockpicking, L.STAINT/4)
@@ -689,7 +710,10 @@
 	if(locked)
 		user?.visible_message(span_warning("[user] unlocks [src]."), \
 			span_notice("I unlock [src]."))
-		playsound(src, unlocksound, 100)
+		if(HAS_TRAIT(user, TRAIT_SILENT_LOCKPICK))
+			playsound(src, unlocksound, 25)
+		else
+			playsound(src, unlocksound, 100)
 		locked = 0
 	else
 		user?.visible_message(span_warning("[user] locks [src]."), \
@@ -923,7 +947,7 @@
 	locksound = 'sound/foley/doors/lockmetal.ogg'
 	unlocksound = 'sound/foley/doors/lockmetal.ogg'
 	rattlesound = 'sound/foley/doors/lockrattlemetal.ogg'
-	attacked_sound = list("sound/combat/hits/onmetal/metalimpact (1).ogg", "sound/combat/hits/onmetal/metalimpact (2).ogg")
+	attacked_sound = list('sound/combat/hits/onmetal/metalimpact (1).ogg', 'sound/combat/hits/onmetal/metalimpact (2).ogg')
 	lock_strength = 200
 	lockdifficulty = 1
 	repair_cost_second = /obj/item/ingot/iron
@@ -1027,7 +1051,7 @@
 	locksound = 'sound/foley/doors/lock.ogg'
 	unlocksound = 'sound/foley/doors/unlock.ogg'
 	rattlesound = 'sound/foley/doors/lockrattlemetal.ogg'
-	attacked_sound = list("sound/combat/hits/onmetal/metalimpact (1).ogg", "sound/combat/hits/onmetal/metalimpact (2).ogg")
+	attacked_sound = list('sound/combat/hits/onmetal/metalimpact (1).ogg', 'sound/combat/hits/onmetal/metalimpact (2).ogg')
 	ridethrough = TRUE
 	swing_closed = FALSE
 	lock_strength = 150

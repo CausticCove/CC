@@ -432,16 +432,16 @@ GLOBAL_LIST_INIT(item_digestion_blacklist, list(
 ))
 
 GLOBAL_LIST_INIT(slosh, list(
-	"modular_causticcove/sound/cvore/vore/walkslosh1.ogg",
-	"modular_causticcove/sound/cvore/vore/walkslosh2.ogg",
-	"modular_causticcove/sound/cvore/vore/walkslosh3.ogg",
-	"modular_causticcove/sound/cvore/vore/walkslosh4.ogg",
-	"modular_causticcove/sound/cvore/vore/walkslosh5.ogg",
-	"modular_causticcove/sound/cvore/vore/walkslosh6.ogg",
-	"modular_causticcove/sound/cvore/vore/walkslosh7.ogg",
-	"modular_causticcove/sound/cvore/vore/walkslosh8.ogg",
-	"modular_causticcove/sound/cvore/vore/walkslosh9.ogg",
-	"modular_causticcove/sound/cvore/vore/walkslosh10.ogg",
+	'modular_causticcove/sound/cvore/vore/walkslosh1.ogg',
+	'modular_causticcove/sound/cvore/vore/walkslosh2.ogg',
+	'modular_causticcove/sound/cvore/vore/walkslosh3.ogg',
+	'modular_causticcove/sound/cvore/vore/walkslosh4.ogg',
+	'modular_causticcove/sound/cvore/vore/walkslosh5.ogg',
+	'modular_causticcove/sound/cvore/vore/walkslosh6.ogg',
+	'modular_causticcove/sound/cvore/vore/walkslosh7.ogg',
+	'modular_causticcove/sound/cvore/vore/walkslosh8.ogg',
+	'modular_causticcove/sound/cvore/vore/walkslosh9.ogg',
+	'modular_causticcove/sound/cvore/vore/walkslosh10.ogg',
 ))
 
 /*
