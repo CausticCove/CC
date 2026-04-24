@@ -119,7 +119,11 @@
 			attached_quest = new /datum/quest/kill/raid()
 		if(QUEST_OUTLAW)
 			attached_quest = new /datum/quest/kill/outlaw()
-
+		//CC Edit
+		if(QUEST_PREDHUNT)
+			attached_quest = new /datum/quest/kill/predhunt()
+		//CC Edit End
+			
 	if(!attached_quest)
 		to_chat(user, span_warning("Invalid quest type selected!"))
 		return

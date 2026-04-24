@@ -1,4 +1,5 @@
 #define ATTACKS_UNTIL_SWITCHING_UP 3 // How many attack a NPC will use on the same place before switching it up
+GLOBAL_LIST_INIT(eatlines, world.file2list("strings/rt/evileatlines.txt"))
 
 //CC Edit Begin
 
@@ -272,6 +273,12 @@
 		emote("idle")
 
 /mob/living/carbon/human/proc/deaggrodel()
+	//Caustic Edit - Add expel everything for VNPCs
+	if(vore_organs.len >0)
+		for(var/obj/belly/B in vore_organs)
+			if(B.contents.len > 0)
+				return FALSE
+	//Caustic Edit End
 	if(aggressive)
 		for(var/mob/living/L in view(7)) // scan for enemies
 			if( should_target(L) && (L != src))
@@ -790,6 +797,20 @@
 			if(Adjacent(target) && isturf(target.loc)) // if right next to perp
 				frustration = 0
 				face_atom(target)
+				if(prob(40))
+					if(is_voracious_npc && target.devourable && target.allowmobvore && pulling == target && grab_state == GRAB_AGGRESSIVE && target.stat != DEAD)
+						var/npcbelly = src.vore_selected
+						NPC_THINK("Hungry! Trying to eat [target]!")
+						say(pick(GLOB.eatlines))
+						attempt_to_devour_prey(src, target, src, npcbelly, 7 SECONDS)
+						return
+				if(is_voracious_npc && target.devourable && target.allowmobvore && target.lying && target.stat != DEAD) //If you're lying down, you're getting stunned and eaten, gg bozo.
+					if(prob(45))
+						target.Stun(7 SECONDS)
+						var/npcbelly = src.vore_selected
+						NPC_THINK("Hungry! Trying to eat [target]!")
+						say(pick(GLOB.eatlines))
+						attempt_to_devour_prey(src, target, src, npcbelly, 5 SECONDS)
 				. = monkey_attack(target)
 				steps_moved_this_turn++ // an attack costs, currently, 1 movement step
 				NPC_THINK("Used [steps_moved_this_turn] moves out of [maxStepsTick]!")
@@ -939,6 +960,11 @@
 	if(HAS_TRAIT(victim, TRAIT_CHUNKYFINGERS))
 		make_grab_chance = 30 // we can't use normal weapons, so try to grapple harder because we don't care about having a free hand
 		use_grab_chance = 50
+  //Caustic Edit - Add VNPC handling
+	if(prob(25) && is_voracious_npc && target.allowmobvore && target.devourable)
+		make_grab_chance = 70
+		use_grab_chance = 80
+  //Caustic Edit End
 	//CC Edit Begin
 	if(check_target_style(STYLE_RANGED)) //If target is ranged we shouldn't give them the chance to run away again just to shoot us later.
 		make_grab_chance = Weapon ? 15 : 40

@@ -9,6 +9,9 @@
 #define QUEST_RAID "Raid"
 #define QUEST_OUTLAW "Outlaw"
 #define QUEST_BEACON "Beacon"
+//CC Edit
+#define QUEST_PREDHUNT "Predator Hunt"
+//CC Edit End
 
 #define QUEST_REWARD_EASY_LOW 30
 #define QUEST_REWARD_EASY_HIGH 35
@@ -56,4 +59,11 @@
 	/mob/living/carbon/human/species/orc/npc/berserker = 10,\
 	/mob/living/carbon/human/species/elf/dark/drowraider = 5, \
 	/mob/living/carbon/human/species/human/northern/bog_deserters = 5,\
+)
+#define QUEST_PREDATOR_HUNT_LIST list(\
+	/mob/living/carbon/human/species/lamiaevil/npc = 5,\
+	/mob/living/carbon/human/species/delfevil/npc = 5,\
+	/mob/living/carbon/human/species/elfevil/npc = 5,\
+	/mob/living/carbon/human/species/tiberianevil/npc = 5,\
+	/mob/living/carbon/human/species/goblinevil/npc = 3,\
 )
