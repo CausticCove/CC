@@ -2,7 +2,7 @@
 
 // The immovable chair structure
 /obj/structure/chair/frankenstein
-	name = "Fulmenor chair"
+	name = "Fulmenor Chair"
 	desc = "A nightmarish contraption of pipes, and sparking electrodes. It seems permanently fixed to the ground. Affectionately known as the ZRONK device."
 	icon = 'icons/roguetown/misc/struc48x48.dmi'
 	icon_state = "frankenchair0"
@@ -13,6 +13,7 @@
 	item_chair = null // Cannot be picked up
 	buildstacktype = null
 	buildstackamount = 0
+	layer = OBJ_LAYER
 
 	// Chair state variables
 	var/charge = 0
@@ -94,8 +95,8 @@
 
 			// Animate filling
 			user.visible_message(
-				span_notice("[user] begins filling [src] with [container]."), 
-				span_notice("You begin filling [src] with [container].")
+				span_notice("[user] begins filling the [src] with [container]."), 
+				span_notice("You begin filling the [src] with [container].")
 			)
 
 			var/skill_mod = get_user_skill(H)
@@ -275,6 +276,10 @@
 	if(charge < max_charge)
 		to_chat(H, span_warning("Insufficient charge!"))
 		return
+
+	// Tell the user WE HAVE FLIPPED THE SWITCH.
+	H.visible_message(span_warning("[user] PULLS THE FULMEN-LEVER! Wait for it...!"), span_warning("You pull the FULMEN-LEVER! Wait for it...!"))
+	// We actually want to call it BEFORE the check because otherwise you still wont know if you actually pulled it 1/2 the time.
 
 	// Check if occupant is valid
 	if(!occupant.check_revive(user))

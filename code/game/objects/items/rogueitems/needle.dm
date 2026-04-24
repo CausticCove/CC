@@ -34,6 +34,14 @@
 	else
 		. += "Can be used indefinitely."
 
+/obj/item/needle/get_mechanics_examine(mob/user)
+	. = ..()
+	. += span_info("Left-click someone - while targeting the desired limb - to begin stitching a wound. Stitching automatically stops once you've completely sealed the specific wound.")
+	. += span_info("While stitching a wound, it will bleed far slower than usual. This effect can be further stacked by applying cloth, bandages, or pressure to the wounded limb.")
+	. += span_info("If multiple stitchable wounds are present on the targeted limb, you'll be given the option to choose which specific wound is treated first.")
+	. += span_info("Needles require fibers to stitch, which can be found by cutting grass or foraging through bushes.")
+	. += span_info("To rethread an emptied needle, left-click it with a strand of fiber.")
+
 /obj/item/needle/Initialize()
 	. = ..()
 	update_icon()
@@ -172,6 +180,11 @@
 	var/obj/item/bodypart/affecting
 	var/is_simple_animal = !iscarbon(patient)
 	if(iscarbon(patient))
+		//OV edit
+		if(isooze(patient))
+			to_chat(doctor, span_warning("You can't sew an Ooze, their wounds must be burned closed."))
+			return FALSE
+		//OV edit end
 		affecting = patient.get_bodypart(check_zone(doctor.zone_selected))
 		if(!affecting)
 			to_chat(doctor, span_warning("That limb is missing."))
@@ -276,7 +289,7 @@
 
 /obj/item/needle/aalloy
 	name = "decrepit needle"
-	icon_state = "aneedle"
+	icon_state = "needle" //OV Edit: Because this one missing icon is making all our map tests fail.
 	desc = "This decrepit old needle doesn't seem helpful for much."
 	stringamt = 5
 	maxstring = 5

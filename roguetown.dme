@@ -3259,4 +3259,6 @@
 #include "modular_causticcove\code\modules\events\adventure\random_bosses\random_boss.dm"
 #include "modular_causticcove\code\modules\spells\spell_types\wizard\conjure\conjure_tool.dm"
 #include "modular_causticcove\code\game\objects\items\clothes\causthats.dm"
+#include "modular_ochrevalley\code\modules\mob\living\carbon\human\species_types\roguetown\other\ooze.dm"
+#include "modular_ochrevalley\code\modules\mob\living\simple_animal\rogue\ooze_blob.dm"
 // END_INCLUDE

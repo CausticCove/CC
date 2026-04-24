@@ -148,6 +148,11 @@
 		return FALSE
 
 	var/mob/living/target = targets[1]
+	//OV edit
+	if(istype(target, /mob/living/simple_animal/hostile/retaliate/rogue/ooze_blob/suffering))
+		target.revive()
+		return TRUE
+	//OV edit
 	if(!target.check_revive(user))
 		revert_cast()
 		return FALSE
@@ -365,7 +370,7 @@
 
 /obj/effect/proc_holder/spell/self/astrata_fireresist
 	name = "Flame Body"
-	desc = "Hide from the fire under the gaze of Astrata"
+	desc = "Grants you a temporary resistance to flame... for a small price of your constitution."
 	overlay_state = "createlight"
 	base_icon_state = "regalyscroll"
 	releasedrain = 10
@@ -412,9 +417,11 @@
 
 /datum/status_effect/buff/dragonhide/fireresist/on_apply()
 	. = ..()
-	addtimer(CALLBACK(src, PROC_REF(continue_proc), src), wait = (10 SECONDS))
+	addtimer(CALLBACK(src, PROC_REF(continue_proc)), wait = (10 SECONDS))
 
 /datum/status_effect/buff/dragonhide/fireresist/proc/continue_proc()
+	if(QDELETED(src) || QDELING(src) || !owner || QDELETED(owner))
+		return
 	var/mob/living/carbon/human/user = owner
 	var/skill = user.get_skill_level(/datum/skill/magic/holy)
 	var/cost = 30 //Novice
@@ -440,7 +447,7 @@
 			user.apply_status_effect(/datum/status_effect/buff/dragonhide/fireresist/buff)
 		else
 			user.apply_status_effect(/datum/status_effect/buff/dragonhide/fireresist)
-		addtimer(CALLBACK(src, PROC_REF(continue_proc), src), wait = (10 SECONDS))
+		addtimer(CALLBACK(src, PROC_REF(continue_proc)), wait = (10 SECONDS))
 	else
 		return
 
@@ -448,7 +455,7 @@
 
 /datum/status_effect/buff/dragonhide/fireresist/buff/on_apply()
 	. = ..()
-	addtimer(CALLBACK(owner, PROC_REF(continue_proc), src), wait = (15 SECONDS))
+	addtimer(CALLBACK(src, PROC_REF(continue_proc)), wait = (15 SECONDS))
 	owner.weather_immunities += "lava"
 
 /datum/status_effect/buff/dragonhide/fireresist/buff/on_remove()
@@ -471,6 +478,7 @@
 	hand_path = /obj/item/melee/touch_attack/rogueweapon/astratagrasp
 	devotion_cost = 30
 	miracle = TRUE
+	range = -1
 
 /obj/item/melee/touch_attack/rogueweapon/astratagrasp
 	name = "Burning Hand"
@@ -763,7 +771,7 @@
 // =====================
 /obj/effect/proc_holder/spell/invoked/immolation
 	name = "Immolation"
-	desc = "Ignite a target in holy flames, burning those that surround them. Fire burns brighter within devout Astratans."
+	desc = "Ignite a target in holy flames, burning those that surround them. The fire burns brighter within devout Astratans."
 	overlay_state = "immolation"
 	base_icon_state = "regalyscroll"
 	range = 2
@@ -1048,6 +1056,8 @@
 	recharge_time = 5 MINUTES
 	miracle = TRUE
 	devotion_cost = 100
+	ignore_los = 1
+	range = -1 // this shouldve been pathed as a "touch" type spell
 
 	invocations = list("raises their hand skyward, sacred light materializing into brilliant blade!")
 	invocation_emote_self = "<span class='notice'>I hold my hand skyward, a glimmering blade forms from light itself.</span>"

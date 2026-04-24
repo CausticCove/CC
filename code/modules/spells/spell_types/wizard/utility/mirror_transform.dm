@@ -777,3 +777,44 @@
 		H.update_hair()
 		H.update_body()
 		H.update_body_parts()
+
+//OV edit - Shapeshifting species variant
+/obj/effect/proc_holder/spell/invoked/mirror_transform/instant
+	name = "Instant Transform"
+	desc = "Immediately transform the appearance of a body part."
+	clothes_req = FALSE
+	charge_type = "recharge"
+	associated_skill = /datum/skill/magic/arcane
+	cost = 1 // Trash spell
+	xp_gain = TRUE
+	// Fix invoked spell variables
+	releasedrain = 35
+	chargedrain = 1  // Fixed from chargeddrain to chargedrain
+	chargetime = 1
+	recharge_time = 2 SECONDS
+	warnie = "spellwarning"
+	no_early_release = TRUE
+	movement_interrupt = FALSE
+	spell_tier = 4
+	invocations = null
+	invocation_type = "none"
+	hide_charge_effect = TRUE
+	charging_slowdown = 3
+	chargedloop = /datum/looping_sound/wind
+	overlay_state = "mirror"
+
+/obj/effect/proc_holder/spell/invoked/mirror_transform/instant/cast(list/targets, mob/user)  // Changed to match invoked spell pattern
+	if(!isliving(targets[1]))
+		return
+	var/mob/living/carbon/human/H = targets[1]
+	if(!istype(H))
+		return
+	
+	if(H != user)
+		to_chat(user, span_warning("You can only use this on yourself."))
+		return
+
+	perform_mirror_transform(H)
+	return TRUE  // Return TRUE for successful cast
+
+//OV edit end

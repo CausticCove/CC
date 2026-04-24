@@ -1,5 +1,9 @@
 /obj/effect/proc_holder/spell/invoked/resurrect
 	name = "Anastasis"
+	desc = "Resurrects the chosen target, bringing them back from the dead. </br>Depending on the patron, there might be supplementary requirements or caveats that \
+	come with resurrecting the chosen target. </br>Casting this on an undead or unholy target will smite them with explosive results. </br>Depending on how far gone \
+	the spirit is, the 'Anastasis' blessing might need to be casted multiple times before successfully resurrecting them. </br>Unlike a regular Healing miracle, this \
+	can affect - and resurrect - devout Psydonians as well."
 	overlay_state = "revive"
 	releasedrain = 90
 	chargedrain = 0
@@ -73,6 +77,11 @@
 			to_chat(user, span_warning("I need a holy [initial(temp_structure.name)] near [target]."))
 			revert_cast()
 			return FALSE
+		//OV edit
+		if(istype(target, /mob/living/simple_animal/hostile/retaliate/rogue/ooze_blob/suffering))
+			target.revive()
+			return TRUE
+		//OV edit
 		if(!target.check_revive(user))
 			revert_cast()
 			return FALSE
@@ -164,8 +173,10 @@
 				qdel(I)
 
 /obj/effect/proc_holder/spell/invoked/resurrect/abyssor
-	name = "Abyssal Revival"
-	desc = "Revive the target at a cost, cast on yourself to check.<br>a dreamfiend will stalk the target and sap their stats until confronted by them."
+	name = "Abyssal Rite of Anastasis"
+	desc = "Resurrects the chosen target, bringing them back from the dead. </br>Unlike the 'Anastasis' blessing, this requires a certain type of fish to cast. Cast \
+	the blessing on yourself to check what's needed. </br>The resurrected target will not be brought back, alone; a fierce dreamfriend will be tethered to their spirit, \
+	stalking and sapping their strength. Slaying this dreamfiend will fully restore their strength. </br>Unlike a regular Healing miracle, this can affect - and resurrect - devout Psydonians as well."
 	sound = 'sound/magic/whale.ogg'
 	//A medley of common ocean fish, totalling 10
 	required_items = list(
@@ -332,7 +343,9 @@
 /obj/effect/proc_holder/spell/invoked/resurrect/xylix
 	//Cheap, but wildly unpretictable with possibly far worse effects than other methods.
 	name = "Anastasis?"
-	desc = "Revives the target? Grants them a random debuff from other revivals, small change to be worse or better."
+	desc = "Resurrects the chosen target, bringing them back from the dead. Side effects may include crippling weaknesses from other godly rites, ending up \
+	butt-naked in the middle of the kingdom's throne room, and much, much, more. </br>Unlike a regular Healing miracle, \
+	this can affect - and resurrect - devout Psydonians as well."
 	debuff_type = /datum/status_effect/debuff/random_revival
 	alt_required_items = list(
 		/obj/item/clothing/neck/roguetown/psicross/wood = 1
@@ -534,8 +547,10 @@
 	icon_state = "noc_curse"
 
 /obj/effect/proc_holder/spell/invoked/resurrect/malum
-	name = "Diligent Revival"
-	desc = "Revive the target at a cost, cast on yourself to check.<br>Targets willpower and strength will be sapped for a time."
+	name = "Diligent Rite of Anastasis"
+	desc = "Resurrects the chosen target, bringing them back from the dead. </br>Unlike the 'Anastasis' blessing, this requires a certain type of ingot to cast. Cast \
+	the blessing on yourself to check what's needed. </br>Successfully resurrected targets will suffer a strong malus to Strength and Willpower, for some time, before \
+	fully recovering. </br>Unlike a regular Healing miracle, this can affect - and resurrect - devout Psydonians as well."
 	required_items = list(
 		/obj/item/ingot/iron = 3
 	)
@@ -546,8 +561,10 @@
 	sound = 'sound/magic/clang.ogg'
 
 /obj/effect/proc_holder/spell/invoked/resurrect/ravox
-	name = "Just Revival"
-	desc = "Revive the target at a cost, cast on yourself to check.<br>Targets strength and speed will be sapped for a time."
+	name = "Just Rite of Anastasis"
+	desc = "Resurrects the chosen target, bringing them back from the dead. </br>Unlike the 'Anastasis' blessing, this requires the bones of defeated creechers to cast. Cast \
+	the blessing on yourself to check what's needed. </br>Successfully resurrected targets will suffer a strong malus to Strength and Constitution for some time, before \
+	fully recovering. </br>Unlike a regular Healing miracle, this can affect - and resurrect - devout Psydonians as well."
 	// The items here are somewhat hard to pick as it still has to be something a ravox acolyte would reasonably obtain.
 	// Bones insinuate that mayhaps, they went out there to delete some skeletons for justice?
 	required_items = list(
@@ -559,8 +576,10 @@
 	debuff_type = /datum/status_effect/debuff/ravox_revival
 
 /obj/effect/proc_holder/spell/invoked/resurrect/dendor
-	name = "Wild Revival"
-	desc = "Revive the target at a cost, cast on yourself to check.<br>Targets speed and constitution will be sapped for a time."
+	name = "Wild Rite of Anastasis"
+	desc = "Resurrects the chosen target, bringing them back from the dead. </br>Unlike the 'Anastasis' blessing, this requires a certain type of herb, swampweed, and steak to cast. Cast \
+	the blessing on yourself to check what's needed. </br>Successfully resurrected targets will suffer a strong malus to Constitution and Speed, for some time, before \
+	fully recovering. </br>Unlike a regular Healing miracle, this can affect - and resurrect - devout Psydonians as well."
 	//Herbs that have to do with intelligence mostly. Easier to remember.
 	required_items = list(
 		/obj/item/reagent_containers/food/snacks/rogue/meat/steak = 3,
@@ -576,8 +595,10 @@
 	sound = 'sound/magic/birdsong.ogg'
 
 /obj/effect/proc_holder/spell/invoked/resurrect/noc
-	name = "Moonlit Revival"
-	desc = "Revive the target at a cost, cast on yourself to check.<br>Targets intelligence will be sapped for a time, in addition they will be burned by moonlight."
+	name = "Moonlit Rite of Anastasis"
+	desc = "Resurrects the chosen target, bringing them back from the dead. </br>Unlike the 'Anastasis' blessing, this requires a certain type of parchment to cast. Cast \
+	the blessing on yourself to check what's needed. </br>Successfully resurrected targets will suffer a strong malus to Intelligence, for some time, before \
+	fully recovering. </br>Unlike a regular Healing miracle, this can affect - and resurrect - devout Psydonians as well."
 	required_items = list(
 		/obj/item/paper/scroll = 15
 	)
@@ -588,10 +609,12 @@
 	overlay_state = "noc_revive"
 	sound = 'sound/magic/owlhoot.ogg'
 
-
 /obj/effect/proc_holder/spell/invoked/resurrect/undivided
-	name = "Decagram Revival"
-	desc = "Revive the target at a cost, cast on yourself to check."
+	name = "Lesser Anastasis"
+	desc = "Resurrects the chosen target, bringing them back from the dead. </br>This blessing requires an offering to complete, in the form of a piece of golden \
+	ore. </br>Casting this on an undead or unholy target will smite them with explosive results. </br>Depending on how far gone \
+	the spirit is, the 'Anastasis' blessing might need to be casted multiple times before successfully resurrecting them. </br>Unlike a regular Healing miracle, this \
+	can affect - and resurrect - devout Psydonians as well."
 	required_items = list(
 		/obj/item/rogueore/gold = 1 // Was thinking Eclipsum combo of gold/silver but that'd probably be *too* expensive. Probably the costliest revival, while having a anastasis equal debuff.
 	)
