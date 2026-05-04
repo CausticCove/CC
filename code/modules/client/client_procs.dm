@@ -982,9 +982,21 @@ GLOBAL_LIST_EMPTY(external_rsc_urls)
 	var/dragged = L["drag"]
 	if(dragged && !L[dragged])
 		return
-
-	if(lmb_throttle(object, L))
+	var/atom/click_object = object
+	var/catcher_params
+	if(istype(object, /atom/movable/screen/click_catcher))
+		var/turf/catcher_turf = params2turf(L["screen-loc"], get_turf(eye ? eye : mob), src)
+		if(catcher_turf)
+			click_object = catcher_turf
+			catcher_params = "[params]&catcher=1"
+	if(lmb_skipclick(object, L))
 		return
+
+	if(mob && L["left"] && !L["right"] && mob.atkswinging == "left")
+		var/obj/item/held_item = mob.get_active_held_item()
+		if(mob.lmb_farclick(click_object, held_item, L, get_turf(mob)))
+			mob.atkswinging = null
+			return
 
 	if (object && object == middragatom && L["left"])
 		ab = max(0, 5 SECONDS-(world.time-middragtime)*0.1)
