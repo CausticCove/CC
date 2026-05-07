@@ -15,7 +15,7 @@
 	category_tags = list(CTAG_TOWNER)
 	subclass_stats = list(
 		STATKEY_INT = 3,
-		STATKEY_CON = 2,
+		STATKEY_CON = 3,
 	)
 	subclass_skills = list(
 		/datum/skill/combat/unarmed = SKILL_LEVEL_NOVICE,

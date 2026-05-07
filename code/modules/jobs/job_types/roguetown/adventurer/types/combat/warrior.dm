@@ -14,6 +14,8 @@
 		STATKEY_STR = 2,
 		STATKEY_WIL = 1,
 		STATKEY_CON = 2,
+		STATKEY_SPD = -1,
+		STATKEY_PER = -1,
 	)
 	subclass_skills = list(
 		/datum/skill/combat/polearms = SKILL_LEVEL_APPRENTICE,
@@ -38,48 +40,48 @@
 		var/weapons = list("Short Sword & Iron Shield","Arming Sword & Wood Shield","Longsword & +1 Wrestling","Broadsword & +1 Wrestling","Battle Axe & Wood Shield","Mace & Iron Shield","Flail & Iron Shield","Billhook","Greatflail")
 		var/weapon_choice = input(H, "Choose your weapon.", "TAKE UP ARMS") as anything in weapons
 		switch(weapon_choice)
-			if("Short Sword & Iron Shield")
+			if("Iron Short Sword & Iron Shield")
 				H.adjust_skillrank_up_to(/datum/skill/combat/swords, SKILL_LEVEL_EXPERT, TRUE)
 				H.adjust_skillrank_up_to(/datum/skill/combat/shields, SKILL_LEVEL_JOURNEYMAN, TRUE)
 				backr = /obj/item/rogueweapon/shield/iron
 				beltr = /obj/item/rogueweapon/scabbard/sword
 				r_hand = /obj/item/rogueweapon/sword/short
-			if("Arming Sword & Wood Shield")
+			if("Iron Arming Sword & Wood Shield")
 				H.adjust_skillrank_up_to(/datum/skill/combat/swords, SKILL_LEVEL_EXPERT, TRUE)
 				H.adjust_skillrank_up_to(/datum/skill/combat/shields, SKILL_LEVEL_JOURNEYMAN, TRUE)
 				beltr = /obj/item/rogueweapon/scabbard/sword
 				backr = /obj/item/rogueweapon/shield/wood
-				r_hand = /obj/item/rogueweapon/sword
-			if("Longsword & +1 Wrestling")
+				r_hand = /obj/item/rogueweapon/sword/iron
+			if("Iron Longsword & +1 Wrestling")
 				H.adjust_skillrank_up_to(/datum/skill/combat/swords, SKILL_LEVEL_EXPERT, TRUE)
 				H.adjust_skillrank_up_to(/datum/skill/combat/wrestling, SKILL_LEVEL_JOURNEYMAN, TRUE)
 				backr = /obj/item/rogueweapon/sword/long
 				beltr = /obj/item/rogueweapon/scabbard/sword
-			if("Broadsword & +1 Wrestling")
+			if("Iron Broadsword & +1 Wrestling")
 				H.adjust_skillrank_up_to(/datum/skill/combat/swords, SKILL_LEVEL_EXPERT, TRUE)
 				H.adjust_skillrank_up_to(/datum/skill/combat/wrestling, SKILL_LEVEL_JOURNEYMAN, TRUE)
-				backr = /obj/item/rogueweapon/sword/long/broadsword/steel
+				backr = /obj/item/rogueweapon/sword/long/broadsword
 				beltr = /obj/item/rogueweapon/scabbard/sword
-			if("Battle Axe & Wood Shield")
+			if("Bronze Battle Axe & Wood Shield")
 				H.adjust_skillrank_up_to(/datum/skill/combat/axes, SKILL_LEVEL_EXPERT, TRUE)
 				H.adjust_skillrank_up_to(/datum/skill/combat/shields, SKILL_LEVEL_JOURNEYMAN, TRUE)
 				backr = /obj/item/rogueweapon/shield/wood
-				beltr = /obj/item/rogueweapon/stoneaxe/battle
-			if("Mace & Iron Shield")
+				beltr = /obj/item/rogueweapon/stoneaxe/woodcut/bronzebattleaxe
+			if("Iron Mace & Iron Shield") //Blunt Maxxing
 				H.adjust_skillrank_up_to(/datum/skill/combat/maces, SKILL_LEVEL_EXPERT, TRUE)
 				H.adjust_skillrank_up_to(/datum/skill/combat/shields, SKILL_LEVEL_JOURNEYMAN, TRUE)
-				beltr = /obj/item/rogueweapon/mace/steel //All the other weapons are steel too.
+				beltr = /obj/item/rogueweapon/mace 
 				backr = /obj/item/rogueweapon/shield/iron
-			if("Flail & Iron Shield")
+			if("Iron Flail & Iron Shield") //Blunt Maxxing but Flail
 				H.adjust_skillrank_up_to(/datum/skill/combat/whipsflails, SKILL_LEVEL_EXPERT, TRUE)
 				H.adjust_skillrank_up_to(/datum/skill/combat/shields, SKILL_LEVEL_JOURNEYMAN, TRUE)
-				beltr = /obj/item/rogueweapon/flail/sflail
+				beltr = /obj/item/rogueweapon/flail
 				backr = /obj/item/rogueweapon/shield/iron
-			if("Billhook")
+			if("Improvised Billhook") //Take for the polearms skill, get an upgrade.
 				H.adjust_skillrank_up_to(/datum/skill/combat/polearms, SKILL_LEVEL_EXPERT, TRUE)
-				r_hand = /obj/item/rogueweapon/spear/billhook
+				r_hand = /obj/item/rogueweapon/spear/improvisedbillhook
 				backr = /obj/item/rogueweapon/scabbard/gwstrap
-			if("Greatflail")
+			if("Iron Greatflail") //Take for the polearms skill, get an upgrade.
 				H.adjust_skillrank_up_to(/datum/skill/combat/polearms, SKILL_LEVEL_EXPERT, TRUE)
 				r_hand = /obj/item/rogueweapon/flail/peasantwarflail/iron
 				backr = /obj/item/rogueweapon/scabbard/gwstrap
@@ -118,21 +120,19 @@
 	shoes = /obj/item/clothing/shoes/roguetown/boots
 	cloak = /obj/item/clothing/cloak/raincloak/furcloak/brown
 	backpack_contents = list(
-		/obj/item/flashlight/flare/torch = 1,
 		/obj/item/rogueweapon/huntingknife = 1,
-		/obj/item/recipe_book/survival = 1,
 		/obj/item/rogueweapon/scabbard/sheath = 1
 		)
 
+//Battlemaster gets Iron weapons. Duelist gets Steel weapons.
 /datum/advclass/sfighter/duelist
 	name = "Duelist"
-	tutorial = "You are an esteemed swordsman who foregoes armor in exchange for a more nimble fighting style."
+	tutorial = "You are an esteemed swordsman who foregoes armor in exchange for a more nimble fighting style, and stronger weapons."
 	outfit = /datum/outfit/job/roguetown/adventurer/duelist
 	cmode_music = 'sound/music/cmode/adventurer/combat_outlander2.ogg'
 	traits_applied = list(TRAIT_STEELHEARTED, TRAIT_DODGEEXPERT, TRAIT_DECEIVING_MEEKNESS)
 	subclass_stats = list(
 		STATKEY_INT = 2,
-		STATKEY_STR = 1,
 		STATKEY_WIL = 1,
 		STATKEY_SPD = 1,
 	)
@@ -213,8 +213,6 @@
 	backl = /obj/item/storage/backpack/rogue/satchel
 	belt = /obj/item/storage/belt/rogue/leather
 	backpack_contents = list(
-		/obj/item/flashlight/flare/torch = 1,
-		/obj/item/recipe_book/survival = 1,
 		/obj/item/storage/belt/rogue/pouch/coins/poor = 1,
 		/obj/item/rogueweapon/scabbard/sheath = 1
 		)
@@ -231,6 +229,7 @@
 		STATKEY_CON = 2,
 		STATKEY_WIL = 1,
 		STATKEY_INT = -2,
+		STATKEY_PER = -2,
 	)
 	subclass_skills = list(
 		/datum/skill/combat/maces = SKILL_LEVEL_APPRENTICE,
@@ -323,8 +322,6 @@
 			armor = /obj/item/clothing/suit/roguetown/armor/leather/bikini
 	backl = /obj/item/storage/backpack/rogue/satchel
 	backpack_contents = list(
-		/obj/item/flashlight/flare/torch = 1,
-		/obj/item/recipe_book/survival = 1,
 		/obj/item/storage/belt/rogue/pouch/coins/poor = 1,
 		/obj/item/rogueweapon/scabbard/sheath = 1,
 		/obj/item/rogueweapon/huntingknife/bronze = 1,
@@ -336,9 +333,10 @@
 	outfit = /datum/outfit/job/roguetown/adventurer/ironclad
 	traits_applied = list(TRAIT_STEELHEARTED, TRAIT_HEAVYARMOR)
 	subclass_stats = list(
-		STATKEY_STR = 2,
+		STATKEY_STR = 1,
 		STATKEY_WIL = 2,
-		STATKEY_CON = 1,
+		STATKEY_CON = 2,
+		STATKEY_SPD = -2,
 	)
 	subclass_skills = list(
 		/datum/skill/combat/polearms = SKILL_LEVEL_APPRENTICE,
@@ -407,7 +405,6 @@
 	beltl = /obj/item/flashlight/flare/torch/lantern
 	backpack_contents = list(
 		/obj/item/storage/belt/rogue/pouch/coins/poor = 1,
-		/obj/item/recipe_book/survival = 1,
 		/obj/item/repair_kit/metal/bad = 1,
 		)
 	H.dna.species.soundpack_m = new /datum/voicepack/male/warrior()
@@ -433,7 +430,7 @@
 				H.adjust_skillrank_up_to(/datum/skill/combat/shields, SKILL_LEVEL_JOURNEYMAN, TRUE)
 				beltr = /obj/item/rogueweapon/flail
 				backr = /obj/item/rogueweapon/shield/iron
-			if("Studded Flail + Shield")
+			if("Studded Flail + Shield") //Just a reskin.
 				H.adjust_skillrank_up_to(/datum/skill/combat/whipsflails, SKILL_LEVEL_JOURNEYMAN, TRUE)
 				H.adjust_skillrank_up_to(/datum/skill/combat/shields, SKILL_LEVEL_JOURNEYMAN, TRUE)
 				beltr = /obj/item/rogueweapon/flail/alt
@@ -456,6 +453,7 @@
 				beltr = /obj/item/rogueweapon/sword/short/iron/banded
 				backr = /obj/item/rogueweapon/shield/iron
 
+//Doesn't have steel weapons. Instead uses Silver. Excels against undead/silver weak opponents; Weaker against normal combat.
 /datum/advclass/sfighter/mhunter
 	name = "Exorcist"
 	tutorial = "You are a specialist who hunts terrible monsters; nitebeasts, vampyres, deadites and more. Your humenity might be limiting - but with silver weapons and steel maille, you may yet slight the odds in your favor."
@@ -466,7 +464,7 @@
 	maximum_possible_slots = 5 //Not a Wretch or Towner, but still conditionally lethal for an Adventurer - especially with steel coverage and round-start access to silver weapons. Adjust the amount of available slots as needed.
 	subclass_stats = list(
 		STATKEY_STR = 2,
-		STATKEY_PER = 2,
+		STATKEY_PER = 1,
 		STATKEY_WIL = 1,
 	) //Follows the Adventurer's seven-point statblock rule. Adds an eighth point to an unoccupied statkey, when a discipline is selected.
 
@@ -584,7 +582,7 @@
 				armor = /obj/item/clothing/suit/roguetown/shirt/undershirt/puritan
 				shirt = /obj/item/clothing/suit/roguetown/armor/chainmail/hauberk
 				belt = /obj/item/storage/belt/rogue/leather/black
-				beltl = pick(
+				beltl = pick( //This only picks one of these random potions. Hope you get lucky!
 					/obj/item/reagent_containers/glass/bottle/alchemical/strpot,
 					/obj/item/reagent_containers/glass/bottle/alchemical/conpot,
 					/obj/item/reagent_containers/glass/bottle/alchemical/willpot,
@@ -593,20 +591,21 @@
 					/obj/item/reagent_containers/glass/bottle/alchemical/intpot,
 					/obj/item/reagent_containers/glass/bottle/alchemical/lucpot,
 					)
-			if("Reformist - Chainmaille & Dodge Expert (+I SPD)")
+			if("Reformist - Chainmaille & Dodge Expert (+I SPD / -I STR)")
 				ADD_TRAIT(H, TRAIT_DODGEEXPERT, TRAIT_GENERIC) //'Puritan' archetype. Closer to the Roguetown-era Inquisitor in portrayal. No armor training, but overprepared with silver throwing daggers and excellent evasive maneuvers.
 				H.change_stat(STATKEY_SPD, 1)
+				H.change_stat(STATKEY_STR, -1)
 				H.adjust_skillrank_up_to(/datum/skill/misc/sneaking, SKILL_LEVEL_JOURNEYMAN, TRUE)
 				head = /obj/item/clothing/head/roguetown/puritan
 				armor = /obj/item/clothing/suit/roguetown/shirt/undershirt/puritan
-				shirt = /obj/item/clothing/suit/roguetown/armor/chainmail/light
+				shirt = /obj/item/clothing/suit/roguetown/armor/chainmail/light //Unique chainmail, lower STR as compensation.
 				belt = /obj/item/storage/belt/rogue/leather/knifebelt/black/silver
 			if("Orthodoxist - Cuirass & Plate Training (+I CON / -I SPD)")
 				ADD_TRAIT(H, TRAIT_HEAVYARMOR, TRAIT_GENERIC)
 				ADD_TRAIT(H, TRAIT_ZOMBIE_IMMUNE, TRAIT_GENERIC) //'Templar' archetype. Blessings protect from the Rot, while opening the opportunity for heavy armor usage. Well-protected and resilient, but slower and visibly identifiable as a prioritable threat.
 				H.change_stat(STATKEY_CON, 1)
 				H.change_stat(STATKEY_SPD, -1)
-				armor = /obj/item/clothing/suit/roguetown/armor/plate/cuirass/fluted
+				armor = /obj/item/clothing/suit/roguetown/armor/plate/cuirass/iron //Ideally upgrade this. You can hard counter Antags in many ways.
 				shirt = /obj/item/clothing/suit/roguetown/shirt/undershirt/puritan
 				belt = /obj/item/storage/belt/rogue/leather/black
 				var/helmets = list("Puritan's Armored Hat", "Visored Sallet", "Volfskulle Bascinet", "Fluted Armet", "Fluted Armet With Greatplume", "Sugarloaf Greathelm", "Barbute Greathelm")
@@ -634,8 +633,6 @@
 	gloves = /obj/item/clothing/gloves/roguetown/angle
 	backl = /obj/item/storage/backpack/rogue/satchel
 	backpack_contents = list(
-		/obj/item/flashlight/flare/torch/metal = 1,
-		/obj/item/recipe_book/survival = 1,
 		/obj/item/storage/belt/rogue/pouch/coins/poor = 1,
 		/obj/item/rogueweapon/scabbard/sheath = 1,
 		)
@@ -661,7 +658,7 @@
 	outfit = /datum/outfit/job/roguetown/adventurer/deprived
 	cmode_music = 'sound/music/cmode/antag/combat_darkstar.ogg'
 	traits_applied = list(TRAIT_STEELHEARTED, TRAIT_CRITICAL_RESISTANCE, TRAIT_NOPAINSTUN, TRAIT_SHIRTLESS, TRAIT_WILD_EATER, TRAIT_OUTDOORSMAN, TRAIT_HOMESTEAD_EXPERT)
-	subclass_stats = list(
+	subclass_stats = list( //Challenge class. You spawn with nothing but a lot of traits and stats. This doesn't follow the typical stat spread as any other advents.
 		STATKEY_STR = 3,
 		STATKEY_CON = 2,
 		STATKEY_WIL = 1,

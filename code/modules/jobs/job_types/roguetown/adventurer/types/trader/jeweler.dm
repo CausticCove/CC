@@ -47,6 +47,5 @@
 		/obj/item/rogueweapon/hammer/steel = 1,
 		/obj/item/roguegem/yellow = 1,
 		/obj/item/roguegem/green = 1,
-		/obj/item/recipe_book/survival = 1,
 		/obj/item/rogueweapon/scabbard/sheath = 1
 		)

@@ -86,6 +86,7 @@ INITIALIZE_IMMEDIATE(/mob/dead)
 	var/list/wanderer_jobs = list(
 		"Adventurer",
 		"Wretch",
+		"Hemophage", //CC Edit as well
 		"Wild Soul", // Caustic Edit
 		"Court Agent"
 	)

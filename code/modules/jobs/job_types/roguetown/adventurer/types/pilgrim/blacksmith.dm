@@ -9,11 +9,12 @@
 	category_tags = list(CTAG_PILGRIM, CTAG_TOWNER)
 	traits_applied = list(TRAIT_TRAINED_SMITH, TRAIT_SMITHING_EXPERT)
 	subclass_stats = list(
-		STATKEY_WIL = 2,
-		STATKEY_CON = 2,
-		STATKEY_STR = 1,
+		STATKEY_PER = 2, //Deft Strikes!
+		STATKEY_WIL = 1,
+		STATKEY_CON = 1,
+		STATKEY_STR = 2,
 		STATKEY_LCK = 1,
-		STATKEY_SPD = -1
+		STATKEY_SPD = -2
 	)
 	subclass_skills = list(
 		/datum/skill/combat/swords = SKILL_LEVEL_NOVICE,
@@ -55,9 +56,7 @@
 					/obj/item/flint = 1,
 					/obj/item/rogueore/coal = 4,
 					/obj/item/rogueore/iron = 5,
-					/obj/item/flashlight/flare/torch = 1,
 					/obj/item/recipe_book/blacksmithing = 1,
-					/obj/item/recipe_book/survival = 1,
 					/obj/item/rogueweapon/scabbard/sheath = 1,
 					/obj/item/blueprint/mace_mushroom = 1
 				)
@@ -68,9 +67,7 @@
 					/obj/item/flint = 1,
 					/obj/item/rogueore/copper = 4,
 					/obj/item/rogueore/tin = 2,
-					/obj/item/flashlight/flare/torch = 1,
 					/obj/item/recipe_book/blacksmithing = 1,
-					/obj/item/recipe_book/survival = 1,
 					/obj/item/rogueweapon/scabbard/sheath = 1,
 					/obj/item/blueprint/mace_mushroom = 1
 				)

@@ -52,10 +52,11 @@ GLOBAL_LIST_EMPTY(heretical_players)
 	category_tags = list(CTAG_BISHOP)
 	subclass_stats = list(
 		STATKEY_INT = 4,
-		STATKEY_WIL = 2,
+		STATKEY_WIL = 4, //4 is a lucky number if I recall. It's also balanced.
+		STATKEY_FOR = 4, //The Ten's blessings.
 		STATKEY_STR = -1,
 		STATKEY_CON = -1,
-		STATKEY_SPD = -1
+		STATKEY_SPD = -2 //Aura farming by walking slowly at the heretic...
 	)
 	age_mod = /datum/class_age_mod/priest
 	subclass_skills = list(

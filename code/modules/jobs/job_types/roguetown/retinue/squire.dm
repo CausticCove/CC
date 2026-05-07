@@ -62,7 +62,7 @@
 	subclass_stats = list(
 		STATKEY_STR = 1,
 		STATKEY_SPD = 1,
-		STATKEY_PER = 1,
+		STATKEY_PER = 1, //Starting Combat Role. These only get +5 to their stats. Just a little under normal towners.
 		STATKEY_CON = 1,
 		STATKEY_INT = 1,
 	)
@@ -113,7 +113,7 @@
 	subclass_stats = list(
 		STATKEY_STR = 1,
 		STATKEY_SPD = 1,
-		STATKEY_PER = 1,
+		STATKEY_PER = 1,  //Starting Combat Role. These only get +5 to their stats. Just a little under normal towners.
 		STATKEY_CON = 1,
 		STATKEY_INT = 1,
 	)
@@ -172,7 +172,7 @@
 	traits_applied = list(TRAIT_DODGEEXPERT)
 	subclass_stats = list(
 		STATKEY_SPD = 2,
-		STATKEY_PER = 1,
+		STATKEY_PER = 1,  //Starting Combat Role. These only get +5 to their stats. Just a little under normal towners.
 		STATKEY_CON = 1,
 		STATKEY_INT = 1,
 	)

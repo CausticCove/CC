@@ -330,6 +330,7 @@ GLOBAL_LIST_EMPTY(round_join_times)
 #define CTAG_LICKER_WRETCH  "CAT_LICKER_WRETCH" // Licker wretch. Nuff said.
 #define CTAG_GNOLL			"CAT_GNOLL"			// Wretch-esque gnolls, graggar's chosen.
 #define CTAG_GNOLL_IMPURE	"CAT_GNOLL_IMPURE"	// Reward for beating enough gnolls.
+#define CTAG_HEMOPHAGE		"CAT_HEMOPHAGE"		// CC Edit - Internal value. Use CTAG_LICKER_WRETCH instead to define the new jobs for Hemophages.
 #define CTAG_HAG			"CAT_HAG"
 
 #define CTAG_WARDEN			"CAT_WARDEN"		// Warden class - Handles warden class selector.

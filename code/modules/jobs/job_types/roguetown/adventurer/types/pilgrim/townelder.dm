@@ -10,11 +10,11 @@
 	category_tags = list(CTAG_TOWNER)
 	traits_applied = list(TRAIT_SEEPRICES_SHITTY, TRAIT_EMPATH, TRAIT_MEDICINE_EXPERT, TRAIT_HOMESTEAD_EXPERT, TRAIT_ALCHEMY_EXPERT, TRAIT_SMITHING_EXPERT, TRAIT_SEWING_EXPERT, TRAIT_SURVIVAL_EXPERT)
 	subclass_stats = list(
-		STATKEY_INT = 3,
-		STATKEY_PER = 2,
-		STATKEY_WIL = 2,
+		STATKEY_INT = 4,
+		STATKEY_PER = 3,
+		STATKEY_WIL = 1,
 		STATKEY_CON = 1,
-		STATKEY_SPD = -1
+		STATKEY_LCK = 1 //Can do a bit of everything. And then some. You may be old; But your age ain't got you down yet!
 	)
 	subclass_skills = list(
 		/datum/skill/combat/knives = SKILL_LEVEL_APPRENTICE,

@@ -15,7 +15,7 @@
 	subclass_stats = list(
 		STATKEY_CON = 2,
 		STATKEY_PER = 2,
-		STATKEY_SPD = 2
+		STATKEY_SPD = 2,
 	)
 	subclass_skills = list(
 		/datum/skill/combat/wrestling = SKILL_LEVEL_NOVICE,

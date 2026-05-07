@@ -17,4 +17,5 @@
 		"Wretch",\
 		"Gnoll",\
 		"Veteran",\
-	)
+		"Hemophage",\
+	) //CC Edit - Added Hemophage

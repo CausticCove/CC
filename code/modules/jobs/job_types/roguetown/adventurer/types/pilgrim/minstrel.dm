@@ -8,8 +8,10 @@
 	category_tags = list(CTAG_TOWNER)
 	traits_applied = list(TRAIT_EMPATH, TRAIT_GOODLOVER, TRAIT_HOMESTEAD_EXPERT)
 	subclass_stats = list(
-		STATKEY_SPD = 1,
-		STATKEY_LCK = 1
+		STATKEY_SPD = 2,
+		STATKEY_LCK = 1,
+		STATKEY_WIL = 1,
+		STATKEY_INT = 2,
 	)
 	subclass_skills = list(
 		/datum/skill/misc/music = SKILL_LEVEL_EXPERT,

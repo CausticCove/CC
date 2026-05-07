@@ -20,7 +20,8 @@
 		STATKEY_STR = 2,
 		STATKEY_CON = 2,
 		STATKEY_WIL = 2,
-		STATKEY_PER = 1,
+		STATKEY_PER = 2,
+		STATKEY_STR = -1,
 	)
 
 	subclass_skills = list(
@@ -102,8 +103,9 @@
 	subclass_stats = list(
 		STATKEY_WIL = 2,
 		STATKEY_PER = 2,
-		STATKEY_INT = 1,
+		STATKEY_INT = 2,
 		STATKEY_SPD = 2,
+		STATKEY_STR = -1,
 	)
 	subclass_skills = list(
 		/datum/skill/combat/unarmed = SKILL_LEVEL_JOURNEYMAN,
@@ -121,9 +123,7 @@
 		/datum/skill/combat/crossbows = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/combat/swords = SKILL_LEVEL_EXPERT,
 		/datum/skill/combat/knives = SKILL_LEVEL_EXPERT,
-		/datum/skill/craft/sewing = SKILL_LEVEL_NOVICE,
-		/datum/skill/misc/medicine = SKILL_LEVEL_APPRENTICE,
-		/datum/skill/craft/cooking = SKILL_LEVEL_NOVICE,
+		/datum/skill/misc/medicine = SKILL_LEVEL_NOVICE,
 		/datum/skill/craft/traps = SKILL_LEVEL_EXPERT,
 	)
 	extra_context = "This subclass is race-restricted to the Dark Elf species, and can pick between two bonuses; an extra level to Athletics, or a rideable mount."

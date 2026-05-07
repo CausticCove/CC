@@ -117,6 +117,7 @@
 #define VAMPIRE_SPAWN 	(1<<8)
 #define GNOLL			(1<<9)
 #define HAG				(1<<10)
+#define HEMOPHAGE		(1<<11) //CC Edit
 
 #define SLOP				(1<<11)
 
@@ -219,8 +220,9 @@
 #define JDO_ASSASSIN 11
 #define JDO_BANDIT 11.1
 #define JDO_WRETCH 11.2
-#define JDO_GNOLL 11.3
-#define JDO_HAG 11.4
+#define JDO_LICKER 11.3 // CC Edit
+#define JDO_GNOLL 11.4	// CC Edit
+#define JDO_HAG 11.5	// CC Edit
 
 #define BITFLAG_HOLY_WARRIOR (1<<0)
 #define BITFLAG_ROYALTY (1<<1)

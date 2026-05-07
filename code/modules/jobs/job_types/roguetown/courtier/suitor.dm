@@ -34,7 +34,7 @@
 	subclass_stats = list(
 		STATKEY_INT = 3,
 		STATKEY_PER = 3,
-		STATKEY_WIL = 1,
+		STATKEY_WIL = 2,
 		STATKEY_SPD = 1,
 		STATKEY_LCK = 1
 	)
@@ -85,9 +85,10 @@
 	category_tags = list(CTAG_CONSORT)
 	subclass_stats = list(
 		STATKEY_SPD = 3,
-		STATKEY_INT = 1,
+		STATKEY_INT = 2,
 		STATKEY_PER = 2,
-		STATKEY_LCK = 1
+		STATKEY_WIL = 1,
+		STATKEY_LCK = 2
 	)
 	subclass_skills = list(
 		/datum/skill/combat/knives = SKILL_LEVEL_JOURNEYMAN,
@@ -135,9 +136,11 @@
 	category_tags = list(CTAG_CONSORT)
 	traits_applied = list(TRAIT_MEDIUMARMOR) //now that i think about it, its funny if they lose their mind as people die
 	subclass_stats = list(
+		STATKEY_INT = 1,
 		STATKEY_STR = 2,
-		STATKEY_PER = 2,
-		STATKEY_WIL = 1, //no more con but hey you got armour back
+		STATKEY_PER = 1,
+		STATKEY_CON = 2,
+		STATKEY_WIL = 2,
 		STATKEY_SPD = 1,
 		STATKEY_LCK = 1
 	)

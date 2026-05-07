@@ -14,10 +14,9 @@
 		TRAIT_PSYDONITE,
 	)
 	subclass_stats = list(
-		STATKEY_SPD = 3,
-		STATKEY_WIL = 3,
-		STATKEY_PER = 2,
-		STATKEY_STR = -1
+		STATKEY_SPD = 4,
+		STATKEY_WIL = 4,
+		STATKEY_PER = 2, //10 total stats. No downsides. Can get combat stats with Arbalist at cost of losing Dodge Expert.
 	)
 	subclass_skills = list(
 		/datum/skill/combat/wrestling = SKILL_LEVEL_JOURNEYMAN, //Should rely on the seizing garrote to properly subdue foes.

@@ -39,7 +39,7 @@
 	category_tags = list(CTAG_SERVANT)
 	subclass_stats = list(
 		STATKEY_PER = 2,
-		STATKEY_INT = 1,
+		STATKEY_INT = 1, //Beginner roles. Shouldn't have too many stats. 
 		STATKEY_SPD = 1
 	)
 	subclass_skills = list(

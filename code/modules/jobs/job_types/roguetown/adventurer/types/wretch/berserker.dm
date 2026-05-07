@@ -12,10 +12,11 @@
 	// total of 5 because int gets nuked by 2 similar to barbarian, still better then adv barb for +1
 	subclass_stats = list(
 		STATKEY_STR = 3,
-		STATKEY_CON = 2,
-		STATKEY_WIL = 1,
+		STATKEY_CON = 3,
+		STATKEY_WIL = 2,
 		STATKEY_SPD = 1,
-		STATKEY_INT = -2,
+		STATKEY_INT = -1, //-2 stats gives + 1 to Wil, total of 9 stats. Falls in like with the 8 stat pool of Town Defender Roles (Garri, Church, Town Goons)
+		STATKEY_PER = -1
 	)
 	subclass_skills = list(
 		/datum/skill/combat/maces = SKILL_LEVEL_JOURNEYMAN,
@@ -29,7 +30,7 @@
 		/datum/skill/misc/sneaking = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/misc/tracking = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/misc/medicine = SKILL_LEVEL_NOVICE,
-		/datum/skill/craft/tanning = SKILL_LEVEL_APPRENTICE,
+		/datum/skill/craft/tanning = SKILL_LEVEL_NOVICE,
 		/datum/skill/craft/cooking = SKILL_LEVEL_NOVICE,
 		/datum/skill/labor/butchering = SKILL_LEVEL_NOVICE,
 	)

@@ -138,6 +138,9 @@
 	if(age_mod)
 		if(istype(age_mod))
 			age_mod.apply_age_mod(H)
+			
+	//CC Edit - Each class gets this by default.
+	subclass_stashed_items += list("Survival Book" = /obj/item/recipe_book/survival, "Metal Torch" = /obj/item/flashlight/flare/torch/metal) //CC Edit - These are now default stashed items.
 
 	if(length(subclass_stashed_items))
 		if(!H.mind)

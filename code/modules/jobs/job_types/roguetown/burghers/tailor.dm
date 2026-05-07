@@ -28,13 +28,15 @@
 	outfit = /datum/outfit/job/roguetown/tailor/basic
 	category_tags = list(CTAG_TAILOR)
 	subclass_stats = list(
-		STATKEY_INT = 2,
-		STATKEY_PER = 1,
+		STATKEY_INT = 5,
+		STATKEY_PER = 3,
 		STATKEY_SPD = 1,
-		STATKEY_STR = -1
+		STATKEY_WIL = -1,
+		STATKEY_STR = -1,
+		STATKEY_FOR = 2 //Helps with getting more nature gems for fitting gear.
 	)
 	subclass_skills = list(
-		/datum/skill/combat/knives = SKILL_LEVEL_JOURNEYMAN,
+		/datum/skill/combat/knives = SKILL_LEVEL_EXPERT, //Like Seamstress, you've got insider knowledge on where to strike against armor. Very keen eyes.
 		/datum/skill/craft/sewing = SKILL_LEVEL_MASTER,
 		/datum/skill/craft/crafting = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/craft/tanning = SKILL_LEVEL_EXPERT,

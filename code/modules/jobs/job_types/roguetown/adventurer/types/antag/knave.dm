@@ -11,7 +11,7 @@
 		//Caustic edit
 		STATKEY_SPD = 2,//It's all about speed and perception
 		STATKEY_PER = 3,
-		STATKEY_LCK = 1,
+		STATKEY_LCK = 2, //And a bit of luck.
 		STATKEY_CON = 1
 		//Caustic edit end
 	)
@@ -26,7 +26,7 @@
 		/datum/skill/combat/knives = SKILL_LEVEL_EXPERT,
 		/datum/skill/combat/bows = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/combat/crossbows = SKILL_LEVEL_JOURNEYMAN,
-		/datum/skill/craft/crafting = SKILL_LEVEL_APPRENTICE,
+		/datum/skill/craft/crafting = SKILL_LEVEL_NOVICE,
 		/datum/skill/craft/carpentry = SKILL_LEVEL_NOVICE,
 		/datum/skill/misc/reading = SKILL_LEVEL_NOVICE,
 		/datum/skill/misc/climbing = SKILL_LEVEL_EXPERT,
@@ -78,7 +78,7 @@
 				H.adjust_skillrank_up_to(/datum/skill/misc/sneaking, SKILL_LEVEL_MASTER, TRUE)
 				H.adjust_skillrank_up_to(/datum/skill/misc/stealing, SKILL_LEVEL_MASTER, TRUE)
 				H.adjust_skillrank_up_to(/datum/skill/misc/lockpicking, SKILL_LEVEL_MASTER, TRUE)
-			if("Poacher") //Poacher
+			if("Poacher (+1 PER / -1 SPD, -1 STR)") //Poacher
 				backl= /obj/item/gun/ballistic/revolver/grenadelauncher/bow/recurve
 				beltr = /obj/item/quiver/arrows
 				head = /obj/item/clothing/head/roguetown/helmet/leather/volfhelm //cool hat
@@ -91,5 +91,6 @@
 							/obj/item/flashlight/flare/torch = 1,
 							) //poacher gets mantraps
 				H.adjust_skillrank_up_to(/datum/skill/combat/bows, SKILL_LEVEL_LEGENDARY, TRUE)
-				H.change_stat(STATKEY_PER, 2)
+				H.change_stat(STATKEY_PER, 1)
 				H.change_stat(STATKEY_SPD, -1)
+				H.change_stat(STATKEY_STR, -1)

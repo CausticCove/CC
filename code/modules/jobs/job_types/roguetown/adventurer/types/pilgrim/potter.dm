@@ -9,10 +9,10 @@
 
 	category_tags = list(CTAG_PILGRIM, CTAG_TOWNER)
 	subclass_stats = list(
-		STATKEY_PER = 2,
+		STATKEY_PER = 3,
 		STATKEY_WIL = 2,
-		STATKEY_CON = 1,
-		STATKEY_SPD = -1
+		STATKEY_CON = 2,
+		STATKEY_SPD = -2
 	)
 	subclass_skills = list(
 		/datum/skill/misc/athletics = SKILL_LEVEL_JOURNEYMAN, // Potters are fairly active, having to source their own clay.

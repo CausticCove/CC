@@ -178,6 +178,7 @@ GLOBAL_LIST_INIT(antagonist_positions, list( //Mostly lesser antagonists
 	"Bandit",
 	"Wretch",
 	"Gnoll",
+	"Hemophage", //CC Edit
 	"Hag",
 ))
 
@@ -210,6 +211,7 @@ GLOBAL_LIST_INIT(foreign_positions, list(
 	"Mercenary", 
 	"Bandit", 
 	"Wretch",
+	"Hemophage", //CC Edit
 	"Inquisitor",
 	"Suitor",
 	"Orthodoxist",

@@ -9,7 +9,7 @@
 	cmode_music = 'sound/music/combat_physician.ogg'
 	subclass_stats = list(
 		STATKEY_INT = 3,
-		STATKEY_LCK = 1,
+		STATKEY_LCK = 2,
 		STATKEY_PER = 1
 	)
 	maximum_possible_slots = 20 // Should not fill, just a hack to make it shows what types of towners are in round
@@ -20,7 +20,7 @@
 		/datum/skill/combat/knives = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/combat/wrestling = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/craft/crafting = SKILL_LEVEL_APPRENTICE,
-		/datum/skill/craft/carpentry = SKILL_LEVEL_APPRENTICE,
+		/datum/skill/craft/carpentry = SKILL_LEVEL_NOVICE,
 		/datum/skill/labor/lumberjacking = SKILL_LEVEL_NOVICE,
 		/datum/skill/misc/athletics = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/misc/reading = SKILL_LEVEL_JOURNEYMAN,

@@ -11,8 +11,7 @@
 	traits_applied = list(TRAIT_ARCYNE, TRAIT_ALCHEMY_EXPERT)
 	subclass_stats = list(
 		STATKEY_INT = 3,
-		STATKEY_PER = 2,
-		STATKEY_SPD = 1,
+		STATKEY_PER = 1,
 	)
 	age_mod = /datum/class_age_mod/adv_mage
 	subclass_mage_aspects = list("mastery" = FALSE, "major" = 1, "minor" = 2, "utilities" = 6, "ward" = TRUE)
@@ -50,7 +49,6 @@
 			/obj/item/chalk = 1
 			)
 	backpack_contents |= list(
-		/obj/item/flashlight/flare/torch = 1,
 		/obj/item/rogueweapon/scabbard/sheath = 1,
 		)
 	H.cmode_music = 'sound/music/cmode/adventurer/combat_outlander4.ogg'
@@ -64,8 +62,8 @@
 	outfit = /datum/outfit/job/roguetown/adventurer/spellblade
 	traits_applied = list(TRAIT_ARCYNE)
 	subclass_stats = list(
-		STATKEY_INT = 1,
 		STATKEY_PER = 1,
+		STATKEY_INT = 1,
 		STATKEY_CON = 1,
 		STATKEY_WIL = 1,
 	)
@@ -153,23 +151,16 @@
 	
 	switch(subclass_selected)
 		if("blade")
-			var/weapons = list("Longsword", "Rapier", "Sabre", "Iron Arming Sword", "Shortsword", "Hwando", "Steel Dagger")
+			var/weapons = list("Rapier", "Sabre", "Shortsword", "Steel Dagger")
 			var/weapon_choice = input(H, "Choose your weapon.", "TAKE UP ARMS") as anything in weapons
 			beltr = /obj/item/rogueweapon/scabbard/sword
 			switch(weapon_choice)
-				if("Longsword")
-					r_hand = /obj/item/rogueweapon/sword/long
 				if("Rapier")
 					r_hand = /obj/item/rogueweapon/sword/rapier
 				if("Sabre")
 					r_hand = /obj/item/rogueweapon/sword/sabre
-				if("Iron Arming Sword")
-					r_hand = /obj/item/rogueweapon/sword/iron
 				if("Shortsword")
 					r_hand = /obj/item/rogueweapon/sword/short
-				if("Hwando")
-					r_hand = /obj/item/rogueweapon/sword/sabre/mulyeog
-					armor = /obj/item/clothing/suit/roguetown/armor/basiceast
 				if("Steel Dagger")
 					beltr = /obj/item/rogueweapon/huntingknife/idagger/steel
 			if(weapon_choice == "Steel Dagger")
@@ -177,17 +168,13 @@
 			else
 				H.adjust_skillrank_up_to(/datum/skill/combat/swords, SKILL_LEVEL_JOURNEYMAN, TRUE)
 		if("phalangite")
-			var/spear_weapons = list("Spear", "Dory", "Naginata")
+			var/spear_weapons = list("Spear", "Dory")
 			var/spear_choice = input(H, "Choose your weapon.", "TAKE UP ARMS") as anything in spear_weapons
 			switch(spear_choice)
 				if("Spear")
 					r_hand = /obj/item/rogueweapon/spear
 				if("Dory")
 					r_hand = /obj/item/rogueweapon/spear/spellblade
-				if("Naginata")
-					r_hand = /obj/item/rogueweapon/spear/naginata
-					backr = /obj/item/rogueweapon/scabbard/gwstrap
-					armor = /obj/item/clothing/suit/roguetown/armor/basiceast
 			H.adjust_skillrank_up_to(/datum/skill/combat/polearms, SKILL_LEVEL_JOURNEYMAN, TRUE)
 		if("macebearer")
 			var/mace_weapons = list("Mace", "Warhammer", "Goedendag", "Iron Axe", "Greataxe")
@@ -202,9 +189,6 @@
 					r_hand = /obj/item/rogueweapon/mace/goden
 				if("Iron Axe")
 					r_hand = /obj/item/rogueweapon/stoneaxe/woodcut
-					picked_axe = TRUE
-				if("Greataxe")
-					r_hand = /obj/item/rogueweapon/greataxe
 					picked_axe = TRUE
 			if(picked_axe)
 				H.adjust_skillrank_up_to(/datum/skill/combat/axes, SKILL_LEVEL_JOURNEYMAN, TRUE)
@@ -222,7 +206,7 @@
 	outfit = /datum/outfit/job/roguetown/adventurer/spellsinger
 	traits_applied = list(TRAIT_ARCYNE, TRAIT_EMPATH, TRAIT_GOODLOVER)
 	subclass_stats = list(
-		STATKEY_INT = 2,
+		STATKEY_INT = 1,
 		STATKEY_SPD = 2,
 		STATKEY_WIL = 1,
 	)
@@ -255,7 +239,7 @@
 	wrists = /obj/item/clothing/wrists/roguetown/bracers/leather
 	beltr = /obj/item/rogueweapon/scabbard/sword
 	r_hand = /obj/item/rogueweapon/sword/sabre
-	backpack_contents = list(/obj/item/flashlight/flare/torch = 1, /obj/item/chalk = 1, /obj/item/book/spellbook = 1)
+	backpack_contents = list(/obj/item/chalk = 1, /obj/item/book/spellbook = 1)
 	var/datum/inspiration/I = new /datum/inspiration(H)
 	I.grant_inspiration(H, bard_tier = BARD_T1)
 	if(H.mind)

@@ -38,11 +38,11 @@
 	outfit = /datum/outfit/job/roguetown/guildmaster/basic
 	category_tags = list(CTAG_GUILDSMASTER)
 	subclass_stats = list(
-		STATKEY_STR = 2,
-		STATKEY_CON = 2,
-		STATKEY_WIL = 2,
+		STATKEY_STR = 3, //Great at making amazing items at the smith.
+		STATKEY_CON = 1,
+		STATKEY_WIL = 1,
 		STATKEY_INT = 1,
-		STATKEY_PER = 2
+		STATKEY_PER = 4
 	)
 	age_mod = /datum/class_age_mod/guildmaster
 	subclass_mage_aspects = list("mastery" = FALSE, "major" = 1, "minor" = 2, "utilities" = 6, "locked_aspects" = list(/datum/magic_aspect/battlewardry, /datum/magic_aspect/artifice), "post_aspect_spells" = list(/obj/effect/proc_holder/spell/invoked/takeapprentice), "ward" = TRUE) //Caustic Edit - With the mage 2 changes, giving Guildmaster the same thing Artficer gets with +2 Utility Points

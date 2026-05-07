@@ -6,7 +6,7 @@
 	outfit = /datum/outfit/job/roguetown/vagabond/original
 	category_tags = list(CTAG_VAGABOND)
 	subclass_stats = list(
-		STATKEY_CON = -1,
+		STATKEY_CON = -1, //Random luck and INT
 		STATKEY_WIL = -1
 	)
 	subclass_skills = list(

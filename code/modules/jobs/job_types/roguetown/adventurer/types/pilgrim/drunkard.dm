@@ -8,9 +8,13 @@
 
 	category_tags = list(CTAG_TOWNER)
 	subclass_stats = list(
-		STATKEY_LCK = 2,
-		STATKEY_CON = 1,
-		STATKEY_STR = 1,
+		STATKEY_LCK = 6, //Trades -1 in all stats to +6 to Fortune. Fortune is a very strong stat to have. Doesn't follow the normal +6 to towners intentionally.
+		STATKEY_CON = -1,
+		STATKEY_STR = -1,
+		STATKEY_INT = -1,
+		STATKEY_PER = -1,
+		STATKEY_SPD = -1,
+		STATKEY_WIL = -1,
 	)
 	subclass_skills = list(
 		/datum/skill/misc/stealing = SKILL_LEVEL_JOURNEYMAN,

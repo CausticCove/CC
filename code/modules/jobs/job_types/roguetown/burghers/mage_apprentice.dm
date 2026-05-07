@@ -111,7 +111,6 @@
 	subclass_stats = list(
 		STATKEY_INT = 3,
 		STATKEY_PER = 3,
-		STATKEY_WIL = 1
 	)
 	age_mod = /datum/class_age_mod/apprentice_alchemist
 	subclass_mage_aspects = list("mastery" = FALSE, "major" = 1, "minor" = 1, "utilities" = 6, "ward" = TRUE)
@@ -167,7 +166,7 @@
 	traits_applied = list(TRAIT_ARCYNE)
 	subclass_stats = list(
 		STATKEY_INT = 4,
-		STATKEY_WIL = 1,
+		STATKEY_WIL = 1, //Gains bonus + 1 fortune as they only spawn with like. No skills.
 		STATKEY_SPD = 1,
 		STATKEY_LCK = 1 // this is just a carrot for the folk who are mad enough to take this role...
 	)

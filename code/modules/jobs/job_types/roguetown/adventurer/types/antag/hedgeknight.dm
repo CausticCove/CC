@@ -15,8 +15,9 @@
 		STATKEY_CON = 3, //dark souls 3 dual greatshield moment
 		STATKEY_STR = 2,
 		STATKEY_WIL = 2,
-		STATKEY_LCK = 1,
-		STATKEY_SPD = -1
+		STATKEY_LCK = 2,
+		STATKEY_SPD = -1,
+		STATKEY_PER = -1
 		//Caustic edit end
 	)
 	subclass_skills = list(

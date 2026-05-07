@@ -39,9 +39,9 @@
 	category_tags = list(CTAG_GUILDSMEN)
 	subclass_stats = list(
 		STATKEY_STR = 2,
-		STATKEY_WIL = 2,
-		STATKEY_CON = 2,
-		STATKEY_INT = 1
+		STATKEY_PER = 2, //Deft Strikes!
+		STATKEY_WIL = 1,
+		STATKEY_CON = 1,
 	)
 	age_mod = /datum/class_age_mod/guildmaster
 	subclass_skills = list(
@@ -111,11 +111,10 @@
 	category_tags = list(CTAG_GUILDSMEN)
 	traits_applied = list(TRAIT_ARCYNE)
 	subclass_stats = list(
-		STATKEY_INT = 3,
-		STATKEY_WIL = 2,
-		STATKEY_STR = 1,
-		STATKEY_CON = 1,
-		STATKEY_PER = 2
+		STATKEY_INT = 2,
+		STATKEY_PER = 2, //Deft Strikes!
+		STATKEY_WIL = 1, 
+		STATKEY_STR = 1
 	)
 	subclass_skills = list(
 		/datum/skill/combat/axes = SKILL_LEVEL_APPRENTICE,
@@ -162,7 +161,6 @@
 						/obj/item/recipe_book/engineering = 1,
 						/obj/item/recipe_book/ceramics = 1,
 						/obj/item/recipe_book/builder = 1,
-						/obj/item/recipe_book/survival = 1,
 						/obj/item/clothing/mask/rogue/spectacles/golden = 1, //putting them in the bag because bad eye sight virtue strips these
 						/obj/item/contraption/linker = 1,
 						/obj/item/mini_flagpole/artificer = 1,
@@ -182,8 +180,8 @@
 	traits_applied = list(TRAIT_HOMESTEAD_EXPERT) // They get extra virtue for dipping into lumberjacking
 	subclass_stats = list(
 		STATKEY_INT = 2,
-		STATKEY_WIL = 2,
-		STATKEY_LCK = 2,
+		STATKEY_WIL = 1, //No deft striking here.
+		STATKEY_LCK = 1,
 		STATKEY_STR = 1,
 		STATKEY_CON = 1,
 	)
@@ -224,14 +222,12 @@
 						/obj/item/rogueweapon/handsaw = 1,
 						/obj/item/storage/belt/rogue/pouch/coins/mid = 1,
 						/obj/item/rogueweapon/chisel = 1,
-						/obj/item/flashlight/flare/torch = 1,
 						/obj/item/flint = 1,
 						/obj/item/rogueweapon/huntingknife = 1,
 						/obj/item/rogueweapon/handsaw = 1,
 						/obj/item/dye_brush = 1,
 						/obj/item/recipe_book/engineering = 1,
 						/obj/item/recipe_book/builder = 1,
-						/obj/item/recipe_book/survival = 1,
 						/obj/item/roguekey/crafterguild = 1,
 						/obj/item/mini_flagpole/blacksmith = 1,
 						/obj/item/mini_flagpole/artificer = 1,

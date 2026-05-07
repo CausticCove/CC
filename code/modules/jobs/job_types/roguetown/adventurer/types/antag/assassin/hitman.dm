@@ -9,10 +9,10 @@
 	// Weighted 14
 	subclass_stats = list(
 		STATKEY_PER = 1,
-		STATKEY_SPD = 2,
-		STATKEY_STR = 1,
-		STATKEY_WIL = 2,
-		STATKEY_CON = 2,
+		STATKEY_SPD = 1,
+		STATKEY_STR = 1, //8 Stats like the rest of the combat roles. Blend in.
+		STATKEY_WIL = 1,
+		STATKEY_CON = 1,
 		STATKEY_INT = 1,
 		STATKEY_LCK = 2,	//Bit quirky but should be good for them with maces etc.
 	)

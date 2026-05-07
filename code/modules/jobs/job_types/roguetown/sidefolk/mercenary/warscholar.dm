@@ -97,11 +97,11 @@
 	traits_applied = list(TRAIT_CIVILIZEDBARBARIAN, TRAIT_ARCYNE, TRAIT_NALEDI)
 	// Previous budget was kinda lopsided with negative per and con on a melee class (??) to give them a lot of str and speed. I took 6 points off and shifted it to wil and perception instead.
 	subclass_stats = list(
-		STATKEY_STR = 1,
-		STATKEY_SPD = 1,
+		STATKEY_STR = 3,
+		STATKEY_SPD = 2,
 		STATKEY_WIL = 2,
-		STATKEY_PER = 2,
-		STATKEY_CON = 1
+		STATKEY_PER = -1, //Spell user.
+		STATKEY_CON = -1
 	)
 	subclass_skills = list(
 		/datum/skill/combat/wrestling = SKILL_LEVEL_JOURNEYMAN,
@@ -215,8 +215,8 @@
 	cmode_music = 'sound/music/warscholar.ogg'
 	traits_applied = list(TRAIT_ARCYNE, TRAIT_ALCHEMY_EXPERT, TRAIT_NALEDI)
 	subclass_stats = list(
-		STATKEY_INT = 3,
-		STATKEY_SPD = 2,
+		STATKEY_INT = 2,
+		STATKEY_SPD = 2, //Miracle user. No downside; But less total stats.
 		STATKEY_WIL = 2,
 	)
 	subclass_skills = list(

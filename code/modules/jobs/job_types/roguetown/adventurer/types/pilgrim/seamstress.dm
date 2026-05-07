@@ -10,13 +10,14 @@
 	subclass_stats = list(
 		STATKEY_SPD = 2,
 		STATKEY_INT = 2,
-		STATKEY_PER = 1,
-		STATKEY_STR = -1
+		STATKEY_PER = 2,
+		STATKEY_LCK = 1,
+		STATKEY_STR = -2
 	)
 	subclass_skills = list(
 		/datum/skill/craft/sewing = SKILL_LEVEL_EXPERT,
 		/datum/skill/craft/crafting = SKILL_LEVEL_JOURNEYMAN,
-		/datum/skill/combat/knives = SKILL_LEVEL_APPRENTICE,
+		/datum/skill/combat/knives = SKILL_LEVEL_EXPERT, //-2 STR but you have insider knowledge on where the weakspots in armor are at; So you should know where to hit.
 		/datum/skill/misc/medicine = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/misc/reading = SKILL_LEVEL_NOVICE,
 		/datum/skill/labor/farming = SKILL_LEVEL_NOVICE,

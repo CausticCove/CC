@@ -36,7 +36,7 @@
 	category_tags = list(CTAG_SOILBRIDE)
 	subclass_stats = list(
 		STATKEY_WIL = 2,
-		STATKEY_STR = 1,
+		STATKEY_STR = 2,
 		STATKEY_CON = 1,
 		STATKEY_SPD = 1
 	)
@@ -71,8 +71,6 @@
 	beltr = /obj/item/storage/keyring/soilson
 	backr = /obj/item/storage/backpack/rogue/satchel
 	backpack_contents = list(
-		/obj/item/recipe_book/survival = 1,
-		/obj/item/flashlight/flare/torch = 1,
 		/obj/item/rogueweapon/huntingknife = 1,
 		/obj/item/flint = 1,
 		)

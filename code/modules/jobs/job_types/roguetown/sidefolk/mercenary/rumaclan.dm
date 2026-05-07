@@ -10,7 +10,7 @@
 	traits_applied = list(TRAIT_BLOOD_RESISTANCE, TRAIT_NOPAINSTUN, TRAIT_HONORBOUND)
 	cmode_music = 'sound/music/combat_Kazengun_Runaway_Chariot.ogg'
 	subclass_stats = list(
-		STATKEY_CON = 3,
+		STATKEY_CON = 2,
 		STATKEY_WIL = 3,
 		STATKEY_STR = 2,
 		STATKEY_PER = 1,
@@ -63,7 +63,7 @@
 		STATKEY_SPD = 4,
 		STATKEY_PER = 2,
 		STATKEY_WIL = 2,
-		STATKEY_STR = -1,
+		STATKEY_STR = -1, //High Speed
 		STATKEY_CON = -1
 	)
 	subclass_skills = list(

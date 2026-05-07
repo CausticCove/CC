@@ -15,7 +15,9 @@
 	subclass_stats = list(
 		STATKEY_WIL = 3,
 		STATKEY_STR = 2,
-		STATKEY_CON = 2
+		STATKEY_CON = 3,
+		STATKEY_INT = -1, //No Pain Stun and Crit Res, no bonus stats.
+		STATKEY_PER = -1,
 	)
 	subclass_skills = list(
 		/datum/skill/misc/swimming = SKILL_LEVEL_APPRENTICE,

@@ -10,7 +10,7 @@
 
 	category_tags = list(CTAG_PILGRIM, CTAG_TOWNER)
 	subclass_stats = list(
-		STATKEY_STR = 2,
+		STATKEY_STR = 3,
 		STATKEY_WIL = 1,
 		STATKEY_CON = 1,
 		STATKEY_PER = 1
@@ -52,10 +52,8 @@
 	beltl = /obj/item/rogueweapon/hammer/wood
 	backpack_contents = list(
 						/obj/item/flint = 1,
-						/obj/item/flashlight/flare/torch = 1,
 						/obj/item/rogueweapon/huntingknife = 1,
 						/obj/item/recipe_book/builder = 1,
-						/obj/item/recipe_book/survival = 1,
 						/obj/item/rogueweapon/scabbard/sheath = 1
 						)
 	if(should_wear_femme_clothes(H))

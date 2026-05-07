@@ -11,7 +11,7 @@
 	noble_income = 15
 	cmode_music = 'sound/music/combat_routier.ogg'
 	subclass_stats = list(
-		STATKEY_CON = 4,
+		STATKEY_CON = 3,
 		STATKEY_WIL = 2,
 		STATKEY_STR = 2,
 		STATKEY_PER = 1,

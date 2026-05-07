@@ -11,7 +11,7 @@
 	subclass_stats = list(
 		//Caustic edit
 		STATKEY_INT = 3,
-		STATKEY_PER = 1,
+		STATKEY_PER = 2,
 		STATKEY_SPD = 2,
 		STATKEY_LCK = 1
 		//Caustic edit end

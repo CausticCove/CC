@@ -39,11 +39,12 @@
 	horse = /mob/living/simple_animal/hostile/retaliate/rogue/saiga/saigabuck/tame/saddled
 	category_tags = list(CTAG_COUNCILLOR)
 	subclass_stats = list(
-		STATKEY_SPD = 2,
-		STATKEY_INT = 1,
-		STATKEY_PER = 1,
+		STATKEY_SPD = 3,
+		STATKEY_INT = 2,
+		STATKEY_PER = 1, // 6 Stat pool +1 w/ STR and CON reduction.
 		STATKEY_WIL = 1,
-		STATKEY_STR = -1
+		STATKEY_STR = -1,
+		STATKEY_CON = -1
 	)
 
 	// better movement skills
@@ -65,10 +66,10 @@
 	outfit = /datum/outfit/job/roguetown/councillor/cofferer
 	category_tags = list(CTAG_COUNCILLOR)
 	subclass_stats = list(
-		STATKEY_WIL = 2,
-		STATKEY_INT = 2,
-		STATKEY_PER = 2,
-		STATKEY_STR = -1
+		STATKEY_INT = 4, // smart and savvy
+		STATKEY_PER = 3,
+		STATKEY_STR = -1, //Even less combat power however.
+		STATKEY_CON = -1
 	)
 	subclass_skills = list(
 		/datum/skill/misc/reading = SKILL_LEVEL_EXPERT,
@@ -121,7 +122,7 @@
 	// Mini Artificer
 	subclass_stats = list(
 		STATKEY_STR = 1,
-		STATKEY_CON = 1,
+		STATKEY_CON = 1, //Don't get the +6 bonus to stat pools. But you don't have any downsides, either.
 		STATKEY_WIL = 1,
 		STATKEY_PER = 1
 	)

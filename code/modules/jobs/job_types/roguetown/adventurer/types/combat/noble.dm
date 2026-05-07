@@ -13,8 +13,6 @@
 	subclass_stats = list(
 		STATKEY_PER = 2,
 		STATKEY_INT = 2,
-		STATKEY_STR = 1,
-		STATKEY_SPD = 1,
 	)
 	subclass_skills = list(
 		/datum/skill/misc/riding = SKILL_LEVEL_EXPERT,
@@ -49,7 +47,7 @@
 	if(should_wear_femme_clothes(H))
 		shirt = /obj/item/clothing/suit/roguetown/shirt/dress/gen/purple
 		cloak = /obj/item/clothing/cloak/raincloak/purple
-	backpack_contents = list(/obj/item/recipe_book/survival = 1) // Someone gonna argue it is sovlful to not have this but whatever
+
 	var/turf/TU = get_turf(H)
 	if(TU)
 		new /mob/living/simple_animal/hostile/retaliate/rogue/saiga/tame/saddled(TU)
@@ -65,7 +63,6 @@
 		STATKEY_STR = 2,
 		STATKEY_CON = 1,
 		STATKEY_WIL = 1,
-		STATKEY_INT = 1,
 	)
 	subclass_skills = list(
 		/datum/skill/misc/riding = SKILL_LEVEL_APPRENTICE,
@@ -133,7 +130,6 @@
 	beltl = /obj/item/flashlight/flare/torch/lantern
 	backpack_contents = list(
 		/obj/item/storage/belt/rogue/pouch/coins/poor = 1,
-		/obj/item/recipe_book/survival = 1,
 		)
 	H.dna.species.soundpack_m = new /datum/voicepack/male/knight()
 	H.set_blindness(0)
@@ -177,23 +173,23 @@
 	outfit = /datum/outfit/job/roguetown/adventurer/squire
 	traits_applied = list(TRAIT_SQUIRE_REPAIR)
 	subclass_stats = list(
-		STATKEY_INT = 2,
+		STATKEY_INT = 1,
 		STATKEY_STR = 1,
 		STATKEY_PER = 1,
 		STATKEY_SPD = 1,
 	)
 	subclass_skills = list(
-		/datum/skill/combat/polearms = SKILL_LEVEL_JOURNEYMAN,
+		/datum/skill/combat/polearms = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/combat/maces = SKILL_LEVEL_APPRENTICE,
-		/datum/skill/combat/swords = SKILL_LEVEL_JOURNEYMAN,
+		/datum/skill/combat/swords = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/combat/knives = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/combat/shields = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/combat/whipsflails = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/combat/wrestling = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/misc/swimming = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/combat/unarmed = SKILL_LEVEL_APPRENTICE,
-		/datum/skill/misc/athletics = SKILL_LEVEL_JOURNEYMAN,
-		/datum/skill/misc/climbing = SKILL_LEVEL_JOURNEYMAN,
+		/datum/skill/misc/athletics = SKILL_LEVEL_APPRENTICE,
+		/datum/skill/misc/climbing = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/misc/reading = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/misc/riding = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/misc/hunting = SKILL_LEVEL_NOVICE,
@@ -215,7 +211,6 @@
 		/obj/item/storage/belt/rogue/pouch/coins/poor = 1, 
 		/obj/item/rogueweapon/hammer/iron = 1, 
 		/obj/item/rogueweapon/tongs = 1, 
-		/obj/item/recipe_book/survival = 1,
 		/obj/item/repair_kit/metal = 1,
 		/obj/item/repair_kit = 1,
 	)

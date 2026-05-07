@@ -32,11 +32,13 @@
 	outfit = /datum/outfit/job/roguetown/innkeeper/basic
 	category_tags = list(CTAG_INNKEEPER)
 	subclass_stats = list(
-		STATKEY_STR = 1,
-		STATKEY_WIL = 1,
+		STATKEY_STR = 2,
+		STATKEY_PER = 1,
+		STATKEY_WIL = 1, //10 Stat pool for leadership role.
 		STATKEY_CON = 1,
 		STATKEY_INT = 1,
-		STATKEY_SPD = 1
+		STATKEY_SPD = 2,
+		STATKEY_LCK = 2
 	)
 	age_mod = /datum/class_age_mod/innkeeper
 	subclass_skills = list(
@@ -72,7 +74,6 @@
 		shirt = /obj/item/clothing/suit/roguetown/shirt/shortshirt
 		armor = /obj/item/clothing/suit/roguetown/armor/leather/vest/sailor
 	backpack_contents = list(
-		/obj/item/recipe_book/survival,
 		/obj/item/bottle_kit,
 		/obj/item/storage/keyring/innkeep_rooms,
 		/obj/item/reagent_containers/glass/bucket/pot/kettle/tankard/silver,

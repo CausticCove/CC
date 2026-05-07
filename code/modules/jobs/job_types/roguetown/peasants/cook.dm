@@ -32,8 +32,8 @@
 	outfit = /datum/outfit/job/roguetown/cook/basic
 	category_tags = list(CTAG_COOK)
 	subclass_stats = list(
-		STATKEY_CON = 2,
-		STATKEY_STR = 1,
+		STATKEY_CON = 3,
+		STATKEY_STR = 2,
 		STATKEY_INT = 1
 	)
 	age_mod = /datum/class_age_mod/cook
@@ -68,7 +68,6 @@
 	else if(should_wear_femme_clothes(H))
 		armor = /obj/item/clothing/suit/roguetown/shirt/dress/gen/random
 	backpack_contents = list(
-		/obj/item/recipe_book/survival,
 		/obj/item/mini_flagpole/innkeeper,
 	)
 	if(H.mind)

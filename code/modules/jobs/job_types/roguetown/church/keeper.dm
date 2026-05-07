@@ -36,9 +36,9 @@
 	// Positive stat delta of 3. It's lower than a towner (5) & Acolyte (7), but you have outlier stats and master skills, so less stats for you.
 	subclass_stats = list(
 		STATKEY_INT = 3,
-		STATKEY_WIL = 5,
+		STATKEY_WIL = 4,
 		STATKEY_CON = 3,
-		STATKEY_STR = -5,
+		STATKEY_STR = -4, //Following similar weights to everything else; Reduces WIL by 1 in favor of only -4 STR for +2 stats, they are ceiling capped at 6 anyways.
 		STATKEY_PER = 2
 	)
 	subclass_skills = list(

@@ -10,9 +10,9 @@
 	traits_applied = list(TRAIT_HEAVYARMOR)
 	subclass_stats = list(
 		STATKEY_WIL = 3,
-		STATKEY_CON = 3,
-		STATKEY_STR = 2,
-		STATKEY_SPD = -1
+		STATKEY_CON = 3, //Very. Very strong.
+		STATKEY_STR = 5,
+		STATKEY_SPD = -3, //At the cost of your speed. -3 as opposed to -2 for the bonus point to STR. 
 	)
 	subclass_skills = list(
 		/datum/skill/combat/swords = SKILL_LEVEL_JOURNEYMAN,

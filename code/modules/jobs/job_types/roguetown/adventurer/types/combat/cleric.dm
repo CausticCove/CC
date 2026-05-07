@@ -11,11 +11,10 @@
 	class_select_category = CLASS_CAT_CLERIC
 	traits_applied = list(TRAIT_DODGEEXPERT, TRAIT_CIVILIZEDBARBARIAN)
 	subclass_stats = list(
-		STATKEY_STR = 2,
-		STATKEY_WIL = 2,
+		STATKEY_STR = 1,
+		STATKEY_WIL = 2, //ALL church roles get +1 to stats. They're each expected to play an important role and should fight against the inhumen threat.
 		STATKEY_CON = 2,
-		STATKEY_SPD = 1, //Base of +9, over the standard +7. Special clemency given to the Monk, as their playstyle is exceedingly lethal - light-to-no armor, while specializing in a dangerous melee style.
-	)
+		)
 	subclass_skills = list(
 		/datum/skill/combat/wrestling = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/combat/unarmed = SKILL_LEVEL_JOURNEYMAN,
@@ -58,7 +57,6 @@
 	beltr = /obj/item/flashlight/flare/torch/lantern
 	backpack_contents = list(
 		/obj/item/storage/belt/rogue/pouch/coins/poor = 1,
-		/obj/item/recipe_book/survival = 1,
 		/obj/item/reagent_containers/food/snacks/rogue/meat/salami = 1,
 		/obj/item/reagent_containers/food/snacks/rogue/bread = 1,
 		/obj/item/reagent_containers/glass/bottle/rogue/beer = 1, //Plays into the classic stereotype of beer-loving monks and well-stocked pilgrims.
@@ -228,8 +226,6 @@
 	shoes = /obj/item/clothing/shoes/roguetown/boots/leather/reinforced
 	gloves = /obj/item/clothing/gloves/roguetown/chain
 	backpack_contents = list(
-		/obj/item/flashlight/flare/torch/metal = 1, 
-		/obj/item/recipe_book/survival = 1,
 		/obj/item/storage/belt/rogue/pouch/coins/poor = 1,
 		)
 	H.cmode_music = 'sound/music/cmode/church/combat_reckoning.ogg'
@@ -437,6 +433,7 @@
 	traits_applied = list(TRAIT_DODGEEXPERT, TRAIT_EMPATH)
 	subclass_stats = list(
 		STATKEY_STR = 1,
+		STATKEY_INT = 1,
 		STATKEY_WIL = 1,
 		STATKEY_SPD = 2,
 	)
@@ -469,15 +466,13 @@
 	pants = /obj/item/clothing/under/roguetown/trou/leather
 	shoes = /obj/item/clothing/shoes/roguetown/boots/leather
 	belt = /obj/item/storage/belt/rogue/leather/knifebelt/iron
-	beltr = /obj/item/rogueweapon/huntingknife/idagger/steel/special
+	beltr = /obj/item/rogueweapon/huntingknife/idagger/stake //Don't have a proper dagger/weapon, but you do have SOMETHING that can scare and pose a threat.
 	beltl = /obj/item/storage/belt/rogue/pouch/coins/poor
 	var/datum/devotion/C = new /datum/devotion(H, H.patron)
 	C.grant_miracles(H, cleric_tier = CLERIC_T2, passive_gain = CLERIC_REGEN_DEVOTEE, devotion_limit = CLERIC_REQ_2)	//Capped to T2 miracles.
 	var/datum/inspiration/I = new /datum/inspiration(H)
 	I.grant_inspiration(H, bard_tier = BARD_T1)
 	backpack_contents = list(
-		/obj/item/flashlight/flare/torch = 1,
-		/obj/item/recipe_book/survival = 1,
 		/obj/item/rogueweapon/scabbard/sheath = 1
 		)
 	H.cmode_music = 'sound/music/cmode/church/combat_reckoning.ogg'
@@ -584,7 +579,7 @@
 	traits_applied = list()
 	subclass_stats = list(
 		STATKEY_INT = 2,
-		STATKEY_PER = 2,
+		STATKEY_PER = 1,
 		STATKEY_WIL = 1,
 		STATKEY_SPD = 1,
 	)
@@ -598,8 +593,7 @@
 		/datum/skill/misc/climbing = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/misc/athletics = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/misc/reading = SKILL_LEVEL_EXPERT,
-		/datum/skill/misc/medicine = SKILL_LEVEL_APPRENTICE,
-		/datum/skill/craft/crafting = SKILL_LEVEL_APPRENTICE,
+		/datum/skill/misc/medicine = SKILL_LEVEL_JOURNEYMAN, //Missionary; Should know some good healing techniques.
 	)
 	subclass_stashed_items = list(
 		"The Verses and Acts of the Ten" = /obj/item/book/rogue/bibble,
@@ -618,8 +612,6 @@
 	beltr = /obj/item/flashlight/flare/torch/lantern
 	backpack_contents = list(
 		/obj/item/storage/belt/rogue/pouch/coins/poor = 1,
-		/obj/item/flashlight/flare/torch = 1,
-		/obj/item/recipe_book/survival = 1,
 		)
 	H.cmode_music = 'sound/music/cmode/church/combat_reckoning.ogg'
 	switch(H.patron?.type)
@@ -647,6 +639,7 @@
 		if(/datum/patron/divine/dendor)
 			head = /obj/item/clothing/head/roguetown/dendormask
 			cloak = /obj/item/clothing/suit/roguetown/shirt/robe/dendor
+			ADD_TRAIT(H, TRAIT_SEEDKNOW, TRAIT_GENERIC)
 			H.adjust_skillrank(/datum/skill/labor/farming, SKILL_LEVEL_APPRENTICE, TRUE)
 			H.adjust_skillrank(/datum/skill/misc/hunting, SKILL_LEVEL_NOVICE, TRUE)
 			ADD_TRAIT(H, TRAIT_EXPERT_HUNTER, TRAIT_GENERIC)
@@ -705,7 +698,7 @@
 			if("Woodstaff")
 				backr = /obj/item/rogueweapon/woodstaff
 			if("Quarterstaff")
-				r_hand = /obj/item/rogueweapon/woodstaff/quarterstaff/iron
+				r_hand = /obj/item/rogueweapon/woodstaff/quarterstaff //Play monk for the iron Quarterstaff; You are primarily a miracle caster so you shouldn't be up close or near anyways.
 				l_hand = /obj/item/rogueweapon/scabbard/gwstrap
 	if(istype(H.patron, /datum/patron/divine))
 		// For now, only Tennites get this. Heretics can have a special treat later
