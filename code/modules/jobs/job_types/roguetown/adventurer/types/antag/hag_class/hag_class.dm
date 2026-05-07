@@ -14,11 +14,11 @@
 	reset_stats = TRUE
 	subclass_stats = list(
 		STATKEY_STR = -7,
-		STATKEY_WIL = 8,
+		STATKEY_WIL = 6,
 		// She should have a hard time kiting to make using crossbows harder.
-		STATKEY_SPD = -2,
-		STATKEY_CON = 1,
-		STATKEY_INT = 9
+		STATKEY_SPD = -3,
+		STATKEY_CON = 2,
+		STATKEY_INT = 7
 	)
 	subclass_skills = list(
 		/datum/skill/misc/tracking = SKILL_LEVEL_LEGENDARY,
