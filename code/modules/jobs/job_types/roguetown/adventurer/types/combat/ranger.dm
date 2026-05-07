@@ -62,7 +62,7 @@
 				beltl = /obj/item/quiver/arrows
 			if("Crossbow")
 				H.adjust_skillrank_up_to(/datum/skill/combat/crossbows, SKILL_LEVEL_EXPERT, TRUE)
-				backr = /obj/item/gun/ballistic/revolver/grenadelauncher/crossbow/light //You may wanna upgrade this, dear ranger!
+				backr = /obj/item/gun/ballistic/revolver/grenadelauncher/crossbow/slurbow //You may wanna upgrade this, dear ranger!
 				beltl = /obj/item/quiver/bolt/standard
 
 /datum/advclass/ranger/wayfarer
@@ -107,7 +107,7 @@
 	backl = /obj/item/storage/backpack/rogue/satchel
 	beltl = /obj/item/rogueweapon/huntingknife/idagger
 	beltr = /obj/item/quiver/bolt/standard
-	backr = /obj/item/gun/ballistic/revolver/grenadelauncher/crossbow/light //You may wanna upgrade this, dear ranger!
+	backr = /obj/item/gun/ballistic/revolver/grenadelauncher/crossbow/slurbow //You may wanna upgrade this, dear ranger!
 	backpack_contents = list(
 		/obj/item/rogueweapon/scabbard/sheath = 1
 		)
@@ -232,7 +232,7 @@
 				r_hand = /obj/item/gun/ballistic/revolver/grenadelauncher/sling
 			if("Crossbow") // Hunting crossbows were a thing in these times, shame we don't have an item for it.
 				H.adjust_skillrank_up_to(/datum/skill/combat/crossbows, SKILL_LEVEL_JOURNEYMAN, TRUE)
-				backr = /obj/item/gun/ballistic/revolver/grenadelauncher/crossbow/light //We have light crossbows now! Those work!
+				backr = /obj/item/gun/ballistic/revolver/grenadelauncher/crossbow/slurbow //We have light crossbows now! Those work!
 				beltl = /obj/item/quiver/bolt/standard
 		var/armors = list("Light Armor","Medium Armor")
 		var/armor_choice = input(H, "Choose your armor.", "TAKE UP ARMS") as anything in armors

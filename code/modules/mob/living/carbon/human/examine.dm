@@ -177,6 +177,16 @@
 		if(HAS_TRAIT(src, TRAIT_RESIDENT))
 			. += span_notice("A chartered resident of Azuria.")
 
+		//CC Edit - Wanderer Examines
+		//Meant to help bring clarity when you examine someone if they are not native to Azure or not. Helps with identifying and spotting folk not apart of town.
+		//This is *not* a valid hunting tool, and if anyone claims to use it like such please shave their head for their scalp should be as smooth as their brain.
+		if(display_as_wanderer && !HAS_TRAIT(user, TRAIT_RESIDENT)) //Resident has a different, unique examine prompt.
+			if(src == user)
+				. += span_revenminor("I am an Outsider, a nobody around here.")
+			else
+				. += span_revenminor("An Outsider, they are not from the town.")
+		//CC Edit End
+
 		if(HAS_TRAIT(src, TRAIT_DEBTOR))
 			// Defaulted-loan debtor: a serious civic brand. Authority roles see the full banner.
 			if(ishuman(user))
@@ -313,12 +323,6 @@
 		var/clergy_text = get_clergy_text(user)
 		if(clergy_text)
 			. +=span_notice(clergy_text)
-
-		//CC Edit - Wanderer Examines
-		//Meant to help bring clarity when you examine someone if they are not native to Azure or not. Helps with identifying and spotting folk not apart of town.
-		if(display_as_wanderer)
-			. +=span_revenminor("An Outsider, they are not from the town.")
-		//CC Edit End
 
 		if (HAS_TRAIT(src, TRAIT_LEPROSY))
 			. += span_necrosis("A LEPER...")
