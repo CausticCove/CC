@@ -670,8 +670,6 @@
 	shirt = /obj/item/clothing/suit/roguetown/shirt/undershirt/black
 	pants = /obj/item/clothing/under/roguetown/trou/leather
 	backpack_contents = list(
-		/obj/item/flashlight/flare/torch = 1,
-		/obj/item/recipe_book/survival = 1,
 		/obj/item/storage/belt/rogue/pouch/coins/poor = 1,
 		/obj/item/rogueweapon/huntingknife/idagger/elvish/autumn = 1,
 		/obj/item/rogueweapon/scabbard/sheath = 1,
