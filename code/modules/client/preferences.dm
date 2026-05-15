@@ -107,8 +107,10 @@ GLOBAL_LIST_EMPTY(chosen_names)
 	var/no_language_fonts = FALSE
 	var/no_language_icon = FALSE
 	var/no_redflash = FALSE
-	var/darkvision_accessibility = 0
+	var/no_storyteller_events = FALSE
 	var/top_examine = FALSE
+
+	var/darkvision_accessibility = 0 //Caustic Edit
 
 	var/list/exp = list()
 	var/list/menuoptions
