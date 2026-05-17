@@ -58616,7 +58616,7 @@
 "mEz" = (
 /obj/structure/mineral_door/wood{
 	locked = 1;
-	lockid = "garrison";
+	lockid = "veteran";
 	name = "veterans house";
 	lockdifficulty = 2
 	},
