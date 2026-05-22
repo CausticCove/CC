@@ -26,9 +26,8 @@
 
 	var/mob/living/target = targets[1]
 	if(target.mob_biotypes & MOB_UNDEAD) //positive energy harms the undead
-		var/obj/item/bodypart/affecting = target.get_bodypart(check_zone(user.zone_selected))
-		if(affecting && (affecting.heal_damage(50, 50) || affecting.heal_wounds(50)))
-			target.update_damage_overlays()
+		target.apply_status_effect(/datum/status_effect/buff/healing, 10) //Caustic edit
+		target.update_damage_overlays() //Caustic edit
 		target.visible_message(span_danger("[target] reforms under the vile energy!"), span_notice("I'm remade by dark magic!"))
 		return TRUE
 
