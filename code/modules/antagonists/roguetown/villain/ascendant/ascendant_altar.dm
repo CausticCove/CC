@@ -75,6 +75,7 @@ GLOBAL_LIST_INIT(capstone_pool, list(
 	user.STAWIL += 2
 	user.STASPD += 2
 	user.STALUC += 2
+	user.update_sight() //Caustic Edit - To go with the Perception-Darksight, just refresh it in case they have it.
 
 	//check what ascendpoint they are on and add that trait
 	switch(ascendpoints)
@@ -141,6 +142,7 @@ GLOBAL_LIST_INIT(capstone_pool, list(
 	user.STAWIL += 2
 	user.STASPD += 2
 	user.STALUC += 2
+	user.update_sight() //Caustic Edit - To go with the Perception-Darksight, just refresh it in case they have it.
 
 	switch(ascend_stage)
 		if(1)
@@ -215,6 +217,7 @@ GLOBAL_LIST_INIT(capstone_pool, list(
 			user.STAWIL += 10
 			user.STASPD += 10
 			user.STALUC += 6
+			user.update_sight() //Caustic Edit - To go with the Perception-Darksight, just refresh it in case they have it.
 
 			heavensaysdanger() //Roger, our deal is honored; you will be rewarded in heaven.
 			addomen(ASCEND_ASCENDANT)

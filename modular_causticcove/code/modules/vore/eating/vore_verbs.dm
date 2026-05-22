@@ -144,7 +144,14 @@
 	set category = "VORE"
 
 	if(client?.prefs)
-		client.prefs.digestion_noises = !client.prefs.digestion_noises
+		client.prefs.toggles ^= SOUND_VORE_DIGESTION
+		client.prefs.save_preferences()
+
+		if(client.prefs.toggles & SOUND_VORE_DIGESTION)
+			client.prefs.digestion_noises = TRUE
+		else
+			client.prefs.digestion_noises = FALSE
+		
 		to_chat(src, span_notice("You [client.prefs.digestion_noises ? "will" : "will not"] hear digestion noises."))
 
 /mob/verb/toggle_eating_noises()
@@ -152,7 +159,14 @@
 	set category = "VORE"
 
 	if(client?.prefs)
-		client.prefs.eating_noises = !client.prefs.eating_noises
+		client.prefs.toggles ^= SOUND_VORE_EATING
+		client.prefs.save_preferences()
+
+		if(client.prefs.toggles & SOUND_VORE_EATING)
+			client.prefs.eating_noises = TRUE
+		else
+			client.prefs.eating_noises = FALSE
+		
 		to_chat(src, span_notice("You [client.prefs.eating_noises ? "will" : "will not"] hear eating noises."))
 
 /mob/verb/toggle_belch_noises()
@@ -160,5 +174,12 @@
 	set category = "VORE"
 
 	if(client?.prefs)
-		client.prefs.belch_noises = !client.prefs.belch_noises
+		client.prefs.toggles ^= SOUND_VORE_BELCH
+		client.prefs.save_preferences()
+
+		if(client.prefs.toggles & SOUND_VORE_BELCH)
+			client.prefs.belch_noises = TRUE
+		else
+			client.prefs.belch_noises = FALSE
+
 		to_chat(src, span_notice("You [client.prefs.belch_noises ? "will" : "will not"] hear burps and belches."))

@@ -1405,6 +1405,7 @@
 	return ..()
 
 // Caustic edit start
+// Mild TODO: Migrate all these to modular_causticcove
 
 // Obsidian weapons gimmick: Whole lotta damage, but a complete lack of AP
 
@@ -1412,6 +1413,7 @@
 	possible_item_intents = list(/datum/intent/dagger/cut, /datum/intent/dagger/thrust)
 	name = "obsidian knife"
 	desc = "A fine blade made of obsidian. Sharp, but brittle."
+	icon = 'modular_causticcove/icons/weapons/daggers32.dmi'
 	icon_state = "obsidian_knife"
 	force = 29
 	armor_penetration = -100
@@ -1423,6 +1425,7 @@
 	possible_item_intents = list(/datum/intent/dagger/cut, /datum/intent/dagger/thrust, /datum/intent/dagger/chop)
 	name = "flint knife"
 	desc = "A fine blade knapped from flint. Before the wisdom to work bronze came, this was the everyman's tool."
+	icon = 'modular_causticcove/icons/weapons/daggers32.dmi'
 	icon_state = "flint_knife"
 	force = 15
 	max_blade_int = 125
@@ -1435,6 +1438,7 @@
 	possible_item_intents = list(/datum/intent/dagger/cut, /datum/intent/dagger/thrust)
 	name = "manastone riteknife"
 	desc = "An intricate ritual-knife made from a shard of crystallized mana. Though not suited for direct combat, it will save you in a pinch."
+	icon = 'modular_causticcove/icons/weapons/daggers32.dmi'
 	icon_state = "magicstone_knife"
 	implement_tier = IMPLEMENT_TIER_LESSER
 	implement_refund = IMPLEMENT_REFUND_LESSER

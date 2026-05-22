@@ -111,6 +111,12 @@
 #define CLOTHING_YELLOW_OCHRE		"#cb9d06"
 #define CLOTHING_YELLOW_WELD		"#f4c430"
 #define CLOTHING_YARROW				"#f0cb76"
+//CC Edit - Colors!
+#define CLOTHING_PINK				"#ffc0cb"
+#define CLOTHING_HOT_PINK			"#ff69b4"
+#define CLOTHING_WATERMELON			"#fc6c85"
+#define CLOTHING_PEACHY				"#A95650"
+//CC Edit End
 
 #define CLOTHING_WET CLOTHING_DUNKED_WATER
 
@@ -164,7 +170,12 @@
 	"Wine Red" = CLOTHING_WINE_RED,					\
 	"Yellow Ochre" = CLOTHING_YELLOW_OCHRE,			\
 	"Yellow Weld" = CLOTHING_YELLOW_WELD,			\
-	"Yarrow" = CLOTHING_YARROW						\
+	"Yarrow" = CLOTHING_YARROW,						\
+	"Pink" = CLOTHING_PINK,							\
+	"Hot Pink" = CLOTHING_HOT_PINK,					\
+	"Watermelon" = CLOTHING_WATERMELON,				\
+	"Peachy" = CLOTHING_PEACHY						\
 )
+//CC Edit - Colors, starting from Yarrow to Peachy.
 
 #define COLOR_MAP (CLOTHING_COLOR_MAP + EXTENDED_COLOR_MAP)

@@ -593,8 +593,8 @@
 	duration = 5 SECONDS
 	examine_text = "SUBJECTPRONOUN is enjoying a brief respite."
 	var/healing_on_tick = 5
-	var/outline_colour = "#7e6a3e"
-	var/tech_healing_modifier = 1
+	var/outline_colour = "#814ab1" //CC Edit - Warmer purple colors for the blue energy healing to make it more visually distinct.
+
 
 /datum/status_effect/buff/campfire_stamina/on_apply()
 	var/filter = owner.get_filter(CAMPFIRE_BASE_FILTER)
@@ -618,28 +618,41 @@
 	id = "healing_campfire"
 	alert_type = /atom/movable/screen/alert/status_effect/buff/healing/campfire
 	examine_text = null
-	var/healing_on_tick = 3 //CC Edit, 2 -> 3 healing on tick. 
-	duration = 6 SECONDS
+	var/healing_on_tick = 1.5 //CC Edit - Keep this at a 1.5. It's slow, but managable. Sleep on a bed for even faster healing. This is meant to ensure you don't die, simply.
+	duration = 3 SECONDS //CC Edit , 6 -> 3 SECONDS. Stay near the fire if you wanna keep being healed.
 
 /datum/status_effect/buff/campfire/tick()
 	if(owner.cmode)
 		return
 	if(HAS_TRAIT(owner, TRAIT_IRONMAN))
 		return
+		
 	var/obj/effect/temp_visual/heal/H = new /obj/effect/temp_visual/heal_rogue/campfire(get_turf(owner))
 	H.color = "#c7aa5c"
-	if(owner.blood_volume < BLOOD_VOLUME_OKAY)
-		owner.blood_volume = min(owner.blood_volume+healing_on_tick, BLOOD_VOLUME_OKAY)
+
+	//CC Edit - Campfire is meant to prevent you from dying; Not heal you back to full.
+	if(owner.blood_volume < BLOOD_VOLUME_SURVIVE)
+		owner.blood_volume = min(owner.blood_volume+healing_on_tick, BLOOD_VOLUME_SURVIVE)
+
 	var/list/wCount = owner.get_wounds()
 	if(length(wCount))
-		owner.heal_wounds(healing_on_tick, list(/datum/wound/slash, /datum/wound/puncture, /datum/wound/bite, /datum/wound/bruise, /datum/wound/dynamic, /datum/wound/dislocation))
+		//CC Edit - No longer heals Dislocations. Only bleeding wounds will be sewn up.
+		owner.heal_wounds(healing_on_tick, list(/datum/wound/slash, /datum/wound/puncture, /datum/wound/bite, /datum/wound/bruise, /datum/wound/dynamic))
 		owner.update_damage_overlays()
-	owner.adjustBruteLoss(-healing_on_tick, 0)
-	owner.adjustFireLoss(-healing_on_tick, 0)
-	owner.adjustOxyLoss(-healing_on_tick, 0)
-	owner.adjustToxLoss(-healing_on_tick, 0)
-	owner.adjustOrganLoss(ORGAN_SLOT_BRAIN, -healing_on_tick)
+
+	var/const/HEALTH_PERCENTILE = 0.25 //Default of 25% of their damage total.
+	if(owner.getBruteLoss() > (owner.getMaxLimbHealth() * HEALTH_PERCENTILE))
+		owner.adjustBruteLoss(-healing_on_tick, 0)
+	if(owner.getFireLoss() > (owner.getMaxLimbHealth() * HEALTH_PERCENTILE))
+		owner.adjustFireLoss(-healing_on_tick, 0)
+	if(owner.getToxLoss() > (owner.getMaxLimbHealth() * HEALTH_PERCENTILE))
+		owner.adjustToxLoss(-healing_on_tick, 0)
+
+	//Oxyloss doesn't need a check because this is to prevent death entirely. Multiply the healing of oxy by 5 as well, we want them to live, not die.
+	owner.adjustOxyLoss((-healing_on_tick * 7), 0) //At 1.5 healing, this is 10.5 oxy healed / tick. Should be more than plenty whilst recovering wounds to prevent people dying to bloodloss.
+	owner.adjustOrganLoss(ORGAN_SLOT_BRAIN, -healing_on_tick) //Same goes for these 2
 	owner.adjustCloneLoss(-healing_on_tick, 0)
+	//CC Edit End
 
 #undef CAMPFIRE_BASE_FILTER
 

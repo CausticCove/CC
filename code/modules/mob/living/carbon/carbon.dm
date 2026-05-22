@@ -830,8 +830,22 @@
 			lighting_alpha = min(lighting_alpha, G.lighting_alpha)
 
 	if(HAS_TRAIT(src, TRAIT_DARKVISION))
-		lighting_alpha = min(lighting_alpha, LIGHTING_PLANE_ALPHA_DARKVISION)
+		//Caustic Edit - Grabbed the Perception Boosting Darkvision idea from OV, but tweaking it some to not give fullbright on 15 PER
+		//lighting_alpha = min(lighting_alpha, LIGHTING_PLANE_ALPHA_DARKVISION)
+		var/perception = min(max(get_stat(STATKEY_PER), 1), 15)
+		var/perception_bonus = clamp(perception - 9, 0, 6)
+		var/vision_ratio = perception_bonus / 6
+		var/darksight_alpha = round(LIGHTING_PLANE_ALPHA_DARKVISION - (28 * (1 - vision_ratio))) //28 is the difference between Darkvision and "Mostly Visible" so this should still have an effect, just not making everything fullbright
+		//var/darksight_level = 9 + perception_bonus
+
+		// 15 PER is the Darksight cap.
+		//if(perception_bonus >= 6)
+		//	darksight_level = 15
+
+		lighting_alpha = min(lighting_alpha, darksight_alpha)
 		see_in_dark = max(see_in_dark, 12)
+		//see_in_dark = max(see_in_dark, darksight_level) //Commenting this bit out and going with the original way - This bit is likely what controls seeing someone who's sneaking I think?
+		//Caustic Edit End
 
 	if(HAS_TRAIT(src, TRAIT_NITEVISION))
 		lighting_alpha = min(lighting_alpha, LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE)

@@ -27,7 +27,7 @@ GLOBAL_LIST_EMPTY(lord_titles)
 	display_order = JDO_LORD
 	tutorial = "Elevated upon your throne through a web of intrigue and political upheaval, you are the absolute authority of these lands and at the center of every plot within it. Every man, woman and child is envious of your position and would replace you in less than a heartbeat: Show them the error of their ways."
 	whitelist_req = FALSE
-	min_pq = 0 //CC Edit - No one would listen to a lord that is stupid... But a round is not fun without a silly man leading a town. Let them be brave!!!
+	min_pq = 30 //CC Edit - Lord is an important role. Should be higher PQ requirement.
 	max_pq = null
 	round_contrib_points = 4
 	give_bank_account = 250

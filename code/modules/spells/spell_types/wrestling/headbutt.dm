@@ -197,7 +197,7 @@
 
 	if(target.has_status_effect(/datum/status_effect/buff/clash)) // if you parry this you knock down the guy and take no damage
 		damage = 0
-		user.Knockdown(2 SECONDS)
+		//user.Knockdown(2 SECONDS) //Caustic Edit - Get rid of the self-knockdown
 		target.safe_throw_at(throw_target, 2, 4, user, force = MOVE_FORCE_DEFAULT)
 		target.remove_status_effect(/datum/status_effect/buff/clash)
 		to_chat(user, span_notice("A reversal!"))
@@ -207,7 +207,7 @@
 		target.safe_throw_at(throw_target, 1, 4, user, force = MOVE_FORCE_DEFAULT)
 		damage = 50
 		target.Knockdown(2 SECONDS)
-		user.Knockdown(2 SECONDS)
+		//user.Knockdown(2 SECONDS) //Caustic Edit - Get rid of the self-knockdown
 		playsound(user, 'sound/combat/tf2crit.ogg', 100, TRUE)
 		to_chat(user, span_notice("[user] slams their forehead into [target]!"))
 		var/def_zone = user.zone_selected || BODY_ZONE_CHEST // this one does the strike here to not eat the expose

@@ -208,7 +208,7 @@
 
 /obj/effect/proc_holder/spell/invoked/invisibility/gnoll
 	name = "Stalk"
-	desc = "Fade from view. Lasts longer if you are close to your sniffed prey. Far longer if they are hunted. Taking damage makes it impossible to go invisible for a minute."
+	desc = "Fade from view. Taking damage makes it impossible to go invisible for a minute."
 	var/obj/effect/proc_holder/spell/invoked/gnoll_sniff/sniff_spell
 	recharge_time = 2 MINUTES
 	overlay_icon = 'icons/mob/actions/gnollmiracles.dmi'
@@ -234,16 +234,8 @@
 		revert_cast()
 		return FALSE
 
-	var/base_dur = 5 SECONDS
+	var/base_dur = 999 MINUTES
 	var/bonus_dur = 0
-
-	if(sniff_spell && sniff_spell.tracked_target)
-		var/mob/living/prey = sniff_spell.tracked_target
-		if(get_dist(user, prey) <= 10)
-			to_chat(user, span_danger("My prey is close, my cloak lengthens."))
-			bonus_dur += 5 SECONDS // Small bonus for being close
-			if(prey.has_flaw(/datum/charflaw/hunted))
-				bonus_dur += 35 SECONDS // Massive bonus for hunted targets
 
 	var/total_dur = base_dur + bonus_dur
 

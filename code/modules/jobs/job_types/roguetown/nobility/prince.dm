@@ -17,7 +17,7 @@
 	display_order = JDO_PRINCE
 	give_bank_account = TRUE
 	noble_income = 20
-	min_pq = 1
+	min_pq = 8 // CC Edit - You are the son/daughter of the lord, you should at least know what the rest of the town looks like.
 	max_pq = null
 	round_contrib_points = 3
 	cmode_music = 'sound/music/combat_noble.ogg'

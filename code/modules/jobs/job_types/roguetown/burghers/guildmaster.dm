@@ -7,7 +7,6 @@
 	faction = "Station"
 	total_positions = 1
 	spawn_positions = 1
-	min_pq = 0
 
 	allowed_races = ACCEPTED_RACES
 
@@ -18,7 +17,7 @@
 	selection_color = JCOLOR_BURGHER
 	display_order = JDO_GUILDMASTER
 	give_bank_account = TRUE
-	min_pq = 5 // Higher PQ requirement as it is a leadership role. Not for total newbie.
+	min_pq = 10 //CC Edit - You oversee the guild and are called upon when required and should respond appropriately when people need you.
 	max_pq = null
 	round_contrib_points = 3
 	cmode_music = 'sound/music/cmode/towner/combat_retired.ogg'

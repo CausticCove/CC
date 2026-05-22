@@ -224,17 +224,22 @@
 	//For each CON above 10, we bleed slower.
 	//Consequently, for each CON under 10 we bleed faster.
 	var/conbonus = 1
+
+	//CC Edit - Fix Bleed Rates
 	if(STACON >= CONSTITUTION_BLEEDRATE_CAP)
 		conbonus = CONSTITUTION_BLEEDRATE_CAP - 10
-	else if(STACON != 10)
+	else
 		conbonus = STACON - 10
-		amt -= amt * (conbonus * CONSTITUTION_BLEEDRATE_MOD)
-		if(HAS_TRAIT(src, TRAIT_CRITICAL_RESISTANCE))
-			amt = amt * CRIT_RESISTANCE_EFFECTIVE_BLEEDRATE
-		if(HAS_TRAIT(src, TRAIT_BLOOD_RESISTANCE))
-			amt *= BLOOD_RESISTANCE_EFFECTIVE_BLEEDRATE
-		if(HAS_TRAIT(src, TRAIT_CRITICAL_WEAKNESS))
-			amt = amt * 2
+	
+	amt -= amt * (conbonus * CONSTITUTION_BLEEDRATE_MOD)
+	if(HAS_TRAIT(src, TRAIT_CRITICAL_RESISTANCE))
+		amt *= CRIT_RESISTANCE_EFFECTIVE_BLEEDRATE
+	if(HAS_TRAIT(src, TRAIT_BLOOD_RESISTANCE))
+		amt *= BLOOD_RESISTANCE_EFFECTIVE_BLEEDRATE
+	if(HAS_TRAIT(src, TRAIT_CRITICAL_WEAKNESS))
+		amt *= 2
+	//CC Edit - Fix Bleed Rates
+
 	if(surrendering)
 		amt = amt / 4 // Helps yield condition not be a bloodloss failure state. Approx to grabbing all of your bodyparts at once
 	blood_volume = max(blood_volume - amt, 0)

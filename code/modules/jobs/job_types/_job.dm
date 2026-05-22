@@ -278,7 +278,8 @@
 		var/used_title = display_title || title
 		if((H.titles_pref == TITLES_F) && f_title)
 			used_title = f_title
-		scom_announce("[H.real_name] the [used_title] arrives to Azure Peak.")
+		if(used_title != "NOPE") //Caustic Edit - Add in a check to avoid announcing when GM things are happening. This seemed to often happen if like, a mob had their gear swapped.
+			scom_announce("[H.real_name] the [used_title] arrives to Azure Peak.")
 
 	if(give_bank_account)
 		if(give_bank_account > TRUE)

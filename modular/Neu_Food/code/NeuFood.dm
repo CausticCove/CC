@@ -86,8 +86,8 @@
 			return 1
 	update_cooktime(user)
 	//CC EDIT Sauce application code
-	for(var/datum/reagent/R in W.reagents.reagent_list)
-		if(istype(W, /obj/item/reagent_containers))
+	if(istype(W, /obj/item/reagent_containers))
+		for(var/datum/reagent/R in W.reagents.reagent_list)
 			var/datum/component/sauced_food/sauced = src.GetComponent(/datum/component/sauced_food)
 			if(sauced)
 				to_chat(user, "Already has sauce!")

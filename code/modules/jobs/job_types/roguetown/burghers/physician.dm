@@ -24,7 +24,7 @@
 	advclass_cat_rolls = list(CTAG_COURTPHYS = 2)
 
 	give_bank_account = TRUE
-	min_pq = 3 //Please don't kill the duke by operating on strong intent. Play apothecary until you're deserving of the great white beak of doom
+	min_pq = 10 //CC Edit - You spawn with poison, have the ability to save lives en masse, and often deal with more intricate subjects than others. Also don't murder people on accident.
 	max_pq = null
 	round_contrib_points = 5
 

@@ -117,7 +117,7 @@
 	. = ..()
 	animate(src, alpha = 0, time = duration, easing = EASE_IN)
 */
-/mob/proc/playsound_local(atom/turf_source, soundin, vol as num, vary, frequency, falloff, channel, pressure_affected = TRUE, sound/S, repeat, muffled, pref_toggle)
+/mob/proc/playsound_local(atom/turf_source, soundin, vol as num, vary, frequency, falloff, channel, pressure_affected = TRUE, sound/S, repeat, muffled)
 	if(!client || !can_hear())
 		return FALSE
 
@@ -148,19 +148,6 @@
 	var/vol2use = vol
 	if(client.prefs)
 		vol2use = vol * (client.prefs.mastervol * 0.01)
-		//Caustic Edit - Ignore this sound if these preferences are off and it's sent as one!
-		if(pref_toggle)
-			switch(pref_toggle)
-				if("digestion_noises")
-					if(!client.prefs.digestion_noises)
-						return
-				if("eating_noises")
-					if(!client.prefs.eating_noises)
-						return
-				if("belch_noises")
-					if(!client.prefs.belch_noises)
-						return
-		//Caustic Edit End
 	vol2use = min(vol2use, 100)
 
 	S.volume = vol2use

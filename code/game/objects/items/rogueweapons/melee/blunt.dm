@@ -315,6 +315,7 @@
 	reach = 2
 
 // Caustic edit start
+// Mild TODO: Migrate all these to modular_causticcove
 
 // Wooden paddle. Just a precursor to the macuahuitl, but you can bash someone's brains out with it as well.
 /obj/item/rogueweapon/mace/woodclub/paddle
@@ -322,6 +323,7 @@
 	force_wielded = 20
 	name = "wooden paddle"
 	desc = "A wooden paddle, carved and smoothed. More comfortable than a simple club."
+	icon = 'modular_causticcove/icons/weapons/blunt32.dmi'
 	icon_state = "paddle"
 	wdefense = 2
 	sellprice = 4

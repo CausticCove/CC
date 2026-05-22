@@ -1,4 +1,4 @@
-//Copied from witch.dm on 3/23/26, update accordingly for any changes.
+//Copied from witch.dm on 3/23/26, update accordingly for any changes. Re-copied over on 05/04/26.
 
 /datum/advclass/witch
 	name = "Witch"
@@ -8,6 +8,7 @@
 	outfit = /datum/outfit/job/roguetown/adventurer/witch
 	category_tags = list(CTAG_PILGRIM, CTAG_TOWNER)
 	traits_applied = list(TRAIT_DEATHSIGHT, TRAIT_WITCH, TRAIT_ALCHEMY_EXPERT)
+	townie_contract_gate_exempt = TRUE
 	subclass_stats = list(
 		STATKEY_INT = 3,
 		STATKEY_SPD = 2,
@@ -15,7 +16,6 @@
 	)
 	age_mod = /datum/class_age_mod/witch
 	
-	subclass_mage_aspects = list("mastery" = FALSE, "major" = 0, "minor" = 1, "utilities" = 4)
 	subclass_skills = list(
 		/datum/skill/misc/reading = SKILL_LEVEL_EXPERT,
 		/datum/skill/craft/alchemy = SKILL_LEVEL_EXPERT,
@@ -44,30 +44,23 @@
 						/obj/item/reagent_containers/glass/mortar = 1,
 						/obj/item/pestle = 1,
 						/obj/item/candle/yellow = 2,
-						/obj/item/recipe_book/alchemy = 1,
-						/obj/item/recipe_book/survival = 1,
-						/obj/item/recipe_book/magic = 1,
 						/obj/item/chalk = 1
 						)
 	var/classes = list("Old Magick", "Godsblood", "Mystagogue")
 	var/classchoice = input("How do your powers manifest?", "THE OLD WAYS") as anything in classes
 
-	//Shapeshifting choices are handled in the shapeshift spell itself further down the file.
-
 	switch (classchoice)
 		if("Old Magick")
-			// the original witch: arcyne t2 with 9 spellpoints
 			ADD_TRAIT(H, TRAIT_ARCYNE, TRAIT_GENERIC)
 			H.adjust_skillrank(/datum/skill/magic/arcane, SKILL_LEVEL_APPRENTICE, TRUE)
-			H.mind?.mage_aspect_config["major"] += 1
-			H.mind?.mage_aspect_config["ward"] = TRUE
+			if(H.mind)
+				H.mind.setup_mage_aspects(list("mastery" = FALSE, "major" = 1, "minor" = 1, "utilities" = 6, "ward" = TRUE))
 			beltl = /obj/item/storage/magebag/starter
+			backpack_contents |= /obj/item/book/spellbook
 			if (H.age == AGE_OLD)
 				H.adjust_skillrank(/datum/skill/magic/arcane, SKILL_LEVEL_APPRENTICE, TRUE)
-				H.mind?.mage_aspect_config["utilities"] += 2
 		if("Godsblood")
-			//miracle witch: capped at t2 miracles. cannot pray to regain devo, but has high innate regen because of it (1.7 instead of 0.8 from major).
-			//Cannot use miracles or gain devotion when shapeshifted.
+			//miracle witch: capped at t2 miracles. cannot pray to regain devo, but has high innate regen because of it (2 instead of 1 from major)
 			var/datum/devotion/D = new /datum/devotion/(H, H.patron)
 			H.adjust_skillrank(/datum/skill/magic/holy, SKILL_LEVEL_APPRENTICE, TRUE)
 			D.grant_miracles(H, cleric_tier = CLERIC_T2, passive_gain = CLERIC_REGEN_WITCH, devotion_limit = CLERIC_REQ_2)
@@ -76,15 +69,17 @@
 			if (H.age == AGE_OLD)
 				H.adjust_skillrank(/datum/skill/magic/holy, SKILL_LEVEL_NOVICE, TRUE)
 		if("Mystagogue")
-			// hybrid arcane/holy witch with t1 arcane and t1 miracles, but less spellpoints, lower max devotion and less regen (0.5). Still can't pray.
-			//Also cannot use miracles or gain devotion when shapeshifted.
+			// hybrid arcane/holy witch with t1 arcane and t1 miracles
 			var/datum/devotion/D = new /datum/devotion/(H, H.patron)
 			H.adjust_skillrank(/datum/skill/magic/holy, SKILL_LEVEL_NOVICE, TRUE)
 			D.grant_miracles(H, cleric_tier = CLERIC_T1, passive_gain = CLERIC_REGEN_MINOR, devotion_limit = CLERIC_REQ_1)
 			D.max_devotion *= 0.5
 			ADD_TRAIT(H, TRAIT_ARCYNE, TRAIT_GENERIC)
 			H.adjust_skillrank(/datum/skill/magic/arcane, SKILL_LEVEL_NOVICE, TRUE)
+			if(H.mind)
+				H.mind.setup_mage_aspects(list("mastery" = FALSE, "major" = 0, "minor" = 1, "utilities" = 4))
 			beltl = /obj/item/storage/magebag/starter
+			backpack_contents |= /obj/item/book/spellbook
 			neck = /obj/item/clothing/neck/roguetown/psicross/wood
 			if (H.age == AGE_OLD)
 				H.adjust_skillrank(/datum/skill/magic/arcane, SKILL_LEVEL_NOVICE, TRUE)
@@ -93,11 +88,24 @@
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/self/wildshape/witch)
 
 		switch (classchoice)
-			if("Old Magick")
-				H.mind.AddSpell(new /datum/action/cooldown/spell/guidance)
-				H.mind.AddSpell(new /datum/action/cooldown/spell/fortitude)
-				H.mind.AddSpell(new /datum/action/cooldown/spell/projectile/soulshot)
-				
+			if("Mystagogue")
+				var/list/poke_options = list("Spitfire", "Frost Bolt", "Arc Bolt", "Greater Arcyne Bolt", "Stygian Efflorescence", "Arcyne Lance", "Lesser Gravel Blast")
+				var/poke_choice = input(H, "Choose your offensive cantrip.", "Arcyne Training") as anything in poke_options
+				switch(poke_choice)
+					if("Spitfire")
+						H.mind.AddSpell(new /datum/action/cooldown/spell/projectile/spitfire)
+					if("Frost Bolt")
+						H.mind.AddSpell(new /datum/action/cooldown/spell/projectile/frost_bolt)
+					if("Arc Bolt")
+						H.mind.AddSpell(new /datum/action/cooldown/spell/projectile/arc_bolt)
+					if("Greater Arcyne Bolt")
+						H.mind.AddSpell(new /datum/action/cooldown/spell/projectile/greater_arcyne_bolt)
+					if("Stygian Efflorescence")
+						H.mind.AddSpell(new /datum/action/cooldown/spell/projectile/stygian_efflorescence)
+					if("Arcyne Lance")
+						H.mind.AddSpell(new /datum/action/cooldown/spell/projectile/arcyne_lance)
+					if("Lesser Gravel Blast")
+						H.mind.AddSpell(new /datum/action/cooldown/spell/projectile/gravel_blast/lesser)
 	if(H.gender == FEMALE)
 		armor = /obj/item/clothing/suit/roguetown/armor/corset
 		shirt = /obj/item/clothing/suit/roguetown/shirt/undershirt/lowcut
@@ -117,7 +125,7 @@
 			H.cmode_music = 'sound/music/combat_baotha.ogg'
 			ADD_TRAIT(H, TRAIT_HERESIARCH, TRAIT_GENERIC)
 	if(H.mind)
-		SStreasury.give_money_account(ECONOMIC_LOWER_MIDDLE_CLASS, H, "Savings.")
+		SStreasury.grant_savings(ECONOMIC_LOWER_MIDDLE_CLASS, H)
 
 //Unique wildshape spell designed specifically for witches.
 /obj/effect/proc_holder/spell/self/wildshape/witch

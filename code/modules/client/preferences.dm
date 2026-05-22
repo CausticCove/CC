@@ -3086,10 +3086,12 @@ Slots: [job.spawn_positions] [job.round_contrib_points ? "RCP: +[job.round_contr
 			else if(firstspace == name_length)
 				real_name += "[pick(GLOB.last_names)]"
 
-	if(real_name in GLOB.chosen_names)
+	//Caustic Edit - Is this where it kept randomizing names? It might have side effects, but eeeeeh.
+	/*if(real_name in GLOB.chosen_names)
 		character.real_name = pref_species.random_name(gender)
-	else
-		character.real_name = real_name
+	else*/
+	character.real_name = real_name
+	//Caustic Edit End
 	character.name = character.real_name
 
 	character.domhand = domhand

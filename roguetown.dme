@@ -3514,6 +3514,7 @@
 #include "modular_causticcove\code\modules\merporgans\belly.dm"
 #include "modular_causticcove\code\modules\merporgans\butt.dm"
 #include "modular_causticcove\code\modules\merporgans\revealverbs.dm"
+#include "modular_causticcove\code\modules\mob\macro_intercepts.dm"
 #include "modular_causticcove\code\modules\mob\dead\new_player\sprite_accessory\ears.dm"
 #include "modular_causticcove\code\modules\mob\dead\new_player\sprite_accessory\horns.dm"
 #include "modular_causticcove\code\modules\mob\dead\new_player\sprite_accessory\snout.dm"
@@ -3540,6 +3541,7 @@
 #include "modular_causticcove\code\modules\roguecrafting\blacksmith.dm"
 #include "modular_causticcove\code\modules\roguecrafting\items.dm"
 #include "modular_causticcove\code\modules\roguecrafting\leather.dm"
+#include "modular_causticcove\code\modules\roguetown\roguejobs\alchemist\herb_flora.dm"
 #include "modular_causticcove\code\modules\roguetown\roguestock\import.dm"
 #include "modular_causticcove\code\modules\roguetown\roguemachine\questing\factions\graggarite_spawn.dm"
 #include "modular_causticcove\code\modules\size_scaling\helperfunctions.dm"
@@ -3561,6 +3563,7 @@
 #include "modular_causticcove\code\modules\spells\beam\void_beam.dm"
 #include "modular_causticcove\code\modules\spells\components\temper_clothing.dm"
 #include "modular_causticcove\code\modules\spells\conjure\conjure_tool.dm"
+#include "modular_causticcove\code\modules\spells\conjure\shape_wood.dm"
 #include "modular_causticcove\code\modules\spells\invoked_single_target\temperitem.dm"
 #include "modular_causticcove\code\modules\spells\scrolls\spell_granters.dm"
 #include "modular_causticcove\code\modules\supplies\travellingmerchant.dm"
@@ -3571,6 +3574,7 @@
 #include "modular_causticcove\code\modules\vices\bottomless\bottomless.dm"
 #include "modular_causticcove\code\modules\vices\bottomless\maxfood.dm"
 #include "modular_causticcove\code\modules\vices\bottomless\stressevent_gluton.dm"
+#include "modular_causticcove\code\modules\virtues\utility.dm"
 #include "modular_causticcove\code\modules\vore\atom.dm"
 #include "modular_causticcove\code\modules\vore\atoms_movable.dm"
 #include "modular_causticcove\code\modules\vore\belly_assets.dm"
@@ -3631,8 +3635,14 @@
 #include "modular_causticcove\code\game\objects\items\clothes\causthats.dm"
 
 //Modular OV files!
+#include "modular_ochrevalley\code\datums\stress\negative_events.dm"
+#include "modular_ochrevalley\code\game\items\teablends.dm"
 #include "modular_ochrevalley\code\modules\mob\living\carbon\human\species_types\roguetown\other\ooze.dm"
 #include "modular_ochrevalley\code\modules\mob\living\simple_animal\rogue\ooze_blob.dm"
+#include "modular_ochrevalley\code\modules\reagents\drink_reagents.dm"
+#include "modular_ochrevalley\code\modules\reagents\stew_recipes.dm"
+#include "modular_ochrevalley\code\modules\reagents\teabuffs.dm"
+#include "modular_ochrevalley\code\recipes\drying_recipes.dm"
 
 //Ratwood's Modular Includes and Desert Town
 

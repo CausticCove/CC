@@ -105,10 +105,10 @@
 			struggle_snuggle = sound(get_sfx("classic_struggle_sounds"))
 		else
 			struggle_snuggle = sound(get_sfx("fancy_prey_struggle"))
-		playsound(src, struggle_snuggle, vary = 1, vol = 75, falloff = VORE_SOUND_FALLOFF, frequency = noise_freq, pref_toggle = "digestion_noises", channel = VOLUME_CHANNEL_VORE)
+		playsound(src, struggle_snuggle, vary = 1, vol = 75, falloff = VORE_SOUND_FALLOFF, frequency = noise_freq, pref_toggle = SOUND_VORE_DIGESTION, channel = VOLUME_CHANNEL_VORE)
 		return
 	var/sound/struggle_rustle = sound(get_sfx("rustle"))
-	playsound(src, struggle_rustle, vary = 1, vol = 75, falloff = VORE_SOUND_FALLOFF, frequency = noise_freq, pref_toggle = "digestion_noises", channel = VOLUME_CHANNEL_VORE)
+	playsound(src, struggle_rustle, vary = 1, vol = 75, falloff = VORE_SOUND_FALLOFF, frequency = noise_freq, pref_toggle = SOUND_VORE_DIGESTION, channel = VOLUME_CHANNEL_VORE)
 
 /obj/belly/proc/resist_check_escapechance(mob/living/living_prey, obj/item/prey_item)
 	if(!prob(escapechance)) //Let's have it check to see if the prey escapes first.

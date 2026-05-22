@@ -320,6 +320,7 @@
 				current_holder.STAINT += stat_bonus_martyr
 				current_holder.STAPER += stat_bonus_martyr
 				current_holder.STALUC += stat_bonus_martyr
+				current_holder.update_sight() //Caustic Edit - To go with the Perception-Darksight, just refresh it in case they have it.
 				H.energy_add(9999)
 
 //This is called regardless of the activated state (safe or not)
@@ -443,6 +444,7 @@
 				current_holder.STAINT = 20
 				current_holder.STAPER = 20
 				current_holder.STALUC = 20
+				current_holder.update_sight() //Caustic Edit - To go with the Perception-Darksight, just refresh it in case they have it.
 
 				current_holder.energy = current_holder.max_energy
 				current_holder.stamina = 0

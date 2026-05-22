@@ -7,6 +7,8 @@
 	miracles = list(/obj/effect/proc_holder/spell/targeted/touch/orison			= CLERIC_ORI,
 					/obj/effect/proc_holder/spell/invoked/spiderspeak 			= CLERIC_T0,
 					/obj/effect/proc_holder/spell/targeted/blesscrop			= CLERIC_T0,
+					/datum/action/cooldown/spell/shape_branch/miracle			= CLERIC_T0, // Caustic edit
+					/datum/action/cooldown/spell/shape_wood/miracle				= CLERIC_T1, // Caustic edit
 					/obj/effect/proc_holder/spell/invoked/lesser_heal 			= CLERIC_T1,
 					/obj/effect/proc_holder/spell/invoked/blood_heal			= CLERIC_T1,
 					/obj/effect/proc_holder/spell/self/wildshape				= CLERIC_T2,

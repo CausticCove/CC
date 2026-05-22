@@ -43,7 +43,7 @@
 	dna?.species?.stop_wagging_tail(src)
 
 	//OV edit
-	if(isooze(src))
+	if(isooze(src) && !(HAS_TRAIT(src, TRAIT_ANCIENT_HAG)))
 		var/obj/shapeshift_holder/ooze_death/H = locate() in src
 		if(!H)
 			var/shapeshift_type = /mob/living/simple_animal/hostile/retaliate/rogue/ooze_blob/suffering

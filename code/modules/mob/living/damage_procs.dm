@@ -316,3 +316,7 @@
 		if(!amount)
 			break
 	. -= amount //if there's leftover healing, remove it from what we return
+
+//CC Edit - Base proc. Only carbon mobs should call this proc.
+/mob/living/proc/getMaxLimbHealth()
+	return

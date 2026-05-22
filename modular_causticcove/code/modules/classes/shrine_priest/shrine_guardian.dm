@@ -61,6 +61,7 @@
 				beltr = /obj/item/quiver/arrows
 			if("Naginata + Recurve Bow")
 				H.adjust_skillrank_up_to(/datum/skill/combat/bows, 4, TRUE)
-				backr = /obj/item/rogueweapon/spear/naginata
-				r_hand = /obj/item/gun/ballistic/revolver/grenadelauncher/bow/recurve
+				backr = /obj/item/rogueweapon/scabbard/gwstrap //Caustic Edit - Gave a GWStrap instead on the back and moved the Naginata to the hand
+				r_hand = /obj/item/rogueweapon/spear/naginata
+				l_hand = /obj/item/gun/ballistic/revolver/grenadelauncher/bow/recurve
 				beltr = /obj/item/quiver/arrows
