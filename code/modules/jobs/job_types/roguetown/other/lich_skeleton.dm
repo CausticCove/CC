@@ -84,7 +84,7 @@ LICH SKELETONS
 		if("Flail")
 			beltr = /obj/item/rogueweapon/flail/sflail/paflail
 			H.adjust_skillrank(/datum/skill/combat/whipsflails, 1, TRUE)
-	var/tabards = list("Black Jupon", "Black Tabard", "Black Cloak + Greathood")
+	var/tabards = list("Black Jupon", "Black Tabard", "Black Cloak + Greathood", "Zizite Tabard") //Caustic Edit
 	var/tabard_choice = input(H, "Choose your CLOAK.", "BARE YOUR MASTER'S HERALDRY.") as anything in tabards
 	switch(tabard_choice)
 		if("Black Jupon")
@@ -94,6 +94,10 @@ LICH SKELETONS
 		if("Black Cloak + Greathood")
 			cloak = /obj/item/clothing/cloak/half/lich
 			mask = /obj/item/clothing/cloak/tabard/stabard/guardhood/lich
+			//Caustic Edit
+		if("Zizite Tabard")
+			cloak = /obj/item/clothing/cloak/tabard/zizo
+			//Caustic Edit end
 
 	H.energy = H.max_energy
 
@@ -175,7 +179,7 @@ LICH SKELETONS
 			l_hand = /obj/item/gun/ballistic/revolver/grenadelauncher/sling
 			beltl = /obj/item/quiver/sling/paalloy
 			H.adjust_skillrank(/datum/skill/combat/slings, 1, TRUE)
-	var/tabards = list("Black Cloak + Greathood", "Black Jupon", "Black Tabard")
+	var/tabards = list("Black Cloak + Greathood", "Black Jupon", "Black Tabard", "Zizite Tabard") //Caustic Edit
 	var/tabard_choice = input(H, "Choose your CLOAK.", "BARE YOUR MASTER'S HERALDRY.") as anything in tabards
 	switch(tabard_choice)
 		if("Black Jupon")
@@ -185,6 +189,10 @@ LICH SKELETONS
 		if("Black Cloak + Greathood")
 			cloak = /obj/item/clothing/cloak/half/lich
 			mask = /obj/item/clothing/cloak/tabard/stabard/guardhood/lich
+			//Caustic Edit
+		if("Zizite Tabard")
+			cloak = /obj/item/clothing/cloak/tabard/zizo
+			//Caustic Edit end
 
 	H.energy = H.max_energy
 
@@ -266,7 +274,7 @@ LICH SKELETONS
 			head = /obj/item/clothing/head/roguetown/helmet/heavy/knight/paalloy
 			shirt = /obj/item/clothing/suit/roguetown/armor/gambeson/light
 			armor = /obj/item/clothing/suit/roguetown/armor/chainmail/hauberk/paalloy/heavy
-	var/tabards = list("Black Tabard", "Black Jupon", "Black Cloak + Greathood")
+	var/tabards = list("Black Tabard", "Black Jupon", "Black Cloak + Greathood", "Zizite Tabard") //Caustic Edit
 	var/tabard_choice = input(H, "Choose your CLOAK.", "BARE YOUR MASTER'S HERALDRY.") as anything in tabards
 	switch(tabard_choice)
 		if("Black Jupon")
@@ -276,6 +284,10 @@ LICH SKELETONS
 		if("Black Cloak + Greathood")
 			cloak = /obj/item/clothing/cloak/half/lich
 			mask = /obj/item/clothing/cloak/tabard/stabard/guardhood/lich
+			//Caustic Edit
+		if("Zizite Tabard")
+			cloak = /obj/item/clothing/cloak/tabard/zizo
+			//Caustic Edit end
 
 	H.energy = H.max_energy
 
@@ -330,7 +342,7 @@ LICH SKELETONS
 	beltl = /obj/item/rogueweapon/pick/paalloy
 
 	H.adjust_blindness(-3)
-	var/tabards = list("Black Cloak + Greathood", "Black Jupon", "Black Tabard")
+	var/tabards = list("Black Cloak + Greathood", "Black Jupon", "Black Tabard", "Zizite Tabard") //Caustic Edit
 	var/tabard_choice = input(H, "Choose your CLOAK.", "BARE YOUR MASTER'S HERALDRY.") as anything in tabards
 	H.set_blindness(0)
 	switch(tabard_choice)
@@ -341,6 +353,10 @@ LICH SKELETONS
 		if("Black Cloak + Greathood")
 			cloak = /obj/item/clothing/cloak/half/lich
 			mask = /obj/item/clothing/cloak/tabard/stabard/guardhood/lich
+			//Caustic Edit
+		if("Zizite Tabard")
+			cloak = /obj/item/clothing/cloak/tabard/zizo
+			//Caustic Edit end
 
 	H.energy = H.max_energy
 
@@ -405,7 +421,7 @@ LICH SKELETONS
 		if("Dagger")
 			beltr = /obj/item/rogueweapon/huntingknife/idagger/steel/padagger
 			H.adjust_skillrank(/datum/skill/combat/knives, 1, TRUE)
-	var/tabards = list("Black Cloak + Greathood", "Black Jupon")
+	var/tabards = list("Black Cloak + Greathood", "Black Jupon", "Zizite Tabard") //Caustic Edit
 	var/tabard_choice = input(H, "Choose your CLOAK.", "BARE YOUR MASTER'S HERALDRY.") as anything in tabards
 	switch(tabard_choice)
 		if("Black Jupon")
@@ -413,6 +429,10 @@ LICH SKELETONS
 		if("Black Cloak + Greathood")
 			cloak = /obj/item/clothing/cloak/half/lich
 			mask = /obj/item/clothing/cloak/tabard/stabard/guardhood/lich
+			//Caustic Edit
+		if("Zizite Tabard")
+			cloak = /obj/item/clothing/cloak/tabard/zizo
+			//Caustic Edit end
 
 	H.energy = H.max_energy
 
@@ -473,13 +493,18 @@ LICH SKELETONS
 			l_hand = /obj/item/rogueweapon/shield/tower/metal/palloy
 			H.adjust_skillrank(/datum/skill/combat/whipsflails, 1, TRUE)
 			H.adjust_skillrank(/datum/skill/combat/shields, 1, TRUE)
-	var/tabards = list("Black Tabard", "Black Jupon")
+	var/tabards = list("Black Tabard", "Black Jupon", "Zizite Tabard") //Caustic Edit
 	var/tabard_choice = input(H, "Choose your CLOAK.", "BARE YOUR MASTER'S HERALDRY.") as anything in tabards
 	switch(tabard_choice)
 		if("Black Jupon")
 			cloak = /obj/item/clothing/cloak/tabard/stabard/surcoat/lich
 		if("Black Tabard")
 			cloak = /obj/item/clothing/cloak/tabard/lich
+			//Caustic Edit
+		if("Zizite Tabard")
+			cloak = /obj/item/clothing/cloak/tabard/zizo
+			//Caustic Edit end
+
 
 	H.energy = H.max_energy
 
@@ -637,13 +662,17 @@ LICH SKELETONS
 		existing_eyes.Remove(H, TRUE)
 		existing_eyes.Insert(H)
 
-	var/tabards = list("Black Tabard", "Black Jupon")
+	var/tabards = list("Black Tabard", "Black Jupon", "Zizite Tabard") //Caustic Edit
 	var/tabard_choice = input(H, "Choose your CLOAK.", "BARE YOUR MASTER'S HERALDRY.") as anything in tabards
 	switch(tabard_choice)
 		if("Black Jupon")
 			cloak = /obj/item/clothing/cloak/tabard/stabard/surcoat/lich
 		if("Black Tabard")
 			cloak = /obj/item/clothing/cloak/tabard/lich
+			//Caustic Edit
+		if("Zizite Tabard")
+			cloak = /obj/item/clothing/cloak/tabard/zizo
+			//Caustic Edit end
 
 	H.energy = H.max_energy
 

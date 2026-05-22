@@ -18,7 +18,7 @@
 		STATKEY_SPD = 1
 	)
 	age_mod = /datum/class_age_mod/wretch/rogue_mage
-	subclass_mage_aspects = list("mastery" = FALSE, "major" = 1, "minor" = 0, "utilities" = 4, "ward" = TRUE)
+	subclass_mage_aspects = list("mastery" = FALSE, "major" = 1, "minor" = 2, "utilities" = 6, "ward" = TRUE) // Caustic Edit
 	subclass_skills = list(
 		/datum/skill/combat/polearms = SKILL_LEVEL_EXPERT, //Caustic Cove Edit
 		/datum/skill/combat/staves = SKILL_LEVEL_EXPERT, //Caustic Cove Edit
@@ -27,7 +27,6 @@
 		/datum/skill/combat/wrestling = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/combat/unarmed = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/misc/reading = SKILL_LEVEL_MASTER,
-		/datum/skill/misc/medicine = SKILL_LEVEL_APPRENTICE, // Have to grind a bit, but can use the ZRONK chair right away
 		/datum/skill/craft/alchemy = SKILL_LEVEL_EXPERT,
 		/datum/skill/magic/arcane = SKILL_LEVEL_EXPERT,
 		/datum/skill/misc/medicine = SKILL_LEVEL_JOURNEYMAN, //For lux extractions.
@@ -63,6 +62,7 @@
 		H.set_patron(/datum/patron/inhumen/zizo)
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/eyebite)
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/bonechill)
+		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/diagnose/secular)
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/minion_order)
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/gravemark)
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/raise_undead_formation/necromancer)

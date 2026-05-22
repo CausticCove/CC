@@ -7,15 +7,17 @@
 	overlay_state = "animate"
 	range = 7
 	sound = list('sound/magic/magnet.ogg')
-	releasedrain = 40
-	chargetime = 6 SECONDS
+	//Caustic Edit
+	releasedrain = 20
+	chargetime = 2 SECONDS
 	warnie = "spellwarning"
 	no_early_release = TRUE
 	charging_slowdown = 1
 	chargedloop = /datum/looping_sound/invokegen
 	gesture_required = TRUE // Summon spell
 	associated_skill = /datum/skill/magic/arcane
-	recharge_time = 20 SECONDS
+	recharge_time = 15 SECONDS
+	//Caustic Edit end
 	var/cabal_affine = FALSE
 	var/is_summoned = FALSE
 	var/to_spawn = 4
@@ -80,7 +82,9 @@
 /obj/effect/proc_holder/spell/invoked/raise_undead_formation/necromancer
 	cabal_affine = TRUE
 	is_summoned = TRUE
-	recharge_time = 35 SECONDS
+	//Caustic Edit
+	recharge_time = 20 SECONDS
+	//Caustic Edit end
 	to_spawn = 3
 
 

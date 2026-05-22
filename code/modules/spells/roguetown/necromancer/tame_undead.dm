@@ -1,15 +1,19 @@
 
 /obj/effect/proc_holder/spell/invoked/tame_undead
 	name = "Tame Undead"
+	//Caustic Edit
 	desc = "Oftentymes, husks and shamblers walk aimlessly - uncertain of their future. They need not look further, any longer. \
-	Requires the target to be within four tiles. Works on undead animals, too."
+	Requires the target to be within seven tiles. Works on undead animals, too."
+	//Caustic Edit end
 	overlay_state = "raiseskele"
-	range = 4
+	//Caustic Edit
+	range = 7
 	warnie = "sydwarning"
-	recharge_time = 60 SECONDS
-	releasedrain = 40
-	chargetime = 5 SECONDS
+	recharge_time = 5 SECONDS
+	releasedrain = 10
+	chargetime = 1 SECONDS
 	charging_slowdown = 1
+	//Caustic Edit end
 	gesture_required = TRUE
 	chargedloop = /datum/looping_sound/invokegen
 	no_early_release = TRUE
