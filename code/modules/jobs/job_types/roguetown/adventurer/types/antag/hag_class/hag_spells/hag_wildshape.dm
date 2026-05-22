@@ -63,6 +63,12 @@
 		AddSpell(new /obj/effect/proc_holder/spell/self/hagclaws) 
 		apply_status_effect(/datum/status_effect/debuff/hag_bog_tether/wildshape)
 	//faction |= list("hag", "spiders")
+	//Caustic Edit - Copied over a fix from OV that sets their name and everything proper here.
+	real_name = "True Hag"
+	desc = "Godless, ancient, pure evyl. Run."
+	gender = stored_mob.gender
+	pronouns = stored_mob.pronouns
+	//Caustic Edit End
 
 /datum/species/hag_true_form
 	name = "True Hag"

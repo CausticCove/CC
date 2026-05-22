@@ -844,28 +844,35 @@
 			if(distance > healing_range || HAS_TRAIT(human, TRAIT_IRONMAN))
 				continue
 			human.add_stress(/datum/stressevent/campfire)
-			// CC Edit - Campfires only heal and boost energy regen when you're sleeping and laying down. For towners, this does not affect them.
-			//If the campfire is a greater firepit (densefire), apply these effects anyways.
-			if(greater_fire || human.has_status_effect(/datum/status_effect/incapacitating/sleeping) || human.job == "Towner" || istype(human.mind?.assigned_role, /datum/job/roguetown/villager))
+			// CC Edit - Campfires only boost energy regen when you're sleeping and laying down. For towners, this does not affect them.
+			//If the campfire is a greater firepit (densefire), apply this effect anyways.
 
-				if(!human.has_status_effect(/datum/status_effect/buff/campfire_stamina))
-					to_chat(human, span_info("The warmth of the fire comforts me, affording me a short rest. I would need to lie down on a bed to get a better rest."))
-				human.apply_status_effect(/datum/status_effect/buff/campfire_stamina)
-
-				if(human.resting && !human.cmode)
-					var/valid_bed = FALSE
-					var/turf/T = get_turf(human)
-					for(var/obj/O in T.contents)
-						for(var/path in acceptable_beds)
-							if(ispath(O.type, path))
-								valid_bed = TRUE
-								break
-						if(valid_bed)
+			//Check for the bed first.
+			var/valid_bed = FALSE
+			if(human.resting && !human.cmode)
+				var/turf/T = get_turf(human)
+				for(var/obj/O in T.contents)
+					for(var/path in acceptable_beds)
+						if(ispath(O.type, path))
+							valid_bed = TRUE
 							break
 					if(valid_bed)
-						if(!human.has_status_effect(/datum/status_effect/buff/campfire))
-							to_chat(human, span_info("Settling in by the flames lifts the burdens of the week."))
-						human.apply_status_effect(/datum/status_effect/buff/campfire) //CC Edit - See above comment.
+						break
+
+			//Check if we're a towner role, and NOT in cmode.
+			var/static/list/towner_jobs
+			towner_jobs = GLOB.peasant_positions | GLOB.burgher_positions | GLOB.sidefolk_positions
+			if(((human.mind?.assigned_role in towner_jobs)) || !human.cmode) //Don't be in cmode
+
+				if(!human.has_status_effect(/datum/status_effect/buff/campfire_stamina))
+					to_chat(human, span_info("The warmth of the fire comforts me, affording me a short rest. I would need to lie down on a bed, or bundle up in bedsheets to get a better rest."))
+				
+				if(human.resting) //Can only heal and recover energy if resting... Second check for greater campfire.
+					human.apply_status_effect(/datum/status_effect/buff/campfire, valid_bed)
+
+				if(greater_fire || human.resting) //Check to grant stamina only if we're a greater fire, otherwise resting.
+					human.apply_status_effect(/datum/status_effect/buff/campfire_stamina, valid_bed)
+			//CC Edit End
 
 
 /obj/machinery/light/rogue/campfire/onkick(mob/user)

@@ -57,7 +57,7 @@
 		//SECURITY//
 		////////////
 	// comment out the line below when debugging locally to enable the options & messages menu
-	control_freak = 1
+	//control_freak = 1 //Caustic Edit - Lets allow macros - Please don't abuse them!
 
 		////////////////////////////////////
 		//things that require the database//

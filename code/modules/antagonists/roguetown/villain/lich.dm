@@ -82,6 +82,7 @@
 	owner.current.STAINT = src.STAINT
 	owner.current.STASPD = src.STASPD
 	owner.current.STAWIL = src.STAWIL
+	owner.current.update_sight() //Caustic Edit - To go with the Perception-Darksight, just refresh it in case they have it.
 
 /datum/antagonist/lich/proc/skele_look()
 	var/mob/living/carbon/human/L = owner.current

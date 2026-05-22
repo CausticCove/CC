@@ -393,6 +393,7 @@
 	sellprice = 12 //It's made of WHAT!? CC Change
 
 // Caustic edit start
+// Mild TODO: Migrate all these to modular_causticcove
 
 // Obsidian axe/macuahuitl. Entire gimmick is that it deals a lot of damage with absolutely no AP
 
@@ -404,6 +405,7 @@
 	gripped_intents = list(/datum/intent/axe/cut,/datum/intent/axe/chop, /datum/intent/axe/bash, /datum/intent/mace/smash/wood)
 	name = "obsidian paddle-axe"
 	desc = "A wide wooden paddle, fitted with obsidian razors at the edges. It is said that with it, a powerful warrior can chop a saiga's head off in a single blow."
+	icon = 'modular_causticcove/icons/weapons/axes32.dmi'
 	icon_state = "obsidianaxe"
 	max_blade_int = 10
 	max_integrity = 100
@@ -418,6 +420,7 @@
 	force_wielded = 24
 	possible_item_intents = list(/datum/intent/axe/cut,/datum/intent/axe/chop, /datum/intent/axe/bash)
 	gripped_intents = list(/datum/intent/axe/cut,/datum/intent/axe/chop, /datum/intent/axe/bash)
+	icon = 'modular_causticcove/icons/weapons/axes32.dmi'
 	name = "flint axe"
 	desc = "Sharpened and finely worked stone fitted atop a stout haft."
 	icon_state = "flintaxe"

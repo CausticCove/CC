@@ -1321,6 +1321,7 @@
 				return list("shrink" = 0.6,"sx" = 4,"sy" = -2,"nx" = -3,"ny" = -2,"wx" = -5,"wy" = -1,"ex" = 3,"ey" = -2,"northabove" = 0,"southabove" = 1,"eastabove" = 1,"westabove" = 0,"nturn" = 7,"sturn" = -7,"wturn" = 16,"eturn" = -22,"nflip" = 8,"sflip" = 0,"wflip" = 8,"eflip" = 0)
 
 // Caustic edit start
+// Mild TODO: Migrate all these to modular_causticcove
 
 // Obsidian spear. Entire gimmick is that it deals a lot of damage with absolutely no AP
 
@@ -1331,6 +1332,7 @@
 	gripped_intents = list(/datum/intent/spear/thrust, /datum/intent/spear/cut, /datum/intent/spear/bash) //bash is for nonlethal takedowns, only targets limbs
 	name = "obsidian spear"
 	desc = "A hand-knapped edge of obsidian lashed to a stout pole. Before iron and bronze, this is what ruled the world."
+	icon = 'modular_causticcove/icons/weapons/polearms64.dmi'
 	icon_state = "obsidianspear"
 	max_blade_int = 20 // Brittle blade. If it's armored, you're a bit SOL.
 	armor_penetration = -100
@@ -1343,6 +1345,7 @@
 	force_wielded = 25 // Not a good as an iron spear, but definitely better than a stone one
 	name = "flint spear"
 	desc = "Carefully knapped flintstone lashed and tied onto a stout wooden pole with a crimson sash. More elegant than a simple stone on a stick."
+	icon = 'modular_causticcove/icons/weapons/polearms64.dmi'
 	icon_state = "flintspear"
 	max_integrity = 250
 	max_blade_int = 120
@@ -1357,6 +1360,7 @@
 	gripped_intents = list(SPEAR_THRUST, SPEAR_CUT, SPEAR_BASH) //bash is for nonlethal takedowns, only targets limbs
 	name = "manastone spear"
 	desc = "A spear made from a shard of crystallized mana fixed atop a staff. This either the creation of a genius, a madman, or someone who heard the term 'magic spear' and went from there."
+	icon = 'modular_causticcove/icons/weapons/polearms64.dmi'
 	icon_state = "magicstonespear"
 	implement_tier = IMPLEMENT_TIER_LESSER
 	implement_refund = IMPLEMENT_REFUND_LESSER

@@ -30,7 +30,7 @@ GLOBAL_LIST_INIT(character_flaws, list(
 	/datum/charflaw/sleepless::name = /datum/charflaw/sleepless,
 	/datum/charflaw/mute::name = /datum/charflaw/mute,
 	/datum/charflaw/critweakness::name = /datum/charflaw/critweakness,
-	/datum/charflaw/hunted::name = /datum/charflaw/hunted,
+	// /datum/charflaw/hunted::name = /datum/charflaw/hunted, //CC Edit - REMOVE HUNTED VICE IN FAVOR OF ROLEPLAY GUIDANCE SELECTION.
 	/datum/charflaw/mind_broken::name = /datum/charflaw/mind_broken,
 	/datum/charflaw/noflaw::name = /datum/charflaw/noflaw,
 	/datum/charflaw/leprosy::name = /datum/charflaw/leprosy,
@@ -431,6 +431,8 @@ GLOBAL_LIST_INIT(averse_factions, list(
 	\nTHIS IS A DIFFICULT FLAW, YOU WILL BE HUNTED BY ASSASSINS AND HAVE ASSASINATION ATTEMPTS MADE AGAINST YOU WITHOUT ANY ESCALATION. \
 	EXPECT A MORE DIFFICULT EXPERIENCE. PLAY AT YOUR OWN RISK."
 	var/logged = FALSE
+	//CC Edit - Unused currently.
+	ephemeral = TRUE
 
 /datum/charflaw/hunted/flaw_on_life(mob/user)
 	if(!ishuman(user))

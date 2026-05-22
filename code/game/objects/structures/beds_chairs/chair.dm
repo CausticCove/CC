@@ -25,6 +25,10 @@
 	. = ..()
 	if(!anchored)	//why would you put these on the shuttle?
 		addtimer(CALLBACK(src, PROC_REF(RemoveFromLatejoin)), 0)
+	
+	//CC Edit - Make all the benches say their sleep quality.
+	if(sleepy)
+		desc += " (Sleep Quality: [sleepy] )"
 
 /obj/structure/chair/ComponentInitialize()
 	. = ..()

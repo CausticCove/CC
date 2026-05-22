@@ -1,18 +1,18 @@
 //Basically all the sauce recipies + reagent reactions to make sauces and stocks. Chemical reactions, ratios, etc etc.
 #define STEW_COOKING_TIME 60 SECONDS
 //MISC STUFF
-/datum/chemical_reaction/water_boil_away //boiling water at too high a temp makes it POOF, useful for getting rid of it from other goodies
+/*/datum/chemical_reaction/water_boil_away //boiling water at too high a temp makes it POOF, useful for getting rid of it from other goodies
 	name = "water boil away"
 	id = /datum/reagent/water
 	results = list(/datum/reagent/water = -1)
 	required_reagents = list(/datum/reagent/water = 1)
-	required_temp = 400
+	required_temp = 400*/ //Commenting this one out for now, It seemed to be triggering while people were trying to cook, and perhaps causing issues?
 
 /datum/stew_recipe/bone_broth
 	inputs = list(/obj/item/natural/bone)
 	output = /datum/reagent/consumable/soup/bone_broth
 	cooktime = STEW_COOKING_TIME //longer than the other drinks
-	req_liquid = /datum/reagent/water
+	req_liquid = /datum/reagent/water //This is technically not needed anymore as 
 
 /datum/stew_recipe/chicken_broth
 	inputs = list(/obj/item/reagent_containers/food/snacks/rogue/meat/mince/poultry)

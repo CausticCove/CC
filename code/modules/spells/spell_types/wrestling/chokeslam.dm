@@ -85,7 +85,7 @@
 
 	if(target.has_status_effect(/datum/status_effect/buff/clash)) // if you parry this you knock down the guy and take no damage
 		damage = 0
-		user.Knockdown(2 SECONDS)
+		//user.Knockdown(2 SECONDS) //Caustic Edit - Get rid of the self-knockdown
 		target.safe_throw_at(throw_target, 2, 4, user, force = MOVE_FORCE_DEFAULT)
 		target.remove_status_effect(/datum/status_effect/buff/clash)
 		to_chat(user, span_notice("A reversal!"))
@@ -97,7 +97,7 @@
 		target.stamina_add((target.max_stamina - target.stamina) / 2) // some-fucking-how this is how you drain half their current stamina
 		to_chat(user, span_notice("[user] slams [target] by the throat!"))
 		target.Knockdown(2 SECONDS)
-		user.Knockdown(2 SECONDS)
+		//user.Knockdown(2 SECONDS) //Caustic Edit - Get rid of the self-knockdown
 		playsound(user, 'sound/combat/tf2crit.ogg', 100, TRUE)
 		
 	// using spellblade melee thing for the damage and aimed zone.

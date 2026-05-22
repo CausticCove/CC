@@ -6,7 +6,7 @@
 	faction = "Station"
 	total_positions = 0
 	spawn_positions = 0
-	min_pq = 10		// was going to put this higher but realized bandit's only 3 pq and wretch is fucking 10 so whatever
+	min_pq = 50		// CC Edit - 50 PQ, falls in line with Hag in terms of requiring RP to ensure quality.
 	max_pq = null
 	antag_job = TRUE
 	allowed_races = RACES_ALL_KINDS

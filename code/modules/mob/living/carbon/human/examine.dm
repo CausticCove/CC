@@ -35,6 +35,10 @@
 	var/origin_name = "<a href='?src=[REF(src)];origin_lore=1'><u>[dna.species.origin]</u></A>"
 	var/datum/antagonist/maniac/maniac = user.mind?.has_antag_datum(/datum/antagonist/maniac)
 	var/datum/antagonist/skeleton/skeleton = user.mind?.has_antag_datum(/datum/antagonist/skeleton)
+	//CC Edit - Roleplay Guidance Pref, whether you encourage PvP and wish to fight others if invited or discourage PvP and wish to avoid fighting,
+			//but does not exempt you from combat or the consequences of your own actions.
+	var/rp_guidance_preference = client?.prefs.rp_guidance
+	//CC Edit End
 	if(maniac && (user != src))
 		race_name = "disgusting pig"
 	if(skeleton && (user != src))
@@ -1077,10 +1081,12 @@
 
 		. += app_str
 
+	/* //Caustic Edit - With the Vice being changed into a Trait and used for Roleplay Guidance, lets get rid of this bit.
 	// Characters with the hunted flaw will freak out if they can't see someone's face.
 	if(!appears_dead)
-		if(skipface && user.has_flaw(/datum/charflaw/hunted) && user != src)
-			user.add_stress(/datum/stressevent/hunted)
+		if(skipface && HAS_TRAIT(user, TRAIT_HUNTED) && user != src)
+			user.add_stress(/datum/stressevent/hunted) */
+	//Caustic Edit End
 
 	if(dna?.species?.type == /datum/species/gnoll)
 		if(istype(user, /mob/living/carbon/human)) //Submitting this one upstream because not our shitcode for once
@@ -1095,6 +1101,17 @@
 
 	if(pose_text)
 		. += fieldset_block("Pose", pose_text, "pose_block")
+	
+	//CC Edit - RP Guidance Text
+	switch(rp_guidance_preference)
+		if(0) //Discourages Conflict
+			. += span_green("This user prefers alternatives to Mechanical Conflict.")
+		if(1) //Encourages Conflict
+			. += span_red("This user is willing to include Mechanical Conflict.")
+		if(2) //Same as normal. This can be changed in the future however if people wish. Encourages Conflict + Hunted.
+			. += span_red("This user is willing to include Mechanical Conflict.")
+		//if(3), this is the default, thus has nothing when it switches to it and shouldn't show anything on examine.
+	//CC Edit End
 
 
 	SEND_SIGNAL(src, COMSIG_PARENT_EXAMINE, user, .)

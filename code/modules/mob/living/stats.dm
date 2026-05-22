@@ -87,6 +87,8 @@
 
 				H.eye_color = "ff0000"
 				H.voice_color = "ff0000"
+	
+	update_sight() //Caustic Edit - Adding in with the Perception effecting Darvision Port
 
 /mob/living/proc/get_stat(stat)
 	if(!stat)
@@ -169,6 +171,7 @@
 			STAPER = newamt
 
 			update_fov_angles()
+			update_sight() //Caustic Edit - Adding in with the Perception effecting Darvision Port
 
 		if(STATKEY_INT)
 			newamt = STAINT + amt
@@ -385,4 +388,5 @@
 	STAWIL = 10
 	STASPD = 10
 	STALUC = 10
+	update_sight() //Caustic Edit - Adding in with the Perception effecting Darvision Port
 	return

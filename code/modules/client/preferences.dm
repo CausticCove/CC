@@ -261,6 +261,10 @@ GLOBAL_LIST_EMPTY(chosen_names)
 	var/audio_preload
 	var/preloaded = FALSE //Bool Check
 
+	//CC Edit - Roleplay Guidance Pref, whether you encourage PvP and wish to fight others if invited or discourage PvP and wish to avoid fighting,
+			//but does not exempt you from combat or the consequences of your own actions.
+	var/rp_guidance = 3 //Defaults to Default by Default. 
+
 /datum/preferences/New(client/C)
 	parent = C
 	migrant  = new /datum/migrant_pref(src)
@@ -759,6 +763,12 @@ GLOBAL_LIST_EMPTY(chosen_names)
 						dat += "<b>[capitalize(i)]:</b> <font color=red> \[IN [days_remaining] DAYS]</font><br>"
 					else
 						dat += "<b>[capitalize(i)]:</b> <a href='?_src_=prefs;preference=be_special;be_special_type=[i]'>[(i in be_special) ? "Enabled" : "Disabled"]</a><br>"
+			//CC Edit - Roleplay Guidance
+			var/hunted = ""
+			if(rp_guidance > 1)
+				hunted = "+ Hunted"
+			dat += "<b>Roleplay Guidance:</b> <a href='?_src_=prefs;preference=roleplay_guidance;task=input'>[rp_guidance ? "PvP Encouraged" : "PvP Discouraged"] [hunted]</a><BR>"
+			//CC Edit End
 			dat += "</td></tr></table>"
 
 		if(2) //OOC Preferences
@@ -2376,6 +2386,47 @@ Slots: [job.spawn_positions] [job.round_contrib_points ? "RCP: +[job.round_contr
 					var/datum/loadout_menu/LM = new(user.client)
 					LM.ui_interact(user)
 					return
+				//CC Edit - Roleplay Guidance, this option should be FALSE BY DEFAULT, to encourage Conflict you MUST go into the Game Settings to enable it.
+				if("roleplay_guidance")
+					var/list/choices = list("Conflict Encouraged + Hunted", "Conflict Encouraged", "Conflict Discouraged", "Default")
+					var/choice = input(user, "Choose your Roleplay Guidance", "CHOOSE") as anything in choices
+
+					to_chat(user, span_notice("Roleplay Guidance is intended to allow players to more easily indicate their desires for Mechanical Conflict, or not. It is expected to only be used to better find other players interested in mechanical antagonism. \
+												It does not allow you to attack anyone without proper escalation, or to avoid combat altogether, the server rules still apply. Failure to follow them may be met with punishment. \
+												\n If a player Discourages Combat, it does not mean they are immune. Their actions can and will still have consequences IC, if you or anyone else so deems it fitting. \
+												If someone has it set to Discouraged and repeatedly escalates situations with their actions or otherwise misuses it, please feel free to adminhelp to let us know, and we can chat with them."))
+												
+					switch(choice)
+						if("Default")
+							to_chat(user, span_warn("I have no strong feelings, one way or the other."))
+							rp_guidance = 3 //The not opted in option and the default.
+
+						if("Conflict Discouraged")
+							to_chat(user, span_green("Conflict Discouraged - Other Players will see that you do not prefer mechanical conflict. This does not mean you are immune to \
+													combat altogether, your actions still can have consequences. This option means that you are less likely to enjoy Mechanical Conflict, and if someone else is searching for a fight, they might be better off with someone else. \
+													It is still partially your duty to de-escalate situations when desired, or to attempt to solve situations through roleplayed means instead. Try to provide other avenues of resolution! \
+													\nOnce again, this does not mean you are immune to mechanical combat. Your actions still have consequences if someone so deems it fitting, and respecting the escalation rules."))
+							rp_guidance = FALSE
+						if("Conflict Encouraged")
+							to_chat(user, span_red("Conflict Encouraged - Other Players will see that you do enjoy engaging in mechanical conflict. It does not mean others are free to attack you without proper escalation, \
+													and for you to attack others without it as well. This option means you enjoy partaking in Mechanical Conflict as part of Roleplay, and those who similarly are looking for a fight may find one with you. \
+													You are still free to escalate or de-escalate situations as you wish, any situation can play out depending on how you interact with it!\
+													\nOnce again, this does not mean you are forced to a mechanical resolution, only that you wish for others to know you are welcoming it. It is still expected that all parties will follow proper escalation rules."))
+							rp_guidance = TRUE
+						if("Conflict Encouraged + Hunted")
+							to_chat(user, span_purple("Conflict Encouraged + Hunted - Other Players will see that you do enjoy engaging in mechanical conflict. It does not mean others are free to attack you without proper escalation, \
+													and for you to attack others without it as well. This option means you enjoy partaking in Mechanical Conflict as part of Roleplay, and those who similarly are looking for a fight may find one with you. \
+													You are still free to escalate or de-escalate situations as you wish, any situation can play out depending on how you interact with it!\
+													\nOnce again, this does not mean you are forced to a mechanical resolution, only that you wish for others to know you are welcoming it. It is still expected that all parties will follow proper escalation rules. \
+													\n\
+													\nSelecting this option, you also opt into the Hunted list! Certain antags may use abilities to seek you out directly. The Hunters still are beholden to the Rules of Escalation, and so do you if you happen to stumble upon them first."))
+							rp_guidance = 2 //Wildcard option to become hunted as we no longer have the Hunted flaw/vice.
+
+					if(!isnewplayer(user))
+						log_admin("[user.ckey] has updated their Roleplay Guidance preference to [choice] whilst in-game.")
+
+					return
+				//CC Edit End
 				if("vampire_hair")
 					var/new_vampirehair = input(user, "Choose your character's vampire hair color:", "Character Preference","#"+vampire_hair) as color|null
 					if(new_vampirehair)
@@ -3086,10 +3137,12 @@ Slots: [job.spawn_positions] [job.round_contrib_points ? "RCP: +[job.round_contr
 			else if(firstspace == name_length)
 				real_name += "[pick(GLOB.last_names)]"
 
-	if(real_name in GLOB.chosen_names)
+	//Caustic Edit - Is this where it kept randomizing names? It might have side effects, but eeeeeh.
+	/*if(real_name in GLOB.chosen_names)
 		character.real_name = pref_species.random_name(gender)
-	else
-		character.real_name = real_name
+	else*/
+	character.real_name = real_name
+	//Caustic Edit End
 	character.name = character.real_name
 
 	character.domhand = domhand

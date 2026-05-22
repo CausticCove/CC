@@ -658,10 +658,6 @@
 /obj/structure/spider/stickyweb,
 /turf/open/floor/rogue/dirt,
 /area/rogue/underworld/dream)
-"lo" = (
-/obj/effect/landmark/start/haglate,
-/turf/open/floor/rogue/twig,
-/area/rogue/indoors/shelter/bog_hag)
 "lq" = (
 /obj/structure/mineral_door/wood/red{
 	lockid = "hag"
@@ -1133,10 +1129,6 @@
 	},
 /turf/open/floor/rogue/underworld/space/quiet/dense,
 /area/rogue)
-"uj" = (
-/obj/effect/hag_teleport_marker,
-/turf/open/floor/rogue/shroud/hag,
-/area/rogue/indoors/shelter/bog_hag/root_maze)
 "uJ" = (
 /obj/structure/table/wood{
 	dir = 10;
@@ -1919,10 +1911,6 @@
 /obj/effect/decal/remains/human,
 /turf/open/floor/rogue/dirt,
 /area/rogue/underworld/dream)
-"RH" = (
-/obj/structure/roguemachine/mossmother/travel,
-/turf/open/floor/rogue/grass,
-/area/rogue/indoors/shelter/bog_hag)
 "RV" = (
 /obj/item/grown/log/tree/stick,
 /turf/open/water/swamp/deep,
@@ -2163,10 +2151,6 @@
 /obj/item/rogueore/iron,
 /turf/open/floor/rogue/dirt/road,
 /area/rogue)
-"XM" = (
-/obj/effect/landmark/start/hag,
-/turf/open/floor/rogue/twig,
-/area/rogue/indoors/shelter/bog_hag)
 "XV" = (
 /turf/open/floor/rogue/underworld/space/sparkle_quiet,
 /area/rogue/indoors/eventarea)
@@ -3887,7 +3871,7 @@ kF
 kF
 Le
 kF
-uj
+kF
 Le
 rQ
 Sn
@@ -6441,7 +6425,7 @@ Fb
 Za
 hK
 oc
-RH
+oc
 wt
 wt
 oc
@@ -7477,9 +7461,9 @@ EU
 EU
 Ub
 Nc
-lo
 gX
-XM
+gX
+gX
 EU
 hK
 aQ

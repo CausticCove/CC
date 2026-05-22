@@ -13,7 +13,7 @@
 	stackable = TRUE
 	softcap = TRUE
 	added_skills = list(list(/datum/skill/craft/crafting, 2, 2))
-	choice_costs = list(0, 20)
+	choice_costs = list(0, 5) // Caustic Edit
 	extra_choices = list(
 		SKILLED_BSMITH,
 		SKILLED_TAILOR,

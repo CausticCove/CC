@@ -312,6 +312,10 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		body_parts_covered_dynamic = body_parts_covered
 	update_transform()
 
+	//CC Edit - Make Walking Sticks be known.
+	if(walking_stick)
+		desc += " (This is a viable walking stick. I can use this to prop myself up if my leg is injured, and walk over rough terrain with ease.)"
+
 
 /obj/item/proc/update_transform()
 	transform = null

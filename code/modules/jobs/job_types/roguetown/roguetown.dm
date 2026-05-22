@@ -93,6 +93,9 @@
 		// Ensure Wretches are granted their antagonist datum at post-equip
 		if(H.mind.assigned_role == "Wretch" && !H.mind.has_antag_datum(/datum/antagonist/wretch))
 			H.mind.add_antag_datum(/datum/antagonist/wretch)
+		//CC Edit - Add this mob to the Hunted List if their prefs allow it.
+		if(H.client.prefs.rp_guidance == 2) //We assume the mob has a client if it has a mind attached.
+			ADD_TRAIT(H, TRAIT_HUNTED, TRAIT_GENERIC)
 
 	for(var/list_key in SStriumphs.post_equip_calls)
 		var/datum/triumph_buy/thing = SStriumphs.post_equip_calls[list_key]
