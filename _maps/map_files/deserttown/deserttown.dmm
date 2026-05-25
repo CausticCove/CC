@@ -4334,7 +4334,7 @@
 /area/rogue/indoors/town/church)
 "bHZ" = (
 /obj/structure/stairs/ccw{
-	dir = 8
+	dir = 4
 	},
 /turf/open/floor/rogue/ruinedwood/spiral,
 /area/rogue/indoors/town/desert)
@@ -11963,7 +11963,7 @@
 /area/rogue/outdoors/town/desert)
 "ezA" = (
 /obj/structure/stairs/ccw{
-	dir = 8
+	dir = 4
 	},
 /obj/structure/fluff/railing/border{
 	dir = 10
@@ -36717,7 +36717,7 @@
 /area/rogue/indoors/town/desert/warden)
 "oEk" = (
 /obj/structure/stairs/ccw{
-	dir = 8
+	dir = 4
 	},
 /turf/open/floor/rogue/wood/nosmooth,
 /area/rogue/indoors/town/desert/warden)
@@ -54190,13 +54190,9 @@
 /turf/open/floor/carpet/purple,
 /area/rogue/indoors/town/church)
 "vsP" = (
-/obj/structure/winch{
-	name = "Ducal Crypt Entrance";
-	redstone_id = "ducalcrypt";
-	gid = "ducalcrypt"
-	},
-/turf/open/floor/rogue/sandbrick,
-/area/rogue/under/cave/dungeon1)
+/obj/structure/stairs/ccw,
+/turf/open/floor/rogue/wood/nosmooth,
+/area/rogue/indoors/town/desert/warden)
 "vsR" = (
 /obj/structure/rack/rogue/shelf/biggest,
 /obj/item/clothing/neck/roguetown/psicross/naledi,
@@ -285630,7 +285626,7 @@ pBm
 sDq
 qmX
 bPd
-vsP
+fum
 pBm
 lbf
 lbf
@@ -625630,7 +625626,7 @@ tJD
 itu
 jBT
 sOm
-oEk
+vsP
 sNM
 kFh
 kFh
