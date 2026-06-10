@@ -1,4 +1,5 @@
 //The vile Vore Monster
+//CC EDIT - UNUSED, WE HAVE OUR OWN VARIANT NOW.
 /mob/living/simple_animal/hostile/retaliate/rogue/headless
 	icon = 'icons/roguetown/mob/monster/lamia.dmi'
 	name = "headless"
@@ -61,9 +62,17 @@
 	var/swallow_cooldown_delay = 30 SECONDS
 
 /mob/living/simple_animal/hostile/retaliate/rogue/headless/Initialize()
+	//Caustic Edit - Attempt to replace all of these mobs with Lamia instead on spawn for now.
+	. = ..()
+	var/mob/living/simple_animal/hostile/retaliate/rogue/lamia/new_lamia = new(src.loc)
+	new_lamia.forceMove(src.loc)
+	del(src)
+
+	/* //Caustic Edit - Replace them with Lamia for now.
 	. = ..()
 	AddComponent(/datum/component/ai_aggro_system)
-	AddElement(/datum/element/ai_flee_while_injured, 0.75, retreat_health)
+	AddElement(/datum/element/ai_flee_while_injured, 0.75, retreat_health)*/
+	//Caustic Edit End
 
 /mob/living/simple_animal/hostile/retaliate/rogue/headless/AttackingTarget()
 	//If its a carbon, your cooldown is up, and your above 30% health you can eat them

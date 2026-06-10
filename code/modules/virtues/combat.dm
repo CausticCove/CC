@@ -108,12 +108,20 @@
 		"Polearm Skill (JMAN)" = /datum/skill/combat/polearms,
 		"Staves Skill (JMAN)" = /datum/skill/combat/staves,
 		"Wrestling Skill (JMAN)" = /datum/skill/combat/wrestling,
+		//Caustic Edit - Add the Ranged options here, too
+		"Bows Skill (JMAN)" = /datum/skill/combat/bows,
+		"Crossbows Skill (JMAN)" = /datum/skill/combat/crossbows,
+		//Caustic Edit End
 		"Stashed Messer & Parrying Dagger" = list(/obj/item/rogueweapon/sword/short/messer/iron/virtue, /obj/item/rogueweapon/huntingknife/idagger/virtue),
 		"Stashed Shield & Arming Sword" = list(/obj/item/rogueweapon/shield/wood, /obj/item/rogueweapon/sword/iron),
 		"Stashed Quarterstaff & Sling" = list(/obj/item/rogueweapon/woodstaff/quarterstaff/iron, /obj/item/gun/ballistic/revolver/grenadelauncher/sling, /obj/item/quiver/sling/iron),
 		"Stashed Spear & Mace" = list(/obj/item/rogueweapon/spear, /obj/item/rogueweapon/mace, /obj/item/rogueweapon/scabbard/gwstrap),
 		"Stashed Katar & Knuckles" = list(/obj/item/rogueweapon/katar/bronze, /obj/item/clothing/gloves/roguetown/knuckles/bronze),
-		"Stashed Axe & Whip" = list(/obj/item/rogueweapon/stoneaxe/woodcut, /obj/item/rogueweapon/whip)
+		"Stashed Axe & Whip" = list(/obj/item/rogueweapon/stoneaxe/woodcut, /obj/item/rogueweapon/whip),
+		//Caustic Edit - Add the Ranged options here, too
+		"Stashed Bow & Quiver" = list(/obj/item/gun/ballistic/revolver/grenadelauncher/bow/recurve, /obj/item/quiver/arrows),
+		"Stashed Crossbow & Quiver" = list(/obj/item/gun/ballistic/revolver/grenadelauncher/crossbow, /obj/item/quiver/bolt/standard)
+		//Caustic Edit End
 	)
 
 /datum/virtue/combat/combat_virtue/apply_to_human(mob/living/carbon/human/recipient)
@@ -128,7 +136,8 @@
 					var/obj/item/I = stuff
 					recipient.mind?.special_items[capitalize(I::name)] = I
 
-/datum/virtue/combat/bowman
+//Caustic Edit - Moved these into the above Trait! Frankly it kinda makes sense.
+/*/datum/virtue/combat/bowman
 	name = "Toxophilite"
 	desc = "I've had an interest in archery from a young age, and I always keep a spare bow and quiver around."
 	custom_text = "+1 to Bows, Up to Legendary, Minimum Apprentice"
@@ -155,7 +164,8 @@
 	if(recipient.get_skill_level(/datum/skill/combat/crossbows) < SKILL_LEVEL_APPRENTICE)
 		recipient.adjust_skillrank_up_to(/datum/skill/combat/crossbows, SKILL_LEVEL_APPRENTICE, silent = TRUE)
 	else
-		added_skills = list(list(/datum/skill/combat/crossbows, 1, 6))
+		added_skills = list(list(/datum/skill/combat/crossbows, 1, 6))*/
+//Caustic Edit End
 
 /datum/virtue/combat/guarded
 	name = "Guarded"

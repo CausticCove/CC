@@ -28,9 +28,7 @@
 	},
 /obj/effect/landmark/start/courtagent,
 /turf/open/floor/rogue/churchrough,
-/area/rogue/underworld{
-	first_time_text = "wayfarer's dream"
-	})
+/area/rogue/underworld/desert)
 "dI" = (
 /obj/structure/table/wood{
 	dir = 1;
@@ -73,9 +71,7 @@
 	pixel_y = -36
 	},
 /turf/closed/mineral/rogue/bedrock,
-/area/rogue/underworld{
-	first_time_text = "wayfarer's dream"
-	})
+/area/rogue/underworld/desert)
 "kd" = (
 /obj/structure/table/wood{
 	dir = 1;
@@ -205,10 +201,8 @@
 /turf/open/floor/rogue/churchrough,
 /area/rogue/underworld/adventurespawn)
 "xp" = (
-/obj/structure/underworld/barrier,
-/obj/structure/underworld/barrier,
 /turf/open/floor/rogue/churchrough,
-/area/rogue/underworld/adventurespawn)
+/area/rogue/underworld/desert)
 "xV" = (
 /obj/structure/bearpelt{
 	alpha = 200;
@@ -287,11 +281,8 @@
 /area/rogue/underworld/adventurespawn)
 "Hm" = (
 /turf/closed/mineral/rogue/bedrock,
-/area/rogue/underworld{
-	first_time_text = "wayfarer's dream"
-	})
+/area/rogue/underworld/desert)
 "Jn" = (
-/obj/structure/underworld/barrier,
 /obj/effect/landmark/start/adventurerlate{
 	dir = 1
 	},
@@ -299,10 +290,10 @@
 /obj/effect/landmark/start/adventurerlate{
 	dir = 1
 	},
+/obj/effect/landmark/start/wildsoul,
+/obj/effect/landmark/start/wildsoullate,
 /turf/open/floor/rogue/churchrough,
-/area/rogue/underworld{
-	first_time_text = "wayfarer's dream"
-	})
+/area/rogue/underworld/desert)
 "JE" = (
 /turf/closed/wall/mineral/rogue/wooddark,
 /area/rogue/underworld/adventurespawn)
@@ -349,7 +340,6 @@
 /turf/open/floor/rogue/churchrough,
 /area/rogue/underworld/adventurespawn)
 "Pk" = (
-/obj/structure/underworld/barrier,
 /obj/effect/landmark/start/adventurerlate{
 	dir = 1
 	},
@@ -360,10 +350,10 @@
 /obj/effect/landmark/start/adventurerlate{
 	dir = 1
 	},
+/obj/effect/landmark/start/wildsoul,
+/obj/effect/landmark/start/wildsoullate,
 /turf/open/floor/rogue/churchrough,
-/area/rogue/underworld{
-	first_time_text = "wayfarer's dream"
-	})
+/area/rogue/underworld/desert)
 "QK" = (
 /obj/structure/flora/roguetree/underworld,
 /turf/open/floor/rogue/churchrough,
@@ -375,9 +365,7 @@
 "Rt" = (
 /obj/structure/underworld/barrier,
 /turf/open/floor/rogue/churchrough,
-/area/rogue/underworld{
-	first_time_text = "wayfarer's dream"
-	})
+/area/rogue/underworld/desert)
 "RB" = (
 /obj/machinery/light/rogue/lanternpost,
 /turf/open/floor/rogue/underworld/road,
@@ -405,6 +393,23 @@
 	},
 /turf/open/floor/rogue/churchrough,
 /area/rogue/underworld/adventurespawn)
+"UY" = (
+/obj/effect/landmark/start/adventurerlate{
+	dir = 1
+	},
+/obj/effect/landmark/start/courtagent,
+/obj/effect/landmark/start/adventurerlate{
+	dir = 1
+	},
+/obj/effect/landmark/start/adventurerlate{
+	dir = 1
+	},
+/obj/effect/landmark/start/wildsoul,
+/obj/effect/landmark/start/wildsoullate,
+/obj/effect/landmark/start/wildsoullate,
+/obj/effect/landmark/start/wildsoul,
+/turf/open/floor/rogue/churchrough,
+/area/rogue/underworld/desert)
 "VA" = (
 /turf/closed/wall/mineral/rogue/decowood,
 /area/rogue/underworld/adventurespawn)
@@ -786,10 +791,10 @@ Ta
 MR
 Xc
 Aa
-xp
-VB
-VB
-Al
+Ta
+Ta
+Ta
+MR
 Dm
 fM
 "}
@@ -815,10 +820,10 @@ Ta
 MR
 MR
 LF
+xp
 Rt
 Rt
-Rt
-Al
+MR
 Dm
 fM
 "}
@@ -847,7 +852,7 @@ MR
 Jn
 Hm
 Rt
-Al
+MR
 Dm
 fM
 "}
@@ -876,7 +881,7 @@ MR
 Pk
 iY
 Rt
-Al
+MR
 Dm
 fM
 "}
@@ -902,10 +907,10 @@ MR
 MR
 MR
 MR
-Pk
+UY
 dA
 dA
-Al
+MR
 Dm
 fM
 "}
@@ -934,7 +939,7 @@ MR
 Ta
 Ta
 Ta
-Al
+MR
 Dm
 fM
 "}

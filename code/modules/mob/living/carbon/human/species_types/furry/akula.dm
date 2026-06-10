@@ -98,11 +98,11 @@
 		/datum/customizer/organ/ears/axian,
 		/datum/customizer/organ/testicles/anthro,
 		/datum/customizer/organ/penis/anthro,
-		/datum/customizer/organ/breasts/human,
+		/datum/customizer/organ/breasts/animal,
 		/datum/customizer/organ/vagina/human_anthro,
 		//Caustic edit - If the chest is human, so is the butt?
 		/datum/customizer/organ/belly/animal,
-		/datum/customizer/organ/butt/human,
+		/datum/customizer/organ/butt/animal,
 		//Caustic edit end
 		)
 	body_marking_sets = list(
@@ -139,6 +139,8 @@
 		/datum/descriptor_choice/prominent_two,
 		/datum/descriptor_choice/prominent_three,
 		/datum/descriptor_choice/prominent_four,
+		/datum/descriptor_choice/prominent_five,
+		/datum/descriptor_choice/prominent_six
 	)
 
 /datum/species/akula/check_roundstart_eligible()

@@ -156,6 +156,7 @@ GLOBAL_LIST_EMPTY(chosen_names)
 	var/no_language_fonts = FALSE
 	var/no_language_icon = FALSE
 	var/no_redflash = FALSE
+	var/darkvision_accessibility = 0
 
 	var/lastclass
 
@@ -261,6 +262,7 @@ GLOBAL_LIST_EMPTY(chosen_names)
 	var/audio_preload
 	var/preloaded = FALSE //Bool Check
 
+	var/datum/tat_build/tat_build //CC + TA edit
 	//CC Edit - Roleplay Guidance Pref, whether you encourage PvP and wish to fight others if invited or discourage PvP and wish to avoid fighting,
 			//but does not exempt you from combat or the consequences of your own actions.
 	var/rp_guidance = 3 //Defaults to Default by Default. 
@@ -269,6 +271,7 @@ GLOBAL_LIST_EMPTY(chosen_names)
 	parent = C
 	migrant  = new /datum/migrant_pref(src)
 	familiar_prefs = new /datum/familiar_prefs(src)
+	tat_build = new(src) //CC + TA edit
 
 	for(var/custom_name_id in GLOB.preferences_custom_names)
 		custom_names[custom_name_id] = get_default_name(custom_name_id)
@@ -718,7 +721,7 @@ GLOBAL_LIST_EMPTY(chosen_names)
 			dat += "<br><B>NSFW Image Gallery:</b> <a href='?_src_=prefs;preference=nsfw_img_gallery;task=input'>Add</a>"
 			dat += "<a href='?_src_=prefs;preference=clear_nsfw_gallery;task=input'>Clear Gallery</a>"
 			dat += "<br><a href='?_src_=prefs;preference=ooc_preview;task=input'><b>Preview Examine</b></a>"
-
+			dat += "<br><b>Pliant Soul Settings:</b> <a href='?_src_=prefs;preference=tat_build;task=input'>Change</a>" //CC + TA edit
 			dat += "<br><b>Loadout:</b> <a href='?_src_=prefs;preference=open_loadout;task=input'>Open Menu</a>"
 			dat += "</td>"
 			dat += "</td>"
@@ -2386,6 +2389,11 @@ Slots: [job.spawn_positions] [job.round_contrib_points ? "RCP: +[job.round_contr
 					var/datum/loadout_menu/LM = new(user.client)
 					LM.ui_interact(user)
 					return
+								
+				//CC + TA edit
+				if("tat_build")
+					tat_build.ui_interact(user)
+				//CC + TA edit end
 				//CC Edit - Roleplay Guidance, this option should be FALSE BY DEFAULT, to encourage Conflict you MUST go into the Game Settings to enable it.
 				if("roleplay_guidance")
 					var/list/choices = list("Conflict Encouraged + Hunted", "Conflict Encouraged", "Conflict Discouraged", "Default")

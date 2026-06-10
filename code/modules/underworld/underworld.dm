@@ -5,17 +5,18 @@
 	item_state = "shrunkenlamp"
 	lefthand_file = 'icons/roguetown/underworld/enigma_husks.dmi'
 	righthand_file = 'icons/roguetown/underworld/enigma_husks.dmi'
-	light_outer_range = 4
 	light_power = 20
+	
+	//CC Edited - Made this work.
+	light_outer_range = 4
+	light_inner_range = 3
 	light_color = LIGHT_COLOR_BLOOD_MAGIC
 
 /obj/item/flashlight/lantern/shrunken/update_brightness(mob/user = null)
 	if(on)
-		icon_state = "[initial(icon_state)]-on"
-		set_light(3, 3, 20, l_color = LIGHT_COLOR_BLOOD_MAGIC)
+		icon_state = "[initial(icon_state)]-on" //CC Edited - Made this work.
 	else
 		icon_state = initial(icon_state)
-		set_light(0)
 
 /obj/structure/underworld/carriageman
 	name = "The Ferryman"

@@ -7,6 +7,7 @@
 	icon = 'modular_rmh/icons/clothing/vladegeg/courtesan.dmi'
 	mob_overlay_icon = 'modular_rmh/icons/clothing/vladegeg/onmob/courtesan.dmi'
 	sleeved = 'modular_rmh/icons/clothing/vladegeg/onmob/helpers/courtesan_sleeves.dmi'
+	salvage_amount = 2
 	flags_inv = HIDECROTCH|HIDEBOOB
 
 //CRAFTING

@@ -47,6 +47,14 @@
 	AIStatus = AI_OFF
 	can_have_ai = FALSE
 	ai_controller = /datum/ai_controller/generic
+	//Caustic Edit - Add in missing food_types for mobs that are attempting to run find food
+	food_type = list(/obj/item/reagent_containers/food/snacks/deadmouse,
+					/obj/item/reagent_containers/food/snacks/smallrat,
+					/obj/item/reagent_containers/food/snacks/rogue/meat/fish,
+					/obj/item/reagent_containers/food/snacks/rogue/fryfish,
+					/obj/item/reagent_containers/food/snacks/fish,
+					)
+	//Caustic Edit End
 
 	// Loot
 	botched_butcher_results = list(/obj/item/reagent_containers/food/snacks/rogue/meat = 1)
@@ -58,3 +66,9 @@
 	mob_size = MOB_SMALL
 	footstep_type = FOOTSTEP_MOB_CLAW
 	gold_core_spawnable = FRIENDLY_SPAWN
+
+//Caustic Edit - Let cats eat fish and rats
+/mob/living/simple_animal/hostile/retaliate/rogue/cat/Initialize()
+	. = ..()
+	ai_controller.set_blackboard_key(BB_BASIC_FOODS, food_type)
+//Caustic Edit End

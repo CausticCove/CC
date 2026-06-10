@@ -18,7 +18,8 @@ import type { KeyEvent } from 'tgui-core/events';
 import { KEY_ALT } from 'tgui-core/keycodes';
 import { type BooleanLike, classes } from 'tgui-core/react';
 import { decodeHtmlEntities } from 'tgui-core/string';
-import { useBackend } from '../backend';
+import {  backendSuspendStart, globalStore, useBackend } from '../backend';
+import { useDebug } from '../debug';
 import {
   dragStartHandler,
   recallWindowGeometry,

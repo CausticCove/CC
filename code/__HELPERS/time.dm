@@ -37,6 +37,12 @@ GLOBAL_VAR_INIT(date_override_offset, 0)
 /proc/settod()
 	var/time = station_time()
 	var/oldtod = GLOB.tod
+	
+	//CC Edit - Desert Map
+	var/desert = FALSE
+	if(SSmapping.config.map_name == "Desert Town")
+		desert = TRUE //We're the desert map.
+
 	if(time >= SSnightshift.nightshift_start_time || time <= SSnightshift.nightshift_dawn_start)
 		GLOB.tod = "night"
 	else if(time > SSnightshift.nightshift_dawn_start && time <= SSnightshift.nightshift_day_start)
@@ -51,33 +57,59 @@ GLOBAL_VAR_INIT(date_override_offset, 0)
 		if(!GLOB.forecast)
 			switch(GLOB.tod)
 				if("dawn")
-					if(prob(25))
-						GLOB.forecast = PARTICLEWEATHER_RAIN
-					if(prob(20) && (SSgamemode.current_storyteller.name == "Eora"))
-						GLOB.forecast = PARTICLEWEATHER_SAKURA
+					//CC Edit - Desert Map
+					if(desert)
+						if(prob(10))
+							GLOB.forecast = PARTICLEWEATHER_RAIN
+					else
+						if(prob(25))
+							GLOB.forecast = PARTICLEWEATHER_RAIN
+						if(prob(20) && (SSgamemode.current_storyteller.name == "Eora"))
+							GLOB.forecast = PARTICLEWEATHER_SAKURA
 				if("day")
-					if(prob(20))
-						GLOB.forecast = PARTICLEWEATHER_RAIN
-					if(prob(30))
-						GLOB.forecast = PARTICLEWEATHER_LEAVES
-					if(prob(20) && (SSgamemode.current_storyteller.name == "Eora"))
-						GLOB.forecast = PARTICLEWEATHER_SAKURA
+					//CC Edit - Desert Map
+					if(desert)
+						if(prob(1))
+							GLOB.forecast = PARTICLEWEATHER_RAIN
+					else
+						if(prob(20))
+							GLOB.forecast = PARTICLEWEATHER_RAIN
+						if(prob(30))
+							GLOB.forecast = PARTICLEWEATHER_LEAVES
+						if(prob(20) && (SSgamemode.current_storyteller.name == "Eora"))
+							GLOB.forecast = PARTICLEWEATHER_SAKURA
 				if("dusk")
-					if(prob(30))
-						GLOB.forecast = PARTICLEWEATHER_RAIN
-					if(prob(20))
-						GLOB.forecast = PARTICLEWEATHER_LEAVES
+					//CC Edit - Desert Map
+					if(desert)
+						if(prob(10))
+							GLOB.forecast = PARTICLEWEATHER_RAIN
+					else
+						if(prob(30))
+							GLOB.forecast = PARTICLEWEATHER_RAIN
+						if(prob(20))
+							GLOB.forecast = PARTICLEWEATHER_LEAVES
 				if("night")
-					if(prob(40))
-						GLOB.forecast = PARTICLEWEATHER_RAIN
-					if(prob(20))
-						GLOB.forecast = PARTICLEWEATHER_LEAVES
-					if(prob(40) && (SSgamemode.current_storyteller.name == "Zizo" || SSgamemode.current_storyteller.name == "Graggar"))
-						GLOB.forecast = PARTICLEWEATHER_BLOODRAIN
+					//CC Edit - Desert Map
+					if(desert)
+						if(prob(15)) //Make rain the most common at night when things have cooled off. Blood rain occurs more favorably.
+							GLOB.forecast = PARTICLEWEATHER_RAIN
+						if(prob(33) && (SSgamemode.current_storyteller.name == "Zizo" || SSgamemode.current_storyteller.name == "Graggar"))
+							GLOB.forecast = PARTICLEWEATHER_BLOODRAIN
+					else
+						if(prob(40))
+							GLOB.forecast = PARTICLEWEATHER_RAIN
+						if(prob(20))
+							GLOB.forecast = PARTICLEWEATHER_LEAVES
+						if(prob(40) && (SSgamemode.current_storyteller.name == "Zizo" || SSgamemode.current_storyteller.name == "Graggar"))
+							GLOB.forecast = PARTICLEWEATHER_BLOODRAIN
 			if(GLOB.forecast != SSParticleWeather?.runningWeather?.target_trait)
 				switch(GLOB.forecast)
 					if(PARTICLEWEATHER_RAIN)
-						SSParticleWeather?.run_weather(pick(/datum/particle_weather/rain_gentle, /datum/particle_weather/rain_storm,/datum/particle_weather/fog))
+						//CC Edit - Desert Map
+						if(desert)
+							SSParticleWeather?.run_weather(pick(/datum/particle_weather/rain_gentle, /datum/particle_weather/rain_storm))
+						else
+							SSParticleWeather?.run_weather(pick(/datum/particle_weather/rain_gentle, /datum/particle_weather/rain_storm,/datum/particle_weather/fog))
 					if(PARTICLEWEATHER_LEAVES)
 						SSParticleWeather?.run_weather(pick(/datum/particle_weather/leaves_gentle, /datum/particle_weather/leaves_storm))
 					if(PARTICLEWEATHER_BLOODRAIN)
@@ -88,7 +120,7 @@ GLOBAL_VAR_INIT(date_override_offset, 0)
 		else
 			switch(GLOB.forecast) //end the weather now
 				if(PARTICLEWEATHER_RAIN)
-					if(GLOB.tod == "day")
+					if(GLOB.tod == "day"  && !desert) //CC Edit - Desert Map
 						GLOB.forecast = PARTICLEWEATHER_LEAVES
 					else
 						GLOB.forecast = null

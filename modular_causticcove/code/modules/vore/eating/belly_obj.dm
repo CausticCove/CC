@@ -974,7 +974,7 @@
 		M.enabled = FALSE
 		M.forceMove(G)
 	else
-		qdel(M)
+		qdel(M) //This bit right here keeps doing a "bad del" on carbon mobs that people eat? I don't know why. I've seen a lot of goblins so far...
 	
 	owner.handle_belly_update()
 

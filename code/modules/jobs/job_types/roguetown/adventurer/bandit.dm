@@ -16,7 +16,7 @@
 
 	display_order = JDO_BANDIT
 	announce_latejoin = FALSE
-	min_pq = 40 //CC Edit - 40 Min PQ as opposed to 3 PQ Default
+	min_pq = 20 //CC Edit - 20 Min PQ as opposed to 3 PQ Default
 	max_pq = null
 	round_contrib_points = 5
 

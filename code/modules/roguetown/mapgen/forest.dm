@@ -8,7 +8,7 @@
 
 
 /datum/mapGenerator/forest
-	modules = list(/datum/mapGeneratorModule/forestgrassturf,/datum/mapGeneratorModule/forest,/datum/mapGeneratorModule/forestroad,/datum/mapGeneratorModule/forestgrass)
+	modules = list(/datum/mapGeneratorModule/forestgrassturf,/datum/mapGeneratorModule/forest,/datum/mapGeneratorModule/forestroad,/datum/mapGeneratorModule/forestgrass,/datum/mapGeneratorModule/forest_wretch,/datum/mapGeneratorModule/forestgrass_wretch) //Caustic Edit - Add generators for the Wretch Coast Map to remove the Maneaters
 
 
 /datum/mapGeneratorModule/forest
@@ -33,6 +33,7 @@
 	spawnableTurfs = list(/turf/open/floor/rogue/dirt/road=2,
 						/turf/open/water/swamp=1)
 	allowed_areas = list(/area/rogue/outdoors/woods)
+	excluded_areas = list(/area/rogue/outdoors/woods/wretch_lair, /area/rogue/outdoors/woods/vampire_lair) //Caustic Edit - Prevent Maneaters in the Vamp Manor and Wretch Coast
 
 /datum/mapGeneratorModule/forestroad
 	clusterCheckFlags = CLUSTER_CHECK_DIFFERENT_ATOMS
@@ -51,6 +52,7 @@
 	allowed_turfs = list(/turf/open/floor/rogue/grass, /turf/open/floor/rogue/grassred, /turf/open/floor/rogue/grassyel, /turf/open/floor/rogue/grasscold)
 	excluded_turfs = list()
 	allowed_areas = list(/area/rogue/outdoors/woods)
+	excluded_areas = list(/area/rogue/outdoors/woods/wretch_lair, /area/rogue/outdoors/woods/vampire_lair) //Caustic Edit - Prevent Maneaters in the Vamp Manor and Wretch Coast
 	spawnableAtoms = list(/obj/structure/flora/roguetree = 30,
 							/obj/structure/flora/roguetree/wise=1,
 							/obj/structure/flora/roguegrass/bush = 25,
@@ -65,3 +67,48 @@
 							/obj/item/grown/log/tree/stick = 3,
 							/obj/structure/flora/roguetree/stump/log = 3,
 							/obj/effect/hunting_track = 2)
+
+//Caustic Edit - Add unique generators for the Coast and Vamp Manor
+/datum/mapGeneratorModule/forest_wretch
+	clusterCheckFlags = CLUSTER_CHECK_DIFFERENT_ATOMS
+	allowed_turfs = list(/turf/open/floor/rogue/dirt)
+	excluded_turfs = list(/turf/open/floor/rogue/dirt/road)
+	spawnableAtoms = list(/obj/structure/flora/newtree = 30,
+							/obj/structure/flora/roguegrass/bush = 25,
+							/obj/structure/flora/roguegrass = 200,
+							/obj/structure/flora/roguegrass/herb/random = 7,
+							/obj/structure/flora/roguegrass/herb/wild/random/grove = 4,
+							/obj/structure/flora/roguegrass/bush/westleach = 7,
+							/obj/structure/flora/roguegrass/maneater = 13,
+							/obj/structure/flora/roguegrass/pyroclasticflowers = 3,
+							/obj/item/natural/stone = 23,
+							/obj/item/natural/rock = 6,
+							/obj/item/grown/log/tree/stick = 16,
+							/obj/structure/flora/roguetree/stump/log = 3,
+							/obj/structure/flora/roguetree/stump = 4,
+							/obj/structure/closet/dirthole/closed/loot=3,
+							/obj/effect/hunting_track = 3)
+	spawnableTurfs = list(/turf/open/floor/rogue/dirt/road=2,
+						/turf/open/water/swamp=1)
+	allowed_areas = list(/area/rogue/outdoors/woods/wretch_lair, /area/rogue/outdoors/woods/vampire_lair)
+
+/datum/mapGeneratorModule/forestgrass_wretch
+	clusterCheckFlags =  CLUSTER_CHECK_SAME_ATOMS
+	allowed_turfs = list(/turf/open/floor/rogue/grass, /turf/open/floor/rogue/grassred, /turf/open/floor/rogue/grassyel, /turf/open/floor/rogue/grasscold)
+	excluded_turfs = list()
+	allowed_areas = list(/area/rogue/outdoors/woods/wretch_lair, /area/rogue/outdoors/woods/vampire_lair)
+	spawnableAtoms = list(/obj/structure/flora/roguetree = 30,
+							/obj/structure/flora/roguetree/wise=1,
+							/obj/structure/flora/roguegrass/bush = 25,
+							/obj/structure/flora/roguegrass = 200,
+							/obj/structure/flora/roguegrass/pumpkin = 4,
+							/obj/structure/flora/roguegrass/herb/random = 7,
+							/obj/structure/flora/roguegrass/herb/wild/random/grove = 4,
+							/obj/structure/flora/roguegrass/bush/westleach = 7,
+							/obj/structure/flora/roguegrass/maneater = 13,
+							/obj/item/natural/stone = 6,
+							/obj/item/natural/rock = 1,
+							/obj/item/grown/log/tree/stick = 3,
+							/obj/structure/flora/roguetree/stump/log = 3,
+							/obj/effect/hunting_track = 2)
+//Caustic Edit End

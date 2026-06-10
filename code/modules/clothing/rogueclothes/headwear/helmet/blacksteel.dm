@@ -71,7 +71,7 @@
 	chunkcolor = "#303036"
 	sellprice = 150 //CC Edit
 	material_category = ARMOR_MAT_PLATE
-	armor_class = ARMOR_CLASS_MEDIUM
+	armor_class = ARMOR_CLASS_LIGHT //CCedit drip or drown
 
 /obj/item/clothing/head/roguetown/helmet/blacksteel/ComponentInitialize()
 	AddComponent(/datum/component/armour_filtering/negative, TRAIT_FENCERDEXTERITY)

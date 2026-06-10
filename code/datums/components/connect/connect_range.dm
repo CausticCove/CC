@@ -93,7 +93,8 @@
 	unregister_signals(old_loc, old_turfs - turfs)
 	for(var/turf/target_turf as anything in turfs - old_turfs)
 		for(var/signal in connections)
-			parent.RegisterSignal(target_turf, signal, connections[signal])
+			if(parent)
+				parent.RegisterSignal(target_turf, signal, connections[signal])
 
 /datum/component/connect_range/proc/unregister_signals(atom/location, list/remove_from)
 	//The location is null or is a container and the component shouldn't have register signals on it
@@ -109,7 +110,8 @@
 	if(!length(remove_from))
 		return
 	for(var/turf/target_turf as anything in remove_from)
-		parent.UnregisterSignal(target_turf, connections)
+		if(parent)
+			parent.UnregisterSignal(target_turf, connections)
 
 /datum/component/connect_range/proc/on_moved(atom/movable/movable, atom/old_loc)
 	SIGNAL_HANDLER

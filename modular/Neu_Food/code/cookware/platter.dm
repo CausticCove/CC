@@ -50,7 +50,7 @@ What it does:
 			user.visible_message(span_notice("[user] starts to brush the [name] with [brush]."))
 			if(do_after(user, 3 SECONDS, target = src))
 				if(!glazed)
-					var/list/designlist = list("painted", "brown", "porcelain", "shattergold", "bluegold") // Might need some changes in the future if people want to add glazeable/paintable things with different patterns
+					var/list/designlist = list("painted", "baked", "porcelain", "shattergold", "bluegold") // Might need some changes in the future if people want to add glazeable/paintable things with different patterns
 					var/design = tgui_input_list(user, "Select a design.","Ceramics Design", designlist)
 					if(!design) // If no design and no paint so it doesn't go invisible
 						to_chat(user, span_notice("You change your mind on how to glaze the [name]."))
@@ -64,8 +64,8 @@ What it does:
 							to_chat(user, span_notice("I paint the [name] with the dye brush. Perhaps it is time for a detailed glaze?")) // You can paint, then glaze, but after glazing, you're done
 							update_icon()
 							return
-						if ("brown")
-							desc += " Glazed and marked to mimic unfired clay."
+						if ("baked")
+							desc += " Glazed and marked to mimic rough brown clay."
 						if ("porcelain")
 							desc += " Gilded and coated in white glaze. This is fit for nobility."
 						if ("shattergold")

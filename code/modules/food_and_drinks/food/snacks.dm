@@ -199,7 +199,7 @@ All foods are distributed among various categories. Use common sense.
 	if(QDELETED(src) || !loc)
 		return FALSE
 
-	//var/turf/fallback_turf = get_turf(src) //Caustic Edit - Not used, might've been a merge mistake, sorry! - Jon
+	var/turf/fallback_turf = get_turf(src)
 	if(isturf(loc) && istype(get_area(src),/area/rogue/under/town/sewer))
 		if(!istype(src,/obj/item/reagent_containers/food/snacks/smallrat))
 			new /obj/item/reagent_containers/food/snacks/smallrat(loc)
@@ -214,7 +214,6 @@ All foods are distributed among various categories. Use common sense.
 				NU.reagents.clear_reagents()
 			if(reagents && NU.reagents)
 				reagents.trans_to(NU.reagents, reagents.maximum_volume)
-			qdel(src)
 			if(!location || !SEND_SIGNAL(location, COMSIG_TRY_STORAGE_INSERT, NU, null, TRUE, TRUE))
 				//Caustic Edit - See if this fixes the Cheese Aging in a parcel dropping it on the ground? Otherwise does what it did before!
 				if(istype(location, /obj/item/parcel))
@@ -223,8 +222,9 @@ All foods are distributed among various categories. Use common sense.
 					package.contained_items += NU
 					NU.forceMove(package)
 				else
-					NU.forceMove(get_turf(NU.loc))
+					NU.forceMove(fallback_turf)
 				//Caustic Edit End
+			qdel(src)
 			record_round_statistic(STATS_FOOD_ROTTED)
 			return TRUE
 	else

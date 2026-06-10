@@ -111,3 +111,33 @@
 
 /datum/mob_descriptor/voice/laconic
 	name = "Laconic"
+
+/datum/mob_descriptor/voice/rabid
+	name = "Rabid"
+
+/datum/mob_descriptor/voice/rousley
+	name = "Rous-ley"
+
+/datum/mob_descriptor/voice/angelic
+	name = "Angelic"
+
+/datum/mob_descriptor/voice/brassy
+	name = "Brassy"
+
+/datum/mob_descriptor/voice/ghostly
+	name = "Ghostly"
+
+/datum/mob_descriptor/voice/accented
+	name = "Accented"
+
+/datum/mob_descriptor/voice/feral
+	name = "Feral"
+
+/datum/mob_descriptor/voice/weepy
+	name = "Weepy"
+
+/datum/mob_descriptor/voice/pained
+	name = "Pained"
+
+/datum/mob_descriptor/voice/annoyed
+	name = "Annoyed"

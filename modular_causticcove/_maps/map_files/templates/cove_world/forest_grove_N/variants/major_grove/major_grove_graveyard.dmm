@@ -195,7 +195,7 @@
 /area/rogue/underworld/graveyard)
 "pu" = (
 /obj/structure/closet/dirthole/grave,
-/obj/item/roguegem/random,
+/obj/effect/spawner/lootdrop/roguegem/random,
 /turf/open/floor/rogue/dirt,
 /area/rogue/underworld/graveyard)
 "pN" = (

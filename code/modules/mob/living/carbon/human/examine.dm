@@ -76,6 +76,8 @@
 		on_examine_face(user)
 		var/used_name = name
 		var/used_title = get_role_title()
+		if(tat_pliant_title) // CC + TA edit
+			used_title = tat_pliant_title // CC + TA edit
 		if(SSticker.regentmob == src)
 			used_title = "[used_title]" + " Regent"
 		var/display_as_wanderer = FALSE
@@ -100,14 +102,14 @@
 			displayed_headshot = src.headshot_link
 
 		if ((valid_headshot_link(src, displayed_headshot, TRUE)) && (user.client?.prefs.chatheadshot))
-			if(display_as_wanderer)
+			if(display_as_wanderer && !tat_pliant_title) // CC + TA edit
 				. = list(span_info("ø ------------ ø\n<img src=[displayed_headshot] width=100 height=100/>\nThis is <EM>[used_name]</EM>, the wandering [race_name]."))
 			else if(used_title)
 				. = list(span_info("ø ------------ ø\n<img src=[displayed_headshot] width=100 height=100/>\nThis is <EM>[used_name]</EM>, the [race_name] [used_title]."))
 			else
 				. = list(span_info("ø ------------ ø\n<img src=[displayed_headshot] width=100 height=100/>\nThis is the <EM>[used_name]</EM>, the [race_name]."))
 		else
-			if(display_as_wanderer)
+			if(display_as_wanderer && !tat_pliant_title) // CC + TA edit
 				. = list(span_info("ø ------------ ø\nThis is <EM>[used_name]</EM>, the wandering [race_name]."))
 			else if(used_title)
 				. = list(span_info("ø ------------ ø\nThis is <EM>[used_name]</EM>, the [race_name] [used_title]."))

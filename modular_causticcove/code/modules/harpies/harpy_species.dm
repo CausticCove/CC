@@ -144,6 +144,8 @@
 		/datum/descriptor_choice/prominent_two_wild,
 		/datum/descriptor_choice/prominent_three_wild,
 		/datum/descriptor_choice/prominent_four_wild,
+		/datum/descriptor_choice/prominent_five_wild,
+		/datum/descriptor_choice/prominent_six
 	)
 
 /datum/species/harpy/get_hairc_list()

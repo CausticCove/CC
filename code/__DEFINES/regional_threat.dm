@@ -26,3 +26,11 @@
 
 /// Conversion: one "band" in the Noticeboard IC description equals this many threat points.
 #define THREAT_POINTS_PER_BAND 50
+
+//CC Edit - Desert Map
+#define THREAT_REGION_DESERT_TOWN "Town" //Inside the town
+#define THREAT_REGION_DESERT_TOWN_CAVES "Lower Caverns" //The Caverns within the town
+#define THREAT_REGION_INNER_DUNES "Inner Dunes" //Close to the town
+#define THREAT_REGION_FRESH_RIVER "River"	//Closest to the town, mostly near the soilsons.
+#define THREAT_REGION_DEEP_DUNES "Deep Dunes" //Far from the town
+#define THREAT_REGION_DESERT_UNDERDARK "Underdark" //Desert Map's underdark

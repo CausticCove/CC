@@ -7,6 +7,7 @@
 	mob_overlay_icon = 'modular_rmh/icons/clothing/vladegeg/onmob/sophisticated.dmi'
 	sleeved = 'modular_rmh/icons/clothing/vladegeg/onmob/helpers/sophisticated_sleeves.dmi'
 	slot_flags = ITEM_SLOT_SHIRT | ITEM_SLOT_ARMOR
+	salvage_amount = 2
 
 /obj/item/clothing/suit/roguetown/armor/gambeson/upperclass_coat
 	name = "Upperclass Coat"
@@ -17,6 +18,7 @@
 	mob_overlay_icon = 'modular_rmh/icons/clothing/vladegeg/onmob/sophisticated.dmi'
 	sleeved = 'modular_rmh/icons/clothing/vladegeg/onmob/helpers/sophisticated_sleeves.dmi'
 	slot_flags = ITEM_SLOT_ARMOR | ITEM_SLOT_CLOAK
+	salvage_result = /obj/item/natural/fur
 
 //CRAFTING
 

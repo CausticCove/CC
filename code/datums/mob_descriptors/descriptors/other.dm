@@ -50,6 +50,14 @@
 			adjective = "an average"
 		if(3)
 			adjective = "a large"
+		if(4)
+			adjective = "an extra-large"
+		if(5)
+			adjective = "a massive"
+		if(6)
+			adjective = "an enormous"
+		if(7)
+			adjective = "a downright Baothan"
 	var/list/arousal_data = list()
 	SEND_SIGNAL(H, COMSIG_SEX_GET_AROUSAL, arousal_data)
 	switch(arousal_data["arousal"])

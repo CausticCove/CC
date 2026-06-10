@@ -140,6 +140,8 @@
 		/datum/descriptor_choice/prominent_two,
 		/datum/descriptor_choice/prominent_three,
 		/datum/descriptor_choice/prominent_four,
+		/datum/descriptor_choice/prominent_five,
+		/datum/descriptor_choice/prominent_six
 	)
 
 /datum/species/moth/check_roundstart_eligible()

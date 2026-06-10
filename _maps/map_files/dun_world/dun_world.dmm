@@ -16340,7 +16340,7 @@
 /turf/open/floor/rogue/ruinedwood/spiral,
 /area/rogue/outdoors/rtfield/eora)
 "dsP" = (
-/obj/structure/leyline/normal/coast,
+/obj/structure/leyline,
 /turf/open/floor/rogue/grass,
 /area/rogue/outdoors/beach/forest/south)
 "dte" = (
@@ -28591,7 +28591,7 @@
 /turf/open/floor/rogue/dirt,
 /area/rogue/indoors/cave/southern)
 "fQs" = (
-/obj/structure/leyline/powerful,
+/obj/structure/leyline,
 /turf/open/water/swamp/deep,
 /area/rogue/outdoors/bog/south)
 "fQx" = (
@@ -48908,7 +48908,7 @@
 /turf/open/floor/rogue/tile/brick,
 /area/rogue/outdoors/town/roofs)
 "jSi" = (
-/obj/structure/leyline/tamed,
+/obj/structure/leyline,
 /turf/open/floor/rogue/wood/nosmooth,
 /area/rogue/indoors/town/dwarfin)
 "jSl" = (
@@ -56602,7 +56602,7 @@
 "lpl" = (
 /mob/living/simple_animal/hostile/retaliate/rogue/infernal/watcher,
 /obj/effect/decal/cleanable/roguerune/arcyne/summoning/max,
-/obj/structure/leyline/normal/decap,
+/obj/structure/leyline,
 /turf/open/floor/rogue/church,
 /area/rogue/under/cave/goblinfort)
 "lpq" = (
@@ -73151,7 +73151,7 @@
 /turf/open/floor/rogue/dirt,
 /area/rogue/outdoors/rtfield)
 "oHr" = (
-/obj/structure/leyline/tamed,
+/obj/structure/leyline,
 /turf/open/floor/rogue/church,
 /area/rogue/indoors/town/magician)
 "oHw" = (
@@ -85183,7 +85183,7 @@
 /turf/open/floor/rogue/cobble/mossy,
 /area/rogue/under/cave/his_vault/four)
 "qZR" = (
-/obj/structure/leyline/normal/grove,
+/obj/structure/leyline,
 /turf/open/floor/rogue/greenstone,
 /area/rogue/outdoors/woods/southeast)
 "qZS" = (
@@ -87113,7 +87113,7 @@
 /turf/open/floor/rogue/naturalstone,
 /area/rogue/outdoors/mountains/decap/gunduzirak)
 "rvh" = (
-/obj/structure/flora/rogueshroom/happy/random,
+/obj/structure/flora/rogueshroom,
 /turf/open/floor/rogue/dirt,
 /area/rogue/under/cave/spider)
 "rvj" = (
@@ -92959,7 +92959,7 @@
 /turf/open/floor/rogue/ruinedwood/spiral,
 /area/rogue/indoors)
 "sDO" = (
-/obj/structure/flora/rogueshroom/happy/random,
+/obj/structure/flora/rogueshroom,
 /turf/open/floor/rogue/dirt/road,
 /area/rogue/under/underdark/north)
 "sDQ" = (
@@ -110341,7 +110341,7 @@
 /obj/structure/wonder{
 	name = "graggarite altar"
 	},
-/obj/structure/leyline/normal/coast,
+/obj/structure/leyline,
 /turf/open/floor/rogue/churchbrick,
 /area/rogue/under/cave/orcdungeon)
 "wcX" = (
@@ -119595,7 +119595,7 @@
 /area/rogue/indoors/town)
 "xWm" = (
 /obj/structure/closet/crate/chest,
-/obj/item/roguegem/random,
+/obj/effect/spawner/lootdrop/roguegem/random,
 /turf/open/floor/rogue/naturalstone,
 /area/rogue/under/cavewet/bogcaves/north)
 "xWo" = (

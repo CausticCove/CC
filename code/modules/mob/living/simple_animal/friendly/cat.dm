@@ -49,10 +49,19 @@
 	AIStatus = AI_OFF
 	can_have_ai = FALSE
 	ai_controller = /datum/ai_controller/generic
+	//Caustic Edit - Add in missing food_types for mobs that are attempting to run find food
+	food_type = list(/obj/item/reagent_containers/food/snacks/deadmouse,
+					/obj/item/reagent_containers/food/snacks/smallrat,
+					/obj/item/reagent_containers/food/snacks/rogue/meat/fish,
+					/obj/item/reagent_containers/food/snacks/rogue/fryfish,
+					/obj/item/reagent_containers/food/snacks/fish,
+					)
+	//Caustic Edit End
 
 /mob/living/simple_animal/pet/cat/Initialize()
 	. = ..()
 	verbs += /mob/living/proc/lay_down
+	ai_controller.set_blackboard_key(BB_BASIC_FOODS, food_type) //Caustic Edit - Let cats eat mice/rats and fish! (To stop a runtime as well :P)
 
 /mob/living/simple_animal/pet/cat/update_mobility()
 	..()

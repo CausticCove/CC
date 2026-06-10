@@ -189,3 +189,9 @@
 	recruitment_message = "Serve the my will, %RECRUIT!"
 	accept_message = "FOR THE SULTAN!"
 	refuse_message = "I refuse."
+
+//CC Edits
+
+/datum/job/roguetown/adventurer/after_spawn(mob/living/H, mob/M, latejoin = TRUE)
+	. = ..()
+	cmode_music = pick('sound/music/combat_desert1.ogg', 'sound/music/combat_desert2.ogg')

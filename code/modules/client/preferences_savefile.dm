@@ -173,6 +173,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	S["no_language_fonts"]	>> no_language_fonts
 	S["no_language_icon"]	>> no_language_icon
 	S["no_redflash"]		>> no_redflash
+	S["darkvision_accessibility"] >> darkvision_accessibility
 	S["crt"]				>> crt
 	S["grain"]				>> grain
 	S["sexable"]			>> sexable
@@ -229,7 +230,13 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	///Caustic edit end
 	// Custom hotkeys
 	S["key_bindings"]		>> key_bindings
+	//CC + TA edit
+	var/list/L
+	S["tat_build"] >> L
 
+	if(!tat_build)
+		tat_build = new(src)
+	//CC + TA edit end
 	//try to fix any outdated data if necessary
 	if(needs_update >= 0)
 		update_preferences(needs_update, S)		//needs_update = savefile_version if we need an update (positive integer)
@@ -263,6 +270,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	auto_fit_viewport	= sanitize_integer(auto_fit_viewport, 0, 1, initial(auto_fit_viewport))
 	attack_blip_frequency = sanitize_integer(attack_blip_frequency, 0, 100, ATTACK_BLIP_PREF_DEFAULT)
 	widescreenpref  = sanitize_integer(widescreenpref, 0, 1, initial(widescreenpref))
+	darkvision_accessibility = sanitize_integer(darkvision_accessibility, DARKVISION_ACCESSIBILITY_MIN, DARKVISION_ACCESSIBILITY_MAX, initial(darkvision_accessibility))
 	ghost_form		= sanitize_inlist(ghost_form, GLOB.ghost_forms, initial(ghost_form))
 	ghost_orbit 	= sanitize_inlist(ghost_orbit, GLOB.ghost_orbits, initial(ghost_orbit))
 	ghost_accs		= sanitize_inlist(ghost_accs, GLOB.ghost_accs_options, GHOST_ACCS_DEFAULT_OPTION)
@@ -273,6 +281,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	pda_color		= sanitize_hexcolor(pda_color, 6, 1, initial(pda_color))
 	key_bindings 	= sanitize_islist(key_bindings, list())
 	masked_examine  = sanitize_integer(masked_examine, 0, 1, initial(masked_examine))
+	tat_build.load_from_list(sanitize_islist(L, list())) //CC + TA edit
 	//ROGUETOWN
 	parallax = PARALLAX_INSANE
 
@@ -322,6 +331,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	WRITE_FILE(S["no_language_fonts"], no_language_fonts)
 	WRITE_FILE(S["no_language_icon"], no_language_icon)
 	WRITE_FILE(S["no_redflash"], no_redflash)
+	WRITE_FILE(S["darkvision_accessibility"], darkvision_accessibility)
 	WRITE_FILE(S["crt"], crt)
 	WRITE_FILE(S["sexable"], sexable)
 	WRITE_FILE(S["shake"], shake)
@@ -381,6 +391,8 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	WRITE_FILE(S["audio_preload"], audio_preload)
 	WRITE_FILE(S["rp_guidance"], rp_guidance)
 	///Caustic edit end
+
+	WRITE_FILE(S["tat_build"], tat_build.export_to_list()) //CC + TA edit
 	
 	return TRUE
 

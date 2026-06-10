@@ -3320,7 +3320,7 @@
 /turf/open/floor/rogue/tile/checker,
 /area/rogue/under/tomb/indoors)
 "OI" = (
-/mob/living/carbon/human/species/goblin/cave,
+/mob/living/carbon/human/species/goblin/npc/cave,
 /turf/open/floor/rogue/herringbone,
 /area/rogue/under/tomb/indoors)
 "OK" = (

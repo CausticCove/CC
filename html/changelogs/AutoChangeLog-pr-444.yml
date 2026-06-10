@@ -1,0 +1,4 @@
+author: "Altangy"
+delete-after: True
+changes:
+  - bugfix: "Most Helmets are light armor now which restores drip"

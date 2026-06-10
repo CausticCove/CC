@@ -16,6 +16,7 @@
 #define FACTION_TROLLS "trolls"
 #define FACTION_HAG "hag"
 #define FACTION_GOBLIN "orcs"
+#define FACTION_SPAWN "spawn" //CC Edit - Graggarite spawn
 
 #define FACTION_DROW "drow"
 #define FACTION_THIEVES "thieves"

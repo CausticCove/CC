@@ -992,11 +992,11 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 
 	var/lang = carbon.get_default_language()
 	var/picked_message = pick_list(HAL_LINES_FILE, "voices")
-	var/composed = obj.compose_message(obj, carbon.get_default_language(), picked_message)
+	var/composed = obj.compose_message(obj, carbon.get_default_language(), picked_message, , list(SPAN_GEN)) //Caustic Edit - Created a basic Spans list here to prevent some runtimes later down the line.
 
 	carbon.Hear(composed, obj, lang, picked_message)
 	spawn(1)
-		target.playsound_local(get_turf(obj), 'sound/misc/talk.ogg', 100, FALSE, -1)
+		carbon.playsound_local(get_turf(obj), 'sound/misc/talk.ogg', 100, FALSE, -1) //Caustic Edit - Change this from Target.playsound to Carbon.playsound? For some reason carbon is fine but target runtimes.
 
 	if(prob(20))
 		var/emote_number

@@ -238,3 +238,143 @@
 /datum/mob_descriptor/trait/volfish
 	name = "Volfish"
 	prefix = "%ARE% very"
+
+/datum/mob_descriptor/trait/plump
+	name = "Plump"
+	prefix = "%ARE% very"
+
+/datum/mob_descriptor/trait/fatassed
+	name = "Fat-Assed"
+	prefix = "%ARE% very"
+
+/datum/mob_descriptor/trait/bemused
+	name = "Bemused"
+	prefix = "%ARE% rather"
+
+/datum/mob_descriptor/trait/fat
+	name = "Fat"
+	prefix = "%ARE% very"
+
+/datum/mob_descriptor/trait/round
+	name = "Round"
+	prefix = "%ARE% very"
+
+/datum/mob_descriptor/trait/massive
+	name = "Massive"
+	prefix = "%ARE% very"
+
+/datum/mob_descriptor/trait/pearshaped
+	name = "Pear-Shaped"
+	prefix = "%ARE% very"
+
+/datum/mob_descriptor/trait/stomping
+	name = "Stomping"
+	prefix = "%ARE% very"
+
+/datum/mob_descriptor/trait/trotting
+	name = "Trotting"
+	prefix = "%ARE% very"
+
+/datum/mob_descriptor/trait/scampering
+	name = "Scampering"
+	prefix = "%ARE% very"
+
+/datum/mob_descriptor/trait/whiny
+	name = "Whiny"
+	prefix = "%ARE% very"
+
+/datum/mob_descriptor/trait/grippable
+	name = "Grippable"
+	prefix = "%ARE% very"
+
+/datum/mob_descriptor/trait/killable
+	name = "Killable"
+	prefix = "%ARE% very"
+
+/datum/mob_descriptor/trait/shiny
+	name = "Shiny"
+	prefix = "%ARE% very"
+
+/datum/mob_descriptor/trait/metal
+	name = "Metal"
+	prefix = "%ARE% very"
+
+/datum/mob_descriptor/trait/ravenous
+	name = "Ravenous"
+	prefix = "%ARE% very"
+
+/datum/mob_descriptor/trait/rotund
+	name = "Rotund"
+	prefix = "%ARE% very"
+
+/datum/mob_descriptor/trait/twozennies
+	name = "Two Zennies Short"
+	prefix = "%ARE% very"
+
+/datum/mob_descriptor/trait/feral
+	name = "Feral"
+	prefix = "%ARE% very"
+
+/datum/mob_descriptor/trait/hungry
+	name = "Hungry"
+	prefix = "%ARE% very"
+
+/datum/mob_descriptor/trait/breasted
+	name = "Breasted"
+	prefix = "%ARE% boobily"
+
+/datum/mob_descriptor/trait/silly
+	name = "Silly"
+	prefix = "%ARE% very"
+
+/datum/mob_descriptor/trait/squishy
+	name = "Squishy"
+	prefix = "%ARE% very"
+
+/datum/mob_descriptor/trait/lumpy
+	name = "Lumpy"
+	prefix = "%ARE% very"
+
+/datum/mob_descriptor/trait/concave
+	name = "Concave"
+	prefix = "%ARE% very"
+
+/datum/mob_descriptor/trait/obsidian
+	name = "Obsidian"
+	prefix = "%ARE% very"
+
+/datum/mob_descriptor/trait/alabaster
+	name = "Alabaster"
+	prefix = "%ARE% very"
+
+/datum/mob_descriptor/trait/amaranth
+	name = "Amaranth"
+	prefix = "%ARE% very"
+
+/datum/mob_descriptor/trait/annoying
+	name = "Annoying"
+	prefix = "%ARE% very"
+
+/datum/mob_descriptor/trait/tasty
+	name = "Tasty"
+	prefix = "%ARE% very"
+
+/datum/mob_descriptor/trait/pompous
+	name = "Pompous"
+	prefix = "%ARE% very"
+
+/datum/mob_descriptor/trait/bugeyed
+	name = "Bug-Eyed"
+	prefix = "%ARE% very"
+
+/datum/mob_descriptor/trait/scarlet
+	name = "Scarlet"
+	prefix = "%ARE% very"
+
+/datum/mob_descriptor/trait/sweatsoaked
+	name = "Sweat-Soaked"
+	prefix = "%ARE% very"
+
+/datum/mob_descriptor/trait/sweaty
+	name = "Sweaty"
+	prefix = "%ARE% very"

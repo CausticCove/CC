@@ -10,7 +10,7 @@
 	block2add = FOV_BEHIND
 	smeltresult = /obj/item/ingot/steel
 	max_integrity = ARMOR_INT_HELMET_HEAVY_STEEL
-	armor_class = ARMOR_CLASS_MEDIUM	//Heavy helmets require at least medium armor training. Stops no-armor training plate-headgear users.
+	armor_class = ARMOR_CLASS_LIGHT	//CC edit, drip or drown
 	smelt_bar_num = 1
 	stack_fovs = TRUE
 
@@ -1231,6 +1231,7 @@
 	if(slot == SLOT_HEAD)
 		active_item = TRUE
 		ADD_TRAIT(user, TRAIT_BITERHELM, TRAIT_GENERIC)
+		to_chat(user, span_red("The bascinet's visor chitters, and your jaw tightens with symbiotic intent.."))
 
 /obj/item/clothing/head/roguetown/helmet/heavy/graggar/dropped(mob/living/user)
 	..()
@@ -1238,6 +1239,7 @@
 		return
 	active_item = FALSE
 	REMOVE_TRAIT(user, TRAIT_BITERHELM, TRAIT_GENERIC)
+	to_chat(user, span_red("..and like that, the bascinet's visor goes dormant once more - a strange pressure, relieved from your jaw."))
 
 /obj/item/clothing/head/roguetown/helmet/heavy/graggar/skull
 	name = "vicious skullhelm"
@@ -1297,8 +1299,8 @@
 /obj/item/clothing/head/roguetown/helmet/heavy/avantyne
 	name = "avantyne veil"
 	desc = "A veil threaded from an otherworldly alloy, perpetually backlit with an eerie crimson haze. Glimpse into the abyss for too long.. </br>‎  <font color='FF0000'>..and something will look back.</font>."
-	icon_state = "zizoplatehelm_med"
-	item_state = "zizoplatehelm_med"
+	icon_state = "zizobarbute" //zizoplatehelm_med
+	item_state = "zizobarbute" //zizoplatehelm_med
 	flags_inv = HIDEFACE|HIDESNOUT|HIDEEARS
 	body_parts_covered = HEAD|EARS|HAIR
 	adjustable = CANT_CADJUST

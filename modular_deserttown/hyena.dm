@@ -9,7 +9,7 @@
 	faction = list("orcs", "wolfs")
 	emote_hear = null
 	emote_see = null
-	turns_per_move = 5
+	turns_per_move = 2 //CC Edit - Be faster.
 	see_in_dark = 9
 	move_to_delay = 2
 	vision_range = 9
@@ -27,30 +27,31 @@
 
 	base_intents = list(/datum/intent/simple/bite)
 	attack_sound = list('sound/vo/mobs/vw/attack (1).ogg','sound/vo/mobs/vw/attack (2).ogg','sound/vo/mobs/vw/attack (3).ogg','sound/vo/mobs/vw/attack (4).ogg')
-	melee_damage_lower = 15
-	melee_damage_upper = 20
+	melee_damage_lower = 12
+	melee_damage_upper = 19 //CC Edit - We attack twice as fast compared to volf, we deal almost half that much damage in comparison then.
 
 	STACON = 7
 	STASTR = 7
 	STASPD = 13
 
 	simple_detect_bonus = 20
-	retreat_distance = 0
+	retreat_distance = 4 //CC Edit - Don't run too far now
 	minimum_distance = 0
 	deaggroprob = 0
 	defprob = 35
 	del_on_deaggro = 44 SECONDS
-	retreat_health = 0.4
+	retreat_health = 0.5 //CC Edit
 	food = 0
 	dodgetime = 17
 	aggressive = 1
 //	stat_attack = UNCONSCIOUS
 	remains_type = /obj/effect/decal/remains/hyena
 
-	///this mob was updated to new ai
+	//new ai, old ai off
 	AIStatus = AI_OFF
 	can_have_ai = FALSE
 	ai_controller = /datum/ai_controller/volf
+	melee_cooldown = WOLF_ATTACK_SPEED / 2 //CC Edit - Yeens attack twice as fast with the caveat that they retreat at 50% HP at a good distance.
 
 /obj/effect/decal/remains/hyena
 	name = "remains"
@@ -60,12 +61,15 @@
 
 /mob/living/simple_animal/hostile/retaliate/rogue/hyena/Initialize()
 	. = ..()
-	AddElement(/datum/element/ai_flee_while_injured, 0.75, retreat_health)
-
+	AddComponent(/datum/component/ai_aggro_system)
+	AddElement(/datum/element/ai_flee_while_injured, 0.75, 0.4)
 	gender = MALE
 	if(prob(33))
 		gender = FEMALE
-	ADD_TRAIT(src, TRAIT_CRITICAL_WEAKNESS, TRAIT_GENERIC)
+	update_icon()
+	ai_controller.set_blackboard_key(BB_BASIC_FOODS, food_type)
+
+	ADD_TRAIT(src, TRAIT_CRITICAL_WEAKNESS, TRAIT_GENERIC) //Does this even work on simple mobs?
 	update_icon()
 
 /mob/living/simple_animal/hostile/retaliate/rogue/hyena/death(gibbed)

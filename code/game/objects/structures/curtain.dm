@@ -95,3 +95,9 @@
 
 /obj/structure/curtain/black
 	color = "#414143"
+
+/obj/structure/curtain/drab
+	color = "#9b7e54"
+
+/obj/structure/curtain/orange
+	color = "#a3622c"

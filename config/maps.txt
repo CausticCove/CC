@@ -23,3 +23,7 @@ map cove_world
 	default
 	votable
 endmap
+
+map deserttown
+	votable
+endmap

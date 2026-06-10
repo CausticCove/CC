@@ -1,0 +1,4 @@
+author: "kaylexis"
+delete-after: True
+changes:
+  - bugfix: "fixes hag's virtue restrictions"

@@ -55,8 +55,8 @@
 	var/noteleport = FALSE
 	///Hides area from player Teleport function.
 	var/hidden = FALSE
-	///Is the area teleport-safe: no space / radiation / aggresive mobs / other dangers
-	var/safe = FALSE
+	//CC Edit - ///Is the area teleport-safe: no space / radiation / aggresive mobs / other dangers
+	var/safe = TRUE //CC Edit - Repurposing this var to be used with different audio.
 	/// If false, loading multiple maps with this area type will create multiple instances.
 	var/unique = TRUE
 
@@ -422,7 +422,12 @@ GLOBAL_LIST_EMPTY(teleportlocs)
 	T.maptext_height = 209
 	T.maptext_x = 12
 	T.maptext_y = 64
-	playsound_local(src, 'sound/misc/area.ogg', 100, FALSE)
+	//CC Edit - Sound for dangerous areas.
+	if(A.safe) //Using an old, most likely unused variable for 'safe teleportation' areas to determine the sound change.
+		playsound_local(src, 'sound/misc/area.ogg', 100, FALSE)
+	else
+		//Play a booming noise as a fearful transition, typically combined with an ominous first_time_text
+		playsound_local(src, 'sound/misc/boatleave.ogg', 75, FALSE) //Lower VOL so we don't get too much bass noise.
 	animate(T, alpha = 255, time = 10, easing = EASE_IN)
 	addtimer(CALLBACK(src, PROC_REF(clear_area_text), T), 35)
 

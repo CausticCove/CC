@@ -703,7 +703,7 @@
 				m_intent = MOVE_INTENT_SNEAK
 				if(isliving(src))
 					var/mob/living/L = src
-					if((/datum/mob_descriptor/prominent/prominent_bottom in L.mob_descriptors) || (/datum/mob_descriptor/prominent/prominent_thighs in L.mob_descriptors))
+					if((/datum/mob_descriptor/prominent/prominent_bottom in L.mob_descriptors) || (/datum/mob_descriptor/prominent/prominent_thighs in L.mob_descriptors) || (/datum/mob_descriptor/prominent/cellulite_riddled_ass in L.mob_descriptors) || (/datum/mob_descriptor/prominent/thicker_than_hardtack in L.mob_descriptors) || (/datum/mob_descriptor/prominent/prominent_paws in L.mob_descriptors))
 						L.loud_sneaking = TRUE
 					else
 						L.loud_sneaking = FALSE

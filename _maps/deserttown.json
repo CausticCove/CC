@@ -1,20 +1,19 @@
 {
     "map_name": "Desert Town",
     "map_path": "map_files/deserttown",
-    "map_file": ["deserttown.dmm"],
-	"traits": [{"Up": true}, {"Up": true, "Down": true}, {"Up": true, "Down": true}, {"Up": true, "Down": true}, {"Down": true}],
-    "other_z": [
-        "_maps/map_files/deserttown/deserttownalt.json",
-        "_maps/map_files/deserttown/advspawndesert.json",
-		"_maps/map_files/otherz/vl_manor.json",
-		"_maps/map_files/otherz/wretchfort.json"
-	],
+    "map_file": ["deserttown.dmm",
+	"desert_wretch_oasis.dmm", 
+	"advspawndesert.dmm"],
+	"traits": [{"Name": "Desert Town", "Up": true}, {"Up": true, "Down": true}, {"Up": true, "Down": true}, {"Up": true, "Down": true}, {"Down": true},
+	{"Name": "desert_wretch_oasis", "Up": true}, {"Up": true, "Down": true}, {"Down": true},
+	{"Name": "adventspawn"}],
 	"minetype": null,
 	"space_empty_levels": 0,
 	"space_ruin_levels": 0,
+	"matthios_dungeon": 1,
 	"shuttles": {
 	    "cargo": "cargo_rogue",
-	    "ferry": "ferry_base",
+		"ferry": "ferry_base",
 	    "whiteship": "whiteship_box",
 	    "emergency": "emergency_rogue"
     }

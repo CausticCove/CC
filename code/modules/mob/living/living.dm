@@ -24,6 +24,10 @@
 	//Caustic Edit - Add Spontaneous Vore element
 	AddElement(/datum/element/spontaneous_vore)
 	//Caustic Edit End
+	
+	//CC Edit - Make all living mobs resize when they spawn to adjust appropriately.
+	update_transform()
+	//CC Edit - Make all living mobs resize when they spawn to adjust appropriately.
 
 /mob/living/Destroy()
 	surgeries = null

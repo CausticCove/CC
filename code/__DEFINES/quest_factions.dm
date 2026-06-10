@@ -20,6 +20,8 @@
 #define QUEST_FACTION_BLEAKISLE_REAVER "bleakisle_reaver"
 #define QUEST_FACTION_MOUNTAIN_TROLL "mountain_troll"
 #define QUEST_FACTION_BOG_TROLL "bog_troll"
+//CC Edit - Graggarite Quest Faction
+#define QUEST_FACTION_GRAGGARITE_SPAWN "graggarite_spawn"
 
 #define FACTION_CAT_HUMANOID "humanoid"
 #define FACTION_CAT_BOG_DESERTER "bog_deserter"
@@ -28,6 +30,8 @@
 #define FACTION_CAT_DROW "drow"
 #define FACTION_CAT_UNDEAD "undead"
 #define FACTION_CAT_BEAST "beast"
+//CC Edit - Graggarite Quest Faction
+#define FACTION_CAT_SPAWN "spawn"
 
 #define CRIME_TIER_PETTY 0
 #define CRIME_TIER_COMMON 1

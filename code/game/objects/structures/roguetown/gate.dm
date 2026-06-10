@@ -183,6 +183,13 @@ GLOBAL_LIST_EMPTY(biggates)
 			attached_gate = G
 			G.attached_to = src
 
+	//CC Ratwood Port
+	for(var/obj/structure/gate_vertical/V in GLOB.biggates)
+		if(V.gid == gid)
+			GLOB.biggates -= V
+			attached_gate = V
+			V.attached_to = src		
+
 /obj/structure/winch/attack_hand(mob/user)
 	. = ..()
 	if(!attached_gate)

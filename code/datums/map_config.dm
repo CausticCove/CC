@@ -5,7 +5,7 @@
 
 /datum/map_config
 	// Metadata
-	var/config_filename = "_maps/dun_world.json"
+	var/config_filename = "_maps/cove_world.json"
 	var/defaulted = TRUE  // set to FALSE by LoadConfig() succeeding
 	// Config from maps.txt
 	var/config_max_users = 0
@@ -15,8 +15,8 @@
 
 	// Config actually from the JSON - should default to Dun World
 	var/map_name = "Dun World"
-	var/map_path = "map_files/dun_world"
-	var/map_file = "dun_world.dmm"
+	var/map_path = "map_files/cove_world"
+	var/map_file = "cove_world.dmm"
 
 	var/traits = null
 	var/space_ruin_levels = 7

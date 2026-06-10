@@ -272,8 +272,9 @@ GLOBAL_LIST_INIT(primordial_wounds, init_primordial_wounds())
 		return FALSE
 	
 	var/mob/living/carbon/O = owner
-	if(O.dna?.species && (NOBLOOD in O.dna.species.species_traits))
-		set_bleed_rate(0)
+	if(iscarbon(O)) //CC Edit - Prevent bleed runtiming on simples.
+		if(O.dna?.species && (NOBLOOD in O.dna.species.species_traits))
+			set_bleed_rate(0)
 
 	if(!isnull(clotting_threshold) && clotting_rate && (bleed_rate > clotting_threshold))
 		set_bleed_rate(max(clotting_threshold, bleed_rate - clotting_rate))

@@ -116,6 +116,8 @@
 		/datum/descriptor_choice/prominent_two_wild,
 		/datum/descriptor_choice/prominent_three_wild,
 		/datum/descriptor_choice/prominent_four_wild,
+		/datum/descriptor_choice/prominent_five_wild,
+		/datum/descriptor_choice/prominent_six_wild
 	)
 
 /datum/species/goblinp/check_roundstart_eligible()

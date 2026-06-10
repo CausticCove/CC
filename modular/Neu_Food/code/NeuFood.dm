@@ -86,13 +86,13 @@
 			return 1
 	update_cooktime(user)
 	//CC EDIT Sauce application code
-	if(istype(W, /obj/item/reagent_containers))
+	if(istype(W, /obj/item/reagent_containers/glass) && W.reagents)
 		for(var/datum/reagent/R in W.reagents.reagent_list)
-			var/datum/component/sauced_food/sauced = src.GetComponent(/datum/component/sauced_food)
-			if(sauced)
-				to_chat(user, "Already has sauce!")
-				return COMPONENT_INCOMPATIBLE
 			if(istype(R, /datum/reagent/consumable/sauce))
+				var/datum/component/sauced_food/sauced = src.GetComponent(/datum/component/sauced_food)
+				if(sauced)
+					to_chat(user, "Already has sauce!")
+					return
 				playsound(get_turf(user), 'sound/foley/dropsound/gen_drop.ogg', 30, TRUE, -1)
 				to_chat(user, "Applying sauce...")
 				if(do_after(user,short_cooktime, target = src))

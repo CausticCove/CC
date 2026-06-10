@@ -30,6 +30,12 @@
 						/obj/item/reagent_containers/food/snacks/rogue/honey/spider = 1,
 						/obj/item/alch/viscera = 1)
 	head_butcher = /obj/item/natural/head/mirespider
+	//Caustic Edit - Lets add this to stop some runtimes spiders seem to be throwing because this isn't defined.
+	food_type = list(/obj/item/reagent_containers/food/snacks/rogue/meat, 
+					//obj/item/bodypart, 
+					/obj/item/organ, 
+					)
+	//Causitic Edit End
 
 	health = MIRESPIDER_CRAWLER_HEALTH
 	maxHealth = MIRESPIDER_CRAWLER_HEALTH
@@ -59,6 +65,7 @@
 	AddComponent(/datum/component/ai_aggro_system)
 	AddElement(/datum/element/ai_retaliate)
 	update_icon()
+	ai_controller.set_blackboard_key(BB_BASIC_FOODS, food_type) //Causitic Edit - Lets give the basic Mirespiders a food list (same as beespiders) to prevent runtime spam
 	ADD_TRAIT(src, TRAIT_NOPAINSTUN, TRAIT_GENERIC)
 	ADD_TRAIT(src, TRAIT_KNEESTINGER_IMMUNITY, INNATE_TRAIT)
 

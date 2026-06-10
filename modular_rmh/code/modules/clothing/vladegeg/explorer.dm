@@ -8,6 +8,7 @@
 	icon = 'modular_rmh/icons/clothing/vladegeg/explorer.dmi'
 	mob_overlay_icon = 'modular_rmh/icons/clothing/vladegeg/onmob/explorer.dmi'
 	sleeved = 'modular_rmh/icons/clothing/vladegeg/onmob/helpers/explorer_sleeves.dmi'
+	salvage_result = /obj/item/natural/hide/cured
 
 /obj/item/clothing/armor/gambeson/explorer/update_icon()
 	. = ..()

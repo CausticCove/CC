@@ -174,6 +174,28 @@
 		to_chat(src, "You [prefs.no_redflash ? "will not" : "will"] see the red flashing effect.")
 		//Caustic Edit End
 
+/client/verb/darkvision_accessibility()
+	set category = "OPTIONS"
+	set name = "Darkvision Accessibility"
+	if(!prefs)
+		return
+
+	var/new_darkvision_accessibility = tgui_input_number(
+		mob,
+		"Adjust Darksight potency from [DARKVISION_ACCESSIBILITY_MIN]% to +[DARKVISION_ACCESSIBILITY_MAX]%. 0% is the standard value.",
+		"Darkvision Accessibility",
+		prefs.darkvision_accessibility,
+		DARKVISION_ACCESSIBILITY_MAX,
+		DARKVISION_ACCESSIBILITY_MIN
+	)
+	if(isnull(new_darkvision_accessibility))
+		return
+
+	prefs.darkvision_accessibility = clamp(round(new_darkvision_accessibility), DARKVISION_ACCESSIBILITY_MIN, DARKVISION_ACCESSIBILITY_MAX)
+	prefs.save_preferences()
+	mob?.update_sight()
+	to_chat(src, "Darkvision accessibility set to [prefs.darkvision_accessibility]%.")
+
 /client/verb/toggle_lobby_music()
 	set name = "Toggle Lobby Music"
 	set category = "OPTIONS"

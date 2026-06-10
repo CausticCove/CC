@@ -44,7 +44,7 @@
 	armor = /obj/item/clothing/suit/roguetown/armor/chainmail/hauberk/janissary
 	shirt = /obj/item/clothing/suit/roguetown/armor/gambeson/zyb
 	head = /obj/item/clothing/head/roguetown/helmet/janissaryhelm
-	beltr = /obj/item/quiver/bullet/lead//nice to have variety but blunderbus might not fit the vibe
+	beltr = /obj/item/quiver/bulletpouch/iron//nice to have variety but blunderbus might not fit the vibe
 	r_hand = /obj/item/gun/ballistic/firearm/arquebus
 	backpack_contents = list(
 		/obj/item/rogueweapon/huntingknife/idagger/steel/special = 1,
@@ -63,7 +63,7 @@
 		H.set_blindness(0)
 		// switch(weapon_choice)
 		// 	if("Long Rifle")
-		// 		beltr = /obj/item/quiver/bullet/lead
+		// 		beltr = /obj/item/quiver/bulletpouch/iron
 		// 		r_hand = /obj/item/gun/ballistic/firearm/arquebus
 		// 	if("Blunderbuss") 
 		// 		beltr = /obj/item/quiver/bullet/grapeshot

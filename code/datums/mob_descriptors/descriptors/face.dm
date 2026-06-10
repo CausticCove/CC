@@ -59,6 +59,15 @@
 /datum/mob_descriptor/face/full
 	name = "Full"
 
+/datum/mob_descriptor/face/flat
+	name = "Flat"
+
+/datum/mob_descriptor/face/symmetrical
+	name = "Symmetrical"
+
+/datum/mob_descriptor/face/shiny
+	name = "Shiny"
+
 /datum/mob_descriptor/face_exp
 	abstract_type = /datum/mob_descriptor/face_exp
 	suffix = "face"
@@ -153,3 +162,66 @@
 
 /datum/mob_descriptor/face_exp/smug
 	name = "Smug"
+
+/datum/mob_descriptor/face_exp/rabid
+	name = "Rabid"
+
+/datum/mob_descriptor/face_exp/uncomfortable
+	name = "Uncomfortable"
+
+/datum/mob_descriptor/face_exp/confused
+	name = "Confused"
+
+/datum/mob_descriptor/face_exp/drooly
+	name = "Drooly"
+
+/datum/mob_descriptor/face_exp/dopey
+	name = "Dopey"
+
+/datum/mob_descriptor/face_exp/crosseyed
+	name = "Cross-eyed"
+
+/datum/mob_descriptor/face_exp/giggly
+	name = "Giggly"
+
+/datum/mob_descriptor/face_exp/thirsty
+	name = "Thirsty"
+
+/datum/mob_descriptor/face_exp/dumb
+	name = "Dumb"
+
+/datum/mob_descriptor/face_exp/stupid
+	name = "Stupid"
+
+/datum/mob_descriptor/face_exp/nonchalant
+	name = "Nonchalant"
+
+/datum/mob_descriptor/face_exp/unbothered
+	name = "Unbothered"
+
+/datum/mob_descriptor/face_exp/tired
+	name = "Tired"
+
+/datum/mob_descriptor/face_exp/exhausted
+	name = "Exhausted"
+
+/datum/mob_descriptor/face_exp/bored
+	name = "Bored"
+
+/datum/mob_descriptor/face_exp/feral
+	name = "Feral"
+
+/datum/mob_descriptor/face_exp/frothing
+	name = "Frothing"
+
+/datum/mob_descriptor/face_exp/grimacing
+	name = "Grimacing"
+
+/datum/mob_descriptor/face_exp/weepy
+	name = "Weepy"
+
+/datum/mob_descriptor/face_exp/dusky
+	name = "Dusky"
+
+/datum/mob_descriptor/face_exp/pained
+	name = "Pained"

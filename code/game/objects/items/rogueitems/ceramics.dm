@@ -34,7 +34,7 @@
 	name = "clay vessel"
 	desc = "A ceramic bottle. Tyme caresses its curves and cracks with a faint, ethereal glimmer."
 	icon = 'icons/roguetown/items/cooking.dmi'
-	icon_state = "claybottlebaked"
+	icon_state = "claybottlecook_baked" // Caustic Edit
 	volume = 75 // Larger than glass bottle
 	sellprice = 6
 	reagent_flags = OPENCONTAINER	//So it doesn't appear through
@@ -73,7 +73,7 @@
 	name = "ceramic vase"
 	desc = "A large sized ceramic vase. Tyme caresses its curves and cracks with a faint, ethereal glimmer."
 	icon = 'icons/roguetown/items/cooking.dmi'
-	icon_state = "clayvasebaked"
+	icon_state = "clayvasecook_baked" // Caustic Edit
 	volume = 65 // Larger than glass bottle
 	sellprice = 9
 	reagent_flags = OPENCONTAINER	//So it doesn't appear through
@@ -109,7 +109,7 @@
 	name = "fancy ceramic vase"
 	desc = "A large sized fancy ceramic vase. Tyme caresses its curves and cracks with a faint, ethereal glimmer."
 	icon = 'icons/roguetown/items/cooking.dmi'
-	icon_state = "clayfancyvasebaked"
+	icon_state = "clayfancyvasecook_baked" // Caustic Edit
 	volume = 65 // Larger than glass bottle
 	sellprice = 20
 	reagent_flags = OPENCONTAINER	//So it doesn't appear through
@@ -146,7 +146,7 @@
 	name = "clay flask"
 	desc = "A small ceramic flask. Tyme caresses its curves and cracks with a faint, ethereal glimmer."
 	icon = 'icons/roguetown/items/cooking.dmi'
-	icon_state = "claycupbaked"
+	icon_state = "claycupcook_baked" // Caustic Edit
 	sellprice = 3
 	reagent_flags = OPENCONTAINER	//So it doesn't appear through
 
@@ -239,9 +239,9 @@
 // Pre-glazed
 
 /obj/item/reagent_containers/glass/bucket/pot/clay/brown
-	name = "brown clay pot"
-	desc = "A pot made out of clay. It can hold a lot of liquid, and makes a satisfying noise when tapped. Glazed and marked to mimic unfired clay."
-	icon_state = "pote_clay_brown"
+	name = "baked clay pot"
+	desc = "A pot made out of clay. It can hold a lot of liquid, and makes a satisfying noise when tapped. Glazed and marked to mimic rough brown clay."
+	icon_state = "pote_clay_baked"
 	glazeable = FALSE
 	glazed = TRUE
 
@@ -285,9 +285,9 @@
 // Pre-glazed
 
 /obj/item/reagent_containers/glass/cup/claymug/brown
-	name = "brown clay mug"
-	desc = "A ceramic mug. Glazed and marked to mimic unfired clay."
-	icon_state = "claymugcook_brown"
+	name = "baked clay mug"
+	desc = "A ceramic mug. Glazed and marked to mimic rough brown clay."
+	icon_state = "claymugcook_baked"
 	sellprice = 8
 	glazeable = FALSE
 	glazed = TRUE
@@ -335,9 +335,9 @@
 // Pre-glazed
 
 /obj/item/cooking/platter/clay/brown
-	name = "brown clay platter"
-	desc = "A ceramic platter. Glazed and marked to mimic unfired clay."
-	icon_state = "platter_clay_cook_brown"
+	name = "baked clay platter"
+	desc = "A ceramic platter. Glazed and marked to mimic rough brown clay."
+	icon_state = "platter_clay_cook_baked"
 	sellprice = 7
 	glazeable = FALSE
 	glazed = TRUE
@@ -384,9 +384,9 @@
 // Pre-glazed
 
 /obj/item/reagent_containers/glass/bowl/clay/brown
-	name = "brown clay bowl"
-	desc = "It is the empty space that makes the bowl useful. Glazed and marked to mimic unfired clay."
-	icon_state = "bowl_clay_cook_brown"
+	name = "baked clay bowl"
+	desc = "It is the empty space that makes the bowl useful. Glazed and marked to mimic rough brown clay."
+	icon_state = "bowl_clay_cook_baked"
 	sellprice = 8
 	glazeable = FALSE
 	glazed = TRUE
@@ -437,9 +437,9 @@
 // Pre-glazed
 
 /obj/item/reagent_containers/glass/bucket/pot/clayteapot/brown
-	name = "brown clay teapot"
-	desc = "A teapot fashioned from clay. Glazed and marked to mimic unfired clay."
-	icon_state = "teapot_clay_cook_brown"
+	name = "baked clay teapot"
+	desc = "A teapot fashioned from clay. Glazed and marked to mimic rough brown clay."
+	icon_state = "teapot_clay_cook_baked"
 	sellprice = 17
 	glazeable = FALSE
 	glazed = TRUE
@@ -487,9 +487,9 @@
 // Pre-glazed
 
 /obj/item/reagent_containers/glass/cup/clayteacup/brown
-	name = "brown clay teacup"
-	desc = "A small cup made of ceramic. Glazed and marked to mimic unfired clay."
-	icon_state = "claycupcook_brown"
+	name = "baked clay teacup"
+	desc = "A small cup made of ceramic. Glazed and marked to mimic rough brown clay."
+	icon_state = "claycupcook_baked"
 	sellprice = 10
 	glazeable = FALSE
 	glazed = TRUE
@@ -521,9 +521,9 @@
 // Pre-glazed flask/cup
 
 /obj/item/reagent_containers/glass/cup/claycup/brown
-	name = "brown clay flask"
-	desc = "A small ceramic flask. Glazed and marked to mimic unfired clay."
-	icon_state = "claycupcook_brown"
+	name = "baked clay flask"
+	desc = "A small ceramic flask. Glazed and marked to mimic rough brown clay."
+	icon_state = "claycupcook_baked"
 	sellprice = 8
 	glazeable = FALSE
 	glazed = TRUE
@@ -555,9 +555,9 @@
 // Pre-glazed clay bottle
 
 /obj/item/reagent_containers/glass/bottle/claybottle/brown
-	name = "brown clay vessel"
-	desc = "A ceramic bottle. Glazed and marked to mimic unfired clay."
-	icon_state = "claybottlecook_brown"
+	name = "baked clay vessel"
+	desc = "A ceramic bottle. Glazed and marked to mimic rough brown clay."
+	icon_state = "claybottlecook_baked"
 	sellprice = 11
 	glazeable = FALSE
 	glazed = TRUE
@@ -589,9 +589,9 @@
 // Pre-glazed clay vase
 
 /obj/item/reagent_containers/glass/bottle/claybottle/vase/brown
-	name = "brown clay vase"
-	desc = "A large sized ceramic vase. Glazed and marked to mimic unfired clay."
-	icon_state = "clayvasecook_brown"
+	name = "baked clay vase"
+	desc = "A large sized ceramic vase. Glazed and marked to mimic rough brown clay."
+	icon_state = "clayvasecook_baked"
 	sellprice = 14
 	glazeable = FALSE
 	glazed = TRUE
@@ -624,8 +624,8 @@
 
 /obj/item/reagent_containers/glass/bottle/claybottle/vase/fancy/brown
 	name = "brown fancy clay vase"
-	desc = "A large sized fancy ceramic vase. Glazed and marked to mimic unfired clay."
-	icon_state = "clayfancyvasecook_brown"
+	desc = "A large sized fancy ceramic vase. Glazed and marked to mimic rough brown clay."
+	icon_state = "clayfancyvasecook_baked"
 	sellprice = 19
 	glazeable = FALSE
 	glazed = TRUE

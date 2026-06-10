@@ -346,3 +346,122 @@
 /datum/mob_descriptor/prominent/vulpine_features
 	name = "Vulpine Features"
 	verbage = "%HAVE%"
+
+/datum/mob_descriptor/prominent/thicker_than_hardtack
+	name = "Thicker than Hardtack"
+	verbage = "%ARE%"
+
+/datum/mob_descriptor/prominent/long_eared
+	name = "Long-eared"
+	verbage = "%ARE%"
+
+/datum/mob_descriptor/prominent/cushioned
+	name = "Cushioned"
+	verbage = "%ARE%"
+
+/datum/mob_descriptor/prominent/gloopy
+	name = "Gloopy"
+	verbage = "%ARE%"
+
+/datum/mob_descriptor/prominent/weak_willed
+	name = "Weak-Willed"
+	verbage = "%LOOKS%"
+
+/datum/mob_descriptor/prominent/slimy
+	name = "Slimy"
+	verbage = "%LOOKS%"
+
+/datum/mob_descriptor/prominent/prominent_ballsack
+	name = "Prominent Ballsack"
+	verbage = "%HAVE%"
+	prefix = "a"
+
+/datum/mob_descriptor/prominent/prominent_shoulders
+	name = "Prominent Shoulders"
+	verbage = "%HAVE%"
+
+/datum/mob_descriptor/prominent/milky
+	name = "Milky"
+	verbage = "%ARE%"
+
+/datum/mob_descriptor/prominent/prominent_ears
+	name = "Prominent Ears"
+	verbage = "%HAVE%"
+
+/datum/mob_descriptor/prominent/acidicslime
+	name = "Acidic Slime"
+	verbage = "%HAVE%"
+
+/datum/mob_descriptor/prominent/toxicslime
+	name = "Toxic Slime"
+	verbage = "%HAVE%"
+
+/datum/mob_descriptor/prominent/causticslime
+	name = "Caustic Slime"
+	verbage = "%HAVE%"
+
+/datum/mob_descriptor/prominent/tastyslime
+	name = "Tasty Slime"
+	verbage = "%HAVE%"
+
+/datum/mob_descriptor/prominent/smelly
+	name = "Smelly"
+	verbage = "%ARE%"
+
+/datum/mob_descriptor/prominent/musky
+	name = "Musky"
+	verbage = "%ARE%"
+
+/datum/mob_descriptor/prominent/sweaty
+	name = "Sweaty"
+	verbage = "%ARE%"
+
+/datum/mob_descriptor/prominent/steamy
+	name = "Steamy"
+	verbage = "%ARE%"
+
+/datum/mob_descriptor/prominent/leaky
+	name = "Leaky"
+	verbage = "%ARE%"
+
+/datum/mob_descriptor/prominent/loud_genitals
+	name = "Loud Genitals"
+	verbage = "%HAVE%"
+
+/datum/mob_descriptor/prominent/overly_productive_genitals
+	name = "Overly Productive Genitals"
+	verbage = "%HAVE%"
+
+/datum/mob_descriptor/prominent/noisy_balls
+	name = "Noisy Balls"
+	verbage = "%HAVE%"
+
+/datum/mob_descriptor/prominent/prominent_penis
+	name = "Prominent Penis"
+	verbage = "%HAVE%"
+
+/datum/mob_descriptor/prominent/lamptern_sized_knot
+	name = "Lamptern Size Knot"
+	verbage = "%HAVE%"
+	prefix = "a"
+
+/datum/mob_descriptor/prominent/prominent_paws
+	name = "Prominent Paws"
+	verbage = "%HAVE%"
+
+/datum/mob_descriptor/prominent/prominent_feet
+	name = "Prominent Feet"
+	verbage = "%HAVE%"
+
+/datum/mob_descriptor/prominent/sumacly
+	name = "Sumac-ly"
+	verbage = "%ARE%"
+
+/datum/mob_descriptor/prominent/lovehandles
+	name = "Lovehandles"
+	verbage = "%HAVE%"
+
+/datum/mob_descriptor/prominent/cellulite_riddled_ass
+	name = "Cellulite Riddled Ass"
+	verbage = "%HAVE%"
+	prefix = "a"

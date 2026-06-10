@@ -449,6 +449,7 @@
 	var/obj/item/food = null
 	var/mob/living/carbon/human/lastuser
 	var/datum/looping_sound/boilloop/boilloop
+	var/give_pan_xp = FALSE //Caustic Edit - If this is true, the user gets XP for cooking something on a pan!
 
 /obj/machinery/light/rogue/hearth/get_mechanics_examine(mob/user)
 	. = ..()
@@ -542,6 +543,7 @@
 				if(!food)
 					S.forceMove(src)
 					food = S
+					give_pan_xp = FALSE //Caustic Edit - Add trigger for giving XP only if the pan has cooked something!
 					update_icon()
 					playsound(src.loc, 'sound/misc/frying.ogg', 80, FALSE, extrarange = 5)
 					return
@@ -635,6 +637,11 @@
 			if(food)
 				if(!user.put_in_active_hand(food))
 					food.forceMove(user.loc)
+				if(give_pan_xp)
+					if(isliving(user))
+						var/mob/living/liveuser = user
+						add_sleep_experience(user, /datum/skill/craft/cooking, liveuser.STAINT) //Caustic Edit - Readd exp from panfrying. Why was it removed :<
+					give_pan_xp = FALSE //Caustic Edit - reset this to false since we just added something!
 				food = null
 				update_icon()
 			else
@@ -691,6 +698,7 @@
 				if(C)
 					qdel(food)
 					food = C
+					give_pan_xp = TRUE //Caustic Edit - Add trigger for giving XP only if the pan has cooked something!
 		if(istype(attachment, /obj/item/reagent_containers/glass/bucket/pot))
 			if(attachment.reagents)
 				attachment.reagents.expose_temperature(400, 0.033)

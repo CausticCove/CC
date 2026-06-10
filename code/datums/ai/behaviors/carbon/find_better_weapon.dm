@@ -20,9 +20,13 @@
 		return pick(weapons)
 
 /datum/ai_behavior/find_and_set/better_weapon/atom_allowed(atom/movable/checking, locate_path, atom/pawn)
-	if(checking == pawn)
+	//Caustic Edit - Somehow the Pawn might end up null? It was an Ambush Goblin, so maybe it got deleted as it was running this.
+	if(!pawn && checking == pawn)
 		return FALSE
 	var/mob/living/carbon/living_pawn = pawn
+	if(!living_pawn)
+		return FALSE
+	//Caustic Edit End
 	var/datum/ai_controller/controller = living_pawn.ai_controller
 	if(!istype(checking, controller.blackboard[BB_WEAPON_TYPE]))
 		return FALSE

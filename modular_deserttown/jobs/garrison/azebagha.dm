@@ -148,4 +148,4 @@
 			if("Handgonne")//okay I can remove this later but I think it would be... just... so based
 				backl = /obj/item/gun/ballistic/firearm/handgonne
 				r_hand = /obj/item/powderflask
-				beltr = /obj/item/quiver/bullet/lead
+				beltr = /obj/item/quiver/bulletpouch/iron

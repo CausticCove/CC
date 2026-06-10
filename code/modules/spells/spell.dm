@@ -997,3 +997,7 @@ GLOBAL_LIST_INIT(action_spells, typesof(/datum/action/cooldown/spell)) //Caustic
 #undef TARGET_CLOSEST
 #undef TARGET_RANDOM
 #undef MAGIC_XP_MULTIPLIER
+#undef FATIGUE_REDUCTION_PER_SKILL
+#undef MEDIUM_ARMOR_STAM_PENALTY
+#undef HEAVY_ARMOR_STAM_PENALTY
+#undef UNTRAINED_ARMOR_STAM_PENALTY

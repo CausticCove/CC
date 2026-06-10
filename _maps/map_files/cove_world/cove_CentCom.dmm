@@ -802,10 +802,6 @@
 "oc" = (
 /turf/open/floor/rogue/grass,
 /area/rogue/indoors/shelter/bog_hag)
-"oj" = (
-/obj/structure/roguemachine/hag_heart,
-/turf/open/floor/rogue/grassred,
-/area/rogue/indoors/shelter/bog_hag)
 "ol" = (
 /turf/open/floor/rogue/grass,
 /area/rogue/outdoors)
@@ -7452,7 +7448,7 @@ iH
 Iz
 Iz
 YM
-oj
+YM
 kp
 Iz
 Iz

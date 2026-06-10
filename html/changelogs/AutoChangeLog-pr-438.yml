@@ -1,0 +1,9 @@
+author: "Juubo"
+delete-after: True
+changes:
+  - rscadd: "new vampire skills"
+  - rscadd: "added some items to the vampire lord's use"
+  - rscadd: "the ability to summon servants"
+  - balance: "rebalance the vampire lord summoing"
+  - sound: "bite sounds won't carry over"
+  - image: "better vampire clan UI"

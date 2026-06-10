@@ -33,6 +33,16 @@
 #define TRADE_REGION_HEARTFELT "heartfelt"
 #define TRADE_REGION_HAGENWALD "hagenwald"
 
+// CC Edit - Desert Mappification
+//Placeholder locations, someone with more lore knowledge tweak these please.
+#define TRADE_REGION_GLINTSKY "glintsky" //River
+#define TRADE_REGION_LIRVAS "lirvas"	//Underdark
+//Comment above, do please tweak these.
+#define TRADE_REGION_LOWER_CAVENRS_PLACEHOLDER "lower_caverns_placeholder" //Underneath the town.
+#define TRADE_REGION_TOWN_PLACEHOLDER "town_placeholder" //Within the town itself for easy quests. Doesn't offer much resources.
+#define TRADE_REGION_INNER_DUNES_PLACEHOLDER "dunes_placeholder" //Inner Dunes
+#define TRADE_REGION_DEEP_DUNES_PLACEHOLDER "deep_dunes_placeholder" //Deep Dunes
+
 #define STANDING_ORDER_DURATION 2
 #define URGENT_ORDER_DURATION 1
 

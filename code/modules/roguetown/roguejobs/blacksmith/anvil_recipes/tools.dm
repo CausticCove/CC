@@ -414,10 +414,10 @@
 	createditem_num = 3
 
 /datum/anvil_recipe/tools/iron/scrap
-	name = "Pieces Of Scrap, Iron (x2)"
+	name = "Pieces Of Scrap, Iron (x6)"
 	req_bar = /obj/item/ingot/iron
 	created_item = /obj/item/scrap
-	createditem_num = 2
+	createditem_num = 6 // Caustic Edit / Makes smithing scrap more worth it than breaking down bars.
 
 /datum/anvil_recipe/tools/iron/cups
 	name = "Cups, Iron (x3)"

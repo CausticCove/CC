@@ -15,3 +15,6 @@
 	var/datum/action/cooldown/mob_cooldown/stone_throw/throwstone = new(src)
 	throwstone.Grant(src)
 	ai_controller.set_blackboard_key(BB_TARGETED_ACTION, throwstone)
+
+	//CC Edit - Make Dave STRONG! Also because they're flesh and crystal, most likely an amalgamation.
+	ADD_TRAIT(src, TRAIT_BLOODLOSS_IMMUNE, TRAIT_GENERIC)

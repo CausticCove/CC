@@ -8,7 +8,7 @@
 	flags_inv = HIDEBOOB|HIDECROTCH
 	icon = 'modular_rmh/icons/clothing/valentyi/skyrim_dress.dmi'
 	mob_overlay_icon = 'modular_rmh/icons/clothing/valentyi/onmob/skyrim_dress.dmi'
-
+	salvage_amount = 2
 	icon_state = "dress"
 	item_state = "dress"
 	nodismemsleeves = TRUE
@@ -25,7 +25,7 @@
 	flags_inv = HIDEBOOB|HIDECROTCH
 	icon = 'modular_rmh/icons/clothing/valentyi/skyrim_dress.dmi'
 	mob_overlay_icon = 'modular_rmh/icons/clothing/valentyi/onmob/skyrim_dress.dmi'
-
+	salvage_amount = 2
 	icon_state = "hdress"
 	item_state = "hdress"
 	nodismemsleeves = TRUE

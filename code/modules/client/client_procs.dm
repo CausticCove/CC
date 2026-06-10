@@ -280,6 +280,8 @@ GLOBAL_LIST_EMPTY(external_rsc_urls)
 	GLOB.clients += src
 	GLOB.directory[ckey] = src
 
+	winset(src, null, "browser-options=find,refresh") //Caustic Edit - Trying to fix the lag on storage issue that TGUI has, swapping to the iframe method instead
+
 	initialize_commandbar_spy()
 
 	GLOB.ahelp_tickets.ClientLogin(src)
@@ -1165,8 +1167,9 @@ GLOBAL_LIST_EMPTY(external_rsc_urls)
 /client/New()
 	..()
 	fullscreen()
+	/* //Caustic Edit - Trying to fix the lag on storage issue that TGUI has, swapping to the iframe method instead
 	if(byond_version >= 516) // Enable 516 compat browser storage mechanisms
-		winset(src, null, "browser-options=find,byondstorage")
+		winset(src, null, "browser-options=find,byondstorage")*/
 	// byondstorage,devtools <- other options
 
 /client/proc/give_award(achievement_type, mob/user)

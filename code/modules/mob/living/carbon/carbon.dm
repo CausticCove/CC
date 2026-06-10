@@ -1,6 +1,9 @@
 /mob/living/carbon/Initialize()
 	..()
 
+	RegisterSignal(src, SIGNAL_ADDTRAIT(TRAIT_DARKVISION), PROC_REF(on_darkvision_trait_changed))
+	RegisterSignal(src, SIGNAL_REMOVETRAIT(TRAIT_DARKVISION), PROC_REF(on_darkvision_trait_changed))
+
 	pain_threshold = STAWIL * 10
 
 	if(HAS_TRAIT(src, TRAIT_NOPAIN))
@@ -14,6 +17,8 @@
 	//This must be done first, so the mob ghosts correctly before DNA etc is nulled
 	. =  ..()
 
+	UnregisterSignal(src, list(SIGNAL_ADDTRAIT(TRAIT_DARKVISION), SIGNAL_REMOVETRAIT(TRAIT_DARKVISION)))
+
 	QDEL_LIST(hand_bodyparts)
 	QDEL_LIST(internal_organs)
 	QDEL_LIST(bodyparts)
@@ -21,6 +26,12 @@
 	QDEL_NULL(dna)
 	QDEL_NULL(underwear)
 	GLOB.carbon_list -= src
+
+
+/mob/living/carbon/proc/on_darkvision_trait_changed()
+	SIGNAL_HANDLER
+
+	update_sight()
 
 /mob/living/carbon/ZImpactDamage(turf/T, levels)
 	var/obj/item/bodypart/affecting
@@ -831,20 +842,23 @@
 
 	if(HAS_TRAIT(src, TRAIT_DARKVISION))
 		//Caustic Edit - Grabbed the Perception Boosting Darkvision idea from OV, but tweaking it some to not give fullbright on 15 PER
-		//lighting_alpha = min(lighting_alpha, LIGHTING_PLANE_ALPHA_DARKVISION)
-		var/perception = min(max(get_stat(STATKEY_PER), 1), 15)
-		var/perception_bonus = clamp(perception - 9, 0, 6)
+		var/perception = clamp(get_stat(STATKEY_PER), 8, 15)
+		// Remap the old PER 10-13 Darksight range across PER 8-15.
+		var/perception_ratio = (perception - 8) / 7
+		var/perception_bonus = 1 + (perception_ratio * 3)
 		var/vision_ratio = perception_bonus / 6
-		var/darksight_alpha = round(LIGHTING_PLANE_ALPHA_DARKVISION - (28 * (1 - vision_ratio))) //28 is the difference between Darkvision and "Mostly Visible" so this should still have an effect, just not making everything fullbright
-		//var/darksight_level = 9 + perception_bonus
-
-		// 15 PER is the Darksight cap.
-		//if(perception_bonus >= 6)
-		//	darksight_level = 15
+		var/darksight_alpha = round(LIGHTING_PLANE_ALPHA_DARKVISION * (1 - vision_ratio))
+		var/darkvision_accessibility = client?.prefs ? client.prefs.darkvision_accessibility : 0
+		var/min_darkvision_potency = DARKVISION_BASE_POTENCY + (DARKVISION_ACCESSIBILITY_MIN / 100)
+		var/max_darkvision_potency = DARKVISION_BASE_POTENCY + (DARKVISION_ACCESSIBILITY_MAX / 100)
+		var/darkvision_potency = clamp(DARKVISION_BASE_POTENCY + (darkvision_accessibility / 100), min_darkvision_potency, max_darkvision_potency)
+		var/darkvision_effect = LIGHTING_PLANE_ALPHA_VISIBLE - darksight_alpha
+		var/darksight_level = 9 + round(perception_bonus * darkvision_potency)
+		// Scale the alpha reduction so the default is substantially darker while accessibility can restore strength.
+		darksight_alpha = round(LIGHTING_PLANE_ALPHA_VISIBLE - (darkvision_effect * darkvision_potency))
 
 		lighting_alpha = min(lighting_alpha, darksight_alpha)
-		see_in_dark = max(see_in_dark, 12)
-		//see_in_dark = max(see_in_dark, darksight_level) //Commenting this bit out and going with the original way - This bit is likely what controls seeing someone who's sneaking I think?
+		see_in_dark = max(see_in_dark, darksight_level)
 		//Caustic Edit End
 
 	if(HAS_TRAIT(src, TRAIT_NITEVISION))

@@ -7,3 +7,6 @@
 */
 
 #include "..\..\_maps\map_files\roguetest\map_adjustment_roguetest.dm"
+
+//CC Edit - Desert Map
+#include "..\..\_maps\map_files\deserttown\map_adjustment_deserttown.dm"

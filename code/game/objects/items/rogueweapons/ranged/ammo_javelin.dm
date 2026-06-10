@@ -82,7 +82,7 @@
 	throwforce = 25							//Less than steel because it's.. silver. Good at killing vampires/WW's still.
 	armor_penetration = PEN_HEAVY
 	thrown_bclass = BCLASS_PICK				//Bypasses crit protection better than stabbing. Makes it better against heavy-targets.
-	smeltresult = /obj/item/ingot/silver // 2 ingots = 2 javelins so this can smelt.
+	smeltresult = null ///obj/item/ingot/silver // 2 ingots = 2 javelins so this can smelt.
 
 /obj/item/ammo_casing/caseless/rogue/javelin/silver/ComponentInitialize()
 	. = ..()

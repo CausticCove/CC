@@ -7,13 +7,21 @@
 
 
 /datum/mapGenerator/desert
-	modules = list(/datum/mapGeneratorModule/desertsand, /datum/mapGeneratorModule/desertgrass,/datum/mapGeneratorModule/desertroad, /datum/mapGeneratorModule/desertwater)
+	modules = list(/datum/mapGeneratorModule/desertmobs, /datum/mapGeneratorModule/desertsand, /datum/mapGeneratorModule/desertgrass,/datum/mapGeneratorModule/desertroad, /datum/mapGeneratorModule/desertwater)
 
+//Randomly placed mobs across the world, very rare spawns only in the deep desert.
+/datum/mapGeneratorModule/desertmobs
+	clusterCheckFlags = CLUSTER_CHECK_ALL
+	allowed_turfs = list(/turf/open/floor/rogue/dunes)
+	// excluded_turfs = list()
+	spawnableAtoms = list(/mob/living/carbon/human/species/skeleton/npc/easy = 0.1)
+	// spawnableTurfs = list()
+	allowed_areas = list(/area/rogue/outdoors/desertdeep)
 
 /datum/mapGeneratorModule/desertsand
 	clusterCheckFlags = CLUSTER_CHECK_ALL
 	allowed_turfs = list(/turf/open/floor/rogue/dunes)
-	// excluded_turfs = list(/turf/open/floor/rogue/dirt/road)
+	// excluded_turfs = list()
 	spawnableAtoms = list(/obj/structure/flora/roguetree/palm = 0.5,
 							/obj/structure/flora/roguegrass/bush/desertshrub = 0.5,
 							/obj/structure/flora/roguegrass = 0.5,
@@ -27,11 +35,10 @@
 							/obj/structure/voidstoneobelisk = 0.05,
 							/obj/structure/flora/roguegrass/herb/manabloom = 0.05,
 							/obj/item/magic/manacrystal = 0.05,
-							/obj/structure/flora/roguegrass/herb/random = 0.5,
+							/obj/structure/flora/roguegrass/herb/random = 0.25,
 							/obj/effect/decal/remains/bear = 0.5,
 							/obj/effect/decal/remains/human = 0.3,)
-	// spawnableTurfs = list(/turf/open/floor/rogue/dirt/road=2,
-	// 					/turf/open/water/swamp=2,)
+	// spawnableTurfs = list()
 	allowed_areas = list(/area/rogue/outdoors/desert, /area/rogue/outdoors/desertdeep)
 
 
@@ -60,7 +67,7 @@
 							/obj/structure/flora/roguegrass/herb/random = 2,
 							/obj/effect/decal/remains/bear = 0.5,
 							/obj/effect/decal/remains/human = 0.3,
-							///obj/structure/zizo_bane = 0.5,
+							/obj/structure/zizo_bane = 0.5,
 						)
 	// spawnableTurfs = list(/turf/open/floor/rogue/dirt/road=2,
 	// 					/turf/open/water/swamp=2,)

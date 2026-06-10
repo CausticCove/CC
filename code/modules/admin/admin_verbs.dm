@@ -117,6 +117,7 @@ GLOBAL_PROTECT(admin_verbs_admin)
 GLOBAL_LIST_INIT(admin_verbs_ban, list(
 	/client/proc/unban_panel,
 	/client/proc/ban_panel,
+	/client/proc/tat_role_locks_panel,
 	/client/proc/stickybanpanel,
 	/client/proc/check_pq,
 	/client/proc/adjust_pq,
@@ -959,5 +960,5 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 		return
 
 	to_chat(src, "Browser tools are now enabled.")
-	winset(src, null, "browser-options=devtools,find,byondstorage")
+	winset(src, null, "browser-options=devtools,find,refresh") //Caustic Edit - Trying to move to the iframe storage for logging
 

@@ -1,6 +1,7 @@
 /obj/structure/vampire/scryingorb // Method of spying on the town
 	name = "Eye of Night"
 	icon_state = "scrying"
+	desc = "An unholy creation of impossible design, floats before you. Upon its surface flashes countless images and shapes beyond your understanding, places that shouldn't exist. Merely being in its vicinity sends a shiver down your spine."
 
 /obj/structure/vampire/scryingorb/attack_hand(mob/living/carbon/human/user)
 	if(user?.mind.has_antag_datum(/datum/antagonist/vampire/lord))
@@ -10,6 +11,11 @@
 	else
 		to_chat(user, span_warning("I don't have the power to use this!"))
 
+/obj/structure/vampire/scryingorb/examine(mob/user)
+	. = ..()
+	if(user.mind?.has_antag_datum(/datum/antagonist/vampire/lord))
+		. += span_bloody("Your scrying eye; spy upon the mortal or immortal realms alyke, peer through all languages and places. Just be careful whom walks past your eye. Your presence is powerful enough to be noticed even lyke this.")
+		
 /mob/dead/observer/rogue/arcaneeye
 	sight = 0
 	see_in_dark = 2

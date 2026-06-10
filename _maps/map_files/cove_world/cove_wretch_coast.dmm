@@ -3489,6 +3489,10 @@
 "oE" = (
 /obj/machinery/light/rogue/candle,
 /obj/structure/rack/rogue/shelf/biggest,
+/obj/item/lockpickring/mundane,
+/obj/item/storage/belt/rogue/surgery_bag/full{
+	pixel_y = -5
+	},
 /turf/open/floor/rogue/cobble,
 /area/rogue/indoors/shelter/bog_hag)
 "oF" = (

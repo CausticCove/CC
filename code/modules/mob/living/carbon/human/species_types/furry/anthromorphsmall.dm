@@ -127,6 +127,8 @@
 		/datum/descriptor_choice/prominent_two_wild,
 		/datum/descriptor_choice/prominent_three_wild,
 		/datum/descriptor_choice/prominent_four_wild,
+		/datum/descriptor_choice/prominent_five_wild,
+		/datum/descriptor_choice/prominent_six_wild
 	)
 
 /datum/species/anthromorphsmall/on_species_gain(mob/living/carbon/C, datum/species/old_species)

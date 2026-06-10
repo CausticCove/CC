@@ -82,6 +82,10 @@ GLOBAL_LIST_INIT(find_and_set_interested_atoms, typecacheof(list(/obj/item, /mob
 	return TRUE
 
 /datum/ai_behavior/find_and_set/in_list/search_tactic(datum/ai_controller/controller, locate_paths, search_range)
+	//Caustic Edit - Somehow this is being sent a null locate_paths? I'm not entirely sure _why_ that's happening, but this hopefully fixes the runtimes... The AI might recover quicker if it's able to properly cancel out of this action instead of runtiming.
+	if(!locate_paths)
+		return null
+	//Caustic Edit End
 	var/list/found = typecache_filter_list(oview(search_range, controller.pawn), locate_paths)
 	if(length(found))
 		return pick(found)
@@ -529,6 +533,11 @@ GLOBAL_LIST_INIT(find_and_set_interested_atoms, typecacheof(list(/obj/item, /mob
 	controller.set_blackboard_key(BB_FIND_TARGETS_FIELD(type), detection_field)
 
 /datum/ai_behavior/find_and_set/proc/new_turf_found(turf/found, datum/ai_controller/controller)
+	//Caustic Edit - This was sometimes null apparently? Probably an ambush mob being deleted?
+	if(!controller)
+		return
+	//Caustic Edit End
+
 	var/valid_found = FALSE
 	var/atom/pawn = controller.pawn
 	for(var/maybe_item as anything in found)
@@ -553,6 +562,11 @@ GLOBAL_LIST_INIT(find_and_set_interested_atoms, typecacheof(list(/obj/item, /mob
 	controller.modify_cooldown(src, world.time)
 
 /datum/ai_behavior/find_and_set/proc/new_atoms_found(list/atom/movable/found, datum/ai_controller/controller)
+	//Caustic Edit - This was sometimes null apparently?
+	if(!controller)
+		return FALSE
+	//Caustic Edit End
+
 	var/atom/pawn = controller.pawn
 	var/list/accepted_items = list()
 

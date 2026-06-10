@@ -1,0 +1,7 @@
+author: "kaylexis"
+delete-after: True
+changes:
+  - bugfix: "puts a mossmother tree in the bog"
+  - bugfix: "removed redundant hag heart in centcom"
+  - qol: "gives the new hag map a surgical bag and lockpick ring"
+  - qol: "balances feytouched like a sane person"

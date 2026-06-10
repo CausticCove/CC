@@ -1,36 +1,50 @@
 /datum/time_of_day
 	var/name = ""
 	var/color = ""
+	//CC Edit - Desert Colors
+	var/desert_color = ""
 	var/start = 6 HOURS // 6:00 am
 
 /datum/time_of_day/dawn
 	name = "Dawn"
 	color = list("#394579", "#49385d", "#3a1537")
+	//CC Edit - Desert Colors
+	desert_color = list("#253d53", "#502a96", "#a1469c")
 	start = 8 HOURS //8:00:00 AM
 
 /datum/time_of_day/sunrise
 	name = "Sunrise"
 	color = "#F598AB"
+	//CC Edit - Desert Colors
+	desert_color = list("#4778a5", "#6a37c7", "#cf58c9")
 	start = 9.5 HOURS  //9:30:00 AM
 
 /datum/time_of_day/daytime
 	name = "Daytime"
 	color = list("#dbbfbf", "#ddd7bd", "#add1b0", "#a4c0ca", "#ae9dc6", "#d09fbf")
+	//CC Edit - Desert Colors
+	desert_color = list("#ffecce", "#ffe9de", "#ffd8c6", "#fff9a5", "#ffdc91", "#ffc5eb")
 	start = 10 HOURS //10:00:00 AM
 
 /datum/time_of_day/sunset
 	name = "Sunset"
 	color = "#ff8a63"
+	//CC Edit - Desert Colors
+	desert_color = "#ff8080"
 	start = 15 HOURS //3:00:00 PM
 
 /datum/time_of_day/dusk
 	name = "Dusk"
 	color = list("#c26f56", "#c05271", "#b84933")
+	//CC Edit - Desert Colors
+	desert_color = list("#973416", "#a33311", "#b82d03")
 	start = 15.5 HOURS //3:30:00 PM
 
 /datum/time_of_day/midnight
 	name = "Midnight"
 	color = list("#100a18", "#0c0412", "#0f0012")
+	//CC Edit - Desert Colors
+	desert_color = list("#1b1f20", "#03161b", "#060c0e")
 	start = 16 HOURS //4:00:00 PM
 
 GLOBAL_VAR_INIT(GLOBAL_LIGHT_RANGE, 3)
@@ -131,7 +145,11 @@ SUBSYSTEM_DEF(outdoor_effects)
 		next_step_datum = time_cycle_steps[1]
 
 	current_step_datum = new_step
-	picked_color = pick(current_step_datum.color)
+	//CC Edit - Desert Map Colors
+	if(SSmapping.config.map_name == "Desert Town")
+		picked_color = pick(current_step_datum.desert_color)
+	else
+		picked_color = pick(current_step_datum.color)
 
 	// If the next start time is less than the current start time (i.e 10 PM vs 5 AM) then set our NextDay value
 	if(next_step_datum.start <= current_step_datum.start)
@@ -272,6 +290,8 @@ SUBSYSTEM_DEF(outdoor_effects)
 	//Get weather overlay if not weatherproof
 	OE.overlays = OE.weatherproof ? list(OE.sunlight_overlay) : list(OE.sunlight_overlay, get_weather_overlay())
 	OE.luminosity = MA.luminosity
+	//CC Edit - Brighter Lights w/ the appropriate blend modes during the day
+	OE.blend_mode = MA.blend_mode
 
 //Retrieve an overlay from the list - create if necessary
 /datum/controller/subsystem/outdoor_effects/proc/get_sunlight_overlay(fr, fg, fb, fa)

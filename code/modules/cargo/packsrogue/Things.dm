@@ -50,7 +50,7 @@
 /datum/supply_pack/rogue/Things/healthpot
 	name = "Health Potion - Weak"
 	cost = 20
-	contains = list(/obj/item/reagent_containers/glass/bottle/rogue/healthpotnew)
+	contains = list(/obj/item/reagent_containers/glass/bottle/rogue/healthpot)
 
 /datum/supply_pack/rogue/Things/healthpotstrong
 	name = "Health Potion - Strong"

@@ -1,0 +1,4 @@
+author: "FluffMedic"
+delete-after: True
+changes:
+  - bugfix: "Datum vaules had a forgotten bit, non-player facing"

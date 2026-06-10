@@ -16,7 +16,7 @@
 
 		//Moderate wounds only. Tweak when necessary.
 		for(var/datum/wound/wound as anything in H.get_wounds())
-			if(wound <= WOUND_SEVERITY_MODERATE)
+			if(wound.severity <= WOUND_SEVERITY_MODERATE)
 				wound.heal_wound(0.6)
 
 		dietary_goals_met = TRUE
@@ -27,7 +27,7 @@
 
 		//Moderate wounds only. Tweak when necessary.
 		for(var/datum/wound/wound as anything in H.get_wounds())
-			if(wound <= WOUND_SEVERITY_MODERATE)
+			if(wound.severity <= WOUND_SEVERITY_MODERATE)
 				wound.heal_wound(0.3)
 
 		dietary_goals_met = TRUE
