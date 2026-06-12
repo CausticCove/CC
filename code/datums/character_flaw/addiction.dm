@@ -105,7 +105,7 @@
 /// KLEPTOMANIAC
 
 /datum/charflaw/addiction/kleptomaniac
-	name = "Thief-borne"
+	name = "Thief-born"
 	desc = "As a child I had to rely on theft to survive. Whether that changed or not, I just can't get over it."
 	ui_fa_icon = "sack-dollar"
 	time = ADDICT_TIME_STANDARD

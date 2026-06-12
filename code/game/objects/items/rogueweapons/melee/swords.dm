@@ -268,7 +268,7 @@
 /obj/item/rogueweapon/sword/long/ap
 	name = "stecher"
 	desc = "A unique longsword from the highest plateaus of the Azure Peak, sacrificing its cutting edge for a piercing tip that can easily penetrate maille. Tracing its roots to the \
-	late fourteenth century, this noble sidearm - borne from Grenzelhoftian imitations of the Otavan estoc - is proudly displayed on Azuria's official coat-of-arms."
+	late fourteenth century, this noble sidearm - born from Grenzelhoftian imitations of the Otavan estoc - is proudly displayed on Azuria's official coat-of-arms."
 	icon_state = "aplongsword"
 	sheathe_icon = "aplongsword"
 	force = 20
@@ -513,7 +513,7 @@
 
 /obj/item/rogueweapon/sword/long/avantyne
 	name = "avantyne-threaded longsword"
-	desc = "A parasitic mandate to progress, borne through the cultivation of crystalline metastasis. This otherworldly blade is stronger and sharper than any \
+	desc = "A parasitic mandate to progress, born through the cultivation of crystalline metastasis. This otherworldly blade is stronger and sharper than any \
 	mortal-made masterwork, yet comes at a cost that has yet to be realized."
 	icon_state = "zizolongsword"
 	sheathe_icon = "zizolongsword"
