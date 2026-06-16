@@ -48,3 +48,14 @@
 	)
 	first_time_text = "SOUTHERN COAST"
 	detail_text = DETAIL_TEXT_CITY_COAST
+
+/area/rogue/outdoors/beach/far_north
+	name = "Northern Coast"
+	ambush_mobs = list(
+		/mob/living/carbon/human/species/human/northern/searaider/ambush = 10,
+		/mob/living/carbon/human/species/goblin/npc/ambush/sea = 20,
+		/mob/living/carbon/human/species/orc/npc/berserker = 10,
+		/mob/living/simple_animal/hostile/retaliate/rogue/mossback = 40
+	)
+	first_time_text = "FAR NORTH"
+	ambush_times = list("night","dawn","dusk","day")
