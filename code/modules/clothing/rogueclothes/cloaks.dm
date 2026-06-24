@@ -402,7 +402,7 @@
 	mob_overlay_icon = 'icons/roguetown/clothing/onmob/cloaks.dmi'
 	alternate_worn_layer = TABARD_LAYER
 	boobed = TRUE
-	name = "holy see undivided tabard"
+	name = "undivided tabard"
 	desc = "The refuge of the TEN upon my back. A Undivided House, standing eternal against the encroaching darkness."
 	icon_state = "seetabard"
 
@@ -410,7 +410,7 @@
 	mob_overlay_icon = 'icons/roguetown/clothing/onmob/cloaks.dmi'
 	alternate_worn_layer = TABARD_LAYER
 	boobed = TRUE
-	name = "undivided tabard"
+	name = "undivided devotee tabard"
 	desc = "The refuge of the TEN upon my back. A Undivided Pantheon, to carry the light amongst the ever-present darkness that looms ahead."
 	icon_state = "tenclerictabard"
 
@@ -418,7 +418,7 @@
 	mob_overlay_icon = 'icons/roguetown/clothing/onmob/cloaks.dmi'
 	alternate_worn_layer = TABARD_LAYER
 	boobed = TRUE
-	name = "holy see crusader tabard"
+	name = "crusader tabard"
 	desc = "The refuge of the TEN upon my back. A Undivided House, standing eternal against the encroaching darkness."
 	icon_state = "seetabardalt"
 
@@ -1203,7 +1203,7 @@
 	nodismemsleeves = TRUE
 
 /obj/item/clothing/cloak/undivided
-	name = "holy see undivided cloak"
+	name = "undivided cloak"
 	desc = "The refuge of the TEN upon my back. A Undivided House, standing eternal against the encroaching darkness."
 	icon_state = "seecloak"
 	sleeved = 'icons/roguetown/clothing/onmob/cloaks.dmi'
@@ -1212,7 +1212,7 @@
 
 /obj/item/clothing/cloak/undividedcleric
 	desc = "The refuge of the TEN upon my back. A Undivided Pantheon, to carry the light amongst the ever-present darkness that looms ahead."
-	name = "undivided cloak"
+	name = "undivided devotee cloak"
 	icon_state = "tenclericcloak"
 	sleeved = 'icons/roguetown/clothing/onmob/cloaks.dmi'
 	alternate_worn_layer = CLOAK_BEHIND_LAYER
