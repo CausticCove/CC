@@ -87,6 +87,7 @@
 	reqs = list(/obj/item/natural/cloth = 2,
 				/obj/item/natural/silk = 1)
 	craftdiff = 3
+
 /datum/crafting_recipe/roguetown/weaving/undividedhood
 	name = "undivided hood"
 	result = list(/obj/item/clothing/head/roguetown/roguehood/undivided)

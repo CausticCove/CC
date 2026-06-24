@@ -746,7 +746,21 @@
 				/obj/item/natural/fibers = 1)
 	craftdiff = 4
 
-/datum/crafting_recipe/roguetown/sewing/pestratemplar
+/datum/crafting_recipe/roguetown/sewing/undividedclerictabard
+	name = "tabard, undivided devotee"
+	result = list(/obj/item/clothing/cloak/templar/undividedcleric)
+	reqs = list(/obj/item/natural/cloth = 3,
+				/obj/item/natural/fibers = 1)
+	craftdiff = 3
+
+/datum/crafting_recipe/roguetown/sewing/undividedclericcloak
+	name = "cloak, undivided devotee"
+	result = list(/obj/item/clothing/cloak/undividedcleric)
+	reqs = list(/obj/item/natural/cloth = 3,
+				/obj/item/natural/fibers = 1)
+	craftdiff = 3
+
+/datum/crafting_recipe/roguetown/sewing/undividedtemplar
 	name = "tabard, undivided templar"
 	result = list(/obj/item/clothing/cloak/templar/undivided)
 	reqs = list(/obj/item/natural/cloth = 3,
