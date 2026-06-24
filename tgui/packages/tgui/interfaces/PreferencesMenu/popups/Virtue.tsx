@@ -85,12 +85,18 @@ const PopupVirtueSelectorInner = (props: {
   const { virtues: constantVirtues } = constantData;
   const { slot_names, virtues, virtue_availability } = data;
   const [viewing, setViewing] = useState('');
+  const [search, setSearch] = useState('');
 
   const virtues_to_show = virtue_availability
     .map((v) => ({
       constantVirtue: constantVirtues[v.path],
       virtue: v,
     }))
+    .filter((v) =>
+      search
+        ? v.constantVirtue.name.toLowerCase().includes(search.toLowerCase())
+        : true,
+    )
     .sort((a, b) => a.constantVirtue.name.localeCompare(b.constantVirtue.name));
   const { query, setQuery, results } = useFuzzySearch({
     getSearchString: (s) => s.constantVirtue.name,
@@ -131,18 +137,18 @@ const PopupVirtueSelectorInner = (props: {
               <Tabs vertical>
                 {(query.length ? results : virtues_to_show).map(
                   ({ constantVirtue, virtue }) => {
-                    return (
-                      <VirtueTab
-                        key={virtue.path}
-                        context={context}
-                        slot_names={slot_names}
-                        constantVirtue={constantVirtue}
-                        virtue={virtue}
-                        viewing={viewing}
-                        setViewing={setViewing}
-                        virtues={virtues}
-                      />
-                    );
+                  return (
+                    <VirtueTab
+                      key={virtue.path}
+                      context={context}
+                      slot_names={slot_names}
+                      constantVirtue={constantVirtue}
+                      virtue={virtue}
+                      viewing={viewing}
+                      setViewing={setViewing}
+                      virtues={virtues}
+                    />
+                  );
                   },
                 )}
               </Tabs>

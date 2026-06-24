@@ -18,6 +18,7 @@ export const ExaminePanel = (props) => {
     is_donator,
     character_name,
     is_playing,
+    song_title,
     has_song,
     img_gallery,
     nsfw_img_gallery,
@@ -27,7 +28,7 @@ export const ExaminePanel = (props) => {
   const [currentPage, setCurrentPage] = useState(Page.FlavorText);
   const [showCharacterAd, setShowCharacterAd] = useState(false);
   const hasAnyGalleryImages =
-      img_gallery.length > 0 || nsfw_img_gallery.length > 0;
+    img_gallery.length > 0 || nsfw_img_gallery.length > 0;
   const hasCharacterAd = !!character_ad?.trim();
   const characterAdHTML = useMemo(
       () => ({
@@ -106,46 +107,48 @@ export const ExaminePanel = (props) => {
             tooltipPosition="bottom-start"
             onClick={() => act('toggle')}
             disabled={!has_song}
-            selected={!is_playing}
-          />
+            selected={is_playing}
+          >
+            {song_title ?? null}
+          </Button>
         </>
       }
     >
       <Window.Content>
         <Box position="relative" height="100%">
-          <Stack vertical fill>
-            {hasAnyGalleryImages && (
-              <Stack style={{ marginBottom: '4px' }}>
-                <Stack.Item grow>
-                  <PageButton
-                    currentPage={currentPage}
-                    page={Page.FlavorText}
-                    setPage={setCurrentPage}
-                  >
-                    Flavor Text
-                  </PageButton>
-                </Stack.Item>
-                <Stack.Item grow>
-                  <PageButton
-                    currentPage={currentPage}
-                    page={Page.ImageGallery}
-                    setPage={setCurrentPage}
-                  >
-                    Image Gallery
-                  </PageButton>
-                </Stack.Item>
-              </Stack>
-            )}
-            {hasAnyGalleryImages && <Stack.Divider />}
-            <Stack.Item
-              grow
-              position="relative"
-              overflowX="hidden"
-              overflowY="auto"
-            >
-              {pageContents}
-            </Stack.Item>
-          </Stack>
+        <Stack vertical fill>
+          {hasAnyGalleryImages && (
+            <Stack style={{ marginBottom: '4px' }}>
+              <Stack.Item grow>
+                <PageButton
+                  currentPage={currentPage}
+                  page={Page.FlavorText}
+                  setPage={setCurrentPage}
+                >
+                  Flavor Text
+                </PageButton>
+              </Stack.Item>
+              <Stack.Item grow>
+                <PageButton
+                  currentPage={currentPage}
+                  page={Page.ImageGallery}
+                  setPage={setCurrentPage}
+                >
+                  Image Gallery
+                </PageButton>
+              </Stack.Item>
+            </Stack>
+          )}
+          {hasAnyGalleryImages && <Stack.Divider />}
+          <Stack.Item
+            grow
+            position="relative"
+            overflowX="hidden"
+            overflowY="auto"
+          >
+            {pageContents}
+          </Stack.Item>
+        </Stack>
           {showCharacterAd && hasCharacterAd && (
             <Box
               style={{

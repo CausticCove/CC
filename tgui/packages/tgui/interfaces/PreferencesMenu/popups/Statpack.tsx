@@ -52,41 +52,42 @@ export const PopupStatpackInner = (props: { constantData: ConstantData }) => {
     searchArray: statpacks,
   });
 
-  return (
-    <Stack fill vertical p={2}>
-      <Stack.Item>
-        <Input
+    return (
+        <Stack fill vertical p = { 2} >
+            <Stack.Item>
+            <Input
           fluid
-          placeholder="Search..."
-          onChange={(v) => setQuery(v)}
-          value={query}
-        />
-      </Stack.Item>
-      <Stack.Item grow>
-        <Section fill scrollable>
-          <Stack vertical>
+    placeholder = "Search..."
+    onChange = {(v) => setQuery(v)}
+value = { query }
+    />
+    </Stack.Item>
+    < Stack.Item grow >
+        <Section fill scrollable >
+            <Stack vertical >
             {(query.length ? results : statpacks).map((pack) => (
-              <Stack.Item key={pack.path}>
+                <Stack.Item key= { pack.path } >
                 <ImageButton
                   fluid
-                  fallbackIcon={pack.icon}
-                  selected={pack.path === current_statpack}
-                  onClick={() => {
-                    act('statpack', { statpack: pack.path });
+                  fallbackIcon = { pack.icon }
+                  selected = { pack.path === current_statpack }
+                  onClick = {() => {
+                act('statpack', { statpack: pack.path
+            });
                   }}
                 >
-                  <Stack align="center" justify="space-around">
-                    <Stack.Item fontSize={1.2}>{pack.name}</Stack.Item>
-                    <Stack.Item basis="70%">
-                      <Box dangerouslySetInnerHTML={{ __html: pack.desc }} />
+    <Stack align="center" justify = "space-around" >
+        <Stack.Item fontSize={ 1.2 }> { pack.name } </Stack.Item>
+            < Stack.Item basis = "70%" >
+                <Box dangerouslySetInnerHTML={ { __html: pack.desc } } />
                     </Stack.Item>
-                  </Stack>
-                </ImageButton>
-              </Stack.Item>
+                    </Stack>
+                    </ImageButton>
+                    </Stack.Item>
             ))}
-          </Stack>
-        </Section>
-      </Stack.Item>
+</Stack>
+    </Section>
+    </Stack.Item>
     </Stack>
   );
 };

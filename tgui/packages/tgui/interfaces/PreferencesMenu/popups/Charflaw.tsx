@@ -126,14 +126,14 @@ const PopupCharflawSelectorInner = (props: { constantData: ConstantData }) => {
           <Stack vertical>
             {(query.length ? results : combinedList).map((args) => (
               <CharflawButton
-                key={args.path}
-                taken={equipped_keys.indexOf(args.path) + 1 || undefined}
-                {...args}
-              />
+                key= { args.path }
+                taken = { equipped_keys.indexOf(args.path) + 1 || undefined }
+                { ...args }
+                />
             ))}
-          </Stack>
-        </Section>
-      </Stack.Item>
+</Stack>
+    </Section>
+    </Stack.Item>
     </Stack>
   );
 };

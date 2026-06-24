@@ -21,7 +21,7 @@
 
 	var/list/already_taken = get_all_virtue_names()
 	if(!V.stackable && (V.name in already_taken))
-		return CHARACTER_ACT_DATA_UPDATE
+			return CHARACTER_ACT_DATA_UPDATE
 
 	if(istype(V, /datum/virtue/heretic) && !istype(selected_patron, /datum/patron/inhumen))
 		return CHARACTER_ACT_DATA_UPDATE

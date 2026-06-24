@@ -130,16 +130,16 @@ const PopupCharacterSelectInner = (props) => {
               />
             </Stack.Item>
             <Stack.Item>
-              <Button.Checkbox
-                checked={adv}
-                selected={adv}
-                tooltip="Unlock Slot Copy & Deletion"
-                onClick={() => setAdv((v) => !v)}
-              >
-                <Icon name="unlock" mr={1} />
-                <Icon name="copy" mr={1} />
-                <Icon name="trash" />
-              </Button.Checkbox>
+          <Button.Checkbox
+            checked={adv}
+            selected={adv}
+            tooltip="Unlock Slot Copy & Deletion"
+            onClick={() => setAdv((v) => !v)}
+          >
+            <Icon name="unlock" mr={1} />
+            <Icon name="copy" mr={1} />
+            <Icon name="trash" />
+          </Button.Checkbox>
             </Stack.Item>
           </Stack>
         }
@@ -187,27 +187,27 @@ const CharacterSlot = (props: {
       <Stack align="center">
         <Stack.Item basis="60%">
           <Stack align="center">
-            {favorite ? (
-              <Stack.Item>
-                <Icon name="grip-vertical" />
-              </Stack.Item>
-            ) : null}
+        {favorite ? (
+          <Stack.Item>
+            <Icon name="grip-vertical" />
+          </Stack.Item>
+        ) : null}
             <Stack.Item bold={currentSlot === slot.index}>
               {slot.index}
             </Stack.Item>
-            <Stack.Item
-              basis="60%"
-              bold={currentSlot === slot.index}
-              fontSize={1.2}
-              style={
-                currentSlot === slot.index
-                  ? { textDecoration: 'underline' }
-                  : undefined
-              }
-            >
-              {slot.real_name || 'No Data'}
-              {slot.topjob ? ` - ${slot.topjob}` : null}
-            </Stack.Item>
+        <Stack.Item
+          basis="60%"
+          bold={currentSlot === slot.index}
+          fontSize={1.2}
+          style={
+            currentSlot === slot.index
+              ? { textDecoration: 'underline' }
+              : undefined
+          }
+        >
+          {slot.real_name || 'No Data'}
+          {slot.topjob ? ` - ${slot.topjob}` : null}
+        </Stack.Item>
           </Stack>
         </Stack.Item>
         <Stack.Item>{slot.species || 'No Data'}</Stack.Item>

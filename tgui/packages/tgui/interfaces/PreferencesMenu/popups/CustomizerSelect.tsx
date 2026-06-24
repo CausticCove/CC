@@ -7,6 +7,7 @@ import {
   usePopupBackend,
   usePopupContext,
 } from 'pm/popups';
+import { useState } from 'react';
 import { Box, Button, Input, Section, Stack } from 'tgui-core/components';
 import { useFuzzySearch } from 'tgui-core/fuzzysearch';
 
@@ -139,6 +140,7 @@ const AccessoryChoice = (props: {
   const { customizer_choices, sprite_accessories } = constantData;
   const { customizer } = context;
   const { customizer_entries } = data;
+  const [search, setSearch] = useState('');
 
   const entry = customizer_entries[customizer];
   const selectedChoice = customizer_choices[entry.customizer_choice_type];
