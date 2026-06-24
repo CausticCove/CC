@@ -1,6 +1,7 @@
 // This code handles different species in the game.
 
 GLOBAL_LIST_EMPTY(roundstart_races)
+GLOBAL_LIST_EMPTY(roundstart_races_paths)
 
 /datum/species
 	var/id	// if the game needs to manually check my race to do something not included in a proc here, it will use this
@@ -18,7 +19,6 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	var/icon_override_f
 	var/list/possible_ages = ALL_AGES_LIST
 	var/sexes = 1		// whether or not the race has sexual characteristics. at the moment this is only 0 for skeletons and shadows
-	var/patreon_req = 0
 	var/base_name
 	var/sub_name
 	var/psydonic = FALSE
@@ -244,14 +244,22 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 		generate_selectable_species()
 	return GLOB.roundstart_races
 
+/proc/get_selectable_species_paths()
+	if(!GLOB.roundstart_races_paths.len)
+		generate_selectable_species()
+	return GLOB.roundstart_races_paths
+
 /proc/generate_selectable_species()
 	for(var/species_type in subtypesof(/datum/species))
 		var/datum/species/species = new species_type
 		if(species.check_roundstart_eligible())
 			GLOB.roundstart_races += species.name
+			GLOB.roundstart_races_paths += species.type
 		qdel(species)
 	if(!GLOB.roundstart_races.len)
 		GLOB.roundstart_races += "Humen"
+	if(!GLOB.roundstart_races.len)
+		GLOB.roundstart_races_paths += /datum/species/human/northern
 	sortList(GLOB.roundstart_races, GLOBAL_PROC_REF(cmp_text_dsc))
 
 /datum/species/proc/check_roundstart_eligible()
@@ -434,7 +442,6 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	var/list/skins = get_skin_list()
 	H.skin_tone = skins[pick(skins)]
 	H.eye_color = random_eye_color()
-	H.accessory = "Nothing"
 	if(H.dna)
 		H.dna.real_name = H.real_name
 		H.dna.features = get_random_features()
@@ -458,8 +465,8 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	replace_body(C, src)
 
 	// this needs to be FIRST because qdel calls update_body which checks if we have DIGITIGRADE legs or not and if not then removes DIGITIGRADE from species_traits
-	if(("legs" in C.dna.species.mutant_bodyparts) && C.dna.features["legs"] == "Digitigrade Legs")
-		species_traits += DIGITIGRADE
+	// if(("legs" in C.dna.species.mutant_bodyparts) && C.dna.features["legs"] == "Digitigrade Legs")
+	// 	species_traits += DIGITIGRADE
 	if(DIGITIGRADE in species_traits)
 		C.Digitigrade_Leg_Swap(FALSE)
 
@@ -976,41 +983,11 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 ////////
 
 /datum/species/proc/handle_digestion(mob/living/carbon/human/H)
-//CC Edit Begin
+	//CC Edit Begin
 	handle_diet(H)
-//CC Edit End
-	//The fucking TRAIT_FAT mutation is the dumbest shit ever. It makes the code so difficult to work with
-//	if(HAS_TRAIT_FROM(H, TRAIT_FAT, OBESITY))//I share my pain, past coder.
-//		if(H.overeatduration < 100)
-//			to_chat(H, span_notice("I feel fit again!"))
-//			REMOVE_TRAIT(H, TRAIT_FAT, OBESITY)
-//			H.remove_movespeed_modifier(MOVESPEED_ID_FAT)
-//			H.update_inv_w_uniform()
-//			H.update_inv_wear_suit()
-//	else
-//		if(H.overeatduration >= 100)
-//			to_chat(H, span_danger("I suddenly feel blubbery!"))
-//			ADD_TRAIT(H, TRAIT_FAT, OBESITY)
-//			H.add_movespeed_modifier(MOVESPEED_ID_FAT, multiplicative_slowdown = 1.5)
-//			H.update_inv_w_uniform()
-//			H.update_inv_wear_suit()
-
-	// nutrition decrease and satiety
+	//CC Edit End
 	if (H.nutrition > 0 && H.stat != DEAD && !HAS_TRAIT(H, TRAIT_NOHUNGER))
-		// THEY HUNGER
 		var/hunger_rate = HUNGER_FACTOR
-/*		if(H.satiety > MAX_SATIETY)
-			H.satiety = MAX_SATIETY
-		else if(H.satiety > 0)
-			H.satiety--
-		else if(H.satiety < -MAX_SATIETY)
-			H.satiety = -MAX_SATIETY
-		else if(H.satiety < 0)
-			H.satiety++
-			if(prob(round(-H.satiety/40)))
-				H.Jitter(5)
-			hunger_rate = 10 * HUNGER_FACTOR*/
-//		hunger_rate *= H.physiology.hunger_mod
 		//Caustic Edit - Add in adjustments to Bottomless, and also the 10-minute grace timer for nutrition is added here!
 		if(H.has_flaw(/datum/charflaw/bottomless))
 			hunger_rate = (hunger_rate * 1.5) //Bottomless Flaw players just drain their nutrition faster instead of that constantly increasing max.
@@ -1018,22 +995,8 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 			H.adjust_nutrition(-hunger_rate)
 		//Caustic Edit End
 
-		var/obj/item/organ/breasts/breasts = H.has_breasts()
-		if(breasts)
-			if(H.nutrition > NUTRITION_LEVEL_HUNGRY && breasts.lactating && breasts.milk_max > breasts.milk_stored) //Vrell - numbers may need to be tweaked for balance but hey this works for now.
-				var/milk_to_make = min(hunger_rate, breasts.milk_max - breasts.milk_stored)
-				breasts.milk_stored += milk_to_make
-				H.adjust_nutrition(-milk_to_make)
-
-			else if(H.nutrition < NUTRITION_LEVEL_STARVING && breasts.lactating) //Vrell - If starving, your milk drains automatically to slow your starvation.
-				var/milk_to_take = min(hunger_rate, breasts.milk_stored)
-				breasts.milk_stored -= milk_to_take
-				H.adjust_nutrition(milk_to_take)
-
 	if (H.hydration > 0 && H.stat != DEAD && !HAS_TRAIT(H, TRAIT_NOHUNGER))
-		// THEY HUNGER
 		var/hunger_rate = HUNGER_FACTOR
-//		hunger_rate *= H.physiology.hunger_mod
 		if(!H.mind || world.time < H.time_of_last_move + 10 MINUTES)
 			H.adjust_hydration(-hunger_rate)
 
@@ -1044,35 +1007,6 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	else
 		if(H.overeatduration > 1)
 			H.overeatduration -= 2 //doubled the unfat rate
-
-	//metabolism change
-//	if(H.nutrition > NUTRITION_LEVEL_FAT)
-//		H.metabolism_efficiency = 1
-//	else if(H.nutrition > NUTRITION_LEVEL_FED && H.satiety > 80)
-//		if(H.metabolism_efficiency != 1.25 && !HAS_TRAIT(H, TRAIT_NOHUNGER))
-//			to_chat(H, span_notice("I feel vigorous."))
-//			H.metabolism_efficiency = 1.25
-//	else if(H.nutrition < NUTRITION_LEVEL_STARVING + 50)
-//		if(H.metabolism_efficiency != 0.8)
-//			to_chat(H, span_notice("I feel sluggish."))
-//		H.metabolism_efficiency = 0.8
-//	else
-//		if(H.metabolism_efficiency == 1.25)
-//			to_chat(H, span_notice("I no longer feel vigorous."))
-//		H.metabolism_efficiency = 1
-
-	//Hunger slowdown for if mood isn't enabled
-//	if(CONFIG_GET(flag/disable_human_mood))
-//		if(!HAS_TRAIT(H, TRAIT_NOHUNGER))
-//			var/hungry = (500 - H.nutrition) / 5 //So overeat would be 100 and default level would be 80
-//			if(hungry >= 70)
-//				H.add_movespeed_modifier(MOVESPEED_ID_HUNGRY, override = TRUE, multiplicative_slowdown = (hungry / 50))
-//			else if(isethereal(H))
-//				var/datum/species/ethereal/E = H.dna.species
-//				if(E.get_charge(H) <= ETHEREAL_CHARGE_NORMAL)
-//					H.add_movespeed_modifier(MOVESPEED_ID_HUNGRY, override = TRUE, multiplicative_slowdown = (1.5 * (1 - E.get_charge(H) / 100)))
-//			else
-//				H.remove_movespeed_modifier(MOVESPEED_ID_HUNGRY)
 
 	if(HAS_TRAIT(H, TRAIT_NOHUNGER)) //hunger is for BABIES
 		H.nutrition = NUTRITION_LEVEL_DEATHLESS
@@ -2572,7 +2506,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 		return null
 	var/ret = ""
 	for(var/tutorial in mechanics_explanations)
-		ret += "<br>- [tutorial]"
+		ret += "\n- [tutorial]"
 	return ret
 
 /datum/species/proc/get_string_bonus_traits()
@@ -2581,9 +2515,30 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 		// THIS is how we avoid showing hidden traits? Really?? Surely there's a better way than this?!
 		if(!(trait in GLOB.roguetraits))
 			continue
-		bonuses.Add(SPAN_TOOLTIP_DANGEROUS_HTML(GLOB.roguetraits[trait], "\[<u>[trait]</u>\]"))
+		bonuses.Add("[trait]: [GLOB.roguetraits[trait]]")
 	if(length(bonuses))
-		return jointext(bonuses, " | ")
+		return jointext(bonuses, "\n")
+	else
+		return null
+
+/datum/species/proc/get_string_languages()
+	var/list/ret_languages = list()
+	for (var/language_type in languages)
+		var/datum/language/lang = GLOB.language_datum_instances[language_type]
+		if(!lang)
+			continue
+		var/lang_name = initial(lang.name)
+		// Everyone knows Imperial, therefore it's redundant to list. So we'll skip over it
+		if(lang_name == "Imperial")
+			continue
+		var/lang_desc = initial(lang.desc)
+		// If it has a description, give it a tooltip and underline to indicate said tooltip being there
+		if(length(lang_desc))
+			ret_languages.Add("[lang_name]: [lang_desc]")
+		else
+			ret_languages.Add("[lang_name]")
+	if(length(ret_languages))
+		return jointext(ret_languages, "\n")
 	else
 		return null
 
@@ -2616,3 +2571,19 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	var/obj/item/organ/ears/E = H.getorganslot(ORGAN_SLOT_EARS)
 	E.is_flicking = FALSE
 	H.update_body_parts(TRUE)
+
+/datum/species/proc/constant_ui_data()
+	return list(
+		"name" = name,
+		"base_name" = base_name,
+		"sub_name" = sub_name,
+		"id" = id,
+		"type" = type,
+		"is_subrace" = is_subrace,
+		"desc" = desc,
+		"desc_title" = desc_title,
+		"bonus_stats" = get_string_bonus_stats(return_null_if_no_stats = TRUE),
+		"bonus_traits" = get_string_bonus_traits(),
+		"mechanics" = get_string_mechanics_explanations(),
+		"languages" = get_string_languages(),
+	)

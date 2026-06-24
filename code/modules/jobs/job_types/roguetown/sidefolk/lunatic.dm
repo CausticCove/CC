@@ -12,7 +12,6 @@
 	forbidden_races = list() //Caustic Edit - Just a global tweak to remove 'races_despised' from this check everywhere
 	allowed_ages = list(AGE_ADULT, AGE_MIDDLEAGED, AGE_OLD)
 	outfit = /datum/outfit/job/roguetown/lunatic
-	bypass_lastclass = TRUE
 	bypass_jobban = FALSE
 	min_pq = -100 //CC Edit - Allow anyone to be a lunatic. Picking Lunatic means you will be treated differently.
 	max_pq = null

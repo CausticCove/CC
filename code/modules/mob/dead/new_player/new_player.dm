@@ -67,59 +67,6 @@ GLOBAL_LIST_INIT(roleplay_readme, world.file2list("strings/rt/rp_prompt.txt"))
 /mob/dead/new_player/prepare_huds()
 	return
 
-/mob/dead/new_player/proc/new_player_panel()
-/*
-	var/output = "<center>"
-	if(SSticker.current_state <= GAME_STATE_PREGAME)
-		switch(ready)
-			if(PLAYER_NOT_READY)
-				output += "<p>[LINKIFY_READY("READY", PLAYER_READY_TO_PLAY)] | <b>UNREADY</b></p>"
-			if(PLAYER_READY_TO_PLAY)
-				output += "<p><b>READY</b> | [LINKIFY_READY("UNREADY", PLAYER_NOT_READY)]</p>"
-			if(PLAYER_READY_TO_OBSERVE)
-				output += "<p>[LINKIFY_READY("READY", PLAYER_READY_TO_PLAY)]</p>"
-				output += "<p>[LINKIFY_READY("UNREADY", PLAYER_NOT_READY)]</p>"
-	else
-//		output += "<p><a href='byond://?src=[REF(src)];manifest=1'>View the Crew Manifest</a></p>"
-//		output += "<p><a href='byond://?src=[REF(src)];manifest=1'>FOLK</a></p>"
-		output += "<p><a href='byond://?src=[REF(src)];late_join=1'>LATEJOIN</a></p>"
-	output += "<p><a href='byond://?src=[REF(src)];show_preferences=1'>CHARACTER</a></p>"
-
-//	output += "<p><a href='byond://?src=[REF(src)];show_options=1'>OPTIONS</a></p>"
-
-	output += "<p><a href='byond://?src=[REF(src)];show_keybinds=1'>KEYBINDS</a></p>"
-
-	if(!IsGuestKey(src.key))
-		if (SSdbcore.Connect())
-			var/isadmin = 0
-			if(src.client && src.client.holder)
-				isadmin = 1
-			var/datum/DBQuery/query_get_new_polls = SSdbcore.NewQuery("SELECT id FROM [format_table_name("poll_question")] WHERE [(isadmin ? "" : "adminonly = false AND")] Now() BETWEEN starttime AND endtime AND id NOT IN (SELECT pollid FROM [format_table_name("poll_vote")] WHERE ckey = \"[sanitizeSQL(ckey)]\") AND id NOT IN (SELECT pollid FROM [format_table_name("poll_textreply")] WHERE ckey = \"[sanitizeSQL(ckey)]\")")
-			var/rs = REF(src)
-			if(query_get_new_polls.Execute())
-				var/newpoll = 0
-				if(query_get_new_polls.NextRow())
-					newpoll = 1
-
-				if(newpoll)
-					output += "<p><b><a href='byond://?src=[rs];showpoll=1'>Show Player Polls</A> (NEW!)</b></p>"
-				else
-					output += "<p><a href='byond://?src=[rs];showpoll=1'>Show Player Polls</A></p>"
-			qdel(query_get_new_polls)
-			if(QDELETED(src))
-				return
-
-	output += "</center>"
-
-	//src << browse(output,"window=playersetup;size=210x240;can_close=0")
-	var/datum/browser/popup = new(src, "playersetup", "<div align='center'>LOBBY MENU</div>", 250, 200)
-	popup.set_window_options("can_close=0")
-	popup.set_content(output)
-	popup.open(FALSE)*/
-	if(client)
-		if(client.prefs)
-			client.prefs.ShowChoices(src, 4)
-
 /mob/dead/new_player/Topic(href, href_list[])
 	if(src != usr)
 		return 0
@@ -135,18 +82,6 @@ GLOBAL_LIST_INIT(roleplay_readme, world.file2list("strings/rt/rp_prompt.txt"))
 		relevant_cap = min(hpc, epc)
 	else
 		relevant_cap = max(hpc, epc)
-
-	if(href_list["show_preferences"])
-		client.prefs.ShowChoices(src, 4)
-		return 1
-
-	if(href_list["show_options"])
-		client.prefs.ShowChoices(src, 1)
-		return 1
-
-	if(href_list["show_keybinds"])
-		client.prefs.ShowChoices(src, 3)
-		return 1
 
 	if(href_list["ready"])
 		var/tready = text2num(href_list["ready"])
@@ -173,16 +108,7 @@ GLOBAL_LIST_INIT(roleplay_readme, world.file2list("strings/rt/rp_prompt.txt"))
 			make_me_an_observer()
 			return
 
-	if(href_list["refresh"])
-		winshow(src, "preferencess_window", FALSE)
-		src << browse(null, "window=preferences_browser")
-//		src << browse(null, "window=playersetup") //closes the player setup window
-		new_player_panel()
-
-//	if(href_list["rpprompt"])
-//		do_rp_prompt()
-//		return
-
+	// this must stay for the sake of SSticker
 	if(href_list["late_join"])
 		if(!SSticker?.IsRoundInProgress())
 			to_chat(usr, span_boldwarning("The game is starting. You cannot join yet."))
@@ -236,9 +162,6 @@ GLOBAL_LIST_INIT(roleplay_readme, world.file2list("strings/rt/rp_prompt.txt"))
 				return
 		LateChoices()
 
-	if(href_list["manifest"])
-		ViewManifest()
-
 	if(href_list["SelectedJob"])
 		if(!SSticker?.IsRoundInProgress())
 			to_chat(usr, span_danger("The round is either not ready, or has already finished..."))
@@ -285,10 +208,6 @@ GLOBAL_LIST_INIT(roleplay_readme, world.file2list("strings/rt/rp_prompt.txt"))
 	if(href_list["votepollref"])
 		var/datum/poll_question/poll = locate(href_list["votepollref"]) in GLOB.polls
 		vote_on_poll_handler(poll, href_list)
-
-	if(href_list["explainreadyupbonus"])
-		to_chat(src, span_smallnotice("Ready up for 20 mammons in a stashed pouch, full hydration, a great meal buff and +1 triumph!"))
-
 
 /mob/dead/new_player/verb/do_rp_prompt()
 	set name = "Lore Primer"
@@ -342,23 +261,10 @@ GLOBAL_LIST_INIT(roleplay_readme, world.file2list("strings/rt/rp_prompt.txt"))
 /mob/dead/new_player/proc/IsJobUnavailable(rank, latejoin = FALSE)
 	if(QDELETED(src))
 		return JOB_UNAVAILABLE_GENERIC
-	if(has_world_trait(/datum/world_trait/skeleton_siege))
-		if(rank != "Siege Skeleton")
-			return JOB_UNAVAILABLE_GENERIC
-		else
-			return JOB_AVAILABLE
-	else
-		if(rank == "Siege Skeleton")
-			return JOB_UNAVAILABLE_GENERIC
-
-	if(has_world_trait(/datum/world_trait/goblin_siege))
-		if(rank != "Goblin")
-			return JOB_UNAVAILABLE_GENERIC
-		else
-			return JOB_AVAILABLE
-	else
-		if(rank == "Goblin")
-			return JOB_UNAVAILABLE_GENERIC
+	if(rank == "Siege Skeleton")
+		return has_world_trait(/datum/world_trait/skeleton_siege) ? JOB_AVAILABLE : JOB_UNAVAILABLE_GENERIC
+	if(rank == "Goblin")
+		return has_world_trait(/datum/world_trait/goblin_siege) ? JOB_AVAILABLE : JOB_UNAVAILABLE_GENERIC
 
 	var/datum/job/job = SSjob.GetJob(rank)
 	if(!job)
@@ -368,8 +274,6 @@ GLOBAL_LIST_INIT(roleplay_readme, world.file2list("strings/rt/rp_prompt.txt"))
 			return JOB_UNAVAILABLE_GENERIC
 	if(!job.bypass_jobban)
 		if(is_banned_from(ckey, rank))
-			return JOB_UNAVAILABLE_BANNED
-		if(client.blacklisted())
 			return JOB_UNAVAILABLE_BANNED
 	if(!job.player_old_enough(client))
 		return JOB_UNAVAILABLE_ACCOUNTAGE
@@ -403,8 +307,6 @@ GLOBAL_LIST_INIT(roleplay_readme, world.file2list("strings/rt/rp_prompt.txt"))
 		return JOB_UNAVAILABLE_AGE
 	if(length(job.allowed_patrons) && !(client.prefs.selected_patron.type in job.allowed_patrons))
 		return JOB_UNAVAILABLE_PATRON
-	if((client.prefs.lastclass == job.title) && !job.bypass_lastclass)
-		return JOB_UNAVAILABLE_LASTCLASS
 	// Check if the player is on cooldown for the hiv+ role
 	if((job.same_job_respawn_delay) && (ckey in GLOB.job_respawn_delays))
 		if(world.time < GLOB.job_respawn_delays[ckey])
@@ -421,16 +323,14 @@ GLOBAL_LIST_INIT(roleplay_readme, world.file2list("strings/rt/rp_prompt.txt"))
 	if(length(job.vice_restrictions) || length(job.virtue_restrictions))
 		var/has_restricted_virtue = (client.prefs.virtue?.type in job.virtue_restrictions) || (client.prefs.virtuetwo?.type in job.virtue_restrictions) || (client.prefs.extravirtue?.type in job.virtue_restrictions)
 		var/has_restricted_vice = FALSE
-		for(var/datum/charflaw/cf in client.prefs.charflaws)
-			if(cf.type in job.vice_restrictions)
+		for(var/cf_type in client.prefs.charflaws)
+			if(cf_type in job.vice_restrictions)
 				has_restricted_vice = TRUE
 				break
 		if(has_restricted_virtue || has_restricted_vice)
 			return JOB_UNAVAILABLE_VIRTUESVICE
-//	if(job.title == "Adventurer" && latejoin)
-//		for(var/datum/job/J in SSjob.occupations)
-//			if(J && J.total_positions && J.current_positions < 1 && J.title != job.title && (IsJobUnavailable(J.title))
-//				return JOB_UNAVAILABLE_GENERIC //we can't play adventurer if there isn't 1 of every other job that we can play
+	if(job.prefs_all_subclasses_restricted(client))
+		return JOB_UNAVAILABLE_VIRTUESVICE
 	if(latejoin && !job.special_check_latejoin(client))
 		return JOB_UNAVAILABLE_GENERIC
 	return JOB_AVAILABLE
@@ -444,24 +344,10 @@ GLOBAL_LIST_INIT(roleplay_readme, world.file2list("strings/rt/rp_prompt.txt"))
 	if(SSticker.late_join_disabled)
 		alert(src, "Something went bad.")
 		return FALSE
-/*
-	var/arrivals_docked = TRUE
-	if(SSshuttle.arrivals)
-		close_spawn_windows()	//In case we get held up
-		if(SSshuttle.arrivals.damaged && CONFIG_GET(flag/arrivals_shuttle_require_safe_latejoin))
-			src << alert("WEIRD!")
-			return FALSE
-
-		if(CONFIG_GET(flag/arrivals_shuttle_require_undocked))
-			SSshuttle.arrivals.RequireUndocked(src)
-		arrivals_docked = SSshuttle.arrivals.mode != SHUTTLE_CALL
-*/
 
 	//Remove the player from the join queue if he was in one and reset the timer
 	SSticker.queued_players -= src
 	SSticker.queue_delay = 4
-
-
 
 	SSjob.AssignRole(src, rank, 1)
 
@@ -481,10 +367,8 @@ GLOBAL_LIST_INIT(roleplay_readme, world.file2list("strings/rt/rp_prompt.txt"))
 
 		SSjob.SendToLateJoin(character)
 
-//		if(!arrivals_docked)
 		var/atom/movable/screen/splash/Spl = new(character.client, TRUE)
 		Spl.Fade(TRUE)
-//			character.playsound_local(get_turf(character), 'sound/blank.ogg', 25)
 
 
 	SSticker.minds += character.mind
@@ -492,39 +376,10 @@ GLOBAL_LIST_INIT(roleplay_readme, world.file2list("strings/rt/rp_prompt.txt"))
 	var/mob/living/carbon/human/humanc
 	if(ishuman(character))
 		humanc = character	//Let's retypecast the var to be human,
-/*
-	if(humanc)	//These procs all expect humans
-		GLOB.data_core.manifest_inject(humanc)
-		if(SSshuttle.arrivals)
-			SSshuttle.arrivals.QueueAnnounce(humanc, rank)
-		else
-			AnnounceArrival(humanc, rank)
-		AddEmploymentContract(humanc)
-		if(GLOB.highlander)
-			to_chat(humanc, span_danger("<i>THERE CAN BE ONLY ONE!!!</i>"))
-			humanc.make_scottish()
 
-		if(GLOB.summon_guns_triggered)
-			give_guns(humanc)
-		if(GLOB.summon_magic_triggered)
-			give_magic(humanc)
-		if(GLOB.curse_of_madness_triggered)
-			give_madness(humanc, GLOB.curse_of_madness_triggered)
-*/
 	GLOB.joined_player_list += character.ckey
-	update_wretch_slots()
-/*
-	if(CONFIG_GET(flag/allow_latejoin_antagonists) && humanc)	//Borgs aren't allowed to be antags. Will need to be tweaked if we get true latejoin ais.
-		if(SSshuttle.emergency)
-			switch(SSshuttle.emergency.mode)
-				if(SHUTTLE_RECALL, SHUTTLE_IDLE)
-					SSticker.mode.make_antag_chance(humanc)
-				if(SHUTTLE_CALL)
-					if(SSshuttle.emergency.timeLeft(1) > initial(SSshuttle.emergencyCallTime)*0.5)
-						SSticker.mode.make_antag_chance(humanc)
+	update_scaling_slots()
 
-	if(humanc && CONFIG_GET(flag/roundstart_traits))
-		SSquirks.AssignQuirks(humanc, humanc.client, TRUE)*/
 	if(humanc)
 		var/fakekey = character.ckey
 		if(character.ckey in GLOB.anonymize)
@@ -669,12 +524,8 @@ GLOBAL_LIST_INIT(roleplay_readme, world.file2list("strings/rt/rp_prompt.txt"))
 	var/mob/living/carbon/human/H = new(loc)
 
 	var/frn = CONFIG_GET(flag/force_random_names)
-	if(!frn)
-		frn = is_banned_from(ckey, "Appearance")
-		if(QDELETED(src))
-			return
 	if(frn)
-		client.prefs.random_character()
+		client.prefs.random_character(null, RANDOMIZE_NEW_CHARACTER)
 
 	var/is_antag
 	if(mind in GLOB.pre_setup_antags)
@@ -722,33 +573,19 @@ GLOBAL_LIST_INIT(roleplay_readme, world.file2list("strings/rt/rp_prompt.txt"))
 		new_character = null
 		qdel(src)
 
-/mob/dead/new_player/proc/ViewManifest()
-	var/dat = "<html><body>"
-	dat += "<h4>Crew Manifest</h4>"
-	dat += GLOB.data_core.get_manifest(OOC = 1)
-
-	src << browse(dat, "window=manifest;size=387x420;can_close=1")
-
 /mob/dead/new_player/Move()
 	return 0
 
 
 /mob/dead/new_player/proc/close_spawn_windows()
+	SStgui.close_uis(src)
+	if(client.prefs)
+		SStgui.close_uis(client.prefs)
+		client.prefs.close_subwindows(src)
 
-	src << browse(null, "window=latechoices") //closes late choices window
-	src << browse(null, "window=playersetup") //closes the player setup window
-	src << browse(null, "window=preferences") //closes job selection
-	src << browse(null, "window=mob_occupation")
-	src << browse(null, "window=latechoices") //closes late job selection
-	if(client?.prefs?.migrant)
-		client.prefs.migrant.hide_ui() // Closes migrant menu
-	src << browse(null, "window=familiar_prefs") // Closes familiar prefs menu
+	src << browse(null, "window=latechoices")
+	src << browse(null, "window=actors")
 
-	SStriumphs.remove_triumph_buy_menu(client)
-
-	winshow(src, "preferencess_window", FALSE)
-	src << browse(null, "window=preferences_browser")
-	src << browse(null, "window=lobby_window")
 // Used to make sure that a player has a valid job preference setup, used to knock players out of eligibility for anything if their prefs don't make sense.
 // A "valid job preference setup" in this situation means at least having one job set to low, or not having "return to lobby" enabled
 // Prevents "antag rolling" by setting antag prefs on, all jobs to never, and "return to lobby if preferences not availible"
