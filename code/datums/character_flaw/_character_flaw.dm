@@ -45,7 +45,7 @@ GLOBAL_LIST_INIT(character_flaws, list(
 	))
 
 GLOBAL_LIST_INIT(averse_factions, list(
-	"Courtiers & Nobility" = (COURTIERS | NOBLEMEN | COUNCILLOR),
+	"Courtiers & Nobility" = (COURTIERS | NOBLEMEN),
 	"Inquisition" = INQUISITION,
 	"Burghers" = BURGHERS,
 	"Azurian Trading Company" = ATC,
@@ -54,7 +54,7 @@ GLOBAL_LIST_INIT(averse_factions, list(
 	"Churchmen" = CHURCHMEN,
 	"Peasants" = PEASANTS,
 	"Wanderers" = WANDERERS,
-	"Everyone" = (COURTIERS | NOBLEMEN | INQUISITION | BURGHERS | ATC | RETINUE | GARRISON | CHURCHMEN | PEASANTS | WANDERERS | SIDEFOLK | ANTAGONIST | COUNCILLOR)
+	"Everyone" = (COURTIERS | NOBLEMEN | INQUISITION | BURGHERS | ATC | RETINUE | GARRISON | CHURCHMEN | PEASANTS | WANDERERS | SIDEFOLK | ANTAGONIST)
 ))
 
 /datum/charflaw
