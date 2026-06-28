@@ -4,6 +4,7 @@
 	var/threat_bands_cleared = 0
 	var/total_spawned_tp = 0
 	var/kills_count_progress = TRUE
+	var/failed = FALSE
 	var/hunt_timer_id
 	var/hunt_warn_2m_id
 	var/hunt_warn_30s_id
