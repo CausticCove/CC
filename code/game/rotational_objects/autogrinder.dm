@@ -176,7 +176,7 @@
 			if(prob(recipe.bonus_chance_outputs[bonus_path]))
 				new bonus_path(get_turf(src))
 	else if(ground.mill_result)
-		new ground.mill_result(get_turf(src))
+	new ground.mill_result(get_turf(src))
 	qdel(ground)
 	current_item = null
 	progress = 0
@@ -321,7 +321,9 @@
 
 /// The gears turn only while the parent grinder is powered and switched on.
 /obj/structure/closet/crate/chest/autogrinder/proc/update_gear_anim()
-	layer = BELOW_OBJ_LAYER
+	var/spinning = parent && parent.is_spinning()
+	if(opened)
+		layer = BELOW_OBJ_LAYER
 	icon_state = (parent && parent.is_spinning()) ? "open_on" : "open_off"
 
 /obj/structure/closet/crate/chest/autogrinder/Destroy()
