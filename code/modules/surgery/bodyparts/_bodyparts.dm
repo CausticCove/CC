@@ -50,7 +50,6 @@
 	var/no_update = 0
 	var/species_icon = ""
 
-	var/animal_origin = null //for nonhuman bodypart (e.g. monkey)
 	var/prosthetic_prefix = "pr" // for unique prosthetic icons on mob
 	var/dismemberable = 1 //whether it can be dismembered with a weapon.
 	var/disableable = 1
@@ -251,7 +250,7 @@
 	if(ishuman(C))
 		var/mob/living/carbon/human/H = C
 		if(HAS_TRAIT(C, TRAIT_LIMBATTACHMENT))
-			if(!H.get_bodypart(body_zone) && !animal_origin)
+			if(!H.get_bodypart(body_zone))
 				if(HAS_TRAIT(C, TRAIT_IRONMAN)) // there we go, figured a way to give this a delay, now ima go sleep
 					if(!do_after(C, 20 SECONDS))
 						return
@@ -535,30 +534,27 @@
 	species_flags_list = H.dna.species.species_traits
 
 
-		if(S.use_skintones)
-			skin_tone = H.skin_tone
-			should_draw_greyscale = TRUE
+	if(S.use_skintones)
+		skin_tone = H.skin_tone
+		should_draw_greyscale = TRUE
+	else
+		skin_tone = ""
+
+	body_gender = H.gender
+	should_draw_gender = S.sexes
+
+	if((MUTCOLORS in S.species_traits) || (DYNCOLORS in S.species_traits))
+		if(S.fixed_mut_color)
+			species_color = S.fixed_mut_color
 		else
-			skin_tone = ""
+			species_color = H.dna.features["mcolor"]
+		should_draw_greyscale = TRUE
+	else
+		species_color = ""
 
-		body_gender = H.gender
-		should_draw_gender = S.sexes
+	mutation_color = ""
 
-		if((MUTCOLORS in S.species_traits) || (DYNCOLORS in S.species_traits))
-			if(S.fixed_mut_color)
-				species_color = S.fixed_mut_color
-			else
-				species_color = H.dna.features["mcolor"]
-			should_draw_greyscale = TRUE
-		else
-			species_color = ""
-
-		mutation_color = ""
-
-		dmg_overlay_type = S.damage_overlay_type
-
-	else if(animal_origin == MONKEY_BODYPART) //currently monkeys are the only non human mob to have damage overlays.
-		dmg_overlay_type = animal_origin
+	dmg_overlay_type = S.damage_overlay_type
 
 	if(status == BODYPART_ROBOTIC)
 		dmg_overlay_type = "robotic"
@@ -625,18 +621,6 @@
 	var/image/aux
 
 	. += limb
-
-	if(animal_origin)
-		if(is_organic_limb())
-			limb.icon = 'icons/mob/animal_parts.dmi'
-			if(species_id == "husk")
-				limb.icon_state = "[animal_origin]_husk_[body_zone]"
-			else
-				limb.icon_state = "[animal_origin]_[body_zone]"
-		else
-			limb.icon = 'icons/mob/augmentation/augments.dmi'
-			limb.icon_state = "[animal_origin]_[body_zone]"
-		return
 
 //	if((body_zone != BODY_ZONE_HEAD && body_zone != BODY_ZONE_CHEST))
 //		should_draw_gender = FALSE
@@ -775,16 +759,6 @@
 		cavity_item = null
 	..()
 
-/obj/item/bodypart/chest/monkey
-	icon = 'icons/mob/animal_parts.dmi'
-	icon_state = "default_monkey_chest"
-	animal_origin = MONKEY_BODYPART
-
-/obj/item/bodypart/chest/devil
-	dismemberable = 0
-	max_damage = 5000
-	animal_origin = DEVIL_BODYPART
-
 /obj/item/bodypart/l_arm
 	name = "left arm"
 	desc = ""
@@ -829,18 +803,6 @@
 		var/atom/movable/screen/inventory/hand/L = owner.hud_used.hand_slots["[held_index]"]
 		if(L)
 			L.update_hand_vis()
-
-/obj/item/bodypart/l_arm/monkey
-	icon = 'icons/mob/animal_parts.dmi'
-	icon_state = "default_monkey_l_arm"
-	animal_origin = MONKEY_BODYPART
-	px_x = -5
-	px_y = -3
-
-/obj/item/bodypart/l_arm/devil
-	dismemberable = 0
-	max_damage = 5000
-	animal_origin = DEVIL_BODYPART
 
 /obj/item/bodypart/r_arm
 	name = "right arm"
@@ -887,18 +849,6 @@
 		if(R)
 			R.update_hand_vis()
 
-/obj/item/bodypart/r_arm/monkey
-	icon = 'icons/mob/animal_parts.dmi'
-	icon_state = "default_monkey_r_arm"
-	animal_origin = MONKEY_BODYPART
-	px_x = 5
-	px_y = -3
-
-/obj/item/bodypart/r_arm/devil
-	dismemberable = 0
-	max_damage = 5000
-	animal_origin = DEVIL_BODYPART
-
 /obj/item/bodypart/l_leg
 	name = "left leg"
 	desc = ""
@@ -936,17 +886,6 @@
 /obj/item/bodypart/l_leg/digitigrade
 	name = "left digitigrade leg"
 	use_digitigrade = FULL_DIGITIGRADE
-
-/obj/item/bodypart/l_leg/monkey
-	icon = 'icons/mob/animal_parts.dmi'
-	icon_state = "default_monkey_l_leg"
-	animal_origin = MONKEY_BODYPART
-	px_y = 4
-
-/obj/item/bodypart/l_leg/devil
-	dismemberable = 0
-	max_damage = 5000
-	animal_origin = DEVIL_BODYPART
 
 /obj/item/bodypart/r_leg
 	name = "right leg"
@@ -986,14 +925,3 @@
 /obj/item/bodypart/r_leg/digitigrade
 	name = "right digitigrade leg"
 	use_digitigrade = FULL_DIGITIGRADE
-
-/obj/item/bodypart/r_leg/monkey
-	icon = 'icons/mob/animal_parts.dmi'
-	icon_state = "default_monkey_r_leg"
-	animal_origin = MONKEY_BODYPART
-	px_y = 4
-
-/obj/item/bodypart/r_leg/devil
-	dismemberable = 0
-	max_damage = 5000
-	animal_origin = DEVIL_BODYPART

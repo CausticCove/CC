@@ -217,7 +217,6 @@
 	key = ""
 	key_third_person = ""
 	message = "gasps out their last breath."
-	message_monkey = "lets out a faint chimper as it collapses and stops moving..."
 	message_simple =  "falls limp."
 	stat_allowed = UNCONSCIOUS
 
