@@ -992,7 +992,7 @@
 		/obj/item/roguegear = 3,
 		/obj/item/ingot/iron = 2,
 		/obj/item/natural/wood/plank = 4,
-		/obj/item/millstone = 1,
+		/obj/item/natural/stone = 4,
 	)
 	verbage_simple = "engineer"
 	verbage = "engineers"
