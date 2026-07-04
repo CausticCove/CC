@@ -67,9 +67,3 @@
 	if(!found_bearer)
 		return
 	Q.check_arrival(bearer)
-
-/obj/item/quest_writ/blockade/proc/promote_to_board_gated()
-	if(!assigned_quest)
-		return
-	assigned_quest.required_fellowship_size = BLOCKADE_FELLOWSHIP_REQUIREMENT
-	update_quest_text()

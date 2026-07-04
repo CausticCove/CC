@@ -294,6 +294,7 @@
 	var/datum/blockade/B = blockade_ref?.resolve()
 	if(B)
 		B.active_scroll_ref = null
+		B.active_quest_ref = null
 	despawn_live_wave_mobs()
 	quest_scroll?.update_quest_text()
 	var/obj/item/quest_writ/S = quest_scroll
@@ -326,6 +327,7 @@
 	var/datum/blockade/B = blockade_ref?.resolve()
 	if(B)
 		B.active_scroll_ref = null
+		B.active_quest_ref = null
 	if(funding_fund && funding_cost > 0)
 		SStreasury.mint(funding_fund, funding_cost, "Blockade writ recall refund ([recaller ? recaller.real_name : "unknown"])")
 		if(funding_fund == SStreasury.burgher_pledge_fund)
@@ -336,6 +338,9 @@
 	var/obj/item/quest_writ/S = quest_scroll
 	if(S && !QDELETED(S))
 		qdel(S)
+	else
+		SSquestpool.pool -= src
+		qdel(src)
 	return TRUE
 
 /datum/quest/kill/blockade_defense/proc/despawn_live_wave_mobs()
@@ -353,6 +358,7 @@
 	var/datum/blockade/B = blockade_ref?.resolve()
 	if(B)
 		B.active_scroll_ref = null
+		B.active_quest_ref = null
 		SSeconomy.clear_blockade(B, "cleared")
 	var/mob/lead = quest_receiver_reference?.resolve()
 	var/payout = round(reward_amount * reward_turnout_mult())

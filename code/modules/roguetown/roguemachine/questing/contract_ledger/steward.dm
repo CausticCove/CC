@@ -17,11 +17,8 @@
 /obj/structure/roguemachine/contractledger/proc/build_blockade_recall_list()
 	var/list/out = list()
 	for(var/datum/blockade/B as anything in GLOB.active_blockades)
-		var/obj/item/quest_writ/S = B.active_scroll_ref?.resolve()
-		if(!S || QDELETED(S))
-			continue
-		var/datum/quest/kill/blockade_defense/Q = S.assigned_quest
-		if(!istype(Q))
+		var/datum/quest/kill/blockade_defense/Q = B.active_quest_ref?.resolve()
+		if(!istype(Q) || QDELETED(Q))
 			continue
 		var/datum/economic_region/ER = B.get_region()
 		out += list(build_writ_recall_entry(Q, ER ? ER.name : B.region_id))
@@ -266,6 +263,9 @@
 		Q.reward_amount = 0
 		Q.is_directive = TRUE
 		directives_issued_today++
+	var/levy_exempt = (!is_directive && !is_alderman_acting && params["levy_exempt"]) ? TRUE : FALSE
+	if(levy_exempt)
+		Q.levy_exempt = TRUE
 	var/funding = is_directive ? "directive" : (source_fund == SStreasury.discretionary_fund ? "crown" : "pledge")
 	var/bonus_label_text = get_commission_bonus_pay_label(bonus_pay_level)
 	SStreasury.defense_log += list(list(
@@ -274,16 +274,16 @@
 		"region" = region_name,
 		"cost" = cost,
 		"in_hands" = TRUE,
-		"levy_exempt" = FALSE,
+		"levy_exempt" = levy_exempt,
 		"bonus_pay_level" = bonus_pay_level,
 		"funding" = funding,
 		"day" = GLOB.dayspassed,
 	))
-	SSquestpool.log_event("defense_issue", "[steward.real_name] commissioned blockade defense on [region_name] (faction [Q.faction_id]) for [cost]m ([funding])[bonus_label_text ? " ([bonus_label_text])" : ""]")
+	SSquestpool.log_event("defense_issue", "[steward.real_name] commissioned blockade defense on [region_name] (faction [Q.faction_id]) for [cost]m ([funding])[levy_exempt ? " (levy-exempt)" : ""][bonus_label_text ? " ([bonus_label_text])" : ""]")
 	scom_announce("A blockade defense writ has been issued for [region_name][bonus_label_text ? " - [bonus_label_text] attached" : ""].")
 	playsound(src, 'sound/misc/coindispense.ogg', 60, FALSE, -1)
 	var/source_label = is_directive ? "as a Request" : (funding == "crown" ? "from Crown's Purse" : "from the Pledge")
-	to_chat(steward, span_notice("Blockade writ drafted [source_label] to your hand: <b>[Q.get_title()]</b>[bonus_label_text ? " - <i>[bonus_label_text]</i>" : ""]."))
+	to_chat(steward, span_notice("Blockade writ drafted [source_label] to your hand: <b>[Q.get_title()]</b>[levy_exempt ? " - <i>levy-exempt</i>" : ""][bonus_label_text ? " - <i>[bonus_label_text]</i>" : ""]."))
 
 /obj/structure/roguemachine/contractledger/proc/commission_hoard_recovery(mob/living/carbon/human/steward, list/params, cost, datum/fund/source_fund, is_directive, bonus_pay_level = COMMISSION_BONUS_PAY_NONE, is_alderman_acting = FALSE)
 	var/region_name = params["region"]

@@ -46,6 +46,9 @@
 
 /obj/structure/roguemachine/contractledger/attackby(obj/item/P, mob/living/carbon/human/user, params)
 	. = ..()
+	if(istype(P, /obj/item/quest_writ/blockade))
+		post_blockade_writ(user, P)
+		return
 	if(istype(P, /obj/item/quest_writ))
 		turn_in_contract(user, P)
 		return
@@ -296,9 +299,9 @@ GLOBAL_LIST_INIT(contract_proxy_officials, list(
 			"levy_exempt" = Q.levy_exempt,
 			"guild_cut_exempt" = Q.guild_cut_exempt,
 			"is_rumor" = Q.source == QUEST_SOURCE_RUMOR,
-			"is_defense" = Q.source == QUEST_SOURCE_DEFENSE,
+			"is_defense" = Q.source == QUEST_SOURCE_DEFENSE || Q.source == QUEST_SOURCE_BLOCKADE,
 			"is_towner" = Q.source == QUEST_SOURCE_TOWNER,
-			"is_standing" = Q.source == QUEST_SOURCE_RUMOR || Q.source == QUEST_SOURCE_DEFENSE || Q.source == QUEST_SOURCE_TOWNER,
+			"is_standing" = Q.source == QUEST_SOURCE_RUMOR || Q.source == QUEST_SOURCE_DEFENSE || Q.source == QUEST_SOURCE_TOWNER || Q.source == QUEST_SOURCE_BLOCKADE,
 			"required_fellowship_size" = Q.required_fellowship_size,
 			"lapse_minutes" = lapse_minutes,
 		))
