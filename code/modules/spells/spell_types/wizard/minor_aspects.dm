@@ -70,6 +70,7 @@
 	choice_spells = list(
 		/datum/action/cooldown/spell/conjure_arcyne_ward/dragonhide,
 		/datum/action/cooldown/spell/conjure_arcyne_ward/crystalhide,
+		/datum/action/cooldown/spell/conjure_arcyne_ward/steelhide,
 	)
 
 /datum/magic_aspect/lesser_augmentation
