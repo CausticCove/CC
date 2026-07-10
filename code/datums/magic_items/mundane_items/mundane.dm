@@ -48,8 +48,6 @@
 		user.change_stat(STATKEY_WIL, -1)
 		to_chat(user, span_notice("I feel mundane once more"))
 
-
-
 /datum/magic_item/mundane/xylix
 	name = "Xylix's boon"
 	description = "It almost seems to give off the faint sound of laughter."
@@ -75,18 +73,41 @@
 
 /datum/magic_item/mundane/revealinglight
 	name = "unyielding light"
-	description = "It emits a shining light."
+	description = "It emits a shining light. (Use right click to light it or dim it)"
 	glow_color = "#FFB347"
 	var/active = FALSE
 
-/datum/magic_item/mundane/revealinglight/on_use(var/obj/item/i, var/mob/living/user)
+/datum/magic_item/mundane/revealinglight/attack_right(var/obj/item/i, var/mob/living/user)
 	if(!active)
 		active = TRUE
-
-		i.light_color = "#3FBAFD"
 		to_chat(user, span_notice("I grip [i] lightly, and it abruptly lights up with shining light"))
-		i.set_light(TRUE)
-		i.light_outer_range = 6
+		i.light_system = MOVABLE_LIGHT
+		if(!i.GetComponent(/datum/component/overlay_lighting))
+			i.AddComponent(/datum/component/overlay_lighting)
+		i.set_light_range(10)
+		i.set_light_power(1)
+		i.set_light_color(LIGHT_COLOR_WHITE)
+		i.set_light_on(TRUE)
+		i.update_icon()
+	else
+		active = FALSE
+		to_chat(user, span_notice("I grip [i] lightly, and the light fades away"))
+		i.set_light_on(FALSE)
+		i.update_icon()
+	. = ..()
+
+/datum/magic_item/mundane/fairseeming
+	name = "fair seeming"
+	description = "It never seems to gather dirt. (Right click on it to activate the cleaning effect.)"
+	glow_color = "#E6C9F0"
+
+/datum/magic_item/mundane/fairseeming/attack_right(var/obj/item/i, var/mob/living/user)
+	to_chat(user, span_notice("I grip [i] lightly, and a faint shimmer of glamour gathers around me..."))
+	if(do_after(user, 2 SECONDS, target = user))
+		new /obj/effect/temp_visual/cleaning_pulse(get_turf(user))
+		wash_atom(user, CLEAN_STRONG)
+		user.remove_stress(/datum/stressevent/sewertouched)
+		to_chat(user, span_notice("The glamour settles, and I am spotless once more."))
 	. = ..()
 
 /datum/magic_item/mundane/holding

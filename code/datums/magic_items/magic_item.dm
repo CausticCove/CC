@@ -18,6 +18,7 @@
 	RegisterSignal(i, COMSIG_ITEM_DROPPED, PROC_REF(on_drop))
 	RegisterSignal(i, COMSIG_ITEM_ATTACK_SELF, PROC_REF(on_use))
 	RegisterSignal(i, COMSIG_ITEM_HIT_RESPONSE, PROC_REF(on_hit_response))
+	RegisterSignal(i, COMSIG_ATOM_ATTACK_RIGHT, PROC_REF(attack_right))
 
 /datum/magic_item/proc/on_hit(obj/item/source, atom/target, mob/user, proximity_flag, click_parameters)	//when enchanted item hits a mob/living, do effect.
 
@@ -39,3 +40,5 @@
 /datum/magic_item/proc/projectile_hit(atom/fired_from, atom/movable/firer, atom/target, Angle)	//effects when shooting a protectile from an enchanted item
 
 /datum/magic_item/proc/on_hit_response(var/obj/item/I, var/mob/living/carbon/human/owner, var/mob/living/carbon/human/attacker)//use for worn items such as armor to have effects on hit.
+
+/datum/magic_item/proc/attack_right(var/obj/item/i, var/mob/living/user) // Use for when you right click on an item (like shimmering lens)
