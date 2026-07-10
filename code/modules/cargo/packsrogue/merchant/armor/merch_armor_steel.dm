@@ -320,3 +320,8 @@
 	name = "Armor Plates"
 	cost = 35 // 1 Steel 0.5 iron 1 leather //Caustic Edit - Lowering cost down from 60 to 35 so that it's a LOT more reasonably priced to buy this and a Tailor's Kit
 	contains = list(/obj/item/repair_kit/metal)
+
+/datum/supply_pack/rogue/armor_steel/refitkit_slimarmor_steel
+	name = "Refitter's Kit, Slim Plated Armor"
+	cost = 50 // 1 Ingots
+	contains = list(/datum/anvil_recipe/armor/steel/refitkit_slimmedsteel)
