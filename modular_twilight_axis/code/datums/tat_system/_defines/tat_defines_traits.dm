@@ -173,8 +173,6 @@ GLOBAL_LIST_INIT(tat_trait_skill_cap_bonus_rules, TAT_TRAIT_SKILL_CAP_BONUS_RULE
 	TRAIT_PERMAMUTE, \
 	TRAIT_SHIRTLESS, \
 	TRAIT_NODEF, \
-	TRAIT_REVERSE_GUIDANCE, \
-	TRAIT_LESSER_REVERSE_GUIDANCE, \
 	TRAIT_SIMPLESPEECH, \
 	TRAIT_MANGLED_JAW, \
 	TRAIT_MISSING_NOSE, \
@@ -354,8 +352,6 @@ GLOBAL_LIST_INIT(tat_trait_skill_cap_bonus_rules, TAT_TRAIT_SKILL_CAP_BONUS_RULE
 	TRAIT_EASYDISMEMBER = TAT_TRAIT_ENTRY("Easy Dismemberment", -15, TAT_CATEGORY_ODDITY, TAT_CATEGORY_ODDITY_NAME, "Your limbs are much easier to dismember."), \
 	TRAIT_PERMAMUTE = TAT_TRAIT_ENTRY("Permanent Mute", -10, TAT_CATEGORY_ODDITY, TAT_CATEGORY_ODDITY_NAME, "You are permanently mute and cannot speak."), \
 	TRAIT_NODEF = TAT_TRAIT_ENTRY("No Defense", -20, TAT_CATEGORY_ODDITY, TAT_CATEGORY_ODDITY_NAME, "You expose yourself completely in battle."), \
-	TRAIT_REVERSE_GUIDANCE = TAT_TRAIT_ENTRY("Reverse Guidance", -10, TAT_CATEGORY_ODDITY, TAT_CATEGORY_ODDITY_NAME, "Something hinders you in battle. Anti-guidance: 20%."), \
-	TRAIT_LESSER_REVERSE_GUIDANCE = TAT_TRAIT_ENTRY("Lesser Reverse Guidance", -5, TAT_CATEGORY_ODDITY, TAT_CATEGORY_ODDITY_NAME, "Something faintly hinders you in battle. Anti-guidance: 10%."), \
 	TRAIT_SHIRTLESS = TAT_TRAIT_ENTRY("Shirtless", -5, TAT_CATEGORY_ODDITY, TAT_CATEGORY_ODDITY_NAME, "You refuse to wear shirts, armor, or anything on the top of your head."), \
 	TRAIT_SIMPLESPEECH = TAT_TRAIT_ENTRY("Simple Speech", -5, TAT_CATEGORY_ODDITY, TAT_CATEGORY_ODDITY_NAME, "You struggle to understand the more complex words."), \
 	TRAIT_MANGLED_JAW = TAT_TRAIT_ENTRY("Mangled Jaw", -5, TAT_CATEGORY_ODDITY, TAT_CATEGORY_ODDITY_NAME, "It is painful for you to eat and drink. You may need to be fed by others."), \

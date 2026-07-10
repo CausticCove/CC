@@ -24,7 +24,7 @@
 	icon_state = "biscuit"
 	faretype = FARE_NEUTRAL
 	filling_color = "#F0E68C"
-	list_reagents = list(/datum/reagent/consumable/nutriment = BUTTERDOUGHSLICE_NUTRITION + SNACK_POOR)
+	list_reagents = list(/datum/reagent/consumable/nutriment = BUTTERDOUGHSLICE_NUTRITION + NUTRITION_QUARTER_MEAL)
 	w_class = WEIGHT_CLASS_NORMAL
 	bitesize = 3
 	tastes = list("crispy butterdough" = 1, "raisins" = 1)
@@ -55,7 +55,7 @@
 	icon_state = "chocolatebiscuit"
 	faretype = FARE_LAVISH
 	filling_color = "#F0E68C"
-	list_reagents = list(/datum/reagent/consumable/nutriment = BUTTERDOUGHSLICE_NUTRITION + SNACK_DECENT)
+	list_reagents = list(/datum/reagent/consumable/nutriment = BUTTERDOUGHSLICE_NUTRITION + NUTRITION_HALF_MEAL)
 	w_class = WEIGHT_CLASS_NORMAL
 	bitesize = 3
 	tastes = list("crispy butterdough" = 1, "richly sweet and molten chocolate" = 1)
@@ -86,7 +86,7 @@
 	icon_state = "plumbiscuit"
 	faretype = FARE_FINE
 	filling_color = "#F0E68C"
-	list_reagents = list(/datum/reagent/consumable/nutriment = BUTTERDOUGHSLICE_NUTRITION + SNACK_POOR)
+	list_reagents = list(/datum/reagent/consumable/nutriment = BUTTERDOUGHSLICE_NUTRITION + NUTRITION_QUARTER_MEAL)
 	w_class = WEIGHT_CLASS_NORMAL
 	bitesize = 3
 	tastes = list("crispy butterdough" = 1, "tangy frosting" = 1, "sweetly baked plums" = 1)
@@ -117,7 +117,7 @@
 	icon_state = "tangerinebiscuit"
 	faretype = FARE_FINE
 	filling_color = "#F0E68C"
-	list_reagents = list(/datum/reagent/consumable/nutriment = BUTTERDOUGHSLICE_NUTRITION + SNACK_POOR)
+	list_reagents = list(/datum/reagent/consumable/nutriment = BUTTERDOUGHSLICE_NUTRITION + NUTRITION_QUARTER_MEAL)
 	w_class = WEIGHT_CLASS_NORMAL
 	bitesize = 3
 	tastes = list("crispy butterdough" = 1, "zesty frosting" = 1, "lightly jammed and juicy tangerines" = 1)
@@ -156,23 +156,6 @@
 	diet_change_amount = FOOD_DIETARY_VALUE_BAD
 	//CC Edit End
 
-/obj/item/reagent_containers/food/snacks/rogue/foodbase/halfcookie_raw/attackby(obj/item/I, mob/living/user, params)
-	var/found_table = locate(/obj/structure/table) in (loc)
-	update_cooktime(user)
-	if(istype(I, /obj/item/reagent_containers/food/snacks/chocolate/slice))
-		if(isturf(loc)&& (found_table))
-			playsound(get_turf(user), 'sound/foley/dropsound/food_drop.ogg', 40, TRUE, -1)
-			to_chat(user, span_notice("Finishing the chocolate-speckled cookiedough with more chocolate..."))
-			if(do_after(user,short_cooktime, target = src))
-				add_sleep_experience(user, /datum/skill/craft/cooking, user.STAINT)
-				new /obj/item/reagent_containers/food/snacks/rogue/foodbase/cookie_raw(loc)
-				qdel(I)
-				qdel(src)
-		else
-			to_chat(user, span_warning("You need to put [src] on a table to stuff it with chocolate!"))
-	else
-		return ..()
-
 /obj/item/reagent_containers/food/snacks/rogue/foodbase/cookie_raw
 	name = "slab of cookiedough"
 	desc = "Doughy, soft, and drenched in chocolate. Now that is acceptable, through-and-through! Time for a stint in the oven, first!"
@@ -193,7 +176,7 @@
 	desc = "The inverse to hardtack; both in reputation and taste. Just a passing whiff reminds you of home - though, perhaps it wouldn't hurt to bring out a knife and share that feeling with some friends."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_pastry.dmi'
 	icon_state = "cookiedough6"
-	list_reagents = list(/datum/reagent/consumable/nutriment = SNACK_CHUNKY)
+	list_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_FULL_MEAL)
 	faretype = FARE_LAVISH
 	w_class = WEIGHT_CLASS_TINY
 	tastes = list("rich and gooey chocolate" = 1, "crispy dough with a hint of butteriness" = 1)
@@ -237,7 +220,7 @@
 	icon_state = "cookiedough_slice"
 	faretype = FARE_LAVISH
 	w_class = WEIGHT_CLASS_NORMAL
-	list_reagents = list(/datum/reagent/consumable/nutriment = SNACK_CHUNKY + SNACK_POOR)
+	list_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_FULL_MEAL + NUTRITION_QUARTER_MEAL)
 	bitesize = 2
 	rotprocess = SHELFLIFE_LONG
 	dropshrink = 0.8
@@ -260,23 +243,6 @@
 	eat_effect = null
 	foodtype = GRAIN | DAIRY
 
-/obj/item/reagent_containers/food/snacks/rogue/foodbase/halfcookied_raw/attackby(obj/item/I, mob/living/user, params)
-	var/found_table = locate(/obj/structure/table) in (loc)
-	update_cooktime(user)
-	if(istype(I, /obj/item/reagent_containers/food/snacks/dragee))
-		if(isturf(loc)&& (found_table))
-			playsound(get_turf(user), 'sound/foley/dropsound/food_drop.ogg', 40, TRUE, -1)
-			to_chat(user, span_notice("Finishing the dragée-speckled cookiedough with more dragée..."))
-			if(do_after(user,short_cooktime, target = src))
-				add_sleep_experience(user, /datum/skill/craft/cooking, user.STAINT)
-				new /obj/item/reagent_containers/food/snacks/rogue/foodbase/cookied_raw(loc)
-				qdel(I)
-				qdel(src)
-		else
-			to_chat(user, span_warning("You need to put [src] on a table to stuff it with dragée!"))
-	else
-		return ..()
-
 /obj/item/reagent_containers/food/snacks/rogue/foodbase/cookied_raw
 	name = "slab of dragéelidough"
 	desc = "Doughy, soft, and drenched in dragée. Now that is acceptable, through-and-through! Time for a stint in the oven, first!"
@@ -293,7 +259,7 @@
 	desc = "The inverse to hardtack; both in reputation and taste. Just a passing whiff reminds you of your youth - though, perhaps it wouldn't hurt to bring out a knife and share that feeling with some friends."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_pastry.dmi'
 	icon_state = "cookiedoughd6"
-	list_reagents = list(/datum/reagent/consumable/nutriment = SNACK_CHUNKY)
+	list_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_FULL_MEAL)
 	faretype = FARE_FINE
 	w_class = WEIGHT_CLASS_TINY
 	tastes = list("shards of candied herbiness" = 1, "crispy dough with a hint of butteriness" = 1)
@@ -333,7 +299,7 @@
 	icon_state = "cookiedoughd_slice"
 	faretype = FARE_FINE
 	w_class = WEIGHT_CLASS_NORMAL
-	list_reagents = list(/datum/reagent/consumable/nutriment = SNACK_CHUNKY + SNACK_POOR, /datum/reagent/medicine/healthpot = 5)
+	list_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_FULL_MEAL + NUTRITION_QUARTER_MEAL, /datum/reagent/medicine/healthpot = 5)
 	bitesize = 2
 	rotprocess = SHELFLIFE_LONG
 	dropshrink = 0.8
@@ -352,23 +318,6 @@
 	eat_effect = null
 	foodtype = GRAIN | DAIRY
 
-/obj/item/reagent_containers/food/snacks/rogue/foodbase/halfcookiec_raw/attackby(obj/item/I, mob/living/user, params)
-	var/found_table = locate(/obj/structure/table) in (loc)
-	update_cooktime(user)
-	if(istype(I, /obj/item/reagent_containers/food/snacks/caramel))
-		if(isturf(loc)&& (found_table))
-			playsound(get_turf(user), 'sound/foley/dropsound/food_drop.ogg', 40, TRUE, -1)
-			to_chat(user, span_notice("Finishing the caramel-speckled cookiedough with more caramel dropplings..."))
-			if(do_after(user,short_cooktime, target = src))
-				add_sleep_experience(user, /datum/skill/craft/cooking, user.STAINT)
-				new /obj/item/reagent_containers/food/snacks/rogue/foodbase/cookiec_raw(loc)
-				qdel(I)
-				qdel(src)
-		else
-			to_chat(user, span_warning("You need to put [src] on a table to stuff it with caramel!"))
-	else
-		return ..()
-
 /obj/item/reagent_containers/food/snacks/rogue/foodbase/cookiec_raw
 	name = "slab of carameliedough"
 	desc = "Doughy, soft, and drenched in caramel. Now that is acceptable, through-and-through! Time for a stint in the oven, first!"
@@ -385,7 +334,7 @@
 	desc = "The inverse to hardtack; both in reputation and taste. Just a passing whiff reminds you of times abroad - though, perhaps it wouldn't hurt to bring out a knife and share that feeling with some friends."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_pastry.dmi'
 	icon_state = "cookiedoughc6"
-	list_reagents = list(/datum/reagent/consumable/nutriment = SNACK_CHUNKY)
+	list_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_FULL_MEAL)
 	faretype = FARE_FINE
 	w_class = WEIGHT_CLASS_TINY
 	tastes = list("tooth-grippingly sweet caramel" = 1, "crispy dough with a hint of butteriness" = 1)
@@ -425,7 +374,7 @@
 	icon_state = "cookiedoughc_slice"
 	faretype = FARE_FINE
 	w_class = WEIGHT_CLASS_NORMAL
-	list_reagents = list(/datum/reagent/consumable/nutriment = SNACK_CHUNKY + SNACK_POOR)
+	list_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_FULL_MEAL + NUTRITION_QUARTER_MEAL)
 	bitesize = 2
 	rotprocess = SHELFLIFE_LONG
 	dropshrink = 0.8
@@ -444,23 +393,6 @@
 	eat_effect = null
 	foodtype = GRAIN | DAIRY | FRUIT
 
-/obj/item/reagent_containers/food/snacks/rogue/foodbase/halfcookier_raw/attackby(obj/item/I, mob/living/user, params)
-	var/found_table = locate(/obj/structure/table) in (loc)
-	update_cooktime(user)
-	if(istype(I, /obj/item/reagent_containers/food/snacks/rogue/raisins))
-		if(isturf(loc)&& (found_table))
-			playsound(get_turf(user), 'sound/foley/dropsound/food_drop.ogg', 40, TRUE, -1)
-			to_chat(user, span_notice("Finishing the raisin-speckled cookiedough with more raisins..."))
-			if(do_after(user,short_cooktime, target = src))
-				add_sleep_experience(user, /datum/skill/craft/cooking, user.STAINT)
-				new /obj/item/reagent_containers/food/snacks/rogue/foodbase/cookier_raw(loc)
-				qdel(I)
-				qdel(src)
-		else
-			to_chat(user, span_warning("You need to put [src] on a table to stuff it with raisins!"))
-	else
-		return ..()
-
 /obj/item/reagent_containers/food/snacks/rogue/foodbase/cookier_raw
 	name = "slab of raelseinidough"
 	desc = "Doughy, soft, and drenched in raisins. Now that is acceptable, through-and-through! Time for a stint in the oven, first!"
@@ -477,7 +409,7 @@
 	desc = "The inverse to hardtack; both in reputation and taste. Just a passing whiff reminds you of warmer daes - though, perhaps it wouldn't hurt to bring out a knife and share that feeling with some friends."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_pastry.dmi'
 	icon_state = "cookiedoughr6"
-	list_reagents = list(/datum/reagent/consumable/nutriment = SNACK_CHUNKY)
+	list_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_FULL_MEAL)
 	faretype = FARE_FINE
 	w_class = WEIGHT_CLASS_TINY
 	tastes = list("little bursts of fruity sweetness" = 1, "crispy dough with a hint of butteriness" = 1)
@@ -517,7 +449,7 @@
 	icon_state = "cookiedoughr_slice"
 	faretype = FARE_FINE
 	w_class = WEIGHT_CLASS_NORMAL
-	list_reagents = list(/datum/reagent/consumable/nutriment = SNACK_CHUNKY + SNACK_POOR)
+	list_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_FULL_MEAL + NUTRITION_QUARTER_MEAL)
 	bitesize = 2
 	rotprocess = SHELFLIFE_LONG
 	dropshrink = 0.8
@@ -589,7 +521,7 @@
 	icon_state = "pumpkinball3"
 	faretype = FARE_FINE
 	filling_color = "#d17624"
-	list_reagents = list(/datum/reagent/consumable/nutriment = SNACK_DECENT)
+	list_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_HALF_MEAL)
 	w_class = WEIGHT_CLASS_SMALL
 	bitesize = 3
 	portable = TRUE
@@ -633,7 +565,7 @@
 	slices_num = 6
 	portable = FALSE
 	slice_path = /obj/item/reagent_containers/food/snacks/rogue/pumpkinloafslice
-	list_reagents = list(/datum/reagent/consumable/nutriment = MEAL_AVERAGE)
+	list_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_MEAL_AND_HALF)
 	faretype = FARE_FINE
 	w_class = WEIGHT_CLASS_NORMAL
 	tastes = list("sweetbread" = 1,"pumpkin" = 1)
@@ -672,7 +604,7 @@
 	desc = "Soft and chewy. It's surprisingly light despite its origin."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_pastry.dmi'
 	icon_state = "pumpkinloaf_slice"
-	list_reagents = list(/datum/reagent/consumable/nutriment = SNACK_POOR)
+	list_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_QUARTER_MEAL)
 	w_class = WEIGHT_CLASS_NORMAL
 	faretype = FARE_NEUTRAL
 	cooked_type = null
@@ -709,7 +641,7 @@
 	icon_state = "pumpkinball3"
 	faretype = FARE_FINE
 	filling_color = "#d17624"
-	list_reagents = list(/datum/reagent/consumable/nutriment = SNACK_DECENT)
+	list_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_HALF_MEAL)
 	w_class = WEIGHT_CLASS_SMALL
 	bitesize = 3
 	portable = TRUE
@@ -753,7 +685,7 @@
 	slices_num = 6
 	portable = FALSE
 	slice_path = /obj/item/reagent_containers/food/snacks/rogue/pumpkinloafslice
-	list_reagents = list(/datum/reagent/consumable/nutriment = MEAL_AVERAGE)
+	list_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_MEAL_AND_HALF)
 	faretype = FARE_FINE
 	w_class = WEIGHT_CLASS_NORMAL
 	tastes = list("sweetbread" = 1,"pumpkin" = 1)
@@ -792,7 +724,7 @@
 	desc = "Soft and chewy. It's surprisingly light despite its origin."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_pastry.dmi'
 	icon_state = "pumpkinloaf_slice"
-	list_reagents = list(/datum/reagent/consumable/nutriment = SNACK_POOR)
+	list_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_QUARTER_MEAL)
 	w_class = WEIGHT_CLASS_NORMAL
 	faretype = FARE_NEUTRAL
 	cooked_type = null
@@ -824,7 +756,7 @@
 	name = "raw mushroom handpie"
 	cooked_type = /obj/item/reagent_containers/food/snacks/rogue/handpie
 	fried_type = /obj/item/reagent_containers/food/snacks/rogue/handpie
-	list_reagents = list(/datum/reagent/consumable/nutriment = SNACK_POOR)
+	list_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_QUARTER_MEAL)
 	foodtype = GRAIN | VEGETABLES
 	tastes = list("mushrooms" = 1)
 	//CC Edit Begin
@@ -1026,34 +958,6 @@
 	diet_change_amount = FOOD_DIETARY_VALUE_BAD
 	//CC Edit End
 
-/obj/item/reagent_containers/food/snacks/rogue/muffin/attackby(obj/item/I, mob/living/user, params)
-	var/found_table = locate(/obj/structure/table) in (loc)
-	update_cooktime(user)
-	if(istype(I, /obj/item/reagent_containers/food/snacks/rogue/cheese))
-		if(isturf(loc)&& (found_table))
-			playsound(get_turf(user), 'sound/foley/dropsound/food_drop.ogg', 40, TRUE, -1)
-			to_chat(user, span_notice("You start to glaze the muffin with cheese..."))
-			if(do_after(user,long_cooktime, target = src))
-				add_sleep_experience(user, /datum/skill/craft/cooking, user.STAINT)
-				new /obj/item/reagent_containers/food/snacks/rogue/muffin/cheese(loc)
-				qdel(I)
-				qdel(src)
-		else
-			to_chat(user, span_warning("You need to put [src] on a table to roll it out!"))
-	if(istype(I, /obj/item/reagent_containers/food/snacks/rogue/honey))
-		if(isturf(loc)&& (found_table))
-			playsound(get_turf(user), 'sound/foley/dropsound/food_drop.ogg', 40, TRUE, -1)
-			to_chat(user, span_notice("You start to glaze the muffin with honey..."))
-			if(do_after(user,short_cooktime, target = src))
-				add_sleep_experience(user, /datum/skill/craft/cooking, user.STAINT)
-				new /obj/item/reagent_containers/food/snacks/rogue/muffin/honey(loc)
-				qdel(I)
-				qdel(src)
-		else
-			to_chat(user, span_warning("You need to put [src] on a table to prepare it!"))
-	else
-		return ..()
-
 /obj/item/reagent_containers/food/snacks/rogue/muffin/cheese
 	name = "raw cheese muffin"
 	desc = "A mushroom shaped treat for whole topped off with cheese. Still needs to be baked!"
@@ -1131,7 +1035,7 @@
 	icon = 'modular/Neu_Food/icons/cooked/cooked_pastry.dmi'
 	icon_state = "strudel_slice"
 	slices_num = 0
-	list_reagents = list(/datum/reagent/consumable/nutriment = SNACK_DECENT)
+	list_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_HALF_MEAL)
 	tastes = list("crispy apples" = 1, "rocknut" = 1)
 	foodtype = GRAIN | FRUIT
 	faretype = FARE_FINE
@@ -1144,23 +1048,6 @@
 	diet_types = list("Grains", "Fruits")
 	diet_change_amount = FOOD_DIETARY_VALUE_GOOD
 	//CC Edit End
-
-/obj/item/reagent_containers/food/snacks/rogue/strudel/attackby(obj/item/I, mob/living/user, params)
-	var/found_table = locate(/obj/structure/table) in (loc)
-	update_cooktime(user)
-	if(istype(I,  /obj/item/reagent_containers/food/snacks/sugar))
-		if(isturf(loc)&& (found_table))
-			playsound(get_turf(user), 'sound/foley/dropsound/food_drop.ogg', 40, TRUE, -1)
-			to_chat(user, span_notice("You start to coat the strudel in sugar..."))
-			if(do_after(user,long_cooktime, target = src))
-				add_sleep_experience(user, /datum/skill/craft/cooking, user.STAINT)
-				new /obj/item/reagent_containers/food/snacks/rogue/strudel/sugar(loc)
-				qdel(I)
-				qdel(src)
-		else
-			to_chat(user, span_warning("You need to put [src] on a table to roll it out!"))
-	else
-		return ..()
 
 /obj/item/reagent_containers/food/snacks/rogue/strudel/sugar
 	name = "coated strudel"
@@ -1195,7 +1082,7 @@
 	bitesize = 3
 	faretype = FARE_FINE
 	foodtype = GRAIN | FRUIT | DAIRY
-	bonus_reagents = list(/datum/reagent/consumable/nutriment = BUTTERDOUGHSLICE_NUTRITION + SNACK_DECENT)
+	bonus_reagents = list(/datum/reagent/consumable/nutriment = BUTTERDOUGHSLICE_NUTRITION + NUTRITION_HALF_MEAL)
 	tastes = list("crispy dough" = 1)
 	rotprocess = SHELFLIFE_LONG
 	dropshrink = 1
@@ -1270,7 +1157,7 @@
 	slices_num = 5
 	bitesize = 8
 	slice_path = /obj/item/reagent_containers/food/snacks/rogue/bookbread_slice
-	list_reagents = list(/datum/reagent/consumable/nutriment = MEAL_AVERAGE)
+	list_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_MEAL_AND_HALF)
 	faretype = FARE_NEUTRAL
 	w_class = WEIGHT_CLASS_NORMAL
 	tastes = list("chewy, crispy-edged butterdough" = 1)
@@ -1315,23 +1202,6 @@
 	eat_effect = /datum/status_effect/buff/snackbuff
 	foodtype = GRAIN | DAIRY
 
-/obj/item/reagent_containers/food/snacks/rogue/bookbread_slice/attackby(obj/item/I, mob/living/user, params)
-	update_cooktime(user)
-	if(istype(I, /obj/item/reagent_containers/food/snacks/jamtallowslice))
-		playsound(get_turf(user), 'sound/foley/dropsound/food_drop.ogg', 50, TRUE, -1)
-		if(do_after(user,short_cooktime, target = src))
-			var/obj/item/reagent_containers/food/snacks/rogue/bookbread_slice_jamtallowed/sammich= new(get_turf(user))
-			user.put_in_hands(sammich)
-			qdel(I)
-			qdel(src)																		
-	if(istype(I, /obj/item/reagent_containers/food/snacks/marmaladeslice))
-		playsound(get_turf(user), 'sound/foley/dropsound/food_drop.ogg', 50, TRUE, -1)
-		if(do_after(user,short_cooktime, target = src))
-			var/obj/item/reagent_containers/food/snacks/rogue/bookbread_slice_marmaladed/sammich= new(get_turf(user))
-			user.put_in_hands(sammich)
-			qdel(I)
-			qdel(src)
-
 /obj/item/reagent_containers/food/snacks/rogue/bookbread_slice_jamtallowed
 	name = "slice of jamtallowed bookbread"
 	desc = "'Don't think that I'd forget, or I'd regret, the special love I had for you - my baby blue!'"
@@ -1340,7 +1210,7 @@
 	faretype = FARE_LAVISH
 	w_class = WEIGHT_CLASS_NORMAL
 	tastes = list("chewy, crispy-edged butterdough" = 1, "sweetly-sour jamminess" = 1, "a lavish start to the dae" = 1)
-	list_reagents = list(/datum/reagent/consumable/nutriment = BUTTERDOUGH_NUTRITION + SNACK_DECENT)
+	list_reagents = list(/datum/reagent/consumable/nutriment = BUTTERDOUGH_NUTRITION + NUTRITION_HALF_MEAL)
 	bitesize = 3
 	rotprocess = SHELFLIFE_EXTREME
 	dropshrink = 0.8
@@ -1355,7 +1225,7 @@
 	faretype = FARE_LAVISH
 	w_class = WEIGHT_CLASS_NORMAL
 	tastes = list("chewy, crispy-edged butterdough" = 1, "sweet-tarty jamminess" = 1, "a lavish start to the dae" = 1)
-	list_reagents = list(/datum/reagent/consumable/nutriment = BUTTERDOUGH_NUTRITION + SNACK_DECENT)
+	list_reagents = list(/datum/reagent/consumable/nutriment = BUTTERDOUGH_NUTRITION + NUTRITION_HALF_MEAL)
 	bitesize = 3
 	rotprocess = SHELFLIFE_EXTREME
 	dropshrink = 0.8
@@ -1372,7 +1242,7 @@
 	slices_num = 5
 	bitesize = 8
 	slice_path = /obj/item/reagent_containers/food/snacks/rogue/pearbookbread_slice
-	list_reagents = list(/datum/reagent/consumable/nutriment = MEAL_GOOD)
+	list_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_TWO_MEALS)
 	faretype = FARE_FINE
 	w_class = WEIGHT_CLASS_NORMAL
 	tastes = list("chewy, crispy-edged butterdough" = 1, "sweetly caramelized pears" = 1)
@@ -1410,7 +1280,7 @@
 	faretype = FARE_FINE
 	w_class = WEIGHT_CLASS_NORMAL
 	tastes = list("chewy, crispy-edged butterdough", "sweetly caramelized pears" = 1)
-	list_reagents = list(/datum/reagent/consumable/nutriment = BUTTERDOUGH_NUTRITION + SNACK_DECENT)
+	list_reagents = list(/datum/reagent/consumable/nutriment = BUTTERDOUGH_NUTRITION + NUTRITION_HALF_MEAL)
 	bitesize = 3
 	rotprocess = SHELFLIFE_LONG
 	dropshrink = 0.8
@@ -1427,7 +1297,7 @@
 	slices_num = 5
 	bitesize = 8
 	slice_path = /obj/item/reagent_containers/food/snacks/rogue/plumbookbread_slice
-	list_reagents = list(/datum/reagent/consumable/nutriment = MEAL_GOOD)
+	list_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_TWO_MEALS)
 	faretype = FARE_FINE
 	w_class = WEIGHT_CLASS_NORMAL
 	tastes = list("chewy, crispy-edged butterdough" = 1, "sweetly frosted plums" = 1)
@@ -1465,7 +1335,7 @@
 	faretype = FARE_FINE
 	w_class = WEIGHT_CLASS_NORMAL
 	tastes = list("chewy, crispy-edged butterdough", "sweetly frosted plums" = 1)
-	list_reagents = list(/datum/reagent/consumable/nutriment = BUTTERDOUGH_NUTRITION + SNACK_DECENT)
+	list_reagents = list(/datum/reagent/consumable/nutriment = BUTTERDOUGH_NUTRITION + NUTRITION_HALF_MEAL)
 	bitesize = 3
 	rotprocess = SHELFLIFE_LONG
 	dropshrink = 0.8
@@ -1482,7 +1352,7 @@
 	slices_num = 5
 	bitesize = 8
 	slice_path = /obj/item/reagent_containers/food/snacks/rogue/lemonbookbread_slice
-	list_reagents = list(/datum/reagent/consumable/nutriment = MEAL_GOOD)
+	list_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_TWO_MEALS)
 	faretype = FARE_FINE
 	w_class = WEIGHT_CLASS_NORMAL
 	tastes = list("chewy, crispy-edged butterdough" = 1, "sweetly frosted lemons" = 1)
@@ -1520,7 +1390,7 @@
 	faretype = FARE_FINE
 	w_class = WEIGHT_CLASS_NORMAL
 	tastes = list("chewy, crispy-edged butterdough", "sweetly frosted lemons" = 1)
-	list_reagents = list(/datum/reagent/consumable/nutriment = BUTTERDOUGH_NUTRITION + SNACK_DECENT)
+	list_reagents = list(/datum/reagent/consumable/nutriment = BUTTERDOUGH_NUTRITION + NUTRITION_HALF_MEAL)
 	bitesize = 3
 	rotprocess = SHELFLIFE_LONG
 	dropshrink = 0.8
@@ -1537,7 +1407,7 @@
 	slices_num = 5
 	bitesize = 8
 	slice_path = /obj/item/reagent_containers/food/snacks/rogue/tangerinebookbread_slice
-	list_reagents = list(/datum/reagent/consumable/nutriment = MEAL_GOOD)
+	list_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_TWO_MEALS)
 	faretype = FARE_FINE
 	w_class = WEIGHT_CLASS_NORMAL
 	tastes = list("chewy, crispy-edged butterdough" = 1, "sweetly jellied tangerines" = 1)
@@ -1575,7 +1445,7 @@
 	faretype = FARE_FINE
 	w_class = WEIGHT_CLASS_NORMAL
 	tastes = list("chewy, crispy-edged butterdough", "sweetly jellied tangerines" = 1)
-	list_reagents = list(/datum/reagent/consumable/nutriment = BUTTERDOUGH_NUTRITION + SNACK_DECENT)
+	list_reagents = list(/datum/reagent/consumable/nutriment = BUTTERDOUGH_NUTRITION + NUTRITION_HALF_MEAL)
 	bitesize = 3
 	rotprocess = SHELFLIFE_LONG
 	dropshrink = 0.8
@@ -1592,7 +1462,7 @@
 	slices_num = 5
 	bitesize = 8
 	slice_path = /obj/item/reagent_containers/food/snacks/rogue/blackberrybookbread_slice
-	list_reagents = list(/datum/reagent/consumable/nutriment = MEAL_GOOD)
+	list_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_TWO_MEALS)
 	faretype = FARE_FINE
 	w_class = WEIGHT_CLASS_NORMAL
 	tastes = list("chewy, crispy-edged butterdough" = 1, "sweetly frosted blackberries" = 1)
@@ -1630,7 +1500,7 @@
 	faretype = FARE_FINE
 	w_class = WEIGHT_CLASS_NORMAL
 	tastes = list("chewy, crispy-edged butterdough", "sweetly frosted blackberries" = 1)
-	list_reagents = list(/datum/reagent/consumable/nutriment = BUTTERDOUGH_NUTRITION + SNACK_DECENT)
+	list_reagents = list(/datum/reagent/consumable/nutriment = BUTTERDOUGH_NUTRITION + NUTRITION_HALF_MEAL)
 	bitesize = 3
 	rotprocess = SHELFLIFE_LONG
 	dropshrink = 0.8
@@ -1647,7 +1517,7 @@
 	slices_num = 5
 	bitesize = 8
 	slice_path = /obj/item/reagent_containers/food/snacks/rogue/raspberrybookbread_slice
-	list_reagents = list(/datum/reagent/consumable/nutriment = MEAL_GOOD)
+	list_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_TWO_MEALS)
 	faretype = FARE_FINE
 	w_class = WEIGHT_CLASS_NORMAL
 	tastes = list("chewy, crispy-edged butterdough" = 1, "sweetly frosted raspberries" = 1)
@@ -1685,7 +1555,7 @@
 	faretype = FARE_FINE
 	w_class = WEIGHT_CLASS_NORMAL
 	tastes = list("chewy, crispy-edged butterdough", "sweetly frosted raspberries" = 1)
-	list_reagents = list(/datum/reagent/consumable/nutriment = BUTTERDOUGH_NUTRITION + SNACK_DECENT)
+	list_reagents = list(/datum/reagent/consumable/nutriment = BUTTERDOUGH_NUTRITION + NUTRITION_HALF_MEAL)
 	bitesize = 3
 	rotprocess = SHELFLIFE_LONG
 	dropshrink = 0.8
@@ -1702,7 +1572,7 @@
 	slices_num = 5
 	bitesize = 8
 	slice_path = /obj/item/reagent_containers/food/snacks/rogue/jackberrybookbread_slice
-	list_reagents = list(/datum/reagent/consumable/nutriment = MEAL_GOOD)
+	list_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_TWO_MEALS)
 	faretype = FARE_FINE
 	w_class = WEIGHT_CLASS_NORMAL
 	tastes = list("chewy, crispy-edged butterdough" = 1, "sweetly frosted jackberries" = 1)
@@ -1740,7 +1610,7 @@
 	faretype = FARE_FINE
 	w_class = WEIGHT_CLASS_NORMAL
 	tastes = list("chewy, crispy-edged butterdough", "sweetly frosted jackberries" = 1)
-	list_reagents = list(/datum/reagent/consumable/nutriment = BUTTERDOUGH_NUTRITION + SNACK_DECENT)
+	list_reagents = list(/datum/reagent/consumable/nutriment = BUTTERDOUGH_NUTRITION + NUTRITION_HALF_MEAL)
 	bitesize = 3
 	rotprocess = SHELFLIFE_LONG
 	dropshrink = 0.8
@@ -1757,7 +1627,7 @@
 	slices_num = 5
 	bitesize = 8
 	slice_path = /obj/item/reagent_containers/food/snacks/rogue/poisonberrybookbread_slice
-	list_reagents = list(/datum/reagent/consumable/nutriment = MEAL_GOOD, /datum/reagent/berrypoison = 12)
+	list_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_TWO_MEALS, /datum/reagent/berrypoison = 12)
 	faretype = FARE_FINE
 	w_class = WEIGHT_CLASS_NORMAL
 	tastes = list("chewy, crispy-edged butterdough" = 1, "bitterly frosted jackberries" = 1)
@@ -1795,7 +1665,7 @@
 	faretype = FARE_FINE
 	w_class = WEIGHT_CLASS_NORMAL
 	tastes = list("chewy, crispy-edged butterdough", "bitterly frosted jackberries" = 1)
-	list_reagents = list(/datum/reagent/consumable/nutriment = BUTTERDOUGH_NUTRITION + SNACK_DECENT, /datum/reagent/berrypoison = 12)
+	list_reagents = list(/datum/reagent/consumable/nutriment = BUTTERDOUGH_NUTRITION + NUTRITION_HALF_MEAL, /datum/reagent/berrypoison = 12)
 	bitesize = 3
 	rotprocess = SHELFLIFE_LONG
 	dropshrink = 0.8
@@ -1812,7 +1682,7 @@
 	slices_num = 5
 	bitesize = 8
 	slice_path = /obj/item/reagent_containers/food/snacks/rogue/chocolatebookbread_slice
-	list_reagents = list(/datum/reagent/consumable/nutriment = MEAL_GOOD + SNACK_DECENT)
+	list_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_TWO_MEALS + NUTRITION_HALF_MEAL)
 	faretype = FARE_LAVISH
 	w_class = WEIGHT_CLASS_NORMAL
 	tastes = list("chewy, crispy-edged butterdough" = 1, "rich and gooey chocolate" = 1)
@@ -1850,7 +1720,7 @@
 	faretype = FARE_LAVISH
 	w_class = WEIGHT_CLASS_NORMAL
 	tastes = list("chewy, crispy-edged butterdough", "rich and gooey chocolate" = 1)
-	list_reagents = list(/datum/reagent/consumable/nutriment = BUTTERDOUGH_NUTRITION + SNACK_CHUNKY)
+	list_reagents = list(/datum/reagent/consumable/nutriment = BUTTERDOUGH_NUTRITION + NUTRITION_FULL_MEAL)
 	bitesize = 3
 	rotprocess = SHELFLIFE_LONG
 	dropshrink = 0.8

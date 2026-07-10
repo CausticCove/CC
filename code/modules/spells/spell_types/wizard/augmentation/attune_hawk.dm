@@ -1,6 +1,6 @@
 /datum/action/cooldown/spell/augment_buff/attune_hawk
 	name = "Attune: Hawk"
-	desc = "Sharpen the target's body and vision. (+1 Strength, +4 Perception, grants Guidance)\nAttunement - Giant, Hawk, and Haste share a cooldown; only one may be held at a time."
+	desc = "Sharpen the target's body and vision. (+1 Strength, +4 Perception)\nAttunement - Giant, Hawk, and Haste share a cooldown; only one may be held at a time."
 	button_icon_state = "hawks_eyes"
 
 	invocations = list("Oculi Accipitris.")

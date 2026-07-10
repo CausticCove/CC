@@ -8,7 +8,7 @@
 	spawn_positions = 1
 	spells = list()
 	vice_restrictions = list(/datum/charflaw/unintelligible)
-	allowed_races = ACCEPTED_RACES
+	forbidden_races = list() //Caustic Edit - Just a global tweak to remove 'races_despised' from this check everywhere
 	allowed_ages = ALL_AGES_LIST
 	cmode_music = 'sound/music/cmode/towner/combat_archivist.ogg' //Caustic Edit - Added Archivist-unique music!
 

@@ -2,7 +2,6 @@
 	name = "Travelling Merchant"
 	tutorial = "You are a merchant forever on the move, stopping by for this week in the duchy of Azure Peak. While this isn't your home, you are extremely well connected, and can aquire goods for half the normal cost by pulling favours and rank, although getting to said supplies might be a bit bothersome. Better hire some mercs! Whenever you set up your own little peddling place, or work to supply the city's own merchant, keep in mind that you have little use for mammons, and would rather use them to expand your influence, as you are a multinational businessperson, and have little desire for local currency."
 	allowed_sexes = list(MALE, FEMALE)
-	allowed_races = RACES_ALL_KINDS
 	category_tags = list(CTAG_TRADER, CTAG_COURTAGENT, CTAG_LICKER_WRETCH)
 	subclass_skills = list(
 		/datum/skill/combat/swords = SKILL_LEVEL_APPRENTICE,
@@ -448,7 +447,7 @@
 	/obj/item/reagent_containers/food/snacks/rogue/meat/poultry = 4,\
 	/obj/item/reagent_containers/food/snacks/rogue/meat/crab = 3,\
 	/obj/item/reagent_containers/food/snacks/rogue/meat/rabbit = 4,\
-	/obj/item/reagent_containers/food/snacks/rogue/meat/steak/wolf = 2,\
+	/obj/item/reagent_containers/food/snacks/rogue/meat/wolf = 2,\
 	/obj/item/reagent_containers/food/snacks/rogue/meat/fish = 5,\
 	/obj/item/reagent_containers/food/snacks/rogue/meat/shellfish = 4,\
 )

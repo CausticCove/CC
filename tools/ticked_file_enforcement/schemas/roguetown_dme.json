@@ -10,6 +10,7 @@
 		"code/modules/spells/components/enchanted_weapon.dm",
 		"code/modules/spells/spell_types/wizard/conjure/find_familiar.dm",
 		"code/modules/mob/living/simple_animal/rogue/creacher/headless.dm",
-		"code/datums/ai/controllers/headless.dm"
+		"code/datums/ai/controllers/headless.dm",
+		"code/modules/roguetown/roguejobs/mages/leylines.dm"
 	]
 }

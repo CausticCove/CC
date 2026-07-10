@@ -6,7 +6,7 @@
 	total_positions = 4
 	spawn_positions = 4
 
-	allowed_races = ACCEPTED_RACES
+	forbidden_races = list() //Caustic Edit - Just a global tweak to remove 'races_despised' from this check everywhere
 	spells = list()
 	advclass_cat_rolls = list(CTAG_WAPPRENTICE = 20)
 

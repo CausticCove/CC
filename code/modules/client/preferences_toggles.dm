@@ -14,7 +14,6 @@
 
 /datum/verbs/menu/Settings/verb/setup_character()
 	set name = "Game Preferences"
-	set category = "OPTIONS"
 	set desc = ""
 	set hidden = 1
 	usr.client.prefs.current_tab = 1
@@ -49,7 +48,7 @@
 		else
 			to_chat(src, "Screen shake disabled.")
 
-/client/verb/masked_examine() //Caustic Edit - Just... fixing this up everywhere it's used to be consistent. And not stupidly inversed? If this is true, it's ALLOWING the info.
+/client/verb/masked_examine()
 	set category = "OPTIONS"
 	set name = "Toggle Masked Examine"
 	if(prefs)
@@ -298,6 +297,15 @@
 		prefs.combat_toggles ^= XP_TEXT
 		prefs.save_preferences()
 	to_chat(src, "You will[prefs.combat_toggles & XP_TEXT ? "" : " not"] see XP pop ups.")
+
+/client/verb/vocal_barks()
+	set name = "Toggle Vocal Barks"
+	set category = "OPTIONS" //"Preferences.Options"
+	set desc = ""
+	if(prefs)
+		prefs.mute_barks = !prefs.mute_barks
+		prefs.save_preferences()
+	to_chat(src, "You will [prefs.mute_barks ? "not " : ""]hear vocal barks.")
 
 /client/verb/toggle_hitzonetext() // Whether the user can see a text popup for where they got hit.
 	set category = "OPTIONS"
@@ -620,7 +628,6 @@ GLOBAL_LIST_INIT(ghost_orbits, list(GHOST_ORBIT_CIRCLE,GHOST_ORBIT_TRIANGLE,GHOS
 
 /client/verb/pick_ghost_customization()
 	set name = "Ghost Customization"
-	set category = "Preferences"
 	set desc = ""
 	set hidden = 1
 	if(!holder)
@@ -638,7 +645,6 @@ GLOBAL_LIST_INIT(ghost_orbits, list(GHOST_ORBIT_CIRCLE,GHOST_ORBIT_TRIANGLE,GHOS
 
 /client/verb/pick_ghost_others()
 	set name = "Ghosts of Others"
-	set category = "Preferences"
 	set desc = ""
 	set hidden = 1
 	if(!holder)
@@ -659,7 +665,6 @@ GLOBAL_LIST_INIT(ghost_orbits, list(GHOST_ORBIT_CIRCLE,GHOST_ORBIT_TRIANGLE,GHOS
 
 /client/verb/toggle_intent_style()
 	set name = "Toggle Intent Selection Style"
-	set category = "Preferences"
 	set desc = ""
 	set hidden = 1
 	if(!holder)
@@ -671,7 +676,6 @@ GLOBAL_LIST_INIT(ghost_orbits, list(GHOST_ORBIT_CIRCLE,GHOST_ORBIT_TRIANGLE,GHOS
 
 /client/verb/toggle_ghost_hud_pref()
 	set name = "Toggle Ghost HUD"
-	set category = "Preferences"
 	set desc = ""
 	set hidden = 1
 	if(!holder)
@@ -686,7 +690,6 @@ GLOBAL_LIST_INIT(ghost_orbits, list(GHOST_ORBIT_CIRCLE,GHOST_ORBIT_TRIANGLE,GHOS
 /client/verb/toggle_inquisition() // warning: unexpected inquisition
 	set name = "Toggle Inquisitiveness"
 	set desc = ""
-	set category = "Preferences"
 	set hidden = 1
 	if(!holder)
 		return
@@ -701,7 +704,6 @@ GLOBAL_LIST_INIT(ghost_orbits, list(GHOST_ORBIT_CIRCLE,GHOST_ORBIT_TRIANGLE,GHOS
 //Admin Preferences
 /client/proc/toggleadminhelpsound()
 	set name = "Hear/Silence Adminhelps"
-	set category ="🌣 A-PREFS"
 	set desc = ""
 	set hidden = 1
 	if(!holder)
@@ -724,7 +726,6 @@ GLOBAL_LIST_INIT(ghost_orbits, list(GHOST_ORBIT_CIRCLE,GHOST_ORBIT_TRIANGLE,GHOS
 
 /client/proc/toggle_hear_radio()
 	set name = "Show/Hide Radio Chatter"
-	set category ="🌣 A-PREFS"
 	set desc = ""
 	set hidden = 1
 	if(!holder)

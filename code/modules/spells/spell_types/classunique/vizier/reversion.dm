@@ -65,6 +65,32 @@
 	if(!istype(target))
 		return FALSE
 
+	// Reverse a recently departed soul. Must be done within 1 minute. Obs: This interaction will be removed if Death's Door PR is removed.
+	if(target.stat == DEAD)
+		if(!H.has_status_effect(/datum/status_effect/debuff/devitalised))
+			if(target.timeofdeath && (world.time - target.timeofdeath) <= 1 MINUTES)
+				if(alert(owner, "[target] has very recently departed. Sacrifice your Lux to rewind their soul back?", "Origin Restoration", "Restore Them", "Leave Them") == "Restore Them")
+					var/obj/effect/temp_visual/origin_restoration/V = new
+					target.vis_contents += V
+					var/turf/user_turf = get_turf(owner)
+					new /obj/effect/temp_visual/origin_restoration_burst(user_turf, NORTHEAST)
+					new /obj/effect/temp_visual/origin_restoration_burst(user_turf, NORTHWEST)
+					new /obj/effect/temp_visual/origin_restoration_burst(user_turf, SOUTHEAST)
+					new /obj/effect/temp_visual/origin_restoration_burst(user_turf, SOUTHWEST)
+					playsound(target.loc, 'sound/magic/regression1.ogg')				
+					H.apply_status_effect(/datum/status_effect/debuff/devitalised/lesser)
+					target.say("Telos!")
+					target.setOxyLoss(0)
+					if(target.revive(full_heal = FALSE))
+						target.grab_ghost(force = TRUE)
+						target.emote("gasp")
+						target.Jitter(100)
+						if(target.mind)
+							target.mind.remove_antag_datum(/datum/antagonist/zombie)
+						target.apply_status_effect(/datum/status_effect/debuff/revived)
+						target.visible_message(span_blue("[owner]'s Lux is forcefully torn away as [target]'s soul is rewound back into their body!"),	span_blue("A distant darkness releases its grip on me. I wake once more, feeling the remnants of a dying light..."))
+					return TRUE
+
 	// Snapshot the target's current state
 	var/datum/action/cooldown/spell/vizier/reversion_trigger/trigger = new
 	trigger.origin = get_turf(target)

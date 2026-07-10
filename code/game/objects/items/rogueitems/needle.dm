@@ -31,6 +31,7 @@
 	var/can_repair = TRUE
 	grid_width = 32
 	grid_height = 32
+	//dropshrink = 0.75
 
 /obj/item/needle/examine()
 	. = ..()
@@ -318,6 +319,7 @@
 
 /obj/item/needle/bone
 	name = "bone needle"
+	icon = 'modular_causticcove/icons/roguetown/items/boneneedle.dmi'
 	icon_state = "boneneedle"
 	desc = "A sharp piece of worked bone. Perfect for stitching hide and skin alike."
 	stringamt = 10

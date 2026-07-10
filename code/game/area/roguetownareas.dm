@@ -30,8 +30,11 @@ GLOBAL_LIST_INIT(roguetown_areas_typecache, typecacheof(list(/area/rogue/indoors
 	/// If TRUE, this area's pool is not auto-processed at SSatoms init. Use for areas built incrementally by the dungeon generator - call process_deferred_loot_pools() once generation finishes.
 	var/loot_pool_deferred = FALSE
 
-/area/rogue/Entered(mob/living/carbon/human/guy)
+/area/rogue/Entered(atom/movable/AM)
 	. = ..()
+	if(!ishuman(AM))
+		return
+	var/mob/living/carbon/human/guy = AM
 	if((src.town_area == TRUE) && HAS_TRAIT(guy, TRAIT_GUARDSMAN) && !guy.has_status_effect(/datum/status_effect/buff/guardbuffone)) //man at arms
 		guy.apply_status_effect(/datum/status_effect/buff/guardbuffone)
 	if((src.tavern_area == TRUE) && HAS_TRAIT(guy, TRAIT_TAVERN_FIGHTER) && !guy.has_status_effect(/datum/status_effect/buff/innkeeperbuff)) // THE FIGHTER
@@ -79,6 +82,16 @@ GLOBAL_LIST_INIT(roguetown_areas_typecache, typecacheof(list(/area/rogue/indoors
 /area/rogue/indoors/vampire_manor
 	name = "Vampire Manor"
 	droning_sound = 'sound/music/area/manor2.ogg'
+
+/area/rogue/indoors/lich_start //Quieter so our droning noise doesn't cut out the on-spawn stinger, not yet. I want this experience to be thematic
+	name = "Lich Lair"
+	droning_sound = 'sound/ambience/creepywind.ogg' //Ominiously quiet starting room, let them build up a bit.
+	droning_sound_dusk = null
+	droning_sound_night = null
+
+/area/rogue/indoors/lich_start/lich_lair //Sovlnuke with a unique track we didn't use previous I think?
+	first_time_text = "FORGOTTEN KEEP"
+	droning_sound = 'sound/music/area/morosewaters.ogg'
 
 /area/rogue/indoors/ravoxarena
 	name = "Ravox's Arena"

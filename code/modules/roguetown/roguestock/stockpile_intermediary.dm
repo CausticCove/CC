@@ -16,9 +16,8 @@
 	item_type = /obj/item/ingot/copper
 	trade_good_id = TRADE_GOOD_COPPER_INGOT
 	importexport_amt = 5
-	stockpile_limit = 15
+	stockpile_limit = 10
 	category = "Refined"
-	accept_toggle_enabled = FALSE
 	//Caustic Edit - Adding in the regen limits and such!
 	auto_regen = FALSE
 	//Caustic Edit End
@@ -29,9 +28,8 @@
 	item_type = /obj/item/ingot/tin
 	trade_good_id = TRADE_GOOD_TIN_INGOT
 	importexport_amt = 5
-	stockpile_limit = 15
+	stockpile_limit = 10
 	category = "Refined"
-	accept_toggle_enabled = FALSE
 	//Caustic Edit - Adding in the regen limits and such!
 	auto_regen = FALSE
 	//Caustic Edit End

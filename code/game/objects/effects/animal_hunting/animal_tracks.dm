@@ -25,8 +25,10 @@
 	var/target_animal_type
 	/// The category this hunt belongs to
 	var/datum/hunting_category/hunt_category
-	/// Total tracks to find before the animal spawns
-	var/max_trail_depth = 8
+	/// Total tracks to find before the animal spawns (this is always 1 higher than the number)
+	var/max_trail_depth = 6
+	/// Min trail depth as set by skill bonus.
+	var/min_trail_depth = 4
 	/// Category boosted by user.
 	var/datum/hunting_category/preferred_hunt
 	/// Hunting map influences
@@ -44,6 +46,7 @@
 	. += span_info("Buy hunting maps to improve odds at finding certain animals.")
 	. += span_info("Higher hunting skill spawns better animals more often.")
 	. += span_info("If you see a white stag, think twice before attacking. Maybe just run, to be safe.")
+	. += span_info("Right click your eyeball to get directions to the nearest track you are tracking, provided it is on screen.")
 
 /obj/effect/hunting_track/examine(mob/user)
 	. = ..()
@@ -154,6 +157,9 @@
 
 	// Interaction time
 	if(!do_after(user, get_hunting_do_time(user, 4 SECONDS), target = src))
+		return
+	// Do this check again to prevent duplicating tracks with multiple hunters...
+	if(track_revealed)
 		return
 
 	if(uncover_trail(user))
@@ -369,7 +375,7 @@
 	src.linked_areas = SShunting.get_linked_areas(A.type)
 
 	// Calculate total tracks needed: 10 base, minus 1 for each level above 3
-	max_trail_depth = clamp(max_trail_depth - (max(0, skill - 3)), 5, max_trail_depth)
+	max_trail_depth = clamp(max_trail_depth - (max(0, skill - 3)), min_trail_depth, max_trail_depth)
 	var/list/cat_weights = list()
 
 	if(secret_map_influence)
@@ -382,7 +388,7 @@
 			// Exact type matching for area bonus to avoid using subtypes
 			var/area_bonus = C.preferred_areas[A.type]
 			if(area_bonus)
-				weight *= (1 + (area_bonus / 100))
+				weight = max(0, weight * (1 + (area_bonus / 100)))
 
 			// Right-click preference boost
 			if(preferred_hunt && C.type == preferred_hunt.type)
@@ -411,8 +417,8 @@
 	else
 		locked_track_icon = pick(track_types)
 
-/obj/effect/hunting_track/proc/spawn_group_bonus_animals(turf/T, mob/living/primary_target)
-	if(!hunt_category || !primary_target)
+/obj/effect/hunting_track/proc/spawn_group_bonus_animals(turf/T, target_path)
+	if(!hunt_category || !target_path)
 		return
 
 	var/mob/living/leader = hunter_ref?.resolve()
@@ -441,11 +447,15 @@
 		if(prob(success_chance))
 			var/turf/spawn_turf = (nearby_turfs.len) ? pick(nearby_turfs) : T
 			var/bonus_type = pickweight(hunt_category.animals)
-			var/mob/living/bonus_mob = new bonus_type(spawn_turf)
-			if(primary_target.faction?.len)
-				bonus_mob.faction = primary_target.faction.Copy()
+			//Caustic Edit - Not really bothering too much with the rot-changes here
+			//var/mob/living/example_mob = bonus_type
+			//var/chosen_rot = initial(example_mob.rot_type) ? /datum/component/rot/simple/hunt : null
+			new /obj/effect/temp_visual/hunting_phantom(spawn_turf, bonus_type) //, chosen_rot
+			//Caustic Edit End
 			spawned_count++
 
+	if(spawned_count)
+		distribute_party_exp(10 * spawned_count)
 	return spawned_count
 
 /obj/effect/hunting_track/proc/clear_party_images()

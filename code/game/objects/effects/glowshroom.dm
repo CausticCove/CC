@@ -52,7 +52,7 @@ var/dendordam = 30 //FUCK YOOOOU DENDOR
 		var/throwdir = get_dir(src, mover)
 		var/mob/living/L = mover
 
-		if(HAS_TRAIT(L, TRAIT_KNEESTINGER_IMMUNITY)) //Dendor kneestinger immunity
+		if(HAS_TRAIT(L, TRAIT_KNEESTINGER_IMMUNITY) || HAS_TRAIT(L, TRAIT_BOGWALKER)) //Dendor kneestinger immunity
 			return TRUE
 		//cc edit start
 		if(!(L.m_intent == MOVE_INTENT_SNEAK || L.rogue_sneaking))
@@ -81,7 +81,7 @@ var/dendordam = 30 //FUCK YOOOOU DENDOR
 	if(!isliving(movable_victim))
 		return FALSE
 	var/mob/living/victim = movable_victim
-	if(HAS_TRAIT(victim, TRAIT_KNEESTINGER_IMMUNITY)) //Dendor kneestinger immunity
+	if(HAS_TRAIT(victim, TRAIT_KNEESTINGER_IMMUNITY) || HAS_TRAIT(victim, TRAIT_BOGWALKER)) //Dendor kneestinger immunity
 		return FALSE
 	if(victim.mind)
 		if(world.time > victim.last_client_interact + 0.2 SECONDS)

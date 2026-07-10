@@ -7,7 +7,7 @@
 
 /atom/movable/screen/alert/status_effect/buff/attune_haste
 	name = "Attune: Haste"
-	desc = "My limbs move with uncanny swiftness. (+3 Speed, 0.85x Action Cooldown, Guidance)"
+	desc = "My limbs move with uncanny swiftness. (+3 Speed, 0.85x Action Cooldown)"
 	icon_state = "buff"
 
 #define HASTE_FILTER "haste_glow"
@@ -26,18 +26,16 @@
 
 /datum/status_effect/buff/attune_haste/on_apply()
 	. = ..()
-	owner.balloon_alert_to_viewers("<font color='[outline_colour]'>attune: haste (+3 spd, guidance)!</font>")
+	owner.balloon_alert_to_viewers("<font color='[outline_colour]'>attune: haste (+3 spd, 0.85x action cooldown)!</font>")
 	var/filter = owner.get_filter(HASTE_FILTER)
 	if (!filter)
 		owner.add_filter(HASTE_FILTER, 2, list("type" = "outline", "color" = outline_colour, "alpha" = 25, "size" = 1))
 	to_chat(owner, span_warning("My limbs move with uncanny swiftness."))
-	ADD_TRAIT(owner, TRAIT_GUIDANCE, id)
 
 /datum/status_effect/buff/attune_haste/on_remove()
 	. = ..()
 	owner.remove_filter(HASTE_FILTER)
 	to_chat(owner, span_warning("My body moves slowly again..."))
-	REMOVE_TRAIT(owner, TRAIT_GUIDANCE, id)
 
 #undef HASTE_FILTER
 
@@ -50,7 +48,7 @@
 
 /atom/movable/screen/alert/status_effect/buff/attune_giant
 	name = "Attune: Giant"
-	desc = "My muscles are strengthened. (+4 Strength, Guidance)"
+	desc = "My muscles are strengthened. (+4 Strength)"
 	icon_state = "buff"
 
 /datum/status_effect/buff/attune_giant
@@ -67,58 +65,19 @@
 
 /datum/status_effect/buff/attune_giant/on_apply()
 	. = ..()
-	owner.balloon_alert_to_viewers("<font color='[outline_colour]'>attune: giant (+4 str, guidance)!</font>")
+	owner.balloon_alert_to_viewers("<font color='[outline_colour]'>attune: giant (+4 str)!</font>")
 	var/filter = owner.get_filter(GIANTSSTRENGTH_FILTER)
 	if (!filter)
 		owner.add_filter(GIANTSSTRENGTH_FILTER, 2, list("type" = "outline", "color" = outline_colour, "alpha" = 50, "size" = 1))
 	to_chat(owner, span_warning("My muscles strengthen."))
-	ADD_TRAIT(owner, TRAIT_GUIDANCE, id)
 
 
 /datum/status_effect/buff/attune_giant/on_remove()
 	. = ..()
 	to_chat(owner, span_warning("My strength fades away..."))
 	owner.remove_filter(GIANTSSTRENGTH_FILTER)
-	ADD_TRAIT(owner, TRAIT_GUIDANCE, id)
 
 #undef GIANTSSTRENGTH_FILTER
-
-// ---- STONESKIN ----
-
-#define STONESKIN_FILTER "stoneskin_glow"
-
-/atom/movable/screen/alert/status_effect/buff/stoneskin
-	name = "Stoneskin"
-	desc = "My skin is hardened like stone. (+5 Constitution)"
-	icon_state = "buff"
-
-/datum/status_effect/buff/stoneskin
-	var/outline_colour ="#808080" // Granite Grey
-	id = "stoneskin"
-	alert_type = /atom/movable/screen/alert/status_effect/buff/stoneskin
-	effectedstats = list(STATKEY_CON = 5)
-	var/hadcritres = FALSE
-	duration = STAT_BUFF_SELF_DURATION
-
-/datum/status_effect/buff/stoneskin/on_creation(mob/living/new_owner, var/new_duration = null)
-	if(new_duration)
-		duration = new_duration
-	. = ..()
-
-/datum/status_effect/buff/stoneskin/on_apply()
-	. = ..()
-	owner.balloon_alert_to_viewers("<font color='[outline_colour]'>stoneskin (+5 con)!</font>")
-	var/filter = owner.get_filter(STONESKIN_FILTER)
-	if (!filter)
-		owner.add_filter(STONESKIN_FILTER, 2, list("type" = "outline", "color" = outline_colour, "alpha" = 50, "size" = 1))
-	to_chat(owner, span_warning("My skin hardens like stone."))
-
-/datum/status_effect/buff/stoneskin/on_remove()
-	. = ..()
-	to_chat(owner, span_warning("The stone shell cracks away."))
-	owner.remove_filter(STONESKIN_FILTER)
-
-#undef STONESKIN_FILTER
 
 // ---- HAWK'S EYES ----
 
@@ -126,7 +85,7 @@
 
 /atom/movable/screen/alert/status_effect/buff/attune_hawk
 	name = "Attune: Hawk"
-	desc = "My vision is sharpened. (+1 Strength, +4 Perception, Guidance)"
+	desc = "My vision is sharpened. (+1 Strength, +4 Perception)"
 	icon_state = "buff"
 
 /datum/status_effect/buff/attune_hawk
@@ -135,6 +94,8 @@
 	alert_type = /atom/movable/screen/alert/status_effect/buff/attune_hawk
 	effectedstats = list(STATKEY_STR = 1, STATKEY_PER = 4)
 	duration = STAT_BUFF_SELF_DURATION
+	exclusive_group = "augment_perception"
+	exclusive_priority = 2 // supersedes Guidance
 
 /datum/status_effect/buff/attune_hawk/on_creation(mob/living/new_owner, var/new_duration = null)
 	if(new_duration)
@@ -143,19 +104,17 @@
 
 /datum/status_effect/buff/attune_hawk/on_apply()
 	. = ..()
-	owner.balloon_alert_to_viewers("<font color='[outline_colour]'>attune: hawk (+1 str, +4 per, guidance)!</font>")
+	owner.balloon_alert_to_viewers("<font color='[outline_colour]'>attune: hawk (+1 str, +4 per)!</font>")
 	var/filter = owner.get_filter(HAWKSEYES_FILTER)
 	if (!filter)
 		owner.add_filter(HAWKSEYES_FILTER, 2, list("type" = "outline", "color" = outline_colour, "alpha" = 25, "size" = 1))
 	to_chat(owner, span_warning("My vision sharpens, like that of a hawk."))
-	ADD_TRAIT(owner, TRAIT_GUIDANCE, id)
 
 
 /datum/status_effect/buff/attune_hawk/on_remove()
 	. = ..()
 	to_chat(owner, span_warning("My vision blurs, losing its unnatural keenness."))
 	owner.remove_filter(HAWKSEYES_FILTER)
-	ADD_TRAIT(owner, TRAIT_GUIDANCE, id)
 
 #undef HAWKSEYES_FILTER
 
@@ -165,14 +124,17 @@
 
 /atom/movable/screen/alert/status_effect/buff/guidance
 	name = "Guidance"
-	desc = "Arcyne assistance guides my hands. (+20% chance to bypass parry / dodge, +20% chance to parry / dodge)"
+	desc = "Arcyne focus sharpens my senses. (+3 Perception)"
 	icon_state = "buff"
 
 /datum/status_effect/buff/guidance
 	var/outline_colour ="#f58e2d"
 	id = "guidance"
 	alert_type = /atom/movable/screen/alert/status_effect/buff/guidance
+	effectedstats = list(STATKEY_PER = 3)
 	duration = STAT_BUFF_SELF_DURATION
+	exclusive_group = "augment_perception"
+	exclusive_priority = 1 // yields to Hawk's Eyes
 
 /datum/status_effect/buff/guidance/on_creation(mob/living/new_owner, var/new_duration = null)
 	if(new_duration)
@@ -181,18 +143,20 @@
 
 /datum/status_effect/buff/guidance/on_apply()
 	. = ..()
-	owner.balloon_alert_to_viewers("<font color='[outline_colour]'>guidance (+20% parry/dodge)!</font>")
+	if(!.)
+		return
+	owner.balloon_alert_to_viewers("<font color='[outline_colour]'>guidance (+3 per)!</font>")
 	var/filter = owner.get_filter(GUIDANCE_FILTER)
 	if (!filter)
 		owner.add_filter(GUIDANCE_FILTER, 2, list("type" = "outline", "color" = outline_colour, "alpha" = 50, "size" = 1))
-	to_chat(owner, span_warning("The arcyne aides me in battle."))
-	ADD_TRAIT(owner, TRAIT_GUIDANCE, MAGIC_TRAIT)
+	to_chat(owner, span_warning("The arcyne sharpens my senses."))
 
 /datum/status_effect/buff/guidance/on_remove()
 	. = ..()
-	to_chat(owner, span_warning("My feeble mind muddies my warcraft once more."))
 	owner.remove_filter(GUIDANCE_FILTER)
-	REMOVE_TRAIT(owner, TRAIT_GUIDANCE, MAGIC_TRAIT)
+	if(rejected_by_exclusion)
+		return
+	to_chat(owner, span_warning("The arcyne clarity fades from my senses."))
 
 #undef GUIDANCE_FILTER
 
@@ -200,7 +164,7 @@
 
 /atom/movable/screen/alert/status_effect/buff/fortitude
 	name = "Fortitude"
-	desc = "My humors has been hardened to the fatigues of the body. (-50% Stamina Usage)"
+	desc = "My humors have been hardened to the fatigues of the body. (-25% Stamina Usage)"
 	icon_state = "buff"
 
 #define FORTITUDE_FILTER "fortitude_glow"
@@ -218,7 +182,7 @@
 
 /datum/status_effect/buff/fortitude/on_apply()
 	. = ..()
-	owner.balloon_alert_to_viewers("<font color='[outline_colour]'>fortitude (-50% stam)!</font>")
+	owner.balloon_alert_to_viewers("<font color='[outline_colour]'>fortitude (-25% stam)!</font>")
 	var/filter = owner.get_filter(FORTITUDE_FILTER)
 	if (!filter)
 		owner.add_filter(FORTITUDE_FILTER, 2, list("type" = "outline", "color" = outline_colour, "alpha" = 50, "size" = 1))

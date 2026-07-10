@@ -11,7 +11,6 @@
 	strip_delay = 20
 	equip_delay_other = 40
 	bloody_icon_state = "bloodyhands"
-	sellprice = 3
 
 	grid_width = 64
 	grid_height = 32

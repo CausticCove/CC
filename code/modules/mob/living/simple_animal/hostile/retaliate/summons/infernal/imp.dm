@@ -78,8 +78,8 @@
 	for(var/i =1 to 6)
 		new /obj/item/magic/infernal/ash(deathspot) ///Caustic edit end
 	update_icon()
-	sleep(1)
-	qdel(src)
+	spawn(1)
+		qdel(src)
 
 
 /mob/living/simple_animal/hostile/retaliate/rogue/infernal/imp/taunted(mob/user)

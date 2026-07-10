@@ -1,6 +1,27 @@
 /datum/status_effect/buff
 	status_type = STATUS_EFFECT_REFRESH
+	/// Buffs sharing this group are mutually exclusive; only the highest exclusive_priority stays.
+	var/exclusive_group = null
+	/// Higher wins within a group; on a tie the incumbent is kept.
+	var/exclusive_priority = 0
+	/// TRUE if refused on-apply by a stronger group member
+	var/rejected_by_exclusion = FALSE
 
+/datum/status_effect/buff/on_apply()
+	if(exclusive_group && owner)
+		var/list/outranked = list()
+		for(var/datum/status_effect/buff/rival in owner.status_effects)
+			if(rival == src || rival.exclusive_group != exclusive_group)
+				continue
+			if(rival.exclusive_priority >= exclusive_priority)
+				rejected_by_exclusion = TRUE
+				effectedstats = list()
+				owner.balloon_alert_to_viewers("superseded!")
+				return FALSE
+			outranked += rival
+		for(var/datum/status_effect/buff/loser in outranked)
+			qdel(loser) // Destroy() handles list cleanup + on_remove
+	return ..()
 
 /datum/status_effect/buff/drunk
 	id = "drunk"
@@ -92,7 +113,7 @@
 
 /atom/movable/screen/alert/status_effect/buff/greatsnackbuff
 	name = "Great Snack!"
-	desc = "Nothing like a great and nutritious snack to help you on that final strech. I feel invigorated."
+	desc = "Nothing like a great and nutritious snack to help you on that final stretch. I feel invigorated."
 	icon_state = "foodbuff"
 
 /datum/status_effect/buff/greatsnackbuff/on_apply()
@@ -385,13 +406,11 @@
 
 /datum/status_effect/buff/abyss/on_apply()
 	. = ..()
-	ADD_TRAIT(owner, TRAIT_PSYCHOSIS, TRAIT_GENERIC)
+	ADD_TRAIT(owner, TRAIT_PSYCHOSIS, id)
 
 /datum/status_effect/buff/abyss/on_remove()
-	REMOVE_TRAIT(owner, TRAIT_PSYCHOSIS, TRAIT_GENERIC)
+	REMOVE_TRAIT(owner, TRAIT_PSYCHOSIS, id)
 	. = ..()
-
-
 
 /datum/status_effect/buff/fermented_crab
 	id = "fermented_crab"
@@ -654,7 +673,6 @@
 	desc = "A break by the fire restores some of my energy."
 	icon_state = "campfire"
 
-
 #define CAMPFIRE_BASE_FILTER "campfire_stamina"
 
 /datum/status_effect/buff/campfire_stamina
@@ -677,6 +695,8 @@
 	owner.adjust_bodytemperature(8)
 	if(HAS_TRAIT(owner, TRAIT_IRONMAN) || !should_stamina)
 		return
+	if(owner.has_status_effect(/datum/status_effect/combat_tag))
+		return
 	//Caustic Edit End
 	var/stamheal = healing_on_tick
 	if(!owner.cmode)
@@ -694,7 +714,7 @@
 	duration = 3 SECONDS //CC Edit , 6 -> 3 SECONDS. Stay near the fire if you wanna keep being healed.
 
 /datum/status_effect/buff/campfire/tick()
-	if(owner.cmode)
+	if(owner.has_status_effect(/datum/status_effect/combat_tag))
 		return
 	if(HAS_TRAIT(owner, TRAIT_IRONMAN))
 		return
@@ -906,17 +926,14 @@
 	var/healing_on_tick = 4
 	alert_type = /atom/movable/screen/alert/status_effect/buff/oremuncher
 
-/datum/status_effect/buff/rockmuncher/on_creation(mob/living/new_owner, new_healing_on_tick)
 /datum/status_effect/buff/oremuncher/on_creation(mob/living/new_owner, new_healing_on_tick)
 	healing_on_tick = new_healing_on_tick
 	return ..()
 
-/datum/status_effect/buff/rockmuncher/tick()
 /datum/status_effect/buff/oremuncher/tick()
 	if(!HAS_TRAIT(owner, TRAIT_IRONMAN))
 		return
 	var/obj/effect/temp_visual/heal/H = new /obj/effect/temp_visual/heal_rogue(get_turf(owner))
-	H.color = "#FF0000"
 	H.color = "#ceb8a3"
 	var/list/wCount = owner.get_wounds()
 	if(wCount.len > 0)
@@ -948,16 +965,6 @@
 	var/obj/effect/temp_visual/heal/H = new /obj/effect/temp_visual/heal_rogue(get_turf(owner))
 	H.color = "#ffffff"
 	var/list/wCount = owner.get_wounds()
-	if(owner.construct)
-		if(wCount.len > 0)
-			owner.heal_wounds(healing_on_tick)
-			owner.update_damage_overlays()
-		owner.adjustBruteLoss(0.15*-healing_on_tick, 0)
-		owner.adjustFireLoss(0.15*-healing_on_tick, 0)
-		owner.adjustOxyLoss(0.15*-healing_on_tick, 0)
-		owner.adjustToxLoss(0.15*-healing_on_tick, 0)
-		owner.adjustOrganLoss(ORGAN_SLOT_BRAIN, 0.15*-healing_on_tick)
-		owner.adjustCloneLoss(0.15*-healing_on_tick, 0)
 	if(wCount.len > 0)
 		owner.heal_wounds(healing_on_tick)
 		owner.update_damage_overlays()
@@ -1059,8 +1066,8 @@
 	icon_state = "buff"
 
 /atom/movable/screen/alert/status_effect/buff/censerbuff
-	name = "Inspired by SYON."
-	desc = "The shard of the great comet had inspired me to ENDURE."
+	name = "Syon's Blessings"
+	desc = "I have been anointed in His comet's radiance; let no evil befall me!"
 	icon_state = "censerbuff"
 
 /datum/status_effect/buff/fortify //Increases all healing while it lasts.
@@ -1079,7 +1086,7 @@
 	id = "censer"
 	alert_type = /atom/movable/screen/alert/status_effect/buff/censerbuff
 	duration = 15 MINUTES
-	effectedstats = list(STATKEY_WIL = 1, STATKEY_CON = 1)
+	effectedstats = list(STATKEY_WIL = 1, STATKEY_CON = 1, STATKEY_FOR = 1)
 
 #define DIMINISH_FILTER "diminish_glow"
 /datum/status_effect/debuff/diminish
@@ -1087,7 +1094,7 @@
 	id = "diminish"
 	alert_type = /atom/movable/screen/alert/status_effect/debuff/diminish
 	duration = 1 MINUTES
-	effectedstats = list(STATKEY_STR = -2, STATKEY_CON = -2)
+	effectedstats = list(STATKEY_STR = -2, STATKEY_CON = -2, STATKEY_PER = -3)
 
 /datum/status_effect/debuff/diminish/on_apply()
 	. = ..()
@@ -1096,12 +1103,10 @@
 	var/filter = owner.get_filter(DIMINISH_FILTER)
 	if(!filter)
 		owner.add_filter(DIMINISH_FILTER, 2, list("type" = "outline", "color" = outline_colour, "alpha" = 50, "size" = 1))
-	ADD_TRAIT(owner, TRAIT_REVERSE_GUIDANCE, MAGIC_TRAIT)
 
 /datum/status_effect/debuff/diminish/on_remove()
 	. = ..()
 	owner.remove_filter(DIMINISH_FILTER)
-	REMOVE_TRAIT(owner, TRAIT_REVERSE_GUIDANCE, MAGIC_TRAIT)
 #undef DIMINISH_FILTER
 
 /datum/status_effect/buff/reversion
@@ -1111,13 +1116,14 @@
 
 #define CRANKBOX_FILTER "crankboxbuff_glow"
 /atom/movable/screen/alert/status_effect/buff/churnerprotection
-	name = "Magick Distorted"
-	desc = "The wailing box is disrupting magicks around me!"
-	icon_state = "buff"
+	name = "Antimagicka"
+	desc = "The crankbox's harmonized wails render me immune to all magicka!"
+	icon_state = "crankbox_psy"
+
 /atom/movable/screen/alert/status_effect/buff/churnernegative
-	name = "Magick Distorted"
+	name = "Nullmagicka"
 	desc = "That infernal contraption is sapping my very arcyne essence!"
-	icon_state = "buff"
+	icon_state = "crankbox_debuff"
 
 /datum/status_effect/buff/churnerprotection
 	var/outline_colour = "#fad55a"
@@ -1135,7 +1141,7 @@
 
 /datum/status_effect/buff/churnerprotection/on_remove()
 	. = ..()
-	to_chat(owner, span_warning("The wailing box's protection fades..."))
+	to_chat(owner, span_warning("The wailing box's protection fades.."))
 	owner.remove_filter(CRANKBOX_FILTER)
 	REMOVE_TRAIT(owner, TRAIT_ANTIMAGIC, MAGIC_TRAIT)
 
@@ -1143,7 +1149,7 @@
 #undef MIRACLE_HEALING_FILTER
 
 /datum/status_effect/buff/churnernegative
-	id ="soulchurnernegative"
+	id = "soulchurnernegative"
 	alert_type = /atom/movable/screen/alert/status_effect/buff/churnernegative
 	duration = 23 SECONDS
 
@@ -1151,15 +1157,15 @@
 	. = ..()
 	ADD_TRAIT(owner, TRAIT_SPELLCOCKBLOCK, MAGIC_TRAIT)
 	ADD_TRAIT(owner, TRAIT_ANTIMAGIC, MAGIC_TRAIT)
-	to_chat(owner, span_warning("I feel as if my connection to the Arcyne disappears entirely. The air feels still..."))
-	owner.visible_message("[owner]'s arcyne aura seems to fade.")
+	to_chat(owner, span_warning("My arcyne connections are no more! Something is disrupting the leyline's flow!"))
+	owner.visible_message("[owner]'s magicka is suddenly sapped away!")
 
 /datum/status_effect/buff/churnernegative/on_remove()
 	. = ..()
 	REMOVE_TRAIT(owner, TRAIT_SPELLCOCKBLOCK, MAGIC_TRAIT)
 	REMOVE_TRAIT(owner, TRAIT_ANTIMAGIC, MAGIC_TRAIT)
-	to_chat(owner, span_warning("I feel my connection to the arcyne surround me once more."))
-	owner.visible_message("[owner]'s arcyne aura seems to return once more.")
+	to_chat(owner, span_warning("The leyline's flow has been restored, and I can feel my fingertips buzzing with restored magicka.."))
+	owner.visible_message("[owner]'s magicka gradually flares back up..")
 
 #define BLESSINGOFSUN_FILTER "sun_glow"
 /atom/movable/screen/alert/status_effect/buff/guidinglight
@@ -1188,9 +1194,9 @@
 		owner.add_filter(BLESSINGOFSUN_FILTER, 2, list("type" = "outline", "color" = outline_colour, "alpha" = 60, "size" = 1))
 
 	if(!mob_light_obj || QDELETED(mob_light_obj))
-		mob_light_obj = owner.mob_light("#fdfbd3", 10, 10)
+		mob_light_obj = owner.mob_light("#fdfbd3", 7, 7)
 	else
-		mob_light_obj.set_light(10, null, 10, l_color = "#fdfbd3")
+		mob_light_obj.set_light(7, null, 7, l_color = "#fdfbd3")
 
 	return TRUE
 
@@ -1389,6 +1395,17 @@
 	desc = "I feel my heart as light as feathers. All my worries have washed away."
 	icon_state = "buff"
 
+/datum/status_effect/buff/oresight
+	id = "oresight"
+	alert_type = /atom/movable/screen/alert/status_effect/buff/oresight
+	duration = 999 MINUTES	// Removed by the Oresight component.
+
+/atom/movable/screen/alert/status_effect/buff/oresight
+	name = "Oresight"
+	desc = "I focus in every few moments and sense the stone around me."
+	icon = 'icons/mob/screen_alert_misc.dmi'
+	icon_state = "oresight"
+
 /datum/status_effect/buff/pacify
 	id = "pacify"
 	alert_type = /atom/movable/screen/alert/status_effect/buff/pacify
@@ -1428,28 +1445,6 @@
 	. = ..()
 	to_chat(owner, span_warning("My mind is clear again, no longer clouded with foggy peace!"))
 	REMOVE_TRAIT(owner, TRAIT_PACIFISM, id)
-
-/datum/status_effect/buff/call_to_arms
-	id = "call_to_arms"
-	alert_type = /atom/movable/screen/alert/status_effect/buff/call_to_arms
-	duration = 2.5 MINUTES
-	effectedstats = list(STATKEY_STR = 1, STATKEY_WIL = 2, STATKEY_CON = 1)
-
-/atom/movable/screen/alert/status_effect/buff/call_to_arms
-	name = "Call to Arms"
-	desc = span_bloody("FOR GLORY AND HONOR!")
-	icon_state = "call_to_arms"
-
-/datum/status_effect/buff/call_to_slaughter
-	id = "call_to_slaughter"
-	alert_type = /atom/movable/screen/alert/status_effect/buff/call_to_slaughter
-	duration = 2.5 MINUTES
-	effectedstats = list(STATKEY_STR = 1, STATKEY_WIL = 2, STATKEY_CON = 1)
-
-/atom/movable/screen/alert/status_effect/buff/call_to_slaughter
-	name = "Call to Slaughter"
-	desc = span_bloody("LAMBS TO THE SLAUGHTER!")
-	icon_state = "call_to_slaughter"
 
 /atom/movable/screen/alert/status_effect/buff/xylix_joy
 	name = "Trickster's Joy"
@@ -1706,6 +1701,8 @@
 /datum/status_effect/buff/clash/limbguard/on_creation(mob/living/new_owner, ...)
 	. = ..()
 	shield_origin = owner.get_active_held_item()
+	if(!shield_origin)
+		shield_origin = owner.get_inactive_held_item()
 
 /datum/status_effect/buff/clash/limbguard/on_apply()
 	. = ..()
@@ -1927,7 +1924,7 @@
 /atom/movable/screen/alert/status_effect/buff/sermon
 	name = "sermon"
 	desc = "I feel inspired by the sermon!"
-	icon_state = "buff"
+	icon_state = "divinesermon"
 
 /datum/status_effect/buff/griefflower
 	id = "griefflower"
@@ -2442,65 +2439,65 @@
 
 //construct buffing
 /datum/status_effect/buff/windup
-    id = "windup"
-    alert_type = /atom/movable/screen/alert/status_effect/buff/windup
-    effectedstats = list(STATKEY_SPD = 1, STATKEY_WIL = 1)
-    duration = 45 MINUTES
+	id = "windup"
+	alert_type = /atom/movable/screen/alert/status_effect/buff/windup
+	effectedstats = list(STATKEY_SPD = 1, STATKEY_WIL = 1)
+	duration = 45 MINUTES
 
 /atom/movable/screen/alert/status_effect/buff/windup
-    name = "Drill Windup"
-    desc = "Malum's own drill has wound me up. I am faster, now."
-    icon_state = "buff"
+	name = "Drill Windup"
+	desc = "Malum's own drill has wound me up. I am faster, now."
+	icon_state = "buff"
 
 /datum/status_effect/buff/tuneup
-    id = "tuneup"
-    alert_type = /atom/movable/screen/alert/status_effect/buff/tuneup
-    effectedstats = list(STATKEY_CON = 1, STATKEY_PER = 1)
-    duration = 45 MINUTES
+	id = "tuneup"
+	alert_type = /atom/movable/screen/alert/status_effect/buff/tuneup
+	effectedstats = list(STATKEY_CON = 1, STATKEY_PER = 1)
+	duration = 45 MINUTES
 
 /atom/movable/screen/alert/status_effect/buff/tuneup
-    name = "Wrench Tuneup"
-    desc = "Malum's own wrench powers me. I can withstand more damage, now."
-    icon_state = "buff"
+	name = "Wrench Tuneup"
+	desc = "Malum's own wrench powers me. I can withstand more damage, now."
+	icon_state = "buff"
 
-#define ORDERBRINGER_FILTER "orderbringer"
+#define PLAGUEBRINGER_FILTER "plaguebringer"
 
-/datum/status_effect/orderbringer
-	id = "orderbringer"
-	var/outline_colour = "#6BB7A0"
+/datum/status_effect/plaguebringer
+	id = "plaguebringer"
+	var/outline_colour = "#2C4628"
 	duration = -1
 	tick_interval = -1
-	examine_text = span_good("SUBJECTPRONOUN is bathed in Divine Light!")
+	examine_text = span_good("SUBJECTPRONOUN is emanating Rot!")
 	alert_type = null
 
-/datum/status_effect/orderbringer/on_apply()
+/datum/status_effect/plaguebringer/on_apply()
 	. = ..()
 
-	owner.visible_message(span_userdanger("A tide of divine light surges from [owner], it fills you with determination and hope!"))
+	owner.visible_message(span_userdanger("A putrid stench of rot from [owner] overwhelms your senses!"))
 
-	var/filter = owner.get_filter(ORDERBRINGER_FILTER)
+	var/filter = owner.get_filter(PLAGUEBRINGER_FILTER)
 	if(!filter)
-		owner.add_filter(ORDERBRINGER_FILTER, 2, list("type" = "outline", "color" = outline_colour, "alpha" = 60, "size" = 2))
+		owner.add_filter(PLAGUEBRINGER_FILTER, 2, list("type" = "outline", "color" = outline_colour, "alpha" = 60, "size" = 2))
 
 	var/mutable_appearance/effect = mutable_appearance('icons/effects/effects.dmi', "curse", -JOYBRINGER_LAYER, alpha = 128)
 	effect.appearance_flags = RESET_COLOR
 	effect.blend_mode = BLEND_ADD
-	effect.color = "#6BB7A0"
+	effect.color = "#2C4628"
 
-	owner.overlays_standing[ORDERBRINGER_FILTER] = effect
-	owner.apply_overlay(ORDERBRINGER_FILTER)
+	owner.overlays_standing[PLAGUEBRINGER_FILTER] = effect
+	owner.apply_overlay(PLAGUEBRINGER_FILTER)
 
 	RegisterSignal(owner, COMSIG_LIVING_LIFE, PROC_REF(on_life))
 
-/datum/status_effect/orderbringer/on_remove()
+/datum/status_effect/plaguebringer/on_remove()
 	. = ..()
 
-	owner.remove_filter(ORDERBRINGER_FILTER)
-	owner.remove_overlay(ORDERBRINGER_FILTER)
+	owner.remove_filter(PLAGUEBRINGER_FILTER)
+	owner.remove_overlay(PLAGUEBRINGER_FILTER)
 
 	UnregisterSignal(owner, COMSIG_LIVING_LIFE)
 
-/datum/status_effect/orderbringer/proc/on_life()
+/datum/status_effect/plaguebringer/proc/on_life()
 	SIGNAL_HANDLER
 
 	for(var/mob/living/mob in get_hearers_in_view(2, owner))
@@ -2509,7 +2506,9 @@
 
 		mob.apply_status_effect(/datum/status_effect/buff/fortify)
 
-#undef ORDERBRINGER_FILTER
+#undef PLAGUEBRINGER_FILTER
+
+
 #define NECRACON_FILTER "necra_consecration"
 #define NECRACON_TIER_NORMAL 2
 #define NECRACON_TIER_EXPERT 3
@@ -2565,7 +2564,7 @@
 	if(tier > NECRACON_TIER_NORMAL)	//expert
 		ADD_TRAIT(owner, TRAIT_FORTITUDE, TRAIT_NECRACON)
 		if(HAS_TRAIT(owner, TRAIT_DNR))
-			ADD_TRAIT(owner, TRAIT_GUIDANCE, TRAIT_NECRACON)
+			owner.change_stat(STATKEY_PER, 3)
 	if(tier > NECRACON_TIER_EXPERT && HAS_TRAIT(owner, TRAIT_DNR))	//master+
 		ADD_TRAIT(owner, TRAIT_NOPAIN, TRAIT_NECRACON)
 
@@ -2575,7 +2574,8 @@
 	REMOVE_TRAIT(owner, TRAIT_ADRENALINE_RUSH, TRAIT_NECRACON)
 	if(tier > NECRACON_TIER_NORMAL)
 		REMOVE_TRAIT(owner, TRAIT_FORTITUDE, TRAIT_NECRACON)
-		REMOVE_TRAIT(owner, TRAIT_GUIDANCE, TRAIT_NECRACON)
+		if(HAS_TRAIT(owner, TRAIT_DNR))
+			owner.change_stat(STATKEY_PER, -3)
 	if(tier > NECRACON_TIER_EXPERT)
 		REMOVE_TRAIT(owner, TRAIT_NOPAIN, TRAIT_NECRACON)
 
@@ -2638,6 +2638,103 @@
 		mob.apply_status_effect(/datum/status_effect/buff/recuperation/eoran)
 
 #undef EORANAURA_FILTER
+
+#define INVIGORATION_FILTER "invigoration_filter"
+
+/atom/movable/screen/alert/status_effect/buff/invigoration
+	name = "Invigoration"
+	desc = "My energy is being replenished."
+	icon_state = "buff"
+
+/datum/status_effect/buff/invigoration
+	id = "invigoration"
+	alert_type = /atom/movable/screen/alert/status_effect/buff/invigoration
+	duration = 10 SECONDS
+	var/outline_colour = "#3a86ff"
+	var/energy_per_tick = 0
+	var/total_to_restore = 0
+	var/currently_restored = 0
+
+/datum/status_effect/buff/invigoration/on_creation(mob/living/new_owner, set_duration = 10 SECONDS, restore_percent_missing = 34, min_restore_percent = 20)
+	if(set_duration)
+		duration = set_duration
+
+	var/missing_energy = new_owner.max_energy - new_owner.energy
+	var/percent_missing = (missing_energy / new_owner.max_energy) * 100
+	var/percent_missing_percent = percent_missing * (restore_percent_missing / 100)
+
+	// either the provided restore missing % or the minimum safety floor
+	var/restore_target_percent = max(percent_missing_percent, min_restore_percent)
+
+	// Total amount we want to restore over the whole duration
+	total_to_restore = (restore_target_percent / 100) * new_owner.max_energy
+
+	// Divide that total by the number of ticks
+	var/tick_interval = 1 SECONDS
+	var/num_ticks = max(round(set_duration / tick_interval), 1)
+	energy_per_tick = total_to_restore / num_ticks
+	return ..()
+
+/datum/status_effect/buff/invigoration/on_apply()
+	owner.add_filter(INVIGORATION_FILTER, 2, list("type" = "outline", "color" = outline_colour, "alpha" = 80, "size" = 1))
+	to_chat(owner, span_notice("A surge of energy begins to circulate through my body!"))
+	return TRUE
+
+/datum/status_effect/buff/invigoration/tick()
+	if(!owner || owner.stat == DEAD)
+		return
+	// Safety measure, this shouldn't ever result in 0 but you never know.
+	var/to_add = min(energy_per_tick, total_to_restore - currently_restored)
+	if(to_add <= 0)
+		return
+	var/obj/effect/temp_visual/heal/H = new /obj/effect/temp_visual/heal_rogue(get_turf(owner))
+	H.color = outline_colour
+	owner.energy_add(to_add)
+	currently_restored += to_add
+
+/datum/status_effect/buff/invigoration/on_remove()
+	// Compensate for lag skipping ticks
+	// Turns out about 20% of all ticks are skipped on status effects, help.
+	// How are we even balancing stuff right :sob:
+	var/remainder = total_to_restore - currently_restored
+	if(remainder > 0 && owner && owner.stat != DEAD)
+		owner.energy_add(remainder)
+		var/obj/effect/temp_visual/heal/H = new /obj/effect/temp_visual/heal_rogue(get_turf(owner))
+		H.color = outline_colour
+
+	owner.remove_filter(INVIGORATION_FILTER)
+	return ..()
+
+#undef INVIGORATION_FILTER
+
+//overclock buff for prosthetics
+/atom/movable/screen/alert/status_effect/buff/overclock
+	name = "Overclocked"
+	desc = "You are pushing your prosthetics to their limits. But you may break something..."
+	icon_state = "buff"
+
+/datum/status_effect/buff/overclock
+	id = "overclock"
+	alert_type = /atom/movable/screen/alert/status_effect/buff/overclock
+	duration = 2 MINUTES
+	status_type = STATUS_EFFECT_REPLACE
+
+/datum/status_effect/buff/overclock/on_creation(mob/living/new_owner, prosthetic_arms, prosthetic_legs)
+	effectedstats = list()
+	if(prosthetic_arms > 0)
+		effectedstats[STATKEY_STR] = prosthetic_arms
+	if(prosthetic_legs > 0)
+		effectedstats[STATKEY_SPD] = prosthetic_legs
+	return ..()
+
+/datum/status_effect/buff/overclock/on_apply()
+	. = ..()
+	to_chat(owner, span_warning("The interals of my prosthetics wind up faster, vibrating as they work harder for a little while."))
+
+/datum/status_effect/buff/overclock/on_remove()
+	. = ..()
+	to_chat(owner, span_notice("I feel the hum of my prosthetics slow down, they need time to recharge."))
+
 
 //Sauce effects
 

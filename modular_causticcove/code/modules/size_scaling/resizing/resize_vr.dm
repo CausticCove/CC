@@ -215,9 +215,9 @@
 	set name = "Adjust Size"
 	set category = "OOC" //Seeing as prometheans have an IC reason to be changing mass. <-- Leftover from Chomp!
 
-	var/nagmessage = "Adjust your size to be a size between 25 to 200%. (For OOC/Scene purposes!)" //(or 1% to 600% in dormitories)
+	var/nagmessage = "Adjust your size to be a size between [RESIZE_MINIMUM * 100] and [RESIZE_MAXIMUM * 100]. (For OOC/Scene purposes!)" //(or 1% to 600% in dormitories)
 	var/default = size_multiplier * 100
-	var/new_size = tgui_input_number(src, nagmessage, "Pick a Size", default, 600, 1)
+	var/new_size = tgui_input_number(src, nagmessage, "Pick a Size", default, RESIZE_MAXIMUM * 100, RESIZE_MINIMUM * 100)
 	if(size_range_check(new_size))
 		resize(new_size/100,/* uncapped = has_large_resize_bounds(),*/ ignore_prefs = TRUE)
 		/*if(temporary_form) //Again the species-specific transformation options, used in Protean's Blob form likely.

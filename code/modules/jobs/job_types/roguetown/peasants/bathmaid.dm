@@ -9,7 +9,7 @@
 	spawn_positions = 5
 
 	allowed_sexes = list(MALE, FEMALE)
-	allowed_races = ACCEPTED_RACES
+	forbidden_races = list() //Caustic Edit - Just a global tweak to remove 'races_despised' from this check everywhere
 	allowed_ages = list(AGE_ADULT, AGE_MIDDLEAGED)
 
 

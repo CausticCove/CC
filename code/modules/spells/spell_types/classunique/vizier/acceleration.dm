@@ -49,7 +49,7 @@
 /datum/status_effect/buff/accel
 	id = "acceleration"
 	alert_type = /atom/movable/screen/alert/status_effect/buff/accel
-	effectedstats = list(STATKEY_SPD = 20)
+	effectedstats = list(STATKEY_SPD = 20, STATKEY_PER = 3)
 	duration = 6 SECONDS
 	var/afterimage_active = FALSE
 
@@ -61,19 +61,21 @@
 /datum/status_effect/buff/accel/on_apply()
 	. = ..()
 	ADD_TRAIT(owner, TRAIT_INFINITE_STAMINA, "naledi_cat_nonsense")
-	ADD_TRAIT(owner, TRAIT_GUIDANCE, "naledi_cat_nonsense")
 	ADD_TRAIT(owner, TRAIT_NOPAINSTUN, "naledi_cat_nonsense")
 	ADD_TRAIT(owner, TRAIT_LONGSTRIDER, "naledi_cat_nonsense")
 
 	if(!afterimage_active)
 		owner.AddComponent(/datum/component/after_image)
 		afterimage_active = TRUE
+
 	to_chat(owner, span_green("My timeline races ahead of the present. I am unbound by time!"))
+
+/datum/status_effect/buff/accel/tick()
+	owner.stamina_add(-69)
 
 /datum/status_effect/buff/accel/on_remove()
 	. = ..()
 	REMOVE_TRAIT(owner, TRAIT_INFINITE_STAMINA, "naledi_cat_nonsense")
-	REMOVE_TRAIT(owner, TRAIT_GUIDANCE, "naledi_cat_nonsense")
 	REMOVE_TRAIT(owner, TRAIT_NOPAINSTUN, "naledi_cat_nonsense")
 	REMOVE_TRAIT(owner, TRAIT_LONGSTRIDER, "naledi_cat_nonsense")
 
@@ -104,6 +106,7 @@
 	. = ..()
 
 	ADD_TRAIT(owner, TRAIT_NODEF, "naledi_cat_nonsense")
+	owner.stamina_add(125)
 	to_chat(owner, span_red("Everything feels unbearably slow. I am defenseless!"))
 
 /datum/status_effect/debuff/decel/on_remove()
@@ -115,6 +118,7 @@
 
 /datum/status_effect/debuff/decel/nextmove_modifier()
 	return 2
+
 
 /obj/effect/temp_visual/origin_haste
 	icon = 'icons/effects/effects.dmi'

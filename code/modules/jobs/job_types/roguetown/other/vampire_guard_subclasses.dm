@@ -11,7 +11,6 @@
 	name = "Vampiric Guardsman"
 	tutorial = "You are a seasoned weapon specialist, clad in maille, with years of experience in warfare and battle under your belt, more than any mortal could ever claim."
 	allowed_sexes = list(MALE, FEMALE)
-	allowed_races = RACES_ALL_KINDS
 	outfit = /datum/outfit/job/roguetown/other/vampguardsman
 	traits_applied = list(TRAIT_STEELHEARTED, TRAIT_MEDIUMARMOR)
 	category_tags = list(CTAG_VAMPGUARD)
@@ -80,7 +79,7 @@
 				r_hand = /obj/item/rogueweapon/greataxe
 				backl = /obj/item/rogueweapon/scabbard/gwstrap
 
-	H.verbs |= /mob/proc/haltyell_exhausting //Soldier gets to halt people
+	add_verb(H, /mob/proc/haltyell_exhausting) //Soldier gets to halt people
 
 	cloak = /obj/item/clothing/cloak/tabard/stabard/dungeon
 	mask = /obj/item/clothing/mask/rogue/facemask/steel //so they don't get sundered in the face
@@ -108,7 +107,6 @@
 	name = "Vampiric Ranger"
 	tutorial = "You are a professional soldier, light in footwork, yet with years of experience in warfare and archery, far more than most mortals could claim. Your lord's will be done."
 	allowed_sexes = list(MALE, FEMALE)
-	allowed_races = RACES_ALL_KINDS
 	outfit = /datum/outfit/job/roguetown/other/vampskirmisher
 	traits_applied = list(TRAIT_DODGEEXPERT, TRAIT_OUTDOORSMAN)
 	category_tags = list(CTAG_VAMPGUARD)
@@ -161,7 +159,7 @@
 		/obj/item/rope/chain = 1
 		)
 
-	H.verbs |= /mob/proc/haltyell_exhausting //Soldier gets to halt people
+	add_verb(H, /mob/proc/haltyell_exhausting) //Soldier gets to halt people
 
 	if(H.mind)
 		var/weapons = list("Recurve Bow","Yew Longbow","Crossbow")
@@ -241,7 +239,7 @@
 				beltr = /obj/item/rogueweapon/scabbard/sword
 				beltl = /obj/item/rogueweapon/scabbard/sword
 
-	H.verbs |= /mob/proc/haltyell_exhausting //Soldier gets to halt people
+	add_verb(H, /mob/proc/haltyell_exhausting) //Soldier gets to halt people
 
 	head = /obj/item/clothing/head/roguetown/duelhat //lowest of all guards in head armor in that only their coif really gives them any.
 	mask = /obj/item/clothing/mask/rogue/duelmask //I AM THE NIGHT
@@ -303,7 +301,7 @@
 	to_chat(H, span_warning("There has been nothing more enchanting in unlyfe than the dance of flames upon an inferno of your alchemical mixes and the taste of blood. Now your master arises once more and your talents shall see use again. Your lord's will be done."))
 	H.set_blindness(0)
 
-	H.verbs |= /mob/proc/haltyell_exhausting //Halting the charred corpse is too funny, we're keeping it. sovl.
+	add_verb(H, /mob/proc/haltyell_exhausting) //Halting the charred corpse is too funny, we're keeping it. sovl.
 
 	mask = /obj/item/clothing/mask/rogue/ragmask/black
 	cloak = /obj/item/clothing/cloak/tabard/stabard/dungeon
@@ -377,7 +375,7 @@
 		/obj/item/lockpick = 1, //Go buy more, if you need em.
 		/obj/item/rogueweapon/scabbard/sheath = 1
 		)
-	H.verbs |= /mob/proc/haltyell_exhausting //This is stupid, keeping it. Halting someone to listen to your music is too funny.
+	add_verb(H, /mob/proc/haltyell_exhausting) //This is stupid, keeping it. Halting someone to listen to your music is too funny.
 
 	var/datum/inspiration/I = new /datum/inspiration(H)
 	I.grant_inspiration(H, bard_tier = BARD_T2)
@@ -439,8 +437,8 @@
 	..()
 	to_chat(H, span_warning("You were a magos of old, ever since the embrace you've never had more time to practice your persuit of arcayne magicks, let alone revel in your taste for blood; now your master arises once more and your arcayne research shall see fruitation. Your lord's will be done."))
 	H.set_blindness(0)
-	H.dna.species.soundpack_m = new /datum/voicepack/male/wizard() //Every wizzard gotta have the evyl laugh, I don't make the rules, sire.
-	H.verbs |= /mob/proc/haltyell_exhausting //Halting the charred corpse is too funny, we're keeping it. sovl.
+	H.dna.species.soundpack_m = GLOB.voice_packs[/datum/voicepack/male/wizard] //Every wizzard gotta have the evyl laugh, I don't make the rules, sire.
+	add_verb(H, /mob/proc/haltyell_exhausting) //Halting the charred corpse is too funny, we're keeping it. sovl.
 
 	cloak = /obj/item/clothing/cloak/tabard/stabard/dungeon
 	head = /obj/item/clothing/head/roguetown/witchhat //EVERY PALLY IN THE KINGDOM ON MA TAIL

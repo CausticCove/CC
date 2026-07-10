@@ -290,30 +290,33 @@
 			if(ishuman(user))
 				var/mob/living/carbon/human/humanuser = user
 				if(humanuser.beltl)
-					if(istype(humanuser.beltl, /obj/item/roguekey) || istype(humanuser.beltl, /obj/item/storage/keyring))
+					if(istype(humanuser.beltl, /obj/item/roguekey) || istype(humanuser.beltl, /obj/item/storage/*/keyring*/))
 						if(trykeylock(humanuser.beltl, user, handempty = TRUE))
 							return
-					if(istype(humanuser.beltl, /obj/item/storage))
-						if(check_for_key_in_storage(humanuser.beltl, humanuser))
-							return
+					/*if(istype(humanuser.beltl, /obj/item/storage))
+						if(trykeylock(humanuser.beltl, user, handempty = TRUE))
+							return*/
 				if(humanuser.beltr)
-					if(istype(humanuser.beltr, /obj/item/roguekey) || istype(humanuser.beltr, /obj/item/storage/keyring))
+					if(istype(humanuser.beltr, /obj/item/roguekey) || istype(humanuser.beltr, /obj/item/storage/*/keyring*/))
 						if(trykeylock(humanuser.beltr, user, handempty = TRUE))
 							return
-					if(istype(humanuser.beltr, /obj/item/storage))
-						if(check_for_key_in_storage(humanuser.beltr, humanuser))
-							return
+					/*if(istype(humanuser.beltr, /obj/item/storage))
+						if(trykeylock(humanuser.beltr, user, handempty = TRUE))
+							return*/
 				if(humanuser.belt)
 					if(istype(humanuser.belt, /obj/item/storage))
-						if(check_for_key_in_storage(humanuser.belt, humanuser))
+						if(trykeylock(humanuser.belt, user, handempty = TRUE))
 							return
 				if(humanuser.wear_wrists)
-					if(istype(humanuser.wear_wrists, /obj/item/roguekey) || istype(humanuser.wear_wrists, /obj/item/storage/keyring))
+					if(istype(humanuser.wear_wrists, /obj/item/roguekey) || istype(humanuser.wear_wrists, /obj/item/storage/*/keyring*/))
 						if(trykeylock(humanuser.wear_wrists, user, handempty = TRUE))
 							return
-					if(istype(humanuser.wear_wrists, /obj/item/storage))
-						if(check_for_key_in_storage(humanuser.wear_wrists, humanuser))
-							return
+					/*if(istype(humanuser.wear_wrists, /obj/item/storage))
+						if(trykeylock(humanuser.wear_wrists, user, handempty = TRUE))
+							return*/
+				if(humanuser.cmode)
+					to_chat(user, span_warning("I'm under too much pressure to search my bags for my keys! Where are they?!"))
+					return
 			//Caustic Edit End
 		if(world.time >= last_bump+20)
 			last_bump = world.time
@@ -543,30 +546,33 @@
 		if(ishuman(user))
 			var/mob/living/carbon/human/humanuser = user
 			if(humanuser.beltl)
-				if(istype(humanuser.beltl, /obj/item/roguekey) || istype(humanuser.beltl, /obj/item/storage/keyring))
+				if(istype(humanuser.beltl, /obj/item/roguekey) || istype(humanuser.beltl, /obj/item/storage/*/keyring*/))
 					if(trykeylock(humanuser.beltl, user, handempty = TRUE))
 						return
-				if(istype(humanuser.beltl, /obj/item/storage))
-					if(check_for_key_in_storage(humanuser.beltl, humanuser))
-						return
+				/*if(istype(humanuser.beltl, /obj/item/storage))
+					if(trykeylock(humanuser.beltl, user, handempty = TRUE))
+						return*/
 			if(humanuser.beltr)
-				if(istype(humanuser.beltr, /obj/item/roguekey) || istype(humanuser.beltr, /obj/item/storage/keyring))
+				if(istype(humanuser.beltr, /obj/item/roguekey) || istype(humanuser.beltr, /obj/item/storage/*/keyring*/))
 					if(trykeylock(humanuser.beltr, user, handempty = TRUE))
 						return
-				if(istype(humanuser.beltr, /obj/item/storage))
-					if(check_for_key_in_storage(humanuser.beltr, humanuser))
-						return
+				/*if(istype(humanuser.beltr, /obj/item/storage))
+					if(trykeylock(humanuser.beltr, user, handempty = TRUE))
+						return*/
 			if(humanuser.belt)
 				if(istype(humanuser.belt, /obj/item/storage))
-					if(check_for_key_in_storage(humanuser.belt, humanuser))
+					if(trykeylock(humanuser.belt, user, handempty = TRUE))
 						return
 			if(humanuser.wear_wrists)
-				if(istype(humanuser.wear_wrists, /obj/item/roguekey) || istype(humanuser.wear_wrists, /obj/item/storage/keyring))
+				if(istype(humanuser.wear_wrists, /obj/item/roguekey) || istype(humanuser.wear_wrists, /obj/item/storage/*/keyring*/))
 					if(trykeylock(humanuser.wear_wrists, user, handempty = TRUE))
 						return
-				if(istype(humanuser.wear_wrists, /obj/item/storage))
-					if(check_for_key_in_storage(humanuser.wear_wrists, humanuser))
-						return
+				/*if(istype(humanuser.wear_wrists, /obj/item/storage))
+					if(trykeylock(humanuser.wear_wrists, user, handempty = TRUE))
+						return*/
+			if(humanuser.cmode)
+				to_chat(user, span_warning("I'm under too much pressure to search my bags for my keys! Where are they?!"))
+				return
 	//Caustic Edit End
 	else
 		return ..()
@@ -588,7 +594,7 @@
 			if(user.cmode)
 				if(!do_after(user, 10, TRUE, src))
 					break
-			if(K.lockhash == lockhash)
+			if(K.lockhash == lockhash || istype(K, /obj/item/roguekey/lord) || istype(K, /obj/item/roguekey/skeleton))
 				lock_toggle(user)
 				if(autobump && !locked)
 					src.Open()
@@ -601,6 +607,39 @@
 		if(!handempty)
 			to_chat(user, span_warning("None of the keys on my keyring go to this door."))
 			door_rattle()
+		return FALSE
+	else if(istype(I,/obj/item/storage)) //This might be a bit messy, but it should work? Can probably be refined though. Needs to run after the check for a Keyring, since that needs to run first.
+		if(user.cmode)
+			return FALSE
+		var/obj/item/storage/S = I
+		if(!S.contents.len)
+			return FALSE
+		var/list/contents = shuffle(S.contents.Copy())
+		for(var/obj/item/K in contents)
+			if(!istype(K,/obj/item/roguekey) && !istype(K,/obj/item/storage/keyring))
+				continue
+			if(istype(K,/obj/item/roguekey))
+				var/obj/item/roguekey/key = K
+				if(key.lockhash == lockhash || istype(key, /obj/item/roguekey/lord) || istype(key, /obj/item/roguekey/skeleton))
+					lock_toggle(user)
+					if(autobump && !locked)
+						src.Open()
+						addtimer(CALLBACK(src, PROC_REF(Close), FALSE, TRUE), 25)
+						src.last_bumper = user
+					return TRUE
+			else if(istype(K,/obj/item/storage/keyring))
+				var/obj/item/storage/keyring/R = K
+				if(!R.contents.len)
+					continue
+				var/list/keysy = shuffle(R.contents.Copy())
+				for(var/obj/item/roguekey/key in keysy)
+					if(key.lockhash == lockhash || istype(key, /obj/item/roguekey/lord) || istype(key, /obj/item/roguekey/skeleton))
+						lock_toggle(user)
+						if(autobump && !locked)
+							src.Open()
+							addtimer(CALLBACK(src, PROC_REF(Close), FALSE, TRUE), 25)
+							src.last_bumper = user
+						return TRUE
 		return FALSE
 	else
 		var/obj/item/roguekey/K = I

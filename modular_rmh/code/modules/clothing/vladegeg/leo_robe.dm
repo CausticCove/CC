@@ -42,7 +42,7 @@
 				/obj/item/natural/silk = 1)
 	tools = list(/obj/item/needle)
 	craftdiff = 4
-	sellprice = 25
+	sellprice = 40
 
 //LOADOUT
 

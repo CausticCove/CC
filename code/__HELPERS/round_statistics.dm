@@ -58,6 +58,7 @@
 #define STATS_WAGES_PAID "wages_paid"
 #define STATS_FINES_INCOME "fines_income"
 #define STATS_TRADE_VALUE_EXPORTED "trade_exported"
+#define STATS_TRADE_VALUE_EXPORTED_BM "trade_exported_bm"
 #define STATS_TRADE_VALUE_IMPORTED "trade_imported"
 #define STATS_GOLDFACE_VALUE_SPENT "goldface_spent"
 #define STATS_SILVERFACE_VALUE_SPENT "silverface_spent"
@@ -70,6 +71,7 @@
 #define STATS_STOCKPILE_IMPORTS_VALUE "stockpile_imports_value"
 #define STATS_STOCKPILE_EXPANSES "stockpile_expanses"
 #define STATS_STOCKPILE_REVENUE "stockpile_revenue"
+#define STATS_STOCKPILE_DIRECT_IMPORTS "stockpile_direct_imports"
 #define STATS_PEDDLER_REVENUE "peddler_revenue"
 #define STATS_MAMMONS_HELD "mammons_held"
 #define STATS_MAMMONS_DEPOSITED "mammons_deposited"
@@ -117,6 +119,7 @@
 #define STATS_ECON_EVENTS_FIRED "econ_events_fired"
 #define STATS_ECON_EVENTS_EXPIRED "econ_events_expired"
 #define STATS_URGENT_ORDERS_SPAWNED "urgent_orders_spawned"
+#define STATS_SHORTAGES_ENDED "shortages_ended"
 #define STATS_BLOCKADES_FIRED "blockades_fired"
 #define STATS_BLOCKADES_CLEARED "blockades_cleared"
 #define STATS_BLOCKADE_CONTRACTS_FAILED "blockade_contracts_failed"
@@ -278,6 +281,9 @@ GLOBAL_LIST_INIT(azure_round_stats, list(
 	STATS_MASTERWORKS_FORGED = 0,
 	STATS_TAXES_COLLECTED = 0,
 	STATS_BANDITRY_LOSSES = 0,
+	STATS_HUMEN_DEATHS = 0,
+	STATS_LOANS_ISSUED = 0,
+	STATS_LOANS_DEFAULTED = 0,
 	STATS_BANDITRY_DEBT_OUTSTANDING = 0,
 	STATS_TREASURY_DEBT_OUTSTANDING = 0,
 	STATS_TREASURY_DEBT_REPAID = 0,
@@ -385,6 +391,7 @@ GLOBAL_LIST_INIT(azure_round_stats, list(
 	STATS_VAULT_TOTAL_REVENUE = 0,
 	STATS_FINES_INCOME = 0,
 	STATS_TRADE_VALUE_EXPORTED = 0,
+	STATS_TRADE_VALUE_EXPORTED_BM = 0,
 	STATS_TRADE_VALUE_IMPORTED = 0,
 	STATS_GOLDFACE_VALUE_SPENT = 0,
 	STATS_PURITY_VALUE_SPENT = 0,
@@ -395,6 +402,7 @@ GLOBAL_LIST_INIT(azure_round_stats, list(
 	STATS_STOCKPILE_IMPORTS_VALUE = 0,
 	STATS_STOCKPILE_EXPANSES = 0,
 	STATS_STOCKPILE_REVENUE = 0,
+	STATS_STOCKPILE_DIRECT_IMPORTS = 0,
 	STATS_PEDDLER_REVENUE = 0,
 	STATS_MAMMONS_HELD = 0,
 	STATS_MAMMONS_DEPOSITED = 0,
@@ -405,6 +413,7 @@ GLOBAL_LIST_INIT(azure_round_stats, list(
 	STATS_WAGES_PAID = 0,
 	STATS_FINES_INCOME = 0,
 	STATS_TRADE_VALUE_EXPORTED = 0,
+	STATS_TRADE_VALUE_EXPORTED_BM = 0,
 	STATS_TRADE_VALUE_IMPORTED = 0,
 	STATS_GOLDFACE_VALUE_SPENT = 0,
 	STATS_SILVERFACE_VALUE_SPENT = 0,
@@ -417,6 +426,7 @@ GLOBAL_LIST_INIT(azure_round_stats, list(
 	STATS_STOCKPILE_IMPORTS_VALUE = 0,
 	STATS_STOCKPILE_EXPANSES = 0,
 	STATS_STOCKPILE_REVENUE = 0,
+	STATS_STOCKPILE_DIRECT_IMPORTS = 0,
 	STATS_PEDDLER_REVENUE = 0,
 	STATS_MAMMONS_HELD = 0,
 	STATS_MAMMONS_DEPOSITED = 0,
@@ -477,6 +487,7 @@ GLOBAL_LIST_INIT(azure_round_stats, list(
 	STATS_ECON_EVENTS_FIRED = 0,
 	STATS_ECON_EVENTS_EXPIRED = 0,
 	STATS_URGENT_ORDERS_SPAWNED = 0,
+	STATS_SHORTAGES_ENDED = 0,
 	STATS_BLOCKADES_FIRED = 0,
 	STATS_BLOCKADES_CLEARED = 0,
 	STATS_BLOCKADE_CONTRACTS_FAILED = 0,
@@ -733,6 +744,9 @@ GLOBAL_LIST_EMPTY(chronicle_stats)
 
 /proc/cmp_stat_count_desc(list/a, list/b)
 	return b["count"] - a["count"]
+
+/proc/cmp_realm_hails_desc(list/a, list/b)
+	return b["hails"] - a["hails"]
 
 /proc/record_featured_stat(stat_category, mob/living/user, increment = 1)
 	if(SSticker.current_state == GAME_STATE_FINISHED)

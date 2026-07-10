@@ -103,13 +103,12 @@ Balloon Alert / Floating Text defines
 	/datum/species/demihuman,\
 	/datum/species/harpy,\
 	/datum/species/halforc,\
-	/datum/species/ooze,\
 
 #define RACES_SHUNNED \
 	/datum/species/anthromorphsmall,\
 	/datum/species/kobold,\
-	/datum/species/harpy,\
 	/datum/species/goblinp,\
+	/datum/species/ooze,\
 
 #define RACES_DESPISED \
 	/datum/species/dullahan,\
@@ -117,17 +116,144 @@ Balloon Alert / Floating Text defines
 #define RACES_CONSTRUCT \
 	/datum/species/construct/metal,\
 
-#define RACES_ALL_KINDS list(RACES_DESPISED, RACES_SHUNNED, RACES_TOLERATED, RACES_RESPECTED, RACES_CONSTRUCT)	//Truely no restrictions
+#define RACES_OOZE \
+	/datum/species/ooze,\
+
+
+#define RACES_AASIMAR \
+	/datum/species/aasimar, \
 
 #define ACCEPTED_RACES list(RACES_SHUNNED, RACES_TOLERATED, RACES_RESPECTED, RACES_CONSTRUCT, RACES_DESPISED)	// CC Edit
 
-#define RACES_NO_CONSTRUCT list(RACES_SHUNNED, RACES_TOLERATED, RACES_RESPECTED, RACES_DESPISED) // CC Edit
+// Small races, usually applied due to sprite limits.
+#define RACES_SMALL \
+	/datum/species/dwarf/mountain,\
+	/datum/species/kobold,\
+	/datum/species/anthromorphsmall,\
+	/datum/species/dwarf/gnome,\
 
-#define RACES_SHUNNED_UP_NO_AASIMAR list(RACES_SHUNNED, RACES_TOLERATED, RACES_RESPECTED_NO_AASIMAR, RACES_DESPISED) // CC Edit
+// All but d. elves.
+#define RACES_ANTHRAX \
+	/datum/species/human/northern,\
+	/datum/species/human/halfelf,\
+	/datum/species/elf/wood,\
+	/datum/species/elf/sun,\
+	/datum/species/dwarf/mountain,\
+	/datum/species/tieberian,\
+	/datum/species/aasimar,\
+	/datum/species/lizardfolk,\
+	/datum/species/lupian,\
+	/datum/species/tabaxi,\
+	/datum/species/vulpkanin,\
+	/datum/species/akula,\
+	/datum/species/moth,\
+	/datum/species/dracon,\
+	/datum/species/anthromorph,\
+	/datum/species/anthromorphsmall,\
+	/datum/species/demihuman,\
+	/datum/species/halforc,\
+	/datum/species/kobold,\
+	/datum/species/goblinp,\
+	/datum/species/dullahan,\
+	/datum/species/dwarf/gnome,\
+	/datum/species/ooze,\
 
-#define RACES_SHUNNED_UP list(RACES_SHUNNED, RACES_TOLERATED, RACES_RESPECTED, RACES_DESPISED) // CC Edit
+// All but elves & half-elves.
+#define RACES_BLACKOAK \
+	/datum/species/human/northern,\
+	/datum/species/elf/dark/raider,\
+	/datum/species/dwarf/mountain,\
+	/datum/species/tieberian,\
+	/datum/species/aasimar,\
+	/datum/species/lizardfolk,\
+	/datum/species/lupian,\
+	/datum/species/tabaxi,\
+	/datum/species/vulpkanin,\
+	/datum/species/akula,\
+	/datum/species/moth,\
+	/datum/species/dracon,\
+	/datum/species/anthromorph,\
+	/datum/species/anthromorphsmall,\
+	/datum/species/demihuman,\
+	/datum/species/halforc,\
+	/datum/species/kobold,\
+	/datum/species/goblinp,\
+	/datum/species/dullahan,\
+	/datum/species/dwarf/gnome,\
+	/datum/species/ooze,\
 
-#define RACES_TOLERATED_UP list(RACES_TOLERATED, RACES_RESPECTED)
+// All but dwarves.
+#define RACES_GRUDGE \
+	/datum/species/human/northern,\
+	/datum/species/human/halfelf,\
+	/datum/species/elf/dark,\
+	/datum/species/elf/dark/raider,\
+	/datum/species/elf/wood,\
+	/datum/species/elf/sun,\
+	/datum/species/tieberian,\
+	/datum/species/aasimar,\
+	/datum/species/lizardfolk,\
+	/datum/species/lupian,\
+	/datum/species/tabaxi,\
+	/datum/species/vulpkanin,\
+	/datum/species/akula,\
+	/datum/species/moth,\
+	/datum/species/dracon,\
+	/datum/species/anthromorph,\
+	/datum/species/anthromorphsmall,\
+	/datum/species/demihuman,\
+	/datum/species/halforc,\
+	/datum/species/kobold,\
+	/datum/species/goblinp,\
+	/datum/species/dullahan,\
+	/datum/species/ooze,\
+
+// All but Dwarves, Gnomes, Kobolds, D. Elves, Oozes, Moths & Anthrosmall
+#define RACES_UNDERDARK \
+	/datum/species/human/northern,\
+	/datum/species/human/halfelf,\
+	/datum/species/elf/dark/raider,\
+	/datum/species/elf/wood,\
+	/datum/species/elf/sun,\
+	/datum/species/tieberian,\
+	/datum/species/aasimar,\
+	/datum/species/lizardfolk,\
+	/datum/species/lupian,\
+	/datum/species/tabaxi,\
+	/datum/species/vulpkanin,\
+	/datum/species/akula,\
+	/datum/species/dracon,\
+	/datum/species/anthromorph,\
+	/datum/species/demihuman,\
+	/datum/species/halforc,\
+	/datum/species/dullahan,\
+
+
+// All but Dracon, Lizardfolk, Kobolds.
+#define RACES_LIRVAS\
+	/datum/species/human/northern,\
+	/datum/species/human/halfelf,\
+	/datum/species/elf/dark,\
+	/datum/species/elf/dark/raider,\
+	/datum/species/elf/wood,\
+	/datum/species/elf/sun,\
+	/datum/species/dwarf/mountain,\
+	/datum/species/tieberian,\
+	/datum/species/aasimar,\
+	/datum/species/lupian,\
+	/datum/species/tabaxi,\
+	/datum/species/vulpkanin,\
+	/datum/species/akula,\
+	/datum/species/moth,\
+	/datum/species/anthromorph,\
+	/datum/species/anthromorphsmall,\
+	/datum/species/demihuman,\
+	/datum/species/halforc,\
+	/datum/species/goblinp,\
+	/datum/species/dullahan,\
+	/datum/species/dwarf/gnome,\
+	/datum/species/ooze,\
+
 
 #define NOBLE_RACES_TYPES list(\
 	/datum/species/human/northern,\
@@ -227,6 +353,42 @@ Balloon Alert / Floating Text defines
 	/datum/species/dullahan,\
 	/datum/species/ooze,\
 )
+
+/*Used for races that won't break the game completely if an NPC picks from this listing - Or look terrible like, really, really terrible.
+
+HARD NOS:
+-> Reverents (Head/Body issues + NPCs can't use this properly)
+-> Constructs (Meant to be RARE, keep them solely limited to NPC types MEANT for them)
+-> Assimar (Pure lux via lux extraction, balance issues)
+
+
+Notable but possible races
+-> Drow axed for now to avoid extra checks until I proc the voice + hair stuff properly in a refactor to make their hair white + yellow/red/green eye colors more often
+-> Murklings as well because y'know, hair is supposed to be body-colored since they're just gloop of some assimulated fool
+-> Anthromorphs/lizards look poor without their snouts, like really, really goofy af.
+
+-> some other races look bad but they're semi-acceptable for now I.E teiflings/halfkin since they don't come w/ears and tails randomly.
+
+Regards: Shadows
+PS: You may also wanna split this list for regional stuff + weight stuff in future.
+We also might want a proper NPC randomise set of verbs for less copypasting shit over and over, I've been meaning for that but not gotten to it yet.
+
+To avoid TOO much conflicts w/random char parts, consider a proc that checks if we have X race and applies features out of a listing. Its kinda janky but its an idea.
+
+*/
+#define NPC_RACES_TYPES list(\
+	/datum/species/human/northern,\
+	/datum/species/human/halfelf,\
+	/datum/species/elf/wood,\
+	/datum/species/elf/sun,\
+	/datum/species/dwarf/mountain,\
+	/datum/species/tieberian,\
+	/datum/species/demihuman,\
+	/datum/species/halforc,\
+	/datum/species/goblinp,\
+	/datum/species/dwarf/gnome\
+)
+
 #define ALL_CLERIC_PATRONS list(/datum/patron/divine/astrata, /datum/patron/divine/noc, /datum/patron/divine/dendor, /datum/patron/divine/necra, /datum/patron/divine/pestra, /datum/patron/divine/ravox, /datum/patron/divine/malum, /datum/patron/divine/eora, /datum/patron/divine/undivided) // Currently unused.
 
 #define ALL_PALADIN_PATRONS list(/datum/patron/divine/undivided, /datum/patron/divine/astrata, /datum/patron/divine/noc, /datum/patron/divine/abyssor, /datum/patron/divine/dendor, /datum/patron/divine/necra, /datum/patron/divine/pestra, /datum/patron/divine/ravox, /datum/patron/divine/malum, /datum/patron/divine/eora, /datum/patron/divine/xylix, /datum/patron/old_god) // Currently unused.
@@ -289,9 +451,8 @@ GLOBAL_LIST_EMPTY(confessors)
 #define FAMILY_FULL 3
 
 GLOBAL_LIST_EMPTY(head_bounties)
-GLOBAL_LIST_EMPTY(board_viewers)
-GLOBAL_LIST_EMPTY(noticeboard_posts)
-GLOBAL_LIST_EMPTY(premium_noticeboardposts)
+GLOBAL_LIST_EMPTY(noticeboard_notices)
+GLOBAL_LIST_EMPTY(noticeboard_listings)
 GLOBAL_LIST_EMPTY(job_respawn_delays)
 GLOBAL_LIST_EMPTY(round_join_times)
 
@@ -327,6 +488,7 @@ GLOBAL_LIST_EMPTY(round_join_times)
 #define CTAG_TRADER			"CAT_TRADER"		// Trader classes untethered from adventurer
 #define CTAG_LSKELETON		"CAT_LSKELETON"		// Lich Fortified Skeleton classes
 #define CTAG_NSKELETON		"CAT_NSKELETON"		// Necromancer Greater Skeleton classes
+#define CTAG_SSKELETON		"CAT_SSKELETON"		// Disposable Bad Omen Skeleton Classes
 #define CTAG_VAMPSERVANT	"CAT_VAMPSERVANT"	// Vampire lord bloodpool servant classes
 #define CTAG_VAMPGUARD		"CAT_VAMPGUARD"		// Vampire Lord bloodpool guard classes
 #define CTAG_VAMPSPAWN		"CAT_VAMPSPAWN"		// Vampire Lord bloodpool elite classes

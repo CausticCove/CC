@@ -5,7 +5,7 @@
 	icon_state = "mattcoin"
 	desc = "A faded coin with a ruby laid into its center."
 	gripped_intents = null
-	dropshrink = 0.75
+	dropshrink = 0.4
 	possible_item_intents = list(INTENT_GENERIC)
 	force = 10
 	throwforce = 10
@@ -17,7 +17,7 @@
 	muteinmouth = TRUE
 	var/listening = TRUE
 	var/speaking = TRUE
-	sellprice = 222 //It's a lovely ring. Why wouldn't it have a sell price?
+	sellprice = 0
 	grid_width = 32
 	grid_height = 32
 

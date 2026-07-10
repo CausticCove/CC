@@ -48,12 +48,13 @@ GLOBAL_LIST_INIT(averse_factions, list(
 	"Courtiers & Nobility" = (COURTIERS | NOBLEMEN | COUNCILLOR),
 	"Inquisition" = INQUISITION,
 	"Burghers" = BURGHERS,
+	"Azurian Trading Company" = ATC,
 	"Retinue" = RETINUE,
 	"Garrison" = GARRISON,
 	"Churchmen" = CHURCHMEN,
 	"Peasants" = PEASANTS,
 	"Wanderers" = WANDERERS,
-	"Everyone" = (COURTIERS | NOBLEMEN | INQUISITION | BURGHERS | RETINUE | GARRISON | CHURCHMEN | PEASANTS | WANDERERS | SIDEFOLK | ANTAGONIST | COUNCILLOR)
+	"Everyone" = (COURTIERS | NOBLEMEN | INQUISITION | BURGHERS | ATC | RETINUE | GARRISON | CHURCHMEN | PEASANTS | WANDERERS | SIDEFOLK | ANTAGONIST | COUNCILLOR)
 ))
 
 /datum/charflaw
@@ -62,7 +63,8 @@ GLOBAL_LIST_INIT(averse_factions, list(
 	var/ephemeral = FALSE // This flaw is currently disabled and will not process
 	/// For voyeur vice examines only. Format is "[name] is " + this + "...", leave blank to use the flaw's name.
 	/// Intended for addiction types only.
-	var/voyeur_descriptor	
+	var/voyeur_descriptor
+	var/list/restricted_species = list()
 
 /datum/charflaw/proc/on_mob_creation(mob/user)
 	return
@@ -139,6 +141,12 @@ GLOBAL_LIST_INIT(averse_factions, list(
 	for(var/key in cf_list)
 		if(cf_list[key] == type || cf_list[key] == /datum/charflaw/noflaw)
 			cf_list -= key
+		var/datum/charflaw/cf = cf_list[key]
+		if(cf)
+			cf = new cf()
+			var/mob/living/carbon/human/H = user
+			if(length(cf.restricted_species) && (H.dna.species.type in cf.restricted_species))
+				cf_list.Remove(key)
 
 	var/datum/job/mob_job = null
 	if(target.mind?.assigned_role)
@@ -706,11 +714,12 @@ GLOBAL_LIST_INIT(averse_factions, list(
 	addtimer(CALLBACK(src, PROC_REF(setup_self), alimony), 5 SECONDS)
 
 /datum/charflaw/indebted/proc/setup_self(mob/living/carbon/human/user)
-	if(user.mind)
-		if(!SStreasury.has_account(user))
-			SStreasury.create_bank_account(user, minimum)
-			is_active = TRUE
-			next_alimony = world.time + interval
+	if(!user?.mind)
+		return
+	if(!SStreasury.has_account(user))
+		SStreasury.create_bank_account(user, minimum)
+	is_active = TRUE
+	next_alimony = world.time + interval
 
 /datum/charflaw/indebted/flaw_on_life(mob/user)
 	. = ..()

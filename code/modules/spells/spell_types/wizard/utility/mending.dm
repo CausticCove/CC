@@ -35,6 +35,7 @@
 	. = ..()
 	if(!.)
 		return FALSE
+
 	// ITEM PATH (unchanged)
 	if(istype(cast_on, /obj/item))
 		var/obj/item/I = cast_on
@@ -72,10 +73,11 @@
 					continue
 				if(BP.status == BODYPART_ROBOTIC && (BP.brute_dam > 0 || BP.burn_dam > 0 || length(BP.wounds)))
 					return TRUE
+
 		if(owner)
 			to_chat(owner, span_warning("There is nothing here that magic can mend."))
 		return FALSE
-	
+
 	if(owner)
 		to_chat(owner, span_warning("I need to target something tangible!"))
 	return FALSE

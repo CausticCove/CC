@@ -360,9 +360,9 @@ GLOBAL_LIST_INIT(stone_personality_descs, list(
 		to_chat(user, span_warning("You most use both hands to chisel blocks."))
 	else
 		..()
+		
 //rock munching
 /obj/item/natural/stone/attack(mob/living/M, mob/user)
-
 	if(!user.cmode)
 		if(try_construct_consume(src, M, user))
 			return
@@ -418,6 +418,7 @@ GLOBAL_LIST_INIT(stone_personality_descs, list(
 			L.consider_ambush(always = TRUE)
 	..()
 
+//le rocke CRUSHER
 /obj/item/natural/rock/attack(mob/living/M, mob/user)
 	if(!user.cmode)
 		if(try_construct_consume(src, M, user))

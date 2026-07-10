@@ -26,7 +26,6 @@
 	name = "Vampiric Death Knight"
 	tutorial = "A knighted champion of a fallen and forgotten kingdom. You can almost remember the old tymes since your last great battle, your unmatched prowess, your elegence with any-would-be weapon and all the dread your mere presence brought; now you arise from a fallen kingdom in servitude to your lord, once more. Make their vision, become reality."
 	allowed_sexes = list(MALE, FEMALE)
-	allowed_races = RACES_ALL_KINDS
 	outfit = /datum/outfit/job/roguetown/other/vampdeathknight
 	traits_applied = list(TRAIT_STEELHEARTED, TRAIT_NOBLE, TRAIT_HEAVYARMOR)
 	category_tags = list(CTAG_VAMPSPAWN)
@@ -69,8 +68,8 @@
 	..()
 	to_chat(H, span_warning("A knighted champion of a fallen and forgotten kingdom. You can almost remember the old tymes since your last great battle, your unmatched prowess, your elegence with any-would-be weapon and all the dread your mere presence brought; now you arise from a fallen kingdom in servitude to your lord, once more. Make their vision, become reality."))
 
-	H.verbs |= /mob/proc/haltyell_exhausting //Knight gets to halt people
-	H.dna.species.soundpack_m = new /datum/voicepack/male/knight() //Aura
+	add_verb(H, /mob/proc/haltyell_exhausting) //Knight gets to halt people
+	H.dna.species.soundpack_m = GLOB.voice_packs[/datum/voicepack/male/knight] //Aura
 
 	cloak = /obj/item/clothing/cloak/tabard/vampknight
 	shirt = /obj/item/clothing/suit/roguetown/armor/chainmail/hauberk

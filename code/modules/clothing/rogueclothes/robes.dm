@@ -13,7 +13,6 @@
 	r_sleeve_status = SLEEVE_NORMAL
 	l_sleeve_status = SLEEVE_NORMAL
 	experimental_inhand = TRUE
-	sellprice = 10
 
 /obj/item/clothing/suit/roguetown/shirt/robe/unholy
 	name = "foreboding robes"
@@ -42,7 +41,7 @@
 /obj/item/clothing/suit/roguetown/shirt/robe/astrata
 	slot_flags = ITEM_SLOT_ARMOR|ITEM_SLOT_SHIRT|ITEM_SLOT_CLOAK
 	name = "sun robe"
-	desc = ""
+	desc = "Just as Her radiance rises upon each morning, so too will order reign across the kingdoms."
 	body_parts_covered = CHEST|GROIN|ARMS|LEGS|VITALS
 	icon_state = "astratarobe"
 	icon = 'icons/roguetown/clothing/armor.dmi'
@@ -53,12 +52,11 @@
 	resistance_flags = FIRE_PROOF
 	r_sleeve_status = SLEEVE_NORMAL
 	l_sleeve_status = SLEEVE_NORMAL
-	sellprice = 15
 
 /obj/item/clothing/suit/roguetown/shirt/robe/undivided
 	slot_flags = ITEM_SLOT_ARMOR|ITEM_SLOT_SHIRT|ITEM_SLOT_CLOAK
 	name = "undivided robe"
-	desc = ""
+	desc = "Undivided, we stand - a Pantheon of Ten, shepherding Psydonia's flock towards providence."
 	body_parts_covered = CHEST|GROIN|ARMS|LEGS|VITALS
 	icon_state = "undividedrobe"
 	icon = 'icons/roguetown/clothing/armor.dmi'
@@ -72,7 +70,7 @@
 /obj/item/clothing/suit/roguetown/shirt/robe/ravox
 	slot_flags = ITEM_SLOT_ARMOR|ITEM_SLOT_SHIRT|ITEM_SLOT_CLOAK
 	name = "ravox robe"
-	desc = ""
+	desc = "None are above justice; none are beneath redemption."
 	body_parts_covered = CHEST|GROIN|ARMS|LEGS|VITALS
 	icon_state = "ravoxrobe"
 	icon = 'icons/roguetown/clothing/armor.dmi'
@@ -97,12 +95,11 @@
 	color = null
 	r_sleeve_status = SLEEVE_NORMAL
 	l_sleeve_status = SLEEVE_NORMAL
-	sellprice = 15
 
 /obj/item/clothing/suit/roguetown/shirt/robe/noc
 	slot_flags = ITEM_SLOT_ARMOR|ITEM_SLOT_SHIRT|ITEM_SLOT_CLOAK
 	name = "moon robe"
-	desc = ""
+	desc = "Knowledge from within and without, cradled in the moonlight."
 	body_parts_covered = CHEST|GROIN|ARMS|LEGS|VITALS
 	icon_state = "nocrobe"
 	icon = 'icons/roguetown/clothing/armor.dmi'
@@ -112,12 +109,11 @@
 	color = null
 	r_sleeve_status = SLEEVE_NORMAL
 	l_sleeve_status = SLEEVE_NORMAL
-	sellprice = 15
 
 /obj/item/clothing/suit/roguetown/shirt/robe/necromancer
 	slot_flags = ITEM_SLOT_ARMOR|ITEM_SLOT_SHIRT|ITEM_SLOT_CLOAK
 	name = "necromancer robes"
-	desc = ""
+	desc = "Fetch me their souls!"
 	body_parts_covered = CHEST|GROIN|ARMS|LEGS|VITALS
 	icon_state = "necromrobe"
 	icon = 'icons/roguetown/clothing/armor.dmi'
@@ -127,7 +123,6 @@
 	color = null
 	r_sleeve_status = SLEEVE_NORMAL
 	l_sleeve_status = SLEEVE_NORMAL
-	sellprice = 15
 
 /obj/item/clothing/suit/roguetown/shirt/robe/dendor
 	slot_flags = ITEM_SLOT_ARMOR|ITEM_SLOT_SHIRT|ITEM_SLOT_CLOAK
@@ -143,12 +138,11 @@
 	color = null
 	r_sleeve_status = SLEEVE_NORMAL
 	l_sleeve_status = SLEEVE_NORMAL
-	sellprice = 15
 
 /obj/item/clothing/suit/roguetown/shirt/robe/necra
 	slot_flags = ITEM_SLOT_ARMOR|ITEM_SLOT_SHIRT|ITEM_SLOT_CLOAK
 	name = "mourning robe"
-	desc = ""
+	desc = "Memento mori; remember this, for you too will eventually die."
 	body_parts_covered = CHEST|GROIN|ARMS|LEGS|VITALS
 	icon_state = "necrarobe"
 	icon = 'icons/roguetown/clothing/armor.dmi'
@@ -158,7 +152,6 @@
 	color = null
 	r_sleeve_status = SLEEVE_NORMAL
 	l_sleeve_status = SLEEVE_NORMAL
-	sellprice = 15
 
 /obj/item/clothing/suit/roguetown/shirt/robe/black
 	color = CLOTHING_BLACK
@@ -174,7 +167,6 @@
 	resistance_flags = FIRE_PROOF // astratan
 	armor = ARMOR_PADDED	//Equal to gamby
 	color = null
-	sellprice = 25
 
 /obj/item/clothing/suit/roguetown/shirt/robe/priest/Initialize()
 	. = ..()
@@ -207,7 +199,6 @@
 	armor = ARMOR_PADDED	//Equal to a padded gambeson, like before.
 	max_integrity = ARMOR_INT_CHEST_LIGHT_MASTER
 	slot_flags = ITEM_SLOT_ARMOR|ITEM_SLOT_SHIRT
-	sellprice = 15
 
 //This is for templars/psydonites. Gives a boon for wearing it to counter-act giving up plate and such.
 /obj/item/clothing/suit/roguetown/shirt/robe/monk/holy
@@ -220,7 +211,6 @@
 	sleeved = 'icons/roguetown/clothing/onmob/helpers/sleeves_armor.dmi'
 	salvage_result = /obj/item/natural/hide/cured
 	salvage_amount = 1
-	sellprice = 15
 
 /obj/item/clothing/suit/roguetown/shirt/robe/monk/holy/equipped(mob/living/user, slot)
 	..()
@@ -290,7 +280,7 @@
 	icon = 'icons/roguetown/clothing/armor.dmi'
 	mob_overlay_icon = 'icons/roguetown/clothing/onmob/armor.dmi'
 	icon_state = "physcoat"
-	slot_flags = ITEM_SLOT_ARMOR
+	slot_flags = ITEM_SLOT_ARMOR|ITEM_SLOT_CLOAK
 	sleeved = 'icons/roguetown/clothing/onmob/helpers/sleeves_armor.dmi'
 	boobed = TRUE
 	color = null
@@ -317,7 +307,6 @@
 	r_sleeve_status = SLEEVE_NORMAL
 	l_sleeve_status = SLEEVE_NORMAL
 	var/fanatic_wear = FALSE
-	sellprice = 15
 
 /obj/item/clothing/suit/roguetown/shirt/robe/eora/alt
 	name = "open eoran robe"
@@ -363,7 +352,6 @@
 	icon_state = "desertgown"
 	item_state = "desertgown"
 	color = null
-	sellprice = 15
 
 /obj/item/clothing/suit/roguetown/shirt/robe/pointfex
 	name = "pointfex's qaba"
@@ -374,7 +362,6 @@
 	color = null
 	r_sleeve_status = SLEEVE_NOMOD
 	l_sleeve_status = SLEEVE_NOMOD
-	sellprice = 15
 
 /obj/item/clothing/suit/roguetown/shirt/robe/feld
 	name = "feldsher's robe"
@@ -415,7 +402,7 @@
 	color = CLOTHING_SCARLET
 
 /obj/item/clothing/suit/roguetown/shirt/robe/bared
-	name = "Bared Robe"
+	name = "bared robe"
 	desc = "A robe of basic cloth, it's chest bared open to expose what lay underneath."
 	icon_state = "openrobe"
 	item_state = "openrobe"

@@ -22,7 +22,7 @@
 		if(stat >= DEAD || HAS_TRAIT(src, TRAIT_FAKEDEATH))
 			message += "<B>Their core lies silent...</B>"
 		else
-			message += "<B>Their core hums with lyfe.</B>"	
+			message += "<B>Their core hums with lyfe.</B>"		
 	var/list/soul_message = soul_examine(user)
 	if(length(soul_message))
 		message += soul_message

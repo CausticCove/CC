@@ -6,12 +6,41 @@
 	else
 		. = ..()
 
-/mob/living/carbon/human/proc/wildshape_transformation(shapepath)
+//Will drop or destroy items depending on their allowed status within the proc
+/mob/living/carbon/human/proc/wildshape_drop_items(list/allowed_types, list/disallowed_types)
+
+	if(!disallowed_types)
+		disallowed_types = list(/obj/item/storage,
+											/obj/item/rogueweapon,
+											)
+
+	if(!allowed_types)
+		allowed_types = list(/obj/item/rogueweapon/woodstaff,
+											/obj/item/storage/belt
+											)
+	
+	drop_all_held_items() //Drop what were in your hands
+
+	for(var/obj/item/I in src)
+		if(is_type_in_list(I, allowed_types)) //Allow items of allowed type no matter what
+			continue
+		if(is_type_in_list(I, disallowed_types)) //Drops all items of the disallowed type
+			dropItemToGround(I)
+		//else if(I.has_armor_value()) //Drop armor
+		//	dropItemToGround(I)
+
+/mob/living/carbon/human/proc/wildshape_transformation(shapepath, list/allowed_equipment, list/disallowed_equipment)
 	if(!mind)
 		log_runtime("NO MIND ON [src.name] WHEN TRANSFORMING")
 	Paralyze(1, ignore_canstun = TRUE)
-	// for(var/obj/item/I in src) // CC Edit
-	// 	dropItemToGround(I)
+	//before we shed our items, save our neck and ring, if we have any, so we can quickly rewear them
+	var/obj/item/stored_neck = wear_neck
+	var/obj/item/stored_ring = wear_ring
+	dropItemToGround(stored_neck)
+	dropItemToGround(stored_ring)
+
+	//wildshape_drop_items(allowed_equipment, disallowed_equipment) //Caustic Edit - Lets just keep everything
+
 	regenerate_icons()
 	icon = null
 	var/oldinv = invisibility

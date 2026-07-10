@@ -86,11 +86,12 @@
 	var/newtime = (10 - user.get_skill_level(/datum/skill/combat/bows) * 2) + (10 - user.STASTR / 2) + (20 - user.STAPER)
 	if(chambered)
 		newtime *= chambered.charge_time_mult
-	return max(1, newtime) * ARCHER_NPC_ROF_PENALTY
+	return max(ARCHER_NPC_MIN_BOW_CHARGETIME, newtime) * ARCHER_NPC_ROF_PENALTY
 
 //bow objs ฅ^•ﻌ•^ฅ
 
 /obj/item/gun/ballistic/revolver/grenadelauncher/bow
+	has_item_quality = TRUE
 	name = "crude selfbow"
 	desc = "This roughly hewn selfbow is just a bit too little of everything. Too little length, \
 	too little poundage, too slow a shot."

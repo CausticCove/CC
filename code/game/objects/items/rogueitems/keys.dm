@@ -16,6 +16,7 @@
 	anvilrepair = /datum/skill/craft/blacksmithing
 	resistance_flags = FIRE_PROOF
 	experimental_inhand = TRUE
+	is_important = TRUE
 
 	grid_height = 32
 	grid_width = 32
@@ -763,6 +764,30 @@
 	icon_state = "brownkey"
 	lockid = "inquisition"
 
+/obj/item/roguekey/absolverskey
+	name = "Psydonic Chapel key"
+	desc = "This key opens the doors to the Psydonic Chapel."
+	icon_state = "brownkey"
+	lockid = "Absolvers"
+
+/obj/item/roguekey/ortho_one
+	name = "Otavan Embassy Bedroom I key"
+	desc = "This key opens the doors to bedroom one."
+	icon_state = "brownkey"
+	lockid = "OEB1"
+
+/obj/item/roguekey/ortho_two
+	name = "Otavan Embassy Bedroom II key"
+	desc = "This key opens the doors to bedroom one."
+	icon_state = "brownkey"
+	lockid = "OEB2"
+
+/obj/item/roguekey/ortho_three
+	name = "Otavan Embassy Bedroom III key"
+	desc = "This key opens the doors to bedroom one."
+	icon_state = "brownkey"
+	lockid = "OEB3"
+
 //////////////////////////
 // VAMPIRE / ANTAGONIST //
 //////////////////////////
@@ -904,6 +929,12 @@
 	desc = "A ancient, rusty key."
 	icon_state = "rustkey"
 	lockid = "admin_event_door"
+
+/obj/item/roguekey/zhurch/onmap
+	name = "brass key"
+	desc = "A key made of brass."
+	icon_state = "rustkey"
+	lockid = "zhurch"
 
 //////////////
 // SIDEFOLK //

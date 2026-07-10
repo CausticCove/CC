@@ -8,7 +8,6 @@
 	bloody_icon_state = "bodyblood"
 	grid_width = 64
 	grid_height = 32
-	sellprice = 3
 
 /obj/item/clothing/neck/worn_overlays(isinhands = FALSE)
 	. = list()

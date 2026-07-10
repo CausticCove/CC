@@ -30,16 +30,37 @@
 /datum/book_entry/magic2/inner_book_html(mob/user)
 	return {"
 	<div>
-	<h2>Binding Creatures:</h2>
-	Creatures you summon are SOULLESS AUTOMATONS, incapable of complex thoughts. A wise mage who wishes to make use of their services must
-	bind them into services with a BINDING SHACKLES. Once binding shackles are made - one need only apply arcanic melds to them to strengthen the shackles.
-	Such that more powerful creechurs can be binded. Binding shackles are split into five tiers, each tier able to bind a stronger creature.
+	<h2>Materials and Enchanting:</h2>
+	<p>
+		Slain creatures drop realm-aligned materials. Each realm has four circles of materials:
+	</p>
 	<ul>
-		<li> Planar Binding Shackles - Tier 1 </li>
-		<li> Greater Planar Binding Shackles - Tier 2 </li>
-		<li> Woven Planar Binding Shackles - Tier 3 </li>
-		<li> Confluent Planar Binding Shackles - Tier 4 </li>
-		<li> Aberrant Planar Binding Shackles - Tier 5 </li>
+		<li><b>Infernal:</b>Infernal Ash, Hellhound Fang, Infernal Core, Abyssal Flame</li>	
+		<li><b>Fae:</b> Fairy Dust, Iridescent Scale, Heartwood Core, Sylvan Essence</li>
+		<li><b>Elemental:</b> Elemental Mote, Elemental Shard, Elemental Fragment, Elemental Relic</li>
+	</ul>
+	<p>
+		<b>Enchanting</b> uses realm materials (plus cinnabar and a scroll) on an Imbuement Array to create
+		enchantment scrolls. Third and fourth circle enchantments also require a leyline shard.
+		The Imbuement Array can perform up to third circle enchantments.
+		The Greater Imbuement Array is required for fourth circle enchantments, but can also perform all lower circles.
+		Each item may only hold a single enchantment.
+	</p>
+	<p>
+		<b>Arcanic Melds</b> are crafted by combining one material from each of the three realms at the same tier.
+		This means you need to fight creatures at leylines of different alignments - or trade with other mages.
+	</p>
+	<h2>Binding Familiars:</h2>
+	<p>
+		To bind a familiar to your service, draw a <b>Binding Array</b>
+		and supply realm materials. The bound creature can then be
+		released from a summoning circle to serve you.
+	</p>
+	<h3>Other Materials</h3>
+	<ul>
+		<li><b>Runed Artifacts</b> - Found in the wilds, especially the bog. Required for binding rituals.</li>
+		<li><b>Leyline Shards</b> - Dropped by leyline lycans (summon them with the Leyline Luring ritual). Required for third circle and above enchantments.</li>
+		<li><b>Cinnabar</b> - Required for all enchantments. Available from merchants or found in mines.</li>
 	</ul>
 	</div>
 	"}

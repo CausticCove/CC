@@ -1,14 +1,15 @@
 #define PRESTI_CLEAN "presti_clean"
 #define PRESTI_SPARK "presti_spark"
 #define PRESTI_MOTE "presti_mote"
+#define PRESTI_SENSE "presti_sense"
 
 /datum/action/cooldown/spell/touch/prestidigitation
 	name = "Prestidigitation"
 	desc = "A few basic tricks many apprentices use to practice basic manipulation of the arcyne. Except for light, cooldown is decreased by 10% per point of Int above 10 up to 50%. Includes the following modes:\n \
-	<b>Touch</b>: Use your arcyne powers to scrub an object or something clean, like using soap. Also known as the Apprentice's Woe.\n \
-	<b>Shove</b>: Will forth a spark on an item of your choosing (or in front of you, if used on the ground) to ignite flammable items and things like torches, lanterns or campfires. \n \
-	<b>Use</b>: Conjure forth an orbiting mote of magelight to light your way. Starts at 5 tiles light range and get one more per Int above 10 up to 15.\n \
-	<b>Grab</b>: Attune to the veil and sense nearby leylines. "
+	<b>Clean</b>: Use your arcyne powers to scrub an object or something clean, like using soap. Also known as the Apprentice's Woe.\n \
+	<b>Spark</b>: Will forth a spark on an item of your choosing (or in front of you, if used on the ground) to ignite flammable items and things like torches, lanterns or campfires. \n \
+	<b>Light</b>: Conjure forth an orbiting mote of magelight to light your way. Starts at 5 tiles light range and get one more per Int above 10 up to 15.\n \
+	<b>Sense</b>: Attune to the veil and sense nearby leylines. "
 	button_icon_state = "prestidigitation"
 
 	draw_message = span_notice("I prepare to perform a minor arcyne incantation.")
@@ -35,7 +36,7 @@
 		return FALSE
 
 	switch(caster.used_intent.type)
-		if(INTENT_HELP)
+		if(/datum/intent/hand/clean)
 			//Caustic Edit - Re-add gathering Mana Crystals and Obsidian!
 			if(istype(victim, /obj/structure/well/fountain/mana) || istype(victim, /turf/open/lava))
 				var/skill_level = caster.get_skill_level(associated_skill)
@@ -45,15 +46,15 @@
 			//Caustic Edit End
 			if(presti_hand.clean_thing(victim, caster))
 				handle_presti_cost(caster, PRESTI_CLEAN)
-		if(INTENT_DISARM)
+		if(/datum/intent/hand/spark)
 			if(presti_hand.create_spark(caster, victim))
 				handle_presti_cost(caster, PRESTI_SPARK)
-		if(/datum/intent/use)
+		if(/datum/intent/hand/light)
 			if(presti_hand.handle_mote(caster))
 				handle_presti_cost(caster, PRESTI_MOTE)
-		/*if(INTENT_GRAB) //Caustic Edit - We don't have the typed leylines, so lets remove this for now
+		if(/datum/intent/hand/sense)
 			if(presti_hand.sense_leylines(caster))
-				handle_presti_cost(caster, PRESTI_SENSE)*/
+				handle_presti_cost(caster, PRESTI_SENSE)
 
 	return FALSE // don't consume the hand
 
@@ -67,8 +68,8 @@
 			extra_fatigue = 5
 		if(PRESTI_MOTE)
 			extra_fatigue = 15
-		/*if(PRESTI_SENSE) //Caustic Edit - We don't have the typed leylines, so lets remove this for now
-			extra_fatigue = 10*/
+		if(PRESTI_SENSE)
+			extra_fatigue = 10
 
 	user.stamina_add(fatigue_used + extra_fatigue)
 
@@ -80,7 +81,7 @@
 
 /obj/item/melee/new_touch_attack/prestidigitation
 	name = "\improper prestidigitating touch"
-	possible_item_intents = list(INTENT_HELP, INTENT_DISARM, /datum/intent/use) //Caustic Edit - We don't have the leylines so no need to have a dead intent -- , INTENT_GRAB
+	possible_item_intents = list(/datum/intent/hand/clean, /datum/intent/hand/spark, /datum/intent/hand/light, /datum/intent/hand/sense)
 	icon = 'icons/mob/roguehudgrabs.dmi'
 	icon_state = "grabbing_greyscale"
 	color = "#3FBAFD"
@@ -112,7 +113,7 @@
 	QDEL_NULL(mote)
 	return ..()
 
-/*/obj/item/melee/new_touch_attack/prestidigitation/proc/sense_leylines(mob/living/carbon/human/user) //Caustic Edit - We don't have the typed leylines, so lets remove this for now
+/obj/item/melee/new_touch_attack/prestidigitation/proc/sense_leylines(mob/living/carbon/human/user)
 	if(!length(GLOB.leyline_sites))
 		to_chat(user, span_warning("You reach out through the veil but sense nothing. No leylines exist in this world."))
 		return FALSE
@@ -193,7 +194,7 @@
 	else
 		var/charges = get_leyline_charges(user)
 		to_chat(user, span_info("You have enough mana for <b>[charges]</b> more ritual[charges != 1 ? "s" : ""]."))
-	return TRUE*/
+	return TRUE
 
 /obj/item/melee/new_touch_attack/prestidigitation/proc/handle_mote(mob/living/carbon/human/user)
 	if(!mote)
@@ -304,3 +305,4 @@
 #undef PRESTI_CLEAN
 #undef PRESTI_SPARK
 #undef PRESTI_MOTE
+#undef PRESTI_SENSE

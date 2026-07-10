@@ -52,7 +52,7 @@
 // T0: Bless drink
 /obj/effect/proc_holder/spell/self/bless_drink
 	name = "Bless Drink"
-	desc = "Blesses a container to allow it to be drunk to no end. Lasts about a minute. Due to the potency of alchemical mixes and of thoroughly cooked beverages, does not function on them."
+	desc = "Blesses a container to allow it to be drunk to no end. Lasts about a minute." //Caustic Edit - Got rid of the bit that said it doesn't work on drinks or potions, since that function should be gone too.
 	action_icon = 'icons/mob/actions/baothamiracles.dmi'
 	overlay_icon = 'icons/mob/actions/baothamiracles.dmi'
 	overlay_state = "bless_drink"
@@ -102,11 +102,11 @@
 		return FALSE
 	
 	var/obj/item/reagent_containers/glass/target_container = held
-	for(var/reagent in reagent_blacklist)
+	/*for(var/reagent in reagent_blacklist) //Caustic Edit - Get rid of this limitation for the Bless Drink.
 		if(target_container.reagents.has_reagent(reagent))
 			revert_cast()
 			to_chat(user, span_info("The drink within is too potent."))
-			return FALSE
+			return FALSE*/
 
 	if(target_container.is_infinite)
 		revert_cast()
@@ -442,6 +442,8 @@
 /obj/projectile/magic/blowingdust/on_hit(target, mob/living/M)
 	. = ..()
 	if(!istype(M))
+		return
+	if(out_of_effective_range())
 		return
 	if(target)
 		to_chat(target, span_warning("Gah! Something.. got in my - eyes.."))

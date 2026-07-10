@@ -3,6 +3,8 @@
 #define VOLUME_PER_STEW_COOK_AFTER 1 // Volume to deduct after the sleep is over
 #define DEEP_FRY_TIME 5 SECONDS // Default deep fry time
 #define OIL_CONSUMED 5 // Amount of oil consumed per deep fry (1 fat = 4 fry)
+#define BOILING_TIME 5 SECONDS // Default boiling time
+#define WATER_CONSUMED 5
 
 /obj/machinery/light/rogue/firebowl
 	name = "brazier"
@@ -565,7 +567,7 @@
 		if(istype(attachment, /obj/item/cooking/pan))
 			if(W.type in subtypesof(/obj/item/reagent_containers/food/snacks))
 				var/obj/item/reagent_containers/food/snacks/S = W
-				if(istype(W, /obj/item/reagent_containers/food/snacks/egg)) // added
+				if(istype(W, /obj/item/reagent_containers/food/snacks/rogue/egg)) // added
 					if(W.icon_state != "rawegg")
 						playsound(get_turf(user), 'modular/Neu_Food/sound/eggbreak.ogg', 100, TRUE, -1)
 						sleep(25) // to get egg crack before frying hiss
@@ -586,6 +588,7 @@
 					playsound(src.loc, 'sound/misc/frying.ogg', 80, FALSE, extrarange = 5)
 					return
 // Stew + Deep Frying code - refactored!!
+// Now with 100% more boiling!
 		else if(istype(attachment, /obj/item/reagent_containers/glass/bucket/pot))
 			var/obj/item/reagent_containers/glass/bucket/pot = attachment
 			if(istype(W, /obj/item/reagent_containers/food/snacks))
@@ -603,7 +606,7 @@
 					if(!pot.reagents.has_reagent(/datum/reagent/consumable/oil/tallow, OIL_CONSUMED))
 						to_chat(user, span_notice("Not enough tallow."))
 						return
-					if(pot.reagents.has_reagent(/datum/reagent/water))
+					if(pot.reagents.has_reagent(/datum/reagent/water) && S.deep_fried_type && !S.boiled_type)
 						to_chat(user, span_warning("You can't deep fry in a pot with water!"))
 						return
 					if(do_after(user, DEEP_FRY_TIME / cooktime_divisor, target = src))
@@ -613,7 +616,14 @@
 						qdel(S)
 						pot.reagents.remove_reagent(/datum/reagent/consumable/oil/tallow, OIL_CONSUMED)
 						return
-			
+				if(pot.reagents.has_reagent(/datum/reagent/water) && S.boiled_type)
+					if(do_after(user, BOILING_TIME / cooktime_divisor, target = src))
+						user.visible_message(span_info("[user] boils [S] in the pot.</span>"))
+						add_sleep_experience(user, /datum/skill/craft/cooking, user.STAINT)
+						new S.boiled_type(src.loc)
+						qdel(S)
+						pot.reagents.remove_reagent(/datum/reagent/water, WATER_CONSUMED)
+						return
 			var/recipe_found = FALSE
 			for(var/datum/stew_recipe/R in GLOB.stew_recipes)
 				for(var/I in R.inputs)
@@ -999,3 +1009,5 @@
 
 #undef DEEP_FRY_TIME
 #undef OIL_CONSUMED
+#undef BOILING_TIME
+#undef WATER_CONSUMED

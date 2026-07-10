@@ -568,6 +568,13 @@ GLOBAL_LIST_INIT(ballmer_windows_me_msg, list("Yo man, what if, we like, uh, put
 			energy_add(sleepy_mod * 4)
 		if(buckled?.sleepy)
 			sleepy_mod = buckled.sleepy
+		if(HAS_TRAIT(src, TRAIT_REGROW_LIMBS))
+			var/list/limb_list = list(BODY_ZONE_R_ARM, BODY_ZONE_L_ARM, BODY_ZONE_R_LEG, BODY_ZONE_L_LEG)
+			for(var/zone in limb_list)
+				var/obj/item/bodypart/limb = get_bodypart(zone)
+				if(!limb && nutrition > 250)
+					regenerate_limb(zone)
+					nutrition -= 250
 		else if(isturf(loc)) //No illegal tech.
 			var/obj/structure/bed/rogue/bed = locate() in loc
 			if(bed)
@@ -854,7 +861,7 @@ GLOBAL_LIST_INIT(ballmer_windows_me_msg, list("Yo man, what if, we like, uh, put
 			var/oxy_damage = (stat == UNCONSCIOUS) ? 3.5 : 5 
 			adjustOxyLoss(oxy_damage)
 			if(prob(20) && stat != DEAD)
-				playsound(src, (stat < UNCONSCIOUS ? 'sound/vo/throat.ogg' : 'sound/effects/bubbles.ogg'), 60, FALSE)
+				emote("drown") //playsound(src, (stat < UNCONSCIOUS ? 'sound/vo/throat.ogg' : 'sound/effects/bubbles.ogg'), 60, FALSE) //Caustic Edit - Change it from these sounds to the Drown Emote again
 	else
 		if(breath_remaining < max_breath)
 			var/regen_speed = max_breath / 3.5 

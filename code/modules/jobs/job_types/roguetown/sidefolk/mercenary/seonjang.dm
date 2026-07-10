@@ -2,7 +2,7 @@
 	name = "Ruma Seonjang"
 	tutorial = "A Captain from a band of Kazengite foreigners. The Ruma Clan were outcasts from the Xinyi Dynasty, believed to be associated with the rebels at the time. The clan departed to avoid repercussion. It is no organized group of soldiers, but rather a loose collection of experienced fighters."
 	allowed_sexes = list(MALE, FEMALE)
-	allowed_races = NON_DWARVEN_RACE_TYPES
+	forbidden_races = list(RACES_SMALL)
 	outfit = /datum/outfit/job/roguetown/mercenary/seonjang
 	subclass_languages = list(/datum/language/kazengunese)
 	class_select_category = CLASS_CAT_KAZENGUN
@@ -50,7 +50,7 @@
 	if(should_wear_masc_clothes(H))
 		shirt = /obj/item/clothing/suit/roguetown/shirt/undershirt/eastshirt1
 		cloak = /obj/item/clothing/cloak/eastcloak1
-		H.dna.species.soundpack_m = new /datum/voicepack/male/evil()
+		H.dna.species.soundpack_m = GLOB.voice_packs[/datum/voicepack/male/evil]
 	else if(should_wear_femme_clothes(H))
 		shirt = /obj/item/clothing/suit/roguetown/shirt/dress/captainrobe
 	H.merctype = 9

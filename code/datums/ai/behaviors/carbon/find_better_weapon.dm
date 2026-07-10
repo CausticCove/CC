@@ -24,7 +24,7 @@
 	if(!pawn && checking == pawn)
 		return FALSE
 	var/mob/living/carbon/living_pawn = pawn
-	if(!living_pawn)
+	if(!living_pawn?.ai_controller)
 		return FALSE
 	//Caustic Edit End
 	var/datum/ai_controller/controller = living_pawn.ai_controller

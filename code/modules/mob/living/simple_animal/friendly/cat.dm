@@ -60,7 +60,7 @@
 
 /mob/living/simple_animal/pet/cat/Initialize()
 	. = ..()
-	verbs += /mob/living/proc/lay_down
+	add_verb(src, /mob/living/proc/lay_down)
 	ai_controller.set_blackboard_key(BB_BASIC_FOODS, food_type) //Caustic Edit - Let cats eat mice/rats and fish! (To stop a runtime as well :P)
 
 /mob/living/simple_animal/pet/cat/update_mobility()

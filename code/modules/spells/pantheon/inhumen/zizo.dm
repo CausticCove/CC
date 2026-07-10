@@ -302,6 +302,8 @@
 		qdel(src)
 		return BULLET_ACT_BLOCK
 
+	if(out_of_effective_range())
+		return
 	try_embed_target(L)
 	qdel(src)
 

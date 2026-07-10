@@ -16,6 +16,11 @@
 #define GLOW_COLOR_WARD "#D4A844" // Warm amber-gold, for battlewardry / protective ward spells
 #define GLOW_COLOR_BARDIC "#E8837C" // Warm rose, for bardic songs and cadences
 
+//Gods - Tennite
+#define GLOW_COLOR_UNDIVIDED "#28908C" //Undivided Cyan
+#define GLOW_COLOR_ASTRATA "#F9B362" //Astratan Yellow/Orange
+#define GLOW_COLOR_RAVOX "#7A1E30" //Ravox Crimson
+
 // Constants for spell glow intensity. These are literally 1 2 3 4 but it is for documenting design purposes
 #define GLOW_INTENSITY_LOW 1 // For spam projectiles or generic buffs
 #define GLOW_INTENSITY_MEDIUM 2 // Anything that would hurt quite a bit
@@ -63,12 +68,18 @@
 #define SPELLCOST_MINOR_SUMMON       30
 #define SPELLCOST_MAJOR_SUMMON       50
 // Buff duration tiers
-#define STAT_BUFF_SELF_DURATION      1.5 MINUTES
-#define STAT_BUFF_ALLY_DURATION      1.5 MINUTES
+#define STAT_BUFF_SELF_DURATION      1 MINUTES
+#define STAT_BUFF_ALLY_DURATION      1 MINUTES
 #define UTILITY_AOE_BUFF_DURATION    15 MINUTES
 
+//Miracle costs in devotion used.
+#define SPELLCOST_MIRACLE_ORISON	 5
+#define SPELLCOST_MIRACLE_MINOR		 15
 #define SPELLCOST_MIRACLE            30
 #define SPELLCOST_MIRACLE_MAJOR      60
+#define SPELLCOST_MIRACLE_LEGENDARY  100 //Highest tiers of miracles should have this.
+
+
 #define SPELLCOST_MINOR_SKILL        30
 #define SPELLCOST_MAJOR_SKILL        50
 
@@ -94,7 +105,8 @@
 // Standardized spell ranges
 #define SPELL_RANGE_PROJECTILE 10  // Standard projectile travel distance and projectile spell cast range
 #define SPELL_RANGE_GROUND     7   // Standard ground-targeted / AOE spell cast range
-#define SPELL_RANGE_ADJACENT   1   // One tile range is your own tile and the ones adjacent!
+#define SPELL_RANGE_AURA	   4   // For 'warcry' type miracles or AOE BUFFS originating on the caster
+#define SPELL_RANGE_ADJACENT   1   // Self explanatory
 
 // Charging slowdown tiers — how much the caster is slowed while charging
 #define CHARGING_SLOWDOWN_NONE 0       // Spellblade abilities, no movement penalty

@@ -15,7 +15,7 @@
 	invocation_type = INVOCATION_WHISPER
 
 	charge_required = TRUE
-	charge_time = CHARGETIME_POKE
+	charge_time = CHARGETIME_MINOR
 	hold_drain = 0
 	charge_slowdown = CHARGING_SLOWDOWN_SMALL
 	charge_sound = 'sound/magic/charging.ogg'
@@ -28,6 +28,30 @@
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC | SPELL_REQUIRES_HUMAN | SPELL_REQUIRES_SAME_Z
 
 	var/fellowship_snap = FALSE
+
+	/// Cooldown multiplier applied when the buff is cast on the caster instead of a fellow. 1 = no penalty.
+	/// Augmentations are meant to be shared - set this above 1 to make hoarding a buff for yourself cost extra downtime.
+	var/self_cast_cooldown_multiplier = 1
+	var/other_cast_cooldown_reduction = 0.25
+	/// TRUE only while resolving a self-targeted cast, so the cooldown hook knows to apply the penalty.
+	var/tmp/empowering_self = FALSE
+
+/datum/action/cooldown/spell/augment_buff/before_cast(atom/cast_on)
+	empowering_self = (cast_on == owner)
+	return ..()
+
+/datum/action/cooldown/spell/augment_buff/after_cast(atom/cast_on)
+	. = ..()
+	empowering_self = FALSE
+
+/datum/action/cooldown/spell/augment_buff/get_adjusted_cooldown()
+	var/original_cooldown = cooldown_time
+	if(!empowering_self && other_cast_cooldown_reduction)
+		cooldown_time = original_cooldown * (1 - other_cast_cooldown_reduction)
+	. = ..()
+	cooldown_time = original_cooldown
+	if(empowering_self && self_cast_cooldown_multiplier != 1)
+		. *= self_cast_cooldown_multiplier
 
 /datum/action/cooldown/spell/augment_buff/toggle_alt_mode(mob/user)
 	fellowship_snap = !fellowship_snap
@@ -90,5 +114,9 @@
 
 /datum/action/cooldown/spell/augment_buff/get_spell_statistics(mob/living/user)
 	var/list/stats = ..()
-	stats += span_info("Fellowship Mode (toggle with Ctrl+G): an off-target cast snaps the buff to your nearest fellowship member in range.")
+	stats += span_info("Fellowship Mode (toggle with Shift+G): an off-target cast snaps the buff to your nearest fellowship member in range.")
+	if(other_cast_cooldown_reduction)
+		stats += span_info("Casting this on someone other than yourself cuts [round(other_cast_cooldown_reduction * 100)]% off the cooldown (before stat scaling).")
+	if(self_cast_cooldown_multiplier != 1)
+		stats += span_info("Casting this on yourself instead of a fellow costs [self_cast_cooldown_multiplier]x the cooldown.")
 	return stats

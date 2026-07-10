@@ -3,13 +3,13 @@
 	name = "Rogue Mage"
 	tutorial = "They reject your genius, they cast you out, they call you unethical. They do not understand the SACRIFICES you must make. But it does not matter anymore, your power eclipse any of those fools, save for the Court Magos themselves. Show them true magic. Why do I have an eyepatch?"
 	allowed_sexes = list(MALE, FEMALE)
-	allowed_races = RACES_ALL_KINDS
+	
 	outfit = /datum/outfit/job/roguetown/wretch/roguemage
 	cmode_music = 'sound/music/cmode/antag/combat_thewall.ogg'
 	class_select_category = CLASS_CAT_MAGE
 	category_tags = list(CTAG_WRETCH)
 	traits_applied = list(TRAIT_ARCYNE, TRAIT_ALCHEMY_EXPERT)
-	// Same stat spread as necromancer, same reasoning
+	// Slightly better stat spread from necromancer.
 	subclass_stats = list(
 		STATKEY_INT = 4,
 		STATKEY_PER = 2,
@@ -60,7 +60,7 @@
 		/obj/item/rogueweapon/scabbard/sheath = 1,
 		/obj/item/reagent_containers/glass/bottle/alchemical/healthpot = 1,	//Small health vial
 	)
-	H.dna.species.soundpack_m = new /datum/voicepack/male/wizard()
+	H.dna.species.soundpack_m = GLOB.voice_packs[/datum/voicepack/male/wizard]
 	if(H.mind)
 		backr = choose_implement(H, "greater")
 		wretch_select_bounty(H)

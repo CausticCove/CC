@@ -1,5 +1,6 @@
 /datum/crafting_recipe/roguetown/ceramics
 	abstract_type = /datum/crafting_recipe/roguetown/ceramics
+	display_category = ITEM_CAT_POTTERY
 	skillcraft = /datum/skill/craft/ceramics
 
 /datum/crafting_recipe/roguetown/ceramics/clay
@@ -11,25 +12,42 @@
 
 /* 0 diff */
 /datum/crafting_recipe/roguetown/ceramics/clay/claycup
-	name = "clay cup, dyeable"
+	name = "clay flask, dyeable"
 	result = list(/obj/item/natural/clay/claycup)
 	reqs = list(/obj/item/natural/clay = 1)
 	craftdiff = 0
 
+/datum/crafting_recipe/roguetown/ceramics/claybauble
+	name = "clay bauble x3"
+	result = list(/obj/item/natural/clay/rawbauble, /obj/item/natural/clay/rawbauble, /obj/item/natural/clay/rawbauble)
+	reqs = list(/obj/item/natural/clay = 1)
+	craftdiff = 0 
+
+/datum/crafting_recipe/roguetown/ceramics/claycameo
+	name = "clay cameo"
+	result = list(/obj/item/natural/clay/rawcameo)
+	reqs = list(/obj/item/natural/clay = 1)
+	craftdiff = 0 
+
 /datum/crafting_recipe/roguetown/ceramics/clay/claycup3
-	name = "clay cup, dyeable (3x)"
+	name = "clay flask, dyeable (3x)"
 	result = list(/obj/item/natural/clay/claycup, /obj/item/natural/clay/claycup, /obj/item/natural/clay/claycup)
 	reqs = list(/obj/item/natural/clay = 3)
 	craftdiff = 0
 
 /datum/crafting_recipe/roguetown/ceramics/clay/claycupclassic
-	name = "clay cup, traditional"
+	name = "clay flask, traditional"
 	result = list(/obj/item/natural/clay/claycupclassic)
 	reqs = list(/obj/item/natural/clay = 1)
 	craftdiff = 0
 
+	name = "clay cup"
+	result = list(/obj/item/natural/clay/rawcup)
+	reqs = list(/obj/item/natural/clay = 1)
+	craftdiff = 0
+
 /datum/crafting_recipe/roguetown/ceramics/clay/claycup3classic3
-	name = "clay cup, traditional (3x)"
+	name = "clay flask, traditional (3x)"
 	result = list(/obj/item/natural/clay/claycupclassic, /obj/item/natural/clay/claycupclassic, /obj/item/natural/clay/claycupclassic)
 	reqs = list(/obj/item/natural/clay = 3)
 	craftdiff = 0
@@ -91,6 +109,66 @@
 	reqs = list(/obj/item/natural/clay = 1)
 	craftdiff = 1
 
+/datum/crafting_recipe/roguetown/ceramics/clayfigurine
+	name = "clay figurine"
+	result = list(/obj/item/natural/clay/rawfigurine)
+	reqs = list(/obj/item/natural/clay = 1)
+	craftdiff = 1
+
+/datum/crafting_recipe/roguetown/ceramics/clayfish
+	name = "clay fish figurine"
+	result = list(/obj/item/natural/clay/rawfish)
+	reqs = list(/obj/item/natural/clay = 1)
+	craftdiff = 1
+
+/datum/crafting_recipe/roguetown/ceramics/clayring
+	name = "clay ring"
+	result = list(/obj/item/natural/clay/rawring)
+	reqs = list(/obj/item/natural/clay = 1)
+	craftdiff = 1
+
+/datum/crafting_recipe/roguetown/ceramics/clayduck
+	name = "clay duck figurine"
+	result = list(/obj/item/natural/clay/rawduck)
+	reqs = list(/obj/item/natural/clay = 1)
+	craftdiff = 1
+
+/datum/crafting_recipe/roguetown/ceramics/claydisplay
+	name = "clay display stand"
+	result = list(/obj/item/natural/clay/rawdisplay)
+	reqs = list(/obj/item/natural/clay = 1)
+	craftdiff = 1
+
+/datum/crafting_recipe/roguetown/ceramics/clayheart
+	name = "clay heart"
+	result = list(/obj/item/natural/clay/rawheart)
+	reqs = list(/obj/item/natural/clay = 1)
+	craftdiff = 1
+
+/datum/crafting_recipe/roguetown/ceramics/claybowl
+	name = "clay bowl"
+	result = list(/obj/item/natural/clay/rawbowl)
+	reqs = list(/obj/item/natural/clay = 1)
+	craftdiff = 1
+
+/datum/crafting_recipe/roguetown/ceramics/clayspoon
+	name = "clay spoon"
+	result = list(/obj/item/natural/clay/rawspoon)
+	reqs = list(/obj/item/natural/clay = 1)
+	craftdiff = 1
+
+/datum/crafting_recipe/roguetown/ceramics/clayfork
+	name = "clay fork"
+	result = list(/obj/item/natural/clay/rawfork)
+	reqs = list(/obj/item/natural/clay = 1)
+	craftdiff = 1
+
+/datum/crafting_recipe/roguetown/ceramics/clayplatter
+	name = "clay platter"
+	result = list(/obj/item/natural/clay/rawplatter)
+	reqs = list(/obj/item/natural/clay = 1)
+	craftdiff = 1
+	
 /datum/crafting_recipe/roguetown/ceramics/clay/claybottleclassic
 	name = "clay bottle, traditional"
 	result = list(/obj/item/natural/clay/claybottleclassic)
@@ -118,6 +196,36 @@
 	reqs = list(/obj/item/natural/clay = 2)
 	craftdiff = 2
 
+/datum/crafting_recipe/roguetown/ceramics/claysun
+	name = "clay sun"
+	result = list(/obj/item/natural/clay/rawsun)
+	reqs = list(/obj/item/natural/clay = 1)
+	craftdiff = 2
+
+/datum/crafting_recipe/roguetown/ceramics/clayobelisk
+	name = "clay obelisk"
+	result = list(/obj/item/natural/clay/rawobelisk)
+	reqs = list(/obj/item/natural/clay = 2)
+	craftdiff = 2
+
+/datum/crafting_recipe/roguetown/ceramics/claycomb
+	name = "clay comb"
+	result = list(/obj/item/natural/clay/rawcomb)
+	reqs = list(/obj/item/natural/clay = 1)
+	craftdiff = 2
+
+/datum/crafting_recipe/roguetown/ceramics/claytablet
+	name = "clay tablet"
+	result = list(/obj/item/natural/clay/rawtablet)
+	reqs = list(/obj/item/natural/clay = 2)
+	craftdiff = 2
+
+/datum/crafting_recipe/roguetown/ceramics/clayamulet
+	name = "clay amulet"
+	result = list(/obj/item/natural/clay/rawamulet)
+	reqs = list(/obj/item/natural/clay = 1)
+	craftdiff = 2
+
 /* 3 diff */
 /datum/crafting_recipe/roguetown/ceramics/clay/clayfancyvase
 	name = "fancy clay vase, dyeable"
@@ -135,6 +243,30 @@
 	name = "teapot (old)" // Caustic edit
 	result = list(/obj/item/natural/clay/rawteapot)
 	reqs = list(/obj/item/natural/clay = 2)
+	craftdiff = 3
+
+/datum/crafting_recipe/roguetown/ceramics/claystatuette
+	name = "clay statuette"
+	result = list(/obj/item/natural/clay/rawstatuette)
+	reqs = list(/obj/item/natural/clay = 2)
+	craftdiff = 3
+
+/datum/crafting_recipe/roguetown/ceramics/claymoon
+	name = "clay moon"
+	result = list(/obj/item/natural/clay/rawmoon)
+	reqs = list(/obj/item/natural/clay = 2)
+	craftdiff = 3
+
+/datum/crafting_recipe/roguetown/ceramics/claycirclet
+	name = "clay circlet"
+	result = list(/obj/item/natural/clay/rawcirclet)
+	reqs = list(/obj/item/natural/clay = 1)
+	craftdiff = 3
+
+/datum/crafting_recipe/roguetown/ceramics/claygoblet
+	name = "fancy clay goblet"
+	result = list(/obj/item/natural/clay/rawcupfancy)
+	reqs = list(/obj/item/natural/clay = 1)
 	craftdiff = 3
 
 /datum/crafting_recipe/roguetown/ceramics/clay/teacup
@@ -190,7 +322,7 @@
 /datum/crafting_recipe/roguetown/ceramics/glassraw
 	name = "glass clay"			// This is not a clay, but I don't personally think 'batch' is fitting ICly.
 	tools = list(/obj/item/reagent_containers/glass/mortar, /obj/item/pestle)
-	result = list(/obj/item/natural/clay/glassbatch)
+	result = list(/obj/item/natural/glassbatch)
 	reqs = list(/obj/item/natural/clay = 2, /obj/item/ash = 2, /obj/item/natural/stone = 1)
 	craftdiff = 4 // Knowing how to mix glass is not a trivial knowledge.
 
@@ -200,6 +332,25 @@
 	reqs = list(/obj/item/natural/clay = 3)
 	craftdiff = 4
 
+/datum/crafting_recipe/roguetown/ceramics/clayturtle
+	name = "clay turtle statuette"
+	result = list(/obj/item/natural/clay/rawturtle)
+	reqs = list(/obj/item/natural/clay = 2)
+	craftdiff = 4
+
+/datum/crafting_recipe/roguetown/ceramics/clayurn
+	name = "clay urn"
+	result = list(/obj/item/natural/clay/rawurn)
+	reqs = list(/obj/item/natural/clay = 3)
+	craftdiff = 4
+
+/datum/crafting_recipe/roguetown/ceramics/claybust
+	name = "clay bust"
+	result = list(/obj/item/natural/clay/rawbust)
+	reqs = list(/obj/item/natural/clay = 3)
+	craftdiff = 4
+
+
 /* 5 diff */ // High-end glass containers. Should be a direct upgrade to clay in every possible way.
 
 /datum/crafting_recipe/roguetown/ceramics/glass/statue 
@@ -208,3 +359,57 @@
 	reqs = list(/obj/item/natural/glass = 2)
 	craftdiff = 5
 
+/datum/crafting_recipe/roguetown/ceramics/glass/bottles
+	name = "glass bottle (x2)"
+	result = list(
+		/obj/item/reagent_containers/glass/bottle,
+		/obj/item/reagent_containers/glass/bottle
+		)
+	reqs = list(/obj/item/natural/glass = 1)
+	craftdiff = 5
+
+/datum/crafting_recipe/roguetown/ceramics/glass/cups
+	name = "glass goblet (x3)"
+	result = list(
+		/obj/item/reagent_containers/glass/cup/glass,
+		/obj/item/reagent_containers/glass/cup/glass,
+		/obj/item/reagent_containers/glass/cup/glass
+		)
+	reqs = list(/obj/item/natural/glass = 1)
+	craftdiff = 5
+
+/datum/crafting_recipe/roguetown/ceramics/glass/cups
+	name = "glass flute (x3)"
+	result = list(
+		/obj/item/reagent_containers/glass/cup/glass/flute,
+		/obj/item/reagent_containers/glass/cup/glass/flute,
+		/obj/item/reagent_containers/glass/cup/glass/flute
+		)
+	reqs = list(/obj/item/natural/glass = 1)
+	craftdiff = 5
+
+/datum/crafting_recipe/roguetown/ceramics/glass/smallcups
+	name = "glass cup (x3)"
+	result = list(
+		/obj/item/reagent_containers/glass/cup/glass/small,
+		/obj/item/reagent_containers/glass/cup/glass/small,
+		/obj/item/reagent_containers/glass/cup/glass/small
+		)
+	reqs = list(/obj/item/natural/glass = 1)
+	craftdiff = 5
+
+/datum/crafting_recipe/roguetown/ceramics/glass/carafe
+	name = "glass carafe"
+	result = list(/obj/item/reagent_containers/glass/carafe/glass)
+	reqs = list(/obj/item/natural/glass = 1)
+	craftdiff = 5
+
+/datum/crafting_recipe/roguetown/ceramics/portable_hookah
+	name = "portable hookah"
+	result = list(/obj/item/portable_hookah)
+	reqs = list(
+	/obj/item/natural/hide/cured = 1,
+	/obj/item/natural/clay = 2,
+	/obj/item/candle/yellow = 1
+	)
+	craftdiff = 4

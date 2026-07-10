@@ -3951,12 +3951,12 @@
 /area/rogue/indoors/banditcamp/desert)
 "xU" = (
 /obj/structure/closet/crate/chest/crate,
-/obj/item/reagent_containers/food/snacks/egg,
-/obj/item/reagent_containers/food/snacks/egg,
-/obj/item/reagent_containers/food/snacks/egg,
-/obj/item/reagent_containers/food/snacks/egg,
-/obj/item/reagent_containers/food/snacks/egg,
-/obj/item/reagent_containers/food/snacks/egg,
+/obj/item/reagent_containers/food/snacks/rogue/egg,
+/obj/item/reagent_containers/food/snacks/rogue/egg,
+/obj/item/reagent_containers/food/snacks/rogue/egg,
+/obj/item/reagent_containers/food/snacks/rogue/egg,
+/obj/item/reagent_containers/food/snacks/rogue/egg,
+/obj/item/reagent_containers/food/snacks/rogue/egg,
 /obj/item/reagent_containers/food/snacks/rogue/meat/steak,
 /obj/item/reagent_containers/food/snacks/rogue/meat/steak,
 /obj/item/reagent_containers/food/snacks/rogue/meat/steak,
@@ -5527,7 +5527,7 @@
 /turf/open/floor/rogue/shroud/hag,
 /area/rogue/indoors/shelter/bog_hag)
 "HX" = (
-/obj/effect/decal/cleanable/roguerune/god/baotha,
+/obj/structure/ritualcircle/baotha,
 /turf/open/floor/rogue/naturalstone/sandstone,
 /area/rogue/under/cave/inhumen)
 "HZ" = (
@@ -6593,7 +6593,7 @@
 /area/rogue/under/cave/inhumen)
 "On" = (
 /obj/structure/shisha/hookah,
-/obj/effect/decal/cleanable/roguerune/god/baotha,
+/obj/structure/ritualcircle/baotha,
 /turf/open/floor/rogue/cobble,
 /area/rogue/under/cave/inhumen)
 "Oq" = (
@@ -6968,7 +6968,7 @@
 /turf/open/floor/rogue/sandbrick,
 /area/rogue/under/cave/inhumen)
 "Rr" = (
-/obj/effect/decal/cleanable/roguerune/god/baotha,
+/obj/structure/ritualcircle/baotha,
 /obj/structure/shisha/hookah,
 /turf/open/floor/rogue/cobble,
 /area/rogue/under/cave/inhumen)

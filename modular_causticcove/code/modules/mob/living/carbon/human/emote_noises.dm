@@ -35,3 +35,19 @@
 	else
 		to_chat(usr, span_warning("Your tongue doesn't do that"))
 		return
+
+/datum/emote/living/con_squeak
+	key = "con_squeak"
+	key_third_person = "squeaks like a toy."
+	message = "squeaks like a toy!"
+	emote_type = EMOTE_AUDIBLE
+	message_muffled = "makes a muffled squeak!"
+
+/mob/living/carbon/human/verb/con_squeak()
+	if(istype(usr.getorganslot(ORGAN_SLOT_TONGUE), /obj/item/organ/tongue/construct))
+		set name = "Squeak (Construct)"
+		set category = "NOISES"
+		emote("con_squeak", intentional = TRUE)
+	else
+		to_chat(usr, span_warning("Your tongue doesn't do that"))
+		return

@@ -1,6 +1,6 @@
 
-/mob/living/proc/run_armor_check(def_zone = null, attack_flag = "blunt", absorb_text = null, soften_text = null, armor_penetration = PEN_NONE, penetrated_text, damage, blade_dulling, intdamfactor, used_weapon = null, pen_info)
-	var/armor_tier = getarmor(def_zone, attack_flag, damage, armor_penetration, blade_dulling, intdamfactor, used_weapon, pen_info)
+/mob/living/proc/run_armor_check(def_zone = null, attack_flag = "blunt", absorb_text = null, soften_text = null, armor_penetration = PEN_NONE, penetrated_text, damage, blade_dulling, intdamfactor, used_weapon = null, pen_info, flat_integ = FALSE)
+	var/armor_tier = getarmor(def_zone, attack_flag, damage, armor_penetration, blade_dulling, intdamfactor, used_weapon, pen_info, flat_integ)
 
 	// Tier-based armor system.
 	// armor_tier and armor_penetration are both tier values (0-4).
@@ -203,24 +203,29 @@
 		if(!apply_damage(actual_damage, P.damage_type, def_zone, armor))
 			nodmg = TRUE
 			next_attack_msg += VISMSG_ARMOR_BLOCKED
-		apply_effects(stun = P.stun, knockdown = P.knockdown, unconscious = P.unconscious, slur = P.slur, stutter = P.stutter, eyeblur = P.eyeblur, drowsy = P.drowsy, blocked = armor, stamina = P.stamina, jitter = P.jitter, paralyze = P.paralyze, immobilize = P.immobilize)
+		apply_status_effect(/datum/status_effect/combat_tag)
+		if(!P.out_of_effective_range())
+			apply_effects(stun = P.stun, knockdown = P.knockdown, unconscious = P.unconscious, slur = P.slur, stutter = P.stutter, eyeblur = P.eyeblur, drowsy = P.drowsy, blocked = armor, stamina = P.stamina, jitter = P.jitter, paralyze = P.paralyze, immobilize = P.immobilize)
 		if(!nodmg)
-			if(P.dismemberment)
-				check_projectile_dismemberment(P, def_zone,armor)
-			if(P.woundclass)
-				check_projectile_wounding(P, def_zone, armor)
+			if(!P.out_of_effective_range())
+				if(P.dismemberment)
+					check_projectile_dismemberment(P, def_zone,armor)
+				if(P.woundclass)
+					check_projectile_wounding(P, def_zone, armor)
 
-			if(P.poisontype)// New proc for poisoning that respects if armor stopped damage from the projectile, by blocking or through reduction. Only called if poison type is defined.
-				if(!P.poisonamount)
-					CRASH("Projectile attempted to add poison with undefined amount.")
-				if(iscarbon(src))
-					var/mob/living/carbon/M = src
-					M.reagents.add_reagent(P.poisontype, P.poisonamount)
-					if(P.poisonfeel)
-						M.show_message(span_danger("You feel an intense [P.poisonfeel] sensation spreading swiftly from the area!"))
+				if(P.poisontype)// New proc for poisoning that respects if armor stopped damage from the projectile, by blocking or through reduction. Only called if poison type is defined.
+					if(!P.poisonamount)
+						CRASH("Projectile attempted to add poison with undefined amount.")
+					if(iscarbon(src))
+						var/mob/living/carbon/M = src
+						M.reagents.add_reagent(P.poisontype, P.poisonamount)
+						if(P.poisonfeel)
+							M.show_message(span_danger("You feel an intense [P.poisonfeel] sensation spreading swiftly from the area!"))
 
-			if(P.embedchance && !check_projectile_embed(P, def_zone, armor))
-				P.handle_drop()
+				if(P.embedchance && !check_projectile_embed(P, def_zone, armor))
+					P.handle_drop()
+
+				P.do_special_projectile_effect(P.firer, get_bodypart(check_zone(def_zone)), src, def_zone)
 
 		else
 			P.handle_drop()
@@ -281,6 +286,7 @@
 				nodmg = TRUE
 				next_attack_msg += VISMSG_ARMOR_BLOCKED
 			if(!nodmg)
+				apply_status_effect(/datum/status_effect/combat_tag)
 				if(iscarbon(src))
 					var/obj/item/bodypart/affecting = get_bodypart(zone)
 					if(affecting)
@@ -495,6 +501,9 @@
 	if(HAS_TRAIT(M, TRAIT_PACIFISM))
 		to_chat(M, span_warning("I don't want to hurt anyone!"))
 		return FALSE
+	if(M.has_status_effect(/datum/status_effect/debuff/deadite_grace) && src.mind)
+		to_chat(M, span_warning("Ah, Lux... I calm down considerably, but my hunger only increases."))
+		M.remove_status_effect(/datum/status_effect/debuff/deadite_grace)
 
 	M.do_attack_animation(src, visual_effect_icon = M.a_intent.animname)
 	playsound(get_turf(M), pick(M.attack_sound), 100, FALSE)
@@ -535,6 +544,9 @@
 		if(HAS_TRAIT(M, TRAIT_PACIFISM))
 			to_chat(M, span_info("I don't want to hurt anyone!"))
 			return FALSE
+		if(M.has_status_effect(/datum/status_effect/debuff/deadite_grace) && src.mind)
+			to_chat(M, span_warning("Ah, Lux... I calm down considerably, but my hunger only increases."))
+			M.remove_status_effect(/datum/status_effect/debuff/deadite_grace)
 
 		if(M.is_muzzled() || M.is_mouth_covered(FALSE, TRUE))
 			to_chat(M, span_warning("I can't bite with my mouth covered!"))
@@ -565,6 +577,9 @@
 		if(HAS_TRAIT(M, TRAIT_PACIFISM))
 			to_chat(M, span_info("I don't want to hurt anyone!"))
 			return FALSE
+		if(M.has_status_effect(/datum/status_effect/debuff/deadite_grace) && src.mind)
+			to_chat(M, span_warning("Ah, Lux... I calm down considerably, but my hunger only increases."))
+			M.remove_status_effect(/datum/status_effect/debuff/deadite_grace)
 
 		if(M.is_muzzled() || M.is_mouth_covered(FALSE, TRUE))
 			to_chat(M, span_warning("I can't bite with my mouth covered!"))
@@ -599,13 +614,16 @@
 		return FALSE
 	if(shock_damage < 1 && !(flags & SHOCK_VISUAL_ONLY))
 		return FALSE
+
 	if(HAS_TRAIT(src, TRAIT_IRONMAN) && !(flags & SHOCK_VISUAL_ONLY)) // this handles shock weakness, jakk here as you wish
 		adjustFireLoss(50)
+
 	if(!(flags & SHOCK_VISUAL_ONLY))
 		if(!(flags & SHOCK_ILLUSION))
 			adjustFireLoss(shock_damage)
 		else
 			adjustStaminaLoss(shock_damage)
+
 	if(HAS_TRAIT(src, TRAIT_IRONMAN)) // sovl
 		visible_message(
 			span_danger("[src] was violently shocked by \the [source]!"), \
@@ -662,6 +680,8 @@
 		used_item = get_active_held_item()
 	if(!used_intent)
 		used_intent = src.used_intent
+	if(!istype(used_intent, /datum/intent))
+		return
 	var/animation_type
 	if(used_item || !simplified)
 		animation_type = item_animation_override || used_intent?.get_attack_animation_type()

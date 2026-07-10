@@ -9,8 +9,8 @@
 	penfactor = PEN_LIGHT
 	chargetime = 0
 	swingdelay = 0
-	damfactor = 1.3
-	clickcd = CLICK_CD_FAST
+	damfactor = 1.2
+	clickcd = CLICK_CD_QUICK
 	item_d_type = "slash"
 
 /datum/intent/katar/thrust
@@ -23,7 +23,7 @@
 	penfactor = PEN_MEDIUM // This make them good vs other light armor users
 	// So they don't need extra bonus damage on top
 	chargetime = 0
-	clickcd = CLICK_CD_FAST
+	clickcd = CLICK_CD_QUICK
 	item_d_type = "stab"
 
 /datum/intent/axe/chop/arbelos
@@ -32,7 +32,7 @@
 
 /datum/intent/axe/cut/arbelos
 	damfactor = 1.15
-	clickcd = CLICK_CD_FAST //Same speed as a katar, but with reduced penetration and half-damage. Main appeal's the chopper.
+	clickcd = CLICK_CD_QUICK //Same speed as a katar, but with reduced penetration and half-damage. Main appeal's the chopper.
 
 /datum/intent/katar/thrust/arbelos
 	penfactor = PEN_LIGHT
@@ -51,16 +51,49 @@
 /datum/intent/lord_electrocute
 	name = "electrocute"
 	blade_class = null
-	icon_state = "inuse"
+	icon_state = "inshock"
 	tranged = TRUE
 	noaa = TRUE
 
 /datum/intent/lord_silence
 	name = "silence"
 	blade_class = null
-	icon_state = "inuse"
+	icon_state = "insilence"
 	tranged = TRUE
 	noaa = TRUE
+
+/datum/intent/knuckles/sear
+	name = "sear"
+	blade_class = BCLASS_BURN
+	attack_verb = list("chars", "sears")
+	hitsound = list('sound/combat/hits/punch/punch_hard (1).ogg', 'sound/combat/hits/punch/punch_hard (2).ogg', 'sound/combat/hits/punch/punch_hard (3).ogg')
+	chargetime = 0
+	penfactor = PEN_NONE
+	clickcd = 8
+	swingdelay = 0
+	icon_state = "incrack"
+	item_d_type = BURN
+
+/datum/intent/knuckles/strike
+	name = "punch"
+	blade_class = BCLASS_BLUNT
+	attack_verb = list("punches", "clocks")
+	hitsound = list('sound/combat/hits/punch/punch_hard (1).ogg', 'sound/combat/hits/punch/punch_hard (2).ogg', 'sound/combat/hits/punch/punch_hard (3).ogg')
+	chargetime = 0
+	penfactor = PEN_NONE
+	clickcd = 8
+	swingdelay = 0
+	icon_state = "inpunch"
+	item_d_type = "blunt"
+	intent_intdamage_factor = BLUNT_DEFAULT_INT_DAMAGEFACTOR // This might be a mistake
+
+/datum/intent/knuckles/strike/wallop
+	name = "wallop"
+	blade_class = BCLASS_TWIST
+	attack_verb = list("wallops", "thwacks", "thwamps")
+	damfactor = 1.1
+	intent_intdamage_factor = 0.6
+	icon_state = "inbash"	// Wallop is too long for a button; placeholder.
 
 /// INTENT DATUMS	^
 
@@ -86,8 +119,6 @@
 
 	grid_height = 96
 	grid_width = 32
-
-	sellprice = 150 //Master's Rod! His rod!~
 
 /obj/item/rogueweapon/lordscepter/getonmobprop(tag)
 	if(tag)
@@ -167,7 +198,6 @@
 	wdefense = 0
 	var/charge = 100
 	var/on = FALSE
-	sellprice = 80 //Stun meta 2 strong..
 
 /datum/intent/mace/strike/stunner/afterchange()
 	var/obj/item/rogueweapon/mace/stunmace/I = masteritem
@@ -287,7 +317,6 @@
 	grid_height = 64
 	grid_width = 32
 	sharpness_mod = 2	//Can't parry, so it decays quicker on-hit.
-	sellprice = 30
 
 /obj/item/rogueweapon/katar/getonmobprop(tag)
 	. = ..()
@@ -315,9 +344,8 @@
 	name = "barotrauma"
 	desc = "A gift from a creature of the sea. The claw is sharpened to a wicked edge."
 	icon_state = "abyssorclaw"
-	force = 27	//Its thrust will be able to pen 80 stab armor if the wielder has 17 STR. (With softcap)
+	force = 27
 	max_integrity = 80
-	sellprice = 25 //Weird weapon. It's a claw.
 
 /obj/item/rogueweapon/katar/ravox
 	name = "arbiter"
@@ -333,7 +361,6 @@
 	force = 21 //-3 damage malus, same as the knuckles.
 	max_integrity = 80
 	smeltresult = /obj/item/ingot/bronze
-	sellprice = 14 //Metal on fist? You insane?
 
 /obj/item/rogueweapon/katar/bronze/gladiator
 	name = "arbelos"
@@ -372,7 +399,6 @@
 	thrown_bclass = BCLASS_STAB
 	possible_item_intents = list(/datum/intent/dagger/thrust, /datum/intent/dagger/thrust/pick)
 	icon_state = "plug"
-	sellprice = 35 //Still a dagger...
 
 /obj/item/rogueweapon/katar/punchdagger/frei
 	name = "vývrtka"
@@ -382,7 +408,6 @@
 	slot_flags = ITEM_SLOT_RING
 	icon = 'icons/roguetown/weapons/special/freifechter32.dmi'
 	possible_item_intents = list(/datum/intent/dagger/thrust, /datum/intent/dagger/thrust/pick, /datum/intent/mace/smash)
-	sellprice = 50 // CC Edit
 
 /obj/item/rogueweapon/katar/psydon
 	name = "psydonic katar"
@@ -392,7 +417,6 @@
 	wdefense = 3
 	is_silver = TRUE
 	smeltresult = /obj/item/ingot/silverblessed
-	sellprice = 130
 
 /obj/item/rogueweapon/katar/psydon/ComponentInitialize()
 	AddComponent(\
@@ -404,6 +428,18 @@
 		added_int = 50,\
 		added_def = 2,\
 	)
+
+/obj/item/rogueweapon/katar/psydon/preblessed/ComponentInitialize()
+	AddComponent(\
+		/datum/component/silverbless,\
+		pre_blessed = BLESSING_PSYDONIAN,\
+		silver_type = SILVER_PSYDONIAN,\
+		added_force = 0,\
+		added_blade_int = 0,\
+		added_int = 50,\
+		added_def = 2,\
+	)
+	sellprice += 200
 
 /obj/item/rogueweapon/katar/silver
 	name = "silver katar"
@@ -481,7 +517,6 @@
 	walking_stick = TRUE
 	wdefense = 6
 	max_blade_int = 140
-	sellprice = 10 //Woooood.
 
 /obj/item/rogueweapon/woodstaff/militia/getonmobprop(tag)
 	. = ..()
@@ -506,7 +541,6 @@
 	smeltresult = /obj/item/rogueore/coal
 	wdefense = 4
 	wbalance = WBALANCE_HEAVY
-	sellprice = 20
 
 /obj/item/rogueweapon/greataxe/militia/silver
 	name = "silver militia shovelaxe"
@@ -523,7 +557,6 @@
 	wdefense = 6
 	wbalance = WBALANCE_HEAVY
 	is_silver = TRUE
-	sellprice = 60 //Still militia made. 
 
 /obj/item/rogueweapon/greataxe/militia/silver/ComponentInitialize()
 	AddComponent(\
@@ -568,7 +601,6 @@
 	light_color = "#db892b"
 	var/is_loaded = FALSE
 	var/list/hay_types = list(/obj/structure/fluff/nest, /obj/structure/composter, /obj/structure/flora/roguegrass, /obj/item/reagent_containers/food/snacks/grown/wheat)
-	sellprice = 20
 
 /obj/item/rogueweapon/spear/militia/ComponentInitialize()
 	. = ..()
@@ -591,8 +623,8 @@
 /obj/item/rogueweapon/spear/militia/proc/load_hay()
 	var/datum/component/ignitable/CI = GetComponent(/datum/component/ignitable)
 	is_loaded = TRUE
-	toggle_state = "peasantwarspear_hay"
-	icon_state = "[toggle_state][wielded ? "1" : ""]"
+	override_state = "peasantwarspear_hay"
+	icon_state = "[override_state][wielded ? "1" : ""]"
 	CI.make_ignitable()
 
 /datum/component/ignitable/warspear
@@ -608,7 +640,7 @@
 		P.is_loaded = FALSE
 
 //Component used to make any item gain the ability to be lit afire and turned into a light source / usable for single-use fire attack.
-//Uses toggle_state for the 'on-fire' sprites.
+//Uses override_state for the 'on-fire' sprites.
 //By default, all it does is become ignited when you click a fire / light source with it, and spread it to anything else, then extinguish.
 /datum/component/ignitable
 	var/is_ignitable = TRUE	//This var makes it actually ignitable, so you want to handle it on a per-item-with-component basis.
@@ -676,11 +708,11 @@
 /datum/component/ignitable/proc/update_icon()
 	var/obj/item/I = parent
 	if(is_active)
-		I.toggle_state = "[icon_state_ignited]"
+		I.override_state = "[icon_state_ignited]"
 		I.icon_state = "[icon_state_ignited][I.wielded ? "1" : ""]"
 	else
 		I.icon_state = "[initial(I.icon_state)][I.wielded ? "1" : ""]"
-		I.toggle_state = null
+		I.override_state = null
 		I.update_icon()
 
 
@@ -743,7 +775,6 @@
 	thrown_bclass = BCLASS_BLUNT
 	throwforce = 10
 	resistance_flags = FLAMMABLE
-	sellprice = 20 //Wooood... Oh but hey a tool!
 
 /obj/item/rogueweapon/scythe/getonmobprop(tag)
 	. = ..()
@@ -754,6 +785,31 @@
 			if("wielded")
 				return list("shrink" = 0.7,"sx" = 5,"sy" = -3,"nx" = -5,"ny" = -2,"wx" = -5,"wy" = -1,"ex" = 3,"ey" = -2,"northabove" = 0,"southabove" = 1,"eastabove" = 1,"westabove" = 0,"nturn" = 7,"sturn" = -7,"wturn" = 16,"eturn" = -22,"nflip" = 8,"sflip" = 0,"wflip" = 8,"eflip" = 0)
 
+
+/obj/item/rogueweapon/scythe/militia
+	desc = "The bane of fields, the trimmer of grass, the harvester of wheat, and - depending on who you ask - the shepherd of souls to the afterlyfe. This one has been reinforced."
+	name = "militia scythe"
+	smeltresult = /obj/item/ingot/iron
+	force = 18
+	force_wielded = 28
+
+/obj/item/rogueweapon/scythe/silver
+	name = "silver scythe"
+	is_silver = TRUE
+	desc = "The bane of fields, the trimmer of grass, the harvester of wheat, and - depending on who you ask - the shepherd of souls to the afterlyfe. This one is made of silver."
+	icon_state = "silverpeasantscythe"
+	smeltresult = /obj/item/ingot/silver
+
+/obj/item/rogueweapon/scythe/silver/ComponentInitialize()
+	AddComponent(\
+		/datum/component/silverbless,\
+		pre_blessed = BLESSING_NONE,\
+		silver_type = SILVER_TENNITE,\
+		added_force = 0,\
+		added_blade_int = 0,\
+		added_int = 50,\
+		added_def = 2,\
+	)
 
 /obj/item/rogueweapon/pick/militia
 	name = "militia warpick"
@@ -775,7 +831,6 @@
 	wdefense = 2
 	wdefense_wbonus = 4
 	wbalance = WBALANCE_NORMAL
-	sellprice = 20
 
 /obj/item/rogueweapon/pick/militia/getonmobprop(tag)
 	. = ..()
@@ -783,7 +838,6 @@
 		switch(tag)
 			if("gen")
 				return list("shrink" = 0.6,"sx" = -11,"sy" = -10,"nx" = 13,"ny" = -9,"wx" = -7,"wy" = -9,"ex" = 7,"ey" = -11,"northabove" = 0,"southabove" = 1,"eastabove" = 1,"westabove" = 0,"nturn" = 90,"sturn" = -90,"wturn" = -90,"eturn" = 90,"nflip" = 0,"sflip" = 8,"wflip" = 8,"eflip" = 0)
-
 
 /obj/item/rogueweapon/pick/militia/steel
 	force = 25
@@ -799,7 +853,6 @@
 	wdefense = 3
 	wdefense_wbonus = 5
 	wbalance = WBALANCE_HEAVY
-	sellprice = 30
 
 /obj/item/rogueweapon/pick/militia/steel/getonmobprop(tag)
 	. = ..()
@@ -808,6 +861,15 @@
 			if("gen")
 				return list("shrink" = 0.6,"sx" = -11,"sy" = -10,"nx" = 13,"ny" = -9,"wx" = -7,"wy" = -9,"ex" = 7,"ey" = -11,"northabove" = 0,"southabove" = 1,"eastabove" = 1,"westabove" = 0,"nturn" = 90,"sturn" = -90,"wturn" = -90,"eturn" = 90,"nflip" = 0,"sflip" = 8,"wflip" = 8,"eflip" = 0)
 
+//Dwarvish warpick. Unobtanium outside of Grudgebearer. Do not change that.
+/obj/item/rogueweapon/pick/militia/steel/warpick
+	name = "dwarven warpick"
+	desc = "A hardy repurposed dwarven mining warpick. Made to handle the dwellers above and below, both clad in rock and forged rock."
+	icon_state = "dwarpick"
+	possible_item_intents = list(/datum/intent/pick/heavy, /datum/intent/mace/strike)
+	gripped_intents = list(/datum/intent/pick/heavy, /datum/intent/mace/strike, /datum/intent/stab/militia)	
+	max_blade_int = 200 //10% increase over the steel pick
+	max_integrity = 660 
 
 /obj/item/rogueweapon/sword/falchion/militia
 	name = "maciejowski"
@@ -822,7 +884,6 @@
 	smeltresult = /obj/item/ingot/iron
 	wdefense = 3
 	wbalance = WBALANCE_HEAVY
-	sellprice = 20
 
 /obj/item/rogueweapon/sword/falchion/militia/bronze
 	name = "kopis"
@@ -841,7 +902,7 @@
 
 /obj/item/rogueweapon/handclaw
 	slot_flags = ITEM_SLOT_HIP
-	name = "Iron Hound Claws"
+	name = "iron hound claws"
 	desc = "A pair of heavily curved claws, styled after beasts of the wilds for rending bare flesh, \
 			A show of the continual worship and veneration of beasts of strength in Gronn."
 	icon_state = "ironclaws"
@@ -866,11 +927,10 @@
 	smeltresult = /obj/item/ingot/iron
 	grid_height = 96
 	grid_width = 32
-	sellprice = 20
 
 /obj/item/rogueweapon/handclaw/steel
-	name = "Steel Mantis Claws"
-	desc = "A pair of steel claws, An uncommon sight in Gronn as they do not forge their own steel, \
+	name = "steel mantis claws"
+	desc = "A pair of steel claws. An uncommon sight in Gronn as they do not forge their own steel, \
 			Their longer blades offer a superior defence option but their added weight slows them down."
 	icon_state = "steelclaws"
 	icon = 'icons/roguetown/weapons/unarmed32.dmi'
@@ -882,13 +942,12 @@
 	max_integrity = 200
 	smeltresult = /obj/item/ingot/steel
 	sharpness_mod = 2
-	sellprice = 30
 
 /obj/item/rogueweapon/handclaw/gronn
-	name = "Gronn Beast Claws"
+	name = "gronn beast claws"
 	desc = "A pair of uniquely reinforced iron claws forged with the addition of bone by the Iskarn shamans of the Northern Empty. \
 			Their unique design aids them in slipping between the plates in armor and their light weight supports rapid aggressive slashes. \
-			'To see the claws of the four, Is to see the true danger of the north. Not man, Not land but beast. We are all prey in their eyes.'"
+			</br>'To see the claws of the four, Is to see the true danger of the north. Not man, Not land but beast. We are all prey in their eyes.'"
 	icon_state = "gronnclaws"
 	icon = 'icons/roguetown/weapons/unarmed32.dmi'
 	wdefense = 3
@@ -897,14 +956,13 @@
 	wbalance = WBALANCE_SWIFT
 	max_blade_int = 200
 	max_integrity = 200
-	sellprice = 40
 
 /obj/item/rogueweapon/handclaw/gronn/silver
-	name = "Silver Ravager Claws"
+	name = "silver ravager claws"
 	desc = "A trinity of silver claws, forged in defiant reverence of the Old Ways that still permeate throughout the Northern Empty. \
 			The psicruciformic edge shreds through the hide of thralls; resurrected corpses from Fjallic antiquity, said to've been born through faithlessness and despair. \
 			Few shamen hold the strength to wield it, and fewer will speak of what they, alone, know - the true fate of the Weeping Father. \
-			'Here we stand, to turn and face the odds; sacrifice yourself, or bow to lesser gods!'"
+			</br>'Here we stand, to turn and face the odds; sacrifice yourself, or bow to lesser gods!'"
 	smeltresult = /obj/item/ingot/silver
 	icon_state = "silverclaws"
 	wdefense = 5
@@ -923,6 +981,22 @@
 		added_def = 2,\
 	)
 
+/obj/item/rogueweapon/handclaw/blacksteel
+	name = "blacksteel eagle claws"
+	desc = "A magnificent pair of blacksteel claws. While the Northern Empty is unfamiliar with blacksteel, they are familiar with an alloy of \
+			startingly similar repute; blacker-than-black, impossibly strong, and purported to've been the remains of divine matter. Such were wielded by \
+			a legendary champion of the Fjall - one whose valor, though forgotten by tyme, still echoes throughout the world they saved. \
+			</br>'Here in the wake, I know when the noose was set, but the truth is that I regret what I have left!'"
+	icon_state = "bskatarclaw"
+	icon = 'icons/roguetown/weapons/unarmed32.dmi'
+	wdefense = 1
+	force = 35
+	possible_item_intents = list(/datum/intent/claw/cut/gronn, /datum/intent/claw/lunge/gronn, /datum/intent/claw/rend)
+	wbalance = WBALANCE_HEAVY
+	max_blade_int = 350
+	smeltresult = /obj/item/ingot/blacksteel
+	sharpness_mod = 2
+
 /obj/item/rogueweapon/handclaw/getonmobprop(tag)
 	. = ..()
 	if(tag)
@@ -939,6 +1013,7 @@
 	animname = "stab"
 	blade_class = BCLASS_STAB
 	hitsound = list('sound/combat/hits/bladed/genstab (1).ogg', 'sound/combat/hits/bladed/genstab (2).ogg', 'sound/combat/hits/bladed/genstab (3).ogg')
+	item_d_type = "stab"
 
 /datum/intent/claw/lunge/iron
 	damfactor = 1.2
@@ -1012,6 +1087,135 @@
 	desc = "Thieve the appearance of another."
 	icon_state = "inpeculate"
 
+//Knuckledusters. Uses the Psydonic Thorns code to swap between this and the wearable, unarmed-damage-multiplying variants.
+/obj/item/rogueweapon/knuckledusters
+	name = "knuckledusters" //(Currenty?) inaccessable base.
+	desc = "An alloyed piece of pugilism, adjusted to be actively swung rather than passively worn atop the knuckles. Favored \
+	by those who prefer to keep a little something-something in their pockets, whenever the Innhouse gets a bit too rowdy."
+	force = 25
+	possible_item_intents = list(/datum/intent/mace/strike/dislocate, /datum/intent/mace/smash, /datum/intent/dagger/sucker_punch)
+	icon = 'icons/roguetown/weapons/unarmed32.dmi'
+	icon_state = "steelknuckle"
+	gripsprite = FALSE
+	wlength = WLENGTH_SHORT
+	w_class = WEIGHT_CLASS_SMALL
+	slot_flags = ITEM_SLOT_HIP
+	parrysound = list('sound/combat/parry/pugilism/unarmparry (1).ogg','sound/combat/parry/pugilism/unarmparry (2).ogg','sound/combat/parry/pugilism/unarmparry (3).ogg')
+	sharpness = IS_BLUNT
+	max_integrity = 160 //Doubled integrity, compared to Katars. Thicker amounts of alloy, more punishment it can take.
+	swingsound = list('sound/combat/wooshes/punch/punchwoosh (1).ogg','sound/combat/wooshes/punch/punchwoosh (2).ogg','sound/combat/wooshes/punch/punchwoosh (3).ogg')
+	associated_skill = /datum/skill/combat/unarmed
+	throwforce = 12
+	wdefense = 0
+	wbalance = WBALANCE_SWIFT
+	anvilrepair = /datum/skill/craft/weaponsmithing
+	smeltresult = /obj/item/ingot/steel
+	grid_width = 64
+	grid_height = 32
+	special = /datum/special_intent/upper_cut
+
+/obj/item/rogueweapon/knuckledusters/getonmobprop(tag)
+	. = ..()
+	if(tag)
+		switch(tag)
+			if("gen")
+				return list("shrink" = 0.2,"sx" = -7,"sy" = -4,"nx" = 7,"ny" = -4,"wx" = -3,"wy" = -4,"ex" = 1,"ey" = -4,"northabove" = 0,"southabove" = 1,"eastabove" = 1,"westabove" = 0,"nturn" = 110,"sturn" = -110,"wturn" = -110,"eturn" = 110,"nflip" = 0,"sflip" = 8,"wflip" = 8,"eflip" = 0)
+			if("onbelt")
+				return list("shrink" = 0.1,"sx" = -2,"sy" = -5,"nx" = 4,"ny" = -5,"wx" = 0,"wy" = -5,"ex" = 2,"ey" = -5,"nturn" = 0,"sturn" = 0,"wturn" = 0,"eturn" = 0,"nflip" = 0,"sflip" = 0,"wflip" = 0,"eflip" = 0,"northabove" = 0,"southabove" = 1,"eastabove" = 1,"westabove" = 0)
+
+/obj/item/rogueweapon/knuckledusters/get_mechanics_examine(mob/user)
+	. = ..()
+	. += span_notice("Knuckledusters, similar to Katars, can still parry oncoming blows. Note that their fragility makes this a bit more of a daunting process, however, for unskilled swingers.")
+	//. += span_notice("Activate - while held in your current hand - to turn these into knuckles, which can be worn as gloves to greatly improve your unarmed damage and parrying chances.")
+
+/obj/item/rogueweapon/knuckledusters/silver
+	name = "silver knuckledusters"
+	desc = "A simple piece of harm that has been molded from pure silver, and further studded to stop errant strikes dead in their tracks. Though ostensibly holy, these heftsome knuckleweights are \
+	more strongly associated with underground pugilistic tournaments; a solid right hook could drive more-than-enough force to blow a yeoman's jaw clean off."
+	icon_state = "silverknuckledusters"
+	is_silver = TRUE
+	smeltresult = /obj/item/ingot/silver
+
+/obj/item/rogueweapon/knuckledusters/silver/ComponentInitialize()
+	AddComponent(\
+		/datum/component/silverbless,\
+		pre_blessed = BLESSING_TENNITE,\
+		silver_type = SILVER_TENNITE,\
+		added_force = 0,\
+		added_blade_int = 0,\
+		added_int = 50,\
+		added_def = 0,\
+	)
+
+/obj/item/rogueweapon/knuckledusters/silver/attack_self(mob/living/user)
+	. = ..()
+	user.visible_message(span_warning("[user] starts adjusting their grip on [src]."))
+	if(do_after(user, 3 SECONDS))
+		var/obj/item/rogueweapon/knuckledusters/silver/P = new /obj/item/clothing/gloves/roguetown/knuckles/silver(get_turf(src.loc))
+		if(user.is_holding(src))
+			user.dropItemToGround(src)
+			user.put_in_hands(P)
+		P.obj_integrity = src.obj_integrity
+		qdel(src)
+	else
+		user.visible_message(span_warning("[user] stops adjusting their grip on [src]."))
+		return
+
+/obj/item/rogueweapon/knuckledusters/psy
+	name = "psydonic knuckledusters"
+	desc = "A simple piece of harm molded in a holy mixture of steel and silver, finished with three stumps - Psydon's crown - to crush the heretics' garments and armor into smithereens."
+	icon_state = "psyknuckledusters"
+	is_silver = TRUE
+	smeltresult = /obj/item/ingot/silverblessed
+
+/obj/item/rogueweapon/knuckledusters/psy/ComponentInitialize()
+	AddComponent(\
+		/datum/component/silverbless,\
+		pre_blessed = BLESSING_PSYDONIAN,\
+		silver_type = SILVER_PSYDONIAN,\
+		added_force = 0,\
+		added_blade_int = 0,\
+		added_int = 50,\
+		added_def = 0,\
+	)
+	sellprice += 200
+
+/obj/item/rogueweapon/knuckledusters/psy/attack_self(mob/living/user)
+	. = ..()
+	user.visible_message(span_warning("[user] starts adjusting their grip on [src]."))
+	if(do_after(user, 3 SECONDS))
+		var/obj/item/rogueweapon/knuckledusters/psy/P = new /obj/item/clothing/gloves/roguetown/knuckles/psydon(get_turf(src.loc))
+		if(user.is_holding(src))
+			user.dropItemToGround(src)
+			user.put_in_hands(P)
+		P.obj_integrity = src.obj_integrity
+		qdel(src)
+	else
+		user.visible_message(span_warning("[user] stops adjusting their grip on [src]."))
+		return
+
+/obj/item/rogueweapon/knuckledusters/enduring
+	name = "enduring knuckles"
+	desc = "A simple piece of harm molded in a holy mixture of steel and silver, its holy blessing long since faded. You are HIS weapon, you needn't fear Aeon."
+	icon_state = "psyknuckle"
+	is_silver = FALSE
+	smeltresult = /obj/item/ingot/steel
+	color = COLOR_FLOORTILE_GRAY
+
+/obj/item/rogueweapon/knuckledusters/enduring/attack_self(mob/living/user)
+	. = ..()
+	user.visible_message(span_warning("[user] starts adjusting their grip on [src]."))
+	if(do_after(user, 3 SECONDS))
+		var/obj/item/rogueweapon/knuckledusters/enduring/P = new /obj/item/clothing/gloves/roguetown/knuckles/psydon/old(get_turf(src.loc))
+		if(user.is_holding(src))
+			user.dropItemToGround(src)
+			user.put_in_hands(P)
+		P.obj_integrity = src.obj_integrity
+		qdel(src)
+	else
+		user.visible_message(span_warning("[user] stops adjusting their grip on [src]."))
+		return
+
 //Unique assassin/antag dagger.
 /obj/item/rogueweapon/huntingknife/idagger/steel/profane
 	name = "profane dagger"
@@ -1023,7 +1227,6 @@
 	embedding = list("embed_chance" = 0) // Embedding the cursed dagger has the potential to cause duping issues. Keep it like this unless you want to do a lot of bug hunting.
 	resistance_flags = INDESTRUCTIBLE
 	stealthy_audio = TRUE
-	sellprice = 150 //Rare dagger
 
 /obj/item/rogueweapon/huntingknife/idagger/steel/profane/examine(mob/user)
 	. = ..()
@@ -1214,8 +1417,8 @@
 		ADD_TRAIT(user, TRAIT_IGNOREDAMAGESLOWDOWN, TRAIT_GENERIC)
 		if(HAS_TRAIT(user, TRAIT_STANDARD_BEARER))
 			to_chat(user, span_suppradio("<small>It remains ready for your word. You need only ask.</small>"))
-			user.verbs |= /mob/proc/standard_position
-			user.verbs |= /mob/proc/standard_rally
+			add_verb(user, /mob/proc/standard_position)
+			add_verb(user, /mob/proc/standard_rally)
 	else
 		to_chat(user, span_suicide("The standard's runes pulse, rejecting me as its <b>master</b>."))
 
@@ -1232,8 +1435,8 @@
 		REMOVE_TRAIT(user, TRAIT_IGNOREDAMAGESLOWDOWN, TRAIT_GENERIC)
 		if(HAS_TRAIT(user, TRAIT_STANDARD_BEARER))
 			to_chat(user, span_monkeyhive("<small>You feel ill. Was that a mistake?</small>"))
-			user.verbs -= /mob/proc/standard_position
-			user.verbs -= /mob/proc/standard_rally
+			remove_verb(user, /mob/proc/standard_position)
+			remove_verb(user, /mob/proc/standard_rally)
 	else
 		to_chat(user, span_suicide("The standard's runes pulse, as if sighing in relief once I let go."))
 

@@ -7,7 +7,7 @@
 	spawn_positions = 4
 
 	allowed_sexes = list(MALE, FEMALE)
-	allowed_races = ACCEPTED_RACES
+	forbidden_races = list() //Caustic Edit - Just a global tweak to remove 'races_despised' from this check everywhere
 	allowed_ages = list(AGE_ADULT, AGE_MIDDLEAGED, AGE_OLD)
 	tutorial = "Typically a denizen of the sparsely populated Azurian woods, you volunteered up with the wardens - a group of ranger types who keep a vigil over the untamed wilderness. \
 				While Wardens have no higher authority, operating as a fraternity of rangers, you will be called upon as members of the garrison by the Marshal or the Crown. \
@@ -94,7 +94,7 @@
 		/obj/item/signal_horn = 1,
 		/obj/item/hunting_map/boars = 1,
 		)
-	H.verbs |= /mob/proc/haltyell
+	add_verb(H, /mob/proc/haltyell)
 	H.set_blindness(0)
 
 	if(H.mind)

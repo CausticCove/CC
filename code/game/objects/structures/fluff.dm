@@ -1077,8 +1077,13 @@
 		/obj/item/rogueweapon/greatsword/psygsword,
 		/obj/item/clothing/head/roguetown/circlet,
 		/obj/item/carvedgem,  //Some of these aren't particularly worth much, but it'd be REALLY unintuitive for "valuables" to not actually be offerings
-		/obj/item/rogueweapon/huntingknife/stoneknife/kukri,
-		/obj/item/rogueweapon/huntingknife/stoneknife/opalknife,
+		/obj/item/rogueweapon/huntingknife/combat/jadekukri,
+		/obj/item/rogueweapon/huntingknife/combat/opalknife,
+		/obj/item/rogueweapon/spear/turq,
+		/obj/item/rogueweapon/stoneaxe/battle/coral,
+		/obj/item/rogueweapon/sword/amber,
+		/obj/item/rogueweapon/sword/short/messer/onyxa,
+		/obj/item/rogueweapon/huntingknife/idagger/steel/rondel/rose,
 		/obj/item/rogueweapon/mace/cudgel/shellrungu,
 		/obj/item/clothing/mask/rogue/facemask/carved,
 		/obj/item/clothing/neck/roguetown/carved,
@@ -1613,3 +1618,20 @@
 	stake.forceMove(drop_location())
 	stake = null
 	qdel(src)
+
+/obj/structure/bars/passage/shutter/bookcase
+	name = "Empty Bookcase"
+	desc = "Refuge for few, an irrelevance to most."
+	icon_state = "decoybookcase0"
+
+/obj/structure/bars/passage/shutter/bookcase/redstone_triggered()
+	if(obj_broken)
+		return
+	if(density)
+		icon_state = "decoybookcase1"
+		density = FALSE
+		opacity = FALSE
+	else
+		icon_state = "decoybookcase0"
+		density = TRUE
+		opacity = TRUE

@@ -9,7 +9,7 @@
 	var/list/traits_applied
 	traits_applied = list(TRAIT_PSYCHOSIS, TRAIT_NOSTINK, TRAIT_MANIAC_AWOKEN, TRAIT_HOMESTEAD_EXPERT) // Maniac_Awoken no longer has any function other than the flavor text and trait
 	allowed_sexes = list(MALE, FEMALE)
-	allowed_races = ACCEPTED_RACES
+	forbidden_races = list() //Caustic Edit - Just a global tweak to remove 'races_despised' from this check everywhere
 	allowed_ages = list(AGE_ADULT, AGE_MIDDLEAGED, AGE_OLD)
 	outfit = /datum/outfit/job/roguetown/lunatic
 	bypass_lastclass = TRUE

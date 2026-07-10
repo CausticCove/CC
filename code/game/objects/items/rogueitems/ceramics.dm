@@ -26,8 +26,8 @@
 	icon = 'icons/roguetown/items/cooking.dmi'
 	icon_state = "claybottlecook"
 	volume = 75 // Larger than glass bottle
-	sellprice = 6
 	reagent_flags = OPENCONTAINER	//So it doesn't appear through
+	glaze_bonus_pct = GLAZE_BONUS_PCT
 	glazeable = TRUE  // Caustic edit
 
 /obj/item/reagent_containers/glass/bottle/claybottleclassic
@@ -36,8 +36,8 @@
 	icon = 'icons/roguetown/items/cooking.dmi'
 	icon_state = "claybottlecook_baked" // Caustic Edit
 	volume = 75 // Larger than glass bottle
-	sellprice = 6
 	reagent_flags = OPENCONTAINER	//So it doesn't appear through
+	glaze_bonus_pct = GLAZE_BONUS_PCT
 
 /obj/item/reagent_containers/glass/bottle/claybottle/get_mechanics_examine(mob/user)
 	. = ..()
@@ -66,8 +66,8 @@
 	icon = 'icons/roguetown/items/cooking.dmi'
 	icon_state = "clayvasecook"
 	volume = 65 // Larger than glass bottle
-	sellprice = 9
 	reagent_flags = OPENCONTAINER	//So it doesn't appear through
+	glaze_bonus_pct = GLAZE_BONUS_PCT
 
 /obj/item/reagent_containers/glass/bottle/clayvaseclassic
 	name = "ceramic vase"
@@ -75,8 +75,8 @@
 	icon = 'icons/roguetown/items/cooking.dmi'
 	icon_state = "clayvasecook_baked" // Caustic Edit
 	volume = 65 // Larger than glass bottle
-	sellprice = 9
 	reagent_flags = OPENCONTAINER	//So it doesn't appear through
+	glaze_bonus_pct = GLAZE_BONUS_PCT
 
 /obj/item/reagent_containers/glass/bottle/clayvase/get_mechanics_examine(mob/user)
 	. = ..()
@@ -102,8 +102,8 @@
 	desc = "A large sized fancy ceramic vase."
 	icon_state = "clayfancyvasecook"
 	volume = 65 // Larger than glass bottle
-	sellprice = 20
 	reagent_flags = OPENCONTAINER	//So it doesn't appear through
+	glaze_bonus_pct = GLAZE_BONUS_PCT
 
 /obj/item/reagent_containers/glass/bottle/clayfancyvaseclassic
 	name = "fancy ceramic vase"
@@ -111,8 +111,8 @@
 	icon = 'icons/roguetown/items/cooking.dmi'
 	icon_state = "clayfancyvasecook_baked" // Caustic Edit
 	volume = 65 // Larger than glass bottle
-	sellprice = 20
 	reagent_flags = OPENCONTAINER	//So it doesn't appear through
+	glaze_bonus_pct = GLAZE_BONUS_PCT
 
 /obj/item/reagent_containers/glass/bottle/clayfancyvase/get_mechanics_examine(mob/user)
 	. = ..()
@@ -133,13 +133,60 @@
 	desc = "A small flask fashioned from clay. Still needs to be glazed to be useful."
 	cooked_type = /obj/item/reagent_containers/glass/cup/claycupclassic
 
+/obj/item/natural/clay/rawcup
+	name = "unfired clay cup"
+	icon = 'icons/roguetown/items/cooking.dmi'
+	icon_state = "clayporcelaincupraw"
+	cooked_type = /obj/item/reagent_containers/glass/cup/carved/porcelain
+	desc = "A small cup fashioned from clay. It still needs to be fired to be useful."
+	smeltresult = /obj/item/reagent_containers/glass/cup/carved/porcelain
+
+/obj/item/natural/clay/rawcupfancy
+	name = "unfired fancy clay goblet"
+	icon = 'icons/roguetown/items/cooking.dmi'
+	icon_state = "clayporcelaincupfancyraw"
+	cooked_type = /obj/item/reagent_containers/glass/cup/carved/porcelainfancy
+	desc = "A fancy goblet fashioned from clay. It still needs to be fired to be useful."
+	smeltresult = /obj/item/reagent_containers/glass/cup/carved/porcelainfancy
+
+/obj/item/natural/clay/rawbowl
+	name = "unfired clay bowl"
+	icon = 'icons/roguetown/items/cooking.dmi'
+	icon_state = "clayporcelainbowlraw"
+	cooked_type = /obj/item/reagent_containers/glass/bowl/carved/porcelain
+	desc = "A fancy bowl fashioned from clay. It still needs to be fired to be useful."
+	smeltresult = /obj/item/reagent_containers/glass/bowl/carved/porcelain
+
+/obj/item/natural/clay/rawspoon
+	name = "unfired clay spoon"
+	icon = 'icons/roguetown/items/cooking.dmi'
+	icon_state = "clayporcelainspoonraw"
+	cooked_type = /obj/item/kitchen/spoon/carved/porcelain
+	desc = "A fancy spoon fashioned from clay. It still needs to be fired to be useful."
+
+
+/obj/item/natural/clay/rawfork
+	name = "unfired clay fork"
+	icon = 'icons/roguetown/items/cooking.dmi'
+	icon_state = "clayporcelainforkraw"
+	cooked_type = /obj/item/kitchen/fork/carved/porcelain 
+	desc = "A fancy fork fashioned from clay. It still needs to be fired to be useful."
+
+/obj/item/natural/clay/rawplatter
+	name = "unfired clay platter"
+	icon = 'icons/roguetown/items/cooking.dmi'
+	icon_state = "clayporcelainplatterraw"
+	cooked_type = /obj/item/cooking/platter/carved/porcelain
+	desc = "A fancy platter fashioned from clay. It still needs to be fired to be useful."
+
+
 /obj/item/reagent_containers/glass/cup/claycup
 	name = "clay flask"
 	desc = "A small ceramic flask."
 	icon = 'icons/roguetown/items/cooking.dmi'
 	icon_state = "claycupcook"
-	sellprice = 3
 	reagent_flags = OPENCONTAINER	//So it doesn't appear through
+	glaze_bonus_pct = GLAZE_BONUS_PCT
 	glazeable = TRUE  // Caustic edit
 
 /obj/item/reagent_containers/glass/cup/claycupclassic
@@ -147,8 +194,8 @@
 	desc = "A small ceramic flask. Tyme caresses its curves and cracks with a faint, ethereal glimmer."
 	icon = 'icons/roguetown/items/cooking.dmi'
 	icon_state = "claycupcook_baked" // Caustic Edit
-	sellprice = 3
 	reagent_flags = OPENCONTAINER	//So it doesn't appear through
+	glaze_bonus_pct = GLAZE_BONUS_PCT
 
 /obj/item/reagent_containers/glass/cup/claycup/get_mechanics_examine(mob/user)
 	. = ..()
@@ -192,15 +239,11 @@
 	icon = 'icons/roguetown/items/cooking.dmi'
 	icon_state = "claystatuecooked1"
 	smeltresult = null	//No resource return
-	sellprice = 35 //Expert-tier Clay recipe. Skillgated to Towners, or those that take the 'Homesteader Expert' virtue. Let 'em cook.
+	glaze_bonus_pct = GLAZE_BONUS_PCT
 
 /obj/item/roguestatue/clay/Initialize()
 	. = ..()
 	icon_state = "claystatuecooked[pick(1,2,3,4,5)]"
-
-/obj/item/roguestatue/clay/get_mechanics_examine(mob/user)
-	. = ..()
-	. += span_info("Clay pottery, unlike its alloyed counterparts, can be stained in a dyebin.")
 
 /obj/item/roguestatue/glass
 	name = "glass statue"
@@ -208,7 +251,7 @@
 	icon = 'icons/roguetown/items/cooking.dmi'
 	icon_state = "statueglass1"
 	smeltresult = null	//No resource return
-	sellprice = 70		//Silver is roughly 90 mammon, steel is 40. This sits roughly between. It's high skill to make and a bit of a grind so - worth it since resources to make aren't rare..
+	glaze_bonus_pct = GLAZE_BONUS_PCT
 
 /obj/item/roguestatue/glass/Initialize()
 	. = ..()
@@ -217,6 +260,249 @@
 /obj/item/roguestatue/clay/get_mechanics_examine(mob/user)
 	. = ..()
 	. += span_info("Glassed pottery, unlike its alloyed counterparts, can be stained in a dyebin.")
+
+// LITERALLY EVERYTHING ELSE. ORGANIZATION BE DAMNED!
+
+/obj/item/natural/clay/rawbauble
+	name = "unfired clay bauble"
+	icon = 'icons/roguetown/items/cooking.dmi'
+	icon_state = "clayporcelainbaubleraw"
+	desc = "A bauble fashioned out of clay."
+	cooked_type = /obj/item/natural/clay/porcelain/bauble
+	smeltresult = /obj/item/natural/clay/porcelain/bauble
+
+/obj/item/natural/clay/rawcameo
+	name = "unfired clay cameo"
+	icon = 'icons/roguetown/items/cooking.dmi'
+	icon_state = "clayporcelaincameoraw"
+	desc = "A cameo fashioned out of clay."
+	cooked_type = /obj/item/natural/clay/porcelain/cameo
+	smeltresult = /obj/item/natural/clay/porcelain/cameo
+
+/obj/item/natural/clay/rawbust
+	name = "unfired clay bust"
+	icon = 'icons/roguetown/items/cooking.dmi'
+	icon_state = "clayporcelainbustraw"
+	desc = "A large bust fashioned out of clay."
+	cooked_type = /obj/item/natural/clay/porcelain/bust
+	smeltresult = /obj/item/natural/clay/porcelain/bust
+
+/obj/item/natural/clay/rawfigurine
+	name = "unfired clay figurine"
+	icon = 'icons/roguetown/items/cooking.dmi'
+	icon_state = "clayporcelainfigurineraw"
+	desc = "A small figurine fashioned out of clay."
+	cooked_type = /obj/item/natural/clay/porcelain/figurine
+	smeltresult = /obj/item/natural/clay/porcelain/figurine
+
+/obj/item/natural/clay/rawurn
+	name = "unfired large clay urn"
+	icon = 'icons/roguetown/items/cooking.dmi'
+	icon_state = "clayporcelainurnraw"
+	desc = "A large, lidded urn fashioned out of clay."
+	cooked_type = /obj/item/natural/clay/porcelain/urn
+	smeltresult = /obj/item/natural/clay/porcelain/urn
+
+/obj/item/natural/clay/rawstatuette
+	name = "unfired clay statuette"
+	icon = 'icons/roguetown/items/cooking.dmi'
+	icon_state = "clayporcelainstatueraw"
+	desc = "A medium-sized statuette fashioned out of clay."
+	cooked_type = /obj/item/natural/clay/porcelain/statuette
+	smeltresult = /obj/item/natural/clay/porcelain/statuette
+
+/obj/item/natural/clay/rawobelisk
+	name = "unfired clay obelisk"
+	icon = 'icons/roguetown/items/cooking.dmi'
+	icon_state = "clayporcelainobeliskraw"
+	desc = "A medium-sized obelisk fashioned out of clay."
+	cooked_type = /obj/item/natural/clay/porcelain/obelisk
+	smeltresult = /obj/item/natural/clay/porcelain/obelisk
+
+/obj/item/natural/clay/rawduck
+	name = "unfired clay duck"
+	icon = 'icons/roguetown/items/cooking.dmi'
+	icon_state = "clayporcelainduckraw"
+	desc = "An adorable duck statue fashioned out of clay."
+	cooked_type = /obj/item/natural/clay/porcelain/duck
+	smeltresult = /obj/item/natural/clay/porcelain/duck
+
+/obj/item/natural/clay/rawcomb
+	name = "unfired clay comb"
+	icon = 'icons/roguetown/items/cooking.dmi'
+	icon_state = "clayporcelaincombraw"
+	desc = "A fashionable comb fashioned out of clay."
+	cooked_type = /obj/item/natural/clay/porcelain/comb
+	smeltresult = /obj/item/natural/clay/porcelain/comb
+
+/obj/item/natural/clay/rawtablet
+	name = "unfired clay tablet"
+	icon = 'icons/roguetown/items/cooking.dmi'
+	icon_state = "clayporcelaintabletraw"
+	desc = "A medium-sized tablet fashioned out of clay."
+	cooked_type = /obj/item/natural/clay/porcelain/tablet
+	smeltresult = /obj/item/natural/clay/porcelain/tablet
+
+/obj/item/natural/clay/rawturtle
+	name = "unfired clay turtle statuette"
+	icon = 'icons/roguetown/items/cooking.dmi'
+	icon_state = "clayporcelainturtleraw"
+	desc = "A large turtle statuette fashioned out of clay."
+	cooked_type = /obj/item/natural/clay/porcelain/turtle
+	smeltresult = /obj/item/natural/clay/porcelain/turtle
+
+/obj/item/natural/clay/rawfish
+	name = "unfired clay fish figurine"
+	icon = 'icons/roguetown/items/cooking.dmi'
+	icon_state = "clayporcelainfishraw"
+	desc = "A small fish figurine fashioned out of clay."
+	cooked_type = /obj/item/natural/clay/porcelain/fish
+	smeltresult = /obj/item/natural/clay/porcelain/fish
+
+/obj/item/natural/clay/rawmoon
+	name = "unfired clay moon"
+	icon = 'icons/roguetown/items/cooking.dmi'
+	icon_state = "clayporcelainmoonraw"
+	desc = "A medium-sized moon statue fashioned out of clay."
+	cooked_type = /obj/item/natural/clay/porcelain/moon
+	smeltresult = /obj/item/natural/clay/porcelain/moon
+
+/obj/item/natural/clay/rawsun
+	name = "unfired clay sun"
+	icon = 'icons/roguetown/items/cooking.dmi'
+	icon_state = "clayporcelainsunraw"
+	desc = "A medium-sized sun statue fashioned out of clay."
+	cooked_type = /obj/item/natural/clay/porcelain/sun
+	smeltresult = /obj/item/natural/clay/porcelain/sun
+
+/obj/item/natural/clay/rawheart
+	name = "unfired clay heart"
+	icon = 'icons/roguetown/items/cooking.dmi'
+	icon_state = "clayporcelainheartraw"
+	desc = "A heart fashioned out of clay."
+	cooked_type = /obj/item/natural/clay/porcelain/heart
+	smeltresult = /obj/item/natural/clay/porcelain/heart
+
+/obj/item/natural/clay/rawdisplay
+	name = "unfired clay display stand"
+	icon = 'icons/roguetown/items/cooking.dmi'
+	icon_state = "clayporcelainstandraw"
+	desc = "A small display stand fashioned out of clay."
+	cooked_type = /obj/item/natural/clay/porcelain/display
+	smeltresult = /obj/item/natural/clay/porcelain/display
+
+/obj/item/natural/clay/rawring
+	name = "unfired clay ring"
+	icon = 'icons/roguetown/items/cooking.dmi'
+	icon_state = "clayporeclainringraw"
+	desc = "A dainty ring fashioned out of clay."
+	cooked_type = /obj/item/clothing/ring/porcelain
+	smeltresult = /obj/item/clothing/ring/porcelain
+
+/obj/item/natural/clay/rawamulet
+	name = "unfired clay amulet"
+	icon = 'icons/roguetown/items/cooking.dmi'
+	icon_state = "clayporcelainamuletraw"
+	desc = "A delicate amulet fashioned out of clay."
+	cooked_type = /obj/item/clothing/neck/roguetown/carved/porcelainamulet
+	smeltresult = /obj/item/clothing/neck/roguetown/carved/porcelainamulet
+
+/obj/item/natural/clay/rawcirclet
+	name = "unfired clay circlet"
+	icon = 'icons/roguetown/items/cooking.dmi'
+	icon_state = "clayporcelaincircletraw"
+	desc = "An elegant circlet fashioned out of clay."
+	cooked_type = /obj/item/clothing/head/roguetown/circlet/carvedgem/porcelain
+	smeltresult = /obj/item/clothing/head/roguetown/circlet/carvedgem/porcelain
+
+// THE COOKED ITEMS, AGAIN, ORGANIZATION BE DAMNED
+/obj/item/natural/clay/porcelain
+	name = "porcelain base"
+	icon = 'icons/roguetown/items/cooking.dmi'
+	icon_state = "clayporcelainbauble"
+	desc = "This is a base item, if you are seeing this, it's a bug, report it lol."
+	dropshrink = FALSE
+	obj_flags = CAN_BE_HIT|UNIQUE_RENAME
+	
+/obj/item/natural/clay/porcelain/bauble
+	name = "porcelain bauble"
+	desc = "A small porcelain bauble."
+	icon_state = "clayporcelainbauble"
+	
+/obj/item/natural/clay/porcelain/cameo
+	name = "porcelain cameo"
+	desc = "A small porcelain cameo."
+	icon_state = "clayporcelaincameo"
+	
+/obj/item/natural/clay/porcelain/bust
+	name = "porcelain bust"
+	desc = "A large porcelain bust."
+	icon_state = "clayporcelainbust"
+	
+/obj/item/natural/clay/porcelain/figurine
+	name = "porcelain figurine"
+	desc = "A small figurine made out of porcelain."
+	icon_state = "clayporcelainfigurine"
+
+/obj/item/natural/clay/porcelain/urn
+	name = "large porcelain urn"
+	desc = "A large, lidded urn made out of porcelain."
+	icon_state = "clayporcelainurn"
+
+/obj/item/natural/clay/porcelain/statuette
+	name = "porcelain statuette"
+	desc = "A medium-sized statuette made out of porcelain."
+	icon_state = "clayporcelainstatue"
+
+/obj/item/natural/clay/porcelain/obelisk
+	name = "porcelain obelisk"
+	desc = "A medium-sized obelisk made out of porcelain."
+	icon_state = "clayporcelainobelisk"
+
+/obj/item/natural/clay/porcelain/sun
+	name = "porcelain sun"
+	desc = "A medium-sized sun statue made out of porcelain."
+	icon_state = "clayporcelainsun"
+
+/obj/item/natural/clay/porcelain/moon
+	name = "porcelain moon"
+	desc = "A medium-sized moon statue made out of porcelain."
+	icon_state = "clayporcelainmoon"
+
+/obj/item/natural/clay/porcelain/heart
+	name = "porcelain heart"
+	desc = "A heart made out of porcelain."
+	icon_state = "clayporcelainheart"
+
+/obj/item/natural/clay/porcelain/display
+	name = "porcelain display stand"
+	desc = "A small display stand made out of porcelain."
+	icon_state = "clayporcelainstand"
+
+/obj/item/natural/clay/porcelain/fish
+	name = "porcelain fish figurine"
+	desc = "A small fish figurine made out of porcelain."
+	icon_state = "clayporcelainfish"
+
+/obj/item/natural/clay/porcelain/turtle
+	name = "porcelain turtle statuette"
+	desc = "A large turtle statuette made out of porcelain."
+	icon_state = "clayporcelainturtle"
+
+/obj/item/natural/clay/porcelain/duck
+	name = "porcelain duck statue"
+	desc = "An adorable duck statue made out of porcelain."
+	icon_state = "clayporcelainduck"
+
+/obj/item/natural/clay/porcelain/comb
+	name = "porcelain comb"
+	desc = "A fashionable comb made out of porcelain."
+	icon_state = "clayporcelaincomb"
+
+/obj/item/natural/clay/porcelain/tablet
+	name = "porcelain tablet"
+	desc = "A medium-sized tablet made out of porcelain."
+	icon_state = "clayporcelaintablet"
 
 // Caustic Edit start
 
@@ -278,7 +564,6 @@
 	name = "clay mug"
 	desc = "A ceramic mug."
 	icon_state = "claymugcook"
-	sellprice = 3
 	reagent_flags = OPENCONTAINER	//So it doesn't appear through
 	glazeable = TRUE
 
@@ -288,7 +573,6 @@
 	name = "baked clay mug"
 	desc = "A ceramic mug. Glazed and marked to mimic rough brown clay."
 	icon_state = "claymugcook_baked"
-	sellprice = 8
 	glazeable = FALSE
 	glazed = TRUE
 
@@ -296,7 +580,6 @@
 	name = "porcelain clay mug"
 	desc = "A ceramic mug. Gilded and coated in white glaze. This is fit for nobility."
 	icon_state = "claymugcook_porcelain"
-	sellprice = 8
 	glazeable = FALSE
 	glazed = TRUE
 
@@ -304,7 +587,6 @@
 	name = "shattergold clay mug"
 	desc = "A ceramic mug. Known as kintsugi to the Kazengunese. This method mends cracked and broken pottery with molten gold."
 	icon_state = "claymugcook_shattergold"
-	sellprice = 8
 	glazeable = FALSE
 	glazed = TRUE
 
@@ -312,7 +594,6 @@
 	name = "bluegold clay mug"
 	desc = "A ceramic mug. Known as kintsugi to the Kazengunese. This method mends cracked and broken pottery with molten gold."
 	icon_state = "claymugcook_bluegold"
-	sellprice = 8
 	glazeable = FALSE
 	glazed = TRUE
 
@@ -329,7 +610,6 @@
 	name = "clay platter"
 	desc = "A ceramic platter."
 	icon_state = "platter_clay_cook"
-	sellprice = 2
 	glazeable = TRUE
 
 // Pre-glazed
@@ -338,7 +618,6 @@
 	name = "baked clay platter"
 	desc = "A ceramic platter. Glazed and marked to mimic rough brown clay."
 	icon_state = "platter_clay_cook_baked"
-	sellprice = 7
 	glazeable = FALSE
 	glazed = TRUE
 
@@ -346,7 +625,6 @@
 	name = "porcelain clay platter"
 	desc = "A ceramic platter. Gilded and coated in white glaze. This is fit for nobility."
 	icon_state = "platter_clay_cook_porcelain"
-	sellprice = 7
 	glazeable = FALSE
 	glazed = TRUE
 
@@ -354,7 +632,6 @@
 	name = "shattergold clay platter"
 	desc = "A ceramic platter. Known as kintsugi to the Kazengunese. This method mends cracked and broken pottery with molten gold."
 	icon_state = "platter_clay_cook_shattergold"
-	sellprice = 7
 	glazeable = FALSE
 	glazed = TRUE
 
@@ -362,7 +639,6 @@
 	name = "bluegold clay platter"
 	desc = "A ceramic platter. Known as kintsugi to the Kazengunese. This method mends cracked and broken pottery with molten gold."
 	icon_state = "platter_clay_cook_bluegold"
-	sellprice = 7
 	glazeable = FALSE
 	glazed = TRUE
 
@@ -378,7 +654,6 @@
 /obj/item/reagent_containers/glass/bowl/clay
 	name = "clay bowl"
 	icon_state = "bowl_clay_cook"
-	sellprice = 3
 	glazeable = TRUE
 
 // Pre-glazed
@@ -387,7 +662,6 @@
 	name = "baked clay bowl"
 	desc = "It is the empty space that makes the bowl useful. Glazed and marked to mimic rough brown clay."
 	icon_state = "bowl_clay_cook_baked"
-	sellprice = 8
 	glazeable = FALSE
 	glazed = TRUE
 
@@ -395,7 +669,6 @@
 	name = "porcelain clay bowl"
 	desc = "It is the empty space that makes the bowl useful. Gilded and coated in white glaze. This is fit for nobility."
 	icon_state = "bowl_clay_cook_porcelain"
-	sellprice = 8
 	glazeable = FALSE
 	glazed = TRUE
 
@@ -403,7 +676,6 @@
 	name = "shattergold clay bowl"
 	desc = "It is the empty space that makes the bowl useful. Known as kintsugi to the Kazengunese. This method mends cracked and broken pottery with molten gold."
 	icon_state = "bowl_clay_cook_shattergold"
-	sellprice = 8
 	glazeable = FALSE
 	glazed = TRUE
 
@@ -411,7 +683,6 @@
 	name = "bluegold clay bowl"
 	desc = "It is the empty space that makes the bowl useful. Known as kintsugi to the Kazengunese. This method mends cracked and broken pottery with molten gold."
 	icon_state = "bowl_clay_cook_bluegold"
-	sellprice = 8
 	glazeable = FALSE
 	glazed = TRUE
 
@@ -431,7 +702,6 @@
 	icon_state = "teapot_clay_cook"
 	fill_icon_thresholds = null
 	volume = 90 // 3 ingredients. You could make soup in it, if you're a maniac
-	sellprice = 12
 	glazeable = TRUE
 
 // Pre-glazed
@@ -440,7 +710,6 @@
 	name = "baked clay teapot"
 	desc = "A teapot fashioned from clay. Glazed and marked to mimic rough brown clay."
 	icon_state = "teapot_clay_cook_baked"
-	sellprice = 17
 	glazeable = FALSE
 	glazed = TRUE
 
@@ -448,7 +717,6 @@
 	name = "porcelain clay teapot"
 	desc = "A teapot fashioned from clay. Gilded and coated in white glaze. This is fit for nobility."
 	icon_state = "teapot_clay_cook_porcelain"
-	sellprice = 17
 	glazeable = FALSE
 	glazed = TRUE
 
@@ -456,7 +724,6 @@
 	name = "shattergold clay teapot"
 	desc = "A teapot fashioned from clay. Known as kintsugi to the Kazengunese. This method mends cracked and broken pottery with molten gold."
 	icon_state = "teapot_clay_cook_shattergold"
-	sellprice = 17
 	glazeable = FALSE
 	glazed = TRUE
 
@@ -464,7 +731,6 @@
 	name = "bluegold clay teapot"
 	desc = "A teapot fashioned from clay. Known as kintsugi to the Kazengunese. This method mends cracked and broken pottery with molten gold."
 	icon_state = "teapot_clay_cook_bluegold"
-	sellprice = 17
 	glazeable = FALSE
 	glazed = TRUE
 
@@ -481,7 +747,6 @@
 	desc = "A small cup made of ceramic."
 	icon_state = "claycupcook"
 	dropshrink = 0.9
-	volume = 15
 	glazeable = TRUE
 
 // Pre-glazed
@@ -490,7 +755,6 @@
 	name = "baked clay teacup"
 	desc = "A small cup made of ceramic. Glazed and marked to mimic rough brown clay."
 	icon_state = "claycupcook_baked"
-	sellprice = 10
 	glazeable = FALSE
 	glazed = TRUE
 
@@ -498,7 +762,6 @@
 	name = "porcelain clay teacup"
 	desc = "A small cup made of ceramic. Gilded and coated in white glaze. This is fit for nobility."
 	icon_state = "claycupcook_porcelain"
-	sellprice = 10
 	glazeable = FALSE
 	glazed = TRUE
 
@@ -506,7 +769,6 @@
 	name = "shattergold clay teacup"
 	desc = "A small cup made of ceramic. Known as kintsugi to the Kazengunese. This method mends cracked and broken pottery with molten gold."
 	icon_state = "claycupcook_shattergold"
-	sellprice = 10
 	glazeable = FALSE
 	glazed = TRUE
 
@@ -514,7 +776,6 @@
 	name = "bluegold clay teacup"
 	desc = "A small cup made of ceramic. Known as kintsugi to the Kazengunese. This method mends cracked and broken pottery with molten gold."
 	icon_state = "claycupcook_bluegold"
-	sellprice = 10
 	glazeable = FALSE
 	glazed = TRUE
 
@@ -524,7 +785,6 @@
 	name = "baked clay flask"
 	desc = "A small ceramic flask. Glazed and marked to mimic rough brown clay."
 	icon_state = "claycupcook_baked"
-	sellprice = 8
 	glazeable = FALSE
 	glazed = TRUE
 
@@ -532,7 +792,6 @@
 	name = "porcelain clay flask"
 	desc = "A small ceramic flask. Gilded and coated in white glaze. This is fit for nobility."
 	icon_state = "claycupcook_porcelain"
-	sellprice = 8
 	glazeable = FALSE
 	glazed = TRUE
 
@@ -540,7 +799,6 @@
 	name = "shattergold clay flask"
 	desc = "A small ceramic flask. Known as kintsugi to the Kazengunese. This method mends cracked and broken pottery with molten gold."
 	icon_state = "claycupcook_shattergold"
-	sellprice = 8
 	glazeable = FALSE
 	glazed = TRUE
 
@@ -548,7 +806,6 @@
 	name = "bluegold clay flask"
 	desc = "A small ceramic flask. Known as kintsugi to the Kazengunese. This method mends cracked and broken pottery with molten gold."
 	icon_state = "claycupcook_bluegold"
-	sellprice = 8
 	glazeable = FALSE
 	glazed = TRUE
 
@@ -558,7 +815,6 @@
 	name = "baked clay vessel"
 	desc = "A ceramic bottle. Glazed and marked to mimic rough brown clay."
 	icon_state = "claybottlecook_baked"
-	sellprice = 11
 	glazeable = FALSE
 	glazed = TRUE
 
@@ -566,7 +822,6 @@
 	name = "porcelain clay vessel"
 	desc = "A ceramic bottle. Gilded and coated in white glaze. This is fit for nobility."
 	icon_state = "claybottlecook_porcelain"
-	sellprice = 11
 	glazeable = FALSE
 	glazed = TRUE
 
@@ -574,7 +829,6 @@
 	name = "shattergold clay vessel"
 	desc = "A ceramic bottle. Known as kintsugi to the Kazengunese. This method mends cracked and broken pottery with molten gold."
 	icon_state = "claybottlecook_shattergold"
-	sellprice = 11
 	glazeable = FALSE
 	glazed = TRUE
 
@@ -582,7 +836,6 @@
 	name = "bluegold clay vessel"
 	desc = "A ceramic bottle. Known as kintsugi to the Kazengunese. This method mends cracked and broken pottery with molten gold."
 	icon_state = "claybottlecook_bluegold"
-	sellprice = 11
 	glazeable = FALSE
 	glazed = TRUE
 
@@ -592,7 +845,6 @@
 	name = "baked clay vase"
 	desc = "A large sized ceramic vase. Glazed and marked to mimic rough brown clay."
 	icon_state = "clayvasecook_baked"
-	sellprice = 14
 	glazeable = FALSE
 	glazed = TRUE
 
@@ -600,7 +852,6 @@
 	name = "porcelain clay vase"
 	desc = "A large sized ceramic vase. Gilded and coated in white glaze. This is fit for nobility."
 	icon_state = "clayvasecook_porcelain"
-	sellprice = 14
 	glazeable = FALSE
 	glazed = TRUE
 
@@ -608,7 +859,6 @@
 	name = "shattergold clay vase"
 	desc = "A large sized ceramic vase. Known as kintsugi to the Kazengunese. This method mends cracked and broken pottery with molten gold."
 	icon_state = "clayvasecook_shattergold"
-	sellprice = 14
 	glazeable = FALSE
 	glazed = TRUE
 
@@ -616,7 +866,6 @@
 	name = "bluegold clay vase"
 	desc = "A large sized ceramic vase. Known as kintsugi to the Kazengunese. This method mends cracked and broken pottery with molten gold."
 	icon_state = "clayvasecook_bluegold"
-	sellprice = 14
 	glazeable = FALSE
 	glazed = TRUE
 
@@ -626,7 +875,6 @@
 	name = "brown fancy clay vase"
 	desc = "A large sized fancy ceramic vase. Glazed and marked to mimic rough brown clay."
 	icon_state = "clayfancyvasecook_baked"
-	sellprice = 19
 	glazeable = FALSE
 	glazed = TRUE
 
@@ -634,7 +882,6 @@
 	name = "porcelain fancy clay vase"
 	desc = "A large sized fancy ceramic vase. Gilded and coated in white glaze. This is fit for nobility."
 	icon_state = "clayfancyvasecook_porcelain"
-	sellprice = 19
 	glazeable = FALSE
 	glazed = TRUE
 
@@ -642,7 +889,6 @@
 	name = "shattergold fancy clay vase"
 	desc = "A large sized fancy ceramic vase. Known as kintsugi to the Kazengunese. This method mends cracked and broken pottery with molten gold."
 	icon_state = "clayfancyvasecook_shattergold"
-	sellprice = 19
 	glazeable = FALSE
 	glazed = TRUE
 
@@ -650,7 +896,6 @@
 	name = "bluegold fancy clay vase"
 	desc = "A large sized fancy ceramic vase. Known as kintsugi to the Kazengunese. This method mends cracked and broken pottery with molten gold."
 	icon_state = "clayfancyvasecook_bluegold"
-	sellprice = 19
 	glazeable = FALSE
 	glazed = TRUE
 

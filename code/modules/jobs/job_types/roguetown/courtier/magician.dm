@@ -6,7 +6,7 @@
 	total_positions = 1
 	spawn_positions = 1
 
-	allowed_races = RACES_ALL_KINDS //Caustic edit from RACES_NO_CONSTRUCT
+	forbidden_races = list() //Caustic edit from list(RACES_CONSTRUCT RACES_DESPISED)
 	allowed_sexes = list(MALE, FEMALE)
 	spells = list()
 	display_order = JDO_MAGICIAN
@@ -53,7 +53,7 @@
 	age_mod = /datum/class_age_mod/court_magician
 	subclass_skills = list(
 		/datum/skill/combat/staves = SKILL_LEVEL_EXPERT,
-		/datum/skill/combat/arcyne = SKILL_LEVEL_EXPERT,
+		/datum/skill/combat/arcyne = SKILL_LEVEL_MASTER, //Caustic Edit - Bumping this up a tiny bit!
 		/datum/skill/combat/polearms = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/combat/swords = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/combat/knives = SKILL_LEVEL_APPRENTICE,
@@ -83,7 +83,7 @@
 			cloak = null
 			head = /obj/item/clothing/head/roguetown/wizhat
 			armor = /obj/item/clothing/suit/roguetown/shirt/robe/wizard
-			H.dna.species.soundpack_m = new /datum/voicepack/male/wizard()
+			H.dna.species.soundpack_m = GLOB.voice_packs[/datum/voicepack/male/wizard]
 	switch(H.patron?.type)
 		if(/datum/patron/inhumen/zizo)
 			H.cmode_music = 'sound/music/combat_heretic.ogg'

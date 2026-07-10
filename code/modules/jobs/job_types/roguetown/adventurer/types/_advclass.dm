@@ -8,7 +8,7 @@
 	/// Subclass-specific tutorial shown via to_chat on spawn, separate from the class-picker tutorial.
 	var/subclass_tutorial
 	var/list/allowed_sexes
-	var/list/allowed_races = RACES_ALL_KINDS
+	var/list/forbidden_races
 	var/list/allowed_patrons
 	var/list/allowed_ages
 	var/pickprob = 100
@@ -106,8 +106,9 @@
 		ADD_TRAIT(H, trait, ADVENTURER_TRAIT)
 
 	if(noble_income)
+		var/already_has_income = !isnull(SStreasury.noble_incomes[H])
 		SStreasury.noble_incomes[H] = noble_income
-		SStreasury.grant_estate_income(H, noble_income, TRUE)
+		SStreasury.grant_estate_income(H, noble_income, !already_has_income)
 
 	if(adaptive_name)
 		H.adaptive_name = TRUE
@@ -183,7 +184,7 @@
 	if(length(local_allowed_sexes) && !(H.gender in local_allowed_sexes))
 		return FALSE
 
-	if(length(allowed_races) && !(H.dna.species.type in allowed_races))
+	if(length(forbidden_races) && (H.dna.species.type in forbidden_races))
 		return FALSE
 
 	if(length(allowed_ages) && !(H.age in allowed_ages))

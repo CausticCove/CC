@@ -30,12 +30,11 @@
 	clotting_rate = 0.60		// Normally it's only 0.02, this is huge compared to that.
 	bypass_bloody_wound_check = TRUE	//We bypass this proc-checkfor fractures.
 
-//OV edit
+//Slimes don't have bones, instead we'll make their limbs straight up dissolve if they take too much damage.
 /datum/wound/fracture/can_apply_to_bodypart(obj/item/bodypart/affected)
 	if(isooze(affected.owner))
 		return FALSE
 	return ..()
-//OV edit end
 
 /datum/wound/fracture/get_visible_name(mob/user)
 	. = ..()
@@ -103,7 +102,9 @@
 	/// Some head fractures instantly kill you if you have critical weakness. Others won't.
 	mortal = TRUE
 	/// Some head fractures will knock your lights out, if not flat-out paralyze you.
-	var/knockout = 10	//10 tick knockout (1 sec)
+	var/knockout = 2 SECONDS
+	/// Few fractures will kill you instantly with shatterable form - used to workaround stage 1 skullcracks being hyper lethal for crit weakness.
+	shatter_wound = FALSE
 
 /datum/wound/fracture/head/on_mob_gain(mob/living/affected)
 	. = ..()
@@ -133,6 +134,17 @@
 	. = ..()
 	owner?.stuttering = max(owner.stuttering, 5)
 
+/datum/wound/fracture/head/shatter
+	name = "shattered skull"
+	check_name = span_bone("<B>SKULLSHATTER</B>")
+	crit_message = list(
+		"THE SKULL SHATTERS!",
+		"THE HEAD IS PULVERIZED!",
+		"THE SKULL IS MINCED INTO DUST!",
+	)
+	paralysis = TRUE
+	shatter_wound = TRUE
+
 /datum/wound/fracture/head/brain
 	name = "depressed cranial fracture"
 	severity = WOUND_SEVERITY_FATAL
@@ -146,6 +158,7 @@
 	clotting_threshold = 1 //CCedit, used the parent and we changed that
 	knockout = 20
 	paralysis = TRUE
+	shatter_wound = TRUE
 
 /datum/wound/fracture/head/eyes
 	name = "orbital fracture"
@@ -255,6 +268,7 @@
 		"The spine is broken!",
 	)
 	whp = 100
+	shatter_wound = TRUE
 
 /datum/wound/fracture/neck/on_mob_gain(mob/living/affected)
 	. = ..()

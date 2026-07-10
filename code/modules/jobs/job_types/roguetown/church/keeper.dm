@@ -6,7 +6,7 @@
 	faction = "Station"
 	total_positions = 2
 	spawn_positions = 2
-	allowed_races = ACCEPTED_RACES
+	forbidden_races = list() //Caustic Edit - Just a global tweak to remove 'races_despised' from this check everywhere
 	allowed_ages = ALL_AGES_LIST
 	allowed_patrons = list(/datum/patron/divine/pestra)
 
@@ -91,4 +91,4 @@
 	var/datum/devotion/C = new /datum/devotion(H, H.patron)
 	C.grant_miracles(H, cleric_tier = CLERIC_T3, passive_gain = CLERIC_REGEN_MINOR, start_maxed = TRUE)
 	if(H.mind)
-		SStreasury.give_money_account(ECONOMIC_UPPER_MIDDLE_CLASS, H, "Church Funding.")
+		SStreasury.grant_savings(ECONOMIC_UPPER_MIDDLE_CLASS, H)

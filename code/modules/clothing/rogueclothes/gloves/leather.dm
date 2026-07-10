@@ -13,9 +13,8 @@
 	sewrepair = TRUE
 	unarmed_bonus = 1
 	color = "#66584c"
-	salvage_result = null // Recipe makes 2 so we cannot make this salvageable
+	salvage_result = /obj/item/natural/hide/cured // this arbitrary nonsense was removed, only 1 glove is made per craft now
 	cold_protection = 3
-	sellprice = 10
 
 /obj/item/clothing/gloves/roguetown/leather/ComponentInitialize()
 	AddComponent(/datum/component/armour_filtering/positive, TRAIT_FENCERDEXTERITY)
@@ -36,7 +35,6 @@
 	drop_sound = 'sound/foley/dropsound/cloth_drop.ogg'
 	anvilrepair = null
 	sewrepair = TRUE
-	sellprice = 6
 
 /obj/item/clothing/gloves/roguetown/fingerless/shadowgloves
 	name = "fingerless gloves"
@@ -51,7 +49,6 @@
 	armor = ARMOR_MAILLE
 	max_integrity = ARMOR_INT_SIDE_HARDLEATHER
 	allowed_race = NON_DWARVEN_RACE_TYPES
-	sellprice = 30 //Elven~
 
 /obj/item/clothing/gloves/roguetown/fingerless_leather
 	name = "fingerless leather gloves"
@@ -67,7 +64,6 @@
 	anvilrepair = null
 	sewrepair = TRUE
 	salvage_result = /obj/item/natural/hide/cured
-	sellprice = 10
 
 /obj/item/clothing/gloves/roguetown/otavan
 	name = "otavan leather gloves"
@@ -83,7 +79,6 @@
 	anvilrepair = null
 	sewrepair = TRUE
 	allowed_race = NON_DWARVEN_RACE_TYPES
-	sellprice = 30
 
 /obj/item/clothing/gloves/roguetown/otavan/inqgloves
 	name = "inquisitorial leather gloves"
@@ -91,7 +86,6 @@
 	icon_state = "inqgloves"
 	item_state = "inqgloves"
 	salvage_result = /obj/item/natural/hide/cured
-	sellprice = 15
 
 /obj/item/clothing/gloves/roguetown/otavan/psygloves
 	name = "psydonic leather gloves"
@@ -101,7 +95,6 @@
 	item_state = "psydongloves"
 	salvage_result = /obj/item/natural/hide/cured	
 	allowed_race = ALL_RACES_TYPES
-	sellprice = 20
 
 // Eastern gloves
 /obj/item/clothing/gloves/roguetown/eastgloves1
@@ -116,7 +109,6 @@
 	drop_sound = 'sound/foley/dropsound/cloth_drop.ogg'
 	anvilrepair = null
 	sewrepair = TRUE
-	sellprice = 20
 
 /obj/item/clothing/gloves/roguetown/eastgloves2
 	name = "stylish gloves"
@@ -130,7 +122,6 @@
 	drop_sound = 'sound/foley/dropsound/cloth_drop.ogg'
 	anvilrepair = null
 	sewrepair = TRUE
-	sellprice = 20
 
 /obj/item/clothing/gloves/roguetown/courtphysician
 	name = "sanguine gloves"
@@ -175,3 +166,24 @@
 		if(get_detail_color())
 			pic.color = get_detail_color()
 		add_overlay(pic)
+
+//
+
+/obj/item/clothing/gloves/roguetown/cloth
+	name = "padded mittens"
+	desc = "A pair of gloves, quilted from cloth. Warmth for the pilgrim, reassurance for the laborer, and protection for the militiaman."
+	icon_state = "paddedmitts"
+	armor = ARMOR_PADDED
+	max_integrity = ARMOR_INT_LEG_LEATHER
+	blocksound = SOFTUNDERHIT
+	break_sound = 'sound/foley/cloth_rip.ogg'
+	drop_sound = 'sound/foley/dropsound/cloth_drop.ogg'
+	anvilrepair = null
+	sewrepair = TRUE
+	unarmed_bonus = 1
+	salvage_result = /obj/item/natural/cloth
+	cold_protection = 6
+
+/obj/item/clothing/gloves/roguetown/cloth/ComponentInitialize()
+	AddComponent(/datum/component/armour_filtering/positive, TRAIT_FENCERDEXTERITY)
+	AddComponent(/datum/component/armour_filtering/positive, TRAIT_HONORBOUND)

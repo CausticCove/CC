@@ -2,7 +2,7 @@
 	name = "Hangyaku-Kounen"
 	tutorial = "Rebel. Outlaw. Failure. Once, you served the upper echelons of Kazengun society as more than just a 'knight'- you were a champion, a beacon of virtue, a legend in the making. Now you wander distant Psydonia, seeking a fresh start... or fresh coin, at least."
 	allowed_sexes = list(MALE, FEMALE)
-	allowed_races = ALL //do they have constructs in kazengun?	//CC EDIT - Allows all races to play
+	forbidden_races = list() //Caustic edit from list(RACES_CONSTRUCT RACES_DESPISED)
 	outfit = /datum/outfit/job/roguetown/mercenary/hangyaku
 	subclass_languages = list(/datum/language/kazengunese)
 	class_select_category = CLASS_CAT_KAZENGUN
@@ -68,7 +68,7 @@
 			H.equip_to_slot_or_del(new /obj/item/rogueweapon/scabbard/sword/kazengun/noparry, SLOT_BELT_L, TRUE)
 		if("Great Mace")
 			H.adjust_skillrank_up_to(/datum/skill/combat/maces, SKILL_LEVEL_EXPERT, TRUE)
-			H.put_in_hands(new /obj/item/rogueweapon/mace/goden/kanabo)
+			H.put_in_hands(new /obj/item/rogueweapon/mace/goden/steel/kanabo)
 			H.equip_to_slot_or_del(new /obj/item/rogueweapon/scabbard/gwstrap, SLOT_BACK_R, TRUE)
 		if("Spear")
 			H.adjust_skillrank_up_to(/datum/skill/combat/polearms, SKILL_LEVEL_EXPERT, TRUE)
@@ -104,7 +104,7 @@
 	name = "Hangyaku-Chonin"
 	tutorial = "Once, you were a farmer, a miner, a seamstress, a commoner. Now the sword is your plow and war your field. You’ve hammered your scythes into spears and recast your knives into swords. Past the door, your daimyo is calling - and destiny awaits."
 	allowed_sexes = list(MALE, FEMALE)
-	allowed_races = ALL //do they have constructs in kazengun?
+	forbidden_races = list() //Caustic Edit - Just a global tweak to remove 'races_despised' from this check everywhere
 	outfit = /datum/outfit/job/roguetown/mercenary/chonin
 	subclass_languages = list(/datum/language/kazengunese)
 	class_select_category = CLASS_CAT_KAZENGUN

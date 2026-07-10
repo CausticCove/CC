@@ -41,7 +41,8 @@ GLOBAL_LIST_EMPTY(last_words)
 #define DUST_ANIMATION_TIME 1.3 SECONDS
 
 /mob/living/dust(just_ash, drop_items, force)
-	death(TRUE)
+	if(stat != DEAD)
+		death(TRUE)
 
 	spill_embedded_objects()
 
@@ -141,7 +142,8 @@ GLOBAL_LIST_EMPTY(last_words)
 		mob_timers["lastdied"] = world.time
 //		addtimer(CALLBACK(client, PROC_REF(ghostize), 1, src), 150)
 		add_client_colour(/datum/client_colour/monochrome)
-		client.verbs.Add(GLOB.ghost_verbs)
+		add_verb(client, GLOB.ghost_verbs)
+		client.init_verbs()
 		if(last_words)
 			GLOB.last_words |= last_words
 

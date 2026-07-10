@@ -46,6 +46,8 @@ GLOBAL_LIST_EMPTY(chosen_names)
 	var/tgui_fancy = TRUE
 	var/tgui_lock = TRUE
 	var/tgui_theme = "azure_default"
+	var/parchment_skin = "leatherbound"
+	var/statbrowser_theme = "dark"
 	var/windowflashing = TRUE
 	var/toggles = TOGGLES_DEFAULT
 	var/ghost_toggles
@@ -248,8 +250,6 @@ GLOBAL_LIST_EMPTY(chosen_names)
 
 	var/averse_chosen_faction = "Inquisition"
 
-	var/datum/voicepack/temp_vp
-
 	var/mood_messages_in_chat
 
 	var/attack_blip_frequency = ATTACK_BLIP_PREF_DEFAULT
@@ -259,6 +259,14 @@ GLOBAL_LIST_EMPTY(chosen_names)
 
 	/// Whether we can see the feint HUD bar.
 	var/feint_hud = FALSE 
+
+	// Vocal bark prefs
+	var/bark_id = "mutedc3"
+	var/bark_speed = 4
+	var/bark_pitch = 1
+	var/bark_variance = 0.2
+	COOLDOWN_DECLARE(bark_previewing)
+	var/mute_barks = FALSE
 
 	//CC Edit - Audio Preload
 	var/audio_preload
@@ -338,8 +346,13 @@ GLOBAL_LIST_EMPTY(chosen_names)
 	ResetJobs()
 	if(user)
 		if(pref_species.desc)
-			to_chat(user, "[pref_species.desc]")
-		to_chat(user, "<font color='red'>Classes reset.</font>")
+			var/bonus_stats = span_racialstatinfo(pref_species.get_string_bonus_stats())
+			var/traits_list = pref_species.get_string_bonus_traits()
+			var/bonus_traits = traits_list && length(traits_list) ? "<br>" + span_smallracialstatinfo(traits_list) : null
+			var/mechanics = pref_species.mechanics_explanations ? span_info(pref_species.get_string_mechanics_explanations()) : null
+			var/description2print  = fieldset_block(span_big("<b>[span_bignotice(pref_species.desc_title)]</b>"), "[pref_species.desc]<br><hr>[bonus_stats][bonus_traits][mechanics]", "speciesdesc_block")
+			to_chat(user, description2print)
+		to_chat(user, span_red("Classes reset."))
 	random_character(gender, FALSE, FALSE)
 	accessory = "Nothing"
 
@@ -350,6 +363,8 @@ GLOBAL_LIST_EMPTY(chosen_names)
 	reset_descriptors()
 	virtue_origin = new pref_species.origin_default
 	taur_type = null
+	var/datum/charflaw/no_flaw = new /datum/charflaw/noflaw()
+	charflaws = list(no_flaw)
 
 #define APPEARANCE_CATEGORY_COLUMN "<td valign='top' width='14%'>"
 #define MAX_MUTANT_ROWS 4
@@ -663,6 +678,15 @@ GLOBAL_LIST_EMPTY(chosen_names)
 			dat += "<a href='?_src_=prefs;preference=ai_core_icon;task=input'><b>Preferred AI Core Display:</b> [preferred_ai_core_display]</a><br>"
 			dat += "<a href='?_src_=prefs;preference=sec_dept;task=input'><b>Preferred Security Department:</b> [prefered_security_department]</a><BR></td>"
 */
+			var/datum/bark/B = GLOB.bark_list[bark_id]
+			dat += "<br>"
+			dat += "<b>Vocal Bark Sound:</b><br>"
+			dat += "<a href='?_src_=prefs;preference=barksound;task=input'>[B ? initial(B.name) : "INVALID"]</a><br>"
+			dat += "<b>Vocal Bark Speed:</b> <a href='?_src_=prefs;preference=barkspeed;task=input'>[bark_speed]</a><br>"
+			dat += "<b>Vocal Bark Pitch:</b> <a href='?_src_=prefs;preference=barkpitch;task=input'>[bark_pitch]</a><br>"
+			dat += "<b>Vocal Bark Variance:</b> <a href='?_src_=prefs;preference=barkvary;task=input'>[bark_variance]</a><br>"
+			dat += "<b><a href='?_src_=prefs;preference=barkpreview;task=input'>Preview Bark</a></b><br>"
+			dat += "</td>"
 			dat += "</tr></table>"
 // 			-----------END OF IDENT TABLE-----------
 
@@ -740,6 +764,8 @@ GLOBAL_LIST_EMPTY(chosen_names)
 			dat += "<table><tr><td width='340px' valign='top'>"
 			dat += "<h2>Display</h2>"
 			dat += "<b>TGUI Theme:</b> <a href='?_src_=prefs;preference=tgui_theme'>[get_tgui_theme_display_name()]</a><br>"
+			dat += "<b>Parchment Theme:</b> <a href='?_src_=prefs;preference=parchment_skin'>[get_parchment_skin_display_name()]</a><br>"
+			dat += "<b>Panel Theme:</b> <a href='?_src_=prefs;preference=statbrowser_theme'>[get_statbrowser_theme_display_name()]</a><br>"
 			dat += "<b>UI Mode:</b> <a href='?_src_=prefs;preference=tgui_ui_prefs;task=menu'>[tgui_pref ? "TGUI" : "Legacy"]</a><br>"
 			dat += "<b>tgui Monitors:</b> <a href='?_src_=prefs;preference=tgui_lock'>[(tgui_lock) ? "Primary" : "All"]</a><br>"
 			dat += "<b>Ambient Occlusion:</b> <a href='?_src_=prefs;preference=ambientocclusion'>[ambientocclusion ? "Enabled" : "Disabled"]</a><br>"
@@ -944,7 +970,7 @@ GLOBAL_LIST_EMPTY(chosen_names)
 	popup.open(FALSE)
 	onclose(user, "capturekeypress", src)
 
-/datum/preferences/proc/SetChoices(mob/user, limit = 14, list/splitJobs = list("Court Magician", "Bishop", "Merchant", "Archivist", "Towner", "Grenzelhoft Mercenary", "Beggar", "Prisoner", "Goblin King"), widthPerColumn = 295, height = 620) //295 620
+/datum/preferences/proc/SetChoices(mob/user, limit = 14, list/splitJobs = list("Court Magician", "Bishop", "Merchant", "Guildmaster", "Archivist", "Towner", "Grenzelhoft Mercenary", "Beggar", "Prisoner", "Goblin King"), widthPerColumn = 295, height = 620) //295 620
 	if(!SSjob)
 		return
 
@@ -1565,7 +1591,11 @@ Slots: [job.spawn_positions] [job.round_contrib_points ? "RCP: +[job.round_contr
 			for(var/key in cf_list)
 				if(cf_list[key] == /datum/charflaw/noflaw)
 					cf_list.Remove(key)
-					break
+				else
+					var/datum/charflaw/cf = cf_list[key]
+					cf = new cf()
+					if(length(cf.restricted_species) && (pref_species.type in cf.restricted_species))
+						cf_list.Remove(key)
 
 			for(var/datum/charflaw/cf in charflaws)
 				for(var/key in cf_list)
@@ -1915,12 +1945,9 @@ Slots: [job.spawn_positions] [job.round_contrib_points ? "RCP: +[job.round_contr
 							to_chat(user, "<font color='red'>Your character will now audibly emote in accordance to their Voice Identity and any Racial / Class-specific voice packs.</font>")
 				if("voicepack_preview")
 					if(voice_pack != "Default")
-						var/datum/voicepack/VP = GLOB.voice_packs_list[voice_pack]
-						if(!istype(temp_vp, VP))
-							temp_vp = new VP()
-						var/voiceline = temp_vp.get_sound(pick(temp_vp.preview))
+						var/datum/voicepack/VP = GLOB.voice_packs[GLOB.voice_packs_list[voice_pack]]
+						var/voiceline = VP.get_sound(pick(VP.preview))
 						user.playsound_local(user, voiceline, 100)
-
 				if("taur_type")
 					var/list/species_taur_list = pref_species.get_taur_list()
 					if(!LAZYLEN(species_taur_list))
@@ -2041,6 +2068,60 @@ Slots: [job.spawn_positions] [job.round_contrib_points ? "RCP: +[job.round_contr
 							to_chat(user, "<font color='red'>Value must be between [MIN_VOICE_PITCH] and [MAX_VOICE_PITCH].</font>")
 							return
 						voice_pitch = new_voice_pitch
+
+				if("barksound")
+					var/list/woof_woof = list()
+					for(var/path in GLOB.bark_list)
+						var/datum/bark/B = GLOB.bark_list[path]
+						if(initial(B.ignore))
+							continue
+						if(initial(B.ckeys_allowed))
+							var/list/allowed = initial(B.ckeys_allowed)
+							if(!allowed.Find(user.client.ckey))
+								continue
+						woof_woof[initial(B.name)] = initial(B.id)
+					var/new_bork = input(user, "Choose your desired vocal bark", "Character Preference") as null|anything in woof_woof
+					if(new_bork)
+						bark_id = woof_woof[new_bork]
+						var/datum/bark/B = GLOB.bark_list[bark_id] //Now we need sanitization to take into account bark-specific min/max values
+						bark_speed = round(clamp(bark_speed, initial(B.minspeed), initial(B.maxspeed)), 1)
+						bark_pitch = clamp(bark_pitch, initial(B.minpitch), initial(B.maxpitch))
+						bark_variance = clamp(bark_variance, initial(B.minvariance), initial(B.maxvariance))
+
+				if("barkspeed")
+					var/datum/bark/B = GLOB.bark_list[bark_id]
+					var/borkset = input(user, "Choose your desired bark speed (Higher is slower, lower is faster). Min: [initial(B.minspeed)]. Max: [initial(B.maxspeed)]", "Character Preference") as null|num
+					if(!isnull(borkset))
+						bark_speed = round(clamp(borkset, initial(B.minspeed), initial(B.maxspeed)), 1)
+
+				if("barkpitch")
+					var/datum/bark/B = GLOB.bark_list[bark_id]
+					var/borkset = input(user, "Choose your desired baseline bark pitch. Min: [initial(B.minpitch)]. Max: [initial(B.maxpitch)]", "Character Preference") as null|num
+					if(!isnull(borkset))
+						bark_pitch = clamp(borkset, initial(B.minpitch), initial(B.maxpitch))
+
+				if("barkvary")
+					var/datum/bark/B = GLOB.bark_list[bark_id]
+					var/borkset = input(user, "Choose your desired baseline bark pitch. Min: [initial(B.minvariance)]. Max: [initial(B.maxvariance)]", "Character Preference") as null|num
+					if(!isnull(borkset))
+						bark_variance = clamp(borkset, initial(B.minvariance), initial(B.maxvariance))
+
+				if("barkpreview")
+					if(SSticker.current_state == GAME_STATE_STARTUP) //Timers don't tick at all during game startup, so let's just give an error message
+						to_chat(user, "<span class='warning'>Bark previews can't play during initialization!</span>")
+						return
+					if(!COOLDOWN_FINISHED(src, bark_previewing))
+						return
+					if(!parent || !parent.mob)
+						return
+					COOLDOWN_START(src, bark_previewing, (5 SECONDS))
+					var/atom/movable/barkbox = new(get_turf(parent.mob))
+					barkbox.set_bark(bark_id)
+					var/total_delay = 0
+					for(var/i in 1 to (round((32 / bark_speed)) + 1))
+						addtimer(CALLBACK(barkbox, TYPE_PROC_REF(/atom/movable, bark), list(parent.mob), 7, 70, BARK_DO_VARY(bark_pitch, bark_variance)), total_delay)
+						total_delay += rand(DS2TICKS(bark_speed/4), DS2TICKS(bark_speed/4) + DS2TICKS(bark_speed/4)) TICKS
+					QDEL_IN(barkbox, total_delay)
 
 				if("highlight_color")
 					var/new_color = color_pick_sanitized(user, "Choose your character's nickname highlight color:", "Character Preference","#"+highlight_color)
@@ -2924,6 +3005,11 @@ Slots: [job.spawn_positions] [job.round_contrib_points ? "RCP: +[job.round_contr
 					tgui_lock = !tgui_lock
 				if("tgui_theme")
 					setTguiStyle(user)
+				if("parchment_skin")
+					cycle_parchment_skin()
+				if("statbrowser_theme")
+					cycle_statbrowser_theme()
+					user.client?.apply_statbrowser_theme()
 				if("winflash")
 					windowflashing = !windowflashing
 
@@ -3254,6 +3340,12 @@ Slots: [job.spawn_positions] [job.round_contrib_points ? "RCP: +[job.round_contr
 	// Rumours / Noble gossip
 	character.rumour = rumour
 	character.noble_gossip = noble_gossip
+
+	// Barks
+	character.set_bark(bark_id)
+	character.vocal_speed = bark_speed
+	character.vocal_pitch = bark_pitch
+	character.vocal_pitch_range = bark_variance
 
 	if(parent)
 		var/list/L = get_player_curses(parent.ckey)

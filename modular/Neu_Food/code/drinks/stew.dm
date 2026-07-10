@@ -128,13 +128,6 @@
 	diet_change_amount = FOOD_DIETARY_REAGENT_VALUE_POOR
 	//CC Edit End
 
-/datum/reagent/consumable/soup/porridge/frycongee
-	name = "fried congee"
-	description = "Boiled rice that's been lightly fried inside of a pot. Perplexingly soft for a fried foodstuff, but a little more filling."
-	color = "#F7E2C0"
-	nutriment_factor = 20
-	alpha = 200
-
 /datum/reagent/consumable/soup/veggie
 	name = "vegetable soup"
 	description = "Boiled, mashed, and stuck in a stew."
@@ -524,13 +517,13 @@
 /datum/reagent/consumable/soup/stew/viscera_broth
 	name = "offal stew"
 	color = "#B65571"
-	taste_description = "overpoweringly strange-tasting, with a mildly savory aftertaste"
+	taste_description = "deeply savory offal with a lingering iron tang"
 	nutriment_factor = 15
 
 /datum/reagent/consumable/soup/stew/slop
 	name = "slop"
 	color = "#18130E"
-	taste_description = "charred giblets with a gravely aftertaste, and just a pinch of regret"
+	taste_description = "awful and disgusting charred regret"
 	nutriment_factor = 10
 
 /datum/reagent/consumable/soup/stew/fish
@@ -692,7 +685,7 @@
 	alpha = 222
 
 /datum/reagent/consumable/soup/stew/meatrice
-	name = "fried congee with roasted meat"
+	name = "congee with roasted meat"
 	color = "#E5C099"
 	taste_description = "mushy, savory-brothed rice with chunks of tender meat"
 	nutriment_factor = 30
@@ -701,7 +694,7 @@
 	alpha = 250
 
 /datum/reagent/consumable/soup/stew/eggrice
-	name = "fried congee with cackleberries"
+	name = "congee with cackleberries"
 	color = "#F7C997"
 	taste_description = "mushy, savory-brothed rice with creamy yolkage and crispy eggs"
 	nutriment_factor = 30
@@ -710,7 +703,7 @@
 	alpha = 250
 
 /datum/reagent/consumable/soup/stew/shrimprice
-	name = "fried congee with roasted shrimp"
+	name = "congee with roasted shrimp"
 	color = "#F7D5BE"
 	taste_description = "mushy, savory-brothed rice with salty yet subdued shellfish"
 	nutriment_factor = 30
@@ -719,7 +712,7 @@
 	alpha = 250
 
 /datum/reagent/consumable/soup/stew/cheeserice
-	name = "fried congee with melted cheese"
+	name = "congee with melted cheese"
 	color = "#F7E297"
 	taste_description = "mushy, savory-brothed rice that's been smothered in cheesy goodness"
 	nutriment_factor = 25
@@ -728,7 +721,7 @@
 	alpha = 250
 
 /datum/reagent/consumable/soup/stew/lavishfryrice
-	name = "lavish brisket-congee"
+	name = "luxury congee"
 	color = "#E0AF97"
 	taste_description = "sumptuous, pillowy rice with slow-braised meats with hints of butteriness and cheese"
 	nutriment_factor = 35
@@ -924,6 +917,34 @@
 	color = "#693346"
 	taste_description = "overwhelmingly salty, with hints of savoriness and meatiness"
 	nutriment_factor = 20
+	alpha = 250
+
+/datum/reagent/consumable/soup/stew/mushroom
+	name = "mushroom stew"
+	color = "#795b4f"
+	taste_description = "earth and savory with a meaty, nutty depth"
+	nutriment_factor = 20
+	alpha = 250
+
+/datum/reagent/consumable/soup/stew/humanoid
+	name = "long pig stew"
+	color = "#ac5372"
+	taste_description = "sweet delicious, sweet delicious, sweet delicious pork"
+	nutriment_factor = 20
+	alpha = 250
+
+/datum/reagent/consumable/soup/stew/humanoid/on_mob_life(mob/living/carbon/M)
+	..()
+	if(HAS_TRAIT(M, TRAIT_NASTY_EATER) || HAS_TRAIT(M, TRAIT_ORGAN_EATER) || HAS_TRAIT(M, TRAIT_WILD_EATER))
+		return
+	M.adjustToxLoss(1)
+	M.add_nausea(12) //Over 8 units will cause puking
+
+/datum/reagent/consumable/soup/stew/humanoid_spiced
+	name = "salted meat stew"
+	color = "#693346"
+	taste_description = "overwhelmingly salty, with hints of savoriness and meatiness"
+	nutriment_factor = 30
 	alpha = 250
 
 // Copy pasted from berry poison, but stew metabolizes much faster so it is less deadly. You CAN use it as a source of hydration / nutrition if you are desperate enough???

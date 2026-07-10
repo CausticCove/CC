@@ -227,7 +227,7 @@
 			if(wound_choice)
 				var/wound_path = wound_types[wound_choice]
 				// Apply body-part-specific wound variants
-
+				
 				if(wound_choice == "Fracture")
 					if(BP.body_zone == BODY_ZONE_HEAD)
 						wound_path = /datum/wound/fracture/head
@@ -245,7 +245,7 @@
 						wound_path = /datum/wound/integrity/neck
 					else if(BP.body_zone == BODY_ZONE_CHEST)
 						wound_path = /datum/wound/integrity/chest
-
+				
 				else if(wound_choice == "Dislocation")
 					if(BP.body_zone == BODY_ZONE_HEAD)
 						wound_path = /datum/wound/dislocation/neck
@@ -801,7 +801,7 @@
 		if(!M.client)
 			to_chat(usr, span_warning("[M] doesn't seem to have an active client."), MESSAGE_TYPE_ADMINLOG)
 			return
-		var/datum/job/mob_job = SSjob.GetJob(M.mind.assigned_role)
+		var/datum/job/mob_job
 		var/target_job = SSrole_class_handler.get_advclass_by_name(M.advjob)
 		if(M.mind)
 			mob_job = SSjob.GetJob(M.mind.assigned_role)
@@ -1435,6 +1435,12 @@
 									ADD_TRAIT(living_mob, TRAIT_DUST_LEAVE_HEAD, TRAIT_GENERIC)
 								if(href_list["dust_delete_gear"])
 									ADD_TRAIT(living_mob, TRAIT_DUST_DELETE_GEAR, TRAIT_GENERIC)
+							if(ishuman(O))
+								var/mob/living/carbon/human/spawned_human = O
+								spawned_human.taints_loot = !!href_list["taints_loot"]
+								if(!spawned_human.taints_loot)
+									for(var/obj/item/I in spawned_human.get_equipped_items(TRUE) + spawned_human.held_items)
+										I.unmark_as_looted()
 							if(where == "inhand" && isliving(usr) && isitem(O))
 								var/mob/living/L = usr
 								var/obj/item/I = O

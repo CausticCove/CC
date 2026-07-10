@@ -177,10 +177,14 @@
 				used = list('sound/vo/LizardSqueal.ogg')
 			if("thump")
 				used = list('sound/vo/LizardThump.ogg')
+			// Caustic Edit start
 			if("foxscream")
 				used = list('modular_causticcove/sound/vo/vulp_scream1.ogg', 'modular_causticcove/sound/vo/vulp_scream2.ogg', 'modular_causticcove/sound/vo/vulp_scream3.ogg', 'modular_causticcove/sound/vo/vulp_scream4.ogg')
 			if("snarl")
 				used = list('modular_causticcove/sound/vo/dog_snarl1.ogg', 'modular_causticcove/sound/vo/dog_snarl2.ogg', 'modular_causticcove/sound/vo/dog_snarl3.ogg')
 			if("weh")
 				used = list('sound/vo/male/gen/Weh (1).ogg')
+      if("con_squeak")
+				used = list('modular_causticcove/sound/vo/construct_squeak.ogg')
+			// Caustic Edit end
 	return used

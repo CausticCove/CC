@@ -343,12 +343,12 @@ GLOBAL_LIST_INIT(roleplay_readme, world.file2list("strings/rt/rp_prompt.txt"))
 	if(QDELETED(src))
 		return JOB_UNAVAILABLE_GENERIC
 	if(has_world_trait(/datum/world_trait/skeleton_siege))
-		if(rank != "Greater Skeleton")
+		if(rank != "Siege Skeleton")
 			return JOB_UNAVAILABLE_GENERIC
 		else
 			return JOB_AVAILABLE
 	else
-		if(rank == "Greater Skeleton")
+		if(rank == "Siege Skeleton")
 			return JOB_UNAVAILABLE_GENERIC
 
 	if(has_world_trait(/datum/world_trait/goblin_siege))
@@ -385,7 +385,7 @@ GLOBAL_LIST_INIT(roleplay_readme, world.file2list("strings/rt/rp_prompt.txt"))
 			return JOB_UNAVAILABLE_PQ
 	#endif
 	var/datum/species/pref_species = client.prefs.pref_species
-	if(length(job.allowed_races) && !(pref_species.type in job.allowed_races))
+	if(length(job.forbidden_races) && (pref_species.type in job.forbidden_races))
 		return JOB_UNAVAILABLE_RACE
 	var/list/allowed_sexes = list()
 	if(length(job.allowed_sexes))
@@ -561,6 +561,7 @@ GLOBAL_LIST_INIT(roleplay_readme, world.file2list("strings/rt/rp_prompt.txt"))
 	omegalist += list(GLOB.garrison_positions)
 	omegalist += list(GLOB.church_positions)
 	omegalist += list(GLOB.burgher_positions)
+	omegalist += list(GLOB.atc_positions)
 	omegalist += list(GLOB.peasant_positions)
 	omegalist += list(GLOB.sidefolk_positions)
 	omegalist += list(GLOB.wanderer_positions)
@@ -600,6 +601,8 @@ GLOBAL_LIST_INIT(roleplay_readme, world.file2list("strings/rt/rp_prompt.txt"))
 					cat_name = "Churchmen"
 				if (BURGHERS)
 					cat_name = "Burghers"
+				if (ATC)
+					cat_name = "Azurian Trading Company"
 				if (PEASANTS)
 					cat_name = "Peasants"
 				if (SIDEFOLK)
@@ -615,7 +618,7 @@ GLOBAL_LIST_INIT(roleplay_readme, world.file2list("strings/rt/rp_prompt.txt"))
 			dat += "<legend align='center' style='font-weight: bold; color: [cat_color]'>[cat_name]</legend>"
 
 			if(has_world_trait(/datum/world_trait/skeleton_siege))
-				dat += "<a class='job command' href='byond://?src=[REF(src)];SelectedJob=Greater Skeleton'>BECOME AN EVIL SKELETON</a>"
+				dat += "<a class='job command' href='byond://?src=[REF(src)];SelectedJob=Siege Skeleton'>BECOME AN EVIL SKELETON</a>"
 				dat += "</fieldset><br>"
 				column_counter++
 				if(column_counter > 0 && (column_counter % 3 == 0))

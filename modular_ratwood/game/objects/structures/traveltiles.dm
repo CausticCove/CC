@@ -1,5 +1,5 @@
 /obj/structure/fluff/traveltile/dungeoneer
-	required_trait = TRAIT_DUNGEONMASTER // Old Trait -> TRAIT_DUNGEONMASTER_LABOR_CAMP
+	//required_traits = list(TRAIT_DUNGEONMASTER) // Old Trait -> TRAIT_DUNGEONMASTER_LABOR_CAMP
 
 /obj/structure/fluff/traveltile/magicportal
 	desc = "flickering, warping magick"

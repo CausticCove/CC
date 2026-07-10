@@ -8,7 +8,7 @@ SUBSYSTEM_DEF(regionthreat)
 	// Lowpop tick = THREAT_LOWPOP_TICK_RATE (10%) of max_ambush.
 	// Basin & Grove & Terrorbog are fully tameable (min 0). Coast & Decap stay dangerous (min > 0).
 	// Budget = player_factor * pool * 3%. Solo combat budgets shown at max pool.
-	// Diminishing drain: 5-man party drains at ~39% efficiency, so regions resist zerging.
+	// Additive group drain: 5-man party drains at 3x/player_factor efficiency (0.5x per extra player).
 	var/list/threat_regions 
 
 	//CC Edit - Desert Mappification
@@ -173,8 +173,8 @@ SUBSYSTEM_DEF(regionthreat)
 				),
 				_tp_budget_multiplier = 0.75,
 				_delivery_reward_multiplier = 1.0,
-				_kill_target_floor = 3,
-				_evergreen_target = 2,
+				_kill_target_floor = 4,
+				_evergreen_target = 3,
 				_allowed_quest_types = list(QUEST_KILL_EASY, QUEST_CLEAR_OUT, QUEST_COURIER, QUEST_RETRIEVAL, QUEST_RECOVERY),
 			),
 			new /datum/threat_region(
@@ -194,8 +194,8 @@ SUBSYSTEM_DEF(regionthreat)
 				),
 				_tp_budget_multiplier = 1.0,
 				_delivery_reward_multiplier = 1.5,
-				_kill_target_floor = 4,
-				_evergreen_target = 2
+				_kill_target_floor = 5,
+				_evergreen_target = 3
 				// allowed_quest_types: default (all)
 			),
 			new /datum/threat_region(
@@ -215,7 +215,7 @@ SUBSYSTEM_DEF(regionthreat)
 				),
 				_tp_budget_multiplier = 1.5,
 				_delivery_reward_multiplier = 2.0,
-				_allowed_quest_types = list(QUEST_CLEAR_OUT, QUEST_RAID, QUEST_BOUNTY, QUEST_COURIER, QUEST_RETRIEVAL, QUEST_RECOVERY),
+				_allowed_quest_types = list(QUEST_CLEAR_OUT, QUEST_RAID, QUEST_BOUNTY, QUEST_COURIER, QUEST_RETRIEVAL, QUEST_RECOVERY, QUEST_TOWNER_SMITH_CARAVAN, QUEST_TOWNER_MINER_OREVEIN),
 				_kill_target_floor = 3,
 				_evergreen_target = 2
 			),
@@ -237,8 +237,8 @@ SUBSYSTEM_DEF(regionthreat)
 				),
 				_tp_budget_multiplier = 1.2,
 				_delivery_reward_multiplier = 1.8,
-				_allowed_quest_types = list(QUEST_CLEAR_OUT, QUEST_RAID, QUEST_BOUNTY, QUEST_RECOVERY),
-				_kill_target_floor = 2
+				_allowed_quest_types = list(QUEST_CLEAR_OUT, QUEST_RAID, QUEST_BOUNTY, QUEST_RECOVERY, QUEST_TOWNER_SMITH_CARAVAN, QUEST_TOWNER_MINER_OREVEIN),
+				_kill_target_floor = 3
 			),
 			new /datum/threat_region(
 				_region_name = THREAT_REGION_MOUNT_DECAP,
@@ -259,8 +259,8 @@ SUBSYSTEM_DEF(regionthreat)
 				),
 				_tp_budget_multiplier = 1.5,
 				_delivery_reward_multiplier = 2.0,
-				_allowed_quest_types = list(QUEST_CLEAR_OUT, QUEST_RAID, QUEST_BOUNTY, QUEST_RECOVERY),
-				_kill_target_floor = 2
+				_allowed_quest_types = list(QUEST_CLEAR_OUT, QUEST_RAID, QUEST_BOUNTY, QUEST_RECOVERY, QUEST_TOWNER_SMITH_CARAVAN, QUEST_TOWNER_MINER_OREVEIN),
+				_kill_target_floor = 3
 			),
 			// Underdark cannot be tamed — min_ambush is high, keeping the region permanently dangerous.
 			new /datum/threat_region(
@@ -280,8 +280,8 @@ SUBSYSTEM_DEF(regionthreat)
 				),
 				_tp_budget_multiplier = 1.5,
 				_delivery_reward_multiplier = 2.0,
-				_allowed_quest_types = list(QUEST_CLEAR_OUT, QUEST_RAID, QUEST_BOUNTY, QUEST_RECOVERY),
-				_kill_target_floor = 2
+				_allowed_quest_types = list(QUEST_CLEAR_OUT, QUEST_RAID, QUEST_BOUNTY, QUEST_RECOVERY, QUEST_TOWNER_SMITH_CARAVAN, QUEST_TOWNER_MINER_OREVEIN),
+				_kill_target_floor = 3
 			)
 		)
 

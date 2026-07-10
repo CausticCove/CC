@@ -48,6 +48,7 @@ GLOBAL_LIST_EMPTY(quest_mobs)
 	var/list/datum/weakref/tracked_atoms = list()
 	/// Landmark picked at preview time; materialize() spawns content around it when claimed.
 	var/datum/weakref/pending_landmark_ref
+	var/materialized = FALSE
 	/// Threat region this quest's content lives in. Captured from the landmark at preview time.
 	var/region = ""
 	/// Quest faction id (see QUEST_FACTION_* defines). Captured at preview for kill / bounty quests.
@@ -62,6 +63,7 @@ GLOBAL_LIST_EMPTY(quest_mobs)
 	/// TODO: Implement new taxation mechanics — Module 3/6 will add the stamping UI and towner
 	/// bounty path. Levy rate itself also needs revisiting under the new treasury design.
 	var/levy_exempt = FALSE
+	var/guild_cut_exempt = FALSE
 	/// TRUE if the Steward issued this as a free-labor Directive (no funding, zero reward,
 	/// hand-carried only, not promotable to the public noticeboard).
 	var/is_directive = FALSE
@@ -75,12 +77,17 @@ GLOBAL_LIST_EMPTY(quest_mobs)
 	var/writ_type = WRIT_TYPE_OUTLAWRY
 	var/circumstance_text = ""
 
+/datum/quest/proc/get_lapse_time()
+	var/window = (source == QUEST_SOURCE_POOL) ? QUEST_POOL_STALE_THRESHOLD : QUEST_PLAYER_STALE_THRESHOLD
+	return created_at + window
+
 /datum/quest/Destroy()
 	var/obj/effect/landmark/quest_spawner/held_landmark = pending_landmark_ref?.resolve()
 	if(held_landmark)
 		if(held_landmark.claimed_by?.resolve() == src)
 			held_landmark.claimed_by = null
-		held_landmark.cooldown_until = world.time + QUEST_LANDMARK_COOLDOWN
+		if(materialized)
+			held_landmark.cooldown_until = world.time + QUEST_LANDMARK_COOLDOWN
 
 	for(var/datum/weakref/tracked_weakref in tracked_atoms)
 		var/atom/target_atom = tracked_weakref.resolve()

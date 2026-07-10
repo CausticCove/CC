@@ -21,7 +21,8 @@
 	can_roll = FALSE
 
 /datum/migrant_role/werewolf
-	name = "Adventurer"
+	name = "Verevolf"
+	role_category = "Adventurer"
 	antag_datum = /datum/antagonist/werewolf
 	advclass_cat_rolls = list(CTAG_ADVENTURER = 5)
 
@@ -48,7 +49,8 @@
 	can_roll = FALSE
 
 /datum/migrant_role/vampire
-	name = "Adventurer"
+	name = "Vampire"
+	role_category = "Adventurer"
 	antag_datum = /datum/antagonist/vampire
 	advclass_cat_rolls = list(CTAG_ADVENTURER = 5)
 
@@ -75,7 +77,8 @@
 	can_roll = FALSE
 
 /datum/migrant_role/unbound_death_knight
-	name = "Adventurer"
+	name = "Death Knight"
+	role_category = "Adventurer"
 	antag_datum = /datum/antagonist/unbound_death_knight
 	advclass_cat_rolls = null
 
@@ -102,6 +105,7 @@
 	can_roll = FALSE
 
 /datum/migrant_role/unbound_spellblade
-	name = "Adventurer"
+	name = "Spellblade"
+	role_category = "Adventurer"
 	antag_datum = /datum/antagonist/unbound_spellblade
 	advclass_cat_rolls = null

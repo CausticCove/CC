@@ -284,8 +284,8 @@
 /obj/item/reagent_containers/food/snacks/grown/wheat,
 /obj/item/reagent_containers/food/snacks/grown/cabbage/rogue,
 /obj/item/reagent_containers/food/snacks/grown/onion/rogue,
-/obj/item/reagent_containers/food/snacks/egg,
-/obj/item/reagent_containers/food/snacks/egg,
+/obj/item/reagent_containers/food/snacks/rogue/egg,
+/obj/item/reagent_containers/food/snacks/rogue/egg,
 /obj/item/reagent_containers/food/snacks/rogue/honey,
 /turf/open/floor/rogue/cobble,
 /area/rogue/indoors/banditcamp)
@@ -725,7 +725,7 @@
 /turf/closed/wall/mineral/rogue/wooddark/vertical,
 /area/rogue/indoors/banditcamp)
 "lN" = (
-/obj/machinery/artificer_table,
+/obj/structure/artificer_table,
 /turf/open/floor/rogue/dirt/road,
 /area/rogue/indoors/banditcamp)
 "mh" = (

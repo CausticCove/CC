@@ -74,6 +74,8 @@
 
 /// Finds a bed we are having fun on, if any
 /datum/sex_session/proc/find_bed()
+	if(!target) //Caustic Edit - Somehow this is null sometimes? So lets just not runtime.
+		return
 	if(bed)
 		if(target.loc == bed.loc)
 			target_on_bed = TRUE
@@ -152,6 +154,8 @@
 /datum/sex_session/proc/sex_action_loop()
 	var/performed_action_type = current_action
 	var/datum/sex_action/action = SEX_ACTION(current_action)
+	var/base_speed = -1
+	var/base_force = -1
 	action.on_start(user, target)
 
 	while(TRUE)
@@ -177,6 +181,11 @@
 			break
 		if(desire_stop)
 			break
+
+		if (speed != base_speed || force != base_force)
+			base_force = force
+			base_speed = speed
+			action.on_perform_message(user, target)
 
 		action.on_perform(user, target)
 

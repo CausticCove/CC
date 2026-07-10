@@ -17,7 +17,10 @@
 	smeltresult = /obj/item/ingot/iron
 	grid_width = 64
 	grid_height = 64
+	/// Whether we will automatically deconstruct boulders we mine out of rock. Blacksteel / highest tier only.
 	var/auto_boulder = FALSE
+	/// Whether the boulder we mine out will be far weaker to destroy (usually with one hit). Steel / mid-tier.
+	var/weak_boulders = FALSE
 	is_tool = TRUE
 
 /obj/item/rogueweapon/pick/getonmobprop(tag)
@@ -39,7 +42,7 @@
 
 /obj/item/rogueweapon/pick/steel
 	name = "steel pick"
-	desc = "With a reinforced handle and sturdy shaft, this is a superior tool for delving in the darkness."
+	desc = "With a reinforced handle and sturdy shaft, this is a superior tool for delving in the darkness. It will leave boulders weaker and susceptible to just one strike."
 	force = 21
 	force_wielded = 28
 	icon_state = "steelpick"
@@ -47,17 +50,20 @@
 	gripped_intents = list(/datum/intent/pick)
 	max_integrity = 600
 	smeltresult = /obj/item/ingot/steel
+	weak_boulders = TRUE
 
 /obj/item/rogueweapon/pick/bronze
 	name = "dolabra"
-	desc = "A so-called 'legionnaire's tool'; antiquated, but nevertheless beloved by many for its verastility. It offers an answer for labors both above-and-below, courtesy of its bronze axhead-and-picktip."
+	desc = "A so-called 'legionnaire's tool'; antiquated, but nevertheless beloved by many for its versatility. It offers an answer for labors both above-and-below, courtesy of its bronze axhead-and-picktip."
 	force = 20
 	force_wielded = 25
 	icon_state = "bronzepick"
-	possible_item_intents = list(/datum/intent/pick/bad, /datum/intent/axe/cut, /datum/intent/mace/strike, /datum/intent/till)
-	gripped_intents = list(/datum/intent/pick, /datum/intent/axe/cut, /datum/intent/axe/chop, /datum/intent/mace/strike)
+	possible_item_intents = list(/datum/intent/pick/bad, /datum/intent/axe/chop, /datum/intent/axe/cut, MACE_STRIKE)
+	gripped_intents = list(/datum/intent/pick, /datum/intent/axe/chop, /datum/intent/till, /datum/intent/flail/thresh)
 	max_integrity = 500
 	max_blade_int = 225
+	is_tool = TRUE
+	sharpness = IS_SHARP
 	smeltresult = /obj/item/ingot/bronze
 
 /obj/item/rogueweapon/pick/blacksteel

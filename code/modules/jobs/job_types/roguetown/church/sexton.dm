@@ -6,7 +6,7 @@
 	total_positions = 2
 	spawn_positions = 2
 	allowed_sexes = list(MALE, FEMALE)
-	allowed_races = ACCEPTED_RACES
+	forbidden_races = list() //Caustic Edit - Just a global tweak to remove 'races_despised' from this check everywhere
 	tutorial = "You are a Sexton, an apprentice, helping hand or aide for the local church. Your responsibilities are little, but so are your obligations."
 	outfit = /datum/outfit/job/roguetown/sexton/
 	display_order = JDO_SEXTON

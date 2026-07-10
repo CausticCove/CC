@@ -2,7 +2,7 @@
 	name = "Heretic"
 	tutorial = "You father your unholy cause through the most time-tested of ways: hard, heavy steel in both arms and armor."
 	allowed_sexes = list(MALE, FEMALE)
-	allowed_races = RACES_ALL_KINDS
+	
 	outfit = /datum/outfit/job/roguetown/wretch/heretic
 	class_select_category = CLASS_CAT_CLERIC
 	category_tags = list(CTAG_WRETCH)
@@ -86,11 +86,11 @@
 
 	// You can convert those the church has shunned.
 	H.mind?.AddSpell(new /datum/action/cooldown/spell/convert_heretic)
-	H.mind?.AddSpell(new /obj/effect/proc_holder/spell/invoked/wound_heal)
+	H.mind?.AddSpell(new /datum/action/cooldown/spell/miracle/intervention)
 	if (istype (H.patron, /datum/patron/inhumen/zizo))
 		if(H.mind)
 			H.mind.AddSpell(new /datum/action/cooldown/spell/minion_order)
-			H.verbs |= /mob/living/carbon/human/proc/revelations
+			add_verb(H, /mob/living/carbon/human/proc/revelations)
 			H.mind.AddSpell(new /datum/action/cooldown/spell/gravemark)
 			H.mind?.current.faction += "[H.name]_faction"
 		ADD_TRAIT(H, TRAIT_GRAVEROBBER, TRAIT_GENERIC)
@@ -158,7 +158,6 @@
 			H.change_stat(STATKEY_INT, 2)
 			H.change_stat(STATKEY_PER, 2)
 			H.adjust_skillrank(/datum/skill/magic/holy, 1, TRUE)
-			H.mind?.AddSpell(new /obj/effect/proc_holder/spell/targeted/touch/summonrogueweapon/astratagrasp)
 			helmets += list("Old Astratan Helm" = /obj/item/clothing/head/roguetown/helmet/heavy/astratahelm)
 		if(/datum/patron/divine/abyssor)
 			H.change_stat(STATKEY_INT, 2)
@@ -218,7 +217,6 @@
 			H.adjust_skillrank(/datum/skill/craft/alchemy, 1, TRUE)
 			H.adjust_skillrank(/datum/skill/magic/arcane, 1, TRUE)
 			H.adjust_skillrank(/datum/skill/magic/holy, 1, TRUE)
-			H.mind?.AddSpell(new /obj/effect/proc_holder/spell/targeted/touch/summonrogueweapon/nocgrasp)
 		if(/datum/patron/divine/ravox)
 			H.change_stat(STATKEY_INT, 2)
 			H.change_stat(STATKEY_PER, 2)
@@ -226,7 +224,6 @@
 			H.equip_to_slot_or_del(new /obj/item/clothing/cloak/templar/ravox, SLOT_CLOAK, TRUE)
 			H.adjust_skillrank(/datum/skill/misc/athletics, 1, TRUE)
 			H.adjust_skillrank(/datum/skill/magic/holy, 1, TRUE)
-			H.mind?.AddSpell(new /obj/effect/proc_holder/spell/targeted/touch/summonrogueweapon/ravoxgrasp)
 		if(/datum/patron/divine/malum)
 			H.change_stat(STATKEY_INT, 2)
 			H.change_stat(STATKEY_PER, 2)
@@ -241,7 +238,6 @@
 			H.change_stat(STATKEY_INT, 2)
 			H.change_stat(STATKEY_PER, 2)
 			H.equip_to_slot_or_del(new /obj/item/clothing/neck/roguetown/psicross/undivided, SLOT_RING, TRUE)
-			H.mind?.AddSpell(new /obj/effect/proc_holder/spell/self/divine_strike/undivided)
 			H.adjust_skillrank(/datum/skill/magic/holy, 1, TRUE)
 			if(H.mind)
 				var/cloaks = list("Cloak", "Tabard")
@@ -257,8 +253,9 @@
 			H.equip_to_slot_or_del(new /obj/item/clothing/suit/roguetown/armor/gambeson/heavy/inq, SLOT_SHIRT, TRUE)
 			H.equip_to_slot_or_del(new /obj/item/clothing/gloves/roguetown/chain/psydon, SLOT_GLOVES, TRUE)
 			H.equip_to_slot_or_del(new /obj/item/clothing/shoes/roguetown/boots/psydonboots, SLOT_SHOES, TRUE)
-			H.equip_to_slot_or_del(new /obj/item/clothing/cloak/tabard/psydontabard, SLOT_CLOAK, TRUE)
-			H.change_stat(STATKEY_WIL, 2) //ENDVRE
+			H.equip_to_slot_or_del(new /obj/item/clothing/cloak/tabard/psydontabard/black, SLOT_CLOAK, TRUE)
+			H.change_stat(STATKEY_WIL, 2)
+			H.change_stat(STATKEY_CON, 2)
 			helmets += list("Psydonic Barbute" = /obj/item/clothing/head/roguetown/helmet/heavy/psydonbarbute,
 				"Psydonic Sallet" = /obj/item/clothing/head/roguetown/helmet/heavy/psysallet,
 				"Psydonic Armet" = /obj/item/clothing/head/roguetown/helmet/heavy/psydonhelm,
@@ -394,7 +391,7 @@
 			H.mind?.current.faction += "[H.name]_faction"
 		ADD_TRAIT(H, TRAIT_GRAVEROBBER, TRAIT_GENERIC)
 	H.mind?.AddSpell(new /datum/action/cooldown/spell/convert_heretic)
-	H.mind?.AddSpell(new /obj/effect/proc_holder/spell/invoked/wound_heal)
+	H.mind?.AddSpell(new /datum/action/cooldown/spell/miracle/intervention)
 
 /datum/outfit/job/roguetown/wretch/hereticspy/choose_loadout(mob/living/carbon/human/H)
 	. = ..()
@@ -414,7 +411,6 @@
 		if(/datum/patron/divine/astrata)
 			H.equip_to_slot_or_del(new /obj/item/clothing/neck/roguetown/psicross/astrata, SLOT_RING, TRUE)
 			H.adjust_skillrank(/datum/skill/magic/holy, 1, TRUE)
-			H.mind?.AddSpell(new /obj/effect/proc_holder/spell/targeted/touch/summonrogueweapon/astratagrasp)
 		if(/datum/patron/divine/abyssor)
 			H.equip_to_slot_or_del(new /obj/item/clothing/neck/roguetown/psicross/abyssor, SLOT_RING, TRUE)
 			H.adjust_skillrank(/datum/skill/labor/fishing, 2, TRUE)

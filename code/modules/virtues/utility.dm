@@ -202,7 +202,7 @@
 					if(recipient.has_flaw(/datum/charflaw/colorblind))
 						to_chat(recipient, "Your eyes have become permanently colorblind.")
 					else if(recipient.charflaws.len)
-						recipient.verbs += /mob/living/carbon/human/proc/toggleblindness
+						add_verb(recipient, /mob/living/carbon/human/proc/toggleblindness)
 			else if(ispath(extra_choices[choice], /datum/skill))
 				if(extra_choices[choice] == /datum/skill/misc/sneaking)
 					recipient.adjust_skillrank(extra_choices[choice], SKILL_LEVEL_APPRENTICE, silent = TRUE)
@@ -212,8 +212,8 @@
 				var/obj/item/I = extra_choices[choice]
 				recipient.mind?.special_items[capitalize(I::name)] = extra_choices[choice]
 			else if(choice == "Second Voice")
-				recipient.verbs += /mob/living/carbon/human/proc/changevoice
-				recipient.verbs += /mob/living/carbon/human/proc/swapvoice
+				add_verb(recipient, /mob/living/carbon/human/proc/changevoice)
+				add_verb(recipient, /mob/living/carbon/human/proc/swapvoice)
 				recipient.AddComponent(/datum/component/voice_handler)
 
 /datum/virtue/utility/performer
@@ -359,8 +359,8 @@
 /datum/virtue/utility/feytouched
 	name = "Feytouched"
 	desc = "A vessel or creation of the Mossmother, or perhaps a puppet of the past. You are sympathetic to the hag's cause. Your connection to the fey allows you to traverse the roots. The hag is aware of you; your lux is corrupted. You may know of old events, but as the decades lengthen, so does your recollection of them fade. Hag-boons cannot take hold."
-//	added_stats = list(STATKEY_INT = -1, STATKEY_STR = -2) //CC Edit - this sucks
-	added_traits = list(TRAIT_FEYTOUCHED, TRAIT_ROOT_WALKER) //CC Edit - added rootwalker. if you already have corrupted lux, why the fuck not just let them use the trees? this balancing is stupid.
+//	added_stats = list(STATKEY_INT = -1, STATKEY_STR = -2) //CC Edit
+	added_traits = list(TRAIT_FEYTOUCHED, TRAIT_ROOT_WALKER) //CC Edit - added rootwalker.
 	added_skills = list(list(/datum/skill/misc/medicine, 1, 4),
 						list(/datum/skill/craft/alchemy, 1, 4)
 	)
@@ -377,5 +377,5 @@
 		hag_mind.i_know_person(recipient)
 		recipient.mind.i_know_person(hag_mind)
 		if(hag_mind.current)
-			to_chat(hag_mind.current, span_boldnotice("A familiar rhythm pulse in the roots... [recipient.real_name] is walking the lands this week."))
+			to_chat(hag_mind.current, span_boldnotice("A familiar rhythm pulses in the roots... [recipient.real_name] is walking the lands this week."))
 	to_chat(recipient, span_boldnotice("The Mossmother's gaze lingers upon you. You are recognized by her daughters."))

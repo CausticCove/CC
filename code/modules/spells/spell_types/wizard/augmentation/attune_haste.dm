@@ -1,6 +1,6 @@
 /datum/action/cooldown/spell/augment_buff/attune_haste
 	name = "Attune: Haste"
-	desc = "Cause a target to be magically hastened. (+3 Speed, 0.85x Action Cooldown, grants Guidance)\nAttunement - Giant, Hawk, and Haste share a cooldown; only one may be held at a time."
+	desc = "Cause a target to be magically hastened. (+3 Speed, 0.85x Action Cooldown)\nAttunement - Giant, Hawk, and Haste share a cooldown; only one may be held at a time."
 	button_icon_state = "haste"
 
 	invocations = list("Festinatio!")

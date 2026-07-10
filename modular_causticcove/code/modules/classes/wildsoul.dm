@@ -6,7 +6,7 @@
 	faction = "Station"
 	total_positions = 5 // Wildman McCryptid should be slightly rare, given they get so much more than adventurer with 90% of the same freedoms.
 	spawn_positions = 5
-	allowed_races = RACES_NO_CONSTRUCT
+	forbidden_races = list(RACES_CONSTRUCT)
 	tutorial = "You've never been one for the comforts of society. Whether born and raised in the wild, or having eschewed the comforts of the city after some incident, you've learned to survive on your own within Dendor's realm. You still need to live carefully, though; you're part of an ecosystem you're not above, and for every creature you hunt, another will make you its hunted."
 	outfit = null 
 	outfit_female = null 
@@ -177,11 +177,16 @@
 	give_feral_eyes(H)
 	if(H.mind)
 		H.mind.AddSpell(new /datum/action/cooldown/spell/nondetection) // Makes sense for them to have the tools to be hidden.
-		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/blindness)
+		H.mind.AddSpell(new /datum/action/cooldown/spell/noc/blindness/wildsoul)
 	if(H.age == AGE_OLD)
 		H.adjust_skillrank_up_to(/datum/skill/magic/arcane, SKILL_LEVEL_EXPERT, TRUE)
 		H.mind.mage_aspect_config["utilities"] += 2
 	H.dna.species.soundpack_m = new /datum/voicepack/male/wizard()
+
+/datum/action/cooldown/spell/noc/blindness/wildsoul
+	primary_resource_type = SPELL_COST_STAMINA
+
+	secondary_resource_cost = 0
 
 /datum/advclass/wildsoul/zad
 	name = "Soul of the Zad"

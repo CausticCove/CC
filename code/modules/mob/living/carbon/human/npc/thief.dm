@@ -11,7 +11,10 @@
 
 /mob/living/carbon/human/species/human/northern/thief/Initialize()
 	. = ..()
-	set_species(/datum/species/human/northern)
+	//Begin RANDOMISE here
+	set_species(pick(NPC_RACES_TYPES))
+	gender = pick(MALE, FEMALE)
+	dna.species.random_character(src) //Now we just randomise here, MUST be called after both race + gender
 	addtimer(CALLBACK(src, PROC_REF(after_creation)), 1 SECONDS)
 
 /mob/living/carbon/human/species/human/northern/thief/after_creation()
@@ -24,50 +27,42 @@
 	ADD_TRAIT(src, TRAIT_DODGEEXPERT, TRAIT_GENERIC)
 	ADD_TRAIT(src, TRAIT_LEECHIMMUNE, INNATE_TRAIT)
 	ADD_TRAIT(src, TRAIT_BREADY, TRAIT_GENERIC)
+	ADD_TRAIT(src, TRAIT_NPC_EXAMINE, TRAIT_GENERIC)
 	equipOutfit(new /datum/outfit/job/roguetown/human/species/human/northern/thief)
-	gender = pick(MALE, FEMALE)
-	regenerate_icons()
-
-	var/obj/item/organ/eyes/organ_eyes = getorgan(/obj/item/organ/eyes)
-	var/obj/item/bodypart/head/head = get_bodypart(BODY_ZONE_HEAD)
-	var/hairf = pick(list(/datum/sprite_accessory/hair/head/bedhead, 
-						/datum/sprite_accessory/hair/head/bob))
-	var/hairm = pick(list(/datum/sprite_accessory/hair/head/ponytail1, 
-						/datum/sprite_accessory/hair/head/shaved))
-	var/beard = pick(list(/datum/sprite_accessory/hair/facial/vandyke,
-						/datum/sprite_accessory/hair/facial/croppedfullbeard))
-
-	var/datum/bodypart_feature/hair/head/new_hair = new()
-	var/datum/bodypart_feature/hair/facial/new_facial = new()
-
-	if(gender == FEMALE)
-		new_hair.set_accessory_type(hairf, null, src)
-	else
-		new_hair.set_accessory_type(hairm, null, src)
-		new_facial.set_accessory_type(beard, null, src)
-
-	if(prob(50))
-		new_hair.accessory_colors = "#96403d"
-		new_hair.hair_color = "#96403d"
-		new_facial.accessory_colors = "#96403d"
-		new_facial.hair_color = "#96403d"
-		hair_color = "#96403d"
-	else
-		new_hair.accessory_colors = "#C7C755"
-		new_hair.hair_color = "#C7C755"
-		new_facial.accessory_colors = "#C7C755"
-		new_facial.hair_color = "#C7C755"
-		hair_color = "#C7C755"
-
-	head.add_bodypart_feature(new_hair)
-	head.add_bodypart_feature(new_facial)
-
-	dna.update_ui_block(DNA_HAIR_COLOR_BLOCK)
+	//Begin RANDOMISE here
 	dna.species.handle_body(src)
+	var/obj/item/bodypart/head/head = get_bodypart(BODY_ZONE_HEAD)
+	random_voice_NPC()
+	random_hair_no_beard_NPC()
+	random_eye_color_NPC()
+	correct_features_NPC()
 
-	if(organ_eyes)
-		organ_eyes.eye_color = "#336699"
-		organ_eyes.accessory_colors = "#336699#336699"
+	var/voice_choice = rand(1, 12)
+	switch(voice_choice)
+		if(1)
+			src.voice_color = "0bb1e4"
+		if(2)
+			src.voice_color = "d30c0c"
+		if(3)
+			src.voice_color = "4d4afc"
+		if(4)
+			src.voice_color = "da40c0"
+		if(5)
+			src.voice_color = "51e251"
+		if(6)
+			src.voice_color = "a059cf"
+		if(7)
+			src.voice_color = "8700c5"
+		if(8)
+			src.voice_color = "cfc886"
+		if(9)
+			src.voice_color = "ff9100"
+		if(10)
+			src.voice_color = "a0a0a0"
+		if(11)
+			src.voice_color = "797979"
+		if(12)
+			src.voice_color = "ff5e00"
 
 	if(gender == FEMALE)
 		real_name = pick(world.file2list("strings/names/first_female.txt"))
@@ -75,7 +70,8 @@
 		real_name = pick(world.file2list("strings/names/first_male.txt"))
 	update_hair()
 	update_body()
-	head.sellprice = 30
+	src.regenerate_icons() //Fixes the weird body but lets check performance first
+	head.sellprice = HEAD_BOUNTY_THIEF
 
 
 /datum/outfit/job/roguetown/human/species/human/northern/thief/pre_equip(mob/living/carbon/human/H)
@@ -110,3 +106,19 @@
 	H.adjust_skillrank(/datum/skill/combat/wrestling, 2, TRUE)
 	H.adjust_skillrank(/datum/skill/misc/swimming, 2, TRUE)
 	H.adjust_skillrank(/datum/skill/misc/climbing, 2, TRUE)
+
+	if(prob(30))
+		var/voicepack_choice = rand(1, 4)
+		switch(voicepack_choice)
+			if(1)
+				H.dna.species.soundpack_m = GLOB.voice_packs[/datum/voicepack/male/warrior]
+				H.dna.species.soundpack_f = GLOB.voice_packs[/datum/voicepack/female/warrior]
+			if(2)
+				H.dna.species.soundpack_m = GLOB.voice_packs[/datum/voicepack/male/stern]
+				H.dna.species.soundpack_f = GLOB.voice_packs[/datum/voicepack/female/haughty]
+			if(3)
+				H.dna.species.soundpack_m = GLOB.voice_packs[/datum/voicepack/male/foppish]
+				H.dna.species.soundpack_f = GLOB.voice_packs[/datum/voicepack/female/dainty]
+			if(4)
+				H.dna.species.soundpack_m = GLOB.voice_packs[/datum/voicepack/male/knight]
+				H.dna.species.soundpack_f = GLOB.voice_packs[/datum/voicepack/female/dainty]

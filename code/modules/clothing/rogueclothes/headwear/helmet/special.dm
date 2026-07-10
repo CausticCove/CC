@@ -18,7 +18,6 @@
 	detail_color = "#262927"
 	altdetail_color = "#FFFFFF"
 	max_integrity = ARMOR_INT_HELMET_STEEL + 15
-	sellprice = 40 //Grenzel...
 
 /obj/item/clothing/head/roguetown/helmet/sallet/grenzelhoft/update_icon()
 	cut_overlays()
@@ -51,7 +50,6 @@
 	detail_color = "#262927"
 	altdetail_color = "#FFFFFF"
 	max_integrity = ARMOR_INT_HELMET_STEEL + 10
-	sellprice = 40
 
 /obj/item/clothing/head/roguetown/helmet/bascinet/etruscan/grenzelhoft/update_icon()
 	cut_overlays()
@@ -83,7 +81,6 @@
 	color = "#FFFFFF"
 	detail_color = "#262927"
 	altdetail_color = "#FFFFFF"
-	sellprice = 100 //Even trade.
 
 /obj/item/clothing/head/roguetown/helmet/blacksteel/modern/grenzelhoft/update_icon()
 	cut_overlays()

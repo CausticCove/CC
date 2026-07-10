@@ -1,8 +1,8 @@
 /datum/patron/godless
-	name = "Science"
-	domain = "Ontological Reality"
-	desc = "No gods or kings, only man! Gods exist but you give them the finger."
-	worshippers = "Madmen, beasts and some dwarves"
+	name = "Godless"
+	domain = "Humenity"
+	desc = "The Gods exists, but either you do not know them or do not worship them. You guide yourself by your instincts or your reasons."
+	worshippers = "Beasts, Apostates, and the truly Cynical"
 	associated_faith = /datum/faith/godless
 	preference_accessible = FALSE
 	undead_hater = FALSE

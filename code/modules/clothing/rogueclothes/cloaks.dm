@@ -11,10 +11,12 @@
 	experimental_inhand = TRUE
 	var/overarmor = TRUE
 	var/storage = TRUE
-	sellprice = 5 //Identity Protection!
 
 	grid_width = 64
 	grid_height = 64
+
+	salvage_amount = 2
+	salvage_result = /obj/item/natural/cloth
 
 /obj/item/clothing/cloak/get_mechanics_examine(mob/user)
 	. = ..()
@@ -73,7 +75,6 @@
 	slot_flags = ITEM_SLOT_SHIRT|ITEM_SLOT_ARMOR|ITEM_SLOT_CLOAK
 	flags_inv = HIDECROTCH|HIDEBOOB
 	var/custom_design = FALSE
-	sellprice = 3
 
 /obj/item/clothing/cloak/tabard/update_icon()
 	cut_overlays()
@@ -89,10 +90,13 @@
 		..()
 		return
 	var/the_time = world.time
-	var/design = input(user, "Select a design.","Tabard Design") as null|anything in list("None", "Symbol", "Split", "Quadrants", "Boxes", "Diamonds")
+	var/design = input(user, "Select a design.","Tabard Design") as null|anything in list("No changes!", "None", "Symbol", "Split", "Quadrants", "Boxes", "Diamonds")
 	if(!design)
 		return
 	if(world.time > (the_time + 30 SECONDS))
+		return
+	if(design == "No changes!")
+		custom_design = TRUE
 		return
 	var/symbol_chosen = FALSE
 	if(design == "Symbol")
@@ -160,8 +164,8 @@
 		add_overlay(pic)
 
 /obj/item/clothing/cloak/sleevedtabard
-	name = "Sleeved Tabard"
-	desc = " A tabard with a light sleeve and pauldron sewn on, it lacks the explicit detailing of other tabards in exchange."
+	name = "sleeved tabard"
+	desc = "A tabard with a light sleeve and pauldron sewn on, it lacks the explicit detailing of other tabards in exchange."
 	color = null 
 	boobed = TRUE
 	icon_state = "halfsurcoat"
@@ -172,7 +176,7 @@
 
 /obj/item/clothing/cloak/tabard/psydontabard
 	name = "psydonian tabard"
-	desc = "A tabard worn by Psydon's disciples. Delicate stitchwork professes the psycross with pride."
+	desc = "A tabard worn by the adherents of the Holy Psydonic Inquisition. Delicate stitchwork professes the psycross with pride."
 	color = null
 	icon_state = "psydontabard"
 	item_state = "psydontabard"
@@ -180,17 +184,19 @@
 	slot_flags = ITEM_SLOT_SHIRT|ITEM_SLOT_ARMOR|ITEM_SLOT_CLOAK
 	custom_design = TRUE
 	var/open_wear = FALSE
-	sellprice = 10 //Religious...
+
+/obj/item/clothing/cloak/tabard/psydontabard/get_mechanics_examine(mob/user)
+	. = ..()
+	. += span_info("Right-clicking this cloak allows for it to be dynamically worn as a traditional tabard, or as a sleeveless robe that partially exposes the chest.")
 
 /obj/item/clothing/cloak/tabard/psydontabard/alt
 	name = "opened psydonian tabard"
-	desc = "A tabard worn by Psydon's disciples, peeled back to reveal its enduring innards."
+	desc = "A tabard worn by the adherents of the Holy Psydonic Inquisition, peeled back to reveal its enduring innards."
 	body_parts_covered = GROIN
 	icon_state = "psydontabardalt"
 	item_state = "psydontabardalt"
 	flags_inv = HIDECROTCH
 	open_wear = TRUE
-	sellprice = 10 //Religious...
 
 /obj/item/clothing/cloak/tabard/psydontabard/MiddleClick(mob/user)
 	..()
@@ -200,7 +206,7 @@
 	switch(open_wear)
 		if(FALSE)
 			name = "opened psydonian tabard"
-			desc = "A tabard worn by Psydon's disciples, peeled back to reveal its enduring innards."
+			desc = "A tabard worn by the adherents of the Holy Psydonic Inquisition, peeled back to reveal its enduring innards."
 			body_parts_covered = GROIN
 			icon_state = "psydontabardalt"
 			item_state = "psydontabardalt"
@@ -209,13 +215,109 @@
 			to_chat(usr, span_warning("ENDURING, like the MARTYRS who'll guide the faithful-and-pious to PARADISE."))
 		if(TRUE)
 			name = "psydonian tabard"
-			desc = "A tabard worn by Psydon's disciples. Delicate stitchwork professes the psycross with pride."
+			desc = "A tabard worn by the adherents of the Holy Psydonic Inquisition. Delicate stitchwork professes the psycross with pride."
 			body_parts_covered = CHEST|GROIN
 			icon_state = "psydontabard"
 			item_state = "psydontabard"
 			flags_inv = HIDECROTCH|HIDEBOOB
 			open_wear = FALSE
 			to_chat(usr, span_warning("VEILED, like the CORPSES who've been shepherded by your steel to the AFTERLYFE."))
+	update_icon()
+	if(user)
+		if(ishuman(user))
+			var/mob/living/carbon/H = user
+			H.update_inv_cloak()
+			H.update_inv_armor()
+
+/obj/item/clothing/cloak/tabard/psydontabard/black
+	name = "blessed tabard"
+	desc = "A tabard worn by the worshippers of Psydon. A funeral shroud for the paradise that could've been, and a solemn vow to continue the struggle towards salvation."
+	icon_state = "blackpsydontabard"
+	item_state = "blackpsydontabard"
+
+/obj/item/clothing/cloak/tabard/psydontabard/black/alt
+	name = "opened blessed tabard"
+	desc = "A tabard worn by the worshippers of Psydon, peeled back to reveal its mourning innards."
+	body_parts_covered = GROIN
+
+/obj/item/clothing/cloak/tabard/psydontabard/black/MiddleClick(mob/user)
+	..()
+	user.update_inv_shirt()
+
+/obj/item/clothing/cloak/tabard/psydontabard/black/attack_right(mob/user)
+	switch(open_wear)
+		if(FALSE)
+			name = "opened blessed tabard"
+			desc = "A tabard worn by the worshippers of Psydon, peeled back to reveal its mourning innards."
+			body_parts_covered = GROIN
+			icon_state = "blackpsydontabardalt"
+			item_state = "blackpsydontabardalt"
+			open_wear = TRUE
+			flags_inv = HIDECROTCH // BARE YOUR CHEST, NOT YOUR WEEN!
+			to_chat(usr, span_warning("You pull back the threaded burlap, baring your heart to Psydonia's eyes."))
+		if(TRUE)
+			name = "blessed tabard"
+			desc = "A tabard worn by the worshippers of Psydon. A funeral shroud for the paradise that could've been, and a solemn vow to continue the struggle towards salvation."
+			body_parts_covered = CHEST|GROIN
+			icon_state = "blackpsydontabard"
+			item_state = "blackpsydontabard"
+			flags_inv = HIDECROTCH|HIDEBOOB
+			open_wear = FALSE
+			to_chat(usr, span_warning("You cloak yourself in the threaded burlap, veiling your heart from Psydonia's eyes."))
+	update_icon()
+	if(user)
+		if(ishuman(user))
+			var/mob/living/carbon/H = user
+			H.update_inv_cloak()
+			H.update_inv_armor()
+
+/obj/item/clothing/cloak/tabard/toga
+	name = "toga"
+	desc = "The ancestral predecessor to Psydonia's many tabards, worn by the heroes and villains of antiquity."
+	icon_state = "whitepsydontabard"
+	item_state = "whitepsydontabard"
+	mob_overlay_icon = 'icons/roguetown/clothing/onmob/cloaks.dmi'
+	slot_flags = ITEM_SLOT_SHIRT|ITEM_SLOT_ARMOR|ITEM_SLOT_CLOAK
+	custom_design = TRUE
+	var/open_wear = FALSE
+
+/obj/item/clothing/cloak/tabard/toga/get_mechanics_examine(mob/user)
+	. = ..()
+	. += span_info("Right-clicking this cloak allows for it to be dynamically worn as a traditional tabard, or as a sleeveless robe that partially exposes the chest.")
+
+/obj/item/clothing/cloak/tabard/toga/alt
+	name = "opened toga"
+	desc = "The ancestral predecessor to Psydonia's many tabards, parted to reveal what lies beneath its cloth."
+	body_parts_covered = GROIN
+	icon_state = "whitepsydontabardalt"
+	item_state = "whitepsydontabardalt"
+	flags_inv = HIDECROTCH
+	open_wear = TRUE
+
+/obj/item/clothing/cloak/tabard/toga/MiddleClick(mob/user)
+	..()
+	user.update_inv_shirt()
+
+/obj/item/clothing/cloak/tabard/toga/attack_right(mob/user)
+	switch(open_wear)
+		if(FALSE)
+			name = "opened toga"
+			desc = "The ancestral predecessor to Psydonia's many tabards, parted to reveal what lies beneath its cloth."
+			body_parts_covered = GROIN
+			icon_state = "whitepsydontabardalt"
+			item_state = "whitepsydontabardalt"
+			open_wear = TRUE
+			flags_inv = HIDECROTCH // BARE YOUR CHEST, NOT YOUR WEEN!
+			to_chat(usr, span_warning("You pull back the threaded cloth, baring your heart to Psydonia's eyes."))
+		if(TRUE)
+			name = "toga"
+			desc = "The ancestral predecessor to Psydonia's many tabards, worn by the heroes and villains of antiquity."
+			body_parts_covered = CHEST|GROIN
+			icon_state = "whitepsydontabard"
+			item_state = "whitekpsydontabard"
+			flags_inv = HIDECROTCH|HIDEBOOB
+			open_wear = FALSE
+			to_chat(usr, span_warning("You cloak yourself in the threaded cloth, veiling your heart from Psydonia's eyes."))
 	update_icon()
 	if(user)
 		if(ishuman(user))
@@ -240,7 +342,6 @@
 	item_state = "abyssortabard"
 	mob_overlay_icon = 'icons/roguetown/clothing/onmob/cloaks.dmi'
 	custom_design = TRUE
-	sellprice = 10 //Religious...
 
 /obj/item/clothing/cloak/templar/malumite
 	mob_overlay_icon = 'icons/roguetown/clothing/onmob/cloaks.dmi'
@@ -249,7 +350,6 @@
 	name = "tabard of malum"
 	desc = "Light blacks and greys, with a tinge of red, the everlasting fire of Malum's iron hammer as it strikes."
 	icon_state = "malumtabard"
-	sellprice = 10 //Religious...
 
 /obj/item/clothing/cloak/templar/necran
 	mob_overlay_icon = 'icons/roguetown/clothing/onmob/cloaks.dmi'
@@ -258,7 +358,6 @@
 	name = "necran tabard"
 	desc = "Deep dark blacks, swallowing all light as if the night itself."
 	icon_state = "necratabard"
-	sellprice = 10 //Religious...
 
 /obj/item/clothing/cloak/templar/pestran
 	mob_overlay_icon = 'icons/roguetown/clothing/onmob/cloaks.dmi'
@@ -267,7 +366,6 @@
 	name = "pestran tabard"
 	desc = "A simple covering of green cloth, meant to keep rot and blood alike off its wearer."
 	icon_state = "pestratabard"
-	sellprice = 10 //Religious...
 
 /obj/item/clothing/cloak/templar/eoran
 	mob_overlay_icon = 'icons/roguetown/clothing/onmob/cloaks.dmi'
@@ -276,7 +374,6 @@
 	name = "eoran tabard"
 	desc = "A complex covering of translucent pink and beige clothes. They carry the scent of flowers in them."
 	icon_state = "eoratabard"
-	sellprice = 10 //Religious...
 
 /obj/item/clothing/cloak/templar/xylixian
 	mob_overlay_icon = 'icons/roguetown/clothing/onmob/cloaks.dmi'
@@ -287,7 +384,6 @@
 	icon_state = "xylixcloak"
 	sleeved = 'icons/roguetown/clothing/onmob/helpers/sleeves_cloaks.dmi'
 	sleevetype = "shirt"
-	sellprice = 10 //Religious...
 
 /obj/item/clothing/cloak/templar/ravox
 	name = "justice tabard"
@@ -301,7 +397,6 @@
 	nodismemsleeves = TRUE
 	slot_flags = ITEM_SLOT_ARMOR|ITEM_SLOT_CLOAK|ITEM_SLOT_MASK
 	flags_inv = HIDECROTCH|HIDEBOOB
-	sellprice = 10 //Religious...
 
 /obj/item/clothing/cloak/templar/undivided
 	mob_overlay_icon = 'icons/roguetown/clothing/onmob/cloaks.dmi'
@@ -310,7 +405,6 @@
 	name = "undivided tabard"
 	desc = "The refuge of the TEN upon my back. A Undivided House, standing eternal against the encroaching darkness."
 	icon_state = "seetabard"
-	sellprice = 10 //Religious...
 
 /obj/item/clothing/cloak/templar/undivided_alt
 	mob_overlay_icon = 'icons/roguetown/clothing/onmob/cloaks.dmi'
@@ -319,23 +413,20 @@
 	name = "crusader tabard"
 	desc = "The refuge of the TEN upon my back. A Undivided House, standing eternal against the encroaching darkness."
 	icon_state = "seetabardalt"
-	sellprice = 10 //Religious...
 
 /obj/item/clothing/cloak/tabard/devotee
 	nodismemsleeves = TRUE
 	slot_flags = ITEM_SLOT_ARMOR|ITEM_SLOT_CLOAK
 	flags_inv = HIDECROTCH|HIDEBOOB
 	custom_design = TRUE
-	sellprice = 10 //Religious...
 
 /obj/item/clothing/cloak/tabard/devotee/psydon
-	name = "psydon tabard"
+	name = "psydonic tabard"
 	desc = "An outer garment commonly worn by soldiers. This one has the symbol of Psydon on it."
 	icon_state = "tabard_weeping"
 	mob_overlay_icon = 'icons/roguetown/clothing/onmob/detailed/tabards.dmi'
 	sleeved = 'icons/roguetown/clothing/onmob/detailed/tabards.dmi'
 	sleevetype = "shirt"
-	sellprice = 10 //Religious...
 
 /obj/item/clothing/cloak/tabard/devotee/astrata
 	name = "astratan tabard"
@@ -344,7 +435,6 @@
 	mob_overlay_icon = 'icons/roguetown/clothing/onmob/detailed/tabards.dmi'
 	sleeved = 'icons/roguetown/clothing/onmob/detailed/tabards.dmi'
 	sleevetype = "shirt"
-	sellprice = 10 //Religious...
 
 /obj/item/clothing/cloak/tabard/devotee/noc
 	name = "noc tabard"
@@ -353,7 +443,6 @@
 	mob_overlay_icon = 'icons/roguetown/clothing/onmob/detailed/tabards.dmi'
 	sleeved = 'icons/roguetown/clothing/onmob/detailed/tabards.dmi'
 	sleevetype = "shirt"
-	sellprice = 10 //Religious...
 
 /obj/item/clothing/cloak/tabard/devotee/dendor
 	name = "dendor tabard"
@@ -362,7 +451,6 @@
 	mob_overlay_icon = 'icons/roguetown/clothing/onmob/detailed/tabards.dmi'
 	sleeved = 'icons/roguetown/clothing/onmob/detailed/tabards.dmi'
 	sleevetype = "shirt"
-	sellprice = 10 //Religious...
 
 /obj/item/clothing/cloak/tabard/devotee/necra
 	name = "necra tabard"
@@ -371,7 +459,6 @@
 	mob_overlay_icon = 'icons/roguetown/clothing/onmob/detailed/tabards.dmi'
 	sleeved = 'icons/roguetown/clothing/onmob/detailed/tabards.dmi'
 	sleevetype = "shirt"
-	sellprice = 10 //Religious...
 
 /obj/item/clothing/cloak/tabard/devotee/pestra
 	name = "pestra tabard"
@@ -380,7 +467,6 @@
 	mob_overlay_icon = 'icons/roguetown/clothing/onmob/detailed/tabards.dmi'
 	sleeved = 'icons/roguetown/clothing/onmob/detailed/tabards.dmi'
 	sleevetype = "shirt"
-	sellprice = 10 //Religious...
 
 /obj/item/clothing/cloak/tabard/devotee/abyssor
 	name = "abyssor tabard"
@@ -389,7 +475,6 @@
 	mob_overlay_icon = 'icons/roguetown/clothing/onmob/detailed/tabards.dmi'
 	sleeved = 'icons/roguetown/clothing/onmob/detailed/tabards.dmi'
 	sleevetype = "shirt"
-	sellprice = 10 //Religious...
 
 /obj/item/clothing/cloak/tabard/devotee/malum
 	name = "malum tabard"
@@ -398,7 +483,6 @@
 	mob_overlay_icon = 'icons/roguetown/clothing/onmob/detailed/tabards.dmi'
 	sleeved = 'icons/roguetown/clothing/onmob/detailed/tabards.dmi'
 	sleevetype = "shirt"
-	sellprice = 10 //Religious...
 
 /obj/item/clothing/cloak/tabard/devotee/ravox
 	name = "ravox tabard"
@@ -407,7 +491,6 @@
 	mob_overlay_icon = 'icons/roguetown/clothing/onmob/detailed/tabards.dmi'
 	sleeved = 'icons/roguetown/clothing/onmob/detailed/tabards.dmi'
 	sleevetype = "shirt"
-	sellprice = 10 //Religious...
 
 /obj/item/clothing/cloak/tabard/devotee/xylix
 	name = "xylix tabard"
@@ -416,7 +499,6 @@
 	mob_overlay_icon = 'icons/roguetown/clothing/onmob/detailed/tabards.dmi'
 	sleeved = 'icons/roguetown/clothing/onmob/detailed/tabards.dmi'
 	sleevetype = "shirt"
-	sellprice = 10 //Religious...
 
 /obj/item/clothing/cloak/tabard/devotee/eora
 	name = "eora tabard"
@@ -425,7 +507,6 @@
 	mob_overlay_icon = 'icons/roguetown/clothing/onmob/detailed/tabards.dmi'
 	sleeved = 'icons/roguetown/clothing/onmob/detailed/tabards.dmi'
 	sleevetype = "shirt"
-	sellprice = 10 //Religious...
 
 /obj/item/clothing/cloak/tabard/knight
 	color = CLOTHING_PURPLE
@@ -474,7 +555,6 @@
 	detail_tag = "_psy"
 	detail_color = CLOTHING_RED
 	boobed_detail = FALSE
-	sellprice = 10 //Religious ties.
 
 /obj/item/clothing/cloak/tabard/crusader/Initialize()
 	. = ..()
@@ -638,11 +718,17 @@
 	GLOB.lordcolor -= src
 	return ..()
 
-/obj/item/clothing/cloak/tabard/stabard/bog
-	name = "bogman tabard"
-	desc = "A tabard colored in a glorius green of the mighty protectors of the BOG." // THE BOG DESERVES A BETTER DESCRIPTION!
+/obj/item/clothing/cloak/tabard/stabard/bog/levy
+	name = "levy militia tabard"
+	desc = "A tabard colored in a glorius green of the mighty protectors of the BOG. Except you are not a TRAITOR. Yet."
 	color = CLOTHING_GREEN
 	detail_color = CLOTHING_DARK_GREEN
+
+/obj/item/clothing/cloak/tabard/stabard/bog
+	name = "bogman tabard"
+	desc = "Once a proud symbol of service to the Bog, now faded, tattered, and rotten. Its owner abandoned their duty long before the cloth began to decay."
+	color = "#7a8138" // faded green
+	detail_color = "#414d26" // ditto
 
 /obj/item/clothing/cloak/tabard/stabard/grenzelhoft
 	name = "grenzelhoft mercenary tabard"
@@ -736,7 +822,6 @@
 	sleevetype = "shirt"
 	nodismemsleeves = TRUE
 	inhand_mod = TRUE
-	allowed_race = NON_DWARVEN_RACE_TYPES
 	detail_tag = "_det"
 	detail_color = CLOTHING_AZURE
 
@@ -782,17 +867,16 @@
 	allowed_race = NON_DWARVEN_RACE_TYPES
 	salvage_result = /obj/item/natural/fur
 	cold_protection = 20
-	sellprice = 9 //Furry...
 
 /obj/item/clothing/cloak/darkcloak/bear
 	name = "direbear cloak"
 	desc = "Made from the finest, warmest bear pelt. It might be worth more than your life."
 	icon_state = "bear_cloak"
 	item_state = "bear_cloak"
+	allowed_race = CLOTHED_RACES_TYPES
 	slot_flags = ITEM_SLOT_BACK_R|ITEM_SLOT_CLOAK
 	salvage_result = /obj/item/natural/hide/cured
 	salvage_amount = 3
-	sellprice = 12
 
 /obj/item/clothing/cloak/darkcloak/bear/light
 	name = "light direbear cloak"
@@ -801,7 +885,6 @@
 	slot_flags = ITEM_SLOT_BACK_R|ITEM_SLOT_CLOAK
 	salvage_result = /obj/item/natural/hide/cured
 	salvage_amount = 3
-	sellprice = 10
 
 /obj/item/clothing/cloak/darkcloak/minotaur
 	name = "minotaur cloak"
@@ -826,7 +909,6 @@
 	boobed = TRUE
 	allowed_race = CLOTHED_RACES_TYPES
 	flags_inv = HIDECROTCH|HIDEBOOB
-	sellprice = 8
 
 /obj/item/clothing/cloak/apron/blacksmith
 	name = "leather apron"
@@ -838,6 +920,7 @@
 	armor = ARMOR_CLOTHING
 	boobed = TRUE
 	salvage_result = /obj/item/natural/hide/cured
+	salvage_amount = 1
 
 /obj/item/clothing/cloak/apron/brown
 	color = CLOTHING_BROWN
@@ -883,7 +966,6 @@
 	hoodtype = /obj/item/clothing/head/hooded/rainhood
 	toggle_icon_state = FALSE
 	salvage_result = /obj/item/natural/hide/cured
-	sellprice = 6 //Rain protector...
 
 /obj/item/clothing/cloak/raincloak/red
 	color = CLOTHING_RED
@@ -894,7 +976,6 @@
 
 /obj/item/clothing/cloak/raincloak/brown
 	color = CLOTHING_BROWN
-	sellprice = 25
 
 /obj/item/clothing/cloak/raincloak/green
 	color = CLOTHING_GREEN
@@ -908,6 +989,9 @@
 /obj/item/clothing/cloak/raincloak/purple
 	color = CLOTHING_PURPLE
 
+/obj/item/clothing/cloak/raincloak/white
+	color = CLOTHING_WHITE
+
 /obj/item/clothing/head/hooded/rainhood
 	name = "hood"
 	desc = "This one will shelter me from the weather and my identity too."
@@ -919,7 +1003,6 @@
 	body_parts_covered = HEAD
 	flags_inv = HIDEEARS|HIDEFACE|HIDEHAIR|HIDEFACIALHAIR|HIDETAIL
 	block2add = FOV_BEHIND
-	sellprice = 4
 
 /obj/item/clothing/cloak/raincloak/furcloak
 	name = "fur cloak"
@@ -928,6 +1011,7 @@
 	inhand_mod = FALSE
 	hoodtype = /obj/item/clothing/head/hooded/rainhood/furhood
 	salvage_result = /obj/item/natural/fur
+	salvage_amount = 1
 
 /obj/item/clothing/cloak/raincloak/furcloak/crafted/Initialize()
 	. = ..()
@@ -965,7 +1049,6 @@
 	nodismemsleeves = TRUE
 	inhand_mod = FALSE
 	slot_flags = ITEM_SLOT_BACK_R|ITEM_SLOT_CLOAK
-	sellprice = 6 //Pretty cape.
 
 /obj/item/clothing/cloak/cape/purple
 	color = CLOTHING_PURPLE
@@ -1001,15 +1084,13 @@
 	allowed_race = CLOTHED_RACES_TYPES
 	salvage_result = /obj/item/natural/silk
 	salvage_amount = 1
-	sellprice = 8 //Pretty...
 
 /obj/item/clothing/cloak/cape/archivist
 	icon_state = "puritan_cape"
 	color = CLOTHING_BLACK
 	allowed_race = CLOTHED_RACES_TYPES
-	sellprice = 7
 
-/obj/item/clothing/cloak/cape/inquisitor
+/obj/item/clothing/cloak/cape/inquisitorgold
 	name = "golden order cloak"
 	desc = "A time honored cloak inlined with golden threading, the stitchwork tethers it to the Golden Orders; a catch-all term for the various faith-militances that \
 	ward Psydonia from heathens, cultists, and the ever-looming threat of another calamity."
@@ -1017,7 +1098,15 @@
 	icon = 'icons/roguetown/clothing/cloaks.dmi'
 	mob_overlay_icon = 'icons/roguetown/clothing/onmob/cloaks.dmi'
 	sleeved = 'icons/roguetown/clothing/onmob/cloaks.dmi'
-	sellprice = 25 //Important cloak...
+
+/obj/item/clothing/cloak/cape/inquisitorsilver
+	name = "silver order cloak"
+	desc = "A time honored cloak inlined with silver threading, the stitchwork tethers it to the Silver Orders; a catch-all term for the various faith-militances that \
+	ward Psydonia from monsters, creechers, and the ever-looming threat of the Archdevil's return."
+	icon_state = "sinquisitor_cloak"
+	icon = 'icons/roguetown/clothing/cloaks.dmi'
+	mob_overlay_icon = 'icons/roguetown/clothing/onmob/cloaks.dmi'
+	sleeved = 'icons/roguetown/clothing/onmob/cloaks.dmi'
 
 /obj/item/clothing/cloak/cape/rogue
 	name = "cape"
@@ -1036,11 +1125,10 @@
 	slot_flags = ITEM_SLOT_BACK_R|ITEM_SLOT_CLOAK
 	inhand_mod = TRUE
 	salvage_result = /obj/item/natural/fur
-	sellprice = 7 //Fluffy!
 
 /obj/item/clothing/cloak/chasuble
 	name = "chasuble"
-	desc = ""
+	desc = "Gilded promises, golden works."
 	icon_state = "chasuble"
 	body_parts_covered = CHEST|GROIN|ARMS
 	sleeved = 'icons/roguetown/clothing/onmob/cloaks.dmi'
@@ -1049,18 +1137,16 @@
 	allowed_sex = list(MALE, FEMALE)
 	allowed_race = NON_DWARVEN_RACE_TYPES
 	nodismemsleeves = TRUE
-	sellprice = 10 //Stylish.
 
 /obj/item/clothing/cloak/stole
 	name = "stole"
-	desc = ""
+	desc = "Thine authority, divine; thine faith, unfettered."
 	icon_state = "stole_gold"
 	item_state = "stole_gold"
 	sleeved = null
 	sleevetype = null
 	body_parts_covered = null
 	flags_inv = null
-	sellprice = 9 //Kinda stylish
 
 /obj/item/clothing/cloak/stole/red
 	icon_state = "stole_red"
@@ -1079,13 +1165,13 @@
 	slot_flags = ITEM_SLOT_CLOAK
 	allowed_sex = list(MALE, FEMALE)
 	allowed_race = NON_DWARVEN_RACE_TYPES
-	sellprice = 50
 	nodismemsleeves = TRUE
 	salvage_result = /obj/item/natural/fur
+	salvage_amount = 1
 
 /obj/item/clothing/cloak/heartfelt
 	name = "red cloak"
-	desc = ""
+	desc = "Blessings upon thee."
 	icon_state = "heartfelt_cloak"
 	body_parts_covered = CHEST|GROIN|VITALS|ARMS
 	sleeved = 'icons/roguetown/clothing/onmob/cloaks.dmi'
@@ -1103,7 +1189,6 @@
 	sleeved = 'icons/roguetown/clothing/onmob/cloaks.dmi'
 	alternate_worn_layer = CLOAK_BEHIND_LAYER
 	slot_flags = ITEM_SLOT_BACK_R|ITEM_SLOT_CLOAK
-	sellprice = 15 //Religious...
 
 /obj/item/clothing/cloak/half
 	name = "halfcloak"
@@ -1123,7 +1208,7 @@
 	allowed_sex = list(MALE, FEMALE)
 	flags_inv = null
 	var/flipped = FALSE
-	sellprice = 5  //Half!?
+	salvage_amount = 1
 
 /obj/item/clothing/cloak/half/attack_right(mob/user)
 	if(!flipped)
@@ -1140,6 +1225,9 @@
 /obj/item/clothing/cloak/half/red
 	color = CLOTHING_RED
 
+/obj/item/clothing/cloak/half/azure
+	color = CLOTHING_AZURE
+
 /obj/item/clothing/cloak/half/orange
 	color = CLOTHING_ORANGE
 
@@ -1153,6 +1241,9 @@
 
 /obj/item/clothing/cloak/half/rider/red
 	color = CLOTHING_RED
+
+/obj/item/clothing/cloak/half/rider/orange
+	color = CLOTHING_ORANGE
 
 /obj/item/clothing/cloak/half/vet
 	name = "town watch cloak"
@@ -1177,7 +1268,6 @@
 	desc = "A heavy leather cloak held together by a gilded pin, depicting the Grand Duke's house. The sign of a faithful servant."
 	icon_state = "shadowcloak"
 	color = null
-	allowed_race = NON_DWARVEN_RACE_TYPES
 
 /obj/item/clothing/cloak/thief_cloak
 	name = "rapscallion's shawl"
@@ -1206,7 +1296,6 @@
 	flags_inv = HIDECROTCH|HIDEBOOB
 	salvage_result = /obj/item/natural/hide/cured
 	salvage_amount = 1
-	sellprice = 9 //Scary volf...
 
 /obj/item/clothing/cloak/wickercloak
 	name = "wicker cloak"
@@ -1215,14 +1304,12 @@
 	item_state = "wicker_cloak"
 	alternate_worn_layer = CLOAK_BEHIND_LAYER
 	slot_flags = ITEM_SLOT_BACK_R|ITEM_SLOT_CLOAK
-	allowed_sex = list(MALE, FEMALE)
 	sleeved = 'icons/roguetown/clothing/onmob/cloaks.dmi'
 	sleevetype = "shirt"
 	nodismemsleeves = TRUE
 	inhand_mod = TRUE
 	salvage_result = /obj/item/natural/fibers
 	salvage_amount = 2
-	sellprice = 3 //Wtf is this?
 
 /obj/item/clothing/cloak/wickercloak/ComponentInitialize()
 	. = ..()
@@ -1263,7 +1350,6 @@
 	nodismemsleeves = TRUE
 	detail_tag = "_detail"
 	detail_color = CLOTHING_BLACK
-	sellprice = 25 //Expensive clothing..~ How nice~
 
 /obj/item/clothing/cloak/matron
 	name = "matron cloak"
@@ -1278,7 +1364,6 @@
 	nodismemsleeves = TRUE
 	sleevetype = "shirt"
 	slot_flags = ITEM_SLOT_CLOAK
-	sellprice = 25 //ooh stylish~
 
 /obj/item/clothing/cloak/battlenun
 	name = "nun vestments"
@@ -1290,7 +1375,6 @@
 	alternate_worn_layer = TABARD_LAYER
 	body_parts_covered = CHEST|GROIN
 	slot_flags = ITEM_SLOT_ARMOR|ITEM_SLOT_CLOAK
-	sellprice = 12
 
 /obj/item/clothing/cloak/templar/MiddleClick(mob/user)
 	overarmor = !overarmor
@@ -1465,7 +1549,6 @@
 	icon_state = "guard_hood" // The same as the guard hood however to break it from using the lords colors it has been given its own item path
 	item_state = "guard_hood"
 	body_parts_covered = CHEST
-	sellprice = 15 //Fashionable.
 
 /obj/item/clothing/cloak/wardencloak
 	name = "warden's cloak"
@@ -1478,7 +1561,6 @@
 	sleevetype = "shirt"
 	nodismemsleeves = TRUE
 	inhand_mod = TRUE
-	sellprice = 15
 
 /obj/item/clothing/cloak/graggar
 	name = "vicious cloak"
@@ -1490,7 +1572,6 @@
 	sleevetype = "shirt"
 	nodismemsleeves = TRUE
 	inhand_mod = TRUE
-	sellprice = 25  //Heretical...
 
 /obj/item/clothing/cloak/graggar/Initialize()
 	. = ..()
@@ -1621,7 +1702,7 @@
 
 /obj/item/clothing/cloak/absolutionistrobe
 	name = "absolver's robe"
-	desc = "Absolve them of their pain. Absolve them of their longing. Lyve, as PSYDON lyves."
+	desc = "Absolve them of their pain. Absolve them of their longing. Lyve, as He lyves."
 	slot_flags = ITEM_SLOT_BACK_R|ITEM_SLOT_CLOAK
 	sleeved = 'icons/roguetown/clothing/onmob/cloaks.dmi'
 	icon_state = "absolutionistrobe"
@@ -1629,6 +1710,12 @@
 	sleevetype = "shirt"
 	nodismemsleeves = TRUE
 	inhand_mod = TRUE
+
+/obj/item/clothing/cloak/absolutionistrobe/black
+	name = "blessed robe"
+	desc = "Weep for what was lost. Pray for those who may yet be saved. Endure, in His name."
+	icon_state = "blackabsolutionistrobe"
+	item_state = "blackabsolutionistrobe"
 
 /obj/item/clothing/cloak/cotehardie
 	name = "fitted coat"
@@ -1646,7 +1733,6 @@
 	detail_color = "#36241f"
 	sleeved = 'icons/roguetown/clothing/onmob/helpers/sleeves_cloaks.dmi'
 	sleevetype = "cotehardie"
-	sellprice = 10 //Nice...
 
 /obj/item/clothing/cloak/cotehardie/update_icon()
 	cut_overlays()
@@ -1674,6 +1760,10 @@
 /obj/item/clothing/cloak/cotehardie/mageblue
 	color = CLOTHING_MAGE_BLUE
 
+/obj/item/clothing/cloak/cotehardie/aristocrat
+	color = CLOTHING_RED_OCHRE
+	detail_color = CLOTHING_RED_OCHRE //Only way to work with female sprites
+
 /obj/item/clothing/cloak/banneret
 	name = "knight banneret's cape"
 	desc = "A cape with a gold embroided heraldry of Azure."
@@ -1685,7 +1775,6 @@
 	detail_tag = "_detail"
 	alternate_worn_layer = CLOAK_BEHIND_LAYER
 	detail_color = "#39404d"
-	sellprice = 45 //Stylish~
 
 /obj/item/clothing/cloak/banneret/Initialize()
 	. = ..()
@@ -1736,9 +1825,10 @@
 	boobed = FALSE
 	grid_width = 64
 	grid_height = 64
+	salvage_amount = 1
 
 /obj/item/clothing/cloak/scaledcloak
-	name = "Scaled Cloak"
+	name = "scaled cloak"
 	desc = "A light cloak covered in shimmering metal scales. Beautiful even if too light to protect it's wearer from more than other travel cloaks."
 	icon_state = "scalecloak"
 	item_state = "scalecloak"

@@ -26,9 +26,16 @@
 /obj/item/clothing/neck/roguetown/leather,
 /turf/open/floor/rogue/carpet,
 /area/rogue)
+"ae" = (
+/obj/structure/fluff/walldeco/psybanner/zizo,
+/turf/closed/wall/mineral/rogue/decostone/mossy/red/long{
+	dir = 1
+	},
+/area/rogue/indoors/lich_start/lich_lair)
 "af" = (
-/turf/open/floor/rogue/blocks,
-/area/rogue)
+/obj/structure/fluff/walldeco/med,
+/turf/closed/wall/mineral/rogue/decostone/mossy/red/long,
+/area/rogue/indoors/lich_start/lich_lair)
 "ag" = (
 /obj/structure/table/wood{
 	dir = 10;
@@ -74,6 +81,9 @@
 /obj/item/clothing/head/roguetown/helmet/sallet,
 /turf/open/floor/rogue/carpet,
 /area/rogue)
+"an" = (
+/turf/open/floor/rogue/carpet/lord/center,
+/area/rogue/indoors/lich_start/lich_lair)
 "ao" = (
 /obj/effect/spawner/lootdrop/hag/enchanted_moss,
 /turf/open/floor/rogue/grassyel,
@@ -169,6 +179,11 @@
 "aG" = (
 /turf/open/floor/rogue/underworld/road,
 /area/rogue/indoors/deathsedge)
+"aH" = (
+/obj/machinery/light/rogue/candle/blue,
+/obj/structure/bookcase/random,
+/turf/open/floor/rogue/cobble,
+/area/rogue/indoors/lich_start/lich_lair)
 "aI" = (
 /obj/structure/table/wood{
 	dir = 10;
@@ -252,7 +267,6 @@
 /turf/open/floor/rogue/cobblerock,
 /area/rogue/indoors/shelter/bog_hag)
 "bb" = (
-/obj/effect/proc_holder/spell/invoked/heal,
 /turf/open/floor/rogue/blocks,
 /area/rogue)
 "bd" = (
@@ -352,6 +366,12 @@
 "by" = (
 /turf/open/floor/rogue/snowrough,
 /area/rogue/indoors/eventarea)
+"bK" = (
+/obj/structure/gate{
+	gid = "lichstartgate"
+	},
+/turf/open/floor/rogue/metal,
+/area/rogue/indoors/lich_start/lich_lair)
 "bP" = (
 /obj/structure/roguemachine/hag_cauldron,
 /turf/open/floor/rogue/twig,
@@ -362,20 +382,63 @@
 "cF" = (
 /turf/open/floor/rogue/concrete,
 /area/rogue/underworld/dream)
+"cN" = (
+/obj/structure/fluff/walldeco/stone/stone6,
+/turf/closed/wall/mineral/rogue/decostone/mossy/red/long,
+/area/rogue/indoors/lich_start/lich_lair)
+"cU" = (
+/turf/open/floor/rogue/carpet/lord/left,
+/area/rogue/indoors/lich_start/lich_lair)
+"cX" = (
+/obj/structure/fluff/railing/border,
+/obj/structure/fluff/railing/corner/north_east,
+/turf/open/floor/rogue/naturalstone,
+/area/rogue/indoors/lich_start/lich_lair)
 "do" = (
 /obj/machinery/light/rogue/forge,
 /turf/open/floor/rogue/dirt/road,
 /area/rogue)
+"ds" = (
+/obj/structure/glowshroom,
+/obj/structure/fluff/railing/border,
+/turf/open/floor/rogue/naturalstone,
+/area/rogue/indoors/lich_start/lich_lair)
+"dw" = (
+/obj/structure/table/vtable,
+/obj/machinery/light/rogue/candle/floorcandle,
+/turf/open/floor/rogue/ruinedwood/spiral,
+/area/rogue/indoors/lich_start)
 "dx" = (
 /turf/open/floor/rogue/AzureSand,
 /area/rogue/underworld/dream)
+"dz" = (
+/obj/structure/fluff/railing/border,
+/turf/open/floor/rogue/churchbrick,
+/area/rogue/indoors/lich_start/lich_lair)
 "dK" = (
 /turf/open/floor/rogue/underworld/road,
 /area/rogue/indoors/eventarea)
+"dL" = (
+/obj/structure/fluff/psycross/zizocross/golden,
+/obj/effect/decal/cleanable/dirt/cobweb{
+	icon_state = "cobweb2"
+	},
+/turf/open/floor/rogue/churchbrick,
+/area/rogue/indoors/lich_start/lich_lair)
+"dQ" = (
+/obj/structure/bookcase/random,
+/obj/effect/decal/cleanable/dirt/cobweb{
+	dir = 8
+	},
+/turf/open/floor/rogue/cobble,
+/area/rogue/indoors/lich_start/lich_lair)
 "dZ" = (
 /obj/effect/decal/remains/human,
 /turf/open/floor/rogue/cobble,
 /area/rogue/indoors/shelter/bog_hag)
+"ee" = (
+/turf/open/floor/rogue/churchmarble,
+/area/rogue/indoors/lich_start/lich_lair)
 "eh" = (
 /turf/open/floor/rogue/dirt/road,
 /area/rogue)
@@ -388,6 +451,11 @@
 /obj/item/clothing/head/roguetown/helmet/heavy/crusader/t,
 /turf/open/floor/rogue/carpet,
 /area/rogue)
+"eq" = (
+/obj/machinery/light/rogue/candle/blue/l,
+/obj/structure/flora/tinymushrooms,
+/turf/open/floor/rogue/dirt,
+/area/rogue/indoors/lich_start/lich_lair)
 "es" = (
 /turf/open/floor/rogue/carpet/lord/right,
 /area/rogue/indoors/eventarea)
@@ -395,9 +463,30 @@
 /obj/effect/decal/cleanable/black_rot_vomit,
 /turf/open/floor/rogue/cobblerock,
 /area/rogue/indoors/shelter/bog_hag)
+"ez" = (
+/obj/structure/bars/pipe{
+	dir = 4
+	},
+/obj/structure/bars/tough,
+/turf/open/floor/rogue/concrete,
+/area/rogue/indoors/lich_start/lich_lair)
+"eA" = (
+/obj/structure/stairs/fancy/l,
+/turf/open/floor/rogue/carpet/lord/left,
+/area/rogue/indoors/lich_start)
 "eD" = (
 /turf/open/floor/rogue/cobblerock,
 /area/rogue/indoors/shelter/bog_hag)
+"eF" = (
+/obj/item/cooking/pan/aalloy,
+/turf/open/floor/rogue/dirt,
+/area/rogue/indoors/lich_start/lich_lair)
+"eY" = (
+/obj/machinery/light/rogue/candle/blue{
+	pixel_y = -32
+	},
+/turf/open/floor/rogue/cobble,
+/area/rogue/indoors/lich_start/lich_lair)
 "fd" = (
 /obj/structure/table/wood{
 	dir = 10;
@@ -434,19 +523,60 @@
 /obj/item/gun/ballistic/revolver/grenadelauncher/sling,
 /turf/open/floor/rogue/grass,
 /area/rogue/outdoors)
+"fq" = (
+/obj/structure/stairs/fancy/c{
+	dir = 1
+	},
+/turf/open/floor/rogue/carpet/lord/center,
+/area/rogue/indoors/lich_start/lich_lair)
+"fr" = (
+/obj/item/ash,
+/obj/effect/decal/edge{
+	color = "#3f3f3f";
+	dir = 8
+	},
+/turf/open/floor/rogue/churchmarble,
+/area/rogue/indoors/lich_start/lich_lair)
 "fu" = (
 /turf/open/floor/rogue/tile,
 /area/rogue/indoors/eventarea)
 "fH" = (
 /turf/open/floor/rogue/greenstone/glyph1,
 /area/rogue/indoors/eventarea)
+"fM" = (
+/obj/effect/decal/remains/bear,
+/turf/open/floor/rogue/naturalstone,
+/area/rogue/indoors/lich_start/lich_lair)
 "fQ" = (
 /turf/open/floor/rogue/cobble,
 /area/rogue/indoors/eventarea)
+"fY" = (
+/obj/structure/fluff/walldeco/bigpainting/lake{
+	pixel_x = 0
+	},
+/turf/open/water/cleanshallow,
+/area/rogue/indoors/lich_start/lich_lair)
+"gd" = (
+/obj/effect/decal/remains/human,
+/obj/machinery/light/rogue/candle/blue/r,
+/turf/open/floor/rogue/churchbrick,
+/area/rogue/indoors/lich_start)
+"gf" = (
+/obj/structure/globe,
+/turf/open/floor/rogue/churchbrick,
+/area/rogue/indoors/lich_start/lich_lair)
 "gm" = (
 /obj/machinery/gear_painter,
 /turf/open/floor/rogue/shroud/hag,
 /area/rogue/indoors/shelter/bog_hag)
+"gu" = (
+/obj/structure/winch{
+	gid = "lichstartgate";
+	redstone_id = "thronegate";
+	dir = 4
+	},
+/turf/open/floor/rogue/churchbrick,
+/area/rogue/indoors/lich_start/lich_lair)
 "gw" = (
 /obj/structure/table/wood{
 	dir = 10;
@@ -464,6 +594,13 @@
 /obj/effect/landmark/underworldstrands,
 /turf/open/floor/rogue/underworld/road,
 /area/rogue/indoors/deathsedge)
+"gC" = (
+/obj/structure/fluff/traveltile/lich{
+	aportalgoesto = "lichout";
+	aportalid = "lichin"
+	},
+/turf/open/floor/rogue/naturalstone,
+/area/rogue/indoors/lich_start/lich_lair)
 "gF" = (
 /obj/structure/table/wood{
 	dir = 10;
@@ -488,6 +625,9 @@
 /obj/item/rogueweapon/flail,
 /turf/open/floor/rogue/cobble,
 /area/rogue)
+"gP" = (
+/turf/open/floor/rogue/dirt,
+/area/rogue/indoors/lich_start/lich_lair)
 "gR" = (
 /obj/effect/spawner/lootdrop/hag/raw_botanicals,
 /turf/open/floor/rogue/dirt/road,
@@ -495,6 +635,18 @@
 "gX" = (
 /turf/open/floor/rogue/twig,
 /area/rogue/indoors/shelter/bog_hag)
+"hc" = (
+/obj/structure/fluff/railing/border/north,
+/obj/item/ash,
+/turf/open/floor/rogue/churchbrick,
+/area/rogue/indoors/lich_start)
+"he" = (
+/obj/structure/spider/stickyweb,
+/obj/machinery/light/rogue/candle/blue{
+	pixel_y = -32
+	},
+/turf/open/floor/rogue/cobble,
+/area/rogue/indoors/lich_start/lich_lair)
 "hs" = (
 /obj/effect/decal/remains/fox,
 /turf/open/floor/rogue/naturalstone,
@@ -502,6 +654,11 @@
 "hy" = (
 /turf/open/floor/rogue/rooftop/west,
 /area/rogue/indoors/eventarea)
+"hA" = (
+/obj/structure/stairs/stone,
+/obj/structure/fluff/railing/border/east,
+/turf/open/floor/rogue/cobble,
+/area/rogue/indoors/lich_start/lich_lair)
 "hB" = (
 /obj/structure/table/wood,
 /obj/item/needle/thorn,
@@ -522,9 +679,31 @@
 /obj/machinery/light/rogue/candle/floorcandle,
 /turf/open/floor/rogue/concrete,
 /area/rogue/underworld/dream)
+"hJ" = (
+/obj/machinery/light/rogue/candle/blue/r,
+/obj/structure/stairs{
+	dir = 1
+	},
+/turf/open/floor/rogue/churchbrick,
+/area/rogue/indoors/lich_start)
 "hK" = (
 /turf/closed/mineral/rogue/bedrock,
 /area/rogue/indoors/shelter/bog_hag)
+"hL" = (
+/obj/structure/fluff/walldeco/psybanner/zizo{
+	pixel_x = 2
+	},
+/turf/closed/wall/mineral/rogue/decostone/mossy/red/long{
+	dir = 1
+	},
+/area/rogue/indoors/lich_start/lich_lair)
+"hN" = (
+/obj/structure/bars/pipe{
+	dir = 4
+	},
+/obj/structure/fluff/walldeco/psybanner/zizo,
+/turf/closed/wall/mineral/rogue/stone/red_moss,
+/area/rogue/indoors/lich_start/lich_lair)
 "hO" = (
 /obj/effect/landmark/events/testportal{
 	aportalloc = "decap"
@@ -548,6 +727,41 @@
 /obj/item/grown/log/tree/stick,
 /turf/open/floor/rogue/grassred,
 /area/rogue/indoors/shelter/bog_hag)
+"ia" = (
+/obj/effect/decal/edge{
+	color = "#3f3f3f";
+	dir = 8
+	},
+/turf/open/floor/rogue/churchbrick,
+/area/rogue/indoors/lich_start/lich_lair)
+"ib" = (
+/turf/open/floor/rogue/ruinedwood/spiral,
+/area/rogue/indoors/lich_start)
+"ic" = (
+/turf/open/floor/rogue/carpet/lord/right,
+/area/rogue/indoors/lich_start)
+"im" = (
+/turf/closed/wall/mineral/rogue/decostone/mossy/red/long,
+/area/rogue/indoors/lich_start)
+"io" = (
+/obj/effect/decal/cobbleedge{
+	dir = 10;
+	pixel_y = 6
+	},
+/obj/effect/decal/cobbleedge{
+	dir = 5;
+	pixel_x = -13;
+	pixel_y = 12
+	},
+/obj/effect/decal/cobbleedge{
+	dir = 9;
+	pixel_x = 4
+	},
+/turf/open/floor/rogue/cobble/mossy,
+/area/rogue/indoors/lich_start/lich_lair)
+"iu" = (
+/turf/open/floor/rogue/naturalstone,
+/area/rogue/indoors/lich_start/lich_lair)
 "iv" = (
 /obj/effect/decal/cleanable/dreamfiend_ichor,
 /turf/open/floor/rogue/naturalstone,
@@ -556,6 +770,9 @@
 /obj/structure/mirror/fancy,
 /turf/open/floor/rogue/grassred,
 /area/rogue/indoors/shelter/bog_hag)
+"iC" = (
+/turf/closed/wall/mineral/rogue/stone/red_moss,
+/area/rogue/indoors/lich_start/lich_lair)
 "iE" = (
 /turf/open/floor/rogue/tile/masonic/single,
 /area/rogue/indoors/eventarea)
@@ -563,10 +780,39 @@
 /obj/machinery/light/rogue/firebowl/stump,
 /turf/open/floor/rogue/grass,
 /area/rogue/indoors/shelter/bog_hag)
+"iI" = (
+/turf/open/floor/rogue/metal,
+/area/rogue/indoors/lich_start/lich_lair)
+"iM" = (
+/obj/structure/mannequin/male/decorative/training_dummy_style,
+/obj/item/clothing/suit/roguetown/armor/plate/cuirass/aalloy,
+/obj/item/clothing/neck/roguetown/gorget/aalloy,
+/obj/item/clothing/head/roguetown/helmet/heavy/guard/aalloy,
+/obj/item/clothing/gloves/roguetown/plate/aalloy,
+/obj/item/clothing/under/roguetown/platelegs/aalloy,
+/obj/effect/decal/cleanable/dirt/cobweb,
+/turf/open/floor/rogue/ruinedwood/spiral,
+/area/rogue/indoors/lich_start)
+"iP" = (
+/obj/effect/decal/carpet/kover_purple{
+	pixel_y = 16
+	},
+/turf/open/floor/rogue/churchbrick,
+/area/rogue/indoors/lich_start/lich_lair)
 "jc" = (
 /obj/effect/spawner/lootdrop/hag/raw_botanicals,
 /turf/open/floor/rogue/grass,
 /area/rogue/indoors/shelter/bog_hag)
+"jk" = (
+/obj/structure/stairs/stone{
+	dir = 1
+	},
+/turf/open/floor/rogue/churchbrick,
+/area/rogue/indoors/lich_start/lich_lair)
+"jl" = (
+/obj/structure/bookcase/random,
+/turf/open/floor/rogue/dirt,
+/area/rogue/indoors/lich_start/lich_lair)
 "jn" = (
 /obj/structure/table/wood{
 	dir = 10;
@@ -580,6 +826,10 @@
 "jo" = (
 /turf/open/floor/rogue/grassyel,
 /area/rogue/indoors/shelter/bog_hag)
+"jv" = (
+/obj/item/ash,
+/turf/open/floor/rogue/carpet/lord/left,
+/area/rogue/indoors/lich_start)
 "jz" = (
 /obj/item/natural/bundle/stick/full{
 	pixel_y = -6
@@ -622,6 +872,13 @@
 /obj/machinery/light/rogue/candle,
 /turf/closed/wall/mineral/rogue/decostone,
 /area/rogue/indoors/ravoxarena)
+"kc" = (
+/obj/effect/decal/edge{
+	color = "#3f3f3f";
+	dir = 8
+	},
+/turf/open/floor/rogue/churchmarble,
+/area/rogue/indoors/lich_start/lich_lair)
 "ki" = (
 /turf/open/floor/rogue/wood/nosmooth,
 /area/rogue/indoors/eventarea)
@@ -644,6 +901,10 @@
 "kN" = (
 /turf/open/floor/rogue/carpet,
 /area/rogue)
+"kR" = (
+/obj/structure/fluff/psycross/zizocross/stone,
+/turf/open/floor/rogue/naturalstone,
+/area/rogue/indoors/lich_start/lich_lair)
 "kX" = (
 /obj/effect/decal/edge_corner{
 	color = "#3f3f3f";
@@ -651,6 +912,17 @@
 	},
 /turf/open/floor/rogue/twig,
 /area/rogue/indoors/shelter/bog_hag)
+"lb" = (
+/turf/open/floor/rogue/carpet/lord/right,
+/area/rogue/indoors/lich_start/lich_lair)
+"le" = (
+/obj/structure/fluff/walldeco/psybanner/zizo{
+	pixel_x = 2
+	},
+/turf/closed/wall/mineral/rogue/decostone/mossy/red/long{
+	dir = 1
+	},
+/area/rogue/indoors/lich_start)
 "lj" = (
 /turf/open/floor/rogue/ruinedwood/spiral,
 /area/rogue/indoors/eventarea)
@@ -667,6 +939,33 @@
 "ls" = (
 /turf/open/floor/rogue/herringbone,
 /area/rogue/indoors/eventarea)
+"lv" = (
+/obj/structure/bars/pipe{
+	dir = 4
+	},
+/obj/structure/fluff/walldeco/rpainting/forest,
+/turf/closed/wall/mineral/rogue/decostone/mossy/red/long,
+/area/rogue/indoors/lich_start/lich_lair)
+"lB" = (
+/obj/structure/stairs/fancy/r{
+	dir = 1
+	},
+/turf/open/floor/rogue/carpet/lord/right,
+/area/rogue/indoors/lich_start)
+"lG" = (
+/obj/structure/bars/pipe{
+	dir = 1
+	},
+/turf/closed/wall/mineral/rogue/decostone/mossy/red/long{
+	dir = 1
+	},
+/area/rogue/indoors/lich_start/lich_lair)
+"lH" = (
+/obj/structure/stairs/fancy/l{
+	dir = 1
+	},
+/turf/open/floor/rogue/carpet/lord/left,
+/area/rogue/indoors/lich_start)
 "lJ" = (
 /obj/structure/closet/crate/roguecloset/inn,
 /obj/item/clothing/suit/roguetown/shirt/robe,
@@ -677,6 +976,13 @@
 /obj/item/rogueweapon/scabbard/gwstrap,
 /turf/open/floor/rogue/shroud/hag,
 /area/rogue/indoors/shelter/bog_hag)
+"lK" = (
+/obj/effect/decal/cobbleedge{
+	dir = 10;
+	pixel_y = 7
+	},
+/turf/open/floor/rogue/cobble/mossy,
+/area/rogue/indoors/lich_start/lich_lair)
 "lQ" = (
 /obj/structure/table/wood{
 	dir = 10;
@@ -691,9 +997,22 @@
 /obj/effect/decal/cleanable/blood/gibs/body,
 /turf/open/floor/rogue/cobble,
 /area/rogue/indoors/shelter/bog_hag)
+"lV" = (
+/obj/structure/roguerock,
+/turf/open/floor/rogue/naturalstone,
+/area/rogue/indoors/lich_start/lich_lair)
 "mc" = (
 /turf/open/floor/rogue/greenstone/glyph6,
 /area/rogue/indoors/eventarea)
+"md" = (
+/obj/structure/fluff/railing/border{
+	dir = 8
+	},
+/obj/machinery/light/rogue/candle/floorcandle/pink{
+	pixel_x = 5
+	},
+/turf/open/floor/rogue/concrete,
+/area/rogue/indoors/lich_start/lich_lair)
 "mf" = (
 /obj/structure/table/wood{
 	dir = 10;
@@ -708,6 +1027,13 @@
 "mg" = (
 /turf/open/floor/rogue/grass,
 /area/rogue/indoors/eventarea)
+"mr" = (
+/obj/structure/stairs/stone{
+	dir = 1
+	},
+/obj/structure/fluff/railing/border/east,
+/turf/open/floor/rogue/churchbrick,
+/area/rogue/indoors/lich_start/lich_lair)
 "mt" = (
 /turf/open/floor/rogue/blocks/stonered,
 /area/rogue/indoors/eventarea)
@@ -733,7 +1059,6 @@
 /turf/open/floor/rogue/cobble,
 /area/rogue)
 "mN" = (
-/obj/effect/proc_holder/spell/invoked/heal,
 /obj/structure/table/wood{
 	dir = 10;
 	icon_state = "tablewood2"
@@ -756,6 +1081,18 @@
 /obj/item/rogueweapon/halberd,
 /turf/open/floor/rogue/cobble,
 /area/rogue)
+"mY" = (
+/obj/structure/chair/wood/rogue{
+	can_buckle = 0;
+	dir = 4;
+	pixel_x = -7
+	},
+/obj/effect/decal/edge{
+	color = "#3f3f3f";
+	dir = 8
+	},
+/turf/open/floor/rogue/churchbrick,
+/area/rogue/indoors/lich_start)
 "nn" = (
 /obj/effect/wisp/prestidigitation{
 	desc = "A small, fiery ball of light made up of mystical energy.";
@@ -765,9 +1102,18 @@
 	},
 /turf/open/floor/rogue/underworld/space/sparkle_quiet/dense,
 /area/rogue)
+"nx" = (
+/turf/closed/wall/mineral/rogue/decostone/mossy/red/long,
+/area/rogue/indoors/lich_start/lich_lair)
 "nA" = (
 /turf/open/floor/rogue/tile/masonic/inverted,
 /area/rogue/indoors/eventarea)
+"nO" = (
+/obj/structure/fluff/walldeco/psybanner/zizo,
+/turf/closed/wall/mineral/rogue/decostone/mossy/red/long{
+	dir = 1
+	},
+/area/rogue/indoors/lich_start)
 "nQ" = (
 /turf/open/floor/rogue/blocks/newstone,
 /area/rogue/indoors/eventarea)
@@ -864,9 +1210,19 @@
 /obj/item/grown/log/tree/stick,
 /turf/open/floor/rogue/grassyel,
 /area/rogue/indoors/shelter/bog_hag)
+"oF" = (
+/obj/structure/table/wood/map/four,
+/obj/item/storage/belt/rogue/surgery_bag/full,
+/turf/open/floor/rogue/carpet,
+/area/rogue/indoors/lich_start/lich_lair)
 "oG" = (
 /turf/open/floor/rogue/dirt,
 /area/rogue/underworld/dream)
+"oJ" = (
+/obj/structure/table/wood/map/six,
+/obj/item/ritechalk,
+/turf/open/floor/rogue/carpet,
+/area/rogue/indoors/lich_start/lich_lair)
 "oO" = (
 /obj/structure/table/wood{
 	dir = 10;
@@ -884,6 +1240,17 @@
 "oX" = (
 /turf/open/floor/carpet/royalblack,
 /area/rogue/indoors/shelter/bog_hag)
+"oZ" = (
+/obj/item/kitchen/spoon/aalloy{
+	pixel_x = 8;
+	pixel_y = 4
+	},
+/obj/effect/decal/edge{
+	color = "#3f3f3f";
+	dir = 8
+	},
+/turf/open/floor/rogue/churchbrick,
+/area/rogue/indoors/lich_start)
 "pe" = (
 /obj/effect/decal/edge_corner{
 	color = "#3f3f3f";
@@ -891,12 +1258,54 @@
 	},
 /turf/open/floor/rogue/ruinedwood,
 /area/rogue/indoors/shelter/bog_hag)
+"pf" = (
+/obj/structure/table/vtable/v2,
+/obj/machinery/light/rogue/candle/floorcandle/alt,
+/turf/open/floor/rogue/ruinedwood/spiral,
+/area/rogue/indoors/lich_start)
 "ph" = (
 /turf/open/floor/rogue/underworld/space,
 /area/rogue/indoors/eventarea)
+"po" = (
+/obj/structure/chair/wood/rogue{
+	dir = 8
+	},
+/obj/effect/decal/edge{
+	color = "#3f3f3f";
+	dir = 4
+	},
+/turf/open/floor/rogue/churchbrick,
+/area/rogue/indoors/lich_start)
 "pr" = (
 /turf/closed/basic,
 /area/rogue)
+"pA" = (
+/obj/machinery/light/rogue/candle/blue,
+/obj/effect/decal/edge{
+	color = "#3f3f3f";
+	dir = 8
+	},
+/turf/open/floor/rogue/churchmarble,
+/area/rogue/indoors/lich_start/lich_lair)
+"pB" = (
+/obj/structure/table/wood/map/five,
+/obj/item/scrying,
+/turf/open/floor/rogue/carpet,
+/area/rogue/indoors/lich_start/lich_lair)
+"pC" = (
+/obj/machinery/light/rogue/candle/blue/r,
+/obj/structure/flora/tinymushrooms,
+/turf/open/floor/rogue/dirt,
+/area/rogue/indoors/lich_start/lich_lair)
+"pG" = (
+/obj/structure/mannequin/male/decorative/training_dummy_style,
+/obj/item/clothing/suit/roguetown/armor/plate/cuirass/aalloy,
+/obj/item/clothing/neck/roguetown/gorget/aalloy,
+/obj/item/clothing/head/roguetown/helmet/heavy/guard/aalloy,
+/obj/item/clothing/gloves/roguetown/plate/aalloy,
+/obj/item/clothing/under/roguetown/platelegs/aalloy,
+/turf/open/floor/rogue/cobble,
+/area/rogue/indoors/lich_start/lich_lair)
 "pN" = (
 /obj/structure/table/wood{
 	dir = 10;
@@ -909,6 +1318,10 @@
 /obj/item/quiver/bolt/standard,
 /turf/open/floor/rogue/cobble,
 /area/rogue/outdoors)
+"pR" = (
+/obj/machinery/light/rogue/candle/blue/r,
+/turf/open/floor/rogue/churchbrick,
+/area/rogue/indoors/lich_start/lich_lair)
 "pV" = (
 /obj/structure/fermentation_keg/water,
 /turf/open/floor/rogue/dirt/road,
@@ -919,6 +1332,9 @@
 	},
 /turf/open/floor/rogue/blocks,
 /area/rogue)
+"qc" = (
+/turf/closed/wall/mineral/rogue/decostone/mossy/red,
+/area/rogue/indoors/lich_start/lich_lair)
 "qi" = (
 /obj/structure/table/wood,
 /obj/item/storage/belt/rogue/surgery_bag/full{
@@ -937,6 +1353,21 @@
 /obj/item/rogueweapon/spear/billhook,
 /turf/open/floor/rogue/cobble,
 /area/rogue)
+"qw" = (
+/obj/machinery/light/rogue/candle/blue,
+/obj/effect/decal/edge{
+	color = "#3f3f3f";
+	dir = 4
+	},
+/turf/open/floor/rogue/churchmarble,
+/area/rogue/indoors/lich_start/lich_lair)
+"qx" = (
+/obj/item/kitchen/fork/aalloy{
+	pixel_x = -7;
+	pixel_y = -3
+	},
+/turf/open/floor/rogue/carpet/lord/left,
+/area/rogue/indoors/lich_start)
 "qA" = (
 /turf/open/floor/rogue/ruinedwood/turned,
 /area/rogue/indoors/eventarea)
@@ -973,6 +1404,12 @@
 /obj/item/rogueweapon/mace/steel,
 /turf/open/floor/rogue/cobble,
 /area/rogue)
+"ra" = (
+/obj/structure/fluff/walldeco/moon,
+/turf/closed/wall/mineral/rogue/decostone/mossy/red/long{
+	dir = 1
+	},
+/area/rogue/indoors/lich_start/lich_lair)
 "rw" = (
 /obj/structure/closet/crate/chest,
 /obj/item/rogueweapon/tongs,
@@ -981,9 +1418,36 @@
 /obj/item/rogueweapon/tongs,
 /turf/open/floor/rogue/dirt/road,
 /area/rogue)
+"rx" = (
+/obj/item/roguestatue/aalloy,
+/turf/open/floor/rogue/ruinedwood/spiral,
+/area/rogue/indoors/lich_start)
+"ry" = (
+/obj/structure/stairs/fancy/r,
+/turf/open/floor/rogue/carpet/lord/right,
+/area/rogue/indoors/lich_start)
+"rA" = (
+/obj/structure/bars/pipe{
+	dir = 4
+	},
+/obj/structure/roguewindow/stained/zizo,
+/turf/open/floor/rogue/concrete,
+/area/rogue/indoors/lich_start/lich_lair)
+"rG" = (
+/obj/structure/mineral_door/bars,
+/turf/open/floor/rogue/churchbrick,
+/area/rogue/indoors/lich_start/lich_lair)
 "rH" = (
 /turf/open/floor/rogue/cobble,
 /area/rogue)
+"rJ" = (
+/obj/effect/decal/remains/human,
+/turf/open/floor/rogue/ruinedwood/spiral,
+/area/rogue/indoors/lich_start)
+"rL" = (
+/obj/item/ash,
+/turf/open/floor/rogue/cobble,
+/area/rogue/indoors/lich_start/lich_lair)
 "rQ" = (
 /turf/closed,
 /area/rogue)
@@ -1009,6 +1473,16 @@
 "rZ" = (
 /turf/open/floor/rogue/tile/masonic,
 /area/rogue/indoors/eventarea)
+"sb" = (
+/obj/machinery/light/rogue/candle/floorcandle/pink{
+	pixel_y = -11
+	},
+/turf/open/floor/rogue/churchbrick,
+/area/rogue/indoors/lich_start/lich_lair)
+"sm" = (
+/obj/structure/fluff/walldeco/psybanner/zizo/red,
+/turf/closed/wall/mineral/rogue/stone/red_moss,
+/area/rogue/indoors/lich_start/lich_lair)
 "sp" = (
 /obj/structure/table/wood{
 	dir = 10;
@@ -1022,6 +1496,12 @@
 /obj/item/quiver/arrows,
 /turf/open/floor/rogue/cobble,
 /area/rogue/outdoors)
+"sx" = (
+/obj/structure/stairs/fancy/c{
+	dir = 1
+	},
+/turf/open/floor/rogue/carpet/lord/center,
+/area/rogue/indoors/lich_start)
 "sz" = (
 /obj/structure/closet/crate/chest,
 /obj/item/rogueweapon/hammer/steel,
@@ -1032,6 +1512,10 @@
 /obj/item/rogueweapon/hammer/steel,
 /turf/open/floor/rogue/dirt/road,
 /area/rogue)
+"sE" = (
+/obj/structure/bars/tough,
+/turf/open/floor/rogue/concrete,
+/area/rogue/indoors/lich_start/lich_lair)
 "sP" = (
 /obj/structure/table/wood{
 	dir = 10;
@@ -1055,10 +1539,18 @@
 /obj/item/clothing/under/roguetown/tights,
 /turf/open/floor/rogue/carpet,
 /area/rogue)
+"sV" = (
+/obj/item/kitchen/spoon/aalloy,
+/turf/open/floor/rogue/churchbrick,
+/area/rogue/indoors/lich_start)
 "sY" = (
 /obj/machinery/light/rogue/candle,
 /turf/open/floor/rogue/blocks,
 /area/rogue/indoors/ravoxarena)
+"ta" = (
+/obj/effect/decal/remains/human,
+/turf/open/floor/rogue/churchbrick,
+/area/rogue/indoors/lich_start/lich_lair)
 "tb" = (
 /obj/structure/table/wood{
 	dir = 10;
@@ -1070,6 +1562,13 @@
 /obj/item/rogueweapon/mace/woodclub,
 /turf/open/floor/rogue/cobble,
 /area/rogue)
+"te" = (
+/obj/machinery/light/rogue/candle/blue{
+	pixel_y = -32
+	},
+/obj/structure/bookcase/random,
+/turf/open/floor/rogue/cobble,
+/area/rogue/indoors/lich_start/lich_lair)
 "th" = (
 /obj/effect/decal/cobbleedge{
 	dir = 5
@@ -1078,9 +1577,8 @@
 /turf/open/floor/rogue/cobblerock,
 /area/rogue/indoors/shelter/bog_hag)
 "tr" = (
-/obj/effect/proc_holder/spell/invoked/heal,
-/turf/open/floor/rogue/carpet,
-/area/rogue)
+/turf/open/lava/acid,
+/area/rogue/indoors/lich_start/lich_lair)
 "tx" = (
 /obj/structure/table/wood/long_table/mid/alt,
 /obj/item/storage/roguebag/leechbait{
@@ -1104,9 +1602,22 @@
 "tK" = (
 /turf/open/floor/rogue/tile/checker,
 /area/rogue/indoors/eventarea)
+"tM" = (
+/obj/structure/fluff/railing/border/north,
+/obj/effect/decal/edge{
+	color = "#3f3f3f";
+	dir = 4
+	},
+/turf/open/floor/rogue/churchbrick,
+/area/rogue/indoors/lich_start)
 "tN" = (
 /turf/closed,
 /area/rogue/under)
+"tS" = (
+/obj/structure/table/wood/map,
+/obj/item/rogueweapon/woodstaff/implement/grand,
+/turf/open/floor/rogue/carpet,
+/area/rogue/indoors/lich_start/lich_lair)
 "tV" = (
 /obj/machinery/light/rogue/candle/weak,
 /obj/effect/decal/remains/human,
@@ -1115,9 +1626,20 @@
 	},
 /turf/open/floor/rogue/cobble,
 /area/rogue/indoors/shelter/bog_hag)
+"tW" = (
+/obj/structure/fluff/railing/corner/north_east,
+/turf/open/floor/rogue/churchbrick,
+/area/rogue/indoors/lich_start/lich_lair)
 "tX" = (
 /turf/open/floor/rogue/tile/harem,
 /area/rogue/indoors/eventarea)
+"tZ" = (
+/turf/closed/wall/mineral/rogue/decostone/mossy/red/cand,
+/area/rogue/indoors/lich_start/lich_lair)
+"ua" = (
+/obj/item/rogueweapon/sickle/aalloy,
+/turf/open/floor/rogue/dirt,
+/area/rogue/indoors/lich_start/lich_lair)
 "ui" = (
 /obj/effect/dream_horror{
 	pixel_x = -99;
@@ -1125,6 +1647,10 @@
 	},
 /turf/open/floor/rogue/underworld/space/quiet/dense,
 /area/rogue)
+"uI" = (
+/obj/structure/flora/tinymushrooms,
+/turf/open/floor/rogue/dirt,
+/area/rogue/indoors/lich_start/lich_lair)
 "uJ" = (
 /obj/structure/table/wood{
 	dir = 10;
@@ -1136,6 +1662,10 @@
 /obj/item/gun/ballistic/revolver/grenadelauncher/crossbow,
 /turf/open/floor/rogue/cobble,
 /area/rogue/outdoors)
+"uK" = (
+/obj/structure/stairs/fancy/c,
+/turf/open/floor/rogue/carpet/lord/center,
+/area/rogue/indoors/lich_start/lich_lair)
 "uM" = (
 /turf/open/floor/rogue/tile/bfloorz,
 /area/rogue/indoors/eventarea)
@@ -1178,9 +1708,34 @@
 /obj/structure/roguerock,
 /turf/open/floor/rogue/naturalstone,
 /area/rogue/underworld/dream)
+"vu" = (
+/obj/structure/table/vtable,
+/obj/machinery/light/rogue/candle/floorcandle/alt,
+/turf/open/floor/rogue/churchbrick,
+/area/rogue/indoors/lich_start/lich_lair)
+"vI" = (
+/obj/effect/decal/cleanable/dirt/cobweb{
+	dir = 4
+	},
+/obj/structure/closet/crate/chest/gold,
+/obj/item/roguecoin/aalloy/pile,
+/obj/item/roguecoin/aalloy/pile,
+/obj/item/roguecoin/aalloy/pile,
+/turf/open/floor/rogue/churchbrick,
+/area/rogue/indoors/lich_start/lich_lair)
+"vK" = (
+/obj/structure/spider/stickyweb,
+/turf/open/floor/rogue/churchbrick,
+/area/rogue/indoors/lich_start)
 "vP" = (
 /turf/open/floor/rogue/tile/brick,
 /area/rogue/indoors/eventarea)
+"vQ" = (
+/obj/structure/ritualcircle/zizo{
+	icon_state = "zizo_active"
+	},
+/turf/open/floor/rogue/churchmarble,
+/area/rogue/indoors/lich_start/lich_lair)
 "vS" = (
 /obj/machinery/light/rogue/oven/south,
 /turf/open/floor/rogue/cobble,
@@ -1188,6 +1743,18 @@
 "vU" = (
 /turf/open/floor/rogue/rooftop/east,
 /area/rogue/indoors/eventarea)
+"wd" = (
+/obj/structure/stairs/fancy/c,
+/turf/open/floor/rogue/carpet/lord/center,
+/area/rogue/indoors/lich_start)
+"we" = (
+/obj/structure/spider/stickyweb,
+/obj/effect/decal/edge{
+	color = "#3f3f3f";
+	dir = 4
+	},
+/turf/open/floor/rogue/churchbrick,
+/area/rogue/indoors/lich_start)
 "wh" = (
 /obj/effect/decal/cleanable/dirt/cobweb/cobweb2,
 /turf/open/floor/rogue/naturalstone,
@@ -1207,15 +1774,41 @@
 /obj/effect/landmark/start/new_player,
 /turf/closed/basic,
 /area/start)
+"wC" = (
+/obj/effect/decal/remains/human,
+/turf/open/floor/rogue/churchbrick,
+/area/rogue/indoors/lich_start)
+"wJ" = (
+/obj/effect/decal/cobbleedge{
+	dir = 9;
+	pixel_x = 4
+	},
+/obj/effect/decal/cobbleedge{
+	dir = 6;
+	pixel_x = -6
+	},
+/turf/open/floor/rogue/cobble/mossy,
+/area/rogue/indoors/lich_start/lich_lair)
 "wO" = (
 /turf/closed,
 /area/rogue/outdoors)
 "wZ" = (
 /turf/closed/wall/mineral/rogue/decostone,
 /area/rogue/indoors/ravoxarena)
+"xc" = (
+/obj/structure/bars/pipe{
+	dir = 9;
+	pixel_x = 19
+	},
+/turf/closed/wall/mineral/rogue/decostone/mossy/red/long,
+/area/rogue/indoors/lich_start/lich_lair)
 "xg" = (
 /turf/open/water/cleanshallow,
 /area/rogue/indoors/shelter/bog_hag)
+"xi" = (
+/obj/machinery/light/rogue/candle/blue/l,
+/turf/open/floor/rogue/churchbrick,
+/area/rogue/indoors/lich_start/lich_lair)
 "xl" = (
 /obj/effect/decal/edge{
 	color = "#3f3f3f"
@@ -1225,18 +1818,56 @@
 "xm" = (
 /turf/open/floor/rogue/dirt,
 /area/rogue/indoors/eventarea)
+"xq" = (
+/obj/effect/decal/remains/human,
+/turf/open/floor/rogue/dirt,
+/area/rogue/indoors/lich_start)
+"xr" = (
+/obj/structure/fluff/walldeco/painting/skull,
+/turf/closed/wall/mineral/rogue/decostone/mossy/red/long,
+/area/rogue/indoors/lich_start/lich_lair)
 "xt" = (
 /turf/open/floor/rogue/blocks/green,
 /area/rogue/indoors/eventarea)
 "xA" = (
 /turf/open/floor/rogue/ruinedwood/platform,
 /area/rogue/indoors/eventarea)
+"xB" = (
+/obj/item/ash,
+/obj/effect/decal/cobbleedge{
+	dir = 6;
+	pixel_y = -8
+	},
+/obj/effect/decal/cobbleedge{
+	dir = 6;
+	pixel_x = -11
+	},
+/obj/structure/fluff/railing/corner/south_east,
+/turf/open/floor/rogue/cobble/mossy,
+/area/rogue/indoors/lich_start/lich_lair)
+"xF" = (
+/obj/structure/table/wood/fancy/black,
+/obj/item/cooking/platter/aalloy,
+/turf/open/floor/rogue/churchbrick,
+/area/rogue/indoors/lich_start)
 "xL" = (
 /turf/open/floor/rogue/churchrough,
 /area/rogue/indoors/eventarea)
 "xO" = (
 /turf/open/floor/rogue/greenstone/glyph3,
 /area/rogue/indoors/eventarea)
+"xS" = (
+/obj/structure/chair/wood/rogue{
+	can_buckle = 0;
+	dir = 4;
+	pixel_x = -7
+	},
+/turf/open/floor/rogue/churchbrick,
+/area/rogue/indoors/lich_start)
+"yc" = (
+/obj/structure/ritualcircle/zizo,
+/turf/open/floor/rogue/carpet/lord/center,
+/area/rogue/indoors/lich_start)
 "yd" = (
 /obj/structure/table/wood{
 	dir = 10;
@@ -1246,9 +1877,59 @@
 /obj/item/rogueweapon/sword/sabre,
 /turf/open/floor/rogue/cobble,
 /area/rogue)
+"yh" = (
+/obj/effect/decal/remains/human,
+/obj/effect/decal/cleanable/dirt/cobweb,
+/turf/open/floor/rogue/dirt,
+/area/rogue/indoors/lich_start/lich_lair)
+"yj" = (
+/obj/item/clothing/cloak/lordcloak/ladycloak,
+/obj/item/clothing/cloak/lordcloak,
+/obj/item/clothing/cloak/darkcloak,
+/obj/item/clothing/cloak/matron,
+/obj/item/clothing/cloak/stole/purple,
+/obj/item/clothing/cloak/stole/red,
+/obj/item/clothing/cloak/cape/blkknight,
+/obj/effect/decal/cleanable/dirt/cobweb{
+	dir = 1
+	},
+/obj/item/clothing/head/roguetown/chaperon/noble/evil,
+/obj/item/clothing/suit/roguetown/shirt/robe/unholy/lich,
+/obj/structure/closet/crate/roguecloset/dark,
+/obj/item/clothing/mask/rogue/lordmask/triumph,
+/obj/item/storage/belt/rogue/leather/steel/tasset,
+/obj/item/storage/belt/rogue/leather/steel,
+/obj/item/storage/belt/rogue/leather/black,
+/obj/item/storage/belt/rogue/leather/plaquegold,
+/obj/item/storage/belt/rogue/leather,
+/obj/item/clothing/mask/rogue/facemask/steel/paalloy,
+/obj/item/clothing/head/roguetown/roguehood/unholy/lich,
+/turf/open/floor/rogue/ruinedwood/spiral,
+/area/rogue/indoors/lich_start)
 "yk" = (
 /turf/open/floor/rogue/tile/bath,
 /area/rogue/indoors/eventarea)
+"yl" = (
+/obj/structure/table/vtable,
+/obj/item/rogueweapon/chisel/bronze,
+/obj/item/rogueweapon/handsaw/bronze{
+	pixel_y = 8
+	},
+/turf/open/floor/rogue/churchbrick,
+/area/rogue/indoors/lich_start/lich_lair)
+"yp" = (
+/obj/structure/fluff/statue/femalestatue/zizo{
+	pixel_x = -28
+	},
+/obj/structure/fluff/railing/border{
+	dir = 1
+	},
+/turf/open/floor/rogue/concrete,
+/area/rogue/indoors/lich_start/lich_lair)
+"yu" = (
+/obj/structure/fluff/walldeco/rpainting/crown,
+/turf/closed/wall/mineral/rogue/decostone/mossy/red,
+/area/rogue/indoors/lich_start)
 "yx" = (
 /obj/structure/table/wood/long_table,
 /obj/item/rogueore/coal{
@@ -1278,6 +1959,11 @@
 /obj/structure/fluff/statue/gargoyle/moss/candles,
 /turf/open/floor/rogue/naturalstone,
 /area/rogue/underworld/dream)
+"yI" = (
+/obj/machinery/light/rogue/candle/blue,
+/obj/structure/spider/stickyweb,
+/turf/open/floor/rogue/cobble,
+/area/rogue/indoors/lich_start/lich_lair)
 "yK" = (
 /turf/closed,
 /area/rogue/indoors)
@@ -1304,14 +1990,46 @@
 "zm" = (
 /turf/open/floor/rogue/wood/herringbone,
 /area/rogue/indoors/eventarea)
+"zr" = (
+/obj/effect/decal/remains/human,
+/obj/item/ash,
+/turf/open/floor/rogue/churchbrick,
+/area/rogue/indoors/lich_start)
+"zL" = (
+/obj/structure/table/wood/map/two,
+/obj/item/forgeable/gold/obelisk,
+/turf/open/floor/rogue/carpet,
+/area/rogue/indoors/lich_start/lich_lair)
 "zV" = (
 /obj/structure/fluff/statue/tdummy,
 /turf/open/floor/rogue/grass,
 /area/rogue/outdoors)
+"zY" = (
+/obj/structure/bars/pipe{
+	dir = 4
+	},
+/obj/structure/fluff/walldeco/painting,
+/turf/closed/wall/mineral/rogue/decostone/mossy/red/long,
+/area/rogue/indoors/lich_start/lich_lair)
+"Ak" = (
+/obj/structure/stairs/stone,
+/turf/open/floor/rogue/cobble,
+/area/rogue/indoors/lich_start/lich_lair)
 "Ar" = (
 /obj/effect/decal/remains/human,
 /turf/open/floor/rogue/grasscold,
 /area/rogue/underworld/dream)
+"Ax" = (
+/obj/structure/stairs/fancy/l,
+/turf/open/floor/rogue/carpet/lord/left,
+/area/rogue/indoors/lich_start/lich_lair)
+"AH" = (
+/obj/effect/decal/edge{
+	color = "#3f3f3f";
+	dir = 4
+	},
+/turf/open/floor/rogue/churchmarble,
+/area/rogue/indoors/lich_start/lich_lair)
 "AQ" = (
 /turf/open/floor/rogue/cobble,
 /area/rogue/outdoors)
@@ -1324,6 +2042,17 @@
 "Bd" = (
 /turf/open/floor/rogue/snowpatchy,
 /area/rogue/indoors/eventarea)
+"Be" = (
+/turf/open/floor/rogue/churchbrick,
+/area/rogue/indoors/lich_start)
+"Bi" = (
+/obj/effect/decal/cleanable/dirt/cobweb{
+	dir = 4
+	},
+/obj/machinery/light/rogue/candle/blue/l,
+/obj/item/ash,
+/turf/open/floor/rogue/churchbrick,
+/area/rogue/indoors/lich_start)
 "Bm" = (
 /obj/effect/decal/edge{
 	color = "#3f3f3f";
@@ -1331,6 +2060,26 @@
 	},
 /turf/open/floor/rogue/wood,
 /area/rogue/underworld/dream)
+"Bx" = (
+/obj/structure/winch{
+	gid = "lichstartgate";
+	redstone_id = "thronegate";
+	dir = 4
+	},
+/turf/open/floor/rogue/metal/barograte,
+/area/rogue/indoors/lich_start/lich_lair)
+"Bz" = (
+/obj/structure/fluff/psycross/zizocross/golden,
+/obj/structure/fluff/wallclock/vampire,
+/turf/open/floor/rogue/churchbrick,
+/area/rogue/indoors/lich_start/lich_lair)
+"BA" = (
+/obj/effect/decal/edge{
+	color = "#3f3f3f";
+	dir = 4
+	},
+/turf/open/floor/rogue/churchbrick,
+/area/rogue/indoors/lich_start)
 "BB" = (
 /obj/structure/deaths_door_shrine,
 /turf/open/floor/rogue/underworld/road,
@@ -1351,6 +2100,17 @@
 /obj/item/rogueweapon/stoneaxe/woodcut,
 /turf/open/floor/rogue/cobble,
 /area/rogue)
+"BV" = (
+/obj/structure/stairs/fancy/r{
+	dir = 1
+	},
+/obj/structure/fluff/walldeco/maidendrape,
+/turf/open/floor/rogue/carpet/lord/right,
+/area/rogue/indoors/lich_start/lich_lair)
+"BW" = (
+/obj/machinery/light/rogue/candle/floorcandle/pink,
+/turf/open/floor/rogue/churchbrick,
+/area/rogue/indoors/lich_start/lich_lair)
 "BY" = (
 /turf/open/floor/rogue/ruinedwood,
 /area/rogue/indoors/shelter/bog_hag)
@@ -1368,10 +2128,20 @@
 "Ch" = (
 /turf/open/floor/rogue/tile/brownbrick,
 /area/rogue/indoors/eventarea)
+"Ci" = (
+/obj/item/roguecoin/aalloy/pile,
+/turf/open/water/cleanshallow,
+/area/rogue/indoors/lich_start/lich_lair)
 "Cq" = (
 /obj/structure/flora/roguetree/burnt,
 /turf/open/floor/rogue/dirt,
 /area/rogue/underworld/dream)
+"Cs" = (
+/obj/structure/fluff/walldeco/painting,
+/turf/closed/wall/mineral/rogue/decostone/mossy/red/long{
+	dir = 1
+	},
+/area/rogue/indoors/lich_start/lich_lair)
 "Cv" = (
 /obj/structure/table/wood{
 	dir = 10;
@@ -1386,6 +2156,9 @@
 "CB" = (
 /turf/open/floor/rogue/churchmarble,
 /area/rogue/indoors/eventarea)
+"CI" = (
+/turf/open/floor/rogue/cobble,
+/area/rogue/indoors/lich_start/lich_lair)
 "CQ" = (
 /obj/structure/table/wood{
 	dir = 10;
@@ -1400,6 +2173,18 @@
 "CZ" = (
 /turf/open/floor/rogue/grasscold,
 /area/rogue/underworld/dream)
+"Db" = (
+/obj/effect/decal/cleanable/dirt/cobweb{
+	dir = 8
+	},
+/obj/item/roguecoin/aalloy/pile,
+/turf/open/water/cleanshallow,
+/area/rogue/indoors/lich_start/lich_lair)
+"Di" = (
+/obj/structure/bookcase/random,
+/obj/effect/decal/cleanable/dirt/cobweb,
+/turf/open/floor/rogue/cobble,
+/area/rogue/indoors/lich_start/lich_lair)
 "Dm" = (
 /obj/structure/table/wood/long_table,
 /obj/item/reagent_containers/glass/cup/wooden{
@@ -1408,10 +2193,26 @@
 /obj/item/cooking/platter,
 /turf/open/floor/rogue/ruinedwood,
 /area/rogue/indoors/shelter/bog_hag)
+"Dp" = (
+/obj/structure/fluff/railing/corner,
+/turf/open/floor/rogue/dirt,
+/area/rogue/indoors/lich_start/lich_lair)
+"Dv" = (
+/obj/structure/fluff/railing/border/north,
+/obj/effect/decal/edge{
+	color = "#3f3f3f";
+	dir = 8
+	},
+/turf/open/floor/rogue/churchbrick,
+/area/rogue/indoors/lich_start)
 "Dw" = (
 /obj/structure/underworld/carriageman,
 /turf/open/floor/rogue/underworld/road,
 /area/rogue/indoors/deathsedge)
+"Dx" = (
+/obj/structure/bars/cemetery,
+/turf/open/floor/rogue/churchbrick,
+/area/rogue/indoors/lich_start/lich_lair)
 "Dz" = (
 /obj/structure/rack/rogue/shelf/biggest,
 /obj/item/reagent_containers/glass/bottle/alchemical{
@@ -1445,6 +2246,10 @@
 	},
 /turf/open/floor/rogue/twig,
 /area/rogue/indoors/shelter/bog_hag)
+"DA" = (
+/obj/item/clothing/shoes/roguetown/sandals/aalloy,
+/turf/open/floor/rogue/churchbrick,
+/area/rogue/indoors/lich_start/lich_lair)
 "DC" = (
 /obj/effect/decal/edge{
 	color = "#3f3f3f";
@@ -1477,6 +2282,13 @@
 "DT" = (
 /turf/open/floor/rogue/church,
 /area/rogue/indoors/eventarea)
+"Ek" = (
+/obj/effect/decal/cleanable/dirt/cobweb{
+	dir = 1
+	},
+/obj/item/roguecoin/aalloy/pile,
+/turf/open/water/cleanshallow,
+/area/rogue/indoors/lich_start/lich_lair)
 "El" = (
 /obj/structure/table/wood{
 	dir = 10;
@@ -1490,6 +2302,13 @@
 /obj/item/clothing/mask/rogue/facemask,
 /turf/open/floor/rogue/carpet,
 /area/rogue)
+"En" = (
+/obj/structure/closet/crate/chest/gold,
+/obj/item/roguecoin/aalloy/pile,
+/obj/item/roguecoin/aalloy/pile,
+/obj/item/roguecoin/aalloy/pile,
+/turf/open/floor/rogue/churchbrick,
+/area/rogue/indoors/lich_start/lich_lair)
 "Eq" = (
 /turf/open/floor/rogue/rooftop/green/corner1/dirnine,
 /area/rogue/indoors/eventarea)
@@ -1505,6 +2324,14 @@
 /obj/structure/closet/crate/chest,
 /turf/open/floor/rogue/dirt/road,
 /area/rogue)
+"EE" = (
+/obj/item/rogueweapon/pick/aalloy,
+/turf/open/floor/rogue/dirt,
+/area/rogue/indoors/lich_start/lich_lair)
+"ES" = (
+/obj/item/kitchen/spoon/aalloy,
+/turf/open/floor/rogue/ruinedwood/spiral,
+/area/rogue/indoors/lich_start)
 "EU" = (
 /turf/open/floor/rogue/shroud/hag,
 /area/rogue/indoors/shelter/bog_hag)
@@ -1519,6 +2346,20 @@
 "Fd" = (
 /turf/open/floor/rogue/ruinedwood/chevron,
 /area/rogue/indoors/eventarea)
+"Fi" = (
+/obj/effect/decal/remains/human,
+/obj/item/ash,
+/obj/effect/decal/edge{
+	color = "#3f3f3f";
+	dir = 8
+	},
+/turf/open/floor/rogue/churchbrick,
+/area/rogue/indoors/lich_start)
+"Fk" = (
+/obj/structure/fluff/railing/border/east,
+/obj/structure/fluff/railing/border,
+/turf/open/floor/rogue/naturalstone,
+/area/rogue/indoors/lich_start/lich_lair)
 "Fn" = (
 /obj/structure/bed/rogue/inn/wooldouble,
 /obj/item/bedsheet/rogue/fabric_double,
@@ -1527,6 +2368,10 @@
 "FB" = (
 /turf/open/floor/rogue/greenstone/glyph4,
 /area/rogue/indoors/eventarea)
+"FE" = (
+/obj/structure/fluff/railing/corner/south_west,
+/turf/open/floor/rogue/cobble,
+/area/rogue/indoors/lich_start/lich_lair)
 "FG" = (
 /obj/structure/fluff/pillow/green,
 /turf/open/floor/carpet/royalblack,
@@ -1534,6 +2379,10 @@
 "FY" = (
 /turf/closed/mineral/rogue/bedrock,
 /area/rogue/indoors/eventarea)
+"Gf" = (
+/obj/item/kitchen/fork/aalloy,
+/turf/open/floor/rogue/churchbrick,
+/area/rogue/indoors/lich_start)
 "Go" = (
 /turf/open/floor/rogue/metal/barograte/open,
 /area/rogue/indoors/eventarea)
@@ -1543,6 +2392,34 @@
 "Gx" = (
 /turf/open/floor/rogue/hexstone,
 /area/rogue/indoors/eventarea)
+"GB" = (
+/obj/item/ash,
+/obj/effect/decal/edge{
+	color = "#3f3f3f";
+	dir = 4
+	},
+/turf/open/floor/rogue/churchbrick,
+/area/rogue/indoors/lich_start)
+"GD" = (
+/obj/effect/decal/cobbleedge{
+	dir = 6;
+	pixel_x = -6
+	},
+/obj/effect/decal/cobbleedge{
+	dir = 9;
+	pixel_y = -13
+	},
+/turf/open/floor/rogue/cobble/mossy,
+/area/rogue/indoors/lich_start/lich_lair)
+"GH" = (
+/obj/structure/stairs/stone,
+/obj/structure/fluff/railing/border/west,
+/turf/open/floor/rogue/cobble,
+/area/rogue/indoors/lich_start/lich_lair)
+"GN" = (
+/obj/machinery/light/rogue/candle/floorcandle/pink,
+/turf/open/floor/rogue/concrete,
+/area/rogue/indoors/lich_start/lich_lair)
 "GP" = (
 /obj/effect/decal/edge{
 	color = "#3f3f3f"
@@ -1559,19 +2436,49 @@
 "Hg" = (
 /turf/open/floor/rogue/rooftop/green/corner1/dirone,
 /area/rogue/indoors/eventarea)
+"Hq" = (
+/obj/structure/table/vtable/v2,
+/obj/item/clothing/neck/roguetown/psicross/inhumen/g{
+	pixel_y = 8
+	},
+/turf/open/floor/rogue/churchbrick,
+/area/rogue/indoors/lich_start/lich_lair)
 "Ht" = (
 /turf/open/floor/rogue/snow,
 /area/rogue/indoors/eventarea)
+"Hw" = (
+/obj/structure/bars/pipe{
+	dir = 4
+	},
+/turf/closed/wall/mineral/rogue/decostone/mossy/red/long,
+/area/rogue/indoors/lich_start/lich_lair)
 "Hy" = (
 /turf/open/floor/rogue/rooftop/green/east,
 /area/rogue/indoors/eventarea)
+"Hz" = (
+/obj/structure/flora/rogueshroom/happy/white,
+/turf/open/floor/rogue/dirt,
+/area/rogue/indoors/lich_start/lich_lair)
 "HA" = (
 /obj/structure/fluff/grindwheel,
 /turf/open/floor/rogue/dirt/road,
 /area/rogue)
+"HB" = (
+/obj/structure/table/vtable/v2,
+/obj/machinery/light/rogue/candle/floorcandle,
+/turf/open/floor/rogue/churchbrick,
+/area/rogue/indoors/lich_start/lich_lair)
+"HJ" = (
+/obj/effect/decal/remains/wolf,
+/turf/open/floor/rogue/churchbrick,
+/area/rogue/indoors/lich_start/lich_lair)
 "HK" = (
 /turf/open/floor/rogue/twig/platform,
 /area/rogue/indoors/eventarea)
+"HM" = (
+/obj/structure/roguewindow/stained/zizo,
+/turf/open/floor/rogue/concrete,
+/area/rogue/indoors/lich_start/lich_lair)
 "HN" = (
 /obj/structure/table/wood{
 	dir = 10;
@@ -1596,6 +2503,12 @@
 /obj/structure/table/wood/long_table,
 /turf/open/floor/rogue/cobble,
 /area/rogue/indoors/shelter/bog_hag)
+"Ie" = (
+/obj/structure/bars/pipe{
+	dir = 4
+	},
+/turf/closed/wall/mineral/rogue/stone/red_moss,
+/area/rogue/indoors/lich_start/lich_lair)
 "If" = (
 /obj/machinery/light/rogue/firebowl/stump,
 /turf/open/floor/rogue/hexstone,
@@ -1607,16 +2520,41 @@
 "Is" = (
 /turf/open/floor/rogue/naturalstone,
 /area/rogue/underworld/dream)
+"Iu" = (
+/obj/structure/spider/stickyweb,
+/turf/open/floor/rogue/cobble,
+/area/rogue/indoors/lich_start/lich_lair)
 "Iw" = (
 /obj/structure/fluff/big_chain,
 /turf/open/floor/rogue/underworld/space/sparkle_quiet/dense,
 /area/rogue)
+"Iy" = (
+/obj/machinery/light/rogue/candle/blue,
+/obj/effect/decal/cobbleedge{
+	dir = 6;
+	pixel_x = -6
+	},
+/obj/effect/decal/cobbleedge{
+	dir = 9;
+	pixel_x = 7
+	},
+/turf/open/floor/rogue/cobble/mossy,
+/area/rogue/indoors/lich_start/lich_lair)
 "Iz" = (
 /turf/open/water/swamp/deep,
 /area/rogue/indoors/shelter/bog_hag)
 "IE" = (
 /turf/open/floor/rogue/blocks,
 /area/rogue/indoors/eventarea)
+"IQ" = (
+/obj/item/kitchen/fork/aalloy,
+/turf/open/floor/rogue/ruinedwood/spiral,
+/area/rogue/indoors/lich_start)
+"IS" = (
+/obj/structure/table/vtable,
+/obj/machinery/light/rogue/candle/floorcandle,
+/turf/open/floor/rogue/churchbrick,
+/area/rogue/indoors/lich_start/lich_lair)
 "IT" = (
 /obj/effect/landmark/underworldstrands,
 /turf/open/floor/rogue/underworld/road,
@@ -1653,6 +2591,16 @@
 	},
 /turf/open/floor/rogue/blocks,
 /area/rogue)
+"Jn" = (
+/obj/structure/fluff/railing/border{
+	dir = 8
+	},
+/obj/machinery/light/rogue/candle/floorcandle/pink{
+	pixel_x = 5;
+	pixel_y = -12
+	},
+/turf/open/floor/rogue/concrete,
+/area/rogue/indoors/lich_start/lich_lair)
 "Jp" = (
 /obj/structure/table/wood{
 	dir = 10;
@@ -1671,12 +2619,40 @@
 /obj/effect/decal/cleanable/black_rot_vomit,
 /turf/open/floor/rogue/cobble,
 /area/rogue/indoors/shelter/bog_hag)
+"JG" = (
+/obj/structure/fluff/walldeco/psybanner/zizo,
+/turf/closed/wall/mineral/rogue/decostone/mossy/red/long,
+/area/rogue/indoors/lich_start)
 "JJ" = (
 /turf/open/floor/rogue/underworld/space/sparkle_quiet/dense,
 /area/rogue)
+"JK" = (
+/obj/effect/decal/remains/human,
+/obj/structure/fluff/railing/corner,
+/turf/open/floor/rogue/churchbrick,
+/area/rogue/indoors/lich_start/lich_lair)
 "JQ" = (
 /turf/open/floor/rogue/dirt/road,
 /area/rogue/outdoors)
+"Ks" = (
+/obj/effect/decal/remains/human,
+/obj/effect/decal/edge{
+	color = "#3f3f3f";
+	dir = 4
+	},
+/turf/open/floor/rogue/churchbrick,
+/area/rogue/indoors/lich_start)
+"Ku" = (
+/obj/machinery/light/rogue/candle/blue/l,
+/obj/structure/stairs{
+	dir = 1
+	},
+/turf/open/floor/rogue/churchbrick,
+/area/rogue/indoors/lich_start)
+"KB" = (
+/obj/item/ash,
+/turf/open/floor/rogue/churchbrick,
+/area/rogue/indoors/lich_start)
 "KD" = (
 /obj/effect/decal/cobbleedge{
 	dir = 10;
@@ -1689,10 +2665,22 @@
 /obj/item/hag_catalyst/varnish_base,
 /turf/open/floor/rogue/shroud/hag,
 /area/rogue/indoors/shelter/bog_hag)
+"KM" = (
+/obj/structure/vine,
+/turf/open/floor/rogue/dirt,
+/area/rogue/indoors/lich_start/lich_lair)
 "KP" = (
 /obj/structure/roguerock,
 /turf/open/floor/rogue/dirt,
 /area/rogue/underworld/dream)
+"KV" = (
+/obj/machinery/light/rogue/candle/blue,
+/obj/structure/bars/pipe{
+	dir = 4
+	},
+/obj/structure/bars/tough,
+/turf/open/floor/rogue/concrete,
+/area/rogue/indoors/lich_start/lich_lair)
 "KZ" = (
 /obj/effect/decal/edge{
 	color = "#3f3f3f";
@@ -1703,6 +2691,12 @@
 	},
 /turf/open/floor/rogue/ruinedwood,
 /area/rogue/indoors/shelter/bog_hag)
+"Lb" = (
+/obj/structure/fluff/walldeco/psybanner/zizo{
+	pixel_x = 2
+	},
+/turf/closed/wall/mineral/rogue/decostone/mossy/red/long,
+/area/rogue/indoors/lich_start/lich_lair)
 "Ld" = (
 /turf/open/floor/rogue/tile/harem1,
 /area/rogue/indoors/eventarea)
@@ -1734,6 +2728,10 @@
 /obj/item/clothing/head/roguetown/helmet/sallet/visored,
 /turf/open/floor/rogue/carpet,
 /area/rogue)
+"LO" = (
+/obj/structure/fluff/walldeco/med6,
+/turf/closed/wall/mineral/rogue/decostone/mossy/red/long,
+/area/rogue/indoors/lich_start/lich_lair)
 "LP" = (
 /turf/open/floor/rogue/shroud/hag,
 /area/rogue/indoors/eventarea)
@@ -1741,6 +2739,26 @@
 /obj/effect/spawner/lootdrop/hag/raw_botanicals,
 /turf/open/floor/rogue/cobble,
 /area/rogue/indoors/shelter/bog_hag)
+"LY" = (
+/obj/structure/spider/stickyweb,
+/obj/effect/decal/edge{
+	color = "#3f3f3f";
+	dir = 8
+	},
+/turf/open/floor/rogue/churchbrick,
+/area/rogue/indoors/lich_start)
+"Mb" = (
+/obj/structure/flora/rogueshroom/happy,
+/turf/open/floor/rogue/dirt,
+/area/rogue/indoors/lich_start/lich_lair)
+"Mj" = (
+/obj/item/ash,
+/turf/open/floor/rogue/ruinedwood/spiral,
+/area/rogue/indoors/lich_start)
+"Ml" = (
+/obj/structure/flora/mushroomcluster,
+/turf/open/floor/rogue/naturalstone,
+/area/rogue/indoors/lich_start/lich_lair)
 "Mm" = (
 /obj/effect/landmark/events/testportal{
 	aportalloc = "woodsman"
@@ -1753,10 +2771,58 @@
 	},
 /turf/open/floor/rogue/cobble,
 /area/rogue/indoors/shelter/bog_hag)
+"Mt" = (
+/obj/structure/mannequin/male/decorative/training_dummy_style,
+/obj/item/clothing/suit/roguetown/armor/plate/cuirass/aalloy,
+/obj/item/clothing/neck/roguetown/gorget/aalloy,
+/obj/item/clothing/head/roguetown/helmet/heavy/guard/aalloy,
+/obj/item/clothing/gloves/roguetown/plate/aalloy,
+/obj/item/clothing/under/roguetown/platelegs/aalloy,
+/turf/open/floor/rogue/churchbrick,
+/area/rogue/indoors/lich_start/lich_lair)
+"Mz" = (
+/obj/item/ash,
+/obj/effect/decal/edge{
+	color = "#3f3f3f";
+	dir = 4
+	},
+/turf/open/floor/rogue/churchmarble,
+/area/rogue/indoors/lich_start/lich_lair)
+"MC" = (
+/turf/open/floor/rogue/carpet/lord/left,
+/area/rogue/indoors/lich_start)
+"MD" = (
+/obj/effect/decal/cobbleedge{
+	dir = 5;
+	pixel_x = 10
+	},
+/turf/open/floor/rogue/cobble/mossy,
+/area/rogue/indoors/lich_start/lich_lair)
+"MJ" = (
+/obj/effect/decal/remains/human,
+/turf/open/floor/rogue/naturalstone,
+/area/rogue/indoors/lich_start/lich_lair)
+"MP" = (
+/obj/structure/mineral_door/wood/donjon,
+/turf/open/floor/rogue/concrete,
+/area/rogue/indoors/lich_start/lich_lair)
+"MV" = (
+/obj/structure/closet/crate/chest/old_crate,
+/obj/item/reagent_containers/glass/bottle/rogue/healthpot,
+/obj/item/reagent_containers/glass/bottle/rogue/healthpot,
+/obj/item/reagent_containers/glass/bottle/rogue/healthpot,
+/turf/open/floor/rogue/churchbrick,
+/area/rogue/indoors/lich_start/lich_lair)
 "MX" = (
 /obj/structure/fluff/ravox/challenger,
 /turf/open/floor/rogue/blocks,
 /area/rogue/indoors/ravoxarena)
+"MZ" = (
+/obj/structure/chair/wood/rogue{
+	dir = 8
+	},
+/turf/open/floor/rogue/churchbrick,
+/area/rogue/indoors/lich_start)
 "Nc" = (
 /obj/item/hag_catalyst/synth_base,
 /turf/open/floor/rogue/twig,
@@ -1769,6 +2835,24 @@
 /obj/machinery/light/rogue/candle,
 /turf/open/floor/rogue/cobble,
 /area/rogue/indoors/shelter/bog_hag)
+"NA" = (
+/obj/structure/mineral_door/wood/donjon{
+	dir = 4
+	},
+/turf/open/floor/rogue/concrete,
+/area/rogue/indoors/lich_start/lich_lair)
+"NB" = (
+/obj/structure/chair/wood/rogue/throne,
+/obj/effect/landmark/start/lich,
+/turf/open/floor/rogue/carpet/lord/center,
+/area/rogue/indoors/lich_start)
+"NL" = (
+/obj/structure/glowshroom,
+/turf/open/floor/rogue/naturalstone,
+/area/rogue/indoors/lich_start/lich_lair)
+"NM" = (
+/turf/closed/wall/mineral/rogue/decostone/mossy/red,
+/area/rogue/indoors/lich_start)
 "NQ" = (
 /obj/effect/landmark/events/testportal{
 	aportalloc = "manor"
@@ -1794,6 +2878,13 @@
 /obj/effect/decal/remains/crow,
 /turf/open/floor/rogue/dirt/road,
 /area/rogue/underworld/dream)
+"Od" = (
+/obj/structure/bars/pipe{
+	dir = 4
+	},
+/obj/structure/fluff/walldeco/psybanner/zizo,
+/turf/closed/wall/mineral/rogue/decostone/mossy/red/long,
+/area/rogue/indoors/lich_start/lich_lair)
 "Oe" = (
 /obj/effect/decal/cobbleedge{
 	dir = 5
@@ -1817,9 +2908,25 @@
 "ON" = (
 /turf/open/floor/rogue/rooftop/green,
 /area/rogue/indoors/eventarea)
+"OP" = (
+/obj/item/ash,
+/turf/open/floor/rogue/churchbrick,
+/area/rogue/indoors/lich_start/lich_lair)
+"OX" = (
+/obj/structure/table/wood/map/three,
+/obj/item/roguecoin/aalloy/pile,
+/turf/open/floor/rogue/carpet,
+/area/rogue/indoors/lich_start/lich_lair)
 "Ph" = (
 /turf/open/floor/rogue/blocks/stonered/tiny,
 /area/rogue/indoors/eventarea)
+"Pj" = (
+/turf/open/floor/rogue/churchbrick,
+/area/rogue/indoors/lich_start/lich_lair)
+"Po" = (
+/obj/structure/fluff/walldeco/rpainting/forest,
+/turf/closed/wall/mineral/rogue/decostone/mossy/red,
+/area/rogue/indoors/lich_start)
 "Ps" = (
 /obj/structure/table/wood{
 	dir = 10;
@@ -1829,6 +2936,10 @@
 /obj/item/rogueweapon/shield/tower/metal,
 /turf/open/floor/rogue/cobble,
 /area/rogue)
+"PO" = (
+/obj/structure/stairs/fancy/r,
+/turf/open/floor/rogue/carpet/lord/right,
+/area/rogue/indoors/lich_start/lich_lair)
 "PP" = (
 /obj/structure/mineral_door/bars{
 	lockid = "hag"
@@ -1842,16 +2953,31 @@
 	},
 /turf/open/floor/rogue/dirt/road,
 /area/rogue/underworld/dream)
+"PS" = (
+/obj/structure/fluff/walldeco/rpainting/crown,
+/turf/closed/wall/mineral/rogue/decostone/mossy/red/long,
+/area/rogue/indoors/lich_start/lich_lair)
 "Qb" = (
 /obj/structure/roguemachine/mazeroot,
 /turf/open/floor/rogue/shroud/hag,
 /area/rogue/indoors/shelter/bog_hag/root_maze)
+"Qd" = (
+/obj/structure/stairs/fancy/l{
+	dir = 1
+	},
+/obj/structure/fluff/walldeco/maidendrape,
+/turf/open/floor/rogue/carpet/lord/left,
+/area/rogue/indoors/lich_start/lich_lair)
 "Qg" = (
 /obj/effect/landmark/events/testportal{
 	aportalloc = "spidercave"
 	},
 /turf/open/floor/rogue/blocks,
 /area/rogue)
+"Qk" = (
+/obj/structure/mineral_door/wood/fancywood,
+/turf/open/floor/rogue/concrete,
+/area/rogue/indoors/lich_start)
 "Qn" = (
 /turf/open/floor/rogue/concrete,
 /area/rogue/indoors/eventarea)
@@ -1899,14 +3025,63 @@
 	},
 /turf/open/floor/rogue/twig,
 /area/rogue/indoors/shelter/bog_hag)
+"Rg" = (
+/obj/machinery/light/rogue/candle/blue{
+	pixel_y = -32
+	},
+/obj/effect/decal/cobbleedge{
+	dir = 6;
+	pixel_y = 6
+	},
+/turf/open/floor/rogue/cobble/mossy,
+/area/rogue/indoors/lich_start/lich_lair)
+"Rh" = (
+/obj/structure/stairs/stone{
+	dir = 1
+	},
+/obj/structure/fluff/railing/border/west,
+/turf/open/floor/rogue/churchbrick,
+/area/rogue/indoors/lich_start/lich_lair)
 "Ro" = (
 /obj/machinery/light/rogue/firebowl/stump,
 /turf/open/floor/rogue/dirt/road,
 /area/rogue/indoors/shelter/bog_hag)
+"Rq" = (
+/obj/structure/table/wood/fancy/black,
+/obj/item/reagent_containers/glass/cup/aalloygob{
+	pixel_x = -8;
+	pixel_y = 6
+	},
+/obj/item/roguecoin/aalloy/pile,
+/turf/open/floor/rogue/carpet/lord/right,
+/area/rogue/indoors/lich_start)
 "Rx" = (
 /obj/effect/decal/remains/human,
 /turf/open/floor/rogue/dirt,
 /area/rogue/underworld/dream)
+"RA" = (
+/obj/structure/fluff/walldeco/psybanner/zizo{
+	pixel_x = 2
+	},
+/turf/closed/wall/mineral/rogue/decostone/mossy/red/long,
+/area/rogue/indoors/lich_start)
+"RB" = (
+/obj/structure/bookcase/random,
+/obj/effect/decal/cleanable/dirt/cobweb{
+	dir = 1
+	},
+/turf/open/floor/rogue/cobble,
+/area/rogue/indoors/lich_start/lich_lair)
+"RD" = (
+/obj/effect/decal/remains/human,
+/obj/structure/fluff/railing/border/north,
+/turf/open/floor/rogue/dirt,
+/area/rogue/indoors/lich_start/lich_lair)
+"RR" = (
+/turf/closed/wall/mineral/rogue/decostone/mossy/red/long{
+	dir = 1
+	},
+/area/rogue/indoors/lich_start)
 "RV" = (
 /obj/item/grown/log/tree/stick,
 /turf/open/water/swamp/deep,
@@ -1914,6 +3089,16 @@
 "RX" = (
 /turf/closed/indestructible/riveted,
 /area/start)
+"Se" = (
+/obj/machinery/light/rogue/candle/floorcandle/pink{
+	pixel_x = -3;
+	pixel_y = -12
+	},
+/turf/open/floor/rogue/concrete,
+/area/rogue/indoors/lich_start/lich_lair)
+"Sh" = (
+/turf/open/water/cleanshallow,
+/area/rogue/indoors/lich_start/lich_lair)
 "Sj" = (
 /turf/open/floor/rogue/rooftop/green/north,
 /area/rogue/indoors/eventarea)
@@ -1950,6 +3135,9 @@
 "Sz" = (
 /turf/closed/wall/mineral/rogue/stone,
 /area/rogue)
+"SM" = (
+/turf/open/floor/rogue/concrete,
+/area/rogue/indoors/lich_start/lich_lair)
 "SN" = (
 /turf/open/floor/rogue/dirt/road,
 /area/rogue/underworld/dream)
@@ -1962,6 +3150,17 @@
 /obj/item/clothing/ring/active/nomag,
 /turf/open/floor/rogue/carpet,
 /area/rogue)
+"Ta" = (
+/obj/structure/bars/pipe{
+	dir = 9;
+	pixel_x = 19
+	},
+/turf/closed/wall/mineral/rogue/decostone/mossy/red,
+/area/rogue/indoors/lich_start/lich_lair)
+"Tf" = (
+/obj/effect/decal/remains/human,
+/turf/open/floor/rogue/cobble,
+/area/rogue/indoors/lich_start/lich_lair)
 "Tg" = (
 /obj/structure/fluff/traveltile/eventarea,
 /turf/open/floor/rogue/hexstone,
@@ -1979,6 +3178,10 @@
 	},
 /turf/open/floor/rogue/naturalstone,
 /area/rogue/underworld/dream)
+"TB" = (
+/obj/structure/spider/stickyweb,
+/turf/open/floor/rogue/churchbrick,
+/area/rogue/indoors/lich_start/lich_lair)
 "TD" = (
 /obj/structure/table/wood{
 	dir = 10;
@@ -2005,6 +3208,13 @@
 "TU" = (
 /turf/open/floor/rogue/grassyel,
 /area/rogue/indoors/eventarea)
+"TX" = (
+/obj/structure/bars/pipe{
+	dir = 6;
+	pixel_y = 16
+	},
+/turf/closed/wall/mineral/rogue/decostone/mossy/red,
+/area/rogue/indoors/lich_start/lich_lair)
 "TY" = (
 /obj/effect/spawner/lootdrop/hag/enchanted_moss,
 /turf/open/floor/rogue/dirt/road,
@@ -2015,6 +3225,9 @@
 	},
 /turf/open/floor/rogue/shroud/hag,
 /area/rogue/indoors/shelter/bog_hag)
+"Ue" = (
+/turf/closed/mineral/rogue/bedrock,
+/area/rogue/indoors/lich_start)
 "Ui" = (
 /obj/machinery/anvil,
 /turf/open/floor/rogue/dirt/road,
@@ -2026,9 +3239,27 @@
 /obj/structure/bed/rogue/inn/wool,
 /turf/open/floor/rogue/concrete,
 /area/rogue/underworld/dream)
+"UG" = (
+/obj/structure/stairs/stone{
+	dir = 4
+	},
+/turf/open/floor/rogue/naturalstone,
+/area/rogue/indoors/lich_start/lich_lair)
 "UK" = (
 /turf/open/floor/rogue/blocks/newstone/alt,
 /area/rogue/indoors/eventarea)
+"UU" = (
+/obj/item/ash,
+/turf/open/floor/rogue/carpet/lord/right,
+/area/rogue/indoors/lich_start)
+"UV" = (
+/obj/structure/fluff/railing/corner/south_east,
+/turf/open/floor/rogue/naturalstone,
+/area/rogue/indoors/lich_start/lich_lair)
+"Vf" = (
+/obj/structure/fluff/railing/border,
+/turf/open/floor/rogue/naturalstone,
+/area/rogue/indoors/lich_start/lich_lair)
 "Vh" = (
 /turf/open/water/swamp,
 /area/rogue/outdoors)
@@ -2055,6 +3286,10 @@
 /obj/structure/spider/stickyweb,
 /turf/open/floor/rogue/naturalstone,
 /area/rogue/underworld/dream)
+"Vy" = (
+/obj/structure/mineral_door/wood/fancywood,
+/turf/open/floor/rogue/concrete,
+/area/rogue/indoors/lich_start/lich_lair)
 "Vz" = (
 /turf/closed/indestructible/splashscreen,
 /area/start)
@@ -2068,6 +3303,18 @@
 "VS" = (
 /turf/open/floor/rogue/wood,
 /area/rogue/indoors/eventarea)
+"Wc" = (
+/turf/closed/wall/mineral/rogue/decostone/mossy/red/long{
+	dir = 1
+	},
+/area/rogue/indoors/lich_start/lich_lair)
+"Wj" = (
+/obj/structure/fluff/psycross/zizocross/golden,
+/obj/structure/fluff/walldeco/bigpainting{
+	pixel_x = 2
+	},
+/turf/open/floor/rogue/churchbrick,
+/area/rogue/indoors/lich_start/lich_lair)
 "Wm" = (
 /turf/open/floor/rogue/grassred,
 /area/rogue/indoors/eventarea)
@@ -2076,9 +3323,12 @@
 /turf/open/floor/rogue/underworld/road,
 /area/rogue/indoors/deathsedge)
 "Wr" = (
-/obj/effect/proc_holder/spell/invoked/heal,
-/turf/open/floor/rogue/dirt/road,
-/area/rogue/outdoors)
+/obj/structure/bookcase/random,
+/turf/open/floor/rogue/cobble,
+/area/rogue/indoors/lich_start/lich_lair)
+"Ws" = (
+/turf/closed/mineral/rogue/bedrock,
+/area/rogue/indoors/lich_start/lich_lair)
 "WC" = (
 /obj/effect/decal/cobbleedge{
 	dir = 10;
@@ -2096,6 +3346,15 @@
 "WO" = (
 /turf/open/floor/rogue/tile/checkeralt,
 /area/rogue/indoors/eventarea)
+"Xf" = (
+/obj/structure/table/wood/fancy/black,
+/obj/item/cooking/platter/aalloy,
+/obj/item/reagent_containers/glass/cup/aalloymug{
+	pixel_x = -9;
+	pixel_y = 2
+	},
+/turf/open/floor/rogue/churchbrick,
+/area/rogue/indoors/lich_start)
 "Xh" = (
 /obj/structure/table/wood{
 	dir = 10;
@@ -2111,6 +3370,22 @@
 /obj/item/leechtick,
 /turf/open/floor/rogue/grass,
 /area/rogue/indoors/shelter/bog_hag)
+"Xt" = (
+/obj/structure/stairs/stone{
+	dir = 8
+	},
+/turf/open/floor/rogue/churchbrick,
+/area/rogue/indoors/lich_start/lich_lair)
+"Xv" = (
+/obj/item/rogueweapon/shovel/aalloy,
+/turf/open/floor/rogue/dirt,
+/area/rogue/indoors/lich_start)
+"Xw" = (
+/obj/structure/fluff/walldeco/psybanner/zizo{
+	pixel_x = 2
+	},
+/turf/closed/wall/mineral/rogue/stone/red_moss,
+/area/rogue/indoors/lich_start/lich_lair)
 "Xz" = (
 /obj/effect/decal/cleanable/dirt/cobweb/cobweb2,
 /turf/open/floor/rogue/dirt,
@@ -2193,9 +3468,22 @@
 /obj/item/rogueweapon/sword/rapier/dec,
 /turf/open/floor/rogue/cobble,
 /area/rogue)
+"YI" = (
+/obj/structure/table/wood/fancy/black,
+/obj/item/cooking/platter/aalloy,
+/obj/item/reagent_containers/glass/cup/aalloymug{
+	pixel_x = 2;
+	pixel_y = 10
+	},
+/turf/open/floor/rogue/churchbrick,
+/area/rogue/indoors/lich_start)
 "YM" = (
 /turf/open/floor/rogue/grassred,
 /area/rogue/indoors/shelter/bog_hag)
+"YP" = (
+/obj/structure/fluff/railing/corner/south_west,
+/turf/open/floor/rogue/churchbrick,
+/area/rogue/indoors/lich_start/lich_lair)
 "YQ" = (
 /obj/structure/table/wood{
 	dir = 10;
@@ -2205,10 +3493,23 @@
 /obj/item/storage/belt/rogue/surgery_bag/full,
 /turf/open/floor/rogue/cobble,
 /area/rogue)
+"YS" = (
+/obj/structure/fluff/railing/border,
+/obj/structure/fluff/railing/border/north,
+/turf/open/floor/rogue/naturalstone,
+/area/rogue/indoors/lich_start/lich_lair)
+"YT" = (
+/obj/structure/roguewindow/stained/zizo,
+/turf/open/floor/rogue/concrete,
+/area/rogue/indoors/lich_start)
 "Za" = (
 /obj/machinery/light/rogue/cauldron,
 /turf/open/floor/rogue/twig,
 /area/rogue/indoors/shelter/bog_hag)
+"Zb" = (
+/obj/structure/flagpole,
+/turf/open/floor/rogue/naturalstone,
+/area/rogue/indoors/lich_start/lich_lair)
 "Zf" = (
 /obj/structure/closet/crate/chest,
 /obj/item/rogueore/gold,
@@ -2224,6 +3525,10 @@
 /obj/item/reagent_containers/glass/bucket/pot,
 /turf/open/floor/rogue/cobble,
 /area/rogue/indoors/shelter/bog_hag)
+"Zz" = (
+/obj/structure/flora/tinymushrooms,
+/turf/open/floor/rogue/naturalstone,
+/area/rogue/indoors/lich_start/lich_lair)
 "ZC" = (
 /obj/structure/table/wood{
 	dir = 10;
@@ -2233,9 +3538,35 @@
 /obj/item/rogueweapon/spear,
 /turf/open/floor/rogue/cobble,
 /area/rogue)
+"ZK" = (
+/obj/structure/table/wood/fancy/black,
+/obj/item/clothing/head/roguetown/crown/fakecrown{
+	pixel_y = 6
+	},
+/turf/open/floor/rogue/carpet/lord/left,
+/area/rogue/indoors/lich_start)
 "ZN" = (
 /turf/open/floor/rogue/rooftop/green/corner1/dirfour,
 /area/rogue/indoors/eventarea)
+"ZO" = (
+/obj/machinery/light/rogue/candle/blue{
+	pixel_y = -32
+	},
+/obj/structure/spider/stickyweb,
+/turf/open/floor/rogue/cobble,
+/area/rogue/indoors/lich_start/lich_lair)
+"ZT" = (
+/turf/open/floor/rogue/carpet/lord/center,
+/area/rogue/indoors/lich_start)
+"ZU" = (
+/obj/structure/table/vtable/v2,
+/obj/item/reagent_containers/glass/cup/aalloygob{
+	pixel_x = -8;
+	pixel_y = 6
+	},
+/obj/machinery/light/rogue/candle/floorcandle/alt,
+/turf/open/floor/rogue/churchbrick,
+/area/rogue/indoors/lich_start/lich_lair)
 "ZZ" = (
 /obj/effect/decal/cleanable/blood/gibs/core,
 /turf/open/floor/rogue/cobble,
@@ -2323,49 +3654,49 @@ rQ
 rQ
 rQ
 rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
+Ws
+Ws
+Ws
+Ws
+Ws
+Ws
+Ws
+Ws
+Ws
+Ws
+Ws
+Ws
+Ws
+Ws
+Ws
+Ws
+Ws
+Ws
+Ws
+Ws
+Ws
+Ws
+Ws
+Ws
+Ws
+Ws
+Ws
+Ws
+Ws
+Ws
+Ws
+Ws
+Ws
+Ws
+Ws
+Ws
+Ws
+Ws
+Ws
+Ws
+Ws
+Ws
+Ws
 rQ
 rQ
 rQ
@@ -2414,18 +3745,6 @@ pr
 pr
 pr
 pr
-pr
-pr
-pr
-pr
-pr
-pr
-pr
-pr
-pr
-pr
-pr
-pr
 Le
 Le
 Le
@@ -2452,51 +3771,63 @@ Sn
 Sn
 Sn
 Sn
+pr
+pr
+pr
+pr
+pr
+pr
+pr
+pr
+pr
+pr
+pr
+pr
 rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
+Ws
+Ws
+Ws
+Ws
+yh
+gP
+gP
+Ws
+Ws
+Ws
+Ws
+Ws
+eF
+gP
+gP
+gP
+gP
+EE
+Ws
+Ws
+Ws
+Ws
+Ws
+Ws
+Ws
+Ws
+Ws
+Ws
+MJ
+Ws
+Ws
+Ws
+fM
+ds
+KM
+KM
+lV
+Ws
+Ws
+Ws
+NL
+Ws
+Ws
+Ws
 rQ
 rQ
 rQ
@@ -2544,18 +3875,6 @@ pr
 pr
 pr
 pr
-pr
-pr
-pr
-pr
-pr
-pr
-pr
-pr
-pr
-pr
-pr
-pr
 Le
 kF
 kF
@@ -2582,51 +3901,63 @@ aG
 aG
 Lp
 Sn
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
+pr
+Ue
+Ue
+Ue
+Ue
+Ue
+Ue
+Ue
+Ue
+Ue
+Ue
+Ue
+Ue
+Ws
+qc
+nx
+nx
+Vy
+SM
+nx
+nx
+qc
+HM
+nx
+nx
+HM
+qc
+nx
+cN
+gP
+xr
+Lb
+nx
+nx
+Lb
+PS
+HM
+nx
+nx
+nx
+qc
+Ml
+lV
+Ws
+NL
+NL
+Vf
+Zz
+kR
+Zz
+tr
+Ws
+NL
+tr
+iC
+Ws
+Ws
 rQ
 rQ
 rQ
@@ -2674,18 +4005,6 @@ pr
 pr
 pr
 pr
-pr
-pr
-pr
-pr
-pr
-pr
-pr
-pr
-pr
-pr
-pr
-pr
 Le
 kF
 Le
@@ -2712,51 +4031,63 @@ aG
 aG
 aG
 Sn
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
+pr
+Ue
+NM
+im
+im
+im
+RA
+YT
+im
+im
+YT
+RA
+im
+Wc
+Wc
+Bz
+dz
+Xt
+Xt
+RD
+TB
+Wc
+Wj
+En
+En
+vI
+Wc
+Di
+Wr
+ua
+jl
+Wr
+Wr
+Wr
+Wr
+Wr
+CI
+Wr
+Wr
+Wr
+Wc
+iu
+iu
+iu
+iu
+UV
+Fk
+tr
+tr
+tr
+tr
+tr
+tr
+tr
+iC
+Ws
+Ws
 rQ
 rQ
 rQ
@@ -2804,18 +4135,6 @@ pr
 pr
 pr
 pr
-pr
-pr
-pr
-pr
-pr
-pr
-pr
-pr
-pr
-pr
-pr
-pr
 Le
 kF
 Le
@@ -2842,54 +4161,66 @@ aG
 aG
 aG
 Sn
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
+pr
+Ue
+YT
+iM
+ib
+Ku
+xS
+wC
+vK
+vK
+wC
+xS
+Bi
+Wc
+hL
+Mt
+YP
+ia
+ia
+Dp
+yl
+Wc
+BW
+Pj
+Pj
+sb
+Wc
+Iu
+Iu
+gP
+CI
+CI
+CI
+CI
+CI
+TB
+CI
+Tf
+CI
+wJ
+Wc
+iu
+Zb
+UV
+iu
+cX
+tr
+tr
+tr
+tr
+tr
+tr
+tr
+tr
+iC
+Ws
+Ws
+Ws
+Ws
+Ws
 "}
 (6,1,1) = {"
 rQ
@@ -2934,18 +4265,6 @@ pr
 pr
 pr
 pr
-pr
-pr
-pr
-pr
-pr
-pr
-pr
-pr
-pr
-pr
-pr
-pr
 Le
 kF
 Le
@@ -2972,54 +4291,66 @@ aG
 IT
 aG
 Sn
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
+pr
+Ue
+RR
+dw
+rJ
+hc
+YI
+xF
+Gf
+Be
+xF
+xF
+wC
+qc
+Cs
+MV
+OP
+Pj
+Pj
+Pj
+HB
+hL
+Dx
+rG
+Dx
+Dx
+hL
+Wr
+Wr
+pG
+eY
+tZ
+aH
+Wr
+te
+tZ
+yI
+pG
+Wr
+Wr
+Wc
+iu
+iu
+Vf
+UG
+YS
+tr
+tr
+tr
+tr
+tr
+tr
+tr
+tr
+iC
+Ws
+Ws
+Ws
+Ws
+Ws
 "}
 (7,1,1) = {"
 rQ
@@ -3064,18 +4395,6 @@ pr
 pr
 pr
 pr
-pr
-pr
-pr
-pr
-pr
-pr
-pr
-pr
-pr
-pr
-pr
-pr
 Le
 kF
 kF
@@ -3102,54 +4421,66 @@ aG
 aG
 aG
 Sn
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
+pr
+Ue
+le
+pf
+Mj
+tM
+Ks
+po
+BA
+Ks
+po
+GB
+we
+Wc
+Wc
+tZ
+pA
+fr
+kc
+kc
+kc
+Wc
+Pj
+Pj
+Pj
+gu
+Wc
+Bx
+rL
+Tf
+GD
+rL
+CI
+CI
+CI
+CI
+CI
+CI
+io
+he
+qc
+iC
+iC
+iC
+NA
+iC
+Xw
+sE
+Xw
+sE
+sE
+iC
+sE
+sE
+iC
+iC
+iC
+iC
+Ws
+Ws
 "}
 (8,1,1) = {"
 rQ
@@ -3194,18 +4525,6 @@ pr
 pr
 pr
 pr
-pr
-pr
-pr
-pr
-pr
-pr
-pr
-pr
-pr
-pr
-pr
-pr
 Le
 Le
 Le
@@ -3232,54 +4551,66 @@ aG
 aG
 aG
 Sn
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
+pr
+Ue
+RR
+Po
+ZK
+lH
+MC
+jv
+MC
+MC
+qx
+MC
+eA
+iC
+Wc
+sm
+ee
+ee
+oF
+tS
+ee
+qc
+Qd
+cU
+cU
+Ax
+bK
+CI
+CI
+Wr
+CI
+Wr
+CI
+Wr
+CI
+Wr
+CI
+Wr
+FE
+GH
+Wc
+Rh
+JK
+xi
+Pj
+Pj
+ta
+Pj
+Mb
+uI
+gP
+eq
+Pj
+Pj
+SM
+iu
+gC
+Ws
+Ws
+Ws
 "}
 (9,1,1) = {"
 rQ
@@ -3324,18 +4655,6 @@ pr
 pr
 pr
 pr
-pr
-pr
-pr
-pr
-pr
-pr
-pr
-pr
-pr
-pr
-pr
-pr
 Le
 kF
 kF
@@ -3362,54 +4681,66 @@ aG
 aG
 aG
 Sn
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
+pr
+Ue
+RR
+RR
+NB
+sx
+yc
+ZT
+ZT
+ZT
+ZT
+ZT
+wd
+Vy
+SM
+SM
+ee
+vQ
+pB
+zL
+ee
+Vy
+fq
+an
+an
+uK
+iI
+CI
+CI
+Wr
+CI
+Wr
+CI
+Wr
+CI
+Wr
+CI
+Wr
+CI
+Ak
+MP
+jk
+Pj
+Pj
+uI
+Pj
+Pj
+Pj
+Pj
+gP
+Hz
+Pj
+Pj
+Pj
+SM
+iu
+gC
+Ws
+Ws
+Ws
 "}
 (10,1,1) = {"
 rQ
@@ -3454,18 +4785,6 @@ pr
 pr
 pr
 pr
-pr
-pr
-pr
-pr
-pr
-pr
-pr
-pr
-pr
-pr
-pr
-pr
 Le
 kF
 Le
@@ -3492,54 +4811,66 @@ aG
 Sn
 aG
 Sn
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
+pr
+Ue
+RR
+yu
+Rq
+lB
+ic
+ic
+ic
+ic
+UU
+ic
+ry
+iC
+Wc
+sm
+ee
+ee
+oJ
+OX
+ee
+qc
+BV
+lb
+lb
+PO
+iI
+CI
+CI
+Wr
+CI
+Wr
+Iu
+Wr
+CI
+Wr
+CI
+Wr
+xB
+hA
+Wc
+mr
+tW
+pC
+gP
+gP
+Pj
+HJ
+Pj
+Pj
+Pj
+pR
+ta
+DA
+SM
+iu
+gC
+Ws
+Ws
+Ws
 "}
 (11,1,1) = {"
 rQ
@@ -3584,18 +4915,6 @@ pr
 pr
 pr
 pr
-pr
-pr
-pr
-pr
-pr
-pr
-pr
-pr
-pr
-pr
-pr
-pr
 Le
 kF
 Le
@@ -3622,54 +4941,66 @@ aG
 aG
 aG
 Sn
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
+pr
+Ue
+nO
+dw
+ib
+Dv
+mY
+LY
+oZ
+Fi
+mY
+mY
+LY
+Wc
+Wc
+tZ
+qw
+AH
+Mz
+AH
+AH
+Wc
+Ci
+Jn
+md
+Ci
+Wc
+Iu
+CI
+CI
+CI
+Iu
+Iu
+rL
+CI
+Iu
+CI
+Tf
+rL
+ZO
+Ta
+KV
+ez
+Ie
+ez
+ez
+hN
+ez
+hN
+ez
+ez
+Ie
+ez
+ez
+Ie
+Ie
+Ie
+Ie
+Ws
+Ws
 "}
 (12,1,1) = {"
 rQ
@@ -3714,18 +5045,6 @@ pr
 pr
 pr
 pr
-pr
-pr
-pr
-pr
-pr
-pr
-pr
-pr
-pr
-pr
-pr
-pr
 Le
 kF
 kF
@@ -3752,54 +5071,66 @@ aG
 aG
 aG
 Sn
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
+pr
+Ue
+RR
+pf
+ib
+hc
+xF
+YI
+KB
+sV
+xF
+Xf
+vK
+qc
+ra
+IS
+Pj
+Pj
+Pj
+Pj
+vu
+ae
+Sh
+yp
+SM
+Sh
+ae
+Wr
+Wr
+pG
+Rg
+tZ
+aH
+Wr
+te
+tZ
+Iy
+pG
+Wr
+Wr
+lG
+tr
+tr
+tr
+tr
+tr
+tr
+tr
+tr
+tr
+tr
+tr
+tr
+tr
+iC
+Ws
+Ws
+Ws
+Ws
+Ws
 "}
 (13,1,1) = {"
 rQ
@@ -3844,18 +5175,6 @@ pr
 pr
 pr
 pr
-pr
-pr
-pr
-pr
-pr
-pr
-pr
-pr
-pr
-pr
-pr
-pr
 Le
 kF
 kF
@@ -3882,54 +5201,66 @@ IT
 aG
 wr
 Sn
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
+pr
+Ue
+YT
+yj
+ib
+hJ
+MZ
+MZ
+wC
+vK
+MZ
+zr
+gd
+Wc
+ae
+ZU
+Pj
+Pj
+iP
+Pj
+Hq
+Wc
+fY
+Se
+GN
+Ci
+Wc
+CI
+CI
+CI
+lK
+MD
+CI
+CI
+Tf
+CI
+CI
+CI
+Iu
+Iu
+lG
+tr
+tr
+tr
+tr
+tr
+tr
+tr
+tr
+tr
+tr
+tr
+tr
+tr
+iC
+Ws
+Ws
+Ws
+Ws
+Ws
 "}
 (14,1,1) = {"
 rQ
@@ -3974,18 +5305,6 @@ pr
 pr
 pr
 pr
-pr
-pr
-pr
-pr
-pr
-pr
-pr
-pr
-pr
-pr
-pr
-pr
 Le
 Le
 Le
@@ -4012,51 +5331,63 @@ Sn
 Sn
 Sn
 Sn
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
+pr
+Ue
+NM
+im
+Qk
+im
+JG
+YT
+im
+im
+YT
+JG
+im
+Wc
+Wc
+dL
+TB
+TB
+Pj
+Pj
+gf
+Wc
+Ek
+Sh
+Ci
+Db
+Wc
+RB
+Wr
+CI
+Wr
+Wr
+Wr
+Wr
+Wr
+Wr
+CI
+Wr
+Wr
+dQ
+lG
+tr
+tr
+tr
+tr
+tr
+tr
+tr
+tr
+tr
+tr
+tr
+tr
+tr
+iC
+Ws
+Ws
 rQ
 rQ
 rQ
@@ -4131,62 +5462,62 @@ rQ
 rQ
 rQ
 rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-pr
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
+Ue
+Ue
+rx
+Xv
+xq
+ES
+Ue
+Ue
+Ue
+Ue
+Ue
+Ue
+Ws
+qc
+nx
+HM
+LO
+af
+HM
+nx
+qc
+HM
+nx
+nx
+HM
+qc
+xc
+Hw
+rA
+zY
+Od
+Hw
+Hw
+Od
+lv
+rA
+Hw
+Hw
+Hw
+TX
+kR
+tr
+tr
+lV
+Zz
+tr
+tr
+tr
+tr
+tr
+iu
+lV
+tr
+iC
+Ws
+Ws
 rQ
 rQ
 rQ
@@ -4262,61 +5593,61 @@ pr
 pr
 pr
 pr
+Ue
+Ue
+IQ
+ib
+Ue
+Ue
 pr
 pr
 pr
 pr
 pr
-pr
-pr
-pr
-pr
-pr
-pr
-pr
-pr
-pr
-pr
-pr
-pr
-pr
-pr
-pr
-pr
-pr
-pr
-pr
-pr
-pr
-pr
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
+Ws
+Ws
+Ws
+Ws
+Ws
+Ws
+Ws
+Ws
+Ws
+Ws
+Ws
+Ws
+Ws
+Ws
+Ws
+Ws
+Ws
+Ws
+Ws
+Ws
+Ws
+Ws
+Ws
+Ws
+Ws
+Ws
+Ws
+Ws
+lV
+tr
+Ws
+Ws
+Ws
+tr
+lV
+NL
+tr
+tr
+Ws
+Ws
+tr
+Ws
+Ws
+Ws
 rQ
 rQ
 rQ
@@ -4393,59 +5724,59 @@ pr
 pr
 pr
 pr
+Ue
+Ue
+Ue
+Ue
 pr
 pr
 pr
 pr
 pr
 pr
-pr
-pr
-pr
-pr
-pr
-pr
-pr
-pr
-pr
-pr
-pr
-pr
-pr
-pr
-pr
-pr
-pr
-pr
-pr
-pr
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
-rQ
+Ws
+Ws
+Ws
+Ws
+Ws
+Ws
+Ws
+Ws
+Ws
+Ws
+Ws
+Ws
+Ws
+Ws
+Ws
+Ws
+Ws
+Ws
+Ws
+Ws
+Ws
+Ws
+Ws
+Ws
+Ws
+Ws
+Ws
+Ws
+Ws
+Ws
+Ws
+Ws
+Ws
+Ws
+Ws
+Ws
+Ws
+Ws
+Ws
+Ws
+Ws
+Ws
+Ws
 rQ
 rQ
 rQ
@@ -10968,11 +12299,11 @@ bg
 ac
 gF
 Sz
-af
+bb
 hO
-af
+bb
 IV
-af
+bb
 bb
 Sz
 bX
@@ -11097,13 +12428,13 @@ kN
 kN
 kN
 kN
-af
-af
-af
-af
-af
-af
-af
+bb
+bb
+bb
+bb
+bb
+bb
+bb
 Sz
 bX
 AU
@@ -11228,12 +12559,12 @@ kN
 kN
 kN
 Sz
-af
-af
-af
-af
-af
-af
+bb
+bb
+bb
+bb
+bb
+bb
 Sz
 bX
 AU
@@ -11350,7 +12681,7 @@ Sz
 ow
 kN
 kN
-tr
+kN
 kN
 mf
 El
@@ -11358,11 +12689,11 @@ SX
 ag
 kN
 Sz
-af
+bb
 yR
-af
+bb
 Mm
-af
+bb
 Jg
 Sz
 bX
@@ -11488,12 +12819,12 @@ kN
 kN
 kN
 Sz
-af
-af
-af
-af
-af
-af
+bb
+bb
+bb
+bb
+bb
+bb
 Sz
 bX
 AU
@@ -11617,12 +12948,12 @@ kN
 kN
 kN
 kN
-af
-af
+bb
+bb
 NQ
-af
+bb
 pZ
-af
+bb
 Qg
 Sz
 bX
@@ -11750,10 +13081,10 @@ kN
 Sz
 jG
 bk
-af
-af
-af
-af
+bb
+bb
+bb
+bb
 Sz
 bX
 AU
@@ -11878,11 +13209,11 @@ Sz
 Sz
 Sz
 Sz
-af
-af
-af
-af
-af
+bb
+bb
+bb
+bb
+bb
 mQ
 Sz
 bX
@@ -12011,7 +13342,7 @@ Sz
 Sz
 Sz
 Sz
-af
+bb
 Sz
 Sz
 Sz
@@ -13167,7 +14498,7 @@ bX
 JQ
 JQ
 JQ
-Wr
+JQ
 AQ
 AQ
 Sz

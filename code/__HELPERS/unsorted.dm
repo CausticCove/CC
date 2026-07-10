@@ -148,6 +148,8 @@ Turf and target are separate in case you want to teleport some distance from a t
 	return destination
 
 /proc/getline(atom/M,atom/N)//Ultra-Fast Bresenham Line-Drawing Algorithm
+	if(!M || !N)
+		return list()
 	var/px=M.x		//starting x
 	var/py=M.y
 	var/line[] = list(locate(px,py,M.z))
@@ -1632,6 +1634,7 @@ GLOBAL_LIST_INIT(duplicate_forbidden_vars,list(
 		"Garrison" = GLOB.garrison_positions,
 		"Church" = GLOB.church_positions,
 		"Burgher" = GLOB.burgher_positions,
+		"Azurian Trading Company" = GLOB.atc_positions,
 		"Peasant" = GLOB.peasant_positions,
 		"Sidefolk" = GLOB.sidefolk_positions,
 		"Inquisition" = GLOB.inquisition_positions,

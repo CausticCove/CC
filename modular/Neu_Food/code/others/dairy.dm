@@ -68,7 +68,7 @@
 
 /obj/item/reagent_containers/food/snacks/butter/attackby(obj/item/I, mob/living/user, params)
 	update_cooktime(user)
-	if(istype(I, /obj/item/reagent_containers/food/snacks/egg))
+	if(istype(I, /obj/item/reagent_containers/food/snacks/rogue/egg))
 		to_chat(user, span_notice("Cracking an egg over the butter."))
 		if(do_after(user, short_cooktime, target = src))
 			playsound(get_turf(user), 'modular/Neu_Food/sound/eggbreak.ogg', 100, TRUE, -1)
@@ -285,7 +285,7 @@
 	icon = 'modular/Neu_Food/icons/others/dairy.dmi'
 	icon_state = "cheese_wedge"
 	bitesize = 3
-	list_reagents = list(/datum/reagent/consumable/nutriment = SNACK_DECENT)
+	list_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_HALF_MEAL)
 	w_class = WEIGHT_CLASS_TINY
 	faretype = FARE_POOR
 	tastes = list("cheese" = 1)
@@ -376,7 +376,7 @@
 	icon = 'modular/Neu_Food/icons/others/dairy.dmi'
 	icon_state = "frosting"
 	bitesize = 1
-	list_reagents = list(/datum/reagent/consumable/nutriment = SNACK_POOR)
+	list_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_QUARTER_MEAL)
 	w_class = WEIGHT_CLASS_TINY
 	tastes = list("sugary frosting"=1)
 	faretype = FARE_NEUTRAL

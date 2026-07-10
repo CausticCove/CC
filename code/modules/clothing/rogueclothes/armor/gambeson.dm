@@ -19,13 +19,42 @@
 	chunkcolor = "#978151"
 	material_category = ARMOR_MAT_LEATHER
 	cold_protection = 10
-	sellprice = 16 //Lighter equipment. Still decent.
+	var/shiftable = TRUE
+	var/shifted = FALSE
 
 /obj/item/clothing/suit/roguetown/armor/gambeson/ComponentInitialize()
 	AddComponent(/datum/component/armour_filtering/positive, TRAIT_FENCERDEXTERITY)
 	AddComponent(/datum/component/armour_filtering/negative, TRAIT_HONORBOUND)
 	if(armor_class > ARMOR_CLASS_LIGHT)
 		AddComponent(/datum/component/armour_filtering/negative, TRAIT_IRONMAN)
+
+/obj/item/clothing/suit/roguetown/armor/gambeson/attack_right(mob/user)
+	if(!shiftable)
+		return
+	if(shifted)
+		if(alert("Would you like to wear your gambeson normally? This restores the new greyscaled style.",, "Yes", "No") != "No")
+			icon_state = "gambeson"
+			color = "#976E6B"
+			update_icon()
+			shifted = FALSE
+			if(user)
+				if(ishuman(user))
+					var/mob/living/carbon/H = user
+					H.update_inv_shirt()
+					H.update_inv_armor()
+			return
+	else
+		if(alert("Would you like to wear your padded gambeson traditionally? This restores the original coloration.",, "Yes", "No") != "No")
+			icon_state = "gambesonold"
+			color = null
+			update_icon()
+			shifted = TRUE
+			if(user)
+				if(ishuman(user))
+					var/mob/living/carbon/H = user
+					H.update_inv_shirt()
+					H.update_inv_armor()
+			return
 
 /obj/item/clothing/suit/roguetown/armor/gambeson/dark
 	color = "#646464"
@@ -38,21 +67,35 @@
 	color = null
 	chunkcolor = null
 	allowed_sex = list(MALE, FEMALE)
-	sellprice = 33 //This is a very nice jacket! Where'd you get it?...
+	max_integrity = ARMOR_INT_CHEST_LIGHT_MASTER //50 more integ than a gamberson, at the cost of leg protection
+	shiftable = FALSE
+
+/obj/item/clothing/suit/roguetown/armor/gambeson/lord/light
+	name = "light arming jacket"
+	desc = "A lightweight collared jacket, purpose-woven for skirmishes and battle. The modest weight and streamlined form make it ideal for wearing under a cuirass or elegant halfplate."
+	icon_state = "dgamb"
+	body_parts_covered = COVERAGE_ALL_BUT_HANDLEGS
+	max_integrity = ARMOR_INT_CHEST_LIGHT_MEDIUM //50 more integrity and superior protection vs a light gamberson, and cheaper than a proper gamberson with the same integrity.
 
 /obj/item/clothing/suit/roguetown/armor/gambeson/shadowrobe
-	name = "stalker robe"
-	desc = "A thick robe in royal purple, befitting the hand, while remaining easy for them to slip about in.."
+	name = "thin stalker robe"
+	desc = "A thick robe in royal purple, befitting a travelling noble, while remaining easy for them to slip about in.."
 	allowed_race = NON_DWARVEN_RACE_TYPES
 	icon_state = "shadowrobe"
-	sellprice = 88 //Hand's attire. If someone nabs this, well, they best get paid well that's for sure.
+	shiftable = FALSE
+
+/obj/item/clothing/suit/roguetown/armor/gambeson/raneshen
+	name = "thin desert coat"
+	desc = "A slim-fitting sherwani, a Ranesheni-styled coat meant to endure in the desert's climate. This one isn't padded, meant for a noble to wear."
+	icon_state = "sherwani"
+	color = "#eec39a"
 
 /obj/item/clothing/suit/roguetown/armor/gambeson/light
 	name = "light gambeson"
 	desc = "A light and insulative jacket, hewn from cloth. Peasants tend to wear these in the colder months, though they've also been repurposed - by more desperate hands - as armor-padding."
 	armor = ARMOR_PADDED_BAD
 	max_integrity = ARMOR_INT_CHEST_LIGHT_BASE
-	sellprice = 10
+	shiftable = FALSE
 
 /obj/item/clothing/suit/roguetown/armor/gambeson/lord/heavy
 	name = "padded arming jacket"
@@ -75,16 +118,22 @@
 	icon_state = "gambesonp"
 	armor = ARMOR_PADDED
 	max_integrity = ARMOR_INT_CHEST_LIGHT_MASTER
-	sellprice = 25
 	color = "#976E6B"
-	var/shiftable = TRUE
-	var/shifted = FALSE
+	shiftable = TRUE
+	shifted = FALSE
+
+/obj/item/clothing/suit/roguetown/armor/gambeson/heavy/squire
+	name = "the singular squire padded gambeson"
+	desc = "A gambeson with some padding, tucked and hidden away from prying Knightly eyes. Someone got lucky!"
+
+/obj/item/clothing/suit/roguetown/armor/gambeson/heavy/holysee
+	color = "#d6dce6"
 
 /obj/item/clothing/suit/roguetown/armor/gambeson/heavy/attack_right(mob/user)
 	if(!shiftable)
 		return
 	if(shifted)
-		if(alert("Would you like to wear your gambeson normally? -Restores greyscaling, new style.",, "Yes", "No") != "No")
+		if(alert("Would you like to wear your padded gambeson normally? -Restores greyscaling, new style.",, "Yes", "No") != "No")
 			icon_state = "gambesonp"
 			color = "#976E6B"
 			update_icon()
@@ -96,7 +145,7 @@
 					H.update_inv_armor()
 			return
 	else
-		if(alert("Would you like to wear your gambeson traditionally? -Removes Greyscaling, old style.",, "Yes", "No") != "No")
+		if(alert("Would you like to wear your padded gambeson traditionally? -Removes Greyscaling, old style.",, "Yes", "No") != "No")
 			icon_state = "gambesonpold"
 			color = null
 			update_icon()
@@ -108,7 +157,6 @@
 					H.update_inv_armor()
 			return
 
-
 /obj/item/clothing/suit/roguetown/armor/gambeson/heavy/otavan
 	name = "fencing gambeson"
 	desc = "A large shirt with heavy padding meant to be used below armor. Will probably stop an arrow, unlikely to stop a bolt."
@@ -118,7 +166,6 @@
 	detail_color = "#e98738"
 	detail_tag = "_detail"
 	shiftable = FALSE
-	sellprice = 30
 	var/picked = FALSE
 
 /obj/item/clothing/suit/roguetown/armor/gambeson/heavy/otavan/attack_right(mob/user)
@@ -160,7 +207,6 @@
 	var/shiftable = FALSE
 	armor = ARMOR_PADDED
 	max_integrity = ARMOR_INT_CHEST_LIGHT_MASTER + 35
-	sellprice = 25
 	blocksound = SOFTUNDERHIT
 	break_sound = 'sound/foley/cloth_rip.ogg'
 	drop_sound = 'sound/foley/dropsound/cloth_drop.ogg'
@@ -201,7 +247,6 @@
 	l_sleeve_status = SLEEVE_NORMAL
 	color = "#1d1d22"
 	detail_color = "#FFFFFF"
-	sellprice = 40
 	var/picked = FALSE
 	shiftable = FALSE
 
@@ -284,3 +329,32 @@
 
 /obj/item/clothing/suit/roguetown/armor/gambeson/heavy/hand/spymaster
 	detail_color = "#742277"
+
+//I'm feeling quite hungry!
+
+/obj/item/clothing/suit/roguetown/armor/gambeson/baotha
+	name = "saccharine vestments"
+	desc = "A gemmed chalice, Eora's own, swilled with Psydonia's most noxious venoms - and but a simple sip was enough to bring Her to death's door.."
+	icon_state = "baothagamb"
+	armor_class = ARMOR_CLASS_LIGHT
+	armor = ARMOR_PADDED
+	color = null
+	max_integrity = ARMOR_INT_CHEST_LIGHT_MASTER + 150
+	armor_class = ARMOR_CLASS_LIGHT
+	resistance_flags = FIRE_PROOF
+	body_parts_covered = CHEST | GROIN | ARMS
+	icon = 'icons/roguetown/clothing/shirts.dmi'
+	mob_overlay_icon = 'icons/roguetown/clothing/onmob/shirts.dmi'
+	sleeved = 'icons/roguetown/clothing/onmob/helpers/sleeves_shirts.dmi'
+	smeltresult = /obj/item/ingot/component/baotha
+
+/obj/item/clothing/suit/roguetown/armor/gambeson/baotha/Initialize()
+	. = ..()
+	AddComponent(/datum/component/cursed_item, TRAIT_DEPRAVED, "VESTMENTS")
+	ADD_TRAIT(src, TRAIT_NODROP, CURSED_ITEM_TRAIT)
+
+/obj/item/clothing/suit/roguetown/armor/gambeson/baotha/dropped(mob/living/carbon/human/user)
+	. = ..()
+	if(QDELETED(src))
+		return
+	qdel(src)

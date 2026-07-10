@@ -154,8 +154,8 @@
 		devotion = max_devotion
 		update_devotion(max_devotion, CLERIC_REQ_4, silent = TRUE, is_npc = is_npc)
 	else
-		update_devotion(50, 50, silent = TRUE, is_npc = is_npc)
-	H.verbs += list(/mob/living/carbon/human/proc/devotionreport, /mob/living/carbon/human/proc/clericpray)
+		update_devotion(50, 50, silent = TRUE)
+	add_verb(H, list(/mob/living/carbon/human/proc/devotionreport, /mob/living/carbon/human/proc/clericpray))
 
 // Debug verb
 /mob/living/carbon/human/proc/devotionchange()
@@ -195,7 +195,7 @@
 	//CC Edit End
 
 	var/prayersesh = 0
-	visible_message("[src] kneels their head in prayer to the Gods.", "I kneel my head in prayer to [devotion.patron.name].")
+	visible_message("[src] kneels their head in prayer to the Gods.", "I kneel my head in prayer to [istype(devotion.patron, /datum/patron/divine/undivided) ? "the Ten" : devotion.patron.name].")
 	for(var/i in 1 to 50)
 		if(devotion.devotion >= devotion.max_devotion)
 			to_chat(src, span_warning("I have reached the limit of my devotion..."), MESSAGE_TYPE_INFO)
@@ -214,7 +214,7 @@
 
 /mob/living/carbon/human/proc/changevoice()
 	set name = "Change Second Voice (Can only use Once!)"
-	set category = "Virtue"
+	set category = "VIRTUES"
 
 	var/datum/component/voice_handler/V = GetComponent(/datum/component/voice_handler)
 	if(!V)
@@ -235,20 +235,20 @@
 		return FALSE
 	V.second_color = sanitize_hexcolor(newcolor)
 	V.second_desc_path = voice_options[picked_name]
-	to_chat(src, span_notice("Second voice configured: Color [V.second_color] with the '[picked_name]' description."), MESSAGE_TYPE_INFO)
-	src.verbs -= /mob/living/carbon/human/proc/changevoice
+	to_chat(src, span_notice("Second voice configured: Color [V.second_color] with the '[picked_name]' description."))
+	remove_verb(src, /mob/living/carbon/human/proc/changevoice)
 	return TRUE
 
 /mob/living/carbon/human/proc/swapvoice()
 	set name = "Swap Voice"
-	set category = "Virtue"
+	set category = "VIRTUES"
 
 	var/datum/component/voice_handler/V = GetComponent(/datum/component/voice_handler)
 	V.toggle_voice()
 
 /mob/living/carbon/human/proc/toggleblindness()
 	set name = "Toggle Colorblindness"
-	set category = "Virtue"
+	set category = "VIRTUES"
 
 	if(!get_client_color(/datum/client_colour/monochrome))
 		add_client_colour(/datum/client_colour/monochrome)
@@ -257,7 +257,7 @@
 
 /mob/living/carbon/human/proc/togglecombatawareness()
 	set name = "Toggle Combat Awareness"
-	set category = "Virtue"
+	set category = "VIRTUES"
 
 	if(HAS_TRAIT(src, TRAIT_COMBAT_AWARE))
 		REMOVE_TRAIT(src, TRAIT_COMBAT_AWARE, TRAIT_VIRTUE) 
@@ -268,7 +268,7 @@
 
 /mob/living/carbon/human/proc/toggle_descriptors()
 	set name = "Toggle Anonimity"
-	set category = "Virtue"
+	set category = "VIRTUES"
 
 	show_descriptors = !show_descriptors
 	to_chat(src, "My identifying features are [show_descriptors ? "no longer " : ""]obscured.", MESSAGE_TYPE_INFO)
@@ -279,10 +279,28 @@
 
 /mob/living/carbon/human/proc/toggle_guarded()
 	set name = "Toggle Guarded"
-	set category = "Virtue"
+	set category = "VIRTUES"
 
 	if(HAS_TRAIT(src, TRAIT_DECEIVING_MEEKNESS))
 		REMOVE_TRAIT(src, TRAIT_DECEIVING_MEEKNESS, TRAIT_VIRTUE) 
 	else
 		ADD_TRAIT(src, TRAIT_DECEIVING_MEEKNESS, TRAIT_VIRTUE)
 	to_chat(src, "I have [HAS_TRAIT(src, TRAIT_DECEIVING_MEEKNESS) ? "raised" : "lowered"] my guard around others.", MESSAGE_TYPE_INFO)
+
+
+// Not actually a virtue, but kept in the category for convenience. Miner-role only. Component handles all of the messaging and logic, this is just a wrapper, basically.
+/mob/living/carbon/human/proc/toggle_oresight()
+	set name = "Toggle (Ore Sight)"
+	set category = "VIRTUES"
+
+	var/datum/component/ore_sight/COS = GetComponent(/datum/component/ore_sight)
+	if(COS)
+		COS.toggle()
+
+/mob/living/carbon/human/proc/range_oresight()
+	set name = "Change Range (Ore Sight)"
+	set category = "VIRTUES"
+
+	var/datum/component/ore_sight/COS = GetComponent(/datum/component/ore_sight)
+	if(COS)
+		COS.change_range()

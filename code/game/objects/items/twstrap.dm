@@ -12,7 +12,6 @@
 	equip_delay_self = 5 SECONDS
 	unequip_delay_self = 5 SECONDS
 	max_integrity = 0
-	sellprice = 15
 	pixel_y = -16
 	pixel_x = -16
 	inhand_x_dimension = 64
@@ -29,6 +28,7 @@
 		/obj/item/throwing_star,
 		/obj/item/rogueweapon/huntingknife
 	)
+	var/armor_class = ARMOR_CLASS_NONE //Caustic Edit - Lets just add this here, though it PROBABLY should be a child of the clothing type?
 
 /obj/item/twstrap/attackby(obj/A, mob/living/carbon/user, params)
 	var/obj/item/I = A

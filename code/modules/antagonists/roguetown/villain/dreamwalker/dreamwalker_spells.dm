@@ -7,6 +7,8 @@
 	chargetime = 1.5 SECONDS
 	recharge_time = 25 MINUTES
 	overlay_state = "dream_mark"
+	action_icon = 'icons/mob/actions/classuniquespells/dreamspells.dmi'
+	overlay_icon = 'icons/mob/actions/classuniquespells/dreamspells.dmi'
 	invocations = list("Dream... manifest my vision, bend to my will.")
 	invocation_type = "whisper"
 	no_early_release = TRUE
@@ -113,6 +115,8 @@
 	chargedrain = 1
 	chargetime = 0
 	overlay_state = "dream_track"
+	action_icon = 'icons/mob/actions/classuniquespells/dreamspells.dmi'
+	overlay_icon = 'icons/mob/actions/classuniquespells/dreamspells.dmi'
 	invocations = list("Dream... Find them.")
 	invocation_type = "whisper"
 	no_early_release = TRUE
@@ -180,6 +184,8 @@
 	charging_slowdown = 1
 	associated_skill = /datum/skill/magic/arcane
 	overlay_state = "dream_jaunt"
+	action_icon = 'icons/mob/actions/classuniquespells/dreamspells.dmi'
+	overlay_icon = 'icons/mob/actions/classuniquespells/dreamspells.dmi'
 
 /obj/effect/proc_holder/spell/invoked/jaunt/cast(list/targets, mob/user)
 	var/turf/original_turf = get_turf(user)
@@ -245,6 +251,8 @@
 	charging_slowdown = 1
 	associated_skill = /datum/skill/magic/arcane
 	overlay_state = "dream_summon"
+	action_icon = 'icons/mob/actions/classuniquespells/dreamspells.dmi'
+	overlay_icon = 'icons/mob/actions/classuniquespells/dreamspells.dmi'
 
 /obj/effect/proc_holder/spell/invoked/summon_marked/cast(list/targets, mob/user)
 	var/datum/component/dreamwalker_mark/mark_component = user.GetComponent(/datum/component/dreamwalker_mark)
@@ -314,6 +322,8 @@
 	associated_skill = /datum/skill/magic/arcane
 	var/obj/item/bound_item = null
 	overlay_state = "dream_bind"
+	action_icon = 'icons/mob/actions/classuniquespells/dreamspells.dmi'
+	overlay_icon = 'icons/mob/actions/classuniquespells/dreamspells.dmi'
 
 /obj/effect/proc_holder/spell/invoked/dream_bind/cast(list/targets, mob/user)
 	var/atom/target = targets[1]
@@ -352,7 +362,7 @@
 //Dream meditation
 /obj/effect/proc_holder/spell/invoked/dream_trance
 	name = "Dream Trance"
-	desc = "Draw dream energy into your being to banish any fatigue."
+	desc = "Draw dream energy into your being to banish any fatigue. Spawns shards that can be picked up with a weapon or by walking over them to repair your armor."
 	chargedrain = 0
 	chargetime = 0
 	recharge_time = 10 SECONDS
@@ -362,15 +372,27 @@
 	charging_slowdown = 0
 	associated_skill = /datum/skill/magic/arcane
 	overlay_state = "dream_lotus"
+	action_icon = 'icons/mob/actions/classuniquespells/dreamspells.dmi'
+	overlay_icon = 'icons/mob/actions/classuniquespells/dreamspells.dmi'
 
 /obj/effect/proc_holder/spell/invoked/dream_trance/cast(list/targets, mob/user)
 	var/mob/living/carbon/human/H = user
+	var/datum/component/dreamwalker_repair/DR = H.GetComponent(/datum/component/dreamwalker_repair)
 
 	to_chat(user, span_info("I begin meditating."))
 	while(TRUE)
 		if(do_after(H, 15 SECONDS, FALSE, H))
 			H.energy_add(0.2 * H.max_energy)
 			H.apply_status_effect(/datum/status_effect/buff/healing, 5)
+			if(DR)
+				DR.spawn_shard(2 MINUTES, 250)
+				to_chat(H, span_nicegreen("A massive fragment of regenerative dream metal crystallizes nearby!"))
 		else
 			to_chat(user, span_info("I must remain still to focus energies and recover."))
 			break
+
+/datum/action/cooldown/spell/blink/dreamwalker
+	button_icon = 'icons/mob/actions/classuniquespells/dreamspells.dmi'
+	button_icon_state = "dream_blink"
+	cooldown_time = 45 SECONDS
+	invocations = list("Let me through!")

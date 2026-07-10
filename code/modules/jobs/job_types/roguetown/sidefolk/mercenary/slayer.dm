@@ -2,10 +2,7 @@
 	name = "Trollslayer" // barbarian-like subclass with soft-nudist (no armor) and no Fast Reflexes, supposed to soak up damage with their con and skinarmor and chop shit up with class-exclusive axes
 	//Caustic Cove Edit - Allow anyone to be a Slayer, not just Dwarves.
 	tutorial = "Atop the windy peaks in a mountain shrine, you swore an Oath, vowing to cleanse the land of monsters or die trying. You give yourself wholly to the Battlefather’s judgment, bearing your devotion as armor and your rage as a weapon. No creacher upon this world is safe from your divine wrath."
-	/*allowed_races = list(
-		/datum/species/dwarf,
-		/datum/species/dwarf/mountain
-		)*/
+	//forbidden_races = list(RACES_GRUDGE)
 	//Caustic Cove Edit End
 	outfit = /datum/outfit/job/roguetown/mercenary/trollslayer
 	category_tags = list(CTAG_MERCENARY)

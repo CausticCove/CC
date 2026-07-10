@@ -2,7 +2,7 @@
 	name = "Shrine Defiler"
 	tutorial = "Curiosity got the best of you. You serve no master, other than PROGRESS itself. Your old charge is long gone. And yet, you are still here. You seek to spread your inhumen energies to the town- Willingly, or not."
 	allowed_sexes = list(MALE, FEMALE)
-	allowed_races = NON_DWARVEN_RACE_TYPES //no dwarf sprites
+	forbidden_races = list(RACES_SMALL) //no dwarf sprites
 	outfit = /datum/outfit/job/roguetown/wretch/shrine_defiler
 	subclass_languages = list(/datum/language/kazengunese)
 	category_tags = list(CTAG_WRETCH)

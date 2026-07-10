@@ -29,6 +29,7 @@
 	var/structure_range = 1
 	var/harms_undead = TRUE
 	var/zizo = FALSE
+	var/matthios = FALSE
 	priest_excluded = TRUE
 
 /obj/effect/proc_holder/spell/invoked/resurrect/start_recharge()
@@ -154,6 +155,10 @@
 
 		return "A living, bleeding victim"
 
+	if(matthios)
+	// Matthios revivals will drain mammon actively now
+		return ""
+
 	var/list/current_required_items = get_current_required_items()
 	var/list/available_items = list()
 	var/list/missing_items = list()
@@ -213,7 +218,8 @@
 	debuff_type = /datum/status_effect/debuff/dreamfiend_curse
 	//This will be Abyssor's statue soon.
 	required_structure = /turf/open/water/ocean
-	overlay_state = "terrors"
+	action_icon = 'icons/mob/actions/abyssormiracles.dmi'
+	overlay_icon = 'icons/mob/actions/abyssormiracles.dmi'
 
 /datum/status_effect/debuff/dreamfiend_curse
 	id = "dreamfiend_curse"
@@ -267,7 +273,9 @@
 /obj/effect/proc_holder/spell/invoked/summon_dreamfiend_curse
 	name = "Confront Terror"
 	desc = "Summon the dreamfiend haunting you to confront it directly"
-	overlay_state = "terrors"
+	action_icon = 'icons/mob/actions/abyssormiracles.dmi'
+	overlay_icon = 'icons/mob/actions/abyssormiracles.dmi'
+	overlay_state = "revive"
 	chargetime = 0
 	invocations = list(span_danger("begins to smell of saltwater. You can hear waves crashing nearby..."))
 	invocation_type = "emote"
@@ -594,6 +602,9 @@
 		/obj/item/natural/bone = 7
 	)
 	debuff_type = /datum/status_effect/debuff/ravox_revival
+	action_icon = 'icons/mob/actions/ravoxmiracles.dmi'
+	overlay_icon = 'icons/mob/actions/ravoxmiracles.dmi'
+	overlay_state = "revive"
 
 /obj/effect/proc_holder/spell/invoked/resurrect/dendor
 	name = "Wild Rite of Anastasis"
@@ -637,9 +648,8 @@
 	ore. </br>Casting this on an undead or unholy target will smite them with explosive results. </br>Depending on how far gone \
 	the spirit is, the 'Anastasis' blessing might need to be casted multiple times before successfully resurrecting them. </br>Unlike a regular Healing miracle, this \
 	can affect - and resurrect - devout Psydonians as well."
-	required_items = list(
-		/obj/item/rogueore/gold = 1 // Was thinking Eclipsum combo of gold/silver but that'd probably be *too* expensive. Probably the costliest revival, while having a anastasis equal debuff.
-	)
+	recharge_time = 20 MINUTES //Double the cooldown, no more gold cost, it simply doesn't work with the new economy and transmutation changes.
+	required_items = list()
 	debuff_type = /datum/status_effect/debuff/revived
 	sound = 'sound/magic/revive.ogg'
 	action_icon = 'icons/mob/actions/undividedmiracles.dmi'

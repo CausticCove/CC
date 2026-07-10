@@ -5,7 +5,7 @@
 /datum/migrant_role/grenzel/envoy
 	name = "Envoy"
 	allowed_sexes = list(MALE, FEMALE)
-	allowed_races = RACES_NO_CONSTRUCT
+	forbidden_races = list(RACES_CONSTRUCT) //Caustic Edit - Just a global tweak to remove 'races_despised' from this check everywhere
 	greet_text = "You are a Grenzelhoftian envoy, traveling with bodyguards and a priest to represent your homeland.\
 	 What exactly you have been sent here to speak about- only you know."
 	advclass_cat_rolls = list(CTAG_GRENZEL_ENVOY = 20)
@@ -13,7 +13,7 @@
 /datum/advclass/grenzel_envoy
 	name = "Envoy"
 	outfit = /datum/outfit/job/roguetown/grenzel/envoy
-	traits_applied = list(TRAIT_NOBLE, TRAIT_HEAVYARMOR, TRAIT_STEELHEARTED)
+	traits_applied = list(TRAIT_NOBLE, TRAIT_HEAVYARMOR, TRAIT_STEELHEARTED, TRAIT_INTELLECTUAL)
 	category_tags = list(CTAG_GRENZEL_ENVOY)
 	subclass_stats = list(
 		STATKEY_INT = 2,
@@ -69,7 +69,7 @@
 /datum/migrant_role/grenzel/bodyguard
 	name = "Leibwachter"
 	allowed_sexes = list(MALE, FEMALE)
-	allowed_races = RACES_NO_CONSTRUCT
+	forbidden_races = list(RACES_CONSTRUCT) //Caustic Edit - Just a global tweak to remove 'races_despised' from this check everywhere
 	advclass_cat_rolls = list(CTAG_GRENZEL_GUARD = 20)
 
 /datum/advclass/grenzel_guard
@@ -151,7 +151,7 @@
 	name = "Envoy Priest"
 	greet_text = "Nominally the envoy's spiritual advisor, your real power extends beyond religious matters. Protect interests of the Holy See of the Ten."
 	allowed_sexes = list(MALE, FEMALE)
-	allowed_races = RACES_NO_CONSTRUCT
+	forbidden_races = list(RACES_CONSTRUCT) //Caustic Edit - Just a global tweak to remove 'races_despised' from this check everywhere
 	advclass_cat_rolls = list(CTAG_GRENZEL_PRIEST = 20)
 
 /datum/advclass/grenzel_priest

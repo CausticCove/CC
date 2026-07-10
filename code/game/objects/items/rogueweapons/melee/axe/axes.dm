@@ -1,5 +1,4 @@
 
-
 /obj/item/rogueweapon/stoneaxe
 	slot_flags = ITEM_SLOT_HIP | ITEM_SLOT_BACK
 	force = 18
@@ -25,7 +24,6 @@
 	gripped_intents = list(/datum/intent/axe/chop/stone)
 	resistance_flags = FLAMMABLE
 	special = /datum/special_intent/axe_swing
-	sellprice = 8 //Cheap. Made of stone.
 
 /obj/item/rogueweapon/stoneaxe/getonmobprop(tag)
 	. = ..()
@@ -54,7 +52,18 @@
 	gripped_intents = list(/datum/intent/axe/cut, /datum/intent/axe/chop, /datum/intent/axe/chop/heavy, /datum/intent/axe/bash/battle)
 	minstr = 9
 	wdefense = 4
-	sellprice = 40 //Nice.
+
+/obj/item/rogueweapon/stoneaxe/battle/blacksteel
+	name = "blacksteel axe"
+	desc = "A magnificent battle axe of blacksteel, fitted to counter both unarmored assailants and heavy infantry. The edge might be fluted with nobler alloys, but it is no less wicked when introduced to maille-and-bone."
+	icon_state = "bs_axe"
+	force = 30
+	force_wielded = 35
+	smeltresult = /obj/item/ingot/blacksteel
+	possible_item_intents = list(/datum/intent/axe/cut, /datum/intent/axe/chop, /datum/intent/axe/bash/battle, /datum/intent/axe/thrust)
+	wdefense_wbonus = 2 //Increased defense when wielded.
+	max_blade_int = 500 //Sharper than sharp.
+	resistance_flags = FIRE_PROOF
 
 /obj/item/rogueweapon/stoneaxe/oath
 	force = 30
@@ -79,7 +88,6 @@
 	smeltresult = /obj/item/ingot/steel
 	minstr = 12
 	wdefense = 5
-	sellprice = 80
 
 /obj/item/rogueweapon/stoneaxe/oath/getonmobprop(tag)
 	if(tag)
@@ -103,7 +111,6 @@
 	gripped_intents = list(/datum/intent/axe/cut, /datum/intent/axe/chop, /datum/intent/axe/bash)
 	wdefense = 2
 	is_tool = TRUE // set here to exclude battleaxes and such
-	sellprice = 20
 
 /obj/item/rogueweapon/stoneaxe/woodcut/woodcutter
 	name = "woodcutter's handaxe"
@@ -123,7 +130,6 @@
 	smeltresult = /obj/item/ingot/aaslag
 	anvilrepair = null
 	randomize_blade_int_on_init = TRUE
-	sellprice = 10 //Ew... AASLAAAG
 
 /obj/item/rogueweapon/stoneaxe/hurlbat
 	name = "hurlbat"
@@ -147,7 +153,6 @@
 	embedding = list("embedded_pain_multiplier" = 6, "embed_chance" = 50, "embedded_fall_chance" = 30) //high chance at embed, high chance to fall out on its own.
 	possible_item_intents = list(/datum/intent/axe/chop/stone)
 	gripped_intents = null
-	sellprice = 7 //Stone...
 	thrown_damage_flag = "piercing"		//Checks piercing type like an arrow.
 
 /obj/item/rogueweapon/stoneaxe/hurlbat/getonmobprop(tag)
@@ -159,6 +164,19 @@
 			if("onbelt")
 				return list("shrink" = 0.3,"sx" = -2,"sy" = -5,"nx" = 4,"ny" = -5,"wx" = 0,"wy" = -5,"ex" = 2,"ey" = -5,"nturn" = 0,"sturn" = 0,"wturn" = 0,"eturn" = 0,"nflip" = 0,"sflip" = 0,"wflip" = 0,"eflip" = 0,"northabove" = 0,"southabove" = 1,"eastabove" = 1,"westabove" = 0)
 
+/obj/item/rogueweapon/stoneaxe/hurlbat/blacksteel
+	name = "blacksteel hurlbat"
+	desc = "A magnificent throwing axe of blacksteel, weighted to penetrate most cuirasses with a single well-aimed toss."
+	smeltresult = /obj/item/ingot/blacksteel
+	icon_state = "bs_hurlbat"
+	armor_penetration = PEN_HEAVY //+I PEN,
+	possible_item_intents = list(/datum/intent/axe/chop)
+	force = 24
+	throwforce = 40
+	max_integrity = 80 //A little less fragile!
+	max_blade_int = 150 //Sharp!
+	resistance_flags = FIRE_PROOF
+
 /obj/item/rogueweapon/stoneaxe/battle/abyssoraxe
 	name = "Tidecleaver"
 	desc = "An axe made in image and inspiration of the rumored Tidecleaver, an axe capable of parting the ocean itself. The steel hums the crash of waves."
@@ -167,7 +185,6 @@
 	max_integrity = 400 // higher int than usual
 	possible_item_intents = list(/datum/intent/axe/cut, /datum/intent/axe/chop, /datum/intent/mace/warhammer/pick, /datum/intent/axe/bash/battle)
 	gripped_intents = list(/datum/intent/axe/cut, /datum/intent/axe/chop, /datum/intent/axe/bash/battle)
-	sellprice = 100 //CC Change | Wow what the fuck this is cool! Lots of integrity! 
 
 //Pickaxe-axe ; Technically both a tool and a weapon, but it goes here due to weapon function. Subtype of woodcutter axe, mostly a weapon.
 /obj/item/rogueweapon/stoneaxe/woodcut/pick
@@ -179,7 +196,6 @@
 	smeltresult = /obj/item/ingot/steel
 	wlength = WLENGTH_NORMAL
 	toolspeed = 2
-	sellprice = 28
 
 /obj/item/rogueweapon/stoneaxe/woodcut/wardenpick
 	name = "warden's axe"
@@ -192,9 +208,6 @@
 	smeltresult = /obj/item/ingot/steel
 	wlength = WLENGTH_NORMAL
 	toolspeed = 2
-	sellprice = 30
-	
-
 
 // Copper Hatchet
 /obj/item/rogueweapon/stoneaxe/handaxe/copper
@@ -207,7 +220,6 @@
 	throwforce = 20 //You ever had an axe thrown at you? 
 	throw_speed = 3 
 	armor_penetration = PEN_LIGHT
-	sellprice = 14
 
 /obj/item/rogueweapon/stoneaxe/handaxe
 	name = "hatchet"
@@ -231,11 +243,76 @@
 	grid_width = 32
 	throw_speed = 3 
 	armor_penetration = PEN_LIGHT
-	sellprice = 18
+	is_tool = TRUE
 
 /datum/intent/axe/cut/handaxe
 	damfactor = 1.1
 	clickcd = CLICK_CD_QUICK
+
+/obj/item/rogueweapon/stoneaxe/handaxe/silver
+	name = "silver tomahawk"
+	desc = "Once, a ceremonial rendition of the handaxes that Psydonia's ancestors built the first civilizations \
+	with. Now, an uncommon - but very much lethal - alternative to the tossblade, well-weighted for slashing and throwing."
+	armor_penetration = PEN_BSTEEL //Refers to throwing armor penetration. Heavier than silver tossblades; you get one throw.
+	icon_state = "tomahawk_silver"
+	embedding = list("embedded_pain_multiplier" = 6, "embed_chance" = 100, "embedded_fall_chance" = 30) //high chance at embed, high chance to fall out on its own.
+	gripped_intents = null
+	thrown_damage_flag = "piercing"
+	minstr = 8
+	smeltresult = /obj/item/ingot/silver
+	special = /datum/special_intent/axe_swing //Cannot be wielded, otherwise.
+	is_tool = FALSE
+	is_silver = TRUE
+
+/obj/item/rogueweapon/stoneaxe/handaxe/silver/ComponentInitialize()
+	AddComponent(\
+		/datum/component/silverbless,\
+		pre_blessed = BLESSING_NONE,\
+		silver_type = SILVER_TENNITE,\
+		added_force = 0,\
+		added_blade_int = 50,\
+		added_int = 50,\
+		added_def = 2,\
+	)
+
+/obj/item/rogueweapon/stoneaxe/handaxe/psy
+	name = "psydonic tomahawk"
+	desc = "'History prefers legends to men. It prefers nobility to brutality, soaring speeches to \
+	quiet deeds. History remembers the battle, but forgets the blood. However history remembers me, \
+	if it remembers me at all, shall only be a fraction of the truth.'"
+	armor_penetration = PEN_BSTEEL //Refers to throwing armor penetration. Heavier than silver tossblades; you get one throw.
+	icon_state = "tomahawk_silver"
+	embedding = list("embedded_pain_multiplier" = 6, "embed_chance" = 100, "embedded_fall_chance" = 30) //high chance at embed, high chance to fall out on its own.
+	gripped_intents = null
+	thrown_damage_flag = "piercing"
+	minstr = 8
+	smeltresult = /obj/item/ingot/silverblessed
+	special = /datum/special_intent/axe_swing //Cannot be wielded, otherwise.
+	is_tool = FALSE
+	is_silver = TRUE
+
+/obj/item/rogueweapon/stoneaxe/handaxe/psy/ComponentInitialize()
+	AddComponent(\
+		/datum/component/silverbless,\
+		pre_blessed = BLESSING_NONE,\
+		silver_type = SILVER_PSYDONIAN,\
+		added_force = 0,\
+		added_blade_int = 50,\
+		added_int = 50,\
+		added_def = 2,\
+	)
+
+/obj/item/rogueweapon/stoneaxe/handaxe/psy/preblessed/ComponentInitialize()
+	AddComponent(\
+		/datum/component/silverbless,\
+		pre_blessed = BLESSING_PSYDONIAN,\
+		silver_type = SILVER_PSYDONIAN,\
+		added_force = 0,\
+		added_blade_int = 50,\
+		added_int = 50,\
+		added_def = 2,\
+	)
+	sellprice += 200
 
 /obj/item/rogueweapon/stoneaxe/woodcut/bronze
 	name = "bronze axe"
@@ -251,7 +328,6 @@
 	throwforce = 32
 	throw_speed = 6
 	embedding = list("embedded_pain_multiplier" = 4, "embed_chance" = 33, "embedded_fall_chance" = 2)
-	sellprice = 38
 
 /obj/item/rogueweapon/stoneaxe/woodcut/bronzebattleaxe
 	name = "bronze war axe"
@@ -282,7 +358,6 @@
 	max_blade_int = 500
 	smeltresult = /obj/item/ingot/steel
 	wdefense = 3
-	sellprice = 30
 
 /obj/item/rogueweapon/stoneaxe/woodcut/steel/decorated
 	name = "decorated axe"
@@ -291,7 +366,6 @@
 	civilization. Such makes it a favorite amongst the nobility of both Naledi and Ranenshen."
 	max_integrity = 300
 	smeltresult = /obj/item/ingot/gold
-	sellprice = 100
 	wdefense = 5
 
 /obj/item/rogueweapon/stoneaxe/woodcut/steel/graggar
@@ -315,8 +389,8 @@
 	civilization. Such makes it a favorite amongst the nobility of both Naledi and Ranenshen."
 	max_integrity = 300
 	smeltresult = /obj/item/ingot/gold
-	sellprice = 100
 	wdefense = 5
+	no_loot_taint = TRUE
 
 /obj/item/rogueweapon/stoneaxe/woodcut/steel/paaxe
 	name = "ancient alloy axe"
@@ -324,22 +398,6 @@
 	a single blow, blood gouted from bone and seeped into the soil; the first murder."
 	icon_state = "ahandaxe"
 	smeltresult = /obj/item/ingot/aaslag
-	sellprice = 10 //Ew... AASlag CC Change
-
-/datum/intent/axe/cut/long
-	reach = 2
-	damfactor = 1
-	demolition_mod = 1
-
-/datum/intent/axe/cut/long/bronze
-	damfactor = 0.8
-	demolition_mod = 1.3
-
-/datum/intent/axe/chop/long
-	reach = 2
-	damfactor = 1
-	demolition_mod = 1.5
-	swingdelay = 0.5 SECONDS
 
 /obj/item/rogueweapon/stoneaxe/woodcut/steel/woodcutter
 	name = "woodcutter's axe"
@@ -355,7 +413,6 @@
 	inhand_x_dimension = 64
 	inhand_y_dimension = 64
 	bigboy = TRUE
-	sellprice = 22 //Basic woodcuttin' axe... CC Change
 	
 /obj/item/rogueweapon/stoneaxe/woodcut/getonmobprop(tag)
 	. = ..()
@@ -390,7 +447,6 @@
 	pickup_sound = 'sound/foley/equip/rummaging-03.ogg'
 	gripped_intents = list(/datum/intent/axe/cut,/datum/intent/axe/chop)
 	resistance_flags = FLAMMABLE
-	sellprice = 12 //It's made of WHAT!? CC Change
 
 // Caustic edit start
 // Mild TODO: Migrate all these to modular_causticcove
@@ -413,7 +469,6 @@
 	wdefense = 2
 	//demolition_mod = 0.33 // Good luck trying to cut down a tree with what's essentially a shard of glass on a stick
 	wlength = WLENGTH_NORMAL
-	sellprice = 10 //Made of pretty glass
 
 /obj/item/rogueweapon/stoneaxe/flint
 	force = 20
@@ -426,7 +481,6 @@
 	icon_state = "flintaxe"
 	max_blade_int = 125
 	wdefense = 2
-	sellprice = 10
 
 // Caustic edit end
 
@@ -435,7 +489,7 @@
 	desc = "A hefty battle axe, fashioned from pure silver. Even with a one-handed grasp, an efforted swing carries enough momentum to cleave through maille-and-flesh alike."
 	icon_state = "silveraxe"
 	force = 25 //Forgot this is forced to only be one-handed. My bad.
-	possible_item_intents = list(/datum/intent/axe/cut, /datum/intent/axe/chop, /datum/intent/axe/bash/battle)
+	possible_item_intents = list(/datum/intent/axe/cut, /datum/intent/axe/chop, /datum/intent/axe/chop/heavy, /datum/intent/axe/bash/battle)
 	gripped_intents = null
 	minstr = 11
 	max_blade_int = 400
@@ -443,7 +497,7 @@
 	wdefense = 5
 	is_silver = TRUE
 	blade_dulling = DULLING_SHAFT_METAL
-	sellprice = 77 // CC Change
+	special = /datum/special_intent/axe_swing //Cannot be wielded, otherwise.
 
 /obj/item/rogueweapon/stoneaxe/woodcut/silver/ComponentInitialize()
 	AddComponent(\
@@ -462,13 +516,13 @@
 	icon_state = "psyaxe"
 	force = 25
 	force_wielded = 25
-	possible_item_intents = list(/datum/intent/axe/cut, /datum/intent/axe/chop, /datum/intent/axe/bash/battle)
+	possible_item_intents = list(/datum/intent/axe/cut, /datum/intent/axe/chop, /datum/intent/axe/chop/heavy, /datum/intent/axe/bash/battle)
 	minstr = 11
 	wdefense = 6
 	blade_dulling = DULLING_SHAFT_METAL
 	is_silver = TRUE
 	smeltresult = /obj/item/ingot/silverblessed
-	sellprice = 177 // CC Change
+	special = /datum/special_intent/axe_swing //Cannot be wielded, otherwise.
 
 /obj/item/rogueweapon/stoneaxe/battle/psyaxe/ComponentInitialize()
 	AddComponent(\
@@ -481,6 +535,18 @@
 		added_def = 1,\
 	)
 
+/obj/item/rogueweapon/stoneaxe/battle/psyaxe/preblessed/ComponentInitialize()
+	AddComponent(\
+		/datum/component/silverbless,\
+		pre_blessed = BLESSING_PSYDONIAN,\
+		silver_type = SILVER_PSYDONIAN,\
+		added_force = 0,\
+		added_blade_int = 50,\
+		added_int = 50,\
+		added_def = 1,\
+	)
+	sellprice += 200
+
 /obj/item/rogueweapon/stoneaxe/battle/steppesman
 	name = "aavnic valaška"
 	desc = "A steel axe of Aavnic make that combines a deadly weapon with a walking stick - hence its pointed end. It has a flat head that \
@@ -490,7 +556,6 @@
 	force_wielded = 25	//No damage changes for wielded/unwielded
 	icon_state = "valaska"
 	walking_stick = TRUE
-	sellprice = 40 //Great demo mod
 
 /obj/item/rogueweapon/stoneaxe/battle/steppesman/chupa
 	name = "aavnic ćiupaga"
@@ -565,7 +630,6 @@
 	smeltresult = /obj/item/ingot/iron
 	associated_skill = /datum/skill/combat/axes
 	wdefense = 4
-	sellprice = 50 //Hyuge axe...
 
 /obj/item/rogueweapon/greataxe/getonmobprop(tag)
 	. = ..()
@@ -587,7 +651,21 @@
 	minstr = 11
 	max_blade_int = 250
 	smeltresult = /obj/item/ingot/steel
-	sellprice = 75 //Hyuge STEEL axe!
+
+/obj/item/rogueweapon/greataxe/blacksteel
+	name = "blacksteel greataxe"
+	desc = "A magnificent greataxe of blacksteel, tipped with spikes to keep the horrors at bay. No one's quite sure as to whether it's meant \
+	to be called a 'poleaxe' or 'greataxe'; at this point, however, the terms might as well be interchangeable amongst the laymen."
+	icon_state = "bs_greataxe"
+	force = 20
+	force_wielded = 35
+	smeltresult = /obj/item/ingot/blacksteel
+	possible_item_intents = list(/datum/intent/axe/cut, /datum/intent/axe/chop, /datum/intent/axe/thrust, SPEAR_BASH)
+	gripped_intents = list(/datum/intent/axe/cut/long, /datum/intent/axe/chop/long, /datum/intent/axe/rangedthrust, /datum/intent/axe/sweep)
+	max_blade_int = 500
+	wdefense_wbonus = 3 //Increased defense when wielded.
+	special = /datum/special_intent/axe_swing //Weapon specials on a non-greatsword? How scandalous!
+	resistance_flags = FIRE_PROOF
 
 /obj/item/rogueweapon/greataxe/bronze
 	force = 15
@@ -607,18 +685,39 @@
 
 /obj/item/rogueweapon/greataxe/steel/knight
 	possible_item_intents = list(/datum/intent/axe/cut, /datum/intent/axe/chop, /datum/intent/mace/strike)
-	gripped_intents = list(/datum/intent/axe/cut/long, /datum/intent/axe/chop/long, /datum/intent/mace/strike, /datum/intent/mace/rangedthrust)
+	gripped_intents = list(/datum/intent/axe/cut/long, /datum/intent/axe/chop/long, /datum/intent/mace/strike, /datum/intent/axe/rangedthrust)
 	name = "poleaxe"
 	desc = "A poleaxe, fitted with a reinforced shaft and a beaked axhead of steel. It is the ultimate weapon for a well-seasoned knight, capable of \
 	humbling any foe that may assail their presence. </br>'Away with you, vile beggar!'"
 	icon_state = "steelpoleaxe"
 	max_blade_int = 300
 
-/obj/item/rogueweapon/greataxe/silver
-	force = 15
+/obj/item/rogueweapon/greataxe/steel/knight/attackby(obj/item/W, mob/living/user, params)
+	..()
+	if(istype(W, /obj/item/natural/cloth) && !detail_tag)
+		var/choice = input(user, "Choose a color.", "Banner") as anything in COLOR_MAP
+		user.visible_message(span_warning("[user] adds a banner to [src]."))
+		user.transferItemToLoc(W, src, FALSE, FALSE)
+		detail_color = COLOR_MAP[choice]
+		detail_tag = "detail"
+		update_icon()
+
+/obj/item/rogueweapon/greataxe/steel/knight/update_icon()
+	cut_overlays()
+	if(get_detail_tag())
+		var/mutable_appearance/pic = mutable_appearance(icon(icon, "[icon_state][detail_tag]"))
+		pic.appearance_flags = RESET_COLOR
+		if(get_detail_color())
+			pic.color = get_detail_color()
+		add_overlay(pic)
+
+/obj/item/rogueweapon/greataxe/steel/knight/attack_self(mob/living/user)
+	. = ..()
+	update_icon()
+
+
+/obj/item/rogueweapon/greataxe/steel/knight/silver
 	force_wielded = 25
-	possible_item_intents = list(/datum/intent/axe/cut, /datum/intent/axe/chop, /datum/intent/mace/strike) //When possible, add the longsword's 'alternate grip' mechanic to let people flip this around into a Mace-scaling weapon with swapped damage.
-	gripped_intents = list(/datum/intent/axe/cut/long, /datum/intent/axe/chop/long, /datum/intent/mace/strike, /datum/intent/mace/rangedthrust) //Axe-equivalent to the Godendag or Grand Mace.
 	name = "silver poleaxe"
 	desc = "A poleaxe, fitted with a reinforced shaft and a beaked axhead of pure silver. It may not stop the darkness; but it will halt \
 	its march, long enough, to shepherd away the defenseless. </br>'O'er the Horizon, the stars and spirals I see; and below it, the horrors \
@@ -629,9 +728,8 @@
 	max_blade_int = 350
 	is_silver = TRUE
 	smeltresult = /obj/item/ingot/silver
-	sellprice = 125 //OH MY GOD ITS SILVER!?
 
-/obj/item/rogueweapon/greataxe/silver/ComponentInitialize()
+/obj/item/rogueweapon/greataxe/steel/knight/silver/ComponentInitialize()
 	AddComponent(\
 		/datum/component/silverbless,\
 		pre_blessed = BLESSING_NONE,\
@@ -642,11 +740,8 @@
 		added_def = 2,\
 	)
 
-/obj/item/rogueweapon/greataxe/psy
-	force = 15
+/obj/item/rogueweapon/greataxe/steel/knight/psy
 	force_wielded = 25
-	possible_item_intents = list(/datum/intent/axe/cut, /datum/intent/axe/chop, /datum/intent/mace/strike) //When possible, add the longsword's 'alternate grip' mechanic to let people flip this around into a Mace-scaling weapon with swapped damage.
-	gripped_intents = list(/datum/intent/axe/cut/long, /datum/intent/axe/chop/long, /datum/intent/mace/rangedthrust, /datum/intent/mace/strike) //Axe-equivalent to the Godendag or Grand Mace.
 	name = "psydonic poleaxe"
 	desc = "A poleaxe, fitted with a reinforced shaft and a beaked axhead of alloyed silver. As the fragility of swords've \
 	become more apparent, the Psydonic Orders - following the disastrous Massacre of Blastenghyll - have shifted their focus \
@@ -656,9 +751,8 @@
 	max_blade_int = 350
 	is_silver = TRUE
 	smeltresult = /obj/item/ingot/silverblessed
-	sellprice = 200
 
-/obj/item/rogueweapon/greataxe/psy/ComponentInitialize()
+/obj/item/rogueweapon/greataxe/steel/knight/psy/ComponentInitialize()
 	AddComponent(\
 		/datum/component/silverbless,\
 		pre_blessed = BLESSING_NONE,\
@@ -669,7 +763,7 @@
 		added_def = 2,\
 	)
 
-/obj/item/rogueweapon/greataxe/psy/preblessed/ComponentInitialize()
+/obj/item/rogueweapon/greataxe/steel/knight/psy/preblessed/ComponentInitialize()
 	AddComponent(\
 		/datum/component/silverbless,\
 		pre_blessed = BLESSING_PSYDONIAN,\
@@ -679,6 +773,7 @@
 		added_int = 50,\
 		added_def = 2,\
 	)
+	sellprice += 200
 
 /obj/item/rogueweapon/greataxe/steel/doublehead
 	force = 15
@@ -692,7 +787,6 @@
 	max_blade_int = 230
 	wdefense = 3
 	minstr = 13
-	sellprice = 125
 
 /obj/item/rogueweapon/greataxe/steel/doublehead/graggar
 	name = "vicious greataxe"
@@ -705,7 +799,7 @@
 	max_blade_int = 270
 	gripped_intents = list(/datum/intent/axe/cut/long, /datum/intent/axe/chop/long, /datum/intent/axe/chop/heavy, /datum/intent/axe/sweep)
 	smeltresult = /obj/item/ingot/component/graggar
-	sellprice = 100 //Heretical...
+	special = /datum/special_intent/vicious_swipe
 
 /obj/item/rogueweapon/greataxe/steel/doublehead/graggar/Initialize()
 	. = ..()
@@ -722,7 +816,6 @@
 	icon_state = "minotaurgreataxe"
 	max_blade_int = 333
 	minstr = 14 //Double-headed greataxe with extra durability. Rare dungeon loot in minotaur dungeons; no longer drops from every single minotaur.
-	sellprice = 200 //Treasure reward and- Holy shit. that's a lot of STR requirement.
 	wbalance = WBALANCE_HEAVY
 	minstr_req = TRUE
 
@@ -740,7 +833,6 @@
 	max_blade_int = 333
 	minstr = 13							//Heavy, but still good.
 	wdefense = 3						//Slightly better than norm, has 6 defense 2 handing it.
-	sellprice = 200 					//Holy shit. that's a lot of STR requirement.
 	minstr_req = TRUE
 
 /datum/intent/axe/cut/frost
@@ -760,3 +852,14 @@
 	var/active_gripped_intents = list(/datum/intent/axe/cut/frost, /datum/intent/axe/chop/frost, /datum/intent/axe/bash)
 	var/inactive_intents = list()
 	var/inactive_gripped_intents = list()
+
+/obj/item/rogueweapon/stoneaxe/battle/holyseeaxe
+	name = "holy see axe"
+	desc = "A blessed axe, wielded by the Holy See's crusaders to keep the forces of evil at bay, \
+			it is oft rumored these axes are commonplace amongst the greater crusades of the See against \
+			Heathenry and Heretic alyke, often used to tear down walls and fortifications that heretics hide within, \
+			a ceremonial manifestation of Malum's destruction and Astrata's all-reaching grasp of authority."
+	icon_state = "churchaxe"
+	wdefense = 5
+	max_blade_int = 260
+	max_integrity = 150

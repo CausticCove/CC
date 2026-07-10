@@ -10,7 +10,7 @@ GLOBAL_LIST_EMPTY(lord_titles)
 	total_positions = 1
 	spawn_positions = 1
 	selection_color = JCOLOR_NOBLE
-	allowed_races = RACES_NO_CONSTRUCT
+	forbidden_races = list(RACES_CONSTRUCT) //Caustic Edit - Just a global tweak to remove 'races_despised' from this check everywhere
 	allowed_sexes = list(MALE, FEMALE)
 	advclass_cat_rolls = list(CTAG_LORD = 20)
 
@@ -80,9 +80,9 @@ GLOBAL_LIST_EMPTY(lord_titles)
 	neck = /obj/item/storage/belt/rogue/pouch/coins/rich
 	cloak = /obj/item/clothing/cloak/lordcloak
 	belt = /obj/item/storage/belt/rogue/leather/plaquegold
-	beltl = /obj/item/storage/keyring/lord
+	beltl = /obj/item/rogueweapon/lordscepter //Caustic Edit - Try moving the Keys to the backpack and the Scepter here to return it, and prevent dupes?
 	beltr = /obj/item/rogueweapon/scabbard/sword/royal
-	backpack_contents = list(/obj/item/rogueweapon/huntingknife/idagger/steel/special = 1, /obj/item/blueprint/mace_mushroom = 1, /obj/item/hunting_map/white_stag = 1)
+	backpack_contents = list(/obj/item/storage/keyring/lord, /obj/item/rogueweapon/huntingknife/idagger/steel/special = 1, /obj/item/blueprint/mace_mushroom = 1, /obj/item/hunting_map/white_stag = 1)
 	id = /obj/item/scomstone/garrison
 
 /datum/outfit/job/roguetown/lord/pre_equip(mob/living/carbon/human/H)
@@ -99,13 +99,11 @@ GLOBAL_LIST_EMPTY(lord_titles)
 		cloak = /obj/item/clothing/cloak/lordcloak/ladycloak
 		wrists = /obj/item/clothing/wrists/roguetown/royalsleeves
 		shoes = /obj/item/clothing/shoes/roguetown/shortboots
-		l_hand = /obj/item/rogueweapon/lordscepter //Caustic Edit - Give back the Lord's Scepter
 	else if(should_wear_masc_clothes(H))
 		pants = /obj/item/clothing/under/roguetown/tights/black
 		shirt = /obj/item/clothing/suit/roguetown/shirt/undershirt/black
 		armor = /obj/item/clothing/suit/roguetown/armor/leather/vest/black
 		shoes = /obj/item/clothing/shoes/roguetown/boots
-		l_hand = /obj/item/rogueweapon/lordscepter //Caustic Edit - Give back the Lord's Scepter
 	saiga_shoes = /obj/item/clothing/shoes/roguetown/horseshoes/gold
 	if(H.wear_mask)
 		if(istype(H.wear_mask, /obj/item/clothing/mask/rogue/eyepatch))
@@ -514,6 +512,7 @@ GLOBAL_LIST_EMPTY(lord_titles)
 	//only migrants and peasants
 	if(!(recruit.job in GLOB.peasant_positions) && \
 		!(recruit.job in GLOB.burgher_positions) && \
+		!(recruit.job in GLOB.atc_positions) && \
 		!(recruit.job in GLOB.wanderer_positions))
 		return FALSE
 	//need to see their damn face
@@ -552,7 +551,7 @@ GLOBAL_LIST_EMPTY(lord_titles)
 	. = ..()
 	if(!.)
 		return
-	recruit.verbs |= /mob/proc/haltyell
+	add_verb(recruit, /mob/proc/haltyell)
 
 /obj/effect/proc_holder/spell/self/convertrole/servant
 	name = "Recruit Servant"

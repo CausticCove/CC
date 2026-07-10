@@ -3,7 +3,6 @@
 	desc = "Alloyed plate gauntlets, meticulously assembled from blacksteel. Each joint, a dozen segments; interconnected, interlinked, intertwined. Metal should not move so freely, like skin on flesh - yet it does."
 	icon_state = "bplategloves"
 	item_state = "bplategloves"
-	sellprice = 85 //CC Edit | Better off smelting them down.
 
 /obj/item/clothing/gloves/roguetown/plate/blacksteel
 	name = "ancient blacksteel plate gauntlets"
@@ -13,4 +12,17 @@
 	armor = ARMOR_PLATE_BSTEEL
 	max_integrity = ARMOR_INT_SIDE_BLACKSTEEL
 	smeltresult = /obj/item/ingot/blacksteel
-	sellprice = 85
+
+/obj/item/clothing/wrists/roguetown/bracers/blacksteel
+	name = "ancient blacksteel bracers"
+	desc = "Antiquated wristguards of blacksteel, forgotten-yet-enduring after all this time. Who are you to know what awaits after lyfe, so fleeting yet fascinating? </br>  </br>Only the first tyme around is free; make the most of it, however you see fit."
+	icon_state = "bsbracersclassic"
+	smeltresult = /obj/item/ingot/blacksteel
+	armor = ARMOR_PLATE_BSTEEL
+	max_integrity = ARMOR_INT_SIDE_BLACKSTEEL
+	anvilrepair = /datum/skill/craft/armorsmithing
+
+/obj/item/clothing/wrists/roguetown/bracers/blacksteel/modern
+	name = "blacksteel bracers"
+	desc = "Alloyed plate bracers, meticulously assembled from blacksteel. Besilked straps peek out from both ends; soft enough to barely impede finer movements, while still strong enough to lock a pair of accompying gauntlets-and-couters into place."
+	icon_state = "bsbracers"

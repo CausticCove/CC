@@ -133,6 +133,21 @@
 	diet_change_amount = FOOD_DIETARY_VALUE_POOR
 	//CC Edit End
 
+/obj/item/reagent_containers/food/snacks/grown/maize
+	seed = /obj/item/seeds/maize
+	name = "maize"
+	desc = "A cob of maize. Mill it into cornmeal, or roast it whole."
+	icon = 'icons/roguetown/items/produce.dmi'
+	icon_state = "maize"
+	filling_color = "#F0E68C"
+	bitesize_mod = 2
+	foodtype = GRAIN | VEGETABLES
+	list_reagents = list(/datum/reagent/consumable/nutriment = 4)
+	tastes = list("corn" = 1)
+	grind_results = list(/datum/reagent/floure = 10)
+	mill_result = /obj/item/reagent_containers/powder/flour/cornmeal
+	fried_type = /obj/item/reagent_containers/food/snacks/rogue/grilledcorn
+
 /obj/item/reagent_containers/food/snacks/grown/apple
 	seed = /obj/item/seeds/apple
 	name = "apple"
@@ -200,6 +215,18 @@
 			if(equippedloc != H.loc)
 				H.dropItemToGround(H.head)
 
+/obj/item/reagent_containers/food/snacks/grown/apple/Initialize()
+	. = ..()
+	var/static/list/slapcraft_recipe_list = list(
+		/datum/crafting_recipe/roguetown/cooking/appledry,
+		/datum/crafting_recipe/roguetown/cooking/menthaappledry,
+		)
+
+	AddElement(
+		/datum/element/slapcrafting,\
+		slapcraft_recipes = slapcraft_recipe_list,\
+		)
+
 /obj/item/reagent_containers/food/snacks/grown/fruit
 	name = "generic fruit"
 	desc = "Uh oh, this shouldn't be here."
@@ -238,6 +265,17 @@
 	tastes = list("lime" = 1)
 	splat_color = "#00FF00"
 
+/obj/item/reagent_containers/food/snacks/grown/fruit/lime/Initialize()
+	. = ..()
+	var/static/list/slapcraft_recipe_list = list(
+		/datum/crafting_recipe/roguetown/cooking/limedry,
+		)
+
+	AddElement(
+		/datum/element/slapcrafting,\
+		slapcraft_recipes = slapcraft_recipe_list,\
+		)
+
 /obj/item/reagent_containers/food/snacks/grown/fruit/tangerine
 	name = "tangerine"
 	seed = /obj/item/seeds/tangerine
@@ -254,7 +292,7 @@
 	faretype = FARE_FINE
 	splat_color = "#FFA500"
 	tastes = list("overpoweringly sweet" = 1)
-	list_reagents = list(/datum/reagent/consumable/nutriment = SNACK_NUTRITIOUS)
+	list_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_THREE_QUARTER_MEAL)
 	deep_fried_type = /obj/item/reagent_containers/food/snacks/marmalade
 	eat_effect = /datum/status_effect/buff/sweet
 
@@ -274,6 +312,17 @@
 	tastes = list("strawberry" = 1)
 	splat_color = "#9A1B00"
 
+/obj/item/reagent_containers/food/snacks/grown/fruit/strawberry/Initialize()
+	. = ..()
+	var/static/list/slapcraft_recipe_list = list(
+		/datum/crafting_recipe/roguetown/cooking/strawberrydry,
+		)
+
+	AddElement(
+		/datum/element/slapcrafting,\
+		slapcraft_recipes = slapcraft_recipe_list,\
+		)
+
 /obj/item/reagent_containers/food/snacks/grown/fruit/blackberry
 	name = "blackberry"
 	seed = /obj/item/seeds/blackberry
@@ -282,6 +331,17 @@
 	tastes = list("blackberry" = 1)
 	splat_color = "#272C3F"
 
+/obj/item/reagent_containers/food/snacks/grown/fruit/blackberry/Initialize()
+	. = ..()
+	var/static/list/slapcraft_recipe_list = list(
+		/datum/crafting_recipe/roguetown/cooking/blackberrydry,
+		)
+
+	AddElement(
+		/datum/element/slapcrafting,\
+		slapcraft_recipes = slapcraft_recipe_list,\
+		)
+
 /obj/item/reagent_containers/food/snacks/grown/fruit/blackberry_sugared
 	name = "smothered blackberry"
 	desc = "Sugared blackberries, smothered in sweetness and awaiting to be baptized in a pot of boiling fat."
@@ -289,7 +349,7 @@
 	faretype = FARE_FINE
 	splat_color = "#272C3F"
 	tastes = list("overpoweringly sweet" = 1)
-	list_reagents = list(/datum/reagent/consumable/nutriment = SNACK_NUTRITIOUS)
+	list_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_THREE_QUARTER_MEAL)
 	deep_fried_type = /obj/item/reagent_containers/food/snacks/jamtallow
 	eat_effect = /datum/status_effect/buff/sweet
 
@@ -310,14 +370,26 @@
 	splat_color = "#CD5320"
 	slice_path = /obj/item/reagent_containers/food/snacks/grown/fruit/tomato_sliced
 	slices_num = 1
+	mill_result = /obj/item/reagent_containers/food/snacks/grown/fruit/tomato_sauce
 
 /obj/item/reagent_containers/food/snacks/grown/fruit/tomato_sliced
 	name = "split tomato"
 	seed = /obj/item/seeds/tomato
-	desc = "Split halves of a plump, red fruit with juicy flesh and a balanced sweet-tart flavor. Ruptured skin cradles a deliciously silky surprise, merely a palm away from being smeared into sauce atop flatdough."
+	desc = "Split halves of a plump, red fruit with juicy flesh and a balanced sweet-tart flavor. Ruptured skin cradles a deliciously silky surprise, merely a palm away from being smeared into sauce atop flatdough or put through a millstone for marinara."
 	icon_state = "tomato_split"
 	tastes = list("to" = 1, "mato" = 1)
 	splat_color = "#CD5320"
+	mill_result = /obj/item/reagent_containers/food/snacks/grown/fruit/tomato_sauce
+
+/obj/item/reagent_containers/food/snacks/grown/fruit/tomato_sauce
+	name = "tomato sauce"
+	seed = null
+	desc = "A smooth, ready-made sauce of crushed tomato. Its juicy, sweet-tart flavor pairs perfectly with noodles - second only to pesto."
+	icon = 'modular/Neu_Food/icons/raw/raw_veggies.dmi'
+	icon_state = "tomato_sauce"
+	tastes = list("to" = 1, "ma" = 1)
+	splat_color = "#CD5320"
+
 
 /obj/item/reagent_containers/food/snacks/grown/berries/rogue
 	seed = /obj/item/seeds/berryrogue
@@ -352,7 +424,15 @@
 			GLOB.berrycolors[color_index] = newcolor
 		filling_color = GLOB.berrycolors[color_index]
 	update_icon()
-	..()
+	. = ..()
+	var/static/list/slapcraft_recipe_list = list(
+		/datum/crafting_recipe/roguetown/cooking/jacksberriesdry,
+		)
+
+	AddElement(
+		/datum/element/slapcrafting,\
+		slapcraft_recipes = slapcraft_recipe_list,\
+		)
 
 /obj/item/reagent_containers/food/snacks/grown/berries/rogue/On_Consume(mob/living/eater)
 	..()
@@ -380,6 +460,17 @@
 	list_reagents = list(/datum/reagent/berrypoison = 5, /datum/reagent/consumable/nutriment = 3, /datum/reagent/water = 5)
 	grind_results = list(/datum/reagent/berrypoison = 5)
 	color_index = "bad"
+
+/obj/item/reagent_containers/food/snacks/grown/berries/rogue/poison/Initialize()
+	. = ..()
+	var/static/list/slapcraft_recipe_list = list(
+		/datum/crafting_recipe/roguetown/cooking/jacksberriespoisondry,
+		)
+
+	AddElement(
+		/datum/element/slapcrafting,\
+		slapcraft_recipes = slapcraft_recipe_list,\
+		)
 
 // Caustic Edit
 /obj/item/reagent_containers/food/snacks/grown/berries/rogue/poison/examine(mob/user)
@@ -412,7 +503,7 @@
 	faretype = FARE_FINE
 	tastes = list("overpoweringly sweet and nutty" = 1)
 	filling_color = "#6b4d18"
-	list_reagents = list(/datum/reagent/consumable/nutriment = SNACK_NUTRITIOUS)
+	list_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_THREE_QUARTER_MEAL)
 	grind_results = list(/datum/reagent/consumable/acorn_powder = 4)
 	deep_fried_type = /obj/item/reagent_containers/food/snacks/dragee
 	eat_effect = /datum/status_effect/buff/sweet
@@ -420,7 +511,7 @@
 /obj/item/reagent_containers/food/snacks/grown/sugarcane
 	seed = /obj/item/seeds/sugarcane
 	name = "sugarcane"
-	desc = "A tall, leafy plant with a thick, fibrous stalk. It can be milled into sugar. Commonly eaten as a snack in part of the former Zhongese dynasty."
+	desc = "A tall, leafy plant with a thick, fibrous stalk. It can be milled into sugar. Commonly eaten as a snack in part of Lingyue."
 	icon_state = "sugarcane"
 	throwforce = 0
 	w_class = WEIGHT_CLASS_TINY
@@ -466,7 +557,6 @@
 	icon_state = "spice_good"
 	tastes = list("fragrant spices" = 1, "a pleasantly complex aroma" = 1) //Very low nutritional content, but can be applied to add a very solid moodboost to broths. Futurecoders could add it to meals, later, too.
 	list_reagents = list(/datum/reagent/consumable/allspice = 1)
-	sellprice = 30
 
 /obj/item/reagent_containers/food/snacks/grown/vegetable/turnip
 	name = "turnip"
@@ -803,6 +893,17 @@
 	diet_types = list("Vegetables")
 	diet_change_amount = FOOD_DIETARY_VALUE_POOR
 	//CC Edit End
+
+/obj/item/reagent_containers/food/snacks/grown/carrot/Initialize()
+	. = ..()
+	var/static/list/slapcraft_recipe_list = list(
+		/datum/crafting_recipe/roguetown/cooking/carrotdry,
+		)
+
+	AddElement(
+		/datum/element/slapcrafting,\
+		slapcraft_recipes = slapcraft_recipe_list,\
+		)
 
 ///////////  Skysugar   //////////////
 // Stored here, as it uses deepfrying to make. Let's cook, yo!

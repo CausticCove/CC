@@ -443,7 +443,7 @@
 	max_integrity = 250
 	blade_dulling = DULLING_BASH
 	possible_item_intents = list(SHIELD_BASH_METAL, SHIELD_BLOCK, SHIELD_SMASH_METAL)
-	sellprice = 30
+	sellprice = 45
 	smeltresult = /obj/item/ingot/bronze
 
 /obj/item/rogueweapon/woodstaff/implement/grand/serpent

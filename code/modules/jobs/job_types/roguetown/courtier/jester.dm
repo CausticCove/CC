@@ -6,7 +6,7 @@
 	total_positions = 1
 	spawn_positions = 1
 
-	allowed_races = ACCEPTED_RACES
+	forbidden_races = list() //Caustic Edit - Just a global tweak to remove 'races_despised' from this check everywhere
 
 	tutorial = "The Grenzelhofts were known for their Jesters, wisemen with a tongue just as sharp as their wit. \
 		You command a position of a fool, envious of the position your superiors have upon you. \
@@ -60,8 +60,8 @@
 		else
 			H.mind.AddSpell(new /obj/effect/proc_holder/spell/self/telljoke)
 			H.mind.AddSpell(new /obj/effect/proc_holder/spell/self/telltragedy)
-	H.verbs |= /mob/living/carbon/human/proc/ventriloquate
-	H.verbs |= /mob/living/carbon/human/proc/ear_trick
+	add_verb(H, /mob/living/carbon/human/proc/ventriloquate)
+	add_verb(H, /mob/living/carbon/human/proc/ear_trick)
 	if(!istype(H.getorganslot(ORGAN_SLOT_TONGUE), /obj/item/organ/tongue/wild_tongue))
 		H.internal_organs_slot[ORGAN_SLOT_TONGUE] = new /obj/item/organ/tongue/wild_tongue
 	if(prob(50))

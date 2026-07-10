@@ -39,21 +39,21 @@
 	name = "Explorer's Vest"
 	result = list(/obj/item/clothing/suit/roguetown/armor/gambeson/explorer)
 	reqs = list(/obj/item/natural/hide/cured = 2)
-	sellprice = 10
+	sellprice = 35
 	craftdiff = 2
 
 /datum/crafting_recipe/roguetown/leather/armor/explorer_pants
 	name = "Explorer's Trousers"
 	result = list(/obj/item/clothing/under/roguetown/trou/leather/explorer)
 	reqs = list(/obj/item/natural/hide/cured = 2)
-	sellprice = 10
+	sellprice = 35
 	craftdiff = 2
 
 /datum/crafting_recipe/roguetown/leather/armor/explorer_helmet
 	name = "Explorer's Hat"
 	result = list(/obj/item/clothing/head/roguetown/explorer)
 	reqs = list(/obj/item/natural/hide/cured = 2)
-	sellprice = 10
+	sellprice = 35
 	craftdiff = 2
 
 //LOADOUT

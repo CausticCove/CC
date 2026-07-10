@@ -8,7 +8,7 @@
 	total_positions = 1
 	spawn_positions = 1
 
-	allowed_races = ACCEPTED_RACES
+	forbidden_races = list() //Caustic Edit - Just a global tweak to remove 'races_despised' from this check everywhere
 
 	tutorial = "You are the leader of the Azure Peak Guild of Crafts. You represents the interests of all of the craftsmen underneath you - including the Tailor\
 	the Blacksmiths, the Artificers and the Architects. Other townspeople may look to you for guidance, but they are not under your control. You are an experienced smith and artificer, and can do their work easily. Protect the craftsmen's interests."

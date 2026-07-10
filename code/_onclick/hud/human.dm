@@ -104,11 +104,6 @@
 	action_intent.screen_loc = rogueui_intents
 	static_inventory += action_intent
 
-//	clock = new /atom/movable/screen/time
-//	clock.hud = src
-//	clock.screen_loc = rogueui_clock
-//	static_inventory += clock
-
 	stressies = new /atom/movable/screen/stress
 	stressies.hud = src
 	stressies.screen_loc = rogueui_stress
@@ -781,7 +776,6 @@
 
 
 /mob/living/carbon/human/verb/toggle_hotkey_verbs()
-	set category = "OPTIONS"
 	set name = "Toggle hotkey buttons"
 	set desc = ""
 	set hidden = 1

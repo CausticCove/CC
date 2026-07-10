@@ -1,22 +1,22 @@
 /datum/patron/divine/necra
 	name = "Necra"
 	domain = "Goddess of Death and the Afterlife"
-	desc = "Veiled Lady of the underworld, equally feared and respected by mortals. She taught mortals the inevitability of death and cares for them as they reach the afterlife."
-	worshippers = "The Dead, Mourners, Gravekeepers"
+	desc = "The Veiled Lady of the underworld, equally feared and respected by mortals. She taught mortals the inevitability of death and cares for them as they reach the afterlyfe."
+	worshippers = "Mourners, Gravekeepers, and the Dead"
 	mob_traits = list(TRAIT_SOUL_EXAMINE, TRAIT_NOSTINK)	//No stink is generic but they deal with dead bodies so.. makes sense, I suppose?
-	miracles = list(/obj/effect/proc_holder/spell/targeted/touch/orison			= CLERIC_ORI,
-					/obj/effect/proc_holder/spell/invoked/necras_sight			= CLERIC_T0,
-					/obj/effect/proc_holder/spell/invoked/lesser_heal 			= CLERIC_T1,
-					/obj/effect/proc_holder/spell/invoked/blood_heal			= CLERIC_T1,
-					/obj/effect/proc_holder/spell/invoked/avert					= CLERIC_T1,
-					/obj/effect/proc_holder/spell/self/locate_dead 				= CLERIC_T1,
-					/obj/effect/proc_holder/spell/invoked/fog_ward				= CLERIC_T1, // Not bugged, only appears on fog rounds!
-					/obj/effect/proc_holder/spell/invoked/raise_spirits_vengeance = CLERIC_T2,
-					/datum/action/cooldown/spell/miracle/necra_consecrate		= CLERIC_T2,
-					/obj/effect/proc_holder/spell/targeted/abrogation			= CLERIC_T2, // CC Edit - We do not have a lot of PvP. Give them these spells back! \\ Imagine that, another disabled Necran spell. Replaced with bless_cross for now.
-					/obj/effect/proc_holder/spell/invoked/bless_cross			= CLERIC_T3,
-					/obj/effect/proc_holder/spell/invoked/deaths_door			= CLERIC_T3, // CC Edit - Necran Buff, lower from T4 to T3
-					/obj/effect/proc_holder/spell/targeted/churn				= CLERIC_T4, //CC Edit
+	miracles = list(/datum/action/cooldown/spell/touch/orison						= CLERIC_ORI,
+					/obj/effect/proc_holder/spell/invoked/necras_sight				= CLERIC_T0,
+					/datum/action/cooldown/spell/miracle/heal 						= CLERIC_T1,
+					/datum/action/cooldown/spell/miracle/bloodmiracle				= CLERIC_T1,
+					/obj/effect/proc_holder/spell/invoked/avert						= CLERIC_T1,
+					/obj/effect/proc_holder/spell/self/locate_dead 					= CLERIC_T1,
+					/obj/effect/proc_holder/spell/invoked/fog_ward					= CLERIC_T1, // Not bugged, only appears on fog rounds!
+					/obj/effect/proc_holder/spell/invoked/raise_spirits_vengeance	= CLERIC_T2,
+					/datum/action/cooldown/spell/miracle/necra_consecrate			= CLERIC_T2,
+					/obj/effect/proc_holder/spell/targeted/abrogation				= CLERIC_T2, // CC Edit - We do not have a lot of PvP. Give them these spells back! \\ Imagine that, another disabled Necran spell. Replaced with bless_cross for now.
+					/obj/effect/proc_holder/spell/invoked/bless_cross				= CLERIC_T3,
+					/obj/effect/proc_holder/spell/invoked/deaths_door				= CLERIC_T3, // CC Edit - Necran Buff, lower from T4 to T3
+					/obj/effect/proc_holder/spell/targeted/churn					= CLERIC_T4, //CC Edit
 	)
 	confess_lines = list(
 		"ALL SOULS FIND THEIR WAY TO NECRA!",
@@ -24,6 +24,13 @@
 		"I FEAR NOT DEATH, MY LADY AWAITS ME!",
 	)
 	storyteller = /datum/storyteller/necra
+
+	titles = list(
+		"Veiled Lady",
+		"Corpse Mother",
+		"Undermaiden",
+		"Neriko"
+	)
 
 // Near a grave, cross, or within the church
 /datum/patron/divine/necra/can_pray(mob/living/follower)

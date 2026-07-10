@@ -249,7 +249,6 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 /client/proc/set_ooc(newColor as color)
 	set name = "Set Player OOC Color"
 	set desc = ""
-	set category ="🌣 A-PREFS"
 	set hidden = 1
 	if(!holder)
 		return
@@ -260,7 +259,6 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 /client/proc/reset_ooc()
 	set name = "Reset Player OOC Color"
 	set desc = ""
-	set category ="🌣 A-PREFS"
 	set hidden = 1
 	if(!holder)
 		return
@@ -269,7 +267,6 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 		return
 /client/verb/colorooc()
 	set name = "Set Your OOC Color"
-	set category = "Preferences"
 	set hidden = 1
 	if(!holder)
 		return
@@ -289,7 +286,6 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 /client/verb/resetcolorooc()
 	set name = "Reset Your OOC Color"
 	set desc = ""
-	set category = "Preferences"
 	set hidden = 1
 	if(!holder)
 		return
@@ -320,7 +316,6 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 //Checks admin notice
 /client/verb/admin_notice()
 	set name = "Adminnotice"
-	set category = "⚡︎ ADMIN"
 	set desc ="Check the admin notice if it has been set"
 	set hidden = 1
 	if(!holder)
@@ -334,7 +329,7 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 #ifdef TESTSERVER
 /client/verb/smiteselfverily()
 	set name = "KillSelf"
-	set category = "DEBUGTEST"
+	set category = "Debug.Test"
 /*
 	set hidden = 1
 	if(!check_rights(0))
@@ -387,7 +382,6 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 
 /client/verb/motd()
 	set name = "MOTD"
-	set category = "OOC"
 	set desc ="Check the Message of the Day"
 	set hidden = 1
 	if(!holder)
@@ -402,7 +396,6 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 
 /client/proc/self_notes()
 	set name = "View Admin Remarks"
-	set category = "OOC"
 	set desc = ""
 	set hidden = 1
 	if(!holder)
@@ -441,7 +434,6 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 
 /client/verb/select_ignore()
 	set name = "Ignore"
-	set category = "OPTIONS"
 	set desc ="Ignore a player's messages on the OOC channel"
 	set hidden = 1
 	if(!holder)
@@ -479,7 +471,6 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 
 /client/verb/fit_viewport()
 	set name = "Fit Viewport"
-	set category = "OPTIONS"
 	set desc = ""
 	set hidden = 1
 	if(!holder)
@@ -565,7 +556,6 @@ GLOBAL_VAR_INIT(normal_ooc_colour, "#002eb8")
 /client/verb/policy()
 	set name = "Show Policy"
 	set desc = ""
-	set category = "OOC"
 	set hidden = 1
 	if(!holder)
 		return

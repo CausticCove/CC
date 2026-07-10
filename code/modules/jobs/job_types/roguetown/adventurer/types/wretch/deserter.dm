@@ -2,7 +2,7 @@
 	name = "Disgraced Knight"
 	tutorial = "You were once a venerated and revered knight - now, a traitor who abandoned your liege. You lyve the lyfe of an outlaw, shunned and looked down upon by society."
 	allowed_sexes = list(MALE, FEMALE)
-	allowed_races = RACES_ALL_KINDS
+	
 	outfit = /datum/outfit/job/roguetown/wretch/deserter
 	class_select_category = CLASS_CAT_WARRIOR
 	category_tags = list(CTAG_WRETCH)
@@ -42,8 +42,8 @@
 /datum/outfit/job/roguetown/wretch/deserter/pre_equip(mob/living/carbon/human/H)
 	..()
 	to_chat(H, span_warning("You were once a venerated and revered knight - now, a traitor who abandoned your liege. You lyve the lyfe of an outlaw, shunned and looked down upon by society."))
-	H.dna.species.soundpack_m = new /datum/voicepack/male/warrior()
-	H.verbs |= list(/mob/living/carbon/human/mind/proc/setorders)
+	H.dna.species.soundpack_m = GLOB.voice_packs[/datum/voicepack/male/warrior]
+	add_verb(H, list(/mob/living/carbon/human/mind/proc/setorders))
 	if(H.mind)
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/order/movemovemove)
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/order/takeaim)
@@ -218,7 +218,7 @@
 				H.adjust_skillrank_up_to(/datum/skill/combat/crossbows, SKILL_LEVEL_EXPERT, TRUE)
 				r_hand = /obj/item/gun/ballistic/revolver/grenadelauncher/crossbow
 				backl = /obj/item/quiver/bolt/standard
-	H.verbs |= list(/mob/living/carbon/human/mind/proc/setorders)
+	add_verb(H, list(/mob/living/carbon/human/mind/proc/setorders))
 	if(H.mind)
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/order/movemovemove)
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/order/takeaim)

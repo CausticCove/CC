@@ -23,8 +23,9 @@
 	mob_biotypes = MOB_ORGANIC|MOB_BEAST
 	health = 340
 	maxHealth = 340
-	melee_damage_lower = 15
-	melee_damage_upper = 17
+	threat_point = 30
+	melee_damage_lower = 25
+	melee_damage_upper = 30
 	vision_range = 7
 	aggro_vision_range = 9
 	environment_smash = ENVIRONMENT_SMASH_STRUCTURES

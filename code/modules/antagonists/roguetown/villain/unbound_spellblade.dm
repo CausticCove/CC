@@ -22,6 +22,7 @@
 	L.become_skeleton()
 	ADD_TRAIT(L, TRAIT_MEDIUMARMOR, TRAIT_GENERIC)
 	ADD_TRAIT(L, TRAIT_ARCYNE, TRAIT_GENERIC)
+	ADD_TRAIT(L, TRAIT_SHATTER_KILL, TRAIT_GENERIC)
 
 /datum/antagonist/unbound_spellblade/proc/equip_spellblade()
 	owner.unknow_all_people()
@@ -242,11 +243,13 @@
 					beltr = /obj/item/rogueweapon/mace/warhammer/steel
 				if("Grand Mace")
 					r_hand = /obj/item/rogueweapon/mace/goden/steel
+					backr = /obj/item/rogueweapon/scabbard/gwstrap
 				if("Battle Axe")
 					beltr = /obj/item/rogueweapon/stoneaxe/battle
 					picked_axe = TRUE
 				if("Steel Greataxe")
 					r_hand = /obj/item/rogueweapon/greataxe/steel
+					backr = /obj/item/rogueweapon/scabbard/gwstrap
 					picked_axe = TRUE
 			if(picked_axe)
 				H.adjust_skillrank_up_to(/datum/skill/combat/axes, 4, TRUE)

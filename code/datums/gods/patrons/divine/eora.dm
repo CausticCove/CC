@@ -2,12 +2,12 @@
 	name = "Eora"
 	domain = "Goddess of Love, Life and Beauty"
 	desc = "Baotha's fairer half, made from blind, unconditional love. She is without a shred of hate in her heart and taught mankind that true love that even transcends Necra's grasp."
-	worshippers = "Lovers, the romantically inclined, and Doting Grandparents"
+	worshippers = "Lovers, the Romantically Inclined, and Doting Grandparents"
 	mob_traits = list(TRAIT_EMPATH, TRAIT_EXTEROCEPTION, TRAIT_MARRIAGE_CAPABLE)
-	miracles = list(/obj/effect/proc_holder/spell/targeted/touch/orison			= CLERIC_ORI,
+	miracles = list(/datum/action/cooldown/spell/touch/orison					= CLERIC_ORI,
 					/obj/effect/proc_holder/spell/invoked/eora_blessing			= CLERIC_T0,
-					/obj/effect/proc_holder/spell/invoked/lesser_heal 			= CLERIC_T1,
-					/obj/effect/proc_holder/spell/invoked/blood_heal			= CLERIC_T1,
+					/datum/action/cooldown/spell/miracle/heal 					= CLERIC_T1,
+					/datum/action/cooldown/spell/miracle/bloodmiracle			= CLERIC_T1,
 					/obj/effect/proc_holder/spell/invoked/bless_food            = CLERIC_T1,
 					/obj/effect/proc_holder/spell/invoked/bud					= CLERIC_T1,
 					/datum/action/cooldown/spell/summon_bed						= CLERIC_T1,
@@ -23,6 +23,10 @@
 	)
 	traits_tier = list(TRAIT_EORAN_CALM = CLERIC_T0, TRAIT_EORAN_SERENE = CLERIC_T2)
 	storyteller = /datum/storyteller/eora
+	titles = list(
+		"Mother", // have seen people call her this, or variants like 'Great Mother', ic. she doesn't really get titles though
+		"Eori"
+	)
 
 // Near a psycross, by an eoran sacred tree, inside the church, at the eoran shrine, holding poppy flowers, or has pacifism trait
 /datum/patron/divine/eora/can_pray(mob/living/follower)

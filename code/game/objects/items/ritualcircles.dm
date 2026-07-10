@@ -73,7 +73,7 @@
 /obj/structure/ritualcircle/astrata
 	name = "Rune of the Sun" // defines name of the circle itself
 	icon_state = "astrata_chalky" // the icon state, so, the sprite the runes use on the floor. As of making, we have 6, each needs an active/inactive state. 
-	desc = "A Holy Rune of Astrata. Warmth irradiates from the rune." // description on examine
+	desc = "A holy rune of <font color='ffbe00'>Astrata.</font> </br> <i>Warmth irradiates from the rune.</i>" // description on examine
 	var/solarrites = list("Guiding Light") // This is important - This is the var which stores every ritual option available to a ritualist - Ideally, we'd have like, 3 for each God. Right now, just 1.
 
 /obj/structure/ritualcircle/astrata/attack_hand(mob/living/user)
@@ -91,42 +91,45 @@
 	var/riteselection = input(user, "Rituals of the Sun", src) as null|anything in solarrites // When you use a open hand on a rune, It'll give you a selection of all the rites available from that rune
 	switch(riteselection) // rite selection goes in this section, try to do something fluffy. Presentation is most important here, truthfully.
 		if("Guiding Light") // User selects Guiding Light, begins the stuff for it
-			if(do_after(user, 50)) // just flavor stuff before activation
-				user.say("I beseech the guidance of the Sun!!")
-				if(do_after(user, 50))
-					user.say("To bring Order to a world of naught!!")
-					if(do_after(user, 50))
-						user.say("Place your gaze upon me, oh Radiant one!!")
-						to_chat(user,span_danger("You feel the eye of Astrata turned upon you. Her warmth dances upon your cheek. You feel yourself warming up...")) // A bunch of flavor stuff, slow incanting.
-						icon_state = "astrata_active"
-						if(!HAS_TRAIT(user, TRAIT_CHOSEN)) //Priests don't burst into flames.
-							loc.visible_message(span_warning("[user]'s bursts to flames! Embraced by Her Warmth wholly!"))
-							playsound(loc, 'sound/combat/hits/burn (1).ogg', 100, FALSE, -1)
-							user.adjust_fire_stacks(10)
-							user.ignite_mob()
-							//Caustic Edit
-							if(user.show_redflash())
-								user.flash_fullscreen("redflash3")
-							//Caustic Edit End
-							user.emote("firescream")
-						guidinglight(src) // Actually starts the proc for applying the buff
-						user.apply_status_effect(/datum/status_effect/debuff/ritesexpended)
-						spawn(120)
-							icon_state = "astrata_chalky"
+			if(!do_after(user, 5 SECONDS)) // just flavor stuff before activation
+				return
+			user.say("I beseech the guidance of the Sun!!")
+			if(!do_after(user, 5 SECONDS))
+				return
+			user.say("To bring Order to a world of naught!!")
+			if(!do_after(user, 5 SECONDS))
+				return
+			user.say("Place your gaze upon me, oh Radiant one!!")
+			to_chat(user,span_danger("You feel the eye of Astrata turned upon you. Her warmth dances upon your cheek. You feel yourself warming up...")) // A bunch of flavor stuff, slow incanting.
+			icon_state = "astrata_active"
+			if(!HAS_TRAIT(user, TRAIT_CHOSEN)) //Priests don't burst into flames.
+				loc.visible_message(span_warning("[user]'s bursts to flames! Embraced by Her Warmth wholly!"))
+				playsound(loc, 'sound/combat/hits/burn (1).ogg', 100, FALSE, -1)
+				user.adjust_fire_stacks(10)
+				user.ignite_mob()
+				//Caustic Edit
+				if(user.show_redflash())
+					user.flash_fullscreen("redflash3")
+				//Caustic Edit End
+				user.emote("firescream")
+			guidinglight(src) // Actually starts the proc for applying the buff
+			playsound(user, 'sound/magic/holyshield.ogg', 60, FALSE, -1) // Cool sound! But it blows out eardrums with large groups so we move it here.
+			user.apply_status_effect(/datum/status_effect/debuff/ritesexpended)
+			spawn(120)
+				icon_state = "astrata_chalky"
 
 /obj/structure/ritualcircle/astrata/proc/guidinglight(src)
 	var/ritualtargets = view(7, loc) // Range of 7 from the source, which is the rune
 	for(var/mob/living/carbon/human/target in ritualtargets) // defines the target as every human in this range
 		target.apply_status_effect(/datum/status_effect/buff/guidinglight) // applies the status effect
 		to_chat(target,span_cultsmall("Astrata's light guides me forward, drawn to me by the Ritualist's pyre!"))
-		playsound(target, 'sound/magic/holyshield.ogg', 80, FALSE, -1) // Cool sound!
 // If you want to review a more complicated one, Undermaiden's Bargain is probs the most complicated of the starting set. - Have fun! - Onutsio 🏳️‍⚧️
 
 
 /obj/structure/ritualcircle/noc
 	name = "Rune of the Moon"
 	icon_state = "noc_chalky"
-	desc = "A Holy Rune of Noc. Moonlight shines upon thee."
+	desc = "A holy rune of <font color='bae6ed'>Noc.</font> </br> <i>Moonlight shines upon thee.</i>"
 	var/lunarrites = list("Moonlight Dance") // list for more to be added later
 
 /obj/structure/ritualcircle/noc/attack_hand(mob/living/user)
@@ -163,7 +166,7 @@
 /obj/structure/ritualcircle/xylix
 	name = "Rune of Trickery"
 	icon_state = "xylix_chalky"
-	desc = "A Holy Rune of Xylix. You can hear the wind, and distant bells, in the distance."
+	desc = "A holy rune of <font color='ff3333'>X</font><font color='fcff4a'>y</font><font color='1ece65'>l</font><font color='4a96d7'>i</font><font color='972bef'>x.</font> </br> <i>You can hear the wind, and distant bells, in the distance.</i>"
 	var/trickstersrites = list("Stagehand's Silence")
 
 // this is just copied and pasted from noc, mostly. i dont know if there's a better way 2 do these now and the
@@ -202,7 +205,7 @@
 /obj/structure/ritualcircle/ravox
 	name = "Rune of Justice"
 	icon_state = "ravox_chalky"
-	desc = "A Holy Rune of Ravox. A blade to protect the weak with."
+	desc = "A holy rune of <font color='a50d47'>Ravox.</font> </br> <i>You feel the command of a higher presence; to bring justice unto the wicked.</i>"
 	var/ravoxrites = list("Vow to Ravox")
 
 /obj/structure/ritualcircle/ravox/attack_hand(mob/living/user)
@@ -242,10 +245,9 @@
 
 /obj/structure/ritualcircle/pestra
 	name = "Rune of Plague"
-	desc = "A Holy Rune of Pestra. A sickle to cleanse the weeds, and bring forth life."
+	desc = "A holy rune of <font color='7fe01d'>Pestra.</font> </br> <i>A sickle to cleanse the weeds, and bring forth life.</i>"
 	icon_state = "pestra_chalky"
-	var/plaguerites = list("Flylord's Triage")
-
+	var/plaguerites = list("Flylord's Triage", "Vow of Aesculapius")
 
 /obj/structure/ritualcircle/pestra/attack_hand(mob/living/user)
 	if(!..())
@@ -279,6 +281,32 @@
 							user.apply_status_effect(/datum/status_effect/debuff/ritesexpended)
 							spawn(120)
 								icon_state = "pestra_chalky"
+		if("Vow of Aesculapius")//Probably come up with a better name for this ngl?
+			var/onrune = view(1, loc)
+			var/list/folksonrune = list()
+			for(var/mob/living/carbon/human/persononrune in onrune)
+				if(HAS_TRAIT(persononrune, TRAIT_UNDIVIDED))
+					folksonrune += persononrune
+			var/target = input(user, "Choose a host") as null|anything in folksonrune
+			if(!target)
+				return
+			user.say("Before your greatness, I swear a vow!!")
+			if(!do_after(user, 5 SECONDS))
+				return
+			user.say("To do no harm!!")
+			if(!do_after(user, 5 SECONDS))
+				return
+			user.say("To take care of those in need!!")
+			if(!do_after(user, 5 SECONDS))
+				return
+			user.say("To be your shining beacon in the darkness!!")
+			if(!do_after(user, 5 SECONDS))
+				return
+			icon_state = "pestra_active"
+			user.apply_status_effect(/datum/status_effect/debuff/ritesexpended)
+			pestraaura(target)
+			spawn(120)
+				icon_state = "pestra_chalky"						
 
 /obj/structure/ritualcircle/pestra/proc/flylordstriage(src)
 	var/ritualtargets = view(0, loc)
@@ -294,10 +322,31 @@
 		to_chat(target, span_userdanger("UNIMAGINABLE PAIN!"))
 		target.apply_status_effect(/datum/status_effect/buff/flylordstriage)
 
+/obj/structure/ritualcircle/pestra/proc/pestraaura(mob/living/carbon/human/target)
+	var/pestra_cockblock = target.get_skill_level(/datum/skill/magic/holy)
+	if(!HAS_TRAIT(target, TRAIT_ROT_EATER))
+		loc.visible_message(span_cult("THE RITE REJECTS ONE WITHOUT PURE HEART!!"))
+		return FALSE
+	if(pestra_cockblock < SKILL_LEVEL_JOURNEYMAN)//Only clerics can put it on.
+		loc.visible_message(span_cult("THE RITE REJECTS ONE WITHOUT PURE HEART!!"))
+		return FALSE
+	target.Stun(120)
+	to_chat(target, span_userdanger("UNIMAGINABLE PAIN!"))
+	target.emote("Agony")
+	playsound(loc, 'sound/magic/undivided_bless.ogg', 70)
+	loc.visible_message(span_good("[target]'s form becomes enveloped in rot."))
+	spawn(20)
+		target.apply_status_effect(/datum/status_effect/plaguebringer)
+		playsound(target, 'sound/magic/undivided_solemnity.ogg', 90, FALSE, -1)
+		to_chat(target, span_boldred("I can do no HARM."))
+		ADD_TRAIT(target, TRAIT_PACIFISM, TRAIT_RITUAL)
+		to_chat(target, span_boldred("My body is susceptible to CRITICAL STRIKES."))
+		ADD_TRAIT(target, TRAIT_CRITICAL_WEAKNESS, TRAIT_RITUAL)
+
 /obj/structure/ritualcircle/dendor
 	name = "Rune of Beasts"
 	icon_state = "dendor_chalky"
-	desc = "A Holy Rune of Dendor. Becoming one with nature is to connect with ones true instinct."
+	desc = "A holy rune of <font color='799c56'>Dendor.</font> </br> <i>To become one with nature is to connect with one's true instinct.</i>"
 	var/dendorrites = list ("Rite of the Lesser Volf")
 
 /obj/structure/ritualcircle/dendor/attack_hand(mob/living/user)
@@ -431,7 +480,7 @@
 */
 /obj/structure/ritualcircle/malum
 	name = "Rune of Forge"
-	desc = "A Holy Rune of Malum. A hammer and heat, to fix any imperfections with."
+	desc = "A holy rune of <font color='ff9933'>Malum.</font> </br> <i>A hammer and heat, to fix any imperfections with.</i>"
 	icon_state = "malum_chalky"
 	var/forgerites = list("Ritual of Blessed Reforgance")
 
@@ -480,18 +529,18 @@
 
 /obj/structure/ritualcircle/abyssor
 	name = "Rune of Storm"
-	desc = "A Holy Rune of Abyssor. You sense your mind getting pulled into the drawn spiral."
+	desc = "A holy rune of <font color='3769b8'>Abyssor.</font> </br> <i>You sense your mind getting pulled into the drawn spiral.</i>"
 	icon_state = "abyssor_chalky"
 	var/stormrites = list("Rite of the Tides")
 
 /obj/structure/ritualcircle/abyssor_alt
 	name = "Rune of Stirring"
-	desc = "A Holy Rune of Abyssor. This one seems different to the rest. Something observes."
+	desc = "A holy rune of <font color='3769b8'>Abyssor.</font> </br> <i>This one seems different to the rest. Something observes.</i>"
 	icon_state = "abyssoralt_active"
 
 /obj/structure/ritualcircle/abyssor_alt_inactive
 	name = "Rune of Stirring"
-	desc = "A Holy Rune of Abyssor. This one seems different to the rest. Something observes."
+	desc = "A holy rune of <font color='3769b8'>Abyssor.</font> </br> <i>This one seems different to the rest. Something observes.</i>"
 	icon_state = "abyssoralt_chalky"
 	allow_dreamwalkers = TRUE
 	var/stirringrites = list("Rite of the Crystal Spire")
@@ -652,7 +701,7 @@
 			if(do_after(user, 50))
 				user.say("Deep Father, hear my call!")
 				if(do_after(user, 50))
-					user.say("I beg thee! A deluge upon your annointed!")
+					user.say("I beg thee! A deluge upon your anointed!")
 					if(do_after(user, 50))
 						icon_state = "abyssor_active"
 						user.say("Let your waters swallow the land!")
@@ -1040,7 +1089,7 @@
 
 /obj/structure/ritualcircle/necra
 	name = "Rune of Death"
-	desc = "A Holy Rune of Necra. Quiet acceptance stirs within you."
+	desc = "A holy rune of <font color='425363'>Necra.</font> Quiet acceptance stirs within you."
 	icon_state = "necra_chalky"
 	var/deathrites = list("Undermaiden's Bargain", "Vow to the Undermaiden", "The Toll")
 	var/coinslot = 0
@@ -1326,7 +1375,7 @@
 
 /obj/structure/ritualcircle/eora
 	name = "Rune of Love"
-	desc = "A Holy Rune of Eora. A gentle warmth and joy spreads across your soul."
+	desc = "A holy rune of <font color='ae4d93'>Eora.</font> </br> <i>A gentle warmth and joy spreads across your soul.</i>"
 	icon_state = "eora_chalky"
 	var/peacerites = list("Rite of Pacification", "Rite of the Open Hearth")
 
@@ -1343,42 +1392,20 @@
 	var/riteselection = input(user, "Rituals of Love", src) as null|anything in peacerites
 	switch(riteselection) // put ur rite selection here
 		if("Rite of Pacification")
-			if(do_after(user, 50))
-				user.say("#Blessed be your weary head...")
-				if(do_after(user, 50))
-					user.say("#Full of strife and pain...")
-					if(do_after(user, 50))
-						user.say("#Let Her ease your fear...")
-						if(do_after(user, 50))
-							icon_state = "eora_active"
-							pacify(src)
-							user.apply_status_effect(/datum/status_effect/debuff/ritesexpended)
-							spawn(120)
-								icon_state = "eora_chalky"
-		if("Rite of the Open Hearth")
-			var/onrune = view(1, loc)
-			var/list/folksonrune = list()
-			for(var/mob/living/carbon/human/persononrune in onrune)
-				if(HAS_TRAIT(persononrune, TRAIT_EXTEROCEPTION))//Only works on Eorans
-					folksonrune += persononrune
-			var/target = input(user, "Choose a host") as null|anything in folksonrune
-			if(!target)
-				return
-			user.say("I stand before you Mother to beg your ear and swear an oath!!")
 			if(!do_after(user, 5 SECONDS))
 				return
-			user.say("To stoke no anguish! To cause no pain!!")
+			user.say("#Blessed be your weary head...")
 			if(!do_after(user, 5 SECONDS))
 				return
-			user.say("To mend what is frayed and redeem what has strayed!!")
+			user.say("#Full of strife and pain...")
 			if(!do_after(user, 5 SECONDS))
 				return
-			user.say("To shelter the lost and warm the forgotten!!")
+			user.say("#Let Her ease your fear...")
 			if(!do_after(user, 5 SECONDS))
 				return
 			icon_state = "eora_active"
+			pacify(src)
 			user.apply_status_effect(/datum/status_effect/debuff/ritesexpended)
-			eoranaura(target)
 			spawn(120)
 				icon_state = "eora_chalky"
 		if("Rite of the Open Hearth")
@@ -1432,11 +1459,11 @@
 
 //UNDIVIDED
 /obj/structure/ritualcircle/undivided
-	name = "Rune of Deca Divinity"
-	desc = "A Holy Rune of The Undivided Pantheon"
+	name = "Rune of Divinity"
+	desc = "A holy rune of the <font color='6bb7a0'>Undivided</font> <font color='e1c562'>Pantheon.</font> </br> <i>United, we stand. Divided, we fall.</i>"
 	icon_state = "undivided_chalky"
-	var/decarites = list("Crusader's Oath", "Vow of Aesculapius")
-
+	//var/decarites = list()
+/*
 /obj/structure/ritualcircle/undivided/attack_hand(mob/living/user)
 	if(!..())
 		return
@@ -1449,143 +1476,16 @@
 	if(user.has_status_effect(/datum/status_effect/debuff/ritesexpended))
 		to_chat(user,span_smallred("I have performed enough rituals for the day... I must rest before communing more."))
 		return
-	var/riteselection = input(user, "Rituals of Deca Divinity", src) as null|anything in decarites
+	var/riteselection = input(user, "Rituals of Divinity", src) as null|anything in decarites
 	switch(riteselection) // put ur rite selection here
-		if("Crusader's Oath")
-			var/onrune = view(1, loc)
-			var/list/folksonrune = list()
-			for(var/mob/living/carbon/human/persononrune in onrune)
-				if(HAS_TRAIT(persononrune, TRAIT_UNDIVIDED))
-					folksonrune += persononrune
-			var/target = input(user, "Choose a host") as null|anything in folksonrune
-			if(!target)
-				return
-			user.say("Before your greatness, I swear an oath!!")
-			if(!do_after(user, 5 SECONDS))
-				return
-			user.say("To vanquish the horrors and evils of Psydonia!!")
-			if(!do_after(user, 5 SECONDS))
-				return
-			user.say("To protect those who cannot protect themselves!!")
-			if(!do_after(user, 5 SECONDS))
-				return
-			user.say("To be your blade of justice, torch in the eternal darkness!!")
-			if(!do_after(user, 5 SECONDS))
-				return
-			icon_state = "undivided_active"
-			user.apply_status_effect(/datum/status_effect/debuff/ritesexpended)
-			undividedarmaments(target)
-			spawn(120)
-				icon_state = "undivided_chalky"
-		if("Vow of Aesculapius")//Probably come up with a better name for this ngl?
-			var/onrune = view(1, loc)
-			var/list/folksonrune = list()
-			for(var/mob/living/carbon/human/persononrune in onrune)
-				if(HAS_TRAIT(persononrune, TRAIT_UNDIVIDED))
-					folksonrune += persononrune
-			var/target = input(user, "Choose a host") as null|anything in folksonrune
-			if(!target)
-				return
-			user.say("Before your greatness, I swear a vow!!")
-			if(!do_after(user, 5 SECONDS))
-				return
-			user.say("To do no harm!!")
-			if(!do_after(user, 5 SECONDS))
-				return
-			user.say("To take care of those in need!!")
-			if(!do_after(user, 5 SECONDS))
-				return
-			user.say("To be your shining beacon in the darkness!!")
-			if(!do_after(user, 5 SECONDS))
-				return
-			icon_state = "undivided_active"
-			user.apply_status_effect(/datum/status_effect/debuff/ritesexpended)
-			undividedaura(target)
-			spawn(120)
-				icon_state = "undivided_chalky"
-
-/obj/structure/ritualcircle/undivided/proc/undividedarmaments(mob/living/carbon/human/target)
-	var/undivided_cockblock = target.get_skill_level(/datum/skill/magic/holy)
-	if(!HAS_TRAIT(target, TRAIT_UNDIVIDED))
-		loc.visible_message(span_cult("THE RITE REJECTS ONE WITHOUT PURE HEART!!"))
-		return FALSE
-	if(undivided_cockblock < SKILL_LEVEL_NOVICE)//You need to actually be devoted
-		loc.visible_message(span_cult("THE RITE REJECTS ONE WITHOUT PURE HEART!!"))
-		return FALSE
-	target.Stun(120)
-	to_chat(target, span_userdanger("UNIMAGINABLE PAIN!"))
-	target.emote("Agony")
-	playsound(loc, 'sound/magic/undivided_bless.ogg', 70)
-	loc.visible_message(span_good("[target]'s form becomes entombed in Malum's finest craftsmanship."))
-	spawn(20)
-		target.apply_status_effect(/datum/status_effect/buff/guidinglight/undivided)
-		playsound(target, 'sound/magic/undivided_revenge.ogg', 90, FALSE, -1)
-		target.equipOutfit(/datum/outfit/job/roguetown/decarite)
-		tag_kit_items(target, list(
-			"head" = target.get_item_by_slot(SLOT_HEAD),
-			"cloak" = target.get_item_by_slot(SLOT_CLOAK),
-			"armor" = target.get_item_by_slot(SLOT_ARMOR),
-			"gloves" = target.get_item_by_slot(SLOT_GLOVES),
-			"belt" = target.get_item_by_slot(SLOT_BELT),
-			"beltl" = target.get_item_by_slot(SLOT_BELT_L),
-			"pants" = target.get_item_by_slot(SLOT_PANTS),
-			"shoes" = target.get_item_by_slot(SLOT_SHOES),
-			"backl" = target.get_item_by_slot(SLOT_BACK_L),
-			"backr" = target.get_item_by_slot(SLOT_BACK_R),
-		), list("head", "cloak", "armor", "gloves", "belt", "beltl", "pants", "shoes", "backl", "backr"))
-		to_chat(target, span_boldred("This is my only chance at LYFE."))
-		ADD_TRAIT(target, TRAIT_DNR, TRAIT_RITUAL)
-
-/datum/outfit/job/roguetown/decarite/pre_equip(mob/living/carbon/human/H)
-	..()
-	var/list/items = list()
-	items |= H.get_equipped_items(TRUE)
-	for(var/I in items)
-		H.dropItemToGround(I, TRUE)
-	H.drop_all_held_items()
-	head = /obj/item/clothing/head/roguetown/helmet/heavy/undivided_ritual
-	cloak = /obj/item/clothing/cloak/templar/undivided_alt
-	armor = /obj/item/clothing/suit/roguetown/armor/plate/full/holysee/ritual
-	gloves = /obj/item/clothing/gloves/roguetown/plate/holysee/ritual
-	belt = /obj/item/storage/belt/rogue/leather/steel/tasset
-	beltl = /obj/item/rogueweapon/scabbard/sword/royal
-	pants = /obj/item/clothing/under/roguetown/platelegs/holysee/ritual
-	shoes = /obj/item/clothing/shoes/roguetown/boots/armor/holysee/ritual
-	backl = /obj/item/rogueweapon/sword/long/crusader
-	backr = /obj/item/rogueweapon/shield/tower/holysee
-
-	H.mind.AddSpell(new /datum/action/cooldown/spell/mending/lesser)
-
-/obj/structure/ritualcircle/undivided/proc/undividedaura(mob/living/carbon/human/target)
-	var/undivided_cockblock = target.get_skill_level(/datum/skill/magic/holy)
-	if(!HAS_TRAIT(target, TRAIT_UNDIVIDED))
-		loc.visible_message(span_cult("THE RITE REJECTS ONE WITHOUT PURE HEART!!"))
-		return FALSE
-	if(undivided_cockblock < SKILL_LEVEL_JOURNEYMAN)//Only clerics can put it on.
-		loc.visible_message(span_cult("THE RITE REJECTS ONE WITHOUT PURE HEART!!"))
-		return FALSE
-	target.Stun(120)
-	to_chat(target, span_userdanger("UNIMAGINABLE PAIN!"))
-	target.emote("Agony")
-	playsound(loc, 'sound/magic/undivided_bless.ogg', 70)
-	loc.visible_message(span_good("[target]'s form becomes enveloped in divine aura."))
-	spawn(20)
-		target.apply_status_effect(/datum/status_effect/buff/guidinglight/undivided)
-		target.apply_status_effect(/datum/status_effect/orderbringer)
-		playsound(target, 'sound/magic/undivided_solemnity.ogg', 90, FALSE, -1)
-		to_chat(target, span_boldred("I can do no HARM."))
-		ADD_TRAIT(target, TRAIT_PACIFISM, TRAIT_RITUAL)
-		to_chat(target, span_boldred("This is my only chance at LYFE."))
-		ADD_TRAIT(target, TRAIT_DNR, TRAIT_RITUAL)
-		to_chat(target, span_boldred("My body is susceptible to CRITICAL STRIKES."))
-		ADD_TRAIT(target, TRAIT_CRITICAL_WEAKNESS, TRAIT_RITUAL)
-
+		if()
+*/
 // TIME FOR THE ASCENDANT. These can be stronger. As they are pretty much antag exclusive - Iconoclast for Matthios, Lich for ZIZO. ZIZO!
 
 
 /obj/structure/ritualcircle/zizo
 	name = "Rune of Progress"
-	desc = "A Holy Rune of ZIZO. Progress at any cost."
+	desc = "A holy rune of <font color='ff0000'>Zizo.</font> </br> <i>Progress at any cost.</i>"
 	icon_state = "zizo_chalky"
 	var/zizorites = list("Rite of Armaments")
 
@@ -1604,12 +1504,15 @@
 	var/riteselection = input(user, "Rituals of Progress", src) as null|anything in zizorites
 	switch(riteselection)
 		if("Rite of Armaments")
+			if(user.has_status_effect(/datum/status_effect/debuff/armamentrites))
+				to_chat(user, span_warning("I am not yet ready to perform this rite."))
+				return
 			var/onrune = view(1, loc)
 			var/list/folksonrune = list()
 			for(var/mob/living/carbon/human/persononrune in onrune)
 				if(HAS_TRAIT(persononrune, TRAIT_CABAL))
 					folksonrune += persononrune
-			var/target = input(user, "Choose a host") as null|anything in folksonrune
+			var/mob/living/carbon/human/target = input(user, "Choose a host") as null|anything in folksonrune
 			if(!target)
 				return
 			if(!do_after(user, 5 SECONDS))
@@ -1648,18 +1551,25 @@
 			user.say("ZIZO! ZIZO! HEED MY CALL!!")
 			if(!do_after(user, 5 SECONDS))
 				return
-			user.say("ZIZO! ZIZO! ARMS TO SLAY THE IGNORANT!!")
+			user.say("ZIZO! ZIZO! ARMS TO SLAY THE IGNORAAAAANT!!")
 			if(!do_after(user, 5 SECONDS))
 				return
 			icon_state = "zizo_active"
-			user.apply_status_effect(/datum/status_effect/debuff/ritesexpended)
+			var/rite_cooldown = /datum/status_effect/debuff/ritesexpended
+			var/is_heretic = istype(user.mind?.picked_advclass, /datum/advclass/wretch/heretic)
+			if(is_heretic)
+				user.apply_status_effect(/datum/status_effect/debuff/armamentrites)
+			user.apply_status_effect(rite_cooldown)
+			if(is_heretic && target != user)
+				user.apply_status_effect(/datum/status_effect/debuff/lux_exhausted)
+				target.apply_status_effect(/datum/status_effect/debuff/lux_exhausted)
 			zizoarmaments(target, helm_choice, armor_choice, weapon_choice)
 			spawn(120)
 				icon_state = "zizo_chalky"
 
 /obj/structure/ritualcircle/zizo/proc/zizoarmaments(mob/living/carbon/human/target, helm_choice, armor_choice, weapon_choice)
 	if(!HAS_TRAIT(target, TRAIT_CABAL))
-		loc.visible_message(span_cult("THE RITE REJECTS ONE NOT OF THE CABAL"))
+		loc.visible_message(span_cult("THE RITE REJECTS ONE NOT OF THE CABAL!!"))
 		return
 	var/obj/item/clothing/head/roguetown/helmet/heavy/helm_path
 	var/outfit_path = /datum/outfit/job/roguetown/darksteelrite
@@ -1684,7 +1594,7 @@
 	to_chat(target, span_userdanger("UNIMAGINABLE PAIN!"))
 	target.emote("Agony")
 	playsound(loc, 'sound/combat/newstuck.ogg', 50)
-	loc.visible_message(span_cult("Great hooks come from the rune, embedding into [target]'s ankles, pulling them onto the rune. Then, into their wrists. Their lux is torn from their chest, and reforms into armor. "))
+	loc.visible_message(span_cult("Great hooks come from the rune, embedding into [target]'s ankles, pulling them onto the rune. Then, into their wrists. Their lux is torn from their chest, reformed into a veil of billowing avantyne!"))
 	spawn(20)
 		playsound(loc, 'sound/combat/hits/onmetal/grille (2).ogg', 50)
 		var/datum/outfit/job/roguetown/darksteelrite/ritual_outfit = new outfit_path()
@@ -1750,7 +1660,7 @@
 
 /obj/structure/ritualcircle/matthios
 	name = "Rune of Transaction"
-	desc = "A Holy Rune of Matthios. All has a price."
+	desc = "A holy rune of <font color='ffd700'>Matthios.</font> </br> <i>Everything has a price.</i>"
 	icon_state = "matthios_chalky"
 	var/matthiosrites = list("Rite of Armaments", "Defenestration")
 
@@ -1770,45 +1680,55 @@
 	var/riteselection = input(user, "Rituals of Transaction", src) as null|anything in matthiosrites
 	switch(riteselection) // put ur rite selection here
 		if("Rite of Armaments")
+			if(user.has_status_effect(/datum/status_effect/debuff/armamentrites))
+				to_chat(user, span_warning("I am not yet ready to perform this rite."))
+				return
 			var/onrune = view(1, loc)
 			var/list/folksonrune = list()
 			for(var/mob/living/carbon/human/persononrune in onrune)
 				if(HAS_TRAIT(persononrune, TRAIT_FREEMAN))
 					folksonrune += persononrune
-			var/target = input(user, "Choose a host") as null|anything in folksonrune
+			var/mob/living/carbon/human/target = input(user, "Choose a host") as null|anything in folksonrune
 			if(!target)
 				return
 			if(!do_after(user, 5 SECONDS))
 				return
-			user.say("Gold and Silver, he feeds!!")
+			user.say("Gold and Silver, He feeds!")
 			if(!do_after(user, 5 SECONDS))
 				return
-			user.say("Pieces Tens, Hundreds, Thousands. The transactor feeds 'pon them all!!")
+			user.say("Pieces o' tens, hundreds, thousands; o', the Transactor feeds 'pon them all!")
 			if(!do_after(user, 5 SECONDS))
 				return
-			user.say("Arms to claim, Arms to take!!")
+			user.say("Arms to claim, Arms to TAAAAAAAKE!!")
 			if(!do_after(user, 5 SECONDS))
 				return
 			icon_state = "matthios_active"
-			user.apply_status_effect(/datum/status_effect/debuff/ritesexpended)
+			var/rite_cooldown = /datum/status_effect/debuff/ritesexpended
+			var/is_heretic = istype(user.mind?.picked_advclass, /datum/advclass/wretch/heretic)
+			if(is_heretic)
+				user.apply_status_effect(/datum/status_effect/debuff/armamentrites)
+			user.apply_status_effect(rite_cooldown)
+			if(is_heretic && target != user)
+				user.apply_status_effect(/datum/status_effect/debuff/lux_exhausted)
+				target.apply_status_effect(/datum/status_effect/debuff/lux_exhausted)
 			matthiosarmaments(target)
 			spawn(120)
 				icon_state = "matthios_chalky"
 		if("Defenestration")
 			if(!do_after(user, 5 SECONDS))
 				return
-			user.say("The window is open, the transaction is made!!")
+			user.say("The window is open, the transaction is made!")
 			if(!do_after(user, 5 SECONDS))
 				return
-			user.say("Pieces Tens, Hundreds, Thousands. The transactor feeds 'pon them all!!")
+			user.say("Pieces o' tens, hundreds, thousands; o', the Transactor feeds 'pon them all!")
 			if(!do_after(user, 5 SECONDS))
 				return
-			user.say("The Transactor, feast upon this gluttonous pig!!")
+			user.say("Accept my transaction o' unmatched value, and FEAST upon this gluttonous PIIIIG!!")
 			if(!do_after(user, 5 SECONDS))
 				return
 			icon_state = "matthios_active"
 			if(defenestration())
-				to_chat(user, span_cultsmall("The ritual is complete, the noble gift of Astrata has been taken!"))
+				to_chat(user, span_cultsmall("The ritual is complete, and the noble gift of Astrata has been taken!"))
 				user.apply_status_effect(/datum/status_effect/debuff/ritesexpended)
 			else
 				to_chat(user, span_cultsmall("The ritual fails. A noble must be in the center of the circle!"))
@@ -1824,7 +1744,7 @@
 	to_chat(target, span_userdanger("UNIMAGINABLE PAIN!"))
 	target.emote("Agony")
 	playsound(loc, 'sound/misc/smelter_fin.ogg', 50)
-	loc.visible_message(span_cult("[target]'s lux pours from their nose, into the rune, gleaming golds sizzles. Molten gold and metals swirl into armor, before straps and buckles secure themselves over them.")) //caustic edit- changing the text here to not be fleshwelded
+	loc.visible_message(span_cult("[target]'s lux pours from their nose and into the rune! Gleeming gold simmers and sears their skin, before cooling down to reveal the gilded armor beneath!"))
 	spawn(20)
 		playsound(loc, 'sound/combat/hits/onmetal/grille (2).ogg', 50)
 		target.equipOutfit(/datum/outfit/job/roguetown/gildedrite)
@@ -1860,7 +1780,7 @@
 		return FALSE
 
 	playsound(loc, 'sound/combat/gib (1).ogg', 100, FALSE, -1)
-	loc.visible_message(span_cult("[victim]'s lux pours from their nose, into the rune... Transforming into freshly mint zennies!"))
+	loc.visible_message(span_cult("[victim]'s lux pours from their nose, into the rune.. transforming into freshly minted zennies!"))
 	new /obj/item/roguecoin/gold/virtuepile(get_turf(src))
 	new /obj/item/roguecoin/silver/pile(get_turf(src))
 	new /obj/item/roguecoin/silver/pile(get_turf(src))
@@ -1874,7 +1794,7 @@
 		new /obj/item/roguecoin/gold/virtuepile(get_turf(src))
 		new /obj/item/roguecoin/gold/virtuepile(get_turf(src))
 		// Astrata loses her bearing due to this vile ritual
-		priority_announce("The Noble Gift of Astrata was tainted! The Sun, she is weeping!", "Bad Omen", 'sound/misc/evilevent.ogg')
+		priority_announce("The noble gift of Astrata's birthright was tainted! The Sun, she is weeping!", "Bad Omen", 'sound/misc/evilevent.ogg')
 		var/datum/round_event_control/lightsout/E = new()
 		E.req_omen = FALSE
 		E.earliest_start = 0
@@ -1899,7 +1819,7 @@
 	REMOVE_TRAIT(victim, TRAIT_NOBLE, TRAIT_VIRTUE)
 	ADD_TRAIT(victim, TRAIT_DEFILED_NOBLE, TRAIT_GENERIC)
 	playsound(loc, 'sound/misc/evilevent.ogg', 100, FALSE, -1)
-	to_chat(victim, span_cult("You feel your Astrata's gift of nobility stripped from you, the inhumen feasting upon it!"))
+	to_chat(victim, span_cult("You feel Astrata's gift of nobility stripped from you, the inhumen feasting upon it!"))
 	return TRUE
 
 /datum/outfit/job/roguetown/gildedrite/pre_equip(mob/living/carbon/human/H)
@@ -1923,7 +1843,7 @@
 
 /obj/structure/ritualcircle/graggar
 	name = "Rune of Violence"
-	desc = "A Holy Rune of Graggar. Fate broken once, His gift is true freedom for all."
+	desc = "A holy rune of <font color='969d7f'>Graggar.</font> </br> <i>Fate broken once, His gift is true freedom for all.</i>"
 	icon_state = "graggar_chalky"
 	var/graggarrites = list("Rite of Armaments", "War Ritual")
 
@@ -1942,12 +1862,15 @@
 	var/riteselection = input(user, "Rituals of Violence", src) as null|anything in graggarrites
 	switch(riteselection) // put ur rite selection here
 		if("Rite of Armaments")
+			if(user.has_status_effect(/datum/status_effect/debuff/armamentrites))
+				to_chat(user, span_warning("I am not yet ready to perform this rite."))
+				return
 			var/onrune = view(1, loc)
 			var/list/folksonrune = list()
 			for(var/mob/living/carbon/human/persononrune in onrune)
 				if(HAS_TRAIT(persononrune, TRAIT_HORDE))
 					folksonrune += persononrune
-			var/target = input(user, "Choose a host") as null|anything in folksonrune
+			var/mob/living/carbon/human/target = input(user, "Choose a host") as null|anything in folksonrune
 			if(!target)
 				return
 			if(!do_after(user, 5 SECONDS))
@@ -1981,11 +1904,18 @@
 			user.say("A GORGEOUS FEAST OF VIOLENCE, FOR YOU, FOR YOU!!")
 			if(!do_after(user, 5 SECONDS))
 				return
-			user.say("A SLAUGHTER AWAITS!!") // see the numbers taste the violence
+			user.say("GIFT ME THE POWER, FOR A SLAUGHTER AWAAAIIIIIITS!!") // see the numbers taste the violence
 			if(!do_after(user, 5 SECONDS))
 				return
 			icon_state = "graggar_active"
-			user.apply_status_effect(/datum/status_effect/debuff/ritesexpended)
+			var/rite_cooldown = /datum/status_effect/debuff/ritesexpended
+			var/is_heretic = istype(user.mind?.picked_advclass, /datum/advclass/wretch/heretic)
+			if(is_heretic)
+				user.apply_status_effect(/datum/status_effect/debuff/armamentrites)
+			user.apply_status_effect(rite_cooldown)
+			if(is_heretic && target != user)
+				user.apply_status_effect(/datum/status_effect/debuff/lux_exhausted)
+				target.apply_status_effect(/datum/status_effect/debuff/lux_exhausted)
 			graggararmor(target, helm_choice, armor_choice, weapon_choice)
 			spawn(120)
 				icon_state = "graggar_chalky" 
@@ -1993,7 +1923,7 @@
 			to_chat(user, span_userdanger("This rite will get me more tired than usual... I wonder, should I proceed?"))
 			if(!do_after(user, 5 SECONDS))
 				return
-			user.say("Blood for the war god, the circle is drawn!")
+			user.say("Blood for the blooded, the circle is drawn!")
 			if(!do_after(user, 5 SECONDS))
 				return
 			user.say("Let noble flesh be the price for the horde!")
@@ -2009,7 +1939,8 @@
 				to_chat(user, span_smallred("The ritual fails. A noble, a member of the Inquisition or a Tennite clergy member must be in the center of the circle!"))
 			spawn(120)
 				icon_state = "graggar_chalky" 
-/obj/structure/ritualcircle/graggar/proc/graggararmor(mob/living/carbon/human/target, helm_choice, armor_choice, weapon_choice)
+
+/obj/structure/ritualcircle/graggar/proc/graggararmor(mob/living/carbon/human/target, helm_choice, armor_choice)
 	if(!HAS_TRAIT(target, TRAIT_HORDE))
 		loc.visible_message(span_cult("THE RITE REJECTS ONE WITHOUT SLAUGHTER IN THEIR HEART!!"))
 		return
@@ -2032,14 +1963,13 @@
 	target.Stun(60)
 	target.Knockdown(60)
 	to_chat(target, span_userdanger("UNIMAGINABLE PAIN!"))
-	target.emote("Agony")
+	target.emote("superagony")
 	playsound(loc, 'sound/misc/smelter_fin.ogg', 50)
-	loc.visible_message(span_cult("[target]'s lux pours from their nose, into the rune, motive and metals swirl into armor, snug around their form!"))
+	loc.visible_message(span_cult("[target]'s lux pours from their nose and into the rune! The motive force manifests across their body, chaining it with shackles of vicious plate!"))
 	spawn(20)
 		playsound(loc, 'sound/combat/hits/onmetal/grille (2).ogg', 50)
 		var/datum/outfit/job/roguetown/viciousrite/ritual_outfit = new outfit_path()
 		ritual_outfit.selected_helm_path = helm_path
-		ritual_outfit.selected_weapon_choice = weapon_choice
 		target.equipOutfit(ritual_outfit)
 		tag_kit_items(target, list(
 			"armor" = target.get_item_by_slot(SLOT_ARMOR),
@@ -2118,83 +2048,340 @@
 	head = selected_helm_path
 	neck = /obj/item/clothing/neck/roguetown/gorget/steel/graggar
 	cloak = /obj/item/clothing/cloak/graggar
-	switch(selected_weapon_choice)
-		if("Vicious Tomahawk and Shield")
-			r_hand = /obj/item/rogueweapon/stoneaxe/woodcut/steel/graggar
-			l_hand = /obj/item/rogueweapon/shield/iron/graggar
-		else
-			r_hand = /obj/item/rogueweapon/greataxe/steel/doublehead/graggar
+	r_hand = /obj/item/rogueweapon/greataxe/steel/doublehead/graggar
 
 	H.mind.RemoveSpell(new /datum/action/cooldown/spell/mending/lesser)
 
 /datum/outfit/job/roguetown/viciousrite/heavy/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()
 	armor = /obj/item/clothing/suit/roguetown/armor/plate/full/graggar
-	shirt = /obj/item/clothing/suit/roguetown/armor/chainmail/hauberk/graggar/heavy
-	pants = /obj/item/clothing/under/roguetown/platelegs/graggar/heavy
-	shoes = /obj/item/clothing/shoes/roguetown/boots/armor/graggar/heavy
+	shirt = /obj/item/clothing/suit/roguetown/armor/chainmail/hauberk/graggar
+	pants = /obj/item/clothing/under/roguetown/platelegs/graggar
+	shoes = /obj/item/clothing/shoes/roguetown/boots/armor/graggar
 	wrists = /obj/item/clothing/wrists/roguetown/bracers/graggar/heavy
 	gloves = /obj/item/clothing/gloves/roguetown/plate/graggar/heavy
 	head = selected_helm_path
 	mask = /obj/item/clothing/mask/rogue/facemask/steel/graggar
-	neck = /obj/item/clothing/neck/roguetown/gorget/steel/graggar/heavy
+	neck = /obj/item/clothing/neck/roguetown/gorget/steel/graggar
 	cloak = /obj/item/clothing/cloak/graggar/heavy
-	switch(selected_weapon_choice)
-		if("Vicious Tomahawk and Shield")
-			r_hand = /obj/item/rogueweapon/stoneaxe/woodcut/steel/graggar
-			l_hand = /obj/item/rogueweapon/shield/iron/graggar
-		else
-			r_hand = /obj/item/rogueweapon/greataxe/steel/doublehead/graggar
+	r_hand = /obj/item/rogueweapon/stoneaxe/woodcut/steel/graggar
+	l_hand = /obj/item/rogueweapon/shield/iron/graggar
 
 	H.mind.AddSpell(new /datum/action/cooldown/spell/mending/lesser)
 
-/obj/effect/decal/cleanable/roguerune/god/baotha
+/obj/structure/ritualcircle/baotha
 	name = "Rune of Hedonism"
-	desc = "A Holy Rune of Baotha. Relief for the broken hearted."
+	desc = "A holy rune of <font color='bf64d0'>Baotha.</font> </br> <i>Relief for the broken hearted.</i>"
 	icon_state = "baotha_chalky"
-	rituals = list(/datum/runeritual/joybringer::name = /datum/runeritual/joybringer)
-	allowed_patron = /datum/patron/inhumen/baotha
+	var/baotharites = list("Rite of Armaments", "Joybringer")
 
-/datum/runeritual/joybringer
-	name = "Rite of Joy"
-
-/datum/runeritual/joybringer/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
-	if(!do_after(user, 5 SECONDS))
-		return FALSE
-
-	user.say("Let the wine flow, let the music crash!")
-
-	if(!do_after(user, 5 SECONDS))
-		return FALSE
+/obj/structure/ritualcircle/baotha/attack_hand(mob/living/user)
+	if(!..())
+		return
+	if((user.patron?.type) != /datum/patron/inhumen/baotha)
+		to_chat(user,span_warning("I feel my fingers going numb, and my arms heaving with unseen weight. I shouldn't be trying to use this..."))
+		return
+	if(!HAS_TRAIT(user, TRAIT_RITUALIST))
+		to_chat(user,span_warning("I don't know the proper rites for this..."))
+		return
+	if(user.has_status_effect(/datum/status_effect/debuff/ritesexpended))
+		to_chat(user,span_warning("I have performed enough rituals for the day... I must rest before communing more."))
+		return
+	var/riteselection = input(user, "Rituals of Indulgence", src) as null|anything in baotharites
+	switch(riteselection) // put ur rite selection here
+		if("Rite of Armaments")
+			if(user.has_status_effect(/datum/status_effect/debuff/armamentrites))
+				to_chat(user, span_warning("I am not yet ready to perform this rite."))
+				return
+			var/onrune = view(1, loc)
+			var/list/joyridersonrune = list()
+			for(var/mob/living/carbon/human/persononrune in onrune)
+				if(HAS_TRAIT(persononrune, TRAIT_DEPRAVED))
+					joyridersonrune += persononrune
+			var/mob/living/carbon/human/target = input(user, "Choose a host") as null|anything in joyridersonrune
+			if(!target)
+				return
+			if(!do_after(user, 5 SECONDS))
+				return
+			user.say("O' BLESSED SPIDER, SCORNED AND SORROWFUL, HEED MY PLEA OF SUCCOR!!")
+			if(!do_after(user, 5 SECONDS))
+				return
+			user.say("TAKE THIS CUP FROM ME, OVERFILLING WITH ANGUISH AND HEARTBREAK..")
+			if(!do_after(user, 5 SECONDS))
+				return
+			user.say("..AND IN ITS STEAD, BESTOW UPON ME.. EEEEVEEERRRYTHIIIIIIING!!")
+			if(!do_after(user, 5 SECONDS))
+				return
+			icon_state = "baotha_active"
+			user.apply_status_effect(/datum/status_effect/debuff/ritesexpended)
+			ADD_TRAIT(target, TRAIT_NOPAIN, TRAIT_RITUAL)
+			ADD_TRAIT(target, TRAIT_DODGEEXPERT, TRAIT_RITUAL)
+			var/is_heretic = istype(user.mind?.picked_advclass, /datum/advclass/wretch/heretic)
+			if(is_heretic)
+				user.apply_status_effect(/datum/status_effect/debuff/armamentrites)
+			if(is_heretic && target != user)
+				user.apply_status_effect(/datum/status_effect/debuff/lux_exhausted)
+				target.apply_status_effect(/datum/status_effect/debuff/lux_exhausted)
+			baothaarmaments(target)
+			spawn(120)
+				icon_state = "baotha_chalky"
+		if("Joybringer")
+			if(!do_after(user, 5 SECONDS))
+				return FALSE
+			user.say("Let the wine flow, let the music crash!")
+			if(!do_after(user, 5 SECONDS))
+				return FALSE
+			user.say("Away with tears, away with shame!")
+			to_chat(user, span_notice("The memory of sorrow fades into a haze of bliss."))
+			if(!do_after(user, 5 SECONDS))
+				return FALSE
+			user.say("Grant me the bliss, grant me the rush!")
+			if(!do_after(user, 3 SECONDS))
+				return FALSE
+			user.say("Baotha, fill my cup with endless mirth!")
+			playsound(loc, 'sound/misc/evilevent.ogg', 100, FALSE, -1)
+			user.apply_status_effect(/datum/status_effect/debuff/ritesexpended)
+			user.apply_status_effect(/datum/status_effect/joybringer)
 	
-	user.say("Away with tears, away with shame!")
-	to_chat(user, span_notice("The memory of sorrow fades into a haze of bliss."))
+			return TRUE
 
-	if(!do_after(user, 5 SECONDS))
-		return FALSE
+/obj/structure/ritualcircle/baotha/proc/baothaarmaments(mob/living/carbon/human/target)
+	if(!HAS_TRAIT(target, TRAIT_DEPRAVED))
+		loc.visible_message(span_cult("THE RITE REJECTS ONE WITHOUT REGRET IN THEIR HEART!!"))
+		return
+	target.Stun(60)
+	target.Knockdown(60)
+	to_chat(target, span_userdanger("UNIMAGINABLE PAIN!"))
+	target.emote("superagony")
+	playsound(loc, 'sound/misc/smelter_fin.ogg', 50)
+	loc.visible_message(span_cult("[target]'s lux gushes out from their mouth, splashing onto the rune and causing the chalk to fizzle into prismatic smoke; and once it clears, their saccharine presence is made clear!"))
+	spawn(20)
+		playsound(loc, 'sound/combat/hits/onmetal/grille (2).ogg', 50)
+		target.equipOutfit(/datum/outfit/job/roguetown/baothanrite)
+		tag_kit_items(target, list(
+			"armor" = target.get_item_by_slot(SLOT_ARMOR),
+			"shirt" = target.get_item_by_slot(SLOT_SHIRT),
+			"pants" = target.get_item_by_slot(SLOT_PANTS),
+			"shoes" = target.get_item_by_slot(SLOT_SHOES),
+			"wrists" = target.get_item_by_slot(SLOT_WRISTS),
+			"gloves" = target.get_item_by_slot(SLOT_GLOVES),
+			"head" = target.get_item_by_slot(SLOT_HEAD),
+			"neck" = target.get_item_by_slot(SLOT_NECK),
+			"backr" = target.get_item_by_slot(SLOT_BACK_R),
+		), list("armor", "shirt", "pants", "shoes", "wrists", "gloves", "head", "neck", "backr"))
+		target.adjust_skillrank_up_to(/datum/skill/combat/polearms, SKILL_LEVEL_EXPERT, TRUE)
+		spawn(40)
+			to_chat(target, span_cult("Live deliciously."))
 
-	user.say("Grant me the bliss, grant me the rush!")
+/datum/outfit/job/roguetown/baothanrite/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	..()
+	var/list/items = list()
+	items |= H.get_equipped_items(TRUE)
+	for(var/I in items)
+		H.dropItemToGround(I, TRUE)
+	H.drop_all_held_items()
+	head = /obj/item/clothing/head/roguetown/helmet/baotha
+	armor = /obj/item/clothing/suit/roguetown/armor/plate/fluted/baotha
+	shirt = /obj/item/clothing/suit/roguetown/armor/gambeson/baotha
+	pants = /obj/item/clothing/under/roguetown/skirt/baotha
+	shoes = /obj/item/clothing/shoes/roguetown/boots/armor/baotha
+	gloves = /obj/item/clothing/gloves/roguetown/plate/baotha
+	neck = /obj/item/clothing/neck/roguetown/coif/baotha
+	wrists = /obj/item/clothing/wrists/roguetown/bracers/leather/baotha
+	backr = /obj/item/rogueweapon/spear/partizan/baotha
 
-	if(!do_after(user, 3 SECONDS))
-		return FALSE
-	
-	user.say("Baotha, fill my cup with endless mirth!")
-	playsound(loc, 'sound/misc/evilevent.ogg', 100, FALSE, -1)
-	
-	user.apply_status_effect(/datum/status_effect/debuff/ritesexpended)
-	user.apply_status_effect(/datum/status_effect/joybringer)
+	H.mind.AddSpell(new /datum/action/cooldown/spell/mending/lesser)
 
-	return TRUE
+//
+
+/obj/item/clothing/head/roguetown/helmet/baotha
+	name = "saccharine sallet"
+	desc = "Lo', the twins of beauty; Eora and Belladoth, they sought a prize which but one may have.."
+	icon_state = "baothahelm"
+	item_state = "baothahelm"
+	body_parts_covered = HEAD | HAIR | EARS | MOUTH | EYES
+	armor_class = ARMOR_CLASS_LIGHT
+	max_integrity = ARMOR_INT_HELMET_ANTAG - 300 //Halved durability, compared to traditional Ascendant-tier armor.
+	smeltresult = /obj/item/ingot/component/baotha
+
+/obj/item/clothing/head/roguetown/helmet/baotha/Initialize()
+	. = ..()
+	AddComponent(/datum/component/cursed_item, TRAIT_DEPRAVED, "HELMET")
+
+/obj/item/clothing/neck/roguetown/coif/baotha
+	name = "saccharine veil"
+	desc = "And yet, their methods differed; Belladoth proposed with Her lust and temptation, Eora with Her love and warmth.."
+	icon_state = "baothacoif"
+	item_state = "baothacoif"
+	armor = ARMOR_PADDED
+	max_integrity = ARMOR_INT_CHEST_LIGHT_MASTER + 150
+	body_parts_covered = NECK | HAIR | EARS | HEAD | NOSE
+	armor_class = ARMOR_CLASS_LIGHT
+	adjustable = CAN_CADJUST
+	toggle_icon_state = TRUE
+	resistance_flags = FIRE_PROOF
+	blocksound = SOFTHIT
+	color = null
+	chunkcolor = "#645567"
+	smeltresult = /obj/item/ingot/component/baotha
+
+/obj/item/clothing/neck/roguetown/coif/baotha/Initialize()
+	. = ..()
+	AddComponent(/datum/component/cursed_item, TRAIT_DEPRAVED, "VEIL")
+	AddComponent(/datum/component/adjustable_clothing, NECK, null, null, 'sound/foley/cloth_wipe (1).ogg', null, (UPD_HEAD|UPD_MASK|UPD_NECK))
+	//ADD_TRAIT(src, TRAIT_NODROP, CURSED_ITEM_TRAIT) //Caustic Edit
+
+/obj/item/clothing/neck/roguetown/coif/baotha/dropped(mob/living/carbon/human/user)
+	. = ..()
+	/*if(QDELETED(src))
+		return
+	qdel(src)*/ //Caustic Edit
+
+/obj/item/clothing/suit/roguetown/armor/plate/fluted/baotha
+	name = "saccharine plate armor"
+	desc = "Is it not obvious what Ravox would've chosen? Yet upon the dae of His choice, She refused to gift any chance to Her sister.."
+	icon_state = "baothaplate"
+	item_state = "baothaplate"
+	max_integrity = ARMOR_INT_CHEST_PLATE_ANTAG - 350 //Halved durability, compared to traditional Ascendant-tier armor.
+	armor_class = ARMOR_CLASS_LIGHT //The big, big thing.
+	color = null
+	chunkcolor = "#dd2166"
+	body_parts_covered = COVERAGE_ALL_BUT_HANDFEET
+	smeltresult = /obj/item/ingot/component/baotha
+
+/obj/item/clothing/suit/roguetown/armor/plate/fluted/baotha/Initialize()
+	. = ..()
+	AddComponent(/datum/component/cursed_item, TRAIT_DEPRAVED, "ARMOR")
+	//ADD_TRAIT(src, TRAIT_NODROP, CURSED_ITEM_TRAIT)
+
+/obj/item/clothing/suit/roguetown/armor/plate/fluted/baotha/dropped(mob/living/carbon/human/user)
+	. = ..()
+	/*if(QDELETED(src))
+		return
+	qdel(src)*/ //Caustic Edit
+
+/obj/item/clothing/suit/roguetown/armor/gambeson/baotha
+	name = "saccharine vestments"
+	desc = "A gemmed chalice, Eora's own, swilled with Psydonia's most noxious venoms - and but a simple sip was enough to bring Her to death's door.."
+	icon_state = "baothagamb"
+	armor_class = ARMOR_CLASS_LIGHT
+	armor = ARMOR_PADDED
+	color = null
+	max_integrity = ARMOR_INT_CHEST_LIGHT_MASTER + 150
+	armor_class = ARMOR_CLASS_LIGHT
+	resistance_flags = FIRE_PROOF
+	body_parts_covered = CHEST | GROIN | ARMS
+	icon = 'icons/roguetown/clothing/shirts.dmi'
+	mob_overlay_icon = 'icons/roguetown/clothing/onmob/shirts.dmi'
+	sleeved = 'icons/roguetown/clothing/onmob/helpers/sleeves_shirts.dmi'
+	smeltresult = /obj/item/ingot/component/baotha
+
+/obj/item/clothing/suit/roguetown/armor/gambeson/baotha/Initialize()
+	. = ..()
+	AddComponent(/datum/component/cursed_item, TRAIT_DEPRAVED, "VESTMENTS")
+	//ADD_TRAIT(src, TRAIT_NODROP, CURSED_ITEM_TRAIT) //Caustic Edit
+
+/obj/item/clothing/suit/roguetown/armor/gambeson/baotha/dropped(mob/living/carbon/human/user)
+	. = ..()
+	/*if(QDELETED(src))
+		return
+	qdel(src)*/ //Caustic Edit
+
+/obj/item/clothing/wrists/roguetown/bracers/leather/baotha
+	name = "saccharine cuffs"
+	desc = "A betrayal without compare, and a sin without redemption; or so, She believed.."
+	icon_state = "baothabracers"
+	chunkcolor = "#6d1c87"
+	armor = ARMOR_PADDED
+	resistance_flags = FIRE_PROOF
+	max_integrity = ARMOR_INT_CHEST_LIGHT_MASTER + 150
+	smeltresult = /obj/item/ingot/component/baotha
+
+/obj/item/clothing/wrists/roguetown/bracers/leather/baotha/Initialize()
+	. = ..()
+	AddComponent(/datum/component/cursed_item, TRAIT_DEPRAVED, "BRACERS")
+	//ADD_TRAIT(src, TRAIT_NODROP, CURSED_ITEM_TRAIT) //Caustic Edit
+
+/obj/item/clothing/wrists/roguetown/bracers/leather/baotha/dropped(mob/living/carbon/human/user)
+	. = ..()
+	/*if(QDELETED(src))
+		return
+	qdel(src)*/ //Caustic Edit
+
+/obj/item/clothing/under/roguetown/skirt/baotha
+	name = "saccharine fauldcoat"
+	desc = "Only did Belladona's haze clear, once She heard Eora's gasps and Ravox's fright; what else could She've done besides fleeing the heavens?"
+	armor = ARMOR_PADDED
+	icon_state = "baothaskirt"
+	chunkcolor = "#6d1c87"
+	resistance_flags = FIRE_PROOF
+	armor_class = ARMOR_CLASS_LIGHT
+	max_integrity = ARMOR_INT_CHEST_LIGHT_MASTER + 150
+	body_parts_covered = GROIN | LEGS
+	smeltresult = /obj/item/ingot/component/baotha
+
+/obj/item/clothing/under/roguetown/skirt/baotha/Initialize()
+	. = ..()
+	AddComponent(/datum/component/cursed_item, TRAIT_DEPRAVED, "SKIRT")
+	//ADD_TRAIT(src, TRAIT_NODROP, CURSED_ITEM_TRAIT) //Caustic Edit
+
+/obj/item/clothing/under/roguetown/skirt/baotha/dropped(mob/living/carbon/human/user)
+	. = ..()
+	/*if(QDELETED(src))
+		return
+	qdel(src)*/ //Caustic Edit
+
+/obj/item/clothing/gloves/roguetown/plate/baotha
+	name = "saccharine gauntlets"
+	desc = "Belladonna's ego died on that dae, and Baotha's venomous id rose in Her stead; for it was better to numb the regret than to face the guilt.."
+	icon_state = "baothagloves"
+	item_state = "baothagloves"
+	chunkcolor = "#6d1c87"
+	max_integrity = ARMOR_INT_SIDE_ANTAG - 250
+	armor_class = ARMOR_CLASS_LIGHT
+	smeltresult = /obj/item/ingot/component/baotha
+
+/obj/item/clothing/gloves/roguetown/plate/baotha/Initialize()
+	. = ..()
+	AddComponent(/datum/component/cursed_item, TRAIT_DEPRAVED, "GLOVES")
+	//ADD_TRAIT(src, TRAIT_NODROP, CURSED_ITEM_TRAIT) //Caustic Edit
+
+/obj/item/clothing/gloves/roguetown/plate/baotha/dropped(mob/living/carbon/human/user)
+	. = ..()
+	/*if(QDELETED(src))
+		return
+	qdel(src)*/ //Caustic Edit
+
+/obj/item/clothing/shoes/roguetown/boots/armor/baotha
+	name = "saccharine heels"
+	desc = "..yet, even as She indulges and mourns beneath the stars, one must wonder; is She truly damned by the Pantheon, or by Herself alone?"
+	icon_state = "baothaboots"
+	item_state = "baothaboots"
+	chunkcolor = "#6d1c87"
+	max_integrity = ARMOR_INT_SIDE_ANTAG - 250
+	armor_class = ARMOR_CLASS_LIGHT
+	smeltresult = /obj/item/ingot/component/baotha
+
+/obj/item/clothing/shoes/roguetown/boots/armor/baotha/Initialize()
+	. = ..()
+	AddComponent(/datum/component/cursed_item, TRAIT_DEPRAVED, "BOOTS")
+	//ADD_TRAIT(src, TRAIT_NODROP, CURSED_ITEM_TRAIT) //Caustic Edit
+
+/obj/item/clothing/shoes/roguetown/boots/armor/baotha/dropped(mob/living/carbon/human/user)
+	. = ..()
+	/*if(QDELETED(src))
+		return
+	qdel(src)*/ //Caustic Edit
 
 /obj/effect/decal/cleanable/roguerune/god/psydon
-	name = "Rune of Enduring"
-	desc = "A Holy Rune of Psydon. It depicts His holy symbol, yet nothing stirs within you."
+	name = "Rune of Perseverance"
+	desc = "A holy rune of the Weeping God. </br> <i>It depicts His holy symbol, yet nothing stirs within you.</i>"
 	icon_state = "psydon_chalky"
 	allowed_patron = /datum/patron/old_god
 	rituals = list(/datum/runeritual/silver_blessing::name = /datum/runeritual/silver_blessing)
 
 /datum/runeritual/silver_blessing
-	name = "Rite of Silver-Blessing"
+	name = "Rite of Anointment"
 	required_atoms = list(/obj/item/rogueweapon = 1)
 
 /datum/runeritual/silver_blessing/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
@@ -2209,13 +2396,13 @@
 		return FALSE
 
 	loc.visible_message(span_warning("[user] firmly places a hand on [weapon] and straightens, adopting a posture of absolute discipline."))
-	user.say("The Architect is silent, but His Blueprint shall not be forgotten!")
-	to_chat(user, span_notice("You focus your WILL upon the tool, feeling a chilling depletion in your core."))
+	user.say("Lyving or dead, it matters not; I beseech thee for but a final slimmer of thine power, to bring order to a world of naught!")
+	to_chat(user, span_notice("You focus your entire will upon the tool, feeling a chilling depletion in your core."))
 	
 	if(!do_after(user, 4 SECONDS))
 		return FALSE
 
-	loc.visible_message(span_userdanger("A ghostly, icy silver light visibly drains from [user]'s hand, surging into [weapon]—the very essence of their Steadfastness!"))
+	loc.visible_message(span_userdanger("A ghostly, icy silver light visibly drains from [user]'s hand, surging into [weapon] — the very essence of their steadfastness!"))
 	
 	if(!do_after(user, 4 SECONDS))
 		return FALSE

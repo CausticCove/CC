@@ -193,9 +193,15 @@ There are several things that need to be remembered:
 
 		if(!BP.skeletonized)
 			if(BP.brutestate)
-				damage_overlays += get_cached_damage_overlay(limb_icon, "[body_zone]_[BP.brutestate]0", DAMAGE_LAYER, offset_x, offset_y)
-				legdam_overlays += get_cached_damage_overlay(limb_icon, "legdam_[body_zone]_[BP.brutestate]0", LEG_DAMAGE_LAYER, offset_x, offset_y)
-				armdam_overlays += get_cached_damage_overlay(limb_icon, "armdam_[body_zone]_[BP.brutestate]0", ARM_DAMAGE_LAYER, offset_x, offset_y)
+				var/mutable_appearance/damage_overlay = mutable_appearance(limb_icon, "[BP.body_zone]_[BP.brutestate]0", -DAMAGE_LAYER)
+				damage_overlay.color = dna.species.blood_color
+				damage_overlays += damage_overlay
+				var/mutable_appearance/legdam_overlay = mutable_appearance(limb_icon, "legdam_[BP.body_zone]_[BP.brutestate]0", -LEG_DAMAGE_LAYER)
+				legdam_overlay.color = dna.species.blood_color
+				legdam_overlays += legdam_overlay
+				var/mutable_appearance/armdam_overlay = mutable_appearance(limb_icon, "armdam_[BP.body_zone]_[BP.brutestate]0", -ARM_DAMAGE_LAYER)
+				armdam_overlay.color = dna.species.blood_color
+				armdam_overlays += armdam_overlay
 			if(BP.burnstate)
 				damage_overlays += get_cached_damage_overlay(limb_icon, "[body_zone]_0[BP.burnstate]", DAMAGE_LAYER, offset_x, offset_y)
 				legdam_overlays += get_cached_damage_overlay(limb_icon, "legdam_[body_zone]_0[BP.burnstate]", LEG_DAMAGE_LAYER, offset_x, offset_y)
@@ -452,6 +458,9 @@ There are several things that need to be remembered:
 		if(dna && dna.species.sexes)
 			if(gender == FEMALE)
 				bloody_overlay.icon_state += "_f"
+
+		if(bloody_hands_color)
+			bloody_overlay.color = bloody_hands_color
 
 		overlays_standing[GLOVESLEEVE_LAYER] = bloody_overlay
 
@@ -1713,8 +1722,11 @@ generate/load female uniform sprites matching all previously decided variables
 
 	if(!isinhands && HAS_BLOOD_DNA(src))
 		var/index = "[t_state][sleeveindex]"
+		var/datum/component/decal/blood/item_blood = GetComponent(/datum/component/decal/blood)
+		var/mob/living/carbon/human/wearer = loc
+		var/blood_color = item_blood?.blood_color || (ishuman(wearer) ? wearer.get_blood_color() : "#C80000")
 		var/static/list/bloody_onmob = list()
-		var/icon/clothing_icon = bloody_onmob["[index][(boobed_overlay) ? "_boob" : ""]"]
+		var/icon/clothing_icon = bloody_onmob["[index][(boobed_overlay) ? "_boob" : ""]-[blood_color]"]
 		if(!clothing_icon)
 			if(sleeved && sleeveindex < 4) //cut out sleeves from north/south sprites
 				clothing_icon = icon(GLOB.dismembered_clothing_icons[index])
@@ -1724,11 +1736,16 @@ generate/load female uniform sprites matching all previously decided variables
 				clothing_icon.Blend(icon(file2use, "[t_state]_boob"), ICON_OVERLAY)
 			clothing_icon.Blend("#fff", ICON_ADD) 			//fills the icon_state with white (except where it's transparent)
 			clothing_icon.Blend(icon(bloody_icon, bloody_icon_state), ICON_MULTIPLY) //adds blood and the remaining white areas become transparant
-			bloody_onmob["[index][(boobed_overlay) ? "_boob" : ""]"] = fcopy_rsc(clothing_icon)
+			clothing_icon.ColorTone(blood_color)
+			bloody_onmob["[index][(boobed_overlay) ? "_boob" : ""]-[blood_color]"] = fcopy_rsc(clothing_icon)
 		var/mutable_appearance/pic = mutable_appearance(clothing_icon, -layer2use)
 		standing.overlays.Add(pic)
 
 	standing = center_image(standing, isinhands ? inhand_x_dimension : worn_x_dimension, isinhands ? inhand_y_dimension : worn_y_dimension)
+
+	if(worn_offsets)
+		standing.pixel_x += worn_offsets["x"]
+		standing.pixel_y += worn_offsets["y"]
 
 	//Handle held offsets
 	var/mob/M = loc
@@ -1967,11 +1984,9 @@ generate/load female uniform sprites matching all previously decided variables
 		else
 			new_limbs += BP.get_limb_icon()
 	
-	//OV Edit - Oozes
 	if(isooze(src))
 		for(var/image/limb_alpha in new_limbs)
 			limb_alpha.alpha = 180
-	//OV Edit End
 
 	if(length(new_limbs))
 		overlays_standing[BODYPARTS_LAYER] = new_limbs

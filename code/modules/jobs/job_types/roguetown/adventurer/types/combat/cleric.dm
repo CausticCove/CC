@@ -2,7 +2,7 @@
 	name = "Monk"
 	tutorial = "You are a wandering acolyte, versed in both miracles and martial arts. You forego the hauberk that paladins wear in favor of humbling your foes through bloodless strikes. Your satchel hangs heavy, too, with ample provisions for the pilgrimage you're upon."
 	allowed_sexes = list(MALE, FEMALE)
-	allowed_races = RACES_ALL_KINDS
+	
 	vampcompat = FALSE
 	outfit = /datum/outfit/job/roguetown/adventurer/cleric
 	category_tags = list(CTAG_ADVENTURER, CTAG_COURTAGENT)
@@ -31,7 +31,7 @@
 	// Also because the alternative is not very clean codewise.
 	subclass_stashed_items = list(
 		"The Verses and Acts of the Ten" = /obj/item/book/rogue/bibble,
-		"Tome of Psydon" = /obj/item/book/rogue/bibble/psy
+		"The Book" = /obj/item/book/rogue/bibble/psy
 	)
 	extra_context = "This subclass can choose from multiple disciplines. The further your chosen discipline strays from unarmed combat, however, the greater your skills in fistfighting and wrestling will atrophy. Taking a Quarterstaff provides a minor bonus to Perception, but removes the 'Dodge Expert' trait."
 
@@ -93,8 +93,8 @@
 	H.cmode_music = 'sound/music/combat_holy.ogg' // left in bc i feel like monk players want their darktide TRAIT_DODGEEXPERT
 	switch(H.patron?.type)
 		if(/datum/patron/old_god)
-			cloak = /obj/item/clothing/cloak/tabard/psydontabard
-			mask = /obj/item/clothing/head/roguetown/roguehood/psydon
+			cloak = /obj/item/clothing/cloak/tabard/psydontabard/black
+			mask = /obj/item/clothing/head/roguetown/roguehood/psydon/black
 		if(/datum/patron/divine/astrata)
 			mask = /obj/item/clothing/head/roguetown/roguehood/astrata
 			cloak = /obj/item/clothing/suit/roguetown/shirt/robe/astrata
@@ -150,15 +150,19 @@
 			neck = /obj/item/clothing/neck/roguetown/psicross/eora
 			H.cmode_music = 'sound/music/cmode/church/combat_eora.ogg'
 		if(/datum/patron/inhumen/zizo)
+			neck = /obj/item/clothing/neck/roguetown/psicross
 			H.cmode_music = 'sound/music/combat_heretic.ogg'
 			ADD_TRAIT(H, TRAIT_HERESIARCH, TRAIT_GENERIC)
 		if(/datum/patron/inhumen/matthios)
+			neck = /obj/item/clothing/neck/roguetown/psicross
 			H.cmode_music = 'sound/music/combat_matthios.ogg'
 			ADD_TRAIT(H, TRAIT_HERESIARCH, TRAIT_GENERIC)
 		if(/datum/patron/inhumen/graggar)
+			neck = /obj/item/clothing/neck/roguetown/psicross
 			H.cmode_music = 'sound/music/combat_graggar.ogg'
 			ADD_TRAIT(H, TRAIT_HERESIARCH, TRAIT_GENERIC)
 		if(/datum/patron/inhumen/baotha)
+			neck = /obj/item/clothing/neck/roguetown/psicross
 			H.cmode_music = 'sound/music/combat_baotha.ogg'
 			ADD_TRAIT(H, TRAIT_HERESIARCH, TRAIT_GENERIC)
 		if(/datum/patron/divine/xylix)
@@ -192,7 +196,7 @@
 	)
 	subclass_stashed_items = list(
 		"The Verses and Acts of the Ten" = /obj/item/book/rogue/bibble,
-		"Tome of Psydon" = /obj/item/book/rogue/bibble/psy
+		"The Book" = /obj/item/book/rogue/bibble/psy
 	)
 	//Caustic edit begin - description to be more patron-agnostic. Ascendant followers can be paladins too, after all.
 	extra_context = "This subclass chooses an oath upon spawning, your oath determines a general direction for your playstyle. Healer has skills in medicine and is able to diagnose patients, Slayers are better trained in weapon-usage and gain a silver weapon, Bulwarks are trained in the usage of heavy armor."
@@ -235,10 +239,11 @@
 	H.cmode_music = 'sound/music/cmode/church/combat_reckoning.ogg'
 	switch(H.patron?.type)
 		if(/datum/patron/old_god)
-			cloak = /obj/item/clothing/cloak/tabard/psydontabard
+			cloak = /obj/item/clothing/cloak/tabard/psydontabard/black
 			if(H.mind)
 				helmets += list("Psydonic Armet" = /obj/item/clothing/head/roguetown/helmet/heavy/psydonhelm,
-							"Psydonic Bucket Helm" = /obj/item/clothing/head/roguetown/helmet/heavy/psybucket)
+							"Psydonic Bucket Helm" = /obj/item/clothing/head/roguetown/helmet/heavy/psybucket,
+							"Greatplumed Psydonic Armet" = /obj/item/clothing/head/roguetown/helmet/heavy/knight/psy/greatplume)
 				var/armors = list("Hauberk","Cuirass")
 				var/armor_choice = input(H, "Choose your MAILLE.", "STAND AGAINST HER DARKNESS.") as anything in armors
 				switch(armor_choice)
@@ -283,7 +288,7 @@
 			cloak = /obj/item/clothing/cloak/tabard/stabard/crusader/undivided
 			helmets += list("Decorated Sugarloaf Helmet" = /obj/item/clothing/head/roguetown/helmet/heavy/bucket/crusader/gold/cleric)
 			armor = /obj/item/clothing/suit/roguetown/armor/chainmail/hauberk
-	H.dna.species.soundpack_m = new /datum/voicepack/male/knight()
+	H.dna.species.soundpack_m = GLOB.voice_packs[/datum/voicepack/male/knight]
 	var/datum/devotion/C = new /datum/devotion(H, H.patron)
 	C.grant_miracles(H, cleric_tier = CLERIC_T1, passive_gain = CLERIC_REGEN_WEAK, devotion_limit = CLERIC_REQ_1)	//Capped to T1 miracles.
 	if(H.mind)
@@ -415,15 +420,19 @@
 			wrists = /obj/item/clothing/neck/roguetown/psicross/eora
 			H.cmode_music = 'sound/music/cmode/church/combat_eora.ogg'
 		if(/datum/patron/inhumen/zizo)
+			wrists = /obj/item/clothing/neck/roguetown/psicross
 			H.cmode_music = 'sound/music/combat_heretic.ogg'
 			ADD_TRAIT(H, TRAIT_HERESIARCH, TRAIT_GENERIC)
 		if(/datum/patron/inhumen/matthios)
+			wrists = /obj/item/clothing/neck/roguetown/psicross
 			H.cmode_music = 'sound/music/combat_matthios.ogg'
 			ADD_TRAIT(H, TRAIT_HERESIARCH, TRAIT_GENERIC)
 		if(/datum/patron/inhumen/graggar)
+			wrists = /obj/item/clothing/neck/roguetown/psicross
 			H.cmode_music = 'sound/music/combat_graggar.ogg'
 			ADD_TRAIT(H, TRAIT_HERESIARCH, TRAIT_GENERIC)
 		if(/datum/patron/inhumen/baotha)
+			wrists = /obj/item/clothing/neck/roguetown/psicross
 			H.cmode_music = 'sound/music/combat_baotha.ogg'
 			ADD_TRAIT(H, TRAIT_HERESIARCH, TRAIT_GENERIC)
 		if(/datum/patron/divine/xylix)
@@ -453,7 +462,7 @@
 	)
 	subclass_stashed_items = list(
 		"The Verses and Acts of the Ten" = /obj/item/book/rogue/bibble,
-		"Tome of Psydon" = /obj/item/book/rogue/bibble/psy
+		"The Book" = /obj/item/book/rogue/bibble/psy
 	)
 	extra_context = "This subclass has higher-tier miracles, but regenerates Devotion far slower."
 
@@ -484,7 +493,7 @@
 	H.mind?.AddSpell(new /datum/action/cooldown/spell/projectile/vicious_mockery)
 	switch(H.patron?.type)
 		if(/datum/patron/old_god)
-			cloak = /obj/item/clothing/cloak/tabard/devotee/psydon
+			cloak = /obj/item/clothing/cloak/absolutionistrobe/black //Formerly /obj/item/clothing/cloak/tabard/devotee/psydon.
 		if(/datum/patron/divine/astrata)
 			cloak = /obj/item/clothing/cloak/tabard/devotee/astrata
 		if(/datum/patron/divine/noc)
@@ -562,15 +571,19 @@
 			neck = /obj/item/clothing/neck/roguetown/psicross/eora
 			H.cmode_music = 'sound/music/cmode/church/combat_eora.ogg'
 		if(/datum/patron/inhumen/zizo)
+			neck = /obj/item/clothing/neck/roguetown/psicross
 			H.cmode_music = 'sound/music/combat_heretic.ogg'
 			ADD_TRAIT(H, TRAIT_HERESIARCH, TRAIT_GENERIC)
 		if(/datum/patron/inhumen/matthios)
+			neck = /obj/item/clothing/neck/roguetown/psicross
 			H.cmode_music = 'sound/music/combat_matthios.ogg'
 			ADD_TRAIT(H, TRAIT_HERESIARCH, TRAIT_GENERIC)
 		if(/datum/patron/inhumen/graggar)
+			neck = /obj/item/clothing/neck/roguetown/psicross
 			H.cmode_music = 'sound/music/combat_graggar.ogg'
 			ADD_TRAIT(H, TRAIT_HERESIARCH, TRAIT_GENERIC)
 		if(/datum/patron/inhumen/baotha)
+			neck = /obj/item/clothing/neck/roguetown/psicross
 			H.cmode_music = 'sound/music/combat_baotha.ogg'
 			ADD_TRAIT(H, TRAIT_HERESIARCH, TRAIT_GENERIC)
 		if(/datum/patron/divine/xylix)
@@ -603,7 +616,7 @@
 	)
 	subclass_stashed_items = list(
 		"The Verses and Acts of the Ten" = /obj/item/book/rogue/bibble,
-		"Tome of Psydon" = /obj/item/book/rogue/bibble/psy
+		"The Book" = /obj/item/book/rogue/bibble/psy
 	)
 	extra_context = "This subclass regenerates Devotion far quicker, but only has access to lesser miracles."
 
@@ -624,8 +637,8 @@
 	H.cmode_music = 'sound/music/cmode/church/combat_reckoning.ogg'
 	switch(H.patron?.type)
 		if(/datum/patron/old_god)
-			cloak = /obj/item/clothing/cloak/tabard/psydontabard
-			head = /obj/item/clothing/head/roguetown/roguehood/psydon
+			cloak = /obj/item/clothing/cloak/absolutionistrobe/black
+			head = /obj/item/clothing/head/roguetown/roguehood/psydon/black
 		if(/datum/patron/divine/undivided)
 			head = /obj/item/clothing/head/roguetown/roguehood
 			cloak = /obj/item/clothing/cloak/tabard/stabard/crusader/undivided
@@ -742,15 +755,19 @@
 			neck = /obj/item/clothing/neck/roguetown/psicross/eora
 			H.cmode_music = 'sound/music/cmode/church/combat_eora.ogg'
 		if(/datum/patron/inhumen/zizo)
+			neck = /obj/item/clothing/neck/roguetown/psicross
 			H.cmode_music = 'sound/music/combat_heretic.ogg'
 			ADD_TRAIT(H, TRAIT_HERESIARCH, TRAIT_GENERIC)
 		if(/datum/patron/inhumen/matthios)
+			neck = /obj/item/clothing/neck/roguetown/psicross
 			H.cmode_music = 'sound/music/combat_matthios.ogg'
 			ADD_TRAIT(H, TRAIT_HERESIARCH, TRAIT_GENERIC)
 		if(/datum/patron/inhumen/graggar)
+			neck = /obj/item/clothing/neck/roguetown/psicross
 			H.cmode_music = 'sound/music/combat_graggar.ogg'
 			ADD_TRAIT(H, TRAIT_HERESIARCH, TRAIT_GENERIC)
 		if(/datum/patron/inhumen/baotha)
+			neck = /obj/item/clothing/neck/roguetown/psicross
 			H.cmode_music = 'sound/music/combat_baotha.ogg'
 			ADD_TRAIT(H, TRAIT_HERESIARCH, TRAIT_GENERIC)
 		if(/datum/patron/divine/xylix)

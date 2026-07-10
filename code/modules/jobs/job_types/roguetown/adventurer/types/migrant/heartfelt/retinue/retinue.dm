@@ -2,7 +2,7 @@
 /datum/job/roguetown/heartfelt/retinue
 	title = "Heartfelt Retinue"
 	allowed_sexes = list(MALE, FEMALE)
-	allowed_races = ACCEPTED_RACES
+	forbidden_races = list() //Caustic Edit - Just a global tweak to remove 'races_despised' from this check everywhere
 	job_traits = list(TRAIT_HEARTFELT)
 
 	job_subclasses = list(

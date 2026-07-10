@@ -648,7 +648,6 @@
 	salvage_result = /obj/item/natural/silk
 	salvage_amount = 1
 	icon_state = "noblesash"
-	sellprice = 5
 
 /datum/crafting_recipe/roguetown/sewing/zybnoblesash
 	name = "sash (zybantine noble)"
@@ -661,14 +660,14 @@
 	icon = 'modular_deserttown/icons/clothing/belts.dmi'
 	mob_overlay_icon = 'modular_deserttown/icons/clothing/onmob/belts.dmi'
 	icon_state = "sultbelt"
-	sellprice = 30
+	sellprice = 60
 
 /obj/item/storage/belt/rogue/leather/jafar
 	name = "Zybantine magos Sash"
 	icon = 'modular_deserttown/icons/clothing/belts.dmi'
 	mob_overlay_icon = 'modular_deserttown/icons/clothing/onmob/belts.dmi'
 	icon_state = "jafar"
-	sellprice = 30
+	sellprice = 60
 
 /obj/item/storage/belt/rogue/leather/silkbelt/skirtgreen
 	name = "green giltsilk skirt"

@@ -216,6 +216,7 @@ GLOBAL_LIST_INIT(action_spells, typesof(/datum/action/cooldown/spell)) //Caustic
 	var/miracle = FALSE
 	var/devotion_cost = 0
 	var/ignore_cockblock = FALSE //whether or not to ignore TRAIT_SPELLCOCKBLOCK
+	var/ignore_combat_tag = FALSE
 	action_icon_state = "spell0"
 	action_icon = 'icons/mob/actions/roguespells.dmi'
 	action_background_icon_state = ""
@@ -612,6 +613,10 @@ GLOBAL_LIST_INIT(action_spells, typesof(/datum/action/cooldown/spell)) //Caustic
 			if(L.has_status_effect(/datum/status_effect/buff/clash))
 				var/mob/living/carbon/human/H = user
 				H.bad_guard(span_warning("I can't focus while casting spells!"), cheesy = TRUE)
+			if(!ignore_combat_tag)
+				L.apply_status_effect(/datum/status_effect/combat_tag)
+				if(L.get_skill_level(/datum/skill/misc/sneaking) >= SKILL_LEVEL_JOURNEYMAN || HAS_TRAIT(L, TRAIT_LIGHT_STEP))
+					L.apply_status_effect(/datum/status_effect/stealth_revealed)
 		if(action)
 			action.build_all_button_icons()
 		return TRUE

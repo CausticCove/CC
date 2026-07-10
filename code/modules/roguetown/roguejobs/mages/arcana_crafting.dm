@@ -5,6 +5,9 @@
 	abstract_type = /datum/crafting_recipe/roguetown/arcana
 	skillcraft = /datum/skill/magic/arcane
 	subtype_reqs = TRUE
+	display_category = ITEM_CAT_ARCYNE_GEARS
+	xp_modifier = 0
+	craftdiff = SKILL_LEVEL_APPRENTICE
 
 /datum/crafting_recipe/roguetown/arcana/amethyst
 	name = "amythortz"
@@ -141,6 +144,7 @@
 /datum/crafting_recipe/roguetown/arcana/forge
 	name = "infernal forge"
 	req_table = FALSE
+	display_category = ITEM_CAT_ENG_MACHINERY
 	result = /obj/machinery/light/rogue/forge/arcane
 	reqs = list(/obj/item/magic/infernal/core = 1,
 				/obj/item/natural/stone = 4)

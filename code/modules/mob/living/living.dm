@@ -62,9 +62,9 @@
 	return ..()
 
 /mob/living/onZImpact(turf/T, levels)
-	if(HAS_TRAIT(src, TRAIT_NOFALLDAMAGE2))
+	if(HAS_TRAIT(src, TRAIT_NOFALLDAMAGE2) && !HAS_TRAIT(src, TRAIT_DEADITE)) //Deadites cannot benefit from fall immunity
 		return
-	if(HAS_TRAIT(src, TRAIT_NOFALLDAMAGE1))
+	if(HAS_TRAIT(src, TRAIT_NOFALLDAMAGE1) && !HAS_TRAIT(src, TRAIT_DEADITE)) //Ditto
 		if(levels <= 2)
 			Immobilize(10)
 			if(m_intent == MOVE_INTENT_RUN)
@@ -378,7 +378,7 @@
 	if(!(src.mobility_flags & MOBILITY_STAND))
 		return TRUE
 	var/list/acceptable = list(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG, BODY_ZONE_R_ARM, BODY_ZONE_CHEST, BODY_ZONE_L_ARM, BODY_ZONE_PRECISE_GROIN, BODY_ZONE_PRECISE_STOMACH)
-	if(HAS_TRAIT(L, TRAIT_CIVILIZEDBARBARIAN))
+	if(HAS_TRAIT(L, TRAIT_CIVILIZEDBARBARIAN) && !HAS_TRAIT(L, TRAIT_DEADITE)) //Deadites are too stiff otherwise civilised barbs can kick head unlike everyone else.
 		acceptable.Add(BODY_ZONE_HEAD)
 	if( !(check_zone(L.zone_selected) in acceptable) )
 		to_chat(L, span_warning("I can't reach that."))
@@ -399,7 +399,7 @@
 		else
 			if(!CZ)
 				acceptable = list(BODY_ZONE_HEAD, BODY_ZONE_R_ARM, BODY_ZONE_CHEST, BODY_ZONE_PRECISE_GROIN, BODY_ZONE_PRECISE_STOMACH, BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_L_ARM, BODY_ZONE_PRECISE_NECK, BODY_ZONE_PRECISE_R_EYE,BODY_ZONE_PRECISE_L_EYE, BODY_ZONE_PRECISE_EARS, BODY_ZONE_R_LEG, BODY_ZONE_L_LEG, BODY_ZONE_PRECISE_SKULL, BODY_ZONE_PRECISE_NOSE, BODY_ZONE_PRECISE_MOUTH)
-				if(HAS_TRAIT(L, TRAIT_CIVILIZEDBARBARIAN))
+				if(HAS_TRAIT(L, TRAIT_CIVILIZEDBARBARIAN) && !HAS_TRAIT(L, TRAIT_DEADITE)) //Non-deadite monks can hit more like feet.
 					acceptable = list(BODY_ZONE_HEAD, BODY_ZONE_R_ARM, BODY_ZONE_CHEST, BODY_ZONE_PRECISE_GROIN, BODY_ZONE_PRECISE_STOMACH, BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_L_ARM, BODY_ZONE_PRECISE_NECK, BODY_ZONE_PRECISE_R_EYE,BODY_ZONE_PRECISE_L_EYE, BODY_ZONE_PRECISE_EARS, BODY_ZONE_R_LEG, BODY_ZONE_L_LEG, BODY_ZONE_PRECISE_SKULL, BODY_ZONE_PRECISE_NOSE, BODY_ZONE_PRECISE_MOUTH, BODY_ZONE_PRECISE_R_FOOT, BODY_ZONE_PRECISE_L_FOOT)
 	else if(!(L.mobility_flags & MOBILITY_STAND) && (mobility_flags & MOBILITY_STAND)) //we are prone, victim is standing
 		if(I)
@@ -725,7 +725,6 @@
 
 /mob/living/verb/stop_pulling1()
 	set name = "Stop Pulling"
-	set category = "IC"
 	set hidden = 1
 	stop_pulling()
 
@@ -782,7 +781,6 @@
 
 /mob/living/proc/mob_sleep()
 	set name = "Sleep"
-	set category = "IC"
 	set hidden = 1
 	if(IsSleeping())
 		to_chat(src, span_warning("I am already sleeping!"))
@@ -798,7 +796,6 @@
 
 /mob/living/proc/lay_down()
 	set name = "Lay down"
-	set category = "IC"
 	set hidden = 1
 	if(stat)
 		return
@@ -810,7 +807,6 @@
 
 /mob/living/proc/stand_up()
 	set name = "Stand up"
-	set category = "IC"
 	set hidden = 1
 	if(stat)
 		return
@@ -829,7 +825,6 @@
 
 /mob/living/proc/toggle_rest()
 	set name = "Rest/Stand"
-	set category = "IC"
 	set hidden = 1
 	if(stat)
 		return
@@ -957,8 +952,13 @@
 		if(mind)
 			if(admin_revive)
 				mind.remove_antag_datum(/datum/antagonist/zombie)
-			for(var/obj/effect/proc_holder/spell/spell as anything in mind.spell_list)
-				spell.action?.build_all_button_icons()
+			for(var/spell as anything in mind.spell_list)
+				var/obj/effect/proc_holder/spell/newspell = spell
+				var/datum/action/cooldown/spell/oldspell = spell
+				if(istype(newspell))
+					newspell.action?.build_all_button_icons()
+				else if (istype(oldspell))
+					oldspell.build_all_button_icons()
 			// Reapply arcyne momentum if this mind had it before death
 			if(mind.has_arcyne_momentum && !has_status_effect(/datum/status_effect/buff/arcyne_momentum))
 				apply_status_effect(/datum/status_effect/buff/arcyne_momentum)
@@ -1140,11 +1140,14 @@
 				if(!blood_exists)
 					new /obj/effect/decal/cleanable/trail_holder(start)
 
+				var/source_color = get_blood_color() || BLOOD_COLOR_RED
 				for(var/obj/effect/decal/cleanable/trail_holder/TH in start)
 					if((!(newdir in TH.existing_dirs) || trail_type == "trails_1" || trail_type == "trails_2") && TH.existing_dirs.len <= 16) //maximum amount of overlays is 16 (all light & heavy directions filled)
 						TH.existing_dirs += newdir
 						TH.add_overlay(image('icons/effects/blood.dmi', trail_type, dir = newdir))
 						TH.transfer_mob_blood_dna(src)
+						TH.blood_color = source_color
+						TH.color = source_color
 
 /mob/living/carbon/human/makeTrail(turf/T)
 	if((NOBLOOD in dna.species.species_traits) || (INVISBLOOD in dna.species.species_traits) || !bleed_rate || bleedsuppress) //OV EDIT
@@ -1165,7 +1168,6 @@
 
 /mob/living/verb/resist()
 	set name = "Resist"
-	set category = "IC"
 	set hidden = 1
 	if(!can_resist() || surrendering)
 		return
@@ -1223,7 +1225,6 @@
 
 /mob/living/proc/submit(instant = FALSE)
 	set name = "Yield"
-	set category = "IC"
 	set hidden = 1
 	if(surrendering || stat)
 		return
@@ -1255,7 +1256,6 @@
 
 /mob/living/proc/toggle_compliance()
 	set name = "Toggle Compliance"
-	set category = "IC"
 	set hidden = 1
 
 	var/notifyme = TRUE
@@ -1491,6 +1491,7 @@
 
 	to_chat(src, span_danger("I try to remove [who]'s [what.name]..."))
 	what.add_fingerprint(src)
+
 	var/strip_delayed = what.strip_delay
 	if(enhanced_strip)
 		strip_delayed = 0.1 SECONDS
@@ -1975,10 +1976,6 @@
 	A.on_lose(src)
 	if(A.action)
 		A.action.Remove(src)
-
-/mob/living/proc/add_abilities_to_panel()
-	for(var/obj/effect/proc_holder/A in abilities)
-		statpanel("[A.panel]",A.get_panel_text(),A)
 
 /mob/living/lingcheck()
 	return LINGHIVE_NONE

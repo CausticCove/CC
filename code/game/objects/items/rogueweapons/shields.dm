@@ -29,7 +29,6 @@
 	anvilrepair = /datum/skill/craft/carpentry
 	COOLDOWN_DECLARE(shield_bang)
 	special = /datum/special_intent/limbguard
-	sellprice = 10
 
 /obj/item/rogueweapon/shield/equipped(mob/user, slot, initial)
 	. = ..()
@@ -356,7 +355,6 @@
 	parrysound = list('sound/combat/parry/shield/towershield (1).ogg','sound/combat/parry/shield/towershield (2).ogg','sound/combat/parry/shield/towershield (3).ogg')
 	max_integrity = 280
 	anvilrepair = /datum/skill/craft/weaponsmithing
-	sellprice = 15
 
 /obj/item/rogueweapon/shield/tower/holysee
 	name = "decablessed shield"
@@ -417,7 +415,6 @@
 	attacked_sound = list('sound/combat/parry/shield/metalshield (1).ogg','sound/combat/parry/shield/metalshield (2).ogg','sound/combat/parry/shield/metalshield (3).ogg')
 	parrysound = list('sound/combat/parry/shield/metalshield (1).ogg','sound/combat/parry/shield/metalshield (2).ogg','sound/combat/parry/shield/metalshield (3).ogg')
 	max_integrity = 280
-	sellprice = 30
 	anvilrepair = /datum/skill/craft/weaponsmithing
 
 /obj/item/rogueweapon/shield/tower/metal/getonmobprop(tag)
@@ -493,7 +490,6 @@
 	max_integrity = 350
 	is_silver = TRUE
 	smeltresult = /obj/item/ingot/silver
-	sellprice = 60
 
 /obj/item/rogueweapon/shield/tower/metal/psy/ComponentInitialize()
 	AddComponent(\
@@ -505,6 +501,7 @@
 		added_int = 100,\
 		added_def = 1,\
 	)
+	sellprice += 200
 
 /obj/item/rogueweapon/shield/tower/metal/alloy
 	name = "decrepit shield"
@@ -517,7 +514,6 @@
 	color = "#bb9696"
 	smeltresult = /obj/item/ingot/aaslag
 	anvilrepair = null
-	sellprice = 5
 
 /obj/item/rogueweapon/shield/tower/metal/palloy
 	name = "ancient shield"
@@ -525,7 +521,6 @@
 	unphasing prejudice. It is a reminder - one of many - that Her progress cannot be stopped."
 	icon_state = "ancientsh"
 	smeltresult = /obj/item/ingot/purifiedaalloy
-	sellprice = 5
 
 /obj/item/rogueweapon/shield/tower/raneshen
 	name = "rider shield"
@@ -537,7 +532,6 @@
 	wdefense = 11
 	max_integrity = 220 //not fully metal but not fully wood either
 	anvilrepair = /datum/skill/craft/carpentry
-	sellprice = 22
 
 /obj/item/rogueweapon/shield/tower/raneshen/getonmobprop(tag)
 	. = ..()
@@ -829,3 +823,26 @@
 				return list("shrink" = 0.6,"sx" = -5,"sy" = -1,"nx" = 6,"ny" = -1,"wx" = 0,"wy" = -2,"ex" = 0,"ey" = -2,"northabove" = 0,"southabove" = 1,"eastabove" = 1,"westabove" = 0,"nturn" = 0,"sturn" = 0,"wturn" = 0,"eturn" = 0,"nflip" = 0,"sflip" = 0,"wflip" = 0,"eflip" = 0)
 			if("onback")
 				return list("shrink" = 0.6,"sx" = 1,"sy" = 4,"nx" = 1,"ny" = 2,"wx" = 3,"wy" = 3,"ex" = -3,"ey" = 3,"nturn" = 0,"sturn" = 0,"wturn" = 0,"eturn" = 0,"nflip" = 8,"sflip" = 0,"wflip" = 0,"eflip" = 0,"northabove" = 1,"southabove" = 0,"eastabove" = 0,"westabove" = 0)
+
+/obj/item/rogueweapon/shield/tower/metal/dwarf
+	name = "dwarven shield"
+	desc = "A intricately forged kite-shield of dwarven make and use. To protect the hardiest of dwarves."
+	icon_state = "dwshield"
+	force = 22 //10% More damage, why not?
+	throw_range = 2 //Heavy
+	max_integrity = 360 //20% more integrity. It's unique and race-locked.
+	sellprice = 60
+	smeltresult = /obj/item/ingot/steel
+
+/obj/item/rogueweapon/shield/tower/metal/blacksteel
+	name = "blacksteel shield"
+	desc = "A magnificent kite shield of blacksteel. Be it knight-or-knave, those who have the strength to lift it shall yet stand against perdition."
+	icon_state = "blacksteelsh"
+	max_integrity = 400
+	force = 25
+	throwforce = 20
+	coverage = 60
+	smeltresult = /obj/item/ingot/blacksteel
+	possible_item_intents = list(/datum/intent/shield/bash/metal, /datum/intent/shield/block, /datum/intent/mace/smash/shield/metal, /datum/intent/effect/daze)
+	minstr = 11
+	wdefense = 13

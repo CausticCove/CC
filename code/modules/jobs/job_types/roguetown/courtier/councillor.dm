@@ -6,7 +6,7 @@
 	total_positions = 3
 	spawn_positions = 3
 	allowed_ages = ALL_AGES_LIST
-	allowed_races = RACES_ALL_KINDS	//Caustic edit from RACES_NO_CONSTRUCT
+	forbidden_races = list() //Caustic edit from list(RACES_CONSTRUCT RACES_DESPISED)
 	allowed_sexes = list(MALE, FEMALE)
 	display_order = JDO_COUNCILLOR
 	is_quest_giver = TRUE
@@ -100,7 +100,7 @@
 		/datum/skill/misc/swimming = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/misc/climbing = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/misc/athletics = SKILL_LEVEL_APPRENTICE,
-		/datum/skill/labor/butchering = SKILL_LEVEL_JOURNEYMAN,
+		/datum/skill/labor/butchering = SKILL_LEVEL_EXPERT,
 		/datum/skill/craft/cooking = SKILL_LEVEL_APPRENTICE,
 		// One below spear hunters
 		/datum/skill/combat/polearms = SKILL_LEVEL_APPRENTICE,

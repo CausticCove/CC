@@ -1,6 +1,6 @@
 /datum/action/cooldown/spell/augment_buff/attune_giant
 	name = "Attune: Giant"
-	desc = "Strengthen the target. (+4 Strength, grants Guidance)\nAttunement - Giant, Hawk, and Haste share a cooldown; only one may be held at a time."
+	desc = "Strengthen the target. (+4 Strength)\nAttunement - Giant, Hawk, and Haste share a cooldown; only one may be held at a time."
 	button_icon_state = "giants_strength"
 
 	invocations = list("Vis Gigantis.")

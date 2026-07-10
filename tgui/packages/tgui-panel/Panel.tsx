@@ -32,7 +32,7 @@ export function Panel(props) {
   useKeepAlive(setDismissedWarning);
 
   return (
-    <Pane theme={settings.theme} canSuspend={false}>
+    <Pane theme={settings.theme === 'leatherbound' ? 'leatherbound' : 'dark'}>
       <Stack fill vertical>
         <Stack.Item>
           <Section fitted>

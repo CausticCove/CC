@@ -6,7 +6,7 @@
 	total_positions = 1
 	spawn_positions = 1
 
-	allowed_races = ACCEPTED_RACES
+	forbidden_races = list() //Caustic Edit - Just a global tweak to remove 'races_despised' from this check everywhere
 	allowed_sexes = list(MALE, FEMALE)
 	display_order = JDO_PHYSICIAN
 	tutorial = "You are the Head Physician, master of the city clinic of Azure Peak \
