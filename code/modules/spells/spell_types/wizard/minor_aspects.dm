@@ -72,6 +72,25 @@
 		/datum/action/cooldown/spell/conjure_arcyne_ward/crystalhide,
 	)
 
+/datum/magic_aspect/lesser_kinesis
+	name = "Lesser Kinesis"
+	latin_name = "Minor Aspectus Vis"
+	desc = "TODO"
+	aspect_type = ASPECT_MINOR
+	school_color = GLOW_COLOR_KINESIS
+	binding_chants = list(
+		"Let me push and pull at the threads of force.",
+		"Vis Minor, mihi adesse!",
+	)
+	unbinding_chants = list(
+		"I release the threads of force.",
+		"Vis Minor, me relinquere!",
+	)
+	fixed_spells = list(
+		/datum/action/cooldown/spell/projectile/fetch,
+		/datum/action/cooldown/spell/projectile/repel,
+	)
+
 /datum/magic_aspect/lesser_augmentation
 	name = "Lesser Augmentation"
 	latin_name = "Minor Aspectus Augmenti"
