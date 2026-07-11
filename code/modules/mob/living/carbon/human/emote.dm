@@ -104,6 +104,15 @@
 	message = "mumbles."
 	emote_type = EMOTE_AUDIBLE
 
+/datum/emote/living/weh/carbon/human/weh
+	key = "weh"
+	key_third_person = "wehs"
+	message = "lets out a weh!"
+	message_muffled = "makes a muffled weh."
+	emote_type = EMOTE_AUDIBLE
+
+	emote("weh", intentional = TRUE)
+
 /datum/emote/living/carbon/human/pale
 	key = "pale"
 	message = "goes pale for a second."
@@ -167,3 +176,5 @@
 
 /mob/living/carbon/human/proc/CloseWings()
 	return
+
+
