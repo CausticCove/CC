@@ -111,7 +111,7 @@
 	message_muffled = "makes a muffled weh."
 	emote_type = EMOTE_AUDIBLE
 
-/mob/living/carbon/human/verb/emote_grumble()
+/mob/living/carbon/human/verb/emote_weh()
 	set name = "Weh"
 	set category = "NOISES"
 	
