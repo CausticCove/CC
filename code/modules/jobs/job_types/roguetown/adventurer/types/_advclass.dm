@@ -256,8 +256,8 @@
 				return FALSE
 
 	var/list/current_vice_limits = get_vice_limits(H)
-	if(length(vice_limits) && H.client)
-		if(has_limited_vice(H.charflaws))
+	if(length(current_vice_limits) && H.client)
+		if(has_limited_vice(H.charflaws, current_vice_limits))
 			return FALSE
 
 	if(maximum_possible_slots > -1)
