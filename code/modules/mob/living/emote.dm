@@ -1949,16 +1949,3 @@
 		
 	to_chat(src, span_warning("You can't [direction == UP ? "emerge" : "dive"] here."))
 	return FALSE
-
-/datum/emote/living/weh
-	key = "weh"
-	key_third_person = "wehs"
-	message = "lets out a weh!"
-	message_muffled = "makes a muffled weh."
-	emote_type = EMOTE_AUDIBLE
-
-/mob/living/carbon/human/verb/emote_weh()
-	set name = "Weh"
-	set category = "Noises"
-
-	emote("weh", intentional = TRUE)
