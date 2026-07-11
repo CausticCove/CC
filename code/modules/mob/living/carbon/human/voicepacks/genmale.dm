@@ -184,5 +184,7 @@
 				used = list('modular_causticcove/sound/vo/dog_snarl1.ogg', 'modular_causticcove/sound/vo/dog_snarl2.ogg', 'modular_causticcove/sound/vo/dog_snarl3.ogg')
 			if("con_squeak")
 				used = list('modular_causticcove/sound/vo/construct_squeak.ogg')
+			if("weh")
+				used = 'sound/vo/weh.ogg'
 			// Caustic Edit end
 	return used
