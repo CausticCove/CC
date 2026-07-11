@@ -255,11 +255,10 @@
 			if(istype(H.client.prefs?.virtue, virtuetype) || istype(H.client.prefs?.virtuetwo, virtuetype))
 				return FALSE
 
+	var/list/current_vice_limits = get_vice_limits(H)
 	if(length(vice_limits) && H.client)
-		for(var/vicetype in vice_limits)
-			for(var/vice in H.charflaws)
-				if(istype(vice, vicetype))
-					return FALSE
+		if(has_limited_vice(H.charflaws))
+			return FALSE
 
 	if(maximum_possible_slots > -1)
 		if(total_slots_occupied >= maximum_possible_slots)
@@ -283,4 +282,3 @@
 
 //Final proc in the set for really silly shit
 ///datum/advclass/proc/extra_slop_proc_ending(mob/living/carbon/human/H)
-

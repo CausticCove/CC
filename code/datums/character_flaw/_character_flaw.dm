@@ -910,4 +910,3 @@ GLOBAL_LIST_INIT(averse_factions, list(
 		addtimer(CALLBACK(src, PROC_REF(check_for_candidates), user), 5 SECONDS)
 
 
-
