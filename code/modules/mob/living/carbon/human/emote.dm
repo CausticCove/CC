@@ -111,6 +111,10 @@
 	message_muffled = "makes a muffled weh."
 	emote_type = EMOTE_AUDIBLE
 
+/mob/living/carbon/human/verb/emote_grumble()
+	set name = "Weh"
+	set category = "NOISES"
+	
 	emote("weh", intentional = TRUE)
 
 /datum/emote/living/carbon/human/pale
