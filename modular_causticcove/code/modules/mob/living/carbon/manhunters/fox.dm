@@ -1,4 +1,4 @@
-/mob/living/carbon/human/species/venardine/npc
+/mob/living/carbon/human/species/venardin/npc
 	name = "venardin"
 	skin_tone = DARKBROWN_FUR
 	hairstyle = "Bald"

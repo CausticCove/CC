@@ -62,8 +62,8 @@
 			pants = /obj/item/clothing/under/roguetown/trou/leather/pontifex/raneshen
 			neck = /obj/item/clothing/neck/roguetown/chaincoif/iron/aalloy
 			gloves = /obj/item/clothing/gloves/roguetown/chain/aalloy
-			r_hand = /obj/item/rogueweapon/huntingknife/idagger/navaj
-			l_hand = /obj/item/rogueweapon/huntingknife/idagger/navaj
+			r_hand = /obj/item/rogueweapon/huntingknife/idagger/navaja
+			l_hand = /obj/item/rogueweapon/huntingknife/idagger/navaja
 		if(4)
 			head = /obj/item/clothing/head/roguetown/helmet/heavy/aalloy
 			armor = /obj/item/clothing/suit/roguetown/armor/plate/cuirass/aalloy

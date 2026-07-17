@@ -7,7 +7,7 @@
 	can_blockade = TRUE
 	category = FACTION_CAT_HUMANOID
 	mob_types = list(
-		/mob/living/carbon/human/species/venardine/npc = 50,
+		/mob/living/carbon/human/species/venardin/npc = 50,
 		/mob/living/carbon/human/species/lupian/npc = 50,
 	)
 	boss_mob_types = list(

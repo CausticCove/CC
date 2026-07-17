@@ -117,7 +117,7 @@
 	H.STACON = 18
 	H.STAWIL = 14
 	H.STAINT = 15
-		shirt = /obj/item/clothing/suit/roguetown/armor/chainmail/hauberk/iron
+	shirt = /obj/item/clothing/suit/roguetown/armor/chainmail/hauberk/iron
 	
 	if(prob(15))
 		armor = /obj/item/clothing/suit/roguetown/armor/plate/full/blacksteel
