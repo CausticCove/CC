@@ -51,7 +51,7 @@
 	var/obj/item/bodypart/head/head = get_bodypart(BODY_ZONE_HEAD)
 	head.sellprice = 30
 
-	src.set_patron(/datum/patron/inhumen/graggar)
+	src.set_patron(/datum/patron/inhumen/matthios)
 	ADD_TRAIT(src, TRAIT_LEECHIMMUNE, INNATE_TRAIT)
 	ADD_TRAIT(src, TRAIT_NOMOOD, TRAIT_GENERIC)
 	ADD_TRAIT(src, TRAIT_NOHUNGER, TRAIT_GENERIC)
@@ -59,6 +59,12 @@
 	ADD_TRAIT(src, TRAIT_DUALWIELDER, TRAIT_GENERIC)
 	ADD_TRAIT(src, TRAIT_MEDIUMARMOR, TRAIT_GENERIC)
 	ADD_TRAIT(src, TRAIT_HEAVYARMOR, TRAIT_GENERIC)
+	update_hair()
+	update_body()
+	update_overlays()
+	random_voice_NPC()
+	random_eye_color_NPC()
+	src.regenerate_icons() 
 
 /datum/outfit/job/roguetown/akula_npc/pre_equip(mob/living/carbon/human/H)
 	head =  /obj/item/clothing/head/roguetown/helmet/tricorn

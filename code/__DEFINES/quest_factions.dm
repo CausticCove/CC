@@ -23,6 +23,11 @@
 #define QUEST_FACTION_EARTH_ELEMENTAL "earth_elemental"
 //CC Edit - Graggarite Quest Faction
 #define QUEST_FACTION_GRAGGARITE_SPAWN "graggarite_spawn"
+#define QUEST_FACTION_LIVRASBANDIT "livras_bandits"
+#define QUEST_FACTION_MANHUNTERS "manhunters"
+#define QUEST_FACTION_ETRUSCANPIRATE "etruscan_pirate"
+#define QUEST_FACTION_DUSTED_DEADITE "dusted_deadite"
+#define QUEST_FACTION_DUNE_RAIDERS "dune_raiders"
 
 #define FACTION_CAT_HUMANOID "humanoid"
 #define FACTION_CAT_BOG_DESERTER "bog_deserter"

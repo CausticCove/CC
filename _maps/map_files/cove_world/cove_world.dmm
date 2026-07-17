@@ -25877,6 +25877,10 @@
 /obj/machinery/light/rogue/torchholder/l,
 /turf/open/floor/rogue/cobble,
 /area/rogue/indoors/shelter)
+"eUT" = (
+/obj/effect/landmark/quest_spawner/generic,
+/turf/open/floor/rogue/cobblerock,
+/area/rogue/outdoors/mountains/decap)
 "eUX" = (
 /obj/structure/chair/wood/rogue{
 	dir = 4
@@ -50730,6 +50734,10 @@
 	},
 /turf/open/floor/rogue/ruinedwood/spiral,
 /area/rogue/indoors)
+"jBH" = (
+/obj/effect/landmark/quest_spawner/generic,
+/turf/open/floor/rogue/dirt/road,
+/area/rogue/outdoors/mountains/decap)
 "jBJ" = (
 /obj/effect/decal/edge{
 	color = "#3f3f3f";
@@ -342083,7 +342091,7 @@ bsL
 sNZ
 sNZ
 sNZ
-sNZ
+bvG
 sNZ
 sNZ
 sNZ
@@ -346181,7 +346189,7 @@ sNZ
 sNZ
 sNZ
 sNZ
-bvG
+sNZ
 bsL
 bsL
 bsL
@@ -490051,7 +490059,7 @@ kNH
 fRR
 fRR
 fRR
-fRR
+jBH
 fRR
 emo
 emo
@@ -504966,7 +504974,7 @@ eAq
 fRR
 fRR
 fRR
-emo
+eUT
 emo
 emo
 eAq
@@ -516716,7 +516724,7 @@ fRR
 fRR
 emo
 qnv
-emo
+eUT
 emo
 fRR
 fRR
