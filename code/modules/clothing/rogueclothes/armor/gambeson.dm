@@ -298,12 +298,24 @@
 	naledicolor = TRUE
 	shiftable = FALSE
 
+/obj/item/clothing/suit/roguetown/armor/gambeson/heavy/hierophant/loadout
+	name = "aesthetic hierophant's shawl"
+	armor = ARMOR_CLOTHING
+	max_integrity = ARMOR_INT_CHEST_CIVILIAN
+	armor_class = ARMOR_CLASS_NONE
+
 /obj/item/clothing/suit/roguetown/armor/gambeson/heavy/pontifex
 	name = "pontifex's kaftan"
 	icon_state = "monkleather"
 	item_state = "monkleather"
 	desc = "Tight boiled leathers that stretch and fit to one's frame perfectly."
 	shiftable = FALSE
+
+/obj/item/clothing/suit/roguetown/armor/gambeson/heavy/pontifex/loadout
+	name = "aesthetic pontifex's kaftan"
+	armor = ARMOR_CLOTHING
+	max_integrity = ARMOR_INT_CHEST_CIVILIAN
+	armor_class = ARMOR_CLASS_NONE
 
 /obj/item/clothing/suit/roguetown/armor/gambeson/heavy/inq
 	name = "inquisitorial leather tunic"
@@ -322,6 +334,11 @@
 	armor = ARMOR_PADDED
 	max_integrity = ARMOR_INT_CHEST_LIGHT_MEDIUM + ARMOR_INT_LIGHT_BETWEENTIER_MODIFIER //225
 
+/obj/item/clothing/suit/roguetown/armor/gambeson/heavy/shadowrobe/loadout
+	name = "aesthetic stalker robe"
+	armor_class = ARMOR_CLASS_NONE
+	armor = ARMOR_CLOTHING
+	max_integrity = ARMOR_INT_CHEST_CIVILIAN
 //Hand's gambeson, looks fancy
 
 /obj/item/clothing/suit/roguetown/armor/gambeson/heavy/hand

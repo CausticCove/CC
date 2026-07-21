@@ -372,8 +372,14 @@
 	item_state = "desertgown"
 	color = null
 
+/obj/item/clothing/suit/roguetown/shirt/robe/hierophant/loadout
+	name = "aesthetic hierophant's kandys"
+	armor = ARMOR_CLOTHING
+	max_integrity = ARMOR_INT_CHEST_CIVILIAN
+	armor_class = ARMOR_CLASS_NONE
+
 /obj/item/clothing/suit/roguetown/shirt/robe/pointfex
-	name = "pointfex's qaba"
+	name = "pontifex's qaba"
 	desc = "A slimmed down, tighter fitting robe made of fine silks and fabrics. Somehow you feel more mobile in it than in the nude. Despite the light fabric, it offers decent protection."
 	armor = ARMOR_PADDED
 	icon_state = "monkcloth"
@@ -381,6 +387,12 @@
 	color = null
 	r_sleeve_status = SLEEVE_NOMOD
 	l_sleeve_status = SLEEVE_NOMOD
+
+/obj/item/clothing/suit/roguetown/shirt/robe/pointfex/loadout
+	name = "aesthetic pontifex's qaba"
+	armor = ARMOR_CLOTHING
+	max_integrity = ARMOR_INT_CHEST_CIVILIAN
+	armor_class = ARMOR_CLASS_NONE
 
 /obj/item/clothing/suit/roguetown/shirt/robe/feld
 	name = "feldsher's robe"

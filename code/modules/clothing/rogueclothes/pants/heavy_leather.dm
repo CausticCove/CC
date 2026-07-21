@@ -152,6 +152,12 @@
 	icon_state = "shadowpants"
 	allowed_race = NON_DWARVEN_RACE_TYPES
 
+/obj/item/clothing/under/roguetown/heavy_leather_pants/shadowpants/loadout
+	name = "aesthetic shadowy silk tights"
+	armor_class = ARMOR_CLASS_NONE
+	armor = ARMOR_CLOTHING
+	max_integrity = ARMOR_INT_CHEST_CIVILIAN
+
 /obj/item/clothing/under/roguetown/heavy_leather_pants/shadowpants/drowraider
 	name = "custom-fit silk tights"
 	desc = "Form-fitting legwear. Almost too form-fitting. Custom-fit for its (now deceased) wearer."
