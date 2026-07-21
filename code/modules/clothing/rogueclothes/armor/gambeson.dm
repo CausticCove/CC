@@ -219,6 +219,12 @@
 	if(armor_class > ARMOR_CLASS_LIGHT)
 		AddComponent(/datum/component/armour_filtering/negative, TRAIT_IRONMAN)
 
+/obj/item/clothing/suit/roguetown/shirt/freifechter/loadout
+	name = "aesthetic fencing shirt"
+	max_integrity = ARMOR_INT_CHEST_CIVILIAN
+	armor = ARMOR_CLOTHING
+	armor_class = ARMOR_CLASS_NONE
+
 /obj/item/clothing/suit/roguetown/shirt/freifechter/shepherd
 	name = "shepherd's shirt"
 	desc = "A strong loosely worn quilted shirt that places little weight on the arms."
@@ -271,6 +277,11 @@
 		if(get_detail_color())
 			pic.color = get_detail_color()
 		add_overlay(pic)
+
+/obj/item/clothing/suit/roguetown/armor/gambeson/heavy/grenzelhoft/loadout
+	name = "aesthetic grenzelhoftian hip-shirt"
+	max_integrity = ARMOR_INT_CHEST_CIVILIAN
+	armor = ARMOR_CLOTHING
 
 /obj/item/clothing/suit/roguetown/armor/gambeson/heavy/raneshen
 	name = "padded desert coat"
