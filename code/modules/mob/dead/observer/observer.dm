@@ -64,23 +64,16 @@ GLOBAL_VAR_CONST(observer_move_delay_multiplier, 0.5)
 	var/ghostize_time = 0
 	move_resist = INFINITY
 
-/mob/dead/observer/rogue
-//	see_invisible = SEE_INVISIBLE_LIVING
-	var/misting = 0
+/mob/dead/observer/admin
+	hud_type = /datum/hud/adminghost
+	sight = SEE_TURFS | SEE_MOBS | SEE_OBJS
+	see_in_dark = 100
 	//cc edit start
 	icon = 'icons/roguetown/mob/misc.dmi'
 	icon_state = "hollow"
 	alpha = 150
 	draw_icon = TRUE
-
-/mob/dead/observer/admin
-	icon = 'icons/roguetown/mob/misc.dmi'
-	icon_state = "hollow"
-	alpha = 150
-	draw_icon = TRUE
 	//cc edit end
-	hud_type = /datum/hud/adminghost
-
 /mob/dead/observer/rogue/nodraw
 	draw_icon = FALSE
 	icon = 'icons/roguetown/mob/misc.dmi'
