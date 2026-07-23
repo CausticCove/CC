@@ -74,6 +74,7 @@ GLOBAL_VAR_CONST(observer_move_delay_multiplier, 0.5)
 	alpha = 150
 	draw_icon = TRUE
 	//cc edit end
+
 /mob/dead/observer/rogue/nodraw
 	draw_icon = FALSE
 	icon = 'icons/roguetown/mob/misc.dmi'
