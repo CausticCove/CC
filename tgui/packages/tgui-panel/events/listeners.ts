@@ -1,5 +1,6 @@
 import { loadStyleSheet } from 'common/assets';
 import { EventBus } from 'tgui-core/eventbus';
+import { setChatTheme } from 'tgui-panel/theme';
 import { playMusic, stopMusic } from '../audio/handlers';
 import { chatMessage } from '../chat/handlers';
 import { pingReply, pingSoft } from '../ping/handlers';
@@ -9,7 +10,6 @@ import {
   testTelemetryCommand,
 } from '../telemetry/handlers';
 import { handleLoadAssets } from './handlers/assets';
-import { connected } from './handlers/connected';
 import { roundrestart } from './handlers/roundrestart';
 
 const listeners = {
@@ -18,10 +18,10 @@ const listeners = {
   'audio/playMusic': playMusic,
   'audio/stopMusic': stopMusic,
   'chat/message': chatMessage,
-  connected,
   'ping/reply': pingReply,
   'ping/soft': pingSoft,
   roundrestart,
+  set_chat_theme: setChatTheme,
   'telemetry/request': telemetryRequest,
   testTelemetryCommand,
   update: handleTelemetryData,

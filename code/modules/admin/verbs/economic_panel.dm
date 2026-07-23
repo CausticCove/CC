@@ -1,7 +1,7 @@
 GLOBAL_DATUM_INIT(economic_panel, /datum/economic_panel, new)
 
 /client/proc/cmd_admin_economic_panel()
-	set category = "🛠 DEBUG.Logs"
+	set category = "DEBUG.Logs"
 	set name = "Economic Panel"
 	set desc = "Inspect and manipulate the fiscal system for testing."
 

@@ -5,7 +5,7 @@ import {
   currentPageAtom,
   currentPageIdAtom,
   mainPage,
-} from './atoms';
+} from './atom';
 import { createPage } from './model';
 import { chatRenderer } from './renderer';
 import type { Page } from './types';

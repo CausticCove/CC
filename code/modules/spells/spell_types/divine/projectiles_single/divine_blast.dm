@@ -35,6 +35,8 @@
 /obj/projectile/energy/divineblast
 	name = "Divine Blast"
 	icon_state = "divine_blast"
+	guard_deflectable = TRUE
+	expose_caster_on_deflect = TRUE
 	damage = 20 // wont do much to a divine worshipper
 	woundclass = BCLASS_STAB // divine blade!
 	nodamage = FALSE
@@ -105,11 +107,7 @@
 					H.blur_eyes(10)
 				if(/datum/patron/divine/noc)
 					H.visible_message(span_warning("Moonlight engulfs [H]"), span_warning("Moonlight engulfs me!"))
-					for(var/obj/O in range(0, H))	
-						O.extinguish()
-					for(var/mob/M in range(0, H)) // extinguish lights of target(zizo snuff pretty much but range 0 always)
-						for(var/obj/O in M.contents)
-							O.extinguish()
+					damage += (caster.get_stat(STATKEY_INT) * 2)
 				if(/datum/patron/divine/ravox)
 					H.Slowdown(2)
 				if(/datum/patron/divine/malum)

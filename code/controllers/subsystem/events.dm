@@ -86,7 +86,7 @@ SUBSYSTEM_DEF(events)
 // REEEEEEEEE
 /client/proc/forceEvent()
 	set name = "Trigger Event"
-	set category = "🕮 GM.Events"
+	set category = "GM.Events"
 	if(!holder ||!check_rights(R_FUN))
 		return
 	holder.forceEvent(usr)
@@ -96,7 +96,7 @@ SUBSYSTEM_DEF(events)
 
 /client/proc/forceGamemode()
 	set name = "Storyteller - Panel"
-	set category = "🕮 GM.Events"
+	set category = "GM.Events"
 	if(!holder ||!check_rights(R_FUN))
 		return
 	holder.forceGamemode(usr)
@@ -110,7 +110,7 @@ SUBSYSTEM_DEF(events)
 
 /client/proc/view_storyteller_vote_log()
 	set name = "View Storyteller Votelog"
-	set category = "🕮 GM.Events"
+	set category = "GM.Events"
 
 	if(!check_rights(R_ADMIN))
 		return

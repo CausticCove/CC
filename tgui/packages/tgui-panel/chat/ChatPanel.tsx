@@ -11,7 +11,7 @@ import {
   chatPagesRecordAtom,
   currentPageIdAtom,
   scrollTrackingAtom,
-} from './atoms';
+} from './atom';
 import { chatRenderer } from './renderer';
 import type { Page } from './types';
 

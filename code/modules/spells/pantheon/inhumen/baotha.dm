@@ -405,6 +405,7 @@
 /obj/projectile/magic/blowingdust
 	name = "unholy dust"
 	icon_state = "spark"
+	expose_caster_on_deflect = TRUE
 	nodamage = FALSE
 	damage = 1
 	poisontype = /datum/reagent/herozium

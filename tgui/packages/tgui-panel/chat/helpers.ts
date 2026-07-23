@@ -1,6 +1,4 @@
 import { storage } from 'common/storage';
-import { gameAtom } from 'tgui-panel/game/atoms';
-import { settingsAtom } from 'tgui-panel/settings/atoms';
 import { store } from '../events/store';
 import {
   allChatAtom,
@@ -8,15 +6,12 @@ import {
   chatPagesAtom,
   chatPagesRecordAtom,
   currentPageAtom,
-  exportEndAtom,
-  exportStartAtom,
-  lastRoundIDAtom,
   scrollTrackingAtom,
-  storedRoundsAtom,
-} from './atoms';
+} from './atom';
+import { MAX_PERSISTED_MESSAGES } from './constants';
 import { canPageAcceptType, serializeMessage } from './model';
 import { chatRenderer } from './renderer';
-import type { SerializedMessage, StoredChatSettings } from './types';
+import type { StoredChatSettings } from './types';
 
 chatRenderer.events.on(
   'batchProcessed',
@@ -75,55 +70,16 @@ export function saveChatToStorage(): void {
 }
 
 function saveChatMessages(): void {
-  const settings = store.get(settingsAtom);
-  const game = store.get(gameAtom);
-  const allChat = store.get(allChatAtom);
-  storage.set('chat-state', allChat);
+  const fromIndex = Math.max(
+    0,
+    chatRenderer.messages.length - MAX_PERSISTED_MESSAGES,
+  );
 
-  if (!game.databaseBackendEnabled) {
-    const fromIndex = Math.max(
-      0,
-      chatRenderer.messages.length - settings.persistentMessageLimit,
-    );
+  const messages = chatRenderer.messages
+    .slice(fromIndex)
+    .map((message) => serializeMessage(message));
 
-    const messages = chatRenderer.messages
-      .slice(fromIndex)
-      .map((message) => serializeMessage(message));
-
-    storage.set('chat-messages', messages);
-    storage.set(
-      'chat-messages-archive',
-      chatRenderer.archivedMessages.map((message) => serializeMessage(message)),
-    );
-  }
-}
-
-export function rebuildRoundTracking(archived: SerializedMessage[]) {
-  const storedRounds: number[] = [];
-  const storedLines: number[] = [];
-
-  let lastId: number | null = null;
-  let line = 0;
-
-  for (const msg of archived) {
-    const id = msg.roundId ?? 0;
-    if (id !== lastId) {
-      storedRounds.push(id);
-      storedLines.push(line);
-      lastId = id;
-    }
-    line++;
-  }
-
-  return { storedRounds, storedLines, lastId };
-}
-
-export function purgeMessageArchive() {
-  chatRenderer.purgeMessageArchive();
-  store.set(lastRoundIDAtom, null);
-  store.set(storedRoundsAtom, 0);
-  store.set(exportStartAtom, 0);
-  store.set(exportEndAtom, 0);
+  storage.set('chat-messages', messages);
 }
 
 export function saveChatState(state: StoredChatSettings): void {

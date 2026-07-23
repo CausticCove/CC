@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import { useBackend } from 'tgui/backend';
 import { Window } from 'tgui/layouts';
 import {

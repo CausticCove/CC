@@ -31,6 +31,8 @@
 /obj/projectile/energy/unholyblast
 	name = "Unholy Blast"
 	icon_state = "divine_blast"
+	guard_deflectable = TRUE
+	expose_caster_on_deflect = TRUE
 	damage = 20 // wont do much to a heretical worshipper
 	woundclass = BCLASS_CUT // I REALLY wanted to do cut
 	nodamage = FALSE

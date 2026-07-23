@@ -38,14 +38,15 @@ export class AudioPlayer {
     this.onStopSubscribers = [];
   }
 
-  destroy() {
+  destroy(): void {
     this.element = null;
   }
 
-  play(url: string, options: AudioOptions = {}) {
+  play(url: string, options: AudioOptions = {}): void {
     if (this.element) {
       this.stop();
     }
+
     this.options = options;
 
     const audio = new Audio(url);
@@ -95,7 +96,7 @@ export class AudioPlayer {
     });
   }
 
-  stop() {
+  stop(): void {
     if (!this.element) return;
 
     logger.log('stopping');

@@ -1,28 +1,17 @@
 import { describe, expect, it } from 'bun:test';
 
-// import { getGasColor, getGasFromId, getGasFromPath, getGasLabel } from './constants';
-import { getGasColor, getGasFromId, getGasLabel } from './constants';
+import {
+  getGasColor,
+  getGasFromId,
+  getGasFromPath,
+  getGasLabel,
+} from './constants';
 
 describe('gas helper functions', () => {
   it('should get the proper gas label', () => {
-    // Testing for alphabetic gas id
-    const gasId = 'oxygen';
+    const gasId = 'antinoblium';
     const gasLabel = getGasLabel(gasId);
-    expect(gasLabel).toBe('O₂');
-  });
-
-  it('should get the proper gas label', () => {
-    // Testing for underscore gas id
-    const gasId = 'nitrous_oxide';
-    const gasLabel = getGasLabel(gasId);
-    expect(gasLabel).toBe('N₂O');
-  });
-
-  it('should get the proper gas label', () => {
-    // Testing for wrong capitalization of two word gas
-    const gasId = 'nitrous oxide';
-    const gasLabel = getGasLabel(gasId); // This should set to Nitrous Oxide before checking
-    expect(gasLabel).toBe('N₂O');
+    expect(gasLabel).toBe('Anti-Noblium');
   });
 
   it('should get the proper gas label with a fallback', () => {
@@ -40,10 +29,10 @@ describe('gas helper functions', () => {
   });
 
   it('should get the proper gas color', () => {
-    const gasId = 'nitrous_oxide';
+    const gasId = 'antinoblium';
     const gasColor = getGasColor(gasId);
 
-    expect(gasColor).toBe('red');
+    expect(gasColor).toBe('maroon');
   });
 
   it('should return a string if no gas is found', () => {
@@ -54,15 +43,15 @@ describe('gas helper functions', () => {
   });
 
   it('should return the gas object if found', () => {
-    const gasId = 'nitrous_oxide';
+    const gasId = 'antinoblium';
     const gas = getGasFromId(gasId);
 
     expect(gas).toEqual({
-      id: 'nitrous_oxide',
-      // path: '/datum/gas/antinoblium',
-      name: 'Nitrous Oxide',
-      label: 'N₂O',
-      color: 'red',
+      id: 'antinoblium',
+      path: '/datum/gas/antinoblium',
+      name: 'Antinoblium',
+      label: 'Anti-Noblium',
+      color: 'maroon',
     });
   });
 
@@ -73,7 +62,6 @@ describe('gas helper functions', () => {
     expect(gas).toBeUndefined();
   });
 
-  /*
   it('should return the gas using a path', () => {
     const gasPath = '/datum/gas/antinoblium';
     const gas = getGasFromPath(gasPath);
@@ -86,5 +74,4 @@ describe('gas helper functions', () => {
       color: 'maroon',
     });
   });
-  */
 });

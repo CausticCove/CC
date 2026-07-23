@@ -1,6 +1,6 @@
 /client/proc/manipulate_organs(mob/living/carbon/C in world)
 	set name = "Manipulate Organs"
-	set category = "🛠 DEBUG.Mobs"
+	set category = "DEBUG.Mobs"
 	var/operation = input("Select organ operation.", "Organ Manipulation", "cancel") as null|anything in list("add organ", "drop organ", "remove organ", "cancel")
 	if (!operation)
 		return

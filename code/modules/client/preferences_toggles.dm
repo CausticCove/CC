@@ -715,7 +715,7 @@ GLOBAL_LIST_INIT(ghost_orbits, list(GHOST_ORBIT_CIRCLE,GHOST_ORBIT_TRIANGLE,GHOS
 
 /client/proc/toggleannouncelogin()
 	set name = "Do/Don't Announce Login"
-	set category = "🌣 A-PREFS.Toggles"
+	set category = "A-PREFS.Toggles"
 	set desc = ""
 	if(!holder)
 		return
@@ -737,7 +737,7 @@ GLOBAL_LIST_INIT(ghost_orbits, list(GHOST_ORBIT_CIRCLE,GHOST_ORBIT_TRIANGLE,GHOS
 
 /client/proc/toggleprayers()
 	set name = "Show/Hide Prayers"
-	set category = "🌣 A-PREFS.Toggles"
+	set category = "A-PREFS.Toggles"
 	set desc = ""
 	if(!holder)
 		return
@@ -748,7 +748,7 @@ GLOBAL_LIST_INIT(ghost_orbits, list(GHOST_ORBIT_CIRCLE,GHOST_ORBIT_TRIANGLE,GHOS
 
 /client/proc/toggle_prayer_sound()
 	set name = "Toggle Prayer Sounds"
-	set category = "🌣 A-PREFS.Sounds"
+	set category = "A-PREFS.Sounds"
 	set desc = ""
 	if(!holder)
 		return
@@ -759,7 +759,7 @@ GLOBAL_LIST_INIT(ghost_orbits, list(GHOST_ORBIT_CIRCLE,GHOST_ORBIT_TRIANGLE,GHOS
 
 /client/proc/colorasay()
 	set name = "Set Asay Color"
-	set category = "🌣 A-PREFS.Misc"
+	set category = "A-PREFS.Misc"
 	set desc = ""
 	if(!holder)
 		return
@@ -776,7 +776,7 @@ GLOBAL_LIST_INIT(ghost_orbits, list(GHOST_ORBIT_CIRCLE,GHOST_ORBIT_TRIANGLE,GHOS
 /client/proc/resetasaycolor()
 	set name = "Reset your Admin Say Color"
 	set desc = ""
-	set category = "🌣 A-PREFS.Misc"
+	set category = "A-PREFS.Misc"
 	if(!holder)
 		return
 	if(!CONFIG_GET(flag/allow_admin_asaycolor))
@@ -786,7 +786,7 @@ GLOBAL_LIST_INIT(ghost_orbits, list(GHOST_ORBIT_CIRCLE,GHOST_ORBIT_TRIANGLE,GHOS
 	prefs.save_preferences()
 
 /client/proc/hearallasghost()
-	set category = "🌣 A-PREFS.Toggles"
+	set category = "A-PREFS.Toggles"
 	set name = "HearAllAsAdmin"
 	if(!holder)
 		return
@@ -802,7 +802,7 @@ GLOBAL_LIST_INIT(ghost_orbits, list(GHOST_ORBIT_CIRCLE,GHOST_ORBIT_TRIANGLE,GHOS
 		to_chat(src, span_info("I will hear like a mortal."))
 
 /client/proc/hearglobalLOOC()
-	set category = "🌣 A-PREFS.Toggles"
+	set category = "A-PREFS.Toggles"
 	set name = "Show/Hide Global LOOC"
 	if(!holder)
 		return
@@ -816,7 +816,7 @@ GLOBAL_LIST_INIT(ghost_orbits, list(GHOST_ORBIT_CIRCLE,GHOST_ORBIT_TRIANGLE,GHOS
 		to_chat(src, span_info("I will now only hear LOOC chatter around me."))
 
 /client/proc/togglespawnmessages()
-	set category = "🌣 A-PREFS.Toggles"
+	set category = "A-PREFS.Toggles"
 	set name = "Show/Hide Spawn Logs"
 	if(!holder)
 		return

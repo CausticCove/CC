@@ -280,7 +280,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 		pred = bloc.owner
 	else
 		pred = src
-	
+
 	if(pred.client)
 		listening |= pred
 
@@ -472,7 +472,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 			if(H.devotion || (H.job in GLOB.church_positions))
 				if(H.has_status_effect(/datum/status_effect/thaumaturgical_silence))
 					continue
-				
+
 				//Check for channel types.
 				if(channel_type == SPEAKING_TO_CHURCH_ONLY) //Don't send this message to folk who aren't in the church clergy.
 				//These are messages directly from the church itself, thus they have more governing power compared to other voices that may NOT be from the church.
@@ -482,13 +482,13 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 					continue
 				else if(channel_type == SPEAKING_TO_ASCENDANTS_ONLY) //Don't send this message to folk who aren't ascendant followers.
 					if(!istype(H.patron, /datum/patron/inhumen))
-						continue 
+						continue
 					to_chat(H, span_cult("A wretched voice echoes, ''[message]''"))
 					continue
 				else if(channel_type == SPEAKING_TO_SAME_PATRONS_ONLY) //Don't send this message to folk who aren't the same patron.
 					if(H.patron != patron)
-						continue 
-					to_chat(H, span_resonate("A familiar voice echoes, ''[message]''"))
+						continue
+					to_chat(H, span_abductor("A familiar voice echoes, ''[message]''"))
 					continue
 				else
 					if(job in GLOB.church_positions)
@@ -555,7 +555,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 				listener_has_ceiling = FALSE
 		if(!hearall)
 			if((!Zs_too && !isobserver(AM)) || message_mode == MODE_WHISPER)
-				if(listener_turf.z != speaker_turf.z) //Caustic Edit - This should fix whispers not comparing the actual TILES. 
+				if(listener_turf.z != speaker_turf.z) //Caustic Edit - This should fix whispers not comparing the actual TILES.
 					continue
 		if(Zs_too && listener_turf.z != speaker_turf.z && !Zs_all)
 			if(!Zs_yell && !HAS_TRAIT(AM, TRAIT_KEENEARS) && !hearall)
@@ -575,13 +575,13 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 					var/mob/living/M = AM
 					for(var/mob/living/MH in viewers(world.view, speaker_ceiling))
 						var/turf/MH_turf = get_turf(MH)
-						if(M == MH && MH_turf.z == speaker_ceiling?.z) //Caustic Edit - This should fix whispers not comparing the actual TILES. 
+						if(M == MH && MH_turf.z == speaker_ceiling?.z) //Caustic Edit - This should fix whispers not comparing the actual TILES.
 							speaker_obstructed = FALSE
 
 				if(!listener_has_ceiling)
 					for(var/mob/living/ML in viewers(world.view, listener_ceiling))
 						var/turf/ML_turf = get_turf(ML)
-						if(ML == src && ML_turf.z == listener_ceiling?.z) //Caustic Edit - This should fix whispers not comparing the actual TILES. 
+						if(ML == src && ML_turf.z == listener_ceiling?.z) //Caustic Edit - This should fix whispers not comparing the actual TILES.
 							listener_obstructed = FALSE
 				if(listener_obstructed && speaker_obstructed)
 					continue
@@ -611,7 +611,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 			AM.Hear(eavesrendered, src, message_language, eavesdropping, , spans, message_mode, original_message)
 		else
 			AM.Hear(rendered, src, message_language, (highlighted_message ? highlighted_message : message), , spans, message_mode, original_message)
-			
+
 
 	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_LIVING_SAY_SPECIAL, src, message)
 

@@ -8,45 +8,25 @@ const viewSchema = z.object({
 
 export const settingsSchema = z.object({
   adminMusicVolume: z.number(),
-  combineMessageLimit: z.number(),
-  combineIntervalLimit: z.number(),
   fontFamily: z.string(),
   fontSize: z.number(),
-  hideImportantInAdminTab: z.boolean(),
   initialized: z.boolean(),
-  interleave: z.boolean(),
-  interleaveColor: z.string(),
   lineHeight: z.number(),
-  logEnable: z.boolean(),
-  logLimit: z.number(),
-  logLineCount: z.number(),
-  logRetainRounds: z.number(),
-  persistentMessageLimit: z.number(),
-  prependTimestamps: z.boolean(),
-  saveInterval: z.number(),
-  showReconnectWarning: z.boolean(),
   statFontSize: z.number(),
   statLinked: z.boolean(),
   statTabsStyle: z.string(),
-  storedTypes: z.record(z.string(), z.boolean()),
-  theme: z.enum(['dark', 'light']),
-  ttsCategories: z.record(z.string(), z.boolean()),
-  ttsVoice: z.string(),
   version: z.number(),
   view: viewSchema,
-  visibleMessages: z.number(),
-  visibleMessageLimit: z.number(),
 });
 
 export type HighlightSetting = {
-  blacklistText: string;
-  highlightBlacklist: boolean;
   highlightColor: string;
   highlightText: string;
   highlightWholeMessage: boolean;
   id: string;
   matchCase: boolean;
   matchWord: boolean;
+  enabled: boolean;
 };
 
 export type HighlightState = {

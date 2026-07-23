@@ -1,10 +1,10 @@
+import { RewardClause } from './RewardClause';
 import { SealLine } from './Seals';
 import {
-  capitalize,
-  caputLupinum,
-  CONDEMNATION_CAPUT_LUPINUM,
   CONDEMNATION_UTLAGATUS,
   CONDEMNATION_VOLKOMIR,
+  capitalize,
+  caputLupinum,
   indictmentItem,
   indictmentList,
   sacralPlea,
@@ -65,7 +65,8 @@ export const IndictmentList = (props: { crimes: string[] }) => {
       <ul style={indictmentList}>
         {props.crimes.map((c, i) => (
           <li key={i} style={indictmentItem}>
-            {capitalize(c)};
+            {capitalize(c)}
+            {';'}
           </li>
         ))}
       </ul>
@@ -75,8 +76,9 @@ export const IndictmentList = (props: { crimes: string[] }) => {
 
 export const SacralPlea = (props: { rulerTitle: string }) => (
   <p style={sacralPlea}>
-    Wherefore the temples of the Tens have made plea unto the {props.rulerTitle},
-    that this work be done with haste, lest further blasphemy compound the wrong.
+    Wherefore the temples of the Tens have made plea unto the {props.rulerTitle}
+    , that this work be done with haste, lest further blasphemy compound the
+    wrong.
   </p>
 );
 
@@ -93,12 +95,13 @@ const subjectNoun = (
   groupWord?: string | null,
 ) => {
   if (named) return <b>{named}</b>;
-  if (ringleader)
-    { return (
+  if (ringleader) {
+    return (
       <>
         <b>{ringleader}</b> and all who follow their banner
       </>
-    ); }
+    );
+  }
   return <>every soul of this {groupWord ?? 'gang'}</>;
 };
 
@@ -111,8 +114,8 @@ const CondemnationCaputLupinum = (props: CondemnationProps) => {
       By writ of the {rulerTitle}, and by counsel of the estates, {subject}{' '}
       {plural ? 'are' : 'is'} declared{' '}
       <span style={caputLupinum}>CAPUT LUPINUM</span>, volf
-      {plural ? "'s heads" : "'s head"}, for that a volf is a beast hated of
-      all folk.
+      {plural ? "'s heads" : "'s head"}, for that a volf is a beast hated of all
+      folk.
     </p>
   );
 };
@@ -124,10 +127,9 @@ const CondemnationUtlagatus = (props: CondemnationProps) => {
   return (
     <p style={writParagraph}>
       By writ of the {rulerTitle}, and by counsel of the estates, {subject}{' '}
-      {plural ? 'are' : 'is'} put{' '}
-      <span style={caputLupinum}>UTLAGATUS</span>, outside the law, that no
-      hand owe them bread, fire, nor roof, and that any who shelter them share
-      in their crime.
+      {plural ? 'are' : 'is'} put <span style={caputLupinum}>UTLAGATUS</span>,
+      outside the law, that no hand owe them bread, fire, nor roof, and that any
+      who shelter them share in their crime.
     </p>
   );
 };
@@ -138,8 +140,9 @@ const CondemnationVolkomir = (props: CondemnationProps) => {
   return (
     <p style={writParagraph}>
       By writ of the {rulerTitle}, and by counsel of the estates, let {subject}{' '}
-      be named <span style={caputLupinum}>VOLKOMIR</span>, volf cast out of the realm&apos;s peace. Driven
-      from every hearth and hall, harboured by no kin, mourned by no friend.
+      be named <span style={caputLupinum}>VOLKOMIR</span>, volf cast out of the
+      realm&apos;s peace. Driven from every hearth and hall, harboured by no
+      kin, mourned by no friend.
     </p>
   );
 };
@@ -152,7 +155,6 @@ export const CondemnationDeclaration = (
       return <CondemnationUtlagatus {...props} />;
     case CONDEMNATION_VOLKOMIR:
       return <CondemnationVolkomir {...props} />;
-    case CONDEMNATION_CAPUT_LUPINUM:
     default:
       return <CondemnationCaputLupinum {...props} />;
   }
@@ -161,9 +163,9 @@ export const CondemnationDeclaration = (
 export const CorruptionOfBloodClause = () => (
   <p style={{ ...writParagraph, fontStyle: 'italic' }}>
     And for that they have broken faith sworn before Ravox, their blood is held
-    corrupt: no kin of their line shall inherit name, land, or honour from
-    them, nor claim any title by their blood. The taint passes through the
-    line, and there it ends.
+    corrupt: no kin of their line shall inherit name, land, or honour from them,
+    nor claim any title by their blood. The taint passes through the line, and
+    there it ends.
   </p>
 );
 
@@ -171,25 +173,21 @@ export const LicenceToSlay = (props: {
   reward: number;
   levyRate: number;
   levyExempt: boolean;
-}) => {
-  const showLevy = !props.levyExempt && props.levyRate > 0;
-  const net = showLevy
-    ? Math.round(props.reward * (1 - props.levyRate))
-    : props.reward;
-  return (
-    <p style={writParagraph}>
-      From this day forward it is lawful for any to slay them as wolves. Upon
-      their death the writ shall fall silent and mark itself; return it then to
-      the Contract Ledger, that the bounty of <b>{props.reward} mammon</b>
-      {showLevy ? (
-        <>
-          , <b>{net} mammon</b> after the Crown&apos;s Levy
-        </>
-      ) : null}{' '}
-      be paid.
-    </p>
-  );
-};
+  guildCutRate: number;
+}) => (
+  <p style={writParagraph}>
+    From this day forward it is lawful for any to slay them as volves. Upon
+    their death the writ shall fall silent and mark itself; return it then to
+    the Contract Ledger, that the bounty of{' '}
+    <RewardClause
+      reward={props.reward}
+      levyRate={props.levyRate}
+      levyExempt={props.levyExempt}
+      guildCutRate={props.guildCutRate}
+    />{' '}
+    be paid.
+  </p>
+);
 
 export const RecoveryAddendum = (props: {
   shipment?: string | null;
@@ -213,8 +211,8 @@ export const RecoveryAddendum = (props: {
     case 'undead':
       lead = (
         <>
-          And further: strewn where the dead now wander lies {what}, dropped
-          in the breaking of lawful carriage.
+          And further: strewn where the dead now wander lies {what}, dropped in
+          the breaking of lawful carriage.
         </>
       );
       break;
@@ -248,6 +246,7 @@ export const HumanoidWrit = (props: {
   reward: number;
   levyRate: number;
   levyExempt: boolean;
+  guildCutRate: number;
   hasRecoveryAddendum: boolean;
   recoveryShipment?: string | null;
   recoveryDestination?: string | null;
@@ -278,6 +277,7 @@ export const HumanoidWrit = (props: {
       reward={props.reward}
       levyRate={props.levyRate}
       levyExempt={props.levyExempt}
+      guildCutRate={props.guildCutRate}
     />
     {props.oathBreach && <CorruptionOfBloodClause />}
     {props.hasRecoveryAddendum && (

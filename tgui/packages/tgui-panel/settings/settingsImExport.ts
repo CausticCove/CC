@@ -1,5 +1,5 @@
 import { omit } from 'es-toolkit';
-import { chatPagesRecordAtom, mainPage } from '../chat/atoms';
+import { chatPagesRecordAtom, mainPage } from '../chat/atom';
 import { startChatStateMigration } from '../chat/migration';
 import type { Page, StoredChatSettings } from '../chat/types';
 import { store } from '../events/store';

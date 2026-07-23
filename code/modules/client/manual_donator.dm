@@ -18,7 +18,7 @@ GLOBAL_VAR_INIT(donatorLoaded, 0)
 	var/keyAsCkey = ckey(key)
 	if(!GLOB.donatorLoaded)
 		load_donators()
-	
+
 	if(!keyAsCkey)
 		return FALSE
 	else
@@ -63,7 +63,7 @@ GLOBAL_VAR_INIT(donatorLoaded, 0)
 // Procs goes here
 /datum/admins/proc/admin_add_donator_verb()
 	set name = "BC - Add Donator Ckey"
-	set category = "🖳︎ SERVER.Management"
+	set category = "SERVER.Management"
 
 	var/key = input("CKey to Add", "Add Donator CKey") as null|text
 
@@ -78,7 +78,7 @@ GLOBAL_VAR_INIT(donatorLoaded, 0)
 
 /datum/admins/proc/admin_remove_donator_verb()
 	set name = "BC - Remove Donator Ckey"
-	set category = "🖳︎ SERVER.Management"
+	set category = "SERVER.Management"
 
 	var/key = input("CKey to Remove", "Remove Donator CKey") as null|anything in GLOB.donatorCkeys
 

@@ -1,7 +1,7 @@
 import { Button, Section, Stack } from 'tgui-core/components';
-import { BooleanLike } from "tgui-core/react";
+import type { BooleanLike } from "tgui-core/react";
 
-import { merchant_supply_pack } from "../../data_types/supply_pack";
+import type { merchant_supply_pack } from "../../data_types/supply_pack";
 
 type SupplyPackSectionProps = {
   pack: merchant_supply_pack
@@ -10,7 +10,7 @@ type SupplyPackSectionProps = {
   on_buy_txt?: string;
   /** Disables the submit button */
   disabled: boolean;
-  disabled_txt?: string; 
+  disabled_txt?: string;
   budget?: number;
   pricemult?: number;
   extramult?: number;
@@ -22,10 +22,10 @@ type SupplyPackSectionProps = {
 export const SupplyPackSection = (props: SupplyPackSectionProps) => {
   const { pack, budget, pricemult, extramult, tax_amt, paying_tax, currency, on_buy, on_buy_txt, disabled, disabled_txt } = props;
   // Don't you ever be supplying paying_taxt true without also supplying tax_amt Peta, worst mistake of your lyfe! Other way around as well!
-  const finalprice = ((pack.cost * ((pricemult ? pricemult : 1)+ (extramult ? extramult : 0))) + (paying_tax? tax_amt! : 0)); 
+  const finalprice = ((pack.cost * ((pricemult ? pricemult : 1)+ (extramult ? extramult : 0))) + (paying_tax? tax_amt! : 0));
   const CanBeBought = (budget ? finalprice <= budget : false);
   const CostColour = (CanBeBought ? "#00ff00" : "#ff0000");
-  let moneytype = currency ? currency : "Mammons";
+  const moneytype = currency ? currency : "Mammons";
   /* const PackContents = () => {
     return (
       <Section title="Contents">
@@ -56,7 +56,7 @@ export const SupplyPackSection = (props: SupplyPackSectionProps) => {
     <Section title={pack.name}>
       <Stack vertical>
         <Stack.Item>
-          Cost: 
+          Cost:
         </Stack.Item>
         <Stack.Item>
           <Stack.Item>
@@ -80,5 +80,5 @@ export const SupplyPackSection = (props: SupplyPackSectionProps) => {
     </Section>
   );
 
-  
+
 };

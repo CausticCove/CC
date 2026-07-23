@@ -1,5 +1,5 @@
 import type { ExtractAtomValue } from 'jotai';
-import type { sendAct } from 'tgui/events/act';
+import type { sendAct } from './act';
 import type { backendStateAtom } from './store';
 
 type BinaryIO = 0 | 1;
@@ -29,17 +29,11 @@ type User = {
   observer: number;
 };
 
-type MapData = { maxx: number; maxy: number };
-
 export type Config = {
   client: Client;
   interface: IFace;
   refreshing: BinaryIO;
   status: number;
-  map: string;
-  mapZLevel: number;
-  mapInfo: MapData;
-  theme: string;
   title: string;
   user: User;
   window: TguiWindow;

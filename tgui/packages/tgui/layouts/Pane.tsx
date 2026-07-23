@@ -4,10 +4,9 @@
  * @license MIT
  */
 
-import { useBackend } from 'tgui/backend';
 import { Box } from 'tgui-core/components';
 import { classes } from 'tgui-core/react';
-
+import { useBackend } from '../backend';
 import { Layout } from './Layout';
 
 type BoxProps = React.ComponentProps<typeof Box>;
@@ -21,6 +20,7 @@ type Props = Partial<{
 export function Pane(props: Props) {
   const { theme, canSuspend, children, className, ...rest } = props;
   const { suspended } = useBackend();
+
   const isSuspended = canSuspend && suspended;
 
   return (

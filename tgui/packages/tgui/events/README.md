@@ -20,12 +20,12 @@ There are three layers to this system:
 
 ```ts
 type ExpectedPayload = {
-  greeting: string;
+	greeting: string;
 };
 
 export function someFunc(payload: ExpectedPayload) {
-  // Do something with the payload
-  logger.log('Received: ', payload.greeting);
+	// Do something with the payload
+	logger.log('Received: ', payload.greeting);
 }
 ```
 
@@ -37,7 +37,7 @@ export function someFunc(payload: ExpectedPayload) {
 import { someFunc } from 'handlers/someFunc';
 
 export const listeners = {
-  eventType: someFunc,
+	eventType: someFunc,
 } as const;
 ```
 
@@ -45,11 +45,11 @@ You can even shorten this by naming your function the same as the event type. An
 
 ```ts
 export function myType(payload: MyPayload) {
-  logger.log('whatever!');
+	logger.log('whatever!');
 }
 
 export const listeners = {
-  myType,
+	myType,
 };
 ```
 
@@ -83,13 +83,14 @@ Byond.subscribe((type, payload) => busName.dispatch({ type, payload } as any));
 This process takes time! But it's not impossible. For the most part, backend calls can be directly extracted into a function with similar state management.
 
 > middleware.js
-> Ex:
+
+Ex:
 
 ```ts
 if (type === 'audio/playMusic') {
-  const { url, ...options } = payload;
-  player.play(url, options);
-  return next(action);
+	const { url, ...options } = payload;
+	player.play(url, options);
+	return next(action);
 }
 ```
 
@@ -97,10 +98,10 @@ Becomes:
 
 ```ts
 function audioPlayMusic(payload: PayloadType): void {
-  const { url, ...options } = payload;
-  player.play(url, options);
+	const { url, ...options } = payload;
+	player.play(url, options);
 
-  // no need to call next, it's all handled here
+	// no need to call next, it's all handled here
 }
 ```
 

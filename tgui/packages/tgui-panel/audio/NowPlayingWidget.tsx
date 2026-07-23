@@ -5,14 +5,8 @@
  */
 
 import { useAtomValue } from 'jotai';
-import {
-  Button,
-  Collapsible,
-  Knob,
-  Section,
-  Stack,
-} from 'tgui-core/components';
-
+import { Button, Collapsible, Flex, Knob, Section } from 'tgui-core/components';
+import { toFixed } from 'tgui-core/math';
 import { useSettings } from '../settings/use-settings';
 import { metaAtom, playingAtom } from './atoms';
 import { player } from './handlers';
@@ -40,11 +34,11 @@ export function NowPlayingWidget(props) {
     : upload_date;
 
   return (
-    <Stack align="center">
+    <Flex align="center">
       {playing ? (
-        <Stack.Item
+        <Flex.Item
           mx={0.5}
-          grow
+          grow={1}
           style={{
             whiteSpace: 'nowrap',
             overflow: 'hidden',
@@ -55,53 +49,52 @@ export function NowPlayingWidget(props) {
             <Collapsible title={title || 'Unknown Track'} color="blue">
               <Section>
                 {link !== 'Song Link Hidden' && (
-                  <Stack.Item grow color="label">
+                  <Flex.Item grow={1} color="label">
                     URL: <a href={link}>{link}</a>
-                  </Stack.Item>
+                  </Flex.Item>
                 )}
-                <Stack.Item grow color="label">
+                <Flex.Item grow={1} color="label">
                   Duration: {duration}
-                </Stack.Item>
+                </Flex.Item>
                 {artist !== 'Song Artist Hidden' &&
                   artist !== 'Unknown Artist' && (
-                    <Stack.Item grow color="label">
+                    <Flex.Item grow={1} color="label">
                       Artist: {artist}
-                    </Stack.Item>
+                    </Flex.Item>
                   )}
                 {album !== 'Song Album Hidden' && album !== 'Unknown Album' && (
-                  <Stack.Item grow color="label">
+                  <Flex.Item grow={1} color="label">
                     Album: {album}
-                  </Stack.Item>
+                  </Flex.Item>
                 )}
                 {upload_date !== 'Song Upload Date Hidden' &&
                   upload_date !== 'Unknown Date' && (
-                    <Stack.Item grow color="label">
+                    <Flex.Item grow={1} color="label">
                       Uploaded: {date}
-                    </Stack.Item>
+                    </Flex.Item>
                   )}
               </Section>
             </Collapsible>
           }
-        </Stack.Item>
+        </Flex.Item>
       ) : (
-        <Stack.Item grow color="label">
+        <Flex.Item grow={1} color="label">
           Nothing to play.
-        </Stack.Item>
+        </Flex.Item>
       )}
       {playing && (
-        <Stack.Item mx={0.5} fontSize="0.9em">
+        <Flex.Item mx={0.5} fontSize="0.9em">
           <Button tooltip="Stop" icon="stop" onClick={() => player.stop()} />
-        </Stack.Item>
+        </Flex.Item>
       )}
-      <Stack.Item mx={0.5} fontSize="0.9em">
+      <Flex.Item mx={0.5} fontSize="0.9em">
         <Knob
-          tickWhileDragging
           minValue={0}
           maxValue={1}
           value={settings.adminMusicVolume}
           step={0.0025}
           stepPixelSize={1}
-          format={(value) => `${(value * 100).toFixed()}%`}
+          format={(value) => `${toFixed(value * 100)}%`}
           onChange={(e, value) => {
             updateSettings({
               adminMusicVolume: value,
@@ -109,7 +102,7 @@ export function NowPlayingWidget(props) {
             player.setVolume(value);
           }}
         />
-      </Stack.Item>
-    </Stack>
+      </Flex.Item>
+    </Flex>
   );
 }

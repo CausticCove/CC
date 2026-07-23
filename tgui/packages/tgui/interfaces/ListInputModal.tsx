@@ -1,7 +1,14 @@
 import { useState } from 'react';
 import { useBackend } from 'tgui/backend';
 import { Window } from 'tgui/layouts';
-import { Autofocus, Button, Input, Section, Stack } from 'tgui-core/components';
+import {
+  Autofocus,
+  Button,
+  Divider,
+  Input,
+  Section,
+  Stack,
+} from 'tgui-core/components';
 import { isAlphabetic, isNumeric, KEY } from 'tgui-core/keys';
 
 import { InputButtons } from './common/InputButtons';
@@ -176,6 +183,7 @@ export const ListInputModal = (props) => {
                 value={searchQuery}
               />
             )}
+            {!searchBarVisible && <Divider />}
             <Stack.Item>
               <InputButtons input={filteredItems[selected]} />
             </Stack.Item>
@@ -192,8 +200,14 @@ export const ListInputModal = (props) => {
  */
 const ListDisplay = (props) => {
   const { act } = useBackend<ListInputData>();
-  const { descriptions, filteredItems, onClick, onFocusSearch, searchBarVisible, selected } =
-    props;
+  const {
+    descriptions,
+    filteredItems,
+    onClick,
+    onFocusSearch,
+    searchBarVisible,
+    selected,
+  } = props;
 
   function handleKeyDown(event: React.KeyboardEvent<HTMLDivElement>) {
     const key = event.key;

@@ -4,7 +4,6 @@ import { useEffect } from 'react';
 import { highlightsAtom, settingsAtom, settingsLoadedAtom } from './atoms';
 import { generalSettingsHandler } from './helpers';
 import { startSettingsMigration } from './migration';
-import { setDisplayScaling } from './scaling';
 import type { SettingsState } from './types';
 
 /** Custom hook that handles loading and updating settings from storage. */
@@ -29,7 +28,6 @@ export function useSettings() {
     }
 
     fetchSettings();
-    setDisplayScaling();
     setLoaded(true);
   }, []);
 
@@ -52,15 +50,5 @@ export function useSettings() {
     storeSettings(newSettings);
   }
 
-  function toggleInObject<
-    TObject extends Record<string, boolean>,
-    TKey extends keyof TObject,
-  >(object: TObject, key: TKey): TObject {
-    return {
-      ...object,
-      [key]: !object[key],
-    };
-  }
-
-  return { settings, updateSettings, toggleInObject };
+  return { settings, updateSettings };
 }

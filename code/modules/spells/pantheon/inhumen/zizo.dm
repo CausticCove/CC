@@ -282,6 +282,8 @@
 	damage = 15
 	damage_type = BRUTE
 	nodamage = FALSE
+	expose_caster_on_deflect = TRUE
+	armor_penetration = PEN_BSTEEL
 	range = SPELL_RANGE_PROJECTILE
 	speed = MAGE_PROJ_FAST
 	accuracy = 40

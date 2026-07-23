@@ -8,13 +8,12 @@
 import './styles/main.scss';
 
 import { setupGlobalEvents } from 'tgui-core/events';
+import { setupHotKeys } from 'tgui-core/hotkeys';
 import { captureExternalLinks } from 'tgui-core/links';
 import { setupHotReloading } from 'tgui-dev-server/link/client';
-
 import { App } from './App';
 import { setDebugHotKeys } from './debug/use-debug';
 import { bus } from './events/listeners';
-import { setupHotKeys } from './hotkeys';
 import { render } from './renderer';
 import { createStackAugmentor } from './stack';
 
@@ -24,7 +23,6 @@ function setupApp() {
     document.addEventListener('DOMContentLoaded', setupApp);
     return;
   }
-
   window.__augmentStack__ = createStackAugmentor();
 
   setupGlobalEvents();
@@ -38,7 +36,6 @@ function setupApp() {
 
   Byond.subscribe((type, payload) => bus.dispatch({ type, payload }));
 
-  // Dispatch incoming messages as store actions
   render(<App />);
 
   // Enable hot module reloading

@@ -9,11 +9,8 @@
 /mob/var/next_move_adjust = 0 //Amount to adjust action/click delays by, + or -
 /mob/var/next_move_modifier = 1 //Value to multiply action/click delays by
 
-// CanReach caching - weakrefs to prevent hard deletes from stale cache entries
-/mob/var/datum/weakref/last_reach_target
-/mob/var/last_reach_result
-/mob/var/last_reach_time
-/mob/var/datum/weakref/last_reach_tool
+/mob/var/tmp/list/click_mods
+/mob/var/tmp/click_params
 
 //Delays the mob's next click/action by num deciseconds
 // eg: 10-3 = 7 deciseconds of delay
@@ -127,7 +124,7 @@
 
 	if(SEND_SIGNAL(src, COMSIG_MOB_CLICKON, A, params) & COMSIG_MOB_CANCEL_CLICKON)
 		return
-	
+
 	var/mob/living/L = src
 	if(L?.wallpressed && L.m_intent == MOVE_INTENT_SNEAK && !istype(L.loc, /turf/open/transparent/openspace))
 		to_chat(src, span_warning("You need to step away from the wall first."), MESSAGE_TYPE_INFO)
@@ -573,10 +570,19 @@
 	return FALSE
 
 /atom/movable/proc/CanReach(atom/ultimate_target, obj/item/tool, view_only = FALSE)
+	var/usedreach = 1
+	if(tool)
+		usedreach = tool.reach
 	if(ismob(src))
-		var/mob/M = src
-		if(M.last_reach_target?.resolve() == ultimate_target && M.last_reach_time == world.time && M.last_reach_tool?.resolve() == tool)
-			return M.last_reach_result
+		var/mob/user = src
+		if(user.used_intent)
+			usedreach = user.used_intent.reach
+
+	if(isturf(ultimate_target))
+		var/reached = Adjacent(ultimate_target)
+		if(!reached && (tool || (!iscarbon(src) && usedreach >= 2)))
+			reached = CheckToolReach(src, ultimate_target, usedreach)
+		return reached
 
 	// A backwards depth-limited breadth-first-search to see if the target is
 	// logically "in" anything adjacent to us.
@@ -592,21 +598,8 @@
 			if(closed[target] || isarea(target))  // avoid infinity situations
 				continue
 			closed[target] = TRUE
-			var/usedreach = 1
-			if(tool)
-				usedreach = tool.reach
-			if(ismob(src))
-				var/mob/user = src
-				if(user.used_intent)
-					usedreach = user.used_intent.reach
 			if(isturf(target) || isturf(target.loc) || IsDirectlyAccessible(target)) //Directly accessible atoms
 				if(Adjacent(target) || ( (tool || (!iscarbon(src) && usedreach >= 2)) && CheckToolReach(src, target, usedreach))) //Adjacent or reaching attacks
-					if(ismob(src))
-						var/mob/M = src
-						M.last_reach_target = WEAKREF(ultimate_target)
-						M.last_reach_result = TRUE
-						M.last_reach_time = world.time
-						M.last_reach_tool = WEAKREF(tool)
 					return TRUE
 
 			if (!target.loc)
@@ -617,12 +610,6 @@
 
 		checking = next
 
-	if(ismob(src))
-		var/mob/M = src
-		M.last_reach_target = WEAKREF(ultimate_target)
-		M.last_reach_result = FALSE
-		M.last_reach_time = world.time
-		M.last_reach_tool = WEAKREF(tool)
 	return FALSE
 
 /atom/movable/proc/IsDirectlyAccessible(atom/target)
@@ -664,25 +651,32 @@ GLOBAL_LIST_EMPTY(reach_dummy_pool)
 		return FALSE
 
 	switch(reach)
-		if(0)
-			return FALSE
-		if(1)
+		if(0, 1)
 			return FALSE
 		if(2 to INFINITY)
-			var/obj/effect/dummy = new(start)
-			dummy.pass_flags |= PASSTABLE
-			dummy.movement_type = FLYING
-			dummy.invisibility = INVISIBILITY_ABSTRACT
+			var/obj/effect/dummy
+			if(length(GLOB.reach_dummy_pool))
+				dummy = GLOB.reach_dummy_pool[GLOB.reach_dummy_pool.len]
+				GLOB.reach_dummy_pool.len--
+				dummy.forceMove(start)
+			else
+				dummy = new(start)
+				dummy.name = "reach_check_dummy"
+				dummy.pass_flags |= PASSTABLE
+				dummy.movement_type = FLYING
+				dummy.invisibility = INVISIBILITY_ABSTRACT
+			. = FALSE
 			for(var/i in 1 to reach)
 				if(dummy.CanReach(there))
-					qdel(dummy)
-					return TRUE
+					. = TRUE
+					break
 				var/turf/T = get_step(dummy, get_dir(dummy, there))
 				if(!T || !dummy.Move(T))
-					qdel(dummy)
-					return FALSE
-			qdel(dummy)
-			return FALSE
+					break
+
+			dummy.moveToNullspace()
+			GLOB.reach_dummy_pool += dummy
+			return .
 
 
 // Default behavior: ignore double clicks (the second click that makes the doubleclick call already calls for a normal click)

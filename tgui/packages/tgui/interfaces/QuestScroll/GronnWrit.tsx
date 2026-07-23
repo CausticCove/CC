@@ -1,6 +1,13 @@
 import { RecoveryAddendum } from './HumanoidWrit';
+import { RewardClause } from './RewardClause';
 import { SealLine } from './Seals';
-import { capitalize, caputLupinum, indictmentItem, indictmentList, writParagraph } from './shared';
+import {
+  capitalize,
+  caputLupinum,
+  indictmentItem,
+  indictmentList,
+  writParagraph,
+} from './shared';
 
 export const GronnWrit = (props: {
   realm: string;
@@ -13,6 +20,7 @@ export const GronnWrit = (props: {
   reward: number;
   levyRate: number;
   levyExempt: boolean;
+  guildCutRate: number;
   issuedBy?: string;
   issuedOn?: string | null;
   bearer?: string;
@@ -32,6 +40,7 @@ export const GronnWrit = (props: {
     reward,
     levyRate,
     levyExempt,
+    guildCutRate,
     issuedBy,
     issuedOn,
     bearer,
@@ -40,20 +49,23 @@ export const GronnWrit = (props: {
     recoveryDestination,
     recoveryCircumstance,
   } = props;
-  const showLevy = !levyExempt && levyRate > 0;
-  const net = showLevy ? Math.round(reward * (1 - levyRate)) : reward;
   const folk = namePlural || 'raiders';
   const band = groupWord || 'warband';
 
   let subject: React.ReactNode;
   if (named) subject = <b>{named}</b>;
-  else if (ringleader)
-    { subject = (
+  else if (ringleader) {
+    subject = (
       <>
         a {band} of {folk} under one called <b>{ringleader}</b>
       </>
-    ); }
-  else subject = <>a {band} of {folk}</>;
+    );
+  } else
+    subject = (
+      <>
+        a {band} of {folk}
+      </>
+    );
 
   return (
     <>
@@ -72,7 +84,8 @@ export const GronnWrit = (props: {
           <ul style={indictmentList}>
             {crimes.map((c, i) => (
               <li key={i} style={indictmentItem}>
-                {capitalize(c)};
+                {capitalize(c)}
+                {';'}
               </li>
             ))}
           </ul>
@@ -80,20 +93,20 @@ export const GronnWrit = (props: {
       )}
       <p style={writParagraph}>
         By writ of the {rulerTitle}, and by counsel of the Holy See, let{' '}
-        {subject} be declared{' '}
-        <span style={caputLupinum}>ANATHEMA</span>: cut off from the body of
-        the faithful, harboured by no temple, mourned by no priest. Pursue them
-        upon the strand and the cliff; let them not gain the sea before steel
-        finds them.
+        {subject} be declared <span style={caputLupinum}>ANATHEMA</span>: cut
+        off from the body of the faithful, harboured by no temple, mourned by no
+        priest. Pursue them upon the strand and the cliff; let them not gain the
+        sea before steel finds them.
       </p>
       <p style={writParagraph}>
         Upon their death the writ shall fall silent and mark itself; return it
-        then to the Contract Ledger, that the bounty of <b>{reward} mammon</b>
-        {showLevy ? (
-          <>
-            , <b>{net} mammon</b> after the Crown&apos;s Levy
-          </>
-        ) : null}{' '}
+        then to the Contract Ledger, that the bounty of{' '}
+        <RewardClause
+          reward={reward}
+          levyRate={levyRate}
+          levyExempt={levyExempt}
+          guildCutRate={guildCutRate}
+        />{' '}
         be paid.
       </p>
       {hasRecoveryAddendum && (

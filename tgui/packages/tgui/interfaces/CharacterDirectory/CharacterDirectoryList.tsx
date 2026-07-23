@@ -3,7 +3,7 @@ import { useBackend } from 'tgui/backend';
 import { Button, Image, Section, Stack, Table } from 'tgui-core/components';
 
 import { SortButton } from './CharacterDirectorySortButton';
-import { getTagColor } from './constants';
+//import { getTagColor } from './constants';
 import type { mobEntry } from './types';
 
 export const CharacterDirectoryList = (props: {

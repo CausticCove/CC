@@ -12,11 +12,10 @@ import {
   Section,
   Stack,
 } from 'tgui-core/components';
-
 import { MESSAGE_TYPES } from './constants';
 import { useChatPages } from './use-chat-pages';
 
-export const ChatPageSettings = (props) => {
+export function ChatPageSettings(props) {
   const {
     page,
     moveChatLeft,
@@ -25,6 +24,7 @@ export const ChatPageSettings = (props) => {
     removeChatPage,
     toggleAcceptedType,
   } = useChatPages();
+
   return (
     <Section>
       <Stack align="center">
@@ -38,11 +38,11 @@ export const ChatPageSettings = (props) => {
             />
           </Stack.Item>
         )}
-        <Stack.Item grow>
+        <Stack.Item grow ml={0.5}>
           <Input
             fluid
             value={page.name}
-            onChange={(value) =>
+            onBlur={(value) =>
               updateChatPage({
                 name: value,
               })
@@ -73,14 +73,12 @@ export const ChatPageSettings = (props) => {
             Mute
           </Button.Checkbox>
         </Stack.Item>
-        {!page.isMain ? (
+        {!page.isMain && (
           <Stack.Item>
             <Button color="red" icon="times" onClick={removeChatPage}>
               Remove
             </Button>
           </Stack.Item>
-        ) : (
-          ''
         )}
       </Stack>
       <Divider />
@@ -112,4 +110,4 @@ export const ChatPageSettings = (props) => {
       </Section>
     </Section>
   );
-};
+}

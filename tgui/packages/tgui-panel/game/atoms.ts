@@ -2,13 +2,7 @@ import { atom } from 'jotai';
 import { lastPingedAtAtom } from '../ping/atoms';
 import { CONNECTION_LOST_AFTER } from './constants';
 
-export const roundIdAtom = atom<number | null>(null);
-export const roundTimeAtom = atom<number | null>(null);
 export const roundRestartedAtAtom = atom<number | null>(null);
-export const databaseBackendEnabledAtom = atom(false);
-export const chatlogApiEndpointAtom = atom('');
-export const databaseStoredRoundsAtom = atom<string[]>([]);
-export const userDataAtom = atom<{ ckey: string; token: string } | null>(null);
 
 /**
  * Ticking clock atom. Only runs while something is subscribed to it.
@@ -41,12 +35,6 @@ export const connectionLostAtAtom = atom<number | null>((get) => {
 //------- Convenience --------------------------------------------------------//
 
 export const gameAtom = atom((get) => ({
-  roundId: get(roundIdAtom),
-  roundTime: get(roundTimeAtom),
   roundRestartedAt: get(roundRestartedAtAtom),
   connectionLostAt: get(connectionLostAtAtom),
-  databaseBackendEnabled: get(databaseBackendEnabledAtom),
-  chatlogApiEndpoint: get(chatlogApiEndpointAtom),
-  databaseStoredRounds: get(databaseStoredRoundsAtom),
-  userData: get(userDataAtom),
 }));

@@ -7,46 +7,10 @@
 import { createUuid } from 'tgui-core/uuid';
 
 import { MESSAGE_TYPE_INTERNAL, MESSAGE_TYPES } from './constants';
-import type { Page, SerializedMessage } from './types';
+import type { Page } from './types';
 
 export function canPageAcceptType(page: Page, type: string): boolean {
   return type.startsWith(MESSAGE_TYPE_INTERNAL) || page.acceptedTypes[type];
-}
-
-export function typeIsImportant(type: string): boolean {
-  let isImportant = false;
-  for (const typeDef of MESSAGE_TYPES) {
-    if (typeDef.type === type && !!typeDef.important) {
-      isImportant = true;
-      break;
-    }
-  }
-  return isImportant;
-}
-
-export function adminPageOnly(page: Page): boolean {
-  let adminTab = true;
-  let checked = 0;
-  for (const typeDef of MESSAGE_TYPES) {
-    if (
-      page.acceptedTypes[typeDef.type] &&
-      !(!!typeDef.important || !!typeDef.admin)
-    ) {
-      adminTab = false;
-      break;
-    }
-    if (page.acceptedTypes[typeDef.type] && !typeDef.important) {
-      checked++;
-    }
-  }
-  return checked > 0 && adminTab;
-}
-
-export function canStoreType(
-  storedTypes: Record<string, boolean>,
-  type: string,
-) {
-  return storedTypes[type];
 }
 
 export function createPage(obj: Record<string, unknown> = {}): Page {
@@ -84,27 +48,18 @@ export function createMainPage(): Page {
 export function createMessage(
   payload: Record<string, unknown>,
 ): SerializedMessage {
-  return {
-    createdAt: Date.now(),
-    ...payload,
-  } as SerializedMessage;
+  return { createdAt: Date.now(), ...payload } as SerializedMessage;
 }
 
 export function serializeMessage(
   message: SerializedMessage,
-  archive = false,
 ): SerializedMessage {
-  let archiveM = '';
-  if (archive && message.node && typeof message.node !== 'string') {
-    archiveM = message.node.outerHTML.replace(/(?:\r\n|\r|\n)/g, '<br>');
-  }
   return {
     type: message.type,
     text: message.text,
-    html: archive ? archiveM : message.html,
+    html: message.html,
     times: message.times,
     createdAt: message.createdAt,
-    roundId: message.roundId,
   };
 }
 
@@ -117,3 +72,14 @@ export function isSameMessage(
     (typeof a.html === 'string' && a.html === b.html)
   );
 }
+
+type SerializedMessage = {
+  type: string;
+  createdAt: number;
+} & Partial<{
+  text: string;
+  html: string;
+  times: number;
+  node: HTMLElement;
+  avoidHighlighting: boolean;
+}>;

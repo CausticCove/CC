@@ -113,6 +113,7 @@
 		F.add_filter(BLESSED_FOOD_FILTER, 1, list("type" = "outline", "color" = "#ff00ff", "size" = 1))
 	else
 		F.add_filter(BLESSED_FOOD_FILTER, 1, list("type" = "outline", "color" = "#f0b000", "size" = 1))
+		F.rotprocess = null
 	RegisterSignal(F, COMSIG_FOOD_EATEN, .proc/on_food_eaten)
 
 /datum/component/blessed_food/proc/on_food_eaten(datum/source, mob/living/eater, mob/living/feeder)
@@ -127,15 +128,16 @@
 
 /obj/effect/proc_holder/spell/invoked/bless_food
 	name = "Bless Food"
-	invocations = list("Eora, nourish this offering!")
+	invocation_type = "emote"
+	invocations = list("waves a hand over nearby food, basking it in a vibrant light.")
 	desc = "Bless a food item. Items that take longer to eat heal slower. Skilled clergy can bless food more often. Finer food heals more. Eoran masters can make food a golden hue."
 	sound = 'sound/magic/magnet.ogg'
 	req_items = list(/obj/item/clothing/neck/roguetown/psicross)
 	devotion_cost = 25
-	recharge_time = 90 SECONDS
+	recharge_time = 60 SECONDS
 	overlay_state = "bread"
 	associated_skill = /datum/skill/magic/holy
-	var/base_recharge_time = 90 SECONDS
+	var/base_recharge_time = 60 SECONDS
 
 /obj/effect/proc_holder/spell/invoked/bless_food/cast(list/targets, mob/living/user)
 	var/obj/item/target = targets[1]

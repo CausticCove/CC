@@ -4,18 +4,6 @@ export type ChatPages = {
   chatPages: Record<string, Page>;
 };
 
-export type SerializedMessage = {
-  type: string;
-  createdAt: number;
-  roundId: number | null;
-} & Partial<{
-  text: string;
-  html: string;
-  times: number;
-  node?: HTMLElement | string;
-  avoidHighlighting: boolean;
-}>;
-
 export type Page = {
   isMain: boolean;
   id: string;

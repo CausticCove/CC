@@ -58,11 +58,9 @@ const coin = (n: number) => `${n}m`;
 
 // Reduces a decimal (like 0.5, 0.2, 0.25) to a simple X/Y fraction via gcd on
 // percentage integers. Works cleanly for the multipliers we ship (0.75, 1.2, 1.5).
-const toSimpleFraction = (decimal: number): { num: number; denom: number } => {
-  const whole = Math.round(decimal * 100);
-  const gcd = (a: number, b: number): number => (b === 0 ? a : gcd(b, a % b));
-  const g = gcd(Math.abs(whole), 100) || 1;
-  return { num: Math.abs(whole) / g, denom: 100 / g };
+const formatMultiplierDelta = (delta: number): string => {
+  const pct = Math.round(delta * 100);
+  return `${pct}%`;
 };
 
 // Turns a region's TP multiplier into a short flavor line. Returns null for baseline
@@ -74,11 +72,9 @@ const regionRewardFlavor = (
   if (typeof mult !== 'number' || mult === 1) return null;
   if (mult > 1) {
     const descriptor = mult >= 1.4 ? 'bleak' : 'dangerous';
-    const { num, denom } = toSimpleFraction(mult - 1);
-    return `${regionName} is a ${descriptor} region - contracts from that region tend to be ${num}/${denom} more lucrative.`;
+    return `${regionName} is a ${descriptor} region - contracts from that region tend to be ${formatMultiplierDelta(mult - 1)} more lucrative.`;
   }
-  const { num, denom } = toSimpleFraction(1 - mult);
-  return `${regionName} is a settled region - contracts from that region tend to be ${num}/${denom} less lucrative.`;
+  return `${regionName} is a settled region - contracts from that region tend to be ${formatMultiplierDelta(1 - mult)} less lucrative.`;
 };
 
 const FormRow = (props: { label: string; children: ReactNode }) => (
@@ -218,6 +214,35 @@ const ModeRadio = (props: {
   </label>
 );
 
+const LevyStampRow = (props: {
+  aldermanActing: boolean;
+  levyExempt: boolean;
+  onChange: (v: boolean) => void;
+}) => (
+  <FormRow label="Levy Stamp">
+    <label
+      style={
+        props.aldermanActing
+          ? { textDecoration: 'line-through', color: '#8a7250' }
+          : undefined
+      }
+      title={
+        props.aldermanActing
+          ? "The Alderman cannot waive the Crown's tax."
+          : undefined
+      }
+    >
+      <input
+        type="checkbox"
+        checked={props.levyExempt}
+        disabled={props.aldermanActing}
+        onChange={(e) => props.onChange(e.target.checked)}
+      />
+      &nbsp;Stamp as LEVY EXEMPT (waive Crown&apos;s Contract Levy)
+    </label>
+  </FormRow>
+);
+
 const ComposeView = () => {
   const { act, data } = useBackend<StewardData>();
 
@@ -254,7 +279,11 @@ const ComposeView = () => {
   const bonusPayEligible = funding !== 'directive';
   const effectiveLevel = bonusPayEligible ? bonusPayLevel : 0;
   const bonusMult =
-    effectiveLevel === 2 ? bonusFullMult : effectiveLevel === 1 ? bonusLightMult : 1;
+    effectiveLevel === 2
+      ? bonusFullMult
+      : effectiveLevel === 1
+        ? bonusLightMult
+        : 1;
   const scaledCost = effectiveLevel !== 0 ? Math.round(cost * bonusMult) : cost;
   const effectiveCost = funding === 'directive' ? 0 : scaledCost;
 
@@ -315,7 +344,7 @@ const ComposeView = () => {
       // Blockade + directive writs are always bearer-bond; ignore the mode control.
       in_hands: isBlockade || isDirective ? 1 : mode === 'hands' ? 1 : 0,
       // Directives skip the levy-exempt stamp (no reward to exempt).
-      levy_exempt: isBlockade || isDirective ? 0 : levyExempt ? 1 : 0,
+      levy_exempt: isDirective ? 0 : levyExempt ? 1 : 0,
       // Bonus Pay forced off for Requests (directive) server-side as well.
       bonus_pay_level: effectiveLevel,
       funding,
@@ -465,16 +494,17 @@ const ComposeView = () => {
               disabled={aldermanActing || directivesRemaining <= 0}
               onChange={() => setFunding('directive')}
             />
-            &nbsp;Request ({directivesRemaining}/{data.directives_per_day ?? 0} left)
+            &nbsp;Request ({directivesRemaining}/{data.directives_per_day ?? 0}{' '}
+            left)
           </label>
         </div>
       </FormRow>
 
       {funding === 'directive' && (
         <div className="ContractLedger__InnkeeperFlavor">
-          A Request calls upon someone to
-          answer out of duty. No coin changes hands; the scroll is drawn to
-          your hand and must be given directly to whoever will honour it.
+          A Request calls upon someone to answer out of duty. No coin changes
+          hands; the scroll is drawn to your hand and must be given directly to
+          whoever will honour it.
         </div>
       )}
 
@@ -504,53 +534,36 @@ const ComposeView = () => {
       )}
 
       {!isBlockade && funding !== 'directive' && (
-        <>
-          <FormRow label="Deliver As">
-            <div className="ContractLedger__InnkeeperModeRow">
-              <ModeRadio
-                value="board"
-                selected={mode}
-                onChange={setMode}
-                label="Post on public board"
-              />
-              <ModeRadio
-                value="hands"
-                selected={mode}
-                onChange={setMode}
-                label="Put in my hands"
-              />
-            </div>
-          </FormRow>
+        <FormRow label="Deliver As">
+          <div className="ContractLedger__InnkeeperModeRow">
+            <ModeRadio
+              value="board"
+              selected={mode}
+              onChange={setMode}
+              label="Post on public board"
+            />
+            <ModeRadio
+              value="hands"
+              selected={mode}
+              onChange={setMode}
+              label="Put in my hands"
+            />
+          </div>
+        </FormRow>
+      )}
 
-          <FormRow label="Levy Stamp">
-            <label
-              style={
-                aldermanActing
-                  ? { textDecoration: 'line-through', color: '#8a7250' }
-                  : undefined
-              }
-              title={
-                aldermanActing
-                  ? "The Alderman cannot waive the Crown's tax."
-                  : undefined
-              }
-            >
-              <input
-                type="checkbox"
-                checked={levyExempt}
-                disabled={aldermanActing}
-                onChange={(e) => setLevyExempt(e.target.checked)}
-              />
-              &nbsp;Stamp as LEVY EXEMPT (waive Crown&apos;s Contract Levy)
-            </label>
-          </FormRow>
-        </>
+      {funding !== 'directive' && (
+        <LevyStampRow
+          aldermanActing={aldermanActing}
+          levyExempt={levyExempt}
+          onChange={setLevyExempt}
+        />
       )}
       {isBlockade && funding !== 'directive' && (
         <div className="ContractLedger__InnkeeperFlavor">
-          Blockade writs are always drawn to your hand. Pin to a notice
-          board to require a Fellowship of three; keep in hand to dispatch a
-          trusted party directly.
+          Blockade writs are always drawn to your hand. Pin to the Grand
+          Contract Ledger to require a Fellowship of three; keep in hand to
+          dispatch a trusted party directly.
         </div>
       )}
 
@@ -580,14 +593,16 @@ const ComposeView = () => {
               ? `Print Writ (${coin(effectiveCost)})`
               : `Commission (${coin(effectiveCost)})`}
         </button>
-        {isBlockade && recallEntry?.recall_eligible && (
+        {isBlockade && !!recallEntry?.recall_eligible && (
           <button
             type="button"
             className="ContractLedger__SignButton"
             onClick={() => act('recall_blockade_writ', { region })}
           >
             Recall Writ
-            {recallEntry.refund > 0 ? ` (refund ${coin(recallEntry.refund)})` : ''}
+            {recallEntry.refund > 0
+              ? ` (refund ${coin(recallEntry.refund)})`
+              : ''}
           </button>
         )}
       </div>

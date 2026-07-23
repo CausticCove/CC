@@ -240,7 +240,7 @@
 		body += "<a class='skill-btn' href='?_src_=holder;[HrefToken()];lower_stat=[REF(M)];stat=fortune'>-</a></li>"
 		body += "</ul>"
 		body += "</div>"
-		
+
 		// Patron Section
 		body += "<div id='patron-section'>"
 		body += "<h3>Patron</h3>"
@@ -257,7 +257,7 @@
 			body += "<li>[initial(P.name)] "
 			body += "<a class='skill-btn' href='?_src_=holder;[HrefToken()];set_patron=[REF(M)];patron=[patron_type]'>Set</a></li>"
 		body += "</ul></div>"
-		
+
 
 		body += "</div>"
 		body += "</div>"
@@ -272,7 +272,7 @@
 /datum/admins/proc/admin_heal(mob/living/M in GLOB.mob_list)
 	set name = "Mob - Heal"
 	set desc = "Heal a mob to full health"
-	set category = "🕮 GM.Actions"
+	set category = "GM.Actions"
 
 	if(!check_rights())
 		return
@@ -282,7 +282,7 @@
 	log_admin("[key_name(usr)] healed [key_name(M)].")
 
 /datum/admins/proc/show_player_panel(mob/M in GLOB.mob_list)
-	set category = "🕮 GM.Info"
+	set category = "GM.Info"
 	set name = "Show Player Panel"
 	set desc="Edit player (respawn, ban, heal, etc)"
 
@@ -297,7 +297,7 @@
 /datum/admins/proc/admin_revive(mob/living/M in GLOB.mob_list)
 	set name = "Mob - Revive"
 	set desc = "Resuscitate a mob"
-	set category = "🕮 GM.Actions"
+	set category = "GM.Actions"
 
 	if(!check_rights())
 		return
@@ -323,7 +323,7 @@
 /datum/admins/proc/admin_sleep(mob/living/M in GLOB.mob_list)
 	set name = "Toggle Sleeping"
 	set desc = "Toggle a mob's sleeping state"
-	set category = "🕮 GM.Actions"
+	set category = "GM.Actions"
 
 	if(!check_rights())
 		return
@@ -341,7 +341,7 @@
 /datum/admins/proc/start_vote()
 	set name = "Start Vote"
 	set desc = "Start a vote"
-	set category = "⚡︎ ADMIN.Administration"
+	set category = "ADMIN.Administration"
 
 	if(!check_rights(R_POLL))
 		to_chat(usr, span_warning("You do not have the rights to start a vote."), MESSAGE_TYPE_ADMINLOG)
@@ -368,7 +368,7 @@
 
 	if(!check_rights())
 		return
-	
+
 	if(!M.ckey)
 		to_chat(src, span_warning("There is no ckey attached to this mob."), MESSAGE_TYPE_ADMINLOG)
 		return
@@ -424,7 +424,7 @@
 
 
 /datum/admins/proc/restart()
-	set category = "🖳︎ SERVER.Management"
+	set category = "SERVER.Management"
 	set name = "Reboot World"
 	set desc="Restarts the world immediately"
 	if (!usr.client.holder)
@@ -459,7 +459,7 @@
 					world.TgsEndProcess()
 
 /datum/admins/proc/end_round()
-	set category = "🖳︎ SERVER.Management"
+	set category = "SERVER.Management"
 	set name = "End Round"
 	set desc = ""
 
@@ -474,7 +474,7 @@
 
 
 /datum/admins/proc/announce()
-	set category = "⚡︎ ADMIN.Administration"
+	set category = "ADMIN.Administration"
 	set name = "Announce"
 	set desc="Announce your desires to the world"
 	if(!check_rights(0))
@@ -489,7 +489,7 @@
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Announce") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /datum/admins/proc/set_admin_notice()
-	set category = "⚡︎ ADMIN.Administration"
+	set category = "ADMIN.Administration"
 	set name = "Set Admin Notice"
 	set desc ="Set an announcement that appears to everyone who joins the server. Only lasts this round"
 	if(!check_rights(0))
@@ -512,7 +512,7 @@
 	return
 
 /datum/admins/proc/toggleooc()
-	set category = "🖳︎ SERVER.Management"
+	set category = "SERVER.Management"
 	set desc="Toggle dis bitch"
 	set name="Toggle OOC"
 	toggle_ooc()
@@ -521,7 +521,7 @@
 	SSblackbox.record_feedback("nested tally", "admin_toggle", 1, list("Toggle OOC", "[GLOB.ooc_allowed ? "Enabled" : "Disabled"]")) //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /datum/admins/proc/toggleoocdead()
-	set category = "🖳︎ SERVER.Management"
+	set category = "SERVER.Management"
 	set desc="Toggle dis bitch"
 	set name="Toggle Dead OOC"
 	toggle_dooc()
@@ -531,7 +531,7 @@
 	SSblackbox.record_feedback("nested tally", "admin_toggle", 1, list("Toggle Dead OOC", "[GLOB.dooc_allowed ? "Enabled" : "Disabled"]")) //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /datum/admins/proc/startnow()
-	set category = "🖳︎ SERVER.Management"
+	set category = "SERVER.Management"
 	set desc="Start the round RIGHT NOW"
 	set name="Start Now"
 	if(SSticker.current_state == GAME_STATE_PREGAME || SSticker.current_state == GAME_STATE_STARTUP)
@@ -551,7 +551,7 @@
 	return 0
 
 /datum/admins/proc/toggleenter()
-	set category = "🖳︎ SERVER.Management"
+	set category = "SERVER.Management"
 	set desc="People can't enter"
 	set name="Toggle Entering"
 	GLOB.enter_allowed = !( GLOB.enter_allowed )
@@ -594,7 +594,7 @@
 	SSblackbox.record_feedback("nested tally", "admin_toggle", 1, list("Toggle Respawn", "[!new_nores ? "Enabled" : "Disabled"]")) //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /datum/admins/proc/delay()
-	set category = "🖳︎ SERVER.Management"
+	set category = "SERVER.Management"
 	set desc="Delay the game start"
 	set name="Delay pre-game"
 
@@ -614,7 +614,7 @@
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Delay Game Start") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /datum/admins/proc/unprison(mob/M in GLOB.mob_list)
-	set category = "⚡︎ ADMIN.Administration"
+	set category = "ADMIN.Administration"
 	set name = "Unprison"
 	if (is_centcom_level(M.z))
 		SSjob.SendToLateJoin(M)
@@ -627,7 +627,7 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////ADMIN HELPER PROCS
 
 /datum/admins/proc/spawn_atom(object as text)
-	set category = "🕮 GM.Actions"
+	set category = "GM.Actions"
 	set desc = ""
 	set name = "Spawn..."
 
@@ -656,7 +656,7 @@
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Spawn Atom") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /datum/admins/proc/podspawn_atom(object as text)
-	set category = "🛠 DEBUG.Unused"
+	set category = "DEBUG.Unused"
 	set desc = ""
 	set name = "Podspawn"
 
@@ -680,7 +680,7 @@
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Podspawn Atom") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /datum/admins/proc/spawn_cargo(object as text)
-	set category = "🛠 DEBUG.Testing"
+	set category = "DEBUG.Testing"
 	set desc = ""
 	set name = "Spawn Cargo"
 
@@ -699,7 +699,7 @@
 
 
 /datum/admins/proc/show_traitor_panel(mob/M in GLOB.mob_list)
-	set category = "⚡︎ ADMIN.Info"
+	set category = "ADMIN.Info"
 	set desc = ""
 	set name = "Show Traitor Panel"
 
@@ -715,7 +715,7 @@
 
 
 /datum/admins/proc/toggletintedweldhelmets()
-	set category = "🛠 DEBUG.Testing"
+	set category = "DEBUG.Testing"
 	set desc="Reduces view range when wearing welding helmets"
 	set name="Toggle tinted welding helmes"
 	GLOB.tinted_weldhelh = !( GLOB.tinted_weldhelh )
@@ -780,7 +780,7 @@
 	browser.open()
 
 /datum/admins/proc/create_or_modify_area()
-	set category = "🛠 DEBUG.Server"
+	set category = "DEBUG.Server"
 	set name = "Create/Modify area"
 	create_area(usr)
 
@@ -886,7 +886,7 @@
 
 /datum/admins/proc/sleep_view()
 	set name = "In-View Sleep"
-	set category = "🕮 GM.Actions"
+	set category = "GM.Actions"
 	set hidden = FALSE
 
 	if(!check_rights(R_ADMIN))
@@ -901,7 +901,7 @@
 
 /datum/admins/proc/wake_view()
 	set name = "In-View Wake"
-	set category = "🕮 GM.Actions"
+	set category = "GM.Actions"
 	set hidden = FALSE
 
 	if(!check_rights(R_ADMIN))
@@ -921,7 +921,7 @@
 GLOBAL_VAR_INIT(extend_round_timestamp, 0)
 /datum/admins/proc/extend_round()
 	set name = "Extend Round"
-	set category = "🖳︎ SERVER.Management"
+	set category = "SERVER.Management"
 	set hidden = FALSE
 
 	if(!check_rights(R_ADMIN))

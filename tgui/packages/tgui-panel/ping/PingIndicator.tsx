@@ -7,17 +7,19 @@
 import { useAtomValue } from 'jotai';
 import { Color } from 'tgui-core/color';
 import { Box } from 'tgui-core/components';
+import { toFixed } from 'tgui-core/math';
 import { pingAtom } from './atoms';
 
 export function PingIndicator(props) {
   const ping = useAtomValue(pingAtom);
+
   const color = Color.lookup(ping.networkQuality, [
     new Color(220, 40, 40),
     new Color(220, 200, 40),
     new Color(60, 220, 40),
   ]).toString();
 
-  const roundtrip = ping.roundtrip ? ping.roundtrip.toFixed() : '--';
+  const roundtrip = ping.roundtrip ? toFixed(ping.roundtrip) : '--';
 
   return (
     <div className="Ping">

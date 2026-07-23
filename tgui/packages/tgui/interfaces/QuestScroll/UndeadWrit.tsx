@@ -1,4 +1,5 @@
 import { RecoveryAddendum } from './HumanoidWrit';
+import { RewardClause } from './RewardClause';
 import { SealLine } from './Seals';
 import { writParagraph } from './shared';
 
@@ -10,6 +11,7 @@ export const UndeadWrit = (props: {
   reward: number;
   levyRate: number;
   levyExempt: boolean;
+  guildCutRate: number;
   issuedBy?: string;
   issuedOn?: string | null;
   bearer?: string;
@@ -26,6 +28,7 @@ export const UndeadWrit = (props: {
     reward,
     levyRate,
     levyExempt,
+    guildCutRate,
     issuedBy,
     issuedOn,
     bearer,
@@ -34,8 +37,6 @@ export const UndeadWrit = (props: {
     recoveryDestination,
     recoveryCircumstance,
   } = props;
-  const showLevy = !levyExempt && levyRate > 0;
-  const net = showLevy ? Math.round(reward * (1 - levyRate)) : reward;
   const folk = namePlural || 'unquiet dead';
   const host = groupWord || 'host';
 
@@ -47,8 +48,8 @@ export const UndeadWrit = (props: {
       <p style={writParagraph}>
         The dead walk again upon {realm}. A {host} of {folk}, denied the rest
         that is their due, stir from earth and barrow. They bear no name worth
-        speaking, no oath worth breaking, no soul to weigh: only the wound
-        that has not closed.
+        speaking, no oath worth breaking, no soul to weigh: only the wound that
+        has not closed.
       </p>
       <p style={writParagraph}>
         <i>
@@ -58,15 +59,15 @@ export const UndeadWrit = (props: {
         </i>
       </p>
       <p style={writParagraph}>
-        Bring them down with steel, with fire, with prayer. The writ knows
-        their stirring and shall mark itself when peace is restored. Return
-        the writ to the Contract Ledger, that the bounty of{' '}
-        <b>{reward} mammon</b>
-        {showLevy ? (
-          <>
-            , <b>{net} mammon</b> after the Crown&apos;s Levy
-          </>
-        ) : null}{' '}
+        Bring them down with steel, with fire, with prayer. The writ knows their
+        stirring and shall mark itself when peace is restored. Return the writ
+        to the Contract Ledger, that the bounty of{' '}
+        <RewardClause
+          reward={reward}
+          levyRate={levyRate}
+          levyExempt={levyExempt}
+          guildCutRate={guildCutRate}
+        />{' '}
         be paid.
       </p>
       {hasRecoveryAddendum && (

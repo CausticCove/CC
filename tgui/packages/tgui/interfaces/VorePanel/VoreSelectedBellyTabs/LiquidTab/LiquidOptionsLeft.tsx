@@ -105,15 +105,16 @@ export const LiquidOptionsLeft = (props: {
             editMode={editMode}
             action="liq_set_attribute"
             subAction="b_custom_reagentcolor"
+            value_of={custom_reagentcolor}
             back_color={custom_reagentcolor}
             tooltip="Select your reagent overlay color."
-            presets={presets}
           />
           <VorePanelEditColor
             removePlaceholder
             editMode={editMode}
             action="liq_set_attribute"
             subAction="b_custom_reagentalpha"
+            value_of={custom_reagentalpha}
             back_color="#FFFFFF"
             alpha={custom_reagentalpha || 0}
             tooltip="Set your reagent overlay transparency. 0 to use the Default."
@@ -142,15 +143,16 @@ export const LiquidOptionsLeft = (props: {
             editMode={editMode}
             action="liq_set_attribute"
             subAction="b_mush_color"
+            value_of={mush_color}
             back_color={mush_color}
             tooltip="Select your mush overlay color."
-            presets={presets}
           />
           <VorePanelEditColor
             removePlaceholder
             editMode={editMode}
             action="liq_set_attribute"
             subAction="b_mush_alpha"
+            value_of={mush_alpha}
             back_color="#FFFFFF"
             alpha={mush_alpha}
             tooltip="Set your mush overlay transparency."
@@ -186,15 +188,16 @@ export const LiquidOptionsLeft = (props: {
             editMode={editMode}
             action="liq_set_attribute"
             subAction="b_custom_ingested_color"
+            value_of={custom_ingested_color}
             back_color={custom_ingested_color}
             tooltip="Select your metabolism overlay color."
-            presets={presets}
           />
           <VorePanelEditColor
             removePlaceholder
             editMode={editMode}
             action="liq_set_attribute"
             subAction="b_custom_ingested_alpha"
+            value_of={custom_ingested_alpha}
             back_color="#FFFFFF"
             alpha={custom_ingested_alpha}
             tooltip="Set your metabolism overlay transparency."

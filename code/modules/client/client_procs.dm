@@ -147,7 +147,7 @@ GLOBAL_LIST_EMPTY(respawncounts)
 	if(href_list["schizohelp"])
 		answer_schizohelp(locate(href_list["schizohelp"]))
 		return
-	
+
 	if(href_list["viewchronicle"])
 		var/tab = href_list["chronicletab"] || "The Realm"
 		show_chronicle(tab)
@@ -200,7 +200,7 @@ GLOBAL_LIST_EMPTY(respawncounts)
 	show_round_stats(pick_assoc(GLOB.featured_stats))
 
 /client/proc/cmd_admin_view_chronicle()
-	set category = "🛠 DEBUG.Logs"
+	set category = "DEBUG.Logs"
 	set name = "View Chronicle"
 	set desc = "Open the Chronicle / roundend statistics panel without waiting for round end."
 
@@ -294,8 +294,7 @@ GLOBAL_LIST_EMPTY(external_rsc_urls)
 	stat_panel = new(src, "statbrowser")
 	stat_panel.subscribe(src, PROC_REF(on_stat_panel_message))
 
-	winset(src, null, "browser-options=find,refresh") //Caustic Edit - Trying to fix the lag on storage issue that TGUI has, swapping to the iframe method instead
-
+	winset(src, null, "browser-options=find,refresh")
 	initialize_commandbar_spy()
 
 	GLOB.ahelp_tickets.ClientLogin(src)
@@ -1188,10 +1187,6 @@ GLOBAL_LIST_EMPTY(external_rsc_urls)
 /client/New()
 	..()
 	fullscreen()
-	/* //Caustic Edit - Trying to fix the lag on storage issue that TGUI has, swapping to the iframe method instead
-	if(byond_version >= 516) // Enable 516 compat browser storage mechanisms
-		winset(src, null, "browser-options=find,byondstorage")*/
-	// byondstorage,devtools <- other options
 
 /client/proc/give_award(achievement_type, mob/user)
 	return	player_details.achievements.unlock(achievement_type, mob/user)

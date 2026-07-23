@@ -96,7 +96,7 @@
 	to_chat(src, msg)
 
 /client/verb/adminwho()
-	set category = "⚡︎ ADMIN.Assistance"
+	set category = "ADMIN.Assistance"
 	set name = "Adminwho"
 	set desc = "Lists all admins currently online."
 

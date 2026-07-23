@@ -91,7 +91,8 @@
 	R.max_integrity = round(R.max_integrity * 0.5)
 	R.obj_integrity = R.max_integrity
 
-	// Mark as conjured — no salvage, no smelting
+	// Mark as conjured — no salvage, no smelting, and use Arcyne Armament
+	R.associated_skill = /datum/skill/combat/arcyne
 	R.smeltresult = null
 	R.salvage_result = null
 	R.fiber_salvage = FALSE

@@ -23,10 +23,10 @@ GLOBAL_PROTECT(agevetted_list)
 	return FALSE*/
 	///Caustic edit end
 	return TRUE
-	
+
 
 /client/proc/agevet_player()
-	set category = "🖳︎ SERVER.Management"
+	set category = "SERVER.Management"
 	set name = "BC - Add Age Vetted"
 
 	if(!check_rights())
@@ -78,7 +78,7 @@ GLOBAL_PROTECT(agevetted_list)
 	fdel(json_file)
 	WRITE_FILE(json_file,json_encode(file_data))
 
-// for more convenient host oversight and perhaps an eventual database import. 
+// for more convenient host oversight and perhaps an eventual database import.
 /proc/log_agevet_to_csv(target_ckey, admin_ckey = "SYSTEM")
 	if(IsAdminAdvancedProcCall()) // sorry for using this twice
 		return

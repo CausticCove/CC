@@ -58,6 +58,7 @@
 #define DRUID		(1<<3)
 #define ACOLYTE		(1<<4)
 #define SEXTON		(1<<5)
+#define PAINTER		(1<<6)
 
 #define BURGHERS			(1<<5)
 
@@ -175,6 +176,7 @@
 #define JDO_DRUID 5.4
 #define JDO_ACOLYTE 5.5
 #define JDO_SEXTON 5.6
+#define JDO_PAINTER 5.7
 
 // Azurian Trading Company
 #define JDO_MERCHANT 6
@@ -247,7 +249,7 @@
 	"Martyr", \
 )
 
-// START OF THE ECONOMY SECTION 
+// START OF THE ECONOMY SECTION
 #define ECONOMIC_RICH rand(120, 140)
 #define ECONOMIC_UPPER_CLASS rand(100, 120)
 #define ECONOMIC_UPPER_MIDDLE_CLASS rand(80, 100)

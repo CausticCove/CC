@@ -27,9 +27,6 @@ function setupApp() {
     return;
   }
 
-  // Force speechSynthesis to check the server for voices as soon as the chat loads, so it's ready for us
-  window.speechSynthesis.getVoices();
-
   setupGlobalEvents({
     ignoreWindowFocus: true,
   });
@@ -48,9 +45,14 @@ function setupApp() {
   });
 
   // Resize the panel to match the non-browser output
-  Byond.winget('output').then((output: { size: string }) => {
+  Byond.winget('legacy_output_selector').then((output: { size: string }) => {
+    // No idea why this always returns the correct size +4px but let's call
+    // it a BYOND moment and roll with the punches
+    const size = output.size.split('x').map((v) => Number.parseInt(v, 10));
+    size[0] -= 4;
+
     Byond.winset('browseroutput', {
-      size: output.size,
+      size: size.join('x'),
     });
   });
 

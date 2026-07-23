@@ -38,8 +38,7 @@
 		str_var += "/"
 	return ..(str_var)
 
-//Caustic Edit - Iframe Chat storage
 /datum/config_entry/string/storage_cdn_iframe
 	protection = CONFIG_ENTRY_LOCKED
+	// Note: We can use vorestation's without overlap so long as we keep storage.ts's KEY_NAME = "azure" //Caustic Edit - Swapped it to 'caust' already! But noting it here, too.
 	default = "https://vorestation.github.io/byond-client-storage/iframe.html"
-//Caustic Edit End

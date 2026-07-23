@@ -10,14 +10,18 @@ import { backendStateAtom } from './events/store';
 import { LoadingScreen } from './interfaces/common/LoadingScreen';
 import { Window } from './layouts';
 
-const requireInterface = require.context('./interfaces');
+const requireInterface = require.context(
+  './interfaces',
+  true,
+  /^(?!.*\.test\.(tsx?|jsx?)).*\.(tsx?|jsx?)$/,
+);
 
 type RoutingErrorProps = {
   type: 'notFound' | 'missingExport' | 'unknown';
   name: string;
 };
 
-export function RoutingErrorWindow(props: RoutingErrorProps) {
+function RoutingErrorWindow(props: RoutingErrorProps) {
   const { type, name } = props;
 
   return (
@@ -64,10 +68,8 @@ export function getRoutedComponent(name: string) {
   const interfacePathBuilders = [
     (name: string) => `./${name}.tsx`,
     (name: string) => `./${name}.jsx`,
-    (name: string) => `./${name}.js`,
     (name: string) => `./${name}/index.tsx`,
     (name: string) => `./${name}/index.jsx`,
-    (name: string) => `./${name}/index.js`,
   ];
 
   let esModule;

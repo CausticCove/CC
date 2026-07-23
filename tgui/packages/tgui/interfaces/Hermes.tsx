@@ -10,7 +10,7 @@ import {
 } from 'tgui-core/components';
 
 import { useBackend } from '../backend';
-import { merchant_supply_pack } from "../data_types/supply_pack";
+import type { merchant_supply_pack } from "../data_types/supply_pack";
 import { Window } from '../layouts';
 import { SupplyPackSection } from "./common/SupplyPackStack";
 
@@ -20,9 +20,20 @@ type Data = {
   paper_cost: number;
   quill_cost: number;
   letter_cost: number;
+  free_send_ready: 0 | 1;
+  free_send_remaining_ds: number;
   has_tube?: boolean;
   travellingmerchant_static?: tm_static;
   travellingmerchant?: tm;
+};
+
+const dsToClock = (ds: number) => {
+    if (ds <= 0) return '0s';
+    const totalSeconds = Math.ceil(ds / 10);
+    const minutes = Math.floor(totalSeconds / 60);
+    const seconds = totalSeconds % 60;
+    if (minutes <= 0) return `${seconds}s`;
+    return `${minutes}m ${seconds}s`;
 };
 
 type tm = {
@@ -37,7 +48,7 @@ type tm_static = {
 }
 
 type merchant_supply_pack_cat = {
-  
+
 }
 
 
@@ -45,13 +56,15 @@ type merchant_supply_pack_cat = {
 
 export const Hermes = (props: any, context: any) => {
   const { act, data } = useBackend<Data>();
-  const { balance, paper_cost, quill_cost, letter_cost, has_tube, travellingmerchant_static, travellingmerchant } = data;
+    const { balance, paper_cost, quill_cost, letter_cost, free_send_ready, free_send_remaining_ds, has_tube, travellingmerchant_static, travellingmerchant } = data;
 
   const [recipient, setRecipient] = useState('');
   const [sender, setSender] = useState('');
   const [letterContent, setLetterContent] = useState('');
 
-  const canSendLetter = balance >= letter_cost && recipient.length > 0;
+  const isFree = !!free_send_ready;
+  const canSendLetter =
+    recipient.length > 0 && (isFree || balance >= letter_cost);
   const canBuyPaper = balance >= paper_cost;
   const canBuyQuill = balance >= quill_cost;
   const canSendTube = letterContent.length > 0;
@@ -63,7 +76,7 @@ export const Hermes = (props: any, context: any) => {
     act("addToCart", { pckpath : pck.path });
   };
   const removeFromCart = (pck : merchant_supply_pack) => {
-    
+
   };
 
 
@@ -121,7 +134,11 @@ export const Hermes = (props: any, context: any) => {
 
           <Stack.Item grow>
             <Section
-              title={`Write Letter (${letter_cost} mammon)`}
+              title={
+                isFree
+                  ? 'Write Letter (free letter ready)'
+                  : `Write Letter (${letter_cost} mammon, next free in ${dsToClock(free_send_remaining_ds)})`
+              }
               fill
             >
               <Stack vertical fill>
@@ -161,6 +178,7 @@ export const Hermes = (props: any, context: any) => {
                       <Button
                         fluid
                         icon="paper-plane"
+                        color={isFree ? 'good' : undefined}
                         disabled={!canSendLetter}
                         onClick={() =>
                           act('send_letter', {
@@ -170,7 +188,7 @@ export const Hermes = (props: any, context: any) => {
                           })
                         }
                       >
-                        Send Letter
+                        {isFree ? 'Send Letter (Free)' : 'Send Letter'}
                       </Button>
                     </Stack.Item>
                     {has_tube && (
@@ -197,7 +215,7 @@ export const Hermes = (props: any, context: any) => {
             </Section>
           </Stack.Item>
           {
-            packsByCat && 
+            packsByCat &&
             (
             <Stack.Item>
               <Collapsible title="Alternatively... you could make a few deals....">
@@ -205,7 +223,7 @@ export const Hermes = (props: any, context: any) => {
                 <Collapsible title="Order a drop...">
                   <Collapsible title="Current cart">
                    {/* JSON.stringify(travellingmerchant?.currentcart, null, 4)*/}
-           {        
+           {
                       Object.keys(travellingmerchant!.currentcart).map((key) => (
                         <Stack scrollable vertical key={key}>
                         {
@@ -214,29 +232,29 @@ export const Hermes = (props: any, context: any) => {
                                   <SupplyPackSection pack={travellingmerchant!.currentcart[key][pacckey]} on_buy={() => removeFromCart(travellingmerchant!.currentcart[key][pacckey])} on_buy_txt='Remove from drop' />
                               </Stack.Item>
                           ))
-                        } 
-                          
+                        }
+
                         </Stack>
                   ))
-          } 
+          }
                   </Collapsible>
                   {Object.keys(packsByCat).map((key) => (
                     <Stack.Item key={key} style={{ marginLeft: '20px' }}>
                       <Collapsible title={key} style={{ backgroundColor: travellingmerchant!.unlockedCats.includes(key) ? "" : "grey" }}>
                         <Stack scrollable vertical>
-                        {travellingmerchant!.unlockedCats.includes(key) ? 
-                            
+                        {travellingmerchant!.unlockedCats.includes(key) ?
+
                               Object.keys(packsByCat[key]).map((pacckey) => (
                                 <Stack.Item key={pacckey} style={{ marginLeft: '20px' }}>
                                     <SupplyPackSection pack={packsByCat[key][pacckey]} budget={travellingmerchant!.favours} currency='Favours' on_buy={() => addToCart(packsByCat[key][pacckey])} on_buy_txt='Add to drop' />
                                 </Stack.Item>
                               ))
-                              
-                            
-                          : 
+
+
+                          :
                           (travellingmerchant!.catunlockspending > 0 ? <Button>Contract supplier</Button> : <Button disabled>Opportunities await...</Button>)
-                          } 
-                          
+                          }
+
                         </Stack>
                       </Collapsible>
                     </Stack.Item>
@@ -245,7 +263,7 @@ export const Hermes = (props: any, context: any) => {
                 </Collapsible>
               </Collapsible>
             </Stack.Item>)
-            
+
           }
         </Stack>
         }

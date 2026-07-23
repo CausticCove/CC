@@ -105,8 +105,11 @@
 	var/list/entries = list()
 	var/matched = 0
 	var/total = length(SStreasury.ledger)
+	var/crown_name = SStreasury.discretionary_fund?.name
 	for(var/i = total to 1 step -1)
 		var/datum/treasury_entry/E = SStreasury.ledger[i]
+		if(crown_name && E.from_name != crown_name && E.to_name != crown_name)
+			continue
 		if(filter && !findtext(E.reason, filter) && !findtext(E.from_name, filter) && !findtext(E.to_name, filter))
 			continue
 		matched++
@@ -179,6 +182,8 @@
 			"event_type" = E.event_type,
 			"days_left" = max(0, E.day_expires - GLOB.dayspassed),
 			"affected_goods" = E.affected_goods ? E.affected_goods.Copy() : list(),
+			"saturation_target" = E.saturation_target,
+			"saturation_progress" = E.saturation_progress,
 		))
 	data["active_events"] = events
 
@@ -262,37 +267,7 @@
 	data["market_rows"] = SStreasury.cached_market_rows
 	data["total_arbitrage_potential"] = SStreasury.cached_total_arbitrage_potential
 	data["autoexport_percentage"] = round(SStreasury.autoexport_percentage * 100)
-
-	// Region rows — strip static fields (name, description — come from region_catalog)
-	// and keep only mutable state (blockade flag, produces_today, demands_today).
-	var/list/region_rows = list()
-	for(var/region_id in GLOB.economic_regions)
-		var/datum/economic_region/region = GLOB.economic_regions[region_id]
-		var/list/produces = list()
-		for(var/good_id in region.produces)
-			if(!GLOB.trade_goods[good_id])
-				continue
-			produces += list(list(
-				"good_id" = good_id,
-				"total" = region.produces[good_id],
-				"today" = max(0, region.produces_today[good_id] || 0),
-			))
-		var/list/demands = list()
-		for(var/good_id in region.demands)
-			if(!GLOB.trade_goods[good_id])
-				continue
-			demands += list(list(
-				"good_id" = good_id,
-				"total" = region.demands[good_id],
-				"today" = max(0, region.demands_today[good_id] || 0),
-			))
-		region_rows += list(list(
-			"region_id" = region_id,
-			"blockaded" = region.is_region_blockaded ? TRUE : FALSE,
-			"produces" = produces,
-			"demands" = demands,
-		))
-	data["region_rows"] = region_rows
+	data["region_rows"] = SStreasury.cached_region_rows
 
 	data["auto_import"] = build_auto_import_data()
 
@@ -354,7 +329,7 @@
 		"state_label" = bankruptcy_state_label(SStreasury.treasury_state),
 	)
 
-	var/can_draw_loan = (user.job in list("Steward", "Clerk", "Grand Duke", "Hand")) && !SScity_assembly?.is_alderman(user)
+	var/can_draw_loan = (user.job in GLOB.crown_authority_roles) && !SScity_assembly?.is_alderman(user)
 	data["atc_loan"] = list(
 		"available" = (can_draw_loan && SStreasury.atc_loan_available()) ? TRUE : FALSE,
 		"can_view" = can_draw_loan ? TRUE : FALSE,
@@ -434,7 +409,7 @@
 			produces += list(list(
 				"good_id" = good_id,
 				"total" = region.produces[good_id],
-				"today" = region.produces_today[good_id] || 0,
+				"today" = max(0, region.produces_today[good_id] || 0),
 			))
 		var/list/demands = list()
 		for(var/good_id in region.demands)
@@ -443,7 +418,7 @@
 			demands += list(list(
 				"good_id" = good_id,
 				"total" = region.demands[good_id],
-				"today" = region.demands_today[good_id] || 0,
+				"today" = max(0, region.demands_today[good_id] || 0),
 			))
 		region_rows += list(list(
 			"region_id" = region_id,
@@ -993,7 +968,7 @@ GLOBAL_LIST_INIT(steward_trade_sequestration_locked_actions, list(
 			if(SScity_assembly?.is_alderman(usr))
 				to_chat(usr, span_warning("The Alderman's writ does not extend to petitioning the trade hall."))
 				return TRUE
-			if(!(usr.job in list("Steward", "Clerk", "Grand Duke")))
+			if(!(usr.job in GLOB.crown_authority_roles))
 				to_chat(usr, span_warning("Only the Steward's office may petition the trade hall."))
 				return TRUE
 			var/region_id = params["region_id"]
@@ -1008,7 +983,7 @@ GLOBAL_LIST_INIT(steward_trade_sequestration_locked_actions, list(
 			if(SScity_assembly?.is_alderman(usr))
 				to_chat(usr, span_warning("The Alderman's writ does not extend to drawing loans against the Crown."))
 				return TRUE
-			if(!(usr.job in list("Steward", "Clerk", "Grand Duke", "Hand")))
+			if(!(usr.job in GLOB.crown_authority_roles))
 				to_chat(usr, span_warning("Only the Crown's office may approach the Guilds clerk."))
 				return TRUE
 			var/amount = text2num("[params["amount"]]")

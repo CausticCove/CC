@@ -63,9 +63,6 @@ GLOBAL_VAR_INIT(mobids, 1)
 		var/datum/skill_holder/my_skill = skills
 		my_skill.current = null
 		QDEL_NULL(skills)
-	client_colours = null
-	last_reach_target = null
-	last_reach_tool = null
 	if(active_storage)
 		active_storage.hide_from(src)
 	ghostize(drawskip=TRUE)

@@ -2,7 +2,7 @@
 	name = "Monk"
 	tutorial = "You are a wandering acolyte, versed in both miracles and martial arts. You forego the hauberk that paladins wear in favor of humbling your foes through bloodless strikes. Your satchel hangs heavy, too, with ample provisions for the pilgrimage you're upon."
 	allowed_sexes = list(MALE, FEMALE)
-	
+
 	vampcompat = FALSE
 	outfit = /datum/outfit/job/roguetown/adventurer/cleric
 	category_tags = list(CTAG_ADVENTURER, CTAG_COURTAGENT)
@@ -102,8 +102,8 @@
 			mask =  /obj/item/clothing/head/roguetown/roguehood/nochood
 			cloak = /obj/item/clothing/suit/roguetown/shirt/robe/noc
 		if(/datum/patron/divine/abyssor)
-			mask = /obj/item/clothing/head/roguetown/roguehood/abyssor
-			cloak = /obj/item/clothing/suit/roguetown/shirt/robe/abyssor
+			mask = /obj/item/clothing/head/roguetown/roguehood/abyssor_painter
+			cloak = /obj/item/clothing/suit/roguetown/shirt/robe/abyssor_painter
 		if(/datum/patron/divine/dendor)
 			mask = /obj/item/clothing/head/roguetown/dendormask
 			cloak = /obj/item/clothing/suit/roguetown/shirt/robe/dendor
@@ -232,7 +232,7 @@
 	shoes = /obj/item/clothing/shoes/roguetown/boots/leather/reinforced
 	gloves = /obj/item/clothing/gloves/roguetown/chain
 	backpack_contents = list(
-		/obj/item/flashlight/flare/torch/metal = 1, 
+		/obj/item/flashlight/flare/torch/metal = 1,
 		/obj/item/recipe_book/survival = 1,
 		/obj/item/storage/belt/rogue/pouch/coins/poor = 1,
 		)
@@ -653,8 +653,8 @@
 			H.adjust_skillrank(/datum/skill/misc/reading, SKILL_LEVEL_NOVICE, TRUE)
 			H.adjust_skillrank(/datum/skill/craft/alchemy, SKILL_LEVEL_APPRENTICE, TRUE)
 		if(/datum/patron/divine/abyssor)
-			head = /obj/item/clothing/head/roguetown/roguehood/abyssor
-			cloak = /obj/item/clothing/suit/roguetown/shirt/robe/abyssor
+			head = /obj/item/clothing/head/roguetown/roguehood/abyssor_painter
+			cloak = /obj/item/clothing/suit/roguetown/shirt/robe/abyssor_painter
 			H.adjust_skillrank(/datum/skill/misc/swimming, SKILL_LEVEL_NOVICE, TRUE)
 			H.adjust_skillrank(/datum/skill/labor/fishing, SKILL_LEVEL_NOVICE, TRUE)
 		if(/datum/patron/divine/dendor)
@@ -702,7 +702,7 @@
 			H.adjust_skillrank(/datum/skill/misc/athletics, SKILL_LEVEL_NOVICE, TRUE)
 			ADD_TRAIT(H, TRAIT_STEELHEARTED, TRAIT_GENERIC)
 		if(/datum/patron/inhumen/zizo)
-			cloak = /obj/item/clothing/suit/roguetown/shirt/robe 
+			cloak = /obj/item/clothing/suit/roguetown/shirt/robe
 			head = /obj/item/clothing/head/roguetown/roguehood
 			H.mind?.AddSpell(new /datum/action/cooldown/spell/minion_order)
 			H.mind?.AddSpell(new /datum/action/cooldown/spell/gravemark)

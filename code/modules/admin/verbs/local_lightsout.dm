@@ -1,5 +1,5 @@
 /client/proc/local_lightsout()
-	set category = "🕮 GM.Actions"
+	set category = "GM.Actions"
 	set name = "Local Lightsout"
 
 	if(!check_rights(R_ADMIN))

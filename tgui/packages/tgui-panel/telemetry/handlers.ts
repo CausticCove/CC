@@ -6,9 +6,6 @@
 
 import { storage } from 'common/storage';
 import { createLogger } from 'tgui/logging';
-import { store } from '../events/store';
-import { userDataAtom } from '../game/atoms';
-import type { TelemetryUpdatePayload } from '../game/types';
 import { MAX_CONNECTIONS_STORED } from './constants';
 import { type ConnectionRecord, connectionsMatch } from './helpers';
 
@@ -25,7 +22,7 @@ type TelemetryRequestPayload = {
 const logger = createLogger('telemetry');
 
 let telemetry: Telemetry | null = null;
-let wasRequestedWithPayload: TelemetryRequestPayload | null = null;
+let wasRequestedWithPayload;
 
 export function telemetryRequest(payload: TelemetryRequestPayload): void {
   // Defer telemetry request until we have the actual telemetry
@@ -50,6 +47,12 @@ export function testTelemetryCommand() {
   }, 500);
 }
 
+type TelemetryUpdatePayload = {
+  config: {
+    client: ConnectionRecord;
+  };
+};
+
 export async function handleTelemetryData(
   payload: TelemetryUpdatePayload,
 ): Promise<void> {
@@ -59,10 +62,6 @@ export async function handleTelemetryData(
     logger.error('backend/update payload is missing client data!');
     return;
   }
-  store.set(userDataAtom, {
-    ckey: payload.config.client.ckey,
-    token: payload.config.client.chatlog_token,
-  });
 
   // Load telemetry
   if (!telemetry) {

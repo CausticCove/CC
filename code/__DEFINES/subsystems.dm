@@ -142,7 +142,7 @@
 #define INIT_ORDER_ASSETS			-4
 #define INIT_ORDER_ICON_SMOOTHING	-5
 #define INIT_ORDER_OVERLAY			-6
-#define INIT_ORDER_TGUI				-7 //Caustic Edit - Porting over the Iframe storage for chat
+#define INIT_ORDER_TGUI				-7
 #define INIT_ORDER_XKEYSCORE		-10
 #define INIT_ORDER_STICKY_BAN		-10
 #define INIT_ORDER_LIGHTING			-20

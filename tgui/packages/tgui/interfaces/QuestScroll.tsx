@@ -123,7 +123,9 @@ const MarginaliaSection = (props: MarginaliaSectionProps) => {
       )}
       {!!data.caravan_parcel_spawned && !data.complete && (
         <div style={marginaliaLine}>
-          <i>The smith has reached the wreck. The strongbox is yours to recover.</i>
+          <i>
+            The smith has reached the wreck. The strongbox is yours to recover.
+          </i>
         </div>
       )}
       {!!data.caravan_expired && (
@@ -133,7 +135,10 @@ const MarginaliaSection = (props: MarginaliaSectionProps) => {
       )}
       {hasOreveinAwaitingArrival && (
         <div style={marginaliaLine}>
-          <i>Reach the strike to make the earth erupt. The miner must be at your side.</i>
+          <i>
+            Reach the strike to make the earth erupt. The miner must be at your
+            side.
+          </i>
         </div>
       )}
       {hasOreveinTimer && (
@@ -168,6 +173,7 @@ type WritBodyProps = {
   reward: number;
   levyRate: number;
   levyExempt: boolean;
+  guildCutRate: number;
   bearer?: string;
   issuedBy?: string;
   crimes: string[];
@@ -182,6 +188,7 @@ const WritBody = (props: WritBodyProps) => {
     reward,
     levyRate,
     levyExempt,
+    guildCutRate,
     bearer,
     issuedBy,
     crimes,
@@ -201,7 +208,7 @@ const WritBody = (props: WritBodyProps) => {
     named: data.named_target,
     ringleader: data.band_leader,
   };
-  const rewardProps = { reward, levyRate, levyExempt };
+  const rewardProps = { reward, levyRate, levyExempt, guildCutRate };
   const recoveryProps = {
     hasRecoveryAddendum,
     recoveryShipment: data.recovery_shipment,
@@ -238,7 +245,6 @@ const WritBody = (props: WritBodyProps) => {
   if (data.writ_type === WRIT_TYPE_TOWNER_VEIN) {
     return (
       <OreVeinWrit
-        realm={realm}
         pickupRegion={data.pickup_region}
         {...rewardProps}
         {...sealProps}
@@ -324,7 +330,12 @@ export const QuestScroll = () => {
 
   if (data.empty) {
     return (
-      <Window title="Contract Scroll" width={520} height={620} theme="parchment">
+      <Window
+        title="Contract Scroll"
+        width={520}
+        height={620}
+        theme="parchment"
+      >
         <Window.Content scrollable>
           <div style={parchment}>
             <div style={{ textAlign: 'center', fontStyle: 'italic' }}>
@@ -339,6 +350,7 @@ export const QuestScroll = () => {
   const realm = data.realm_name || 'the realm';
   const levyRate = data.levy_rate ?? 0;
   const levyExempt = !!data.levy_exempt;
+  const guildCutRate = data.guild_cut_rate ?? 0;
   const rulerTitle = data.ruler_title || 'Duke';
   const reward = data.reward ?? 0;
   const bearer = data.issued_to || undefined;
@@ -409,6 +421,7 @@ export const QuestScroll = () => {
               reward={reward}
               levyRate={levyRate}
               levyExempt={levyExempt}
+              guildCutRate={guildCutRate}
               bearer={bearer}
               issuedBy={issuedBy}
               crimes={crimes}

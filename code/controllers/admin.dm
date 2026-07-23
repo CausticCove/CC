@@ -46,7 +46,7 @@ INITIALIZE_IMMEDIATE(/obj/effect/statclick)
 
 // Debug verbs.
 /client/proc/restart_controller(controller in list("Master", "Failsafe"))
-	set category = "🛠 DEBUG.Server"
+	set category = "DEBUG.Server"
 	set name = "Restart Controller"
 	set desc = ""
 

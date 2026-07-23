@@ -159,6 +159,10 @@ INITIALIZE_IMMEDIATE(/obj/effect/landmark)
 	name = "Keeper"
 	icon_state = "arrow"
 
+/obj/effect/landmark/start/painter
+	name = "Painter"
+	icon_state = "arrow"
+
 /obj/effect/landmark/start/bishop
 	name = "Bishop"
 	icon_state = "arrow"

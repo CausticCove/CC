@@ -15,6 +15,7 @@ type UnreadCountWidgetProps = {
 
 function UnreadCountWidget(props: UnreadCountWidgetProps) {
   const { value } = props;
+
   return <Box className="UnreadCount">{Math.min(value, 99)}</Box>;
 }
 
@@ -27,7 +28,7 @@ export function ChatTabs(props) {
   return (
     <Stack align="center">
       <Stack.Item>
-        <Tabs textAlign="center">
+        <Tabs scrollable textAlign="center">
           {pages.map((page) => {
             const actual = pagesRecord[page];
             return (
@@ -45,7 +46,7 @@ export function ChatTabs(props) {
           })}
         </Tabs>
       </Stack.Item>
-      <Stack.Item ml={1}>
+      <Stack.Item>
         <Button
           color="transparent"
           icon="plus"

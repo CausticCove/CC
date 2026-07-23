@@ -43,6 +43,19 @@
 	src.pooled = pooled
 	if(pooled)
 		src.pool_index = TGUI_WINDOW_INDEX(id)
+	RegisterSignal(client, COMSIG_PARENT_QDELETING, PROC_REF(handle_client_qdel))
+
+/datum/tgui_window/proc/handle_client_qdel()
+	SIGNAL_HANDLER
+	client = null
+	qdel(src)
+
+/datum/tgui_window/Destroy()
+	if(client)
+		UnregisterSignal(client, COMSIG_PARENT_QDELETING)
+		client.tgui_windows -= id
+		client = null
+	return ..()
 
 /**
  * public
@@ -119,7 +132,7 @@
 	// Detect whether the control is a browser
 	is_browser = winexists(client, id) == "BROWSER"
 	// Instruct the client to signal UI when the window is closed.
-	if(!is_browser)
+	if(!is_browser && client)
 		winset(client, id, "on-close=\"uiclose [id]\"")
 
 /**
@@ -385,7 +398,7 @@
 		if("oversizedPayloadRequest")
 			var/payload_id = payload["id"]
 			var/chunk_count = payload["chunkCount"]
-			var/permit_payload = chunk_count <= MAX_MESSAGE_CHUNKS
+			var/permit_payload = chunk_count <= TGUI_MAX_CHUNKS
 			if(permit_payload)
 				create_oversized_payload(payload_id, payload["type"], chunk_count)
 			send_message("oversizePayloadResponse", list("allow" = permit_payload, "id" = payload_id))

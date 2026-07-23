@@ -113,7 +113,7 @@
 	// Centered container with left-aligned content
 	data += "<div style='text-align: center;'>"
 	data += "<div style='display: inline-block; text-align: left; margin-left: auto; margin-right: auto;'>"
-	
+
 	var/stat_is_object = GLOB.featured_stats[current_featured]["object_stat"]
 	var/stat_is_admin_only = GLOB.featured_stats[current_featured]["admin_only"]
 	var/has_entries = length(GLOB.featured_stats[current_featured]["entries"])
@@ -262,7 +262,7 @@
 	data += "<div style='margin: 35px;'>"
 	switch(tab)
 		if("Gods")
-		
+
 			// Gods' Interventions Section
 			data += "<div>"
 			data += "<div style='text-align: center; color: #e0e0f0; font-size: 1.2em; margin-bottom: 10px;'>GODS' INTERVENTIONS</div>"
@@ -358,7 +358,7 @@
 
 				data += "</div>"
 
-		
+
 		if("Messages")
 			data += "<div style='display: table; width: 100%; table-layout: fixed;'>"
 			data += "<div style='display: table-row;'>"
@@ -1050,6 +1050,6 @@
 /// Global proc to show debug version of gods influences
 /client/proc/debug_influences()
 	set name = "Debug Gods' Influences"
-	set category = "🛠 DEBUG.Logs"
+	set category = "DEBUG.Logs"
 
 	show_influences()

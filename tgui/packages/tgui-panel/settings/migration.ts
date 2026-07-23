@@ -2,7 +2,6 @@ import { storage } from 'common/storage';
 import { smoothMerge } from 'common/type-safety';
 import { omit, pick } from 'es-toolkit';
 import { setMusicVolume } from '../audio/handlers';
-import { MESSAGE_TYPES } from '../chat/constants';
 import { chatRenderer } from '../chat/renderer';
 import { store } from '../events/store';
 import {
@@ -60,20 +59,18 @@ function migrateHighlights(next: HighlightState): HighlightState {
       draft.highlightText ?? defaultHighlightSetting.highlightText;
   }
 
-  return draft;
-}
-
-function normalizeStoredTypes(
-  storedTypes: Record<string, boolean> | undefined,
-): Record<string, boolean> {
-  const result: Record<string, boolean> = {};
-
-  for (const typeDef of MESSAGE_TYPES) {
-    const value = storedTypes?.[typeDef.type];
-    result[typeDef.type] = value === null || value === undefined ? true : value;
+  // Ensure that all highlights have the "enabled" var,
+  // setting it to true if it doesn't exist.
+  for (const id in draft.highlightSettingById) {
+    if (
+      draft.highlightSettingById[id] &&
+      draft.highlightSettingById[id].enabled === undefined
+    ) {
+      draft.highlightSettingById[id].enabled = true;
+    }
   }
 
-  return result;
+  return draft;
 }
 
 const highlightKeys: (keyof typeof defaultHighlights)[] = [
@@ -84,13 +81,11 @@ const highlightKeys: (keyof typeof defaultHighlights)[] = [
 ] as const;
 
 /** A bit of a chunky procedural function. Handles imported and loaded settings */
-
 export function startSettingsMigration(next: MergedSettings): void {
   // No stored settings found, initialize with defaults
   if (!next) {
     const initialized: SettingsState = {
       ...defaultSettings,
-      storedTypes: normalizeStoredTypes(defaultSettings.storedTypes),
       initialized: true,
     };
     storage.set('panel-settings', initialized);
@@ -118,9 +113,9 @@ export function startSettingsMigration(next: MergedSettings): void {
 
   const migratedHighlights = migrateHighlights(highlightPart);
 
-  storage.set('panel-settings', { ...draftSettings, ...migratedHighlights });
   // Just exit if no valid version was found
   if (!next.version) {
+    storage.set('panel-settings', { ...draftSettings, ...migratedHighlights });
     return;
   }
 

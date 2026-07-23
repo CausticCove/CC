@@ -301,6 +301,7 @@
 #define TRAIT_VAMPIRE_SPAWN_PROTECTION "Vampire Spawn Protection"
 #define TRAIT_WHITE_STAG "Stag Protection"
 #define TRAIT_EDIT_DESCRIPTORS "Edit Descriptors"
+#define TRAIT_INK_AFFINITY "Paint Affinity"
 
 //Caustic edit
 #define TRAIT_NECRAS_ABATEMENT "Necra's Abatement" //keeps deadites from doing much of anything in town
@@ -614,6 +615,7 @@ GLOBAL_LIST_INIT(roguetraits, list(
 	TRAIT_WHITE_STAG = span_info("The power of the white stag lives on inside of me!"),
 	TRAIT_EDIT_DESCRIPTORS = span_info("I can change my appearance at a magic mirror in a thorough manner."),
 	TRAIT_DUSTRUNNER = span_info("I run dust for the Thieves' Guild. Those in the trade know how to spot one of their own."),
+	TRAIT_INK_AFFINITY = span_info("I can thread sacred abyssorite paint splotches safely, and benefit from them."),
 	TRAIT_REGROW_LIMBS = span_info("I can regrow my limbs in my sleep, but doing so will make me hungry."),
 	TRAIT_OUTLANDER = span_info("The locals see me as not of their land."),
 	TRAIT_PARRYEXPERT = span_info("I am much better at parrying incoming strikes, having a more high probability of deflecting a blow with my weapon."),
@@ -878,6 +880,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define VEHICLE_TRAIT "vehicle" // inherited from riding vehicles
 #define INNATE_TRAIT "innate"
 #define POULTICE_TRAIT "poultice"
+#define TRAIT_INFUSION "infusion"
 
 // unique trait sources, still defines
 #define TRAIT_FORTITUDE "Fortitude"

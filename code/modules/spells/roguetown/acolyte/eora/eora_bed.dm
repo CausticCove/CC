@@ -113,8 +113,8 @@
 	primary_resource_type = SPELL_COST_STAMINA
 	primary_resource_cost = SPELLCOST_STAT_BUFF
 
-	invocations = list("Eora, grant us respite!")
-	invocation_type = INVOCATION_SHOUT
+	invocations = list("clouds the ground in a shower of flower petals, causing a bed of flowers to sprout.")
+	invocation_type = INVOCATION_EMOTE
 	charge_required = TRUE
 	charge_time = 1 SECONDS
 	cooldown_time = 30 SECONDS

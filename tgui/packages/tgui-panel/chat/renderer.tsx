@@ -11,30 +11,22 @@ import { Tooltip } from 'tgui-core/components';
 import { EventEmitter } from 'tgui-core/events';
 import { classes } from 'tgui-core/react';
 import { store } from '../events/store';
-import { scrollTrackingAtom } from './atoms';
-import { exportToDisk } from './chatExport';
+import { scrollTrackingAtom } from './atom';
 import {
+  COMBINE_MAX_MESSAGES,
+  COMBINE_MAX_TIME_WINDOW,
   IMAGE_RETRY_DELAY,
   IMAGE_RETRY_LIMIT,
   IMAGE_RETRY_MESSAGE_AGE,
+  MAX_PERSISTED_MESSAGES,
+  MAX_VISIBLE_MESSAGES,
   MESSAGE_PRUNE_INTERVAL,
   MESSAGE_TYPE_INTERNAL,
   MESSAGE_TYPE_UNKNOWN,
   MESSAGE_TYPES,
 } from './constants';
-import { createMessageNode } from './messageNode';
-import {
-  adminPageOnly,
-  canPageAcceptType,
-  canStoreType,
-  createMessage,
-  isSameMessage,
-  serializeMessage,
-  typeIsImportant,
-} from './model';
+import { canPageAcceptType, createMessage, isSameMessage } from './model';
 import { highlightNode, linkifyNode } from './replaceInTextNode';
-import type { Page, SerializedMessage } from './types';
-import { parse } from 'zod';
 
 const logger = createLogger('chatRenderer');
 
@@ -48,15 +40,12 @@ export const TGUI_CHAT_COMPONENTS = {
   TooltipHTML,
 };
 
-// List of injectable attibute names mapped to their proper prop
-// We need this because attibutes don't support lowercase names
-export const TGUI_CHAT_ATTRIBUTES_TO_PROPS = {
-  position: 'position',
-  content: 'content',
-  html: "html",
-};
+// List of injectable attibute names mapped to their proper prop.
+// We need this because attibutes don't support lowercase names.
+// Use this is the automatic "-a" -> "-A" replacer doesn't work for you.
+export const TGUI_CHAT_ATTRIBUTE_REMAPS: Record<string, string> = {};
 
-function createHighlightNode(text: string, color: string): HTMLElement {
+function createHighlightNode(text, color) {
   const node = document.createElement('span');
   node.className = 'Chat__highlight';
   node.setAttribute('style', `background-color:${color}`);
@@ -64,79 +53,49 @@ function createHighlightNode(text: string, color: string): HTMLElement {
   return node;
 }
 
-function interleaveMessage(
-  node: HTMLElement,
-  interleave: boolean,
-  color: string,
-): HTMLElement {
-  if (interleave) {
-    node.setAttribute('style', `background-color:${color}`);
-    node.setAttribute('display', 'block');
-  } else {
-    node.removeAttribute('style');
-    node.removeAttribute('display');
-  }
+function createMessageNode() {
+  const node = document.createElement('div');
+  node.className = 'ChatMessage';
   return node;
 }
 
-function stripNewLineFlood(text: string): string {
-  text = text.replace(/((\n)\2{2})\2+/g, '$1');
-  return text;
-}
-
-function createReconnectedNode(): HTMLElement {
+function createReconnectedNode() {
   const node = document.createElement('div');
   node.className = 'Chat__reconnected';
   return node;
 }
 
-function getChatTimestamp(message: SerializedMessage): string {
-  let stamp = '';
-  if (message.createdAt) {
-    const dateTime = new Date(message.createdAt);
-    stamp =
-      '[' +
-      dateTime.toLocaleTimeString([], {
-        hour: '2-digit',
-        minute: '2-digit',
-      }) +
-      ']&nbsp;';
-  }
-  return stamp;
-}
-
-function handleImageError(e: ErrorEvent) {
+function handleImageError(e) {
   setTimeout(() => {
     /** @type {HTMLImageElement} */
-    const node = e.target as HTMLImageElement;
+    const node = e.target;
     if (!node) {
       return;
     }
-    const attempts =
-      parseInt(node.getAttribute('data-reload-n') || '', 10) || 0;
+    const attempts = parseInt(node.getAttribute('data-reload-n'), 10) || 0;
     if (attempts >= IMAGE_RETRY_LIMIT) {
-      // logger.error(`failed to load an image after ${attempts} attempts`);
+      logger.error(`failed to load an image after ${attempts} attempts`);
       return;
     }
     const src = node.src;
-    node.src = '';
+    node.src = null;
     node.src = `${src}#${attempts}`;
-    node.setAttribute('data-reload-n', (attempts + 1).toString());
+    node.setAttribute('data-reload-n', attempts + 1);
   }, IMAGE_RETRY_DELAY);
 }
 
 /**
  * Assigns a "times-repeated" badge to the message.
  */
-function updateMessageBadge(message: SerializedMessage) {
+function updateMessageBadge(message) {
   const { node, times } = message;
-  if (!node || !times || typeof node === 'string') {
+  if (!node || !times) {
     // Nothing to update
     return;
   }
-  const foundBadge = (node as HTMLElement).querySelector('.Chat__badge');
+  const foundBadge = node.querySelector('.Chat__badge');
   const badge = foundBadge || document.createElement('div');
-  badge.textContent = times.toString();
+  badge.textContent = times;
   badge.className = classes(['Chat__badge', 'Chat__badge--animate']);
   requestAnimationFrame(() => {
     badge.className = 'Chat__badge';
@@ -149,68 +108,27 @@ function updateMessageBadge(message: SerializedMessage) {
 class ChatRenderer {
   loaded: boolean;
   rootNode: HTMLElement | null;
-  queue: SerializedMessage[];
-  messages: SerializedMessage[];
-  archivedMessages: SerializedMessage[];
-  visibleMessages: SerializedMessage[];
-  page: Page | null;
+  queue: Array<any>;
+  messages: Array<any>;
+  visibleMessages: Array<any>;
+  page: any;
   events: EventEmitter;
-  prependTimestamps: boolean;
-  visibleMessageLimit: number;
-  combineMessageLimit: number;
-  combineIntervalLimit: number;
-  persistentMessageLimit: number;
-  logLimit: number;
-  logEnable: boolean;
-  roundId: null | number;
-  storedTypes: Record<string, boolean>;
-  interleave: boolean;
-  interleaveEnabled: boolean;
-  interleaveColor: string;
-  hideImportantInAdminTab: boolean;
   scrollNode: HTMLElement | null;
   scrollTracking: boolean;
-  handleScroll: (type: any) => void;
-  ensureScrollTracking: () => void;
-  highlightParsers:
-    | {
-        highlightWords: string[];
-        highlightRegex: RegExp;
-        highlightColor: string;
-        highlightWholeMessage: boolean;
-        highlightBlacklist: boolean;
-        blacklistregex: RegExp;
-      }[]
-    | null;
-  databaseBackendEnabled: boolean;
   lastScrollHeight: number;
-  ttsVoice: string;
-  ttsCategories: Record<string, boolean>;
+  highlightParsers: Array<any> | null;
+  handleScroll: (type: any) => void;
 
   constructor() {
     this.loaded = false;
     this.rootNode = null;
     this.queue = [];
     this.messages = [];
-    this.archivedMessages = [];
     this.visibleMessages = [];
     this.page = null;
     this.events = new EventEmitter();
-    // Adjustables
-    this.prependTimestamps = false;
-    this.visibleMessageLimit = 2500;
-    this.combineMessageLimit = 5;
-    this.combineIntervalLimit = 5;
-    this.logLimit = 0;
-    this.logEnable = true;
-    this.roundId = null;
-    this.storedTypes = {};
-    this.interleave = false;
-    this.interleaveEnabled = false;
-    this.interleaveColor = '#909090';
-    this.hideImportantInAdminTab = false;
-    this.databaseBackendEnabled = false;
     // Scroll handler
+
     this.scrollNode = null;
     this.scrollTracking = true;
     this.lastScrollHeight = 0;
@@ -247,8 +165,12 @@ class ChatRenderer {
     else {
       this.rootNode = node;
     }
-    // Attempts to find the scroll node on mount
-    this.tryFindScrollable();
+    // Find scrollable parent
+    this.scrollNode = document.getElementById('chat-pane');
+    this.scrollNode?.addEventListener('scroll', this.handleScroll);
+    setTimeout(() => {
+      this.scrollToBottom();
+    });
     // Flush the queue
     this.tryFlushQueue();
   }
@@ -258,23 +180,16 @@ class ChatRenderer {
     this.tryFlushQueue();
   }
 
-  tryFlushQueue(doArchive = false) {
+  tryFlushQueue() {
     if (this.isReady() && this.queue.length > 0) {
-      this.processBatch(this.queue, { doArchive: doArchive });
+      this.processBatch(this.queue);
       this.queue = [];
-      // In case we had no vaclid scroll node before
-      this.tryFindScrollable();
-      setTimeout(() => {
-        this.scrollToBottom();
-      });
     }
   }
 
   assignStyle(style = {}) {
     for (const key of Object.keys(style)) {
-      if (this.rootNode) {
-        this.rootNode.style.setProperty(key, style[key]);
-      }
+      this.rootNode!.style.setProperty(key, style[key]);
     }
   }
 
@@ -286,75 +201,35 @@ class ChatRenderer {
     highlightSettings.forEach((id) => {
       const setting = highlightSettingById[id];
       const text = setting.highlightText;
-      const blacklist = setting.blacklistText;
       const highlightColor = setting.highlightColor;
-      const highlightBlacklist = setting.highlightBlacklist;
       const highlightWholeMessage = setting.highlightWholeMessage;
       const matchWord = setting.matchWord;
       const matchCase = setting.matchCase;
+      const enabled = setting.enabled;
       const allowedRegex = /^[a-zа-яё0-9_\-$/^[\s\]\\]+$/gi;
       const regexEscapeCharacters = /[!#$%^&*)(+=.<>{}[\]:;'"|~`_\-\\/]/g;
-      // Reset lastIndex so it does not mess up the next word
-      allowedRegex.lastIndex = 0;
       const lines = String(text)
         .split(',')
         .map((str) => str.trim())
-        .filter(
-          (str) =>
-            // Must be longer than one character
-            str &&
-            str.length > 1 &&
-            // Must be alphanumeric (with some punctuation)
-            allowedRegex.test(str),
-        );
+        .filter((str) => {
+          // Must be longer than one character
+          if (!str || str.length <= 1) return false;
+
+          // Must be alphanumeric (with some punctuation)
+          const isValidFormat =
+            allowedRegex.test(str) ||
+            (str.charAt(0) === '/' && str.charAt(str.length - 1) === '/');
+
+          // Reset lastIndex so it does not mess up the next word
+          allowedRegex.lastIndex = 0;
+
+          return isValidFormat;
+        });
       let highlightWords;
       let highlightRegex;
       // Nothing to match, reset highlighting
       if (lines.length === 0) {
         return;
-      }
-      // Reset lastIndex so it does not mess up the next word
-      allowedRegex.lastIndex = 0;
-      const blacklistLines = String(blacklist)
-        .split(',')
-        .map((str) => str.trim())
-        .filter(
-          (str) =>
-            // Must be longer than one character
-            str &&
-            str.length > 1 &&
-            // Must be alphanumeric (with some punctuation)
-            allowedRegex.test(str),
-        );
-      let blacklistregex;
-      if (highlightBlacklist && blacklistLines.length > 0) {
-        const blacklistRegexExpressions: string[] = [];
-        for (let line of blacklistLines) {
-          // Regex expression syntax is /[exp]/
-          if (line.charAt(0) === '/' && line.charAt(line.length - 1) === '/') {
-            const expr = line.substring(1, line.length - 1);
-            // Check if this is more than one character
-            if (/^(\[.*\]|\\.|.)$/.test(expr)) {
-              continue;
-            }
-            blacklistRegexExpressions.push(expr);
-          } else {
-            // We're not going to let regex characters fuck up our RegEx operation.
-            line = line.replace(regexEscapeCharacters, '\\$&');
-
-            blacklistRegexExpressions.push(`^${line}`);
-          }
-        }
-        const regexStrBL = blacklistRegexExpressions.join('|');
-        const flagsBL = 'i';
-        // We wrap this in a try-catch to ensure that broken regex doesn't break
-        // the entire chat.
-        try {
-          blacklistregex = new RegExp(`(${regexStrBL})`, flagsBL);
-        } catch {
-          // We just reset it if it's invalid.
-          blacklistregex = null;
-        }
       }
       const regexExpressions: string[] = [];
       // Organize each highlight entry into regex expressions and words
@@ -401,12 +276,11 @@ class ChatRenderer {
         this.highlightParsers = [];
       }
       this.highlightParsers.push({
+        enabled,
         highlightWords,
         highlightRegex,
         highlightColor,
         highlightWholeMessage,
-        highlightBlacklist,
-        blacklistregex,
       });
     });
   }
@@ -414,50 +288,10 @@ class ChatRenderer {
   scrollToBottom() {
     // scrollHeight is always bigger than scrollTop and is
     // automatically clamped to the valid range.
-    if (this.scrollNode) {
-      this.scrollNode.scrollTop = this.scrollNode.scrollHeight;
-    }
+    this.scrollNode!.scrollTop = this.scrollNode!.scrollHeight;
   }
 
-  tryFindScrollable() {
-    // Find scrollable parent
-    this.scrollNode = document.getElementById('chat-pane');
-    this.scrollNode?.addEventListener('scroll', this.handleScroll);
-  }
-
-  setVisualChatLimits(
-    visibleMessageLimit: number,
-    combineMessageLimit: number,
-    combineIntervalLimit: number,
-    logEnable: boolean,
-    logLimit: number,
-    storedTypes: Record<string, boolean>,
-    roundId: number | null,
-    prependTimestamps: boolean,
-    hideImportantInAdminTab: boolean,
-    interleaveEnabled: boolean,
-    interleaveColor: string,
-    databaseBackendEnabled: boolean,
-    ttsVoice: string,
-    ttsCategories: Record<string, boolean>,
-  ) {
-    this.visibleMessageLimit = visibleMessageLimit;
-    this.combineMessageLimit = combineMessageLimit;
-    this.combineIntervalLimit = combineIntervalLimit;
-    this.logEnable = logEnable;
-    this.logLimit = logLimit;
-    this.storedTypes = storedTypes;
-    this.roundId = roundId;
-    this.prependTimestamps = prependTimestamps;
-    this.hideImportantInAdminTab = hideImportantInAdminTab;
-    this.interleaveEnabled = interleaveEnabled;
-    this.interleaveColor = interleaveColor;
-    this.databaseBackendEnabled = databaseBackendEnabled;
-    this.ttsVoice = ttsVoice;
-    this.ttsCategories = ttsCategories;
-  }
-
-  changePage(page: Page) {
+  changePage(page) {
     if (!this.isReady()) {
       this.page = page;
       this.tryFlushQueue();
@@ -465,44 +299,29 @@ class ChatRenderer {
     }
     this.page = page;
     // Fast clear of the root node
-    if (this.rootNode) {
-      this.rootNode.textContent = '';
-    }
+    this.rootNode!.textContent = '';
     this.visibleMessages = [];
     // Re-add message nodes
     const fragment = document.createDocumentFragment();
     let node;
     for (const message of this.messages) {
-      if (
-        canPageAcceptType(page, message.type) &&
-        !(
-          adminPageOnly(page) &&
-          typeIsImportant(message.type) &&
-          this.hideImportantInAdminTab
-        )
-      ) {
+      if (canPageAcceptType(page, message.type)) {
         node = message.node;
-        node = interleaveMessage(
-          node,
-          this.interleaveEnabled && this.interleave,
-          this.interleaveColor,
-        );
-        this.interleave = !this.interleave;
         fragment.appendChild(node);
         this.visibleMessages.push(message);
       }
     }
-    if (node && this.rootNode) {
-      this.rootNode.appendChild(fragment);
+    if (node) {
+      this.rootNode!.appendChild(fragment);
       node.scrollIntoView();
     }
   }
 
-  getCombinableMessage(predicate: SerializedMessage) {
+  getCombinableMessage(predicate) {
     const now = Date.now();
     const len = this.visibleMessages.length;
     const from = len - 1;
-    const to = Math.max(0, len - this.combineMessageLimit);
+    const to = Math.max(0, len - COMBINE_MAX_MESSAGES);
     for (let i = from; i >= to; i--) {
       const message = this.visibleMessages[i];
 
@@ -512,7 +331,7 @@ class ChatRenderer {
         // Text payload must fully match
         isSameMessage(message, predicate) &&
         // Must land within the specified time window
-        now < message.createdAt + this.combineIntervalLimit * 1000;
+        now < message.createdAt + COMBINE_MAX_TIME_WINDOW;
       if (matches) {
         return message;
       }
@@ -520,29 +339,11 @@ class ChatRenderer {
     return null;
   }
 
-  tryTTS(message: SerializedMessage, node: HTMLElement) {
-    if (this.ttsCategories[message.type]) {
-      const utterance = new SpeechSynthesisUtterance(node.innerText);
-
-      const voice = window.speechSynthesis
-        .getVoices()
-        .find((val) => val.name === this.ttsVoice);
-      utterance.voice = voice || null;
-
-      window.speechSynthesis.speak(utterance);
-    }
-  }
-
-  // eslint-disable-next-line complexity
   processBatch(
-    batch: SerializedMessage[],
-    options: {
-      prepend?: boolean;
-      notifyListeners?: boolean;
-      doArchive?: boolean;
-    } = {},
+    batch,
+    options: { prepend?: boolean; notifyListeners?: boolean } = {},
   ) {
-    const { prepend, notifyListeners = true, doArchive = false } = options;
+    const { prepend, notifyListeners = true } = options;
     const now = Date.now();
     // Queue up messages until chat is ready
     if (!this.isReady()) {
@@ -560,7 +361,8 @@ class ChatRenderer {
     // Insert messages
     const fragment = document.createDocumentFragment();
     const countByType = {};
-    let node;
+    let node: HTMLElement;
+    let insertedAnyNode = false;
     for (const payload of batch) {
       const message = createMessage(payload);
       // Combine messages
@@ -573,95 +375,108 @@ class ChatRenderer {
       // Reuse message node
       if (message.node) {
         node = message.node;
+        insertedAnyNode = true;
       }
       // Reconnected
       else if (message.type === 'internal/reconnected') {
         node = createReconnectedNode();
+        insertedAnyNode = true;
       }
       // Create message node
       else {
         node = createMessageNode();
+        insertedAnyNode = true;
         // Payload is plain text
         if (message.text) {
-          message.text = stripNewLineFlood(message.text); // Do not allow more than 3 new lines in a row
-          node.textContent = this.prependTimestamps
-            ? getChatTimestamp(message) + message.text
-            : message.text;
+          node.textContent = message.text;
         }
         // Payload is HTML
         else if (message.html) {
-          message.html = stripNewLineFlood(message.html); // Do not allow more than 3 new lines in a row
-          node.innerHTML = this.prependTimestamps
-            ? getChatTimestamp(message) + message.html
-            : message.html;
+          node.innerHTML = message.html;
         } else {
           logger.error('Error: message is missing text payload', message);
         }
         // Get all nodes in this message that want to be rendered like jsx
         const nodes = node.querySelectorAll('[data-component]');
         for (let i = 0; i < nodes.length; i++) {
-          const childNode = nodes[i];
+          const childNode: Element = nodes[i];
           const targetName = childNode.getAttribute('data-component');
+          if (targetName === null) {
+            continue;
+          }
           // Let's pull out the attibute info we need
           const outputProps = {};
           for (let j = 0; j < childNode.attributes.length; j++) {
             const attribute = childNode.attributes[j];
 
-            let working_value = attribute.nodeValue;
+            if (!attribute.nodeName.startsWith('data-')) {
+              continue;
+            }
+
+            const working_value = attribute.nodeValue;
+            if (!working_value) {
+              continue;
+            }
+            let parsed_value: any;
             // We can't do the "if it has no value it's truthy" trick
             // Because getAttribute returns "", not null. Hate IE
-            let parsed_value: any;
             if (working_value === '$true') {
-              working_value = true;
+              parsed_value = true;
             } else if (working_value === '$false') {
               parsed_value = false;
             } else if (!Number.isNaN(working_value)) {
               const parsed_float = parseFloat(working_value);
               if (!Number.isNaN(parsed_float)) {
-                working_value = parsed_float;
+                parsed_value = parsed_float;
               }
             }
-            // If it's not anything above then it has to be a string
-            if(!parsed_value) {
+            // treat as string if doesn't match specials
+            if (!parsed_value) {
               parsed_value = working_value;
             }
-
             let canon_name = attribute.nodeName.replace('data-', '');
             // html attributes don't support upper case chars, so we need to map
-            canon_name = TGUI_CHAT_ATTRIBUTES_TO_PROPS[canon_name];
-            outputProps[canon_name] = parsed_value;
+            const remapped = TGUI_CHAT_ATTRIBUTE_REMAPS[canon_name];
+            if (remapped) {
+              canon_name = remapped;
+            } else {
+              // pretend - is an upper case
+              canon_name = canon_name.replaceAll(/-([a-z])/g, (_, letter) =>
+                letter.toUpperCase(),
+              );
+            }
+            outputProps[canon_name] = working_value;
           }
           const oldHtml = { __html: childNode.innerHTML };
           while (childNode.firstChild) {
             childNode.removeChild(childNode.firstChild);
           }
-          const Element = TGUI_CHAT_COMPONENTS[targetName];
-
+          const DataComponent = TGUI_CHAT_COMPONENTS[targetName];
           const reactRoot = createRoot(childNode);
-
-          reactRoot.render(
-            <Element {...outputProps}>
-              {/** biome-ignore lint/security/noDangerouslySetInnerHtml: Chat rendere */}
+          if (DataComponent) {
+            const interior = (
+              // eslint-disable-next-line react/no-danger
               <span dangerouslySetInnerHTML={oldHtml} />
-            </Element>,
-          );
+            );
+            const rendering = (
+              <DataComponent {...outputProps}>{interior}</DataComponent>
+            );
+            reactRoot.render(rendering);
+          } else {
+            reactRoot.render(
+              <div>
+                -- invalid data component &apos;{targetName}&apos;; contact a
+                coder.
+              </div>,
+            );
+          }
         }
 
         // Highlight text
         if (!message.avoidHighlighting && this.highlightParsers) {
-          this.highlightParsers.map((parser) => {
-            const ourUser = node.getElementsByClassName('name');
-            const isEmote = node.getElementsByClassName('emote');
-            if (
-              !(
-                parser.highlightBlacklist &&
-                parser.blacklistregex &&
-                ((ourUser.length > 0 &&
-                  parser.blacklistregex.test(ourUser[0].textContent)) ||
-                  (isEmote.length > 0 &&
-                    parser.blacklistregex.test(isEmote[0].textContent)))
-              )
-            ) {
+          this.highlightParsers
+            .filter((parser) => parser.enabled)
+            .forEach((parser) => {
               const highlighted = highlightNode(
                 node,
                 parser.highlightRegex,
@@ -671,9 +486,7 @@ class ChatRenderer {
               if (highlighted && parser.highlightWholeMessage) {
                 node.className += ' ChatMessage--highlighted';
               }
-            }
-            return undefined;
-          });
+            });
         }
         // Linkify text
         const linkifyNodes = node.querySelectorAll('.linkify');
@@ -705,61 +518,17 @@ class ChatRenderer {
       countByType[message.type] += 1;
       // TODO: Detect duplicates
       this.messages.push(message);
-
-      // TTS
-      // Only TTS on new messages
-      if (doArchive) {
-        this.tryTTS(message, node);
-      }
-
-      if (
-        doArchive &&
-        this.logEnable &&
-        !this.databaseBackendEnabled &&
-        this.storedTypes &&
-        canStoreType(this.storedTypes, message.type)
-      ) {
-        message.roundId = this.roundId;
-        if (
-          this.logLimit > 0 &&
-          this.archivedMessages.length >= this.logLimit + 1
-        ) {
-          this.archivedMessages = this.archivedMessages.slice(
-            -(this.logLimit - 1),
-          );
-        } else if (
-          this.logLimit > 0 &&
-          this.archivedMessages.length >= this.logLimit
-        ) {
-          this.archivedMessages.shift();
-        }
-        this.archivedMessages.push(serializeMessage(message, true)); // TODO: Actually having a better message archiving maybe for exports?
-      }
-      if (
-        this.page &&
-        canPageAcceptType(this.page, message.type) &&
-        !(
-          adminPageOnly(this.page) &&
-          typeIsImportant(message.type) &&
-          this.hideImportantInAdminTab
-        )
-      ) {
-        node = interleaveMessage(
-          node,
-          this.interleaveEnabled && this.interleave,
-          this.interleaveColor,
-        );
-        this.interleave = !this.interleave;
+      if (canPageAcceptType(this.page, message.type)) {
         fragment.appendChild(node);
         this.visibleMessages.push(message);
       }
     }
-    if (node && this.rootNode) {
-      const firstChild = this.rootNode.childNodes[0];
+    if (insertedAnyNode) {
+      const firstChild = this.rootNode!.childNodes[0];
       if (prepend && firstChild) {
-        this.rootNode.insertBefore(fragment, firstChild);
+        this.rootNode!.insertBefore(fragment, firstChild);
       } else {
-        this.rootNode.appendChild(fragment);
+        this.rootNode!.appendChild(fragment);
       }
       if (this.scrollTracking) {
         setTimeout(() => this.scrollToBottom());
@@ -784,14 +553,12 @@ class ChatRenderer {
     // Visible messages
     {
       const messages = this.visibleMessages;
-      const fromIndex = Math.max(0, messages.length - this.visibleMessageLimit);
+      const fromIndex = Math.max(0, messages.length - MAX_VISIBLE_MESSAGES);
       if (fromIndex > 0) {
         this.visibleMessages = messages.slice(fromIndex);
         for (let i = 0; i < fromIndex; i++) {
           const message = messages[i];
-          if (this.rootNode && message.node) {
-            this.rootNode.removeChild(message.node as Node);
-          }
+          this.rootNode!.removeChild(message.node);
           // Mark this message as pruned
           message.node = 'pruned';
         }
@@ -807,7 +574,7 @@ class ChatRenderer {
     {
       const fromIndex = Math.max(
         0,
-        this.messages.length - this.persistentMessageLimit,
+        this.messages.length - MAX_PERSISTED_MESSAGES,
       );
       if (fromIndex > 0) {
         this.messages = this.messages.slice(fromIndex);
@@ -816,21 +583,22 @@ class ChatRenderer {
     }
   }
 
-  rebuildChat(rebuildLimit: number) {
+  rebuildChat() {
     if (!this.isReady()) {
       return;
     }
     // Make a copy of messages
-    const fromIndex = Math.max(0, this.messages.length - rebuildLimit);
+    const fromIndex = Math.max(
+      0,
+      this.messages.length - MAX_PERSISTED_MESSAGES,
+    );
     const messages = this.messages.slice(fromIndex);
     // Remove existing nodes
     for (const message of messages) {
       message.node = undefined;
     }
     // Fast clear of the root node
-    if (this.rootNode) {
-      this.rootNode.textContent = '';
-    }
+    this.rootNode!.textContent = '';
     this.messages = [];
     this.visibleMessages = [];
     // Repopulate the chat log
@@ -851,9 +619,7 @@ class ChatRenderer {
     this.visibleMessages = [];
     for (let i = 0; i < messages.length; i++) {
       const message = messages[i];
-      if (this.rootNode && message.node instanceof HTMLElement) {
-        this.rootNode.removeChild(message.node);
-      }
+      this.rootNode!.removeChild(message.node);
       // Mark this message as pruned
       message.node = 'pruned';
     }
@@ -864,13 +630,7 @@ class ChatRenderer {
     logger.log(`Cleared chat`);
   }
 
-  saveToDisk(
-    logLineCount: number = 0,
-    startLine: number = 0,
-    endLine: number = 0,
-    startRound: number = 0,
-    endRound: number = 0,
-  ) {
+  saveToDisk() {
     // Compile currently loaded stylesheets as CSS text
     let cssText = '';
     const styleSheets = document.styleSheets;
@@ -885,84 +645,42 @@ class ChatRenderer {
     }
     cssText += 'body, html { background-color: #141414 }\n';
     // Compile chat log as HTML text
-
-    if (this.databaseBackendEnabled) {
-      exportToDisk(
-        cssText,
-        startRound,
-        endRound,
-        this.prependTimestamps,
-        this.page,
-      );
-    } else {
-      // Fetch from chat storage
-      let messagesHtml = '';
-      let tmpMsgArray: SerializedMessage[] = [];
-      if (startLine || endLine) {
-        if (!endLine) {
-          tmpMsgArray = this.archivedMessages.slice(startLine);
-        } else {
-          tmpMsgArray = this.archivedMessages.slice(startLine, endLine);
-        }
-        if (logLineCount > 0) {
-          tmpMsgArray = tmpMsgArray.slice(-logLineCount);
-        }
-      } else if (logLineCount > 0) {
-        tmpMsgArray = this.archivedMessages.slice(-logLineCount);
-      } else {
-        tmpMsgArray = this.archivedMessages;
+    let messagesHtml = '';
+    for (const message of this.visibleMessages) {
+      if (message.node) {
+        messagesHtml += `${message.node.outerHTML}\n`;
       }
-
-      // for (let message of this.visibleMessages) { // TODO: Actually having a better message archiving maybe for exports?
-      for (const message of tmpMsgArray) {
-        // Filter messages according to active tab for export
-        if (this.page && canPageAcceptType(this.page, message.type)) {
-          messagesHtml += `${message.html}\n`;
-        }
-        // if (message.node) {
-        //  messagesHtml += message.node.outerHTML + '\n';
-        // }
-      }
-
-      // Create a page
-      const pageHtml =
-        '<!doctype html>\n' +
-        '<html>\n' +
-        '<head>\n' +
-        '<title>SS13 Chat Log</title>\n' +
-        '<style>\n' +
-        cssText +
-        '</style>\n' +
-        '</head>\n' +
-        '<body>\n' +
-        '<div class="Chat">\n' +
-        messagesHtml +
-        '</div>\n' +
-        '</body>\n' +
-        '</html>\n';
-      // Create and send a nice blob
-      const blob = new Blob([pageHtml], { type: 'text/plain' });
-      const timestamp = new Date()
-        .toISOString()
-        .substring(0, 19)
-        .replace(/[-:]/g, '')
-        .replace('T', '-');
-      Byond.saveBlob(blob, `ss13-chatlog-${timestamp}.html`, '.html');
     }
-  }
+    // Create a page
 
-  purgeMessageArchive() {
-    this.archivedMessages = [];
-  }
-
-  getStoredMessages() {
-    return this.archivedMessages.length;
+    const pageHtml =
+      '<!doctype html>\n' +
+      '<html>\n' +
+      '<head>\n' +
+      '<title>SS13 Chat Log</title>\n' +
+      '<style>\n' +
+      cssText +
+      '</style>\n' +
+      '</head>\n' +
+      '<body>\n' +
+      '<div class="Chat">\n' +
+      messagesHtml +
+      '</div>\n' +
+      '</body>\n' +
+      '</html>\n';
+    // Create and send a nice blob
+    const blob = new Blob([pageHtml], { type: 'text/plain' });
+    const timestamp = new Date()
+      .toISOString()
+      .substring(0, 19)
+      .replace(/[-:]/g, '')
+      .replace('T', '-');
+    Byond.saveBlob(blob, `ss13-chatlog-${timestamp}.html`, '.html');
   }
 }
 
 // Make chat renderer global so that we can continue using the same
 // instance after hot code replacement.
-
 if (!window.__chatRenderer__) {
   window.__chatRenderer__ = new ChatRenderer();
 }

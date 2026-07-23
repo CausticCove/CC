@@ -518,15 +518,15 @@
 /obj/item/rogueweapon/tongs/update_icon()
 	. = ..()
 	if(!hingot && !ore)
-		icon_state = "tongs"
+		icon_state = initial(icon_state) // Caustic Edit. We do not need every tong subtype to need their own update_icon proc
 	else
 		if(hingot)
 			if(hott)
-				icon_state = "tongsi1"
+				icon_state = "[initial(icon_state)]i1"
 			else
-				icon_state = "tongsi0"
+				icon_state = "[initial(icon_state)]i0"
 		else
-			icon_state = "tongsi0"
+			icon_state = "[initial(icon_state)]i0"
 
 /obj/item/rogueweapon/tongs/proc/make_unhot(input)
 	if(hott == input)
@@ -589,6 +589,7 @@
 	max_integrity = 15
 	auto_collect = FALSE
 
+/*
 /obj/item/rogueweapon/tongs/stone/update_icon()
 	. = ..()
 	if(!hingot && !ore)
@@ -601,6 +602,7 @@
 				icon_state = "stonetongsi0"
 		else
 			icon_state = "stonetongsi0"
+*/
 
 /obj/item/rogueweapon/tongs/aalloy
 	name = "decrepit tongs"
@@ -612,6 +614,7 @@
 	color = "#bb9696"
 	auto_collect = FALSE
 
+/*
 /obj/item/rogueweapon/tongs/aalloy/update_icon()
 	. = ..()
 	if(!hingot && !ore)
@@ -624,6 +627,7 @@
 				icon_state = "atongsi0"
 		else
 			icon_state = "atongsi0"
+*/
 
 /obj/item/rogueweapon/tongs/paalloy
 	name = "ancient tongs"
@@ -653,6 +657,7 @@
 	max_integrity = 300
 	auto_collect = TRUE
 
+/*
 /obj/item/rogueweapon/tongs/bronze/update_icon()
 	. = ..()
 	if(!hingot && !ore)
@@ -665,6 +670,7 @@
 				icon_state = "bronzetongsi0"
 		else
 			icon_state = "bronzetongsi0"
+*/
 
 /obj/item/rogueweapon/tongs/blacksteel
 	name = "blacksteel tongs"
@@ -677,6 +683,7 @@
 	max_integrity = 450
 	auto_collect = TRUE
 
+/*
 /obj/item/rogueweapon/tongs/blacksteel/update_icon()
 	. = ..()
 	if(!hingot && !ore)
@@ -689,4 +696,5 @@
 				icon_state = "bs_tongsi0"
 		else
 			icon_state = "bs_tongsi0"
+*/
 //Caustic Edit End

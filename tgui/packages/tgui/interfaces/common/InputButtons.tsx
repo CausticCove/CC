@@ -37,34 +37,30 @@ export const InputButtons = (props: InputButtonsProps) => {
 
   const submitButton = (
     <Button
-      color="good"
+      color="transparent"
+      className="input-button__submit"
       disabled={disabled}
       fluid={!!large_buttons}
       height={!!large_buttons && 2}
       onClick={on_submit_actual}
       m={0.5}
-      pl={2}
-      pr={2}
       pt={large_buttons ? 0.33 : 0}
       textAlign="center"
       tooltip={large_buttons && message}
-      width={!large_buttons && 8}
     >
       {large_buttons ? 'MAKE IT SO!' : 'Make it so!'}
     </Button>
   );
   const cancelButton = (
     <Button
-      color="bad"
+      color="transparent"
+      className="input-button__cancel"
       fluid={!!large_buttons}
       height={!!large_buttons && 2}
       onClick={on_cancel_actual}
       m={0.5}
-      pl={2}
-      pr={2}
       pt={large_buttons ? 0.33 : 0}
       textAlign="center"
-      width={!large_buttons && 8}
     >
       {large_buttons ? 'I RECIND' : 'I recind'}
     </Button>

@@ -9998,7 +9998,7 @@
 	pixel_y = 8
 	},
 /obj/machinery/light/rogue/candle/blue,
-/obj/structure/roguemachine/vaultbank/innkeeper,
+/obj/structure/roguemachine/vaultbank/merchant,
 /turf/open/floor/rogue/wood,
 /area/rogue/indoors/town/shop/desert)
 "djU" = (

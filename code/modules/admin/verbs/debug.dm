@@ -1,5 +1,5 @@
 /client/proc/Debug2()
-	set category = "🛠 DEBUG.Server"
+	set category = "DEBUG.Server"
 	set name = "Debug-Game"
 	if(!check_rights(R_DEBUG))
 		return
@@ -25,7 +25,7 @@ Because if you select a player mob as owner it tries to do the proc for
 But you can call procs that are of type /mob/living/carbon/human/proc/ for that player.
 */
 /client/proc/cmd_admin_animalize(mob/M in GLOB.mob_list)
-	set category = "🕮 GM.Actions"
+	set category = "GM.Actions"
 	set name = "Make Simple Animal"
 
 	if(!SSticker.HasRoundStarted())
@@ -45,7 +45,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 
 //TODO: merge the vievars version into this or something maybe mayhaps
 /client/proc/cmd_debug_del_all(object as text)
-	set category = "🛠 DEBUG.!! Dangerous !!"
+	set category = "DEBUG.Warnting - Dangerous"
 	set name = "Del-All"
 
 	var/list/matches = get_fancy_list_of_atom_types()
@@ -68,7 +68,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Delete All") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/cmd_assume_direct_control(mob/M in GLOB.mob_list)
-	set category = "⚡︎ ADMIN.Assistance"
+	set category = "ADMIN.Assistance"
 	set name = "Direct control..."
 	set desc = ""
 
@@ -87,7 +87,7 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Assume Direct Control") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
 
 /client/proc/cmd_admin_areatest(on_station)
-	set category = "🛠 DEBUG.Mapping"
+	set category = "DEBUG.Mapping"
 	set name = "Test Areas"
 
 	var/list/dat = list()
@@ -200,17 +200,17 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 
 
 /client/proc/cmd_admin_areatest_station()
-	set category = "🛠 DEBUG.Mapping"
+	set category = "DEBUG.Mapping"
 	set name = "Test Areas (STATION Z)"
 	cmd_admin_areatest(TRUE)
 
 /client/proc/cmd_admin_areatest_all()
-	set category = "🛠 DEBUG.Mapping"
+	set category = "DEBUG.Mapping"
 	set name = "Test Areas (ALL)"
 	cmd_admin_areatest(FALSE)
 
 /client/proc/cmd_admin_dress(mob/M in GLOB.mob_list)
-	set category = "🕮 GM.Actions"
+	set category = "GM.Actions"
 	set name = "Select Loadout"
 	if(!(ishuman(M) || isobserver(M)))
 		alert("Invalid mob")
@@ -224,14 +224,14 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 			H.ckey = M.ckey
 	else
 		H = M
-	
+
 	// Show the loadout panel window
 	show_loadout_panel(H)
 
 /client/proc/show_loadout_panel(mob/living/carbon/human/H)
 	if(!H)
 		return
-	
+
 	var/body = "<html><head><title>Loadout Manager - [H.name]</title>"
 	body += "<style>"
 	body += "table { border-collapse: collapse; width: 100%; }"
@@ -240,9 +240,9 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	body += "</style>"
 	body += "</head>"
 	body += "<body>"
-	
+
 	body += "<b>Loadout Manager: [H.name]</b><br><br>"
-	
+
 	// Current job display
 	var/selected_job_path = GLOB.loadout_selected_jobs[REF(H)]
 	var/selected_job_title = "None"
@@ -259,18 +259,18 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	if(selected_advclass_path)
 		var/datum/advclass/AC = selected_advclass_path
 		selected_advclass_name = initial(AC.name)
-	
+
 	body += "Selected Job: <b>[selected_job_title]</b><br>"
 	body += "Selected Advclass: <b>[selected_advclass_name]</b><br>"
 	body += "<br>"
-	
+
 	// Job selection
 	body += "<b>Job Selection:</b><br>"
 	body += "<A href='?_src_=holder;[HrefToken()];loadout_action=select_job;target=[REF(H)]'>Select Job</A> | "
 	body += "<A href='?_src_=holder;[HrefToken()];loadout_action=select_advclass;target=[REF(H)]'>Select Advclass</A> | "
 	body += "<A href='?_src_=holder;[HrefToken()];loadout_action=copy_from_mob;target=[REF(H)]'>Copy From...</A>"
 	body += "<br><br>"
-	
+
 	// Application section
 	body += "<b>Apply Components:</b><br>"
 	body += "<A href='?_src_=holder;[HrefToken()];loadout_action=apply_stats;target=[REF(H)]'>Apply Stats</A> | "
@@ -280,9 +280,9 @@ But you can call procs that are of type /mob/living/carbon/human/proc/ for that 
 	body += "<A href='?_src_=holder;[HrefToken()];loadout_action=apply_examine_title;target=[REF(H)]'>Apply Examine Title</A><br>"
 	body += "<A href='?_src_=holder;[HrefToken()];loadout_action=apply_all;target=[REF(H)]'>Apply All</A> | "
 	body += "<A href='?_src_=holder;[HrefToken()];loadout_action=clean_slate;target=[REF(H)]'>Clean Slate</A>"
-	
+
 	body += "</body></html>"
-	
+
 	usr << browse(body, "window=loadout_manager[REF(H)];size=500x400")
 
 // Global variables to store selected job and advclass for each target mob
@@ -363,15 +363,15 @@ GLOBAL_LIST_EMPTY(loadout_selected_advclasses)
 /client/proc/handle_loadout_action(href_list)
 	if(!check_rights(R_ADMIN))
 		return FALSE
-	
+
 	if(!href_list["loadout_action"])
 		return FALSE
-	
+
 	var/mob/living/carbon/human/H = locate(href_list["target"])
 	if(!H || !ishuman(H))
 		to_chat(usr, span_warning("Target no longer exists or is not human!"))
 		return TRUE
-	
+
 	switch(href_list["loadout_action"])
 		if("select_job")
 			var/list/job_list = build_loadout_job_list()
@@ -416,7 +416,7 @@ GLOBAL_LIST_EMPTY(loadout_selected_advclasses)
 				to_chat(usr, span_warning("No job selected! Select a job first to see its advclasses."))
 				show_loadout_panel(H)
 				return TRUE
-			
+
 			// Check if it's a migrant role
 			if(ispath(job_type_path, /datum/migrant_role))
 				var/datum/migrant_role/migrant_datum = new job_type_path()
@@ -425,20 +425,20 @@ GLOBAL_LIST_EMPTY(loadout_selected_advclasses)
 					qdel(migrant_datum)
 					show_loadout_panel(H)
 					return TRUE
-				
+
 				// Get advclasses from the role class handler
 				var/list/advclass_choices = list()
 				for(var/category in migrant_datum.advclass_cat_rolls)
 					for(var/datum/advclass/advclass_instance in SSrole_class_handler.sorted_class_categories[category])
 						advclass_choices[advclass_instance.name] = advclass_instance.type
-				
+
 				qdel(migrant_datum)
-				
+
 				if(!length(advclass_choices))
 					to_chat(usr, span_warning("No advclasses found for this migrant role."))
 					show_loadout_panel(H)
 					return TRUE
-				
+
 				var/selected = input("Select advclass:", "Advclass Selection") as null|anything in sortList(advclass_choices)
 				if(selected)
 					GLOB.loadout_selected_advclasses[REF(H)] = advclass_choices[selected]
@@ -450,27 +450,27 @@ GLOBAL_LIST_EMPTY(loadout_selected_advclasses)
 					if(J.type == job_type_path)
 						selected_job = J
 						break
-				
+
 				if(!selected_job || !selected_job.job_subclasses || !length(selected_job.job_subclasses))
 					to_chat(usr, span_warning("This job has no advclasses available."))
 					show_loadout_panel(H)
 					return TRUE
-				
+
 				var/list/advclass_choices = list()
 				for(var/advclass_path in selected_job.job_subclasses)
 					var/datum/advclass/AC = advclass_path
 					advclass_choices[initial(AC.name)] = advclass_path
-				
+
 				var/selected = input("Select advclass:", "Advclass Selection") as null|anything in sortList(advclass_choices)
 				if(selected)
 					GLOB.loadout_selected_advclasses[REF(H)] = advclass_choices[selected]
 				to_chat(usr, span_notice("Advclass selected: [selected]"))
 			show_loadout_panel(H)
-		
+
 		if("copy_from_mob")
 			copy_loadout_from_mob(H)
 			show_loadout_panel(H)
-		
+
 		if("apply_stats")
 			var/job_path = GLOB.loadout_selected_jobs[REF(H)]
 			if(!job_path)
@@ -489,7 +489,7 @@ GLOBAL_LIST_EMPTY(loadout_selected_advclasses)
 			var/delete_existing = (confirm == "Reset First")
 			apply_job_stats(H, job_path, delete_existing)
 			show_loadout_panel(H)
-		
+
 		if("apply_equipment_spells")
 			var/job_path = GLOB.loadout_selected_jobs[REF(H)]
 			if(!job_path)
@@ -508,7 +508,7 @@ GLOBAL_LIST_EMPTY(loadout_selected_advclasses)
 			var/delete_existing = (confirm == "Yes")
 			apply_job_equipment_and_spells(H, job_path, delete_existing)
 			show_loadout_panel(H)
-		
+
 		if("apply_skills")
 			var/job_path = GLOB.loadout_selected_jobs[REF(H)]
 			if(!job_path)
@@ -527,7 +527,7 @@ GLOBAL_LIST_EMPTY(loadout_selected_advclasses)
 			var/delete_existing = (confirm == "Yes")
 			apply_job_skills(H, job_path, delete_existing)
 			show_loadout_panel(H)
-		
+
 		if("apply_traits")
 			var/job_path = GLOB.loadout_selected_jobs[REF(H)]
 			if(!job_path)
@@ -546,7 +546,7 @@ GLOBAL_LIST_EMPTY(loadout_selected_advclasses)
 			var/delete_existing = (confirm == "Yes")
 			apply_job_traits(H, job_path, delete_existing)
 			show_loadout_panel(H)
-		
+
 		if("apply_examine_title")
 			var/job_path = GLOB.loadout_selected_jobs[REF(H)]
 			if(!job_path)
@@ -555,7 +555,7 @@ GLOBAL_LIST_EMPTY(loadout_selected_advclasses)
 			// No need for delete confirmation - this just overwrites
 			apply_job_examine_title(H, job_path)
 			show_loadout_panel(H)
-		
+
 		if("apply_all")
 			var/job_path = GLOB.loadout_selected_jobs[REF(H)]
 			if(!job_path)
@@ -575,12 +575,12 @@ GLOBAL_LIST_EMPTY(loadout_selected_advclasses)
 					qdel(I)
 			apply_full_job_loadout(H, job_path)
 			show_loadout_panel(H)
-		
+
 		if("clean_slate")
 			if(alert(usr, "This will reset [H.name] to a blank state, removing all equipment, skills, examine title, traits, and resetting stats. Continue?", "Confirm Clean Slate", "Yes", "No") == "Yes")
 				clean_slate_mob(H)
 				show_loadout_panel(H)
-	
+
 	return TRUE
 
 /client/proc/robust_dress_shop()
@@ -609,26 +609,26 @@ GLOBAL_LIST_EMPTY(loadout_selected_advclasses)
 		dresscode = custom_names[selected_name]
 		if(isnull(dresscode))
 			return
-	
+
 	if (dresscode == "Search Jobs...")
 		var/search_term = input("Search for a job (enter keywords):", "Job Search") as text|null
 		if(!search_term)
 			return
-		
+
 		var/list/roguejob_paths = subtypesof(/datum/outfit/job/roguetown)
 		var/list/matching_jobs = list()
-		
+
 		for(var/path in roguejob_paths)
 			var/datum/outfit/O = path
 			var/path_string = "[path]"
 			if(findtext(lowertext(path_string), lowertext(search_term)))
 				if(initial(O.can_be_admin_equipped))
 					matching_jobs["[path]"] = path
-		
+
 		if(!matching_jobs.len)
 			to_chat(usr, span_warning("No jobs found matching '[search_term]'."))
 			return
-		
+
 		dresscode = input("Select job (found [matching_jobs.len] matches)", "Job Search Results") as null|anything in sortList(matching_jobs)
 		dresscode = matching_jobs[dresscode]
 		if(isnull(dresscode))
@@ -655,21 +655,21 @@ GLOBAL_LIST_EMPTY(loadout_selected_advclasses)
 /client/proc/apply_full_job_loadout(mob/living/carbon/human/H, job_type_path)
 	if(!ishuman(H))
 		return
-	
+
 	// Determine if this is a migrant role or regular job
 	var/is_migrant = FALSE
 	if(ispath(job_type_path, /datum/migrant_role))
 		is_migrant = TRUE
-	
+
 	var/datum/outfit/outfit_path = null
 	var/datum/outfit/actual_outfit = null
 	var/advclass_path = GLOB.loadout_selected_advclasses[REF(H)]
-	
+
 	if(is_migrant)
 		// Get outfit from migrant role - check if it uses advclass_cat_rolls or direct outfit
 		var/datum/migrant_role/MR = new job_type_path()
 		outfit_path = MR.outfit
-		
+
 		// If migrant role has direct outfit, use it
 		if(outfit_path)
 			actual_outfit = outfit_path
@@ -685,22 +685,22 @@ GLOBAL_LIST_EMPTY(loadout_selected_advclasses)
 		// Get outfit from job type
 		var/datum/job/JobType = job_type_path
 		outfit_path = initial(JobType.outfit)
-		
+
 		var/datum/advclass/advclass_datum = null
 		actual_outfit = outfit_path
-		
+
 		// If advclass is selected, use its outfit instead
 		if(advclass_path)
 			advclass_datum = new advclass_path()
 			if(advclass_datum.outfit)
 				actual_outfit = advclass_datum.outfit
-	
+
 	// Equip the outfit if available - equipOutfit handles pre_equip and post_equip internally
 	if(actual_outfit)
 		H.equipOutfit(actual_outfit)
 	else
 		to_chat(usr, span_warning("No outfit available for this [is_migrant ? "migrant role" : "job"]."))
-	
+
 	// Find the corresponding job datum to apply stats/skills (only for regular jobs)
 	var/datum/job/job_datum = null
 	if(!is_migrant)
@@ -709,7 +709,7 @@ GLOBAL_LIST_EMPTY(loadout_selected_advclasses)
 			if(initial(J.outfit) == outfit_path || initial(J.outfit_female) == outfit_path)
 				job_datum = new job_type()
 				break
-	
+
 	// Remove old job traits before applying new ones
 	if(H.status_traits)
 		var/list/traits_to_remove = list()
@@ -719,12 +719,12 @@ GLOBAL_LIST_EMPTY(loadout_selected_advclasses)
 				traits_to_remove += trait
 		for(var/trait in traits_to_remove)
 			REMOVE_TRAIT(H, trait, JOB_TRAIT)
-	
+
 	// For migrant roles, equipment and stats are applied via the outfit's pre_equip
 	// For regular jobs, we need to handle advclass and job separately
 	if(!is_migrant)
 		var/datum/advclass/advclass_datum = null
-		
+
 		// Apply advclass stats/skills/traits if available, otherwise use job
 		if(advclass_path)
 			advclass_datum = new advclass_path()
@@ -732,12 +732,12 @@ GLOBAL_LIST_EMPTY(loadout_selected_advclasses)
 			if(length(advclass_datum.subclass_stats))
 				for(var/stat in advclass_datum.subclass_stats)
 					H.change_stat(stat, advclass_datum.subclass_stats[stat])
-			
+
 			// Apply advclass skills
 			if(length(advclass_datum.subclass_skills))
 				for(var/skill in advclass_datum.subclass_skills)
 					H.adjust_skillrank(skill, advclass_datum.subclass_skills[skill], TRUE)
-			
+
 			// Apply advclass mage aspects
 			if(LAZYLEN(advclass_datum.subclass_mage_aspects) && H.mind)
 				H.mind.setup_mage_aspects(advclass_datum.subclass_mage_aspects.Copy())
@@ -751,36 +751,36 @@ GLOBAL_LIST_EMPTY(loadout_selected_advclasses)
 			if(length(job_datum.job_stats))
 				for(var/stat in job_datum.job_stats)
 					H.change_stat(stat, job_datum.job_stats[stat])
-			
+
 			// Apply job traits
 			if(job_datum.job_traits)
 				for(var/trait in job_datum.job_traits)
 					ADD_TRAIT(H, trait, JOB_TRAIT)
-		
+
 		// Apply spells from job
 		if(job_datum && job_datum.spells && H.mind)
 			for(var/S in job_datum.spells)
 				H.mind.AddSpell(new S)
-	
+
 	// Apply racial bonuses for reading (elves) and engineering (constructs)
 	if(H.dna?.species)
 		if(H.dna.species.name in list("Elf", "Half-Elf"))
 			H.adjust_skillrank(/datum/skill/misc/reading, 1, TRUE)
 		if(H.dna.species.name in list("Metal Construct"))
 			H.adjust_skillrank(/datum/skill/craft/engineering, 2, TRUE)
-	
+
 	// Call after_spawn if job exists (latejoin=TRUE to skip spawn protection and ready-up bonuses)
 	if(job_datum && hascall(job_datum, "after_spawn"))
 		H.islatejoin = TRUE  // Mark as latejoin to prevent ready-up bonuses
 		job_datum.after_spawn(H, H, TRUE)
-	
+
 	// Call after_spawn for migrant roles if it exists
 	if(is_migrant)
 		var/datum/migrant_role/migrant_datum = new job_type_path()
 		if(hascall(migrant_datum, "after_spawn"))
 			migrant_datum.after_spawn(H)
 		qdel(migrant_datum)
-	
+
 	// Clean up any advclass selection hugbox state that may have been applied by after_spawn
 	// This must happen AFTER after_spawn since that proc may apply hugbox for advclass selection
 	H.advsetup = 0
@@ -796,7 +796,7 @@ GLOBAL_LIST_EMPTY(loadout_selected_advclasses)
 	// Force end any hugbox timers by calling the end proc (safe to call even if not in hugbox)
 	if(hascall(H, "adv_hugboxing_end"))
 		H.adv_hugboxing_end()
-	
+
 	// Apply examine title
 	if(is_migrant)
 		// For migrant roles, set the name directly
@@ -813,7 +813,7 @@ GLOBAL_LIST_EMPTY(loadout_selected_advclasses)
 		if(advclass_path)
 			var/datum/advclass/adv_for_title = new advclass_path()
 			H.advjob = adv_for_title.name
-	
+
 	to_chat(H, span_notice("Full job loadout applied! Stats, skills, and traits have been configured."))
 	message_admins("[key_name_admin(usr)] applied full job loadout [actual_outfit] to [ADMIN_LOOKUPFLW(H)].")
 	log_admin("[key_name(usr)] applied full job loadout [actual_outfit] to [key_name(H)].")
@@ -822,25 +822,25 @@ GLOBAL_LIST_EMPTY(loadout_selected_advclasses)
 /client/proc/apply_job_equipment_and_spells(mob/living/carbon/human/H, job_type_path, delete_existing = FALSE)
 	if(!ishuman(H))
 		return
-	
+
 	if(!H.mind)
 		H.mind_initialize()
 		to_chat(usr, span_notice("Initialized mind for target."))
-	
+
 	// Determine if this is a migrant role or regular job
 	var/is_migrant = FALSE
 	if(ispath(job_type_path, /datum/migrant_role))
 		is_migrant = TRUE
-	
+
 	var/datum/outfit/outfit_path = null
 	var/datum/outfit/actual_outfit = null
 	var/advclass_path = GLOB.loadout_selected_advclasses[REF(H)]
-	
+
 	if(is_migrant)
 		// Get outfit from migrant role - check if it uses advclass_cat_rolls or direct outfit
 		var/datum/migrant_role/MR = new job_type_path()
 		outfit_path = MR.outfit
-		
+
 		// If migrant role has direct outfit, use it
 		if(outfit_path)
 			actual_outfit = outfit_path
@@ -856,15 +856,15 @@ GLOBAL_LIST_EMPTY(loadout_selected_advclasses)
 		// Get outfit from job type
 		var/datum/job/JobType = job_type_path
 		outfit_path = initial(JobType.outfit)
-		
+
 		actual_outfit = outfit_path
-		
+
 		// If advclass is selected, use its outfit instead
 		if(advclass_path)
 			var/datum/advclass/advclass_datum = new advclass_path()
 			if(advclass_datum.outfit)
 				actual_outfit = advclass_datum.outfit
-	
+
 	// Clear existing equipment and spells if requested
 	if(delete_existing)
 		// Clear equipment
@@ -884,7 +884,7 @@ GLOBAL_LIST_EMPTY(loadout_selected_advclasses)
 	if(actual_outfit)
 		H.equipOutfit(actual_outfit)
 		H.regenerate_icons()
-	
+
 	// For migrant roles, spells are already applied via the outfit
 	// For regular jobs, apply additional job spells if available
 	if(!is_migrant)
@@ -895,12 +895,12 @@ GLOBAL_LIST_EMPTY(loadout_selected_advclasses)
 			if(initial(J.outfit) == outfit_path || initial(J.outfit_female) == outfit_path)
 				job_datum = new job_type()
 				break
-		
+
 		// Apply spells from job if available (separate from outfit)
 		if(job_datum && job_datum.spells)
 			for(var/S in job_datum.spells)
 				H.mind.AddSpell(new S)
-	
+
 		// Apply mage aspects from advclass if available
 		if(advclass_path)
 			var/datum/advclass/advclass_datum = new advclass_path()
@@ -917,17 +917,17 @@ GLOBAL_LIST_EMPTY(loadout_selected_advclasses)
 /client/proc/apply_job_stats(mob/living/carbon/human/H, job_type_path, delete_existing = FALSE)
 	if(!ishuman(H))
 		return
-	
+
 	// Get outfit from job type for job finding
 	var/datum/job/JobType = job_type_path
 	var/datum/outfit/outfit_path = initial(JobType.outfit)
-	
+
 	var/advclass_path = GLOB.loadout_selected_advclasses[REF(H)]
-	
+
 	// Reset stats to baseline (with racial and stat-pack bonuses) if requested
 	if(delete_existing)
 		H.roll_stats()
-	
+
 	// Find the job datum
 	var/datum/job/job_datum = null
 	for(var/job_type in subtypesof(/datum/job))
@@ -935,19 +935,19 @@ GLOBAL_LIST_EMPTY(loadout_selected_advclasses)
 		if(initial(J.outfit) == outfit_path || initial(J.outfit_female) == outfit_path)
 			job_datum = new job_type()
 			break
-	
+
 	// Apply job stats first
 	if(job_datum && length(job_datum.job_stats))
 		for(var/stat in job_datum.job_stats)
 			H.change_stat(stat, job_datum.job_stats[stat])
-	
+
 	// Then apply advclass stats on top
 	if(advclass_path)
 		var/datum/advclass/advclass_datum = new advclass_path()
 		if(length(advclass_datum.subclass_stats))
 			for(var/stat in advclass_datum.subclass_stats)
 				H.change_stat(stat, advclass_datum.subclass_stats[stat])
-	
+
 	to_chat(H, span_notice("Stats applied from job[advclass_path ? " and advclass" : ""]!"))
 	message_admins("[key_name_admin(usr)] applied stats from [outfit_path] to [ADMIN_LOOKUPFLW(H)].")
 	log_admin("[key_name(usr)] applied stats from [outfit_path] to [key_name(H)].")
@@ -955,34 +955,34 @@ GLOBAL_LIST_EMPTY(loadout_selected_advclasses)
 /client/proc/apply_job_skills(mob/living/carbon/human/H, job_type_path, delete_existing = FALSE)
 	if(!ishuman(H))
 		return
-	
+
 	// Get outfit from job type for job finding
 	var/datum/job/JobType = job_type_path
 	var/datum/outfit/outfit_path = initial(JobType.outfit)
-	
+
 	var/advclass_path = GLOB.loadout_selected_advclasses[REF(H)]
-	
+
 	// Clear all skills if requested
 	if(delete_existing)
 		for(var/skill_type in subtypesof(/datum/skill))
 			var/current_rank = H.get_skill_level(skill_type)
 			if(current_rank > 0)
 				H.adjust_skillrank(skill_type, -current_rank, TRUE)
-	
+
 	// Apply racial skill bonuses first
 	if(H.dna?.species)
 		if(H.dna.species.name in list("Elf", "Half-Elf"))
 			H.adjust_skillrank(/datum/skill/misc/reading, 1, TRUE)
 		if(H.dna.species.name in list("Metal Construct"))
 			H.adjust_skillrank(/datum/skill/craft/engineering, 2, TRUE)
-	
+
 	// Apply advclass skills if available
 	if(advclass_path)
 		var/datum/advclass/advclass_datum = new advclass_path()
 		if(length(advclass_datum.subclass_skills))
 			for(var/skill in advclass_datum.subclass_skills)
 				H.adjust_skillrank(skill, advclass_datum.subclass_skills[skill], TRUE)
-	
+
 	to_chat(H, span_notice("Skills applied[advclass_path ? " from advclass" : ""]!"))
 	message_admins("[key_name_admin(usr)] applied skills from [outfit_path] to [ADMIN_LOOKUPFLW(H)].")
 	log_admin("[key_name(usr)] applied skills from [outfit_path] to [key_name(H)].")
@@ -990,13 +990,13 @@ GLOBAL_LIST_EMPTY(loadout_selected_advclasses)
 /client/proc/apply_job_traits(mob/living/carbon/human/H, job_type_path, delete_existing = FALSE)
 	if(!ishuman(H))
 		return
-	
+
 	// Get outfit from job type for job finding
 	var/datum/job/JobType = job_type_path
 	var/datum/outfit/outfit_path = initial(JobType.outfit)
-	
+
 	var/advclass_path = GLOB.loadout_selected_advclasses[REF(H)]
-	
+
 	// Remove old job traits if requested
 	if(delete_existing && H.status_traits)
 		var/list/traits_to_remove = list()
@@ -1006,7 +1006,7 @@ GLOBAL_LIST_EMPTY(loadout_selected_advclasses)
 				traits_to_remove += trait
 		for(var/trait in traits_to_remove)
 			REMOVE_TRAIT(H, trait, JOB_TRAIT)
-	
+
 	// Find the job datum
 	var/datum/job/job_datum = null
 	for(var/job_type in subtypesof(/datum/job))
@@ -1014,19 +1014,19 @@ GLOBAL_LIST_EMPTY(loadout_selected_advclasses)
 		if(initial(J.outfit) == outfit_path || initial(J.outfit_female) == outfit_path)
 			job_datum = new job_type()
 			break
-	
+
 	// Apply job traits first
 	if(job_datum && job_datum.job_traits)
 		for(var/trait in job_datum.job_traits)
 			ADD_TRAIT(H, trait, JOB_TRAIT)
-	
+
 	// Then apply advclass traits on top
 	if(advclass_path)
 		var/datum/advclass/advclass_datum = new advclass_path()
 		if(advclass_datum.traits_applied)
 			for(var/trait in advclass_datum.traits_applied)
 				ADD_TRAIT(H, trait, JOB_TRAIT)
-	
+
 	to_chat(H, span_notice("Traits applied from job[advclass_path ? " and advclass" : ""]!"))
 	message_admins("[key_name_admin(usr)] applied traits from [outfit_path] to [ADMIN_LOOKUPFLW(H)].")
 	log_admin("[key_name(usr)] applied traits from [outfit_path] to [key_name(H)].")
@@ -1034,18 +1034,18 @@ GLOBAL_LIST_EMPTY(loadout_selected_advclasses)
 /client/proc/apply_job_examine_title(mob/living/carbon/human/H, job_type_path)
 	if(!ishuman(H))
 		return
-	
+
 	// Determine if this is a migrant role or regular job
 	var/is_migrant = FALSE
 	if(ispath(job_type_path, /datum/migrant_role))
 		is_migrant = TRUE
-	
+
 	// Clear any excommunicated/outlawed status before applying new title
 	if(H.real_name in GLOB.excommunicated_players)
 		GLOB.excommunicated_players -= H.real_name
 	if(H.real_name in GLOB.outlawed_players)
 		GLOB.outlawed_players -= H.real_name
-	
+
 	if(is_migrant)
 		// For migrant roles, set the name directly
 		var/datum/migrant_role/migrant_datum = new job_type_path()
@@ -1059,21 +1059,21 @@ GLOBAL_LIST_EMPTY(loadout_selected_advclasses)
 	else
 		// Get the job datum directly from the path
 		var/datum/job/job_datum = new job_type_path()
-		
+
 		var/advclass_path = GLOB.loadout_selected_advclasses[REF(H)]
-		
+
 		if(!job_datum)
 			to_chat(usr, span_warning("Could not find job datum."))
 			return
-		
+
 		// Determine the appropriate title based on gender
 		var/title = job_datum.title
 		if(job_datum.f_title && (H.titles_pref == TITLES_F))
 			title = job_datum.f_title
-		
+
 		// Set the job
 		H.job = title
-		
+
 		// Set advclass if selected
 		if(advclass_path)
 			var/datum/advclass/advclass_datum = new advclass_path()
@@ -1094,29 +1094,29 @@ GLOBAL_LIST_EMPTY(loadout_selected_advclasses)
 /client/proc/clean_slate_mob(mob/living/carbon/human/H)
 	if(!ishuman(H))
 		return
-	
+
 	// Delete all equipment including items in hands
 	for(var/obj/item/I in H.get_equipped_items(TRUE))
 		qdel(I)
 	// Delete items in hands
 	for(var/obj/item/I in H.held_items)
 		qdel(I)
-	
+
 	// Reset stats to baseline (10) plus racial and stat-pack modifiers
 	H.roll_stats()
-	
+
 	// Clear all skills
 	for(var/skill_type in subtypesof(/datum/skill))
 		var/current_rank = H.get_skill_level(skill_type)
 		if(current_rank > 0)
 			H.adjust_skillrank(skill_type, -current_rank, TRUE)
-	
+
 	// Remove all job traits (but preserve species traits)
 	if(H.status_traits)
 		for(var/trait in H.status_traits)
 			if(HAS_TRAIT_FROM(H, trait, JOB_TRAIT))
 				REMOVE_TRAIT(H, trait, JOB_TRAIT)
-	
+
 	// Clear spells and aspect config if they have a mind
 	if(H.mind)
 		for(var/obj/effect/proc_holder/spell/S in H.mind.spell_list)
@@ -1124,7 +1124,7 @@ GLOBAL_LIST_EMPTY(loadout_selected_advclasses)
 		H.mind.mage_aspect_config = null
 		H.mind.major_aspects = null
 		H.mind.minor_aspects = null
-	
+
 	// Remove from excommunicated and outlawed lists (clears examine text like "HERETIC! SHAME!")
 	// Check both real_name and name to be thorough
 	if(H.real_name)
@@ -1133,15 +1133,15 @@ GLOBAL_LIST_EMPTY(loadout_selected_advclasses)
 	if(H.name && H.name != H.real_name)
 		GLOB.excommunicated_players -= H.name
 		GLOB.outlawed_players -= H.name
-	
+
 	// Clear job and advjob to remove examine title
 	H.job = null
 	H.advjob = null
-	
+
 	// Don't clear selected job - let it persist for reapplication
-	
+
 	H.regenerate_icons()
-	
+
 	to_chat(H, span_warning("You have been reset to a blank slate!"))
 	message_admins("[key_name_admin(usr)] reset [ADMIN_LOOKUPFLW(H)] to a clean slate.")
 	log_admin("[key_name(usr)] reset [key_name(H)] to a clean slate.")
@@ -1151,7 +1151,7 @@ GLOBAL_LIST_EMPTY(loadout_selected_advclasses)
 	if(!ishuman(target))
 		to_chat(usr, span_warning("Target must be a human!"))
 		return
-	
+
 	var/list/possible_sources = list()
 	// Include all human mobs, whether connected or disconnected
 	for(var/mob/living/carbon/human/H in GLOB.mob_list)
@@ -1162,46 +1162,46 @@ GLOBAL_LIST_EMPTY(loadout_selected_advclasses)
 			else
 				display_name += " (Disconnected)"
 			possible_sources[display_name] = H
-	
+
 	if(!possible_sources.len)
 		to_chat(usr, span_warning("No valid humanoid mobs found!"))
 		return
-	
+
 	var/source_name = input("Select character to copy from:", "Copy From...") as null|anything in sortList(possible_sources)
 	if(!source_name)
 		return
-	
+
 	var/mob/living/carbon/human/source = possible_sources[source_name]
 	if(!source || QDELETED(source))
 		to_chat(usr, span_warning("Source mob no longer exists!"))
 		return
-	
+
 	// Confirm what to copy
 	var/list/copy_options = list("Equipment Only", "Equipment + Skills", "Equipment + Skills + Stats", "Everything (Equipment + Skills + Stats + Traits)")
 	var/copy_choice = input("What should be copied?", "Copy Options") as null|anything in copy_options
 	if(!copy_choice)
 		return
-	
+
 	// Clear target's equipment first
 	if(alert("Clear target's current equipment?", "Confirm", "Yes", "No") == "Yes")
 		for(var/obj/item/I in target.get_equipped_items(TRUE))
 			qdel(I)
-	
+
 	// Copy equipment
 	copy_equipment(source, target)
-	
+
 	// Copy skills if requested
 	if(copy_choice in list("Equipment + Skills", "Equipment + Skills + Stats", "Everything (Equipment + Skills + Stats + Traits)"))
 		copy_skills(source, target)
-	
+
 	// Copy stats if requested
 	if(copy_choice in list("Equipment + Skills + Stats", "Everything (Equipment + Skills + Stats + Traits)"))
 		copy_stats(source, target)
-	
-	// Copy traits if requested  
+
+	// Copy traits if requested
 	if(copy_choice == "Everything (Equipment + Skills + Stats + Traits)")
 		copy_traits(source, target)
-	
+
 	target.regenerate_icons()
 	to_chat(usr, span_notice("Loadout copied from [source.name] to [target.name]!"))
 	message_admins("[key_name_admin(usr)] copied loadout from [ADMIN_LOOKUPFLW(source)] to [ADMIN_LOOKUPFLW(target)] ([copy_choice]).")
@@ -1214,13 +1214,13 @@ GLOBAL_LIST_EMPTY(loadout_selected_advclasses)
 	for(var/obj/item/held in source.held_items)
 		if(held && !(held in items_to_copy))
 			items_to_copy += held
-	
+
 	for(var/obj/item/I in items_to_copy)
 		var/obj/item/copy = new I.type()
-		
+
 		// Try to equip in appropriate slot
 		var/equipped = FALSE
-		
+
 		// Check each possible slot
 		if(source.head == I)
 			equipped = target.equip_to_slot_or_del(copy, SLOT_HEAD)
@@ -1255,7 +1255,7 @@ GLOBAL_LIST_EMPTY(loadout_selected_advclasses)
 		else if(I in source.held_items)
 			// Try to put in hands
 			equipped = target.put_in_hands(copy)
-		
+
 		// If couldn't equip, drop it at their feet
 		if(!equipped)
 			copy.forceMove(get_turf(target))
@@ -1263,30 +1263,30 @@ GLOBAL_LIST_EMPTY(loadout_selected_advclasses)
 /client/proc/copy_skills(mob/living/carbon/human/source, mob/living/carbon/human/target)
 	if(!source.mind || !target.mind)
 		return
-	
+
 	// Copy all skill ranks
 	for(var/skill_type in subtypesof(/datum/skill))
 		var/source_rank = source.get_skill_level(skill_type)
 		var/target_rank = target.get_skill_level(skill_type)
-		
+
 		if(source_rank != target_rank)
 			var/difference = source_rank - target_rank
 			target.adjust_skillrank(skill_type, difference, TRUE)
-	
+
 	to_chat(target, span_notice("Skills have been copied to match [source.name]'s abilities."))
 
 /client/proc/copy_stats(mob/living/carbon/human/source, mob/living/carbon/human/target)
 	// Copy all stats using the correct stat names
 	var/list/stat_names = list(STAT_STRENGTH, STAT_PERCEPTION, STAT_INTELLIGENCE, STAT_CONSTITUTION, STAT_WILLPOWER, STAT_SPEED, STAT_FORTUNE)
-	
+
 	for(var/stat in stat_names)
 		var/source_stat = source.get_stat(stat)
 		var/target_stat = target.get_stat(stat)
 		var/difference = source_stat - target_stat
-		
+
 		if(difference != 0)
 			target.change_stat(stat, difference)
-	
+
 	to_chat(target, span_notice("Stats have been copied to match [source.name]'s attributes."))
 
 /client/proc/copy_traits(mob/living/carbon/human/source, mob/living/carbon/human/target)
@@ -1298,19 +1298,19 @@ GLOBAL_LIST_EMPTY(loadout_selected_advclasses)
 			if(initial(J.title) == source.mind.assigned_role)
 				source_job = new job_type()
 				break
-	
+
 	// Clear target's job traits first (remove traits from JOB_TRAIT source)
 	if(target.status_traits)
 		for(var/trait in target.status_traits)
 			// Only remove if it's from job trait source
 			if(HAS_TRAIT_FROM(target, trait, JOB_TRAIT))
 				REMOVE_TRAIT(target, trait, JOB_TRAIT)
-	
+
 	// Apply source job's traits to target
 	if(source_job && source_job.job_traits)
 		for(var/trait in source_job.job_traits)
 			ADD_TRAIT(target, trait, JOB_TRAIT)
-	
+
 	// Make sure racial traits are preserved for target's actual race
 	if(target.dna?.species)
 		// Re-apply any racial traits that might have been overwritten
@@ -1318,11 +1318,11 @@ GLOBAL_LIST_EMPTY(loadout_selected_advclasses)
 		if(S.species_traits)
 			for(var/trait in S.species_traits)
 				ADD_TRAIT(target, trait, SPECIES_TRAIT)
-	
+
 	to_chat(target, span_notice("Job traits have been copied, but your racial traits remain unchanged."))
 
 /client/proc/cmd_debug_mob_lists()
-	set category = "🛠 DEBUG.Logs"
+	set category = "DEBUG.Logs"
 	set name = "Debug Mob Lists"
 	set desc = ""
 
@@ -1343,7 +1343,7 @@ GLOBAL_LIST_EMPTY(loadout_selected_advclasses)
 			to_chat(usr, jointext(GLOB.joined_player_list,","))
 
 /client/proc/cmd_display_del_log()
-	set category = "🛠 DEBUG.Logs"
+	set category = "DEBUG.Logs"
 	set name = "Display del() Log"
 	set desc = ""
 
@@ -1359,12 +1359,16 @@ GLOBAL_LIST_EMPTY(loadout_selected_advclasses)
 		if (I.hard_deletes)
 			dellog += "<li>Total Hard Deletes [I.hard_deletes]</li>"
 			dellog += "<li>Time Spent Hard Deleting: [I.hard_delete_time]ms</li>"
+			dellog += "<li>Highest Time Spent Hard Deleting: [I.hard_delete_max]ms</li>"
 		if (I.slept_destroy)
 			dellog += "<li>Sleeps: [I.slept_destroy]</li>"
 		if (I.no_respect_force)
 			dellog += "<li>Ignored force: [I.no_respect_force]</li>"
 		if (I.no_hint)
 			dellog += "<li>No hint: [I.no_hint]</li>"
+		if(LAZYLEN(I.extra_details))
+			var/details = I.extra_details.Join("</li><li>")
+			dellog += "<li>Extra Info: <ul><li>[details]</li></ul>"
 		dellog += "</ul></li>"
 
 	dellog += "</ol>"
@@ -1372,21 +1376,21 @@ GLOBAL_LIST_EMPTY(loadout_selected_advclasses)
 	usr << browse(dellog.Join(), "window=dellog")
 
 /client/proc/cmd_display_overlay_log()
-	set category = "🛠 DEBUG.Logs"
+	set category = "DEBUG.Logs"
 	set name = "Display overlay Log"
 	set desc = ""
 
 	render_stats(SSoverlays.stats, src)
 
 /client/proc/cmd_display_init_log()
-	set category = "🛠 DEBUG.Logs"
+	set category = "DEBUG.Logs"
 	set name = "Display Initialize() Log"
 	set desc = ""
 
 	usr << browse(replacetext(SSatoms.InitLog(), "\n", "<br>"), "window=initlog")
 
 /client/proc/debug_huds(i as num)
-	set category = "🛠 DEBUG.UI"
+	set category = "DEBUG.UI"
 	set name = "Debug HUDs"
 	set desc = ""
 
@@ -1395,7 +1399,7 @@ GLOBAL_LIST_EMPTY(loadout_selected_advclasses)
 	debug_variables(GLOB.huds[i])
 
 /client/proc/jump_to_ruin()
-	set category = "⚡︎ ADMIN.Movement"
+	set category = "ADMIN.Movement"
 	set name = "Jump to Ruin"
 	set desc = ""
 	if(!holder)
@@ -1427,7 +1431,7 @@ GLOBAL_LIST_EMPTY(loadout_selected_advclasses)
 		to_chat(usr, span_italics("[template.description]"))
 
 /client/proc/toggle_medal_disable()
-	set category = "🛠 DEBUG.Server"
+	set category = "DEBUG.Server"
 	set name = "Toggle Medal Disable"
 	set desc = ""
 
@@ -1441,7 +1445,7 @@ GLOBAL_LIST_EMPTY(loadout_selected_advclasses)
 	log_admin("[key_name(src)] [SSachievements.hub_enabled ? "disabled" : "enabled"] the medal hub lockout.")
 
 /client/proc/view_runtimes()
-	set category = "🛠 DEBUG.Logs"
+	set category = "DEBUG.Logs"
 	set name = "View Runtimes"
 	set desc = ""
 
@@ -1451,7 +1455,7 @@ GLOBAL_LIST_EMPTY(loadout_selected_advclasses)
 	GLOB.error_cache.show_to(src)
 
 /client/proc/pump_random_event()
-	set category = "🛠 DEBUG.Testing"
+	set category = "DEBUG.Testing"
 	set name = "Pump Random Event"
 	set desc = ""
 	if(!holder)
@@ -1464,7 +1468,7 @@ GLOBAL_LIST_EMPTY(loadout_selected_advclasses)
 	log_admin("[key_name(src)] pumped a random event.")
 
 /client/proc/start_line_profiling()
-	set category = "🛠 DEBUG.Profile"
+	set category = "DEBUG.Profile"
 	set name = "Start Line Profiling"
 	set desc = ""
 
@@ -1475,7 +1479,7 @@ GLOBAL_LIST_EMPTY(loadout_selected_advclasses)
 	log_admin("[key_name(src)] started line by line profiling.")
 
 /client/proc/stop_line_profiling()
-	set category = "🛠 DEBUG.Profile"
+	set category = "DEBUG.Profile"
 	set name = "Stops Line Profiling"
 	set desc = ""
 
@@ -1486,7 +1490,7 @@ GLOBAL_LIST_EMPTY(loadout_selected_advclasses)
 	log_admin("[key_name(src)] stopped line by line profiling.")
 
 /client/proc/show_line_profiling()
-	set category = "🛠 DEBUG.Profile"
+	set category = "DEBUG.Profile"
 	set name = "Show Line Profiling"
 	set desc = ""
 
@@ -1502,7 +1506,7 @@ GLOBAL_LIST_EMPTY(loadout_selected_advclasses)
 	profile_show(src, sort)
 
 /client/proc/reload_configuration()
-	set category = "🛠 DEBUG.Server"
+	set category = "DEBUG.Server"
 	set name = "Reload Configuration"
 	set desc = ""
 	if(!check_rights(R_DEBUG))
@@ -1513,7 +1517,7 @@ GLOBAL_LIST_EMPTY(loadout_selected_advclasses)
 
 //CC Edit: Heck TGUI, seriously, why is this missing!
 /client/proc/allow_broser_inspect()
-	set category = "🛠 DEBUG.UI"
+	set category = "DEBUG.UI"
 	set name = "Allow Browser Inspect"
 	set desc = ""
 	if(!check_rights(R_DEBUG))

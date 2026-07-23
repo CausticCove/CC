@@ -1,9 +1,9 @@
-import { useMemo, useState } from 'react';
+import { useState } from 'react'; // useMemo,
 import {
-  Button,
-  Collapsible,
-  Input,
-  LabeledList,
+  //Button,
+  //Collapsible,
+  //Input,
+  //LabeledList,
   Stack,
 } from 'tgui-core/components';
 
@@ -20,7 +20,7 @@ export const Supplies = (props, context) => {
         <Stack horizontal>
           <Stack vertical>
             {
-              data["favours"]
+              data.favours
             }
           </Stack>
           <Stack vertical>

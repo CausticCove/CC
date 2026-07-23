@@ -5,7 +5,6 @@
  */
 
 import { useAtom, useAtomValue } from 'jotai';
-import { useState } from 'react';
 import { Pane } from 'tgui/layouts';
 import { Button, Section, Stack } from 'tgui-core/components';
 import { visibleAtom } from './audio/atoms';
@@ -21,20 +20,24 @@ import { ReconnectButton } from './reconnect';
 import { settingsVisibleAtom } from './settings/atoms';
 import { SettingsPanel } from './settings/SettingsPanel';
 import { useSettings } from './settings/use-settings';
+import { themeAtom } from './theme';
 
 export function Panel(props) {
   const [audioVisible, setAudioVisible] = useAtom(visibleAtom);
   const game = useAtomValue(gameAtom);
   const { settings } = useSettings();
   const [settingsVisible, setSettingsVisible] = useAtom(settingsVisibleAtom);
-  const [dismissedWarning, setDismissedWarning] = useState(false);
+  const theme = useAtomValue(themeAtom);
   useChatPersistence();
-  useKeepAlive(setDismissedWarning);
+  useKeepAlive();
 
   return (
-    <Pane theme={settings.theme === 'leatherbound' ? 'leatherbound' : 'dark'}>
+    <Pane
+      theme={theme === 'leatherbound' ? 'leatherbound' : 'dark'}
+      canSuspend={false}
+    >
       <Stack fill vertical>
-        <Stack.Item>
+        <Stack.Item fontSize={1.2}>
           <Section fitted>
             <Stack mr={1} align="center">
               <Stack.Item grow>
@@ -50,9 +53,7 @@ export function Panel(props) {
                   icon="music"
                   tooltip="Music player"
                   tooltipPosition="bottom-start"
-                  onClick={() => {
-                    setAudioVisible((v) => !v);
-                  }}
+                  onClick={() => setAudioVisible((v) => !v)}
                 />
               </Stack.Item>
               <Stack.Item>
@@ -68,14 +69,14 @@ export function Panel(props) {
           </Section>
         </Stack.Item>
         {audioVisible && (
-          <Stack.Item>
+          <Stack.Item fontSize={1.2}>
             <Section>
               <NowPlayingWidget />
             </Section>
           </Stack.Item>
         )}
         {settingsVisible && (
-          <Stack.Item>
+          <Stack.Item fontSize={1.2}>
             <SettingsPanel />
           </Stack.Item>
         )}
@@ -85,21 +86,13 @@ export function Panel(props) {
               <ChatPanel lineHeight={settings.lineHeight} />
             </Pane.Content>
             <Notifications>
-              {settings.showReconnectWarning &&
-                game.connectionLostAt &&
-                !dismissedWarning && (
-                  <Notifications.Item
-                    rightSlot={
-                      <ReconnectButton
-                        onDismissedWarning={setDismissedWarning}
-                      />
-                    }
-                  >
-                    You are either AFK, experiencing lag or the connection has
-                    closed.
-                  </Notifications.Item>
-                )}
-              {settings.showReconnectWarning && game.roundRestartedAt && (
+              {game.connectionLostAt && (
+                <Notifications.Item rightSlot={<ReconnectButton />}>
+                  You are either AFK, experiencing lag or the connection has
+                  closed.
+                </Notifications.Item>
+              )}
+              {game.roundRestartedAt && (
                 <Notifications.Item>
                   The connection has been closed because the server is
                   restarting. Please wait while you automatically reconnect.

@@ -1,5 +1,5 @@
 /client/proc/cmd_admin_set_ic_date()
-	set category = "🕮 GM.Actions"
+	set category = "GM.Actions"
 	set name = "Set IC Date"
 
 	if(!check_rights(R_ADMIN))

@@ -4,15 +4,22 @@
  * @license MIT
  */
 
+type NodeCreator = (text: string) => Node;
+
+type ReplaceInTextNodeParams = {
+  node: Node;
+  regex: RegExp;
+  createNode: NodeCreator;
+  captureAdjust?: (str: string) => string;
+};
+
 /**
  * Replaces text matching a regular expression with a custom node.
  */
-const regexParseNode = (params: {
-  node: Node;
-  regex: RegExp;
-  createNode: (text: string) => Node;
-  captureAdjust?: (str: string) => string;
-}): { nodes?: Node[]; n?: number } => {
+function regexParseNode(params: ReplaceInTextNodeParams): {
+  nodes: Node[];
+  n: number;
+} {
   const { node, regex, createNode, captureAdjust } = params;
   const text = node.textContent;
 
@@ -20,21 +27,20 @@ const regexParseNode = (params: {
     return { nodes: [], n: 0 };
   }
 
-  const textLength = text.length;
   const nodes: Node[] = [];
+  const textLength = text.length;
   let fragment: Node | undefined;
-  let new_node: Node;
-  let match: RegExpExecArray | null;
-  let lastIndex = 0;
-  let n = 0;
   let count = 0;
-  // eslint-disable-next-line no-cond-assign
+  let lastIndex = 0;
+  let match: RegExpExecArray | null;
+  let n = 0;
+  let new_node: Node;
+
   while (true) {
     match = regex.exec(text);
     if (!match) break;
     n += 1;
-    // Safety check to prevent permanent
-    // client crashing
+    // Safety check to prevent permanent client crashing
     if (++count > 9999) {
       return { nodes: [], n: 0 };
     }
@@ -42,6 +48,7 @@ const regexParseNode = (params: {
     if (!fragment) {
       fragment = document.createDocumentFragment();
     }
+
     const matchText = captureAdjust ? captureAdjust(match[0]) : match[0];
     const matchLength = matchText.length;
     // If matchText is set to be a substring nested within the original
@@ -67,27 +74,21 @@ const regexParseNode = (params: {
       fragment.appendChild(new_node);
     }
     // Commit the fragment
-    if (node?.parentNode) {
-      node.parentNode.replaceChild(fragment, node);
-    }
+    node.parentNode?.replaceChild(fragment, node);
   }
 
   return {
     nodes: nodes,
     n: n,
   };
-};
+}
 
 /**
- * Replace text of a node with custom nades if they match
+ * Replace text of a node with custom nodes if they match
  * a regex expression or are in a word list
  */
 export const replaceInTextNode =
-  (
-    regex: RegExp,
-    words: string[] | null,
-    createNode: (text: string) => Node,
-  ): ((node: Node) => number) =>
+  (regex: RegExp, words: string[] | null, createNode: NodeCreator) =>
   (node: Node) => {
     let nodes;
     let result;
@@ -123,7 +124,7 @@ export const replaceInTextNode =
             node: a_node,
             regex: wordRegex,
             createNode: createNode,
-            captureAdjust: (str: string) => str.replace(/^\W|\W$/g, ''),
+            captureAdjust: (str) => str.replace(/^\W|\W$/g, ''),
           });
           n += result.n;
         }
@@ -132,7 +133,7 @@ export const replaceInTextNode =
           node: node,
           regex: wordRegex,
           createNode: createNode,
-          captureAdjust: (str: string) => str.replace(/^\W|\W$/g, ''),
+          captureAdjust: (str) => str.replace(/^\W|\W$/g, ''),
         });
         n += result.n;
       }
@@ -146,27 +147,25 @@ export const replaceInTextNode =
 /**
  * Default highlight node.
  */
-const createHighlightNode = (text: string): HTMLSpanElement => {
+function createHighlightNode(text: string): Node {
   const node = document.createElement('span');
   node.setAttribute('style', 'background-color:#fd4;color:#000');
   node.textContent = text;
   return node;
-};
+}
 
 /**
  * Highlights the text in the node based on the provided regular expression.
- *
- * @param {Node} node Node which you want to process
- * @param {RegExp} regex Regular expression to highlight
- * @param {(text: string) => Node} createNode Highlight node creator
- * @returns {number} Number of matches
  */
-export const highlightNode = (
+export function highlightNode(
+  /** Node which you want to process */
   node: Node,
+  /** Regular expression to highlight */
   regex: RegExp,
+  /** List of words to highlight */
   words: string[],
-  createNode: (text: string) => Node = createHighlightNode,
-) => {
+  createNode: NodeCreator = createHighlightNode,
+): number {
   if (!createNode) {
     createNode = createHighlightNode;
   }
@@ -182,7 +181,7 @@ export const highlightNode = (
     }
   }
   return n;
-};
+}
 
 // Linkify
 // --------------------------------------------------------
@@ -192,11 +191,8 @@ const URL_REGEX =
 
 /**
  * Highlights the text in the node based on the provided regular expression.
- *
- * @param {Node} node Node which you want to process
- * @returns {number} Number of matches
  */
-export const linkifyNode = (node: Node): number => {
+export function linkifyNode(node: Node): number {
   let n = 0;
   const childNodes = node.childNodes;
   for (let i = 0; i < childNodes.length; i++) {
@@ -210,7 +206,7 @@ export const linkifyNode = (node: Node): number => {
     }
   }
   return n;
-};
+}
 
 const linkifyTextNode = replaceInTextNode(URL_REGEX, null, (text) => {
   const node = document.createElement('a');
