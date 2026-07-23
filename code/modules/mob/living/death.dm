@@ -143,7 +143,6 @@ GLOBAL_LIST_EMPTY(last_words)
 //		addtimer(CALLBACK(H, TYPE_PROC_REF(/atom/movable/screen/gameover, Fade)), 29)
 		mob_timers["lastdied"] = world.time
 //		addtimer(CALLBACK(client, PROC_REF(ghostize), 1, src), 150)
-		add_client_colour(/datum/client_colour/monochrome)
 		add_verb(client, GLOB.ghost_verbs)
 		client.init_verbs()
 		if(last_words)

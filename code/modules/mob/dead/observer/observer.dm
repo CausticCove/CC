@@ -66,12 +66,17 @@ GLOBAL_VAR_CONST(observer_move_delay_multiplier, 0.5)
 
 /mob/dead/observer/rogue
 //	see_invisible = SEE_INVISIBLE_LIVING
-	sight = 0
-	see_in_dark = 10
 	var/misting = 0
+	icon = 'icons/roguetown/mob/misc.dmi'
+	icon_state = "hollow"
+	alpha = 150
 	draw_icon = TRUE
 
 /mob/dead/observer/admin
+	icon = 'icons/roguetown/mob/misc.dmi'
+	icon_state = "hollow"
+	alpha = 150
+	draw_icon = TRUE
 	hud_type = /datum/hud/adminghost
 
 /mob/dead/observer/rogue/nodraw
@@ -747,7 +752,8 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 /mob/dead/observer/verb/toggle_darkness()
 	set name = "Toggle Darkness"
-	set hidden = 1
+	set category = "SPIRIT"
+	set hidden = 0
 	switch(lighting_alpha)
 		if (LIGHTING_PLANE_ALPHA_VISIBLE)
 			lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
