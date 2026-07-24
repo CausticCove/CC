@@ -103,7 +103,6 @@ GLOBAL_LIST_INIT(quest_bounty_goblin_goons, list(
 	spawn_effect.AddComponent(/datum/component/quest_object/mob_spawner, src)
 	register_spawner(spawn_effect)
 	add_tracked_atom(boss)
-	landmark.add_quest_faction_to_nearby_mobs(spawn_turf)
 
 /datum/quest/kill/bounty/proc/apply_boss_name()
 	for(var/datum/weakref/ref in tracked_atoms)

@@ -188,7 +188,6 @@
 		spawn_effect.AddComponent(/datum/component/quest_object/mob_spawner, src)
 		register_spawner(spawn_effect)
 		add_tracked_atom(new_mob)
-		landmark.add_quest_faction_to_nearby_mobs(spawn_turf)
 		total_spawned_tp += initial(new_mob.threat_point) || 0
 		spawned++
 		sleep(1)
