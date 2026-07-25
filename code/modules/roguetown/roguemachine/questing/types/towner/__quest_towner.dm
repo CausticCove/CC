@@ -21,7 +21,6 @@ GLOBAL_LIST_INIT(towner_tier_flat_bonus, list(
 	var/posting_tier = TOWNER_POSTING_TIER_MEDIUM
 	var/loadout_variety
 	var/parcel_label = "sealed strongbox"
-	/// Noun the writ and messages use for the sealed goods (e.g. "strongbox", "ore-crate").
 	var/sealed_noun = "strongbox"
 
 /datum/quest/kill/recovery/towner/calculate_deposit()

@@ -7,32 +7,23 @@
 
 	var/current_wave = 0
 	var/wave_timer_id
-	/// Chat-ping timers. Fire at 2 min and 30 s left so the bearer is warned before forfeit.
 	var/wave_warn_2m_id
 	var/wave_warn_30s_id
 	var/datum/weakref/wave_landmark_ref
 	var/datum/weakref/blockade_ref
-	var/failed = FALSE
-	/// TRUE after materialize() arms the quest and before the bearer has triggered wave 1
-	/// by entering the landmark's proximity. Prevents double-fire via check_arrival.
 	var/armed = FALSE
 	var/max_defenders_seen = 0
 	var/current_archetype = BLOCKADE_ARCHETYPE_WARBAND
 	var/wave_boss_name
-	/// Auto-fail timer that fires if the bearer never reaches the landmark. Without this, a writ
-	/// stashed in a drawer or handed to someone who never travels keeps the blockade slot locked
-	/// until round-end.
 	var/arm_timer_id
-	/// world.time at which the writ was issued. Used by the Steward's ledger to gate recall
-	/// within BLOCKADE_RECALL_WINDOW_DS.
 	var/issued_at = 0
-	/// Fund the commission draft was burned from, so a recall can mint the cost back to the
-	/// correct pot. Null for directives (which burned nothing).
 	var/datum/fund/funding_fund
 	var/funding_cost = 0
 	var/warrant_consumed = 0
 
-/// Faction is forced by the blockade, not rolled from threat weights.
+/datum/quest/kill/blockade_defense/get_scroll_type()
+	return /obj/item/quest_writ/blockade
+
 /datum/quest/kill/blockade_defense/preview(obj/effect/landmark/quest_spawner/landmark)
 	if(!landmark)
 		return FALSE
@@ -92,9 +83,6 @@
 			data["blockade_timer_label"] = label
 			data["blockade_timer_seconds"] = round(left / 10)
 
-/// Compass target: live wave mobs when present, otherwise the landmark itself. The base impl
-/// iterates tracked_atoms (spawned mobs), which is empty while armed (before wave 1) and between
-/// waves — the scroll would whisper "location unknown" right when the bearer most needs it.
 /datum/quest/kill/blockade_defense/get_target_location()
 	var/turf/from_mobs = ..()
 	if(from_mobs)
@@ -102,12 +90,9 @@
 	var/obj/effect/landmark/quest_spawner/landmark = wave_landmark_ref?.resolve()
 	return landmark ? get_turf(landmark) : null
 
-/// Reward is set at issue time (base + region travel fee); turnout multiplies it at completion.
 /datum/quest/kill/blockade_defense/calculate_reward(turf/origin_turf, turf/target_turf)
 	return reward_amount
 
-/// Materialize arms the quest but does NOT spawn wave 1. The scroll's process() tick polls
-/// check_arrival() and fires wave 1 once the bearer is in proximity to the landmark.
 /datum/quest/kill/blockade_defense/materialize(obj/effect/landmark/quest_spawner/landmark)
 	..()
 	if(!landmark)
@@ -122,7 +107,6 @@
 		return
 	fail_quest("arm_timeout")
 
-/// Called from the scroll's process tick. Tests bearer proximity; fires wave 1 on arrival.
 /datum/quest/kill/blockade_defense/proc/check_arrival(mob/bearer)
 	if(!armed || failed || complete)
 		return
@@ -327,20 +311,11 @@
 	if(S && !QDELETED(S))
 		qdel(S)
 
-/// Reason the writ cannot be recalled right now, or null if it can. Single source of truth
-/// for both the DM recall handler and the Steward's TGUI flavor copy. Recall policy:
-/// the bearer gets an uninterrupted BLOCKADE_RECALL_WINDOW_DS to reach the blockade; only
-/// after that window, and only if they still haven't engaged (armed == TRUE), may the
-/// Steward yank the writ and refund the draft. Once a wave has started the fellowship
-/// owns the outcome regardless of elapsed time.
 /datum/quest/kill/blockade_defense/proc/recall_blocker()
 	if(failed)
 		return "the writ has already lapsed"
 	if(complete)
 		return "the blockade is already broken"
-	// current_wave > 0 means a wave has actually spawned - the fellowship is committed.
-	// armed == FALSE before the scroll is opened (pre-claim), so we can't use !armed
-	// here or an untouched writ would incorrectly read as "already engaged".
 	if(current_wave > 0)
 		return "the fellowship has already engaged the blockade"
 	if(!issued_at)
@@ -355,9 +330,6 @@
 /datum/quest/kill/blockade_defense/proc/can_recall()
 	return isnull(recall_blocker())
 
-/// Steward-initiated cancellation. Refunds the original funding draft (if any), then
-/// tears down the quest by deleting the scroll - Destroy handles qdeling the quest datum
-/// and the blockade's weakref self-heals.
 /datum/quest/kill/blockade_defense/proc/recall(mob/recaller, reason = "recalled")
 	if(!can_recall())
 		return FALSE
@@ -389,9 +361,6 @@
 			continue
 		qdel(M)
 
-/// Reward pays immediately on last-wave clear (not at noticeboard turn-in) so the
-/// fellowship doesn't have to risk the scroll on the trip home. Scroll burns afterward
-/// to prevent double-minting at the contract ledger.
 /datum/quest/kill/blockade_defense/mark_complete()
 	..()
 	clear_wave_timers()

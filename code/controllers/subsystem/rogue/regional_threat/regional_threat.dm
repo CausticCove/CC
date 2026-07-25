@@ -307,10 +307,6 @@ SUBSYSTEM_DEF(regionthreat)
 			return TR
 	return null
 
-/// Weighted pick of a region that allows the given quest type, weighted by fill ratio
-/// (latent_ambush / max_ambush). Regions with more relative threat are picked more often, so
-/// as adventurers clear a region its quest share naturally drops. Returns null if no region
-/// allows the type.
 /datum/controller/subsystem/regionthreat/proc/pick_region_for_quest(quest_type)
 	var/list/weights = list()
 	for(var/T in threat_regions)

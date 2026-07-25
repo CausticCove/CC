@@ -1,16 +1,8 @@
 /datum/quest/kill
-	/// TP budget this quest spends composing its warband. Subtypes override.
 	var/tp_budget = 0
-	/// Minimum mobs the composition must produce, even if budget math would give fewer. Keeps
-	/// quests from degenerating into "slay 1 orc." Subtypes override.
 	var/min_mobs = 1
-	/// How many "bands" of threat this kill quest type clears on completion. Subtypes override.
 	var/threat_bands_cleared = 0
-	/// Accumulated TP value of spawned mobs; summed from composition for reward scaling.
 	var/total_spawned_tp = 0
-	/// When TRUE, each guardian death bumps progress_current and spawn_kill_mobs overwrites
-	/// progress_required to match spawn count. Recovery sets this FALSE — kills are just the gate,
-	/// the parcel delivery is the real progress driver.
 	var/kills_count_progress = TRUE
 	var/hunt_timer_id
 	var/hunt_warn_2m_id
@@ -78,6 +70,22 @@
 		//CC Edit End - Remove clients from mobs before we qdel them.
 		qdel(M)
 
+/datum/quest/kill/proc/any_guardians_alive()
+	for(var/datum/weakref/W in tracked_atoms)
+		var/atom/A = W.resolve()
+		if(QDELETED(A))
+			continue
+		if(!isliving(A))
+			continue
+		var/mob/living/M = A
+		if(M.stat == DEAD)
+			continue
+		return TRUE
+	return FALSE
+
+/datum/quest/kill/proc/on_guardian_killed()
+	return
+
 /datum/quest/kill/populate_scroll_ui_data(list/data)
 	if(!hunt_timer_id)
 		return
@@ -108,8 +116,6 @@
 	faction_id = faction.id
 	// Scale by regional danger, then roll per-quest variance so two same-difficulty quests differ.
 	tp_budget = roll_tp_budget(tp_budget, TR.tp_budget_multiplier)
-	// target_mob_type is picked here for display purposes only — the actual composition is
-	// computed at materialize time via TP budget spending.
 	target_mob_type = faction.pick_mob_type()
 	if(!target_mob_type)
 		return FALSE
@@ -140,9 +146,6 @@
 	var/picked_id = pickweight(weights)
 	return get_quest_faction(picked_id)
 
-/// Approximate how many mobs this quest's TP budget will spawn. Used for progress_required and
-/// UI display. Uses the faction's weighted-mean mob threat so a wolf faction estimates 2.5 mobs
-/// for a 25 TP budget, bogman faction estimates < 1 for the same.
 /datum/quest/kill/proc/estimate_mob_count()
 	if(!faction || !length(faction.mob_types) || tp_budget <= 0)
 		return 1
@@ -180,8 +183,6 @@
 			new_mob.faction |= faction.faction_tag
 		new_mob.mark_contract_spawned()
 		new_mob.AddComponent(/datum/component/quest_object/kill, src)
-		// Suppress AI scanning while dormant inside the spawn_effect — without this the AI tries
-		// to build a proximity field while not on a turf, fails, and stays catatonic forever.
 		ADD_TRAIT(new_mob, TRAIT_FRESHSPAWN, "[type]")
 		addtimer(TRAIT_CALLBACK_REMOVE(new_mob, TRAIT_FRESHSPAWN, "[type]"), 60 SECONDS)
 		spawn_effect.contained_atom = new_mob
@@ -232,8 +233,6 @@
 	return result
 
 /datum/quest/kill/get_additional_reward(turf/origin_turf, turf/target_turf)
-	// Reward uses actual spawned composition if available (post-materialize); otherwise falls
-	// back to an estimate from tp_budget (used during pool display / preview).
 	if(total_spawned_tp > 0)
 		return total_spawned_tp * QUEST_KILL_THREAT_MULT
 	// Preview-time estimate: assume we'll spend the full budget.
