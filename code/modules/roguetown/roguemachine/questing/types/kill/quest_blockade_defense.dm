@@ -17,6 +17,8 @@
 	/// by entering the landmark's proximity. Prevents double-fire via check_arrival.
 	var/armed = FALSE
 	var/max_defenders_seen = 0
+	var/current_archetype = BLOCKADE_ARCHETYPE_WARBAND
+	var/wave_boss_name
 	/// Auto-fail timer that fires if the bearer never reaches the landmark. Without this, a writ
 	/// stashed in a drawer or handed to someone who never travels keeps the blockade slot locked
 	/// until round-end.
@@ -100,7 +102,7 @@
 	var/obj/effect/landmark/quest_spawner/landmark = wave_landmark_ref?.resolve()
 	return landmark ? get_turf(landmark) : null
 
-/// Reward is set at issue time (BLOCKADE_SCROLL_REWARD × region tp_budget_multiplier).
+/// Reward is set at issue time (base + region travel fee); turnout multiplies it at completion.
 /datum/quest/kill/blockade_defense/calculate_reward(turf/origin_turf, turf/target_turf)
 	return reward_amount
 
@@ -164,10 +166,66 @@
 	var/mult = 1 + (n - BLOCKADE_DEFENDER_SCALE_MIN) * BLOCKADE_TP_PER_EXTRA_DEFENDER
 	return round(BLOCKADE_WAVE_BASE_TP * mult)
 
-/// Reward multiplier from peak turnout, same band as the fight. Baseline at MIN (×1.0).
 /datum/quest/kill/blockade_defense/proc/reward_turnout_mult()
 	var/n = clamp(max_defenders_seen, BLOCKADE_DEFENDER_SCALE_MIN, BLOCKADE_DEFENDER_SCALE_MAX)
 	return 1 + (n - BLOCKADE_DEFENDER_SCALE_MIN) * BLOCKADE_REWARD_PER_EXTRA_DEFENDER
+
+/datum/quest/kill/blockade_defense/compose_candidates()
+	var/list/base = faction.mob_types.Copy()
+	if(current_archetype == BLOCKADE_ARCHETYPE_WARBAND)
+		return base
+	var/favor_expensive = (current_archetype == BLOCKADE_ARCHETYPE_ELITE)
+	var/list/out = list()
+	for(var/path in base)
+		var/tp = max(initial_threat_point(path), 1)
+		var/ratio = favor_expensive ? (tp / BLOCKADE_ARCHETYPE_PIVOT_TP) : (BLOCKADE_ARCHETYPE_PIVOT_TP / tp)
+		out[path] = max(1, round(base[path] * (ratio ** BLOCKADE_ARCHETYPE_BIAS_STRENGTH)))
+	return out
+
+/datum/quest/kill/blockade_defense/proc/priciest_mob_type()
+	var/best_path
+	var/best_tp = 0
+	for(var/path in faction.mob_types)
+		var/tp = initial_threat_point(path)
+		if(tp > best_tp)
+			best_tp = tp
+			best_path = path
+	return best_path
+
+/datum/quest/kill/blockade_defense/proc/spawn_wave_boss(obj/effect/landmark/quest_spawner/landmark)
+	if(!faction)
+		return
+	var/boss_type = faction.pick_boss_mob_type() || priciest_mob_type()
+	if(!boss_type)
+		return
+	var/turf/spawn_turf = landmark.get_safe_spawn_turf()
+	if(!spawn_turf)
+		return
+	var/obj/effect/quest_spawn/spawn_effect = new /obj/effect/quest_spawn(spawn_turf)
+	var/mob/living/boss = new boss_type(spawn_effect)
+	boss.faction |= "quest"
+	if(faction.faction_tag)
+		boss.faction |= faction.faction_tag
+	boss.mark_contract_spawned()
+	boss.AddComponent(/datum/component/quest_object/kill, src)
+	ADD_TRAIT(boss, TRAIT_FRESHSPAWN, "[type]")
+	addtimer(TRAIT_CALLBACK_REMOVE(boss, TRAIT_FRESHSPAWN, "[type]"), 60 SECONDS)
+	spawn_effect.contained_atom = boss
+	spawn_effect.AddComponent(/datum/component/quest_object/mob_spawner, src)
+	register_spawner(spawn_effect)
+	add_tracked_atom(boss)
+	total_spawned_tp += initial(boss.threat_point) || 0
+	progress_required += 1
+	if(faction.boss_name_file)
+		wave_boss_name = faction.generate_boss_name()
+		addtimer(CALLBACK(src, PROC_REF(apply_wave_boss_name), WEAKREF(boss), wave_boss_name), 2 SECONDS)
+
+/datum/quest/kill/blockade_defense/proc/apply_wave_boss_name(datum/weakref/boss_ref, boss_name)
+	var/mob/living/boss = boss_ref?.resolve()
+	if(QDELETED(boss) || !boss_name)
+		return
+	boss.real_name = boss_name
+	boss.name = boss_name
 
 /datum/quest/kill/blockade_defense/proc/spawn_wave(wave_num)
 	if(failed || complete)
@@ -182,10 +240,13 @@
 	var/defenders = count_defenders(landmark)
 	max_defenders_seen = max(max_defenders_seen, defenders)
 	tp_budget = wave_tp_budget(defenders)
+	current_archetype = pickweight(BLOCKADE_ARCHETYPE_WEIGHTS)
 	total_spawned_tp = 0
 	progress_current = 0
 	progress_required = 1
 	spawn_kill_mobs(landmark)
+	if(wave_num >= BLOCKADE_TOTAL_WAVES)
+		spawn_wave_boss(landmark)
 	if(progress_required <= 0)
 		fail_quest("composition_empty")
 		return
@@ -196,8 +257,19 @@
 		wave_warn_2m_id = addtimer(CALLBACK(src, PROC_REF(warn_time_left), wave_num, "two minutes"), BLOCKADE_WAVE_TIMER_DS - (2 MINUTES), TIMER_STOPPABLE)
 	if(BLOCKADE_WAVE_TIMER_DS > (30 SECONDS))
 		wave_warn_30s_id = addtimer(CALLBACK(src, PROC_REF(warn_time_left), wave_num, "thirty seconds"), BLOCKADE_WAVE_TIMER_DS - (30 SECONDS), TIMER_STOPPABLE)
-	announce_to_bearer("<b>Wave [wave_num]/[BLOCKADE_TOTAL_WAVES]</b> descends on you. You have [BLOCKADE_WAVE_TIMER_DS / 600] minutes.")
+	announce_to_bearer("<b>Wave [wave_num]/[BLOCKADE_TOTAL_WAVES]</b> [wave_flavor()] You have [BLOCKADE_WAVE_TIMER_DS / 600] minutes.")
 	quest_scroll?.update_quest_text()
+
+/datum/quest/kill/blockade_defense/proc/wave_flavor()
+	var/who = faction ? faction.name_plural : "raiders"
+	if(current_wave >= BLOCKADE_TOTAL_WAVES && wave_boss_name)
+		return "descends on you - [wave_boss_name] leads the [who]."
+	switch(current_archetype)
+		if(BLOCKADE_ARCHETYPE_SWARM)
+			return "breaks over you - a tide of [who]."
+		if(BLOCKADE_ARCHETYPE_ELITE)
+			return "advances - a hardened [faction ? faction.group_word : "band"] of [who]."
+	return "descends on you - a [faction ? faction.group_word : "band"] of [who]."
 
 /datum/quest/kill/blockade_defense/proc/warn_time_left(wave_num, label)
 	if(failed || complete)
