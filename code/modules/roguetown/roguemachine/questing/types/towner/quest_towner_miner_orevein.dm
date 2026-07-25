@@ -18,7 +18,6 @@ GLOBAL_LIST_INIT(towner_orevein_gem_types, list(
 ))
 
 GLOBAL_LIST_INIT(towner_orevein_tier_tp, list(
-	TOWNER_POSTING_TIER_EASY = TOWNER_OREVEIN_TP_BUDGET_EASY,
 	TOWNER_POSTING_TIER_MEDIUM = TOWNER_OREVEIN_TP_BUDGET_MEDIUM,
 	TOWNER_POSTING_TIER_HARD = TOWNER_OREVEIN_TP_BUDGET_HARD,
 ))
@@ -28,11 +27,6 @@ GLOBAL_LIST_INIT(towner_orevein_varieties, list(
 		"label" = "Iron Vein",
 		"blurb" = "Iron and coal, with a little cinnabar, gold, and the odd gem.",
 		"tiers" = list(
-			TOWNER_POSTING_TIER_EASY = list(
-				list("path" = /obj/item/rogueore/iron, "min" = 13, "max" = 18, "noun" = "iron"),
-				list("path" = /obj/item/rogueore/coal, "min" = 8, "max" = 11, "noun" = "coal"),
-				list("path" = /obj/item/rogueore/gold, "min" = 1, "max" = 1, "noun" = "gold", "prob" = 50),
-			),
 			TOWNER_POSTING_TIER_MEDIUM = list(
 				list("path" = /obj/item/rogueore/iron, "min" = 18, "max" = 24, "noun" = "iron"),
 				list("path" = /obj/item/rogueore/coal, "min" = 10, "max" = 14, "noun" = "coal"),
@@ -53,11 +47,6 @@ GLOBAL_LIST_INIT(towner_orevein_varieties, list(
 		"label" = "Copper Vein",
 		"blurb" = "Copper and tin, with small amount of luxury.",
 		"tiers" = list(
-			TOWNER_POSTING_TIER_EASY = list(
-				list("path" = /obj/item/rogueore/copper, "min" = 14, "max" = 19, "noun" = "copper"),
-				list("path" = /obj/item/rogueore/tin, "min" = 5, "max" = 7, "noun" = "tin"),
-				list("path" = /obj/item/rogueore/gold, "min" = 1, "max" = 1, "noun" = "gold", "prob" = 50),
-			),
 			TOWNER_POSTING_TIER_MEDIUM = list(
 				list("path" = /obj/item/rogueore/copper, "min" = 20, "max" = 26, "noun" = "copper"),
 				list("path" = /obj/item/rogueore/tin, "min" = 7, "max" = 9, "noun" = "tin"),
@@ -78,10 +67,6 @@ GLOBAL_LIST_INIT(towner_orevein_varieties, list(
 		"label" = "Gem Vein",
 		"blurb" = "Cut gems and raw gold, no base metal.",
 		"tiers" = list(
-			TOWNER_POSTING_TIER_EASY = list(
-				list("path" = /obj/item/rogueore/gold, "min" = 1, "max" = 2, "noun" = "gold"),
-				list("pool" = "orevein_gems", "min" = 1, "max" = 2, "noun" = "gems"),
-			),
 			TOWNER_POSTING_TIER_MEDIUM = list(
 				list("path" = /obj/item/rogueore/gold, "min" = 3, "max" = 4, "noun" = "gold"),
 				list("pool" = "orevein_gems", "min" = 2, "max" = 3, "noun" = "gems"),
@@ -96,10 +81,6 @@ GLOBAL_LIST_INIT(towner_orevein_varieties, list(
 		"label" = "Cinnabar Vein",
 		"blurb" = "Cinnabar with gold, prized by alchemists.",
 		"tiers" = list(
-			TOWNER_POSTING_TIER_EASY = list(
-				list("path" = /obj/item/rogueore/gold, "min" = 1, "max" = 2, "noun" = "gold"),
-				list("path" = /obj/item/rogueore/cinnabar, "min" = 4, "max" = 5, "noun" = "cinnabar"),
-			),
 			TOWNER_POSTING_TIER_MEDIUM = list(
 				list("path" = /obj/item/rogueore/gold, "min" = 4, "max" = 5, "noun" = "gold"),
 				list("path" = /obj/item/rogueore/cinnabar, "min" = 6, "max" = 8, "noun" = "cinnabar"),
@@ -124,7 +105,7 @@ GLOBAL_LIST_INIT(towner_orevein_varieties, list(
 	return GLOB.towner_orevein_varieties
 
 /datum/quest/kill/recovery/towner/miner_orevein/get_tier_tp_budget()
-	return GLOB.towner_orevein_tier_tp[posting_tier] || TOWNER_OREVEIN_TP_BUDGET_EASY
+	return GLOB.towner_orevein_tier_tp[posting_tier] || TOWNER_OREVEIN_TP_BUDGET_MEDIUM
 
 /datum/quest/kill/recovery/towner/miner_orevein/get_title()
 	if(title)
@@ -153,10 +134,13 @@ GLOBAL_LIST_INIT(towner_orevein_varieties, list(
 	return ""
 
 /datum/quest/kill/recovery/towner/miner_orevein/compose_warband()
-	. = ..()
 	if(posting_tier != TOWNER_POSTING_TIER_HARD)
-		return
+		return ..()
 	var/behemoth = /mob/living/simple_animal/hostile/retaliate/rogue/elemental/behemoth
+	var/saved_budget = tp_budget
+	tp_budget = max(0, tp_budget - initial_threat_point(behemoth))
+	. = ..()
+	tp_budget = saved_budget
 	if(!(behemoth in .))
 		. += behemoth
 
@@ -165,4 +149,4 @@ GLOBAL_LIST_INIT(towner_orevein_varieties, list(
 	var/list/tiers = meta?["tiers"]
 	if(!tiers)
 		return list()
-	return resolve_bundle_spec(tiers[posting_tier] || tiers[TOWNER_POSTING_TIER_EASY])
+	return resolve_bundle_spec(tiers[posting_tier] || tiers[TOWNER_POSTING_TIER_MEDIUM])
