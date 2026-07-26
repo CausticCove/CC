@@ -179,6 +179,9 @@
 	///
 	var/quest_claim_barred = FALSE
 
+	///Whether this class has additional preferences specific to it, like bounties for wretch. Make sure to also put handling for it in the job's /Topic! See wretch.dm for an example
+	var/has_subprefs = FALSE
+
 /proc/is_quest_claim_barred(mob/user)
 	if(!user?.mind)
 		return FALSE
@@ -747,6 +750,10 @@
 		prefs.job_subprefs[title] = default_subprefs.Copy()
 		update_subprefs_window(usr)
 	. = ..()
+
+/// Set up the subprefs window here; will be called every refresh (i.e. when the subprefs are changed by the user)
+/datum/job/proc/update_subprefs_window(mob/user)
+	return
 
 /datum/job/proc/has_limited_subclasses()
 	if(length(job_subclasses) <= 0)
