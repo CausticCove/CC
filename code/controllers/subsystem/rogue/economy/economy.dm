@@ -854,7 +854,7 @@ SUBSYSTEM_DEF(economy)
 		return null
 	return SStreasury.stockpile_by_trade_good[good_id]
 
-/datum/controller/subsystem/economy/proc/manual_import(mob/user, region_id, good_id, quantity)
+/datum/controller/subsystem/economy/proc/manual_import(mob/user, region_id, good_id, quantity, stipend = FALSE)
 	var/datum/economic_region/region = GLOB.economic_regions[region_id]
 	if(!region)
 		return 0

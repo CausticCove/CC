@@ -49,27 +49,22 @@
 	if(D.stockpile_amount <= 0)
 		parent_structure.say("Insufficient stock.")
 		return FALSE
-	if(total_price > budget)
-		if(ishuman(user) && HAS_TRAIT(user, TRAIT_FOOD_STIPEND))
-			if(SStreasury.burn(SStreasury.discretionary_fund, total_price, "food stipend withdraw - stockpile"))
-				D.stockpile_amount--
-				SStreasury.dirty_market_view()
-				var/obj/item/I = new D.item_type(parent_structure.loc)
-				to_chat(user, span_info("[parent_structure] chitters and squeaks into the treasury ratlines."))
-				if(!user.put_in_hands(I))
-					I.forceMove(get_turf(user))
-				playsound(parent_structure.loc, 'sound/misc/hiss.ogg', 100, FALSE, -1)
-				return TRUE
-			parent_structure.say("The treasury is barren. Please insert coinage.")
-			return FALSE
+	var/food_stipend = ishuman(user) && HAS_TRAIT(user, TRAIT_ROYAL_SUBSIDY)
+	if(!food_stipend && total_price > budget)
 		parent_structure.say("Insufficient mammon.")
 		return FALSE
 	D.stockpile_amount--
 	SStreasury.dirty_market_view()
-	budget -= total_price
-	SStreasury.mint(SStreasury.discretionary_fund, total_price, "stockpile withdraw")
-	record_round_statistic(STATS_STOCKPILE_REVENUE, total_price)
+	if(!food_stipend)
+		budget -= total_price
+		SStreasury.mint(SStreasury.discretionary_fund, total_price, "Stockpile Withdraw")
+		record_round_statistic(STATS_STOCKPILE_REVENUE, total_price)
+	else
+		var/actor_suffix = user ? " by [user.real_name]" : ""
+		SStreasury.log_fund_entry(new /datum/treasury_entry(null, SStreasury.discretionary_fund, SStreasury.discretionary_fund, 0, "Subsidy Withdraw: [D.name][actor_suffix]"))
 	var/obj/item/I = new D.item_type(parent_structure.loc)
+	if(food_stipend)
+		to_chat(user, span_info("[parent_structure] chitters and squeaks into the treasury ratlines."))
 	if(!user.put_in_hands(I))
 		I.forceMove(get_turf(user))
 	playsound(parent_structure.loc, 'sound/misc/hiss.ogg', 100, FALSE, -1)
@@ -92,32 +87,29 @@
 	var/unit_cost = quote["unit_cost"]
 	var/price = quote["price"]
 	var/surcharge = max(0, price - unit_cost)
-	var/food_stipend = HAS_TRAIT(user, TRAIT_FOOD_STIPEND)
-	if(price > budget)
-		if(!food_stipend)
-			parent_structure.say("Insufficient mammon in the coinpouch.")
-			return FALSE
-		if(SStreasury.discretionary_fund.balance < price)
-			parent_structure.say("The treasury is barren. Please insert coinage.")
-			return FALSE
-	else
+	var/food_stipend = HAS_TRAIT(user, TRAIT_ROYAL_SUBSIDY)
+	var/using_stipend = food_stipend && price > budget
+	if(using_stipend)
 		if(SStreasury.discretionary_fund.balance < unit_cost)
 			parent_structure.say("The Crown's Purse cannot front the import cost.")
 			return FALSE
-	var/spent = SSeconomy.manual_import(user, region.region_id, D.trade_good_id, 1)
+	else
+		if(price > budget)
+			parent_structure.say("Insufficient mammon in the coinpouch.")
+			return FALSE
+		if(SStreasury.discretionary_fund.balance < unit_cost)
+			parent_structure.say("The Crown's Purse cannot front the import cost.")
+			return FALSE
+	var/spent = SSeconomy.manual_import(user, region.region_id, D.trade_good_id, 1, using_stipend)
 	if(!spent)
 		return FALSE
-	if(price > budget)
-		if(!SStreasury.burn(SStreasury.discretionary_fund, price, "food stipend withdraw - import"))
-			parent_structure.say("The treasury is barren. Please insert coinage.")
-			return FALSE
-	else
+	if(!using_stipend)
 		budget -= price
 	D.stockpile_amount = max(0, D.stockpile_amount - 1)
 	SStreasury.dirty_market_view()
-	// Reimburse the Crown for the actual regional purchase.
-	SStreasury.mint(SStreasury.discretionary_fund, unit_cost, "Direct import reimbursement: [D.name] from [region.name]")
-	SStreasury.economic_output += surcharge
+	var/chartered = SStreasury.royal_custom_active && SStreasury.royal_custom_unlocked
+	if(!using_stipend)
+		SStreasury.mint(SStreasury.discretionary_fund, unit_cost, "Direct import reimbursement: [D.name] from [region.name]")
 	record_round_statistic(STATS_STOCKPILE_DIRECT_IMPORTS, price)
 	record_material_flow(MATERIAL_FLOW_IN, MATERIAL_SOURCE_LOCAL_IMPORT, D.item_type, 1, price)
 	if(!using_stipend && chartered && surcharge > 0)
@@ -127,12 +119,16 @@
 	if(!user.put_in_hands(I))
 		I.forceMove(get_turf(user))
 	playsound(parent_structure.loc, 'sound/misc/hiss.ogg', 100, FALSE, -1)
-	var/flavor = chartered \
-		? "Royal Custom duty paid to the Crown." \
-		: "Import surcharge consumed by transport."
-	if(food_stipend && price > budget)
+	if(using_stipend)
+		var/waived = max(0, surcharge)
 		to_chat(user, span_info("[parent_structure] chitters and squeaks into the treasury ratlines."))
-	to_chat(user, span_notice("[D.name] imported from [region.name] for [price]m. [flavor]"))
+		if(waived > 0)
+			to_chat(user, span_notice("[D.name] imported from [region.name] for [unit_cost]m ([waived]m waived by the Crown's private transportation lines)."))
+		else
+			to_chat(user, span_notice("[D.name] imported from [region.name] for [unit_cost]m."))
+	else
+		var/flavor = chartered ? "Royal Custom duty paid to the Crown." : "Import surcharge consumed by transport."
+		to_chat(user, span_notice("[D.name] imported from [region.name] for [price]m. [flavor]"))
 	return TRUE
 
 /proc/stock_announce(message)

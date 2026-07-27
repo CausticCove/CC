@@ -115,8 +115,8 @@ SUBSYSTEM_DEF(treasury)
 	/// Steward-settable floor. Stockpile refuses purchases when Crown's Purse would drop below this.
 	var/stockpile_purchase_floor = STOCKPILE_CROWN_PURCHASE_FLOOR_DEFAULT
 	/// A feature for the Steward to unlock once the Crown's trade volume reaches 10k
-	/// Basically help automate the import, fitting in line with my idea of active trade 
-	/// Converting to passive convenience later. Later on I might gate it through a 
+	/// Basically help automate the import, fitting in line with my idea of active trade
+	/// Converting to passive convenience later. Later on I might gate it through a
 	/// Total trade volumes converting into multiple chooseable upgrades but for now
 	/// It just automatically unlock an upgrade with no real choice
 	var/royal_custom_unlocked = FALSE
@@ -387,7 +387,15 @@ SUBSYSTEM_DEF(treasury)
 	if(!account)
 		return FALSE
 
+	var/mob/living/carbon/human/H
+	if(ishuman(target))
+		H = target
 	if(amt > 0)
+		if(H && HAS_TRAIT(H, TRAIT_ROYAL_SUBSIDY))
+			log_fund_entry(new /datum/treasury_entry("burn", discretionary_fund, null, 0, "Subsidy Deposit: [source] by [H.real_name]"))
+			record_round_statistic(STATS_DIRECT_TREASURY_TRANSFERS, amt)
+			send_ooc_note("<b>MEISTER:</b> Subsidy claims [amt]m. Thank you for your diligent service. ([source])", name = target_name)
+			return TRUE
 		if(mint_new)
 			if(!mint(account, amt, source, mint_label))
 				return FALSE

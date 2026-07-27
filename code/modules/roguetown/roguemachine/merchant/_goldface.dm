@@ -716,8 +716,11 @@
 				return TRUE
 			if(is_public && locked)
 				return TRUE
+			var/has_stipend = HAS_TRAIT(H, TRAIT_ROYAL_SUBSIDY)
 			var/cost = compute_pack_price(PA)
-			var/tax_amt = compute_pack_tax(PA)
+			var/tax_amt = has_stipend ? 0 : compute_pack_tax(PA)
+			if(has_stipend)
+				cost -= compute_pack_tax(PA)
 			if(budget < cost)
 				say("Not enough!")
 				return TRUE
@@ -725,7 +728,7 @@
 			record_round_statistic(value_record_key, cost)
 			record_round_statistic(STATS_TRADE_VALUE_IMPORTED, cost)
 			playsound(loc, 'sound/misc/gold_misc.ogg', 70, FALSE, -1)
-			if(!(upgrade_flags & UPGRADE_NOTAX) && !bypass_tax)
+			if(!(upgrade_flags & UPGRADE_NOTAX) && !bypass_tax && !has_stipend)
 				SStreasury.mint(SStreasury.discretionary_fund, tax_amt, "[TAX_CATEGORY_IMPORT_TARIFF] ([src.name])")
 				SStreasury.apply_concordat_tithe(cost, TAX_CATEGORY_IMPORT_TARIFF, "[src.name]")
 				record_featured_stat(FEATURED_STATS_TAX_PAYERS, H, tax_amt)
