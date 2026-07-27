@@ -179,8 +179,36 @@
 	///
 	var/quest_claim_barred = FALSE
 
-	///Whether this class has additional preferences specific to it, like bounties for wretch. Make sure to also put handling for it in the job's /Topic! See wretch.dm for an example
-	var/has_subprefs = FALSE
+	///Whether this class has additional preferences specific to it, like bounties for wretch. Make sure to also put handling for it in the job's /Topic! See wretch.dm for an example. Note that this is true-by-default because the default handler handles advclass selection
+	var/has_subprefs = TRUE
+
+/datum/job/proc/update_subprefs_window(mob/user)
+	if(!advclass_cat_rolls)
+		return
+	var/client/C = usr.client
+	if(!C)
+		return
+	var/datum/preferences/prefs = C.prefs
+	if(!prefs)
+		return
+	if(!prefs.job_subprefs || !islist(prefs.job_subprefs))
+		prefs.job_subprefs = list()
+	if(!prefs.job_subprefs[title])
+		prefs.job_subprefs[title] = list("favorite_advclass" = null)
+	var/list/roleprefs = prefs.job_subprefs[title]
+	var/datum/advclass/favorite = roleprefs["favorite_advclass"]
+	var/favorite_name = favorite ? favorite::name : "Choose"
+	var/HTML = {"
+		<i>You can choose a favorite subclass here. You'll automatically select this subclass on roundstart if possible.</i><br/><br/>
+		<b>Selected class:</b> <a href="?src=[REF(src)];class=1">[favorite_name]</a>
+		<center><a href="?src=[REF(src)];subprefsexit=1">EXIT</a>\t\t<a href="?src=[REF(src)];subprefsreset=1">RESET</a></center>
+	"}
+	// the fact that the window width/height will be different each time is the main reason this isn't all done in a parent proc on /datum/job
+	var/datum/browser/popup = new(user, "[JOB_SUBPREFS_WINDOW_ID]", "<div align='center'>[title] Preferences</div>", 500, 250)
+	popup.set_content(HTML)
+	popup.open(FALSE)
+	if(winexists(usr, "[JOB_SUBPREFS_WINDOW_ID]"))
+		winset(usr, "[JOB_SUBPREFS_WINDOW_ID]", "focus=true")
 
 /proc/is_quest_claim_barred(mob/user)
 	if(!user?.mind)
@@ -750,10 +778,6 @@
 		prefs.job_subprefs[title] = default_subprefs.Copy()
 		update_subprefs_window(usr)
 	. = ..()
-
-/// Set up the subprefs window here; will be called every refresh (i.e. when the subprefs are changed by the user)
-/datum/job/proc/update_subprefs_window(mob/user)
-	return
 
 /datum/job/proc/has_limited_subclasses()
 	if(length(job_subclasses) <= 0)

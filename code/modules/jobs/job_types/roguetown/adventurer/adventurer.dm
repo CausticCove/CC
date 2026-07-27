@@ -10,7 +10,7 @@ GLOBAL_VAR_INIT(adventurer_hugbox_duration_still, 3 MINUTES)
 	faction = "Station"
 	total_positions = 20
 	spawn_positions = 20
-	
+
 	tutorial = "Hero of nothing, a wanderer in foreign lands in search of fame and riches. Whatever led you to this fate is up to the wind to decide, and you've never fancied yourself for much other than the thrill. Some day your pride is going to catch up to you, and you're going to find out why most men don't end up in the annals of history."
 	class_categories = TRUE
 	townie_contract_gate_exempt = TRUE
@@ -82,6 +82,59 @@ GLOBAL_VAR_INIT(adventurer_hugbox_duration_still, 3 MINUTES)
 		/datum/advclass/foreigner/otava_maid,
 		//CC edit end
 	)
+	has_subprefs = TRUE
+
+/datum/job/roguetown/adventurer/Topic(href, list/href_list)
+	var/client/C = usr.client
+	if(!C)
+		return
+	var/datum/preferences/prefs = C.prefs
+	if(!prefs)
+		return
+	if(!prefs.job_subprefs || !islist(prefs.job_subprefs))
+		prefs.job_subprefs = list()
+	if(!prefs.job_subprefs[title])
+		prefs.job_subprefs[title] = list("favorite_advclass" = null)
+	var/list/roleprefs = prefs.job_subprefs[title]
+
+	if(href_list["class"])
+		var/list/class_sel = list()
+		for(var/ctag in advclass_cat_rolls)
+			var/list/subsystem_ctag_list = SSrole_class_handler.sorted_class_categories[ctag]
+			for(var/datum/advclass/advdatum in subsystem_ctag_list)
+				class_sel[advdatum.name] = advdatum.type
+		roleprefs["favorite_advclass"] = class_sel[tgui_input_list(usr, "What path do your talents follow?", "Subclass Select", class_sel)]
+		update_subprefs_window(usr)
+	if(href_list["subprefsreset"])
+		prefs.job_subprefs[title] = list("favorite_advclass" = null)
+		update_subprefs_window(usr)
+	. = ..()
+
+/datum/job/roguetown/adventurer/update_subprefs_window(mob/user)
+	var/client/C = usr.client
+	if(!C)
+		return
+	var/datum/preferences/prefs = C.prefs
+	if(!prefs)
+		return
+	if(!prefs.job_subprefs || !islist(prefs.job_subprefs))
+		prefs.job_subprefs = list()
+	if(!prefs.job_subprefs[title])
+		prefs.job_subprefs[title] = list("favorite_advclass" = null)
+	var/list/roleprefs = prefs.job_subprefs[title]
+	var/datum/advclass/favorite = roleprefs["favorite_advclass"]
+	var/favorite_name = favorite ? favorite::name : "Choose"
+	var/HTML = {"
+		<i>You can choose a favorite subclass here. You'll automatically select this subclass on roundstart if possible.</i><br/><br/>
+		<b>Selected class:</b> <a href="?src=[REF(src)];class=1">[favorite_name]</a>
+		<center><a href="?src=[REF(src)];subprefsexit=1">EXIT</a>\t\t<a href="?src=[REF(src)];subprefsreset=1">RESET</a></center>
+	"}
+	// the fact that the window width/height will be different each time is the main reason this isn't all done in a parent proc on /datum/job
+	var/datum/browser/popup = new(user, "[JOB_SUBPREFS_WINDOW_ID]", "<div align='center'>[title] Preferences</div>", 500, 250)
+	popup.set_content(HTML)
+	popup.open(FALSE)
+	if(winexists(usr, "[JOB_SUBPREFS_WINDOW_ID]"))
+		winset(usr, "[JOB_SUBPREFS_WINDOW_ID]", "focus=true")
 
 /datum/status_effect/advclass_selection
 	id = "advclass_selection"

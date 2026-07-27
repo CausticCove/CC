@@ -520,6 +520,7 @@
 	job_subclasses = list(
 		/datum/advclass/martyr
 	)
+	has_subprefs = FALSE // only one subclass
 
 /datum/advclass/martyr
 	name = "Martyr"

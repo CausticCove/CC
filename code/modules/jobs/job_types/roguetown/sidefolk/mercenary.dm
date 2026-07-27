@@ -6,7 +6,7 @@
 	total_positions = 8
 	spawn_positions = 8
 	allowed_sexes = list(MALE, FEMALE)
-	
+
 	tutorial = "Blood stains your hands and the coins you hold. You are a sell-sword, a mercenary, a contractor of war. Where you come from, what you are, who you serve.. none of it matters. What matters is that the mammon flows to your pocket."
 	display_order = JDO_MERCENARY
 	selection_color = JCOLOR_WANDERER
@@ -66,6 +66,59 @@
 		/datum/advclass/mercenary/trollslayer,
 		/datum/advclass/mercenary/lirvanmerc
 	)
+	has_subprefs = TRUE
+
+/datum/job/roguetown/mercenary/Topic(href, list/href_list)
+	var/client/C = usr.client
+	if(!C)
+		return
+	var/datum/preferences/prefs = C.prefs
+	if(!prefs)
+		return
+	if(!prefs.job_subprefs || !islist(prefs.job_subprefs))
+		prefs.job_subprefs = list()
+	if(!prefs.job_subprefs[title])
+		prefs.job_subprefs[title] = list("favorite_advclass" = null)
+	var/list/roleprefs = prefs.job_subprefs[title]
+
+	if(href_list["class"])
+		var/list/class_sel = list()
+		for(var/ctag in advclass_cat_rolls)
+			var/list/subsystem_ctag_list = SSrole_class_handler.sorted_class_categories[ctag]
+			for(var/datum/advclass/advdatum in subsystem_ctag_list)
+				class_sel[advdatum.name] = advdatum.type
+		roleprefs["favorite_advclass"] = class_sel[tgui_input_list(usr, "What path do your talents follow?", "Subclass Select", class_sel)]
+		update_subprefs_window(usr)
+	if(href_list["subprefsreset"])
+		prefs.job_subprefs[title] = list("favorite_advclass" = null)
+		update_subprefs_window(usr)
+	. = ..()
+
+/datum/job/roguetown/mercenary/update_subprefs_window(mob/user)
+	var/client/C = usr.client
+	if(!C)
+		return
+	var/datum/preferences/prefs = C.prefs
+	if(!prefs)
+		return
+	if(!prefs.job_subprefs || !islist(prefs.job_subprefs))
+		prefs.job_subprefs = list()
+	if(!prefs.job_subprefs[title])
+		prefs.job_subprefs[title] = list("favorite_advclass" = null)
+	var/list/roleprefs = prefs.job_subprefs[title]
+	var/datum/advclass/favorite = roleprefs["favorite_advclass"]
+	var/favorite_name = favorite ? favorite::name : "Choose"
+	var/HTML = {"
+		<i>You can choose a favorite subclass here. You'll automatically select this subclass on roundstart if possible.</i><br/><br/>
+		<b>Selected class:</b> <a href="?src=[REF(src)];class=1">[favorite_name]</a>
+		<center><a href="?src=[REF(src)];subprefsexit=1">EXIT</a>\t\t<a href="?src=[REF(src)];subprefsreset=1">RESET</a></center>
+	"}
+	// the fact that the window width/height will be different each time is the main reason this isn't all done in a parent proc on /datum/job
+	var/datum/browser/popup = new(user, "[JOB_SUBPREFS_WINDOW_ID]", "<div align='center'>[title] Preferences</div>", 500, 250)
+	popup.set_content(HTML)
+	popup.open(FALSE)
+	if(winexists(usr, "[JOB_SUBPREFS_WINDOW_ID]"))
+		winset(usr, "[JOB_SUBPREFS_WINDOW_ID]", "focus=true")
 
 /datum/job/roguetown/mercenary/after_spawn(mob/living/L, mob/M, latejoin = FALSE)
 	..()

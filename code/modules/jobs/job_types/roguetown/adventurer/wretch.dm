@@ -52,7 +52,7 @@
 	)
 	has_subprefs = TRUE
 
-// for future viewers, here's how you add subprefs to a job.
+// for future viewers, here's how you add subprefs to a job. adventurer provides a simpler example for how to merely add subclass favoriting.
 /datum/job/roguetown/wretch/Topic(href, list/href_list)
 	var/client/C = usr.client // gettin the usual vars setup
 	if(!C)
@@ -63,7 +63,7 @@
 	if(!prefs.job_subprefs || !islist(prefs.job_subprefs))
 		prefs.job_subprefs = list()
 	if(!prefs.job_subprefs[title])
-		prefs.job_subprefs[title] = list("bounty_poster_key" = null, "bounty_severity_key" = null, "my_crime" = null)
+		prefs.job_subprefs[title] = list("bounty_poster_key" = null, "bounty_severity_key" = null, "my_crime" = null, "favorite_advclass" = null)
 	var/list/bounty_prefs = prefs.job_subprefs[title]
 	if(href_list["poster"]) // here, we handle the actual user input. in this case, poster is a tgui select
 		var/list/poster_choices = list()
@@ -81,7 +81,15 @@
 		bounty_prefs["my_crime"] = tgui_input_text(usr, "What is your crime?", "Crime", bounty_prefs["my_crime"], multiline=TRUE, encode=FALSE) // this is filtered with html_encode later; doing so twice would lead to strangeness
 		update_subprefs_window(usr)
 	if(href_list["subprefsreset"])
-		prefs.job_subprefs[title] = list("bounty_poster_key" = null, "bounty_severity_key" = null, "my_crime" = null)
+		prefs.job_subprefs[title] = list("bounty_poster_key" = null, "bounty_severity_key" = null, "my_crime" = null, "favorite_advclass" = null)
+		update_subprefs_window(usr)
+	if(href_list["class"])
+		var/list/class_sel = list()
+		for(var/ctag in advclass_cat_rolls)
+			var/list/subsystem_ctag_list = SSrole_class_handler.sorted_class_categories[ctag]
+			for(var/datum/advclass/advdatum in subsystem_ctag_list)
+				class_sel[advdatum.name] = advdatum.type
+		bounty_prefs["favorite_advclass"] = class_sel[tgui_input_list(usr, "What path do your talents follow?", "Subclass Select", class_sel)]
 		update_subprefs_window(usr)
 	. = ..()
 
@@ -97,14 +105,18 @@
 		prefs.job_subprefs = list()
 	// now that we have a list of existing prefs, we can pull out (or instantiate) the items we need and build the input window
 	if(!prefs.job_subprefs[title])
-		prefs.job_subprefs[title] = list("bounty_poster_key" = null, "bounty_severity_key" = null, "my_crime" = null)
+		prefs.job_subprefs[title] = list("bounty_poster_key" = null, "bounty_severity_key" = null, "my_crime" = null, "favorite_advclass" = null)
 	var/list/bounty_prefs = prefs.job_subprefs[title]
+	var/datum/advclass/favorite = bounty_prefs["favorite_advclass"] // note that this key is shared between a bunch of different things n is treated specially. if it's set, you'll automatically try to roll that subclass
+	var/favorite_name = favorite ? favorite::name : "Choose"
 	var/HTML = {"
+		<i>You can choose a favorite subclass here. You'll automatically select this subclass on roundstart if possible.</i><br/><br/>
+		<b>Selected class:</b> <a href="?src=[REF(src)];class=1">[favorite_name]</a><br/><br/>
 		<i>Set your [title]-specific bounty here. If a global bounty is set, this will override it.</i><br><i>Any fields set here will not prompt you at roundstart.</i><br/><br/>
 		<b>Bounty Poster:</b> <a href="?src=[REF(src)];poster=1">[bounty_prefs["bounty_poster_key"]?GLOB.bounty_posters[bounty_prefs["bounty_poster_key"]]:"Unset"]</a><br/>
 		<b>Bounty Severity:</b> <a href="?src=[REF(src)];severity=1">[bounty_prefs["bounty_severity_key"]?GLOB.wretch_severities[bounty_prefs["bounty_severity_key"]]:"Unset"]</a><br/>
 		<b>Bounty Reason:</b> <a href="?src=[REF(src)];crime=1">[bounty_prefs["my_crime"]?"Edit":"Unset"]</a><br/>
-		[bounty_prefs["my_crime"]?bounty_prefs["my_crime"]:""]<br/>
+		[bounty_prefs["my_crime"]?"<hr/>[bounty_prefs["my_crime"]]<hr/>":""]<br/>
 		<center><a href="?src=[REF(src)];subprefsexit=1">EXIT</a>\t\t<a href="?src=[REF(src)];subprefsreset=1">RESET</a></center>
 	"}
 	// the fact that the window width/height will be different each time is the main reason this isn't all done in a parent proc on /datum/job

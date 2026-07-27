@@ -45,3 +45,4 @@
 	job_subclasses = list(
 		/datum/advclass/hag,
 	)
+	has_subprefs = FALSE // only one subclass
