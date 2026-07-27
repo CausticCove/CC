@@ -51,7 +51,7 @@
 		return FALSE
 	if(total_price > budget)
 		if(ishuman(user) && HAS_TRAIT(user, TRAIT_FOOD_STIPEND))
-			if(SStreasury.burn(SStreasury.discretionary_fund, total_price, "food stipend - vomitorium"))
+			if(SStreasury.burn(SStreasury.discretionary_fund, total_price, "food stipend withdraw - stockpile"))
 				D.stockpile_amount--
 				SStreasury.dirty_market_view()
 				var/obj/item/I = new D.item_type(parent_structure.loc)
@@ -92,17 +92,30 @@
 	var/unit_cost = quote["unit_cost"]
 	var/price = quote["price"]
 	var/surcharge = max(0, price - unit_cost)
-	if(budget < price)
-		parent_structure.say("Insufficient mammon in the coinpouch.")
-		return FALSE
-	if(SStreasury.discretionary_fund.balance < unit_cost)
-		parent_structure.say("The Crown's Purse cannot front the import cost.")
-		return FALSE
+	var/food_stipend = HAS_TRAIT(user, TRAIT_FOOD_STIPEND)
+	if(price > budget)
+		if(!food_stipend)
+			parent_structure.say("Insufficient mammon in the coinpouch.")
+			return FALSE
+		if(SStreasury.discretionary_fund.balance < price)
+			parent_structure.say("The treasury is barren. Please insert coinage.")
+			return FALSE
+	else
+		if(SStreasury.discretionary_fund.balance < unit_cost)
+			parent_structure.say("The Crown's Purse cannot front the import cost.")
+			return FALSE
 	var/spent = SSeconomy.manual_import(user, region.region_id, D.trade_good_id, 1)
 	if(!spent)
 		return FALSE
+	if(price > budget)
+		if(!SStreasury.burn(SStreasury.discretionary_fund, price, "food stipend withdraw - import"))
+			parent_structure.say("The treasury is barren. Please insert coinage.")
+			return FALSE
+	else
+		budget -= price
 	D.stockpile_amount = max(0, D.stockpile_amount - 1)
-	budget -= price
+	SStreasury.dirty_market_view()
+	// Reimburse the Crown for the actual regional purchase.
 	SStreasury.mint(SStreasury.discretionary_fund, unit_cost, "Direct import reimbursement: [D.name] from [region.name]")
 	SStreasury.economic_output += surcharge
 	record_round_statistic(STATS_STOCKPILE_DIRECT_IMPORTS, price)
@@ -114,7 +127,11 @@
 	if(!user.put_in_hands(I))
 		I.forceMove(get_turf(user))
 	playsound(parent_structure.loc, 'sound/misc/hiss.ogg', 100, FALSE, -1)
-	var/flavor = chartered ? "Royal Custom duty paid to the Crown." : "Import surcharge consumed by transport."
+	var/flavor = chartered \
+		? "Royal Custom duty paid to the Crown." \
+		: "Import surcharge consumed by transport."
+	if(food_stipend && price > budget)
+		to_chat(user, span_info("[parent_structure] chitters and squeaks into the treasury ratlines."))
 	to_chat(user, span_notice("[D.name] imported from [region.name] for [price]m. [flavor]"))
 	return TRUE
 
