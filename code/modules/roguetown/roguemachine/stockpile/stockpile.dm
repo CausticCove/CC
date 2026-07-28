@@ -256,6 +256,11 @@
 					playsound(loc, 'sound/misc/hiss.ogg', 100, FALSE, -1)
 				R.refresh_auto_price()
 				var/amt = R.payout_price * bundle_amt
+				if(HAS_TRAIT(H, TRAIT_ROYAL_SUBSIDY))
+					SStreasury.log_fund_entry(new /datum/treasury_entry(null, SStreasury.discretionary_fund, SStreasury.discretionary_fund, 0, "Subsidy Deposit: [R.name] by [H.real_name]"))
+					record_round_statistic(STATS_DIRECT_TREASURY_TRANSFERS, amt)
+					send_ooc_note("<b>MEISTER:</b> Subsidy claims [amt]m from the [R.name]. Thank you for your diligent service.", name = H.real_name)
+					return
 				SStreasury.economic_output += amt
 				SStreasury.give_money_account(amt, H, "+[amt] from [R.name] bounty")
 				if(auto_exported && message)
