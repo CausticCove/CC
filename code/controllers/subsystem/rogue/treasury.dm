@@ -386,16 +386,7 @@ SUBSYSTEM_DEF(treasury)
 	var/datum/fund/account = get_account(target)
 	if(!account)
 		return FALSE
-
-	var/mob/living/carbon/human/H
-	if(ishuman(target))
-		H = target
 	if(amt > 0)
-		if(H && HAS_TRAIT(H, TRAIT_ROYAL_SUBSIDY))
-			log_fund_entry(new /datum/treasury_entry("burn", discretionary_fund, null, 0, "Subsidy Deposit: [source] by [H.real_name]"))
-			record_round_statistic(STATS_DIRECT_TREASURY_TRANSFERS, amt)
-			send_ooc_note("<b>MEISTER:</b> Subsidy claims [amt]m. Thank you for your diligent service. ([source])", name = target_name)
-			return TRUE
 		if(mint_new)
 			if(!mint(account, amt, source, mint_label))
 				return FALSE
