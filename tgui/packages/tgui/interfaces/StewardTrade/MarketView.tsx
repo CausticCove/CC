@@ -222,7 +222,7 @@ export const MarketView = (props: { data: Data; onTrade: OnTrade }) => {
                 style={{
                   display: 'flex',
                   alignItems: 'center',
-                  justifyContent: 'flex-end',
+                  justifyContent: 'flex-start',
                   gap: '6px',
                   flexWrap: 'wrap',
                   marginBottom: '6px',
@@ -346,7 +346,7 @@ export const MarketView = (props: { data: Data; onTrade: OnTrade }) => {
                 style={{
                   display: 'flex',
                   alignItems: 'center',
-                  justifyContent: 'flex-end',
+                  justifyContent: 'flex-start',
                   gap: '6px',
                   flexWrap: 'wrap',
                   marginBottom: '6px',
