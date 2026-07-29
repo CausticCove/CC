@@ -115,6 +115,7 @@ export type MarketRow = {
   automatic_limit: BooleanLike;
   accepting: BooleanLike;
   withdraw_disabled: BooleanLike;
+  autoexport_disabled: BooleanLike;
   margin_per_unit: number;
   arbitrage_potential: number;
 };
@@ -256,6 +257,8 @@ export type Data = StaticData & {
   trade_quote: TradeQuote | null;
   total_arbitrage_potential: number;
   autoexport_percentage: number;
+  autoexport_barred: number;
+  shortage_goods_open: number;
   petition_categories: PetitionCategory[];
   petition_tax_pct: number;
   petitions_per_day: number;
@@ -275,4 +278,5 @@ export type TabKey =
   | 'auto_import'
   | 'petition'
   | 'ledger'
-  | 'royal_custom';
+  | 'royal_custom'
+  | 'advanced';

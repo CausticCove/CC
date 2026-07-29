@@ -88,7 +88,7 @@
 		if(isnull(daily_payments[job]))
 			daily_payments[job] = SStreasury.get_wage_floor(job)
 
-/obj/structure/roguemachine/steward/proc/has_fiscal_authority(mob/user)
+/proc/has_fiscal_authority(mob/user)
 	if(!user)
 		return FALSE
 	if(user.job == "Steward" || user.job == "Clerk" || user.job == "Grand Duke")

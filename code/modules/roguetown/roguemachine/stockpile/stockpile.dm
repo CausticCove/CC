@@ -62,6 +62,7 @@
 	data["categories"] = categories
 	data["category"] = withdraw_tab.current_category
 	data["food_stipend"] = (ishuman(user) && HAS_TRAIT(user, TRAIT_ROYAL_SUBSIDY)) ? TRUE : FALSE
+	data["fiscal_authority"] = has_fiscal_authority(user) ? TRUE : FALSE
 	var/treasury_balance = SStreasury.discretionary_fund?.balance || 0
 	data["treasury_floor"] = SStreasury.stockpile_purchase_floor
 	data["below_floor"] = treasury_balance < SStreasury.stockpile_purchase_floor
@@ -161,6 +162,8 @@
 
 /obj/structure/roguemachine/stockpile/proc/try_auto_export_units(datum/roguestock/D, units)
 	if(!D || !D.trade_good_id || units <= 0)
+		return 0
+	if(D.autoexport_disabled)
 		return 0
 	if(D.stockpile_amount < units)
 		return 0

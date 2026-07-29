@@ -224,12 +224,13 @@ export const MarketView = (props: { data: Data; onTrade: OnTrade }) => {
                   alignItems: 'center',
                   justifyContent: 'flex-end',
                   gap: '6px',
+                  flexWrap: 'wrap',
                   marginBottom: '6px',
                   fontSize: FONT_BODY,
                   color: INK_SOFT,
                 }}
               >
-                <span>{activeGroup.label}:</span>
+                <span>Actions:</span>
                 <button
                   type="button"
                   style={inkButtonStyle({
@@ -340,6 +341,20 @@ export const MarketView = (props: { data: Data; onTrade: OnTrade }) => {
                 >
                   Sell ×
                 </button>
+              </div>
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'flex-end',
+                  gap: '6px',
+                  flexWrap: 'wrap',
+                  marginBottom: '6px',
+                  fontSize: FONT_BODY,
+                  color: INK_SOFT,
+                }}
+              >
+                <span>Permissions:</span>
                 <button
                   type="button"
                   style={inkButtonStyle({
@@ -763,6 +778,7 @@ const StockpileStrip = (props: { row: MarketRow; aldermanActing: boolean }) => {
   const limitAuto = !!row.automatic_limit;
   const accepting = !!row.accepting;
   const withdrawDisabled = !!row.withdraw_disabled;
+  const autoexportDisabled = !!row.autoexport_disabled;
   const margin = row.margin_per_unit;
   const potential = row.arbitrage_potential;
   const blockTitle =
