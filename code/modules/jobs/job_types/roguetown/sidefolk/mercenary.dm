@@ -78,19 +78,14 @@
 	if(!prefs.job_subprefs || !islist(prefs.job_subprefs))
 		prefs.job_subprefs = list()
 	if(!prefs.job_subprefs[title])
-		prefs.job_subprefs[title] = list("favorite_advclass" = null)
+		prefs.job_subprefs[title] = list("favorite_advclass" = null, "merc_ad" = null)
 	var/list/roleprefs = prefs.job_subprefs[title]
 
-	if(href_list["class"])
-		var/list/class_sel = list()
-		for(var/ctag in advclass_cat_rolls)
-			var/list/subsystem_ctag_list = SSrole_class_handler.sorted_class_categories[ctag]
-			for(var/datum/advclass/advdatum in subsystem_ctag_list)
-				class_sel[advdatum.name] = advdatum.type
-		roleprefs["favorite_advclass"] = class_sel[tgui_input_list(usr, "What path do your talents follow?", "Subclass Select", class_sel)]
+	if(href_list["merc_ad"])
+		roleprefs["merc_ad"] = tgui_input_text(usr, "How do you advertise yourself?", "Mercenary Statue", max_length=300)
 		update_subprefs_window(usr)
 	if(href_list["subprefsreset"])
-		prefs.job_subprefs[title] = list("favorite_advclass" = null)
+		prefs.job_subprefs[title] = list("favorite_advclass" = null, "merc_ad" = null)
 		update_subprefs_window(usr)
 	. = ..()
 
@@ -104,17 +99,20 @@
 	if(!prefs.job_subprefs || !islist(prefs.job_subprefs))
 		prefs.job_subprefs = list()
 	if(!prefs.job_subprefs[title])
-		prefs.job_subprefs[title] = list("favorite_advclass" = null)
+		prefs.job_subprefs[title] = list("favorite_advclass" = null, "merc_ad" = null)
 	var/list/roleprefs = prefs.job_subprefs[title]
 	var/datum/advclass/favorite = roleprefs["favorite_advclass"]
 	var/favorite_name = favorite ? favorite::name : "Choose"
 	var/HTML = {"
 		<i>You can choose a favorite subclass here. You'll automatically select this subclass on roundstart if possible.</i><br/><br/>
-		<b>Selected class:</b> <a href="?src=[REF(src)];class=1">[favorite_name]</a>
+		<b>Selected class:</b> <a href="?src=[REF(src)];class=1">[favorite_name]</a><br/><br/>
+		<i>Set your advertisement here to automatically enroll with the mercenary statue on spawn. You'll be set to 'Available' status immediately if this is set.</i><br/>
+		<b>Mercenary advertisement:</b> <a href="?src=[REF(src)];merc_ad=1">Edit</a>
+		[roleprefs["merc_ad"] ? "<hr/>[roleprefs["merc_ad"]]<hr/>":""]
 		<center><a href="?src=[REF(src)];subprefsexit=1">EXIT</a>\t\t<a href="?src=[REF(src)];subprefsreset=1">RESET</a></center>
 	"}
 	// the fact that the window width/height will be different each time is the main reason this isn't all done in a parent proc on /datum/job
-	var/datum/browser/popup = new(user, "[JOB_SUBPREFS_WINDOW_ID]", "<div align='center'>[title] Preferences</div>", 500, 250)
+	var/datum/browser/popup = new(user, "[JOB_SUBPREFS_WINDOW_ID]", "<div align='center'>[title] Preferences</div>", 500, 350)
 	popup.set_content(HTML)
 	popup.open(FALSE)
 	if(winexists(usr, "[JOB_SUBPREFS_WINDOW_ID]"))
@@ -138,3 +136,15 @@
 
 			// Store the registration request
 			statue.pending_registrations[H.key] = H
+
+/datum/advclass/mercenary/post_equip(mob/living/carbon/human/H) // has to be here because this is done AFTER subclass selection
+	. = ..()
+	var/list/subprefs = H.client?.prefs?.job_subprefs
+	if(!subprefs)
+		return
+	var/list/mercprefs = subprefs["Mercenary"]
+	if(!mercprefs)
+		return
+	if(mercprefs["merc_ad"])
+		SSroguemachine.mercenary_statue.mercenary_status[H.real_name] = list("status" = "Available", "mob" = H, "message" = mercprefs["merc_ad"])
+		SSroguemachine.mercenary_statue.pending_registrations -= H.key

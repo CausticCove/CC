@@ -83,14 +83,6 @@
 	if(href_list["subprefsreset"])
 		prefs.job_subprefs[title] = list("bounty_poster_key" = null, "bounty_severity_key" = null, "my_crime" = null, "favorite_advclass" = null)
 		update_subprefs_window(usr)
-	if(href_list["class"])
-		var/list/class_sel = list()
-		for(var/ctag in advclass_cat_rolls)
-			var/list/subsystem_ctag_list = SSrole_class_handler.sorted_class_categories[ctag]
-			for(var/datum/advclass/advdatum in subsystem_ctag_list)
-				class_sel[advdatum.name] = advdatum.type
-		bounty_prefs["favorite_advclass"] = class_sel[tgui_input_list(usr, "What path do your talents follow?", "Subclass Select", class_sel)]
-		update_subprefs_window(usr)
 	. = ..()
 
 // this is where we put the actual window setup. it'll be called once each update, to keep the information up-to-date, so just read from prefs n display it
