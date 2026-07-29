@@ -94,6 +94,7 @@ export type MarketRegionOption = {
   unit_price: number;
   capacity_today: number;
   capacity_total: number;
+  batch_capacity: number;
   is_blockaded: BooleanLike;
 };
 
@@ -172,7 +173,9 @@ export type TradeQuote = {
   quantity: number;
   max_units: number;
   daily_pace: number;
+  batch_capacity: number;
   capacity_today: number;
+  capacity_total: number;
   base_unit_price: number;
   base_subtotal: number;
   escalation_subtotal: number;

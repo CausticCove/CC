@@ -143,14 +143,35 @@ const footerStyle: React.CSSProperties = {
 
 const QUOTE_DEBOUNCE_MS = 120;
 
+const computeFillTarget = (quote: TradeQuote | null): number => {
+  if (!quote || !quote.ok) return 0;
+  const isImport = quote.side === 'import';
+  const bulkCap = isImport
+    ? quote.max_units
+    : Math.min(quote.max_units, quote.stockpile_amount);
+  let target = Math.min(quote.batch_capacity, bulkCap);
+  if (isImport && quote.base_unit_price > 0) {
+    target = Math.min(target, Math.floor(quote.balance / quote.base_unit_price));
+    if (quote.is_alderman_acting && quote.warrant_remaining >= 0) {
+      target = Math.min(
+        target,
+        Math.floor(quote.warrant_remaining / quote.base_unit_price),
+      );
+    }
+  }
+  return Math.max(0, target);
+};
+
 export const TradeModal = (props: TradeModalProps) => {
   const { request, onClose } = props;
   const { act, data } = useBackend<Data>();
   const [quantity, setQuantity] = useState(1);
   const debounceRef = useRef<number | null>(null);
   const lastQuoteRef = useRef<TradeQuote | null>(null);
+  const autoFilledRef = useRef(false);
 
   useEffect(() => {
+    autoFilledRef.current = false;
     if (!request) {
       lastQuoteRef.current = null;
       return;
@@ -158,6 +179,24 @@ export const TradeModal = (props: TradeModalProps) => {
     setQuantity(1);
     lastQuoteRef.current = null;
   }, [request]);
+
+  useEffect(() => {
+    if (!request || request.side !== 'export' || autoFilledRef.current) return;
+    const fresh = data.trade_quote;
+    if (
+      !fresh ||
+      fresh.side !== 'export' ||
+      fresh.region_id !== request.regionId ||
+      fresh.good_id !== request.goodId
+    ) {
+      return;
+    }
+    const target = computeFillTarget(fresh);
+    autoFilledRef.current = true;
+    if (target >= 1) {
+      setQuantity(target);
+    }
+  }, [request, data.trade_quote]);
 
   useEffect(() => {
     if (!request) return;
@@ -207,7 +246,6 @@ export const TradeModal = (props: TradeModalProps) => {
     onClose();
   };
 
-  const maxUnits = quote?.max_units ?? 50;
   const isImport = request.side === 'import';
   const sideLabel = isImport ? 'Import' : 'Export';
   const blockaded = !!quote?.is_blockaded;
@@ -238,7 +276,10 @@ export const TradeModal = (props: TradeModalProps) => {
 
   const shortStock = !isImport && !!quote && quantity > stockpile;
   const submitDisabled =
-    !quote?.ok || (isImport && !quote.can_afford) || !quote.warrant_ok;
+    !quote?.ok ||
+    (isImport && !quote.can_afford) ||
+    !quote.warrant_ok ||
+    shortStock;
   const submitTooltip = !quote
     ? 'Calculating...'
     : !quote.ok
@@ -252,7 +293,17 @@ export const TradeModal = (props: TradeModalProps) => {
             : '';
 
   const change = (delta: number) => {
-    setQuantity((q) => Math.max(1, Math.min(maxUnits, q + delta)));
+    setQuantity((q) => {
+      let next = q + delta;
+      if (canFill) {
+        if (delta > 0 && q < fillTarget && next > fillTarget) {
+          next = fillTarget;
+        } else if (delta < 0 && q > fillTarget && next < fillTarget) {
+          next = fillTarget;
+        }
+      }
+      return Math.max(1, Math.min(maxUnits, next));
+    });
   };
 
   return (
@@ -337,6 +388,21 @@ export const TradeModal = (props: TradeModalProps) => {
           >
             »
           </button>
+          <button
+            type="button"
+            style={{
+              ...stepperButtonStyle(!canFill || atFill),
+              width: 'auto',
+              padding: '0 8px',
+              fontSize: '13px',
+              marginLeft: '4px',
+            }}
+            disabled={!canFill || atFill}
+            title={fillTooltip}
+            onClick={() => setQuantity(fillTarget)}
+          >
+            Fill {canFill ? fillTarget : '-'}
+          </button>
         </div>
 
         <div
@@ -364,16 +430,15 @@ export const TradeModal = (props: TradeModalProps) => {
           {quote ? (
             isImport ? (
               <>
-                {quote.capacity_today} unit
-                {quote.capacity_today === 1 ? '' : 's'} available at base price
-                today.
+                {batchCapacity} unit{batchCapacity === 1 ? '' : 's'} available
+                at base price in one shipment.
                 <br />
                 More than that costs extra per unit.
               </>
             ) : (
               <>
-                {quote.capacity_today} unit
-                {quote.capacity_today === 1 ? '' : 's'} of demand left today.
+                {batchCapacity} unit{batchCapacity === 1 ? '' : 's'} of demand
+                left in one shipment.
                 <br />
                 More than that pays less per unit.
               </>
@@ -398,7 +463,7 @@ export const TradeModal = (props: TradeModalProps) => {
             <span style={lineLabelStyle}>Units at base price</span>
             <span style={lineValueStyle}>
               {quote
-                ? `${Math.min(quote.quantity, quote.capacity_today)} / ${quote.quantity}`
+                ? `${Math.min(quote.quantity, batchCapacity)} / ${quote.quantity}`
                 : '...'}
             </span>
           </div>
@@ -410,9 +475,7 @@ export const TradeModal = (props: TradeModalProps) => {
                 color: hasEscalation ? escalationColor : INK,
               }}
             >
-              {quote
-                ? `${Math.max(0, quote.quantity - quote.capacity_today)}`
-                : '...'}
+              {quote ? `${Math.max(0, quote.quantity - batchCapacity)}` : '...'}
             </span>
           </div>
           <div style={lineStyle}>
