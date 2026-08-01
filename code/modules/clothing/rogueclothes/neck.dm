@@ -208,7 +208,7 @@
 	flags_inv = HIDEFACE|HIDEFACIALHAIR|HIDESNOUT
 	armor_class = ARMOR_CLASS_MEDIUM
 
-/obj/item/clothing/neck/roguetown/chaincoif/chainmantle/ComponentInitialize()
+/obj/item/clothing/neck/roguetown/chaincoif/aventail/ComponentInitialize()
 	AddComponent(/datum/component/armour_filtering/negative, TRAIT_FENCERDEXTERITY)
 	AddComponent(/datum/component/armour_filtering/negative, TRAIT_HONORBOUND)
 
