@@ -31,6 +31,14 @@
 /datum/sprite_accessory/tail_feature/taur/adjust_appearance_list(list/appearance_list, obj/item/organ/organ, obj/item/bodypart/bodypart, mob/living/carbon/owner)
     generic_gender_feature_adjust(appearance_list, organ, bodypart, owner, OFFSET_TAUR, OFFSET_TAUR_F)
 
+/datum/sprite_accessory/tail_feature/taur/get_icon_state(obj/item/organ/organ, obj/item/bodypart/bodypart, mob/living/carbon/owner)
+	if(!owner || !can_wag)
+		return ..()
+	var/obj/item/bodypart/taur/taur_half = owner.get_bodypart(BODY_ZONE_TAUR)
+	if(!taur_half || !taur_half.wagging)
+		return ..()
+	return "[icon_state]_wagging"
+
 /datum/sprite_accessory/tail_feature/taur/lamia
 	name = "Lamia Taur Markings"	
 	icon = 'modular_causticcove/icons/mob/taurs/naga_markings.dmi'
