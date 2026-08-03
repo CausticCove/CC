@@ -76,15 +76,6 @@
 	// because these can overlap other organs, we need to layer slightly higher
 	working.layer = -FRONT_MUTATIONS_LAYER
 	working.pixel_x = offset_x
-	// OV Edit Start
-	if(petrified_color_matrix)
-		working.color = petrified_color_matrix
-		petrification_debug("taur_get_limb_icon color-applied: zone=[body_zone] icon_state=[taur_icon_state] working_color=[petrification_debug_value(working.color)]")
-
-	. += working
-	if(statue_color || bodypart_owner_petrified)
-		petrification_debug("taur_get_limb_icon end: zone=[body_zone] overlays=[petrification_debug_len(.)] working_color=[petrification_debug_value(working.color)]")
-	// OV Edit End
 
 /*********************************/
 /* TAUR TYPES                    */
