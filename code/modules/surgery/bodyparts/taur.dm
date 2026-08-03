@@ -296,7 +296,7 @@ GLOBAL_LIST_INIT(taur_types, subtypesof(/obj/item/bodypart/taur))
 /obj/item/bodypart/taur/satyr
 	name = "Satyr Legs"
 
-	icon = 'modular_ochrevalley/icons/mob/taurs/taurs.dmi'
+	icon = 'modular_causticcove/code/modules/taurs/taur_bodyparts.dm'
 	offset_x = -16
 	taur_icon_state = "satyr_s"
 
