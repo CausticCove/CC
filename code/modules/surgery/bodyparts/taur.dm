@@ -53,6 +53,7 @@
 	//Caustic Edit - Add Taur tailwag capabilities (Also used for loafing alternative sprites)
 	var/can_wag = FALSE
 	var/wagging = FALSE
+	var/use_mask = TRUE //For toggling the clipping mask on or off!
 	//Caustic Edit End
 
 /obj/item/bodypart/taur/New()
@@ -303,7 +304,7 @@ GLOBAL_LIST_INIT(taur_types, subtypesof(/obj/item/bodypart/taur))
 /obj/item/bodypart/taur/satyr
 	name = "Satyr Legs"
 
-	icon = 'modular_causticcove/code/modules/taurs/taur_bodyparts.dm'
+	icon = 'modular_causticcove/icons/mob/taurs/taurs.dmi'
 	offset_x = -16
 	taur_icon_state = "satyr_s"
 
