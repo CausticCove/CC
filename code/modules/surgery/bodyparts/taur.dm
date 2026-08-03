@@ -59,18 +59,6 @@
 /obj/item/bodypart/taur/get_limb_icon(dropped, hideaux = FALSE)
 	// List of overlays
 	. = list()
-	// OV Edit Start
-	var/mob/living/bodypart_owner = owner || original_owner
-	var/datum/status_effect/petrified/bodypart_owner_petrified = bodypart_owner?.IsPetrified()
-	var/statue_color = petrification_render_color
-	if(!statue_color && bodypart_owner_petrified)
-		petrification_debug("taur_get_limb_icon renderer-fallback bypassed: [petrification_debug_bodypart_summary(src)] owner=[petrification_debug_value(bodypart_owner)] requested_color=[bodypart_owner.get_petrification_render_color(TRUE)]")
-	var/list/petrified_color_matrix
-	if(statue_color)
-		petrified_color_matrix = petrification_material_color_matrix(statue_color)
-	if(statue_color || bodypart_owner_petrified)
-		petrification_debug("taur_get_limb_icon start: [petrification_debug_bodypart_summary(src)] dropped=[dropped] owner=[petrification_debug_value(bodypart_owner)] owner_petrified=[!!bodypart_owner_petrified] statue_color=[petrification_debug_value(statue_color)] taur_color=[petrification_debug_value(taur_color)] matrix_len=[petrification_debug_len(petrified_color_matrix)]")
-	// OV Edit End
 
 	var/image_dir = 0
 	if(dropped)
