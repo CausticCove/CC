@@ -143,3 +143,4 @@
 	layer = BODY_LAYER
 	color_keys = 3
 	color_key_names = list("Body", "Socks & Stripes", "Highlights")
+	can_wag = TRUE
