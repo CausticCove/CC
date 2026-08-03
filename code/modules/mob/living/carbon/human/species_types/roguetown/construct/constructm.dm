@@ -44,6 +44,7 @@
 		/obj/item/bodypart/taur/biglegs,
 		/obj/item/bodypart/taur/biglegsstanced,
 		/obj/item/bodypart/taur/lupine_venard,
+		/obj/item/bodypart/taur/sloog, //OV ADD
 	)
 	///Caustic edit end
 	default_features = MANDATORY_FEATURE_LIST
