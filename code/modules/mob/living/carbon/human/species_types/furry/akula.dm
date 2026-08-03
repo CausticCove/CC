@@ -30,6 +30,7 @@
 		/obj/item/bodypart/taur/fatnaga,
 		/obj/item/bodypart/taur/biglegs,
 		/obj/item/bodypart/taur/biglegsstanced,
+		/datum/sprite_accessory/tail_feature/taur/sloogmarkings, //OV ADD
 	)
 	///Caustic edit end
 
