@@ -25,6 +25,18 @@
 	// (we don't use icon_state to avoid duplicate rendering on dropped organs)
 	var/taur_icon_state = "naga_s"
 
+	//OV ADD - TAUR BARDING
+	// Determines which set of taur barding sprites to use. Easiest way to do this, frankly... ough.
+	// "m" = mammalian (canine, feline, tempest, kitsune, venard, skunk)
+	// "r" = reptilian (drake, noodle, sloog)
+	// "d" = deer
+	// null = no taur-specific clothing support
+	var/taur_clothing_category = null
+	// Customizable colors for plate tasset overlays (like detail_color on clothing)
+	var/tasset1_color = null
+	var/tasset2_color = null
+	//OV ADD END
+
 	// We can Blend() a color with the base greyscale color, only some tails support this
 	var/has_taur_color = FALSE
 	var/color_blend_mode = BLEND_ADD
@@ -38,12 +50,6 @@
 	// Instantiated at runtime for speed
 	var/tmp/icon/clip_mask
 
-	//Caustic Edit - Add Taur tailwag capabilities (Also used for loafing alternative sprites)
-	var/can_wag = FALSE
-	var/wagging = FALSE
-	var/use_mask = TRUE //For toggling the clipping mask on or off!
-	//Caustic Edit End
-
 /obj/item/bodypart/taur/New()
 	. = ..()
 
@@ -53,27 +59,41 @@
 /obj/item/bodypart/taur/get_limb_icon(dropped, hideaux = FALSE)
 	// List of overlays
 	. = list()
+	// OV Edit Start
+	var/mob/living/bodypart_owner = owner || original_owner
+	var/datum/status_effect/petrified/bodypart_owner_petrified = bodypart_owner?.IsPetrified()
+	var/statue_color = petrification_render_color
+	if(!statue_color && bodypart_owner_petrified)
+		petrification_debug("taur_get_limb_icon renderer-fallback bypassed: [petrification_debug_bodypart_summary(src)] owner=[petrification_debug_value(bodypart_owner)] requested_color=[bodypart_owner.get_petrification_render_color(TRUE)]")
+	var/list/petrified_color_matrix
+	if(statue_color)
+		petrified_color_matrix = petrification_material_color_matrix(statue_color)
+	if(statue_color || bodypart_owner_petrified)
+		petrification_debug("taur_get_limb_icon start: [petrification_debug_bodypart_summary(src)] dropped=[dropped] owner=[petrification_debug_value(bodypart_owner)] owner_petrified=[!!bodypart_owner_petrified] statue_color=[petrification_debug_value(statue_color)] taur_color=[petrification_debug_value(taur_color)] matrix_len=[petrification_debug_len(petrified_color_matrix)]")
+	// OV Edit End
 
 	var/image_dir = 0
 	if(dropped)
 		image_dir = SOUTH
 
 	// This section is based on Virgo's human rendering, there may be better ways to do this now
-	//Caustic Edit - Add capabilities for the Taur Sprites to Wag (or simply have an alt-sprite using this same call)
-	var/icon_state_touse = taur_icon_state
-	if(can_wag && wagging)
-		icon_state_touse += "_wagging"
-	var/icon/tail_s = new/icon("icon" = icon, "icon_state" = icon_state_touse, "dir" = image_dir)
-	//Caustic Edit End
+	var/icon/tail_s = new/icon("icon" = icon, "icon_state" = taur_icon_state, "dir" = image_dir)
 	if(has_taur_color)
 		tail_s.Blend(taur_color, color_blend_mode)
 
 	var/image/working = image(tail_s)
 	// because these can overlap other organs, we need to layer slightly higher
-	working.layer = -BODY_ADJ_LAYER
+	working.layer = -FRONT_MUTATIONS_LAYER
 	working.pixel_x = offset_x
+	// OV Edit Start
+	if(petrified_color_matrix)
+		working.color = petrified_color_matrix
+		petrification_debug("taur_get_limb_icon color-applied: zone=[body_zone] icon_state=[taur_icon_state] working_color=[petrification_debug_value(working.color)]")
 
 	. += working
+	if(statue_color || bodypart_owner_petrified)
+		petrification_debug("taur_get_limb_icon end: zone=[body_zone] overlays=[petrification_debug_len(.)] working_color=[petrification_debug_value(working.color)]")
+	// OV Edit End
 
 /*********************************/
 /* TAUR TYPES                    */
@@ -140,6 +160,7 @@ GLOBAL_LIST_INIT(taur_types, subtypesof(/obj/item/bodypart/taur))
 	name = "Feline Body"
 
 	offset_x = -16
+	taur_clothing_category = "m" //OV ADD
 	taur_icon_state = "feline_s"
 
 	has_taur_color = TRUE
@@ -153,9 +174,10 @@ GLOBAL_LIST_INIT(taur_types, subtypesof(/obj/item/bodypart/taur))
 	has_taur_color = TRUE
 
 /obj/item/bodypart/taur/tempest
-	name = "Tempst Body"
+	name = "Tempest Body"
 
 	offset_x = -16
+	taur_clothing_category = "m" //OV ADD
 	taur_icon_state = "tempest_s"
 
 	has_taur_color = TRUE
@@ -166,6 +188,7 @@ GLOBAL_LIST_INIT(taur_types, subtypesof(/obj/item/bodypart/taur))
 	name = "Drake Body"
 
 	offset_x = -16
+	taur_clothing_category = "r" //OV ADD
 	taur_icon_state = "drake_s"
 
 	has_taur_color = TRUE
@@ -182,6 +205,7 @@ GLOBAL_LIST_INIT(taur_types, subtypesof(/obj/item/bodypart/taur))
 	name = "Wolf Body"
 
 	offset_x = -16
+	taur_clothing_category = "m" //OV ADD
 	taur_icon_state = "wolf_s"
 
 	has_taur_color = TRUE
@@ -206,6 +230,7 @@ GLOBAL_LIST_INIT(taur_types, subtypesof(/obj/item/bodypart/taur))
 	name = "Deer Body"
 
 	offset_x = -16
+	taur_clothing_category = "d" //OV ADD
 	taur_icon_state = "deer_s"
 
 	has_taur_color = TRUE
@@ -222,6 +247,7 @@ GLOBAL_LIST_INIT(taur_types, subtypesof(/obj/item/bodypart/taur))
 	name = "Fat wolf Body"
 
 	offset_x = -16
+	taur_clothing_category = "m" //OV ADD
 	taur_icon_state = "fatwolf_s"
 
 	has_taur_color = TRUE
@@ -230,6 +256,7 @@ GLOBAL_LIST_INIT(taur_types, subtypesof(/obj/item/bodypart/taur))
 	name = "Fat feline Body"
 
 	offset_x = -16
+	taur_clothing_category = "m" //OV ADD
 	taur_icon_state = "fatfeline_s"
 
 	has_taur_color = TRUE
@@ -283,18 +310,13 @@ GLOBAL_LIST_INIT(taur_types, subtypesof(/obj/item/bodypart/taur))
 
 	has_taur_color = TRUE
 
-/obj/item/bodypart/taur/biglegs
-	name = "Big Legs"
+//OV edit
+/obj/item/bodypart/taur/satyr
+	name = "Satyr Legs"
 
+	icon = 'modular_ochrevalley/icons/mob/taurs/taurs.dmi'
 	offset_x = -16
-	taur_icon_state = "biglegs_s"
+	taur_icon_state = "satyr_s"
 
 	has_taur_color = TRUE
-
-/obj/item/bodypart/taur/biglegsstanced
-	name = "Big Legs, Stanced"
-
-	offset_x = -16
-	taur_icon_state = "biglegsstanced_s"
-
-	has_taur_color = TRUE
+//OV edit end
