@@ -578,7 +578,7 @@
 
 	if(!H.cmode)
 		to_chat(H, span_warning("I need some adrenaline pumping for this, my good sire!"))
-		revert_cast() 
+		revert_cast()
 		return FALSE
 
 	if(H.resting)

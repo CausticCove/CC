@@ -47,13 +47,32 @@
 		heal_wounds(1)
 
 	/// ENDVRE AS HE DOES.
-	if(!stat && HAS_TRAIT(src, TRAIT_PSYDONITE) && !HAS_TRAIT(src, TRAIT_PARALYSIS))
+	if(!stat && (HAS_TRAIT(src, TRAIT_PSYDONITE) && !HAS_TRAIT(src, TRAIT_BLACKBLOOD) && !HAS_TRAIT(src, TRAIT_PARALYSIS)))
 		handle_wounds()
 		//passively heal wounds, when you're in trouble..
 		if(blood_volume > BLOOD_VOLUME_SURVIVE)
 			for(var/datum/wound/wound as anything in get_wounds())
 				if(wound?.severity <= WOUND_SEVERITY_MODERATE)
-					wound.heal_wound(0.4)
+					if(!istype(wound, /datum/wound/slash/incision))
+						wound.heal_wound(0.4)
+
+	/// Should not stack with the above, hopefully.
+	if(!stat && HAS_TRAIT(src, TRAIT_BLACKBLOOD) && !HAS_TRAIT(src, TRAIT_PARALYSIS))
+		if(src.has_status_effect(/datum/status_effect/fire_handler/fire_stacks/sunder) || src.has_status_effect(/datum/status_effect/fire_handler/fire_stacks/sunder/blessed)) // silver fire stops the regen completely
+			return
+		handle_wounds()
+		if(blood_volume > BLOOD_VOLUME_SURVIVE && nutrition > NUTRITION_LEVEL_STARVING && hydration > HYDRATION_LEVEL_DEHYDRATED) // starving is the minimal here, thirst also stops the regen now
+			for(var/datum/wound/wound as anything in get_wounds())
+				if(!istype(wound, /datum/wound/slash/incision))
+					wound.heal_wound(0.5) // roughly half of what psydonite can heal up, after some tests (the above is 0.4, because 0.6 is in life() and death())
+					if(wound.bleed_rate > 0) // but we also slowly recover from bleeding now
+						var/bleed_heal = max(wound.bleed_rate * 0.1, 0.2)
+						wound.set_bleed_rate(max(wound.bleed_rate - bleed_heal, 0))
+						if(wound.bleed_rate <= 0)
+							if(wound.sew_threshold)
+								wound.sew_progress = wound.sew_threshold
+								wound.sew_wound() // it does not heal the wound, however! another nick and you're back to bleeding like a pig.
+					nutrition = max(0, nutrition - (NUTRITION_LEVEL_FULL * 0.0025)) // drains 0.25% of your hunger to restore all of above, still
 
 	if(!stat && HAS_TRAIT(src, TRAIT_LYCANRESILENCE) && !HAS_TRAIT(src, TRAIT_PARALYSIS))
 		if(src.has_status_effect(/datum/status_effect/fire_handler/fire_stacks/sunder) || src.has_status_effect(/datum/status_effect/fire_handler/fire_stacks/sunder/blessed))
@@ -61,7 +80,8 @@
 		handle_wounds()
 		if(blood_volume > BLOOD_VOLUME_SURVIVE)
 			for(var/datum/wound/wound as anything in get_wounds())
-				wound.heal_wound(3)		
+				if(!istype(wound, /datum/wound/slash/incision))
+					wound.heal_wound(3)
 
 	if(!stat && HAS_TRAIT(src, TRAIT_DEADITE)) //Deadites are always regenerating unless under the effects of ANY KIND OF firestacks. Finish them off or restrain them.
 		if(src.has_status_effect(/datum/status_effect/fire_handler/fire_stacks/sunder) || src.has_status_effect(/datum/status_effect/fire_handler/fire_stacks) || src.has_status_effect(/datum/status_effect/fire_handler/fire_stacks/sunder/blessed))
@@ -78,7 +98,7 @@
 		return
 
 	handle_environment()
-	
+
 	//Random events (vomiting etc)
 	handle_random_events()
 
@@ -144,7 +164,7 @@
 				return
 			if(istype(drownrelay.loc, /turf/open/water))
 				handle_inwater(drownrelay.loc, extinguish = FALSE, force_drown = TRUE)
-			if(istype(loc, /turf/open/water)) // Extinguish ourselves if our body is in water.	
+			if(istype(loc, /turf/open/water)) // Extinguish ourselves if our body is in water.
 				extinguish_mob()
 			return
 	. =..()
@@ -183,7 +203,6 @@
 					drop_all_held_items()
 
 /mob/living/proc/handle_environment()
-	
 	return
 
 /mob/living/proc/handle_wounds()

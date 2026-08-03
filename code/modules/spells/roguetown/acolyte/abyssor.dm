@@ -104,7 +104,7 @@
 /obj/effect/proc_holder/spell/invoked/aquatic_compulsion/cast(list/targets, mob/user = usr)
 	. = ..()
 	if(!user || !user.client)
-		return 
+		return
 	var/mob/living/carbon/human/H = user
 	var/turf/T = targets[1]
 
@@ -530,12 +530,12 @@
 /obj/effect/proc_holder/spell/invoked/call_dreamfiend/cast(list/targets, mob/living/user)
 	. = ..()
 	var/mob/living/carbon/target = targets[1]
-	
+
 	if(!istype(target))
 		to_chat(user, span_warning("This spell only works on creatures capable of dreaming!"))
 		revert_cast()
 		return FALSE
-	
+
 	if(!summon_dreamfiend(
 		target = target,
 		user = user,
@@ -580,7 +580,7 @@
 		return FALSE
 
 	var/turf/spawn_turf = pick(turfs)
-	
+
 	F = new F(spawn_turf)
 	F.ai_controller.set_blackboard_key(BB_BASIC_MOB_CURRENT_TARGET, target)
 	F.ai_controller.set_blackboard_key(BB_MAIN_TARGET, target)
@@ -721,7 +721,7 @@
 				to_chat(user, span_warning("The whispers in your head grow louder..."))
 	else
 		casts_in_stage = min(casts_in_stage + 1, 100)
-	
+
 	target.apply_status_effect(
 		/datum/status_effect/buff/abyssal,
 		stats["str"],
@@ -774,7 +774,7 @@
 		STATKEY_SPD = speed_malus,
 		STATKEY_PER = perception_malus
 	)
-	
+
 	return ..()
 
 /datum/status_effect/buff/abyssal/on_apply()

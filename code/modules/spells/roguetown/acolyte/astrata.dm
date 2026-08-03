@@ -233,7 +233,7 @@
 	flag = "fire"
 	light_outer_range = 7
 
-/obj/projectile/magic/sacred_flame/on_hit(target)
+/obj/projectile/magic/sacred_flame/on_hit(target, blocked = FALSE)
 	. = ..()
 	if(ismob(target))
 		var/mob/M = target
@@ -246,15 +246,16 @@
 			var/mob/living/L = target
 			if(out_of_effective_range())
 				return
-			L.electrocute_act(1, src, 1, SHOCK_NOSTUN)
-			if(HAS_TRAIT(L, TRAIT_SILVER_WEAK))
-				L.adjust_fire_stacks(4, /datum/status_effect/fire_handler/fire_stacks/sunder)
-				L.Immobilize(0.5 SECONDS)
-				L.ignite_mob()
-			else
-				L.adjust_fire_stacks(4)
-				L.Immobilize(0.5 SECONDS)
-				L.ignite_mob()
+			if(blocked < 100)
+				L.electrocute_act(1, src, 1, SHOCK_NOSTUN)
+				if(HAS_TRAIT(L, TRAIT_SILVER_WEAK))
+					L.adjust_fire_stacks(4, /datum/status_effect/fire_handler/fire_stacks/sunder)
+					L.Immobilize(0.5 SECONDS)
+					L.ignite_mob()
+				else
+					L.adjust_fire_stacks(4)
+					L.Immobilize(0.5 SECONDS)
+					L.ignite_mob()
 	else if(isatom(target))
 		var/atom/A = target
 		A.fire_act()
@@ -674,7 +675,7 @@
 		var/list/hearers_in_range = get_hearers_in_LOS(healing_range, src, RECURSIVE_CONTENTS_CLIENT_MOBS)
 		for(var/mob/living/carbon/human/human in hearers_in_range)
 			var/distance = get_dist(src, human)
-			if(distance > healing_range || HAS_TRAIT(human, TRAIT_IRONMAN))
+			if(distance > healing_range || HAS_TRAIT(human, TRAIT_IRONMAN) || HAS_TRAIT(human, TRAIT_NOREGEN))
 				continue
 			if(istype(human.patron, /datum/patron/divine))
 				if(!human.has_status_effect(/datum/status_effect/buff/pyre))

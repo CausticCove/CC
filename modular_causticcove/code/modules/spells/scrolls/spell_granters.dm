@@ -1,6 +1,6 @@
 /obj/item/book/granter/spell/sizespell // Enlarge/Reduce Size Spell
 	name = "Scroll of Reduce/Enlarge"
-	spell = /obj/effect/proc_holder/spell/targeted/touch/sizespell
+	spell = /datum/action/cooldown/spell/touch/sizespell
 	spellname = "Reduce/Enlarge"
 	icon = 'icons/roguetown/items/misc.dmi'
 	icon_state = "scrolldarkred"

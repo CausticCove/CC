@@ -105,7 +105,6 @@
 		new /obj/item/magic/fae/iridescentscale(deathspot)
 	for(var/i =1 to 4)
 		new /obj/item/magic/fae/fairydust(deathspot) ///Caustic edit end
-	new /obj/item/magic/melded/t2(deathspot)
 	update_icon()
 	spill_embedded_objects()
 	qdel(src)

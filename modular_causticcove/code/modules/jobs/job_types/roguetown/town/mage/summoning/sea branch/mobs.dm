@@ -10,7 +10,7 @@
 	emote_see = null
 	speak_chance = 1
 	turns_per_move = 3
-	see_in_dark = 6 
+	see_in_dark = 6
 	butcher_results = list()
 	faction = list(FACTION_ELEMENTAL)
 	mob_biotypes = MOB_ORGANIC|MOB_BEAST
@@ -111,7 +111,7 @@
 	icon_living = "ray"
 
 	move_to_delay = 2
-	
+
 	health = 100
 	maxHealth = 100
 	melee_damage_lower = 12
@@ -140,14 +140,14 @@
 	summon_tier = 1
 	icon_state = "coralback"
 	icon_living = "coralback"
-	
+
 	health = 360
 	maxHealth = 360
 	melee_damage_lower = 20
 	melee_damage_upper = 24
 
 	move_to_delay = 5
-	
+
 	defprob = 30
 
 	STACON = 16
@@ -173,14 +173,14 @@
 	summon_tier = 1
 	icon_state = "jellyfish"
 	icon_living = "jellyfish"
-	
+
 	health = 750
 	maxHealth = 750
 	melee_damage_lower = 30
 	melee_damage_upper = 35
 
 	move_to_delay = 1
-	
+
 	STACON = 12
 	STAWIL = 13
 	STASTR = 13
@@ -197,7 +197,6 @@
 		new /obj/item/magic/deepsea/tiertwo(deathspot)
 	for(var/i =1 to 4)
 		new /obj/item/magic/deepsea/tierone(deathspot)
-	new /obj/item/magic/melded/t1(deathspot)
 	update_icon()
 	spill_embedded_objects()
 	qdel(src)

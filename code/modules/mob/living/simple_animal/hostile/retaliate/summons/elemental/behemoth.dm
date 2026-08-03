@@ -66,7 +66,6 @@
 		new /obj/item/magic/elemental/shard(deathspot)
 	for(var/i =1 to 4)
 		new /obj/item/magic/elemental/mote(deathspot) ///Caustic edit end
-	new /obj/item/magic/melded/t1(deathspot)
 	update_icon()
 	spill_embedded_objects()
 	qdel(src)

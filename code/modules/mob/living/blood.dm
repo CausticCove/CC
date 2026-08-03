@@ -26,7 +26,7 @@
 /mob/living/proc/handle_blood()
 	if((bodytemperature <= TCRYO) || HAS_TRAIT(src, TRAIT_HUSK)) //cryosleep or husked people do not pump the blood.
 		return
-	
+
 	blood_volume = min(blood_volume, BLOOD_VOLUME_MAXIMUM)
 	//Effects of bloodloss - only run if we're not actually dead.
 	if (stat != DEAD)
@@ -80,7 +80,7 @@
 /mob/living/carbon/handle_blood()
 	if((bodytemperature <= TCRYO) || HAS_TRAIT(src, TRAIT_HUSK)) //cryosleep or husked people do not pump the blood.
 		return
-	
+
 	blood_volume = min(blood_volume, BLOOD_VOLUME_MAXIMUM)
 
 	if(dna?.species && (NOBLOOD in dna.species.species_traits))
@@ -102,7 +102,7 @@
 			adjustOxyLoss(blood_volume <= BLOOD_VOLUME_SURVIVE ? 3 : 1)
 			if(prob(40) && !HAS_TRAIT(src, TRAIT_NOBREATH))
 				if(!stat == CONSCIOUS || !stat == DEAD)
-					emote("gasp")		
+					emote("gasp")
 			return
 
 	//Blood regeneration if there is some space
@@ -221,6 +221,11 @@
 	if(!iscarbon(src) && !HAS_TRAIT(src, TRAIT_SIMPLE_WOUNDS))
 		return FALSE
 
+	if(HAS_TRAIT(src, TRAIT_CRITICAL_RESISTANCE))	// We apply the major multipliers first.
+		amt *= CRIT_RESISTANCE_EFFECTIVE_BLEEDRATE
+	else if(HAS_TRAIT(src, TRAIT_BLOOD_RESISTANCE))
+		amt *= BLOOD_RESISTANCE_EFFECTIVE_BLEEDRATE
+
 	//For each CON above 10, we bleed slower.
 	//Consequently, for each CON under 10 we bleed faster.
 	var/conbonus = 1
@@ -230,7 +235,7 @@
 		conbonus = CONSTITUTION_BLEEDRATE_CAP - 10
 	else
 		conbonus = STACON - 10
-	
+
 	amt -= amt * (conbonus * CONSTITUTION_BLEEDRATE_MOD)
 	if(HAS_TRAIT(src, TRAIT_CRITICAL_RESISTANCE))
 		amt *= CRIT_RESISTANCE_EFFECTIVE_BLEEDRATE

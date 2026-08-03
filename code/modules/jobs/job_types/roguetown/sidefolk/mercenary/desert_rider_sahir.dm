@@ -2,7 +2,7 @@
 	name = "Desert Rider Sahir"
 	tutorial = "You're a Sahir - a wisened Magi from the desert of Raneshen. You have spent your lyfe studying the arcyne arts. Some of your rank knows the way of the sword- a necessity when one happens upon monstrsities that are resilient to magyck in the desert. Sahir are trained in the art of Armament Binding, which is granted as a spell upon picking your aspects."
 	allowed_sexes = list(MALE, FEMALE)
-	
+
 	outfit = /datum/outfit/job/roguetown/mercenary/desert_rider_sahir
 	class_select_category = CLASS_CAT_RANESHENI
 	category_tags = list(CTAG_MERCENARY)
@@ -15,7 +15,7 @@
 		STATKEY_INT = 3,
 		STATKEY_PER = 2
 	)
-	subclass_mage_aspects = list("mastery" = FALSE, "major" = 1, "minor" = 2, "utilities" = 9, "ward" = TRUE)
+	subclass_mage_aspects = list("mastery" = FALSE, "major" = 1, "minor" = 2, "utilities" = 13, "ward" = TRUE)
 	subclass_skills = list(
 		/datum/skill/combat/swords = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/combat/wrestling = SKILL_LEVEL_APPRENTICE,

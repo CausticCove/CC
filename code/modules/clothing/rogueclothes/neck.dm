@@ -659,6 +659,9 @@
 	material_category = ARMOR_MAT_PLATE
 	resistance_flags = FIRE_PROOF
 
+/obj/item/clothing/neck/roguetown/psicross/inhumen/aalloy/get_examine_highlight_status()
+	return list(EXAMINEHIGHLIGHT_HERESYSEVERITY_SUSPICIOUS, HERESYDESC_ZIZO_ICON)
+
 /obj/item/clothing/neck/roguetown/psicross/inhumen/paalloy
 	name = "ancient zcross"
 	desc = "'Progress. Ascension. Destiny. A mandate, commanded by God, to be fufilled by Man. She called us forth from the edge of reality - and with Her dying breath, rasped out the final truth; the fire is gone, and the world will soon follow.'"
@@ -666,6 +669,9 @@
 	chunkcolor = "#532e25"
 	material_category = ARMOR_MAT_PLATE
 	resistance_flags = FIRE_PROOF
+
+/obj/item/clothing/neck/roguetown/psicross/inhumen/paalloy/get_examine_highlight_status()
+	return list(EXAMINEHIGHLIGHT_HERESYSEVERITY_SUSPICIOUS, HERESYDESC_ZIZO_ICON)
 
 /obj/item/clothing/neck/roguetown/psicross/inhumen/wood
 	name = "wooden inverted psycross"
@@ -676,17 +682,26 @@
 	salvage_result = /obj/item/grown/log/tree/stick
 	salvage_amount = 1
 
+/obj/item/clothing/neck/roguetown/psicross/inhumen/wood/get_examine_highlight_status()
+	return list(EXAMINEHIGHLIGHT_HERESYSEVERITY_SUSPICIOUS, HERESYDESC_ZIZO_ICON)
+
 /obj/item/clothing/neck/roguetown/psicross/inhumen/iron
 	name = "inverted psycross"
 	desc = "A symbol of progress from an era that had reason to believe in it."
 	icon_state = "zcross_iron"
 	resistance_flags = FIRE_PROOF
 
+/obj/item/clothing/neck/roguetown/psicross/inhumen/iron/get_examine_highlight_status()
+	return list(EXAMINEHIGHLIGHT_HERESYSEVERITY_SUSPICIOUS, HERESYDESC_ZIZO_ICON)
+
 /obj/item/clothing/neck/roguetown/psicross/inhumen/bronze
 	name = "bronze inverted psycross"
 	desc = "'Look upon mine works, thee-mighty, and despair!'"
 	icon_state = "zcross_b"
 	resistance_flags = FIRE_PROOF
+
+/obj/item/clothing/neck/roguetown/psicross/inhumen/bronze/get_examine_highlight_status()
+	return list(EXAMINEHIGHLIGHT_HERESYSEVERITY_SUSPICIOUS, HERESYDESC_ZIZO_ICON)
 
 /obj/item/clothing/neck/roguetown/psicross/inhumen/g
 	name = "golden inverted psycross"
@@ -695,6 +710,9 @@
 	resistance_flags = FIRE_PROOF
 	sellprice = 100
 
+/obj/item/clothing/neck/roguetown/psicross/inhumen/g/get_examine_highlight_status()
+	return list(EXAMINEHIGHLIGHT_HERESYSEVERITY_SUSPICIOUS, HERESYDESC_ZIZO_ICON)
+
 /obj/item/clothing/neck/roguetown/psicross/inhumen/matthios
 	name = "amulet of Matthios"
 	desc = "He was but one flame in the dark. Together, His flock shall outblaze the Tyrant-Sun."
@@ -702,6 +720,9 @@
 	resistance_flags = FIRE_PROOF
 	slot_flags = ITEM_SLOT_NECK|ITEM_SLOT_HIP|ITEM_SLOT_WRISTS|ITEM_SLOT_RING
 	smeltresult = null
+
+/obj/item/clothing/neck/roguetown/psicross/inhumen/matthios/get_examine_highlight_status()
+	return list(EXAMINEHIGHLIGHT_HERESYSEVERITY_SUSPICIOUS, HERESYDESC_MATTHIOS_ICON)
 
 /obj/item/clothing/neck/roguetown/psicross/inhumen/matthios/wood
 	name = "wooden amulet of Matthios"
@@ -726,6 +747,9 @@
 	slot_flags = ITEM_SLOT_NECK|ITEM_SLOT_HIP|ITEM_SLOT_WRISTS|ITEM_SLOT_RING
 	smeltresult = null
 
+/obj/item/clothing/neck/roguetown/psicross/inhumen/graggar/get_examine_highlight_status()
+	return list(EXAMINEHIGHLIGHT_HERESYSEVERITY_SUSPICIOUS, HERESYDESC_GRAGGAR_ICON)
+
 /obj/item/clothing/neck/roguetown/psicross/inhumen/graggar/g
 	name = "golden amulet of Graggar"
 	desc = "Might makes right."
@@ -748,6 +772,9 @@
 	resistance_flags = FIRE_PROOF
 	slot_flags = ITEM_SLOT_NECK|ITEM_SLOT_HIP|ITEM_SLOT_WRISTS|ITEM_SLOT_RING
 	smeltresult = null
+
+/obj/item/clothing/neck/roguetown/psicross/inhumen/baotha/get_examine_highlight_status()
+	return list(EXAMINEHIGHLIGHT_HERESYSEVERITY_SUSPICIOUS, HERESYDESC_BAOTHA_ICON)
 
 /obj/item/clothing/neck/roguetown/psicross/inhumen/baotha/g
 	name = "golden amulet of Baotha"
@@ -1465,6 +1492,9 @@
 		return
 	qdel(src)*/ //Caustic Edit - Allow removal again!
 
+/obj/item/clothing/neck/roguetown/coif/baotha/get_examine_highlight_status()
+	return list(EXAMINEHIGHLIGHT_HERESYSEVERITY_ALARMING, HERESYDESC_BAOTHA_ARMOR)
+
 //
 
 /obj/item/clothing/neck/roguetown/psicross/malum/secret
@@ -1523,13 +1553,16 @@
 	smeltresult = /obj/item/ingot/weeping
 	sellprice = 666
 	equip_delay_self = 3 SECONDS
-	unequip_delay_self = 7 SECONDS 
+	unequip_delay_self = 7 SECONDS
 	inv_storage_delay = 3 SECONDS
 	var/active_item
 
 /obj/item/clothing/neck/roguetown/psicross/weeping/Initialize()
   ..()
   add_filter(FORCE_FILTER, 2, list("type" = "outline", "color" = GLOW_COLOR_VAMPIRIC, "alpha" = 200, "size" = 1))
+
+/obj/item/clothing/neck/roguetown/psicross/weeping/get_examine_highlight_status()
+	return list(EXAMINEHIGHLIGHT_HERESYSEVERITY_VERYODD, HERESYDESC_WEEPING_CROSS) //Cursed ass Psicross, you probably should be giving this thing suspicious looks.
 
 /obj/item/clothing/neck/roguetown/psicross/weeping/equipped(mob/living/user, slot)
 	. = ..()

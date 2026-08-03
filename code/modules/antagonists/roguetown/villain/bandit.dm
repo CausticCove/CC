@@ -22,7 +22,7 @@
 	storyteller_antag_flags = STORYTELLER_ANTAG_VILLAIN | STORYTELLER_ANTAG_ROUNDSTART
 	storyteller_favor_flags = STORYTELLER_FAVOR_BANDIT
 	override_candidatereq = TRUE
-	storyteller_min_players = CHARACTER_INJECTION_MIN_POP
+	storyteller_min_players = 200 //CHARACTER_INJECTION_MIN_POP //Caustic Edit - Lets bump this up to 200 so it shouldn't ever roll?
 	storyteller_slot_scaling = 2
 	storyteller_slot_default_cap = 2
 	storyteller_maxcaps = list(

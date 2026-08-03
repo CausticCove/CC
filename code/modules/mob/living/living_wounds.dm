@@ -48,7 +48,7 @@
 			continue
 		woundies += wound
 	return woundies
-	
+
 /// Loops through our list of wounds and returns the first wound that is of the type specified by the path
 /mob/living/proc/has_wound(path, specific = FALSE)
 	if(!path)
@@ -209,6 +209,7 @@
 		return FALSE
 	LAZYADD(simple_embedded_objects, embedder)
 	embedder.is_embedded = TRUE
+	embedder.embedded_host = src
 	embedder.forceMove(src)
 	embedder.add_mob_blood(src)
 	if(!silent)
@@ -227,6 +228,7 @@
 		return FALSE
 	LAZYREMOVE(simple_embedded_objects, embedder)
 	embedder.is_embedded = FALSE
+	embedder.embedded_host = null
 	var/drop_location = drop_location()
 	if(drop_location)
 		embedder.forceMove(drop_location)

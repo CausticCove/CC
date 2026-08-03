@@ -1,0 +1,4 @@
+author: "ibexgoetia"
+delete-after: True
+changes:
+  - bugfix: "Revenants can now use the Nobility trait, as intended."

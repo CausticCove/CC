@@ -27,7 +27,7 @@
 			return
 	else
 		return ..()
-		
+
 	return ..()
 
 /obj/item/rogueore/gold
@@ -372,31 +372,31 @@
 
 /obj/item/ingot/bsslag
 	name = "blacksteel-speckled slag"
-	desc = "A mass of smoldered blacksteel, rendered lame from the forge's heat. It has taken its secrets to the grave." 
+	desc = "A mass of smoldered blacksteel, rendered lame from the forge's heat. It has taken its secrets to the grave."
 	icon_state = "blacksteelslag"
 	sellprice = 7
 
 /obj/item/ingot/jadeslag
 	name = "jade-speckled slag"
-	desc = "A mass of smoldered jade, rendered lame from the forge's heat. Heavenly beauty, left barely recognizable." 
+	desc = "A mass of smoldered jade, rendered lame from the forge's heat. Heavenly beauty, left barely recognizable."
 	icon_state = "jadeslag"
 	sellprice = 9
 
 /obj/item/ingot/silverslag
 	name = "silver-speckled slag"
-	desc = "A mass of smoldered silver, rendered lame from the forge's heat. Holy might, marred and tarnished." 
+	desc = "A mass of smoldered silver, rendered lame from the forge's heat. Holy might, marred and tarnished."
 	icon_state = "silverslag"
 	sellprice = 9
 
 /obj/item/ingot/goldslag
 	name = "gold-speckled slag"
-	desc = "A mass of smoldered gold, rendered lame from the forge's heat. Haughty dreams, brought lower than low." 
+	desc = "A mass of smoldered gold, rendered lame from the forge's heat. Haughty dreams, brought lower than low."
 	icon_state = "goldslag"
 	sellprice = 12
 
 /obj/item/ingot/copperslag
 	name = "copper-speckled slag"
-	desc = "A mass of smoldered copper, rendered lame from the forge's heat. Primeval innovation, gnarled into rubble." 
+	desc = "A mass of smoldered copper, rendered lame from the forge's heat. Primeval innovation, gnarled into rubble."
 	icon_state = "copperslag"
 	sellprice = 3
 
@@ -466,6 +466,9 @@
 	smeltresult = null
 	sellprice = 130
 
+/obj/item/ingot/avantyne/get_examine_highlight_status()
+	return list(EXAMINEHIGHLIGHT_HERESYSEVERITY_SUSPICIOUS, HERESYDESC_ZIZO_AVANTYNE)
+
 //Components!
 
 /obj/item/ingot/component //Root. Don't use under most circumstances.
@@ -532,11 +535,18 @@
 	icon_state = "component_zizo"
 	dropshrink = 0.7
 
+/obj/item/ingot/component/zizo/get_examine_highlight_status()
+	return list(EXAMINEHIGHLIGHT_HERESYSEVERITY_SUSPICIOUS, HERESYDESC_ZIZO_AVANTYNE)
+
 /obj/item/ingot/component/graggar
 	name = "vicious fragment"
 	desc = "Bleeding fragments of an otherworldly alloy. </br>Murder is nothing more than justice without arbitration."
 	icon_state = "component_graggar"
 	dropshrink = 0.7
+
+/obj/item/ingot/component/graggar/get_examine_highlight_status()
+	return list(EXAMINEHIGHLIGHT_HERESYSEVERITY_SUSPICIOUS, HERESYDESC_GRAGGAR_MISC)
+
 
 /obj/item/ingot/component/matthios
 	name = "gilded fragment"
@@ -544,8 +554,14 @@
 	icon_state = "component_matthios"
 	dropshrink = 0.7
 
+/obj/item/ingot/component/matthios/get_examine_highlight_status()
+	return list(EXAMINEHIGHLIGHT_HERESYSEVERITY_SUSPICIOUS, HERESYDESC_MATTHIOS_MISC)
+
 /obj/item/ingot/component/baotha
 	name = "saccharine fragment"
 	desc = "Aromatic fragments of an otherworldly alloy. </br>Despair is the gravest, most agonizing poison of them all."
 	icon_state = "component_baotha"
 	dropshrink = 0.7
+
+/obj/item/ingot/component/baotha/get_examine_highlight_status()
+	return list(EXAMINEHIGHLIGHT_HERESYSEVERITY_SUSPICIOUS, HERESYDESC_BAOTHA_MISC)

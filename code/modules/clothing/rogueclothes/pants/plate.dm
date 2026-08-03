@@ -66,15 +66,8 @@
 	. = ..()
 	AddComponent(/datum/component/cursed_item, TRAIT_HORDE, "ARMOR", "RENDERED ASUNDER")
 
-/obj/item/clothing/under/roguetown/platelegs/graggar/heavy/Initialize()
-	. = ..()
-	ADD_TRAIT(src, TRAIT_NODROP, CURSED_ITEM_TRAIT)
-
-/obj/item/clothing/under/roguetown/platelegs/graggar/heavy/dropped(mob/living/carbon/human/user)
-	. = ..()
-	if(QDELETED(src))
-		return
-	qdel(src)
+/obj/item/clothing/under/roguetown/platelegs/graggar/get_examine_highlight_status()
+	return list(EXAMINEHIGHLIGHT_HERESYSEVERITY_ALARMING, HERESYDESC_GRAGGAR_ARMOR)
 
 /obj/item/clothing/under/roguetown/platelegs/matthios
 	max_integrity = ARMOR_INT_LEG_ANTAG
@@ -89,6 +82,9 @@
 	. = ..()
 	//ADD_TRAIT(src, TRAIT_NODROP, CURSED_ITEM_TRAIT)
 	AddComponent(/datum/component/cursed_item, TRAIT_FREEMAN, "ARMOR")
+
+/obj/item/clothing/under/roguetown/platelegs/matthios/get_examine_highlight_status()
+	return list(EXAMINEHIGHLIGHT_HERESYSEVERITY_ALARMING, HERESYDESC_MATTHIOS_ARMOR)
 
 /obj/item/clothing/under/roguetown/platelegs/matthios/dropped(mob/living/carbon/human/user)
 	. = ..()
@@ -107,6 +103,9 @@
 	armor = ARMOR_PLATE_BSTEEL
 	armor_class = ARMOR_CLASS_MEDIUM
 	smeltresult = /obj/item/ingot/component/zizo
+
+/obj/item/clothing/under/roguetown/platelegs/zizo/get_examine_highlight_status()
+	return list(EXAMINEHIGHLIGHT_HERESYSEVERITY_ALARMING, HERESYDESC_ZIZO_ARMOR)
 
 /obj/item/clothing/under/roguetown/platelegs/zizo/heavy
 	name = "avantyne garments"
@@ -135,13 +134,17 @@
 //Caustic Edit End
 
 /obj/item/clothing/under/roguetown/platelegs/avantyne
-	name = "avantyne fauldcoat"
-	desc = "Bolstered by threads of avantyne, padded by darksteel. It covers and protects - thought to be impossibly made."
+	name = "avantyne-threaded fauldcoat"
+	desc = "Tassets of threaded darksteel, worn atop a lesser waistcoat. The weightlessness of the alloy is born from its \
+	unholy imbuement; for lux invigorates metal far greater than even the purest ores."
 	icon_state = "zizoplatelegs_med"
 	max_integrity = ARMOR_INT_LEG_STEEL_PLATE
 	armor_class = ARMOR_CLASS_MEDIUM
 	smeltresult = /obj/item/ingot/avantyne
 	armor = ARMOR_PLATE_BSTEEL
+
+/obj/item/clothing/under/roguetown/platelegs/avantyne/get_examine_highlight_status()
+	return list(EXAMINEHIGHLIGHT_HERESYSEVERITY_ALARMING, HERESYDESC_ZIZO_ARMOR)
 
 /obj/item/clothing/under/roguetown/platelegs/skirt
 	name = "steel plate tassets"

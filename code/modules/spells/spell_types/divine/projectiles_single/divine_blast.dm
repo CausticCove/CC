@@ -49,8 +49,10 @@
 	damage = 15 // Slightly lower base damage and barely matter due to low to hit but not a problem on acolyte / cleric.
 	arcshot = TRUE
 
-/obj/projectile/energy/divineblast/on_hit(target)
+/obj/projectile/energy/divineblast/on_hit(target, blocked = FALSE)
 	. = ..()
+	if(blocked >= 100)
+		return
 	if(isliving(target))
 		var/mob/living/H = target
 		if(H.job in GLOB.church_positions) // TRAIT_CLERGY could work here but is unmaintained and druids, sextons, etc. all lack it.

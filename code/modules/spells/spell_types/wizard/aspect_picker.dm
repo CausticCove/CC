@@ -763,6 +763,7 @@
 		to_chat(owner, span_notice("The inscriptions in my grimoire shift and reform..."))
 	owner.mind.ensure_mage_basics()
 	owner.mind.check_learnspell()
+	owner.mind.refresh_spell_buttons()
 
 	chanting = FALSE
 

@@ -66,7 +66,7 @@
 		STATKEY_STR = -1
 	)
 	age_mod = /datum/class_age_mod/archivist
-	subclass_mage_aspects = list("mastery" = FALSE, "major" = 1, "minor" = 2, "utilities" = 6, "ward" = TRUE)
+	subclass_mage_aspects = list("mastery" = FALSE, "major" = 1, "minor" = 2, "utilities" = 4, "ward" = TRUE)
 	subclass_skills = list(
 		/datum/skill/combat/staves = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/combat/arcyne = SKILL_LEVEL_JOURNEYMAN,
@@ -119,3 +119,5 @@
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/silence/archivist_silence)
 	if(H.mind)
 		SStreasury.grant_savings(ECONOMIC_UPPER_CLASS, H)
+		H.mind.teach_crafting_recipe(/datum/crafting_recipe/roguetown/arcana/scrolls/utility)
+		H.mind.teach_crafting_recipe(/datum/crafting_recipe/roguetown/arcana/scrolls/minor)

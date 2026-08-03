@@ -200,9 +200,7 @@
 			if(istype(W, /obj/item/natural/dirtclod))
 				if(!user.temporarilyRemoveItemFromInventory(W))
 					return
-				on = FALSE
-				set_light(0)
-				update_icon()
+				extinguish() //Caustic Edit - This is what Waterbolt seems to call, and that works fine so, I figure this should fix Clods not properly extinguishing.
 				qdel(W)
 				src.visible_message("<span class='warning'>[user] snuffs the fire.</span>")
 				return

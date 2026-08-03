@@ -871,12 +871,6 @@
 	for(var/bp in body_parts)
 		if(!bp)
 			continue
-		if(skin_armor) //Checks for the natural_armor first.
-			if(skin_armor.obj_integrity > 0)
-				var/obj/item/clothing/C = skin_armor
-				var/val = C.armor.getRating(d_type)
-				if(val > protection)
-					used = C
 		if(bp && istype(bp, /obj/item/clothing))
 			var/obj/item/clothing/C = bp
 			if(zone2covered(def_zone, C.body_parts_covered_dynamic))
@@ -890,7 +884,8 @@
 						used = C
 				// Fire/acid: fall back to a worn real-armor piece even at a 0 rating, so a fire/acid-0
 				// plate still reads as "armored" (engages absorb, shows crumble messages). A rated piece wins.
-				else if((d_type in ARMOR_DR_RESIST_TYPES) && C.max_integrity && !used)
+				// has_armor_value() (any blunt/slash/stab/piercing rating) is the real-armor gate so plain cloth keeps bypassing instead of burning off.
+				else if((d_type in ARMOR_DR_RESIST_TYPES) && C.max_integrity && C.has_armor_value() && !used)
 					used = C
 	return used
 
@@ -917,9 +912,9 @@
 						continue
 				var/val = C.armor.getRating(d_type)
 				// Fire/acid: any worn real-armor piece counts even at a 0 rating (blunt keeps its own rating gate), so it soaks
-				// HP damage and takes integrity damage instead of letting it bypass. Cosmetics (no max_integrity)
-				// stay excluded. The stored rating is preserved as the value (effective/displayed tier).
-				if(val > 0 || ((d_type in ARMOR_DR_RESIST_TYPES) && C.max_integrity))
+				// HP damage and takes integrity damage instead of letting it bypass. Plain cloth (no blunt/slash/stab/piercing rating)
+				// and cosmetics (no max_integrity) stay excluded so they bypass instead of burning off. The stored rating is preserved as the value.
+				if(val > 0 || ((d_type in ARMOR_DR_RESIST_TYPES) && C.max_integrity && C.has_armor_value()))
 					used_armor[C] = val
 	return used_armor
 

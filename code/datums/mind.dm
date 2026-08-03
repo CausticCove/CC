@@ -962,6 +962,8 @@ GLOBAL_LIST_EMPTY(personal_objective_minds)
 				return
 		spell_list += new_spell
 		new_spell.Grant(current)
+		if(bump_trailing_spells())
+			rebuild_action_order()
 		if(length(spell_list) == 1 && current)
 			addtimer(CALLBACK(src, PROC_REF(show_spell_tip)), 3 SECONDS)
 		return
@@ -975,6 +977,8 @@ GLOBAL_LIST_EMPTY(personal_objective_minds)
 			return
 	spell_list += S
 	S.action.Grant(current)
+	if(bump_trailing_spells())
+		rebuild_action_order()
 	if(user)
 		S.on_gain(user)
 	if(length(spell_list) == 1 && current)
@@ -1176,6 +1180,31 @@ GLOBAL_LIST_EMPTY(personal_objective_minds)
 	for(var/datum/S in spell_list)
 		RemoveSpell(S)
 
+/// Keep prestidigitation and learnspell at the end of the spell list when new spells are granted.
+/datum/mind/proc/bump_trailing_spells()
+	var/static/list/trailing_types = list(
+		/datum/action/cooldown/spell/touch/prestidigitation,
+		/datum/action/cooldown/spell/learnspell,
+	)
+	var/list/trailing = list()
+	for(var/path in trailing_types)
+		for(var/datum/S in spell_list)
+			if(S.type == path)
+				trailing += S
+	if(!length(trailing))
+		return FALSE
+	var/offset = length(spell_list) - length(trailing)
+	var/already_ordered = TRUE
+	for(var/i in 1 to length(trailing))
+		if(spell_list[offset + i] != trailing[i])
+			already_ordered = FALSE
+			break
+	if(already_ordered)
+		return FALSE
+	spell_list -= trailing
+	spell_list += trailing
+	return TRUE
+
 /datum/mind/proc/rebuild_action_order()
 	if(!current)
 		return
@@ -1203,6 +1232,12 @@ GLOBAL_LIST_EMPTY(personal_objective_minds)
 		result += ordered_spell_actions[next_spell]
 		next_spell++
 	current.actions = result
+	current.update_action_buttons()
+
+/datum/mind/proc/refresh_spell_buttons()
+	if(!current?.client)
+		return
+	current.update_mob_action_buttons(ALL, TRUE)
 	current.update_action_buttons()
 
 /datum/mind/proc/spell_list_entry_for_action(datum/action/A)

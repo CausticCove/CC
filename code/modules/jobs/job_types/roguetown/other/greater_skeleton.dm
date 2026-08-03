@@ -47,7 +47,7 @@
 	var/mob/living/carbon/human/H = L
 	H.mob_biotypes |= MOB_UNDEAD
 
-	H.advsetup = TRUE
+	H.set_advsetup(TRUE)
 	H.invisibility = INVISIBILITY_MAXIMUM
 	H.become_blind("advsetup")
 	for (var/obj/item/bodypart/B in H.bodyparts)

@@ -124,7 +124,7 @@
 		secondary_resource_cost = 0
 		projectile_type = /obj/projectile/magic/profane/enhanced
 		user.visible_message(span_purple("Lingering bones crumble around [user]'s hand..."), span_purple("Lingering bones enhance your Divine evocation. Blessed four!"))
-	
+
 	. = ..()
 	projectile_type = original_projectile
 	primary_resource_cost = original_primary
@@ -306,6 +306,9 @@
 
 	if(out_of_effective_range())
 		return
+	if(blocked >= 100)
+		qdel(src)
+		return
 	try_embed_target(L)
 	qdel(src)
 
@@ -434,7 +437,7 @@
 /datum/action/cooldown/spell/zizo/rituos
 	name = "Rituos"
 	desc = "Enact one of the Lesser Work of Zizo - a single, agonizing ritual that tears open a path to power. Choose Progress to gain arcyne knowledge, or Unlife to embrace undeath."
-	fluff_desc = "The holiest of Zizo's Lesser Works among the Cabal. A rite of surrendering weakness and mortality to embrace your purpose in Her design. Through agony, the faithful offer either mind or flesh, allowing Zizo to strip away mortal frailty and shape them into reflections of her ascension. Some surrender thought for forbidden understanding. Others surrender flesh for the stillness of unlife. Few endure enough to become what She envisioned. When the gifts fade, the faithful are taught only one truth: they have not sacrificed enough."	
+	fluff_desc = "The holiest of Zizo's Lesser Works among the Cabal. A rite of surrendering weakness and mortality to embrace your purpose in Her design. Through agony, the faithful offer either mind or flesh, allowing Zizo to strip away mortal frailty and shape them into reflections of her ascension. Some surrender thought for forbidden understanding. Others surrender flesh for the stillness of unlife. Few endure enough to become what She envisioned. When the gifts fade, the faithful are taught only one truth: they have not sacrificed enough."
 	button_icon = 'icons/mob/actions/zizomiracles.dmi'
 	button_icon_state = "rituos"
 	charge_sound = 'sound/magic/chargingold.ogg'
@@ -504,7 +507,7 @@
 		if("Progress") // support path, your mind is twisted in Her design
 			user.adjust_skillrank(/datum/skill/magic/arcane, 3, TRUE)
 			if(user.mind)
-				user.mind.setup_mage_aspects(list("mastery" = FALSE, "major" = 0, "minor" = 2, "utilities" = 6))
+				user.mind.setup_mage_aspects(list("mastery" = FALSE, "major" = 0, "minor" = 2, "utilities" = 8))
 				ADD_TRAIT(user, TRAIT_STEELHEARTED, "[type]") // so you can commit atrocities with a smile
 				ADD_TRAIT(user, TRAIT_JACKOFALLTRADES, "[type]") // the progress palooza to let you grind more efficiently
 				ADD_TRAIT(user, TRAIT_SELF_SUSTENANCE, "[type]") // also fitting for the progress vibe, way more balanced than the specialist traits IMO
@@ -535,7 +538,7 @@
 			user.update_body_parts()
 			user.adjust_skillrank(/datum/skill/magic/arcane, 3, TRUE)
 			if(user.mind)
-				user.mind.setup_mage_aspects(list("mastery" = FALSE, "major" = 0, "minor" = 2, "utilities" = 4))
+				user.mind.setup_mage_aspects(list("mastery" = FALSE, "major" = 0, "minor" = 2, "utilities" = 5))
 				user.mind.AddSpell(new /datum/action/cooldown/spell/bonechill)
 				user.mind.AddSpell(new /datum/action/cooldown/spell/bonemend)
 				grant_poke_spell(user)
@@ -552,7 +555,7 @@
 /datum/action/cooldown/spell/zizo/bone_cataclysm
 	name = "Bone Cataclysm"
 	desc = "Detonate all of your nearby skeletons in a wave of profane bone shrapnel. You and Gravemarked allies will not be harmed by it.<br><br>If used outside Combat Mode, you will disintegrate them and restore your energy."
-	fluff_desc = "Zizo taught her faithful that the dead must always serve twice: once in unlife, and once more when their bones are shattered in her name."	
+	fluff_desc = "Zizo taught her faithful that the dead must always serve twice: once in unlife, and once more when their bones are shattered in her name."
 	button_icon = 'icons/mob/actions/actions_clockcult.dmi'
 	button_icon_state = "Kindle"
 	click_to_activate = FALSE
@@ -604,7 +607,7 @@
 			S.Jitter(100)
 			var/datum/beam/B = caster.Beam(S, icon_state = "necra_beam", time = 50, maxdistance = 20)
 			addtimer(CALLBACK(src, PROC_REF(explode_skeleton), S, caster, B), rand(3 SECONDS, 6 SECONDS))
-		
+
 		return TRUE
 
 	else
@@ -715,7 +718,7 @@
 	new /obj/effect/decal/remains/human(T)
 	qdel(S)
 
-/datum/action/cooldown/spell/zizo/bone_cataclysm/proc/despawn_skeleton(mob/living/S,	mob/living/caster, datum/beam/B)	
+/datum/action/cooldown/spell/zizo/bone_cataclysm/proc/despawn_skeleton(mob/living/S,	mob/living/caster, datum/beam/B)
 	if(B)
 		B.End()
 	if(!S || QDELETED(S))

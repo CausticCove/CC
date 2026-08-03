@@ -115,6 +115,11 @@
 		if(!istype(H.skin_armor, /obj/item/clothing/suit/roguetown/armor/manual/arcyne_ward))
 			to_chat(owner, span_warning("Something else already protects my skin!"))
 			return FALSE
+		//Caustic Edit - Make Wards not work with Natural Armor.
+		if(HAS_TRAIT(H, TRAIT_NATURAL_ARMOR))
+			to_chat(owner, span_warning("My Natural Armor interferes with the ward! It fizzles."))
+			return FALSE
+		//Caustic Edit End
 		var/obj/item/clothing/suit/roguetown/armor/manual/arcyne_ward/existing = H.skin_armor
 		if(existing.arcyne_armor_tier > initial(ward_type:arcyne_armor_tier))
 			to_chat(owner, span_warning("A stronger ward already protects me!"))

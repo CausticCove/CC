@@ -420,7 +420,7 @@
 	INVOKE_ASYNC(src, PROC_REF(giveup), M)
 	say("Assessing value of lyfe...")
 	sleep(13 SECONDS) //Caustic Edit - Adjusting the time to account for the removed below bits.
-	
+
 	//Caustic Edit - Changing this around so that struggling against it damages you, but doesn't kill, and submitting means no damage.
 	/*var/list/headcrush = list('sound/combat/fracture/headcrush (2).ogg', 'sound/combat/fracture/headcrush (3).ogg', 'sound/combat/fracture/headcrush (4).ogg')
 	playsound(src, pick_n_take(headcrush), 100, FALSE, -1)
@@ -456,6 +456,8 @@
 			message_admins("[M.real_name] was killed by the EXCIDIUM.")
 			log_admin("[M.real_name] was killed by the EXCIDIUM.")
 			playsound(src, 'sound/combat/vite.ogg', 100, FALSE, -1)
+			M.emote("superagony")
+			M.visible_message(span_warningbig("The CASTIFICO begins GRUESOMELY SHAVING OUT every bit and ounce of [M]'s FLESH on their HEAD, leaving only a grinning, bleeding skull behind. Justice has been served."))
 			victim_head.skeletonize()*/
 			var/list/headcrush = list('sound/combat/fracture/headcrush (2).ogg', 'sound/combat/fracture/headcrush (3).ogg', 'sound/combat/fracture/headcrush (4).ogg')
 			playsound(src, pick_n_take(headcrush), 100, FALSE, -1) //Caustic Edit - Moved this block from above to in here instead.

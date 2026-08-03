@@ -77,6 +77,9 @@
 	max_blade_int = 200
 	wdefense = 8
 
+/obj/item/rogueweapon/halberd/glaive/dreamscape/get_examine_highlight_status()
+	return list(EXAMINEHIGHLIGHT_HERESYSEVERITY_ODD, HERESYDESC_DREAM_ITEM)
+
 /obj/item/rogueweapon/halberd/glaive/dreamscape/active
 	desc = "A strange spear, who knows where it came from. Strange harmonious sounds ring out as wind passes through the holes."
 	icon_state = "dreamspearactive"
@@ -84,6 +87,9 @@
 	wdefense = 9
 	force = 20
 	force_wielded = 35
+
+/obj/item/rogueweapon/halberd/glaive/dreamscape/active/get_examine_highlight_status()
+	return list(EXAMINEHIGHLIGHT_HERESYSEVERITY_ALARMING, HERESYDESC_DREAMWALKER_WEAPON)
 
 /obj/item/rogueweapon/greatsword/bsword/dreamscape
 	name = "otherworldly sword"
@@ -100,6 +106,9 @@
 	gripped_intents = list(/datum/intent/sword/cut/zwei, /datum/intent/sword/chop, /datum/intent/sword/thrust/estoc/lunge, /datum/intent/sword/thrust/estoc)
 	alt_grips = list(/datum/alt_grip/mordhau/broadsword/dream_broadsword)
 
+/obj/item/rogueweapon/greatsword/bsword/dreamscape/get_examine_highlight_status()
+	return list(EXAMINEHIGHLIGHT_HERESYSEVERITY_ODD, HERESYDESC_DREAM_ITEM)
+
 /obj/item/rogueweapon/greatsword/bsword/dreamscape/active
 	name = "otherworldly sword"
 	desc = "A strange sword made out of a strange reflective metal. It oozes sickening sludge."
@@ -108,6 +117,9 @@
 	force = 30
 	force_wielded = 35
 	wdefense = 5
+
+/obj/item/rogueweapon/greatsword/bsword/dreamscape/active/get_examine_highlight_status()
+	return list(EXAMINEHIGHLIGHT_HERESYSEVERITY_ALARMING, HERESYDESC_DREAMWALKER_WEAPON)
 
 /obj/item/rogueweapon/spear/dreamscape_trident
 	name = "otherworldly trident"
@@ -126,6 +138,9 @@
 	var/shockwave_divisor = 3
 	var/shockwave_damage = FALSE
 
+/obj/item/rogueweapon/spear/dreamscape_trident/get_examine_highlight_status()
+	return list(EXAMINEHIGHLIGHT_HERESYSEVERITY_ODD, HERESYDESC_DREAM_ITEM)
+
 /obj/item/rogueweapon/spear/dreamscape_trident/active
 	name = "Iridescent trident"
 	desc = "A strange trident glimmering with an oily hue. The air shimmers around it."
@@ -138,6 +153,9 @@
 	shockwave_cooldown_interval = 30 SECONDS
 	shockwave_divisor = 2
 	shockwave_damage = TRUE
+
+/obj/item/rogueweapon/spear/dreamscape_trident/active/get_examine_highlight_status()
+	return list(EXAMINEHIGHLIGHT_HERESYSEVERITY_ALARMING, HERESYDESC_DREAMWALKER_WEAPON)
 
 // Update weapon initializations with specific effects
 /obj/item/rogueweapon/greataxe/dreamscape/active/Initialize()
@@ -356,7 +374,7 @@
 	// Create shard at Player's turf, tell it where to slide to
 	playsound(L, 'sound/combat/sharpness_loss1.ogg', 75, TRUE)
 	new shard_type(center, shard_duration, shard_amount, chosen_spawn)
-	
+
 	if(prob(40))
 		to_chat(L, span_notice("A shard of your armor shatters onto the floor!"))
 
@@ -366,12 +384,12 @@
 
 	for(var/obj/O in T)
 		if(O.density)
-			return FALSE	
+			return FALSE
 	return TRUE
 
 /datum/component/dreamwalker_repair/proc/repair_from_shard(amount)
 	var/remaining_repair = amount
-	
+
 	// Continue repairing as long as we have juice and items to fix
 	while(remaining_repair > 0)
 		var/obj/item/most_broken = null
@@ -400,7 +418,7 @@
 
 		most_broken.update_icon()
 
-		if(needed > applied) 
+		if(needed > applied)
 			break // This item took all remaining repair but isn't full yet
 
 /datum/component/dreamwalker_repair/Destroy()

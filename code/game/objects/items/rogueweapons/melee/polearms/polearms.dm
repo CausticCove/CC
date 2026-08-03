@@ -662,6 +662,9 @@
 	slot_flags = ITEM_SLOT_BACK
 	smeltresult = /obj/item/ingot/avantyne
 
+/obj/item/rogueweapon/spear/billhook/avantyne/get_examine_highlight_status()
+	return list(EXAMINEHIGHLIGHT_HERESYSEVERITY_ALARMING, HERESYDESC_ZIZO_AVANTYNE)
+
 /obj/item/rogueweapon/spear/improvisedbillhook
 	force = 12
 	force_wielded = 25
@@ -984,12 +987,12 @@
 	. = ..()
 	if(used)
 		return
-		
+
 	var/list/special_options = list()
 	for(var/intent in selection)
 		var/datum/special_intent/S = intent // Hate this DM quirk.
 		special_options[S::name] = S
-	
+
 	var/choice = input(user, "Choose the Manoeuvre", "MANOEUVRE") as anything in special_options
 	if(choice)
 		qdel(special)
@@ -1217,12 +1220,12 @@
 	. = ..()
 	if(used)
 		return
-		
+
 	var/list/special_options = list()
 	for(var/intent in selection)
 		var/datum/special_intent/S = intent // Hate this DM quirk.
 		special_options[S::name] = S
-	
+
 	var/choice = input(user, "Choose the Manoeuvre", "MANOEUVRE") as anything in special_options
 	if(choice)
 		qdel(special)
@@ -1605,7 +1608,9 @@
 		switch(tag)
 			if("gen") return list("shrink" = 0.7, "sx" = -14, "sy" = -8, "nx" = 9, "ny" = -6, "wx" = -6, "wy" = -6, "ex" = -1, "ey" = -4, "northabove" = 0, "southabove" = 1, "eastabove" = 1, "westabove" = 0, "nturn" = -10, "sturn" = 108, "wturn" = -72, "eturn" = -10, "nflip" = 1, "sflip" = 1, "wflip" = 8, "eflip" = 1)
 			if("wielded") return list("shrink" = 0.75, "sx" = 5, "sy" = -3, "nx" = -5, "ny" = -3, "wx" = -5, "wy" = -3, "ex" = 3, "ey" = -4, "northabove" = 0, "southabove" = 1, "eastabove" = 1, "westabove" = 0, "nturn" = 6, "sturn" = -8, "wturn" = 10, "eturn"= -10, "nflip" = 8, "sflip" = 0, "wflip" = 8, "eflip" = 0)
-	
+
+/obj/item/rogueweapon/spear/partizan/baotha/get_examine_highlight_status()
+	return list(EXAMINEHIGHLIGHT_HERESYSEVERITY_ALARMING, HERESYDESC_BAOTHA_WEAPON)
 
 // Caustic edit start
 // Mild TODO: Migrate all these to modular_causticcove

@@ -210,11 +210,11 @@ GLOBAL_LIST_INIT(tat_trait_skill_cap_bonus_rules, TAT_TRAIT_SKILL_CAP_BONUS_RULE
 	TRAIT_MEDIUMARMOR = TAT_TRAIT_MAIL_SUPPLIER, \
 	TRAIT_HEAVYARMOR = TAT_TRAIT_PLATE_SUPPLIER \
 )
-	
+
 // TAT_TRAIT_CONTRACTOR = TAT_TRAIT_ENTRY("Contractor", 80, TAT_CATEGORY_CLASS_MODULE, TAT_CATEGORY_CLASS_MODULE_NAME, "Awakens the contract-bearing curse in your veins. The whole world is waiting your gifts and deals."),
-//TAT_TRAIT_FREEPTS = TAT_TRAIT_ENTRY("Free points", -200, TAT_CATEGORY_COMBAT_MASTERY, TAT_CATEGORY_ENHANCEMENT_NAME, "You are an admin, congrats! Have some free points. Hope you will use it wisely."), 
-//TRAIT_MANORHOLDERSMALL = TAT_TRAIT_ENTRY("Petty Estate Holder", 10, TAT_CATEGORY_ENHANCEMENT, TAT_CATEGORY_ENHANCEMENT_NAME, "My holdings are barely worth mentioning within the duchy."), 
-//TRAIT_MANORHOLDERMEDIUM = TAT_TRAIT_ENTRY("Minor Estate Holder", 20, TAT_CATEGORY_ENHANCEMENT, TAT_CATEGORY_ENHANCEMENT_NAME, "I hold a somewhat important land within the duchy."), 
+//TAT_TRAIT_FREEPTS = TAT_TRAIT_ENTRY("Free points", -200, TAT_CATEGORY_COMBAT_MASTERY, TAT_CATEGORY_ENHANCEMENT_NAME, "You are an admin, congrats! Have some free points. Hope you will use it wisely."),
+//TRAIT_MANORHOLDERSMALL = TAT_TRAIT_ENTRY("Petty Estate Holder", 10, TAT_CATEGORY_ENHANCEMENT, TAT_CATEGORY_ENHANCEMENT_NAME, "My holdings are barely worth mentioning within the duchy."),
+//TRAIT_MANORHOLDERMEDIUM = TAT_TRAIT_ENTRY("Minor Estate Holder", 20, TAT_CATEGORY_ENHANCEMENT, TAT_CATEGORY_ENHANCEMENT_NAME, "I hold a somewhat important land within the duchy."),
 #define TAT_AVAILABLE_TRAITS_LIST \
 	TAT_TRAIT_SPELLBLADE = TAT_TRAIT_ENTRY("Spellblade", 10, TAT_CATEGORY_CLASS_MODULE, TAT_CATEGORY_CLASS_MODULE_NAME, "Grants a set of weapon-binding spells."), \
 	TAT_TRAIT_RESIDENT = TAT_TRAIT_ENTRY("Resident", 0, TAT_CATEGORY_MAJOR_FLAW, TAT_CATEGORY_MAJOR_FLAW_NAME, "Grants a Meister account and ownership of a house in the city."), \
@@ -269,7 +269,7 @@ GLOBAL_LIST_INIT(tat_trait_skill_cap_bonus_rules, TAT_TRAIT_SKILL_CAP_BONUS_RULE
 	TAT_TRAIT_DIVINE_BOON_1 = TAT_TRAIT_ENTRY("Divine Boon I", 15, TAT_CATEGORY_CLASS_MODULE, TAT_CATEGORY_CLASS_MODULE_NAME, "Requires Divine Initiate. Raises your miracle package by one tier."), \
 	TAT_TRAIT_DIVINE_BOON_2 = TAT_TRAIT_ENTRY("Divine Boon II", 15, TAT_CATEGORY_CLASS_MODULE, TAT_CATEGORY_CLASS_MODULE_NAME, "Requires Divine Initiate and Divine Boon I. Raises your miracle package by one tier."), \
 	TAT_TRAIT_DIVINE_BOON_3 = TAT_TRAIT_ENTRY("Divine Boon III", 15, TAT_CATEGORY_CLASS_MODULE, TAT_CATEGORY_CLASS_MODULE_NAME, "Requires Divine Initiate and Divine Boon II. Raises your miracle package by one tier."), \
-	TAT_TRAIT_MAGE_INITIATE = TAT_TRAIT_ENTRY("Mage Initiate", 15, TAT_CATEGORY_CLASS_MODULE, TAT_CATEGORY_CLASS_MODULE_NAME, "Grants one minor spell, three utility spells, plus one extra utility per Arcane skill level."), \
+	TAT_TRAIT_MAGE_INITIATE = TAT_TRAIT_ENTRY("Mage Initiate", 15, TAT_CATEGORY_CLASS_MODULE, TAT_CATEGORY_CLASS_MODULE_NAME, "Grants one minor spell, four utility points, plus one extra utility per Arcane skill level."), \
 	TAT_TRAIT_MAGE_MAJOR_SLOT = TAT_TRAIT_ENTRY("Arcane Major Slot", 15, TAT_CATEGORY_CLASS_MODULE, TAT_CATEGORY_CLASS_MODULE_NAME, "Requires Mage Initiate. Grants +1 major spell slot."), \
 	TAT_TRAIT_MAGE_MINOR_SLOT_1 = TAT_TRAIT_ENTRY("Arcane Minor Slot I", 10, TAT_CATEGORY_CLASS_MODULE, TAT_CATEGORY_CLASS_MODULE_NAME, "Requires Mage Initiate. Grants +1 minor spell slot."), \
 	TAT_TRAIT_MAGE_MINOR_SLOT_2 = TAT_TRAIT_ENTRY("Arcane Minor Slot II", 10, TAT_CATEGORY_CLASS_MODULE, TAT_CATEGORY_CLASS_MODULE_NAME, "Requires Mage Initiate. Grants +1 minor spell slot."), \

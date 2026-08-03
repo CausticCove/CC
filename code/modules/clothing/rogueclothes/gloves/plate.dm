@@ -50,7 +50,7 @@
 
 /obj/item/clothing/gloves/roguetown/plate/paalloy
 	name = "ancient plate gauntlets"
-	desc = "Polished gilbranze mechanisms, meticulously interconnected to shroud splayed hands. 'Mercy' and 'innocence' are concepts paraded by the unenlightened; spill their blood without guilt, so that the world may yet be remade in Her image." 
+	desc = "Polished gilbranze mechanisms, meticulously interconnected to shroud splayed hands. 'Mercy' and 'innocence' are concepts paraded by the unenlightened; spill their blood without guilt, so that the world may yet be remade in Her image."
 	icon_state = "agauntlets"
 	smeltresult = /obj/item/ingot/aaslag
 
@@ -64,6 +64,9 @@
 /obj/item/clothing/gloves/roguetown/plate/graggar/Initialize()
 	. = ..()
 	AddComponent(/datum/component/cursed_item, TRAIT_HORDE, "ARMOR", "RENDERED ASUNDER")
+
+/obj/item/clothing/gloves/roguetown/plate/graggar/get_examine_highlight_status()
+	return list(EXAMINEHIGHLIGHT_HERESYSEVERITY_ALARMING, HERESYDESC_GRAGGAR_ARMOR)
 
 /obj/item/clothing/gloves/roguetown/plate/graggar/heavy
 	name = "vicious plated gauntlets"
@@ -123,6 +126,9 @@
 		return
 	qdel(src)
 
+/obj/item/clothing/gloves/roguetown/plate/baotha/get_examine_highlight_status()
+	return list(EXAMINEHIGHLIGHT_HERESYSEVERITY_ALARMING, HERESYDESC_BAOTHA_ARMOR)
+
 /obj/item/clothing/gloves/roguetown/plate/zizo
 	name = "avantyne gauntlets"
 	desc = "A razor-tipped finger was all it took to splay the divine fillament; now, it is time to bring down the wrath of God's hand in full. </br> Do mind the forearm's guards, however - they \
@@ -137,6 +143,9 @@
 /obj/item/clothing/gloves/roguetown/plate/zizo/Initialize()
 	. = ..()
 	AddComponent(/datum/component/cursed_item, TRAIT_CABAL, "ARMOR")
+
+/obj/item/clothing/gloves/roguetown/plate/zizo/get_examine_highlight_status()
+	return list(EXAMINEHIGHLIGHT_HERESYSEVERITY_ALARMING, HERESYDESC_ZIZO_ARMOR)
 
 /obj/item/clothing/gloves/roguetown/plate/zizo/dropped(mob/living/carbon/human/user)
 	return ..()
@@ -161,11 +170,15 @@
 //Caustic Edit End
 
 /obj/item/clothing/gloves/roguetown/plate/avantyne
-	name = "avantyne-threaded gloves"
+	name = "avantyne-threaded sleevegloves"
 	desc = "Incongruent silks from a tymeline-most-doomed, woven to cradle the palms of God's successor. Softer than silk, yet unfettered by the blows from those who know no better."
 	icon_state = "zizoplategauntlets_med"
 	smeltresult = /obj/item/ingot/avantyne
 	armor = ARMOR_PLATE_BSTEEL
+	body_parts_covered = HANDS|ARMS
+
+/obj/item/clothing/gloves/roguetown/plate/avantyne/get_examine_highlight_status()
+	return list(EXAMINEHIGHLIGHT_HERESYSEVERITY_ALARMING, HERESYDESC_ZIZO_ARMOR)
 
 /obj/item/clothing/gloves/roguetown/plate/shadowgauntlets
 	name = "darkplate gauntlets"

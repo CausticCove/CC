@@ -253,7 +253,7 @@
 						user.add_stress(/datum/stressevent/sewertouched)
 					if (!HAS_TRAIT(L,TRAIT_LEECHIMMUNE) && !HAS_TRAIT(L,TRAIT_BOGWALKER)) // cleaning yourself in nasty water is a wonderful way to get leeches.
 						if (prob(20)) // 1 in 5 chance of getting leeched if you wash up in gross water.
-							
+
 							if(HAS_TRAIT(L, TRAIT_LEECHRESIST))
 								var/avoid_chance = 20
 								avoid_chance += (L.STASPD - 10) * 10
@@ -646,6 +646,20 @@
 	swim_skill = TRUE
 	wash_in = TRUE
 
+/turf/open/water/ocean/deep/dark
+	water_color = "#000211"
+
+/turf/open/water/ocean/abyssal
+	name = "darkwater"
+	desc = "Water from another realm, it's impossibly deep, like everything below the surface isn't fully within this plane."
+	icon_state = "water"
+	icon = 'icons/turf/roguefloor.dmi'
+	water_level = 3
+	water_color = "#000211"
+	slowdown = 8
+	swim_skill = TRUE
+	wash_in = FALSE
+
 /turf/open/water/pond
 	name = "pond"
 	desc = "Still and alarmingly idyllic water. Covered in concerning overgrowth of duckweed."
@@ -685,7 +699,7 @@
 	var/turf/destination = GET_TURF_BELOW(src)
 	if(!destination || !istype(destination, /turf/open/water/transparent))
 		return TRUE //Either there is nothing below, or it's _not_ an open/water/transparent type
-	
+
 	if(isliving(A))
 		var/mob/living/L = A
 		if(L.pulledby || (L.stat != UNCONSCIOUS && !L.IsImmobilized() && !L.IsKnockdown()))
@@ -696,7 +710,7 @@
 		return TRUE
 	if(!A.can_zFall(src, DOWN, destination)) // they can't fall!
 		return TRUE
-	
+
 	return FALSE
 
 /turf/open/water/transparent/zPassIn(atom/movable/A, direction, turf/source)
@@ -719,7 +733,7 @@
 		return FALSE
 	if(A.throwing)
 		return FALSE
-	
+
 	if(direction == DOWN)
 		if(isliving(A))
 			var/mob/living/L = A
@@ -758,21 +772,21 @@
 
 /turf/open/water/transparent/inner
 	name = "underwater depths"
-	alpha = 30 
+	alpha = 30
 	slowdown = 6
 	baseturfs = /turf/open/water/transparent/inner
 
 /turf/open/water/transparent/inner/Initialize()
 	. = ..()
-	
-	if(water_overlay) 
+
+	if(water_overlay)
 		QDEL_NULL(water_overlay)
-	if(water_top_overlay) 
+	if(water_top_overlay)
 		QDEL_NULL(water_top_overlay)
 
 /turf/open/water/transparent/inner/Entered(atom/movable/AM, atom/oldLoc)
-	. = ..() 
-	
+	. = ..()
+
 	if(ishuman(AM) && !AM.throwing)
 		playsound(AM, pick('sound/foley/watermove (1).ogg','sound/foley/watermove (2).ogg'), 40, FALSE, 0.7)
 
@@ -780,7 +794,7 @@
 	icon = 'icons/turf/roguefloor.dmi'
 	icon_state = "water"
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
-	plane = -2 
+	plane = -2
 	layer = 4.5
 	alpha = 140
 	anchored = TRUE
@@ -818,18 +832,18 @@
 
 /turf/open/water/transparent/surface/swamp
 	name = "murky water surface"
-	icon_state = "dirtW2" 
+	icon_state = "dirtW2"
 	water_color = "#705a43"
 	alpha = 200
 
 /turf/open/water/transparent/surface/swamp/Initialize()
-	icon_state = "dirt" 
+	icon_state = "dirt"
 	. = ..()
 
 
 /turf/open/water/transparent/surface/ocean
 	name = "salt water surface"
-	icon_state = "water" 
+	icon_state = "water"
 	water_color = "#3e7459"
 	water_reagent = /datum/reagent/water/salty
 	alpha = 160
@@ -845,7 +859,7 @@
 
 /turf/open/water/transparent/inner/swamp
 	name = "murky depths"
-	icon_state = "dirtW2" 
+	icon_state = "dirtW2"
 	water_color = "#705a43"
 	alpha = 60
 
@@ -856,7 +870,7 @@
 
 /turf/open/water/transparent/inner/ocean
 	name = "ocean depths"
-	icon_state = "water" 
+	icon_state = "water"
 	water_color = "#3e7459"
 	alpha = 40
 	baseturfs = /turf/open/water/transparent/inner/ocean
@@ -870,13 +884,13 @@
 	baseturfs = /turf/open/water/transparent/inner/pond
 
 /turf/open/water/transparent/river
-	parent_type = /turf/open/water/river 
+	parent_type = /turf/open/water/river
 	icon = 'icons/turf/roguefloor.dmi'
-	icon_state = "rockwd" 
-	
-	
-	smooth = FALSE 
-	
+	icon_state = "rockwd"
+
+
+	smooth = FALSE
+
 	plane = OPENSPACE_PLANE
 	layer = OPENSPACE_LAYER
 	vis_flags = VIS_INHERIT_ID | VIS_INHERIT_PLANE
@@ -885,12 +899,12 @@
 
 /turf/open/water/transparent/river/Initialize()
 
-	icon_state = "riverbot" 
+	icon_state = "riverbot"
 	. = ..()
-	
+
 	vis_contents += GLOB.openspace_backdrop_one_for_all
 	update_multiz(TRUE, TRUE)
-	
+
 /turf/open/water/transparent/river/surface
 	name = "surface river"
 	alpha = 150
@@ -959,12 +973,12 @@
 
 /turf/open/water/transparent/surface/swamp
 	name = "murky water surface"
-	icon_state = "dirtW2" 
+	icon_state = "dirtW2"
 	water_color = "#705a43"
 	alpha = 200
 
 /turf/open/water/transparent/inner/swamp
 	name = "murky depths"
-	icon_state = "dirtW2" 
+	icon_state = "dirtW2"
 	water_color = "#705a43"
 	alpha = 60

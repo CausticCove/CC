@@ -1,4 +1,4 @@
-/obj/effect/proc_holder/spell/invoked/projectile/unholyblast // this CANNOT be a child of divine_blast bc you have to call parent on cast. 
+/obj/effect/proc_holder/spell/invoked/projectile/unholyblast // this CANNOT be a child of divine_blast bc you have to call parent on cast.
 	name = "Unholy Blast"
 	desc = "Channel unholy power and sunder the unbelievers. Deals additional damage to wretched conformists and Psydonites! \n\
 	Damage is increased by 100% versus simple-minded creechurs.\n\
@@ -50,7 +50,9 @@
 	. = ..()
 
 
-/obj/projectile/energy/unholyblast/on_hit(target)
+/obj/projectile/energy/unholyblast/on_hit(target, blocked = FALSE)
+	if(blocked >= 100)
+		return
 	if(isliving(target))
 		var/mob/living/H = target
 		if(out_of_effective_range())
@@ -77,7 +79,7 @@
 					H.visible_message(span_warning("[H] looks unwell..."), span_warning("I feel dizzy... and I've been poisoned!"))
 				if(/datum/patron/inhumen/matthios)
 					if(HAS_TRAIT(H, TRAIT_NOBLE))
-						damage += 10 
+						damage += 10
 						H.adjust_fire_stacks(4)
 						H.visible_message(span_warning("[H]'s blue blood burns bright!"), span_warning("My body burns-- my blood is being transacted into fire!"))
 					H.adjust_fire_stacks(2)
@@ -90,7 +92,7 @@
 					if(istype(H.patron, /datum/patron/divine/necra)) //Hilarious
 						H.adjust_fire_stacks(6)
 						H.ignite_mob()
-					H.Slowdown(3) 
+					H.Slowdown(3)
 					H.visible_message(span_warning("Seething ambition sears within [H]'s mind!"), span_warning("Visions of progress and ambition sear into my mind!"))
 	else
 		return

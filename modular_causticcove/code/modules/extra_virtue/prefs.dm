@@ -25,13 +25,13 @@
 
 		if(length(extravirtue.picked_choices) > sane_virtue.max_choices)
 			error_found = TRUE
-		
+
 		if(sane_virtue.max_choices != extravirtue.max_choices)
 			error_found = TRUE
-		
+
 		if(length(extravirtue.extra_choices) != length(sane_virtue.extra_choices))
 			error_found = TRUE
-		
+
 		if(!error_found)
 			for(var/choice in extravirtue.extra_choices)
 				if(!(choice in sane_virtue.extra_choices))
@@ -109,7 +109,7 @@
 		var/datum/virtue/virtue_chosen = virtue_choices[result]
 		extravirtue = new virtue_chosen.type
 		to_chat(user, process_virtue_text(virtue_chosen))
-		if(!istype(virtue, /datum/virtue/combat/rotcured) && !istype(virtuetwo, /datum/virtue/combat/rotcured) && !istype(extravirtue, /datum/virtue/combat/rotcured))
+		if(!istype(virtue, /datum/virtue/combat/second_chance) && !istype(virtuetwo, /datum/virtue/combat/second_chance) && !istype(extravirtue, /datum/virtue/combat/second_chance))
 			if(skin_tone == SKIN_COLOR_ROT)
 				var/new_tone = random_skin_tone()
 				skin_tone = new_tone

@@ -14,7 +14,7 @@
 	invocation_type = "none"
 	associated_skill = /datum/skill/magic/holy
 	antimagic_allowed = TRUE
-	recharge_time = 5 SECONDS 
+	recharge_time = 5 SECONDS
 	miracle = TRUE
 	devotion_cost = 10
 	var/list/fake_vices = list()
@@ -52,7 +52,7 @@
 // T0: Bless drink
 /obj/effect/proc_holder/spell/self/bless_drink
 	name = "Bless Drink"
-	desc = "Blesses a container to allow it to be drunk to no end. Lasts about a minute." //Caustic Edit - Got rid of the bit that said it doesn't work on drinks or potions, since that function should be gone too.
+	desc = "Blesses a container to allow it to be drunk to no end. Lasts about a minute. Due to the potency of alchemical mixes and of thoroughly cooked beverages, does not function on them."
 	action_icon = 'icons/mob/actions/baothamiracles.dmi'
 	overlay_icon = 'icons/mob/actions/baothamiracles.dmi'
 	overlay_state = "bless_drink"
@@ -100,7 +100,7 @@
 		revert_cast()
 		to_chat(user, span_info("This is not a suitable container for this!"))
 		return FALSE
-	
+
 	var/obj/item/reagent_containers/glass/target_container = held
 	/*for(var/reagent in reagent_blacklist) //Caustic Edit - Get rid of this limitation for the Bless Drink.
 		if(target_container.reagents.has_reagent(reagent))
@@ -157,7 +157,7 @@
 			to_chat(user, span_warning("They're already blessed by these effects!"))
 			revert_cast()
 			return FALSE
-		target.apply_status_effect(/datum/status_effect/buff/baothablessing) //Gets the trait temorarily, basically will just stop any active/upcoming ODs.	
+		target.apply_status_effect(/datum/status_effect/buff/baothablessing) //Gets the trait temorarily, basically will just stop any active/upcoming ODs.
 		target.visible_message("<span class='info'>[target]'s eyes appear to gloss over!</span>", "<span class='notice'>I feel.. at ease.</span>")
 	return TRUE
 
@@ -232,7 +232,7 @@
 		if(thing.reagents.holder_full())
 			to_chat(user, span_warning("[thing] is full."))
 			return
-		
+
 		user.visible_message(span_info("[user] extends a hand over [thing]. Sweet-smelling ichor drips from [user.p_their()] fingertips, like blood."), span_notice("I call forth [user.patron.name], to fill [thing] with Her blessings..."))
 
 		var/holy_skill = user.get_skill_level(attached_spell.associated_skill)
@@ -243,19 +243,19 @@
 			if(thing.reagents.holder_full() || (user.devotion.devotion - fatigue_used <= 0))
 				break
 
-			var/water_qty = max(1, holy_skill) + 1
+			var/water_qty = max(2, holy_skill*2)
 			var/list/water_contents = list(/datum/reagent/medicine/loversruin = water_qty)
 			var/datum/reagents/reagents_to_add = new()
 			reagents_to_add.add_reagent_list(water_contents)
-			reagents_to_add.trans_to(thing, reagents_to_add.total_volume, transfered_by = user, method = INGEST)
+			reagents_to_add.trans_to(thing, reagents_to_add.total_volume, transfered_by = user)
 
 			fatigue_spent += fatigue_used
 			user.stamina_add(fatigue_used)
-			user.devotion?.update_devotion(-1.0)
+			user.devotion?.update_devotion(-1.5)
 
 			if(prob(80))
 				playsound(user, 'sound/items/fillcup.ogg', 55, TRUE)
-		
+
 		return max(50, fatigue_spent)
 	else
 		to_chat(user, span_info("I'll need to find a container that can hold Her blessing."))
@@ -292,8 +292,8 @@
 /obj/item/clothing/ring/griefflower
 	name = "rosa ring"
 	desc = "Once a flower of love, now touched by Baotha's hand. Its petals whisper of desire, despair, and the kind of longing that never dies. Worn by those who cannot let go."
-	icon_state = "peaceflower"
-	item_state = "peaceflower"
+	icon_state = "baothaflower"
+	item_state = "baothaflower"
 	icon = 'icons/roguetown/items/produce.dmi'
 	mob_overlay_icon = 'icons/roguetown/clothing/onmob/head_items.dmi'
 
@@ -301,15 +301,20 @@
 	. = ..()
 	if(slot == SLOT_RING)
 		user.apply_status_effect(/datum/status_effect/buff/griefflower)
+		user.remove_status_effect(/datum/status_effect/debuff/joybringer_druqks)
 
 /obj/item/clothing/ring/griefflower/dropped(mob/living/carbon/human/user)
 	. = ..()
 	if(istype(user) && user?.wear_ring == src)
 		user.remove_status_effect(/datum/status_effect/buff/griefflower)
 
+/obj/item/clothing/ring/griefflower/get_examine_highlight_status()
+	// The rosa ring is supposed to be 'discrete', so it doesn't look heretical to a casual observer.
+	return null
+
 // Insufflation - effectively just drugging yourself. Lets you pick, the same as Enrapturing Powder. T1, for now, to make up for the loss of the Baotha Blessing buff.
 
-/obj/effect/proc_holder/spell/self/insufflation 
+/obj/effect/proc_holder/spell/self/insufflation
 	name = "Insufflation"
 	desc = "Imbibes yourself on one of four drugs, in Her name. Your intent will determine the drug ingested. \n\
 	\
@@ -386,6 +391,7 @@
 	invocation_type = "emote"
 	invocations = list("flicks their wrist, filling the air in front of them with a fine powder.")
 	devotion_cost = 30
+	human_req = TRUE
 
 /obj/effect/proc_holder/spell/invoked/projectile/blowingdust/cast(list/targets, mob/user = user)
 	switch(user.rmb_intent.name)
@@ -440,15 +446,17 @@
 	poisonamount = 8 //Decent bit of high, three doses would be just above the overdose threshold if applied fast enough - in practice usually 4.
 
 
-/obj/projectile/magic/blowingdust/on_hit(target, mob/living/M)
+/obj/projectile/magic/blowingdust/on_hit(target, blocked = FALSE)
 	. = ..()
-	if(!istype(M))
+	if(!isliving(target))
 		return
 	if(out_of_effective_range())
 		return
-	if(target)
-		to_chat(target, span_warning("Gah! Something.. got in my - eyes.."))
-		M.blur_eyes(2)
+	if(blocked >= 100)
+		return
+	var/mob/living/M = target
+	to_chat(M, span_warning("Gah! Something.. got in my - eyes.."))
+	M.blur_eyes(2)
 
 // T2 - clears all stress. Forget your worries, pookie bear.
 /obj/effect/proc_holder/spell/invoked/lasthigh
@@ -470,6 +478,7 @@
 	recharge_time = 5 MINUTES
 	miracle = TRUE
 	devotion_cost = 75
+	human_req = TRUE
 
 /obj/effect/proc_holder/spell/invoked/lasthigh/cast(list/targets, mob/living/user)
 	if(isliving(targets[1]))
@@ -478,7 +487,7 @@
 			return FALSE
 
 		target.visible_message(
-			span_info("[target] is forced to deeply inhale a sweet smelling mist. They twist and choke as spittle runs down the corner of their mouth, yet an eerie calm passes over them."), 
+			span_info("[target] is forced to deeply inhale a sweet smelling mist. They twist and choke as spittle runs down the corner of their mouth, yet an eerie calm passes over them."),
 			span_notice("The world fades around me. My throat melts, my stomach churns, and the pounding in my chest feels relentless. I can barely move, but it doesn't matter. Oblivion melts into love in front of my glossed-over eyes.")
 		)
 		target.adjustToxLoss(3)
@@ -488,7 +497,7 @@
 /datum/stressevent/lasthigh
 	timer = 10 MINUTES
 	stressadd = -99
-	desc = span_hypnophrase("The world fades around me. My throat melts, my stomach churns, and the pounding in my chest feels relentless. I can barely move, but it doesn't matter. Oblivion melts into love in front of my glossed-over eyes.") 
+	desc = span_hypnophrase("The world fades around me. My throat melts, my stomach churns, and the pounding in my chest feels relentless. I can barely move, but it doesn't matter. Oblivion melts into love in front of my glossed-over eyes.")
 
 
 // T3 - bond that lasts for 8 minutes as long as bonded are within 7 tiles, TRAIT_NOPAIN, spd = 5 end = 3

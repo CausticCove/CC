@@ -123,7 +123,6 @@
 		qdel(V)
 	src.visible_message(span_boldwarning("Vines near [src] wither as it returns to its plane!"))
 	var/turf/deathspot = get_turf(src)
-	new /obj/item/magic/melded/t1(deathspot) ///Caustic edit
 	for(var/i =1 to 2)
 		new /obj/item/magic/fae/heartwoodcore(deathspot)
 	for(var/i =1 to 2)

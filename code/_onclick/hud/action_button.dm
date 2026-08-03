@@ -52,7 +52,7 @@
 
 /atom/movable/screen/movable/action_button/proc/set_drag_highlight(on)
 	if(!our_hud?.rearrange_mode)
-		color = null
+		linked_action?.build_all_button_icons(UPDATE_BUTTON_STATUS)
 		return
 	color = on ? AB_DROP_TINT : AB_REARRANGE_TINT
 
@@ -169,7 +169,8 @@
 			if(!B)
 				continue
 			B.locked = !hud_used.rearrange_mode
-			B.color = hud_used.rearrange_mode ? AB_REARRANGE_TINT : null
+			if(hud_used.rearrange_mode)
+				B.color = AB_REARRANGE_TINT
 			B.screen_loc = null
 			B.set_hotkey_label(null)
 			if(reload_screen)
@@ -253,8 +254,9 @@
 
 /atom/movable/screen/maptext_holder/proc/update_maptext(cd_time_deciseconds, color_cd = "#800000", color_neutral = "#ffffff")
 	if(cd_time_deciseconds <= 0)
-		maptext = null
-		color = color_neutral
+		if(maptext)
+			maptext = null
+			color = color_neutral
 		return
 	var/seconds_left = round(cd_time_deciseconds / (1 SECONDS), 0.1)
 	var/cd_text

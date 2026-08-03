@@ -41,7 +41,7 @@
 		of the mundane body, whereas you have authority over all things arcane."
 	outfit = /datum/outfit/job/roguetown/magician/basic
 
-	subclass_mage_aspects = list("mastery" = TRUE, "major" = 2, "minor" = 3, "utilities" = 9, "ward" = TRUE)
+	subclass_mage_aspects = list("mastery" = TRUE, "major" = 2, "minor" = 3, "utilities" = 13, "ward" = TRUE)
 	category_tags = list(CTAG_COURTMAGE)
 	traits_applied = list(TRAIT_BADTRAINER)
 	subclass_stats = list(
@@ -125,3 +125,7 @@
 	)
 	if(H.mind)
 		SStreasury.grant_savings(ECONOMIC_RICH, H)
+		H.mind.teach_crafting_recipe(/datum/crafting_recipe/roguetown/arcana/scrolls/utility)
+		H.mind.teach_crafting_recipe(/datum/crafting_recipe/roguetown/arcana/scrolls/minor)
+		H.mind.teach_crafting_recipe(/datum/crafting_recipe/roguetown/arcana/scrolls/major)
+		H.mind.teach_crafting_recipe(/datum/crafting_recipe/roguetown/arcana/scrolls/mastery)

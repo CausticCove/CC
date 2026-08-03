@@ -137,7 +137,7 @@
 	H.adjust_skillrank_up_to(/datum/skill/combat/arcyne, 5, TRUE) //Master, so conjured summons reach their top tier.
 	H.adjust_skillrank(/datum/skill/craft/crafting, 1, TRUE)
 	H.adjust_skillrank(/datum/skill/misc/medicine, 3, TRUE)
-	H?.mind.setup_mage_aspects(list("mastery" = TRUE, "major" = 2, "minor" = 3, "utilities" = 9, "ward" = TRUE))
+	H?.mind.setup_mage_aspects(list("mastery" = TRUE, "major" = 2, "minor" = 3, "utilities" = 13, "ward" = TRUE))
 	// Give it decent combat stats to make up for loss of 2 extra lives
 	H.change_stat(STATKEY_STR, 3)
 	H.change_stat(STATKEY_INT, 5)
@@ -451,7 +451,7 @@
 	src.icon_state = initial(path_cast.icon_state)
 	src.pixel_x = initial(path_cast.pixel_x)
 	src.pixel_y = initial(path_cast.pixel_y)
-	src.color = "#777777" 
+	src.color = "#777777"
 	animate(src, alpha = 200, time = spawn_delay, easing = EASE_IN)
 	playsound(src, 'sound/misc/jumpscare (4).ogg', 50, TRUE)
 	addtimer(CALLBACK(src, PROC_REF(finalize_spawn_terrorhog)), spawn_delay)

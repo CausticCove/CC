@@ -434,6 +434,9 @@
 	. = ..()
 	AddComponent(/datum/component/cursed_item, TRAIT_HORDE, "ARMOR", "RENDERED ASUNDER")
 
+/obj/item/clothing/mask/rogue/facemask/steel/graggar/get_examine_highlight_status()
+	return list(EXAMINEHIGHLIGHT_HERESYSEVERITY_ALARMING, HERESYDESC_GRAGGAR_ARMOR)
+
 /obj/item/clothing/mask/rogue/facemask/steel/paalloy
 	name = "ancient mask"
 	desc = "Polished gilbranze, molded into an intimidating visage. Touch the cheek; it is warm, \
@@ -582,6 +585,10 @@
 
 /obj/item/clothing/mask/rogue/ragmask/black
 	color = CLOTHING_BLACK
+
+/obj/item/clothing/mask/rogue/lordmask/naledi/lesser
+	name = "naledian runed mask"
+	desc = "Runes and wards, meant for daemons; the gold has somehow rusted in unnatural, impossible agony. The most prominent of these etchings is in the shape of the Naledian psycross. Lightly armored to protect the wearer's face."
 
 /obj/item/clothing/mask/rogue/lordmask/naledi
 	name = "war scholar's mask"

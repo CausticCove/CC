@@ -187,7 +187,7 @@
 				human_owner.hud_used?.stressies?.flick_pain(TRUE)
 				var/suppress_attack_blip = FALSE //At 'Always' we're guaranteed to have already emoted due to a successful attack.
 				if(user?.client?.prefs?.attack_blip_frequency == ATTACK_BLIP_PREF_ALWAYS || user?.client?.prefs?.attack_blip_frequency == ATTACK_BLIP_PREF_NEVER)
-					suppress_attack_blip = TRUE 
+					suppress_attack_blip = TRUE
 				if(!suppress_attack_blip)
 					if(user)
 						user.emote("attack", forced = TRUE)
@@ -322,7 +322,7 @@
 			dam += 10
 		if(HAS_TRAIT(src, TRAIT_CRITICAL_WEAKNESS))
 			if(HAS_TRAIT(src, TRAIT_IRONMAN))
-				attempted_wounds += /datum/wound/integrity	
+				attempted_wounds += /datum/wound/integrity
 			else
 				attempted_wounds += /datum/wound/artery		//basically does sword-tier wounds.
 		if(prob(used))
@@ -398,12 +398,12 @@
 				if(!HAS_TRAIT(owner, TRAIT_IRONMAN)) // pointless to disembowel them, as they don't die to tox anyway
 					attempted_wounds += /datum/wound/slash/disembowel
 			if(owner.has_wound(/datum/wound/fracture/chest) || (bclass in GLOB.artery_heart_bclasses) || HAS_TRAIT(owner, TRAIT_CRITICAL_WEAKNESS))
-				if(HAS_TRAIT(owner, TRAIT_IRONMAN))			
+				if(HAS_TRAIT(owner, TRAIT_IRONMAN))
 					attempted_wounds += /datum/wound/integrity/chest
 				else
 					attempted_wounds += /datum/wound/artery/chest
 			else
-				if(HAS_TRAIT(owner, TRAIT_IRONMAN))			
+				if(HAS_TRAIT(owner, TRAIT_IRONMAN))
 					attempted_wounds += /datum/wound/integrity
 				else
 					attempted_wounds += /datum/wound/artery
@@ -414,7 +414,7 @@
 				dam += 10
 		if(prob(used))
 			if(HAS_TRAIT(owner, TRAIT_CRITICAL_WEAKNESS))
-				if(HAS_TRAIT(owner, TRAIT_IRONMAN))			
+				if(HAS_TRAIT(owner, TRAIT_IRONMAN))
 					attempted_wounds += /datum/wound/integrity/chest
 				else
 					attempted_wounds += /datum/wound/artery/chest
@@ -513,7 +513,7 @@
 					used += 10
 		var/artery_type = /datum/wound/artery
 		if(zone_precise == BODY_ZONE_PRECISE_NECK)
-			if(HAS_TRAIT(owner, TRAIT_IRONMAN))			
+			if(HAS_TRAIT(owner, TRAIT_IRONMAN))
 				artery_type = /datum/wound/integrity/neck
 			else
 				artery_type = /datum/wound/artery/neck
@@ -598,6 +598,7 @@
 		record_round_statistic(STATS_LEECHES_EMBEDDED)
 	LAZYADD(embedded_objects, embedder)
 	embedder.is_embedded = TRUE
+	embedder.embedded_host = src
 	embedder.forceMove(src)
 	if(owner)
 		embedder.add_mob_blood(owner)
@@ -615,6 +616,7 @@
 			if(ranged)
 				playsound(owner, 'sound/combat/brutal_impalement.ogg', 100, vary = TRUE)
 		update_disabled()
+		update_bleed_hud()
 		if(embedder.is_silver && HAS_TRAIT(owner, TRAIT_SILVER_WEAK) && !owner.has_status_effect(STATUS_EFFECT_ANTIMAGIC))
 			var/datum/component/silverbless/psyblessed = embedder.GetComponent(/datum/component/silverbless)
 			owner.adjust_fire_stacks(1, psyblessed?.is_blessed ? /datum/status_effect/fire_handler/fire_stacks/sunder/blessed : /datum/status_effect/fire_handler/fire_stacks/sunder)
@@ -632,11 +634,13 @@
 
 	LAZYREMOVE(embedded_objects, embedder)
 	embedder.is_embedded = FALSE
+	embedder.embedded_host = null
 	if(QDELETED(embedder))
 		if(owner)
 			if(!owner.has_embedded_objects())
 				owner.clear_alert("embeddedobject")
 			update_disabled()
+			update_bleed_hud()
 		return TRUE
 
 	var/atom/drop_loc = owner?.drop_location() || drop_location()
@@ -652,7 +656,13 @@
 		if(!owner.has_embedded_objects())
 			owner.clear_alert("embeddedobject")
 		update_disabled()
+		update_bleed_hud()
 	return TRUE
+
+/obj/item/bodypart/proc/update_bleed_hud()
+	var/datum/hud/hud_used = owner?.hud_used
+	if(hud_used?.zone_select)
+		hud_used.zone_select.update_limb(body_zone)
 
 /obj/item/bodypart/proc/try_bandage(obj/item/new_bandage)
 	if(!new_bandage)

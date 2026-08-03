@@ -7,7 +7,7 @@
 // if you add mechanical differences between the subtypes i will find you.
 
 /*
-	Familiar list and buffs below. 
+	Familiar list and buffs below.
 	Sprites by Diltyrr (those aren't good gah)
 
 	Quick AI pictures idea for each of them : https://imgbox.com/g/MvanomKazA
@@ -165,7 +165,7 @@
 	for(var/obj/item/grabbing/grab in grabbedby) //Grabbed by the mouth
 		if(grab.sublimb_grabbed == BODY_ZONE_PRECISE_MOUTH)
 			return FALSE
-			
+
 	return TRUE
 
 /mob/living/simple_animal/pet/familiar/is_literate()
@@ -403,7 +403,7 @@
 						qdel(ing)
 					src.reagents.add_reagent(/datum/reagent/yuck, min(reagents.maximum_volume - reagents.total_volume, 90)) // do not overfill
 					// Learn from your failure (Yeah you can technically still grind this way you just blow through a lot of ingredients)
-					familiar_summoner?.adjust_experience(/datum/skill/craft/alchemy, amt2raise, FALSE) 
+					familiar_summoner?.adjust_experience(/datum/skill/craft/alchemy, amt2raise, FALSE)
 					return
 				for(var/obj/item/ing in src.ingredients)
 					qdel(ing)
@@ -476,7 +476,7 @@
 	var/list/hearers_in_range = get_hearers_in_LOS(healing_range, src, RECURSIVE_CONTENTS_CLIENT_MOBS)
 	for(var/mob/living/carbon/human/human in hearers_in_range)
 		var/distance = get_dist(src, human)
-		if(distance > healing_range || HAS_TRAIT(human, TRAIT_IRONMAN))
+		if(distance > healing_range || HAS_TRAIT(owner, TRAIT_NOREGEN) || HAS_TRAIT(human, TRAIT_IRONMAN))
 			continue
 		if(!human.has_status_effect(/datum/status_effect/buff/campfire_stamina))
 			to_chat(human, span_info("The warmth of [src.name]'s flames comforts me, affording me a short rest. I would need to lie down on a bed to get a better rest."))
@@ -554,7 +554,7 @@
 	maxHealth = WOLF_HEALTH_UNDEAD // more durable than the others
 	health = WOLF_HEALTH_UNDEAD
 	speak_emote = list ("rumbles", "grinds")
-	inherent_spell = list(/datum/action/cooldown/spell/magicians_stone/elemental) 
+	inherent_spell = list(/datum/action/cooldown/spell/magicians_stone/elemental)
 	t1_spell = /datum/action/cooldown/spell/arcyne_forge/elemental
 	t2_spell = /datum/action/cooldown/spell/arcyne_forge/elementalt2
 	valid_healing_items = list(/obj/item/magic/elemental)
@@ -602,7 +602,7 @@
 	var/list/ret = ..()
 	var/knows = FALSE
 	knows |= istype(user, /mob/living/simple_animal/pet/familiar)
-	// kind of horrid but this ensures only "proper" casters get to be knowers 
+	// kind of horrid but this ensures only "proper" casters get to be knowers
 	if(user.mind)
 		knows |= (user.mind.mage_aspect_config && user.mind.mage_aspect_config["major"])
 	if(knows)

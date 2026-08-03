@@ -47,17 +47,17 @@
 	if(allowed_turfs.len && !allowed_turfs[T.type])
 		return
 
-	if(allowed_areas.len)
-		var/area/A = get_area(T)
-		if(!allowed_areas[A.type])
-			return
-	
 	//Caustic Edit - Add excluded areas option!
 	if(excluded_areas.len)
 		var/area/A = get_area(T)
 		if(excluded_areas[A.type])
 			return
 	//Caustic Edit End
+
+	if(allowed_areas.len)
+		var/area/A = get_area(T)
+		if(!allowed_areas[A.type])
+			return
 
 	//Turfs don't care whether atoms can be placed here
 	for(var/turfPath in spawnableTurfs)

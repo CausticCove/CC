@@ -85,7 +85,7 @@
 	item_state = "psydonboots"
 	sewrepair = TRUE
 	armor = ARMOR_LEATHER
-	max_integrity = ARMOR_INT_SIDE_HARDLEATHER //170 extra hp. stop footfragging my orthos. 
+	max_integrity = ARMOR_INT_SIDE_HARDLEATHER //170 extra hp. stop footfragging my orthos.
 	salvage_amount = 1
 	salvage_result = /obj/item/natural/hide/cured
 
@@ -445,15 +445,8 @@
 	. = ..()
 	AddComponent(/datum/component/cursed_item, TRAIT_HORDE, "ARMOR", "RENDERED ASUNDER")
 
-/obj/item/clothing/shoes/roguetown/boots/armor/graggar/heavy/Initialize()
-	. = ..()
-	ADD_TRAIT(src, TRAIT_NODROP, CURSED_ITEM_TRAIT)
-
-/obj/item/clothing/shoes/roguetown/boots/armor/graggar/heavy/dropped(mob/living/carbon/human/user)
-	. = ..()
-	if(QDELETED(src))
-		return
-	qdel(src)
+/obj/item/clothing/shoes/roguetown/boots/armor/graggar/get_examine_highlight_status()
+	return list(EXAMINEHIGHLIGHT_HERESYSEVERITY_ALARMING, HERESYDESC_GRAGGAR_ARMOR)
 
 /obj/item/clothing/shoes/roguetown/boots/armor/matthios
 	max_integrity = ARMOR_INT_SIDE_ANTAG
@@ -462,6 +455,9 @@
 	icon_state = "matthiosboots"
 	armor = ARMOR_PLATE_BSTEEL
 	smeltresult = /obj/item/ingot/component/matthios
+
+/obj/item/clothing/shoes/roguetown/boots/armor/matthios/get_examine_highlight_status()
+	return list(EXAMINEHIGHLIGHT_HERESYSEVERITY_ALARMING, HERESYDESC_MATTHIOS_ARMOR)
 
 //Caustic Edit - Let us remove and drop armors again! For fun stuffs.
 /obj/item/clothing/shoes/roguetown/boots/armor/matthios/Initialize()
@@ -490,6 +486,9 @@
 	. = ..()
 	AddComponent(/datum/component/cursed_item, TRAIT_CABAL, "ARMOR")
 
+/obj/item/clothing/shoes/roguetown/boots/armor/zizo/get_examine_highlight_status()
+	return list(EXAMINEHIGHLIGHT_HERESYSEVERITY_ALARMING, HERESYDESC_ZIZO_ARMOR)
+
 //Caustic Edit - Let us remove and drop armors again! For fun stuffs.
 /obj/item/clothing/shoes/roguetown/boots/armor/zizo/heavy/Initialize()
 	. = ..()
@@ -513,6 +512,9 @@
 	armor = ARMOR_PLATE_BSTEEL
 	armor_class = ARMOR_CLASS_MEDIUM
 	smeltresult = /obj/item/ingot/avantyne
+
+/obj/item/clothing/shoes/roguetown/boots/armor/avantyne/get_examine_highlight_status()
+	return list(EXAMINEHIGHLIGHT_HERESYSEVERITY_ALARMING, HERESYDESC_ZIZO_ARMOR)
 
 /obj/item/clothing/shoes/roguetown/boots/armor/baotha
 	name = "saccharine heels"
@@ -539,6 +541,9 @@
 	if(QDELETED(src))
 		return
 	qdel(src)
+
+/obj/item/clothing/shoes/roguetown/boots/armor/baotha/get_examine_highlight_status()
+	return list(EXAMINEHIGHLIGHT_HERESYSEVERITY_ALARMING, HERESYDESC_BAOTHA_ARMOR)
 
 /obj/item/clothing/shoes/roguetown/boots/armor/iron
 	name = "iron plated boots"

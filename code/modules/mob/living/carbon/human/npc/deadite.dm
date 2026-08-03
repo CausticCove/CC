@@ -100,7 +100,7 @@
 /mob/living/carbon/human/proc/try_do_deadite_bite(mob/living/victim)
 	if(!src || stat >= DEAD)
 		return FALSE
-	
+
 	var/obj/item/grabbing/bite/bite = get_item_by_slot(SLOT_MOUTH)
 	if(istype(bite))
 		// 50% chance to continue biting if already started
@@ -166,6 +166,9 @@
 	if(stat >= DEAD) //do shit the natural way i guess
 		return FALSE
 	if(HAS_TRAIT(src, TRAIT_ZOMBIE_IMMUNE))
+		return FALSE
+	if(HAS_TRAIT(src, TRAIT_BLACKBLOOD) && prob(90))
+		to_chat(src, span_danger("I feel something churning within my body... Luckily, it doesn't take hold."))
 		return FALSE
 	var/datum/status_effect/zombie_infection/infection = has_status_effect(/datum/status_effect/zombie_infection)
 	if(infection)

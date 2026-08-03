@@ -254,7 +254,7 @@
 
 	if(has_trait(TRAIT_ARCYNE) && skill_type == /datum/skill/magic/arcane && !has_defensive_trait_lockout())
 		total += 3
-	
+
 	if(has_trait(TAT_TRAIT_MAGE_INITIATE) && skill_type == /datum/skill/magic/arcane)
 		total += 1
 
@@ -506,7 +506,7 @@
 /datum/tat_traits/proc/build_mage_aspects(scale_with_arcane = TRUE)
 	var/major = 0
 	var/minor = 1
-	var/utilities = 3
+	var/utilities = 4
 	if(has_trait(TAT_TRAIT_MAGE_MAJOR_SLOT))
 		major += 1
 	if(has_trait(TAT_TRAIT_MAGE_MINOR_SLOT_1))
@@ -514,7 +514,7 @@
 	if(has_trait(TAT_TRAIT_MAGE_MINOR_SLOT_2))
 		minor += 1
 	if(has_trait(TAT_TRAIT_MAGE_UTILITY_SLOT))
-		utilities += 1
+		utilities += 2
 	if(scale_with_arcane)
 		utilities += owner_build?.get_skill_value(/datum/skill/magic/arcane) || 0
 	return list("mastery" = FALSE, "major" = major, "minor" = minor, "utilities" = utilities, "ward" = TRUE)
@@ -614,7 +614,7 @@
 			H.mind.AddSpell(new /datum/action/cooldown/spell/caedo)
 			H.mind.AddSpell(new /datum/action/cooldown/spell/air_strike)
 			H.mind.AddSpell(new /datum/action/cooldown/spell/leyline_anchor)
-			H.mind.AddSpell(new /datum/action/cooldown/spell/projectile/blade_storm)
+			H.mind.AddSpell(new /datum/action/cooldown/spell/blade_storm)
 		if("Phalangite")
 			H.mind.AddSpell(new /datum/action/cooldown/spell/azurean_phalanx)
 			H.mind.AddSpell(new /datum/action/cooldown/spell/projectile/azurean_pilum)

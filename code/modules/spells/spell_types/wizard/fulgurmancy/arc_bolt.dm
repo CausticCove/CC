@@ -25,7 +25,7 @@
 	invocation_type = INVOCATION_SHOUT
 
 	charge_required = TRUE
-	weapon_cast_penalized = FALSE
+	weapon_cast_penalized = TRUE
 	charge_time = CHARGETIME_POKE
 	hold_drain = 1
 	charge_slowdown = CHARGING_SLOWDOWN_SMALL
@@ -36,6 +36,8 @@
 
 	associated_skill = /datum/skill/magic/arcane
 	spell_impact_intensity = SPELL_IMPACT_LOW
+
+	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC | SPELL_REQUIRES_HUMAN
 
 	var/current_mode = 1
 	var/list/modes = list(
@@ -87,7 +89,7 @@
 	light_color = LIGHT_COLOR_WHITE
 	damage = 60
 	npc_simple_damage_mult = 1.5
-	max_range = MAGE_MID_PROJ_RANGE
+	max_range = MAGE_LONG_PROJ_RANGE
 	damage_type = BURN
 	woundclass = BCLASS_BURN
 	nodamage = FALSE
@@ -109,7 +111,7 @@
 	arcshot = TRUE
 
 
-/obj/projectile/magic/arc_bolt/on_hit(target)
+/obj/projectile/magic/arc_bolt/on_hit(target, blocked = FALSE)
 	. = ..()
 	if(ismob(target))
 		var/mob/M = target
@@ -123,9 +125,10 @@
 			if(out_of_effective_range())
 				qdel(src)
 				return
-			L.electrocute_act(1, src, 1, SHOCK_NOSTUN)
-			if(arcs)
-				arc_to_targets(L)
+			if(blocked < 100)
+				L.electrocute_act(1, src, 1, SHOCK_NOSTUN)
+				if(arcs)
+					arc_to_targets(L)
 	else if(isatom(target))
 		var/atom/A = target
 		A.fire_act()

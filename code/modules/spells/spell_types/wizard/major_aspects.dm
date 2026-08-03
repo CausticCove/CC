@@ -271,7 +271,7 @@
 		/datum/action/cooldown/spell/conjure_arcyne_ward/steelhide,
 		/datum/action/cooldown/spell/bind_armament,
 		/datum/action/cooldown/spell/arcyne_forge,
-		/datum/action/cooldown/spell/mending,
+		/datum/action/cooldown/spell/touch/conjure_repairkit,
 	)
 	variants = list(
 		"mastery" = list(
@@ -333,6 +333,7 @@
 		"Vocatio, a me discedere!",
 	)
 	fixed_spells = list(
+		/datum/action/cooldown/spell/projectile/basic_offensive,
 		/datum/action/cooldown/spell/minion_order/conjurer,
 		/datum/action/cooldown/spell/command_word/fray,
 		/datum/action/cooldown/spell/command_word/harry,
@@ -354,6 +355,7 @@
 		/datum/action/cooldown/spell/conjure_summon/peasant_swarm,
 	)
 	spell_order = list(
+		/datum/action/cooldown/spell/projectile/basic_offensive,
 		/datum/action/cooldown/spell/minion_order/conjurer,
 		/datum/action/cooldown/spell/command_word/fray,
 		/datum/action/cooldown/spell/command_word/harry,
@@ -411,6 +413,7 @@
 		/datum/action/cooldown/spell/augment_buff/surge,
 		/datum/action/cooldown/spell/augment_buff/precognition,
 		/datum/action/cooldown/spell/augment_buff/grasp,
+		/datum/action/cooldown/spell/touch/conjure_repairkit,
 		/datum/action/cooldown/spell/forcewall,
 		/datum/action/cooldown/spell/featherfall,
 		/datum/action/cooldown/spell/augment_buff/enlarge,

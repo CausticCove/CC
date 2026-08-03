@@ -11,6 +11,8 @@
 	alpha = 173
 
 /datum/reagent/medicine/healthpot/on_mob_life(mob/living/carbon/M)
+	if(HAS_TRAIT(M, TRAIT_NOREGEN) || HAS_TRAIT(M, TRAIT_BLACKBLOOD))
+		return ..()
 	if(volume >= 60)
 		M.reagents.remove_reagent(/datum/reagent/medicine/healthpot, 2) //No overhealing.
 	if(M.blood_volume < BLOOD_VOLUME_NORMAL)
@@ -26,6 +28,13 @@
 		M.adjustCloneLoss(-1.75  * REAGENTS_EFFECT_MULTIPLIER, 0)
 		M.adjustOrganLoss(ORGAN_SLOT_EYES, -1 * REAGENTS_EFFECT_MULTIPLIER)
 	..()
+
+/datum/reagent/medicine/healthpot/zarum/blood
+	name = "Blackened Sludge"
+	description = "A fairly disgusting, bubbling mess of an unknown origin that seems to be constantly fermenting onto itself, exhuding a foul smell."
+	color = "#241a1a"
+	taste_description = "sins of Otava"
+	scent_description = "dark darker yet darker"
 
 /datum/reagent/medicine/healthpot/zarum/bog // no changes, it's just more palatable :>
 	name = "Honeyed Zarum"
@@ -47,6 +56,8 @@
 	var/hydration = 4
 
 /datum/reagent/medicine/healthpot/zarum/on_mob_life(mob/living/carbon/M)
+	if(HAS_TRAIT(M, TRAIT_NOREGEN))
+		return ..()
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		if(!HAS_TRAIT(H, TRAIT_NOHUNGER))
@@ -74,6 +85,8 @@
 	metabolization_rate = REAGENTS_METABOLISM * 3
 
 /datum/reagent/medicine/stronghealth/on_mob_life(mob/living/carbon/M)
+	if(HAS_TRAIT(M, TRAIT_NOREGEN) || HAS_TRAIT(M, TRAIT_BLACKBLOOD))
+		return ..()
 	if(volume >= 60)
 		M.reagents.remove_reagent(/datum/reagent/medicine/healthpot, 2) //No overhealing.
 	if(M.blood_volume < BLOOD_VOLUME_NORMAL)
@@ -129,6 +142,8 @@
 	metabolization_rate = REAGENTS_METABOLISM * 2
 
 /datum/reagent/medicine/restoration/on_mob_life(mob/living/carbon/M)
+	if(HAS_TRAIT(M, TRAIT_NOREGEN) || HAS_TRAIT(M, TRAIT_BLACKBLOOD))
+		return ..()
 	if(volume >= 60)
 		M.reagents.remove_reagent(/datum/reagent/medicine/restoration, 2) //No overhealing.
 	var/list/wCount = M.get_wounds()

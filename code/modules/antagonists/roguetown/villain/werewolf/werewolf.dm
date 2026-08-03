@@ -18,11 +18,11 @@
 	var/list/inherent_traits = list(
 		TRAIT_IGNORESLOWDOWN,
 		TRAIT_IGNOREDAMAGESLOWDOWN,
-		TRAIT_NOPAIN, 
-		TRAIT_NOPAINSTUN, 
-		TRAIT_CRITICAL_RESISTANCE, 
-		TRAIT_NOFALLDAMAGE1, 
-		TRAIT_KNEESTINGER_IMMUNITY, 
+		TRAIT_NOPAIN,
+		TRAIT_NOPAINSTUN,
+		TRAIT_CRITICAL_RESISTANCE,
+		TRAIT_NOFALLDAMAGE1,
+		TRAIT_KNEESTINGER_IMMUNITY,
 		TRAIT_SHOCKIMMUNE,
 		TRAIT_SILVER_WEAK,
 		TRAIT_STRENGTH_UNCAPPED,
@@ -98,7 +98,7 @@
 	owner.special_role = name
 	if(increase_votepwr)
 		forge_werewolf_objectives()
-	
+
 	wolfname = "[pick(GLOB.wolf_prefixes)] [pick(GLOB.wolf_suffixes)]"
 	return ..()
 
@@ -128,7 +128,7 @@
 	return ..()
 
 /datum/antagonist/werewolf/lesser/greet()
-	// DO NOT call parent. 
+	// DO NOT call parent.
 	// lesser verevolfs should always be created by alpha bites, which have their own way of informing the user
 	// they are a werewolf. despite this, i still want to provide a new audio cue in the form of [THE CRY].
 	// remove it if it's obstructive. thx.
@@ -166,6 +166,9 @@
 	if(!wolfy)
 		return
 	if(stat >= DEAD) //do shit the natural way i guess
+		return
+	if(HAS_TRAIT(src, TRAIT_BLACKBLOOD) && prob(40)) // since WWs are harder to infect, reducing this to just a fraction of the normal chance
+		to_chat(src, span_danger("I feel something churning within my body... No, not again...! Not this time!"))
 		return
 	to_chat(src, span_danger("I feel horrible... REALLY horrible..."))
 	mob_timers["puke"] = world.time

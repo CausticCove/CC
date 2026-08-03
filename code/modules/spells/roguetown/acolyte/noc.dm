@@ -260,7 +260,7 @@
 	guard_deflectable = TRUE
 	expose_caster_on_deflect = TRUE
 
-/obj/projectile/magic/noc_owl/on_hit(target)
+/obj/projectile/magic/noc_owl/on_hit(target, blocked = FALSE)
 	if(ismob(target))
 		var/mob/living/M = target
 		if(M.anti_magic_check(TRUE, TRUE))
@@ -268,6 +268,8 @@
 			playsound(get_turf(target), 'sound/magic/magic_nulled.ogg', 100)
 			qdel(src)
 			return BULLET_ACT_BLOCK
+		if(blocked >= 100)
+			return ..()
 		if(!M.mind)
 			M.Immobilize(5 SECONDS)
 			qdel(src)
@@ -416,7 +418,7 @@
 
 	// Start processing
 	START_PROCESSING(SSprocessing, src)
-	
+
 	// Apply visual effect to caster
 	caster.apply_status_effect(/datum/status_effect/moonlight, TRUE)
 
@@ -532,7 +534,7 @@
 /datum/status_effect/moonlight/on_apply()
 	// Grant the TRAIT_ANTIMAGIC
 	ADD_TRAIT(owner, TRAIT_ANTIMAGIC, "moonlight_spell")
-	
+
 	// Visual feedback
 	if(is_caster)
 		owner.visible_message(span_blue("[owner] is surrounded by a protective aura of silvery moonlight!"))

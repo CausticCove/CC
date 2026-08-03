@@ -46,7 +46,7 @@
 	body_parts_covered = CHEST|GROIN
 	icon_state = "ihalfplatekini"
 	item_state = "ihalfplatekini"
-	max_integrity = ARMOR_INT_CHEST_MEDIUM_IRON	
+	max_integrity = ARMOR_INT_CHEST_MEDIUM_IRON
 	armor_class = ARMOR_CLASS_MEDIUM
 	smelt_bar_num = 2
 
@@ -69,7 +69,7 @@
 	name = "bronze cuirass"
 	desc = "A chiseled breastplate of bronze, further padded with hide to comfort its championing bod. The plates have been carefully \
 	forged to mimic the statuesque physiques of Psydonia's ancient heroes. Wearing it bolsters you with determination."
-	body_parts_covered = CHEST | VITALS | LEGS 
+	body_parts_covered = CHEST | VITALS | LEGS
 	icon_state = "bronzecuirass"
 	armor = ARMOR_BRONZE
 	smeltresult = /obj/item/ingot/bronze
@@ -152,6 +152,9 @@
 	item_state = "ancientplate"
 	smeltresult = /obj/item/ingot/aaslag
 
+/obj/item/clothing/suit/roguetown/armor/plate/paalloy/get_examine_highlight_status()
+	return list(EXAMINEHIGHLIGHT_HERESYSEVERITY_ALARMING, HERESYDESC_ZIZO_ARTIFICE)
+
 /obj/item/clothing/suit/roguetown/armor/plate/paalloy/artificer
 	name = "artificed half-plate"
 	desc = "Forbidden knowledge, resurrected into a weightless vessel of gilbranze-and-magicka. It holds a slot for an arcyne meld to power it."
@@ -174,7 +177,7 @@
 		if(user.get_skill_level(/datum/skill/craft/engineering) >= 3)
 			toggle_mode(user)
 			return
-	if(istype(I, /obj/item/magic/melded/t1) && !powered)
+	if(istype(I, /obj/item/magic/infernal/core) && !powered)
 		user.visible_message(span_notice("[user] starts carefully setting [I] into place as a power source."))
 		if(do_after(user, 5 SECONDS, target = src))
 			qdel(I)
@@ -269,12 +272,15 @@
 		desc = "Forbidden knowledge, resurrected into a weightless vessel of gilbranze-and-magicka. It crackles with raw magicka; the mind, empowered."
 	else
 		desc = "Forbidden knowledge, resurrected into a weightless vessel of gilbranze-and-magicka. It crackles with arcyne vigor; the body, emboldened."
-		
+
+/obj/item/clothing/suit/roguetown/armor/plate/paalloy/artificer/get_examine_highlight_status()
+	return list(EXAMINEHIGHLIGHT_HERESYSEVERITY_ODD, HERESYDESC_ZIZO_ARTIFICE_RECLAIMED)
+
 /obj/item/clothing/suit/roguetown/armor/plate/fluted
 	name = "fluted half-plate"
 	desc = "An ornate steel cuirass, fitted with tassets and pauldrons for additional coverage. This lightweight deviation of 'plate \
 	armor' is favored by cuirassiers all across Psydonia, alongside fledging barons who've - up until now - waged their fiercest \
-	battles upon a chamberpot." 
+	battles upon a chamberpot."
 	icon_state = "ornatehalfplate"
 
 	equip_delay_self = 6 SECONDS
@@ -298,6 +304,9 @@
 	. = ..()
 	AddComponent(/datum/component/cursed_item, TRAIT_HORDE, "ARMOR", "RENDERED ASUNDER")
 
+/obj/item/clothing/suit/roguetown/armor/plate/fluted/graggar/get_examine_highlight_status()
+	return list(EXAMINEHIGHLIGHT_HERESYSEVERITY_ALARMING, HERESYDESC_GRAGGAR_ARMOR)
+
 /obj/item/clothing/suit/roguetown/armor/plate/full/graggar
 	name = "vicious full-plate"
 	desc = "Shorn together plate, curated from hand-crafted bones and ligaments - combined under an unholy spirit of violence. It \
@@ -307,6 +316,9 @@
 	chunkcolor = "#363030"
 	material_category = ARMOR_MAT_PLATE
 	smeltresult = /obj/item/ingot/component/graggar
+
+/obj/item/clothing/suit/roguetown/armor/plate/full/graggar/get_examine_highlight_status()
+	return list(EXAMINEHIGHLIGHT_HERESYSEVERITY_ALARMING, HERESYDESC_GRAGGAR_ARMOR)
 
 //Caustic Edit - Let us remove and drop armors again! For fun stuffs.
 /obj/item/clothing/suit/roguetown/armor/plate/full/graggar/Initialize()
@@ -408,7 +420,7 @@
 			H.update_icon()
 
 /obj/item/clothing/suit/roguetown/armor/plate/full/samsibsa/Initialize()
-	. = ..()		
+	. = ..()
 	update_icon()
 
 /obj/item/clothing/suit/roguetown/armor/plate/full/samsibsa/update_icon()
@@ -468,7 +480,7 @@
 	desc = "Blessed silver flutings trace across steel plate-and-maille, while the undercarriage lies heavily padded. Few \
 	could hope to pierce this mantle; fewer could truly be seen as worthy enough to don it. <br> These relics are oft-purported \
 	to have survived the Grenzelhoft-Otavan wars of yore - now, refurbished and repurposed to be worn against the Archenemy in His name."
-	icon_state = "ordinatorplate"	
+	icon_state = "ordinatorplate"
 	is_silver = TRUE
 	is_lesser_silver = TRUE
 
@@ -483,6 +495,9 @@
 /obj/item/clothing/suit/roguetown/armor/plate/full/matthios/Initialize()
 	. = ..()
 	//ADD_TRAIT(src, TRAIT_NODROP, CURSED_ITEM_TRAIT)
+
+/obj/item/clothing/suit/roguetown/armor/plate/full/matthios/get_examine_highlight_status()
+	return list(EXAMINEHIGHLIGHT_HERESYSEVERITY_ALARMING, HERESYDESC_MATTHIOS_ARMOR)
 
 /obj/item/clothing/suit/roguetown/armor/plate/full/matthios/dropped(mob/living/carbon/human/user)
 	. = ..()
@@ -505,6 +520,9 @@
 	. = ..()
 	AddComponent(/datum/component/cursed_item, TRAIT_CABAL, "ARMOR")
 
+/obj/item/clothing/suit/roguetown/armor/plate/fluted/zizo/get_examine_highlight_status()
+	return list(EXAMINEHIGHLIGHT_HERESYSEVERITY_ALARMING, HERESYDESC_ZIZO_ARMOR)
+
 /obj/item/clothing/suit/roguetown/armor/plate/fluted/zizo/dropped(mob/living/carbon/human/user)
 	return ..()
 
@@ -524,6 +542,9 @@
 	//ADD_TRAIT(src, TRAIT_NODROP, CURSED_ITEM_TRAIT)
 	AddComponent(/datum/component/cursed_item, TRAIT_CABAL, "ARMOR")
 
+/obj/item/clothing/suit/roguetown/armor/plate/full/zizo/get_examine_highlight_status()
+	return list(EXAMINEHIGHLIGHT_HERESYSEVERITY_ALARMING, HERESYDESC_ZIZO_ARMOR)
+
 /obj/item/clothing/suit/roguetown/armor/plate/full/zizo/dropped(mob/living/carbon/human/user)
 	. = ..()
 	/*if(QDELETED(src))
@@ -540,6 +561,9 @@
 	icon_state = "zizoplatechest_med"
 	armor = ARMOR_PLATE_BSTEEL
 	smeltresult = /obj/item/ingot/avantyne //Made from 'inert avantyne wafers', meaning that anyone can feasibly wear it.
+
+/obj/item/clothing/suit/roguetown/armor/plate/fluted/avantyne/get_examine_highlight_status()
+	return list(EXAMINEHIGHLIGHT_HERESYSEVERITY_ALARMING, HERESYDESC_ZIZO_ARMOR)
 
 /obj/item/clothing/suit/roguetown/armor/plate/fluted/baotha
 	name = "saccharine plate armor"
@@ -563,6 +587,9 @@
 	if(QDELETED(src))
 		return
 	qdel(src)
+
+/obj/item/clothing/suit/roguetown/armor/plate/fluted/baotha/get_examine_highlight_status()
+	return list(EXAMINEHIGHLIGHT_HERESYSEVERITY_ALARMING, HERESYDESC_BAOTHA_ARMOR)
 
 /obj/item/clothing/suit/roguetown/armor/plate/full/bikini
 	name = "full-plate corset"
@@ -734,7 +761,7 @@
 	desc = "An ornate steel cuirass, fitted with tassets for additional coverage. The intricate fluting not only attracts the \
 	maidens, but also strengthens the steel's resistance against repeated impacts."
 
-	body_parts_covered = CHEST | VITALS | LEGS 
+	body_parts_covered = CHEST | VITALS | LEGS
 	max_integrity = ARMOR_INT_CHEST_MEDIUM_STEEL
 
 /obj/item/clothing/suit/roguetown/armor/plate/cuirass/fluted/holysee
@@ -961,7 +988,7 @@
 	desc = "A heavy longcoat with layers of maille hidden beneath the leather, donned by the Holy Psydonic Inquisition's finest. Where \
 	the longcoat parts, a surprise awaits; an ornate steel cuirass, worn beneath the leathers to ward off crippling blows."
 	sewrepair = FALSE
-	smeltresult = /obj/item/ingot/steel 
+	smeltresult = /obj/item/ingot/steel
 	icon_state = "inqcoata"
 	item_state = "inqcoata"
 	equip_delay_self = 4 SECONDS
@@ -970,7 +997,7 @@
 	armor = ARMOR_BRIGANDINE
 	smelt_bar_num = 2
 	smeltresult = /obj/item/ingot/steel
-	blocksound = PLATEHIT	
+	blocksound = PLATEHIT
 
 /obj/item/clothing/suit/roguetown/armor/plate/scale/inqcoat/armored/ComponentInitialize()
 	AddComponent(/datum/component/item_equipped_movement_rustle, SFX_PLATE_STEP, 12)

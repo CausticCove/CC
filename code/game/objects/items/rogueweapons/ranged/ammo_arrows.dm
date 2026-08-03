@@ -264,7 +264,7 @@
 	armor_penetration = PEN_HEAVY
 	embedchance = 100
 	npc_simple_damage_mult = 7 //..or 420 damage against a mindless mob. Strike true; reduce if these become craftable or more easily acquirable, through any means.
-	is_silver_proj = TRUE 
+	is_silver_proj = TRUE
 
 /obj/item/ammo_casing/caseless/rogue/arrow/getonmobprop(tag)
 	. = ..()
@@ -320,13 +320,13 @@
 	woundclass = BCLASS_BURN
 	damage_type = BURN
 
-/obj/projectile/bullet/arrow/elemental/fire/on_hit(atom/target)
+/obj/projectile/bullet/arrow/elemental/fire/on_hit(atom/target, blocked = FALSE)
 	..()
 	var/turf/epicenter = get_turf(target)
 	if(epicenter)
 		new /obj/effect/temp_visual/explosion(epicenter)
 		playsound(epicenter, pick('sound/misc/explode/incendiary (1).ogg', 'sound/misc/explode/incendiary (2).ogg'), 100, TRUE, 4)
-	if(!ismob(target))
+	if(!ismob(target) || blocked >= 100)
 		return
 	var/mob/living/M = target
 	apply_scorch_stack(M, 3, def_zone)

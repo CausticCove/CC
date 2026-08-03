@@ -187,12 +187,12 @@
 	. = ..()
 	if(used)
 		return
-		
+
 	var/list/special_options = list()
 	for(var/intent in selection)
 		var/datum/special_intent/S = intent // Hate this DM quirk.
 		special_options[S::name] = S
-	
+
 	var/choice = input(user, "Choose the Manoeuvre", "MANOEUVRE") as anything in special_options
 	if(choice)
 		qdel(special)
@@ -284,7 +284,7 @@
 				return list("shrink" = 0.6,"sx" = 9,"sy" = -4,"nx" = -7,"ny" = 1,"wx" = -9,"wy" = 2,"ex" = 10,"ey" = 2,"northabove" = 0,"southabove" = 1,"eastabove" = 1,"westabove" = 0,"nturn" = 5,"sturn" = -190,"wturn" = -170,"eturn" = -10,"nflip" = 8,"sflip" = 8,"wflip" = 1,"eflip" = 0)
 			if("onback")
 				return list("shrink" = 0.6,"sx" = -1,"sy" = 2,"nx" = 0,"ny" = 2,"wx" = 2,"wy" = 1,"ex" = 0,"ey" = 1,"nturn" = 0,"sturn" = 0,"wturn" = 70,"eturn" = 15,"nflip" = 1,"sflip" = 1,"wflip" = 1,"eflip" = 1,"northabove" = 1,"southabove" = 0,"eastabove" = 0,"westabove" = 0)
-			if("altgrip") 
+			if("altgrip")
 				return list("shrink" = 0.45,"sx" = 2,"sy" = 3,"nx" = -7,"ny" = 1,"wx" = -8,"wy" = 0,"ex" = 8,"ey" = -1,"northabove" = 0,"southabove" = 1,"eastabove" = 1,"westabove" = 0,"nturn" = -135,"sturn" = -35,"wturn" = 45,"eturn" = 145,"nflip" = 8,"sflip" = 8,"wflip" = 1,"eflip" = 0)
 
 /obj/item/rogueweapon/greatsword/bsword/psy
@@ -292,7 +292,7 @@
 	desc = "'Let His name be naught but forgot'n.' </br>The remnants of a legendary champion, who's name has been lost to the annals of tyme. Even so, the tarnished \
 	silver still glimmers with otherworldly strength; to exorcise, to eradicate, and to endure."
 	icon_state = "oldpsybroadsword"
-	force = 15 
+	force = 15
 	force_wielded = 25
 	minstr = 11
 	wdefense = 6
@@ -338,7 +338,7 @@
 	desc = "Psydonian prayers and Tennite smiths, working as one to craft a weapon to slay the Four. A heavy and large blade, favored by Saint Ravox, to lay \
 	waste to those who threaten His flock. The crossguard's psycross reflects even the faintest of Noc's light. You're the light - show them the way."
 	icon_state = "psybroadsword"
-	force = 25 
+	force = 25
 	force_wielded = 25
 	is_silver = TRUE
 	smeltresult = /obj/item/ingot/silver
@@ -375,6 +375,9 @@
 	max_blade_int = 500
 	max_integrity = 500
 	smeltresult = /obj/item/ingot/avantyne
+
+/obj/item/rogueweapon/greatsword/avantyne/get_examine_highlight_status()
+	return list(EXAMINEHIGHLIGHT_HERESYSEVERITY_ALARMING, HERESYDESC_ZIZO_AVANTYNE)
 
 /obj/item/rogueweapon/estoc
 	name = "estoc"

@@ -315,11 +315,11 @@
 /obj/projectile/bullet/reusable/heavy_bolt/silver
 	name = "heavy silver bolt"
 	damage = 110
-	armor_penetration = PEN_BSTEEL 
+	armor_penetration = PEN_BSTEEL
 	ammo_type = /obj/item/ammo_casing/caseless/rogue/heavy_bolt/silver
 	icon_state = "silvheavybolt_proj"
 	hitsound = 'sound/combat/hits/hi_bolt (3).ogg'
-	speed = 0.8 //Same speed as a crossbow bolt. 
+	speed = 0.8 //Same speed as a crossbow bolt.
 	is_silver_proj = TRUE
 	npc_simple_damage_mult = 10 //..or 1000 damage against a mindless mob. If you're using this against one, you're either a fool or have no other choice left. Godspeed.
 
@@ -338,7 +338,7 @@
 /obj/projectile/bullet/reusable/heavy_bolt/stake
 	name = "siegestake"
 	damage = 60
-	armor_penetration = PEN_BSTEEL 
+	armor_penetration = PEN_BSTEEL
 	ammo_type = /obj/item/ammo_casing/caseless/rogue/heavy_bolt/stake
 	icon_state = "heavystake_proj"
 	hitsound = 'sound/combat/hits/hi_bolt (2).ogg'
@@ -363,7 +363,7 @@
 /obj/projectile/bullet/reusable/heavy_bolt/stake_silver
 	name = "silver-tipped siegestake"
 	damage = 70 // In essence, a lesser version of the traditional silver siegebolts.
-	armor_penetration = PEN_BSTEEL 
+	armor_penetration = PEN_BSTEEL
 	ammo_type = /obj/item/ammo_casing/caseless/rogue/heavy_bolt/stake_silver
 	icon_state = "silvheavystake_proj"
 	hitsound = 'sound/combat/hits/hi_bolt (2).ogg'
@@ -445,7 +445,7 @@
 /obj/projectile/bullet/reusable/heavy_bolt/stake
 	name = "siegestake"
 	damage = 60
-	armor_penetration = PEN_BSTEEL 
+	armor_penetration = PEN_BSTEEL
 	ammo_type = /obj/item/ammo_casing/caseless/rogue/heavy_bolt/stake
 	icon_state = "heavystake_proj"
 	hitsound = 'sound/combat/hits/hi_bolt (2).ogg'
@@ -470,7 +470,7 @@
 /obj/projectile/bullet/reusable/heavy_bolt/stake_silver
 	name = "silver-tipped siegestake"
 	damage = 70 // In essence, a lesser version of the traditional silver siegebolts.
-	armor_penetration = PEN_BSTEEL 
+	armor_penetration = PEN_BSTEEL
 	ammo_type = /obj/item/ammo_casing/caseless/rogue/heavy_bolt/stake_silver
 	icon_state = "silvheavystake_proj"
 	hitsound = 'sound/combat/hits/hi_bolt (2).ogg'
@@ -559,13 +559,13 @@
 	flag = "fire"
 	npc_simple_damage_mult = 2
 
-/obj/projectile/bullet/bolt/pyro/on_hit(target)
+/obj/projectile/bullet/bolt/pyro/on_hit(target, blocked = FALSE)
 	..()
 	var/turf/epicenter = get_turf(target)
 	if(epicenter)
 		new /obj/effect/temp_visual/explosion(epicenter)
 		playsound(epicenter, pick('sound/misc/explode/incendiary (1).ogg', 'sound/misc/explode/incendiary (2).ogg'), 100, TRUE, 4)
-	if(!ismob(target))
+	if(!ismob(target) || blocked >= 100)
 		return
 	var/mob/living/M = target
 	apply_scorch_stack(M, 4, def_zone)

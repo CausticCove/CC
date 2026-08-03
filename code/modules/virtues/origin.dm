@@ -16,7 +16,7 @@
 	origin_desc = "Originally unsettled, Azuria's forested plateaus bore witness to the greatest miracle in history; the Comet Syon, which saved the world from complete \
 	destruction. The missile's resting place - just off Azuria's coast - established the locale as a holy site for worshippers of both Psydon and the Pantheon, which \
 	eventually led to a Celestian-funded displacement of its ancestral elven inhabitants. The recent surge of villainous monsters and misfortune is said to be attributed \
-	to such injustices; a belated curse from Dendor's scornful hand. </br> Azuria houses a uniquely diverse culture, borne from generations-upon-generations of pilgrims \
+	to such injustices; a belated curse from Dendor's scornful hand. </br> Azuria houses a uniquely diverse culture, born from generations-upon-generations of pilgrims \
 	from all over Psydonia. Likewise, the lesser kingdom's proximity to the Comet Syon has spawned a deluge of anomalous quirks in both the land and its people; a facet \
 	that has drawn the attention of both opportunistic villains and desperate heroes."
 
@@ -70,15 +70,20 @@
 
 /datum/virtue/origin/raneshen
 	name = "Ranesheni"
-	origin_name = "Raneshan"
+	origin_name = "Raneshen"
 	added_languages = list(/datum/language/raneshi)
-	desc = "I originate from the lush valleys and harsh badlands of Raneshen. Home to the zealous sun elves, the region sits at the gateway between the East and West. Recently engulfed in a violent holy war between the followers of the Old God and the Solarin.<br>"
-	origin_desc = "Home to the zealous sun elves, the region of Raneshen sits at the gateway between the East and West.<br> Its lands were once ruled by the Solarin, a divine \
-	caste of Astratan sun elf paladins who deeply venerated Astrata and practiced widespread humen slavery. The empire met its end when an Otavan missionary brought the \
-	word of PSYDON to Raneshen, sparking a slave rebellion that saw the reign of the Solarin fractured into disconnected elven and humen states. Religious violence \
-	between Astratan and Psydonians is even more widespread in Raneshen than it is in the West.<br> The region itself is known for lush river-valleys, with lethally-hot \
-	deserts and harsh, rocky badlands forming natural borders. Most trade from Kazengun and Naledi flows through Raneshen, and Ranesheni merchants are said to be just as \
-	vicious as their sword-sworn Janissaries."
+	desc = "I originate from the lush valleys and harsh badlands of Raneshen -- The Autarchy, Merchants of Shifting Sands. Home to the zealous sun elves and many others looking to profit without judgement, build great works with cheap labor or simply fulfill their lyfe's desires with coin and flesh. The region sits at the center of the continent of Eastern Psydonia. Recently engulfed in a violent set of rebellions against the slaver regions, it has been enduring a tumultuous time with many refugees -- both slaver and slave, fleeing its hold.<br>"
+	origin_desc = "Raneshen - better known by its ancestral title, 'Zybantia' - resides across the ocean as Grenzelhoft's economic rival: \
+	a greater kingdom, founded long ago by ancient Naledian exiles. While topologically similar to Naledi, the Ranesheni people had built \
+	their nation upon a far different thought: since Psydon had created the world, it was only right that divine reverence shouldn't solely \
+	manifest in prayer, but through indulgence as well.\n\n\
+	\
+	Such has led Raneshen to becoming Psydonia's wealthiest nation, with a stranglehold over the exportation of exotic spices, silks, and slaves. \
+	Yet, the one thing Raneshen takes pride in above all else is music - its composers are unmatched in skill, and have been the premiere choice \
+	for catering to extravagant ceremonies: the latest of which being the coronation of Grenzelhoft's newest Emperor.\
+	\n\n\
+	In recent tymes, the lands had been wrought with Matthiosite uprisings, spurning the wealthy slaver-states into tumultuous instability, including\
+	the Sun Elf populace in the western parts of the land, leading many to flee in search of stability, peace, or new lands to learn of their ways."
 
 /datum/virtue/origin/naledi
 	name = "Naledian"
@@ -90,6 +95,22 @@
 	have carefully recorded. The Naledi are poorly known to the West, and most travelers from the region come as traders or scholars. What is known is that the region is \
 	rich in gold, and that its people look to the stars for divine knowledge of our world.<br> It is rumored that the Naledi Emir is over five hundred years old, owing his \
 	long lifespan to closely-guarded alchemical secrets."
+
+/datum/virtue/origin/naledi/apply_to_human(mob/living/carbon/human/H)
+	..()
+	var/list/choices = list("Normal (Default)", "Strict (Naledi Complex)")
+	var/complex = tgui_input_list(H, "How tightly bound to traditions are you? (Keep in mind, some roles will force you to hold a Naledi Complex.)", "Naledi Philosophy", choices)
+	if(!complex)
+		complex = "Normal (Default)"
+	var/mask_type
+	switch(complex)
+		if("Strict (Naledi Complex)")
+			ADD_TRAIT(H, TRAIT_NALEDI, TRAIT_GENERIC)
+			mask_type = /obj/item/clothing/mask/rogue/lordmask/naledi/lesser
+		else
+			mask_type = /obj/item/clothing/mask/rogue/lordmask/tarnished
+	H.mind.special_items["Naledian Mask"] = mask_type
+	to_chat(H, span_notice("Your Naledian Mask has been added to your Item Stash."))
 
 /datum/virtue/origin/kazengun
 	name = "Kazengunese"
@@ -137,8 +158,31 @@
 	name = "Hammerholdian"
 	origin_name = "Hammerhold"
 	added_languages = list(/datum/language/dwarvish)
-	desc = "I originate from mountainous Hammerhold, a frigid archipelago in the far north. The region is considered the homeland of the Dwarves.<br>"
-	origin_desc = "PLEASE PING THE LORE TEAM TO ADD LORE FOR THIS"
+	desc = "I originate from mountainous Hammerhold, a mountainous region in the frigid north. \
+	The region is considered the homeland of the Dwarves.<br>"
+	origin_desc = "The peaks and piedmont of Hammerhold shelter a patchwork of petty lords, \
+	dwarvish freeholds, and roaming hill clans, all sworn to the banner of their High King, \
+	Harlond IX. \
+	\
+	<br><br>Once under the yoke of Grenzehoft’s Holy See for its mines, herds, and quarries, \
+	the Kingdom tore itself away from the Imperate in the chaos brought on by the Four, eventually \
+	uniting under the first king, Gronnic adventurer Harlan the Dreamer and his dwarven allies. \
+	To this dae, his line still rules from the sprawling coastal city of Norwardine, and spans \
+	the mighty rivers that run through the Kingdom’s southern reaches. \
+	\
+	<br><br>Since Hammerhold’s foundation, the nominally Psydonite Harlonds have enjoyed a special \
+	relationship with Otava, welcoming their trade as freely as the Gronnic merchants, \
+	raiders, and mercenaries that seek to sell their goods and services. Despite this \
+	history of trade, and several abortive attempts by the Holy See to reclaim their \
+	prize, faith in the Kingdom comprises a mixture of Ascendant and Tennite hero-cults \
+	organized under the umbrella of several psuedo-pantheons. \
+	\
+	<br><br>These “Ten-Thousand” span from simple local legends to the gods themselves- with many \
+	members of the royal family named among their number. \
+	\
+	<br><br>While renowned among the north for their pork, coal, and stonework, foreign traders \
+	would most likely know Hammerhold through its strong vodenna spirits, vibrant dyed \
+	satin, and finely forged dwarven steel."
 
 /datum/virtue/origin/avar
 	name = "Aavnic"
@@ -179,6 +223,7 @@
 				/datum/species/anthromorphsmall,
 				/datum/species/dullahan,
 				/datum/species/ooze,
+				/datum/species/construct/metal,
 )
 	origin_desc = "Underdwellers are those who are descendants of their lengthy lineage that settled, lived and toiled in the darkest and deepest \
 	of depths of the vast, deadly Underdark a millennia ago. When one speaks of a 'Underdweller',a dark elf first comes to mynd, though despite them\
@@ -210,6 +255,20 @@
 	to surface cultures and  communities, often perceived as strange at best, and downright evil at worst. A stigma developed by those who live upon \
 	the surface about their home and culture, believing all things evil crawl out of the very depths they reside in. A stigma that has lessened in \
 	recent yils, but still vastly present nonetheless."
+
+/datum/virtue/origin/racial/underdark/apply_to_human(mob/living/carbon/human/H)
+	..()
+	var/list/choices = list("Normal (Default)", "Strict (Sunlight Sensitivity + Advanced Darksight)")
+	var/complex = tgui_input_list(H, "How adapted are you to the Underdark?", "Underdweller Upbringing", choices)
+	if(!complex)
+		complex = "Normal (Default)"
+	switch(complex)
+		if("Strict (Sunlight Sensitivity + Advanced Darksight)")
+			ADD_TRAIT(H, TRAIT_SUNLIGHT_SENSITIVE, TRAIT_GENERIC)
+			ADD_TRAIT(H, TRAIT_NITEVISION, TRAIT_GENERIC)
+			to_chat(H, span_notice("The sun is irritantly bright for you, but your eyes cut the darkness better!"))
+		else
+			to_chat(H, span_notice("You're quick to adapt."))
 
 /datum/virtue/origin/apply_to_human(mob/living/carbon/human/recipient)
 	recipient.dna.species.origin = origin_name

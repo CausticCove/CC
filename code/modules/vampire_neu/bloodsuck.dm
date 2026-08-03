@@ -53,15 +53,35 @@
 	to_chat(src, span_warning("I drink from [victim]'s [parse_zone(sublimb_grabbed)]."))
 	log_combat(src, victim, "drank blood from ")
 
-	if(!VDrinker)
-		if(!HAS_TRAIT(src, TRAIT_HORDE) && !HAS_TRAIT(src, TRAIT_NASTY_EATER))
+	var/tox_drained = min(victim.getToxLoss(), 3) // no leeches? no problem!
+	if(tox_drained > 0)
+		victim.adjustToxLoss(-tox_drained)
+		src.adjustToxLoss(tox_drained)
+
+	if(!(VDrinker || HAS_TRAIT(src, TRAIT_BLACKBLOOD)))
+		if(!(HAS_TRAIT(src, TRAIT_HORDE) || HAS_TRAIT(src, TRAIT_NASTY_EATER)))
 			to_chat(src, span_warning("I'm going to puke..."))
 			addtimer(CALLBACK(src, TYPE_PROC_REF(/mob/living/carbon, vomit), 0, TRUE), rand(8 SECONDS, 15 SECONDS))
 		return
 
-	if(victim.mind?.has_antag_datum(/datum/antagonist/werewolf) || (victim.stat != DEAD && victim.mind?.has_antag_datum(/datum/antagonist/zombie)))
+	if(HAS_TRAIT(victim, TRAIT_BLACKBLOOD) || victim.mind?.has_antag_datum(/datum/antagonist/werewolf) || (victim.stat != DEAD && victim.mind?.has_antag_datum(/datum/antagonist/zombie)))
 		to_chat(src, span_danger("I'm going to puke..."))
 		addtimer(CALLBACK(src, TYPE_PROC_REF(/mob/living/carbon, vomit), 0, TRUE), rand(8 SECONDS, 15 SECONDS))
+		return
+
+	// some code witchcraft for blood ingest transfer, fuck sake
+	var/blood_amount = max(1, round(BLOOD_VOLUME_MAXIMUM * 0.01))
+	blood_amount = min(blood_amount, victim.blood_volume)
+	victim.blood_volume = max(victim.blood_volume - blood_amount, 0)
+	victim.handle_blood()
+	var/datum/reagents/temp = new(blood_amount)
+	temp.my_atom = src
+	temp.add_reagent(/datum/reagent/blood, blood_amount)
+	var/datum/reagent/blood/B = temp.has_reagent(/datum/reagent/blood)
+	if(B)
+		B.data = victim.get_blood_data()
+	temp.trans_to(src, blood_amount, TRUE, TRUE, FALSE, src, FALSE, INGEST)
+	if(HAS_TRAIT(src, TRAIT_BLACKBLOOD))
 		return
 
 	if(VVictim)

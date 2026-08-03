@@ -28,7 +28,7 @@
 	if(!istype(G))
 		to_chat(src,span_warning("You have to have a very strong grip on someone first!"))
 		return FALSE
-	if(G.grab_state != GRAB_NECK)
+	if(G.grab_state != GRAB_AGGRESSIVE)
 		to_chat(src,span_warning("You must have a tighter grip to severely damage this creature!"))
 		return FALSE
 
@@ -151,7 +151,7 @@
 			client.prefs.digestion_noises = TRUE
 		else
 			client.prefs.digestion_noises = FALSE
-		
+
 		to_chat(src, span_notice("You [client.prefs.digestion_noises ? "will" : "will not"] hear digestion noises."))
 
 /mob/verb/toggle_eating_noises()
@@ -166,7 +166,7 @@
 			client.prefs.eating_noises = TRUE
 		else
 			client.prefs.eating_noises = FALSE
-		
+
 		to_chat(src, span_notice("You [client.prefs.eating_noises ? "will" : "will not"] hear eating noises."))
 
 /mob/verb/toggle_belch_noises()

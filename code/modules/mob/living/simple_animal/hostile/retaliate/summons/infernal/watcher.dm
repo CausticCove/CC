@@ -82,7 +82,6 @@
 		new /obj/item/magic/infernal/fang(deathspot)
 	for(var/i =1 to 2)
 		new /obj/item/magic/infernal/ash(deathspot) ///Caustic edit end
-	new /obj/item/magic/melded/t1(deathspot)
 
 	update_icon()
 	spill_embedded_objects()

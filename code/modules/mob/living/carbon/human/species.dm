@@ -972,7 +972,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 //LIFE//
 ////////
 
-/datum/species/proc/handle_digestion(mob/living/carbon/human/H) 
+/datum/species/proc/handle_digestion(mob/living/carbon/human/H)
 //CC Edit Begin
 	handle_diet(H)
 //CC Edit End
@@ -1008,8 +1008,12 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 				H.Jitter(5)
 			hunger_rate = 10 * HUNGER_FACTOR*/
 //		hunger_rate *= H.physiology.hunger_mod
+		//Caustic Edit - Add in adjustments to Bottomless, and also the 10-minute grace timer for nutrition is added here!
+		if(H.has_flaw(/datum/charflaw/bottomless))
+			hunger_rate = (hunger_rate * 1.5) //Bottomless Flaw players just drain their nutrition faster instead of that constantly increasing max.
 		if(!H.mind || world.time < H.time_of_last_move + 10 MINUTES)
 			H.adjust_nutrition(-hunger_rate)
+		//Caustic Edit End
 
 		var/obj/item/organ/breasts/breasts = H.has_breasts()
 		if(breasts)
@@ -1809,7 +1813,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 
 	if(!affecting)
 		return
-	
+
 	var/datum/status_effect/buff/clash/limbguard/LG = H.has_status_effect(/datum/status_effect/buff/clash/limbguard)
 	if(LG)
 		if(LG.protected_zone == selzone && LG.is_active)	// We "missed" into limbguard's protected zone.
@@ -1887,7 +1891,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 			user.filtered_balloon_alert(TRAIT_COMBAT_AWARE, text, show_self = FALSE)
 
 	if(H.client?.prefs.combat_toggles & HITZONE_TEXT)
-		H.balloon_alert(H, "[bodyzone2readablezone(selzone)]...") 
+		H.balloon_alert(H, "[bodyzone2readablezone(selzone)]...")
 
 	var/pen_info_check = get_pen_info(H, user, H.get_best_worn_armor(def_zone, int.item_d_type), def_zone, int.item_d_type, int.penfactor, I)
 	var/armor_block = H.run_armor_check(selzone, I.d_type, "", "",pen, damage = Iforce, blade_dulling=bladec, intdamfactor = used_intfactor, used_weapon = I, pen_info = pen_info_check)
@@ -2176,7 +2180,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 			loc_temp = loc_b.bellytemperature
 		else
 			loc_temp = loc_b.owner.bodytemperature
-	
+
 	if(!loc_temp)
 		var/turf/cur_turf = get_turf(H)
 		loc_temp = cur_turf.temperature

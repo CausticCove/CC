@@ -40,6 +40,8 @@
 	point_cost = 3
 	spell_impact_intensity = SPELL_IMPACT_LOW
 
+	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC | SPELL_REQUIRES_HUMAN
+
 /datum/action/cooldown/spell/projectile/frost_bolt/ready_projectile(obj/projectile/to_fire, atom/target, mob/user, iteration)
 	. = ..()
 	var/base_angle = to_fire.Angle
@@ -52,7 +54,7 @@
 	name = "frost shard"
 	expose_caster_on_deflect = TRUE
 	icon_state = "ice_2"
-	damage = 40
+	damage = 35
 	npc_simple_damage_mult = 2
 	damage_type = BURN
 	woundclass = BCLASS_BURN
@@ -62,7 +64,7 @@
 	suppress_effects_past_range = TRUE
 	speed = MAGE_PROJ_FAST
 	nodamage = FALSE
-	var/reduced_damage = 10
+	var/reduced_damage = 9
 	var/repeat_hit = FALSE
 
 /obj/projectile/magic/frost_shard/arc
@@ -83,7 +85,7 @@
 			M.mob_timers[MT_FROST_SHARD] = world.time
 	return ..()
 
-/obj/projectile/magic/frost_shard/on_hit(target)
+/obj/projectile/magic/frost_shard/on_hit(target, blocked = FALSE)
 	. = ..()
 	if(ismob(target))
 		var/mob/M = target
@@ -92,7 +94,7 @@
 			playsound(get_turf(target), 'sound/magic/magic_nulled.ogg', 100)
 			qdel(src)
 			return BULLET_ACT_BLOCK
-		if(isliving(target) && !repeat_hit && !out_of_effective_range())
+		if(isliving(target) && !repeat_hit && !out_of_effective_range() && blocked < 100)
 			var/mob/living/L = target
 			if(L.on_fire)
 				L.adjust_fire_stacks(-1)
@@ -114,7 +116,7 @@
 	name = "frost bolt"
 	expose_caster_on_deflect = TRUE
 	icon_state = "ice_2"
-	damage = 33
+	damage = 30
 	npc_simple_damage_mult = 2
 	damage_type = BURN
 	woundclass = BCLASS_BURN
@@ -126,10 +128,10 @@
 
 /obj/projectile/magic/frostbolt/arc
 	name = "arced frost bolt"
-	damage = 25
+	damage = 23
 	arcshot = TRUE
 
-/obj/projectile/magic/frostbolt/on_hit(target)
+/obj/projectile/magic/frostbolt/on_hit(target, blocked = FALSE)
 	. = ..()
 	if(ismob(target))
 		var/mob/M = target
@@ -141,6 +143,8 @@
 		if(isliving(target))
 			var/mob/living/L = target
 			if(out_of_effective_range())
+				return
+			if(blocked >= 100)
 				return
 			if(L.on_fire)
 				L.adjust_fire_stacks(-1)
