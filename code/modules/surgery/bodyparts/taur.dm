@@ -319,4 +319,27 @@ GLOBAL_LIST_INIT(taur_types, subtypesof(/obj/item/bodypart/taur))
 	taur_icon_state = "satyr_s"
 
 	has_taur_color = TRUE
+
+/obj/item/bodypart/taur/biglegs
+	name = "Big Legs"
+	offset_x = -16
+	taur_clothing_category = "m"
+	taur_icon_state = "biglegs_s"
+	has_taur_color = TRUE
+
+/obj/item/bodypart/taur/biglegsstanced
+	name = "Big Legs Stanced"
+	offset_x = -16
+	taur_clothing_category = "m"
+	taur_icon_state = "biglegsstanced_s"
+	has_taur_color = TRUE
+
+/obj/item/bodypart/taur/lupine_venard
+	name = "Lupine Venard Body"
+	offset_x = -16
+	taur_clothing_category = "m"
+	taur_icon_state = "lupine_venard_s"
+	has_taur_color = TRUE
+
 //OV edit end
+
