@@ -17,9 +17,6 @@
 	grabtargets = list(BODY_ZONE_L_LEG, BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_R_LEG, BODY_ZONE_PRECISE_R_FOOT)
 	dismember_wound = /datum/wound/dismemberment/taur
 	unlimited_bleeding = TRUE
-	var/use_mask = FALSE
-	var/can_wag = FALSE
-	var/wagging = FALSE
 
 	// Taur stuff!
 	// offset_x forces the limb_icon to be shifted on x relative to the human (since these are >32x32)
@@ -53,6 +50,11 @@
 	// Instantiated at runtime for speed
 	var/tmp/icon/clip_mask
 
+	//Caustic Edit - Add Taur tailwag capabilities (Also used for loafing alternative sprites)
+	var/can_wag = FALSE
+	var/wagging = FALSE
+	//Caustic Edit End
+
 /obj/item/bodypart/taur/New()
 	. = ..()
 
@@ -68,13 +70,18 @@
 		image_dir = SOUTH
 
 	// This section is based on Virgo's human rendering, there may be better ways to do this now
-	var/icon/tail_s = new/icon("icon" = icon, "icon_state" = taur_icon_state, "dir" = image_dir)
+	//Caustic Edit - Add capabilities for the Taur Sprites to Wag (or simply have an alt-sprite using this same call)
+	var/icon_state_touse = taur_icon_state
+	if(can_wag && wagging)
+		icon_state_touse += "_wagging"
+	var/icon/tail_s = new/icon("icon" = icon, "icon_state" = icon_state_touse, "dir" = image_dir)
+	//Caustic Edit End
 	if(has_taur_color)
 		tail_s.Blend(taur_color, color_blend_mode)
 
 	var/image/working = image(tail_s)
 	// because these can overlap other organs, we need to layer slightly higher
-	working.layer = -FRONT_MUTATIONS_LAYER
+	working.layer = -BODY_ADJ_LAYER
 	working.pixel_x = offset_x
 
 /*********************************/
