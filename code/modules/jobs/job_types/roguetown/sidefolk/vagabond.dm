@@ -46,57 +46,45 @@
 		/datum/advclass/vagabond_unraveled
 	)
 	has_subprefs = TRUE
+	default_subprefs = list("bounty_poster_key" = null, "bounty_severity_key" = null, "my_crime" = null, "favorite_advclass" = null)
 
 /datum/job/roguetown/vagabond/Topic(href, list/href_list)
 	var/client/C = usr.client
-	if(!C)
+	if(!C || !C.prefs)
 		return
-	var/datum/preferences/prefs = C.prefs
-	if(!prefs)
-		return
-	if(!prefs.job_subprefs || !islist(prefs.job_subprefs))
-		prefs.job_subprefs = list()
-	if(!prefs.job_subprefs[title])
-		prefs.job_subprefs[title] = list("bounty_poster_key" = null, "bounty_severity_key" = null, "my_crime" = null)
-	var/list/bounty_prefs = prefs.job_subprefs[title]
+	var/list/roleprefs = get_roleprefs(C)
 	if(href_list["poster"])
 		var/list/poster_choices = list()
 		for(var/key in GLOB.bounty_posters)
 			poster_choices[GLOB.bounty_posters[key]] = key
-		bounty_prefs["bounty_poster_key"] = poster_choices[tgui_input_list(usr, "Who placed a bounty on you?", "Bounty Poster", poster_choices)]
+		roleprefs["bounty_poster_key"] = poster_choices[tgui_input_list(usr, "Who placed a bounty on you?", "Bounty Poster", poster_choices)]
 		update_subprefs_window(usr)
 	if(href_list["severity"])
 		var/list/sev_choices = list()
 		for(var/key in GLOB.vagabond_severities)
 			sev_choices[GLOB.vagabond_severities[key]] = key
-		bounty_prefs["bounty_severity_key"] = sev_choices[tgui_input_list(usr, "How severe are your crimes?", "Bounty Amount", sev_choices)]
+		roleprefs["bounty_severity_key"] = sev_choices[tgui_input_list(usr, "How severe are your crimes?", "Bounty Amount", sev_choices)]
 		update_subprefs_window(usr)
 	if(href_list["crime"])
-		bounty_prefs["my_crime"] = tgui_input_text(usr, "What is your crime?", "Crime", bounty_prefs["my_crime"], multiline=TRUE, encode=FALSE)
-		update_subprefs_window(usr)
-	if(href_list["subprefsreset"])
-		prefs.job_subprefs[title] = list("bounty_poster_key" = null, "bounty_severity_key" = null, "my_crime" = null)
+		roleprefs["my_crime"] = tgui_input_text(usr, "What is your crime?", "Crime", roleprefs["my_crime"], multiline=TRUE, encode=FALSE)
 		update_subprefs_window(usr)
 	. = ..()
 
 /datum/job/roguetown/vagabond/update_subprefs_window(mob/user)
 	var/client/C = usr.client
-	if(!C)
+	if(!C || !C.prefs)
 		return
-	var/datum/preferences/prefs = C.prefs
-	if(!prefs)
-		return
-	if(!prefs.job_subprefs || !islist(prefs.job_subprefs))
-		prefs.job_subprefs = list()
-	if(!prefs.job_subprefs[title])
-		prefs.job_subprefs[title] = list("bounty_poster_key" = null, "bounty_severity_key" = null, "my_crime" = null)
-	var/list/bounty_prefs = prefs.job_subprefs[title]
+	var/list/roleprefs = get_roleprefs(C)
+	var/datum/advclass/favorite = roleprefs["favorite_advclass"]
+	var/favorite_name = favorite ? favorite::name : "Choose"
 	var/HTML = {"
+		<i>You can choose a favorite subclass here. You'll automatically select this subclass on roundstart if possible.</i><br/><br/>
+		<b>Selected class:</b> <a href="?src=[REF(src)];class=1">[favorite_name]</a><br/>
 		<i>Set your [title]-specific bounty here. Only applies to the Wanted subclass. If a global bounty is set, this will override it.</i><br><i>Any fields set here will not prompt you at roundstart.</i><br/><br/>
-		<b>Bounty Poster:</b> <a href="?src=[REF(src)];poster=1">[bounty_prefs["bounty_poster_key"]?GLOB.bounty_posters[bounty_prefs["bounty_poster_key"]]:"Unset"]</a><br/>
-		<b>Bounty Severity:</b> <a href="?src=[REF(src)];severity=1">[bounty_prefs["bounty_severity_key"]?GLOB.vagabond_severities[bounty_prefs["bounty_severity_key"]]:"Unset"]</a><br/>
-		<b>Bounty Reason:</b> <a href="?src=[REF(src)];crime=1">[bounty_prefs["my_crime"]?"Edit":"Unset"]</a><br/>
-		[bounty_prefs["my_crime"]?bounty_prefs["my_crime"]:""]<br/>
+		<b>Bounty Poster:</b> <a href="?src=[REF(src)];poster=1">[roleprefs["bounty_poster_key"]?GLOB.bounty_posters[roleprefs["bounty_poster_key"]]:"Unset"]</a><br/>
+		<b>Bounty Severity:</b> <a href="?src=[REF(src)];severity=1">[roleprefs["bounty_severity_key"]?GLOB.vagabond_severities[roleprefs["bounty_severity_key"]]:"Unset"]</a><br/>
+		<b>Bounty Reason:</b> <a href="?src=[REF(src)];crime=1">[roleprefs["my_crime"]?"Edit":"Unset"]</a><br/>
+		[roleprefs["my_crime"]?roleprefs["my_crime"]:""]<br/>
 		<center><a href="?src=[REF(src)];subprefsexit=1">EXIT</a>\t\t<a href="?src=[REF(src)];subprefsreset=1">RESET</a></center>
 	"}
 	// the fact that the window width/height will be different each time is the main reason this isn't all done in a parent proc on /datum/job

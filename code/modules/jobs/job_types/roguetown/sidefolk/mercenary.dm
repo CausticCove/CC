@@ -67,40 +67,23 @@
 		/datum/advclass/mercenary/lirvanmerc
 	)
 	has_subprefs = TRUE
+	default_subprefs = list("favorite_advclass" = null, "merc_ad" = null)
 
 /datum/job/roguetown/mercenary/Topic(href, list/href_list)
 	var/client/C = usr.client
-	if(!C)
+	if(!C || !C.prefs)
 		return
-	var/datum/preferences/prefs = C.prefs
-	if(!prefs)
-		return
-	if(!prefs.job_subprefs || !islist(prefs.job_subprefs))
-		prefs.job_subprefs = list()
-	if(!prefs.job_subprefs[title])
-		prefs.job_subprefs[title] = list("favorite_advclass" = null, "merc_ad" = null)
-	var/list/roleprefs = prefs.job_subprefs[title]
-
+	var/list/roleprefs = get_roleprefs(C)
 	if(href_list["merc_ad"])
 		roleprefs["merc_ad"] = tgui_input_text(usr, "How do you advertise yourself?", "Mercenary Statue", max_length=300)
-		update_subprefs_window(usr)
-	if(href_list["subprefsreset"])
-		prefs.job_subprefs[title] = list("favorite_advclass" = null, "merc_ad" = null)
 		update_subprefs_window(usr)
 	. = ..()
 
 /datum/job/roguetown/mercenary/update_subprefs_window(mob/user)
 	var/client/C = usr.client
-	if(!C)
+	if(!C || !C.prefs)
 		return
-	var/datum/preferences/prefs = C.prefs
-	if(!prefs)
-		return
-	if(!prefs.job_subprefs || !islist(prefs.job_subprefs))
-		prefs.job_subprefs = list()
-	if(!prefs.job_subprefs[title])
-		prefs.job_subprefs[title] = list("favorite_advclass" = null, "merc_ad" = null)
-	var/list/roleprefs = prefs.job_subprefs[title]
+	var/list/roleprefs = get_roleprefs(C)
 	var/datum/advclass/favorite = roleprefs["favorite_advclass"]
 	var/favorite_name = favorite ? favorite::name : "Choose"
 	var/HTML = {"

@@ -182,10 +182,11 @@
 	///Whether this class has additional preferences specific to it, like bounties for wretch. Make sure to also put handling for it in the job's /Topic! See wretch.dm for an example. Note that this is true-by-default because the default handler handles advclass selection
 	var/has_subprefs = TRUE
 
-/datum/job/proc/update_subprefs_window(mob/user)
-	if(!advclass_cat_rolls)
-		return
-	var/client/C = usr.client
+	/// Default state of the subprefs; for most roles, this will just be the subclass selection.
+	var/list/default_subprefs = list("favorite_advclass" = null)
+
+///Returns the client's subprefs list for this job, initializing it if it does not exist. Will be null if the client or prefs are null.
+/datum/job/proc/get_roleprefs(client/C)
 	if(!C)
 		return
 	var/datum/preferences/prefs = C.prefs
@@ -194,8 +195,16 @@
 	if(!prefs.job_subprefs || !islist(prefs.job_subprefs))
 		prefs.job_subprefs = list()
 	if(!prefs.job_subprefs[title])
-		prefs.job_subprefs[title] = list("favorite_advclass" = null)
-	var/list/roleprefs = prefs.job_subprefs[title]
+		prefs.job_subprefs[title] = default_subprefs.Copy()
+	return prefs.job_subprefs[title]
+
+/datum/job/proc/update_subprefs_window(mob/user)
+	if(!advclass_cat_rolls)
+		return
+	var/client/C = usr.client
+	if(!C || !C.prefs)
+		return
+	var/list/roleprefs = get_roleprefs(C)
 	var/datum/advclass/favorite = roleprefs["favorite_advclass"]
 	var/favorite_name = favorite ? favorite::name : "Choose"
 	var/HTML = {"
