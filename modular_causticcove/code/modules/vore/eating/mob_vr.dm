@@ -4,7 +4,7 @@
 	var/feeding = TRUE					// Can the mob be vorishly force fed or fed to others?
 	var/absorbable = TRUE				// Are you allowed to absorb this person?
 	var/resizable = TRUE				// Can other people resize you? (Usually ignored for self-resizes)
-	//var/digest_leave_remains = FALSE	// Will this mob leave bones/skull/etc after the melty demise?
+	var/digest_leave_remains = FALSE	// Will this mob leave bones/skull/etc after the melty demise?
 	var/allowmobvore = TRUE				// Will simplemobs attempt to eat the mob?
 	var/allowtemp = TRUE				// Can they be affected by belly temperature?
 	var/obj/belly/vore_selected			// Default to no vore capability.
@@ -95,7 +95,7 @@
 	var/belly_rub_target = null
 	var/soulcatcher_pref_flags = NONE			//Default disabled
 	var/persistend_edit_mode = FALSE
-	
+
 	var/voice_freq = 42500	// Preference for character voice frequency
 	//var/emote_sound_mode = EMOTE_SOUND_VOICE_FREQ
 	var/list/voice_sounds_list = list()	// The sound list containing our voice sounds!

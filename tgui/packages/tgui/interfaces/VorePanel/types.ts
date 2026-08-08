@@ -309,6 +309,7 @@ export type PrefData = {
   resizable: BooleanLike;
   feeding: BooleanLike;
   absorbable: BooleanLike;
+  digest_leave_remains: BooleanLike;
   allowmobvore: BooleanLike;
   allowtemp: BooleanLike;
   permit_healbelly: BooleanLike;
@@ -458,6 +459,7 @@ export type LocalPrefs = {
   resize: PreferenceData;
   steppref: PreferenceData;
   vore_fx: PreferenceData;
+  remains: PreferenceData;
   pickuppref: PreferenceData;
   spontaneous_tf: PreferenceData;
   mind_transfer: PreferenceData;

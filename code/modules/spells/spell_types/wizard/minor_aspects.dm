@@ -107,6 +107,7 @@
 		/datum/action/cooldown/spell/featherfall,
 		/datum/action/cooldown/spell/augment_buff/enlarge,
 		/datum/action/cooldown/spell/leap,
+		/datum/action/cooldown/spell/levitation,
 		/datum/action/cooldown/spell/nondetection,
 		/datum/action/cooldown/spell/augment_buff/surge,
 		/datum/action/cooldown/spell/augment_buff/precognition,

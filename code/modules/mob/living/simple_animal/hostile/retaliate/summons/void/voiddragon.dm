@@ -653,9 +653,9 @@ F
 	new /obj/item/clothing/ring/dragon_ring(deathspot)
 	new /obj/item/clothing/ring/dragon_ring(deathspot)
 	new /obj/item/clothing/ring/dragon_ring(deathspot)
-	new /obj/item/book/granter/arcane_aspect/minor(deathspot)
-	new /obj/item/book/granter/arcane_aspect/minor(deathspot)
-	new /obj/item/book/granter/arcane_aspect/major(deathspot)
+	new /obj/item/book/granter/arcane_aspect/magic/minor(deathspot)
+	new /obj/item/book/granter/arcane_aspect/magic/minor(deathspot)
+	new /obj/item/book/granter/arcane_aspect/magic/major(deathspot)
 	update_icon()
 	spill_embedded_objects()
 

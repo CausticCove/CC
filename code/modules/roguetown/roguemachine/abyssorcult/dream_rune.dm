@@ -199,9 +199,10 @@
 	open_quest_selection_ui(user, tier_choices, src.parchment_used, tier)
 
 /obj/structure/roguemachine/ritual_rune/proc/find_valid_target_for_quest(datum/vision_quest/Q, mob/living/carbon/human/seeker)
+
 	var/list/valid_targets = list()
 
-	for(var/mob/living/carbon/human/H in GLOB.player_list)
+	for(var/mob/living/carbon/human/H in shuffle(GLOB.player_list))
 		if(H == seeker || H.stat == DEAD)
 			continue
 		if(!H.mind || !H.mind.assigned_role)

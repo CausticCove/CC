@@ -3,7 +3,7 @@
 	desc = "You shouldn't ever see this."
 	icon = 'icons/obj/objects.dmi'
 	flags_1 = HEAR_1
-	slot_flags = ITEM_SLOT_HEAD|ITEM_SLOT_HIP
+	slot_flags = ITEM_SLOT_HEAD|ITEM_SLOT_HIP|ITEM_SLOT_SHOES
 	var/mob/living/held_mob
 	var/matrix/original_transform
 	var/original_vis_flags = NONE
@@ -155,9 +155,10 @@
 		to_chat(held, span_warning("You extricate yourself from [holster]."))
 		forceMove(get_turf(src))*/
 	else if(isitem(loc))
-		//var/obj/item/I = loc
+		var/obj/item/I = loc
+		if(!I.remove_item_from_storage(get_turf(src))) //This should properly account for storages and stuff.
+			forceMove(get_turf(src))
 		to_chat(held, span_warning("You struggle free of [loc]."))
-		forceMove(get_turf(src))
 		/*if(istype(I)) //This is a proc on /obj/item that would be called if a Holder Item escapes out of it. Was only used in a Hollow Roulette Ball in Chompers so... Not really needed yet?
 			I.on_holder_escape(src)*/
 
@@ -234,13 +235,13 @@
 
 /obj/item/holder/proc/sync(var/mob/living/M)
 	dir = 2
-	overlays.Cut()
+	//overlays.Cut()
 	/*if(M.item_state)
 		item_state = M.item_state*/
 	color = M.color
 	name = M.name
 	desc = M.desc
-	overlays |= M.overlays
+	//overlays |= M.overlays
 
 /obj/item/holder/dropped(mob/user)
 	// CHOMPEdit Start
@@ -253,7 +254,7 @@
 /obj/item/holder/attack_hand(mob/living/user as mob) //straight up just copypasted from objects/items.dm with a few things changed (doesn't called dropped unless +actually dropped+)
 	if(held_mob == user)
 		return // No picking your own micro self up
-	
+
 	. = ..()
 
 
@@ -290,7 +291,7 @@
 /obj/item/holder/process()
 	if(held_mob?.loc != src || isturf(loc))
 		qdel(src)
-	
+
 /obj/item/holder/Destroy()
 	STOP_PROCESSING(SSobj, src)
 	if(held_mob)
@@ -323,7 +324,7 @@
 	else if(isitem(loc))
 		to_chat(held, span_warning("You struggle free of [loc]."))
 		dump_mob()
-	
+
 	process()
 
 /obj/item/holder/Entered(mob/held, atom/OldLoc)
@@ -364,7 +365,7 @@
 		original_vis_flags = NONE
 		held_mob = null
 	. = ..()
-	
+
 	//Then we reapply it
 	for(var/reapplylocation in preremovespatials)
 		for(var/channeltoreapply in reapplylocation)

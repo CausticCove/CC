@@ -426,7 +426,9 @@ If you want to expand on poisons theres tons of fun effects TG chemistry has tha
 /datum/reagent/organpoison/on_mob_life(mob/living/carbon/M)
 	if(HAS_TRAIT(M, TRAIT_ORGAN_EATER))
 		M.energy_add(10) //Slowly add energy back.
-	if(!HAS_TRAIT(M, TRAIT_NASTY_EATER) && !HAS_TRAIT(M, TRAIT_ORGAN_EATER))
+	if(HAS_TRAIT(M, TRAIT_NASTY_EATER) || HAS_TRAIT(M, TRAIT_WILD_EATER))
+		return
+	else
 		M.add_nausea(9)
 		M.adjustToxLoss(2)
 	return ..()

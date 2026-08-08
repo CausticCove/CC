@@ -130,7 +130,7 @@
 	//Actual full digest modes
 	var/tmp/static/list/digest_modes = list(DM_HOLD,DM_DIGEST,DM_ABSORB,DM_DRAIN,DM_SELECT,DM_UNABSORB,DM_HEAL,DM_SHRINK,DM_GROW,DM_SIZE_STEAL,DM_EGG)
 	//Digest mode addon flags
-	var/tmp/static/list/mode_flag_list = list("Numbing" = DM_FLAG_NUMBING, "Stripping" = DM_FLAG_STRIPPING, "Muffles" = DM_FLAG_THICKBELLY, "Affect Worn Items" = DM_FLAG_AFFECTWORN, "Complete Absorb" = DM_FLAG_FORCEPSAY, "Spare Prosthetics" = DM_FLAG_SPARELIMB, "Slow Body Digestion" = DM_FLAG_SLOWBODY, "Muffle Items" = DM_FLAG_MUFFLEITEMS, "TURBO MODE" = DM_FLAG_TURBOMODE, "Absorbed Prey Can Devour" = DM_FLAG_ABSORBEDVORE, "Makes Prey Wet" = DM_FLAG_WETTENS)
+	var/tmp/static/list/mode_flag_list = list("Numbing" = DM_FLAG_NUMBING, "Stripping" = DM_FLAG_STRIPPING, "Leave Remains" = DM_FLAG_LEAVEREMAINS, "Muffles" = DM_FLAG_THICKBELLY, "Affect Worn Items" = DM_FLAG_AFFECTWORN, "Complete Absorb" = DM_FLAG_FORCEPSAY, "Spare Prosthetics" = DM_FLAG_SPARELIMB, "Slow Body Digestion" = DM_FLAG_SLOWBODY, "Muffle Items" = DM_FLAG_MUFFLEITEMS, "TURBO MODE" = DM_FLAG_TURBOMODE, "Absorbed Prey Can Devour" = DM_FLAG_ABSORBEDVORE, "Makes Prey Wet" = DM_FLAG_WETTENS)
 	//Item related modes
 	var/tmp/static/list/item_digest_modes = list(IM_HOLD,IM_DIGEST_FOOD,IM_DIGEST,IM_DIGEST_PARALLEL,IM_SMELTING)
 	//drain modes
@@ -235,7 +235,7 @@
 	var/list/fullness5_messages = list(
 		"%pred's %belly is completely filled to it's limit!"
 		)
-	
+
 	var/tmp/reagent_chosen = REAGENT_WATER				// variable for switch to figure out what to set variables when a certain reagent is selected
 	var/tmp/static/list/reagent_choices = list(		// List of reagents people can chose, maybe one day expand so it covers criterias like dogborgs who can make meds, booze, etc - Jack
 	REAGENT_WATER,
@@ -776,7 +776,7 @@
 /obj/belly/proc/release_specific_contents(atom/movable/M, silent = FALSE)
 	if (!(M in contents))
 		return 0 // They weren't in this belly anyway
-	
+
 	for(var/mob/living/L in M.contents)
 		L.muffled = FALSE
 		L.forced_psay = FALSE
@@ -813,7 +813,7 @@
 					if(P.absorbed)
 						absorbed_count++
 				Pred.reagents.trans_to(Prey, Pred.reagents.total_volume / absorbed_count)
-	
+
 	//Makes it so that if prey are heavily asleep, they will wake up shortly after release
 	if(isliving(M))
 		var/mob/living/ML = M
@@ -832,7 +832,7 @@
 		if("subtle")
 			privacy_range = 1
 			//privacy_volume = 25
-	
+
 	//Print notifications/sound if necessary
 	if(isobserver(M))
 		silent = TRUE
@@ -848,7 +848,7 @@
 			soundfile = GLOB.fancy_release_sounds[release_sound]
 		if(soundfile)
 			playsound(src, soundfile, vol = sound_volume, vary = 1, falloff = VORE_SOUND_FALLOFF, frequency = noise_freq, pref_toggle = SOUND_VORE_EATING)
-	
+
 	if(!owner.ckey && escape_stun)
 		owner.Stun(escape_stun)
 
@@ -898,7 +898,7 @@
 // Indigestable items are removed, and M is deleted.
 /obj/belly/proc/digestion_death(mob/living/M)
 	digested_prey_count++
-	log_attack(owner, M, "Digested in [lowertext(name)]")
+	owner.log_message("Digested [key_name(M)] in [lowertext(name)]", LOG_ATTACK)
 
 	// If digested prey is also a pred... anyone inside their bellies gets moved up.
 	if(is_vore_predator(M))
@@ -970,15 +970,16 @@
 		M.enabled = FALSE
 		M.forceMove(hasMMI)
 	else*/
-	var/mob/dead/observer/G = M.ghostize(FALSE) // Make sure they're out, so we can copy attack logs and such.
+	var/mob/dead/observer/G = M.ghostize(FALSE, ignore_zombie = TRUE) // Make sure they're out, so we can copy attack logs and such.
 	if(G)
 		G.forceMove(src)
 		G.body_backup = M
 		M.enabled = FALSE
 		M.forceMove(G)
 	else
-		qdel(M) //This bit right here keeps doing a "bad del" on carbon mobs that people eat? I don't know why. I've seen a lot of goblins so far...
-	
+		if(!M.key && !M.ckey) //Just another protection so we don't accidentally delete someone still in-body. And then probably this can all just loop again?
+			qdel(M) //This bit right here keeps doing a "bad del" on carbon mobs that people eat? I don't know why. I've seen a lot of goblins so far...
+
 	owner.handle_belly_update()
 
 // Handle a mob being absorbed

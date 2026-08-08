@@ -125,6 +125,7 @@
 	)
 	if(H.mind)
 		SStreasury.grant_savings(ECONOMIC_RICH, H)
+		H.mind.teach_crafting_recipe(/datum/crafting_recipe/roguetown/arcana/scrolls/arcyne_potential)
 		H.mind.teach_crafting_recipe(/datum/crafting_recipe/roguetown/arcana/scrolls/utility)
 		H.mind.teach_crafting_recipe(/datum/crafting_recipe/roguetown/arcana/scrolls/minor)
 		H.mind.teach_crafting_recipe(/datum/crafting_recipe/roguetown/arcana/scrolls/major)

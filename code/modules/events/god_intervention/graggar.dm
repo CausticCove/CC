@@ -87,7 +87,7 @@ GLOBAL_LIST_EMPTY(graggar_cullings)
 	typepath = /datum/round_event/graggar_culling
 	weight = 8
 	earliest_start = 25 MINUTES
-	max_occurrences = 1
+	max_occurrences = 0 //Caustic Edit - Turn this off! Was previously 1
 	min_players = 15 //This is a duel between 2 Graggarites only, and ONLY if there is more than 3!~
 	allowed_storytellers = list(/datum/storyteller/graggar)
 

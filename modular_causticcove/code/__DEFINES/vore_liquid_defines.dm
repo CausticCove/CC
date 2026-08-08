@@ -141,4 +141,4 @@
 #define REAGENT_NUMBENZYME "Numbing Enzyme"
 #define REAGENT_ID_NUMBENZYME "numbenzyme"
 
-#define REAGENT_ID_POPPYMILK /datum/reagent/consumable/poppy_milk
+#define REAGENT_ID_NUMBING /datum/reagent/consumable/numbing_agent

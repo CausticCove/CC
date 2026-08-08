@@ -175,6 +175,8 @@
 	if(HAS_TRAIT(eater, TRAIT_ORGAN_EATER))
 		eat_effect = /datum/status_effect/buff/snackbuff
 		foodtype = RAW | MEAT
+	if(HAS_TRAIT(eater, TRAIT_NASTY_EATER) || HAS_TRAIT(eater, TRAIT_WILD_EATER))
+		foodtype = RAW | MEAT
 	else
 		eat_effect = initial(eat_effect)
 		foodtype = initial(foodtype)

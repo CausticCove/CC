@@ -82,7 +82,7 @@
 		if(target.mob_timers[MT_BOMB_HIT] && world.time < target.mob_timers[MT_BOMB_HIT] + BOMB_HIT_IMMUNITY_DURATION)
 			continue
 		target.mob_timers[MT_BOMB_HIT] = world.time
-		var/armor_block = target.run_armor_check(BODY_ZONE_CHEST, "fire", blade_dulling = BCLASS_BURN, damage = PVE_damage, flat_integ = TRUE)
+		var/armor_block = target.run_armor_check(BODY_ZONE_CHEST, "fire", blade_dulling = BCLASS_BURN, damage = PVE_damage, no_debuff = TRUE)
 		target.apply_damage(PVE_damage, BURN, BODY_ZONE_CHEST, armor_block)
 		apply_scorch_stack(target, 3)
 	if(spawn_shard)
@@ -105,7 +105,7 @@
 
 	if(!istype(I, /obj/item/natural/fibers))
 		return
-	
+
 	I.visible_message(
 		span_warning("[user] begins to prepare [src].."),
 		span_notice("I begin to set-up [src] with [I].")
@@ -120,7 +120,7 @@
 			to_chat(user, span_warningbig("Uh oh."))
 			light()
 		return
-	
+
 	var/obj/item/bomb/tripbomb/trip = new /obj/item/bomb/tripbomb(get_turf(src))
 	trip.b_type = type
 	trip.icon_state = icon_state
@@ -199,7 +199,7 @@
 /obj/item/tripwire
 	name = "fibre tripwire"
 	desc = "You almost missed it - phew. Best cut it with a blade to disarm it."
-	icon = 'icons/roguetown/items/misc.dmi'	
+	icon = 'icons/roguetown/items/misc.dmi'
 	icon_state = "wire"
 	anchored = TRUE
 	var/obj/item/bomb/tripbomb/payload
@@ -301,7 +301,7 @@
 
 /obj/item/bomb/smoke/explode()
 	var/turf/T = get_turf(src)
-	if(!T) 
+	if(!T)
 		return FALSE
 	playsound(loc, 'sound/items/smokebomb.ogg', 50)
 	var/datum/effect_system/smoke_spread/smoke = new /datum/effect_system/smoke_spread
@@ -309,7 +309,7 @@
 	smoke.start()
 	new /obj/item/ash(T)
 	qdel(src)
-	
+
 /obj/item/tntstick
 	name = "blastpowder stick"
 	desc = "A bewicked vessel, filled to the brim with explosive powder. Ignition begets eruption; a dizzying shockwave which pulverizes stone, wood, and flesh alike with little discrimination."
@@ -322,7 +322,7 @@
 	throw_speed = 0.5
 	var/fuze = 50
 	var/lit = FALSE
-	var/prob2fail = 1 
+	var/prob2fail = 1
 	var/PVE_damage = 160
 	grid_width = 32
 	grid_height = 64
@@ -388,7 +388,7 @@
 
 	if(!istype(I, /obj/item/natural/fibers))
 		return
-	
+
 	I.visible_message(
 		span_warning("[user] begins to prepare [src].."),
 		span_notice("I begin to set-up [src] with [I].")
@@ -403,7 +403,7 @@
 			to_chat(user, span_warningbig("Uh oh."))
 			light()
 		return
-	
+
 	var/obj/item/bomb/tripbomb/trip = new /obj/item/bomb/tripbomb(get_turf(src))
 	trip.b_type = type
 	trip.icon_state = icon_state
@@ -434,14 +434,14 @@
 	icon_state = "satchel_bomb"
 	var/lit_state = "satchel_bomb-lit"
 	icon = 'icons/roguetown/items/misc.dmi'
-	w_class = WEIGHT_CLASS_BULKY 
+	w_class = WEIGHT_CLASS_BULKY
 	throwforce = 0
 	throw_range = 2
 	slot_flags = ITEM_SLOT_HIP
 	throw_speed = 0.3
 	var/fuze = 50
 	var/lit = FALSE
-	var/prob2fail = 1 
+	var/prob2fail = 1
 	var/PVE_damage = 300
 	grid_width = 256
 	grid_height = 256
@@ -453,14 +453,14 @@
 	icon_state = "satchel_bomb"
 	lit_state = "satchel_bomb-lit"
 	icon = 'icons/roguetown/items/misc.dmi'
-	w_class = WEIGHT_CLASS_BULKY 
+	w_class = WEIGHT_CLASS_BULKY
 	dropshrink = 5
 	throwforce = 0
 	throw_range = 1
 	throw_speed = 0.3
 	fuze = 50
 	lit = FALSE
-	prob2fail = 0 
+	prob2fail = 0
 	PVE_damage = 500
 	grid_width = 256
 	grid_height = 256
@@ -538,7 +538,7 @@
 
 	if(!istype(I, /obj/item/natural/fibers))
 		return
-	
+
 	I.visible_message(
 		span_warning("[user] begins to prepare [src].."),
 		span_notice("I begin to set-up [src] with [I].")
@@ -553,7 +553,7 @@
 			to_chat(user, span_warningbig("Uh oh."))
 			light()
 		return
-	
+
 	var/obj/item/bomb/tripbomb/trip = new /obj/item/bomb/tripbomb(get_turf(src))
 	trip.b_type = type
 	trip.icon_state = icon_state
@@ -604,14 +604,14 @@
 
 /obj/item/impact_grenade/attack_self(mob/user)
 	..()
-	explodes() 
+	explodes()
 
 /obj/item/impact_grenade/attackby(obj/item/I, mob/user, params)
 	..()
 
 	if(!istype(I, /obj/item/natural/fibers))
 		return
-	
+
 	I.visible_message(
 		span_warning("[user] begins to prepare [src].."),
 		span_notice("I begin to set-up [src] with [I].")
@@ -626,7 +626,7 @@
 			to_chat(user, span_warningbig("Uh oh."))
 			explodes()
 		return
-	
+
 	var/obj/item/bomb/tripbomb/trip = new /obj/item/bomb/tripbomb(get_turf(src))
 	trip.b_type = type
 	trip.icon_state = icon_state

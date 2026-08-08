@@ -140,7 +140,6 @@
 	if(source == crossed || !istype(crossed))
 		return
 
-
 	//Person being slipped into eats the person slipping
 	if(can_slip_vore(pred = source, prey = crossed))	//If we can vore them go for it
 		var/obj/belly/destination_belly = source.get_current_spont_belly(crossed)

@@ -1,0 +1,4 @@
+author: "Ldip999"
+delete-after: True
+changes:
+  - bugfix: "Abyssorite ritual now picks from random targets"

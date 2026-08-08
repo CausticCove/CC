@@ -48,6 +48,13 @@
 	dodgetime = 15
 	aggressive = 1
 	remains_type = null
+
+	//Caustic Edit - Lets add in the disabling of the old Lamia AI here?
+	ai_controller = /datum/ai_controller/deepone
+	AIStatus = AI_OFF
+	can_have_ai = FALSE
+	//Caustic Edit End
+
 	var/sneaking = FALSE
 	var/light_check = 0
 	var/light_check_delay = 3 SECONDS

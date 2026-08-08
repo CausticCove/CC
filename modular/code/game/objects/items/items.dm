@@ -9,6 +9,11 @@
 			to_chat(C, span_warning("I need help taking this off!"))
 			return FALSE
 
+		//Caustic Edit - Allow removing of items while in a belly or as a micro mobholder!
+		if(isbelly(C.loc) || istype(C.loc, /obj/item/holder/micro))
+			return TRUE
+		//Caustic Edit End
+
 		if(!(src in C.held_items) && unequip_delay_self)
 			if(unequip_delay_self >= 10)
 				C.visible_message(span_smallnotice("[C] starts taking off [src]..."), span_smallnotice("I start taking off [src]..."))
@@ -38,6 +43,11 @@
 			to_chat(C, span_warning("I need help taking this off!"))
 			return FALSE
 
+		//Caustic Edit - Allow removing of items while in a belly or as a micro mobholder!
+		if(isbelly(C.loc) || istype(C.loc, /obj/item/holder/micro))
+			return TRUE
+		//Caustic Edit End
+
 		if(!(src in C.held_items) && unequip_delay_self)
 			if(unequip_delay_self >= 10)
 				C.visible_message(span_smallnotice("[C] starts taking off [src]..."), span_smallnotice("I start taking off [src]..."))
@@ -66,6 +76,11 @@
 		if(!(src in C.held_items) && !allow_self_unequip)
 			to_chat(C, span_warning("I need help taking this off!"))
 			return FALSE
+
+		//Caustic Edit - Allow removing of items while in a belly or as a micro mobholder!
+		if(isbelly(C.loc) || istype(C.loc, /obj/item/holder/micro))
+			return TRUE
+		//Caustic Edit End
 
 		if(!(src in C.held_items) && unequip_delay_self)
 			if(unequip_delay_self >= 10)

@@ -67,7 +67,7 @@
 #define SPELLCOST_BRUSH 			 50 // For blood rush spells, which I don't want to become an overly easy trade for stamina
 #define SPELLCOST_SURGE 			 65 // For surge spells, which is pretty damn powerful
 #define SPELLCOST_AUGURY             10 // Augury card is cheap
-#define SPELLCOST_CONJURE            20	
+#define SPELLCOST_CONJURE            20
 #define SPELLCOST_TELEPORT           15
 #define SPELLCOST_MINOR_SUMMON       30
 #define SPELLCOST_MAJOR_SUMMON       50
@@ -218,7 +218,7 @@
 #define COMSIG_MOB_KICKED_SUCCESSFUL "mob_kicked_successful" //from /mob/living/proc/try_kick(). Sent to target after a kick lands (past dodge/parry).
 
 // Aspect
-#define ASPECT_RESET_BUDGET 12
+#define ASPECT_RESET_BUDGET 6
 #define ASPECT_RESET_COST_MAJOR 4
 #define ASPECT_RESET_COST_MINOR 2
 #define ASPECT_RESET_COST_UTILITY 1

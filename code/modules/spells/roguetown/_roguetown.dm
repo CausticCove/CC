@@ -52,12 +52,12 @@
 /obj/effect/proc_holder/spell/invoked/proc/on_deactivation(mob/user)
 	return
 
-/obj/effect/proc_holder/spell/invoked/InterceptClickOn(mob/living/caller, params, atom/target) 
+/obj/effect/proc_holder/spell/invoked/InterceptClickOn(mob/living/caller, params, atom/target)
 	. = ..()
 	if(.)
 		return FALSE
 	var/list/modifiers = params2list(params)
-	if(!modifiers["middle"])
+	if(modifiers[BUTTON_CHANGED] != MIDDLE_CLICK)
 		return TRUE
 	if(!can_cast(caller) || !cast_check(FALSE, ranged_ability_user))
 		return FALSE
@@ -113,8 +113,8 @@
 			M.spell_impact_intensity = spell_impact_intensity
 		P.def_zone = user.zone_selected
 		// Accuracy modification code, same as bow rebalance PR
-		P.accuracy += (user.STAINT - 9) * 4
-		P.bonus_accuracy += (user.STAINT - 8) * 3
+		P.accuracy += (user.STAPER - 9) * 4
+		P.bonus_accuracy += (user.STAPER - 8) * 3
 		if(user.mind)
 			P.bonus_accuracy += (user.get_skill_level(associated_skill) * 5) // +5% per level
 		P.firer = user

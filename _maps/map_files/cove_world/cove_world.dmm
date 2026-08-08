@@ -29543,7 +29543,7 @@
 	lockid = "baroness"
 	},
 /obj/item/roguegem/ruby,
-/obj/item/book/granter/arcane_aspect/major,
+/obj/item/book/granter/arcane_aspect/magic/major,
 /obj/item/rogueweapon/woodstaff/implement/grand,
 /obj/item/storage/belt/rogue/pouch/coins/rich,
 /obj/effect/spawner/lootdrop/roguetown/dungeon/money,
@@ -106353,8 +106353,8 @@
 	locked = 1;
 	lockid = "lich"
 	},
-/obj/item/book/granter/arcane_aspect/major,
-/obj/item/book/granter/arcane_aspect/major,
+/obj/item/book/granter/arcane_aspect/magic/major,
+/obj/item/book/granter/arcane_aspect/magic/major,
 /obj/effect/spawner/lootdrop/roguetown/dungeon/spells,
 /obj/effect/spawner/lootdrop/roguetown/dungeon/spells,
 /obj/effect/spawner/lootdrop/roguetown/dungeon/spells,

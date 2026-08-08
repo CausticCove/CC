@@ -30,7 +30,7 @@
 	var/ignore_los = FALSE
 	var/glow_intensity = 0 // How much does the user glow when using the ability
 	var/glow_color = null // The color of the glow
-	var/hide_charge_effect = FALSE // If true, will not show the spell's icon when charging 
+	var/hide_charge_effect = FALSE // If true, will not show the spell's icon when charging
 	/// This spell holder's cooldown does not scale with any stat
 	var/is_cdr_exempt = FALSE
 	var/obj/effect/mob_charge_effect = null
@@ -361,7 +361,7 @@ GLOBAL_LIST_INIT(action_spells, typesof(/datum/action/cooldown/spell)) //Caustic
 		return FALSE
 
 	var/mob/living/living_user = user
-	if(istype(living_user) && living_user.has_status_effect(/datum/status_effect/debuff/exposed))
+	if(istype(living_user) && living_user.has_status_effect(/datum/status_effect/debuff/cast_disrupted))
 		to_chat(user, span_warning("I'm too exposed to focus on casting!"))
 		return FALSE
 
@@ -864,7 +864,7 @@ GLOBAL_LIST_INIT(action_spells, typesof(/datum/action/cooldown/spell)) //Caustic
 				return FALSE
 			if(!H.has_active_hand())
 				return FALSE
-	
+
 	if((invocation_type == "whisper" || invocation_type == "shout") && isliving(user))
 		var/mob/living/living_user = user
 		if(!living_user.can_speak_vocal())

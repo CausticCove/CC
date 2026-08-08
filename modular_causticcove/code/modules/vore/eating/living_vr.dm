@@ -456,7 +456,7 @@
 		if(tasted.skin_reagent && ishuman(src) && (tasted != src))
 			var/mob/living/carbon/human/us_but_human = src
 			us_but_human.reagents.add_reagent(tasted.skin_reagent, 5)
-		
+
 		visible_message(span_warning("[src] licks [tasted]!"),span_notice("You lick [tasted]. They taste rather like [tasted.get_taste_message()]."),span_info(span_bold("Slurp!")))
 		//balloon_alert_visible("licks [tasted]!", "tastes like [tasted.get_taste_message()]")
 	/* //Caustic - Maybe we add this in sometime?
@@ -550,7 +550,7 @@
 		log_and_message_admins("[key_name(src)] used the OOC escape button to get out of [key_name(B.owner)] ([B.owner ? "<a href='byond://?_src_=holder;[HrefToken()];adminplayerobservecoodjump=1;X=[B.owner.x];Y=[B.owner.y];Z=[B.owner.z]'>JMP</a>" : "null"])", src)
 
 		B.owner.handle_belly_update() //This is run whenever a belly's contents are changed.
-	
+
 	//You've been turned into an item!
 	/*else if(tf_mob_holder && isvoice(src) && istype(src.loc, /obj/item)) //Commented out the TF stuff for now to get the rest working.
 		var/obj/item/item_to_destroy = src.loc //If so, let's destroy the item they just TF'd out of.
@@ -851,14 +851,14 @@
 	var/can_nom = FALSE
 	if(I.grid_height <= world.icon_size && I.grid_width <= (world.icon_size * 2))
 		can_nom = TRUE
-	
+
 	if(I.grid_height <= (world.icon_size * 2) && I.grid_width <= world.icon_size)
 		can_nom = TRUE
 
 	if(!can_nom && I.smeltresult && item_digest_mode == IM_SMELTING)
 		to_chat(src.owner, span_warning("With your [name] roaring to smelt something, you start to smelt down the [I]..."))
 		can_nom = TRUE
-	
+
 	return can_nom
 
 /*
@@ -1079,7 +1079,7 @@
 		dat += span_bold("Autotransferable:") + " [autotransferable ? span_green("Enabled") : span_red("Disabled")]<br>"
 		dat += span_bold("Can be stripped:") + " [strip_pref ? span_green("Allowed") : span_red("Disallowed")]<br>"
 		dat += span_bold("Applying reagents:") + " [apply_reagents ? span_green("Allowed") : span_red("Disallowed")]<br>"
-		//dat += span_bold("Leaves Remains:") + " [digest_leave_remains ? span_green("Enabled") : span_red("Disabled")]<br>"
+		dat += span_bold("Leaves Remains:") + " [digest_leave_remains ? span_green("Enabled") : span_red("Disabled")]<br>"
 	dat += span_bold("Spontaneous vore prey:") + " [can_be_drop_prey ? span_green("Enabled") : span_red("Disabled")]<br>"
 	dat += span_bold("Spontaneous vore pred:") + " [can_be_drop_pred ? span_green("Enabled") : span_red("Disabled")]<br>"
 	if(can_be_drop_prey || can_be_drop_pred)

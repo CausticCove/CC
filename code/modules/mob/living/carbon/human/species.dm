@@ -932,7 +932,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	return FALSE //Unsupported slot
 
 /datum/species/proc/equip_delay_self_check(obj/item/I, mob/living/carbon/human/H, bypass_equip_delay_self)
-	if(!I.equip_delay_self || bypass_equip_delay_self)
+	if(!I.equip_delay_self || bypass_equip_delay_self || isbelly(H.loc) || istype(H.loc, /obj/item/holder/micro)) //Caustic Edit - Allow equipping in a belly or as a mobholder for micros!
 		return TRUE
 	if(HAS_TRAIT(H, TRAIT_CHUNKYFINGERS))
 		return do_after(H, 5 MINUTES, target = H)

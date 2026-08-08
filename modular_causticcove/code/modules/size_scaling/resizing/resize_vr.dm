@@ -157,7 +157,7 @@
 	else
 		size_multiplier = new_size //Change size_multiplier so that other items can interact with them
 		update_transform() //Lame way
-	
+
 	//Get the old Sizecat on someone, trigger it's removal, and then apply the new one! So that buffs/debuffs are based on your size at the time!
 	remove_sizecat(src)
 
@@ -373,9 +373,9 @@
 	// We need to be above a certain size ratio in order to do anything to the prey.
 	// For DISARM and HURT intent, this is >=0.75, for GRAB it is >=0.5
 	var/size_ratio = get_effective_size(FALSE) - tmob.get_effective_size(TRUE)
-	if((istype(a_intent, INTENT_GRAB) || istype(a_intent, INTENT_DISARM)) && size_ratio < 0.5) //CHOMPEDIT - more step changes
+	if(istype(a_intent, INTENT_GRAB) && size_ratio < 0.5) //CHOMPEDIT - more step changes
 		return FALSE
-	if(istype(a_intent, INTENT_HARM) && size_ratio < 0.75)
+	if((istype(a_intent, INTENT_HARM) || istype(a_intent, INTENT_DISARM)) && size_ratio < 0.75)
 		return FALSE
 	if(istype(a_intent, INTENT_HELP) || get_active_held_item()) // Theoretically not possible, but just in case.
 		return FALSE
@@ -383,96 +383,97 @@
 	//CHOMPEdit - removed chance to dodge steppies. Get rng out of my combat.
 	now_pushing = 0
 	forceMove(tmob.loc)
-	if(!istype(a_intent, INTENT_HELP) && !get_active_held_item())
-		if(tmob.size_multiplier > 0.75 && nofetish) //So we can stun micros with step mechanics off, but prevent macros from stunning regular heights
+
+	if(nofetish)
+		if(tmob.size_multiplier > 0.75) //So we can stun micros with step mechanics off, but prevent macros from stunning regular heights
 			to_chat(pred, span_danger("You pass over [tmob.name]."))
 			to_chat(prey, span_danger("[src.name] passes over you."))
 			return FALSE
 		tmob.resting = 1
-		tmob.Knockdown(8)
-		if(nofetish)
-			to_chat(pred, span_danger("You casually knock [tmob.name] over."))
-			to_chat(prey, span_danger("[src.name] casually knocks you over."))
-			return TRUE
+		tmob.Knockdown(6)
+		to_chat(pred, span_danger("You casually knock [tmob.name] over."))
+		to_chat(prey, span_danger("[src.name] casually knocks you over."))
+		return TRUE
 
-	var/size_damage_multiplier = size_multiplier - tmob.size_multiplier
-	// This technically means that I_GRAB will set this value to the same as I_HARM, but
+	//var/size_damage_multiplier = size_multiplier - tmob.size_multiplier //Caustic - For us this is the same as size_ratio above, and is from 0.2 - 2.5
 	// I_GRAB won't ever trigger the damage-giving code, so it doesn't matter.
-	// I_HARM: Rand 1-3 multiplied by 1 min or 1.75 max. 1 min 5.25 max damage to each limb.
-	// I_DISARM: Perform some HALLOSS damage to the smaller.
-	//           Since stunned is broken, let's do this. Rand 15-30 multiplied by 1 min or 1.75 max. 15 holo to 52.5 holo, depending on RNG and size differnece.
-	var/damage = (istype(a_intent, INTENT_DISARM)) ? (rand(15, 30) * size_damage_multiplier) : (rand(1, 3) * size_damage_multiplier)
-	// I_HARM only
-	var/calculated_damage = damage / 2 //This will sting, but not kill. Does .5 to 2.625 damage, randomly, to each limb.
+	// I_HARM: Rand 1-3 multiplied by 0.75 min or 2.3 max. 0.75 min 6.9 max damage to each limb.
+	// I_DISARM: Knockdown and apply a stun! A fraction of the damage dealt.
+	//var/damage = (rand(1, 3) * size_ratio) //Lets use size_ratio instead of the damage multiplier
 
 	var/message_pred = null
 	var/message_prey = null
-	/*var/datum/sprite_accessory/tail/taur/tail = null
-	if(istaurtail(pred.tail_style))
-		tail = pred.tail_style*/
-	if(!nofetish)	//CHOMPedit - Brings back mandatory step mechanics, circumvents the fetish stuff if no pref match
-		if(istype(a_intent, INTENT_GRAB))
-			// You can only grab prey if you have no shoes on. And both of you are cool with it.
-			if(pred.shoes || !(pred.pickup_pref && prey.pickup_pref))
-				message_pred = "You step down onto [prey], squishing them and forcing them down to the ground!"
-				message_prey = "[pred] steps down and squishes you with their foot, forcing you down to the ground!"
-				/*if(tail)
-					message_pred = STEP_TEXT_OWNER(tail.msg_owner_grab_fail)
-					message_prey = STEP_TEXT_PREY(tail.msg_prey_grab_fail)*/
-				log_combat(pred, prey,"Grabbed underfoot (with shoes)")
-			else
-				message_pred = "You pin [prey] down onto the floor with your foot and curl your toes up around their body, trapping them inbetween them!"
-				message_prey = "[pred] pins you down to the floor with their foot and curls their toes up around your body, trapping you inbetween them!"
-				/*if(tail)
-					message_pred = STEP_TEXT_OWNER(tail.msg_owner_grab_success)
-					message_prey = STEP_TEXT_PREY(tail.msg_prey_grab_success)*/
-				equip_to_slot_if_possible(prey.get_scooped(pred), SLOT_SHOES, 0, 1)
-				log_combat(pred, prey, "Grabbed underfoot (without shoes)")
+
+	if(istype(a_intent, INTENT_GRAB))
+		// You can only grab prey if you have no shoes on. And both of you are cool with it.
+		prey.Stun(8)
+		if(pred.shoes || !(pred.pickup_pref && prey.pickup_pref))
+			message_pred = "You step down onto [prey], squishing them and getting them stuck against your [pred.shoes.name]!"
+			message_prey = "[pred] steps down and squishes you with their [pred.shoes.name], and you get stuck against the bottom!"
+
+			var/obj/item/clothing/shoes/roguetown/shoes = pred.shoes
+			if(istype(shoes))
+				shoes.trap_mob_in_shoes(prey.get_scooped(pred))
+			log_combat(pred, prey,"Grabbed underfoot (with shoes)")
+		else
+			message_pred = "You pin [prey] down onto the floor with your foot and curl your toes up around their body, trapping them inbetween them!"
+			message_prey = "[pred] pins you down to the floor with their foot and curls their toes up around your body, trapping you inbetween them!"
+
+			equip_to_slot_if_possible(prey.get_scooped(pred), SLOT_SHOES, 0, 1)
+			log_combat(pred, prey, "Grabbed underfoot (without shoes)")
+
+	else
+		var/knockdown_time = 0
+		var/stun_time = 0
+		var/bleed_amt = 0
+		var/damage = (rand(1, 3) * size_ratio) //Lets use size_ratio instead of the damage multiplier
 
 		if(m_intent == MOVE_INTENT_RUN)
 			if(istype(a_intent, INTENT_DISARM))
-				message_pred = "You quickly push [prey] to the ground with your foot!"
-				message_prey = "[pred] pushes you down to the ground with their foot!"
-				/*if(tail)
-					message_pred = STEP_TEXT_OWNER(tail.msg_owner_disarm_run)
-					message_prey = STEP_TEXT_PREY(tail.msg_prey_disarm_run)*/
-				log_combat(pred, prey, "Pinned underfoot (run, no halloss)")
+				message_pred = "You run over [prey] and knock them to the ground as you run past!"
+				message_prey = "[pred] shoves you down to the ground with their foot as they run past!"
+				log_combat(pred, prey, "Shoved over (running - step mechanics)")
+
+				knockdown_time = 16
+				stun_time = 8
 			else //It should only hit this if it's "Harm" Intent
 				message_pred = "You carelessly step down onto [prey], crushing them!"
 				message_prey = "[pred] steps carelessly on your body, crushing you!"
-				/*if(tail)
-					message_pred = STEP_TEXT_OWNER(tail.msg_owner_harm_run)
-					message_prey = STEP_TEXT_PREY(tail.msg_prey_harm_run)*/
+				log_combat(pred, prey, "Crushed underfoot (run, [damage] damage per limb)")
 
-				for(var/obj/item/bodypart/B in prey.bodyparts)
-					B.receive_damage(calculated_damage, 0, calculated_damage) // 5 damage min, 26.25 damage max, depending on size & RNG. If they're only stepped on once, the damage will (probably not...) heal over time.
-				prey.bleed(0.3)
-				log_combat(pred, prey, "Crushed underfoot (run, about [calculated_damage] damage)")
+				damage *= 4
+				knockdown_time = 20
+				stun_time = 10
+				bleed_amt = 0.8
 		else
 			if(istype(a_intent, INTENT_DISARM))
-				message_pred = "You firmly push your foot down on [prey], painfully but harmlessly pinning them to the ground!"
-				message_prey = "[pred] firmly pushes their foot down on you, quite painfully but harmlessly pinning you to the ground!"
-				/*if(tail)
-					message_pred = STEP_TEXT_OWNER(tail.msg_owner_disarm_walk)
-					message_prey = STEP_TEXT_PREY(tail.msg_prey_disarm_walk)*/
-				log_combat(pred, prey, "Pinned underfoot (walk, knocked over for a short moment)")
-				tmob.Knockdown(2 SECONDS)
+				message_pred = "You firmly push your foot down on [prey], knocking them to the ground!"
+				message_prey = "[pred] firmly pushes their foot down on you, knocking you to the ground!"
+				log_combat(pred, prey, "Shoved over (walking - step mechanics)")
+
+				damage *= 0.25
+				knockdown_time = 8
+				stun_time = 4
 			else //It should only hit this if it's "Harm" Intent
 				message_pred = "You methodically place your foot down upon [prey]'s body, slowly applying pressure, crushing them against the floor below!"
 				message_prey = "[pred] methodically places their foot upon your body, slowly applying pressure, crushing you against the floor below!"
-				/*if(tail)
-					message_pred = STEP_TEXT_OWNER(tail.msg_owner_harm_walk)
-					message_prey = STEP_TEXT_PREY(tail.msg_prey_harm_walk)*/
-				// Multiplies the above damage by 3.5. This means a min of 1.75 damage, or a max of 9.1875. damage to each limb, depending on size and RNG. //Caustic - This seems harsher???
-				calculated_damage *= 3.5
-				for(var/obj/item/bodypart/B in prey.bodyparts)
-					B.receive_damage(calculated_damage, 0, calculated_damage)
-				prey.bleed(0.8)
-				log_combat(pred, prey, "Crushed underfoot (walk, about [calculated_damage] damage)")
+				log_combat(pred, prey, "Crushed underfoot (walk, [damage] damage per limb)")
 
-		to_chat(pred, span_danger("[message_pred]"))
-		to_chat(prey, span_danger("[message_prey]"))
-		return TRUE
+				knockdown_time = 10
+				stun_time = 5
+				bleed_amt = 0.3
+
+		prey.resting = 1
+		prey.Knockdown(knockdown_time)
+		prey.Stun(stun_time)
+		for(var/obj/item/bodypart/B in prey.bodyparts)
+			B.receive_damage(damage, 0, damage)
+		if(bleed_amt > 0)
+			prey.bleed(bleed_amt)
+
+	to_chat(pred, span_danger("[message_pred]"))
+	to_chat(prey, span_danger("[message_prey]"))
+	return TRUE
 
 /mob/living/verb/toggle_pickups()
 	set name = "Toggle Micro Pick-up"

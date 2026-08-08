@@ -41,6 +41,8 @@
 		var/highest_vol = 0
 
 		for(var/obj/belly/B in source.vore_organs)
+			if(!istype(B.reagents))
+				continue
 			var/total_volume = B.reagents.total_volume
 			vore_organs_reagents += total_volume
 

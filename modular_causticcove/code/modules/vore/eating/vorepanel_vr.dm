@@ -482,6 +482,12 @@
 				host.client.prefs_vr.absorbable = host.absorbable
 			unsaved_changes = TRUE
 			return TRUE
+		if("toggle_leaveremains")
+			host.digest_leave_remains = !host.digest_leave_remains
+			if(host.client.prefs_vr)
+				host.client.prefs_vr.digest_leave_remains = host.digest_leave_remains
+			unsaved_changes = TRUE
+			return TRUE
 		if("toggle_mobvore")
 			host.allowmobvore = !host.allowmobvore
 			if(host.client.prefs_vr)
@@ -662,7 +668,7 @@
 			var/belly_choice = params["attribute"]
 			if(!(belly_choice in host.vore_icon_bellies))
 				return FALSE
-			var/newcolor =  input(ui.user, "Choose a color.", host.vore_sprite_color[belly_choice]) as color|null 
+			var/newcolor =  input(ui.user, "Choose a color.", host.vore_sprite_color[belly_choice]) as color|null
 			if(!newcolor)
 				return FALSE
 			host.vore_sprite_color[belly_choice] = newcolor
@@ -754,10 +760,10 @@
 	// Only allow indirect belly viewers to examine
 	if(user in OB)
 		if(isliving(target))
-			if(params["option"] in list("Examine","Help Out","Devour"))
+			if(params["option"] in list("Examine","Help Out","Devour","ERP"))
 				intent = params["option"]
 			else
-				intent = tgui_alert(user, "What do you want to do to them?","Query",list("Examine","Help Out","Devour"))
+				intent = tgui_alert(user, "What do you want to do to them?","Query",list("Examine","Help Out","Devour","ERP"))
 
 		else if(isitem(target))
 			if(params["option"] in list("Examine","Use Hand"))
@@ -833,6 +839,19 @@
 					M.absorbed = FALSE
 					OB.handle_absorb_langs(M, OB.owner)
 				TB.nom_atom(M)
+
+		if("ERP") // let's fugg
+			if(host.stat || host.absorbed || M.absorbed)
+				to_chat(user, span_warning("You can't do that in your state!"))
+				return TRUE
+
+			if(!ishuman(host) || !ishuman(M))
+				to_chat(user, span_warning("Sex is not allowed for you or them."))
+				return FALSE
+
+			var/mob/living/carbon/human/human_host = host
+			human_host.try_initiate_sex(M)
+			return TRUE
 
 /datum/vore_look/proc/pick_from_outside(mob/user, params)
 	var/intent
@@ -969,7 +988,7 @@
 				to_chat(target,span_warning("You're squished from [host]'s [lowertext(host.vore_selected.name)] to their [lowertext(choice.name)]!"))
 				host.vore_selected.transfer_contents(target, choice)
 			return TRUE
-		
+
 		/*if("Transform")
 			if(host.stat)
 				to_chat(user,span_warning("You can't do that in your state!"))
@@ -1016,7 +1035,7 @@
 						if(H.health <= -H.getMaxHealth())
 							H.adjustBruteLoss(-25)
 							H.adjustFireLoss(-25)
-							//H.adjustCloneLoss(-25)
+							H.adjustCloneLoss(-25)
 
 							//This looks how much health we need to get to 'barely in crit'
 							//We heal up to that point here, starting with toxins and moving up to the harder to heal types.
@@ -1032,8 +1051,8 @@
 									H.adjustFireLoss(adjust_health)
 								if(H.health <= -H.getMaxHealth())
 									H.adjustBruteLoss(adjust_health)
-								//if(H.health <= -H.getMaxHealth())
-								//	H.adjustCloneLoss(adjust_health)
+								if(H.health <= -H.getMaxHealth())
+									H.adjustCloneLoss(adjust_health)
 
 						body_backup.updatehealth()
 						// Now we do the check to see if we should revive...
@@ -1086,7 +1105,7 @@
 
 			if(ourtarget.digestable)
 				process_options += "Digest"
-				//process_options += "Break Bone"
+				process_options += "Break Bone"
 
 			if(ourtarget.absorbable)
 				process_options += "Absorb"
@@ -1112,8 +1131,8 @@
 			switch(ourchoice)
 				if("Digest")
 					return b.instant_digest(user, ourtarget)
-				/*if("Break Bone")
-					return b.instant_break_bone(user, ourtarget)*/
+				if("Break Bone")
+					return b.instant_break_bone(user, ourtarget)
 				if("Absorb")
 					return b.instant_absorb(user, ourtarget)
 				if("Knockout")

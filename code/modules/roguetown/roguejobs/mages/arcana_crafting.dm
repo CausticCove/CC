@@ -105,9 +105,17 @@
 	tools = list(/obj/item/natural/feather)
 	always_availible = FALSE
 
+/datum/crafting_recipe/roguetown/arcana/scrolls/arcyne_potential
+	name = "Scroll of Temporal Cantrip Enhancing"
+	result = /obj/item/book/granter/arcane_aspect/arcyne_potential
+	reqs = list(/obj/item/rogueore/cinnabar = 2, // A tiny bit of cost
+				/obj/item/alch/manabloompowder = 1,
+				/obj/item/magic/melded/t1 = 1)
+	craftdiff = SKILL_LEVEL_APPRENTICE
+
 /datum/crafting_recipe/roguetown/arcana/scrolls/utility
 	name = "Scroll of Temporal Cantrip Enhancing"
-	result = /obj/item/book/granter/arcane_aspect/utility
+	result = /obj/item/book/granter/arcane_aspect/magic/utility
 	reqs = list(/obj/item/alch/swampdust = 1,
 				/obj/item/alch/briar_essence = 2,
 				/obj/item/alch/manabloompowder = 3,
@@ -116,7 +124,7 @@
 
 /datum/crafting_recipe/roguetown/arcana/scrolls/minor
 	name = "Scroll of Temporal Minor Arcyne Enhancing"
-	result = /obj/item/book/granter/arcane_aspect/minor
+	result = /obj/item/book/granter/arcane_aspect/magic/minor
 	reqs = list(/obj/item/reagent_containers/food/snacks/zizo_bane = 1,
 				/obj/item/reagent_containers/food/snacks/grown/rogue/fyritius = 1,
 				/obj/item/alch/transisdust = 2,
@@ -125,7 +133,7 @@
 
 /datum/crafting_recipe/roguetown/arcana/scrolls/major
 	name = "Scroll of Temporal Greater Arcyne Enhancing"
-	result = /obj/item/book/granter/arcane_aspect/major
+	result = /obj/item/book/granter/arcane_aspect/magic/major
 	reqs = list(/obj/item/alch/magicdust = 2,
 				/obj/item/alch/solardust = 1,
 				/obj/item/alch/infernaldust = 3,
@@ -134,7 +142,7 @@
 
 /datum/crafting_recipe/roguetown/arcana/scrolls/mastery
 	name = "Scroll of Temporal Arcyne Mastery"
-	result = /obj/item/book/granter/arcane_aspect/major
+	result = /obj/item/book/granter/arcane_aspect/magic/major
 	reqs = list(/obj/item/alch/magicdust = 2,
 				/obj/item/alch/feaudust = 1,
 				/obj/item/magic/melded/t5 = 1)

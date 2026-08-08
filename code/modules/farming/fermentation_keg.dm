@@ -189,6 +189,10 @@ GLOBAL_LIST_EMPTY(custom_fermentation_recipes)
 
 		//time
 		if(selected_recipe.brew_time)
+			//Caustic Edit - Add in a bit that mentions if the recipe needs heat or not!
+			if(heated && selected_recipe.heat_required)
+				message += span_yellow("This recipe needs to be kept at a temperature of atleast [selected_recipe.heat_required - 273.1]C. Fuel and light the Distiller to set it.")
+			//Caustic Edit End
 			var/multiplier = 1
 			if(heated && !selected_recipe.heat_required)
 				multiplier = 0.5
@@ -211,6 +215,7 @@ GLOBAL_LIST_EMPTY(custom_fermentation_recipes)
 			message += "[selected_recipe.helpful_hints].\n"
 
 		. += span_blue("Right-Click on the Barrel to clear it. Left-Click to start brewing. Brewing will remove all existing reagents in the barrel!")
+
 		/*
 		if(istype(selected_recipe, /datum/brewing_recipe/custom_recipe))
 			var/datum/brewing_recipe/custom_recipe/recipe = selected_recipe

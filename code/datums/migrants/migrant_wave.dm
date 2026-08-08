@@ -94,6 +94,7 @@
 	name = "Bandit Raid"
 	track = MIGRANT_TRACK_SPECIAL
 	weight = 16
+	can_roll = FALSE //Caustic Edit - We wanted to disable Bandits.
 	min_round_time = 45 MINUTES
 	is_raid = TRUE
 	spawn_landmark = "Bandit"
@@ -108,6 +109,7 @@
 	name = "Assassin Hit"
 	track = MIGRANT_TRACK_SPECIAL
 	weight = 12
+	can_roll = FALSE //Caustic Edit - We wanted to disable Assassins.
 	min_round_time = 60 MINUTES
 	is_raid = TRUE
 	required_roles = list(

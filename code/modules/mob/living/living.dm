@@ -291,13 +291,13 @@
 	if(ishuman(M) && ishuman(src))
 		var/mob/living/carbon/human/srchuman = src
 		var/mob/living/target = M
-		if(!cmode && !target.cmode)
+		if(!cmode && !target.cmode) //The get_active_held_item calls here will force the regular steppy as the intents are a bit funky here.
 			if(((istype(a_intent, INTENT_HELP) || get_active_held_item() || src.restrained()) && (istype(target.a_intent, INTENT_HELP) || target.get_active_held_item() || target.restrained())) && !target.IsImmobilized() && srchuman.handle_micro_bump_helping(target))
 				forceMove(target.loc)
 				now_pushing = FALSE
 				return TRUE
 
-			if(!(istype(target.a_intent, INTENT_HELP) || target.get_active_held_item() || target.restrained()))
+			else
 				if(step_mechanics_pref && target.step_mechanics_pref)
 					if(handle_micro_bump_other(target)) return
 				else

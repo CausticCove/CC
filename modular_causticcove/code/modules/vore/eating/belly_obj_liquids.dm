@@ -217,3 +217,31 @@
 		START_PROCESSING(SSobj, src)
 	else
 		START_PROCESSING(SSbellies, src)
+
+//Our own version of the numbing agent.
+/datum/reagent/consumable/numbing_agent
+	name = "numbing agent"
+	description = "A liquid that causes you to feel numb to pain..."
+	reagent_state = LIQUID
+	color = "#fAfAfA"
+	taste_description = "numbing sensation"
+	metabolization_rate = REAGENTS_METABOLISM
+	alpha = 200
+	nutriment_factor = 0
+
+/datum/reagent/consumable/numbing_agent/on_mob_life(mob/living/carbon/M)
+	M.apply_status_effect(/datum/status_effect/buff/numbing)
+	..()
+
+/datum/status_effect/buff/numbing
+	id = "numbing agent"
+	alert_type = /atom/movable/screen/alert/status_effect/buff
+	duration = 30 SECONDS
+
+/datum/status_effect/buff/numbing/on_apply()
+	. = ..()
+	ADD_TRAIT(owner, TRAIT_NOPAIN, id)
+
+/datum/status_effect/buff/numbing/on_remove()
+	REMOVE_TRAIT(owner, TRAIT_NOPAIN, id)
+	. = ..()

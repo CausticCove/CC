@@ -10,8 +10,8 @@
 
 	return C.armor_class
 
-/mob/living/proc/run_armor_check(def_zone = null, attack_flag = "blunt", absorb_text = null, soften_text = null, armor_penetration = PEN_NONE, penetrated_text, damage, blade_dulling, intdamfactor, used_weapon = null, pen_info, flat_integ = FALSE)
-	var/armor_tier = getarmor(def_zone, attack_flag, damage, armor_penetration, blade_dulling, intdamfactor, used_weapon, pen_info, flat_integ)
+/mob/living/proc/run_armor_check(def_zone = null, attack_flag = "blunt", absorb_text = null, soften_text = null, armor_penetration = PEN_NONE, penetrated_text, damage, blade_dulling, intdamfactor, used_weapon = null, pen_info, no_debuff = FALSE)
+	var/armor_tier = getarmor(def_zone, attack_flag, damage, armor_penetration, blade_dulling, intdamfactor, used_weapon, pen_info, no_debuff)
 
 	// Tier-based armor system.
 	// armor_tier and armor_penetration are both tier values (0-4).
@@ -35,7 +35,7 @@
 			if(armor_tier > 0)
 				if(armor_penetration >= armor_tier)
 					if(pen_info)
-						blocked = block_damage * (1 - (pen_info * PEN_PASSTHROUGH_RATIO)) 
+						blocked = block_damage * (1 - (pen_info * PEN_PASSTHROUGH_RATIO))
 					if(penetrated_text)
 						to_chat(src, span_danger("[penetrated_text]"))
 				else
@@ -132,12 +132,12 @@
 	// If our negative sharpness malus is equal or greater than the balance bonus, we neutralize them both.
 	// This is to prevent edge cases where losing sharpness would -increase- our pen damage.
 	// Fundamentally, we shouldn't be penalized via sharpness beyond what we would've gained from our stats.
-	if(abs(balance_bonus) <= abs(sharpness_bonus) && sharpness_bonus <= 0 && balance_bonus >= 0)	
+	if(abs(balance_bonus) <= abs(sharpness_bonus) && sharpness_bonus <= 0 && balance_bonus >= 0)
 		balance_bonus = 0
 		sharpness_bonus = 0
 	pen_total += balance_bonus
 	pen_total += sharpness_bonus
-	// This proc's usage is meant to presume we're in the part of the 
+	// This proc's usage is meant to presume we're in the part of the
 	// proc pipeline that is already penning, so we give it at least a 1.
 	pen_total = clamp(pen_total, 1, 8)
 	return pen_total
@@ -428,9 +428,9 @@
 	if(user == src)
 		instant = TRUE
 
-	if(HAS_TRAIT(user, TRAIT_NOSTRUGGLE))	
+	if(HAS_TRAIT(user, TRAIT_NOSTRUGGLE))
 		instant = TRUE
-		
+
 	if(surrendering)
 		combat_modifier = 2
 
@@ -541,7 +541,7 @@
 	return list(/datum/intent/grab/move)
 
 /mob/living/proc/send_grabbed_message(mob/living/carbon/user)
-	if(HAS_TRAIT(user, TRAIT_NOTIGHTGRABMESSAGE))	
+	if(HAS_TRAIT(user, TRAIT_NOTIGHTGRABMESSAGE))
 		return
 	if(HAS_TRAIT(user, TRAIT_PACIFISM))
 		visible_message(span_danger("[user] firmly grips [src]!"),
@@ -653,7 +653,7 @@
 			span_danger("[src] was shocked by \the [source]!"), \
 			span_danger("I feel a powerful shock coursing through my body!"), \
 			span_hear("I hear a heavy electrical crack.")
-		)	
+		)
 	playsound(get_turf(src), pick('sound/misc/elec (1).ogg', 'sound/misc/elec (2).ogg', 'sound/misc/elec (3).ogg'), 100, FALSE)
 	return shock_damage
 
@@ -710,4 +710,3 @@
 			do_item_attack_animation(A, visual_effect_icon, used_item, animation_type, used_intent)
 	setMovetype(movement_type & ~FLOATING) // If we were without gravity, the bouncing animation got stopped, so we make sure we restart the bouncing after the next movement.
 
-	

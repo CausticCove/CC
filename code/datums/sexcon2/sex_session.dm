@@ -223,7 +223,10 @@
 	if(user.stat != CONSCIOUS)
 		return FALSE
 	if(!user.Adjacent(target) && !action.ranged_action)
-		return FALSE
+		//Caustic Edit - Allows for sexing while inside something or someone!
+		if(!isbelly(user.loc) || user.loc != target.loc)
+			return FALSE
+		//Caustic Edit End
 	if(action.check_incapacitated && user.incapacitated())
 		return FALSE
 	if(action.check_same_tile)

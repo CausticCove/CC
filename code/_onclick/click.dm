@@ -273,6 +273,12 @@
 			resolveAdjacentClick(A,W,params)
 			return
 
+	//Caustic Edit - Allow clicking on things inside bellies!
+	if(isbelly(A.loc) && A.loc == loc)
+		resolveAdjacentClick(A, W, params)
+		return
+	//Caustic Edit End
+
 	if(W)
 		if(ismob(A))
 			var/turf/target_turf = get_turf(A)

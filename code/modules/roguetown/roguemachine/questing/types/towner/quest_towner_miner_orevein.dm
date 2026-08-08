@@ -1,6 +1,10 @@
 GLOBAL_LIST_INIT(towner_orevein_regions, list(
 	THREAT_REGION_AZUREAN_COAST,
 	THREAT_REGION_UNDERDARK,
+	///CC Edit
+	THREAT_REGION_DEEP_DUNES,
+	THREAT_REGION_DESERT_UNDERDARK
+	///CC Edit end
 ))
 
 GLOBAL_LIST_INIT(towner_orevein_gem_types, list(

@@ -408,7 +408,9 @@
 			return READABLE_ZONE_R_LEG
 		if(BODY_ZONE_PRECISE_R_FOOT)
 			return READABLE_ZONE_R_FOOT
-		
+		if(BODY_ZONE_TAUR)
+			return READABLE_ZONE_TAUR
+
 
 /proc/slot2body_zone(slot)
 	switch(slot)
