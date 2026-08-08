@@ -25,6 +25,18 @@
 	// (we don't use icon_state to avoid duplicate rendering on dropped organs)
 	var/taur_icon_state = "naga_s"
 
+	//OV ADD - TAUR BARDING
+	// Determines which set of taur barding sprites to use. Easiest way to do this, frankly... ough.
+	// "m" = mammalian (canine, feline, tempest, kitsune, venard, skunk)
+	// "r" = reptilian (drake, noodle, sloog)
+	// "d" = deer
+	// null = no taur-specific clothing support
+	var/taur_clothing_category = null
+	// Customizable colors for plate tasset overlays (like detail_color on clothing)
+	var/tasset1_color = null
+	var/tasset2_color = null
+	//OV ADD END
+
 	// We can Blend() a color with the base greyscale color, only some tails support this
 	var/has_taur_color = FALSE
 	var/color_blend_mode = BLEND_ADD
@@ -72,8 +84,6 @@
 	// because these can overlap other organs, we need to layer slightly higher
 	working.layer = -BODY_ADJ_LAYER
 	working.pixel_x = offset_x
-
-	. += working
 
 /*********************************/
 /* TAUR TYPES                    */
@@ -140,6 +150,7 @@ GLOBAL_LIST_INIT(taur_types, subtypesof(/obj/item/bodypart/taur))
 	name = "Feline Body"
 
 	offset_x = -16
+	taur_clothing_category = "m" //OV ADD
 	taur_icon_state = "feline_s"
 
 	has_taur_color = TRUE
@@ -153,9 +164,10 @@ GLOBAL_LIST_INIT(taur_types, subtypesof(/obj/item/bodypart/taur))
 	has_taur_color = TRUE
 
 /obj/item/bodypart/taur/tempest
-	name = "Tempst Body"
+	name = "Tempest Body"
 
 	offset_x = -16
+	taur_clothing_category = "m" //OV ADD
 	taur_icon_state = "tempest_s"
 
 	has_taur_color = TRUE
@@ -166,6 +178,7 @@ GLOBAL_LIST_INIT(taur_types, subtypesof(/obj/item/bodypart/taur))
 	name = "Drake Body"
 
 	offset_x = -16
+	taur_clothing_category = "r" //OV ADD
 	taur_icon_state = "drake_s"
 
 	has_taur_color = TRUE
@@ -182,6 +195,7 @@ GLOBAL_LIST_INIT(taur_types, subtypesof(/obj/item/bodypart/taur))
 	name = "Wolf Body"
 
 	offset_x = -16
+	taur_clothing_category = "m" //OV ADD
 	taur_icon_state = "wolf_s"
 
 	has_taur_color = TRUE
@@ -206,6 +220,7 @@ GLOBAL_LIST_INIT(taur_types, subtypesof(/obj/item/bodypart/taur))
 	name = "Deer Body"
 
 	offset_x = -16
+	taur_clothing_category = "d" //OV ADD
 	taur_icon_state = "deer_s"
 
 	has_taur_color = TRUE
@@ -222,6 +237,7 @@ GLOBAL_LIST_INIT(taur_types, subtypesof(/obj/item/bodypart/taur))
 	name = "Fat wolf Body"
 
 	offset_x = -16
+	taur_clothing_category = "m" //OV ADD
 	taur_icon_state = "fatwolf_s"
 
 	has_taur_color = TRUE
@@ -230,6 +246,7 @@ GLOBAL_LIST_INIT(taur_types, subtypesof(/obj/item/bodypart/taur))
 	name = "Fat feline Body"
 
 	offset_x = -16
+	taur_clothing_category = "m" //OV ADD
 	taur_icon_state = "fatfeline_s"
 
 	has_taur_color = TRUE
@@ -283,18 +300,36 @@ GLOBAL_LIST_INIT(taur_types, subtypesof(/obj/item/bodypart/taur))
 
 	has_taur_color = TRUE
 
+//OV edit
+/obj/item/bodypart/taur/satyr
+	name = "Satyr Legs"
+
+	icon = 'modular_causticcove/icons/mob/taurs/taurs.dmi'
+	offset_x = -16
+	taur_icon_state = "satyr_s"
+
+	has_taur_color = TRUE
+
 /obj/item/bodypart/taur/biglegs
 	name = "Big Legs"
-
 	offset_x = -16
+	taur_clothing_category = "m"
 	taur_icon_state = "biglegs_s"
-
 	has_taur_color = TRUE
 
 /obj/item/bodypart/taur/biglegsstanced
-	name = "Big Legs, Stanced"
-
+	name = "Big Legs Stanced"
 	offset_x = -16
+	taur_clothing_category = "m"
 	taur_icon_state = "biglegsstanced_s"
-
 	has_taur_color = TRUE
+
+/obj/item/bodypart/taur/lupine_venard
+	name = "Lupine Venard Body"
+	offset_x = -16
+	taur_clothing_category = "m"
+	taur_icon_state = "lupine_venard_s"
+	has_taur_color = TRUE
+
+//OV edit end
+
