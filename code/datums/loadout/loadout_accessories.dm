@@ -135,6 +135,7 @@
 	name = "Fur Collar"
 	path = /obj/item/clothing/neck/roguetown/collar/fur
 	sort_category = "Accessories"
+
 /datum/loadout_item/cloth_blindfold
 	name = "Cloth Blindfold"
 	path = /obj/item/clothing/mask/rogue/blindfold
