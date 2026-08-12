@@ -94,7 +94,7 @@ Add a new override in your modular folder that looks like this:
 			character_preview_view?.cycle_forced_size(user)
 			return CHARACTER_ACT_DATA_UPDATE
 		if("cycle_boner_preview")
-			cycle_boner_preview()
+			//cycle_boner_preview()
 			return CHARACTER_ACT_PREVIEW_UPDATE
 		if("headshot")
 			to_chat(user, span_notice("Please use a relatively SFW image of the head and shoulder area to maintain immersion level. Lastly, [span_bold("do not use a real life photo or use any image that is less than serious.")]"))
