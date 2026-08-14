@@ -316,7 +316,7 @@
 			reagent_note += "[R.name] ([num2text(R.volume)])"
 
 	if(ismob(firer))
-		log_combat(firer, L, "shot", src, reagent_note, def_zone)
+		log_combat(firer, L, "shot", src, reagent_note, zone=def_zone)
 	else
 		L.log_message("has been shot by [firer] with [src] (ZONE: [uppertext(def_zone)])", LOG_ATTACK, color="orange")
 
