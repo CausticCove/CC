@@ -42,8 +42,8 @@ GLOBAL_LIST_INIT(large_goblin_aggro, list(
 
 /mob/living/carbon/human/species/goblin/npc/large/death(gibbed, nocutscene = FALSE)
 	. = ..()
-	if(!gibbed)
-		dust(FALSE, FALSE, TRUE)
+	for(var/obj/item/gear in get_equipped_items() + held_items)
+		REMOVE_TRAIT(gear, TRAIT_NODROP, "large_goblin_gear")
 
 /mob/living/carbon/human/species/goblin/npc/large/hell
 	race = /datum/species/goblin/hell

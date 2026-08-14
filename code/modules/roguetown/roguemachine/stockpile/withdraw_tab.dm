@@ -106,8 +106,8 @@
 	SStreasury.mint(SStreasury.discretionary_fund, unit_cost, "Direct import reimbursement: [D.name] from [region.name]")
 	SStreasury.economic_output += surcharge
 	record_round_statistic(STATS_STOCKPILE_DIRECT_IMPORTS, price)
-	var/chartered = SStreasury.royal_custom_active && SStreasury.royal_custom_unlocked
-	if(chartered && surcharge > 0)
+	record_material_flow(MATERIAL_FLOW_IN, MATERIAL_SOURCE_LOCAL_IMPORT, D.item_type, 1, price)
+	if(!using_stipend && chartered && surcharge > 0)
 		SStreasury.mint(SStreasury.discretionary_fund, surcharge, "Royal Custom: direct import of [D.name]")
 		record_round_statistic(STATS_STOCKPILE_REVENUE, surcharge)
 	var/obj/item/I = new D.item_type(parent_structure.loc)

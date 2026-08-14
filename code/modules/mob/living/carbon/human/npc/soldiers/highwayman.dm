@@ -255,7 +255,7 @@ GLOBAL_LIST_INIT(highwayman_aggro, world.file2list("strings/rt/highwaymanaggroli
 	gloves = /obj/item/clothing/gloves/roguetown/leather
 	wrists = /obj/item/clothing/wrists/roguetown/bracers/leather
 	r_hand = /obj/item/rogueweapon/huntingknife/idagger
-	backr = /obj/item/gun/ballistic/revolver/grenadelauncher/crossbow
+	backr = /obj/item/gun/ballistic/revolver/grenadelauncher/crossbow/iron
 	backl = /obj/item/quiver/bolt/npc
 	H.STAPER = 9
 	H.STACON -= 1

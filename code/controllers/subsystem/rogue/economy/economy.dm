@@ -780,6 +780,7 @@ SUBSYSTEM_DEF(economy)
 		var/datum/roguestock/stockpile_entry = find_stockpile_by_trade_good(good_id)
 		if(stockpile_entry)
 			stockpile_entry.stockpile_amount -= delivered
+			record_material_flow(MATERIAL_FLOW_OUT, MATERIAL_SOURCE_STANDING_ORDER, stockpile_entry.item_type, delivered)
 		credit_economic_event_saturation(good_id, delivered)
 	SStreasury.dirty_market_view()
 
@@ -884,8 +885,18 @@ SUBSYSTEM_DEF(economy)
 		return 0
 
 	var/actor_suffix = user ? " by [user.real_name]" : ""
-	var/import_label = user ? "Manual Import" : "Auto Import"
-	SStreasury.burn(SStreasury.discretionary_fund, total_cost, "[import_label]: [quantity] [tg.name] from [region.name][actor_suffix]")
+	var/import_label
+	if(stipend)
+		import_label = "Subsidy Import"
+	else
+		import_label = user ? "Manual Import" : "Auto Import"
+
+	if(quantity > 1)
+		SStreasury.burn(SStreasury.discretionary_fund, total_cost, "[import_label]: [quantity] [tg.name] from [region.name][actor_suffix]")
+	else
+		SStreasury.burn(SStreasury.discretionary_fund, total_cost, "[import_label]: [tg.name] from [region.name][actor_suffix]")
+	record_treasury_expense(TREASURY_FLOW_IMPORT, user ? treasury_role_of(user) : "Automatic", total_cost)
+
 	region.produces_today[good_id] = produces_today - quantity
 	var/datum/roguestock/stockpile_entry = find_stockpile_by_trade_good(good_id)
 	if(stockpile_entry)

@@ -99,8 +99,8 @@ GLOBAL_LIST_INIT(duelist_aggro, list(
 
 /mob/living/carbon/human/species/human/northern/outlaw_duelist/death(gibbed, nocutscene = FALSE)
 	. = ..()
-	if(!gibbed)
-		dust(FALSE, FALSE, TRUE)
+	for(var/obj/item/gear in get_equipped_items() + held_items)
+		REMOVE_TRAIT(gear, TRAIT_NODROP, "outlaw_duelist_gear")
 
 /datum/outfit/job/roguetown/npc/mini_boss/duelist/pre_equip(mob/living/carbon/human/H)
 	..()

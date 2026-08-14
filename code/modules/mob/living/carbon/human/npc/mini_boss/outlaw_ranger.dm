@@ -62,8 +62,8 @@ GLOBAL_LIST_INIT(ranger_aggro, list(
 
 /mob/living/carbon/human/species/human/northern/outlaw_ranger/death(gibbed, nocutscene = FALSE)
 	. = ..()
-	if(!gibbed)
-		dust(FALSE, FALSE, TRUE)
+	for(var/obj/item/gear in get_equipped_items() + held_items)
+		REMOVE_TRAIT(gear, TRAIT_NODROP, "outlaw_ranger_gear")
 
 /datum/outfit/job/roguetown/npc/mini_boss/ranger/pre_equip(mob/living/carbon/human/H)
 	..()

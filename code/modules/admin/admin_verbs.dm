@@ -232,8 +232,9 @@ GLOBAL_PROTECT(admin_verbs_debug)
 	/client/proc/cleanup_stress_test_mobs,
 	/client/proc/cmd_admin_economic_panel,
 	/client/proc/cmd_admin_view_chronicle,
+	/client/proc/cmd_admin_view_economics,
 	//CC Edit
-	/client/proc/allow_broser_inspect
+	/client/proc/allow_browser_inspect
 	//CC Edit End
 	)
 GLOBAL_LIST_INIT(admin_verbs_possess, list(/proc/possess, GLOBAL_PROC_REF(release)))
