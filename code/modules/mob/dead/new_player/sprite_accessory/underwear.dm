@@ -17,7 +17,7 @@
 /datum/sprite_accessory/underwear/is_visible(obj/item/organ/organ, obj/item/bodypart/bodypart, mob/living/carbon/owner)
 	if(hides_breasts)
 		if(is_human_part_visible(owner, HIDECROTCH) || is_human_part_visible(owner, HIDEBOOB))
-			return TRUE	
+			return TRUE
 	return is_human_part_visible(owner, HIDECROTCH)
 
 /datum/sprite_accessory/underwear/briefs

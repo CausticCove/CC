@@ -734,6 +734,7 @@
 	sewrepair = TRUE
 	flags_inv = HIDEBOOB //Caustic Edit - This was null for some reason?
 	slot_flags = ITEM_SLOT_SHIRT
+	color = CLOTHING_BLACK
 	salvage_result = /obj/item/natural/silk
 	salvage_amount = 2
 
