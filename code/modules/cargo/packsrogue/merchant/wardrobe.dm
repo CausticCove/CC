@@ -325,7 +325,7 @@ A LITTLE MORE CONSISTENT IN HERE. PLEASE DO YOUR BEST. THANKS.
 					/obj/item/clothing/suit/roguetown/shirt/robe/tabardblack)
 
 /datum/supply_pack/rogue/wardrobe/cloaks/toga
-	name = "Toga, Robe"
+	name = "Toga, Robed"
 	cost = 30
 	contains = list(
 					/obj/item/clothing/cloak/tabard/toga
