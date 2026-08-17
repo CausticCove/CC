@@ -78,8 +78,8 @@
 	toggle_icon_state = TRUE
 
 /obj/item/clothing/mask/rogue/spectacles/fancy_dark
-	name = "fancy spectacles (dark)"
-	desc = "Delicate, thin-lensed spectacles of foreign make, their craft finer than most local wares. These have a darker tint to their lenses."
+	name = "fancy tinted spectacles"
+	desc = "Delicate, thin-lensed spectacles of foreign make, their craft finer than most local wares. This variant has a darker tint to its lenses."
 	icon_state = "glassesb_dark"
 	mob_overlay_icon = 'icons/roguetown/clothing/onmob/masks.dmi'
 	break_sound = "glassbreak"
