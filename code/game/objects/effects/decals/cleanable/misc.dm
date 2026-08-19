@@ -180,3 +180,12 @@
 	. = ..()
 /obj/effect/decal/cleanable/debris/woody/weather_act_on(weather_trait, severity)
 	qdel(src)
+
+/obj/effect/decal/cleanable/blood/paint
+	name = "paint splatter"
+	desc = "splattered paint, what a mess"
+
+/obj/effect/decal/cleanable/blood/paint/Initialize(mapload, color)
+	if(!color)
+		color = rgb(rand(0, 255), rand(0, 255), rand(0, 255))
+	. = ..(mapload, color)

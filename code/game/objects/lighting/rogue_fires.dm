@@ -277,6 +277,16 @@
 	color = "#f858b5ff"
 	bulb_colour = "#ff13d8ff"
 
+/obj/machinery/light/rogue/candle/floorcandle/blue
+	color = "#3E43C7"
+	bulb_colour = "#3E43C7"
+
+/obj/machinery/light/rogue/candle/floorcandle/alt/blue
+	icon_state = "floorcandlee1"
+	base_state = "floorcandlee"
+	color = "#3E43C7"
+	bulb_colour = "#3E43C7"
+
 /obj/machinery/light/rogue/torchholder
 	name = "sconce"
 	desc = "A wall-mounted fixture that allows a torch to illuminate the area while freeing the hands for other tasks."
@@ -307,7 +317,7 @@
 //This thing does NOT light! I am NOT wanting to process this!
 /obj/machinery/light/rogue/torchholder/process()
 	STOP_PROCESSING(SSmachines, src)
-	
+
 
 //CC Edit end
 
@@ -916,14 +926,14 @@
 
 				if(!human.has_status_effect(/datum/status_effect/buff/campfire_stamina))
 					to_chat(human, span_info("The warmth of the fire comforts me, affording me a short rest. I would need to lie down, or bundle up in a bed to get a better rest."))
-				
+
 				if(ready_for_buff) //Can only heal if resting (or a towner)...
 					human.apply_status_effect(/datum/status_effect/buff/campfire, valid_bed)
 
 				var/datum/status_effect/buff/campfire_stamina/campfire_effect = human.apply_status_effect(/datum/status_effect/buff/campfire_stamina, valid_bed)
 				if(!campfire_effect)
 					campfire_effect = human.has_status_effect(/datum/status_effect/buff/campfire_stamina)
-				
+
 				if(greater_fire || ready_for_buff) //Grant stamina if we're a greater fire, or they are resting or are a towner.
 					campfire_effect.should_stamina = TRUE
 				else

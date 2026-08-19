@@ -75,6 +75,7 @@ Rusted metals distantly grind in anoxic pus-condensate in-tune with the Signal. 
 
 #define DETAIL_TEXT_HIS_VAULT ""
 #define DETAIL_TEXT_FISHMAN_DUNGEON ""
+#define DETAIL_TEXT_WATER_TEMPLE "An ancient cistern lost to time and neglect, now overrun with the indescribable- only those brave enough to delve it's inner sanctums able to say for sure what lurks within"
 
 // Forsaken Cathedral
 #define DETAIL_TEXT_FORSAKEN_CATHEDRAL ""
