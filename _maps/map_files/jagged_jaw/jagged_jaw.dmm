@@ -8532,15 +8532,9 @@
 /obj/structure/closet/crate/roguecloset/dark{
 	name = "gloves"
 	},
-/obj/item/clothing/gloves/roguetown/chain/iron,
-/obj/item/clothing/gloves/roguetown/chain/iron,
-/obj/item/clothing/gloves/roguetown/chain/iron,
 /obj/item/clothing/gloves/roguetown/angle,
 /obj/item/clothing/gloves/roguetown/angle,
 /obj/item/clothing/gloves/roguetown/angle,
-/obj/item/clothing/gloves/roguetown/fingerless_leather,
-/obj/item/clothing/gloves/roguetown/fingerless_leather,
-/obj/item/clothing/gloves/roguetown/fingerless_leather,
 /turf/open/floor/rogue/blocks,
 /area/rogue/indoors/town/garrison/grim)
 "bfh" = (
@@ -14643,9 +14637,10 @@
 /obj/structure/mannequin/male{
 	dir = 8
 	},
-/obj/item/clothing/suit/roguetown/armor/brigandine/light/retinue,
+/obj/item/clothing/suit/roguetown/armor/leather/studded,
 /obj/item/clothing/head/roguetown/helmet,
 /obj/item/clothing/under/roguetown/splintlegs,
+/obj/item/clothing/gloves/roguetown/fingerless_leather,
 /turf/open/floor/rogue/blocks,
 /area/rogue/indoors/town/garrison/grim)
 "bUm" = (
@@ -22318,14 +22313,16 @@
 /turf/open/floor/rogue/ruinedwood/herringbone_clear,
 /area/rogue/indoors/town/manor/grim)
 "cSR" = (
-/obj/structure/rack/rogue,
-/obj/item/rogueweapon/sword{
-	pixel_y = 4;
-	pixel_x = 1
+/obj/structure/rack/rogue{
+	density = 0
 	},
-/obj/item/rogueweapon/sword{
-	pixel_y = -5;
-	pixel_x = 3
+/obj/item/rogueweapon/sword/iron{
+	pixel_x = 1;
+	pixel_y = -6
+	},
+/obj/item/rogueweapon/sword/iron{
+	pixel_x = 1;
+	pixel_y = 5
 	},
 /turf/open/floor/rogue/blocks,
 /area/rogue/indoors/town/garrison/grim)
@@ -23523,23 +23520,15 @@
 	density = 0
 	},
 /obj/item/clothing/shoes/roguetown/boots/armor/iron{
-	pixel_x = -4;
-	pixel_y = 5
+	pixel_x = -5;
+	pixel_y = 3
 	},
 /obj/item/clothing/shoes/roguetown/boots/armor/iron{
-	pixel_x = 5;
-	pixel_y = 1
+	pixel_x = 6;
+	pixel_y = 3
 	},
 /obj/structure/rack/rogue/shelf{
 	pixel_y = -25
-	},
-/obj/item/clothing/wrists/roguetown/bracers{
-	pixel_x = -6;
-	pixel_y = -23
-	},
-/obj/item/clothing/wrists/roguetown/bracers{
-	pixel_x = 6;
-	pixel_y = -21
 	},
 /turf/open/floor/rogue/concrete,
 /area/rogue/indoors/town/garrison/grim)
@@ -27389,14 +27378,6 @@
 	},
 /obj/structure/rack/rogue/shelf{
 	pixel_y = -25
-	},
-/obj/item/clothing/wrists/roguetown/bracers{
-	pixel_x = 5;
-	pixel_y = -21
-	},
-/obj/item/clothing/wrists/roguetown/bracers{
-	pixel_x = -9;
-	pixel_y = -23
 	},
 /turf/open/floor/rogue/concrete,
 /area/rogue/indoors/town/garrison/grim)
@@ -35559,18 +35540,7 @@
 /obj/structure/rack/rogue{
 	density = 0
 	},
-/obj/item/rogueweapon/spear/partizan{
-	pixel_x = -11;
-	pixel_y = -16
-	},
-/obj/item/rogueweapon/mace/goden/steel{
-	pixel_x = 1;
-	pixel_y = -16
-	},
-/obj/item/rogueweapon/spear/billhook{
-	pixel_x = -20;
-	pixel_y = -15
-	},
+/obj/item/rogueweapon/mace/goden/steel,
 /turf/open/floor/rogue/concrete,
 /area/rogue/indoors/town/garrison/grim)
 "eDa" = (
@@ -36624,17 +36594,13 @@
 /obj/structure/rack/rogue{
 	density = 0
 	},
-/obj/item/rogueweapon/sword/short{
-	pixel_x = 2;
+/obj/item/rogueweapon/sword/short/iron{
+	pixel_x = 0;
 	pixel_y = 2
 	},
-/obj/item/rogueweapon/sword/short{
-	pixel_x = 1;
-	pixel_y = 10
-	},
-/obj/item/rogueweapon/greatsword{
-	pixel_x = -17;
-	pixel_y = -27
+/obj/item/rogueweapon/sword/short/iron{
+	pixel_x = 0;
+	pixel_y = -7
 	},
 /turf/open/floor/rogue/blocks,
 /area/rogue/indoors/town/garrison/grim)
@@ -48662,6 +48628,7 @@
 /obj/item/clothing/suit/roguetown/armor/plate/cuirass/iron,
 /obj/item/clothing/head/roguetown/helmet/kettle,
 /obj/item/clothing/under/roguetown/chainlegs/iron,
+/obj/item/clothing/gloves/roguetown/chain/iron,
 /turf/open/floor/rogue/blocks,
 /area/rogue/indoors/town/garrison/grim)
 "gou" = (
@@ -96551,11 +96518,11 @@
 /obj/structure/mannequin/male{
 	dir = 1
 	},
-/obj/item/clothing/suit/roguetown/armor/plate,
-/obj/item/clothing/head/roguetown/helmet/sallet/visored,
-/obj/item/clothing/gloves/roguetown/plate,
-/obj/item/clothing/under/roguetown/platelegs,
-/obj/item/clothing/neck/roguetown/bevor,
+/obj/item/clothing/suit/roguetown/armor/plate/cuirass,
+/obj/item/clothing/head/roguetown/helmet/sallet,
+/obj/item/clothing/gloves/roguetown/chain,
+/obj/item/clothing/under/roguetown/chainlegs,
+/obj/item/clothing/neck/roguetown/gorget/steel,
 /turf/open/floor/rogue/concrete,
 /area/rogue/indoors/town/garrison/grim)
 "mzO" = (
@@ -103952,9 +103919,10 @@
 	dir = 4
 	},
 /obj/item/clothing/gloves/roguetown/chain/iron,
-/obj/item/clothing/suit/roguetown/armor/brigandine/light/retinue,
-/obj/item/clothing/head/roguetown/helmet/kettle/iron,
+/obj/item/clothing/suit/roguetown/armor/leather/studded,
 /obj/item/clothing/under/roguetown/chainlegs/iron,
+/obj/item/clothing/head/roguetown/helmet/kettle/iron,
+/obj/item/clothing/neck/roguetown/bevor/iron,
 /turf/open/floor/rogue/blocks,
 /area/rogue/indoors/town/garrison/grim)
 "nyb" = (
@@ -110452,8 +110420,8 @@
 /obj/item/clothing/gloves/roguetown/chain/iron,
 /obj/item/clothing/suit/roguetown/armor/plate/cuirass/iron,
 /obj/item/clothing/under/roguetown/chainlegs/iron,
-/obj/item/clothing/neck/roguetown/bevor/iron,
-/obj/item/clothing/head/roguetown/helmet/sallet/visored/iron,
+/obj/item/clothing/head/roguetown/helmet/sallet/iron,
+/obj/item/clothing/neck/roguetown/gorget,
 /turf/open/floor/rogue/blocks,
 /area/rogue/indoors/town/garrison/grim)
 "oqI" = (
@@ -112904,10 +112872,6 @@
 /obj/item/clothing/suit/roguetown/armor/leather/hide,
 /obj/item/clothing/suit/roguetown/armor/leather/cuirass,
 /obj/item/clothing/suit/roguetown/armor/leather/cuirass,
-/obj/item/clothing/wrists/roguetown/bracers/leather,
-/obj/item/clothing/wrists/roguetown/bracers/leather,
-/obj/item/clothing/wrists/roguetown/bracers/leather,
-/obj/item/clothing/wrists/roguetown/bracers/leather,
 /turf/open/floor/rogue/blocks,
 /area/rogue/indoors/town/garrison/grim)
 "oGO" = (
@@ -116604,8 +116568,8 @@
 /area/rogue/indoors/town/grim)
 "peL" = (
 /obj/structure/mannequin/male,
-/obj/item/clothing/suit/roguetown/armor/brigandine/retinue,
-/obj/item/clothing/head/roguetown/helmet/sallet/visored,
+/obj/item/clothing/suit/roguetown/armor/leather/studded,
+/obj/item/clothing/head/roguetown/helmet/kettle,
 /obj/item/clothing/gloves/roguetown/chain,
 /obj/item/clothing/under/roguetown/chainlegs,
 /obj/item/clothing/neck/roguetown/bevor,
@@ -129318,14 +129282,7 @@
 /obj/structure/rack/rogue{
 	density = 0
 	},
-/obj/item/rogueweapon/halberd{
-	pixel_x = -19;
-	pixel_y = -16
-	},
-/obj/item/rogueweapon/eaglebeak{
-	pixel_x = -7;
-	pixel_y = -16
-	},
+/obj/item/rogueweapon/eaglebeak,
 /turf/open/floor/rogue/concrete,
 /area/rogue/indoors/town/garrison/grim)
 "qJH" = (
@@ -144514,10 +144471,6 @@
 /turf/open/floor/rogue/ruinedwood/spiral,
 /area/rogue/under/cave/dukecourt)
 "sGw" = (
-/obj/structure/fluff/railing/border/north{
-	alpha = 0;
-	mouse_opacity = 0
-	},
 /turf/closed/wall/mineral/rogue/craftstone{
 	density = 0;
 	name = "odd stone wall"
@@ -149921,10 +149874,6 @@
 /obj/structure/rack/rogue{
 	density = 0
 	},
-/obj/item/clothing/neck/roguetown/coif/heavypadding,
-/obj/item/clothing/neck/roguetown/coif/heavypadding,
-/obj/item/clothing/neck/roguetown/bevor/iron,
-/obj/item/clothing/neck/roguetown/bevor/iron,
 /obj/item/clothing/neck/roguetown/coif/heavypadding,
 /obj/item/clothing/neck/roguetown/coif/heavypadding,
 /obj/item/clothing/neck/roguetown/chaincoif/iron/full,
@@ -157732,14 +157681,7 @@
 /obj/structure/rack/rogue{
 	density = 0
 	},
-/obj/item/rogueweapon/mace/warhammer/steel{
-	pixel_x = -8;
-	pixel_y = 0
-	},
-/obj/item/rogueweapon/mace/cudgel/flanged{
-	pixel_x = 5;
-	pixel_y = 0
-	},
+/obj/item/rogueweapon/mace/warhammer/steel,
 /turf/open/floor/rogue/concrete,
 /area/rogue/indoors/town/garrison/grim)
 "uqZ" = (
@@ -167271,10 +167213,6 @@
 	pixel_x = -10;
 	pixel_y = -16
 	},
-/obj/item/rogueweapon/halberd{
-	pixel_x = -1;
-	pixel_y = -16
-	},
 /turf/open/floor/rogue/blocks,
 /area/rogue/indoors/town/garrison/grim)
 "vzx" = (
@@ -171633,13 +171571,13 @@
 /obj/structure/rack/rogue{
 	density = 0
 	},
-/obj/item/clothing/shoes/roguetown/boots/armor{
-	pixel_x = -3;
+/obj/item/clothing/shoes/roguetown/boots/armor/iron{
+	pixel_x = -4;
 	pixel_y = 2
 	},
-/obj/item/clothing/shoes/roguetown/boots/armor{
+/obj/item/clothing/shoes/roguetown/boots/armor/iron{
 	pixel_x = 7;
-	pixel_y = 0
+	pixel_y = 1
 	},
 /obj/machinery/light/rogue/candle{
 	pixel_y = -32
@@ -182518,7 +182456,7 @@
 /area/rogue/under/cave/water_temple/one)
 "xwf" = (
 /obj/structure/table/wood/poor,
-/obj/item/rogueweapon/sword/short/broken,
+/obj/item/rogueweapon/sword/broken,
 /turf/open/floor/rogue/cobble,
 /area/rogue/under/cave/grim/hamlet)
 "xwg" = (
@@ -182659,6 +182597,7 @@
 /obj/item/clothing/suit/roguetown/armor/plate/cuirass/iron,
 /obj/item/clothing/head/roguetown/helmet/kettle,
 /obj/item/clothing/under/roguetown/chainlegs/iron/kilt,
+/obj/item/clothing/gloves/roguetown/chain/iron,
 /turf/open/floor/rogue/blocks,
 /area/rogue/indoors/town/garrison/grim)
 "xwO" = (
@@ -186332,10 +186271,11 @@
 	dir = 4
 	},
 /obj/item/clothing/gloves/roguetown/chain/iron,
-/obj/item/clothing/suit/roguetown/armor/brigandine/light/retinue,
-/obj/item/clothing/head/roguetown/helmet/kettle/iron,
+/obj/item/clothing/suit/roguetown/armor/leather/studded,
 /obj/item/clothing/under/roguetown/chainlegs/iron,
 /obj/machinery/light/rogue/candle/l,
+/obj/item/clothing/head/roguetown/helmet/kettle/iron,
+/obj/item/clothing/neck/roguetown/bevor/iron,
 /turf/open/floor/rogue/blocks,
 /area/rogue/indoors/town/garrison/grim)
 "xUE" = (
