@@ -33293,6 +33293,13 @@
 /obj/machinery/light/rogue/firebowl/stump,
 /turf/open/floor/rogue/naturalstone,
 /area/rogue/druidsgrove/grim)
+"enu" = (
+/obj/machinery/light/rogue/chand{
+	pixel_x = -10;
+	pixel_y = 2
+	},
+/turf/open/transparent/openspace,
+/area/rogue/indoors/shelter)
 "env" = (
 /turf/open/floor/rogue/ruinedwood,
 /area/rogue/outdoors/beach/north/grim)
@@ -82160,15 +82167,6 @@
 /obj/structure/table/wood/long_table/mid/alt,
 /turf/open/floor/rogue/tile/brownbrick/browner,
 /area/rogue/indoors/town/magician)
-"kBV" = (
-/obj/structure/mineral_door/wood{
-	icon_state = "wcv";
-	locked = 1;
-	lockid = "seneschal";
-	name = "Seneschal's Quarters"
-	},
-/turf/open/floor/rogue/concrete,
-/area/rogue/indoors/town/manor/grim)
 "kCa" = (
 /obj/structure/chair/wood/rogue/fancy{
 	dir = 1
@@ -93021,8 +93019,8 @@
 /obj/structure/mineral_door/wood{
 	icon_state = "wcv";
 	locked = 1;
-	lockid = "manor";
-	name = "Seneschal's Office"
+	lockid = "seneschal";
+	name = "Seneschal's Quarters"
 	},
 /turf/open/floor/rogue/concrete,
 /area/rogue/indoors/town/manor/grim)
@@ -109402,13 +109400,6 @@
 	},
 /turf/open/floor/rogue/cobble,
 /area/rogue/under/cave/orcdungeon)
-"ofW" = (
-/obj/machinery/light/rogue/chand{
-	pixel_x = -10;
-	pixel_y = 2
-	},
-/turf/open/transparent/openspace,
-/area/rogue/indoors/shelter)
 "ofX" = (
 /obj/structure/stairs,
 /obj/machinery/light/rogue/torchholder/l,
@@ -157877,13 +157868,14 @@
 /turf/open/floor/rogue/tile/harem1,
 /area/rogue/indoors/town/bath/grim)
 "umo" = (
-/obj/structure/fluff/signage{
-	name = "GRAVEYARD - SOUTHWEST";
-	pixel_x = -3;
-	pixel_y = 24
+/obj/structure/mineral_door/wood{
+	icon_state = "wcv";
+	locked = 1;
+	lockid = "manor";
+	name = "Seneschal's Office"
 	},
-/turf/open/floor/rogue/cobblerock,
-/area/rogue/outdoors/town/grim)
+/turf/open/floor/rogue/concrete,
+/area/rogue/indoors/town/manor/grim)
 "umq" = (
 /obj/structure/closet/crate/chest/neu,
 /obj/item/rogueweapon/hoe/bronze,
@@ -503322,7 +503314,7 @@ epQ
 aDp
 aDp
 aDp
-umo
+gRB
 cSi
 twx
 twx
@@ -524125,7 +524117,7 @@ nci
 jto
 eDg
 aMq
-ofW
+enu
 mUe
 pBR
 jto
@@ -619313,7 +619305,7 @@ bpH
 wip
 wip
 wip
-kBV
+lYC
 wSH
 rYS
 heX
@@ -620455,7 +620447,7 @@ jGh
 qGL
 qGL
 qGL
-kBV
+lYC
 qGL
 qGL
 qGL
@@ -622366,7 +622358,7 @@ qGL
 qGL
 qGL
 xuZ
-lYC
+umo
 qGL
 qGL
 qGL
