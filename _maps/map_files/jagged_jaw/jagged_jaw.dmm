@@ -11681,15 +11681,6 @@
 "bzn" = (
 /turf/open/transparent/openspace,
 /area/rogue/outdoors/woods/grim/northeast/wardenscheckpoint)
-"bzs" = (
-/obj/structure/mineral_door/wood{
-	icon_state = "wcv";
-	locked = 1;
-	lockid = "manor";
-	name = "Seneschal's Office"
-	},
-/turf/open/floor/rogue/concrete,
-/area/rogue/indoors/town/manor/grim)
 "bzt" = (
 /obj/structure/bars/passage/steel{
 	redstone_id = "cryptdungeon2"
@@ -33302,13 +33293,6 @@
 /obj/machinery/light/rogue/firebowl/stump,
 /turf/open/floor/rogue/naturalstone,
 /area/rogue/druidsgrove/grim)
-"enu" = (
-/obj/machinery/light/rogue/chand{
-	pixel_x = -10;
-	pixel_y = 2
-	},
-/turf/open/transparent/openspace,
-/area/rogue/indoors/shelter)
 "env" = (
 /turf/open/floor/rogue/ruinedwood,
 /area/rogue/outdoors/beach/north/grim)
@@ -40207,9 +40191,14 @@
 /obj/structure/roguemachine/scomm/r{
 	scom_tag = "Northwesterly House - 1st Floor"
 	},
-/turf/open/floor/rogue/metal{
-	dir = 4
+/obj/effect/decal/edge_corner{
+	color = "#3f3f3f";
+	dir = 1
 	},
+/obj/effect/decal/edge_corner{
+	color = "#3f3f3f"
+	},
+/turf/open/floor/rogue/tile,
 /area/rogue/indoors/town/grim)
 "fgs" = (
 /obj/structure/fluff/railing/fence,
@@ -53025,9 +53014,14 @@
 /obj/structure/roguemachine/scomm{
 	scom_tag = "Northwesterly House - 2nd Floor"
 	},
-/turf/open/floor/rogue/metal{
-	icon_state = "plating2"
+/obj/effect/decal/edge_corner{
+	color = "#3f3f3f";
+	dir = 1
 	},
+/obj/effect/decal/edge_corner{
+	color = "#3f3f3f"
+	},
+/turf/open/floor/rogue/tile,
 /area/rogue/indoors/town/grim)
 "gQa" = (
 /obj/structure/table/wood/poor/alt_alt,
@@ -82166,6 +82160,15 @@
 /obj/structure/table/wood/long_table/mid/alt,
 /turf/open/floor/rogue/tile/brownbrick/browner,
 /area/rogue/indoors/town/magician)
+"kBV" = (
+/obj/structure/mineral_door/wood{
+	icon_state = "wcv";
+	locked = 1;
+	lockid = "seneschal";
+	name = "Seneschal's Quarters"
+	},
+/turf/open/floor/rogue/concrete,
+/area/rogue/indoors/town/manor/grim)
 "kCa" = (
 /obj/structure/chair/wood/rogue/fancy{
 	dir = 1
@@ -93018,8 +93021,8 @@
 /obj/structure/mineral_door/wood{
 	icon_state = "wcv";
 	locked = 1;
-	lockid = "seneschal";
-	name = "Seneschal's Quarters"
+	lockid = "manor";
+	name = "Seneschal's Office"
 	},
 /turf/open/floor/rogue/concrete,
 /area/rogue/indoors/town/manor/grim)
@@ -109399,6 +109402,13 @@
 	},
 /turf/open/floor/rogue/cobble,
 /area/rogue/under/cave/orcdungeon)
+"ofW" = (
+/obj/machinery/light/rogue/chand{
+	pixel_x = -10;
+	pixel_y = 2
+	},
+/turf/open/transparent/openspace,
+/area/rogue/indoors/shelter)
 "ofX" = (
 /obj/structure/stairs,
 /obj/machinery/light/rogue/torchholder/l,
@@ -154822,7 +154832,7 @@
 /area/rogue/outdoors/rtfield/grim)
 "tRq" = (
 /obj/structure/roguemachine/scomm/r{
-	scom_tag = "South Wall Noble Apartment #2"
+	scom_tag = "Town Central Apartment"
 	},
 /obj/effect/decal/edge_corner{
 	color = "#3f3f3f";
@@ -173288,7 +173298,7 @@
 /area/rogue/indoors/town/manor/grim)
 "wgh" = (
 /obj/structure/roguemachine/scomm/r{
-	scom_tag = "South Wall Noble Apartment #1"
+	scom_tag = "Town Central Noble Apartment #1"
 	},
 /obj/effect/decal/edge_corner{
 	color = "#3f3f3f";
@@ -524115,7 +524125,7 @@ nci
 jto
 eDg
 aMq
-enu
+ofW
 mUe
 pBR
 jto
@@ -619303,7 +619313,7 @@ bpH
 wip
 wip
 wip
-lYC
+kBV
 wSH
 rYS
 heX
@@ -620445,7 +620455,7 @@ jGh
 qGL
 qGL
 qGL
-lYC
+kBV
 qGL
 qGL
 qGL
@@ -622356,7 +622366,7 @@ qGL
 qGL
 qGL
 xuZ
-bzs
+lYC
 qGL
 qGL
 qGL
