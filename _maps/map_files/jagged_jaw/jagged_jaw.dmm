@@ -11215,16 +11215,6 @@
 	},
 /turf/open/floor/rogue/churchrough,
 /area/rogue/indoors/inq/basement)
-"bvT" = (
-/obj/structure/hotspring/border/five,
-/obj/structure/flora/sakura{
-	pixel_y = -35;
-	pixel_x = 17;
-	light_color = "#C43B7B";
-	light_outer_range = 7
-	},
-/turf/open/floor/rogue/grasscold,
-/area/rogue/outdoors/rtfield/abandonedhotsprings/grim)
 "bvY" = (
 /obj/item/restraints/legcuffs/beartrap/armed/camouflage,
 /turf/open/floor/rogue/church,
@@ -33293,13 +33283,6 @@
 /obj/machinery/light/rogue/firebowl/stump,
 /turf/open/floor/rogue/naturalstone,
 /area/rogue/druidsgrove/grim)
-"enu" = (
-/obj/machinery/light/rogue/chand{
-	pixel_x = -10;
-	pixel_y = 2
-	},
-/turf/open/transparent/openspace,
-/area/rogue/indoors/shelter)
 "env" = (
 /turf/open/floor/rogue/ruinedwood,
 /area/rogue/outdoors/beach/north/grim)
@@ -49636,9 +49619,12 @@
 /turf/open/floor/rogue/metal,
 /area/rogue/under/underdark/north/grim)
 "gtE" = (
-/obj/structure/bed/rogue/inn/double,
-/obj/item/bedsheet/rogue/fabric_double,
 /obj/structure/fluff/wallclock,
+/obj/machinery/light/rogue/campfire/fireplace{
+	pixel_x = 32;
+	pixel_y = 0
+	},
+/obj/structure/closet/crate/drawer,
 /turf/open/floor/carpet/royalblack,
 /area/rogue/indoors/town/grim)
 "gtJ" = (
@@ -109400,6 +109386,13 @@
 	},
 /turf/open/floor/rogue/cobble,
 /area/rogue/under/cave/orcdungeon)
+"ofW" = (
+/obj/machinery/light/rogue/chand{
+	pixel_x = -10;
+	pixel_y = 2
+	},
+/turf/open/transparent/openspace,
+/area/rogue/indoors/shelter)
 "ofX" = (
 /obj/structure/stairs,
 /obj/machinery/light/rogue/torchholder/l,
@@ -124083,6 +124076,15 @@
 	},
 /turf/open/floor/rogue/churchmarble,
 /area/rogue/under/cave/scarymaze)
+"pWr" = (
+/obj/structure/mineral_door/wood{
+	icon_state = "wcv";
+	locked = 1;
+	lockid = "manor";
+	name = "Seneschal's Office"
+	},
+/turf/open/floor/rogue/concrete,
+/area/rogue/indoors/town/manor/grim)
 "pWu" = (
 /obj/structure/bed/rogue/shit,
 /turf/open/floor/rogue/grasscold,
@@ -157868,14 +157870,14 @@
 /turf/open/floor/rogue/tile/harem1,
 /area/rogue/indoors/town/bath/grim)
 "umo" = (
-/obj/structure/mineral_door/wood{
-	icon_state = "wcv";
-	locked = 1;
-	lockid = "manor";
-	name = "Seneschal's Office"
+/obj/structure/flora/sakura{
+	pixel_y = -35;
+	pixel_x = 17;
+	light_color = "#C43B7B";
+	light_outer_range = 7
 	},
-/turf/open/floor/rogue/concrete,
-/area/rogue/indoors/town/manor/grim)
+/turf/open/floor/rogue/grasscold,
+/area/rogue/outdoors/rtfield/abandonedhotsprings/grim)
 "umq" = (
 /obj/structure/closet/crate/chest/neu,
 /obj/item/rogueweapon/hoe/bronze,
@@ -346552,7 +346554,7 @@ drY
 drY
 ijC
 pZf
-drY
+aak
 pZf
 pZf
 drY
@@ -347318,7 +347320,7 @@ drY
 ijC
 drY
 drY
-drY
+aak
 pZf
 drY
 ijC
@@ -451703,7 +451705,7 @@ qRs
 exk
 pQq
 wrq
-ljl
+ydn
 ljl
 ljl
 ljl
@@ -452085,8 +452087,8 @@ mLw
 nOv
 ePF
 nrJ
-bSX
-ljl
+oiz
+ydn
 bSX
 ljl
 ljl
@@ -481560,7 +481562,7 @@ gRB
 rXA
 cWI
 gtE
-bqd
+vtW
 lOK
 xgG
 cWI
@@ -524117,7 +524119,7 @@ nci
 jto
 eDg
 aMq
-enu
+ofW
 mUe
 pBR
 jto
@@ -622358,7 +622360,7 @@ qGL
 qGL
 qGL
 xuZ
-umo
+pWr
 qGL
 qGL
 qGL
@@ -789877,7 +789879,7 @@ xFc
 xFc
 xFc
 bsu
-bvT
+mJm
 gvn
 rUP
 gvn
@@ -790258,7 +790260,7 @@ rwd
 xFc
 xFc
 xFc
-dIm
+umo
 kYo
 dqZ
 rUP
@@ -790640,7 +790642,7 @@ xFc
 xFc
 xFc
 xFc
-xFc
+dIm
 tDN
 xPJ
 ycK
@@ -791022,8 +791024,8 @@ rRk
 rUP
 xFc
 xFc
-xFc
-xFc
+dIm
+dIm
 fxo
 hvt
 khH
@@ -791405,9 +791407,9 @@ rUP
 rUP
 xFc
 xFc
-xFc
+dIm
 nLi
-rtr
+dIm
 nLi
 xFc
 xFc
