@@ -32140,7 +32140,7 @@
 	lockid = "veteran";
 	name = "veterans house"
 	},
-/turf/open/floor/rogue/cobblerock,
+/turf/open/floor/rogue/concrete,
 /area/rogue/outdoors/town/grim)
 "efI" = (
 /obj/machinery/light/rogue/candle{
@@ -33283,6 +33283,11 @@
 /obj/machinery/light/rogue/firebowl/stump,
 /turf/open/floor/rogue/naturalstone,
 /area/rogue/druidsgrove/grim)
+"enu" = (
+/obj/structure/flora/newtree,
+/obj/structure/fluff/walldeco/vinez/l,
+/turf/open/floor/rogue/grassyel,
+/area/rogue/outdoors/beach/forest/hamlet/grim)
 "env" = (
 /turf/open/floor/rogue/ruinedwood,
 /area/rogue/outdoors/beach/north/grim)
@@ -109387,12 +109392,14 @@
 /turf/open/floor/rogue/cobble,
 /area/rogue/under/cave/orcdungeon)
 "ofW" = (
-/obj/machinery/light/rogue/chand{
-	pixel_x = -10;
-	pixel_y = 2
+/obj/structure/flora/sakura{
+	pixel_y = -35;
+	pixel_x = 17;
+	light_color = "#C43B7B";
+	light_outer_range = 7
 	},
-/turf/open/transparent/openspace,
-/area/rogue/indoors/shelter)
+/turf/open/floor/rogue/grasscold,
+/area/rogue/outdoors/rtfield/abandonedhotsprings/grim)
 "ofX" = (
 /obj/structure/stairs,
 /obj/machinery/light/rogue/torchholder/l,
@@ -112223,7 +112230,7 @@
 /area/rogue/outdoors/mountains/decap/grim)
 "oyx" = (
 /obj/structure/fluff/wallclock/l,
-/turf/closed/wall/mineral/rogue/stone,
+/turf/open/transparent/openspace,
 /area/rogue/indoors/town/grim)
 "oyA" = (
 /obj/structure/rack/rogue/shelf/notdense,
@@ -124076,15 +124083,6 @@
 	},
 /turf/open/floor/rogue/churchmarble,
 /area/rogue/under/cave/scarymaze)
-"pWr" = (
-/obj/structure/mineral_door/wood{
-	icon_state = "wcv";
-	locked = 1;
-	lockid = "manor";
-	name = "Seneschal's Office"
-	},
-/turf/open/floor/rogue/concrete,
-/area/rogue/indoors/town/manor/grim)
 "pWu" = (
 /obj/structure/bed/rogue/shit,
 /turf/open/floor/rogue/grasscold,
@@ -146344,7 +146342,11 @@
 /obj/machinery/light/rogue/candle/off/l,
 /obj/structure/rack/rogue/shelf,
 /obj/item/roguekey/hamtunnels{
-	pixel_x = 0;
+	pixel_x = -5;
+	pixel_y = 35
+	},
+/obj/item/roguekey/hamtunnels{
+	pixel_x = 3;
 	pixel_y = 35
 	},
 /turf/open/floor/rogue/cobble,
@@ -157870,14 +157872,12 @@
 /turf/open/floor/rogue/tile/harem1,
 /area/rogue/indoors/town/bath/grim)
 "umo" = (
-/obj/structure/flora/sakura{
-	pixel_y = -35;
-	pixel_x = 17;
-	light_color = "#C43B7B";
-	light_outer_range = 7
+/obj/machinery/light/rogue/chand{
+	pixel_x = -10;
+	pixel_y = 2
 	},
-/turf/open/floor/rogue/grasscold,
-/area/rogue/outdoors/rtfield/abandonedhotsprings/grim)
+/turf/open/transparent/openspace,
+/area/rogue/indoors/shelter)
 "umq" = (
 /obj/structure/closet/crate/chest/neu,
 /obj/item/rogueweapon/hoe/bronze,
@@ -164841,7 +164841,7 @@
 	lockid = "walls";
 	locked = 1
 	},
-/turf/closed/wall/mineral/rogue/stone/window,
+/turf/open/floor/rogue/concrete,
 /area/rogue/indoors/town/grim)
 "ven" = (
 /obj/structure/flora/roguegrass/bush/wall,
@@ -175987,6 +175987,15 @@
 	},
 /turf/open/floor/rogue/cobble,
 /area/rogue/outdoors/town/grim)
+"wyu" = (
+/obj/structure/mineral_door/wood{
+	icon_state = "wcv";
+	locked = 1;
+	lockid = "manor";
+	name = "Seneschal's Office"
+	},
+/turf/open/floor/rogue/concrete,
+/area/rogue/indoors/town/manor/grim)
 "wyw" = (
 /obj/structure/flora/roguegrass,
 /obj/structure/flora/ausbushes/ywflowers,
@@ -184234,7 +184243,7 @@
 	lockid = "veteran";
 	name = "veterans house"
 	},
-/turf/open/floor/rogue/ruinedwood/spiral,
+/turf/open/floor/rogue/concrete,
 /area/rogue/indoors/town/grim)
 "xAU" = (
 /turf/closed/wall/mineral/rogue/pipe/joint{
@@ -394578,8 +394587,8 @@ rwr
 eMV
 dZQ
 xeL
-eMV
-xeL
+giO
+pwZ
 dZQ
 xeL
 dZQ
@@ -395346,7 +395355,7 @@ byy
 hpw
 sdv
 byy
-eMV
+cNr
 soz
 owR
 xeL
@@ -397253,11 +397262,11 @@ eMV
 fqe
 hKV
 eMV
-xeL
+hcW
 eMV
 dZQ
 soz
-yec
+enu
 xeL
 aIM
 xeL
@@ -513939,7 +513948,7 @@ oZc
 kvx
 tzZ
 qem
-wxa
+oyx
 ehY
 eUS
 mZJ
@@ -514320,7 +514329,7 @@ uTf
 agE
 qem
 qem
-oyx
+qem
 xZY
 mCh
 coh
@@ -524119,7 +524128,7 @@ nci
 jto
 eDg
 aMq
-ofW
+umo
 mUe
 pBR
 jto
@@ -622360,7 +622369,7 @@ qGL
 qGL
 qGL
 xuZ
-pWr
+wyu
 qGL
 qGL
 qGL
@@ -790260,7 +790269,7 @@ rwd
 xFc
 xFc
 xFc
-umo
+ofW
 kYo
 dqZ
 rUP
