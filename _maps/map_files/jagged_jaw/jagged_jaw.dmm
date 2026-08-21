@@ -9777,14 +9777,8 @@
 /obj/structure/fluff/signage{
 	name = "JAGGEDJAW COAST - WEST SOUTHWEST";
 	pixel_x = 3;
-	pixel_y = 36;
+	pixel_y = 21;
 	layer = 4
-	},
-/obj/structure/fluff/signage{
-	dir = 9;
-	name = "TOWN SQUARE - NORTH";
-	pixel_x = 5;
-	pixel_y = 23
 	},
 /turf/open/floor/rogue/grass,
 /area/rogue/outdoors/town/grim)
@@ -11221,8 +11215,8 @@
 /area/rogue/under/cave/scarymaze)
 "bwe" = (
 /obj/structure/fluff/signage{
-	dir = 6;
-	name = "TOWN - SOUTHEAST"
+	dir = 4;
+	name = "TOWN - EAST"
 	},
 /turf/open/floor/rogue/grassyel,
 /area/rogue/outdoors/mountains/grim)
@@ -23503,9 +23497,18 @@
 /turf/open/floor/rogue/ruinedwood,
 /area/rogue/indoors/shelter)
 "cZq" = (
-/obj/item/reagent_containers/glass/bottle,
-/turf/open/floor/rogue/ruinedwood/spiral,
-/area/rogue/indoors/town/grim)
+/obj/effect/decal/edge_corner{
+	color = "#3f3f3f";
+	dir = 1
+	},
+/obj/structure/fluff/signage{
+	name = "Keeper";
+	pixel_x = 0;
+	pixel_y = 8;
+	dir = 8
+	},
+/turf/open/floor/rogue/cobble,
+/area/rogue/outdoors/town/grim)
 "cZr" = (
 /obj/machinery/light/rogue/torchholder/hotspring/standing,
 /turf/open/floor/rogue/cobblerock,
@@ -39087,20 +39090,16 @@
 	color = "#3f3f3f"
 	},
 /obj/structure/fluff/signage{
-	name = "GRAVEYARD - SOUTHWEST";
-	pixel_x = -2;
-	pixel_y = 22
-	},
-/obj/structure/fluff/signage{
 	name = "ROTGUT SWAMP - SOUTHEAST";
 	layer = 4.2;
-	pixel_x = 2;
-	pixel_y = 5
+	pixel_x = 0;
+	pixel_y = 7;
+	dir = 6
 	},
 /obj/structure/fluff/signage{
 	name = "Druid's Grove - West";
-	pixel_x = 0;
-	pixel_y = 34;
+	pixel_x = -2;
+	pixel_y = 20;
 	dir = 8;
 	layer = 4.0
 	},
@@ -95058,12 +95057,6 @@
 	dir = 4
 	},
 /obj/structure/fluff/signage{
-	name = "Keeper";
-	pixel_x = 1;
-	pixel_y = 32;
-	dir = 8
-	},
-/obj/structure/fluff/signage{
 	dir = 4;
 	name = "Farm";
 	pixel_x = 1;
@@ -96858,6 +96851,20 @@
 	},
 /turf/open/floor/rogue/rooftop/green/corner1,
 /area/rogue/outdoors/town/roofs/keep/grim)
+"myC" = (
+/obj/structure/fluff/walldeco/church/line{
+	dir = 1
+	},
+/obj/structure/fluff/walldeco/church/line,
+/obj/structure/fluff/walldeco/church/line{
+	dir = 4
+	},
+/obj/structure/fluff/walldeco/church/line{
+	dir = 8
+	},
+/obj/effect/landmark/events/haunts,
+/turf/open/floor/rogue/dirt/road,
+/area/rogue/outdoors/town/grim)
 "myF" = (
 /obj/structure/table/wood/poor,
 /obj/item/candle/yellow{
@@ -109314,6 +109321,10 @@
 	},
 /turf/open/floor/rogue/hay,
 /area/rogue/outdoors/exposed/under/sewer/grim)
+"ofe" = (
+/obj/structure/fluff/wallclock/l,
+/turf/open/transparent/openspace,
+/area/rogue/indoors/town/grim)
 "ofg" = (
 /turf/closed/mineral/rogue/bedrock,
 /area/rogue/outdoors/mountains/decap/gunduzirak)
@@ -112229,9 +112240,16 @@
 /turf/closed/mineral/rogue,
 /area/rogue/outdoors/mountains/decap/grim)
 "oyx" = (
-/obj/structure/fluff/wallclock/l,
-/turf/open/transparent/openspace,
-/area/rogue/indoors/town/grim)
+/obj/effect/decal/edge{
+	color = "#3f3f3f"
+	},
+/obj/structure/fluff/signage{
+	name = "GRAVEYARD - SOUTHWEST";
+	pixel_x = -2;
+	pixel_y = 10
+	},
+/turf/open/floor/rogue/grass,
+/area/rogue/outdoors/town/grim)
 "oyA" = (
 /obj/structure/rack/rogue/shelf/notdense,
 /obj/item/rope/chain{
@@ -134109,7 +134127,6 @@
 /obj/item/reagent_containers/glass/bottle,
 /obj/item/reagent_containers/glass/bottle,
 /obj/item/reagent_containers/glass/bottle,
-/obj/item/reagent_containers/glass/bottle,
 /turf/open/floor/rogue/ruinedwood/spiral,
 /area/rogue/indoors/town/grim)
 "rlV" = (
@@ -137667,14 +137684,8 @@
 /obj/structure/fluff/signage{
 	dir = 10;
 	name = "TO MOUNT GRYMSPYRE";
-	pixel_x = 2;
-	pixel_y = 36
-	},
-/obj/structure/fluff/signage{
-	dir = 1;
-	name = "FOREST - NORTH";
-	pixel_x = 0;
-	pixel_y = 13
+	pixel_x = 3;
+	pixel_y = 18
 	},
 /obj/structure/fluff/signage{
 	dir = 8;
@@ -155655,6 +155666,13 @@
 /obj/structure/rack/rogue/shelf/notdense,
 /turf/open/floor/rogue/ruinedwood/spiral,
 /area/rogue/indoors/town/garrison/grim)
+"tWJ" = (
+/obj/structure/chair/stool/rogue{
+	pixel_x = -2;
+	pixel_y = 7
+	},
+/turf/open/floor/rogue/carpet,
+/area/rogue/indoors/town/manor/grim)
 "tWL" = (
 /obj/structure/fluff/railing/border{
 	dir = 9
@@ -183674,6 +183692,12 @@
 /mob/living/simple_animal/hostile/retaliate/rogue/wolf,
 /turf/open/floor/rogue/dirt,
 /area/rogue/under/cave/grim)
+"xxg" = (
+/obj/structure/closet/crate/roguecloset/inn,
+/obj/item/reagent_containers/glass/bottle,
+/obj/item/reagent_containers/glass/bottle,
+/turf/open/floor/rogue/ruinedwood/spiral,
+/area/rogue/indoors/town/grim)
 "xxh" = (
 /obj/structure/table/wood,
 /obj/item/roguekey/apartments/stall2,
@@ -496045,7 +496069,7 @@ gSZ
 ubA
 gRB
 aDp
-vPd
+cZq
 drb
 mmk
 gRB
@@ -497896,7 +497920,7 @@ bSZ
 qss
 gRB
 aDp
-aDp
+afW
 aDp
 aDp
 qnw
@@ -497984,7 +498008,7 @@ gJR
 ucQ
 xgv
 dfx
-hKZ
+oyx
 aDp
 aDp
 jOo
@@ -498278,7 +498302,7 @@ oFh
 bSZ
 edr
 aDp
-afW
+aDp
 gRB
 aDp
 gWQ
@@ -503683,9 +503707,9 @@ mDI
 qEK
 hke
 aTh
-edc
+xxg
 pFk
-cZq
+pFk
 uGR
 aTh
 gRB
@@ -504008,7 +504032,7 @@ dfx
 wqx
 mZf
 aDp
-xoG
+aDp
 aDp
 gRB
 pGZ
@@ -505147,7 +505171,7 @@ toj
 bBw
 pYP
 sVN
-drn
+myC
 sVN
 wAT
 sVN
@@ -509738,7 +509762,7 @@ laL
 xir
 cVw
 cVw
-gRB
+nCj
 gRB
 gRB
 owY
@@ -510502,9 +510526,9 @@ ioH
 fPC
 dfx
 hyU
-rtW
 gRB
-nCj
+gRB
+rtW
 qmh
 jso
 oqW
@@ -513948,7 +513972,7 @@ oZc
 kvx
 tzZ
 qem
-oyx
+ofe
 ehY
 eUS
 mZJ
@@ -621986,7 +622010,7 @@ jGh
 qGL
 iac
 hPX
-iZD
+tWJ
 ijG
 hbU
 niT
@@ -623517,7 +623541,7 @@ cWx
 iZD
 iZD
 iZD
-xgQ
+iZD
 kUU
 pBE
 jxy
