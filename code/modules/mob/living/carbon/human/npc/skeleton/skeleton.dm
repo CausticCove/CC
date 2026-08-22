@@ -18,6 +18,7 @@ GLOBAL_LIST_INIT(skeleton_aggro, list(
 					 /obj/item/bodypart/r_arm, /obj/item/bodypart/r_leg, /obj/item/bodypart/l_leg)
 	faction = list(FACTION_UNDEAD)
 	var/skel_fragile = FALSE
+	var/skel_untamable = FALSE
 	ambushable = FALSE
 	rot_type = null
 	base_intents = list(INTENT_HELP, INTENT_DISARM, INTENT_GRAB, /datum/intent/unarmed/claw)
@@ -131,6 +132,8 @@ GLOBAL_LIST_INIT(skeleton_aggro, list(
 	ADD_TRAIT(src, TRAIT_LIMBATTACHMENT, TRAIT_GENERIC)
 	ADD_TRAIT(src, TRAIT_HEAVYARMOR, TRAIT_GENERIC)
 	ADD_TRAIT(src, TRAIT_SILVER_WEAK, TRAIT_GENERIC)
+	if(skel_untamable) //For Re-Factionised Groups
+		ADD_TRAIT(src, TRAIT_NOZIZORECRUIT, TRAIT_GENERIC)
 	if(skel_fragile)
 		ADD_TRAIT(src, TRAIT_CRITICAL_WEAKNESS, TRAIT_GENERIC)
 	else
@@ -225,6 +228,8 @@ GLOBAL_LIST_INIT(skeleton_aggro, list(
 	ADD_TRAIT(src, TRAIT_DUALWIELDER, TRAIT_GENERIC)
 	ADD_TRAIT(src, TRAIT_CABAL, TRAIT_GENERIC)
 
+	ADD_TRAIT(src, TRAIT_NOZIZORECRUIT, TRAIT_GENERIC) //Ask the Zizite cleric for a gravemark, sire.
+
 	var/datum/component/conjured_minion/minion = GetComponent(/datum/component/conjured_minion)
 	var/mob/living/master = minion?.summoner_ref?.resolve()
 
@@ -265,6 +270,7 @@ GLOBAL_LIST_INIT(skeleton_aggro, list(
 
 /datum/outfit/job/roguetown/conjured_skeleton/pre_equip(mob/living/carbon/human/H, visualsOnly)
 	. = ..()
+	ADD_TRAIT(H, TRAIT_NOZIZORECRUIT, TRAIT_GENERIC) //Ask the Cleric for a Gravemark
 	H.STASTR = 10
 	H.STASPD = 12
 	H.STACON = 8
