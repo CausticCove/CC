@@ -160,18 +160,15 @@
 	var/mob/living/carbon/human/defender_human
 	var/mob/living/carbon/human/attacker_human
 	var/obj/item/attacker_weapon
-	var/obj/item/defender_weapon
+	var/obj/item/defender_mainhand = get_active_held_item()
 	var/defender_skill = 0
 	var/attacker_skill = 0
 	var/drained = 8
-	var/drained_npc = 5
-	var/defender_mainhand = get_active_held_item()
 	var/defender_offhand = get_inactive_held_item()
 	if(ishuman(src))
 		defender_human = src
-		defender_weapon = defender_human.get_active_held_item()
-		if(defender_weapon && defender_weapon?.associated_skill)
-			defender_skill = get_skill_level(defender_weapon.associated_skill)
+		if(defender_mainhand && defender_mainhand?.associated_skill)
+			defender_skill = get_skill_level(defender_mainhand.associated_skill)
 		else
 			defender_skill = get_skill_level(/datum/skill/combat/unarmed)
 	if(ishuman(user))
@@ -260,8 +257,8 @@
 		if(defender.STASPD <= 9)
 			ignore_DE_bonus = TRUE
 
-		if(attacker_weapon && defender_weapon)	//Skilldiff applies extra stamloss, tentative
-			drained += (attacker_human.get_skill_level(attacker_weapon.associated_skill) - defender_human.get_skill_level(defender_weapon.associated_skill)) * 2
+		if(attacker_weapon && defender_mainhand)	//Skilldiff applies extra stamloss, tentative
+			drained += (attacker_human.get_skill_level(attacker_weapon.associated_skill) - defender_human.get_skill_level(defender_mainhand.associated_skill)) * 2
 
 			if(istype(attacker.rmb_intent, /datum/rmb_intent/swift) && attacker_weapon.wbalance != WBALANCE_HEAVY)
 				// We drain extra stam if we're being attacked by swift stance, inversely based on our dodgetime
@@ -274,7 +271,7 @@
 			prob2defend = DODGE_EXPERT_BASE_CAP	//We cap it out if we have Dodge Expert as a Player.
 
 		if(defender_human.STASPD < attacker.STASPD)
-			if(defender_weapon && defender_weapon.wbalance != WBALANCE_HEAVY)
+			if(defender_mainhand && defender_mainhand.wbalance != WBALANCE_HEAVY)
 				drained += (attacker.STASPD - defender_human.STASPD)
 
 		if(dodgetime <= CLICK_CD_DODGE && !ignore_DE_bonus && defender_dodge_expert && defender_human.mind)
@@ -300,16 +297,11 @@
 		if(defender.has_status_effect(/datum/status_effect/swingdelay/penalty))
 			prob2defend = clamp(prob2defend - 50, 5, 90)
 
-		var/dodge_status = FALSE
-
-		if(prob(prob2defend))
-			dodge_status = TRUE
-
-		if(!dodge_status)
+		if(!prob(prob2defend))
 			return FALSE
 
 		if(!attacker_human?.mind) // For NPC, reduce the drained to 5 stamina
-			drained = drained_npc
+			drained = 5
 
 		//Tempo bonus
 		var/stamdrain = max(drained,5)
