@@ -92,8 +92,8 @@
 	result = /turf/closed/wall/mineral/rogue/woodbark
 
 /datum/crafting_recipe/roguetown/turfs/wood/wall/woodbark/TurfCheck(mob/user, turf/T)
-	if(!iself(user) && !iswildkin(user) && user.job != "Druid" && !istype(user.patron, /datum/patron/divine/dendor))
-		to_chat(user, span_warning("Only those closest to Dendor can master the art of natural wood walls. (crafting restricted to Elves, Wild-Kin, Druids and Dendor worshippers)"))
+	if(!iself(user) && !iswildkin(user) && user.job != "Druid")
+		to_chat(user, span_warning("Only Elves, Wild-Kin, and Druids can master the art of natural wood walls."))
 		return FALSE
 	return ..()
 
