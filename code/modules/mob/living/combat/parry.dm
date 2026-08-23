@@ -1,11 +1,9 @@
 // Unarmed base weapon defense equivalents — fed into the same (skill * 20) + (wdef * 10) formula as weapons
 
 /mob/living/proc/attempt_parry(datum/intent/attack_intent, mob/living/user)
-	var/prob2defend = user.defprob
+	var/prob2defend = 0
 	var/mob/living/defender = src
 	var/mob/living/attacker = user
-	if(defender && attacker)
-		prob2defend = 0
 
 	if(!can_see_cone(user))
 		if(!defender.get_tempo_bonus(TEMPO_TAG_NOLOS_PARRY))
