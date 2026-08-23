@@ -87,6 +87,16 @@
 	adminlog = TRUE
 	category = "Walls"
 
+/datum/crafting_recipe/roguetown/turfs/wood/wall/woodbark
+	name = "Bark Wall"
+	result = /turf/closed/wall/mineral/rogue/woodbark
+
+/datum/crafting_recipe/roguetown/turfs/wood/wall/woodbark/TurfCheck(mob/user, turf/T)
+	if(!iself(user) && !iswildkin(user) && user.job != "Druid" && !istype(user.patron, /datum/patron/divine/dendor))
+		to_chat(user, span_warning("Only those closest to Dendor can master the art of natural wood walls. (crafting restricted to Elves, Wild-Kin, Druids and Dendor worshippers)"))
+		return FALSE
+	return ..()
+
 /datum/crafting_recipe/roguetown/turfs/wood/wall/alt
 	name = "wall alt(wood)"
 	reqs = list(/obj/item/natural/wood/plank = 2)
@@ -111,6 +121,10 @@
 	craftdiff = 2
 	adminlog = TRUE
 	category = "Windows"
+
+/datum/crafting_recipe/roguetown/turfs/wood/murderhole/woodbark
+	name = "Bark Window"
+	result = /turf/closed/wall/mineral/rogue/woodbark/window
 
 /datum/crafting_recipe/roguetown/turfs/wood/murderhole/alt
 	name = "murder hole alt(wood)"

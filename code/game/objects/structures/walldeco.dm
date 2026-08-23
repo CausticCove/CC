@@ -612,7 +612,10 @@
 #undef STEAK_ALARM_DISABLE_TIME
 
 /obj/structure/fluff/walldeco/vinez // overlay vines for more flexibile mapping
+	name = "ivy"
 	icon_state = "vinez"
+	max_integrity = 10
+	mouse_opacity = 1
 
 /obj/structure/fluff/walldeco/vinez/l
 	pixel_x = -32
@@ -631,9 +634,9 @@
 	icon_state = "vinez_red"
 
 /obj/structure/fluff/walldeco/vinez/glow//glowy vines
-	name = "glow vines"
+	name = "glowing ivy"
 	icon_state = "vinez"
-	mouse_opacity = 0
+	mouse_opacity = 1
 
 /obj/structure/fluff/walldeco/vinez/glow/Initialize()
 	. = ..()
@@ -646,7 +649,7 @@
 	pixel_x = 32
 
 /obj/structure/fluff/walldeco/vinez/glow/blue
-	name = "blue glow vines"
+	name = "blue glowing ivy"
 	icon_state = "vinez_blue"
 
 /obj/structure/fluff/walldeco/vinez/glow/blue/Initialize()
@@ -660,7 +663,7 @@
 	pixel_x = 32
 
 /obj/structure/fluff/walldeco/vinez/glow/red
-	name = "red glow vines"
+	name = "red glowing ivy"
 	icon_state = "vinez_red"
 
 /obj/structure/fluff/walldeco/vinez/glow/red/Initialize()
