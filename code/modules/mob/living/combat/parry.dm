@@ -2,13 +2,13 @@
 
 /mob/living/proc/attempt_parry(datum/intent/attack_intent, mob/living/user)
 	var/prob2defend = user.defprob
-	var/mob/living/H = src
-	var/mob/living/U = user
-	if(H && U)
+	var/mob/living/defender = src
+	var/mob/living/attacker = user
+	if(defender && attacker)
 		prob2defend = 0
 
 	if(!can_see_cone(user))
-		if(!H.get_tempo_bonus(TEMPO_TAG_NOLOS_PARRY))
+		if(!defender.get_tempo_bonus(TEMPO_TAG_NOLOS_PARRY))
 			return FALSE
 		if(d_intent == INTENT_PARRY)
 			return FALSE
@@ -56,21 +56,21 @@
 	var/obj/item/mainhand = get_active_held_item()
 	var/obj/item/offhand = get_inactive_held_item()
 	var/obj/item/used_weapon = mainhand
-	var/obj/item/rogueweapon/shield/buckler/skiller = get_inactive_held_item()	// buckler code
-	var/obj/item/rogueweapon/shield/buckler/skillerbuck = get_active_held_item()
+	var/obj/item/rogueweapon/shield/buckler/offhand_buckler = get_inactive_held_item()	// buckler code
+	var/obj/item/rogueweapon/shield/buckler/mainhand_buckler = get_active_held_item()
 
 	if(istype(offhand, /obj/item/rogueweapon/shield/buckler))
-		skiller.bucklerskill(H)
+		offhand_buckler.bucklerskill(defender)
 	if(istype(mainhand, /obj/item/rogueweapon/shield/buckler))
-		skillerbuck.bucklerskill(H)	//buckler code end
+		mainhand_buckler.bucklerskill(defender)	//buckler code end
 
 	if(mainhand)
 		if(mainhand.can_parry)
-			mainhand_defense += (H.get_skill_level(mainhand.associated_skill) * PARRY_PER_SKILL_LEVEL)
+			mainhand_defense += (defender.get_skill_level(mainhand.associated_skill) * PARRY_PER_SKILL_LEVEL)
 			mainhand_defense += (mainhand.wdefense_dynamic * PARRY_PER_WDEF_POINT)
 	if(offhand)
 		if(offhand.can_parry)
-			offhand_defense += (H.get_skill_level(offhand.associated_skill) * PARRY_PER_SKILL_LEVEL)
+			offhand_defense += (defender.get_skill_level(offhand.associated_skill) * PARRY_PER_SKILL_LEVEL)
 			offhand_defense += (offhand.wdefense_dynamic * PARRY_PER_WDEF_POINT)
 
 	if(mainhand_defense >= offhand_defense)
@@ -86,20 +86,20 @@
 	var/obj/item/clothing/gloves/roguetown/bandages/unarmed_bandages
 
 	// Calculate unarmed parry value from bracers/knuckles/bandages
-	var/unarmed_skill = H.get_skill_level(/datum/skill/combat/unarmed)
+	var/unarmed_skill = defender.get_skill_level(/datum/skill/combat/unarmed)
 	var/unarmed_defense = 0
-	var/obj/B = H.get_item_by_slot(SLOT_WRISTS)
-	var/obj/K = H.get_item_by_slot(SLOT_GLOVES)
-	var/is_pugilist = HAS_TRAIT(H, TRAIT_CIVILIZEDBARBARIAN) // Only expert pugilists get the generous unarmed wdef
-	if(istype(B, /obj/item/clothing/wrists/roguetown/bracers))
+	var/obj/wrist_item = defender.get_item_by_slot(SLOT_WRISTS)
+	var/obj/hand_item = defender.get_item_by_slot(SLOT_GLOVES)
+	var/is_pugilist = HAS_TRAIT(defender, TRAIT_CIVILIZEDBARBARIAN) // Only expert pugilists get the generous unarmed wdef
+	if(istype(wrist_item, /obj/item/clothing/wrists/roguetown/bracers))
 		unarmed_defense = (unarmed_skill * PARRY_PER_SKILL_LEVEL) + ((is_pugilist ? UNARMED_BASE_WDEF_EQUIPPED : UNARMED_BASE_WDEF_BARE) * PARRY_PER_WDEF_POINT)
-		unarmed_bracers = B
-	else if(istype(K, /obj/item/clothing/gloves/roguetown/knuckles))
+		unarmed_bracers = wrist_item
+	else if(istype(hand_item, /obj/item/clothing/gloves/roguetown/knuckles))
 		unarmed_defense = (unarmed_skill * PARRY_PER_SKILL_LEVEL) + ((is_pugilist ? UNARMED_BASE_WDEF_EQUIPPED : UNARMED_BASE_WDEF_BARE) * PARRY_PER_WDEF_POINT)
-		unarmed_knuckles = K
-	else if(istype(K, /obj/item/clothing/gloves/roguetown/bandages))
+		unarmed_knuckles = hand_item
+	else if(istype(hand_item, /obj/item/clothing/gloves/roguetown/bandages))
 		unarmed_defense = (unarmed_skill * PARRY_PER_SKILL_LEVEL) + ((is_pugilist ? UNARMED_BASE_WDEF_EQUIPPED : UNARMED_BASE_WDEF_BARE) * PARRY_PER_WDEF_POINT)
-		unarmed_bandages = K
+		unarmed_bandages = hand_item
 	else
 		unarmed_defense = (unarmed_skill * PARRY_PER_SKILL_LEVEL) + (UNARMED_BASE_WDEF_BARE * PARRY_PER_WDEF_POINT)
 
@@ -114,7 +114,7 @@
 	if(highest_defense > 0 && (!allow_unarmed_fallback || highest_defense >= unarmed_defense))
 		// Weapon parry wins
 		if(used_weapon)
-			defender_skill = H.get_skill_level(used_weapon.associated_skill)
+			defender_skill = defender.get_skill_level(used_weapon.associated_skill)
 		else
 			defender_skill = unarmed_skill
 		prob2defend += highest_defense
@@ -130,8 +130,8 @@
 		prob2defend += unarmed_defense
 		weapon_parry = FALSE
 
-	var/att_swift_capable = U.check_dodge_skill(check_trait = FALSE)
-	var/def_swift_capable = H.check_dodge_skill(check_trait = FALSE)
+	var/att_swift_capable = attacker.check_dodge_skill(check_trait = FALSE)
+	var/def_swift_capable = defender.check_dodge_skill(check_trait = FALSE)
 
 	if(used_weapon)
 		if(used_weapon.wbalance == WBALANCE_SWIFT)
@@ -139,7 +139,7 @@
 				prob2defend += 10
 
 	if(attack_intent.masteritem)
-		attacker_skill = U.get_skill_level(attack_intent.masteritem.associated_skill)
+		attacker_skill = attacker.get_skill_level(attack_intent.masteritem.associated_skill)
 
 		if(attack_intent.sharpness_penalty)
 			attack_intent.masteritem.remove_bintegrity(attack_intent.sharpness_penalty)
@@ -168,7 +168,7 @@
 						finalmod = clamp(spdmod, 0, ceilclamp)
 					prob2defend -= finalmod
 	else
-		attacker_skill = U.get_skill_level(/datum/skill/combat/unarmed)
+		attacker_skill = attacker.get_skill_level(/datum/skill/combat/unarmed)
 		prob2defend -= (attacker_skill * PARRY_PER_SKILL_LEVEL)
 		if(user.STASPD > src.STASPD) //unarmed is inherently swift
 			var/spdmod = ((user.STASPD - src.STASPD) * 10)
@@ -191,8 +191,8 @@
 	if(used_weapon && !allow_unarmed_fallback)
 		if(!has_status_effect(/datum/status_effect/buff/weapon_binded) && !has_status_effect(/datum/status_effect/debuff/weapon_binded))
 			if(ishuman(src) && user.get_tempo_bonus(TEMPO_TAG_BINDABLE) && mind)
-				var/mob/living/carbon/human/HL = src
-				if(HL.try_bind(used_weapon, user))
+				var/mob/living/carbon/human/binding_defender = src
+				if(binding_defender.try_bind(used_weapon, user))
 					return TRUE	//Tentative, might be better if it only increased parry chance on the initial binding rather than a full block.
 
 	// --- Weapon Binding End! ---
@@ -205,21 +205,21 @@
 		prob2defend *= 0.65
 
 
-	if(HAS_TRAIT(H, TRAIT_SENTINELOFWITS))
-		if(ishuman(H))
-			var/mob/living/carbon/human/SH = H
-			var/sentinel = SH.calculate_sentinel_bonus()
+	if(HAS_TRAIT(defender, TRAIT_SENTINELOFWITS))
+		if(ishuman(defender))
+			var/mob/living/carbon/human/sentinel_defender = defender
+			var/sentinel = sentinel_defender.calculate_sentinel_bonus()
 			prob2defend += sentinel
 
-	if(HAS_TRAIT(U, TRAIT_ARMOUR_LIKED))
-		if(HAS_TRAIT(U, TRAIT_FENCERDEXTERITY))
+	if(HAS_TRAIT(attacker, TRAIT_ARMOUR_LIKED))
+		if(HAS_TRAIT(attacker, TRAIT_FENCERDEXTERITY))
 			prob2defend -= 5
 
 	prob2defend = clamp(prob2defend, 5, 90)
-	if(HAS_TRAIT(user, TRAIT_HARDSHELL) && H.client)	//Dwarf-merc specific limitation w/ their armor on in pvp
+	if(HAS_TRAIT(user, TRAIT_HARDSHELL) && defender.client)	//Dwarf-merc specific limitation w/ their armor on in pvp
 		prob2defend = clamp(prob2defend, 5, 70)
 	var/untrained_armor = FALSE
-	if(!H?.check_armor_skill())
+	if(!defender?.check_armor_skill())
 		prob2defend = clamp(prob2defend, 5, 75)			//Caps your max parry to 75 if using armor you're not trained in. Bad dexerity.
 		drained = drained + 5							//More stamina usage for not being trained in the armor you're using.
 		untrained_armor = TRUE
@@ -264,16 +264,16 @@
 
 	var/exp_multi = 1
 
-	if(!U.mind)
+	if(!attacker.mind)
 		exp_multi = exp_multi/2
 	if(istype(user.rmb_intent, /datum/rmb_intent/weak))
 		exp_multi = exp_multi/2
 
-	var/obj/item/AB = attack_intent.masteritem
+	var/obj/item/attacker_weapon = attack_intent.masteritem
 	var/attacker_skill_type
 
-	if(AB)
-		attacker_skill_type = AB.associated_skill
+	if(attacker_weapon)
+		attacker_skill_type = attacker_weapon.associated_skill
 	else
 		attacker_skill_type = /datum/skill/combat/unarmed
 
@@ -281,28 +281,28 @@
 		if(do_parry(used_weapon, drained, user, untrained_armor)) //show message
 			//only gain experience if attacker and defender aren't using non-combat skills for their weapons
 			if(ispath(attacker_skill_type, /datum/skill/combat) && ispath(used_weapon.associated_skill, /datum/skill/combat))
-				if ((mobility_flags & MOBILITY_STAND) && !isanimal(U))
+				if ((mobility_flags & MOBILITY_STAND) && !isanimal(attacker))
 					var/skill_target = attacker_skill
-					if(!HAS_TRAIT(U, TRAIT_GOODTRAINER))
+					if(!HAS_TRAIT(attacker, TRAIT_GOODTRAINER))
 						skill_target -= SKILL_LEVEL_NOVICE
-					if(HAS_TRAIT(U, TRAIT_BADTRAINER))
+					if(HAS_TRAIT(attacker, TRAIT_BADTRAINER))
 						skill_target -= SKILL_LEVEL_NOVICE
 					if (can_train_combat_skill(src, used_weapon.associated_skill, skill_target))
 						mind.add_sleep_experience(used_weapon.associated_skill, max(round(STAINT*exp_multi), 0), FALSE)
 
 				//attacker skill gain
-				if(U.mind && !isanimal(U))
+				if(attacker.mind && !isanimal(attacker))
 					if ((mobility_flags & MOBILITY_STAND))
 						var/skill_target = defender_skill
 						if(!HAS_TRAIT(src, TRAIT_GOODTRAINER))
 							skill_target -= SKILL_LEVEL_NOVICE
 						if(HAS_TRAIT(src, TRAIT_BADTRAINER))
 							skill_target -= SKILL_LEVEL_NOVICE
-						if (can_train_combat_skill(U, attacker_skill_type, skill_target))
-							U.mind.add_sleep_experience(attacker_skill_type, max(round(STAINT*exp_multi), 0), FALSE)
+						if (can_train_combat_skill(attacker, attacker_skill_type, skill_target))
+							attacker.mind.add_sleep_experience(attacker_skill_type, max(round(STAINT*exp_multi), 0), FALSE)
 
-			if(prob(66) && AB)
-				if((used_weapon.flags_1 & CONDUCT_1) && (AB.flags_1 & CONDUCT_1))
+			if(prob(66) && attacker_weapon)
+				if((used_weapon.flags_1 & CONDUCT_1) && (attacker_weapon.flags_1 & CONDUCT_1))
 					flash_fullscreen("whiteflash")
 					user.flash_fullscreen("whiteflash")
 					var/datum/effect_system/spark_spread/S = new()
@@ -314,8 +314,8 @@
 			else
 				flash_fullscreen("blackflash2")
 
-			if(AB)
-				var/dam2take = round((get_complex_damage(AB,user,used_weapon.blade_dulling)/2),1)
+			if(attacker_weapon)
+				var/dam2take = round((get_complex_damage(attacker_weapon,user,used_weapon.blade_dulling)/2),1)
 				if(dam2take)
 					var/intdam = used_weapon.max_blade_int ? INTEG_PARRY_DECAY : INTEG_PARRY_DECAY_NOSHARP
 					var/sharp_loss = SHARPNESS_ONHIT_DECAY
@@ -331,7 +331,7 @@
 						var/shield_mult = max(attack_intent.demolition_mod, attack_intent.intent_intdamage_factor)
 						intdam *= shield_mult
 
-					var/tempobonus = H.get_tempo_bonus(TEMPO_TAG_DEF_INTEGFACTOR)
+					var/tempobonus = defender.get_tempo_bonus(TEMPO_TAG_DEF_INTEGFACTOR)
 					if(tempobonus)	//It is either null or 0.1 to 1, multiplication by null results in 0, so we check.
 						intdam *= tempobonus
 
@@ -362,14 +362,14 @@
 		if(do_unarmed_parry(drained, user, untrained_armor))
 			//only gain experience if attacker isn't using a non-combat skill for their weapon
 			if(ispath(attacker_skill_type, /datum/skill/combat))
-				if((mobility_flags & MOBILITY_STAND) && !isanimal(U))
+				if((mobility_flags & MOBILITY_STAND) && !isanimal(attacker))
 					var/skill_target = attacker_skill
-					if(!HAS_TRAIT(U, TRAIT_GOODTRAINER))
+					if(!HAS_TRAIT(attacker, TRAIT_GOODTRAINER))
 						skill_target -= SKILL_LEVEL_NOVICE
-					if(HAS_TRAIT(U, TRAIT_BADTRAINER))
+					if(HAS_TRAIT(attacker, TRAIT_BADTRAINER))
 						skill_target -= SKILL_LEVEL_NOVICE
-					if(can_train_combat_skill(H, /datum/skill/combat/unarmed, skill_target))
-						H.mind?.add_sleep_experience(/datum/skill/combat/unarmed, max(round(STAINT*exp_multi), 0), FALSE)
+					if(can_train_combat_skill(defender, /datum/skill/combat/unarmed, skill_target))
+						defender.mind?.add_sleep_experience(/datum/skill/combat/unarmed, max(round(STAINT*exp_multi), 0), FALSE)
 
 			if(unarmed_bracers)
 				unarmed_bracers.take_damage(INTEG_PARRY_DECAY_NOSHARP, BRUTE)
@@ -386,14 +386,14 @@
 
 			return FALSE
 
-/mob/proc/do_parry(obj/item/W, parrydrain as num, mob/living/user, untrained_armor = FALSE)
+/mob/proc/do_parry(obj/item/parry_weapon, parrydrain as num, mob/living/user, untrained_armor = FALSE)
 	if(ishuman(src))
-		var/mob/living/carbon/human/H = src
+		var/mob/living/carbon/human/defender_human = src
 		//Tempo bonus
-		parrydrain -= H.get_tempo_bonus(TEMPO_TAG_STAMLOSS_PARRY)
-		if(H.stamina_add(parrydrain))
-			if(W)
-				playsound(get_turf(src), pick(W.parrysound), 100, FALSE)
+		parrydrain -= defender_human.get_tempo_bonus(TEMPO_TAG_STAMLOSS_PARRY)
+		if(defender_human.stamina_add(parrydrain))
+			if(parry_weapon)
+				playsound(get_turf(src), pick(parry_weapon.parrysound), 100, FALSE)
 			if(src.client)
 				record_round_statistic(STATS_PARRIES)
 				log_combat(src, user, "parried")
@@ -405,35 +405,35 @@
 				def_verb = "[pick("expertly", "deftly")] parries"
 			if(istype(user.rmb_intent, /datum/rmb_intent/strong))
 				att_verb = "'s [pick("hefty", "strong")] attack"
-			var/def_msg = "<b>[src]</b> [def_verb] [user][att_verb] with [W]!"
+			var/def_msg = "<b>[src]</b> [def_verb] [user][att_verb] with [parry_weapon]!"
 			if(untrained_armor)
 				def_msg += " Untrained Armor Penalty!"
 
 			visible_message(span_combatsecondary(def_msg), span_boldwarning(def_msg), COMBAT_MESSAGE_RANGE, list(user))
 			to_chat(user, span_boldwarning(def_msg))
 
-			for(var/mob/living/L in get_hearers_in_view(4, src, RECURSIVE_CONTENTS_CLIENT_MOBS))
-				if(!L.has_flaw(/datum/charflaw/addiction/clamorous))
+			for(var/mob/living/hearer in get_hearers_in_view(4, src, RECURSIVE_CONTENTS_CLIENT_MOBS))
+				if(!hearer.has_flaw(/datum/charflaw/addiction/clamorous))
 					continue
-				if(prob(7 + (L.STALUC - 10)))
-					L.sate_addiction(/datum/charflaw/addiction/clamorous)
+				if(prob(7 + (hearer.STALUC - 10)))
+					hearer.sate_addiction(/datum/charflaw/addiction/clamorous)
 
 			return TRUE
 		else
 			to_chat(src, span_warning("I'm too tired to parry!"))
 			return FALSE //crush through
 	else
-		if(W)
-			playsound(get_turf(src), pick(W.parrysound), 100, FALSE)
+		if(parry_weapon)
+			playsound(get_turf(src), pick(parry_weapon.parrysound), 100, FALSE)
 		return TRUE
 
 /mob/proc/do_unarmed_parry(parrydrain as num, mob/living/user, untrained_armor = FALSE)
 	if(ishuman(src))
-		var/mob/living/carbon/human/H = src
+		var/mob/living/carbon/human/defender_human = src
 		//Tempo bonus
-		parrydrain -= H.get_tempo_bonus(TEMPO_TAG_STAMLOSS_PARRY)
+		parrydrain -= defender_human.get_tempo_bonus(TEMPO_TAG_STAMLOSS_PARRY)
 
-		if(H.stamina_add(parrydrain))
+		if(defender_human.stamina_add(parrydrain))
 			playsound(get_turf(src), pick(parry_sound), 100, FALSE)
 			var/parry_msg = "<b>[src]</b> parries [user]!"
 			if(untrained_armor)
