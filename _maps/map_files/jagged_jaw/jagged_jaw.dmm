@@ -5070,22 +5070,12 @@
 /turf/open/floor/rogue/ruinedwood/spiral,
 /area/rogue/indoors/town/manor/grim)
 "aHx" = (
-/obj/structure/fluff/signage{
-	dir = 9;
-	name = "HAMLET, COAST - NORTHEAST";
-	layer = 4.2;
-	pixel_x = 4;
-	pixel_y = 2
+/obj/structure/fluff/railing/wood/west,
+/obj/effect/decal/mossy{
+	dir = 4
 	},
-/obj/structure/fluff/signage{
-	name = "Druid's Grove - Northwest";
-	pixel_x = 0;
-	pixel_y = 19;
-	dir = 1;
-	layer = 4.0
-	},
-/turf/open/floor/rogue/cobblerock,
-/area/rogue/outdoors/rtfield/grim)
+/turf/open/floor/rogue/dirt/road,
+/area/rogue/outdoors/town/grim)
 "aHy" = (
 /turf/open/water/swamp,
 /area/rogue/outdoors/woods/grim/southwest)
@@ -28286,16 +28276,6 @@
 	},
 /turf/open/floor/rogue/twig,
 /area/rogue/indoors/town/grim)
-"dEo" = (
-/obj/effect/decal/mossy{
-	dir = 8
-	},
-/obj/effect/decal/mossy{
-	dir = 4
-	},
-/obj/structure/fluff/railing/wood/west,
-/turf/open/floor/rogue/dirt/road,
-/area/rogue/outdoors/town/grim)
 "dEv" = (
 /obj/effect/decal/cobbleedge{
 	dir = 10;
@@ -28445,13 +28425,6 @@
 /obj/structure/fluff/railing/wood,
 /turf/open/floor/rogue/dirt/road,
 /area/rogue/under/underdark/north/grim)
-"dFr" = (
-/obj/structure/fluff/railing/wood/west,
-/obj/effect/decal/mossy{
-	dir = 4
-	},
-/turf/open/floor/rogue/dirt/road,
-/area/rogue/outdoors/town/grim)
 "dFs" = (
 /turf/open/floor/rogue/snow,
 /area/rogue/outdoors/mountains/decap/banditcamp)
@@ -40386,6 +40359,10 @@
 /obj/structure/fluff/railing/border/north,
 /turf/open/floor/rogue/tile/bluebrick,
 /area/rogue/outdoors/exposed/magiciantower)
+"fgE" = (
+/obj/structure/well,
+/turf/open/floor/rogue/grasscold,
+/area/rogue/outdoors/town/grim)
 "fgH" = (
 /obj/effect/decal/cleanable/dirt/dust,
 /turf/open/transparent/openspace,
@@ -52350,18 +52327,6 @@
 /turf/open/floor/rogue/blocks,
 /area/rogue/indoors/town/church/grim/infirmary)
 "gKC" = (
-/obj/structure/fluff/signage{
-	dir = 9;
-	name = "Pilgrim West Gate";
-	pixel_x = 2;
-	pixel_y = 38
-	},
-/obj/structure/fluff/signage{
-	name = "Pilgrim South Gate";
-	pixel_x = 2;
-	pixel_y = 16;
-	dir = 6
-	},
 /obj/structure/fluff/signage{
 	dir = 4;
 	name = "TOWN - NORTHEAST - SOUTHEAST"
@@ -117279,17 +117244,20 @@
 /area/rogue/under/cave/water_temple/three)
 "pcg" = (
 /obj/structure/fluff/signage{
-	dir = 5;
-	name = "HAMLET, COAST - NORTHEAST";
-	pixel_x = -1;
-	pixel_y = 14;
+	name = "Druid's Grove - Northwest";
+	pixel_x = 0;
+	pixel_y = 19;
+	dir = 1;
 	layer = 4.0
 	},
 /obj/structure/fluff/signage{
-	dir = 4;
-	name = "TOWN - NORTHEAST - SOUTHEAST"
+	dir = 9;
+	name = "HAMLET, COAST - NORTHEAST";
+	layer = 4.2;
+	pixel_x = 4;
+	pixel_y = 2
 	},
-/turf/open/floor/rogue/dirt/road,
+/turf/open/floor/rogue/cobblerock,
 /area/rogue/outdoors/rtfield/grim)
 "pcj" = (
 /obj/structure/stairs/stone,
@@ -129211,8 +129179,9 @@
 /turf/open/floor/rogue/concrete,
 /area/rogue/indoors/town/church/basement/grim)
 "qAt" = (
-/obj/structure/well,
-/turf/open/floor/rogue/grasscold,
+/obj/structure/fluff/railing/wood,
+/obj/effect/decal/mossy,
+/turf/open/floor/rogue/dirt/road,
 /area/rogue/outdoors/town/grim)
 "qAv" = (
 /obj/structure/flora/ausbushes/brflowers,
@@ -140796,11 +140765,8 @@
 /turf/open/water/bath,
 /area/rogue/under/cave/mazedungeon)
 "sbD" = (
-/obj/structure/fluff/railing/wood/east,
-/obj/effect/decal/mossy{
-	dir = 8
-	},
-/turf/open/floor/rogue/cobblerock,
+/obj/item/reagent_containers/glass/bucket,
+/turf/open/floor/rogue/grasscold,
 /area/rogue/outdoors/town/grim)
 "sbE" = (
 /obj/structure/rack/rogue/shelf/big{
@@ -145120,16 +145086,6 @@
 /obj/structure/fluff/railing/border/west,
 /turf/open/floor/rogue/naturalstone,
 /area/rogue/outdoors/bog/north/grim)
-"sBj" = (
-/obj/effect/decal/mossy{
-	dir = 4
-	},
-/obj/effect/decal/mossy{
-	dir = 8
-	},
-/obj/machinery/light/rogue/candle/l,
-/turf/open/floor/rogue/dirt/road,
-/area/rogue/indoors/town/magician)
 "sBk" = (
 /obj/structure/well,
 /turf/open/floor/rogue/grassyel,
@@ -146645,10 +146601,6 @@
 /obj/structure/flora/newtree,
 /turf/open/floor/rogue/grass,
 /area/rogue/outdoors/woods/grim/northeast)
-"sMi" = (
-/obj/item/reagent_containers/glass/bucket,
-/turf/open/floor/rogue/grasscold,
-/area/rogue/outdoors/town/grim)
 "sMj" = (
 /obj/effect/decal/edge{
 	color = "#3f3f3f";
@@ -158430,10 +158382,15 @@
 /turf/open/floor/rogue/cobblerock,
 /area/rogue/outdoors/woods/grim/northeast)
 "umc" = (
-/obj/structure/fluff/railing/wood,
-/obj/effect/decal/mossy,
-/turf/open/floor/rogue/dirt/road,
-/area/rogue/outdoors/town/grim)
+/obj/effect/decal/edge{
+	color = "#3f3f3f";
+	dir = 8
+	},
+/obj/machinery/light/rogue/candle{
+	pixel_y = -32
+	},
+/turf/open/floor/rogue/tile/bluebrick,
+/area/rogue/indoors/town/magician)
 "umd" = (
 /obj/structure/fluff/railing/border,
 /obj/structure/fluff/railing/border{
@@ -163365,6 +163322,16 @@
 "uQf" = (
 /turf/open/floor/rogue/tile/bluebrick,
 /area/rogue/indoors/town/bath/grim/abyssorbath)
+"uQh" = (
+/obj/effect/decal/mossy{
+	dir = 4
+	},
+/obj/effect/decal/mossy{
+	dir = 8
+	},
+/obj/machinery/light/rogue/candle/l,
+/turf/open/floor/rogue/dirt/road,
+/area/rogue/indoors/town/magician)
 "uQj" = (
 /obj/effect/turf_decal/trimline/yellow/filled/line{
 	dir = 6
@@ -173014,14 +172981,15 @@
 /turf/open/floor/rogue/AzureSand,
 /area/rogue/under/cavewet/bogcaves/west)
 "waB" = (
-/obj/structure/fluff/signage{
-	dir = 1;
-	name = "TO MOUNT GRYMSPYRE";
-	pixel_x = -2;
-	pixel_y = 15
+/obj/effect/decal/mossy{
+	dir = 8
 	},
+/obj/effect/decal/mossy{
+	dir = 4
+	},
+/obj/structure/fluff/railing/wood/west,
 /turf/open/floor/rogue/dirt/road,
-/area/rogue/outdoors/rtfield/grim)
+/area/rogue/outdoors/town/grim)
 "waC" = (
 /obj/effect/decal/edge{
 	color = "#3f3f3f";
@@ -175359,16 +175327,6 @@
 	},
 /turf/open/floor/rogue/dirt,
 /area/rogue/outdoors/beach/forest/hamlet/grim)
-"wqb" = (
-/obj/effect/decal/edge{
-	color = "#3f3f3f";
-	dir = 8
-	},
-/obj/machinery/light/rogue/candle{
-	pixel_y = -32
-	},
-/turf/open/floor/rogue/tile/bluebrick,
-/area/rogue/indoors/town/magician)
 "wqj" = (
 /turf/closed/wall/mineral/rogue/tent{
 	dir = 4
@@ -186192,6 +186150,13 @@
 	},
 /turf/open/floor/rogue/dirt,
 /area/rogue/outdoors/rtfield/grim/south)
+"xIM" = (
+/obj/structure/fluff/railing/wood/east,
+/obj/effect/decal/mossy{
+	dir = 8
+	},
+/turf/open/floor/rogue/cobblerock,
+/area/rogue/outdoors/town/grim)
 "xIN" = (
 /obj/item/roguecoin/gold{
 	pixel_x = -6;
@@ -348544,7 +348509,7 @@ qas
 uSu
 hCY
 ncE
-pcg
+tCg
 mkX
 nbl
 mkX
@@ -349631,7 +349596,7 @@ tCg
 tCg
 tCg
 tCg
-waB
+tCg
 tCg
 tCg
 tCg
@@ -353124,9 +353089,9 @@ cXq
 mkX
 tCg
 mkX
-aHx
 mqY
 mqY
+pcg
 gKC
 cXq
 gxf
@@ -503650,7 +503615,7 @@ twx
 jTX
 rMG
 hGX
-sBj
+uQh
 nFo
 nFo
 nFo
@@ -504807,10 +504772,10 @@ fuH
 gRB
 dfx
 vMn
-dFr
-dEo
-dEo
-dEo
+aHx
+waB
+waB
+waB
 bHc
 dfx
 gRB
@@ -505184,11 +505149,11 @@ kQP
 lgG
 lgG
 lgG
-wqb
+umc
 qDM
 gRB
 dfx
-umc
+qAt
 jKu
 jKu
 jKu
@@ -506330,7 +506295,7 @@ qvx
 rMG
 fho
 fuH
-sMi
+sbD
 gRB
 dfx
 gRB
@@ -506712,7 +506677,7 @@ mIa
 rMG
 nfH
 qDM
-qAt
+fgE
 gRB
 gRB
 gRB
@@ -507486,7 +507451,7 @@ giu
 lcH
 agE
 iRT
-sbD
+xIM
 csj
 gRB
 gRB
