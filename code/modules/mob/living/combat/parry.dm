@@ -1,6 +1,6 @@
 // Unarmed base weapon defense equivalents — fed into the same (skill * 20) + (wdef * 10) formula as weapons
 
-/mob/living/proc/attempt_parry(datum/intent/intenty, mob/living/user)
+/mob/living/proc/attempt_parry(datum/intent/attack_intent, mob/living/user)
 	var/prob2defend = user.defprob
 	var/mob/living/H = src
 	var/mob/living/U = user
@@ -35,10 +35,10 @@
 	if(has_status_effect(/datum/status_effect/debuff/riposted))
 		return FALSE
 
-	if(!intenty)
-		intenty = user.used_intent
+	if(!attack_intent)
+		attack_intent = user.used_intent
 
-	if(intenty && !intenty.canparry)
+	if(attack_intent && !attack_intent.canparry)
 		return FALSE
 
 	if(!paired_swing)
@@ -138,16 +138,16 @@
 			if(mainhand && !offhand && def_swift_capable) // We're one-handing a swift-balanced weapon (rapiers, sabers, etc). Small parry boost (1 wdef equiv.)
 				prob2defend += 10
 
-	if(intenty.masteritem)
-		attacker_skill = U.get_skill_level(intenty.masteritem.associated_skill)
+	if(attack_intent.masteritem)
+		attacker_skill = U.get_skill_level(attack_intent.masteritem.associated_skill)
 
-		if(intenty.sharpness_penalty)
-			intenty.masteritem.remove_bintegrity(intenty.sharpness_penalty)
+		if(attack_intent.sharpness_penalty)
+			attack_intent.masteritem.remove_bintegrity(attack_intent.sharpness_penalty)
 
 		prob2defend -= (attacker_skill * PARRY_PER_SKILL_LEVEL)
 		if(att_swift_capable)
 			if(!has_status_effect(/datum/status_effect/buff/weapon_binded))
-				if((intenty.masteritem.wbalance == WBALANCE_SWIFT) && (user.STASPD > src.STASPD)) //enemy weapon is quick, so get a bonus based on spddiff
+				if((attack_intent.masteritem.wbalance == WBALANCE_SWIFT) && (user.STASPD > src.STASPD)) //enemy weapon is quick, so get a bonus based on spddiff
 					var/spdmod = ((user.STASPD - src.STASPD) * 10)
 					var/permod = ((src.STAPER - user.STAPER) * 5)
 					var/intmod = ((src.STAINT - user.STAINT) * 3)
@@ -247,9 +247,9 @@
 
 	if(parry_status)
 		if(!has_status_effect(/datum/status_effect/buff/weapon_binded))
-			if(intenty.masteritem)
-				if(intenty.masteritem.wbalance == WBALANCE_HEAVY && user.STASTR > src.STASTR) //enemy weapon is heavy, so get a bonus scaling on strdiff
-					drained = drained + ( intenty.masteritem.wbalance * ((user.STASTR - src.STASTR) * STAM_DRAIN_PER_STR_DIFF_HEAVY_BAL) )
+			if(attack_intent.masteritem)
+				if(attack_intent.masteritem.wbalance == WBALANCE_HEAVY && user.STASTR > src.STASTR) //enemy weapon is heavy, so get a bonus scaling on strdiff
+					drained = drained + ( attack_intent.masteritem.wbalance * ((user.STASTR - src.STASTR) * STAM_DRAIN_PER_STR_DIFF_HEAVY_BAL) )
 	else
 		text += span_warning(" The enemy defeated my parry!")
 	if(src.client?.prefs.showrolls)
@@ -269,7 +269,7 @@
 	if(istype(user.rmb_intent, /datum/rmb_intent/weak))
 		exp_multi = exp_multi/2
 
-	var/obj/item/AB = intenty.masteritem
+	var/obj/item/AB = attack_intent.masteritem
 	var/attacker_skill_type
 
 	if(AB)
@@ -327,8 +327,8 @@
 						intdam += STRONG_INTG_BONUS
 
 					// Heavy weapons chew through shields — use higher of demolition_mod or intent intdamage_factor
-					if(istype(used_weapon, /obj/item/rogueweapon/shield) && intenty)
-						var/shield_mult = max(intenty.demolition_mod, intenty.intent_intdamage_factor)
+					if(istype(used_weapon, /obj/item/rogueweapon/shield) && attack_intent)
+						var/shield_mult = max(attack_intent.demolition_mod, attack_intent.intent_intdamage_factor)
 						intdam *= shield_mult
 
 					var/tempobonus = H.get_tempo_bonus(TEMPO_TAG_DEF_INTEGFACTOR)
@@ -347,8 +347,8 @@
 					sharp_loss += STRONG_SHP_BONUS
 					intdam += STRONG_INTG_BONUS
 
-				if(istype(used_weapon, /obj/item/rogueweapon/shield) && intenty)
-					intdam *= intenty.intent_intdamage_factor
+				if(istype(used_weapon, /obj/item/rogueweapon/shield) && attack_intent)
+					intdam *= attack_intent.intent_intdamage_factor
 				used_weapon.take_damage(intdam, BRUTE, used_weapon.d_type)
 				used_weapon.remove_bintegrity(sharp_loss, user)
 			if(mind)

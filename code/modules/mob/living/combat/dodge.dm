@@ -27,7 +27,7 @@
 	visible_message(span_boldwarning("[src] is winded!"))
 	balloon_alert_to_viewers("<font color='#ff3b3b'>winded!</font>")
 
-/mob/living/proc/attempt_dodge(datum/intent/intenty, mob/living/user)
+/mob/living/proc/attempt_dodge(datum/intent/attack_intent, mob/living/user)
 	if(pulledby || pulling)
 		return FALSE
 	if(isanimal(src))
@@ -45,8 +45,8 @@
 		last_dodge = world.time
 	if(src.loc == user.loc)
 		return FALSE
-	if(intenty)
-		if(!intenty.candodge)
+	if(attack_intent)
+		if(!attack_intent.candodge)
 			return FALSE
 	if(HAS_TRAIT(src, TRAIT_NODEF))
 		return FALSE

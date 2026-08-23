@@ -59,7 +59,7 @@
 		return FALSE
 	if(src.loc == user.loc)
 		return FALSE
-	if(intenty && !intenty.candodge)
+	if(attack_intent && !attack_intent.candodge)
 		return FALSE
 	if(HAS_TRAIT(src, TRAIT_NODEF))
 		return FALSE
