@@ -92,8 +92,11 @@
 	result = /turf/closed/wall/mineral/rogue/woodbark
 
 /datum/crafting_recipe/roguetown/turfs/wood/wall/woodbark/TurfCheck(mob/user, turf/T)
-	if(!iself(user) && !iswildkin(user) && user.job != "Druid")
-		to_chat(user, span_warning("Only Elves, Wild-Kin, and Druids can master the art of natural wood walls."))
+	var/datum/patron/user_patron
+	if(istype(user, /mob/living))
+		user_patron = user.vars["patron"]
+	if(!iself(user) && !iswildkin(user) && user.job != "Druid" && !istype(user_patron, /datum/patron/divine/dendor))
+		to_chat(user, span_warning("Only Elves, Wild-Kin, Druids, and followers of Dendor can master the art of natural wood walls."))
 		return FALSE
 	return ..()
 
