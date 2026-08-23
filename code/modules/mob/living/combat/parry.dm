@@ -136,16 +136,17 @@
 			if(mainhand && !offhand && def_swift_capable) // We're one-handing a swift-balanced weapon (rapiers, sabers, etc). Small parry boost (1 wdef equiv.)
 				prob2defend += 10
 
-	if(attack_intent.masteritem)
-		attacker_skill = attacker.get_skill_level(attack_intent.masteritem.associated_skill)
+	var/obj/item/attacker_weapon = attack_intent.masteritem
+	if(attacker_weapon)
+		attacker_skill = attacker.get_skill_level(attacker_weapon.associated_skill)
 
 		if(attack_intent.sharpness_penalty)
-			attack_intent.masteritem.remove_bintegrity(attack_intent.sharpness_penalty)
+			attacker_weapon.remove_bintegrity(attack_intent.sharpness_penalty)
 
 		prob2defend -= (attacker_skill * PARRY_PER_SKILL_LEVEL)
 		if(att_swift_capable)
 			if(!has_status_effect(/datum/status_effect/buff/weapon_binded))
-				if((attack_intent.masteritem.wbalance == WBALANCE_SWIFT) && (user.STASPD > src.STASPD)) //enemy weapon is quick, so get a bonus based on spddiff
+				if((attacker_weapon.wbalance == WBALANCE_SWIFT) && (user.STASPD > src.STASPD)) //enemy weapon is quick, so get a bonus based on spddiff
 					var/spdmod = ((user.STASPD - src.STASPD) * 10)
 					var/permod = ((src.STAPER - user.STAPER) * 5)
 					var/intmod = ((src.STAINT - user.STAINT) * 3)
@@ -222,7 +223,6 @@
 		drained = drained + 5							//More stamina usage for not being trained in the armor you're using.
 		untrained_armor = TRUE
 
-	var/parry_status = FALSE
 	var/text
 
 	// Dual wield drawback (-5%)
@@ -240,14 +240,13 @@
 	if(dualwield_penalty)
 		text += " (-5%)"
 
-	if(prob(prob2defend))
-		parry_status = TRUE
+	var/parry_status = prob(prob2defend)
 
 	if(parry_status)
 		if(!has_status_effect(/datum/status_effect/buff/weapon_binded))
-			if(attack_intent.masteritem)
-				if(attack_intent.masteritem.wbalance == WBALANCE_HEAVY && user.STASTR > src.STASTR) //enemy weapon is heavy, so get a bonus scaling on strdiff
-					drained = drained + ( attack_intent.masteritem.wbalance * ((user.STASTR - src.STASTR) * STAM_DRAIN_PER_STR_DIFF_HEAVY_BAL) )
+			if(attacker_weapon)
+				if(attacker_weapon.wbalance == WBALANCE_HEAVY && user.STASTR > src.STASTR) //enemy weapon is heavy, so get a bonus scaling on strdiff
+					drained = drained + ( attacker_weapon.wbalance * ((user.STASTR - src.STASTR) * STAM_DRAIN_PER_STR_DIFF_HEAVY_BAL) )
 	else
 		text += span_warning(" The enemy defeated my parry!")
 	if(src.client?.prefs.showrolls)
@@ -267,7 +266,6 @@
 	if(istype(user.rmb_intent, /datum/rmb_intent/weak))
 		exp_multi = exp_multi/2
 
-	var/obj/item/attacker_weapon = attack_intent.masteritem
 	var/attacker_skill_type
 
 	if(attacker_weapon)
