@@ -9,9 +9,16 @@
 		var/datum/virtue/V = GLOB.virtues[path]
 		if(!V.name || !istype(V, /datum/virtue/origin))
 			continue
-		// why don't they just set restricted = TRUE on racial...?
-		if(V.restricted == TRUE || istype(V, /datum/virtue/origin/racial))
-			if((pref_species.type in V.races))
+		// Skip familiar origins
+		if(istype(V, /datum/virtue/origin/familiar))
+			continue
+		// Restricted uses races as a blacklist
+		if(V.restricted == TRUE)
+			if(pref_species.type in V.races)
+				continue
+		// Racial uses races as a whitelist
+		if(istype(V, /datum/virtue/origin/racial))
+			if(!(pref_species.type in V.races))
 				continue
 		UNTYPED_LIST_ADD(available_origins, V.type)
 	data["available_origins"] = available_origins

@@ -11,9 +11,9 @@
 			var/datum/charflaw/cf = GLOB.character_flaws_singletons[path]
 
 			if(has_flaw(path))
-				verbose_pref_log_notification(user, "notice", "Added vice [cf.name]")
+				verbose_pref_log_notification(user, "notice", "Removed vice [cf.name]")
 				return ui_remove_charflaw(user, path)
-			verbose_pref_log_notification(user, "notice", "Removed vice [cf.name]")
+			verbose_pref_log_notification(user, "notice", "Added vice [cf.name]")
 			return ui_add_charflaw(user, path)
 
 /datum/preferences/proc/ui_add_charflaw(mob/user, cf_type)

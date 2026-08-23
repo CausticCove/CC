@@ -7,7 +7,8 @@ import {
 } from 'pm/popups';
 import { useState } from 'react';
 import { ReactSortable } from 'react-sortablejs';
-import { Button, Icon, Section, Stack } from 'tgui-core/components';
+import { Button, Icon, Input, Section, Stack } from 'tgui-core/components';
+import { useFuzzySearch } from 'tgui-core/fuzzysearch';
 
 export type PopupCharacterSelectData = {
   slot: number;
@@ -70,6 +71,11 @@ const PopupCharacterSelectInner = (props) => {
       favorited_slots.indexOf(a.index) - favorited_slots.indexOf(b.index),
   );
 
+  const { query, setQuery, results } = useFuzzySearch({
+    getSearchString: (s) => s.real_name || '',
+    searchArray: regular,
+  });
+
   return (
     <>
       {favorites.length ? (
@@ -115,20 +121,31 @@ const PopupCharacterSelectInner = (props) => {
       <Section
         title="Slots"
         buttons={
-          <Button.Checkbox
-            checked={adv}
-            selected={adv}
-            tooltip="Unlock Slot Copy & Deletion"
-            onClick={() => setAdv((v) => !v)}
-          >
-            <Icon name="unlock" mr={1} />
-            <Icon name="copy" mr={1} />
-            <Icon name="trash" />
-          </Button.Checkbox>
+          <Stack align="center">
+            <Stack.Item>
+              <Input
+                placeholder="Search..."
+                onChange={(v) => setQuery(v)}
+                value={query}
+              />
+            </Stack.Item>
+            <Stack.Item>
+              <Button.Checkbox
+                checked={adv}
+                selected={adv}
+                tooltip="Unlock Slot Copy & Deletion"
+                onClick={() => setAdv((v) => !v)}
+              >
+                <Icon name="unlock" mr={1} />
+                <Icon name="copy" mr={1} />
+                <Icon name="trash" />
+              </Button.Checkbox>
+            </Stack.Item>
+          </Stack>
         }
       >
         <Stack fill vertical>
-          {regular.map((slot) => (
+          {(query.length ? results : regular).map((slot) => (
             <Stack.Item key={slot.index}>
               <CharacterSlot
                 slot={slot}
@@ -168,24 +185,30 @@ const CharacterSlot = (props: {
   return (
     <Section>
       <Stack align="center">
-        {favorite ? (
-          <Stack.Item>
-            <Icon name="grip-vertical" />
-          </Stack.Item>
-        ) : null}
-        <Stack.Item bold={currentSlot === slot.index}>{slot.index}</Stack.Item>
-        <Stack.Item
-          basis="60%"
-          bold={currentSlot === slot.index}
-          fontSize={1.2}
-          style={
-            currentSlot === slot.index
-              ? { textDecoration: 'underline' }
-              : undefined
-          }
-        >
-          {slot.real_name || 'No Data'}
-          {slot.topjob ? ` - ${slot.topjob}` : null}
+        <Stack.Item basis="60%">
+          <Stack align="center">
+            {favorite ? (
+              <Stack.Item>
+                <Icon name="grip-vertical" />
+              </Stack.Item>
+            ) : null}
+            <Stack.Item bold={currentSlot === slot.index}>
+              {slot.index}
+            </Stack.Item>
+            <Stack.Item
+              basis="60%"
+              bold={currentSlot === slot.index}
+              fontSize={1.2}
+              style={
+                currentSlot === slot.index
+                  ? { textDecoration: 'underline' }
+                  : undefined
+              }
+            >
+              {slot.real_name || 'No Data'}
+              {slot.topjob ? ` - ${slot.topjob}` : null}
+            </Stack.Item>
+          </Stack>
         </Stack.Item>
         <Stack.Item>{slot.species || 'No Data'}</Stack.Item>
         <Stack.Item grow />

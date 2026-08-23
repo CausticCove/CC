@@ -214,9 +214,23 @@ const RightPane = (props: {
 }) => {
   const { faiths, patrons, selected_patron, viewing } = props;
   const { act } = usePopupBackend();
-  const patron = patrons.find((p) => p.type === viewing)!;
-  const faith = faiths.find((f) => f.type === patron.associated_faith)!;
-  const godhead = patrons.find((p) => p.type === faith.godhead)!;
+  const patron = patrons.find((p) => p.type === viewing);
+  if (!patron) {
+    return (
+      <Stack fill vertical justify="stretch">
+        Invalid patron: {viewing}
+      </Stack>
+    );
+  }
+  const faith = faiths.find((f) => f.type === patron.associated_faith);
+  if (!faith) {
+    return (
+      <Stack fill vertical justify="stretch">
+        Invalid patron (no associated faith): {viewing}
+      </Stack>
+    );
+  }
+  const godhead = patrons.find((p) => p.type === faith.godhead);
 
   return (
     <Stack fill vertical justify="stretch">
@@ -233,7 +247,7 @@ const RightPane = (props: {
         >
           <LabeledGridList>
             <LabeledGridList.Item label="Head Patron">
-              {godhead.name}
+              {godhead?.name || 'None'}
             </LabeledGridList.Item>
             <LabeledGridList.Item label="Likely Worshippers">
               {faith.worshippers}

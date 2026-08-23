@@ -7,8 +7,8 @@ import {
   usePopupBackend,
   usePopupContext,
 } from 'pm/popups';
-import { useState } from 'react';
 import { Box, Button, Input, Section, Stack } from 'tgui-core/components';
+import { useFuzzySearch } from 'tgui-core/fuzzysearch';
 
 type CustomizerSelectData = {
   customizer_entries: Record<Path, CustomizerEntry>;
@@ -139,30 +139,34 @@ const AccessoryChoice = (props: {
   const { customizer_choices, sprite_accessories } = constantData;
   const { customizer } = context;
   const { customizer_entries } = data;
-  const [search, setSearch] = useState('');
 
   const entry = customizer_entries[customizer];
   const selectedChoice = customizer_choices[entry.customizer_choice_type];
-  const spriteAccessories = selectedChoice.sprite_accessories
-    .map((path) => ({ path, ...sprite_accessories[path] }))
-    .filter((v) => {
-      if (search) {
-        return v.name.toLowerCase().includes(search.toLowerCase());
-      } else {
-        return true;
-      }
-    });
+  const spriteAccessories = selectedChoice.sprite_accessories.map((path) => ({
+    path,
+    ...sprite_accessories[path],
+  }));
+
+  const { query, setQuery, results } = useFuzzySearch({
+    getSearchString: (s) => s.name,
+    searchArray: spriteAccessories,
+  });
 
   return (
     <Section fill>
       <Stack fill vertical>
         <Stack.Item>
-          <Input fluid onChange={setSearch} value={search} />
+          <Input
+            fluid
+            placeholder="Search..."
+            onChange={setQuery}
+            value={query}
+          />
         </Stack.Item>
         <Stack.Item grow>
           <Section fill scrollable>
             <Box className="PreferencesMenu__Grid PreferencesMenu__FiveColumn__ImageButton">
-              {spriteAccessories.map((sa) => (
+              {(query.length ? results : spriteAccessories).map((sa) => (
                 <SpriteAccessoryImageButton
                   key={sa.path}
                   iconRef={sa.icon}

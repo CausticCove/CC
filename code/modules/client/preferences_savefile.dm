@@ -336,6 +336,7 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	WRITE_FILE(S["no_redflash"], no_redflash)
 	WRITE_FILE(S["darkvision_accessibility"], darkvision_accessibility)
 	WRITE_FILE(S["crt"], crt)
+	WRITE_FILE(S["grain"], grain)
 	WRITE_FILE(S["sexable"], sexable)
 	WRITE_FILE(S["shake"], shake)
 	WRITE_FILE(S["mastervol"], mastervol)

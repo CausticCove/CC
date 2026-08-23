@@ -6,7 +6,8 @@ import {
 } from 'pm/constant_data';
 import type { Path } from 'pm/data';
 import { type PopupData, registerPopup, usePopupBackend } from 'pm/popups';
-import { ImageButton, Stack } from 'tgui-core/components';
+import { ImageButton, Input, Section, Stack } from 'tgui-core/components';
+import { useFuzzySearch } from 'tgui-core/fuzzysearch';
 import { classes } from 'tgui-core/react';
 
 enum Approval {
@@ -30,6 +31,7 @@ const PopupCharflawSelector = (props) => {
   return (
     <PrefPopupGuard
       title="Selecting Character Vices"
+      disableScroll
       loadingScreenText="Vices Loading..."
       width="80vw"
       height="80vh"
@@ -103,18 +105,35 @@ const PopupCharflawSelectorInner = (props: { constantData: ConstantData }) => {
   }));
   charflaws.sort((a, b) => a.cf.name.localeCompare(b.cf.name));
 
+  const combinedList = [...charflaws, ...triflaws];
+  const { query, setQuery, results } = useFuzzySearch({
+    getSearchString: (s) => s.cf.name || '',
+    searchArray: combinedList,
+  });
+
   return (
-    <Stack vertical p={2} mb={4}>
-      {charflaws.map((args) => (
-        <CharflawButton
-          key={args.path}
-          taken={equipped_keys.indexOf(args.path) + 1 || undefined}
-          {...args}
+    <Stack fill vertical p={2}>
+      <Stack.Item>
+        <Input
+          fluid
+          placeholder="Search..."
+          onChange={(v) => setQuery(v)}
+          value={query}
         />
-      ))}
-      {triflaws.map((args) => (
-        <CharflawButton key={args.path} {...args} />
-      ))}
+      </Stack.Item>
+      <Stack.Item grow>
+        <Section fill scrollable>
+          <Stack vertical>
+            {(query.length ? results : combinedList).map((args) => (
+              <CharflawButton
+                key={args.path}
+                taken={equipped_keys.indexOf(args.path) + 1 || undefined}
+                {...args}
+              />
+            ))}
+          </Stack>
+        </Section>
+      </Stack.Item>
     </Stack>
   );
 };

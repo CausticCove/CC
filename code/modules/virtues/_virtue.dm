@@ -203,6 +203,7 @@ GLOBAL_LIST_EMPTY(virtues)
 	name = "None"
 	desc = "Without virtue."
 	ui_fa_icon = "ban"
+	stackable = TRUE
 
 /// Dynamic UI data for TGUI to display these in the prefs menu
 /datum/virtue/ui_data(mob/user)

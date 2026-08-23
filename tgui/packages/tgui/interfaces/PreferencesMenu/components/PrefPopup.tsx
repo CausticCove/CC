@@ -5,17 +5,18 @@ import { Box, Button, Modal, Section } from 'tgui-core/components';
 
 export type PopupProps = {
   title: ReactNode;
+  disableScroll?: boolean;
 } & Pick<ComponentProps<typeof Modal>, 'width' | 'height'>;
 
 export const PrefPopup = (props: PropsWithChildren<PopupProps>) => {
   const [, setPopup] = usePopupId();
-  const { title, width, height, children } = props;
+  const { title, disableScroll, width, height, children } = props;
 
   return (
     <Modal onEscape={() => setPopup(null)}>
       <Section
         fill
-        scrollable
+        scrollable={!disableScroll}
         title={title}
         width={width}
         height={height}

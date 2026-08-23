@@ -63,7 +63,7 @@
 
 	// Random gameplay stuff!
 	extra_language = pick(list("None") + GLOB.languages_character_selection)
-	selected_patron = pick_assoc(GLOB.patronlist)
+	selected_patron = pick_assoc(GLOB.preference_patrons)
 	domhand = pick(1, 2)
 
 	// Random sounds!

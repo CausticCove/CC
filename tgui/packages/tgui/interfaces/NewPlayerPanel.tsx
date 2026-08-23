@@ -20,6 +20,7 @@ type Data = {
   ticker_state: TickerState;
   ready: number;
   migrant: BooleanLike;
+  active_character: string | null;
 
   time_remaining: number;
   ready_count: number;
@@ -100,7 +101,7 @@ const WelcomeAnimation = (props) => {
 };
 
 const NewPlayerButtons = (props) => {
-  const { act } = useBackend<Data>();
+  const { act, data } = useBackend<Data>();
 
   return (
     <>
@@ -132,8 +133,13 @@ const PreGame = (props) => {
       <Stack.Item>
         <Section title="Pre-Game Lobby">
           <Stack align="center" justify="space-between">
-            <Stack.Item>
+            <Stack.Item minWidth={0}>
               <Stack vertical>
+                {data.active_character ? (
+                  <Stack.Item overflowX="hidden">
+                    Playing As: {data.active_character}
+                  </Stack.Item>
+                ) : null}
                 <Stack.Item>
                   Time to start:{' '}
                   {time_remaining > 0 ? (
@@ -205,9 +211,12 @@ const ActiveGame = (props) => {
               disabled={migrant}
               tooltip={migrant ? 'You are in the migrant queue.' : null}
               fluid
+              ellipsis
               icon="door-open"
             >
-              Join Late
+              {data.active_character
+                ? `Join Late (Playing As: ${data.active_character})`
+                : 'Join Late'}
             </Button>
           </Stack.Item>
           <Stack.Item>

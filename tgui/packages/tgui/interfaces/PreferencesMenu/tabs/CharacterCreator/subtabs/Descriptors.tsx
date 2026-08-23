@@ -469,6 +469,8 @@ const TextEditor = (props: {
     false,
   );
 
+  const [expanded, setExpanded] = useState(false);
+
   // Persistent edits
   const [persistedEdits, setPersistedEdits] = useAtom(
     unwrappedPersistedEditsAtom,
@@ -591,6 +593,14 @@ const TextEditor = (props: {
                 </Stack.Item>
               </>
             ) : null}
+            <Stack.Item>
+              <Button
+                icon="expand"
+                selected={expanded}
+                tooltip="Expand Textbox"
+                onClick={() => setExpanded((v) => !v)}
+              />
+            </Stack.Item>
           </Stack>
         </Stack.Item>
         {warning ? (
@@ -602,7 +612,7 @@ const TextEditor = (props: {
           <TextArea
             fluid
             maxLength={maxLength}
-            height={EDITOR_HEIGHT}
+            height={EDITOR_HEIGHT * (expanded ? 3 : 1)}
             value={input}
             className={
               unsaved ? 'PreferencesMenu__TextEditor__Unsaved' : undefined

@@ -18,12 +18,9 @@
 	switch(action)
 		if("bodytype")
 			var/static/list/friendlyGenders = list("male" = "masculine", "female" = "feminine")
-			var/pickedGender = "male"
-			if(gender == "male")
-				pickedGender = "female"
-			if(pickedGender != gender)
-				verbose_pref_log_change(user, "notice", "Body Type", friendlyGenders[gender], friendlyGenders[pickedGender])
-				gender = pickedGender
+			var/pickedGender = gender == "male" ? "female" : "male"
+			verbose_pref_log_change(user, "notice", "Body Type", friendlyGenders[gender], friendlyGenders[pickedGender])
+			gender = pickedGender
 			genderize_customizer_entries()
 			return CHARACTER_ACT_PREVIEW_UPDATE
 		if("race_bonus_select")
