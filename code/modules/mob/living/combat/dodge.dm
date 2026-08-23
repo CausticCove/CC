@@ -80,8 +80,8 @@
 				if(check_dodge_turf(turfcheck))
 					dodge_turf = turfcheck
 		if(!dodge_turf)
-			for(var/x in shuffle(dirry.Copy()))
-				var/turf/turfcheck = dodge_turf = get_step(src,x)
+			for(var/dodge_dir in shuffle(dirry.Copy()))
+				var/turf/turfcheck = get_step(src, dodge_dir)
 				if(turfcheck)
 					if(check_dodge_turf(turfcheck))
 						dodge_turf = turfcheck

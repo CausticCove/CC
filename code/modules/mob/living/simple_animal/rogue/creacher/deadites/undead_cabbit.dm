@@ -96,8 +96,8 @@
 			turfy = turfcheck
 
 	if(!turfy)
-		for(var/x in shuffle(dirry.Copy()))
-			var/turf/turfcheck = get_step(src, x)
+		for(var/dodge_dir in shuffle(dirry.Copy()))
+			var/turf/turfcheck = get_step(src, dodge_dir)
 			if(turfcheck && check_dodge_turf(turfcheck))
 				turfy = turfcheck
 				break
