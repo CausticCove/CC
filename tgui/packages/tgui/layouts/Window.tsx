@@ -168,6 +168,18 @@ function WindowContent(props: ContentProps) {
     }
   }
 
+  // Reset alt when alt-tabing
+  useEffect(() => {
+    function onBlur() {
+      setAltDown(false);
+    }
+
+    window.addEventListener('blur', onBlur);
+    return () => {
+      window.removeEventListener('blur', onBlur);
+    };
+  }, []);
+
   Byond.subscribeTo('resetposition', (payload) => {
     setWindowPosition([0, 0]);
     storeWindowGeometry();
