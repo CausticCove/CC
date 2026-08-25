@@ -74135,16 +74135,15 @@
 	pixel_x = 5;
 	pixel_y = 12
 	},
-/obj/item/reagent_containers/glass/cup/golden{
-	pixel_x = -8;
-	pixel_y = 6
-	},
 /obj/item/kitchen/spoon/gold{
 	pixel_x = 7;
 	pixel_y = 4
 	},
 /obj/structure/roguemachine/mail/r{
 	mailtag = "Hand"
+	},
+/obj/item/candle/candlestick/gold/lit{
+	pixel_y = 12
 	},
 /turf/open/floor/rogue/carpet,
 /area/rogue/indoors/town/manor/grim)
@@ -97970,12 +97969,15 @@
 	},
 /obj/structure/table/wood/long_table,
 /obj/item/reagent_containers/glass/bottle/rogue/redwine{
-	pixel_x = 13;
-	pixel_y = 18
+	pixel_x = 5;
+	pixel_y = 23
 	},
-/obj/item/candle/candlestick/gold/lit{
-	pixel_y = 12
+/obj/item/reagent_containers/glass/cup/golden{
+	pixel_x = -7;
+	pixel_y = 17
 	},
+/obj/item/roguemachine/zadcote/hand,
+/obj/item/hand_files,
 /turf/open/floor/rogue/carpet,
 /area/rogue/indoors/town/manor/grim)
 "mDO" = (
@@ -394532,8 +394534,8 @@ arP
 arP
 rjS
 rjS
-qZS
-qZS
+rjS
+rjS
 nmQ
 nmQ
 oHe
@@ -394913,9 +394915,9 @@ arP
 arP
 arP
 rjS
-qZS
-qZS
-nmQ
+rjS
+rjS
+rjS
 nmQ
 nmQ
 eDK
@@ -395680,7 +395682,7 @@ qZS
 qZS
 qZS
 iZd
-qZE
+iZd
 iZd
 iZd
 rOz
@@ -401775,7 +401777,7 @@ arP
 arP
 rjS
 rjS
-rjS
+qZS
 qZS
 pAq
 pAq
@@ -405971,7 +405973,7 @@ fJB
 qZS
 qZS
 qZS
-rjS
+pAq
 pAq
 eZL
 qWV
@@ -406352,7 +406354,7 @@ sHw
 sHw
 qZS
 qZS
-rjS
+qZS
 pAq
 eZL
 agk
@@ -406734,7 +406736,7 @@ sHw
 sHw
 sHw
 qZS
-qZS
+pAq
 pAq
 eZL
 vOh
@@ -514061,7 +514063,7 @@ wvf
 dDY
 rRy
 xeL
-dDY
+xeL
 aIM
 dZQ
 yec
