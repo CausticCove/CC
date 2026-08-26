@@ -19393,8 +19393,12 @@
 /turf/open/water/ocean/deep,
 /area/rogue/indoors/cave/southern)
 "cAt" = (
-/obj/structure/roguewindow,
-/turf/open/floor/rogue/herringbone,
+/obj/structure/table/wood/long_table/right,
+/obj/item/rogueweapon/huntingknife/chefknife{
+	pixel_x = 0;
+	pixel_y = 7
+	},
+/turf/open/floor/rogue/ruinedwood/spiral,
 /area/rogue/indoors/town/grim)
 "cAw" = (
 /obj/structure/flora/newtree,
@@ -79749,8 +79753,17 @@
 /turf/open/transparent/openspace,
 /area/rogue/outdoors/bog/south/grim/se)
 "kjc" = (
-/obj/structure/roguewindow,
-/turf/closed/wall/mineral/rogue/decowood/vert,
+/obj/structure/table/wood/long_table,
+/obj/item/millstone{
+	pixel_x = -4;
+	pixel_y = 12
+	},
+/obj/structure/rack/rogue/shelf,
+/obj/item/kitchen/rollingpin{
+	pixel_x = 5;
+	pixel_y = 31
+	},
+/turf/open/floor/rogue/ruinedwood/spiral,
 /area/rogue/indoors/town/grim)
 "kjd" = (
 /obj/effect/landmark/quest_spawner/generic,
@@ -111002,9 +111015,16 @@
 	},
 /area/rogue/under/cave/dungeon1/gethsmane/inner)
 "onj" = (
-/obj/item/millstone,
+/obj/item/millstone{
+	pixel_x = -6;
+	pixel_y = 8
+	},
 /obj/structure/table/wood/long_table/mid,
 /obj/machinery/light/rogue/candle/l,
+/obj/item/rogueweapon/huntingknife/chefknife{
+	pixel_x = 0;
+	pixel_y = -9
+	},
 /turf/open/floor/rogue/tile,
 /area/rogue/indoors/town/garrison/grim)
 "onl" = (
@@ -189266,8 +189286,8 @@
 /turf/open/floor/rogue/grasscold,
 /area/rogue/druidsgrove/grim)
 "ydq" = (
-/obj/item/rogueweapon/huntingknife/chefknife,
 /obj/structure/table/wood/long_table/mid,
+/obj/item/reagent_containers/glass/bucket/pot/bronze,
 /turf/open/floor/rogue/tile,
 /area/rogue/indoors/town/garrison/grim)
 "ydr" = (
@@ -504733,7 +504753,7 @@ vOU
 dfx
 aTh
 mDI
-oKP
+kjc
 pFk
 pFk
 mJp
@@ -505115,7 +505135,7 @@ sqX
 gRB
 eyT
 pOC
-eqp
+cAt
 pFk
 pFk
 aTh
@@ -505497,7 +505517,7 @@ dfx
 gRB
 mDI
 ptB
-gUf
+pFk
 pFk
 rlT
 mDI
@@ -506236,8 +506256,8 @@ gRB
 gRB
 dfx
 mDI
-kjc
-kjc
+bcH
+bcH
 mJp
 mDI
 bmN
@@ -506987,7 +507007,7 @@ shy
 lOv
 lpN
 aTh
-soL
+bcH
 aTh
 mDI
 gRB
@@ -507365,7 +507385,7 @@ oGj
 gRB
 gRB
 aTh
-cAt
+bcH
 mJp
 aTh
 pGm
@@ -507753,7 +507773,7 @@ bQy
 kqz
 kqz
 tHY
-kjc
+bcH
 gRB
 kNW
 vgj
@@ -508128,7 +508148,7 @@ aVT
 cWI
 gRB
 gRB
-cAt
+bcH
 rPH
 uCo
 bQy
@@ -508517,7 +508537,7 @@ bQy
 kqz
 kqz
 kqz
-kjc
+bcH
 gRB
 kNW
 vgj
@@ -508526,13 +508546,13 @@ iOu
 kjp
 gRB
 gRB
-kjc
+bcH
 kqz
 kqz
 bKC
 agQ
 wxa
-kjc
+bcH
 gRB
 pMK
 emD
@@ -508910,9 +508930,9 @@ gRB
 dfx
 mDI
 aTh
-kjc
+bcH
 aTh
-kjc
+bcH
 aTh
 mDI
 gRB
@@ -509663,7 +509683,7 @@ mDI
 pnj
 ogU
 uhM
-kjc
+bcH
 gRB
 iES
 gRB
@@ -510045,7 +510065,7 @@ aTh
 qSS
 wVc
 frX
-kjc
+bcH
 gRB
 gRB
 gRB
