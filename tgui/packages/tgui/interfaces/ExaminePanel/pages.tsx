@@ -12,7 +12,9 @@ export const FlavorTextPage = () => {
     ooc_notes,
     ooc_notes_nsfw,
     headshot,
-    // is_naked, // Caustic Edit: Removes naked requirement to view NSFW flavortext
+    //is_naked, // Caustic Edit: Removes naked requirement to view NSFW flavortext
+    ooc_extra_image,
+    nsfw_ooc_extra_image,
   } = data;
   const [oocNotesIndex, setOocNotesIndex] = useState('SFW');
   const [flavorTextIndex, setFlavorTextIndex] = useState('SFW');
@@ -132,7 +134,16 @@ export const FlavorTextPage = () => {
           }
         >
           {flavorTextIndex === 'SFW' && (
-            <Box dangerouslySetInnerHTML={flavorHTML} />
+            <>
+              <Box dangerouslySetInnerHTML={flavorHTML} />
+              {ooc_extra_image && (
+                <Image
+                  mt={1}
+                  maxWidth="100%"
+                  src={resolveAsset(ooc_extra_image)}
+                />
+              )}
+            </>
           )}
           {flavorTextIndex === 'NSFW' && (
             <>

@@ -186,6 +186,8 @@ const OtherInfo = () => {
     song_title,
     img_gallery,
     nsfw_img_gallery,
+    ooc_extra_img,
+    nsfw_ooc_extra_img,
   } = data;
 
   return (
@@ -234,6 +236,26 @@ const OtherInfo = () => {
               </Stack>
             </Stack.Item>
           </Stack>
+        </LabeledGridList.Item>
+        <LabeledGridList.Item label="OOC Extra Image">
+          <Button
+            ellipsis
+            fluid
+            tooltip={ooc_extra_img || 'Unset'}
+            onClick={() => act('ooc_extra_img')}
+          >
+            {ooc_extra_img || 'Unset'}
+          </Button>
+        </LabeledGridList.Item>
+        <LabeledGridList.Item label="NSFW OOC Extra Image">
+          <Button
+            ellipsis
+            fluid
+            tooltip={nsfw_ooc_extra_img || 'Unset'}
+            onClick={() => act('nsfw_ooc_extra_img')}
+          >
+            {nsfw_ooc_extra_img || 'Unset'}
+          </Button>
         </LabeledGridList.Item>
         <ImageGalleryEdit
           label="Image Gallery"
