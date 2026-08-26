@@ -23,6 +23,8 @@
 	grid_height = 64
 	anvilrepair = /datum/skill/craft/weaponsmithing
 	obj_flags = CAN_BE_HIT
+	twirly = SKILL_LEVEL_EXPERT
+	twirl_cmode = TRUE
 
 /obj/item/cooking/pan/getonmobprop(tag)
 	. = ..()
@@ -40,6 +42,7 @@
 	. += span_info("Frying pans can be placed atop a hearth by left-clicking it. Left-click the placed frying pan with an ingredient to begin frying - so long as the hearth is lit.")
 	. += span_info("Meats, cackleberries, and sliced vegetables are the ideal choices for frying. Other ingredients and recipes might require the gentle caress of an oven, instead.")
 	. += span_info("Leaving a fully baked item on the pan for too long will cause it to burn away.")
+	. += span_info("Right-click in combat mode to twirl it one-handed. Safe at Expert skill.")
 
 /datum/intent/mace/strike/pan
 	hitsound = list('sound/combat/hits/blunt/frying_pan(1).ogg', 'sound/combat/hits/blunt/frying_pan(2).ogg', 'sound/combat/hits/blunt/frying_pan(3).ogg', 'sound/combat/hits/blunt/frying_pan(4).ogg')
@@ -82,3 +85,6 @@
 		switch(tag)
 			if("gen")
 				return list("shrink" = 0.6,"sx" = -7,"sy" = -4,"nx" = 7,"ny" = -4,"wx" = -4,"wy" = -4,"ex" = 2,"ey" = -4,"nturn" = 0,"sturn" = 0,"wturn" = 0,"eturn" = 0,"nflip" = 0,"sflip" = 0,"wflip" = 0,"eflip" = 0,"northabove" = 0,"southabove" = 1,"eastabove" = 1,"westabove" = 0)
+
+/obj/item/cooking/pan/twirl_fumble(mob/living/user)
+	return twirl_fumble_bonk(user, 'sound/combat/hits/blunt/frying_pan(1).ogg')

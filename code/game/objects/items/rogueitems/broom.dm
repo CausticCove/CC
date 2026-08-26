@@ -13,6 +13,9 @@
 	slot_flags = ITEM_SLOT_BACK
 	walking_stick = TRUE
 	smeltresult = /obj/item/ash
+	twirly = SKILL_LEVEL_EXPERT
+	twirl_sound = 'sound/combat/sidesweep_hit.ogg'
+	var/sweeping = FALSE
 
 /obj/item/broom/getonmobprop(tag)
 	. = ..()

@@ -81,6 +81,12 @@
 #define TOTAL_LAYERS			60		//KEEP THIS UP-TO-DATE OR SHIT WILL BREAK ;_;
 //Caustic Edit End
 
+#define INHAND_FRONT		1
+#define INHAND_BEHIND		2
+
+#define ONMOB_TAG		1
+#define ONMOB_PROP		2
+
 #define BACK_CLOAK_SOUTH_LAYER		(BODY_BEHIND_LAYER+1)
 
 //Human Overlay Index Shortcuts for alternate_worn_layer, layers
