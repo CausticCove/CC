@@ -236,7 +236,7 @@
 				return CHARACTER_ACT_DATA_UPDATE
 
 			verbose_pref_log_change(user, "notice", "NSFW Gallery #[index]", html_encode(nsfw_img_gallery[index]), html_encode(new_galleryimg))
-			log_game("[user] has changed an image in their gallery: '[html_encode(nsfw_img_gallery[index])]' to '[html_encode(new_galleryimg)]'.")
+			log_game("[user] has changed an image in their NSFW gallery: '[html_encode(nsfw_img_gallery[index])]' to '[html_encode(new_galleryimg)]'.")
 			nsfw_img_gallery[index] = new_galleryimg
 			return CHARACTER_ACT_DATA_UPDATE
 
