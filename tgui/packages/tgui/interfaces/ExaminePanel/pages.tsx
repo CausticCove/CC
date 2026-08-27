@@ -148,10 +148,7 @@ export const FlavorTextPage = () => {
               <Box dangerouslySetInnerHTML={nsfwHTML} />
               {canViewNsfwFlavorText && nsfw_ooc_extra_image && (
                 <Box mt={1} textAlign="center">
-                  <Image
-                    maxWidth="100%"
-                    src={resolveAsset(nsfw_ooc_extra_image)}
-                  />
+                  <Image maxWidth="100%" src={resolveAsset(nsfw_ooc_extra_image)} />
                 </Box>
               )}
             </>
