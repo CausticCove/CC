@@ -359,7 +359,10 @@
 		bed_quality = target.buckled.sleepy
 
 	if(!bed_quality)
-		to_chat(user, span_warning("It's harder for me to work on them in these conditions, I should put them on a bed..."))
+		if(target == user)
+			to_chat(user, span_warning("It's harder for me to work in these conditions without a bed to rest on..."))
+		else
+			to_chat(user, span_warning("It's harder for me to work on them in these conditions, I should put them on a bed..."))
 
 	if(causes_infection) //Only cause infections if said surgery actually causes it.
 		if(bed_quality)
