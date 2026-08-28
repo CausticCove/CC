@@ -2,11 +2,11 @@
 #define SEW_HP_EXP_NORMALIZER 100
 
 // How much EXP per sewing action per intelligence
-// 0.6 EXP at 10 INT
-#define SEW_EXP_PER_STEP 0.06
+// 1 EXP at 10 INT
+#define SEW_EXP_PER_STEP 0.1 //Modified from 0.06
 // How much EXP per 100 sew threshold fixed per intelligence
-// 7.5 EXP at 10 INT for 100 sew treshold
-#define SEW_EXP_FINISH 0.75
+// 12.5 EXP at 10 INT for 100 sew treshold
+#define SEW_EXP_FINISH 1.25 //Modified from 0.75
 
 //Can be used in a pinch to sew minor injuries/wounds.
 /obj/item/needle/thorn
@@ -79,15 +79,19 @@
 	var/whp_healing_per_use = 4 + medskill
 	var/informed = FALSE
 
+	switch(medskill)
+		if(0 to 2) //Just to notify the player that this will be really slow if they're trying to fix their injuries by themselves.
+			to_chat(user, span_warning("This is going to take me a while... I should find a bed or heal my injuries through other means if I want to speed this up."))
+
 	while(!QDELETED(target_wound) && !QDELETED(src) && !QDELETED(user) && (target_wound.sew_progress < target_wound.sew_threshold) && stringamt >= 1)
 		//Handle the sewing delay, this is by default 3 seconds divided by your skill, up to 0.5 seconds at max medical.
 		var/sewing_start_delay = 3 SECONDS
 		sewing_start_delay /= medskill
 
 		switch(medskill)
-			//You must be journeyman to break from 2 second sewing delays.
+			//You must be journeyman to break from 2.5 second sewing delays.
 			if(2)
-				sewing_start_delay = 2 SECONDS //Yes this is intentionally not meant to be 1.5 seconds, keep it at 2 seconds.
+				sewing_start_delay = 2.5 SECONDS //Yes this is intentionally not meant to be 1.5 seconds, keep it at 2.5 seconds.
 
 		if(!do_after(user, sewing_start_delay, target = target))
 			break
