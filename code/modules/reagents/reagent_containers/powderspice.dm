@@ -238,8 +238,8 @@
 	name = "Ozium"
 	description = ""
 	color = "#a5606f" // rgb: 96, 165, 132
-	overdose_threshold = 16
-	metabolization_rate = 0.2
+	overdose_threshold = 21 //CC Edit - Used to be 16. Changed to 21 to work with vial consumption.
+	metabolization_rate = 0.1 //CC Edit - used to be 0.2. Changed to 0.1 so metabolization lasts for 3 minutes at 20u.
 	taste_description = "a bitter numbness"
 
 /datum/reagent/ozium/overdose_process(mob/living/M)
@@ -259,7 +259,7 @@
 
 /datum/reagent/allspice
 	name = "allspice"
-	description = "A blend of toasted spices, temptingly aromatic to the senses." 
+	description = "A blend of toasted spices, temptingly aromatic to the senses."
 	color = "#CE8C33"
 	overdose_threshold = 0
 	metabolization_rate = 1
@@ -503,7 +503,7 @@
 	M.sate_addiction(/datum/charflaw/addiction/junkie)
 	..()
 	. = 1
-	
+
 
 /datum/reagent/herozium/on_mob_end_metabolize(mob/living/M)
 	M.clear_fullscreen("herozium")

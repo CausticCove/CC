@@ -177,7 +177,8 @@
 		return
 	return ..()
 
-/obj/item/needle/proc/sew(mob/living/target, mob/living/user)
+//CC EDIT - Refactored the entire proc within needle_overrides.dm
+/* /obj/item/needle/proc/sew(mob/living/target, mob/living/user)
 	if(!istype(user))
 		return FALSE
 	var/mob/living/doctor = user
@@ -278,7 +279,8 @@
 			animal_patient.adjustHealth(-((animal_patient.maxHealth / 20) * (medskill + 1)), TRUE)
 		log_combat(doctor, patient, "sew", "needle")
 		return TRUE
-	return FALSE
+	return FALSE */
+//CC EDIT END
 
 /obj/item/needle/thorn
 	name = "needle"

@@ -69,3 +69,16 @@
 	name = "Bottle of Strong Luck Poison"
 	list_reagents = list(/datum/reagent/debuff/strongfortunepoison = 30)
 	desc = "A bottle that contains a poison that works to hinder one's fortune harshly."
+
+//For use within surgery kits to reduce pain in a patient. Administer only 1 sip per patient.
+/obj/item/reagent_containers/glass/bottle/rogue/oziumpot
+	list_reagents = list(/datum/reagent/ozium = 50)
+	name = "Bottle of Ozium"
+	desc = "A bottle of pure Ozium, designed for doctors to utilize on their patients when performing surgeries. \
+	A small label on the side reads, <i><b>(LIMIT THREE SIPS PER PATIENT!)</i></b>"
+
+/obj/item/reagent_containers/glass/bottle/alchemical/oziumvial
+	list_reagents = list(/datum/reagent/ozium = 30)
+	name = "Vial of Ozium"
+	desc = "A vial of pure Ozium, designed for doctors to utilize on their patients when performing surgeries. \
+	A small label on the side reads, <i><b>(LIMIT TWO SIPS PER PATIENT!)</i></b>"

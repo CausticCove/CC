@@ -90,6 +90,10 @@
 	var/failure_sound //Sound played if the step fails
 	var/visible_required_skill = FALSE //gives you a message about lacking skill, just used for re-adding limbs
 
+	//CC Edit - So we can control which surgeries actually cause infection.
+	var/causes_infection = TRUE
+	//CC Edit End
+
 /datum/surgery_step/proc/can_do_step(mob/user, mob/living/target, target_zone, obj/item/tool, datum/intent/intent, try_to_fail = FALSE)
 	if(!user || !target)
 		return FALSE
@@ -345,13 +349,29 @@
 	display_results(user, target, span_warning("I screw up!"),
 		span_warning("[user] screws up!"),
 		span_notice("[user] finishes."), TRUE) //By default the patient will notice if the wrong thing has been cut
-	switch (success_prob)
-		if (0 to 15)
-			target.reagents.add_reagent(/datum/reagent/infection/major, rand(2,5))
-		if (16 to 50)
-			target.reagents.add_reagent(/datum/reagent/infection, rand(1,3))
-		if (51 to 70)
-			target.reagents.add_reagent(/datum/reagent/infection/minor, rand(1,6))
+	//CC Edit - Nerf surgery via making failures more deadly.
+	if(causes_infection) //Only cause infections if said surgery actually causes it.
+		var/bed_quality
+		if(isturf(target.loc)) //No illegal tech.
+			var/obj/structure/bed/rogue/bed = locate() in target.loc
+			if(bed)
+				bed_quality = bed.sleepy
+		if(target.buckled?.sleepy)
+			bed_quality = target.buckled.sleepy
+		if(bed_quality)
+			success_prob = (success_prob + (success_prob * (bed_quality / 4))) //Better Beds = Less Risk of infection.
+		else
+			success_prob /= 2 //Without a bed we halve our success probability.
+		switch (success_prob)
+			if (0 to 34) //Used to be 0 to 15.
+				//Careful, doctors. This reagent can, and will add more of itself within the person's body if the person has really bad luck.
+				//This *will* lead to fatal toxins-induced death. Do not let that happen.
+				target.reagents.add_reagent(/datum/reagent/infection/major, rand(5,8))
+			if (35 to 74)// Used to be 16 to 50
+				target.reagents.add_reagent(/datum/reagent/infection, rand(3,8))
+			if (75 to 100) //Used to be 51 to 70, even failing at high chances can and will cause some degree of infection.
+				target.reagents.add_reagent(/datum/reagent/infection/minor, rand(1,8))
+	//CC Edit End
 	return TRUE
 
 /datum/surgery_step/proc/play_failure_sound(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
@@ -399,6 +419,31 @@
 			success_prob *= (implements[implement_type]/100) || 1
 	success_prob *= get_location_modifier(target)
 	success_prob *= get_skill_modifier(user, target, target_zone, tool, intent)
+	//CC Edit - Pain now influences success probability, both the user and target is taken into consideration.
+	//Formula is success_probability - pain percentage.
+	if(!HAS_TRAIT(target, TRAIT_NOPAIN)) //No pain? Why check?
+		if(iscarbon(target))
+			if(ishuman(target)) //Species physiology check in case you wondered why.
+				var/mob/living/carbon/human = target
+				var/painpercent = (human.get_complex_pain() / human.pain_threshold) * 100
+				success_prob -= (painpercent / 2)
+			else //Handle wildshapes or any other carbon forms.
+				var/mob/living/carbon/carbon = target
+				var/painpercent = (carbon.get_complex_pain() / carbon.pain_threshold) * 100
+				success_prob -= (painpercent / 2)
+
+	if(!HAS_TRAIT(user, TRAIT_NOPAIN))
+		if(iscarbon(user))
+			if(ishuman(user)) //Species physiology check in case you wondered why.
+				var/mob/living/carbon/human = user
+				var/painpercent = (human.get_complex_pain() / human.pain_threshold) * 100
+				success_prob -= (painpercent / 2)
+			else //Handle wildshapes or any other carbon forms.
+				var/mob/living/carbon/carbon = user
+				var/painpercent = (carbon.get_complex_pain() / carbon.pain_threshold) * 100
+				success_prob -= (painpercent / 2)
+
+		//CC Edit End
 
 	return success_prob
 

@@ -26,6 +26,10 @@
 	// How much oxy damage we heal per completion
 	var/oxyhealing = 10
 
+	//CC Edit - Mouth to Mouth shouldn't cause infections!!!
+	causes_infection = FALSE
+	//CC Edit End
+
 /datum/surgery_step/mouth_to_mouth/validate_target(mob/user, mob/living/target, target_zone, datum/intent/intent)
 	. = ..()
 	if(!.)
