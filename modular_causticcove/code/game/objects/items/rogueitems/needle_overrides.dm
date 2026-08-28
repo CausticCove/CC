@@ -81,7 +81,7 @@
 
 	switch(medskill)
 		if(0 to 2) //Just to notify the player that this will be really slow if they're trying to fix their injuries by themselves.
-			to_chat(user, span_warning("This is going to take me a while... I should find a bed or heal my injuries through other means if I want to speed this up."))
+			to_chat(user, span_warning("This is going to take me a while... I should find a bed to sleep, or heal my injuries through other means if I want to speed this up."))
 
 	while(!QDELETED(target_wound) && !QDELETED(src) && !QDELETED(user) && (target_wound.sew_progress < target_wound.sew_threshold) && stringamt >= 1)
 		//Handle the sewing delay, this is by default 3 seconds divided by your skill, up to 0.5 seconds at max medical.
