@@ -431,6 +431,10 @@
 	success_prob *= get_skill_modifier(user, target, target_zone, tool, intent)
 	//CC Edit - Pain now influences success probability, both the user and target is taken into consideration.
 	//Formula is success_probability - pain percentage.
+	//They are dead. We shouldn't perform any checks on pain for both target, or user.
+	if(target.stat == DEAD)
+		return success_prob
+
 	if(!HAS_TRAIT(target, TRAIT_NOPAIN)) //No pain? Why check?
 		if(iscarbon(target))
 			if(ishuman(target)) //Species physiology check in case you wondered why.
