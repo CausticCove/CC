@@ -350,14 +350,18 @@
 		span_warning("[user] screws up!"),
 		span_notice("[user] finishes."), TRUE) //By default the patient will notice if the wrong thing has been cut
 	//CC Edit - Nerf surgery via making failures more deadly.
+	var/bed_quality
+	if(isturf(target.loc)) //No illegal tech.
+		var/obj/structure/bed/rogue/bed = locate() in target.loc
+		if(bed)
+			bed_quality = bed.sleepy
+	if(target.buckled?.sleepy)
+		bed_quality = target.buckled.sleepy
+
+	if(!bed_quality)
+		to_chat(user, span_warning("It's harder for me to work on them in these conditions, I should put them on a bed..."))
+
 	if(causes_infection) //Only cause infections if said surgery actually causes it.
-		var/bed_quality
-		if(isturf(target.loc)) //No illegal tech.
-			var/obj/structure/bed/rogue/bed = locate() in target.loc
-			if(bed)
-				bed_quality = bed.sleepy
-		if(target.buckled?.sleepy)
-			bed_quality = target.buckled.sleepy
 		if(bed_quality)
 			success_prob = (success_prob + (success_prob * (bed_quality / 4))) //Better Beds = Less Risk of infection.
 		else
@@ -367,10 +371,13 @@
 				//Careful, doctors. This reagent can, and will add more of itself within the person's body if the person has really bad luck.
 				//This *will* lead to fatal toxins-induced death. Do not let that happen.
 				target.reagents.add_reagent(/datum/reagent/infection/major, rand(5,8))
+				to_chat(target, span_danger("I feel like something REALLY BAD happened with my surgery!"))
 			if (35 to 74)// Used to be 16 to 50
 				target.reagents.add_reagent(/datum/reagent/infection, rand(3,8))
+				to_chat(target, span_boldwarning("I feel like something went very wrong with my surgery."))
 			if (75 to 100) //Used to be 51 to 70, even failing at high chances can and will cause some degree of infection.
 				target.reagents.add_reagent(/datum/reagent/infection/minor, rand(1,8))
+				to_chat(target, span_warn("I feel like something bad happened with my surgery..."))
 	//CC Edit End
 	return TRUE
 

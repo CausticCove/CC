@@ -30,6 +30,8 @@
 	/obj/item/natural/bundle/cloth/bandage,
 	/obj/item/natural/cloth,
 	/obj/item/reagent_containers/glass/bottle/alchemical, //CC Edit - Allow surgery bags to hold vials.
+	/obj/item/natural/fibers, //CC Edit - Allow surgery bags to hold fibers as well to refill needles.
+	/obj/item/natural/bundle/fibers, //CC Edit - Allow surgery bags to hold fibers as well to refill needles.
 	))
 
 /datum/component/storage/concrete/roguetown/messkit
