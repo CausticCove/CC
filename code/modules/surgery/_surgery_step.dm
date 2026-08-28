@@ -369,6 +369,10 @@
 			success_prob = (success_prob + (success_prob * (bed_quality / 4))) //Better Beds = Less Risk of infection.
 		else
 			success_prob /= 2 //Without a bed we halve our success probability.
+			if(target == user)
+				to_chat(user, span_warning("Without a bed the likelihood of my surgery getting infected is far greater..."))
+			else
+				to_chat(user, span_warning("Without a bed the likelihood of their surgery getting infected is far greater..."))
 		switch (success_prob)
 			if (0 to 34) //Used to be 0 to 15.
 				//Careful, doctors. This reagent can, and will add more of itself within the person's body if the person has really bad luck.
