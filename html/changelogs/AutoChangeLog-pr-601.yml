@@ -1,0 +1,7 @@
+author: "Altangy"
+delete-after: True
+changes:
+  - balance: "Acolytes are less helpless"
+  - balance: "Ravox Challenge has the same range as every other miracle, that is to say the viewport."
+  - balance: "New players are less likely to get blasted by Sacred Tree nonsense."
+  - bugfix: "Templars aren't gimped"

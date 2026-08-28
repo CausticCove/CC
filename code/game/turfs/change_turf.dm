@@ -89,7 +89,6 @@ GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 
 	var/old_opacity = opacity
 	var/old_dynamic_lighting = dynamic_lighting
-	var/old_affecting_lights = affecting_lights
 	var/old_lighting_object = lighting_object
 	var/old_outdoor_effect = outdoor_effect
 	var/old_corners = corners
@@ -113,8 +112,6 @@ GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 	//We do this here so anything that doesn't want to persist can clear itself
 	var/list/old_comp_lookup = comp_lookup?.Copy()
 	var/list/old_signal_procs = signal_procs?.Copy()
-	if(!path) //CC Edit: This shouldn't runtime yet here we are... it's already checked above, so the path was nulled sometime between here and there? Logs don't lie.
-		return
 	var/turf/W = new path(src)
 
 	// WARNING WARNING
@@ -162,7 +159,6 @@ GLOBAL_LIST_INIT(blacklisted_automated_baseturfs, typecacheof(list(
 
 		recalc_atom_opacity()
 		lighting_object = old_lighting_object
-		affecting_lights = old_affecting_lights
 		corners = old_corners
 		if (old_opacity != opacity || dynamic_lighting != old_dynamic_lighting)
 			reconsider_lights()

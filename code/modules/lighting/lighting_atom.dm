@@ -113,10 +113,8 @@
 	var/turf/T = loc
 	. = ..()
 	if (opacity && istype(T))
-		var/old_has_opaque_atom = T.has_opaque_atom
-		T.recalc_atom_opacity()
-		if (old_has_opaque_atom != T.has_opaque_atom)
-			T.reconsider_lights()
+		T.opaque_atom_count--
+		T.reconsider_lights()
 
 // Should always be used to change the opacity of an atom.
 // It notifies (potentially) affected light sources so they can update (if needed).
@@ -125,26 +123,17 @@
 		return
 
 	opacity = new_opacity
-	var/turf/T = loc
+	var/turf/T = isturf(src) ? src : loc
 	if (!isturf(T))
 		return
 
-	if (new_opacity == TRUE)
-		T.has_opaque_atom = TRUE
-		T.reconsider_lights()
+	if (new_opacity)
+		T.opaque_atom_count++
 	else
-		var/old_has_opaque_atom = T.has_opaque_atom
-		T.recalc_atom_opacity()
-		if (old_has_opaque_atom != T.has_opaque_atom)
-			T.reconsider_lights()
+		T.opaque_atom_count--
+	T.reconsider_lights()
 
-/atom/movable/Moved(atom/OldLoc, Dir)
-	. = ..()
-	var/datum/light_source/L
-	var/thing
-	for (thing in light_sources) // Cycle through the light sources on this atom and tell them to update.
-		L = thing
-		L.source_atom.update_light()
+// No /atom/movable/Moved override here, that's handled by a signal now.
 
 /atom/vv_edit_var(var_name, var_value)
 	switch (var_name)
@@ -172,6 +161,7 @@
 /turf/flash_lighting_fx(_range = FLASH_LIGHT_RANGE, _power = FLASH_LIGHT_POWER, _color = LIGHT_COLOR_WHITE, _duration = FLASH_LIGHT_DURATION, _reset_lighting = TRUE)
 	if(!_duration)
 		stack_trace("Lighting FX obj created on a turf without a duration")
+	new /obj/effect/dummy/lighting_obj (src, _color, _range, _power, _duration)
 
 /obj/flash_lighting_fx(_range = FLASH_LIGHT_RANGE, _power = FLASH_LIGHT_POWER, _color = LIGHT_COLOR_WHITE, _duration = FLASH_LIGHT_DURATION, _reset_lighting = TRUE)
 	var/temp_color
@@ -185,8 +175,6 @@
 	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, set_light), _reset_lighting ? initial(light_outer_range) : temp_range, initial(light_inner_range), _reset_lighting ? initial(light_power) : temp_power, _reset_lighting ? initial(light_color) : temp_color), _duration, TIMER_OVERRIDE|TIMER_UNIQUE)
 
 /mob/living/flash_lighting_fx(_range = FLASH_LIGHT_RANGE, _power = FLASH_LIGHT_POWER, _color = LIGHT_COLOR_WHITE, _duration = FLASH_LIGHT_DURATION, _reset_lighting = TRUE)
-	if(check_epilepsy())
-		return FALSE
 	mob_light(_color, _range, _power, _duration)
 
 /mob/living/proc/mob_light(_color, _range, _power, _duration)

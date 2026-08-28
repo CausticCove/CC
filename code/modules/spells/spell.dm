@@ -357,6 +357,10 @@ GLOBAL_LIST_INIT(action_spells, typesof(/datum/action/cooldown/spell)) //Caustic
 		to_chat(user, span_warning("I can't cast spells!"))
 		return FALSE
 
+	if(HAS_TRAIT(user, TRAIT_SPELL_VAMPIRE_BLOCK))
+		to_chat(user, span_warning("My vitae drowns out the spell!"))
+		return FALSE
+
 	if(HAS_TRAIT(user, TRAIT_CURSE_NOC))
 		to_chat(user, span_warning("My magicka has left me..."))
 		return FALSE
@@ -389,6 +393,18 @@ GLOBAL_LIST_INIT(action_spells, typesof(/datum/action/cooldown/spell)) //Caustic
 			to_chat(user, span_warning("My body is paralyzed!"))
 			return FALSE
 
+		if(H.mind?.has_spellmiracle_block_antag())
+			if(miracle)
+				to_chat(H, span_warning("The gods reject what I am!"))
+				return FALSE
+			if(source_aspect)
+				to_chat(H, span_warning("The arcyne rejects what I am!"))
+				return FALSE
+		if(H.mind?.has_antag_datum(/datum/antagonist/vampire))
+			var/vamp_miracle_tier = get_miracle_tier(type)
+			if(!isnull(vamp_miracle_tier) && vamp_miracle_tier > CLERIC_T1)
+				to_chat(H, span_warning("The gods deny me such power!"))
+				return FALSE
 		if(miracle && !H.devotion?.check_devotion(src))
 			to_chat(H, span_warning("I don't have enough devotion!"))
 			return FALSE

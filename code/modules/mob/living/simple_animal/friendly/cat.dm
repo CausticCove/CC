@@ -1,5 +1,6 @@
 //Cat
 /mob/living/simple_animal/pet/cat
+	anatomy_type = /datum/anatomy/quadruped/trash
 	name = "cat"
 	desc = "A nuisance and a valued, pest-killing companion. Also symbols of the benevolent side of Saint Pestra for their enmity with vermin."
 	icon = 'icons/mob/pets.dmi'
@@ -16,7 +17,7 @@
 	see_in_dark = 6
 	ventcrawler = VENTCRAWLER_ALWAYS
 	pass_flags = PASSTABLE
-	mob_size = MOB_SMALL
+	mob_size = MOB_SIZE_SMALL
 	density = FALSE // moveblocking cat is annoying as hell
 	pass_flags = PASSMOB
 	mob_biotypes = MOB_ORGANIC|MOB_BEAST
@@ -49,19 +50,11 @@
 	AIStatus = AI_OFF
 	can_have_ai = FALSE
 	ai_controller = /datum/ai_controller/generic
-	//Caustic Edit - Add in missing food_types for mobs that are attempting to run find food
-	food_type = list(/obj/item/reagent_containers/food/snacks/deadmouse,
-					/obj/item/reagent_containers/food/snacks/smallrat,
-					/obj/item/reagent_containers/food/snacks/rogue/meat/fish,
-					/obj/item/reagent_containers/food/snacks/rogue/fryfish,
-					/obj/item/reagent_containers/food/snacks/fish,
-					)
-	//Caustic Edit End
+	move_base_delay = MOVEMENT_DELAY_SLOW
 
-/mob/living/simple_animal/pet/cat/Initialize()
+/mob/living/simple_animal/pet/cat/Initialize(mapload)
 	. = ..()
 	add_verb(src, /mob/living/proc/lay_down)
-	ai_controller.set_blackboard_key(BB_BASIC_FOODS, food_type) //Caustic Edit - Let cats eat mice/rats and fish! (To stop a runtime as well :P)
 
 /mob/living/simple_animal/pet/cat/update_mobility()
 	..()
@@ -111,11 +104,11 @@
 	icon_dead = "cat_dead"
 
 /mob/living/simple_animal/pet/cat/rogue/black/academy
-    name = "Kalathrax the All Knowing"
-    desc = "Whispers around the Academy say that this cat was once an Associate that decided they had achieved enough knowledge to challenge the Court Wizard for their role and failed. (Or maybe it's just a cat)"
-    STAINT = 20
-    health = 5000
-    maxHealth = 5000
+	name = "Kalathrax the All Knowing"
+	desc = "Whispers around the Academy say that this cat was once an Associate that decided they had achieved enough knowledge to challenge the Court Wizard for their role and failed. (Or maybe it's just a cat)"
+	STAINT = 20
+	health = 5000
+	maxHealth = 5000
 
 /mob/living/simple_animal/pet/cat/original
 	name = "Batsy"
@@ -134,7 +127,7 @@
 	icon_dead = "kitten_dead"
 	density = FALSE
 	pass_flags = PASSMOB
-	mob_size = MOB_SMALL
+	mob_size = MOB_SIZE_SMALL
 
 //RUNTIME IS ALIVE! SQUEEEEEEEE~
 /mob/living/simple_animal/pet/cat/Runtime
@@ -151,7 +144,7 @@
 	var/cats_deployed = 0
 	var/memory_saved = FALSE
 
-/mob/living/simple_animal/pet/cat/Runtime/Initialize()
+/mob/living/simple_animal/pet/cat/Runtime/Initialize(mapload)
 	if(prob(5))
 		icon_state = "original"
 		icon_living = "original"
@@ -300,7 +293,7 @@
 
 /mob/living/simple_animal/pet/cat/inn/attack_hand(mob/living/carbon/human/M) // Gato Basado - not all pets are welcome
 	. = ..()
-	if((isdarkelf(M)))  // l´cursed bonbonbon
+	if((isdarkelf(M)))	// l´cursed bonbonbon
 		visible_message("<span class='notice'>The cat hisses at [M] and recoils in disgust.</span>")
 		icon_state = "[icon_living]"
 		set_resting(FALSE)

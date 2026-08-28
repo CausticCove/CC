@@ -49,72 +49,111 @@
 	chargedloop = /datum/looping_sound/invokegen
 	devotion_cost = 40
 
-/obj/effect/proc_holder/spell/invoked/hammerfall
-	name = "Hammerfall"
-	desc = "Damages structures in an area while possibly knocking down mobs in the area."
-	action_icon = 'icons/mob/actions/malummiracles.dmi'
-	overlay_icon = 'icons/mob/actions/malummiracles.dmi'
-	overlay_state = "hammerfall"
-	releasedrain = 30
-	chargedrain = 0
-	chargetime = 0
-	range = 15
-	warnie = "sydwarning"
-	movement_interrupt = FALSE
-	no_early_release = TRUE
-	req_items = list(/obj/item/clothing/neck/roguetown/psicross)
-	sound = 'sound/items/bsmithfail.ogg'
-	invocations = list("By molten might and hammer's weight, in Malum’s flame, the earth shall quake!")
-	invocation_type = "shout"
-	associated_skill = /datum/skill/magic/holy
-	antimagic_allowed = TRUE
-	recharge_time = 5 MINUTES
-	chargetime = 3 SECONDS // Used to be 2 seconds but we don't want a race condition and chain casting
-	miracle = TRUE
-	charging_slowdown = 3
-	chargedloop = /datum/looping_sound/invokegen
-	devotion_cost = 80
+/////////////////////
+// T2 - Hammerfall //
+/////////////////////
 
-/obj/effect/proc_holder/spell/invoked/hammerfall/cast(list/targets, mob/user = usr)
-	var/turf/fallzone = null
-	var/skill = user.get_skill_level(/datum/skill/magic/holy)
-	var/damage = 150 + (skill * 100) //So weak damage for this cooldown. Upped
-	var/const/radius = 1 //Radius of the spell
-	var/const/shakeradius = 7 //Radius of the quake
-	var/diceroll = 0
-	var/const/dc = 42 //Code will roll 2d20 and add target's perception and Speed then compare to this to see if they fall down or not. 42 Means they need to roll 2x 20 with Speed and Perception at I
-	var/const/delay = 2 SECONDS // Delay between the ground marking appearing and the effect playing.
-	fallzone = get_turf(targets[1])
-	if(!fallzone)
+/datum/action/cooldown/spell/malum/hammerfall
+	name = "Hammerfall"
+	desc = "Heave a conjured maul overhead, then bring it crashing down on the ground before you, leaving any struck stumbling.\n\n\
+	Deals 50 brute damage and applies Immobilizes to everything in the smash. Against structures does triple damage."
+	background_icon = 'icons/mob/actions/malummiracles.dmi'
+	button_icon = 'icons/mob/actions/malummiracles.dmi'
+	button_icon_state = "hammerfall"
+	blade_class = BCLASS_BLUNT
+	windup_time = TELEGRAPH_HIGH_IMPACT
+	damage = 50
+	structure_damage = 150
+	sweep_step = 0
+	impact_delay = 4
+	detonate_sound = null
+	immobilize_on_hit = 2 SECONDS
+	stop_at_dense = FALSE
+	var/hammer_scale = 1.9
+
+	parent_type = /datum/action/cooldown/spell/telegraphed_strike
+	sound = 'sound/magic/scrapeblade.ogg'
+	glow_intensity = GLOW_INTENSITY_MEDIUM
+
+	primary_resource_type = SPELL_COST_DEVOTION
+	primary_resource_cost = SPELLCOST_MIRACLE_MAJOR + 20
+
+	secondary_resource_type = SPELL_COST_STAMINA
+	secondary_resource_cost = SPELLCOST_MIRACLE//Dunno it's not properly inhereting for some reason.
+
+	invocations = list("By molten might and hammer's weight, in Malum’s flame, the earth shall quake!")
+	invocation_type = INVOCATION_SHOUT
+
+	cooldown_time = 45 SECONDS
+	charge_slowdown = 1
+
+	spell_impact_intensity = SPELL_IMPACT_MEDIUM
+	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC | SPELL_REQUIRES_HUMAN
+	associated_stat = null
+	associated_skill = /datum/skill/magic/holy
+
+	telegraph_type = /obj/effect/temp_visual/telegraph/hammerfall
+
+/datum/action/cooldown/spell/malum/hammerfall/get_pattern_offsets()
+	return list(
+		list(-1, 1), list(0, 1), list(1, 1),
+		list(-1, 2), list(0, 2), list(1, 2),
+		list(-1, 3), list(0, 3), list(1, 3),
+	)
+
+/datum/action/cooldown/spell/malum/hammerfall/do_blade_animation(mob/living/carbon/human/H, facing)
+	var/obj/effect/temp_visual/ferramancy_hammer/malum/hammer = new(null)
+	hammer.vis_holder = H
+	H.vis_contents += hammer
+	var/rest_y = round(6.5 * hammer_scale - 4)
+	var/fwd_x = 0
+	var/fwd_y = 0
+	switch(facing)
+		if(NORTH)
+			fwd_y = 32
+		if(SOUTH)
+			fwd_y = -32
+		if(EAST)
+			fwd_x = 32
+		if(WEST)
+			fwd_x = -32
+	var/matrix/upright = matrix()
+	upright.Scale(hammer_scale)
+	upright.Turn(180)
+	var/matrix/airborne = matrix()
+	airborne.Scale(hammer_scale, hammer_scale * 1.4)
+	airborne.Turn(180)
+	hammer.transform = airborne
+	hammer.pixel_x = fwd_x
+	hammer.pixel_y = fwd_y + rest_y + 176
+	hammer.alpha = 0
+	animate(hammer, pixel_y = fwd_y + rest_y, transform = upright, time = impact_delay, easing = CUBIC_EASING | EASE_IN)
+	animate(hammer, alpha = 255, time = 1, flags = ANIMATION_PARALLEL)
+	return hammer
+
+/datum/action/cooldown/spell/malum/hammerfall/on_impact(mob/living/carbon/human/H, facing, atom/movable/visual)
+	var/turf/T = get_step(get_turf(H), facing) || get_turf(H)
+	if(!T)
 		return
-	else
-		show_visible_message(usr, "[usr] raises their arm, conjuring a hammer wreathed in molten fire. As they hurl it toward the ground, the earth trembles under its impact, shaking its very foundations!", "You raise your arm, conjuring a hammer wreathed in molten fire. As you hurl it toward the ground, the earth trembles under its impact, shaking its very foundations!")
-	for (var/turf/open/visual in view(radius, fallzone))
-		var/obj/effect/temp_visual/lavastaff/Lava = new /obj/effect/temp_visual/lavastaff(visual)
-		animate(Lava, alpha = 255, time = 5)
-	sleep(delay)
-	for (var/mob/living/carbon/screenshaken in view(shakeradius, fallzone))
-		shake_camera(screenshaken, 5, 5)
-	for (var/mob/living/carbon/shaken in view(radius, fallzone))
-		if(spell_guard_check(shaken, TRUE))
-			shaken.visible_message(span_warning("[shaken] braces against the quake!"))
-			continue
-		diceroll = roll(2,20) + shaken.STAPER + shaken.STASPD
-		if (diceroll > dc)
-			shaken.apply_effect(1 SECONDS, EFFECT_IMMOBILIZE, 0)
-			show_visible_message(shaken, null, "The ground quakes but I manage to keep my footing.")
-		else
-			shaken.apply_effect(1 SECONDS, EFFECT_KNOCKDOWN, 0)		
-			show_visible_message(shaken, null, "The ground quakes, making me fall over.")
-	for (var/obj/structure/damaged in view(radius, fallzone))
-		if(!istype(damaged, /obj/structure/flora/newbranch))
-			damaged.take_damage(damage,BRUTE,"blunt",1)
-	for (var/turf/closed/wall/damagedwalls in view(radius, fallzone))
-		damagedwalls.take_damage(damage,BRUTE,"blunt",1)
-	for (var/turf/closed/mineral/aoemining in view(radius, fallzone))
-		aoemining.lastminer = usr
-		aoemining.take_damage(damage,BRUTE,"blunt",1)
-	return TRUE
+	playsound(T, pick('sound/combat/hits/blunt/metalblunt (1).ogg', 'sound/combat/hits/blunt/metalblunt (2).ogg', 'sound/combat/hits/blunt/metalblunt (3).ogg'), 90, TRUE, 4)
+	playsound(T, 'sound/magic/repulse.ogg', 55, TRUE, 3)
+	for(var/mob/M in range(5, T))
+		shake_camera(M, 2, 1)
+	new /obj/effect/temp_visual/spell_impact(T, spell_color, SPELL_IMPACT_HIGH)
+	if(QDELETED(visual))
+		return
+	var/rest = visual.pixel_y
+	animate(visual, pixel_y = rest + 4, time = 1, easing = SINE_EASING | EASE_OUT)
+	animate(pixel_y = rest, time = 1, easing = SINE_EASING | EASE_IN)
+	animate(alpha = 0, time = 3)
+
+/obj/effect/temp_visual/telegraph/hammerfall
+	light_color = GLOW_COLOR_MALUM
+	duration = 3 SECONDS
+
+/obj/effect/temp_visual/ferramancy_hammer/malum
+	icon = 'icons/mob/actions/malummiracles.dmi'
+	icon_state = "hammer_of_malum"
 
 /obj/effect/temp_visual/lavastaff
 	icon_state = "lavastaff_warn"
@@ -207,7 +246,7 @@
             if(target.get_item_by_slot(SLOT_ARMOR))
                 target_item = target.get_item_by_slot(SLOT_ARMOR)
             else if (target.get_item_by_slot(SLOT_SHIRT))
-                target_item = target.get_item_by_slot(SLOT_SHIRT)    
+                target_item = target.get_item_by_slot(SLOT_SHIRT)
         if (BODY_ZONE_PRECISE_NECK)
             target_item = target.get_item_by_slot(SLOT_NECK)
         if (BODY_ZONE_PRECISE_R_EYE)
@@ -268,7 +307,7 @@
 	var/obj/item/armor = target.get_item_by_slot(SLOT_ARMOR)
 	var/obj/item/shirt = target.get_item_by_slot(SLOT_SHIRT)
 	var/armor_can_heat = armor && armor.smeltresult && armor.smeltresult != /obj/item/ash
-	var/shirt_can_heat = shirt && shirt.smeltresult && shirt.smeltresult != /obj/item/ash // Full damage if no shirt 
+	var/shirt_can_heat = shirt && shirt.smeltresult && shirt.smeltresult != /obj/item/ash // Full damage if no shirt
 	var/damage_to_apply = 20 // How much damage should your armor burning you should do.
 	if (user.zone_selected == BODY_ZONE_CHEST)
 		if (armor_can_heat && (!shirt_can_heat && shirt))
@@ -301,7 +340,7 @@
 	. = ..()
 	var/const/starminatoregen = 500 // How much stamina should the spell give back to the caster.
 	var/mob/target = targets[1]
-	if (!iscarbon(target)) 
+	if (!iscarbon(target))
 		return
 	if (target == user)
 		target.energy_add(starminatoregen)
@@ -682,20 +721,20 @@ var/global/list/anvil_recipe_prices[][]
 			door.opacity = TRUE
 			door.brokenstate = FALSE
 			door.obj_broken = FALSE
-			door.repair_state = 0								
+			door.repair_state = 0
 			if((S.obj_integrity + repair_points) > S.max_integrity)
 				var/need_points = (S.max_integrity - S.obj_integrity)
 				S.obj_integrity += need_points
 			else
 				S.obj_integrity += repair_points
 			user.visible_message(span_notice("[user] point on [door.name] and repair this."), \
-			span_notice("I point on [door.name]. Malum blessing!"))	
+			span_notice("I point on [door.name]. Malum blessing!"))
 			return TRUE
 
 		if(istype(S, /obj/structure/roguewindow/))
 			var/obj/structure/roguewindow/window = S
 			if(window.obj_integrity < window.max_integrity)
-				to_chat(user, span_warning("[window.obj_integrity]"))	
+				to_chat(user, span_warning("[window.obj_integrity]"))
 				user.visible_message(span_notice("[user] starts concentrating on [window.name]."),
 				span_notice("I start concentrating on [window.name]."))
 				playsound(user, 'sound/misc/wood_saw.ogg', 100, TRUE)
@@ -710,9 +749,9 @@ var/global/list/anvil_recipe_prices[][]
 					var/need_points = (S.max_integrity - S.obj_integrity)
 					S.obj_integrity += need_points
 				else
-					S.obj_integrity += repair_points					
+					S.obj_integrity += repair_points
 				user.visible_message(span_notice("[user] point on [window.name] and repair this."), \
-				span_notice("I point on [window.name]. Malum blessing!"))	
+				span_notice("I point on [window.name]. Malum blessing!"))
 				return TRUE
 		else
 			if(!do_after(user, (150 / skill), target = S))

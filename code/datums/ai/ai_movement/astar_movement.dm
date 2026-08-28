@@ -10,7 +10,7 @@
 	for(var/datum/ai_controller/controller as anything in moving_controllers)
 		if(!COOLDOWN_FINISHED(controller, movement_cooldown))
 			continue
-		COOLDOWN_START(controller, movement_cooldown, controller.movement_delay)
+		controller.advance_movement_cooldown()
 
 		var/atom/movable/movable_pawn = controller.pawn
 		if (!movable_pawn) // if we don't have a pawn, cleanup and move on
@@ -35,7 +35,7 @@
 		if(length(controller.movement_path))
 			var/turf/next_step = controller.movement_path[1]
 			var/dir_to_move = get_dir(movable_pawn, next_step)
-			step(movable_pawn, dir_to_move, controller.movement_delay)
+			step(movable_pawn, dir_to_move)
 
 			// this check if we're on exactly the next tile may be overly brittle for dense pawns who may get bumped slightly
 			// to the side while moving but could maybe still follow their path without needing a whole new path
@@ -56,7 +56,7 @@
 
 			COOLDOWN_START(controller, repath_cooldown, 2 SECONDS)
 			controller.movement_path = get_path_to(movable_pawn, controller.current_movement_target, TYPE_PROC_REF(/turf, Heuristic_cardinal_3d), max_path_distance, max_path_distance, minimum_distance, adjacent = TYPE_PROC_REF(/turf, reachableTurftest3d), id=controller.get_access())
-			// Astar gives source turf so we will want to strip out the first to prevent 
+			// Astar gives source turf so we will want to strip out the first to prevent
 			// repeated pathfinding failure
 			if(length(controller.movement_path) && controller.movement_path[1] == get_turf(movable_pawn))
 				controller.movement_path.Cut(1, 2)

@@ -45,7 +45,7 @@
 				msg += span_artery("[m1] pale.")
 			if(BLOOD_VOLUME_OKAY to BLOOD_VOLUME_SAFE)
 				msg += span_artery("[m1] a little pale.")
-	
+
 		// Bleeding
 		if(bleed_rate)
 			var/bleed_wording = "bleeding"
@@ -72,7 +72,7 @@
 	//Grabbing
 	if(pulledby && pulledby.grab_state)
 		msg += "[m1] being grabbed by [pulledby]."
-	
+
 	if(stat >= UNCONSCIOUS)
 		msg += "[m1] unconscious."
 
@@ -96,29 +96,41 @@
 				. += span_warning("[t_He] look[p_s()] weaker than I.")
 			if(-INFINITY to -5)
 				. += span_warning("<B>[t_He] look[p_s()] much weaker than I.</B>")
-	
-	if(user != src && isliving(user))
-		if(blood_volume <= BLOOD_VOLUME_SURVIVE && !(HAS_TRAIT(src, TRAIT_NOBREATH) || HAS_TRAIT(src, TRAIT_DEATHLESS)))
-			. += span_blue("<B>[t_He] might be suffocating from blood loss!</B>")
 
-	if(user != src && isliving(user) && user.get_skill_level(/datum/skill/craft/engineering) >= SKILL_LEVEL_APPRENTICE)
-		var/list/meinewoundes = src.get_wounds()
-		var/found_integrity = FALSE
-
-		for(var/datum/wound/W in meinewoundes)
-			if(istype(W, /datum/wound/integrity))
-				found_integrity = TRUE
-
-		if(found_integrity)
-			if(src.has_status_effect(/datum/status_effect/debuff/integrity_rig))
-				. += span_warning("<B>Their integrity has been crudely stabilized, but remains critically damaged.</B>")
-			else
-				. += span_boldred("<B>Their integrity is compromised! They are melting down!</B> Stones, sticks, wood, or ingots may crudely stabilize it. Repair is still needed!")
+	var/datum/anatomy/anat = get_anatomy()
+	if(anat && length(anat.zones) && has_simple_wounds)
+		var/list/broken_hints = list()
+		for(var/datum/wound/cripple/crip in simple_wounds)
+			if(!crip.crippled_zone)
+				continue
+			var/datum/anatomy_zone/broken_zone = anat.get_zone(crip.crippled_zone)
+			if(broken_zone?.hint)
+				broken_hints |= broken_zone.hint
+		if(length(broken_hints))
+			. += span_danger("<B>[t_He] [p_are()] crippled about the [english_list(broken_hints)].</B>")
+		var/list/exposed_hints = list()
+		for(var/zone_key in anat.zones)
+			var/datum/anatomy_zone/candidate = anat.zones[zone_key]
+			if(!length(candidate.requires_broken) || (candidate.zone in broken_parts))
+				continue
+			if(candidate.is_exposed(broken_parts))
+				exposed_hints |= candidate.hint
+		if(length(exposed_hints))
+			. += span_danger("<B>[p_their(TRUE)] [english_list(exposed_hints)] [length(exposed_hints) > 1 ? "are" : "is"] laid bare.</B>")
 
 	if(Adjacent(user))
 		if(has_simple_wounds)
 			. += "<a href='?src=[REF(src)];inspect_animal=1'>Inspect Wounds</a>"
 		if(user != src)
 			. += "<a href='?src=[REF(src)];check_hb=1'>Check Heartbeat</a>"
+
+	if(tame)
+		. += span_notice("This animal appears to be tamed.")
+	if(ssaddle)
+		. += span_notice("This animal is saddled: ([ssaddle.name]).")
+	if(ccaparison)
+		. += span_notice("This animal is wearing a caparison: ([ccaparison.name]).")
+	if(bbarding)
+		. += span_notice("This animal is wearing a bard: ([bbarding.name]).")
 
 	. += "✠ ------------ ✠</span>"

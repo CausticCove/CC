@@ -3,7 +3,7 @@
 	name = "Arcyne Salvo"
 	desc = "Loose three heavy arcyne bolts in a wide spread toward a single target. Each bolt strikes hard on its own, and if all three converge on the same foe the payoff is devastating. \
 	The spread is wide enough that only a Telomancer willing to close the distance will land the full salvo. \
-	Toggle arc mode (Ctrl+G) to lob the bolts over obstacles at reduced damage."
+	Toggle arc mode (Shift+G) to lob the bolts over obstacles at reduced damage."
 	button_icon_state = "arcyne_salvo"
 	sound = 'sound/magic/vlightning.ogg'
 	spell_color = GLOW_COLOR_ARCANE
@@ -35,6 +35,8 @@
 	spell_tier = 3
 	spell_impact_intensity = SPELL_IMPACT_MEDIUM
 
+	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC | SPELL_REQUIRES_HUMAN
+
 /datum/action/cooldown/spell/projectile/arcyne_salvo/ready_projectile(obj/projectile/to_fire, atom/target, mob/user, iteration)
 	. = ..()
 	var/base_angle = to_fire.Angle
@@ -57,10 +59,8 @@
 	flag = "blunt"
 	range = SPELL_RANGE_PROJECTILE
 	speed = MAGE_PROJ_FAST
-	accuracy = 60
 	guard_deflectable = TRUE
 	expose_caster_on_deflect = TRUE
-	npc_simple_damage_mult = 1.5
 	intdamfactor = 1
 	hitsound = 'sound/combat/hits/blunt/shovel_hit2.ogg'
 	ricochets_max = 2

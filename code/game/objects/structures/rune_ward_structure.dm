@@ -109,7 +109,7 @@
 /obj/structure/rune_ward/chill/rune_effect(mob/living/L)
 	to_chat(L, span_danger("<B>Frost erupts from the rune and seizes your limbs!</B>"))
 	playsound(src, 'sound/spellbooks/crystal.ogg', 80, TRUE)
-	new /obj/effect/temp_visual/trapice(get_turf(src))
+	new /obj/effect/temp_visual/telegraph/ice(get_turf(src))
 	L.Paralyze(20)
 	L.adjustFireLoss(30)
 	apply_frost_stack(L, 4)

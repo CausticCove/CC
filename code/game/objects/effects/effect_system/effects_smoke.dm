@@ -243,8 +243,9 @@
 			return FALSE
 		if(HAS_TRAIT(M, TRAIT_NOBREATH))
 			return FALSE
-		M.adjust_blurriness(3)
-		M.adjust_blindness(3)
+		if(M.has_status_effect(STATUS_EFFECT_BLINDED))
+			return FALSE
+		M.apply_status_effect(STATUS_EFFECT_BLINDED)
 		M.emote("cry")
 		return TRUE
 

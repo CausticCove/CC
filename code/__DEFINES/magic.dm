@@ -57,7 +57,7 @@
 /// Whether the spell requires the target to be on the same Z-level as the caster.
 #define SPELL_REQUIRES_SAME_Z (1 << 8)
 /// Whether the spell can be cast while buckled to a living mount (on horseback).
-#define SPELL_NOT_CASTABLE_WHILE_MOUNTED (1 << 9)
+#define SPELL_NOT_CASTABLE_WHILE_MOUNTED (1 << 9) //Caustic Edit - Invert this flag! So now it's if you want a spell to not be castable on horseback!
 /// Whether the spell requires the caster to be in combat mode.
 #define SPELL_REQUIRES_CMODE (1 << 10)
 /// Whether the spell requires the TARGET to be in combat mode.
@@ -72,8 +72,13 @@
 /// Holy magic resistance that blocks unholy magic
 #define MAGIC_RESISTANCE_UNHOLY (1 << 3)
 
+// Antag that is completely blocked from casting miracles or other spells
+#define SPELLMIRACLE_BLOCK_ANTAGS list(/datum/antagonist/dreamwalker)
+
 // MAGIC TRAITS
 #define TRAIT_SPELLBLOCK "spellblock"
+/// Applied after using a non-bloodheal vampire, blocking you from using mages abilities
+#define TRAIT_SPELL_VAMPIRE_BLOCK "spell_vampire_block"
 #define TRAIT_NOC_CURSE "noc_curse"
 #define TRAIT_NOSTAMINA "nostamina"
 #define TRAIT_ATHEISM_CURSE "atheism_curse"
@@ -84,3 +89,9 @@
 #define CONJURE_RECOIL_LIGHT 0
 #define CONJURE_RECOIL_PARTIAL 1
 #define CONJURE_RECOIL_FULL 2
+
+// CONJURATION SUMMON REPLACEMENT MODE
+// Summons at capacity = the entire group get replaced. Best used with summon amount = the capacity.
+#define CONJURE_SUMMON_GROUP 0
+// Summons are individual - casting at capacity dismisses the oldest.
+#define CONJURE_SUMMON_SINGLES 1

@@ -35,7 +35,7 @@
 			controller.add_blackboard_key(future_path_blackboard_key, null)
 		if(!COOLDOWN_FINISHED(controller, movement_cooldown))
 			continue
-		COOLDOWN_START(controller, movement_cooldown, controller.movement_delay)
+		controller.advance_movement_cooldown()
 
 		if(!controller.can_move())
 			continue
@@ -93,7 +93,7 @@
 			var/current_loc = get_turf(movable_pawn)
 
 			if(!is_type_in_typecache(target_turf, GLOB.dangerous_turfs) && can_move)
-				step_to(movable_pawn, target_turf, controller.blackboard[BB_CURRENT_MIN_MOVE_DISTANCE], controller.movement_delay)
+				step_to(movable_pawn, target_turf, controller.blackboard[BB_CURRENT_MIN_MOVE_DISTANCE])
 
 				// Check if movement was successful
 				if(current_loc != get_turf(movable_pawn))
@@ -181,7 +181,7 @@
 					// Use step() with explicit direction rather than step_to().
 					// Step will fail if we can't move in that direction and allow us to climb.
 					var/move_dir = get_dir(movable_pawn, next_step)
-					if(!step(movable_pawn, move_dir, controller.movement_delay) && controller.can_climb_structures && world.time >= controller.next_climb_time)
+					if(!step(movable_pawn, move_dir) && controller.can_climb_structures && world.time >= controller.next_climb_time)
 						// climbable/climb_structure are declared on /obj/structure and /obj/machinery separately, so iterate both.
 						var/obj/structure/struct_target
 						var/obj/machinery/mach_target
@@ -228,12 +228,12 @@
 					falling_back |= used_ref
 					falling_back[used_ref] = TRUE
 				if(get_turf(movable_pawn) == next_step || (istransparentturf(next_step) && get_turf(movable_pawn) == get_step_multiz(next_step, DOWN)))
-					controller.movement_path.Cut(1,2)
-					if(length(controller.movement_path))
-						var/turf/double_checked = controller.movement_path[1]
-
-						if(get_turf(movable_pawn) == double_checked) // Handle z-level stack issues
-							controller.movement_path.Cut(1,2)
+					var/path_len = length(controller.movement_path)
+					if(path_len)
+						var/cuts = 1
+						if(path_len >= 2 && get_turf(movable_pawn) == controller.movement_path[2])
+							cuts = 2
+						controller.movement_path.Cut(1, cuts + 1)
 
 					if(!length(controller.movement_path) && falling_back[used_ref])
 						falling_back[used_ref] = FALSE

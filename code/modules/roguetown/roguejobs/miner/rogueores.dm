@@ -308,7 +308,7 @@
 	desc = "This ingot is both mythical and mysterious; stronger - and more expensive - than any alloy currently known to Psydonia's masses. It thrumbs with an eerie blue glow, catchable for only a blink's tyme. </br>'Sacrificing the holy elements of silver for raw strength, this strange and powerful ingot's origin carries dark rumors.'"
 	icon_state = "ingotblacksteel"
 	smeltresult = /obj/item/ingot/blacksteel
-	sellprice = 100
+	sellprice = 80 // CC edit, individual bars made very slightly less valuable due to alloying now producing 2 instead of 1.
 
 //Blessed Ingots
 /obj/item/ingot/steelholy/

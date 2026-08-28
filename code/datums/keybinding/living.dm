@@ -266,7 +266,7 @@
 		return FALSE
 
 /datum/keybinding/living/search
-	hotkey_keys = list("ShiftG")
+	hotkey_keys = list() // Unbound by default; ShiftG was freed for the spell alt-mode toggle. Rebind to taste.
 	name = "search"
 	full_name = "Search"
 	description = "Search the area around you for hidden items or compartments."
@@ -288,7 +288,7 @@
 		return FALSE
 	var/obj/item/I = L.get_active_held_item()
 	if(I)
-		I.rmb_self(L)
+		I.rmb_self(L, keybind = TRUE)
 		return TRUE
 	return FALSE
 
@@ -328,110 +328,99 @@
 		M.layer = 4 + M.pixelshift_layer
 	return TRUE
 
-//Carbon Intents moved to Living so that LIVING can also do similar things that carbon does...
-
-//No throw intent for living is present. Should remain this way. 
-/* /datum/keybinding/living/toggle_throw_mode
-	hotkey_keys = list("R")
-	classic_keys = list("R") // END
-	name = "toggle_throw_mode"
-	full_name = "Toggle throw mode"
-	description = "Toggle throwing the current item or not."
-
-/datum/keybinding/living/toggle_throw_mode/down(client/user)
+// ** Action Buttons **
+// I stopped at 6 because it is probably the maximum number you can comfortably reach on keyboard
+/datum/keybinding/living/actions
+	var/action_taken = 1
+/datum/keybinding/living/actions/down(client/user)
+	if(!isliving(user.mob))
+		return FALSE
 	var/mob/living/C = user.mob
-	C.toggle_throw_mode()
-	return TRUE */
+	var/datum/hud/H = C.hud_used
+	if(H?.rearrange_mode)
+		H.rearrange_hint(C)
+		return TRUE
+	var/count = 0
+	for(var/datum/action/A as anything in C.actions)
+		var/atom/movable/screen/movable/action_button/B = H ? A.viewers[H] : null
+		if(B && B.moved)
+			continue
+		count++
+		if(count == action_taken)
+			A.Trigger()
+			return TRUE
+	return FALSE
 
-//****** Base Intents ******
+/datum/keybinding/living/actions/action_1
+	hotkey_keys = list("Alt1")
+	name = "action_1"
+	full_name = "Action 1"
+	description = "Select the first action."
+	category = CATEGORY_HUMAN
+	action_taken = 1
 
-/datum/keybinding/living/intent_one
-	hotkey_keys = list("1")
-	name = "intent_one"
-	full_name = "Cycle Intent Slot 1"
-	description = ""
+/datum/keybinding/living/actions/action_2
+	hotkey_keys = list("Alt2")
+	name = "action_2"
+	full_name = "Action 2"
+	description = "Select the second action."
+	category = CATEGORY_HUMAN
+	action_taken = 2
 
-/datum/keybinding/living/intent_one/down(client/user)
-	var/mob/living/C = user.mob
-	C.rog_intent_change(1)
+/datum/keybinding/living/actions/action_3
+	hotkey_keys = list("Alt3")
+	name = "action_3"
+	full_name = "Action 3"
+	description = "Select the third action."
+	category = CATEGORY_HUMAN
+	action_taken = 3
 
-	return TRUE
+/datum/keybinding/living/actions/action_4
+	hotkey_keys = list("Alt4")
+	name = "action_4"
+	full_name = "Action 4"
+	description = "Select the fourth action."
+	category = CATEGORY_HUMAN
+	action_taken = 4
 
-/datum/keybinding/living/intent_two
-	hotkey_keys = list("2")
-	name = "intent_two"
-	full_name = "Cycle Intent Slot 2"
-	description = ""
+/datum/keybinding/living/actions/action_5
+	hotkey_keys = list("Alt5")
+	name = "action_5"
+	full_name = "Action 5"
+	description = "Select the fifth action."
+	category = CATEGORY_HUMAN
+	action_taken = 5
 
-/datum/keybinding/living/intent_two/down(client/user)
-	var/mob/living/C = user.mob
-	C.rog_intent_change(2)
-	return TRUE
+/datum/keybinding/living/actions/action_6
+	hotkey_keys = list("Alt6")
+	name = "action_6"
+	full_name = "Action 6"
+	description = "Select the sixth action."
+	category = CATEGORY_HUMAN
+	action_taken = 6
 
-/datum/keybinding/living/intent_three
-	hotkey_keys = list("3")
-	name = "intent_three"
-	full_name = "Cycle Intent Slot 3"
-	description = ""
+/datum/keybinding/living/actions/action_7
+	hotkey_keys = list("Alt7")
+	name = "action_7"
+	full_name = "Action 7"
+	description = "Select the seventh action."
+	category = CATEGORY_HUMAN
+	action_taken = 7
 
-/datum/keybinding/living/intent_three/down(client/user)
-	var/mob/living/C = user.mob
-	C.rog_intent_change(3)
-	return TRUE
 
-/datum/keybinding/living/intent_four
-	hotkey_keys = list("4")
-	name = "intent_four"
-	full_name = "Cycle Intent Slot 4"
-	description = ""
+/datum/keybinding/living/actions/action_8
+	hotkey_keys = list("Alt8")
+	name = "action_8"
+	full_name = "Action 8"
+	description = "Select the eighth action."
+	category = CATEGORY_HUMAN
+	action_taken = 8
 
-/datum/keybinding/living/intent_four/down(client/user)
-	var/mob/living/C = user.mob
-	C.rog_intent_change(4)
-	return TRUE
 
-//****** Quad Intents ******
-
-/datum/keybinding/living/bite_intent
-	hotkey_keys = list("H")
-	name = "intent_bite"
-	full_name = "Select Bite Intent"
-	description = ""
-
-/datum/keybinding/living/bite_intent/down(client/user)
-	var/mob/living/C = user.mob
-	C.mmb_intent_change(QINTENT_BITE)
-	return TRUE
-
-/datum/keybinding/living/jump_intent
-	hotkey_keys = list("J")
-	name = "intent_jump"
-	full_name = "Select Jump Intent"
-	description = ""
-
-/datum/keybinding/living/jump_intent/down(client/user)
-	var/mob/living/C = user.mob
-	C.mmb_intent_change(QINTENT_JUMP)
-	return TRUE
-
-/datum/keybinding/living/kick_intent
-	hotkey_keys = list("K")
-	name = "intent_kick"
-	full_name = "Select Kick Intent"
-	description = ""
-
-/datum/keybinding/living/kick_intent/down(client/user)
-	var/mob/living/C = user.mob
-	C.mmb_intent_change(QINTENT_KICK)
-	return TRUE
-
-/datum/keybinding/living/special_intent
-	hotkey_keys = list("L")
-	name = "intent_special"
-	full_name = "Select Special Intent"
-	description = ""
-
-/datum/keybinding/living/special_intent/down(client/user)
-	var/mob/living/C = user.mob
-	C.mmb_intent_change(QINTENT_SPECIAL)
-	return TRUE
+/datum/keybinding/living/actions/action_9
+	hotkey_keys = list("Alt9")
+	name = "action_9"
+	full_name = "Action 9"
+	description = "Select the ninth action."
+	category = CATEGORY_HUMAN
+	action_taken = 9

@@ -15,7 +15,7 @@
 	var/trap_damage = 50 // baseline trap damage, reduced by armor checks. Wear your PPE in dungeons
 	var/def_zone = BODY_ZONE_CHEST //
 	var/used_time = 14 // interaction time for disabling traps, scales down with trap skill
- 
+
 
 	var/list/static/ignore_typecache
 	var/list/mob/immune_minds = list() //unused and a bit weird, helpful for making mobs immune to the traps without TRAIT_LIGHT_STEP
@@ -115,7 +115,7 @@
 	if(iscarbon(user) && armed && isturf(loc))
 		if(!BP)
 			return FALSE
-		if(C.get_skill_level(/datum/skill/craft/traps) >= 4 || HAS_TRAIT(C, TRAIT_EXPLOSIVE_SUPPLY)) //Expert or TRAIT_BOMBER_EXPERT (Bomb main classes). 
+		if(C.get_skill_level(/datum/skill/craft/traps) >= 4 || HAS_TRAIT(C, TRAIT_EXPLOSIVE_SUPPLY)) //Expert or TRAIT_BOMBER_EXPERT (Bomb main classes).
 			used_time = 14 SECONDS
 			if(C.mind)
 				used_time -= max((C.get_skill_level(/datum/skill/craft/traps) * 2 SECONDS), 2 SECONDS)
@@ -507,8 +507,8 @@
 	if(!H || !H.mind)
 		return FALSE
 
-	var/assigned = lowertext("[H.mind.assigned_role]")
-	var/special  = lowertext("[H.mind.special_role]")
+	var/assigned = LOWER_TEXT("[H.mind.assigned_role]")
+	var/special  = LOWER_TEXT("[H.mind.special_role]")
 
 	if(assigned == "bandit" || special == "bandit")
 		return TRUE
@@ -544,8 +544,8 @@
 /obj/structure/trap/bogtrap/proc/is_exempt_viewer(mob/living/H)
 	if(!H || !H.mind)
 		return FALSE
-	var/assigned = lowertext("[H.mind.assigned_role]")
-	var/special  = lowertext("[H.mind.special_role]")
+	var/assigned = LOWER_TEXT("[H.mind.assigned_role]")
+	var/special  = LOWER_TEXT("[H.mind.special_role]")
 
 	return (assigned == "bandit" || special == "bandit" \
 		|| assigned == "bogguard" \

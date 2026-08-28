@@ -664,7 +664,7 @@
 	sound = 'sound/magic/battletrance.ogg'
 
 	click_to_activate = TRUE
-	cast_range = SPELL_RANGE_AURA
+	cast_range = SPELL_RANGE_GROUND //CC Edit, My Ravoxians found the nerfed range unusable
 	self_cast_possible = FALSE
 
 	primary_resource_cost = SPELLCOST_MIRACLE_LEGENDARY

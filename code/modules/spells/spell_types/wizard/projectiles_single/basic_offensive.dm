@@ -2,8 +2,7 @@
 	button_icon = 'icons/mob/actions/mage_shared.dmi'
 	name = "Basic Offensive Magic"
 	desc = "Fundamental attack magyck. Used for centuries. Toggle firing mode (Shift+G) while the spell is active: \
-	Arcyne Bolt strikes a single target, Arced Bolt lobs over obstacles, and Soulshot fires a piercing beam through several foes. \
-	Deals 50% increased damage to simple-minded creechurs."
+	Arcyne Bolt strikes a single target, Arced Bolt lobs over obstacles, and Soulshot fires a piercing beam through several foes."
 	button_icon_state = "greater_arcyne_bolt"
 	sound = 'sound/magic/vlightning.ogg'
 	spell_color = GLOW_COLOR_ARCANE
@@ -76,6 +75,7 @@
 		if(!holder)
 			holder = new(B)
 			B.vis_contents.Add(holder)
+		holder.maptext = MAPTEXT(tag)
 		holder.color = "#00ccff"
 
 /datum/action/cooldown/spell/projectile/basic_offensive/get_spell_statistics(mob/living/user)

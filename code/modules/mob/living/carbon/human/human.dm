@@ -112,7 +112,7 @@
 	switch(rand(1,4))
 		if(1)
 			affecting = get_bodypart(pick(BODY_ZONE_R_LEG, BODY_ZONE_L_LEG))
-			chat_message = span_danger("I fall on my [lowertext(affecting.name)]!")
+			chat_message = span_danger("I fall on my [LOWER_TEXT(affecting.name)]!")
 		if(2)
 			affecting = get_bodypart(pick(BODY_ZONE_R_ARM, BODY_ZONE_L_ARM))
 			chat_message = span_danger("I fall on my arm!")
@@ -712,7 +712,7 @@
 		if(stun)
 			Immobilize(200)
 		return 1
-	..()*/ // why the FUC we have two vomit procs???? just call the real parent, this was causing noblood things to stunlock permanently 
+	..()*/ // why the FUC we have two vomit procs???? just call the real parent, this was causing noblood things to stunlock permanently
 
 /mob/living/carbon/human/vv_get_dropdown()
 	. = ..()
@@ -964,7 +964,7 @@
 		remove_status_effect(/datum/status_effect/debuff/hungryt2)
 		remove_status_effect(/datum/status_effect/debuff/hungryt3)
 		return FALSE
-	
+
 	//Caustic Edit - Add a call to hook in the restarting of Natural Armor Regen
 	if(change > 0 && skin_armor)
 		if(istype(skin_armor, /obj/item/clothing/suit/roguetown/armor/regenerating/skin/natural_armor) && ((nutrition + change) > NUTRITION_LEVEL_HUNGRY))

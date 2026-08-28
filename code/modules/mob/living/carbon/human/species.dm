@@ -525,6 +525,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 		C.grant_language(language_type)
 
 	SEND_SIGNAL(C, COMSIG_SPECIES_GAIN, src, old_species)
+	RegisterSignal(C, COMSIG_MOB_SAY, PROC_REF(handle_speech))
 
 
 /datum/species/proc/on_species_loss(mob/living/carbon/human/C, datum/species/new_species, pref_load)
@@ -554,6 +555,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	C.dna.organ_dna = list()
 
 	SEND_SIGNAL(C, COMSIG_SPECIES_LOSS, src)
+	UnregisterSignal(C, COMSIG_MOB_SAY)
 
 /datum/species/proc/handle_body(mob/living/carbon/human/H)
 	H.remove_overlay(BODY_LAYER)
@@ -1846,28 +1848,9 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 			Iforce = 0
 	var/bladec = user.used_intent.blade_class
 
-	// Effective range check. Attacking a prone target doesn't apply a penalty at any range.
-	if(user.used_intent?.effective_range && H.mobility_flags & MOBILITY_STAND)
-		var/dist = get_dist(H, user)
-		var/range = user.used_intent?.effective_range
-		var/apply_penalty = FALSE
-		switch(user.used_intent?.effective_range_type)
-			if(EFF_RANGE_EXACT)
-				if(dist != range)
-					apply_penalty = TRUE
-			if(EFF_RANGE_BELOW)
-				if(dist <= range)
-					apply_penalty = TRUE
-			if(EFF_RANGE_ABOVE)
-				if(dist >= range)
-					apply_penalty = TRUE
-			if(EFF_RANGE_ABOVE)
-				apply_penalty = FALSE
-			else
-				CRASH("Invalid effective_range_type used by [user] with effective_range! Please set an effective_range_type on [user.used_intent?.type]")
-		if(apply_penalty)
-			pen = PEN_NONE
-			Iforce *= 0.5
+	if(user.used_intent?.out_of_effective_range(H, user))
+		pen = PEN_NONE
+		Iforce *= EFF_RANGE_MISS_DAMFACTOR
 
 	if(H == user && bladec == BCLASS_DISARM)
 		bladec = BCLASS_BLUNT

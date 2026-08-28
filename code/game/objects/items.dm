@@ -285,6 +285,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 	/// "Lesser" silver items still count as silver, but their bite against the silver-weak is muted: no pickup ignition,
 	/// no force-undisguise on hit, and only a slow accumulation of (non-igniting) sunder stacks while held/worn.
 	var/is_lesser_silver = FALSE
+	/// PVE-only effects - for stuff like the cleric longsword, which is lorewise just blessed, not actual silver.
+	var/is_even_lesser_silver = FALSE
 	var/last_used = 0
 	var/override_state = null
 	var/icon_x_offset = 0
@@ -590,7 +592,7 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		to_chat(usr, output)
 
 	if(href_list["explaindemolitionmod"])
-		var/output = span_info("Multiplies the damage done to objects when hitting them.\nAlso multiplies durability damage dealt to shields on parry (if higher than Integrity Damage).")
+		var/output = span_info("Multiplies the damage done to objects when hitting them.\nAlso multiplies durability damage dealt to shields on parry (if higher than Integrity Damage).\nIntegrity Damage below 100% applies the same multiplier to simple animal part damage.")
 		if(!usr.client.prefs.no_examine_blocks)
 			output = examine_block(output)
 		to_chat(usr, output)
@@ -729,16 +731,21 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 		if(istype(src, /obj/item/clothing))	//awful
 			var/obj/item/clothing/C = src
 			var/str
+			var/spdcap
 			switch(C.armor_class)
 				if(ARMOR_CLASS_NONE)
 					str = "None"
 				if(ARMOR_CLASS_LIGHT)
 					str = "Light"
+					spdcap = AC_LIGHT_SPDCAP
 				if(ARMOR_CLASS_MEDIUM)
 					str = "Medium"
+					spdcap = AC_MEDIUM_SPDCAP
 				if(ARMOR_CLASS_HEAVY)
 					str = "Heavy"
+					spdcap = AC_HEAVY_SPDCAP
 			inspec += "\n<b>ARMOR CLASS:</b> [str]"
+			inspec += "\n<b>MOVEMENT SPD CAP:</b> [spdcap ? spdcap : "None"]"
 
 		var/output = inspec.Join()
 		if(!usr.client.prefs.no_examine_blocks)

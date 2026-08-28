@@ -32,13 +32,13 @@
 	var/form_index = 1
 	/// Selectable forms, cycled with Ctrl+G. Each: label, weapon path, invocation.
 	var/list/forms = list(
-		list("label" = "Khopesh", "weapon" = /obj/item/rogueweapon/sword/sabre/ferramancy, "say" = "Forma Falx!"),
+		list("label" = "Saber", "weapon" = /obj/item/rogueweapon/sword/sabre/ferramancy, "say" = "Forma Falx!"),
 		list("label" = "Rapier", "weapon" = /obj/item/rogueweapon/sword/rapier/ferramancy, "say" = "Forma Acus!"),
-		list("label" = "Greatsword", "weapon" = /obj/item/rogueweapon/greatsword/ferramancy, "say" = "Forma Ferrum!"),
+		list("label" = "Longsword", "weapon" = /obj/item/rogueweapon/sword/long/elvish/ferramancy, "say" = "Forma Ferrum!"),
+		list("label" = "Greatsword", "weapon" = /obj/item/rogueweapon/greatsword/elvish/ferramancy, "say" = "Forma Ferrum!"),
 		list("label" = "Greataxe", "weapon" = /obj/item/rogueweapon/greataxe/steel/doublehead/ferramancy, "say" = "Forma Bipennis!"),
-		list("label" = "Halberd", "weapon" = /obj/item/rogueweapon/halberd/ferramancy, "say" = "Forma Hasta!"),
-		list("label" = "Greatbow", "weapon" = /obj/item/gun/ballistic/revolver/grenadelauncher/bow/greatbow, "say" = "Forma Arcus!"),
-		list("label" = "Crossbow", "weapon" = /obj/item/gun/ballistic/revolver/grenadelauncher/crossbow/ferramancy, "say" = "Forma Balista!"),
+		list("label" = "Glaive", "weapon" = /obj/item/rogueweapon/halberd/glaive/elvish/ferramancy, "say" = "Forma Hasta!"),
+		list("label" = "Greatbow", "weapon" = /obj/item/gun/ballistic/revolver/grenadelauncher/bow/longbow/greatbow, "say" = "Forma Arcus!"),
 	)
 
 /datum/action/cooldown/spell/form_blade/cast(atom/cast_on)

@@ -56,7 +56,7 @@
 	for(var/turf/zone_turf in range(2, T))
 		if(!(zone_turf in get_hear(2, T)))
 			continue
-		new /obj/effect/temp_visual/pillar_warning/fadein(zone_turf, TELEGRAPH_AREA_DENIAL)
+		new /obj/effect/temp_visual/telegraph/pillar/fadein(zone_turf, TELEGRAPH_AREA_DENIAL)
 	playsound(T, 'sound/magic/charging.ogg', 80, TRUE)
 	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(thunderstrike_erupt), T, L, 2, 50), TELEGRAPH_AREA_DENIAL)
 
@@ -233,7 +233,7 @@
 /datum/status_effect/buff/hag_boon/creeping_moss/proc/on_attackby(datum/source, obj/item/W, mob/user, params)
 	SIGNAL_HANDLER
 
-	if(user.cmode == TRUE) 
+	if(user.cmode == TRUE)
 		return
 
 	if(!istype(W, /obj/item/flashlight/flare/torch))

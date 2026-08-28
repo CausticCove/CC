@@ -203,8 +203,6 @@ GLOBAL_LIST_EMPTY(chosen_names)
 	var/list/descriptor_entries = list()
 	var/list/custom_descriptors = list()
 
-	var/char_accent = "No accent"
-
 	var/list/gear_list = list()	// Assoc list: item_name = list("color"=..., "custom_name"=..., "custom_desc"=...)
 
 	var/flavortext
@@ -227,8 +225,9 @@ GLOBAL_LIST_EMPTY(chosen_names)
 	var/taur_type = null
 	var/taur_color = "ffffff"
 
-	/// Assoc list of culinary preferences, where the key is the type of the culinary preference, and value is food/drink typepath
-	var/list/culinary_preferences = list()
+	var/favorite_cuisine = NONE
+	var/favorite_dish = NONE
+	var/favorite_drink = NONE
 
 	var/datum/advclass/preview_subclass
 
@@ -713,7 +712,6 @@ GLOBAL_LIST_EMPTY(chosen_names)
 				dat += "<b>Mutant Color #2:</b><span style='border: 1px solid #161616; background-color: #[features["mcolor2"]];'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> <a href='?_src_=prefs;preference=mutant_color2;task=input'>Change</a><BR>"
 				dat += "<b>Mutant Color #3:</b><span style='border: 1px solid #161616; background-color: #[features["mcolor3"]];'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> <a href='?_src_=prefs;preference=mutant_color3;task=input'>Change</a><BR>"
 
-			//dat += "<br><b>Accent:</b> <a href='?_src_=prefs;preference=char_accent;task=input'>[char_accent]</a>"
 			dat += "<br><b>Features:</b> <a href='?_src_=prefs;preference=customizers;task=menu'>Change</a>"
 			//dat += "<br><b>Sprite Scale:</b><a href='?_src_=prefs;preference=body_size;task=input'>[(features["body_size"] * 100)]%</a>" //Caustic Edit - Lets just comment this out because we have Size Scaling?
 			dat += "<br><b>Markings:</b> <a href='?_src_=prefs;preference=markings;task=menu'>Change</a>"
@@ -1401,7 +1399,7 @@ Slots: [job.spawn_positions] [job.round_contrib_points ? "RCP: +[job.round_contr
 
 		dat += "<br><b>Crime:</b> "
 		dat += "<a href='?_src_=prefs;preference=preset_bounty_crime;task=input'>\
-			[preset_bounty_crime || "None"]\
+			[html_encode(preset_bounty_crime) || "None"]\
 		</a>"
 	if(preset_bounty_severity_key && !GLOB.wretch_severities[preset_bounty_severity_key])
 		preset_bounty_severity_key = null
@@ -1753,7 +1751,6 @@ Slots: [job.spawn_positions] [job.round_contrib_points ? "RCP: +[job.round_contr
 			return
 		if("change_culinary_preferences")
 			handle_culinary_topic(user, href_list)
-			show_culinary_ui(user)
 			return
 		if("random")
 			switch(href_list["preference"])
@@ -1931,14 +1928,14 @@ Slots: [job.spawn_positions] [job.round_contrib_points ? "RCP: +[job.round_contr
 					var voicetype_input = tgui_input_list(user, "Choose your character's voice type", "VOICE TYPE", GLOB.voice_types_list)
 					if(voicetype_input)
 						voice_type = voicetype_input
-						to_chat(user, "<font color='red'>Your character will now vocalize with a [lowertext(voice_type)] affect.</font>")
+						to_chat(user, "<font color='red'>Your character will now vocalize with a [LOWER_TEXT(voice_type)] affect.</font>")
 
 				if ("voicepack")
 					var/voicepack_input = tgui_input_list(user, "Choose your character's emote voice pack", "VOICE PACK", GLOB.voice_packs_list)
 					if(voicepack_input)
 						voice_pack = voicepack_input
 						if(voicepack_input != "Default")
-							to_chat(user, span_red("<font color='red'>Your character will now audibly emote with a [lowertext(voicepack_input)] affect.") + span_notice("<br>This will override your Voice Identity and Class-specific voice packs.</font>"))
+							to_chat(user, span_red("<font color='red'>Your character will now audibly emote with a [LOWER_TEXT(voicepack_input)] affect.") + span_notice("<br>This will override your Voice Identity and Class-specific voice packs.</font>"))
 						else
 							to_chat(user, "<font color='red'>Your character will now audibly emote in accordance to their Voice Identity and any Racial / Class-specific voice packs.</font>")
 				if("voicepack_preview")
@@ -2736,6 +2733,8 @@ Slots: [job.spawn_positions] [job.round_contrib_points ? "RCP: +[job.round_contr
 						if (istype(V, /datum/virtue/origin/racial))
 							if(!(pref_species.type in V.races))
 								continue
+						if (istype(V, /datum/virtue/origin/familiar))
+							continue
 						virtue_choices[V.name] = V
 					var/result = tgui_input_list(user, "From where do you come?", "ORIGINS",virtue_choices)
 
@@ -2808,11 +2807,6 @@ Slots: [job.spawn_positions] [job.round_contrib_points ? "RCP: +[job.round_contr
 						skin_tone = listy[new_s_tone]
 						features["mcolor"] = sanitize_hexcolor(skin_tone)
 						try_update_mutant_colors()
-
-				if("char_accent")
-					var/selectedaccent = tgui_input_list(user, "Choose your character's accent:", "Character Preference", GLOB.character_accents)
-					if(selectedaccent)
-						char_accent = selectedaccent
 
 				if("ooccolor")
 					var/new_ooccolor = color_pick_sanitized(user, "Choose your OOC colour:", "Game Preference",ooccolor)
@@ -3362,12 +3356,9 @@ Slots: [job.spawn_positions] [job.round_contrib_points ? "RCP: +[job.round_contr
 		character.update_hair()
 		character.update_body_parts(redraw = TRUE)
 
-	character.char_accent = char_accent
-
 	apply_customizers_to_character(character)
 
-	if(culinary_preferences)
-		apply_culinary_preferences(character)
+	apply_culinary_preferences(character)
 
 /datum/preferences/proc/get_default_name(name_id)
 	switch(name_id)

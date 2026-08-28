@@ -102,9 +102,13 @@ mas//Lazily shoving all donator fluff items in here for now. Feel free to make t
 	rotprocess = null
 	w_class = WEIGHT_CLASS_TINY
 
-/datum/reagent/water/azurosa_tea
+/datum/reagent/consumable/azurosa_tea
 	name = "azurosa tea"
 	description = "A herbal tea that's been brewed from steeped-and-dried azurosa petals, providing slightly more health regeneration and antidotal properties."
+	cuisine = CUISINE_SOUTH_IMPERIAL
+	drink_type = DRINKTYPE_CAFFEINE
+	quality = DRINK_VERYGOOD
+	hydration_factor = 5
 	reagent_state = LIQUID
 	color = "#5e50e9"
 	taste_description = "pleasantly floral sweetness"
@@ -112,7 +116,7 @@ mas//Lazily shoving all donator fluff items in here for now. Feel free to make t
 	metabolization_rate = REAGENTS_METABOLISM
 	alpha = 173
 
-/datum/reagent/water/azurosa_tea/on_mob_life(mob/living/carbon/M)
+/datum/reagent/consumable/azurosa_tea/on_mob_life(mob/living/carbon/M)
 	. = ..()
 	if (M.mob_biotypes & MOB_BEAST)
 		M.adjustFireLoss(0.5  * REAGENTS_EFFECT_MULTIPLIER)

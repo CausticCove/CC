@@ -1293,6 +1293,7 @@
 
 
 /mob/proc/stop_attack(message = FALSE)
+	used_intent?.on_charge_cancel()
 	if(atkswinging)
 		atkswinging = FALSE
 		if(message)
@@ -2046,8 +2047,8 @@
 		return
 	if(!over.Adjacent(src) || (user != src) || !canUseTopic(over))
 		return
-	if(can_be_held)
-		mob_try_pickup(over)
+	if(can_be_held(user))
+		mob_try_pickup(user)
 
 /mob/living/proc/mob_pickup(mob/living/L)
 	return
@@ -2068,6 +2069,9 @@
 		return FALSE
 	mob_pickup(user)
 	return TRUE
+
+/mob/living/proc/can_be_held(mob/by)
+	return FALSE
 
 /mob/living/reset_perspective(atom/A)
 	if(..())

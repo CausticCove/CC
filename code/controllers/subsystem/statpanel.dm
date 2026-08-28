@@ -78,7 +78,8 @@ SUBSYSTEM_DEF(statpanels)
 			target.stat_panel.send_message("remove_stats_tab")
 			target.statbrowser_stats_shown = FALSE
 
-		if(target.mob?.listed_turf || target.listedturf_sig)
+		if((target.mob?.listed_turf || target.listedturf_sig) && (target.listedturf_dirty || (num_fires % default_wait == 0)))
+			target.listedturf_dirty = FALSE
 			target.update_listed_turf()
 
 		if(!target.holder)

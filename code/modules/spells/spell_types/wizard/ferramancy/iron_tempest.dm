@@ -171,7 +171,7 @@
 				var/target_zone = HC.zone_selected || BODY_ZONE_CHEST
 				arcyne_strike(HC, L, null, tick_damage, target_zone, \
 					BCLASS_CUT, spell_name = "Iron Tempest", \
-					damage_type = BRUTE, npc_simple_damage_mult = 1, \
+					damage_type = BRUTE, \
 					skip_animation = TRUE, skip_message = TRUE, \
 					allow_shield_check = TRUE)
 			else

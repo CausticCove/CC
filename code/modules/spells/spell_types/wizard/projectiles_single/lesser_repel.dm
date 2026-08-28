@@ -60,5 +60,6 @@
 	else
 		if(isitem(target))
 			var/obj/item/I = target
-			I.throw_at(throw_target, 7, 4)
+			if(!I.anchored && I.move_resist < MOVE_FORCE_STRONG)
+				I.throw_at(throw_target, 7, 4)
 	return ..()

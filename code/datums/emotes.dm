@@ -240,20 +240,6 @@
 					used_sound = possible_sounds
 				H.last_sound = used_sound
 				return used_sound
-		else
-			// familiars get to do emotes with their weird planar being anatomy, so that they can caw and such
-			if(istype(user, /mob/living/simple_animal/pet/familiar))
-				var/mob/living/simple_animal/pet/familiar/fam = user
-				if(!fam.voice_pack)
-					return
-				var/possible_sounds = fam.voice_pack.get_sound(key)
-				var/used_sound
-				if(islist(possible_sounds))
-					used_sound = pick(possible_sounds)
-				else
-					used_sound = possible_sounds
-				return used_sound
-			return user.get_sound(key)
 
 /mob/living/proc/get_sound(input)
 	return
@@ -281,8 +267,6 @@
 			. = message_muffled
 	if(user.mind && user.mind.miming && message_mime)
 		. = message_mime
-	else if(ismonkey(user) && message_monkey)
-		. = message_monkey
 	else if(isanimal(user) && message_simple)
 		. = message_simple
 

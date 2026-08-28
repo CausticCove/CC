@@ -140,6 +140,20 @@
 						to_chat(holder, span_boldnotice("I have unlocked a new trait: [trait]"))
 					ADD_TRAIT(holder, trait, ROUNDSTART_TRAIT)
 
+GLOBAL_LIST_EMPTY(miracle_tiers)
+
+/proc/get_miracle_tier(miracle_type)
+	if(!length(GLOB.miracle_tiers))
+		for(var/patron_key in GLOB.patronlist)
+			var/datum/patron/patron = GLOB.patronlist[patron_key]
+			if(!islist(patron.miracles))
+				continue
+			for(var/mtype in patron.miracles)
+				var/tier = patron.miracles[mtype]
+				if(isnull(GLOB.miracle_tiers[mtype]) || tier < GLOB.miracle_tiers[mtype])
+					GLOB.miracle_tiers[mtype] = tier
+	return GLOB.miracle_tiers[miracle_type]
+
 //The main proc that distributes all the needed devotion tweaks to the given class.
 //cleric_tier 		- The cleric tier that the holder will get spells of immediately.
 //passive_gain 		- Passive devotion gain, if any, will begin processing this datum.

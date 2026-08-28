@@ -865,7 +865,7 @@ GLOBAL_LIST_EMPTY(reach_dummy_pool)
 		user.client.open_listed_turf(T)
 
 /mob/proc/CtrlRightClickOn(atom/A, params)
-	pointed(A)
+	linepoint(A)
 
 /*
 	Misc helpers
@@ -1041,7 +1041,7 @@ GLOBAL_LIST_EMPTY(reach_dummy_pool)
 
 /* RightClickOn */
 
-/atom/proc/rmb_self(mob/user)
+/atom/proc/rmb_self(mob/user, keybind = FALSE)
 	return
 
 /mob/proc/rmb_on(atom/A, params)

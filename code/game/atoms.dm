@@ -180,7 +180,7 @@
 
 	if (opacity && isturf(loc))
 		var/turf/T = loc
-		T.has_opaque_atom = TRUE // No need to recalculate it in this case, it's guaranteed to be on afterwards anyways.
+		T.opaque_atom_count++
 
 	if (canSmoothWith)
 		canSmoothWith = typelist("canSmoothWith", canSmoothWith)
@@ -466,7 +466,7 @@
 						if (R.volume > 0)
 							if (full_reagents)
 								full_reagents += ", "
-							full_reagents += "[lowertext(R.name)]"
+							full_reagents += "[LOWER_TEXT(R.name)]"
 					. += span_notice("My expert nose lets me distinguish this liquid as [full_reagents].")
 
 	SEND_SIGNAL(src, COMSIG_PARENT_EXAMINE, user, .)
@@ -1287,7 +1287,7 @@
 /atom/proc/get_filter_index(name)
 	return filter_data?.Find(name)
 
-//Automatically turns based on nearby walls, destroys if not valid. 
+//Automatically turns based on nearby walls, destroys if not valid.
 /atom/proc/auto_turn_destructive()
 	var/turf/closed/T = null
 	var/gotdir = 0

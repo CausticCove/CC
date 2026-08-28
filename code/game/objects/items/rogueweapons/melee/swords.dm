@@ -239,7 +239,6 @@
 		/datum/special_intent/limbguard,
 		/datum/special_intent/dagger_dash,
 		/datum/special_intent/flail_sweep,
-		/datum/special_intent/charge
 		)
 
 /obj/item/rogueweapon/sword/long/blacksteel/examine(mob/user)

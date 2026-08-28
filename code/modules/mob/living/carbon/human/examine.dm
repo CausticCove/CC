@@ -128,7 +128,7 @@
 				pronoun = capitalize(p_they(TRUE))
 		else
 			pronoun = capitalize(m2)
-		var/wording = (dna.species.use_skin_tone_wording_for_examine ? "[lowertext(dna.species.skin_tone_wording)]" : "hail[(user == src) ? "" : "s"] from")	//Ancestry / Tribe or hails from
+		var/wording = (dna.species.use_skin_tone_wording_for_examine ? "[LOWER_TEXT(dna.species.skin_tone_wording)]" : "hail[(user == src) ? "" : "s"] from")	//Ancestry / Tribe or hails from
 		var/origin
 		if(dna.species.use_skin_tone_wording_for_examine)
 			if(dna.species.origin == "Unknown")
@@ -157,10 +157,10 @@
 			else
 				. += span_notice("Something about them seems... different.")
 
-		if((HAS_TRAIT(user, TRAIT_ANCIENT_HAG) || HAS_TRAIT(user, TRAIT_FEYTOUCHED)) && HAS_TRAIT(src, TRAIT_FEYTOUCHED))
+		if((HAS_TRAIT(user, TRAIT_ANCIENT_HAG) || HAS_TRAIT(user, TRAIT_FEYTOUCHED) || istype(user, /mob/living/carbon/human/species/familiar/fae)) && HAS_TRAIT(src, TRAIT_FEYTOUCHED))
 			. += span_nicegreen("Someone touched by, or created by fey. Perhaps a vessel of the past, or a deeply affected puppet.")
 
-		if(HAS_TRAIT(user, TRAIT_FEYTOUCHED) && HAS_TRAIT(src, TRAIT_ANCIENT_HAG))
+		if((HAS_TRAIT(user, TRAIT_FEYTOUCHED) || istype(user, /mob/living/carbon/human/species/familiar/fae)) && HAS_TRAIT(src, TRAIT_ANCIENT_HAG))
 			. += span_nicegreen("A true force of the fey, the mossmother speaks to this one closely.")
 
 // Caustic Edit Start
@@ -415,25 +415,16 @@
 	var/skipface = (wear_mask && (wear_mask.flags_inv & HIDEFACE)) || (head && (head.flags_inv & HIDEFACE))
 	if(HAS_TRAIT(user, TRAIT_ROYALSERVANT))
 		var/datum/job/our_job = SSjob.name_occupations[job]
-		if(length(culinary_preferences) && is_type_in_list(our_job, list(/datum/job/roguetown/lord, /datum/job/roguetown/lady, /datum/job/roguetown/exlady, /datum/job/roguetown/prince)))
-			var/obj/item/reagent_containers/food/snacks/fav_food = src.culinary_preferences[CULINARY_FAVOURITE_FOOD]
-			var/datum/reagent/consumable/fav_drink = src.culinary_preferences[CULINARY_FAVOURITE_DRINK]
-			if(fav_food)
-				if(fav_drink)
-					. += span_notice("Their favourites are [fav_food.name] and [fav_drink.name].")
-				else
-					. += span_notice("Their favourite is [fav_food.name].")
-			else if(fav_drink)
-				. += span_notice("Their favourite is [fav_drink.name].")
-			var/obj/item/reagent_containers/food/snacks/hated_food = src.culinary_preferences[CULINARY_HATED_FOOD]
-			var/datum/reagent/consumable/hated_drink = src.culinary_preferences[CULINARY_HATED_DRINK]
-			if(hated_food)
-				if(hated_drink)
-					. += span_notice("They hate [hated_food.name] and [hated_drink.name].")
-				else
-					. += span_notice("They hate [hated_food.name].")
-			else if(hated_drink)
-				. += span_notice("They hate [hated_drink.name].")
+		if(is_type_in_list(our_job, list(/datum/job/roguetown/lord, /datum/job/roguetown/lady, /datum/job/roguetown/exlady, /datum/job/roguetown/prince)))
+			var/list/tastes = list()
+			if(favorite_cuisine)
+				tastes += "[culinary_flag_name(GLOB.culinary_cuisines, favorite_cuisine)] cuisine"
+			if(favorite_dish)
+				tastes += culinary_flag_name(GLOB.culinary_dishes, favorite_dish)
+			if(favorite_drink)
+				tastes += culinary_flag_name(GLOB.culinary_drinks, favorite_drink)
+			if(length(tastes))
+				. += span_notice("They have a taste for [english_list(tastes)].")
 
 	var/is_stupid = FALSE
 	var/is_smart = FALSE

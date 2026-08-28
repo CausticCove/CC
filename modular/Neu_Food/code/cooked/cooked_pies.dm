@@ -2,6 +2,7 @@
 	Please do not add hand pie or something here.
 */
 /obj/item/reagent_containers/food/snacks/rogue/pie
+	dish_type = DISH_PIE
 	name = "pie"
 	icon = 'modular/Neu_Food/icons/cooked/cooked_pies.dmi'
 	desc = ""
@@ -86,6 +87,8 @@
 
 // -------------- MEAT PIE -----------------
 /obj/item/reagent_containers/food/snacks/rogue/pie/cooked/meat // bae item
+	cuisine = CUISINE_NORTH_IMPERIAL
+	dish_type = DISH_PIE|DISH_MEAT
 	name = "meat pie"
 	desc = "A delicious, homemade pie made with minced meat. Still needs to be sliced."
 	eat_effect = /datum/status_effect/buff/snackbuff
@@ -109,6 +112,8 @@
 
 // -------------- FISH PIE -----------------
 /obj/item/reagent_containers/food/snacks/rogue/pie/cooked/meat/fish
+	cuisine = CUISINE_SOUTH_IMPERIAL
+	dish_type = DISH_PIE|DISH_SEAFOOD
 	name = "fish pie"
 	desc = "A delicious, homemade pie made with fresh fish. Still needs to be sliced."
 	icon_state = "fishpie"
@@ -131,6 +136,8 @@
 
 // -------------- POT PIE -----------------
 /obj/item/reagent_containers/food/snacks/rogue/pie/cooked/pot
+	cuisine = CUISINE_NORTH_IMPERIAL
+	dish_type = DISH_PIE|DISH_MEAT
 	name = "pot pie"
 	desc = "A delicious, homemade pie. Still needs to be sliced."
 	list_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_TWO_MEALS)
@@ -145,6 +152,8 @@
 
 // -------------- BERRY PIE -----------------
 /obj/item/reagent_containers/food/snacks/rogue/pie/cooked/berry
+	cuisine = CUISINE_NORTH_IMPERIAL
+	dish_type = DISH_PIE|DISH_FRUIT
 	name = "berry pie"
 	desc = "A delicious, homemade pie made with wild berries. Still needs to be sliced."
 	list_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_TWO_MEALS)
@@ -175,6 +184,8 @@
 
 // -------------- APPLE PIE -----------------
 /obj/item/reagent_containers/food/snacks/rogue/pie/cooked/apple
+	cuisine = CUISINE_NORTH_IMPERIAL
+	dish_type = DISH_PIE|DISH_FRUIT
 	name = "apple pie"
 	desc = "A delicious, homemade pie made with the sliced apples. Still needs to be cut."
 	slices_num = 4
@@ -190,6 +201,8 @@
 
 // -------------- CRAB PIE -----------------
 /obj/item/reagent_containers/food/snacks/rogue/pie/cooked/crab
+	cuisine = CUISINE_SOUTH_IMPERIAL|CUISINE_ETRUSCAN
+	dish_type = DISH_PIE|DISH_SEAFOOD
 	name = "crab pie"
 	desc = "A delicious, homemade pie made with the inside of a crustacean. Still needs to be sliced."
 	slices_num = 4
@@ -205,6 +218,8 @@
 
 // -------------- PUMPKIN PIE --------------
 /obj/item/reagent_containers/food/snacks/rogue/pie/cooked/pumpkin
+	cuisine = CUISINE_NORTH_IMPERIAL
+	dish_type = DISH_PIE|DISH_VEGETABLE
 	name = "pumpkin pie"
 	desc = "A delicious, homemade pie made with pumpkin and cheese. Still needs to be sliced."
 	icon_state = "pumpkinpie"
@@ -224,6 +239,7 @@
 	//CC Edit End
 
 /obj/item/reagent_containers/food/snacks/rogue/pieslice/pumpkin
+	cuisine = CUISINE_NORTH_IMPERIAL
 	name = "pumpkin pie slice"
 	desc = "A delicious slice of homemade pie, made with pumpkin and cheese."
 	icon_state = "pumpkinslice"
@@ -237,7 +253,3 @@
 	bitesize = 3
 	eat_effect = /datum/status_effect/buff/snackbuff
 	rotprocess = SHELFLIFE_LONG
-	//CC Edit Begin
-	diet_types = list("Grains", "Dairy", "Fruits", "Vegetables") //Versatile.
-	diet_change_amount = FOOD_DIETARY_VALUE_BAD
-	//CC Edit End

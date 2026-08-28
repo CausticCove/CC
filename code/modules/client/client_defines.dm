@@ -145,6 +145,8 @@
 	var/list/panel_tabs = list()
 	/// Signature of the last listed-turf contents sent, to skip redundant rebuilds.
 	var/listedturf_sig
+	var/listedturf_dirty = FALSE
+	var/list/listedturf_appearances
 	/// Whether the living-only Stats tab is currently shown in the statbrowser.
 	var/statbrowser_stats_shown = FALSE
 
@@ -154,7 +156,7 @@
 	var/rain_sound = FALSE
 	var/last_droning_sound
 	var/sound/droning_sound
-	
+
 	// List of all asset filenames sent to this client by the asset cache, along with their assoicated md5s
 	var/list/sent_assets = list()
 	/// List of all completed blocking send jobs awaiting acknowledgement by send_asset

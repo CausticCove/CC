@@ -1,5 +1,4 @@
 /datum/ai_controller/orc
-	movement_delay = ORC_MOVEMENT_SPEED
 
 	ai_movement = /datum/ai_movement/hybrid_pathing
 
@@ -17,7 +16,6 @@
 	)
 
 /datum/ai_controller/orc_ranged
-	movement_delay = ORC_MOVEMENT_SPEED * 1.2 //ranged malus
 
 	ai_movement = /datum/ai_movement/hybrid_pathing
 
@@ -32,7 +30,6 @@
 	)
 
 /datum/ai_controller/spear_orc
-	movement_delay = ORC_MOVEMENT_SPEED
 
 	ai_movement = /datum/ai_movement/hybrid_pathing
 
@@ -45,12 +42,11 @@
 		/datum/ai_planning_subtree/attack_obstacle_in_path,
 		/datum/ai_planning_subtree/spacing/spear,
 		/datum/ai_planning_subtree/basic_melee_attack_subtree/spear,
-		
+
 	)
 
 
 /datum/ai_controller/elite_orc
-	movement_delay = ORC_MOVEMENT_SPEED
 
 	ai_movement = /datum/ai_movement/hybrid_pathing
 
@@ -63,7 +59,7 @@
 		/datum/ai_planning_subtree/attack_obstacle_in_path,
 		/datum/ai_planning_subtree/spacing/melee,
 		/datum/ai_planning_subtree/basic_melee_attack_subtree/spear,
-		
+
 	)
 
 /datum/ai_controller/elite_orc/event
@@ -73,7 +69,7 @@
 		/datum/ai_planning_subtree/basic_melee_attack_subtree/spear,
 		/datum/ai_planning_subtree/travel_to_point/and_clear_target,
 		/datum/ai_planning_subtree/spacing/melee,
-		
+
 	)
 /datum/ai_controller/orc_ranged/event
 	planning_subtrees = list(

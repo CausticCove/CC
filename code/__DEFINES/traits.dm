@@ -15,6 +15,7 @@
 #define TRAIT_VAMPBITE "Vampire Bite"
 #define TRAIT_STRONGBITE "Strong Bite"
 #define TRAIT_STRONGKICK "Strong Kick"
+#define TRAIT_ARMOR_NOSPDCAP "Armour Unburdened" //Armor slowdowns do not apply.
 #define TRAIT_NOBLE "Noble Blooded"
 #define TRAIT_MANORHOLDERBIG "Great Estate Holder"
 #define TRAIT_MANORHOLDERMEDIUM "Minor Estate Holder"
@@ -46,6 +47,7 @@
 #define TRAIT_DNR "Bane of Existence"
 #define TRAIT_MANIAC_AWOKEN "Awoken"
 #define TRAIT_INFINITE_STAMINA "Indefatigable" //for ai
+#define TRAIT_HALLOWED "Hallowed" //No need of psicross req for miracles.
 #define TRAIT_NUDIST "Nudist" //you can't wear most clothes
 #define TRAIT_CYCLOPS_LEFT "Cyclops (Left)" //poked left eye
 #define TRAIT_CYCLOPS_RIGHT "Cyclops (Right)" //poked right eye
@@ -181,7 +183,7 @@
 #define TRAIT_CURSE_EORA "Curse of Eora" //world is ugly
 #define TRAIT_CURSE_RESIST "Curse Resistance" //Some folk with a tendency to get cursed are resistant
 
-// ASCENDANT CULTIST TRAITS (all of them recognize each other)
+// ASCENDANT CULTIST TRAITS (cursed-gear related) -> Matthiosians recognise eachother.
 #define TRAIT_FREEMAN "Blessing of Matthios" //recognized by bandits as an ally
 #define TRAIT_CABAL "Of the Cabal" //Zizo cultists recognize each other too
 #define TRAIT_HORDE "Anointed" //Graggarites also recognize each other
@@ -414,6 +416,7 @@ GLOBAL_LIST_INIT(roguetraits, list(
 	TRAIT_SABRIST = span_info("I've learned all there is to know about the Southern curve. When using a szöréndnížine sabre, I fight like a Master. My swings are innately more accurate when targetting hands and arms."),
 	TRAIT_MEDIUMARMOR = span_info("I can move freely in medium armor."),
 	TRAIT_HEAVYARMOR = span_info("I can move freely in heavy armor."),
+	TRAIT_ARMOR_NOSPDCAP = span_info("I am the armour - and the armour is free. I move lyke water, and it moves with me."),
 	TRAIT_DODGEEXPERT = span_info("I am much better at dodging incoming strikes, when dressed in either light armor or nothing at all. Heavier armor, such as maille or plate, is too burdensome for me to quickly maneuver in."),
 	TRAIT_DECEIVING_MEEKNESS = span_info("People look at me and think I am a weakling. They are mistaken. I've learned how to hide my vices and true beliefs from others."),
 	TRAIT_CRITICAL_RESISTANCE = span_info("My constitution is iron-clad. My lifeblood flows slowly, I can resist the first few critical wounds that would fell others, but repeated punishment will overwhelm my defenses."),
@@ -554,6 +557,7 @@ GLOBAL_LIST_INIT(roguetraits, list(
 	TRAIT_NECRAS_VOW = span_warning("I've pledged myself to Necra. If I fall, I am Hers."),
 	TRAIT_PESTRAS_BLESSING = span_infection("The sacred black rot of Pestra burns within me. Should intelligent foes try to harm me, they will feel her greatest plague."),
 	TRAIT_HERESIARCH = span_warning("I've been touched by the truth of Psydonia. Lyfe as we understand cannot persist under the Ten or the pretense of Psydon. Something must change."),
+	TRAIT_HALLOWED = span_notice("I'm closer to the gods than most. I can utilize my miracles, regardless of if I bear an amulet or not."),
 	TRAIT_ZURCH = span_warning("I know of sacred sites of worship where followers of the Ascendants convene, and the path to the nearest conclave is etched into my memory."),
 	TRAIT_CAVEDWELLER = span_info("The mountains are my home. I prefer to live beneath the surface away from the sun's gaze and know the caves of this land like the back of my hand."),
 	TRAIT_CURSE_ASTRATA = span_warning("I am forsaken by the Sun. I will find no rest under Her unwavering gaze."),

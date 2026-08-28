@@ -1,0 +1,5 @@
+author: "Ldip999"
+delete-after: True
+changes:
+  - balance: "Verglas now disregards water"
+  - bugfix: "Verglas no longer lags the server"

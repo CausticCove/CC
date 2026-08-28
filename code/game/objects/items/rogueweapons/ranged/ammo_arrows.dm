@@ -1,5 +1,5 @@
 //arrows ฅ^•ﻌ•^ฅ
-#define MIN_ARROW_RANGE		3
+#define MIN_ARROW_RANGE		2
 #define MAX_ARROW_RANGE		14
 #define DAM_FALLOFF_ARROW	0.5
 #define MIN_SPLINTER_RANGE	1
@@ -99,7 +99,6 @@
 	damage_type = BRUTE
 	npc_simple_damage_mult = 2
 	armor_penetration = PEN_NONE
-	//accuracy = 65 // Default defined by projectile.dm
 	icon = 'icons/roguetown/weapons/ranged/arrow_proj.dmi'
 	icon_state = "arrow_proj"
 	ammo_type = /obj/item/ammo_casing/caseless/rogue/arrow
@@ -142,7 +141,6 @@
 	name = "stone arrow"
 	ammo_type = /obj/item/ammo_casing/caseless/rogue/arrow/stone
 	damage = 30
-	accuracy = 60
 	min_range = MIN_ARROW_RANGE
 	max_range = MAX_ARROW_RANGE
 	dam_falloff_factor = DAM_FALLOFF_ARROW
@@ -188,7 +186,6 @@
 /obj/projectile/bullet/reusable/arrow/steel
 	name = "bodkin arrow"
 	ammo_type = /obj/item/ammo_casing/caseless/rogue/arrow/steel
-	accuracy = 75
 	damage = 25
 	armor_penetration = PEN_HEAVY
 	embedchance = 80 // Easy embeds!
@@ -213,7 +210,6 @@
 	damage = 50
 	armor_penetration = PEN_NONE
 	embedchance = 70
-	npc_simple_damage_mult = 3 //More damage over simplemobs!
 	speed = 0.15 // Faster!
 
 // POISON AMMO
@@ -263,7 +259,6 @@
 	damage = 60 //The rarest, but most powerful arrow subtype. Intended to be incredibly scarce, in practice - a 'silver bullet', to the most literal extent.
 	armor_penetration = PEN_HEAVY
 	embedchance = 100
-	npc_simple_damage_mult = 7 //..or 420 damage against a mindless mob. Strike true; reduce if these become craftable or more easily acquirable, through any means.
 	is_silver_proj = TRUE
 
 /obj/item/ammo_casing/caseless/rogue/arrow/getonmobprop(tag)
@@ -466,8 +461,6 @@
 	armor_penetration = PEN_HEAVY
 	icon_state = "blacksteelarrow_proj"
 	embedchance = 80
-	npc_simple_damage_mult = 7 //..or 350 damage against a mindless mob.
-	accuracy = 100
 
 /obj/projectile/bullet/reusable/arrow/iron/paint
 	name = "painted arrow"

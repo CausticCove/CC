@@ -177,7 +177,7 @@
 		if(user.get_skill_level(/datum/skill/craft/engineering) >= 3)
 			toggle_mode(user)
 			return
-	if(istype(I, /obj/item/magic/infernal/core) && !powered)
+	if(istype(I, /obj/item/magic/melded/t1) && !powered)
 		user.visible_message(span_notice("[user] starts carefully setting [I] into place as a power source."))
 		if(do_after(user, 5 SECONDS, target = src))
 			qdel(I)

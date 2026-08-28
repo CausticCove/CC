@@ -54,6 +54,8 @@ All foods are distributed among various categories. Use common sense.
 	var/cooked_type = null  //for overn cooking
 	/// How palatable is this food for a given social class? Also influences food quality
 	var/faretype = FARE_IMPOVERISHED
+	var/cuisine = NONE
+	var/dish_type = NONE
 	/// If false, this will inflict mood debuffs on nobles who eat it without being near a table.
 	var/portable = TRUE
 	var/fried_type = null	//instead of becoming
@@ -277,7 +279,7 @@ All foods are distributed among various categories. Use common sense.
 			result = new /obj/item/reagent_containers/food/snacks/badrecipe(A)
 		initialize_cooked_food(result, 1)
 		return result
-	if(istype(A,/obj/machinery/light/rogue/hearth) || istype(A,/obj/machinery/light/rogue/firebowl) || istype(A,/obj/machinery/light/rogue/campfire) || istype(A,/obj/machinery/light/rogue/hearth/mobilestove) || istype(A,/mob/living/simple_animal/pet/familiar/infernal))
+	if(istype(A,/obj/machinery/light/rogue/hearth) || istype(A,/obj/machinery/light/rogue/firebowl) || istype(A,/obj/machinery/light/rogue/campfire) || istype(A,/obj/machinery/light/rogue/hearth/mobilestove) || istype(A,/mob/living/carbon/human/species/familiar/infernal))
 		var/obj/item/result
 		if(fried_type)
 			result = new fried_type(A)
@@ -342,43 +344,11 @@ All foods are distributed among various categories. Use common sense.
 						H.duration += 2 SECONDS
 				else
 					eater.apply_status_effect(/datum/status_effect/buff/foodhealing, faretype, faretype)
-
-		if(human_eater.culinary_preferences)
-			if(HAS_TRAIT(human_eater, TRAIT_ROTMAN) || HAS_TRAIT(human_eater, TRAIT_IRONMAN))
-				return
-			var/favorite_food_type = human_eater.culinary_preferences[CULINARY_FAVOURITE_FOOD]
-			if(favorite_food_type == type)
-				if(human_eater.add_stress(/datum/stressevent/favourite_food))
-					to_chat(human_eater, span_green("Yum! My favorite food!"))
-			else if(ispath(type, favorite_food_type))
-				var/obj/item/reagent_containers/food/snacks/favorite_food_instance = favorite_food_type
-				var/favorite_food_name = initial(favorite_food_instance.name)
-				if(favorite_food_name == name)
-					if(human_eater.add_stress(/datum/stressevent/favourite_food))
-						to_chat(human_eater, span_green("Yum! My favorite food!"))
-			else
-				var/obj/item/reagent_containers/food/snacks/favorite_food_instance = favorite_food_type
-				var/slice_path = initial(favorite_food_instance.slice_path)
-				if(slice_path && type == slice_path)
-					if(human_eater.add_stress(/datum/stressevent/favourite_food))
-						to_chat(human_eater, span_green("Yum! My favorite food!"))
-
-			var/hated_food_type = human_eater.culinary_preferences[CULINARY_HATED_FOOD]
-			if(hated_food_type == type)
-				if(human_eater.add_stress(/datum/stressevent/hated_food))
-					to_chat(human_eater, span_red("Yuck! My hated food!"))
-			else if(ispath(type, hated_food_type))
-				var/obj/item/reagent_containers/food/snacks/hated_food_instance = hated_food_type
-				var/hated_food_name = initial(hated_food_instance.name)
-				if(hated_food_name == name)
-					if(human_eater.add_stress(/datum/stressevent/hated_food))
-						to_chat(human_eater, span_red("Yuck! My hated food!"))
-			else
-				var/obj/item/reagent_containers/food/snacks/hated_food_instance = hated_food_type
-				var/slice_path = initial(hated_food_instance.slice_path)
-				if(slice_path && type == slice_path)
-					if(human_eater.add_stress(/datum/stressevent/hated_food))
-						to_chat(human_eater, span_red("Yuck! My hated food!"))
+		
+		if(faretype >= FAVORITE_FOOD_MINFARE && ((cuisine & human_eater.favorite_cuisine) || (dish_type & human_eater.favorite_dish)))
+			if(human_eater.add_stress(/datum/stressevent/favourite_food))
+				new /obj/effect/temp_visual/heart(get_turf(human_eater))
+				to_chat(human_eater, span_green("Delicious - just the way I like it!"))
 
 		if (!HAS_TRAIT(human_eater, TRAIT_NASTY_EATER) && !HAS_TRAIT(human_eater, TRAIT_ORGAN_EATER))
 			if (human_eater.is_noble())
@@ -455,8 +425,8 @@ All foods are distributed among various categories. Use common sense.
 	//CC Edit Begin
 	if(iscarbon(eater))
 		var/mob/living/carbon/human/H = eater
-		if(diet_types)
-			H.dna.species.adjust_diet_value(H, diet_types, diet_change_amount)
+		if(foodtype && list_reagents)
+			H.dna.species.adjust_diet_value(H, foodtype, list_reagents[/datum/reagent/consumable/nutriment] / bitesize)
 	//CC Edit End
 
 	if(!reagents.total_volume)
@@ -565,7 +535,7 @@ All foods are distributed among various categories. Use common sense.
 				to_chat(user, span_warning("[M] doesn't seem to have a mouth!"))
 				return
 
-		if(reagents)								//Handle ingestion of the reagent.
+		if(reagents && !istype(M, /mob/living/carbon/human/species/familiar/fae)) //Handle ingestion of the reagent.
 			if(M.satiety > -200)
 				M.satiety -= junkiness
 			playsound(M.loc,'sound/misc/eat.ogg', rand(30,60), TRUE)
@@ -665,6 +635,14 @@ All foods are distributed among various categories. Use common sense.
 	var/list/lines = list()
 	var/info = parts.Join(" | ")
 	lines += span_smallnotice("[info].")
+	var/list/tag_parts = list()
+	if(cuisine)
+		tag_parts += "Cuisine: [english_list(culinary_flags_names(GLOB.culinary_cuisines, cuisine))]"
+	var/list/dish_names = culinary_flags_names(GLOB.culinary_dishes, dish_type)
+	if(length(dish_names))
+		tag_parts += "Dish: [english_list(dish_names)]"
+	if(length(tag_parts))
+		lines += span_smallnotice("[tag_parts.Join(" | ")].")
 	switch(eat_effect)
 		if(/datum/status_effect/debuff/uncookedfood)
 			lines += span_smallred("It is raw!")

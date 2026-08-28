@@ -1,5 +1,6 @@
 // Raw meat from land animals.
 /obj/item/reagent_containers/food/snacks/rogue/meat
+	dish_type = DISH_MEAT
 	eat_effect = /datum/status_effect/debuff/uncookedfood
 	list_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_HALF_MEAL)
 	name = "meat"
@@ -38,6 +39,7 @@
 
 /* ............. Generic Steak ................*/
 /obj/item/reagent_containers/food/snacks/rogue/meat/steak
+	cuisine = CUISINE_NORTH_IMPERIAL
 	ingredient_size = 2
 	name = "raw meat"
 	icon_state = "meatsteak"
@@ -58,6 +60,7 @@
 
 /* ............. Pork (Fatty Sprite) ................*/
 /obj/item/reagent_containers/food/snacks/rogue/meat/fatty //pork
+	cuisine = CUISINE_NORTH_IMPERIAL
 	name = "raw pigflesh"
 	icon_state = "pork"
 	fried_type = /obj/item/reagent_containers/food/snacks/rogue/meat/fatty/roast
@@ -72,6 +75,7 @@
 
 /* ............. Pork Belly ................*/
 /obj/item/reagent_containers/food/snacks/rogue/meat/pork_belly
+	cuisine = CUISINE_NORTH_IMPERIAL
 	name = "pork belly"
 	icon_state = "pork_belly"
 	list_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_FULL_MEAL)
@@ -86,6 +90,7 @@
 
 /* ............. Bacon ................*/
 /obj/item/reagent_containers/food/snacks/rogue/meat/bacon
+	cuisine = CUISINE_NORTH_IMPERIAL
 	name = "raw bacon"
 	icon_state = "bacon"
 	slice_path = null
@@ -116,6 +121,7 @@
 
 /* ............. Whole Bird ................*/
 /obj/item/reagent_containers/food/snacks/rogue/meat/poultry
+	dish_type = DISH_POULTRY
 	name = "plucked bird"
 	icon_state = "halfchicken"
 	slice_path = /obj/item/reagent_containers/food/snacks/rogue/meat/poultry/cutlet
@@ -147,6 +153,8 @@
 
 /* ............. Crab Meat ................*/
 /obj/item/reagent_containers/food/snacks/rogue/meat/crab
+	cuisine = CUISINE_SOUTH_IMPERIAL
+	dish_type = DISH_SEAFOOD
 	name = "crab meat"
 	desc = "A chunk of raw crab meat, absolutely wonderful."
 	icon_state = "crabmeatraw"
@@ -163,6 +171,7 @@
 
 /* ............. Cabbit Meat ................*/
 /obj/item/reagent_containers/food/snacks/rogue/meat/rabbit
+	cuisine = CUISINE_SOUTH_IMPERIAL
 	name = "raw cabbit meat"
 	icon_state = "cabbitcutlet"
 	slice_path = /obj/item/reagent_containers/food/snacks/rogue/meat/mince/rabbit
@@ -177,9 +186,10 @@
 
 /* ............. Volf Meat ................*/
 /obj/item/reagent_containers/food/snacks/rogue/meat/wolf
+	cuisine = CUISINE_NORTHERN
 	ingredient_size = 2
 	slices_num = 2
-	slice_bclass = BCLASS_CHOP	
+	slice_bclass = BCLASS_CHOP
 	name = "raw volf meat"
 	icon_state = "volfstrip"
 	slice_path = /obj/item/reagent_containers/food/snacks/rogue/meat/mince/beef		//Honestly, we don't need our own minced type on this one.
@@ -192,6 +202,7 @@
 
 /* ............. Rous Meat ................*/
 /obj/item/reagent_containers/food/snacks/rogue/meat/rat
+	cuisine = CUISINE_NORTHERN
 	ingredient_size = 2
 	slices_num = 2
 	slice_bclass = BCLASS_CHOP
@@ -204,6 +215,7 @@
 
 /* ............. Bear Meat ................*/
 /obj/item/reagent_containers/food/snacks/rogue/meat/bear
+	cuisine = CUISINE_NORTHERN
 	ingredient_size = 2
 	slices_num = 2
 	slice_bclass = BCLASS_CHOP
@@ -226,6 +238,8 @@
 
 /* ............. fish chop ................*/
 /obj/item/reagent_containers/food/snacks/rogue/meat/fish
+	cuisine = CUISINE_SOUTH_IMPERIAL
+	dish_type = DISH_SEAFOOD
 	name = "fish filet"
 	desc = "A filet of fish. All of them are the same inside."
 	icon_state = "fish_filet"
@@ -242,6 +256,8 @@
 
 /* .........   Shellfish    ................. */
 /obj/item/reagent_containers/food/snacks/rogue/meat/shellfish
+	cuisine = CUISINE_SOUTH_IMPERIAL
+	dish_type = DISH_SEAFOOD
 	name = "shellfish meat"
 	desc = "Meat from a crustacean. Salty with a different texture than most fishmeat. Chop to create mince, bake or fry to make fried shellfish meat"
 	icon_state = "shellfish_meat"
@@ -282,6 +298,8 @@
 	name = "minced meat"
 
 /obj/item/reagent_containers/food/snacks/rogue/meat/mince/fish
+	cuisine = CUISINE_SOUTH_IMPERIAL
+	dish_type = DISH_SEAFOOD
 	name = "minced fish"
 	icon_state = "fishmince"
 
@@ -299,6 +317,7 @@
 	cooked_smell = /datum/pollutant/food/cooked_chicken
 
 /obj/item/reagent_containers/food/snacks/rogue/meat/sausage
+	cuisine = CUISINE_NORTH_IMPERIAL
 	name = "raw sausage"
 	icon_state = "raw_sausage"
 	ingredient_size = 1
@@ -346,6 +365,8 @@
 
 /* ............. fish chop ................*/
 /obj/item/reagent_containers/food/snacks/rogue/meat/fish
+	cuisine = CUISINE_SOUTH_IMPERIAL
+	dish_type = DISH_SEAFOOD
 	name = "fish filet"
 	desc = "A filet of fish. All of them are the same inside."
 	icon_state = "fish_filet"
@@ -357,6 +378,8 @@
 
 /* .........   Shellfish    ................. */
 /obj/item/reagent_containers/food/snacks/rogue/meat/shellfish
+	cuisine = CUISINE_SOUTH_IMPERIAL
+	dish_type = DISH_SEAFOOD
 	name = "shellfish meat"
 	desc = "Meat from a crustacean. Salty with a different texture than most fishmeat. Chop to create mince, bake or fry to make fried shellfish meat"
 	icon_state = "shellfish_meat"
@@ -377,6 +400,7 @@
 
 /* ............. Cabbit Meat ................*/
 /obj/item/reagent_containers/food/snacks/rogue/meat/rabbit
+	cuisine = CUISINE_SOUTH_IMPERIAL
 	name = "raw cabbit meat"
 	icon_state = "cabbitcutlet"
 	slice_path = /obj/item/reagent_containers/food/snacks/rogue/meat/mince/rabbit
@@ -387,6 +411,7 @@
 
 /* ............. Volf Meat ................*/
 /obj/item/reagent_containers/food/snacks/rogue/meat/wolf
+	cuisine = CUISINE_NORTHERN
 	ingredient_size = 2
 	slices_num = 2
 	slice_bclass = BCLASS_CHOP

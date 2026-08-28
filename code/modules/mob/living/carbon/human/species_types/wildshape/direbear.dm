@@ -23,7 +23,7 @@
 		STAINT = 8
 
 		AddSpell(new /obj/effect/proc_holder/spell/self/bearclaws)
-		real_name = "Direbear"
+		real_name = "direbear"
 		faction += "bears"
 
 /mob/living/carbon/human/species/wildshape/bear/buckle_mob(mob/living/target, force = TRUE, check_loc = TRUE, lying_buckle = FALSE, hands_needed = 0, target_hands_needed = 0)
@@ -43,8 +43,6 @@
 		TRAIT_HARDDISMEMBER,
 		TRAIT_PIERCEIMMUNE,
 		TRAIT_LONGSTRIDER,
-		TRAIT_CRITICAL_RESISTANCE,
-		TRAIT_NOPAINSTUN,
 	)
 	inherent_biotypes = MOB_HUMANOID
 	no_equip = list(SLOT_SHIRT, SLOT_HEAD, SLOT_WEAR_MASK, SLOT_ARMOR, SLOT_GLOVES, SLOT_SHOES, SLOT_PANTS, SLOT_CLOAK, SLOT_BELT, SLOT_BACK_R, SLOT_BACK_L, SLOT_S_STORE)
@@ -78,10 +76,6 @@
 	human.update_damage_overlays()
 	return TRUE
 
-/datum/species/shapebear/on_species_gain(mob/living/carbon/carbon, datum/species/old_species)
-	. = ..()
-	RegisterSignal(carbon, COMSIG_MOB_SAY, PROC_REF(handle_speech))
-
 /datum/species/shapebear/update_damage_overlays(mob/living/carbon/human/human)
 	human.remove_overlay(DAMAGE_LAYER)
 	return TRUE
@@ -97,7 +91,7 @@
 	blocksound = SOFTHIT
 	blade_dulling = DULLING_BASHCHOP
 	sewrepair = FALSE
-	max_integrity = 120
+	max_integrity = 300
 	item_flags = DROPDEL
 
 /datum/intent/simple/bear
@@ -112,7 +106,7 @@
 	candodge = TRUE
 	canparry = TRUE
 	miss_text = "slashes the air!"
-	miss_sound = "bluntswoosh"
+	miss_sound = "bladewooshlarge"
 	item_d_type = "slash"
 
 /obj/item/rogueweapon/bear_claw
@@ -148,7 +142,7 @@
 /obj/item/rogueweapon/bear_claw/left
 	icon_state = "claw_l"
 
-/obj/item/rogueweapon/bear_claw/Initialize()
+/obj/item/rogueweapon/bear_claw/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, TRAIT_GENERIC)
 	ADD_TRAIT(src, TRAIT_NOEMBED, TRAIT_GENERIC)

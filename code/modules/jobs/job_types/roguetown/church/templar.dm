@@ -251,7 +251,7 @@
 	outfit = /datum/outfit/job/roguetown/templar/crusader
 	category_tags = list(CTAG_TEMPLAR)
 	subclass_languages = list(/datum/language/grenzelhoftian)
-	traits_applied = list(TRAIT_MEDIUMARMOR)
+	traits_applied = list(TRAIT_HEAVYARMOR) //CC Repair
 	subclass_stats = list(
 		STATKEY_WIL = 3,
 		STATKEY_STR = 2,
@@ -262,7 +262,7 @@
 		/datum/skill/combat/maces = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/combat/whipsflails = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/combat/axes = SKILL_LEVEL_JOURNEYMAN,
-		/datum/skill/combat/shields = SKILL_LEVEL_JOURNEYMAN,	//May tone down to 2; seems OK.
+		/datum/skill/combat/shields = SKILL_LEVEL_JOURNEYMAN,	//May raise to 4
 		/datum/skill/combat/wrestling = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/combat/unarmed = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/magic/holy = SKILL_LEVEL_JOURNEYMAN,
@@ -271,6 +271,8 @@
 		/datum/skill/misc/swimming = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/misc/reading = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/misc/medicine = SKILL_LEVEL_NOVICE,
+		/datum/skill/combat/crossbows = SKILL_LEVEL_APPRENTICE, //CC Repair
+		/datum/skill/combat/bows = SKILL_LEVEL_APPRENTICE, //CC Repair
 	)
 	subclass_stashed_items = list(
 		"The Verses and Acts of the Ten" = /obj/item/book/rogue/bibble,
@@ -279,19 +281,19 @@
 
 /datum/outfit/job/roguetown/templar/crusader/pre_equip(mob/living/carbon/human/H)
 	..()
-	head = /obj/item/clothing/head/roguetown/helmet/heavy/bucket
+	head = /obj/item/clothing/head/roguetown/helmet/heavy/holysee //CC Repair
 	neck = /obj/item/clothing/neck/roguetown/chaincoif
 	cloak = /obj/item/clothing/cloak/tabard/crusader/tief
-	armor = /obj/item/clothing/suit/roguetown/armor/chainmail/hauberk
-	shirt = /obj/item/clothing/suit/roguetown/armor/gambeson
+	H.equip_to_slot_or_del(new /obj/item/clothing/suit/roguetown/armor/plate/silver, SLOT_ARMOR, TRUE) //Halfplate, not fullplate. CC Repair
+	shirt = /obj/item/clothing/suit/roguetown/armor/chainmail/hauberk //CC Repair
 	wrists = /obj/item/clothing/neck/roguetown/psicross/astrata
 	gloves = /obj/item/clothing/gloves/roguetown/chain
 	belt = /obj/item/storage/belt/rogue/leather/black
 	pants = /obj/item/clothing/under/roguetown/chainlegs
-	shoes = /obj/item/clothing/shoes/roguetown/boots/armor/iron
+	shoes = /obj/item/clothing/shoes/roguetown/boots/armor //CC Edit
 	id = /obj/item/clothing/ring/silver
 	backl = /obj/item/storage/backpack/rogue/satchel
-	backr = /obj/item/rogueweapon/shield/tower/holysee
+	backr = /obj/item/rogueweapon/shield/tower/metal //CC edit
 	backpack_contents = list(
 		/obj/item/ritechalk = 1,
 		/obj/item/rogueweapon/scabbard/sheath = 1,
@@ -303,6 +305,7 @@
 		if(/datum/patron/divine/undivided)
 			wrists = /obj/item/clothing/neck/roguetown/psicross/undivided
 			head = /obj/item/clothing/head/roguetown/helmet/heavy/undivided
+			backr = /obj/item/rogueweapon/shield/tower/holysee //CC Repair
 			if(H.mind)
 				var/cloaks = list("Cloak", "Tabard")
 				var/cloakchoice = input(H,"Choose your covering", "TAKE UP FASHION") as anything in cloaks
@@ -383,7 +386,7 @@
 
 /datum/outfit/job/roguetown/templar/crusader/choose_loadout(mob/living/carbon/human/H)
 	. = ..()
-	var/weapons = list("Longsword","Flail","Mace","Battle Axe","Spear")
+	var/weapons = list("Longsword","Flail","Mace","Battle Axe","Spear","Crossbow + Shortsword") //CC Repair
 	switch(H.patron?.type)
 		if(/datum/patron/divine/astrata) //Unique patron weapons, more can be added here if wanted.
 			weapons += "Solar Judgement"
@@ -419,7 +422,7 @@
 		if("Longsword")
 			H.put_in_hands(new /obj/item/rogueweapon/sword/long/church(H))
 			H.adjust_skillrank(/datum/skill/combat/swords, SKILL_LEVEL_NOVICE, TRUE)
-			H.equip_to_slot_or_del(new /obj/item/rogueweapon/scabbard/sword, SLOT_BELT_L, TRUE)
+			H.equip_to_slot_or_del(new /obj/item/rogueweapon/scabbard/sword, SLOT_BELT_L, TRUE) //Review before PR
 		if("Spear")
 			H.put_in_hands(new /obj/item/rogueweapon/spear/holysee(H))
 			H.put_in_hands(new /obj/item/rogueweapon/scabbard/gwstrap(H))
@@ -433,6 +436,15 @@
 		if("Battle Axe")
 			H.put_in_hands(new /obj/item/rogueweapon/stoneaxe/battle/holyseeaxe(H))
 			H.adjust_skillrank(/datum/skill/combat/axes, SKILL_LEVEL_NOVICE, TRUE)
+		if("Crossbow + Shortsword") //CC Repair start
+			H.equip_to_slot_or_del(new /obj/item/quiver/bolt/standard, SLOT_BELT_R, TRUE)
+			H.equip_to_slot_or_del(new /obj/item/clothing/suit/roguetown/armor/plate/cuirass, SLOT_ARMOR, TRUE) //Cuirass, not halfplate. Slightly reduced starting armor.
+			H.put_in_hands(new /obj/item/gun/ballistic/revolver/grenadelauncher/crossbow(H))
+			H.put_in_hands(new /obj/item/rogueweapon/sword/short(H), TRUE)
+			H.adjust_skillrank(/datum/skill/combat/crossbows, SKILL_LEVEL_APPRENTICE, TRUE) //Expert Crossbow, but Journeyman Swords and Apprentice-level combat skills elsewhere.
+			H.adjust_skillrank(/datum/skill/combat/maces, -SKILL_LEVEL_NOVICE, TRUE)
+			H.adjust_skillrank(/datum/skill/combat/axes, -SKILL_LEVEL_NOVICE, TRUE)
+			H.adjust_skillrank(/datum/skill/combat/whipsflails, -SKILL_LEVEL_NOVICE, TRUE)//CC Repair End
 		if("Decablade")
 			H.put_in_hands(new /obj/item/rogueweapon/sword/long/undivided(H))
 			H.adjust_skillrank(/datum/skill/combat/swords, SKILL_LEVEL_NOVICE, TRUE)

@@ -38,7 +38,7 @@
 	H.become_skeleton()
 
 	// Skeleton antag datum + patron (matching greater_skeleton setup)
-	H.set_patron(/datum/patron/inhumen/zizo)
+	//H.set_patron(/datum/patron/inhumen/zizo) //Caustic Edit - Remove the forcing Zizo Patron.
 	if(H.mind)
 		H.mind.add_antag_datum(new /datum/antagonist/skeleton())
 

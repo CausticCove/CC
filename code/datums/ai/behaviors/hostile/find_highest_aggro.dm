@@ -1,5 +1,9 @@
 /datum/ai_behavior/find_aggro_targets
-	action_cooldown = 1 SECONDS
+	// Was every 1 seconds, but now 2 seconds
+	// Players should barely notice the differences
+	// But it would means a literal 50% improvement
+	// In one of the more expensive proc
+	action_cooldown = 2 SECONDS
 	behavior_flags = AI_BEHAVIOR_CAN_PLAN_DURING_EXECUTION
 
 /datum/ai_behavior/find_aggro_targets/perform(seconds_per_tick, datum/ai_controller/controller, target_key, targetting_datum_key, hiding_location_key)
@@ -34,8 +38,9 @@
 	if(current_target && istype(current_target, /mob/living))
 		var/mob/living/living_target = current_target
 
-		if(living_target.stat == DEAD)
+		if(QDELETED(living_target) || living_target.stat == DEAD)
 			controller.clear_blackboard_key(BB_HIGHEST_THREAT_MOB)
+			controller.clear_blackboard_key(target_key)
 			current_target = null
 		else
 			var/maintain_range = controller.blackboard[BB_AGGRO_MAINTAIN_RANGE] || 12
@@ -81,7 +86,8 @@
 
 /datum/ai_behavior/find_aggro_targets/proc/scan_for_new_targets(datum/ai_controller/controller, mob/living/living_mob, target_key, datum/targetting_datum/targetting_datum, hiding_location_key, targetting_datum_key)
 	var/aggro_range = controller.blackboard[BB_AGGRO_RANGE] || 9
-	var/list/potential_targets = hearers(aggro_range, living_mob) - living_mob
+	// Avoid can_see iteration with using hearers
+	var/list/potential_targets = viewers(aggro_range, living_mob) - living_mob
 
 	if(!potential_targets.len)
 		failed_to_find_anyone(controller, target_key, targetting_datum_key, hiding_location_key)
@@ -89,20 +95,28 @@
 		return
 
 	var/list/filtered_targets = list()
+	var/list/client_targets = list()
+	var/list/ally_focus = list()
+	var/low_hp = (living_mob.health <= living_mob.maxHealth * 0.5)
+
 	for(var/mob/living/pot_target in potential_targets)
-		if(pot_target.stat == DEAD)
+		if(QDELETED(pot_target) || pot_target.stat == DEAD)
 			continue
-		if (!targetting_datum.can_attack(living_mob, pot_target))
-			continue
-		// LOS gate: no aggro through walls/opaque structures.
-		if(!can_see(living_mob, pot_target))
+		if(!targetting_datum.can_attack(living_mob, pot_target))
+			var/datum/ai_controller/ally_controller = pot_target.ai_controller
+			if(ally_controller && living_mob.faction_check_mob(pot_target, FALSE))
+				var/atom/ally_target = ally_controller.blackboard[BB_BASIC_MOB_CURRENT_TARGET]
+				if(ally_target)
+					ally_focus[ally_target] += 1
 			continue
 		if(pot_target.rogue_sneaking)
-			var/extra_chance = (living_mob.health <= living_mob.maxHealth * 0.5) ? 30 : 0
+			var/extra_chance = low_hp ? 30 : 0
 			if(!living_mob.npc_detect_sneak(pot_target, extra_chance))
 				continue
 
 		filtered_targets += pot_target
+		if(pot_target.client)
+			client_targets += pot_target
 
 	if(!filtered_targets.len)
 		AI_THINK(living_mob, "SCAN: nobody in range [aggro_range]")
@@ -110,12 +124,7 @@
 		finish_action(controller, succeeded = FALSE)
 		return
 
-	// Prefer targeting players over animals
-	var/mob/living/chosen_target
-	for(var/mob/living/candidate in filtered_targets)
-		if(candidate.client)
-			chosen_target = candidate
-			break
+	var/mob/living/chosen_target = pick_spread_target(living_mob, length(client_targets) ? client_targets : filtered_targets, ally_focus)
 	if(!chosen_target)
 		chosen_target = pick(filtered_targets)
 
@@ -125,9 +134,16 @@
 		aggro_comp.add_threat_to_mob(chosen_target, 3)
 
 	var/mob/highest_threat = controller.blackboard[BB_HIGHEST_THREAT_MOB]
+
+	if(QDELETED(highest_threat) || (highest_threat && highest_threat.stat == DEAD))
+		controller.clear_blackboard_key(BB_HIGHEST_THREAT_MOB)
+		controller.clear_blackboard_key(target_key)
+		highest_threat = null
+
 	if(highest_threat)
 		controller.set_blackboard_key(target_key, highest_threat)
-	else if(chosen_target)
+	else if(chosen_target && !QDELETED(chosen_target))
+		controller.set_blackboard_key(BB_HIGHEST_THREAT_MOB, chosen_target)
 		controller.set_blackboard_key(target_key, chosen_target)
 		var/atom/potential_hiding_location = find_hiding_location(living_mob, chosen_target)
 		if(potential_hiding_location)
@@ -135,6 +151,24 @@
 		finish_action(controller, succeeded = TRUE)
 	else
 		finish_action(controller, succeeded = FALSE)
+
+/datum/ai_behavior/find_aggro_targets/proc/pick_spread_target(mob/living/living_mob, list/candidates, list/ally_focus)
+	if(!length(candidates))
+		return null
+	if(length(candidates) == 1)
+		return candidates[1]
+
+	var/crowd_penalty = living_mob.contract_spawned ? AGGRO_CROWD_PENALTY_WARBAND : AGGRO_CROWD_PENALTY_BASE
+	var/list/weights = list()
+
+	for(var/mob/living/candidate as anything in candidates)
+		var/weight = max(AGGRO_PICK_WEIGHT_MIN, AGGRO_PICK_WEIGHT_BASE - (get_dist(living_mob, candidate) * AGGRO_PICK_DISTANCE_FALLOFF))
+		var/crowd = ally_focus[candidate]
+		if(crowd)
+			weight = weight / (1 + (crowd * crowd_penalty))
+		weights[candidate] = max(1, round(weight))
+
+	return pickweight(weights)
 
 /// Base does nothing - field creation was removed in favor of spatial-grid wake/sleep.
 /datum/ai_behavior/find_aggro_targets/proc/failed_to_find_anyone(datum/ai_controller/controller, target_key, targeting_strategy_key, hiding_location_key)

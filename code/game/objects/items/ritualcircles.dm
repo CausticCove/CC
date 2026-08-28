@@ -1430,7 +1430,13 @@
 */
 // TIME FOR THE ASCENDANT. These can be stronger. As they are pretty much antag exclusive - Iconoclast for Matthios, Lich for ZIZO. ZIZO!
 
+/*
+Zizo, the Dame of Progress, Undeath, Artifice and Hubris.
 
+Uniquely has rituals that are either traits to PROGRESS (hehe) faster, or buffs w/ powerful boons and drawbacks.
+
+More uniquely, her rites always cut out the light in the room, then proc. 10 seconds is good enough.
+*/
 /obj/structure/ritualcircle/zizo
 	name = "Rune of Progress"
 	desc = "A holy rune of <font color='ff0000'>Zizo.</font> </br> <i>Progress at any cost.</i>"
@@ -1721,12 +1727,9 @@
 				return
 			icon_state = "matthios_active"
 			user.apply_status_effect(/datum/status_effect/debuff/ritesexpended)
-			var/is_heretic = istype(user.mind?.picked_advclass, /datum/advclass/wretch/heretic)
+			var/is_heretic = istype(user.mind?.picked_advclass, /datum/advclass/wretch/heretic || /datum/advclass/wretch/heretic/spy || /datum/advclass/gnoll/shaman)
 			if(is_heretic)
 				user.apply_status_effect(/datum/status_effect/debuff/armamentrites)
-			if(is_heretic && target != user)
-				user.apply_status_effect(/datum/status_effect/debuff/lux_exhausted)
-				target.apply_status_effect(/datum/status_effect/debuff/lux_exhausted)
 			matthiosarmaments(target)
 			spawn(120)
 				icon_state = "matthios_chalky"
@@ -1917,12 +1920,9 @@
 				return
 			icon_state = "graggar_active"
 			user.apply_status_effect(/datum/status_effect/debuff/ritesexpended)
-			var/is_heretic = istype(user.mind?.picked_advclass, /datum/advclass/wretch/heretic)
+			var/is_heretic = istype(user.mind?.picked_advclass, /datum/advclass/wretch/heretic || /datum/advclass/wretch/heretic/spy || /datum/advclass/gnoll/shaman)
 			if(is_heretic)
 				user.apply_status_effect(/datum/status_effect/debuff/armamentrites)
-			if(is_heretic && target != user)
-				user.apply_status_effect(/datum/status_effect/debuff/lux_exhausted)
-				target.apply_status_effect(/datum/status_effect/debuff/lux_exhausted)
 			graggararmor(target, helm_choice, armor_choice)
 			spawn(120)
 				icon_state = "graggar_chalky"
@@ -2123,12 +2123,9 @@
 			user.apply_status_effect(/datum/status_effect/debuff/ritesexpended)
 			ADD_TRAIT(target, TRAIT_NOPAIN, TRAIT_RITUAL)
 			ADD_TRAIT(target, TRAIT_DODGEEXPERT, TRAIT_RITUAL)
-			var/is_heretic = istype(user.mind?.picked_advclass, /datum/advclass/wretch/heretic)
+			var/is_heretic = istype(user.mind?.picked_advclass, /datum/advclass/wretch/heretic || /datum/advclass/wretch/heretic/spy || /datum/advclass/gnoll/shaman)
 			if(is_heretic)
 				user.apply_status_effect(/datum/status_effect/debuff/armamentrites)
-			if(is_heretic && target != user)
-				user.apply_status_effect(/datum/status_effect/debuff/lux_exhausted)
-				target.apply_status_effect(/datum/status_effect/debuff/lux_exhausted)
 			baothaarmaments(target)
 			spawn(120)
 				icon_state = "baotha_chalky"

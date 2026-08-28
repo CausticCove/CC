@@ -4,7 +4,7 @@
 	overlay_state = "conjure_weapon"
 	range = 3
 	projectile_type = /obj/projectile/energy/arcynestrike
-	releasedrain = 20
+	releasedrain = SPELLCOST_MINOR_PROJECTILE
 	chargedrain = 0
 	chargetime = 0.4 SECONDS
 	recharge_time = 6 SECONDS
@@ -22,7 +22,7 @@
 	glow_intensity = GLOW_INTENSITY_LOW
 	gesture_required = TRUE
 	human_req = TRUE // Combat spell
-	
+
 
 /obj/effect/proc_holder/spell/invoked/projectile/arcynestrike/cast(list/targets, mob/user = user)
 	var/mob/living/carbon/human/H = user
@@ -58,7 +58,6 @@
 	arcshot = TRUE
 	woundclass = BCLASS_CUT
 	nodamage = FALSE
-	npc_simple_damage_mult = 1.75 // Makes it more effective against NPCs.
 	hitsound = 'sound/combat/hits/bladed/smallslash (1).ogg'
 	speed = 1 // to make sure it hit the target
 

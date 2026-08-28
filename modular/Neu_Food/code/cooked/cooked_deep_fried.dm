@@ -1,6 +1,8 @@
 // Split this file into folder and individual food type
 
 /obj/item/reagent_containers/food/snacks/squiresdelight
+	cuisine = CUISINE_NORTH_IMPERIAL
+	dish_type = DISH_SWEET
 	name = "squire's delight"
 	desc = "A deep-fried butter stick. Beloved by squires, often stolen by knights."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_deep_fried.dmi'
@@ -19,6 +21,7 @@
 
 // Cooked results
 /obj/item/reagent_containers/food/snacks/rogue/meat/nitzel
+	cuisine = CUISINE_NORTH_IMPERIAL
 	name = "nitzel"
 	desc = "A deep-fried nitzel, coated in toastcrumbs and ready to eat."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_deep_fried.dmi'
@@ -48,6 +51,7 @@
 	//CC Edit End
 
 /obj/item/reagent_containers/food/snacks/rogue/meat/chickentender
+	cuisine = CUISINE_NORTHERN|CUISINE_SOUTHEASTERN
 	name = "tender frybird"
 	desc = "A deep-fried frybird, coated in toastcrumbs and ready to eat."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_deep_fried.dmi'
@@ -76,6 +80,7 @@
 	//CC Edit End
 
 /obj/item/reagent_containers/food/snacks/rogue/meat/griddlewiener
+	cuisine = CUISINE_NORTH_IMPERIAL
 	name = "griddlewiener"
 	desc = "A deep-fried sausage, tucked into a griddle blanket, beloved by all, especially during the Harvest Festival."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_deep_fried.dmi'

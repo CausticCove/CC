@@ -46,6 +46,12 @@
 			body_backup.revive(TRUE, TRUE) //Second true enables removal of the Zombie Antag Datum
 			body_backup.forceMove(src.loc) //Make sure to move the body to the TILE of the portal! Whoops lol
 			body_backup.enabled = TRUE
+			if(body_backup.muffled)
+				body_backup.muffled = FALSE
+			if(body_backup.forced_psay)
+				body_backup.forced_psay = FALSE
+			if(body_backup.absorbed)
+				body_backup.absorbed = FALSE
 			//body_backup.ajourn = 0
 			body_backup.key = T.key
 			//body_backup.teleop = null

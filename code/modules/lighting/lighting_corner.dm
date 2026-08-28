@@ -129,6 +129,9 @@ GLOBAL_LIST_INIT(LIGHTING_CORNER_DIAGONAL, list(NORTHEAST, SOUTHEAST, SOUTHWEST,
 				T.lighting_object.needs_update = TRUE
 				SSlighting.objects_queue += T.lighting_object
 
+/datum/lighting_corner/proc/vis_update()
+	for (var/datum/light_source/light_source as anything in affecting)
+		light_source.vis_update()
 
 /datum/lighting_corner/dummy/New()
 	return

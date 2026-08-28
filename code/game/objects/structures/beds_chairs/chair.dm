@@ -25,7 +25,7 @@
 	. = ..()
 	if(!anchored)	//why would you put these on the shuttle?
 		addtimer(CALLBACK(src, PROC_REF(RemoveFromLatejoin)), 0)
-	
+
 	//CC Edit - Make all the benches say their sleep quality.
 	if(sleepy)
 		desc += " (Sleep Quality: [sleepy] )"
@@ -41,7 +41,7 @@
 	var/mob/living/L = user
 
 	if(istype(L))
-		if(!user.canUseTopic(src, BE_CLOSE, ismonkey(user)))
+		if(!user.canUseTopic(src, BE_CLOSE))
 			return FALSE
 		else
 			return TRUE
@@ -230,7 +230,7 @@
 	if(over_object == usr && Adjacent(usr))
 		if(QDELETED(src) || !item_chair || !usr.can_hold_items() || has_buckled_mobs() || src.flags_1 & NODECONSTRUCT_1)
 			return
-		if(!usr.canUseTopic(src, BE_CLOSE, ismonkey(usr)))
+		if(!usr.canUseTopic(src, BE_CLOSE))
 			return
 		usr.visible_message("<span class='notice'>[usr] grabs \the [src.name].</span>", "<span class='notice'>I grab \the [src.name].</span>")
 		var/obj/item/C = new item_chair(loc)

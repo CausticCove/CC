@@ -9,7 +9,7 @@
 		var/cur_val = all_diets[i]
 		if(cur_val > NUTRITIONAL_GOAL)
 			goals_met++
-	
+
 	//The actual handling of the rewards and diet decay.
 	if(goals_met >= NUTRITIONAL_REWARD_MAX) //Decays slower and has a better wound bonus.
 		adjust_diet_value(H, NUTRITIONAL_DIET_TYPES, FULL_REWARD_NUTRITIONAL_DECAY)
@@ -39,40 +39,34 @@
 
 
 /datum/species/proc/adjust_diet_value(mob/living/carbon/human/H, diet_types, change)
-	var/cur_diets = diet_types
-	for(var/i in 1 to length(diet_types))
-		var/cur_diet = cur_diets[i]
-		if(HAS_TRAIT(src, TRAIT_NOHUNGER))
-			change = NUTRITIONAL_MIN_AMT // No Hunger? No benefits.
-		switch(cur_diet)
-			if("Dairy")
-				H.nutri_dairy = max(NUTRITIONAL_MIN_AMT, (min(NUTRITIONAL_MAX_AMT, H.nutri_dairy) + change))
-			if("Meats")
-				H.nutri_meat = max(NUTRITIONAL_MIN_AMT, (min(NUTRITIONAL_MAX_AMT, H.nutri_meat) + change))
-			if("Fruits")
-				H.nutri_fruit = max(NUTRITIONAL_MIN_AMT, (min(NUTRITIONAL_MAX_AMT, H.nutri_fruit) + change))
-			if("Vegetables")
-				H.nutri_vegetable = max(NUTRITIONAL_MIN_AMT, (min(NUTRITIONAL_MAX_AMT, H.nutri_vegetable) + change))
-			if("Grains")
-				H.nutri_grain = max(NUTRITIONAL_MIN_AMT, (min(NUTRITIONAL_MAX_AMT, H.nutri_grain) + change))
+	if(HAS_TRAIT(src, TRAIT_NOHUNGER))
+		change = NUTRITIONAL_MIN_AMT // No Hunger? No benefits.
+
+	if(diet_types & DAIRY)
+		H.nutri_dairy = max(NUTRITIONAL_MIN_AMT, (min(NUTRITIONAL_MAX_AMT, H.nutri_dairy) + change))
+	if(diet_types & MEAT)
+		H.nutri_meat = max(NUTRITIONAL_MIN_AMT, (min(NUTRITIONAL_MAX_AMT, H.nutri_meat) + change))
+	if(diet_types & FRUIT)
+		H.nutri_fruit = max(NUTRITIONAL_MIN_AMT, (min(NUTRITIONAL_MAX_AMT, H.nutri_fruit) + change))
+	if(diet_types & VEGETABLES)
+		H.nutri_vegetable = max(NUTRITIONAL_MIN_AMT, (min(NUTRITIONAL_MAX_AMT, H.nutri_vegetable) + change))
+	if(diet_types & GRAIN)
+		H.nutri_grain = max(NUTRITIONAL_MIN_AMT, (min(NUTRITIONAL_MAX_AMT, H.nutri_grain) + change))
 
 /datum/species/proc/set_diet_value(mob/living/carbon/human/H, diet_types, change)
-	var/cur_diets = diet_types
-	for(var/i in 1 to length(diet_types))
-		var/cur_diet = cur_diets[i]
-		if(HAS_TRAIT(src, TRAIT_NOHUNGER))
-			change = NUTRITIONAL_MIN_AMT // No Hunger? No benefits.
-		switch(cur_diet)
-			if("Dairy")
-				H.nutri_dairy = max(NUTRITIONAL_MIN_AMT, change)
-			if("Meats")
-				H.nutri_meat = max(NUTRITIONAL_MIN_AMT, change)
-			if("Fruits")
-				H.nutri_fruit = max(NUTRITIONAL_MIN_AMT, change)
-			if("Vegetables")
-				H.nutri_vegetable = max(NUTRITIONAL_MIN_AMT, change)
-			if("Grains")
-				H.nutri_grain = max(NUTRITIONAL_MIN_AMT, change)
+	if(HAS_TRAIT(src, TRAIT_NOHUNGER))
+		change = NUTRITIONAL_MIN_AMT // No Hunger? No benefits.
+
+	if(diet_types & DAIRY)
+		H.nutri_dairy = max(NUTRITIONAL_MIN_AMT, change)
+	if(diet_types & MEAT)
+		H.nutri_meat = max(NUTRITIONAL_MIN_AMT, change)
+	if(diet_types & FRUIT)
+		H.nutri_fruit = max(NUTRITIONAL_MIN_AMT, change)
+	if(diet_types & VEGETABLES)
+		H.nutri_vegetable = max(NUTRITIONAL_MIN_AMT, change)
+	if(diet_types & GRAIN)
+		H.nutri_grain = max(NUTRITIONAL_MIN_AMT, change)
 
 
 /datum/species/proc/find_diet_value(mob/living/carbon/human/H, diet_types, return_all)

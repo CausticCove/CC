@@ -319,7 +319,7 @@
 /datum/crafting_recipe/roguetown/sewing/paddedmask
 	name = "padded mask"
 	category = "Hoods"
-	result = list(/obj/item/clothing/mask/rogue/padded)
+	result = list(/obj/item/clothing/mask/rogue/facemask/padded)
 	reqs = list(/obj/item/natural/cloth = 3,)
 	craftdiff = 1
 
