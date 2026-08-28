@@ -81,8 +81,8 @@
 		to_chat(user, "I begin threading the needle with additional fibers...")
 		if(do_after(user, 6 SECONDS - user.get_skill_level(/datum/skill/craft/sewing), target = I))
 			var/refill_amount
-			refill_amount = min(5, (maxstring - stringamt))
-			stringamt += refill_amount
+			refill_amount = (maxstring * 0.25) //CC edit
+			stringamt = min(maxstring, (stringamt + refill_amount)) //CC edit
 			to_chat(user, "I replenish the needle's thread by [refill_amount] uses!")
 			qdel(I)
 		return
