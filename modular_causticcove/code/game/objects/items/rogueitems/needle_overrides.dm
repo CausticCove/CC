@@ -12,7 +12,7 @@
 #define SEW_WHP_HEALING 4.5
 
 //How much blood we stop per sew.
-#define SEW_BLEED_REDUCTION 0.25
+#define SEW_BLEED_REDUCTION 0.2
 
 #define SEW_START_DELAY 3 SECONDS
 
