@@ -3694,9 +3694,7 @@
 /area/rogue/under/cave/his_vault)
 "azg" = (
 /obj/structure/chair/bench/couch/r,
-/obj/machinery/light/rogue/candle{
-	pixel_y = -32
-	},
+/obj/machinery/light/rogue/candle/r,
 /turf/open/floor/carpet/royalblack,
 /area/rogue/indoors/town/magician)
 "azi" = (
