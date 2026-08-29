@@ -537,7 +537,7 @@ If you want to expand on poisons theres tons of fun effects TG chemistry has tha
 	description = "Red-yellow pustulence - the carrier of disease, the enemy of all Pestrans."
 	reagent_state = LIQUID
 	color = "#dfe36f"
-	metabolization_rate = 0.1
+	metabolization_rate = 0.75 //CC Edit - Nerf Infections as a whole. This should be temporary. Used to be 0.1.
 	var/damage_tick = 0.3
 	var/lethal_fever = FALSE
 	var/fever_multiplier = 1
@@ -564,7 +564,7 @@ If you want to expand on poisons theres tons of fun effects TG chemistry has tha
 /datum/reagent/infection/major
 	name = "excess melancholic humour"
 	description = "Kingsfield's Bane. Excess melancholic has killed thousands, and even Pestra's greatest struggle against its insidious advance."
-	damage_tick = 1
+	damage_tick = 0.5 //CC Edit - Nerf Major Illness damage by half. Used to be 1.
 	lethal_fever = TRUE
 	fever_multiplier = 3
 
