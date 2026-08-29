@@ -9,10 +9,12 @@
 #define SEW_EXP_FINISH 1.25 //Modified from 0.75
 
 //How much we heal per sew.
-#define SEW_WHP_HEALING 5
+#define SEW_WHP_HEALING 4.5
 
 //How much blood we stop per sew.
-#define SEW_BLEED_REDUCTION 0.3
+#define SEW_BLEED_REDUCTION 0.27
+
+#define SEW_START_DELAY 3 SECONDS
 
 //Can be used in a pinch to sew minor injuries/wounds.
 /obj/item/needle/thorn
@@ -91,7 +93,7 @@
 
 	while(!QDELETED(target_wound) && !QDELETED(src) && !QDELETED(user) && (target_wound.sew_progress < target_wound.sew_threshold) && stringamt >= 1)
 		//Handle the sewing delay, this is by default 3 seconds divided by your skill, up to 0.5 seconds at max medical.
-		var/sewing_start_delay = 3 SECONDS
+		var/sewing_start_delay = SEW_START_DELAY
 
 		if(medskill == SKILL_LEVEL_APPRENTICE)
 			sewing_start_delay = 2.5 SECONDS //Yes this is intentionally not meant to be 1.5 seconds, keep it at 2.5 seconds.
@@ -132,6 +134,17 @@
 
 		//Handle sewing progress.
 		//Consume the thread in the needle. Always consumes 1 per cycle of thread being used and applies EXP per use.
+
+		//At Journeyman and Above you heal more effectively.
+		switch(medskill)
+			if(SKILL_LEVEL_JOURNEYMAN)
+				whp_healing_per_use += 1
+			if(SKILL_LEVEL_EXPERT)
+				whp_healing_per_use += 3
+			if(SKILL_LEVEL_MASTER)
+				whp_healing_per_use += 5
+			if(SKILL_LEVEL_LEGENDARY)
+				whp_healing_per_use += 10
 
 		target_wound.sew_progress = min(target_wound.sew_progress + whp_healing_per_use, target_wound.sew_threshold)
 
