@@ -450,8 +450,11 @@
 	success_prob *= get_location_modifier(target)
 	success_prob *= get_skill_modifier(user, target, target_zone, tool, intent)
 	//CC Edit - Pain now influences success probability, both the user and target is taken into consideration.
-	//Formula is success_probability - pain percentage.
+	//Formula is success_probability - (pain percentage / med skill).
 	//They are dead. We shouldn't perform any checks on pain for both target, or user.
+	var/medskill = user.get_skill_level(/datum/skill/misc/medicine)
+	if(medskill == SKILL_LEVEL_NONE)
+		medskill = 0.75 //25% more pain due to no skill levels.
 	if(target.stat == DEAD)
 		return success_prob
 
@@ -460,22 +463,22 @@
 			if(ishuman(target)) //Species physiology check in case you wondered why.
 				var/mob/living/carbon/human = target
 				var/painpercent = (human.get_complex_pain() / human.pain_threshold) * 100
-				success_prob -= (painpercent / 2)
+				success_prob -= (painpercent / medskill)
 			else //Handle wildshapes or any other carbon forms.
 				var/mob/living/carbon/carbon = target
 				var/painpercent = (carbon.get_complex_pain() / carbon.pain_threshold) * 100
-				success_prob -= (painpercent / 2)
+				success_prob -= (painpercent / medskill)
 
 	if(!HAS_TRAIT(user, TRAIT_NOPAIN))
 		if(iscarbon(user))
 			if(ishuman(user)) //Species physiology check in case you wondered why.
 				var/mob/living/carbon/human = user
 				var/painpercent = (human.get_complex_pain() / human.pain_threshold) * 100
-				success_prob -= (painpercent / 2)
+				success_prob -= (painpercent / medskill)
 			else //Handle wildshapes or any other carbon forms.
 				var/mob/living/carbon/carbon = user
 				var/painpercent = (carbon.get_complex_pain() / carbon.pain_threshold) * 100
-				success_prob -= (painpercent / 2)
+				success_prob -= (painpercent / medskill)
 
 		//CC Edit End
 
