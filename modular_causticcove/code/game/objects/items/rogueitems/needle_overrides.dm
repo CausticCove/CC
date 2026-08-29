@@ -8,6 +8,12 @@
 // 12.5 EXP at 10 INT for 100 sew treshold
 #define SEW_EXP_FINISH 1.25 //Modified from 0.75
 
+//How much we heal per sew.
+#define SEW_WHP_HEALING 5
+
+//How much blood we stop per sew.
+#define SEW_BLEED_REDUCTION 0.3
+
 //Can be used in a pinch to sew minor injuries/wounds.
 /obj/item/needle/thorn
 	stringamt = 15
@@ -74,9 +80,9 @@
 	if(!target_wound)
 		return FALSE
 
-	//Heal 4whp + value of user's skill, up to 10whp per use.
+	//Heal SEW_WHP_HEALING (6) + value of user's skill, up to 12whp per use.
 	var/medskill = med_skill_check(user)
-	var/whp_healing_per_use = 4 + medskill
+	var/whp_healing_per_use = SEW_WHP_HEALING + medskill
 	var/informed = FALSE
 
 	switch(medskill)
@@ -106,7 +112,7 @@
 		//Handle bleeding rates.
 		//Bleeding reduction is significantly worse for users below journeyman skills in medical.
 		//Use bandages to help stop the bleeding outright.
-		var/bleedreduction = 0.25
+		var/bleedreduction = SEW_BLEED_REDUCTION
 		switch(medskill)
 			if(3 to 4) //Journeyman and above get significantly better bleed reductions.
 				bleedreduction = 3
@@ -174,6 +180,8 @@
 		medskill = 0.5 //Unskilled users will perform very poorly but can still attempt.
 	return medskill
 
+#undef SEW_BLEED_REDUCTION
+#undef SEW_WHP_HEALING
 #undef SEW_HP_EXP_NORMALIZER
 #undef SEW_EXP_PER_STEP
 #undef SEW_EXP_FINISH
