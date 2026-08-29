@@ -86,12 +86,11 @@
 	while(!QDELETED(target_wound) && !QDELETED(src) && !QDELETED(user) && (target_wound.sew_progress < target_wound.sew_threshold) && stringamt >= 1)
 		//Handle the sewing delay, this is by default 3 seconds divided by your skill, up to 0.5 seconds at max medical.
 		var/sewing_start_delay = 3 SECONDS
-		sewing_start_delay /= medskill
 
-		switch(medskill)
-			//You must be journeyman to break from 2.5 second sewing delays.
-			if(2)
-				sewing_start_delay = 2.5 SECONDS //Yes this is intentionally not meant to be 1.5 seconds, keep it at 2.5 seconds.
+		if(medskill == SKILL_LEVEL_APPRENTICE)
+			sewing_start_delay = 2.5 SECONDS //Yes this is intentionally not meant to be 1.5 seconds, keep it at 2.5 seconds.
+		else
+			sewing_start_delay /= medskill
 
 		if(!do_after(user, sewing_start_delay, target = target))
 			break
@@ -171,7 +170,7 @@
 //Checks the medical skill and returns a value correlating to that skill level.
 /obj/item/needle/proc/med_skill_check(mob/living/user)
 	var/medskill = user.get_skill_level(/datum/skill/misc/medicine)
-	if(medskill == 0)
+	if(medskill == SKILL_LEVEL_NOVICE)
 		medskill = 0.5 //Unskilled users will perform very poorly but can still attempt.
 	return medskill
 
