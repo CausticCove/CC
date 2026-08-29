@@ -30,7 +30,7 @@
 // of a SURGEON!
 /datum/surgery_step/incise
 	skill_min = SKILL_LEVEL_NONE //Used to be novice.
-	skill_median = SKILL_LEVEL_JOURNEYMAN //Used to be apprentice.
+	skill_median = SKILL_LEVEL_NOVICE //Used to be apprentice.
 
 /datum/surgery_step/clamp
 	skill_min = SKILL_LEVEL_NOVICE //Used to be apprentice.
