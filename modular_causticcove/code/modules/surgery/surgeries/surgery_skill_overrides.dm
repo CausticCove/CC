@@ -7,7 +7,7 @@
 //Should be relatively easy yet difficult to remove bad blood, to help deal with toxins from bad surgeries.
 /datum/surgery_step/bloodlet
 	skill_min = SKILL_LEVEL_APPRENTICE //Used to be journeyman.
-	skill_median = SKILL_LEVEL_MASTER //Used to be expert.
+	skill_median = SKILL_LEVEL_JOURNEYMAN //Used to be expert.
 
 /datum/surgery_step/relocate_bone
 	skill_min = SKILL_LEVEL_APPRENTICE
