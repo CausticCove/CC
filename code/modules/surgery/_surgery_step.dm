@@ -370,7 +370,7 @@
 
 	if(causes_infection) //Only cause infections if said surgery actually causes it.
 		if(bed_quality)
-			success_prob = (success_prob + (success_prob * (bed_quality / 4))) //Better Beds = Less Risk of infection.
+			success_prob = (success_prob + (success_prob * (bed_quality / 3))) //Better Beds = Less Risk of infection.
 		else
 			success_prob /= 2 //Without a bed we halve our success probability.
 			if(target == user)
