@@ -12,7 +12,7 @@
 #define SEW_WHP_HEALING 4.5
 
 //How much blood we stop per sew.
-#define SEW_BLEED_REDUCTION 0.27
+#define SEW_BLEED_REDUCTION 0.25
 
 #define SEW_START_DELAY 3 SECONDS
 
@@ -116,10 +116,14 @@
 		//Use bandages to help stop the bleeding outright.
 		var/bleedreduction = SEW_BLEED_REDUCTION
 		switch(medskill)
-			if(3 to 4) //Journeyman and above get significantly better bleed reductions.
-				bleedreduction = 3
-			if(5 to 6)
-				bleedreduction = 5
+			if(SKILL_LEVEL_JOURNEYMAN) //Journeyman and above get significantly better bleed reductions.
+				bleedreduction += 0.25
+			if(SKILL_LEVEL_EXPERT)
+				bleedreduction += 0.5
+			if(SKILL_LEVEL_MASTER)
+				bleedreduction += 1
+			if(SKILL_LEVEL_LEGENDARY)
+				bleedreduction += 2.5
 
 		target_wound.set_bleed_rate(max( (target_wound.bleed_rate - bleedreduction), 0))
 
@@ -193,6 +197,7 @@
 		medskill = 0.5 //Unskilled users will perform very poorly but can still attempt.
 	return medskill
 
+#undef SEW_START_DELAY
 #undef SEW_BLEED_REDUCTION
 #undef SEW_WHP_HEALING
 #undef SEW_HP_EXP_NORMALIZER
