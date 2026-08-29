@@ -297,6 +297,10 @@
 	if(success && success(user, target, target_zone, tool, intent))
 		if(ishuman(user))
 			var/mob/living/carbon/human/doctor = user
+			//CC Edit - make skill_min actually give some XP if skill is 0
+			if(skill_min == SKILL_LEVEL_NONE)
+				skill_min = 0.5
+			//CC Edit End
 			user.mind.add_sleep_experience(/datum/skill/misc/medicine, doctor.STAINT * (skill_min/2))
 		play_success_sound(user, target, target_zone, tool)
 		if(repeating && can_do_step(user, target, target_zone, tool, intent, try_to_fail))
