@@ -350,6 +350,10 @@
 		span_warning("[user] screws up!"),
 		span_notice("[user] finishes."), TRUE) //By default the patient will notice if the wrong thing has been cut
 	//CC Edit - Nerf surgery via making failures more deadly.
+
+	if(HAS_TRAIT(target, TRAIT_IRONMAN))
+		return TRUE //Constructs cannot take infections.
+
 	var/bed_quality
 	if(isturf(target.loc)) //No illegal tech.
 		var/obj/structure/bed/rogue/bed = locate() in target.loc
