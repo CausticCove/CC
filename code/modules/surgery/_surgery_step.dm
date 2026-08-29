@@ -437,36 +437,6 @@
 			success_prob *= (implements[implement_type]/100) || 1
 	success_prob *= get_location_modifier(target)
 	success_prob *= get_skill_modifier(user, target, target_zone, tool, intent)
-	//CC Edit - Pain now influences success probability, both the user and target is taken into consideration.
-	//Formula is success_probability - pain percentage.
-	//They are dead. We shouldn't perform any checks on pain for both target, or user.
-	if(target.stat == DEAD)
-		return success_prob
-
-	if(!HAS_TRAIT(target, TRAIT_NOPAIN)) //No pain? Why check?
-		if(iscarbon(target))
-			if(ishuman(target)) //Species physiology check in case you wondered why.
-				var/mob/living/carbon/human = target
-				var/painpercent = (human.get_complex_pain() / human.pain_threshold) * 100
-				success_prob -= (painpercent / 2)
-			else //Handle wildshapes or any other carbon forms.
-				var/mob/living/carbon/carbon = target
-				var/painpercent = (carbon.get_complex_pain() / carbon.pain_threshold) * 100
-				success_prob -= (painpercent / 2)
-
-	if(!HAS_TRAIT(user, TRAIT_NOPAIN))
-		if(iscarbon(user))
-			if(ishuman(user)) //Species physiology check in case you wondered why.
-				var/mob/living/carbon/human = user
-				var/painpercent = (human.get_complex_pain() / human.pain_threshold) * 100
-				success_prob -= (painpercent / 2)
-			else //Handle wildshapes or any other carbon forms.
-				var/mob/living/carbon/carbon = user
-				var/painpercent = (carbon.get_complex_pain() / carbon.pain_threshold) * 100
-				success_prob -= (painpercent / 2)
-
-		//CC Edit End
-
 	return success_prob
 
 /datum/surgery_step/proc/get_skill_modifier(mob/user, mob/living/target, target_zone, obj/item/tool, datum/intent/intent)
