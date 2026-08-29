@@ -422,10 +422,22 @@
 			speed_mod *= implements_speed[implement_type] || 1
 	speed_mod *= get_speed_location_modifier(target)
 	var/medskill = user.get_skill_level(/datum/skill/misc/medicine)
-	if(medskill == SKILL_LEVEL_MASTER)
-		speed_mod -= 0.2
-	else if(medskill == SKILL_LEVEL_LEGENDARY)
-		speed_mod -= 0.4
+	//CC Edit - Faster Surgery Speeds at Journeyman and Above, slightly slower for unskilled.
+	switch(medskill)
+		if(SKILL_LEVEL_NONE)
+			speed_mod += 0.15
+		if(SKILL_LEVEL_NOVICE)
+			speed_mod += 0.1
+		//Speed breaks even at Apprentice
+		if(SKILL_LEVEL_JOURNEYMAN)
+			speed_mod -= 0.1
+		if(SKILL_LEVEL_EXPERT)
+			speed_mod -= 0.25
+		if(SKILL_LEVEL_MASTER)
+			speed_mod -= 0.4
+		if(SKILL_LEVEL_LEGENDARY)
+			speed_mod -= 0.7
+	//CC Edit - Faster Surgery Speeds at Journeyman and Above
 
 	return speed_mod
 
