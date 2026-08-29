@@ -543,6 +543,9 @@
 	grid_width = 32
 	grid_height = 32
 	dropshrink = 0.9
+	//CC Edit - Bundle Bandaging
+	var/bandage_speed = 7 SECONDS
+	//CC Edit End
 
 /obj/item/natural/bundle/stick
 	name = "bundle of sticks"

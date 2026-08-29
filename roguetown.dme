@@ -3749,6 +3749,7 @@
 #include "modular_causticcove\code\game\objects\items\weapons\ranged\ammo_bullets.dm"
 #include "modular_causticcove\code\game\objects\items\weapons\ranged\blackpowder.dm"
 #include "modular_causticcove\code\game\objects\structures\staircase_helper.dm"
+#include "modular_causticcove\code\game\items\rogueitems\natural\clothfibersthorn.dm"
 #include "modular_causticcove\code\modules\accessability\epilepsy.dm"
 #include "modular_causticcove\code\modules\accessability\epilepsy_prefs.dm"
 #include "modular_causticcove\code\modules\antagonists\roguetown\villains\werewolf\werewolf_transformation_resist.dm"
@@ -3939,6 +3940,7 @@
 #include "modular_causticcove\code\modules\events\adventure\random_bosses\random_boss.dm"
 #include "modular_causticcove\code\game\objects\items\clothes\causthats.dm"
 #include "modular_causticcove\code\game\objects\items\clothes\storage.dm"
+
 
 //Modular TA files
 #include "modular_twilight_axis\code\datums\tat_system\tat_defines.dm"
