@@ -364,13 +364,14 @@
 		var/obj/structure/table = locate() in target.loc
 		if(bed)
 			bed_quality = bed.sleepy
+
+		//Handle tables.
+		//Operation tables prevent infections.
+		if(istype(table, /obj/structure/table/optable))
+			return TRUE
+
 	if(target.buckled?.sleepy)
 		bed_quality = target.buckled.sleepy
-
-	//Handle tables.
-	//Operation tables prevent infections.
-	if(istype(table, /obj/structure/table/optable))
-		return TRUE
 
 	if(!bed_quality)
 		if(target == user)
