@@ -1791,7 +1791,7 @@ GLOBAL_LIST_EMPTY(roundstart_races_paths)
 	var/hit_area
 	var/selzone_real = user.zone_selected
 
-	selzone = melee_accuracy_check(user.zone_selected, user, H, I.associated_skill, user.used_intent, I)
+	selzone = melee_accuracy_check(user.zone_selected, user, H, null, user.used_intent, I)
 	affecting = H.get_bodypart(check_zone(selzone))
 
 	if(!affecting)

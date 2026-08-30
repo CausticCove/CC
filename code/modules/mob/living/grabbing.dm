@@ -374,8 +374,7 @@
 			var/probby = clamp((((3 + (((user.STASTR - M.STASTR)/4) + skill_diff)) * 10) * combat_modifier), 5, 95)
 			if(I)
 				if(M.mind)
-					if(I.associated_skill)
-						probby -= M.get_skill_level(I.associated_skill) * 5
+					probby -= M.get_wskill(I) * 5
 				if(I.wielded)
 					probby -= 20
 				if(prob(probby))

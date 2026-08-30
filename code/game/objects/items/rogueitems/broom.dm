@@ -25,6 +25,51 @@
 			if("onback")
 				return list("shrink" = 0.5,"sx" = -1,"sy" = 2,"nx" = 0,"ny" = 2,"wx" = 2,"wy" = 1,"ex" = 0,"ey" = 1,"nturn" = 0,"sturn" = 0,"wturn" = 70,"eturn" = 15,"nflip" = 1,"sflip" = 1,"wflip" = 1,"eflip" = 1,"northabove" = 1,"southabove" = 0,"eastabove" = 0,"westabove" = 0)
 
+/obj/item/broom/get_mechanics_examine(mob/user)
+	. = ..()
+	. += span_info("Sweeping time decreases with higher Cooking skill.")
+	. += span_info("STRONG intent will make you do a power-sweeping, targeting a 3x3 area!")
+	. += span_info("Right-click to twirl it one-handed.")
+
+/obj/item/broom/twirl_fumble(mob/living/user)
+	return twirl_fumble_bonk(user)
+
+/obj/item/broom/proc/sweep_time(mob/living/user)
+	return max(40 - (user.get_wskill(src) * 15), 5)
+/obj/item/broom/proc/sweep_move_time(mob/living/user)
+	return max(40 - (user.get_wskill(src) * 15), 5)
+
+/obj/item/broom/proc/sweep_alive(mob/living/user)
+	return !QDELETED(user) && user.stat != DEAD
+
+/obj/item/broom/proc/sweep_message(atom/A, mob/living/user)
+	user.visible_message(span_notice("[user] dutifully sweeps \the [A]."), span_notice("I dutifully sweep \the [A]."))
+
+/obj/item/broom/proc/is_sweep_trash(obj/O)
+	return istype(O, /obj/effect/decal/cleanable/dirt) \
+		|| istype(O, /obj/item/paper/crumpled) \
+		|| istype(O, /obj/item/ash) \
+		|| istype(O, /obj/item/natural/glass_shard) \
+		|| istype(O, /obj/effect/decal/cleanable/debris) \
+		|| istype(O, /obj/effect/decal/remains/human)
+
+/obj/item/broom/proc/is_clutter(atom/movable/A)
+	return istype(A, /obj/item/natural/stone) \
+		|| istype(A, /obj/item/scrap) \
+		|| istype(A, /obj/item/paper/crumpled) \
+		|| istype(A, /obj/item/grown/log/tree/stick) \
+		|| istype(A, /obj/item/ash) \
+		|| istype(A, /obj/item/organ) \
+		|| istype(A, /obj/item/bodypart) \
+		|| istype(A, /obj/item/natural/glass_shard) \
+		|| istype(A, /obj/item/natural/cloth) \
+		|| istype(A, /obj/item/natural/fibers) \
+		|| istype(A, /obj/item/natural/silk) \
+		|| istype(A, /obj/item/natural/bone) \
+		|| istype(A, /obj/item/natural/bundle) \
+		|| istype(A, /obj/item/ammo_casing) \
+		|| istype(A, /obj/item/rogueweapon/huntingknife/throwingknife)
+
 /obj/item/broom/attack_obj(obj/O, mob/living/user)
 	if(istype(O, /obj/structure/spider/stickyweb)) // perish, spiders
 		O.take_damage(50, BRUTE, "blunt", FALSE)
