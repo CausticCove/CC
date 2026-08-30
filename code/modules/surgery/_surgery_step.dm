@@ -361,10 +361,16 @@
 	var/bed_quality
 	if(isturf(target.loc)) //No illegal tech.
 		var/obj/structure/bed/rogue/bed = locate() in target.loc
+		var/obj/structure/table = locate() in target.loc
 		if(bed)
 			bed_quality = bed.sleepy
 	if(target.buckled?.sleepy)
 		bed_quality = target.buckled.sleepy
+
+	//Handle tables.
+	//Operation tables prevent infections.
+	if(istype(table, /obj/structure/table/optable))
+		return TRUE
 
 	if(!bed_quality)
 		if(target == user)
@@ -376,22 +382,23 @@
 		if(bed_quality)
 			success_prob = (success_prob + (success_prob * (bed_quality / 3))) //Better Beds = Less Risk of infection.
 		else
-			success_prob /= 2 //Without a bed we halve our success probability.
+			success_prob /= 2 //Without a bed we halve our success probability, leading to worse infections.
 			if(target == user)
-				to_chat(user, span_warning("Without a bed the likelihood of my surgery getting infected is far greater..."))
+				to_chat(user, span_warning("Without a bed, or operation table, the likelihood of my surgery getting infected is far greater..."))
 			else
-				to_chat(user, span_warning("Without a bed the likelihood of their surgery getting infected is far greater..."))
+				to_chat(user, span_warning("Without a bed, or operation table, the likelihood of their surgery getting infected is far greater..."))
+
 		switch (success_prob)
-			if (0 to 34) //Used to be 0 to 15.
+			if (0 to 25) //Used to be 0 to 15.
 				//Careful, doctors. This reagent can, and will add more of itself within the person's body if the person has really bad luck.
 				//This *will* lead to fatal toxins-induced death. Do not let that happen.
-				target.reagents.add_reagent(/datum/reagent/infection/major, rand(5,8))
+				target.reagents.add_reagent(/datum/reagent/infection/major, rand(1,4))
 				to_chat(target, span_danger("I feel like something REALLY BAD happened with my surgery!"))
-			if (35 to 74)// Used to be 16 to 50
-				target.reagents.add_reagent(/datum/reagent/infection, rand(3,8))
+			if (26 to 51)// Used to be 16 to 50
+				target.reagents.add_reagent(/datum/reagent/infection, rand(2,6))
 				to_chat(target, span_boldwarning("I feel like something went very wrong with my surgery."))
-			if (75 to 100) //Used to be 51 to 70, even failing at high chances can and will cause some degree of infection.
-				target.reagents.add_reagent(/datum/reagent/infection/minor, rand(1,8))
+			if (52 to 100) //Used to be 51 to 70, even failing at high chances can and will cause some degree of infection.
+				target.reagents.add_reagent(/datum/reagent/infection/minor, rand(1,12))
 				to_chat(target, span_warn("I feel like something bad happened with my surgery..."))
 	//CC Edit End
 	return TRUE
@@ -457,8 +464,18 @@
 	//Formula is success_probability - (pain percentage / med skill).
 	//They are dead. We shouldn't perform any checks on pain for both target, or user.
 	var/medskill = user.get_skill_level(/datum/skill/misc/medicine)
-	if(medskill == SKILL_LEVEL_NONE)
-		medskill = 0.75 //25% more pain due to no skill levels.
+	var/pain_reduction
+	switch(medskill)
+		if(SKILL_LEVEL_NONE) //25% pain for people with no skill doing surgeries.
+			medskill = 0.75
+		if(SKILL_LEVEL_JOURNEYMAN) //Journeyman and beyond gets a bonus 25% reduction to pain calculation.
+			pain_reduction = 0.75
+		if(SKILL_LEVEL_EXPERT)
+			pain_reduction = 0.5
+		if(SKILL_LEVEL_MASTER)
+			pain_reduction = 0.25
+		if(SKILL_LEVEL_LEGENDARY) //No pain at legendary.
+			pain_reduction = 0
 	if(target.stat == DEAD)
 		return success_prob
 
@@ -467,22 +484,22 @@
 			if(ishuman(target)) //Species physiology check in case you wondered why.
 				var/mob/living/carbon/human = target
 				var/painpercent = (human.get_complex_pain() / human.pain_threshold) * 100
-				success_prob -= (painpercent / medskill)
+				success_prob -= (painpercent / medskill) * pain_reduction
 			else //Handle wildshapes or any other carbon forms.
 				var/mob/living/carbon/carbon = target
 				var/painpercent = (carbon.get_complex_pain() / carbon.pain_threshold) * 100
-				success_prob -= (painpercent / medskill)
+				success_prob -= (painpercent / medskill) * pain_reduction
 
 	if(!HAS_TRAIT(user, TRAIT_NOPAIN))
 		if(iscarbon(user))
 			if(ishuman(user)) //Species physiology check in case you wondered why.
 				var/mob/living/carbon/human = user
 				var/painpercent = (human.get_complex_pain() / human.pain_threshold) * 100
-				success_prob -= (painpercent / medskill)
+				success_prob -= (painpercent / medskill) * pain_reduction
 			else //Handle wildshapes or any other carbon forms.
 				var/mob/living/carbon/carbon = user
 				var/painpercent = (carbon.get_complex_pain() / carbon.pain_threshold) * 100
-				success_prob -= (painpercent / medskill)
+				success_prob -= (painpercent / medskill) * pain_reduction
 
 		//CC Edit End
 
