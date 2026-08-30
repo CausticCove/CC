@@ -4,7 +4,7 @@ import { useBackend } from 'tgui/backend';
 import { Box, Button, Image, Section, Stack } from 'tgui-core/components';
 import type { ExaminePanelData } from './data';
 
-export const FlavorTextPage = (props) => {
+export const FlavorTextPage = () => {
   const { data } = useBackend<ExaminePanelData>();
   const {
     flavor_text,
@@ -135,7 +135,17 @@ export const FlavorTextPage = (props) => {
             <Box dangerouslySetInnerHTML={flavorHTML} />
           )}
           {flavorTextIndex === 'NSFW' && (
-            <Box dangerouslySetInnerHTML={nsfwHTML} />
+            <>
+              <Box dangerouslySetInnerHTML={nsfwHTML} />
+              {canViewNsfwFlavorText && nsfw_ooc_extra_image && (
+                <Box mt={1} textAlign="center">
+                  <Image
+                    maxWidth="100%"
+                    src={resolveAsset(nsfw_ooc_extra_image)}
+                  />
+                </Box>
+              )}
+            </>
           )}
         </Section>
       </Stack.Item>
@@ -143,7 +153,7 @@ export const FlavorTextPage = (props) => {
   );
 };
 
-export const ImageGalleryPage = (props) => {
+export const ImageGalleryPage = () => {
   const { data } = useBackend<ExaminePanelData>();
   const { img_gallery, nsfw_img_gallery } = data; // Caustic Edit: Removes naked requirement to view NSFW flavortext [, is_naked]
   const [galleryIndex, setGalleryIndex] = useState('SFW');
