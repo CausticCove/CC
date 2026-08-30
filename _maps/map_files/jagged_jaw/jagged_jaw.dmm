@@ -1504,7 +1504,6 @@
 /area/rogue/outdoors/bog/south/grim/se)
 "akR" = (
 /obj/structure/flora/rock/jungle{
-	mouse_opacity = 0;
 	name = "swamp shrubs"
 	},
 /turf/open/floor/rogue/dirt,
@@ -5773,6 +5772,7 @@
 "aMh" = (
 /obj/structure/fluff/railing/wood,
 /obj/structure/chair/wood/rogue,
+/obj/machinery/light/rogue/torchholder/l,
 /turf/open/floor/rogue/wood,
 /area/rogue/outdoors/town/grim)
 "aMi" = (
@@ -12729,7 +12729,6 @@
 /area/rogue/outdoors/beach/north/grim)
 "bFJ" = (
 /obj/structure/flora/rock/jungle{
-	mouse_opacity = 0;
 	name = "swamp shrubs"
 	},
 /turf/open/floor/rogue/naturalstone,
@@ -15098,7 +15097,6 @@
 /area/rogue/indoors/town/grim)
 "bVx" = (
 /obj/structure/flora/rock/jungle{
-	mouse_opacity = 0;
 	name = "swamp shrubs"
 	},
 /turf/open/floor/rogue/dirt,
@@ -18013,7 +18011,6 @@
 /area/rogue/indoors/town/physician)
 "cpn" = (
 /obj/structure/flora/rock/jungle{
-	mouse_opacity = 0;
 	name = "swamp shrubs"
 	},
 /turf/open/floor/rogue/dirt/road,
@@ -26024,6 +26021,10 @@
 /obj/machinery/light/rogue/candle/r,
 /turf/open/floor/rogue/ruinedwood/spiral,
 /area/rogue/indoors/town/manor/grim)
+"dnl" = (
+/obj/structure/fluff/wallclock/vampire/r,
+/turf/open/floor/rogue/ruinedwood/spiral,
+/area/rogue/under/cave/dukecourt/grim)
 "dnp" = (
 /obj/structure/table/wood/long_table{
 	dir = 1
@@ -34138,7 +34139,6 @@
 /area/rogue/under/cave/water_temple/three)
 "epO" = (
 /obj/structure/flora/rock/jungle{
-	mouse_opacity = 0;
 	name = "swamp shrubs"
 	},
 /turf/open/floor/rogue/grasscold,
@@ -38809,7 +38809,6 @@
 /area/rogue/indoors/inq/basement)
 "eTF" = (
 /obj/structure/flora/rock/jungle{
-	mouse_opacity = 0;
 	name = "swamp shrubs"
 	},
 /turf/open/floor/rogue/naturalstone,
@@ -43998,6 +43997,7 @@
 	pixel_y = 5;
 	pixel_x = -1
 	},
+/obj/structure/fluff/wallclock/l,
 /turf/open/floor/carpet/red,
 /area/rogue/indoors/town/dwarfin)
 "fCz" = (
@@ -45569,7 +45569,6 @@
 /area/rogue/outdoors/beach/grim)
 "fNa" = (
 /obj/structure/flora/rock/jungle{
-	mouse_opacity = 0;
 	name = "swamp shrubs"
 	},
 /turf/open/floor/rogue/dirt,
@@ -52520,7 +52519,6 @@
 /area/rogue/indoors/town/grim)
 "gIt" = (
 /obj/structure/flora/rock/jungle{
-	mouse_opacity = 0;
 	name = "swamp shrubs"
 	},
 /turf/open/water/cleanshallow,
@@ -58451,7 +58449,6 @@
 /area/rogue/indoors/town/manor/grim)
 "hvm" = (
 /obj/structure/flora/rock/jungle{
-	mouse_opacity = 0;
 	name = "swamp shrubs"
 	},
 /turf/open/floor/rogue/dirt,
@@ -64694,7 +64691,6 @@
 /area/rogue/under/cave/taricheamanor)
 "ikE" = (
 /obj/structure/flora/rock/jungle{
-	mouse_opacity = 0;
 	name = "swamp shrubs"
 	},
 /turf/open/floor/rogue/grass,
@@ -69798,7 +69794,6 @@
 /area/rogue/outdoors/woods/grim/southwest)
 "iRv" = (
 /obj/structure/flora/rock/jungle{
-	mouse_opacity = 0;
 	name = "swamp shrubs"
 	},
 /turf/open/floor/rogue/grass,
@@ -72082,7 +72077,6 @@
 /area/rogue/indoors/town/tavern/grim)
 "jge" = (
 /obj/structure/flora/rock/jungle{
-	mouse_opacity = 0;
 	name = "swamp shrubs"
 	},
 /turf/open/floor/rogue/naturalstone,
@@ -76309,6 +76303,14 @@
 /obj/item/book/rogue/bibble/psy,
 /turf/open/floor/rogue/churchrough,
 /area/rogue/indoors/inq/basement)
+"jHy" = (
+/obj/structure/fluff/railing/wood,
+/obj/structure/chair/wood/rogue,
+/obj/machinery/light/rogue/torchholder/l{
+	dir = 8
+	},
+/turf/open/floor/rogue/wood,
+/area/rogue/outdoors/town/grim)
 "jHB" = (
 /obj/structure/fluff/railing/wood/west,
 /obj/effect/decal/edge{
@@ -76417,7 +76419,6 @@
 /area/rogue/outdoors/mountains/decap/grim)
 "jIn" = (
 /obj/structure/flora/rock/jungle{
-	mouse_opacity = 0;
 	name = "swamp shrubs"
 	},
 /obj/structure/flora/junglebush/c,
@@ -83209,7 +83210,6 @@
 /area/rogue/indoors/town/grim)
 "kBR" = (
 /obj/effect/decal/cleanable/debris/stony,
-/obj/structure/fluff/wallclock/vampire,
 /turf/open/floor/rogue/tile,
 /area/rogue/under/cave/dukecourt/grim)
 "kBT" = (
@@ -83446,7 +83446,6 @@
 /area/rogue/outdoors/mountains/grim)
 "kDP" = (
 /obj/structure/flora/rock/jungle{
-	mouse_opacity = 0;
 	name = "swamp shrubs"
 	},
 /obj/structure/ladder/earth,
@@ -87611,7 +87610,6 @@
 /area/rogue/outdoors/exposed/under/sewer/grim)
 "leQ" = (
 /obj/structure/flora/rock/jungle{
-	mouse_opacity = 0;
 	name = "swamp shrubs"
 	},
 /turf/open/floor/rogue/grass,
@@ -93890,7 +93888,7 @@
 /obj/effect/spawner/lootdrop/roguetown/dungeon/clothing,
 /obj/effect/spawner/lootdrop/roguetown/dungeon/armor,
 /obj/effect/spawner/lootdrop/roguetown/dungeon/armor,
-/obj/item/ingot/blacksteel,
+/obj/random/loot/ingots,
 /turf/open/floor/rogue/greenstone,
 /area/rogue/under/cave/dungeon1/gethsmane/inner)
 "lWc" = (
@@ -101036,7 +101034,6 @@
 /area/rogue/indoors/town/grim)
 "mRv" = (
 /obj/structure/flora/rock/jungle{
-	mouse_opacity = 0;
 	name = "swamp shrubs"
 	},
 /turf/open/floor/rogue/grasscold,
@@ -104273,6 +104270,11 @@
 /obj/structure/fluff/railing/corner/north_east,
 /turf/open/floor/rogue/church,
 /area/rogue/indoors/shelter)
+"nmH" = (
+/obj/structure/fluff/railing/border/east,
+/obj/structure/fluff/wallclock/vampire,
+/turf/open/floor/rogue/ruinedwood/spiral,
+/area/rogue/under/cave/dukecourt/grim)
 "nmI" = (
 /obj/effect/decal/cleanable/debris/stony,
 /turf/open/floor/rogue/naturalstone,
@@ -109799,7 +109801,6 @@
 /area/rogue/under/cave/mazedungeon)
 "nXD" = (
 /obj/structure/flora/rock/jungle{
-	mouse_opacity = 0;
 	name = "swamp shrubs"
 	},
 /turf/open/floor/rogue/dirt,
@@ -111583,7 +111584,6 @@
 /area/rogue/indoors/town/garrison/grim)
 "okk" = (
 /obj/structure/flora/rock/jungle{
-	mouse_opacity = 0;
 	name = "swamp shrubs"
 	},
 /turf/open/floor/rogue/dirt,
@@ -127676,8 +127676,7 @@
 /turf/closed/wall/mineral/rogue/decostone/mossy/blue/long,
 /area/rogue/under/cave/water_temple/three)
 "qiQ" = (
-/obj/structure/fluff/railing/border/west,
-/obj/structure/fluff/wallclock/vampire,
+/obj/structure/chair/bench/coucha/r,
 /turf/open/floor/rogue/ruinedwood/spiral,
 /area/rogue/under/cave/dukecourt/grim)
 "qiT" = (
@@ -130091,7 +130090,7 @@
 	pixel_y = 0
 	},
 /obj/effect/spawner/lootdrop/roguetown/dungeon/medical,
-/obj/item/ingot/bronze,
+/obj/random/loot/ingots,
 /turf/open/floor/rogue/greenstone,
 /area/rogue/under/cave/dungeon1/gethsmane/inner)
 "qyf" = (
@@ -133878,10 +133877,9 @@
 /turf/open/floor/rogue/church,
 /area/rogue/indoors/town/church/chapel/grim)
 "qXR" = (
-/obj/structure/chair/bench/coucha/r,
-/obj/structure/fluff/wallclock/vampire,
+/obj/structure/fluff/wallclock/l,
 /turf/open/floor/rogue/ruinedwood/spiral,
-/area/rogue/under/cave/dukecourt/grim)
+/area/rogue/indoors/town/dwarfin)
 "qXS" = (
 /obj/effect/decal/edge{
 	color = "#3f3f3f";
@@ -134776,6 +134774,7 @@
 	},
 /obj/item/roguebin/water/gross,
 /obj/machinery/light/rogue/torchholder/l,
+/obj/structure/fluff/wallclock/l,
 /turf/open/floor/rogue/concrete,
 /area/rogue/indoors/town/dwarfin)
 "rej" = (
@@ -134812,7 +134811,6 @@
 /area/rogue/druidsgrove/grim)
 "rev" = (
 /obj/structure/flora/rock/jungle{
-	mouse_opacity = 0;
 	name = "swamp shrubs"
 	},
 /turf/open/floor/rogue/grassred,
@@ -136673,6 +136671,12 @@
 "rrS" = (
 /turf/closed/mineral/random/rogue/high,
 /area/rogue/under/cave/water_temple/three)
+"rrT" = (
+/obj/structure/flora/rock/jungle{
+	name = "swamp shrubs"
+	},
+/turf/open/floor/rogue/grass,
+/area/rogue/outdoors/woods/grim/northeast/wardenscheckpoint)
 "rrV" = (
 /obj/structure/chair/wood/rogue/chair3{
 	dir = 8
@@ -137729,7 +137733,6 @@
 /area/rogue/under/cave/goblinfort)
 "ryv" = (
 /obj/structure/flora/rock/jungle{
-	mouse_opacity = 0;
 	name = "swamp shrubs"
 	},
 /turf/open/floor/rogue/dirt,
@@ -143385,7 +143388,6 @@
 /area/rogue/indoors/town/grim)
 "sji" = (
 /obj/structure/flora/rock/jungle{
-	mouse_opacity = 0;
 	name = "swamp shrubs"
 	},
 /turf/open/floor/rogue/dirt/road,
@@ -146179,7 +146181,6 @@
 /area/rogue/indoors/inq)
 "szB" = (
 /obj/structure/flora/rock/jungle{
-	mouse_opacity = 0;
 	name = "swamp shrubs"
 	},
 /turf/open/floor/rogue/dirt,
@@ -147666,7 +147667,6 @@
 /area/rogue/outdoors/woods/grim/northeast)
 "sJQ" = (
 /obj/structure/flora/rock/jungle{
-	mouse_opacity = 0;
 	name = "swamp shrubs"
 	},
 /turf/open/floor/rogue/grass,
@@ -149895,7 +149895,6 @@
 /area/rogue/under/cave/peace)
 "sYp" = (
 /obj/structure/flora/rock/jungle{
-	mouse_opacity = 0;
 	name = "swamp shrubs"
 	},
 /turf/open/floor/rogue/dirt/road,
@@ -150863,7 +150862,6 @@
 /area/rogue/outdoors/beach/forest/hamlet/grim)
 "tft" = (
 /obj/structure/chair/wood/rogue/fancy,
-/obj/structure/fluff/wallclock/vampire,
 /turf/open/floor/rogue/ruinedwood/spiral,
 /area/rogue/under/cave/dukecourt/grim)
 "tfu" = (
@@ -156154,7 +156152,6 @@
 /area/rogue/outdoors/town/roofs/grim)
 "tNC" = (
 /obj/structure/flora/rock/jungle{
-	mouse_opacity = 0;
 	name = "swamp shrubs"
 	},
 /turf/open/floor/rogue/dirt,
@@ -158964,13 +158961,8 @@
 	},
 /area/rogue/indoors/shelter/woods/grim)
 "ufv" = (
-/obj/structure/chair/wood/rogue/fancy{
-	dir = 1
-	},
-/obj/structure/fluff/wallclock{
-	pixel_y = -32
-	},
-/turf/open/floor/carpet/royalblack,
+/obj/structure/fluff/wallclock/l,
+/turf/open/floor/rogue/wood,
 /area/rogue/indoors/town/dwarfin)
 "ufx" = (
 /obj/structure/fluff/railing/border{
@@ -160746,7 +160738,6 @@
 /area/rogue/outdoors/exposed/under/sewer/grim)
 "urZ" = (
 /obj/structure/flora/rock/jungle{
-	mouse_opacity = 0;
 	name = "swamp shrubs"
 	},
 /turf/open/floor/rogue/dirt,
@@ -161834,7 +161825,6 @@
 "uxJ" = (
 /obj/structure/chair/bench/couch,
 /obj/effect/landmark/start/guildsman,
-/obj/structure/fluff/wallclock,
 /turf/open/floor/carpet/purple,
 /area/rogue/indoors/town/dwarfin)
 "uxK" = (
@@ -163379,7 +163369,6 @@
 /area/rogue/indoors/cave/east)
 "uHq" = (
 /obj/structure/flora/rock/jungle{
-	mouse_opacity = 0;
 	name = "swamp shrubs"
 	},
 /turf/open/floor/rogue/grass,
@@ -167856,12 +167845,11 @@
 /turf/open/floor/rogue/ruinedwood/spiral,
 /area/rogue/outdoors/beach/south/grim)
 "vjX" = (
-/obj/effect/decal/edge{
-	color = "#3f3f3f"
+/obj/machinery/light/rogue/torchholder{
+	dir = 1
 	},
-/obj/structure/fluff/wallclock,
-/turf/open/floor/rogue/tile/brownbrick/browner,
-/area/rogue/indoors/town/dwarfin)
+/turf/open/transparent/openspace,
+/area/rogue/outdoors/town/roofs/grim)
 "vka" = (
 /turf/open/floor/rogue/grassyel,
 /area/rogue/under/cave/grim)
@@ -178358,7 +178346,6 @@
 /area/rogue/outdoors/woods/grim/south)
 "wzb" = (
 /obj/structure/flora/rock/jungle{
-	mouse_opacity = 0;
 	name = "swamp shrubs"
 	},
 /obj/structure/fluff/railing/border{
@@ -187339,7 +187326,6 @@
 /area/rogue/outdoors/exposed/under/sewer/grim)
 "xEP" = (
 /obj/structure/flora/rock/jungle{
-	mouse_opacity = 0;
 	name = "swamp shrubs"
 	},
 /turf/open/floor/rogue/grass,
@@ -411368,7 +411354,7 @@ nlI
 nlI
 nlI
 nlI
-nlI
+rrT
 nlI
 eQS
 eQS
@@ -412132,7 +412118,7 @@ eQS
 anL
 haK
 cng
-hvm
+vZy
 rCU
 lNA
 bJy
@@ -505034,7 +505020,7 @@ kFT
 kFT
 uuh
 ldg
-vjX
+lOu
 btz
 oJQ
 ldg
@@ -505801,7 +505787,7 @@ aqE
 aSu
 sKU
 lSu
-ufv
+wmJ
 ldg
 ldg
 ldg
@@ -509597,7 +509583,7 @@ epQ
 gRB
 aDp
 tzF
-aMh
+jHy
 tnG
 dfx
 dfx
@@ -623839,7 +623825,7 @@ reN
 eos
 nLK
 jRL
-krV
+vUd
 krV
 krV
 krV
@@ -627277,7 +627263,7 @@ owj
 eos
 eos
 jRL
-vUd
+krV
 sKU
 qMp
 wmJ
@@ -628041,7 +628027,7 @@ jRL
 hxZ
 eos
 dVd
-eos
+ufv
 wDb
 jRL
 rBR
@@ -629934,7 +629920,7 @@ pVh
 pVh
 pVh
 pVh
-pVh
+vjX
 sgL
 xhJ
 drj
@@ -740143,7 +740129,7 @@ isZ
 iWU
 pXV
 mAH
-isZ
+dnl
 iai
 kYp
 pXV
@@ -742428,7 +742414,7 @@ isZ
 hYh
 pXV
 pXV
-mjT
+nmH
 lWo
 unW
 mjT
@@ -744338,7 +744324,7 @@ kjA
 myP
 pXV
 pXV
-qiQ
+vEQ
 nvJ
 gTJ
 vEQ
@@ -745869,7 +745855,7 @@ lJf
 lJf
 lJf
 pXV
-qXR
+ogz
 qWW
 qWW
 rwU
@@ -748161,7 +748147,7 @@ khi
 khi
 khi
 pXV
-ogz
+qiQ
 qWW
 vRl
 pXV
@@ -748375,7 +748361,7 @@ jRL
 hrR
 krV
 krV
-krV
+qXR
 blJ
 jRL
 dgv
