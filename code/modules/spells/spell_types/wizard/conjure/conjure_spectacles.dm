@@ -42,7 +42,7 @@
 		"Silver Monocle" = /obj/item/clothing/mask/rogue/spectacles/monocle,
 		"Smokey Onyxa Spectacles" = /obj/item/clothing/mask/rogue/spectacles/onyxa_lesser_summoned,
 		"Fancy Spectacles" = /obj/item/clothing/mask/rogue/spectacles/fancy,
-		"Fancy Spectacles, Tinted" = /obj/item/clothing/mask/rogue/spectacles/fancy_dark,
+		"Fancy Spectacles, Tinted" = /obj/item/clothing/mask/rogue/spectacles/fancy/dark,
 		"Sandstorm Goggles" = /obj/item/clothing/mask/rogue/spectacles/goggles,
 	)
 
