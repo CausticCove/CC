@@ -132,4 +132,16 @@
 	droning_sound_night = 'sound/music/area/grimforest.ogg'
 	droning_sound_dawn = 'sound/music/area/grimdawn.ogg'
 	threat_region = THREAT_REGION_AZUREAN_COAST
+
+/area/rogue/under/cave/dukecourt/grim
+	name = "Fallen Manor"
+	loot_budget = LOOT_BUDGET_FALLEN_MANOR
+	icon_state = "duke"
+	first_time_text = "FALLEN MANOR"
+	droning_sound = list(, 'sound/music/area/manor.ogg', 'sound/music/area/manor2.ogg')
+	droning_sound_dusk = 'sound/music/area/grimdusk.ogg'
+	droning_sound_dawn = 'sound/music/area/grimdawn.ogg'
+	deathsight_message = "somewhere within a derelict manor, abandoned by those of reasonable mind"
+	threat_region = THREAT_REGION_AZUREAN_COAST
+	detail_text = DETAIL_TEXT_FALLEN_MANOR
 //PILGRIM END
