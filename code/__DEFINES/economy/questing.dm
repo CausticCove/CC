@@ -11,8 +11,10 @@
 #define QUEST_BOUNTY "Bounty"
 #define QUEST_RECOVERY "Recovery"
 #define QUEST_BLOCKADE_DEFENSE "Blockade Defense"
+#define QUEST_HOARD_RECOVERY "Hoard Recovery"
 #define QUEST_TOWNER_SMITH_CARAVAN "Smith Caravan"
 #define QUEST_TOWNER_MINER_OREVEIN "Ore Vein"
+#define QUEST_NOTORIOUS_BOUNTY "Notorious Bounty"
 
 //CC Edit - PvP Contracts
 #define QUEST_ASCENDED_BOUNTY "Ascended Bounty"
@@ -62,12 +64,15 @@ GLOBAL_LIST_INIT(defense_quest_tier_costs, list(
 	QUEST_BOUNTY = BURGHER_PLEDGE_COST_MAJOR,
 	QUEST_RAID = BURGHER_PLEDGE_COST_MAJOR,
 	QUEST_BLOCKADE_DEFENSE = BLOCKADE_SCROLL_PLEDGE_COST,
+	QUEST_HOARD_RECOVERY = BLOCKADE_SCROLL_PLEDGE_COST,
 ))
 
 // Multipliers applied to the base TP for kill request rewards
 #define QUEST_KILL_THREAT_MULT 1.0
 // Bounty's main target is further multiplied
 #define QUEST_BOUNTY_THREAT_MULT 1
+// 2x the threat point value is ideal
+#define QUEST_NOTORIOUS_BOUNTY_THREAT_MULT 2
 
 //CC Edit - Ascended Bounty Multiplier
 //Ascended Bounty is 1.5x better.
@@ -164,6 +169,27 @@ GLOBAL_LIST_INIT(defense_quest_tier_costs, list(
 	QUEST_ASCENDED_BOUNTY = 20,\
 ) //CC Edit - Quest Ascended Bounty addition
 
+#define NOTORIOUS_BOUNTY_POLL_TIME (15 SECONDS)
+#define NOTORIOUS_BOUNTY_POLL_WIDTH 520
+#define NOTORIOUS_BOUNTY_POLL_HEIGHT 260
+#define NOTORIOUS_BOUNTY_PROX_RANGE 35
+
+#define NOTORIOUS_BOUNTY_CONTROL_TIME (15 MINUTES)
+#define NOTORIOUS_BOUNTY_LEASH_RANGE 40
+#define NOTORIOUS_BOUNTY_LEASH_INTERVAL (10 SECONDS)
+#define NOTORIOUS_BOUNTY_GOON_CAP 3
+// Extra goons compensate when no ghost answers the poll and the boss stays an NPC.
+#define NOTORIOUS_BOUNTY_REINFORCE_TP 140
+#define NOTORIOUS_BOUNTY_REINFORCE_CAP 7
+// Flat mammon bump when a player assumes the boss - the hunt got harder, the pay follows.
+#define NOTORIOUS_BOUNTY_PLAYER_BONUS 125
+#define NOTORIOUS_BOUNTY_NPC_BONUS 60
+
+#define NOTORIOUS_BOUNTY_SURVIVAL_TRIUMPH 1
+#define NOTORIOUS_BOUNTY_ENGAGE_RANGE 10
+// Grace period between the boss dying and the player being released to a ghost.
+#define NOTORIOUS_BOUNTY_DEATH_RELEASE (5 SECONDS)
+
 
 #define QUEST_EVERGREEN_TYPE_WEIGHTS list(\
 	QUEST_RETRIEVAL = 55,\
@@ -187,9 +213,12 @@ GLOBAL_LIST_INIT(defense_quest_tier_costs, list(
 #define QUEST_DELIVERY_THREAT_BONUS 20
 
 #define BLOCKADE_FELLOWSHIP_REQUIREMENT 3
-#define BLOCKADE_WAVE_TIMER_DS (10 MINUTES)
+#define BLOCKADE_WAVE_TIMER_DS (15 MINUTES)
 
-#define BLOCKADE_ARM_TIMEOUT_DS (30 MINUTES)
+// Minimum Pledge to call a hoard recovery writ from a fellowship without being the Steward.
+#define HOARD_RECOVERY_PLEDGE 200
+#define HOARD_RECOVERY_HOARD_MINIMUM 200
+
 #define BLOCKADE_RECALL_WINDOW_DS (15 MINUTES)
 
 #define BLOCKADE_TOTAL_WAVES 3

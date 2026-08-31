@@ -119,6 +119,8 @@ GLOBAL_LIST_INIT(duelist_aggro, list(
 	head = /obj/item/clothing/head/roguetown/helmet/sallet/visored/iron
 	neck = /obj/item/clothing/neck/roguetown/bevor/iron
 	wrists = /obj/item/clothing/wrists/roguetown/bracers/leather/heavy
+	belt = /obj/item/storage/belt/rogue/leather
+	beltr = /obj/item/rogueweapon/scabbard/sword
 	r_hand = /obj/item/rogueweapon/sword/long
 	l_hand = /obj/item/rogueweapon/shield/buckler
 	H.adjust_skillrank(/datum/skill/combat/swords, 5, TRUE)

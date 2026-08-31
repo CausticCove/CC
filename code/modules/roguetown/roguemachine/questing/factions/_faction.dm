@@ -33,6 +33,14 @@ GLOBAL_LIST_EMPTY(quest_factions)
 		return null
 	return pickweight(boss_mob_types)
 
+// Only human bosses can be handed to a ghost
+/datum/quest_faction/proc/get_playable_boss_types()
+	var/list/playable = list()
+	for(var/path in boss_mob_types)
+		if(ispath(path, /mob/living/carbon/human))
+			playable[path] = boss_mob_types[path]
+	return playable
+
 /datum/quest_faction/proc/pick_boss_name()
 	if(!boss_name_file)
 		return null

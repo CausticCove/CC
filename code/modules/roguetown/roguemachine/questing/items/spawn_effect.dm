@@ -74,6 +74,19 @@
 /obj/effect/quest_spawn/ex_act()
 	return
 
+/obj/effect/quest_spawn/notorious
+	prox_range = NOTORIOUS_BOUNTY_PROX_RANGE
+
+/obj/effect/quest_spawn/notorious/reveal_contained()
+	if(!contained_atom || revealing)
+		return
+	if(isliving(contained_atom))
+		var/datum/component/quest_object/quest_component = GetComponent(/datum/component/quest_object)
+		var/datum/quest/kill/notorious_bounty/quest = quest_component?.quest_ref?.resolve()
+		if(istype(quest))
+			INVOKE_ASYNC(quest, TYPE_PROC_REF(/datum/quest/kill/notorious_bounty, offer_boss_control), contained_atom)
+	return ..()
+
 //CC Edit - PvP specific quest spawn range.
 /obj/effect/quest_spawn/pvp
 	name = "pvp quest spawner"

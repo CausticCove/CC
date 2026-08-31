@@ -2818,12 +2818,14 @@
 
 /// Marks a freshly-spawned mob as belonging to a contract/quest: strips its head bounty so it
 /// can't be farmed at a HEADEATER, and arranges for the corpse to dust shortly after death.
-/mob/living/proc/mark_contract_spawned()
+/mob/living/proc/mark_contract_spawned(dust_corpse = TRUE)
 	no_head_bounty = TRUE
 	contract_spawned = TRUE
-	RegisterSignal(src, COMSIG_LIVING_DEATH, PROC_REF(on_contract_death))
+	ADD_TRAIT(src, TRAIT_ZOMBIE_IMMUNE, CONTRACT_SPAWN_TRAIT)
+	if(dust_corpse)
+		RegisterSignal(src, COMSIG_LIVING_DEATH, PROC_REF(on_contract_death))
 
-/mob/living/carbon/mark_contract_spawned()
+/mob/living/carbon/mark_contract_spawned(dust_corpse = TRUE)
 	. = ..()
 	var/obj/item/bodypart/head/head = get_bodypart(BODY_ZONE_HEAD)
 	if(istype(head))

@@ -27,4 +27,5 @@ GLOBAL_LIST_INIT(rumor_point_costs, list(
 	QUEST_RECOVERY = 4,
 	QUEST_RAID = 6,
 	QUEST_BOUNTY = 6,
+	QUEST_NOTORIOUS_BOUNTY = 2, // Let innkeeper hand it out for cheap
 ))
