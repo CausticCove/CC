@@ -373,12 +373,6 @@
 	if(target.buckled?.sleepy)
 		bed_quality = target.buckled.sleepy
 
-	if(!bed_quality)
-		if(target == user)
-			to_chat(user, span_warning("It's harder for me to work in these conditions without a bed to rest on..."))
-		else
-			to_chat(user, span_warning("It's harder for me to work on them in these conditions, I should put them on a bed..."))
-
 	if(causes_infection) //Only cause infections if said surgery actually causes it.
 		if(bed_quality)
 			success_prob = (success_prob + (success_prob * (bed_quality / 3))) //Better Beds = Less Risk of infection.
@@ -464,8 +458,13 @@
 	//CC Edit - Pain now influences success probability, both the user and target is taken into consideration.
 	//Formula is success_probability - (pain percentage / med skill).
 	//They are dead. We shouldn't perform any checks on pain for both target, or user.
+
+	//They're dead, why calculate pain?
+/* 	if(target.stat == DEAD)
+		return success_prob
+
 	var/medskill = user.get_skill_level(/datum/skill/misc/medicine)
-	var/pain_reduction
+	var/pain_reduction = 1
 	switch(medskill)
 		if(SKILL_LEVEL_NONE) //25% pain for people with no skill doing surgeries.
 			medskill = 0.75
@@ -477,30 +476,49 @@
 			pain_reduction = 0.25
 		if(SKILL_LEVEL_LEGENDARY) //No pain at legendary.
 			pain_reduction = 0
-	if(target.stat == DEAD)
-		return success_prob
+
+	//If they are asleep, reduce the pain by a further 50%
+	if(target.is_asleep)
+		pain_reduction -= 0.5
+		pain_reduction = max(0, pain_reduction) //No negatives here plz and thank u
 
 	if(!HAS_TRAIT(target, TRAIT_NOPAIN)) //No pain? Why check?
 		if(iscarbon(target))
 			if(ishuman(target)) //Species physiology check in case you wondered why.
 				var/mob/living/carbon/human = target
 				var/painpercent = (human.get_complex_pain() / human.pain_threshold) * 100
-				success_prob -= (painpercent / medskill) * pain_reduction
+				if(painpercent > 15)
+					if(target == user)
+						to_chat(user, span_boldred("Ow! This hurts!"))
+					else
+						to_chat(user, span_boldred("They're in pain! They won't stay still!"))
+						to_chat(target, span_boldred("THIS HURTS!"))
+					success_prob -= (painpercent / medskill) * pain_reduction
 			else //Handle wildshapes or any other carbon forms.
 				var/mob/living/carbon/carbon = target
 				var/painpercent = (carbon.get_complex_pain() / carbon.pain_threshold) * 100
-				success_prob -= (painpercent / medskill) * pain_reduction
+				if(painpercent > 15)
+					if(target == user)
+						to_chat(user, span_boldred("Ow! This hurts!"))
+					else
+						to_chat(user, span_boldred("They're in pain! They won't stay still!"))
+						to_chat(target, span_boldred("THIS HURTS!"))
+					success_prob -= (painpercent / medskill) * pain_reduction
 
 	if(!HAS_TRAIT(user, TRAIT_NOPAIN))
 		if(iscarbon(user))
 			if(ishuman(user)) //Species physiology check in case you wondered why.
 				var/mob/living/carbon/human = user
 				var/painpercent = (human.get_complex_pain() / human.pain_threshold) * 100
-				success_prob -= (painpercent / medskill) * pain_reduction
+				if(painpercent > 15)
+					to_chat(user, span_boldred("I'm in pain, I can't keep my hands steady..."))
+					success_prob -= (painpercent / medskill) * pain_reduction
 			else //Handle wildshapes or any other carbon forms.
 				var/mob/living/carbon/carbon = user
 				var/painpercent = (carbon.get_complex_pain() / carbon.pain_threshold) * 100
-				success_prob -= (painpercent / medskill) * pain_reduction
+				if(painpercent > 15)
+					to_chat(user, span_boldred("I'm in pain, I can't keep my hands steady..."))
+					success_prob -= (painpercent / medskill) * pain_reduction */
 
 		//CC Edit End
 
