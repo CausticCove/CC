@@ -505,9 +505,19 @@
 /datum/crafting_recipe/roguetown/sewing/bandage
 	name = "bandages (sewing)"
 	result = list(/obj/item/natural/cloth/bandage)
-	reqs = list(/obj/item/natural/silk = 2,
-				/obj/item/natural/cloth = 1)
+	reqs = list(/obj/item/natural/cloth = 2) //CC Edit - Make it cost 2 cloth for 1 bandage.
 	subtype_reqs = FALSE //so you cant continuously craft bandages from bandages
+	craftdiff = 0
+
+//CC Edit - Bandage Bundle
+/datum/crafting_recipe/roguetown/sewing/bandage
+	name = "bundle of bandages"
+	result = list(/obj/item/natural/bundle/cloth/bandage)
+	reqs = list(/obj/item/natural/cloth = 6,
+				/obj/item/natural/fibers = 2)
+	subtype_reqs = FALSE
+	craftdiff = 2 //Cheaper to make a full bundle and faster.
+//CC Edit End - Bandage Bundle
 
 /datum/crafting_recipe/roguetown/sewing/gweightedbandagesalt
 	name = "bandages into weighted bandages, gloved"
