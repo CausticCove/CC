@@ -18,18 +18,18 @@
 
 //Can be used in a pinch to sew minor injuries/wounds.
 /obj/item/needle/thorn
-	stringamt = 15
-	maxstring = 15
+	stringamt = 35
+	maxstring = 35
 
 //Similar to thorn, a better, but more primitive advancement in needle usage.
 /obj/item/needle/bone
-	stringamt = 30
-	maxstring = 30
+	stringamt = 45
+	maxstring = 45
 
 //Ancient needle. Nothing amazing. Just 40 threads to use.
 /obj/item/needle/aalloy
-	stringamt = 40
-	maxstring = 40
+	stringamt = 65
+	maxstring = 65
 
 //Normal Needles have 100 string and max string. A doctors best friend.
 /obj/item/needle
