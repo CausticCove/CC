@@ -1008,6 +1008,12 @@
 	icon_state = "mosskey"
 	lockid = "hag"
 
+/obj/item/roguekey/fort
+	name = "fort key"
+	desc = "The key to the fort, caked in a layer of rust from a time long left unused."
+	icon_state = "rustkey"
+	lockid = "skellydungeon1"
+
 //Zurch
 
 /obj/item/roguekey/inhumen
