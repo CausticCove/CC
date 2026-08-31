@@ -41,7 +41,7 @@
 		/area/rogue/outdoors/rtfield = 50,
 		/area/rogue/outdoors/desert = 50,
 		/area/rogue/outdoors/desert/dunepassage = 30,
-		/area/rogue/outdoors/desert/river = 50
+		/area/rogue/outdoors/desert/river = 50,
 		//CC Edit End - Desert Areas
 		// Pilgrim counterparts
 		/area/rogue/outdoors/woods/grim = 30,
