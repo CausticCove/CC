@@ -1,7 +1,7 @@
 
 /datum/advclass/veteran/mhunter
 	name = "Veteran Exorcist"
-	tutorial = "A former Adventurer? A former hunter for hire? In the end that lyfe has scarred itself into your soul, and your body has been forced past its prime, that doesn't matter much anymore, your skills are still as sharp as ever, and with it a new opportunity to settle down and pass your wisdom onto others. You specialize in one silver weapon of a select choice, and choose from one of three disciplines of your calling."
+	tutorial = "A former Adventurer? A former Night Hunter for hire? In the end that lyfe has scarred itself into your literal soul, and your body has been forced past some of its prime, that doesn't matter much anymore, your skills are still as sharp as ever, and with it a new opportunity to settle down and pass your wisdom onto others. You specialize in one silver weapon of a select choice, and choose from one of three disciplines of your calling."
 	outfit = /datum/outfit/job/roguetown/vet/exorcist
 
 	category_tags = list(CTAG_VETERAN)
