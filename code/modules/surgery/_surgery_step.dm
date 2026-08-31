@@ -456,18 +456,17 @@
 	success_prob *= get_location_modifier(target)
 	success_prob *= get_skill_modifier(user, target, target_zone, tool, intent)
 	//CC Edit - Pain now influences success probability, both the user and target is taken into consideration.
-	//Formula is success_probability - (pain percentage / med skill).
-	//They are dead. We shouldn't perform any checks on pain for both target, or user.
+	//Formula is success_probability -= (pain percentage / med skill) * pain reduction from skill and other factors.
 
-	//They're dead, why calculate pain?
-/* 	if(target.stat == DEAD)
+	//They are dead. We shouldn't perform any checks on pain for both target, or user.
+ 	if(target.stat == DEAD)
 		return success_prob
 
 	var/medskill = user.get_skill_level(/datum/skill/misc/medicine)
 	var/pain_reduction = 1
 	switch(medskill)
-		if(SKILL_LEVEL_NONE) //25% pain for people with no skill doing surgeries.
-			medskill = 0.75
+		if(SKILL_LEVEL_NONE) //25% more pain for people with no skill doing surgeries.
+			pain_reduction = 1.25
 		if(SKILL_LEVEL_JOURNEYMAN) //Journeyman and beyond gets a bonus 25% reduction to pain calculation.
 			pain_reduction = 0.75
 		if(SKILL_LEVEL_EXPERT)
@@ -480,8 +479,14 @@
 	//If they are asleep, reduce the pain by a further 50%
 	if(target.is_asleep)
 		pain_reduction -= 0.5
-		pain_reduction = max(0, pain_reduction) //No negatives here plz and thank u
 
+	//If they are laying down, reduce pain by an extra 15%
+	if(target.lying)
+		pain_reduction -= 0.15
+
+	pain_reduction = max(0, pain_reduction) //No negatives here plz and thank u
+
+	//Handle the target.
 	if(!HAS_TRAIT(target, TRAIT_NOPAIN)) //No pain? Why check?
 		if(iscarbon(target))
 			if(ishuman(target)) //Species physiology check in case you wondered why.
@@ -505,6 +510,7 @@
 						to_chat(target, span_boldred("THIS HURTS!"))
 					success_prob -= (painpercent / medskill) * pain_reduction
 
+	//Handle the user.
 	if(!HAS_TRAIT(user, TRAIT_NOPAIN))
 		if(iscarbon(user))
 			if(ishuman(user)) //Species physiology check in case you wondered why.
@@ -518,10 +524,9 @@
 				var/painpercent = (carbon.get_complex_pain() / carbon.pain_threshold) * 100
 				if(painpercent > 15)
 					to_chat(user, span_boldred("I'm in pain, I can't keep my hands steady..."))
-					success_prob -= (painpercent / medskill) * pain_reduction */
+					success_prob -= (painpercent / medskill) * pain_reduction
 
-		//CC Edit End
-
+	//CC Edit End
 	return success_prob
 
 /datum/surgery_step/proc/get_skill_modifier(mob/user, mob/living/target, target_zone, obj/item/tool, datum/intent/intent)
