@@ -564,7 +564,7 @@ If you want to expand on poisons theres tons of fun effects TG chemistry has tha
 /datum/reagent/infection/major
 	name = "excess melancholic humour"
 	description = "Kingsfield's Bane. Excess melancholic has killed thousands, and even Pestra's greatest struggle against its insidious advance."
-	damage_tick = 0.5 //CC Edit - Nerf Major Illness damage by half. Used to be 1.
+	damage_tick = 0.75 //CC Edit - Nerf Major Illness damage by 0.25. Used to be 1.
 	lethal_fever = TRUE
 	fever_multiplier = 3
 

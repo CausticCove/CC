@@ -92,6 +92,9 @@
 
 	//CC Edit - So we can control which surgeries actually cause infection.
 	var/causes_infection = TRUE
+
+	//And so we can control what actually causes pain, i.e. Mouth to Mouth.
+	var/causes_pain = TRUE
 	//CC Edit End
 
 /datum/surgery_step/proc/can_do_step(mob/user, mob/living/target, target_zone, obj/item/tool, datum/intent/intent, try_to_fail = FALSE)
@@ -387,13 +390,13 @@
 			if (0 to 25) //Used to be 0 to 15.
 				//Careful, doctors. This reagent can, and will add more of itself within the person's body if the person has really bad luck.
 				//This *will* lead to fatal toxins-induced death. Do not let that happen.
-				target.reagents.add_reagent(/datum/reagent/infection/major, rand(1,4))
+				target.reagents.add_reagent(/datum/reagent/infection/major, rand(2,4))
 				to_chat(target, span_danger("I feel like something REALLY BAD happened with my surgery!"))
 			if (26 to 51)// Used to be 16 to 50
-				target.reagents.add_reagent(/datum/reagent/infection, rand(2,6))
+				target.reagents.add_reagent(/datum/reagent/infection, rand(1,6))
 				to_chat(target, span_boldwarning("I feel like something went very wrong with my surgery."))
 			if (52 to 100) //Used to be 51 to 70, even failing at high chances can and will cause some degree of infection.
-				target.reagents.add_reagent(/datum/reagent/infection/minor, rand(1,12))
+				target.reagents.add_reagent(/datum/reagent/infection/minor, rand(1,8))
 				to_chat(target, span_warn("I feel like something bad happened with my surgery..."))
 	//CC Edit End
 	return TRUE
@@ -459,7 +462,8 @@
 	//Formula is success_probability -= (pain percentage / med skill) * pain reduction from skill and other factors.
 
 	//They are dead. We shouldn't perform any checks on pain for both target, or user.
- 	if(target.stat == DEAD)
+	//Or, this surgery doesn't cause pain, so we shouldn't check for pain.
+	if(target.stat == DEAD || causes_pain)
 		return success_prob
 
 	var/medskill = user.get_skill_level(/datum/skill/misc/medicine)
