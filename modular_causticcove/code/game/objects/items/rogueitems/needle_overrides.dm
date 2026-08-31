@@ -98,7 +98,7 @@
 		if(medskill == SKILL_LEVEL_APPRENTICE)
 			sewing_start_delay = 2.5 SECONDS //Yes this is intentionally not meant to be 1.5 seconds, keep it at 2.5 seconds.
 		else
-			sewing_start_delay /= medskill
+			sewing_start_delay /= max(1, medskill)
 
 		if(!do_after(user, sewing_start_delay, target = target))
 			break
