@@ -29,8 +29,11 @@
 		/datum/advclass/veteran/calvaryman,
 		/datum/advclass/veteran/merc,
 		/datum/advclass/veteran/scout,
-		/datum/advclass/veteran/spy
-	)
+		/datum/advclass/veteran/spy,
+		//Caustic Edit - Adds New Subclasses from veteranadditional.dm)
+		/datum/advclass/veteran/mhunter,
+		/datum/advclass/veteran/martyr,
+	) //End Caustic Edit
 
 /datum/outfit/job/roguetown/veteran
 	job_bitflag = BITFLAG_GARRISON	//Counts towards overall combat roles
@@ -444,7 +447,7 @@
 	saiga_shoes = /obj/item/clothing/shoes/roguetown/horseshoes/steel
 	gloves = /obj/item/clothing/gloves/roguetown/angle/grenzelgloves
 	beltl = /obj/item/rogueweapon/sword/short
-	beltr = /obj/item/roguekey/veteran //So they can get into their house. 
+	beltr = /obj/item/roguekey/veteran //So they can get into their house.
 	backr = /obj/item/storage/backpack/rogue/satchel/black
 	belt = /obj/item/storage/belt/rogue/leather/black
 	cloak = /obj/item/clothing/cloak/half/vet
