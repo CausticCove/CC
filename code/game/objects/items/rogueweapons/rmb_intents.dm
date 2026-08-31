@@ -39,7 +39,10 @@
 	if(HAS_TRAIT(user, TRAIT_DEADITE)) //Deadites get extremely funny messages trying to do this.
 		to_chat(user, span_warning(pick("I stare uselessly at their weapon..", "I drool as I stare at their weapon..", "I stare at their weapon... and forgot what I was doing..")))
 		return
-	
+	if(HAS_TRAIT(user, TRAIT_PACIFISM))
+		to_chat(user, span_warning(pick("I will not lure another into violence.", "I refuse to tempt them into striking.", "I have no desire to coax another into violence.")))
+		return
+
 	var/mob/living/carbon/human/HT = target
 	var/mob/living/carbon/human/HU = user
 	var/target_zone = HT.zone_selected
@@ -200,6 +203,9 @@
 		return
 	if(HAS_TRAIT(user, TRAIT_DEADITE)) //You're not even smart enough to know what you're doing to begin with.
 		to_chat(user, span_warning(pick("I... Prepare to lunge vaguely towards nothing in particular, then stumble..", "I claw at nothing in particular uselessly..", "I trip and flail wildly... nothing happens..", "I claw... at the air and stumble, this achieves nothing..", "I swing for a moment... then stop, what is a feint..?")))
+		return
+	if(HAS_TRAIT(user, TRAIT_PACIFISM))
+		to_chat(user, span_warning(pick("I will not invite violence with false intent.", "I will not provoke bloodshed through trickery.", "I cannot bring myself to threaten another, even falsely.", "I will not pretend to attack another.")))
 		return
 
 	var/mob/living/L = target

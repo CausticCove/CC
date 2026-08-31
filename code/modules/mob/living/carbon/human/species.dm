@@ -1207,6 +1207,8 @@ GLOBAL_LIST_EMPTY(roundstart_races_paths)
 		to_chat(user, span_warning("Ah, Lux... I calm down considerably, but my hunger only increases."))
 		user.remove_status_effect(/datum/status_effect/debuff/deadite_grace)
 
+	target.on_attacked_as_pacifist(user)
+
 	if(user.rogue_sneaking)
 		user.mob_timers[MT_FOUNDSNEAK] = world.time
 		user.update_sneak_invis(reset = TRUE)
@@ -1324,7 +1326,13 @@ GLOBAL_LIST_EMPTY(roundstart_races_paths)
 			SEND_SIGNAL(target, COMSIG_ATOM_ATTACK_HAND, user)
 			if(affecting.body_zone == BODY_ZONE_HEAD)
 				SEND_SIGNAL(user, COMSIG_HEAD_PUNCHED, target)
-		log_combat(user, target, "punched")
+
+			target.on_hit_as_pacifist(user)
+
+			var/obj/item/clothing/gloves/roguetown/worn_gloves = user.get_item_by_slot(SLOT_GLOVES)
+			if(istype(worn_gloves))
+				worn_gloves.apply_unarmed_weapon_effects(user, affecting, user.used_intent, target, selzone)
+		log_combat(user, target, "punched", zone=selzone)
 		if(ishuman(user))
 			var/text = "[bodyzone2readablezone(selzone_real)]..."
 			user.filtered_balloon_alert(TRAIT_COMBAT_AWARE, text, show_self = FALSE)
