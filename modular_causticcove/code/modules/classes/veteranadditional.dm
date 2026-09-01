@@ -30,7 +30,7 @@
 /datum/outfit/job/roguetown/vet/exorcist/pre_equip(mob/living/carbon/human/H)
 	neck = /obj/item/clothing/neck/roguetown/bevor
 	saiga_shoes = /obj/item/clothing/shoes/roguetown/horseshoes/steel
-	backr = /obj/item/storage/backpack/rogue/satchel/black
+	backl = /obj/item/storage/backpack/rogue/satchel/black
 	cloak = /obj/item/clothing/cloak/half/vet
 	pants = /obj/item/clothing/under/roguetown/tights/puritan
 	shoes = /obj/item/clothing/shoes/roguetown/boots/leather/reinforced
