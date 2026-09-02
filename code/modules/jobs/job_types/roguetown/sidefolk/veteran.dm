@@ -33,6 +33,7 @@
 		//Caustic Edit - Adds New Subclasses from veteranadditional.dm)
 		/datum/advclass/veteran/mhunter,
 		/datum/advclass/veteran/martyr,
+		/datum/advclass/veteran/inquisition,
 	) //End Caustic Edit
 
 /datum/outfit/job/roguetown/veteran

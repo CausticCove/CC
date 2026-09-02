@@ -165,7 +165,7 @@
 				l_hand = /obj/item/rogueweapon/sword/long/broadsword/steel
 			if("Greatshield")
 				l_hand = /obj/item/rogueweapon/shield/tower/metal
-				H.adjust_skillrank_up_to(/datum/skill/combat/shields, SKILL_LEVEL_JOURNEYMAN, TRUE) //The Only one that gets stays to Journeyman, Expert or Master with Shields would be too much
+				H.adjust_skillrank_up_to(/datum/skill/combat/shields, SKILL_LEVEL_JOURNEYMAN, TRUE) //The Only one that gets stays to Journeyman, Expert or Master with Shields would be too much on this build-a-veteran stuff
 			if("Blessed Silver Stake")
 				l_hand = /obj/item/rogueweapon/huntingknife/idagger/silver/stake/preblessed
 				H.adjust_skillrank_up_to(/datum/skill/combat/knives, SKILL_LEVEL_EXPERT, TRUE)
@@ -283,7 +283,7 @@
 	allowed_patrons = ALL_DIVINE_PATRONS
 	subclass_languages = list(/datum/language/grenzelhoftian)
 	category_tags = list(CTAG_VETERAN)
-	traits_applied = list(TRAIT_HEAVYARMOR, TRAIT_STEELHEARTED, TRAIT_CLERGY,)
+	traits_applied = list(TRAIT_HEAVYARMOR, TRAIT_STEELHEARTED, TRAIT_CLERGY, TRAIT_SILVER_BLESSED, )
 	subclass_stats = list(
 		STATKEY_CON = 1,
 		STATKEY_WIL = 1,
@@ -303,7 +303,7 @@
 		/datum/skill/misc/medicine = SKILL_LEVEL_EXPERT,
 		/datum/skill/misc/climbing = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/combat/wrestling = SKILL_LEVEL_JOURNEYMAN,
-		/datum/skill/combat/shields = SKILL_LEVEL_JOURNEYMAN,
+		/datum/skill/combat/shields = SKILL_LEVEL_EXPERT,
 		/datum/skill/misc/reading = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/combat/unarmed = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/combat/knives = SKILL_LEVEL_JOURNEYMAN,
@@ -313,10 +313,10 @@
 		"The Verses and Acts of the Ten" = /obj/item/book/rogue/bibble,
 	)
 
-	//Unlike other Veteran Classes you get very little malleable choices, what you get is what you get
+	//Unlike other Veteran Classes you get very little malleable choices, what you get is what you get, you do get Silver and heavy armor after all.
 /datum/outfit/job/roguetown/vet/martyr/pre_equip(mob/living/carbon/human/H)
 	neck = /obj/item/clothing/neck/roguetown/chaincoif
-	armor = /obj/item/clothing/suit/roguetown/armor/plate/	//You basically have have the footmans loadout but with some distinct differences
+	armor = /obj/item/clothing/suit/roguetown/armor/plate/	//You basically have have the Knights loadout but with some distinct differences
 	shirt = /obj/item/clothing/suit/roguetown/armor/chainmail
 	head = /obj/item/clothing/head/roguetown/helmet/heavy/knight
 	pants = /obj/item/clothing/under/roguetown/chainlegs
@@ -332,10 +332,11 @@
 	beltr = /obj/item/rogueweapon/scabbard/sword
 	id = /obj/item/clothing/neck/roguetown/psicross/undivided
 	backpack_contents = list(
-		/obj/item/rogueweapon/huntingknife/idagger/silver = 1,
+		/obj/item/rogueweapon/huntingknife/combat/silver/preblessed,
 		/obj/item/rogueweapon/scabbard/sheath = 1,
 		/obj/item/roguekey/veteran = 1
 	)
+	add_verb(H, /mob/proc/haltyell)
 	if(H.mind)
 		SStreasury.give_money_account(ECONOMIC_UPPER_MIDDLE_CLASS , H, "Retirement.") //You aren't as wealthy as other veteran peers
 
@@ -389,5 +390,146 @@
 		/datum/skill/combat/maces = SKILL_LEVEL_MASTER,
 		/datum/skill/combat/unarmed = SKILL_LEVEL_EXPERT,
 		/datum/skill/combat/wrestling = SKILL_LEVEL_EXPERT,
-		/datum/skill/combat/shields = SKILL_LEVEL_EXPERT,
+		/datum/skill/combat/shields = SKILL_LEVEL_MASTER,
 	)
+
+//Retired Inquisition lose access to their "Miracles" and could be considered a heavy downgrade technically, Normal inquisitors are kinda stacked already, even if they only get Expert Weapon proficiencies
+//Inquisitiors get Sleuth, Ordinators get Perfect Tracker, your tracking abilities have decayed in different ways
+/datum/advclass/veteran/inquisition
+	name = "Retired Inquisition"
+	tutorial = "You are an Otavan adherent of the highest combat prestige, and whether by force or your own desire, free'd from the leash of obligation and devotion to the Otavan Inquisition. You may of been an Inquisitior, a former diplomat and investigator. Or you may of been an Ordinator, no longer clad in blessed silver but still made to break heretics. Inquisitors specialize in swords, knives, and whips, while Ordinators specialize in maces, swords and polearms."
+	outfit = /datum/outfit/job/roguetown/vet/inquisition
+	forbidden_races = list(RACES_CONSTRUCT)
+	allowed_patrons = list(/datum/patron/old_god)
+	category_tags = list(CTAG_VETERAN)
+	subclass_languages = list(/datum/language/otavan)
+	traits_applied = list(TRAIT_STEELHEARTED, TRAIT_INQUISITION, TRAIT_SILVER_BLESSED, )
+	subclass_stats = list(
+		STATKEY_CON = 1,
+		STATKEY_WIL = 3,
+		STATKEY_STR = 1,
+		STATKEY_PER = 1,
+		STATKEY_INT = 1,
+	)
+	subclass_skills = list(
+		/datum/skill/combat/unarmed = SKILL_LEVEL_JOURNEYMAN,
+		/datum/skill/combat/wrestling = SKILL_LEVEL_JOURNEYMAN,
+		/datum/skill/combat/axes = SKILL_LEVEL_EXPERT,
+		/datum/skill/misc/athletics = SKILL_LEVEL_APPRENTICE,
+		/datum/skill/misc/swimming = SKILL_LEVEL_APPRENTICE,
+		/datum/skill/misc/climbing = SKILL_LEVEL_APPRENTICE,
+		/datum/skill/misc/reading = SKILL_LEVEL_JOURNEYMAN,
+		/datum/skill/misc/medicine = SKILL_LEVEL_JOURNEYMAN,
+		/datum/skill/misc/tracking = SKILL_LEVEL_MASTER,
+	)
+
+/datum/outfit/job/roguetown/vet/inquisition/pre_equip(mob/living/carbon/human/H)
+	belt = /obj/item/storage/belt/rogue/leather/black
+	cloak = /obj/item/clothing/cloak/half/vet
+	backl = /obj/item/storage/backpack/rogue/satchel/otavan
+	id = /obj/item/clothing/neck/roguetown/psicross/silver
+	backpack_contents = list(
+		/obj/item/rogueweapon/huntingknife/idagger/silver/psydagger,
+		/obj/item/rogueweapon/scabbard/sheath = 1,
+		/obj/item/roguekey/veteran = 1
+	)
+	add_verb(H, /mob/proc/haltyell)
+	if(H.mind)
+		SStreasury.give_money_account(ECONOMIC_RICH, H, "Retirement.")
+
+	H.adjust_blindness(-3)
+	add_verb(H, /mob/living/carbon/human/proc/faith_test) //Hard to Unlearn how to do the Inquisition special
+	add_verb(H, /mob/living/carbon/human/proc/torture_victim) //As above
+	if(H.mind)
+		var/discipline = list("Inquisitor - Medium Armor, Swords, Whips and Knives (+SPD and PER, -STR)", "Ordinator - Heavy Armor, Swords, Maces, and Polearms (+STR and CON, -SPD)",)
+		var/discipline_choice = input(H, "Inquisitor or Ordinator?", "FACE YOUR PAST.") as anything in discipline
+		switch(discipline_choice)
+			if("Inquisitor - Medium Armor, Swords, Whips and Knives (+SPD and PER, -STR)")
+				ADD_TRAIT(H, TRAIT_MEDIUMARMOR, TRAIT_GENERIC)
+				ADD_TRAIT(H, TRAIT_SLEUTH, TRAIT_GENERIC)
+				H.change_stat(STATKEY_SPD, 1)
+				H.change_stat(STATKEY_PER, 2)
+				H.change_stat(STATKEY_STR, -1)
+				H.adjust_skillrank_up_to(/datum/skill/combat/swords, SKILL_LEVEL_MASTER, TRUE)
+				if(H.age == AGE_OLD)
+					H.adjust_skillrank_up_to(/datum/skill/combat/swords, SKILL_LEVEL_LEGENDARY, TRUE)
+				H.adjust_skillrank_up_to(/datum/skill/combat/whipsflails, SKILL_LEVEL_EXPERT, TRUE)
+				if(H.age == AGE_OLD)
+					H.adjust_skillrank_up_to(/datum/skill/combat/whipsflails, SKILL_LEVEL_MASTER, TRUE)
+				H.adjust_skillrank_up_to(/datum/skill/combat/knives, SKILL_LEVEL_EXPERT, TRUE)
+				if(H.age == AGE_OLD)
+					H.adjust_skillrank_up_to(/datum/skill/combat/knives, SKILL_LEVEL_MASTER, TRUE)
+				H.adjust_skillrank_up_to(/datum/skill/misc/sneaking, SKILL_LEVEL_JOURNEYMAN, TRUE)
+				head = /obj/item/clothing/head/roguetown/inqhat
+				neck = /obj/item/clothing/neck/roguetown/gorget/steel
+				shoes = /obj/item/clothing/shoes/roguetown/boots/otavan/inqboots
+				pants = /obj/item/clothing/under/roguetown/heavy_leather_pants/otavan
+				armor = /obj/item/clothing/suit/roguetown/armor/plate/scale/inqcoat
+				shirt = /obj/item/clothing/suit/roguetown/armor/gambeson/heavy/inq
+				gloves = /obj/item/clothing/gloves/roguetown/otavan/psygloves
+				beltr = /obj/item/rogueweapon/scabbard/sword
+				l_hand = /obj/item/rogueweapon/sword/rapier/psy
+			if("Ordinator - Heavy Armor, Swords, Maces, and Polearms (+STR and CON, -SPD)") //You sadly just get regular steel plate, though you do get your helmet and a non relic silver sword, just not preblessed.
+				ADD_TRAIT(H, TRAIT_HEAVYARMOR, TRAIT_GENERIC)
+				ADD_TRAIT(H, TRAIT_PERFECT_TRACKER, TRAIT_GENERIC)
+				H.change_stat(STATKEY_SPD, -4) //Excessive but to really hammer in how bad retirement is for an ordinator
+				H.change_stat(STATKEY_STR, 2)
+				H.change_stat(STATKEY_CON, 2)
+				H.adjust_skillrank_up_to(/datum/skill/combat/swords, SKILL_LEVEL_MASTER, TRUE)
+				if(H.age == AGE_OLD)
+					H.adjust_skillrank_up_to(/datum/skill/combat/swords, SKILL_LEVEL_LEGENDARY, TRUE)
+				H.adjust_skillrank_up_to(/datum/skill/combat/maces, SKILL_LEVEL_MASTER, TRUE)
+				if(H.age == AGE_OLD)
+					H.adjust_skillrank_up_to(/datum/skill/combat/maces, SKILL_LEVEL_LEGENDARY, TRUE)
+				H.adjust_skillrank_up_to(/datum/skill/combat/polearms, SKILL_LEVEL_MASTER, TRUE)
+				H.adjust_skillrank_up_to(/datum/skill/combat/shields, SKILL_LEVEL_MASTER, TRUE)
+				armor = /obj/item/clothing/suit/roguetown/armor/plate
+				neck = /obj/item/clothing/neck/roguetown/chaincoif
+				shirt = /obj/item/clothing/suit/roguetown/armor/chainmail
+				head = /obj/item/clothing/head/roguetown/helmet/heavy/ordinatorhelm
+				pants = /obj/item/clothing/under/roguetown/chainlegs
+				gloves = /obj/item/clothing/gloves/roguetown/plate
+				wrists = /obj/item/clothing/wrists/roguetown/bracers
+				shoes = /obj/item/clothing/shoes/roguetown/boots/armor
+				backr = /obj/item/rogueweapon/shield/tower/metal
+				l_hand = /obj/item/rogueweapon/sword/long/psysword
+				beltr = /obj/item/rogueweapon/scabbard/sword
+
+		var/retirement = list("Pursue Homesteading", "Dabble in Artisan Smithing", "Write an autobiography", "Keep up with your old regimen")
+		var/retirement_choice = input(H, "During your retirement, you decided to...", "PICK A HOBBY.") as anything in retirement
+		switch(retirement_choice)
+			if("Pursue Homesteading")
+				ADD_TRAIT(H, TRAIT_HOMESTEAD_EXPERT, TRAIT_GENERIC)
+				H.adjust_skillrank_up_to(/datum/skill/labor/farming, SKILL_LEVEL_APPRENTICE, TRUE)
+				H.adjust_skillrank_up_to(/datum/skill/craft/cooking, SKILL_LEVEL_APPRENTICE, TRUE)
+				H.adjust_skillrank_up_to(/datum/skill/labor/butchering, SKILL_LEVEL_APPRENTICE, TRUE)
+				H.adjust_skillrank_up_to(/datum/skill/craft/carpentry, SKILL_LEVEL_APPRENTICE, TRUE)
+				H.adjust_skillrank_up_to(/datum/skill/labor/fishing, SKILL_LEVEL_APPRENTICE, TRUE)
+			if("Dabble in Artisan Smithing")
+				ADD_TRAIT(H, TRAIT_SMITHING_EXPERT, TRAIT_GENERIC)
+				H.adjust_skillrank_up_to(/datum/skill/craft/smelting, SKILL_LEVEL_APPRENTICE, TRUE)
+				H.adjust_skillrank_up_to(/datum/skill/craft/ceramics, SKILL_LEVEL_APPRENTICE, TRUE)
+				H.adjust_skillrank_up_to(/datum/skill/craft/carpentry, SKILL_LEVEL_APPRENTICE, TRUE)
+				H.adjust_skillrank_up_to(/datum/skill/craft/masonry, SKILL_LEVEL_APPRENTICE, TRUE)
+				H.adjust_skillrank_up_to(/datum/skill/labor/mining, SKILL_LEVEL_APPRENTICE, TRUE)
+			if("Write an autobiography")
+				ADD_TRAIT(H, TRAIT_GOODWRITER, TRAIT_GENERIC)
+				H.adjust_skillrank_up_to(/datum/skill/misc/reading, SKILL_LEVEL_MASTER, TRUE)
+			if("Keep up with your old regimen") //No Bonus WIL your psydonic devotion already let you keep 3 WIL for your class Fool
+				H.adjust_skillrank_up_to(/datum/skill/misc/athletics, SKILL_LEVEL_EXPERT, TRUE)
+				H.adjust_skillrank_up_to(/datum/skill/misc/swimming, SKILL_LEVEL_EXPERT, TRUE)
+		var/discharged = list("ONE-EYED", "BRITTLE-BONAGE", "HAUNTED", "STIFF-JOINTED")
+		var/discharged_choice = input(H, "What forced you into retirement?", "PICK A DEBILITATION.") as anything in discharged
+		switch(discharged_choice)
+			if("ONE-EYED")
+				ADD_TRAIT(H, TRAIT_CYCLOPS_RIGHT, TRAIT_GENERIC)
+				H.change_stat(STATKEY_PER, -1)
+			if("BRITTLE-BONAGE")
+				ADD_TRAIT(H, TRAIT_BRITTLE, TRAIT_GENERIC)
+				H.change_stat(STATKEY_CON, -1)
+			if("HAUNTED")
+				ADD_TRAIT(H, TRAIT_PSYCHOSIS, TRAIT_GENERIC)
+				H.change_stat(STATKEY_INT, -1)
+			if("STIFF-JOINTED")
+				ADD_TRAIT(H, TRAIT_NORUN, TRAIT_GENERIC)
+				H.change_stat(STATKEY_SPD, -1)
