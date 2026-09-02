@@ -296,7 +296,6 @@
 	bandage(M, user)
 
 /obj/item/natural/cloth/wash_act()
-	. = ..()
 	wet = 10
 	bandage_health = initial(bandage_health)
 	medicine_amount = 0
@@ -304,6 +303,7 @@
 	detail_color = null
 	desc = initial(desc)
 	update_icon()
+	. = ..() //CC Edit
 
 //CC Edit Begin - Clean Up Treated Cloths/Bandage code.
 /obj/item/natural/cloth/attackby(obj/item/I, mob/living/user, params)
