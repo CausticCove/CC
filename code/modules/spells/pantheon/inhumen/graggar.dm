@@ -443,9 +443,9 @@
 		return FALSE
 	for(var/effect in purged_effects)
 		user.remove_status_effect(effect)
-	if(!isgnoll(user))//Gnolls don't get this
-		user.apply_status_effect(/datum/status_effect/buff/bloodrage)
-		user.emote("warcry")
+	// if(!isgnoll(user))//Gnolls don't get this  //CC edit, enabled gnolls to benefit from the avatar of rage spell.
+	user.apply_status_effect(/datum/status_effect/buff/bloodrage)
+	user.emote("warcry") //CC edit end
 	return TRUE
 
 #define BLOODRAGE_FILTER "bloodrage"

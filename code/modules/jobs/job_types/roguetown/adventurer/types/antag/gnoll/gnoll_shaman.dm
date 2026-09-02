@@ -8,17 +8,17 @@
 		STATKEY_STR = 2,
 		STATKEY_PER = 2,
 		STATKEY_WIL = 2,
-		STATKEY_SPD = 3,
+		STATKEY_SPD = 4,
 		STATKEY_CON = 2,
-		STATKEY_INT = 3
+		STATKEY_INT = 4
 	)
 	subclass_skills = list(
-		/datum/skill/magic/holy = SKILL_LEVEL_EXPERT,
+		/datum/skill/magic/holy = SKILL_LEVEL_LEGENDARY,
 		/datum/skill/misc/tracking = SKILL_LEVEL_LEGENDARY,
-		/datum/skill/misc/swimming = SKILL_LEVEL_JOURNEYMAN,
-		/datum/skill/combat/wrestling = SKILL_LEVEL_JOURNEYMAN,
+		/datum/skill/misc/swimming = SKILL_LEVEL_EXPERT,
+		/datum/skill/combat/wrestling = SKILL_LEVEL_EXPERT, //CC edit. increased skill from journeyman to expert. to be reduced if this is too strong.
 		/datum/skill/combat/unarmed = SKILL_LEVEL_EXPERT,
-		/datum/skill/misc/athletics = SKILL_LEVEL_EXPERT,
+		/datum/skill/misc/athletics = SKILL_LEVEL_MASTER,
 		/datum/skill/misc/climbing = SKILL_LEVEL_MASTER,
 		/datum/skill/misc/reading = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/misc/sneaking = SKILL_LEVEL_EXPERT,
