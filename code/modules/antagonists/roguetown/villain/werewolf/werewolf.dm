@@ -257,7 +257,7 @@
 	parrysound = list('sound/combat/parry/parrygen.ogg')
 	embedding = list("embedded_pain_multiplier" = 0, "embed_chance" = 0, "embedded_fall_chance" = 0)
 	item_flags = DROPDEL
-	special = /datum/special_intent/axe_swing	//Good pairing for area denial for WW's.
+	special = /datum/special_intent/axe_swing/werewolf	//CC edit custom WW special attack
 	experimental_inhand = FALSE
 
 /obj/item/rogueweapon/werewolf_claw/right
@@ -269,3 +269,6 @@
 /obj/item/rogueweapon/werewolf_claw/Initialize()
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NOEMBED, TRAIT_GENERIC)
+//CC edit start: Custom special intent for werewolves
+/datum/special_intent/axe_swing/werewolf
+	requires_wielding = FALSE
