@@ -1,4 +1,4 @@
-//Very similar code to random_patrol for parity sake, modified to support a single mob instead however.
+/* //Very similar code to random_patrol for parity sake, modified to support a single mob instead however.
 
 /datum/round_event_control/random_boss
 	name = "Random Boss"
@@ -65,7 +65,7 @@
 /datum/random_boss/proc/spawn_loot(loot_atom_types, loot_amt_lower, loot_amt_upper, loot_spread)
 	var/amt2spawn = rand(loot_amt_lower, loot_amt_upper)
 	var/treasure
-	
+
 	if(chosen_turf && loot_atom_types)
 		//Clear old turf.
 		turfs = list()
@@ -125,7 +125,7 @@
 	loot_amt_upper = 12
 	loot_amt_lower = 8
 	loot_spread = 4
-	
+
 	//WE SPAWN... IN THE HAMLET!!! THIS IS OUR HOME!!! BUZZ OFF!!! Plus we'll be hurting nearby skeletons giving players time to react upon approach.
 	for(var/area/rogue/outdoors/beach/forest/hamlet/A in world)
 		for(var/turf/open/T in A) //Check the turf.
@@ -161,7 +161,7 @@
 	loot_amt_upper = 12
 	loot_amt_lower = 8
 	loot_spread = 4
-	
+
 	//Beach only!
 	for(var/area/rogue/outdoors/beach/north/A in world)
 		for(var/turf/open/T in A) //Check the turf.
@@ -183,3 +183,4 @@
 	qdel(src) //Clean ourselves up.
 // BOSS VARIANTS END \\
 /////////////////////////
+ */

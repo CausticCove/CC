@@ -1,8 +1,8 @@
-/datum/round_event_control/random_patrol
+/* /datum/round_event_control/random_patrol
 	name = "Random Patrol"
 	track = EVENT_TRACK_MODERATE
 	typepath = /datum/round_event/random_patrol
-	weight = 5
+	weight = 0 //I do not like this event personally.
 	//max_occurrences = 5 //Not used currently. Not yet at least... Will be used if it becomes a problem or too often in a round.
 	min_players = 0
 	//earliest_start = 0 //Default to 12 Minutes.
@@ -40,7 +40,7 @@
 
 	//How many mobs to spawn in upper amounts.
 	var/amt_upper = 2
-	
+
 	//How many mobs to spawn in lower amounts.
 	var/amt_lower = 1
 
@@ -49,7 +49,7 @@
 
 	//How much loot to spawn in upper amounts.
 	var/loot_amt_upper = 1
-	
+
 	//How far we can spawn the mobs in a range around the chosen turf. Default = 5.
 	var/spawn_range = 5
 
@@ -65,7 +65,7 @@
 	var/amt2spawn = rand(amt_lower, amt_upper)
 	var/rare_mob
 	var/mob
-	
+
 	if(turfs)
 		//Clear old turf.
 		turfs = list()
@@ -88,7 +88,7 @@
 /datum/random_patrol/proc/spawn_loot(loot_atom_types, loot_amt_lower, loot_amt_upper)
 	var/amt2spawn = rand(loot_amt_lower, loot_amt_upper)
 	var/treasure
-	
+
 	if(turfs && loot_atom_types)
 		//Clear old turf.
 		turfs = list()
@@ -155,7 +155,7 @@
 						/obj/item/roguecoin/gold/pile = 1) //Money! We like money! Just as something to start...
 	loot_amt_upper = 0
 	loot_amt_lower = 0
-	
+
 	//Don't forget to change the areas! You can do more than one! See the goblin_swarm datum!
 	for(var/area/rogue/under/underdark/A in world) //Grab the areas. We always assume this exists on the map.
 		for(var/turf/open/T in A) //Check the turf.
@@ -194,13 +194,13 @@
 	rare_prob = 25 //Portals!? They have fuckin' PORTALS!? (DUH HOW ELSE DID THEY GET THERE!!!)
 	amt_upper = 10 //Lots of these fuckers! Better bring a group to help... Or pick them off one by one.
 	amt_lower = 6
-	
+
 	for(var/area/rogue/outdoors/beach/forest/south/A in world)
-		for(var/turf/open/T in A) 
+		for(var/turf/open/T in A)
 			if(is_type_in_list(T, allowed_turfs))
 				turfs += T
 	for(var/area/rogue/outdoors/beach/forest/north/A in world)
-		for(var/turf/open/T in A) 
+		for(var/turf/open/T in A)
 			if(is_type_in_list(T, allowed_turfs))
 				turfs += T
 
@@ -232,13 +232,13 @@
 	rare_prob = 0
 	amt_upper = 8
 	amt_lower = 6
-	
+
 	for(var/area/rogue/outdoors/woods/southeast/A in world)
-		for(var/turf/open/T in A) 
+		for(var/turf/open/T in A)
 			if(is_type_in_list(T, allowed_turfs))
 				turfs += T
 	for(var/area/rogue/outdoors/woods/north/A in world)
-		for(var/turf/open/T in A) 
+		for(var/turf/open/T in A)
 			if(is_type_in_list(T, allowed_turfs))
 				turfs += T
 
@@ -249,3 +249,4 @@
 	qdel(src) //Clean ourselves up.
 // PATROL VARIANTS END \\
 /////////////////////////
+ */

@@ -123,28 +123,57 @@
 #define ROLESET_POINT_THRESHOLD 150
 #define OBJECTIVES_POINT_THRESHOLD 170
 
-#define MUNDANE_MIN_POP 4
+//CC Edit - New Scale Defines for lower pop.
+//Old Defines
+/* #define MUNDANE_MIN_POP 4
 #define MODERATE_MIN_POP 6
 #define MAJOR_MIN_POP 8
 #define CHARACTER_INJECTION_MIN_POP 12
 #define HARD_ANTAG_MIN_POP 20
-#define OBJECTIVES_MIN_POP 15
+#define OBJECTIVES_MIN_POP 15 */
+//New Defines
+#define MUNDANE_MIN_POP 2
+#define MODERATE_MIN_POP 3
+#define MAJOR_MIN_POP 6
+#define CHARACTER_INJECTION_MIN_POP 8
+#define OBJECTIVES_MIN_POP 10
+#define HARD_ANTAG_MIN_POP 15
 
 /// Defines for how much pop do we need to stop applying a pop scalling penalty to event frequency.
-#define MUNDANE_POP_SCALE_THRESHOLD 25
+//CC Edit - New Population Scale Defines
+//Old Defines
+/* #define MUNDANE_POP_SCALE_THRESHOLD 25
 #define MODERATE_POP_SCALE_THRESHOLD 32
 #define MAJOR_POP_SCALE_THRESHOLD 45
 #define ROLESET_POP_SCALE_THRESHOLD 45
 #define OBJECTIVES_POP_SCALE_THRESHOLD 45
-#define RAID_POP_SCALE_THRESHOLD 55
+#define RAID_POP_SCALE_THRESHOLD 55 */
+
+//New Defines
+#define MUNDANE_POP_SCALE_THRESHOLD 4
+#define MODERATE_POP_SCALE_THRESHOLD 6
+#define MAJOR_POP_SCALE_THRESHOLD 8
+#define ROLESET_POP_SCALE_THRESHOLD 10
+#define OBJECTIVES_POP_SCALE_THRESHOLD 12
+#define RAID_POP_SCALE_THRESHOLD 15
 
 /// The maximum penalty coming from pop scalling, when we're at the most minimum point, easing into 0 as we reach the SCALE_THRESHOLD. This is treated as a percentage.
-#define MUNDANE_POP_SCALE_PENALTY 35
+//Old Defines - CC
+/* #define MUNDANE_POP_SCALE_PENALTY 35
 #define MODERATE_POP_SCALE_PENALTY 35
 #define MAJOR_POP_SCALE_PENALTY 35
 #define ROLESET_POP_SCALE_PENALTY 35
 #define OBJECTIVES_POP_SCALE_PENALTY 35
-#define RAID_POP_SCALE_PENALTY 55
+#define RAID_POP_SCALE_PENALTY 55 */
+
+//New Defines
+#define MUNDANE_POP_SCALE_THRESHOLD 8
+#define MODERATE_POP_SCALE_THRESHOLD 12
+#define MAJOR_POP_SCALE_THRESHOLD 20
+#define ROLESET_POP_SCALE_THRESHOLD 20
+#define OBJECTIVES_POP_SCALE_THRESHOLD 28
+#define RAID_POP_SCALE_THRESHOLD 30
+//CC Edit End - New Population Scale Defines
 
 #define STORYTELLER_VOTE "storyteller"
 
@@ -156,7 +185,9 @@
 #define ANTAG_CAP_DENOMINATOR 20
 
 ///Below are defines for roundstart point pool. The GAIN ones are multiplied by ready population
-#define ROUNDSTART_MUNDANE_BASE 20
+//CC Edit - Make rounds more interesting.
+//Old Defines
+/* #define ROUNDSTART_MUNDANE_BASE 20
 #define ROUNDSTART_MUNDANE_GAIN 0.5
 
 #define ROUNDSTART_PERSONAL_BASE 20
@@ -172,7 +203,27 @@
 #define ROUNDSTART_ROLESET_GAIN 2
 
 #define ROUNDSTART_OBJECTIVES_BASE 40
-#define ROUNDSTART_OBJECTIVES_GAIN 2
+#define ROUNDSTART_OBJECTIVES_GAIN 2 */
+
+//New Defines
+#define ROUNDSTART_MUNDANE_BASE 30
+#define ROUNDSTART_MUNDANE_GAIN 0.8
+
+#define ROUNDSTART_PERSONAL_BASE 25
+#define ROUNDSTART_PERSONAL_GAIN 0.8
+
+#define ROUNDSTART_MODERATE_BASE 45
+#define ROUNDSTART_MODERATE_GAIN 1.5
+
+#define ROUNDSTART_MAJOR_BASE 60
+#define ROUNDSTART_MAJOR_GAIN 3
+
+#define ROUNDSTART_ROLESET_BASE 75
+#define ROUNDSTART_ROLESET_GAIN 2.5
+
+#define ROUNDSTART_OBJECTIVES_BASE 80
+#define ROUNDSTART_OBJECTIVES_GAIN 3
+//CC Edit End
 
 #define SHARED_HIGH_THREAT	"high threat event"
 #define SHARED_ANOMALIES	"anomalous event"
