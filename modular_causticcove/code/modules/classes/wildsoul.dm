@@ -67,7 +67,8 @@
 		/datum/skill/craft/cooking = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/craft/sewing = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/labor/fishing = SKILL_LEVEL_APPRENTICE,
-		/datum/skill/craft/tanning = SKILL_LEVEL_APPRENTICE
+		/datum/skill/craft/tanning = SKILL_LEVEL_APPRENTICE,
+		/datum/skill/misc/hunting = SKILL_LEVEL_APPRENTICE
 	) //not too many skills, the real gold here is the traits
 	outfit = /datum/outfit/job/roguetown/wildsoul/direbear
 
@@ -113,7 +114,8 @@
 		/datum/skill/craft/cooking = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/craft/tanning = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/craft/sewing = SKILL_LEVEL_APPRENTICE,
-		/datum/skill/craft/crafting = SKILL_LEVEL_APPRENTICE
+		/datum/skill/craft/crafting = SKILL_LEVEL_APPRENTICE,
+		/datum/skill/misc/hunting = SKILL_LEVEL_APPRENTICE
 	)
 	outfit = /datum/outfit/job/roguetown/wildsoul/mantid
 
@@ -159,7 +161,8 @@
 		/datum/skill/labor/fishing = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/craft/cooking = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/craft/sewing = SKILL_LEVEL_APPRENTICE,
-		/datum/skill/craft/crafting = SKILL_LEVEL_APPRENTICE
+		/datum/skill/craft/crafting = SKILL_LEVEL_APPRENTICE,
+		/datum/skill/misc/hunting = SKILL_LEVEL_APPRENTICE
 	)
 	subclass_stashed_items = list(
 		"Cauldron Material" = /obj/item/ingot/iron, // So they can do the whole forest potioner cryptid gimmick without needing to make their own iron.
@@ -215,7 +218,8 @@
 		/datum/skill/combat/axes = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/combat/maces = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/combat/knives = SKILL_LEVEL_APPRENTICE,
-		/datum/skill/craft/sewing = SKILL_LEVEL_JOURNEYMAN
+		/datum/skill/craft/sewing = SKILL_LEVEL_JOURNEYMAN,
+		/datum/skill/misc/hunting = SKILL_LEVEL_EXPERT
 	) //most skills of all, but least combat effective. also no reading still lol. books are for nerds, you learn how to do your shit the proper way
 	outfit = /datum/outfit/job/roguetown/wildsoul/zad
 /datum/outfit/job/roguetown/wildsoul/zad/pre_equip(mob/living/carbon/human/H)
