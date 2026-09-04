@@ -686,7 +686,7 @@ GLOBAL_LIST_INIT(tat_donation_access_all_ckeys, TAT_DONATION_ACCESS_ALL_CKEYS)
 	/obj/item/rogueweapon/halberd/bardiche/aalloy = TAT_ITEM_ENTRY("Decrepit - Bardiche", 2.5, "weapon", "weapon_supply", TAT_SUPPLY_IRON, "polearm"), \
 	/obj/item/rogueweapon/halberd/bardiche/paalloy = TAT_ITEM_ENTRY("Ancient - Bardiche", 3, "weapon", "weapon_supply", TAT_SUPPLY_IRON, "polearm"), \
 	/obj/item/rogueweapon/halberd/glaive = TAT_ITEM_ENTRY("Steel - Glaive", 5, "weapon", "weapon_supply", TAT_SUPPLY_STEEL, "polearm"), \
-	/obj/item/rogueweapon/halberd/glaive/elvish = TAT_ITEM_ENTRY("Cultural - Elvish -Steel - Glaive", 6, "weapon", "weapon_supply", TAT_SUPPLY_STEEL, "polearm"), \
+	/obj/item/rogueweapon/halberd/glaive/elvish = TAT_ITEM_ENTRY("Cultural - Elvish - Steel - Glaive", 6, "weapon", "weapon_supply", TAT_SUPPLY_STEEL, "polearm"), \
 	/obj/item/rogueweapon/halberd/ji = TAT_ITEM_ENTRY("Cultural - Eastern - Steel - Ji", 4, "weapon", "weapon_supply", TAT_SUPPLY_STEEL, "polearm"), \
 	/obj/item/rogueweapon/halberd/ji/iron = TAT_ITEM_ENTRY("Cultural - Eastern - Iron - Ji", 3, "weapon", "weapon_supply", TAT_SUPPLY_IRON, "polearm"), \
 	/obj/item/rogueweapon/halberd/psyhalberd = TAT_ITEM_ENTRY("Silver - Psydonic Halberd", 5, "weapon", "weapon_supply", TAT_SUPPLY_SILVER, "axe"), \
@@ -860,6 +860,7 @@ GLOBAL_LIST_INIT(tat_donation_access_all_ckeys, TAT_DONATION_ACCESS_ALL_CKEYS)
 	/obj/item/rogueweapon/sword/falx = TAT_ITEM_ENTRY("Steel - Falx", 3, "weapon", "weapon_supply", TAT_SUPPLY_STEEL, "sword"), \
 	/obj/item/rogueweapon/sword/falx/dadao = TAT_ITEM_ENTRY("Cultural - Eastern - Steel - Dadao", 3, "weapon", "weapon_supply", TAT_SUPPLY_STEEL, "sword"), \
 	/obj/item/rogueweapon/sword/falx/dadao/iron = TAT_ITEM_ENTRY("Cultural - Eastern - Iron - Dadao", 3, "weapon", "weapon_supply", TAT_SUPPLY_IRON, "sword"), \
+	/obj/item/rogueweapon/sword/falx/stalker = TAT_ITEM_ENTRY("Cultural - Elvish - Drow - Stalker Falx", 4, "weapon", "weapon_supply", TAT_SUPPLY_STEEL, "sword"), \
 	/obj/item/rogueweapon/sword/iron = TAT_ITEM_ENTRY("Iron - Arming Sword", 2, "weapon", "weapon_supply", TAT_SUPPLY_IRON, "sword"), \
 	/obj/item/rogueweapon/sword/long = TAT_ITEM_ENTRY("Steel - Longsword", 3, "weapon", "weapon_supply", TAT_SUPPLY_STEEL, "sword"), \
 	/obj/item/rogueweapon/sword/long/broadsword = TAT_ITEM_ENTRY("Iron - Broadsword", 2, "weapon", "weapon_supply", TAT_SUPPLY_IRON, "sword"), \
