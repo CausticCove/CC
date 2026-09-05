@@ -406,7 +406,7 @@
 
 /datum/action/cooldown/spell/graggar/avatar
 	name = "Avatar of Rage"
-	desc = "Unleash your true rage for an entire MINUTE, making you immune to slowdown from pain, uncapping strength and granting +3 on top. Removes stun-adjacent & stun effects which is only part that works on a GNOLL"
+	desc = "Unleash your true rage for an entire MINUTE, making you immune to slowdown from pain, uncapping strength and granting +3 on top. Removes stun-adjacent & stun effects."
 	button_icon_state = "avatar"
 	sound = 'sound/magic/graggar_rage.ogg'
 	glow_intensity = GLOW_INTENSITY_MEDIUM
@@ -443,9 +443,9 @@
 		return FALSE
 	for(var/effect in purged_effects)
 		user.remove_status_effect(effect)
-	if(!isgnoll(user))//Gnolls don't get this
-		user.apply_status_effect(/datum/status_effect/buff/bloodrage)
-		user.emote("warcry")
+	// if(!isgnoll(user))//Gnolls don't get this  //CC edit, enabled gnolls to benefit from the avatar of rage spell.
+	user.apply_status_effect(/datum/status_effect/buff/bloodrage)
+	user.emote("warcry") //CC edit end
 	return TRUE
 
 #define BLOODRAGE_FILTER "bloodrage"
