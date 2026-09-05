@@ -3763,6 +3763,7 @@
 #include "modular_causticcove\code\modules\chemistry\reagents\caustic_sauces_reactions.dm"
 #include "modular_causticcove\code\modules\classes\domesticated_wildsoul.dm"
 #include "modular_causticcove\code\modules\classes\MAAJanissary.dm"
+#include "modular_causticcove\code\modules\classes\veteranadditional.dm"
 #include "modular_causticcove\code\modules\classes\mage.dm"
 #include "modular_causticcove\code\modules\jobs\job_types\roguetown\alt_summoning\leyline_summons.dm"
 #include "modular_causticcove\code\modules\jobs\job_types\roguetown\alt_summoning\leylines_structures.dm"
