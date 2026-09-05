@@ -327,6 +327,31 @@ GLOBAL_LIST_EMPTY(redstone_objs)
 		anchored = !anchored
 */
 
+/obj/structure/pressure_plate/once
+	name = "rusty pressure plate"
+	desc = "Be careful. Stepping on this could either mean a bomb exploding or a door closing on you. Luckily, it seems to have only one last wheeze before it's stuck."
+	var/triggered = FALSE
+
+/obj/structure/pressure_plate/once/Crossed(atom/movable/AM)
+	. = ..()
+	if(triggered)
+		return
+	if(!anchored)
+		return
+	if(!isliving(AM))
+		return
+	triggered = TRUE
+	var/mob/living/L = AM
+	to_chat(L, "<span class='info'>I feel something permanently click beneath me.</span>")
+	AM.log_message("has activated a permanent pressure plate", LOG_GAME)
+	playsound(src, 'sound/misc/pressurepad_down.ogg', 35, extrarange = 2)
+	triggerplate()
+
+/obj/structure/pressure_plate/once/triggerplate()
+	for(var/obj/structure/O in redstone_attached)
+		spawn(0)
+			O.redstone_triggered()
+
 /obj/structure/englauncher
 	name = "Engineer's Launcher"
 	desc = "A engineering contraption made to launch various objects in the direction it's pointed."

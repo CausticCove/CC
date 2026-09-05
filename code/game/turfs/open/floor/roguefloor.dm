@@ -574,24 +574,24 @@
 	. = ..()
 	if(!isliving(user))
 		return
-	
+
 	var/mob/living/L = user
 	if(L.stat != CONSCIOUS)
 		return
-	
+
 	// Check if the user is holding a shovel
 	var/obj/item/rogueweapon/shovel/S = L.get_active_held_item()
 	if(!istype(S))
 		return
-	
+
 	// Check if in scoop intent
 	if(L.used_intent.type != /datum/intent/shovelscoop)
 		return
-	
+
 	// Call the shovel's autodig proc
 	if(S.start_autodig(L, src))
 		return TRUE
-	
+
 	return FALSE
 
 /turf/open/floor/rogue/dirt/Destroy()
@@ -1446,6 +1446,22 @@
 
 /turf/open/floor/rogue/tile/brownbrick
 	icon_state = "brown"
+
+/turf/open/floor/rogue/tile/brownbrick/browner
+	icon_state = "browner"
+
+/turf/open/floor/rogue/tile/brownbrick/browner/Initialize()
+	. = ..()
+	icon_state = "browner"
+	dir = pick(GLOB.cardinals)
+
+/turf/open/floor/rogue/tile/bluebrick
+	icon_state = "bluebrick"
+
+/turf/open/floor/rogue/tile/bluebrick/Initialize()
+	. = ..()
+	icon_state = "bluebrick"
+	dir = pick(GLOB.cardinals)
 
 /turf/open/floor/rogue/tile/harem
 	icon = 'icons/turf/roguefloor.dmi'
