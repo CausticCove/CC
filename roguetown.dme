@@ -3742,11 +3742,14 @@
 #include "modular_causticcove\code\game\objects\items\clothes\shoes.dm"
 #include "modular_causticcove\code\game\objects\items\clothes\stockings.dm"
 #include "modular_causticcove\code\game\objects\items\rogueitems\leash.dm"
+#include "modular_causticcove\code\game\objects\items\rogueitems\needle_overrides.dm"
+#include "modular_causticcove\code\game\objects\items\rogueitems\natural\bandages_overrides.dm"
 #include "modular_causticcove\code\game\objects\items\rogueitems\util.dm"
 #include "modular_causticcove\code\game\objects\items\rogueitems\plumb.dm"
 #include "modular_causticcove\code\game\objects\items\weapons\ranged\ammo_bullets.dm"
 #include "modular_causticcove\code\game\objects\items\weapons\ranged\blackpowder.dm"
 #include "modular_causticcove\code\game\objects\structures\staircase_helper.dm"
+#include "modular_causticcove\code\game\items\rogueitems\natural\clothfibersthorn.dm"
 #include "modular_causticcove\code\modules\accessability\epilepsy.dm"
 #include "modular_causticcove\code\modules\accessability\epilepsy_prefs.dm"
 #include "modular_causticcove\code\modules\antagonists\roguetown\villains\werewolf\werewolf_transformation_resist.dm"
@@ -3870,6 +3873,7 @@
 #include "modular_causticcove\code\modules\spells\invoked_single_target\temperitem.dm"
 #include "modular_causticcove\code\modules\spells\scrolls\spell_granters.dm"
 #include "modular_causticcove\code\modules\supplies\travellingmerchant.dm"
+#include "modular_causticcove\code\modules\surgery\surgeries\surgery_skill_overrides.dm"
 #include "modular_causticcove\code\modules\taurs\taur_bodyparts.dm"
 #include "modular_causticcove\code\modules\taurs\taur_markings.dm"
 #include "modular_causticcove\code\modules\vices\combat_adverse.dm"
@@ -3937,6 +3941,7 @@
 #include "modular_causticcove\code\modules\events\adventure\random_bosses\random_boss.dm"
 #include "modular_causticcove\code\game\objects\items\clothes\causthats.dm"
 #include "modular_causticcove\code\game\objects\items\clothes\storage.dm"
+
 
 //Modular TA files
 #include "modular_twilight_axis\code\datums\tat_system\tat_defines.dm"

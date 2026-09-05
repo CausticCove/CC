@@ -73,16 +73,44 @@
 	sew(M, user)
 
 /obj/item/needle/attackby(obj/item/I, mob/user, params)
+	//CC Edit - Bundle Fibers
+	if(istype(I, /obj/item/natural/bundle/fibers))
+		if(infinite || maxstring - stringamt <= 0) //is the needle infinite OR does it have all of its uses left
+			to_chat(user, span_warning("The needle has no need to be refilled."))
+			return
+
+		to_chat(user, "I begin threading the needle with additional fibers...")
+		//CC Edit Begin - Make time for threading needles scale based on sewing, AND medicine, and make needles replenish 25% of its max.
+		if(do_after(user, 4 SECONDS - max(user.get_skill_level(/datum/skill/craft/sewing), user.get_skill_level(/datum/skill/misc/medicine)), target = I))
+			var/refill_amount
+			refill_amount = (maxstring * 0.25)
+			stringamt = min(maxstring, (stringamt + refill_amount))
+			//CC Edit End
+			to_chat(user, "I replenish the needle's thread by [refill_amount] uses!")
+			var/obj/item/natural/bundle/fibers/bundle = I
+			switch(bundle.amount)
+				if(2)
+					var/obj/F = new bundle.stacktype(src.loc)
+					user.put_in_hands(F)
+					qdel(bundle) //Assume we consumed the last one here and delete the bundle itself.
+					return
+				else
+					bundle.amount -= 1
+					bundle.update_bundle()
+		return
+	//CC Edit End
 	if(istype(I, /obj/item/natural/fibers))
 		if(infinite || maxstring - stringamt <= 0) //is the needle infinite OR does it have all of its uses left
 			to_chat(user, span_warning("The needle has no need to be refilled."))
 			return
 
 		to_chat(user, "I begin threading the needle with additional fibers...")
-		if(do_after(user, 6 SECONDS - user.get_skill_level(/datum/skill/craft/sewing), target = I))
+		//CC Edit Begin - Make time for threading needles scale based on sewing, AND medicine, and make needles replenish 25% of its max.
+		if(do_after(user, 4 SECONDS - max(user.get_skill_level(/datum/skill/craft/sewing), user.get_skill_level(/datum/skill/misc/medicine)), target = I))
 			var/refill_amount
-			refill_amount = min(5, (maxstring - stringamt))
-			stringamt += refill_amount
+			refill_amount = (maxstring * 0.25)
+			stringamt = min(maxstring, (stringamt + refill_amount))
+			//CC Edit End
 			to_chat(user, "I replenish the needle's thread by [refill_amount] uses!")
 			qdel(I)
 		return
@@ -177,7 +205,8 @@
 		return
 	return ..()
 
-/obj/item/needle/proc/sew(mob/living/target, mob/living/user)
+//CC EDIT - Refactored the entire proc within needle_overrides.dm
+/* /obj/item/needle/proc/sew(mob/living/target, mob/living/user)
 	if(!istype(user))
 		return FALSE
 	var/mob/living/doctor = user
@@ -278,7 +307,8 @@
 			animal_patient.adjustHealth(-((animal_patient.maxHealth / 20) * (medskill + 1)), TRUE)
 		log_combat(doctor, patient, "sew", "needle")
 		return TRUE
-	return FALSE
+	return FALSE */
+//CC EDIT END
 
 /obj/item/needle/thorn
 	name = "needle"

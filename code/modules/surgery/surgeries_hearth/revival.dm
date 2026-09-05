@@ -81,7 +81,18 @@
 			ADD_TRAIT(target, TRAIT_IWASREVIVED, "[type]")
 		target.mind.remove_antag_datum(/datum/antagonist/zombie) //Caustic Edit - Adding this line so it's properly handled on all forms of revival.
 	target.remove_status_effect(/datum/status_effect/debuff/rotted_zombie)	//Removes the rotted-zombie debuff if they have it - Failsafe for it.
-	target.apply_status_effect(/datum/status_effect/debuff/revived)	//Temp debuff on revive, your stats get hit temporarily. Doubly so if having rotted.
+
+	//CC Edit - Scale the revival debuff based on skill.
+	var/medskill = user.get_skill_level(/datum/skill/misc/medicine)
+	//Apply a temporary debuff on revive, your stats get hit temporarily. Doubly so if having rotted.
+	if(medskill <= SKILL_LEVEL_EXPERT)
+		target.apply_status_effect(/datum/status_effect/debuff/revived)
+	//Master surgeons cannot cure rot, but do remove the revival debuff.
+	else if(medskill == SKILL_LEVEL_LEGENDARY) //Legendary surgeons do not apply the rot debuff however.
+		if(target.has_status_effect(/datum/status_effect/debuff/rotted))
+			target.remove_status_effect(/datum/status_effect/debuff/rotted)
+			to_chat(target, span_good("My doctor is a legend in their works, I hardly feel any sickness at all as I wake up!"))
+	//CC Edit End - Only apply the debuff for those at expert and below.
 	return TRUE
 
 /datum/surgery_step/infuse_lux/failure(mob/user, mob/living/target, target_zone, obj/item/tool, datum/intent/intent, success_prob)

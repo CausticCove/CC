@@ -90,6 +90,13 @@
 	var/failure_sound //Sound played if the step fails
 	var/visible_required_skill = FALSE //gives you a message about lacking skill, just used for re-adding limbs
 
+	//CC Edit - So we can control which surgeries actually cause infection.
+	var/causes_infection = TRUE
+
+	//And so we can control what actually causes pain, i.e. Mouth to Mouth.
+	var/causes_pain = TRUE
+	//CC Edit End
+
 /datum/surgery_step/proc/can_do_step(mob/user, mob/living/target, target_zone, obj/item/tool, datum/intent/intent, try_to_fail = FALSE)
 	if(!user || !target)
 		return FALSE
@@ -293,6 +300,10 @@
 	if(success && success(user, target, target_zone, tool, intent))
 		if(ishuman(user))
 			var/mob/living/carbon/human/doctor = user
+			//CC Edit - make skill_min actually give some XP if skill is 0
+			if(skill_min == SKILL_LEVEL_NONE)
+				skill_min = 0.5
+			//CC Edit End
 			user.mind.add_sleep_experience(/datum/skill/misc/medicine, doctor.STAINT * (skill_min/2))
 		play_success_sound(user, target, target_zone, tool)
 		if(repeating && can_do_step(user, target, target_zone, tool, intent, try_to_fail))
@@ -345,13 +356,49 @@
 	display_results(user, target, span_warning("I screw up!"),
 		span_warning("[user] screws up!"),
 		span_notice("[user] finishes."), TRUE) //By default the patient will notice if the wrong thing has been cut
-	switch (success_prob)
-		if (0 to 15)
-			target.reagents.add_reagent(/datum/reagent/infection/major, rand(2,5))
-		if (16 to 50)
-			target.reagents.add_reagent(/datum/reagent/infection, rand(1,3))
-		if (51 to 70)
-			target.reagents.add_reagent(/datum/reagent/infection/minor, rand(1,6))
+	//CC Edit - Nerf surgery via making failures more deadly.
+
+	if(HAS_TRAIT(target, TRAIT_IRONMAN))
+		return TRUE //Constructs cannot take infections.
+
+	var/bed_quality
+	if(isturf(target.loc)) //No illegal tech.
+		var/obj/structure/bed/rogue/bed = locate() in target.loc
+		var/obj/structure/table = locate() in target.loc
+		if(bed)
+			bed_quality = bed.sleepy
+
+		//Handle tables.
+		//Operation tables prevent infections.
+		if(istype(table, /obj/structure/table/optable))
+			return TRUE
+
+	if(target.buckled?.sleepy)
+		bed_quality = target.buckled.sleepy
+
+	if(causes_infection) //Only cause infections if said surgery actually causes it.
+		if(bed_quality)
+			success_prob = (success_prob + (success_prob * (bed_quality / 3))) //Better Beds = Less Risk of infection.
+		else
+			success_prob /= 2 //Without a bed we halve our success probability, leading to worse infections.
+			if(target == user)
+				to_chat(user, span_warning("Without a bed, or operation table, the likelihood of my surgery getting infected is far greater..."))
+			else
+				to_chat(user, span_warning("Without a bed, or operation table, the likelihood of their surgery getting infected is far greater..."))
+
+		switch (success_prob)
+			if (0 to 25) //Used to be 0 to 15.
+				//Careful, doctors. This reagent can, and will add more of itself within the person's body if the person has really bad luck.
+				//This *will* lead to fatal toxins-induced death. Do not let that happen.
+				target.reagents.add_reagent(/datum/reagent/infection/major, rand(2,4))
+				to_chat(target, span_danger("I feel like something REALLY BAD happened with my surgery!"))
+			if (26 to 51)// Used to be 16 to 50
+				target.reagents.add_reagent(/datum/reagent/infection, rand(1,6))
+				to_chat(target, span_boldwarning("I feel like something went very wrong with my surgery."))
+			if (52 to 100) //Used to be 51 to 70, even failing at high chances can and will cause some degree of infection.
+				target.reagents.add_reagent(/datum/reagent/infection/minor, rand(1,8))
+				to_chat(target, span_warn("I feel like something bad happened with my surgery..."))
+	//CC Edit End
 	return TRUE
 
 /datum/surgery_step/proc/play_failure_sound(mob/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
@@ -384,10 +431,22 @@
 			speed_mod *= implements_speed[implement_type] || 1
 	speed_mod *= get_speed_location_modifier(target)
 	var/medskill = user.get_skill_level(/datum/skill/misc/medicine)
-	if(medskill == SKILL_LEVEL_MASTER)
-		speed_mod -= 0.2
-	else if(medskill == SKILL_LEVEL_LEGENDARY)
-		speed_mod -= 0.4
+	//CC Edit - Faster Surgery Speeds at Journeyman and Above, slightly slower for unskilled.
+	switch(medskill)
+		if(SKILL_LEVEL_NONE)
+			speed_mod += 0.15
+		if(SKILL_LEVEL_NOVICE)
+			speed_mod += 0.1
+		//Speed breaks even at Apprentice
+		if(SKILL_LEVEL_JOURNEYMAN)
+			speed_mod -= 0.1
+		if(SKILL_LEVEL_EXPERT)
+			speed_mod -= 0.25
+		if(SKILL_LEVEL_MASTER)
+			speed_mod -= 0.4
+		if(SKILL_LEVEL_LEGENDARY)
+			speed_mod -= 0.7
+	//CC Edit - Faster Surgery Speeds at Journeyman and Above
 
 	return speed_mod
 
@@ -399,7 +458,79 @@
 			success_prob *= (implements[implement_type]/100) || 1
 	success_prob *= get_location_modifier(target)
 	success_prob *= get_skill_modifier(user, target, target_zone, tool, intent)
+	//CC Edit - Pain now influences success probability, both the user and target is taken into consideration.
+	//Formula is success_probability -= (pain percentage / med skill) * pain reduction from skill and other factors.
 
+	//They are dead. We shouldn't perform any checks on pain for both target, or user.
+	//Or, this surgery doesn't cause pain, so we shouldn't check for pain.
+	if(target.stat == DEAD || causes_pain)
+		return success_prob
+
+	var/medskill = user.get_skill_level(/datum/skill/misc/medicine)
+	var/pain_reduction = 1
+	switch(medskill)
+		if(SKILL_LEVEL_NONE) //25% more pain for people with no skill doing surgeries.
+			pain_reduction = 1.25
+		if(SKILL_LEVEL_JOURNEYMAN) //Journeyman and beyond gets a bonus 25% reduction to pain calculation.
+			pain_reduction = 0.75
+		if(SKILL_LEVEL_EXPERT)
+			pain_reduction = 0.5
+		if(SKILL_LEVEL_MASTER)
+			pain_reduction = 0.25
+		if(SKILL_LEVEL_LEGENDARY) //No pain at legendary.
+			pain_reduction = 0
+
+	//If they are asleep, reduce the pain by a further 50%
+	if(target.is_asleep)
+		pain_reduction -= 0.5
+
+	//If they are laying down, reduce pain by an extra 15%
+	if(target.lying)
+		pain_reduction -= 0.15
+
+	pain_reduction = max(0, pain_reduction) //No negatives here plz and thank u
+
+	//Handle the target.
+	if(!HAS_TRAIT(target, TRAIT_NOPAIN)) //No pain? Why check?
+		if(iscarbon(target))
+			if(ishuman(target)) //Species physiology check in case you wondered why.
+				var/mob/living/carbon/human = target
+				var/painpercent = (human.get_complex_pain() / human.pain_threshold) * 100
+				if(painpercent > 15)
+					if(target == user)
+						to_chat(user, span_boldred("Ow! This hurts!"))
+					else
+						to_chat(user, span_boldred("They're in pain! They won't stay still!"))
+						to_chat(target, span_boldred("THIS HURTS!"))
+					success_prob -= (painpercent / medskill) * pain_reduction
+			else //Handle wildshapes or any other carbon forms.
+				var/mob/living/carbon/carbon = target
+				var/painpercent = (carbon.get_complex_pain() / carbon.pain_threshold) * 100
+				if(painpercent > 15)
+					if(target == user)
+						to_chat(user, span_boldred("Ow! This hurts!"))
+					else
+						to_chat(user, span_boldred("They're in pain! They won't stay still!"))
+						to_chat(target, span_boldred("THIS HURTS!"))
+					success_prob -= (painpercent / medskill) * pain_reduction
+
+	//Handle the user.
+	if(!HAS_TRAIT(user, TRAIT_NOPAIN))
+		if(iscarbon(user))
+			if(ishuman(user)) //Species physiology check in case you wondered why.
+				var/mob/living/carbon/human = user
+				var/painpercent = (human.get_complex_pain() / human.pain_threshold) * 100
+				if(painpercent > 15)
+					to_chat(user, span_boldred("I'm in pain, I can't keep my hands steady..."))
+					success_prob -= (painpercent / medskill) * pain_reduction
+			else //Handle wildshapes or any other carbon forms.
+				var/mob/living/carbon/carbon = user
+				var/painpercent = (carbon.get_complex_pain() / carbon.pain_threshold) * 100
+				if(painpercent > 15)
+					to_chat(user, span_boldred("I'm in pain, I can't keep my hands steady..."))
+					success_prob -= (painpercent / medskill) * pain_reduction
+
+	//CC Edit End
 	return success_prob
 
 /datum/surgery_step/proc/get_skill_modifier(mob/user, mob/living/target, target_zone, obj/item/tool, datum/intent/intent)

@@ -696,7 +696,7 @@
 			if(T)
 				if(vomitrelay && blood_volume > 0)
 					var/mob/living/carbon/human/parent = vomitrelay.loc
-					var/amt = 5 * parent.physiology.bleed_mod
+					var/amt = 12 * parent.physiology.bleed_mod //CC Edit - From 5 to 12 bleed.
 					blood_volume = max(blood_volume - amt, 0)
 					GLOB.azure_round_stats[STATS_BLOOD_SPILT] += amt
 					if(isturf(vomit_source.loc))
@@ -712,7 +712,7 @@
 
 					updatehealth()
 				else
-					bleed(5)
+					bleed(12) //CC Edit - From 5 to 12 bleed
 		else
 			if(T)
 				T.add_vomit_floor(src, VOMIT_TOXIC)//toxic barf looks different

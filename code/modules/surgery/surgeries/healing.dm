@@ -38,6 +38,10 @@
 	 */
 	var/missinghpbonus = 0
 
+	//CC Edit - Bonus EXP var for study variant.
+	var/bonus_exp_per_success = 0
+	//CC Edit End
+
 /datum/surgery_step/heal/validate_tech(mob/user, mob/living/target, target_zone, datum/intent/intent)
 	if(!brutehealing && !burnhealing)
 		return FALSE
@@ -92,14 +96,19 @@
 		"[tmsg].",
 		"[tmsg].")
 	target.update_damage_hud()
+	//CC Edit - Grant slight EXP for the study variant.
+	if(bonus_exp_per_success)
+		var/mob/living/L = user //Idk why this isn't living by default but whatever.
+		user.mind.add_sleep_experience(/datum/skill/misc/medicine, (L.STAINT * bonus_exp_per_success))
+	//CC Edit - Grant slight EXP for the study variant.
 	return TRUE
 
 /datum/surgery_step/heal/failure(mob/user, mob/living/target, target_zone, obj/item/tool, datum/intent/intent, success_prob)
 	display_results(user, target, span_warning("I screwed up!"),
 		span_warning("[user] screws up!"),
-		span_notice("[user] fixes some of [target]'s wounds."), TRUE)
-	var/urdamageamt_burn = brutehealing * 0.8
-	var/urdamageamt_brute = burnhealing * 0.8
+		span_bad("[user] worsens some of [target]'s wounds."), TRUE) //CC Edit - Worsens instead of Fixes wounds.
+	var/urdamageamt_burn = brutehealing * 1.1 //CC Edit - Make it a bit more painful. From 0.8 to 1.1
+	var/urdamageamt_brute = burnhealing * 1.1 //CC Edit - Make it a bit more painful. From 0.8 to 1.1
 	if(missinghpbonus)
 		urdamageamt_brute += round((target.getBruteLoss()/(missinghpbonus*2)),0.1)
 		urdamageamt_burn += round((target.getFireLoss()/(missinghpbonus*2)),0.1)
@@ -107,24 +116,43 @@
 	target.take_bodypart_damage(urdamageamt_brute, urdamageamt_burn)
 	target.update_damage_hud()
 	return TRUE
+//CC Edit - One Isolated "Healing" surgery!
+/datum/surgery_step/heal/combo
+	name = "Tend damage"
+	brutehealing = 20
+	burnhealing = 20
+	missinghpbonus = 2
+	requires_tech = FALSE
+	replaced_by = null
 
+//So you can grind XP yet not do just about no healing at all. Just a placeholder for now.
+/datum/surgery_step/heal/study
+	name = "Perform studies"
+	brutehealing = 0.05
+	burnhealing = 0.05
+	missinghpbonus = 0
+	requires_tech = FALSE
+	replaced_by = null
+	bonus_exp_per_success = 0.5 //value * doctor int = xp output, so 0.5 * 10 = 5 xp
+
+//CC EDIT BEGIN - REMOVE OLD BURN, BRUISE AND MIXED SURGERY, RELY ON NEW SURGERY THAT DOES IT ALL.
 /********************BRUTE STEPS********************/
-/datum/surgery_step/heal/brute/basic
-	name = "Tend bruises"
+/* /datum/surgery_step/heal/brute/basic
+	name = "Tend bruises (Minor)" //CC Edit - Clarity on surgery.
 	brutehealing = 10
 	missinghpbonus = 6
 	requires_tech = FALSE
 	replaced_by = /datum/surgery_step/heal/brute/upgraded
 
 /datum/surgery_step/heal/brute/upgraded
-	name = "Tend bruises (Adv.)"
+	name = "Tend bruises" //CC Edit - Clarity on surgery.
 	brutehealing = 20
 	missinghpbonus = 4
 	requires_tech = TRUE
 	replaced_by = /datum/surgery_step/heal/brute/upgraded/femto
 
 /datum/surgery_step/heal/brute/upgraded/femto
-	name = "Tend bruises (Exp.)"
+	name = "Tend bruises (Major)" //CC Edit - Clarity on surgery.
 	brutehealing = 30
 	missinghpbonus = 2
 	requires_tech = TRUE
@@ -132,21 +160,21 @@
 
 /********************BURN STEPS********************/
 /datum/surgery_step/heal/burn/basic
-	name = "Tend burns"
+	name = "Tend burns (Minor)" //CC Edit - Clarity on surgery.
 	burnhealing = 10
 	missinghpbonus = 7.5
 	requires_tech = FALSE
 	replaced_by = /datum/surgery_step/heal/burn/upgraded
 
 /datum/surgery_step/heal/burn/upgraded
-	name = "Tend burns (Adv.)"
+	name = "Tend burns" //CC Edit - Clarity on surgery.
 	burnhealing = 10
 	missinghpbonus = 5
 	requires_tech = TRUE
 	replaced_by = /datum/surgery_step/heal/burn/upgraded/femto
 
 /datum/surgery_step/heal/burn/upgraded/femto
-	name = "Tend burns (Exp.)"
+	name = "Tend burns (Major)" //CC Edit - Clarity on surgery.
 	burnhealing = 10
 	missinghpbonus = 2.5
 	requires_tech = TRUE
@@ -154,7 +182,7 @@
 
 /********************COMBO STEPS********************/
 /datum/surgery_step/heal/combo
-	name = "Tend damage"
+	name = "Tend damage (Minor)" //CC Edit - Clarity on surgery.
 	brutehealing = 6
 	burnhealing = 6
 	missinghpbonus = 7.5
@@ -162,7 +190,7 @@
 	replaced_by = /datum/surgery_step/heal/combo/upgraded
 
 /datum/surgery_step/heal/combo/upgraded
-	name = "Tend damage (Adv.)"
+	name = "Tend damage" //CC Edit - Clarity on surgery.
 	brutehealing = 6
 	burnhealing = 6
 	missinghpbonus = 5
@@ -170,12 +198,14 @@
 	replaced_by = /datum/surgery_step/heal/combo/upgraded/femto
 
 /datum/surgery_step/heal/combo/upgraded/femto
-	name = "Tend damage (Exp.)"
+	name = "Tend damage (Major)" //CC Edit - Clarity on surgery.
 	brutehealing = 6
 	burnhealing = 6
 	missinghpbonus = 2.5
 	requires_tech = TRUE
-	replaced_by = null
+	replaced_by = null*/
+
+//CC EDIT END - REMOVE OLD BURN, BRUISE AND MIXED SURGERY, RELY ON NEW SURGERY THAT DOES IT ALL.
 
 /datum/surgery_step/heal/combo/upgraded/femto/failure(mob/user, mob/living/target, target_zone, obj/item/tool, datum/intent/intent, success_prob)
 	display_results(user, target, span_warning("I screwed up!"),
