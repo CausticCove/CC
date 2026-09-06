@@ -9933,7 +9933,8 @@
 /area/rogue/under/cave/dungeon1/gethsmane)
 "bRY" = (
 /obj/structure/winch{
-	redstone_id = "spillways_final_descent"
+	redstone_id = "spillways_final_descent";
+	gid = "spillways_final_descent"
 	},
 /turf/open/floor/rogue/greenstone,
 /area/rogue/under/cave/dungeon1/gethsmane)
@@ -22537,7 +22538,8 @@
 /area/rogue/under/cave/scarymaze)
 "ekA" = (
 /obj/structure/winch{
-	redstone_id = "spillways_unleash_hell"
+	redstone_id = "spillways_unleash_hell";
+	gid = "spillways_unleash_hell"
 	},
 /turf/open/floor/rogue/greenstone,
 /area/rogue/under/cave/dungeon1/gethsmane)
@@ -34758,7 +34760,8 @@
 /area/rogue/indoors/shelter/mountains/decap)
 "gzh" = (
 /obj/structure/winch{
-	redstone_id = "deeper_spillways"
+	redstone_id = "deeper_spillways";
+	gid = "deeper_spillways"
 	},
 /turf/open/floor/rogue/greenstone,
 /area/rogue/under/cave/dungeon1/gethsmane)
@@ -35862,7 +35865,8 @@
 /area/rogue/outdoors/beach/forest/north)
 "gJk" = (
 /obj/structure/winch{
-	redstone_id = "entry_to_mt_decap_coast"
+	redstone_id = "entry_to_mt_decap_coast";
+	gid = "entry_to_mt_decap_coast"
 	},
 /turf/open/floor/rogue/concrete,
 /area/rogue/under/cave)
@@ -40828,7 +40832,8 @@
 /area/rogue/under/cave/dukecourt)
 "hEA" = (
 /obj/structure/winch{
-	redstone_id = "entry_to_mt_decap_bog"
+	redstone_id = "entry_to_mt_decap_bog";
+	gid = "entry_to_mt_decap_bog"
 	},
 /turf/open/floor/rogue/concrete,
 /area/rogue/under/cave)
