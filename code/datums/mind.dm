@@ -1436,38 +1436,46 @@ GLOBAL_LIST_EMPTY(personal_objective_minds)
 
 /proc/handle_special_items_retrieval(mob/user, atom/host_object)
 	// Attempts to retrieve an item from a player's stash, and applies any base colors, where preferable.
-	if(user.mind && isliving(user))
-		if(user.mind.special_items && user.mind.special_items.len)
-			var/item = input(user, "What will I take?", "STASH") as null|anything in user.mind.special_items
-			if(item)
-				if(user.Adjacent(host_object))
-					if(user.mind.special_items[item])
-						var/path2item = user.mind.special_items[item]
-						user.mind.special_items -= item
-						var/obj/item/I = new path2item(user.loc)
-						user.put_in_hands(I)
-						// Apply loadout-specific properties only if this is a loadout item
-						var/list/metadata = user.client?.prefs?.gear_list?[item]
-						if(islist(metadata))
-							// Free loadout items cannot be sold, smelted, or salvaged (triumph items are exempt)
-							var/datum/loadout_item/LI = GLOB.loadout_items_by_name[item]
-							//Caustic Edit Start - Move Triumph Cost to when you pull the item out, not on join!
-							if(!LI?.triumph_cost)
-								I.sellprice = 0
-								I.smeltresult = null
-								I.salvage_result = null
-							else
-								user.mind.adjust_triumphs(-LI.triumph_cost)
-							//Caustic Edit End
-							// Apply metadata (color, custom name, custom desc)
-							if(metadata["color"])
-								I.add_atom_colour(metadata["color"], FIXED_COLOUR_PRIORITY)
-							if(metadata["detail_color"] && I.detail_tag)
-								I.detail_color = metadata["detail_color"]
-							if(metadata["altdetail_color"] && I.altdetail_tag)
-								I.altdetail_color = metadata["altdetail_color"]
-							if(metadata["custom_name"])
-								I.name = sanitize(metadata["custom_name"])
-							if(metadata["custom_desc"])
-								I.desc = html_encode(metadata["custom_desc"])
-							I.update_icon()
+	if(!(user.mind && isliving(user)))	//OV EDIT START - Slight refactor to allow this to be used to retrieve more than just stash items
+		return
+	var/list/ourlist = list()
+	if(user.mind.special_items && user.mind.special_items.len)
+		ourlist = user.mind.special_items.Copy()
+	if(SSinventory_return.sorted_inv[user.real_name])	//OV ADD - Allows players to retrieve items from vore scenes
+		ourlist += "Recover lost items"					//OV ADD
+	var/item = input(user, "What will I take?", "STASH") as null|anything in ourlist
+	if(!item)
+		return
+	if(!user.Adjacent(host_object))
+		return
+	if(item == "Recover lost items")	//OV ADD START
+		SSinventory_return.dispense(user,get_turf(user),host_object)
+		return							//OV ADD END
+	if(user.mind.special_items[item])
+		var/path2item = user.mind.special_items[item]
+		user.mind.special_items -= item
+		var/obj/item/I = new path2item(user.loc)
+		user.put_in_hands(I)
+		// Apply loadout-specific properties only if this is a loadout item
+		var/list/metadata = user.client?.prefs?.gear_list?[item]
+		if(islist(metadata))
+			// Free loadout items cannot be sold, smelted, or salvaged (triumph items are exempt)
+			var/datum/loadout_item/LI = GLOB.loadout_items_by_name[item]
+			if(!LI?.triumph_cost)
+				I.sellprice = 0
+				I.smeltresult = null
+				I.salvage_result = null
+			else
+				user.mind.adjust_triumphs(-LI.triumph_cost)
+			// Apply metadata (color, custom name, custom desc)
+			if(metadata["color"])
+				I.add_atom_colour(metadata["color"], FIXED_COLOUR_PRIORITY)
+			if(metadata["detail_color"] && I.detail_tag)
+				I.detail_color = metadata["detail_color"]
+			if(metadata["altdetail_color"] && I.altdetail_tag)
+				I.altdetail_color = metadata["altdetail_color"]
+			if(metadata["custom_name"])
+				I.name = metadata["custom_name"]
+			if(metadata["custom_desc"])
+				I.desc = metadata["custom_desc"]
+			I.update_icon()	//OV EDIT END
