@@ -56,11 +56,12 @@
 				M.forceMove(item_storage)
 			else
 				M.forceMove(src.loc)
-		for(var/obj/item/O in contents)
-			if(item_storage)
-				O.forceMove(item_storage)
-			else
-				O.forceMove(src.loc)
+		if(!SSinventory_return.catalogue_object(src))	//OV EDIT START - INVENTORY RETURN PORT FROM RS#1261 - We should probably only dump its contents if we aren't going to give it back to someone
+			for(var/obj/item/O in contents)
+				if(item_storage)
+					O.forceMove(item_storage)
+				else
+					O.forceMove(src.loc)	//OV EDIT END
 		//GLOB.items_digested_roundstat++ //Caustic - We don't track these (yet?)
 		var/g_sound_volume = 100
 		var/noise_freq = 42500
@@ -110,7 +111,11 @@
 					new goodmeal.trash(src)*/
 		if(istype(B) && B.item_digest_logs)
 			to_chat(B.owner, span_notice("[src] was digested inside your [lowertext(B.name)]."))
-		qdel(src)
+		if(istype(src,/obj/item/storage/belt))	//OV EDIT START - INVENTORY RETURN PORT FROM RS#1261
+			if(isliving(src.loc))
+				SSinventory_return.beltcheck(src.loc,TRUE)
+		if(!SSinventory_return.preserve_object(src))	//OV EDIT - INVENTORY RETURN PORT FROM RS#1261
+			qdel(src)	//OV EDIT END
 	if(g_damage > w_class)
 		return w_class
 	return g_damage

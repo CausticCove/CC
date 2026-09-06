@@ -227,6 +227,7 @@
 					for(var/Iuncast in H.get_equipped_items(include_pockets = TRUE))
 						var/obj/item/I = Iuncast
 						if(I)
+							SSinventory_return.catalogue_object(I,H)	//OV EDIT - INVENTORY RETURN PORT FROM RS#1261
 							if(H.transferItemToLoc(I, src))
 								handle_digesting_item(I)
 								digestion_noise_chance = 25

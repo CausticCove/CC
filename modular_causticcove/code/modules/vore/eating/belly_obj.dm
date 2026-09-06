@@ -130,7 +130,7 @@
 	//Actual full digest modes
 	var/tmp/static/list/digest_modes = list(DM_HOLD,DM_DIGEST,DM_ABSORB,DM_DRAIN,DM_SELECT,DM_UNABSORB,DM_HEAL,DM_SHRINK,DM_GROW,DM_SIZE_STEAL,DM_EGG)
 	//Digest mode addon flags
-	var/tmp/static/list/mode_flag_list = list("Numbing" = DM_FLAG_NUMBING, "Stripping" = DM_FLAG_STRIPPING, "Leave Remains" = DM_FLAG_LEAVEREMAINS, "Muffles" = DM_FLAG_THICKBELLY, "Affect Worn Items" = DM_FLAG_AFFECTWORN, "Complete Absorb" = DM_FLAG_FORCEPSAY, "Spare Prosthetics" = DM_FLAG_SPARELIMB, "Slow Body Digestion" = DM_FLAG_SLOWBODY, "Muffle Items" = DM_FLAG_MUFFLEITEMS, "TURBO MODE" = DM_FLAG_TURBOMODE, "Absorbed Prey Can Devour" = DM_FLAG_ABSORBEDVORE, "Makes Prey Wet" = DM_FLAG_WETTENS)
+	var/tmp/static/list/mode_flag_list = list("Numbing" = DM_FLAG_NUMBING, "Stripping" = DM_FLAG_STRIPPING, "Leave Remains" = DM_FLAG_LEAVEREMAINS, "Muffles" = DM_FLAG_THICKBELLY, "Affect Worn Items" = DM_FLAG_AFFECTWORN, "Complete Absorb" = DM_FLAG_FORCEPSAY, "Spare Prosthetics" = DM_FLAG_SPARELIMB, "Slow Body Digestion" = DM_FLAG_SLOWBODY, "Muffle Items" = DM_FLAG_MUFFLEITEMS, "TURBO MODE" = DM_FLAG_TURBOMODE, "Strip Digest" = DM_FLAG_STRIP_DIGEST, "Absorbed Prey Can Devour" = DM_FLAG_ABSORBEDVORE, "Makes Prey Wet" = DM_FLAG_WETTENS)
 	//Item related modes
 	var/tmp/static/list/item_digest_modes = list(IM_HOLD,IM_DIGEST_FOOD,IM_DIGEST,IM_DIGEST_PARALLEL,IM_SMELTING)
 	//drain modes
@@ -902,10 +902,14 @@
 
 	// If digested prey is also a pred... anyone inside their bellies gets moved up.
 	if(M.vore_organs.len > 0) //This check used to be is_vore_predator(M), but moving the only part that actually matters out here to account for having adjusted that check.
-		M.release_vore_contents(include_absorbed = TRUE, silent = TRUE)
+		SSinventory_return.preserve_or_eject_belly_contents(M)	//OV EDIT - Preserve any unaccounted for belly contents before releasing things
 
 	//Drop all items into the belly.
 	//if(CONFIG_GET(flag/items_survive_digestion))
+	if(mode_flags & DM_FLAG_STRIP_DIGEST && M.client?.prefs_vr.strip_pref)		//OV ADD START - INVENTORY RETURN PORT FROM RS#1261
+		SSinventory_return.catalogue_full_inventory(M)
+	else
+		SSinventory_return.digest_inventory_preserve(M)	//OV ADD END
 	var/Itemlist = M.get_equipped_items(TRUE)
 	Itemlist += M.held_items
 	for(var/obj/item/W in Itemlist)
