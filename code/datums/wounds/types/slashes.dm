@@ -50,7 +50,7 @@
 	sewn_clotting_threshold = null
 	sewn_clotting_rate = null
 	sewn_bleed_rate = null
-	
+
 	can_sew = TRUE
 	can_cauterize = TRUE
 	severity_stages = list(
@@ -122,7 +122,7 @@
 	/// Organs we can disembowel associated with chance to disembowel
 	var/static/list/affected_organs = list(
 		ORGAN_SLOT_STOMACH = 100,
-		ORGAN_SLOT_LIVER = 50,
+		ORGAN_SLOT_GUTS = 100,
 	)
 
 /datum/wound/slash/disembowel/can_stack_with(datum/wound/other)
