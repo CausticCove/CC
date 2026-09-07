@@ -46,5 +46,5 @@
 		/mob/living/carbon/human/species/human/northern/highwayman/road_knight = 1,
 		/mob/living/carbon/human/species/human/northern/highwayman/ambush = 2
 	)
-	threat_point = THREAT_DEADLY + 2 * THREAT_HIGH
+	threat_point = THREAT_HIGH + 2 * THREAT_HIGH
 	faction_tag = "bandits"
