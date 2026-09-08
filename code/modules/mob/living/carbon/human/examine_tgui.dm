@@ -226,7 +226,7 @@
 		"nsfw_img_gallery" = nsfw_img_gallery,
 		"has_song" = has_song,
 		"is_vet" = is_vet,
-		"is_donator" = is_donator(holder.ckey),
+		"is_donator" = is_donator(holder?.ckey),
 		// "is_naked" = is_naked, // Caustic Edit: Removes naked requirement to view NSFW flavortext
 		"examine_theme" = char_examine_theme,
 	)
