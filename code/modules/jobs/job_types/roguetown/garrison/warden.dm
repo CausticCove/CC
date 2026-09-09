@@ -75,6 +75,7 @@
 		/datum/skill/misc/riding = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/labor/butchering = SKILL_LEVEL_NOVICE,
 		/datum/skill/craft/cooking = SKILL_LEVEL_NOVICE, // This should let them fry meat on fires.
+		/datum/skill/misc/hunting = SKILL_LEVEL_EXPERT,
 	)
 
 /datum/outfit/job/roguetown/warden/ranger/pre_equip(mob/living/carbon/human/H)
@@ -155,6 +156,7 @@
 		/datum/skill/misc/riding = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/labor/butchering = SKILL_LEVEL_NOVICE,
 		/datum/skill/craft/cooking = SKILL_LEVEL_NOVICE, // This should let them fry meat on fires.
+		/datum/skill/misc/hunting = SKILL_LEVEL_APPRENTICE, // CREECHUR WHO CUTS TREES CAN BARELY SPOT A BOAR, MORE NEXT YIL.
 	)
 
 /datum/outfit/job/roguetown/warden/forester/pre_equip(mob/living/carbon/human/H)
