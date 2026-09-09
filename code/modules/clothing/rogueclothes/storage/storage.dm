@@ -295,7 +295,7 @@
 //Caustic Edit End
 
 /obj/item/storage/backpack/rogue/artibackpack
-	name = "Cooling backpack"
+	name = "cooling backpack"
 	desc = "A leather backpack with complex pipework coursing through it. It hums and vibrates constantly."
 	icon_state = "artibackpack"
 	item_state = "artibackpack"

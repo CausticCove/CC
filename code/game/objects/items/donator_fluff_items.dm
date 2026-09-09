@@ -424,6 +424,17 @@
 	body_parts_covered = CHEST | VITALS
 	flags_inv = null
 
+/obj/item/clothing/suit/roguetown/armor/plate/fluted/donator_girdle
+	name = "fluted plackart"
+	desc = "A curious - and particularly revealing - variant of a fluted cuirass. It's said that the intentionally provocative design \
+	excels at diverting strikes that'd otherwise pierce the wearer's unprotected regions."
+	icon = 'icons/clothing/donor_clothes.dmi'
+	mob_overlay_icon = 'icons/clothing/onmob/donor_clothes.dmi'
+	item_state = "plackarts"
+	icon_state = "plackarts"
+	body_parts_covered = CHEST | VITALS
+	flags_inv = null
+
 /obj/item/clothing/suit/roguetown/armor/plate/cuirass/iron/donator_girdle
 	name = "iron plackart"
 	desc = "A curious - and particularly revealing - variant of an iron cuirass. It's said that the intentionally provocative design \
@@ -3850,7 +3861,7 @@ As Excaliber."
 
 // ROSYSATURNIIDAE
 /obj/item/clothing/mask/rogue/facemask/steel/maille/birdmask
-	name = "beaked mask"
+	name = "Beaked Mask"
 	desc = "A plated steel mask made to resemble a bird's beak.<br> \
 	While similar to the long masks of Pestra's faithful, this is designed to protect against far less insidious dangers. Namely, bladed weapons.<br> \
 	<font color='3399FF'>'The magpie's song, a fleeting flight, guides the heart through the encroaching night.'</font>"

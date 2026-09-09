@@ -1622,6 +1622,23 @@
 	)
 	result_item = null
 
+// Naman - Emblems of Fyre
+/obj/item/enchantingkit/donator_naman_deccoatofplates
+	name = "'Decorated Coat Of Plates' morphing elixir"
+	desc = "A small container of special morphing dust, perfect to make a specific item. It can be used to alter the appearance of a Steel Coat-Of-Plates."
+	target_items = list(/obj/item/clothing/suit/roguetown/armor/brigandine/heavy)
+	result_item = /obj/item/clothing/suit/roguetown/armor/brigandine/heavy/decorated
+
+/obj/item/enchantingkit/donator_naman_tassetedbeltpack
+	name = "'Tasseted Beltpack' morphing elixir"
+	desc = "A small container of special morphing dust, perfect to make a specific item. It can be used to alter the appearance of either a Steel Tasseted Belt or \
+	a Beltpack. Note that this will dissolve any items stored inside the chosen Backpack; make sure to empty it out, beforehand!"
+	target_items = list(
+		/obj/item/storage/belt/rogue/leather/steel/tasset			= /obj/item/storage/belt/rogue/leather/steel/tasset/donator_naman,
+		/obj/item/storage/backpack/rogue/satchel/beltpack			= /obj/item/storage/backpack/rogue/satchel/beltpack/donator_naman
+	)
+	result_item = null
+
 /obj/item/enchantingkit/donator_naman_sabre
 	name = "'Noble Sabre' morphing elixir"
 	desc = "A small container of special morphing dust, perfect to make a specific item. It can be used to alter the appearance of a Steel Sabre."
