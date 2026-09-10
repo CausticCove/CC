@@ -949,7 +949,7 @@
 	var/mushroom_type = pickweight(mushroom_types)
 	new mushroom_type(loc)
 	qdel(src) */
-//CC Edit End - For future reference, loot drops are way more efficient than deleting a whole mushroom object. 
+//CC Edit End - For future reference, loot drops are way more efficient than deleting a whole mushroom object.
 
 /obj/structure/flora/rogueshroom/happy/New(loc)
 	..()
@@ -1030,5 +1030,40 @@
 /obj/structure/flora/roguetree/pine/dead/Initialize()
 	. = ..()
 	icon_state = "dead[rand(1, 3)]"
+
+/obj/structure/flora/roguetree/dead
+	name = "dead tree"
+	desc = "A weathered dead tree, long stripped of life."
+	icon = 'icons/obj/flora/deadtrees.dmi'
+	icon_state = "tree_1"
+	max_integrity = 50
+	static_debris = list(/obj/item/grown/log/tree = 2)
+	stump_type = /obj/structure/flora/roguetree/stump
+
+/obj/structure/flora/roguetree/dead/Initialize()
+	. = ..()
+	icon_state = "tree_[rand(1, 6)]"
+
+/obj/structure/flora/roguetree/jungle
+	name = "jungle tree"
+	icon = 'icons/obj/flora/jungletrees.dmi'
+	icon_state = "tree1"
+	pixel_x = -48
+	pixel_y = -20
+	max_integrity = 100
+	static_debris = list(/obj/item/grown/log/tree = 2)
+	stump_type = /obj/structure/flora/roguetree/stump
+
+/obj/structure/flora/roguetree/jungle/Initialize()
+	. = ..()
+	icon_state = "tree[rand(1, 6)]"
+
+/obj/structure/flora/roguetree/jungle/small
+	name = "small jungle tree"
+	icon = 'icons/obj/flora/jungletreesmall.dmi'
+	pixel_x = -32
+	pixel_y = 0
+	static_debris = list(/obj/item/grown/log/tree = 1)
+	stump_type = /obj/structure/flora/roguetree/stump
 
 #undef SEARCHTIME
