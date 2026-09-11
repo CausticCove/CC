@@ -3,7 +3,7 @@ TWIRL CODE
 */
 
 /// Chance, in percent, of a flashy twirl per point of FOR above this floor.
-#define TWIRL_FLOURISH_CHANCE_PER_FOR 0.5
+#define TWIRL_FLOURISH_CHANCE_PER_FOR 1
 /// FOR at or below this gets no chance of a flashy twirl at all.
 #define TWIRL_FLOURISH_FOR_FLOOR 10
 
