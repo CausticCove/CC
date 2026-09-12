@@ -47,8 +47,8 @@
 	penfactor = PEN_LIGHT
 	blade_class = BCLASS_CUT
 
-/mob/living/simple_animal/hostile/retaliate/rogue/mudcrab/cabbit/undead/attempt_dodge(datum/intent/intenty, mob/living/user)
-	if(world.time < last_dodge + dodgetime)
+/mob/living/simple_animal/hostile/retaliate/rogue/mudcrab/cabbit/undead/attempt_dodge(datum/intent/attack_intent, mob/living/user)
+	if(!user?.dualwield_twoswing && world.time < last_dodge + dodgetime)
 		return FALSE
 
 	if(pulledby || pulling)
