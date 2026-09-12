@@ -240,6 +240,7 @@
 #include "modular_causticcove\code\__DEFINES\merp.dm"
 #include "modular_causticcove\code\__DEFINES\mobs.dm"
 #include "modular_causticcove\code\__DEFINES\slop.dm"
+#include "modular_causticcove\code\__DEFINES\sound.dm"
 #include "modular_causticcove\code\__DEFINES\traits.dm"
 #include "modular_causticcove\code\__DEFINES\values.dm"
 #include "modular_causticcove\code\__DEFINES\vore_defines.dm"
