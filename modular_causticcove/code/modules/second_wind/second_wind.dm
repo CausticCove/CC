@@ -6,7 +6,7 @@
 	var/can_second_wind = TRUE //True by default.
 
 /mob/living/carbon/proc/clear_second_wind()
-	to_chat(src, span_good("Second Chance/Wind! - (You can now use your Second Chance/Wind ability.)"))
+	to_chat(src, span_greenannounce("Second Wind! - (You can now use your Second Wind ability.)"))
 	can_second_wind = TRUE
 
 ///////////////
@@ -24,7 +24,7 @@
 /datum/status_effect/buff/second_wind/on_apply()
 	var/filter = owner.get_filter("second_wind")
 	if (!filter)
-		owner.add_filter("second_wind", 2, list("type" = "rays", "x" = 6, "y" = 4, "color" = outline_colour, "flags" = FILTER_OVERLAY))
+		owner.add_filter("second_wind", 2, list("type" = "rays", "x" = 7, "y" = 4, "color" = outline_colour, "flags" = FILTER_OVERLAY))
 	return TRUE
 
 /datum/status_effect/buff/second_wind/on_remove()
@@ -70,7 +70,7 @@
 /datum/status_effect/buff/second_chance/on_apply()
 	var/filter = owner.get_filter("second_chance")
 	if (!filter)
-		owner.add_filter("second_chance", 2, list("type" = "rays", "x" = 6, "y" = 4, "color" = outline_colour, "flags" = FILTER_OVERLAY))
+		owner.add_filter("second_chance", 2, list("type" = "rays", "x" = 7, "y" = 4, "color" = outline_colour, "flags" = FILTER_OVERLAY))
 	return TRUE
 
 /datum/status_effect/buff/second_chance/on_remove()
