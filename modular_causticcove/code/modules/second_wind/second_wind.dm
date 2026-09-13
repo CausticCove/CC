@@ -63,7 +63,7 @@
 	alert_type = /atom/movable/screen/alert/status_effect/buff/healing
 	duration = 5 MINUTES
 	tick_interval = 5 SECONDS //Triggers 80 times.
-	examine_text = "SUBJECTPRONOUN appears to be pulling themselves back from death!"
+	examine_text = "SUBJECTPRONOUN is beaming with resolve!"
 	var/healing_on_tick = 5 //Total of 400 healing over 5 minutes.
 	var/outline_colour = "#c4ffff"
 
