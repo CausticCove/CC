@@ -14,6 +14,12 @@
 	for(var/datum/brain_trauma/BT as anything in get_traumas())
 		BT.on_death()
 
+	//CC Edit
+	if(can_second_wind) //Only give this timer if they actually can so we don't overlap timers.
+		can_second_wind = FALSE
+		addtimer(CALLBACK(src, PROC_REF(clear_second_wind)), 10.5 SECONDS)
+	//CC Edit End
+
 /mob/living/carbon/dust(just_ash, drop_items, force)
 	//CC Edit - Safety Catch for when carbons get dusted.
 	if(client)

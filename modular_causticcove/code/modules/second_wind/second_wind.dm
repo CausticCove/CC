@@ -6,7 +6,7 @@
 	var/can_second_wind = TRUE //True by default.
 
 /mob/living/carbon/proc/clear_second_wind()
-	to_chat(src, span_good("Your body feels ready to take on anything again. - (You can use your Second Wind once more.)"))
+	to_chat(src, span_good("Second Chance/Wind! - (You can now use your Second Chance/Wind ability.)"))
 	can_second_wind = TRUE
 
 ///////////////
@@ -15,10 +15,10 @@
 /datum/status_effect/buff/second_wind
 	id = "second_wind"
 	alert_type = /atom/movable/screen/alert/status_effect/buff/healing
-	duration = 1 MINUTES //Far less
-	tick_interval = 5 SECONDS //Triggers 12 times.
+	duration = 2.5 MINUTES //Half the time.
+	tick_interval = 10 SECONDS //Triggers 15 times.
 	examine_text = "SUBJECTPRONOUN is pushing themselves to their limits!"
-	var/healing_on_tick = 7.5 //Total healing of 90 over 1 minute.
+	var/healing_on_tick = 6 //Total healing of 90 over 2:30 minutes.
 	var/outline_colour = "#ffffff"
 
 /datum/status_effect/buff/second_wind/on_apply()
@@ -112,58 +112,54 @@
 
 //Using Second Wind early will provide you a small, temporary buff that grants you bonus Energy and Stamina, with heavily reduced healing.
 //Using Second Wind whilst dead, will fully revive you, yet inflict a very heavy self-revival debuff that you must wait off.
-/mob/living/carbon/verb/second_wind(force_yes)
+/mob/living/carbon/verb/second_wind()
 	set category = "IC.Actions"
 	set name = "SECOND WIND"
 	set desc = "Use your Second Wind, allowing you to revive yourself once every 1:30 hours. If you are already alive; Grant yourself a temporary buff for 1 minute."
-	var/they_picked_yes = FALSE
 
 	if(can_second_wind)
-		if(force_yes)
-			they_picked_yes = force_yes //For hotkeys in the future if that ever needs to be added.
-		else switch(alert("Do you wish to take your Second Wind?",,"Yes","No"))
+		switch(alert("Do you wish to take your Second Wind?",,"Yes","No"))
 			if("Yes")
-				they_picked_yes = TRUE
+			//Revive them, but don't fully heal them, only works if the target has died, and has been dead long enough to trigger this.
+				if(stat == DEAD)
+					balloon_alert_to_viewers("Second Chance!")
+					visible_message(span_good("[src] pulls away from Necra's grasp, affording themselves a second wind!"), span_green("I can't die, not yet! Not now!"))
+					to_chat(src, span_danger("I breathe once more, my body aches, and my mind feels hazy. I can't accurately recall what happened..."))
+					emote("breathgasp")
+					Jitter(100)
+					//Second Chance is stronger than Second Wind in terms of healing.
+					apply_status_effect(/datum/status_effect/buff/second_chance)
+					//Actual revival starts here.
+					adjustOxyLoss(-getOxyLoss())
+					revive(full_heal = FALSE)
+					grab_ghost(force = TRUE) // Just in case.
+					update_body()
+					mind.remove_antag_datum(/datum/antagonist/zombie)
+					remove_status_effect(/datum/status_effect/debuff/rotted_zombie)//Removes the rotted-zombie debuff if they have it - Failsafe for it.
+					apply_status_effect(/datum/status_effect/debuff/self_revived) //Heavily penalize them for self revival.
+					can_second_wind = FALSE
+					//Swap and refresh combat music. So you know how long it's lasting for.
+					cmode_music_override = 'modular_causticcove/sound/music/SECOND_WIND.ogg'
+					cmode_music_override_name = "Chop Shop Jungle Breaks - ChristmasKrumble666"
+					SSdroning.play_combat_music(cmode_music_override, client)
+					//After 1:30 hours you can second wind again. So use it WISELY! You can revive yourself with it!!!
+					addtimer(CALLBACK(src, PROC_REF(clear_second_wind)), 1.5 HOURS)
+
+				else
+					balloon_alert_to_viewers("Second Wind!")
+					visible_message(span_good("[src] steels themselves against all odds!"), span_green("NOW IS NOT MY TIME!!!"))
+					emote("warcry")
+					Jitter(25)
+					apply_status_effect(/datum/status_effect/buff/second_wind)
+					can_second_wind = FALSE
+					//Swap and refresh combat music. So you know how long it's lasting for.
+					cmode_music_override = 'modular_causticcove/sound/music/SECOND_WIND.ogg'
+					cmode_music_override_name = "Chop Shop Jungle Breaks - ChristmasKrumble666"
+					SSdroning.play_combat_music(cmode_music_override, client)
+					//After 1:30 hours you can second wind again. So use it WISELY! You can revive yourself with it!!!
+					addtimer(CALLBACK(src, PROC_REF(clear_second_wind)), 1.5 HOURS)
+
 			if("No")
 				to_chat(src, span_warn("I change my mind..."))
-
-		if(they_picked_yes)
-			//Revive them, but don't fully heal them, only works if the target has died, and has been dead long enough to trigger this.
-			if(stat == DEAD)
-				balloon_alert_to_viewers("Second Chance!")
-				visible_message(span_good("[src] pulls away from Necra's grasp, affording themselves a second wind!"), span_green("I can't die, not yet! Not now!"))
-				to_chat(src, span_danger("I breathe once more, my body aches, and my mind feels hazy. I can't accurately recall what happened..."))
-				emote("breathgasp")
-				Jitter(100)
-				//Second Chance is stronger than Second Wind in terms of healing.
-				apply_status_effect(/datum/status_effect/buff/second_chance)
-				//Actual revival starts here.
-				adjustOxyLoss(-getOxyLoss())
-				revive(full_heal = FALSE)
-				grab_ghost(force = TRUE) // Just in case.
-				update_body()
-				mind.remove_antag_datum(/datum/antagonist/zombie)
-				remove_status_effect(/datum/status_effect/debuff/rotted_zombie)//Removes the rotted-zombie debuff if they have it - Failsafe for it.
-				apply_status_effect(/datum/status_effect/debuff/self_revived) //Heavily penalize them for self revival.
-				can_second_wind = FALSE
-				//Swap and refresh combat music. So you know how long it's lasting for.
-				cmode_music_override = 'modular_causticcove/sound/music/SECOND_WIND.ogg'
-				cmode_music_override_name = "Chop Shop Jungle Breaks - ChristmasKrumble666"
-				SSdroning.play_combat_music(cmode_music_override, client)
-				//After 1:30 hours you can second wind again. So use it WISELY! You can revive yourself with it!!!
-				addtimer(CALLBACK(src, PROC_REF(clear_second_wind)), 1.5 HOURS)
-			else
-				balloon_alert_to_viewers("Second Wind!")
-				visible_message(span_good("[src] steels themselves against all odds!"), span_green("NOW IS NOT MY TIME!!!"))
-				emote("warcry")
-				Jitter(25)
-				apply_status_effect(/datum/status_effect/buff/second_wind)
-				can_second_wind = FALSE
-				//Swap and refresh combat music. So you know how long it's lasting for.
-				cmode_music_override = 'modular_causticcove/sound/music/SECOND_WIND.ogg'
-				cmode_music_override_name = "Chop Shop Jungle Breaks - ChristmasKrumble666"
-				SSdroning.play_combat_music(cmode_music_override, client)
-				//After 1:30 hours you can second wind again. So use it WISELY! You can revive yourself with it!!!
-				addtimer(CALLBACK(src, PROC_REF(clear_second_wind)), 1.5 HOURS)
 	else
-		to_chat(src, span_warningbig("I can't do this just yet!"))
+		to_chat(src, span_warningbig("I can't use my Second Wind at this moment!"))
