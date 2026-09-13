@@ -3854,6 +3854,7 @@
 #include "modular_causticcove\code\modules\roguetown\roguemachine\questing\factions\stray_deaddite_overrides.dm"
 #include "modular_causticcove\code\modules\roguetown\roguemachine\questing\factions\tarichea_deaddite_overrides.dm"
 #include "modular_causticcove\code\modules\roguetown\roguemachine\questing\types\quest_pvp.dm"
+#include "modular_causticcove\code\modules\second_wind\second_wind.dm"
 #include "modular_causticcove\code\modules\sexcon\sex_helpers.dm"
 #include "modular_causticcove\code\modules\shields\zizo_shields.dm"
 #include "modular_causticcove\code\modules\size_scaling\helperfunctions.dm"
