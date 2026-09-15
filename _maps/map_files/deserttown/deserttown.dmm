@@ -15269,11 +15269,6 @@
 /area/rogue/under/cave/rhgoblinencampment)
 "dHC" = (
 /obj/structure/fluff/wallclock,
-/obj/effect/wisp/prestidigitation{
-	desc = "A small, fiery ball of light made up of mystical energy.";
-	name = "Will-o'-the-wisp";
-	pixel_x = 0
-	},
 /turf/open/floor/carpet/stellar,
 /area/rogue/indoors/town/magician/desert)
 "dHJ" = (
@@ -74771,17 +74766,6 @@
 "sFR" = (
 /turf/open/floor/rogue/deserttile,
 /area/rogue/indoors/town/garrison/desert/cell)
-"sFT" = (
-/obj/effect/wisp/prestidigitation{
-	color = "#ffff00";
-	desc = "A small, fiery ball of light made up of mystical energy.";
-	light_color = "#33ff00";
-	name = "Will-o'-the-wisp";
-	pixel_x = 0
-	},
-/obj/effect/landmark/start/druid,
-/turf/open/floor/rogue/twig,
-/area/rogue/indoors/town/grove)
 "sFV" = (
 /obj/effect/decal/cobbleedge{
 	dir = 1;
@@ -83120,11 +83104,6 @@
 "uHi" = (
 /obj/structure/roguemachine/mail{
 	mailtag = "Court Magos's Room"
-	},
-/obj/effect/wisp/prestidigitation{
-	desc = "A small, fiery ball of light made up of mystical energy.";
-	name = "Will-o'-the-wisp";
-	pixel_x = 0
 	},
 /obj/structure/rack/rogue/shelf/big,
 /turf/open/floor/carpet/stellar,
@@ -95766,16 +95745,6 @@
 	icon = 'modular_deserttown/icons/alt/roguefloor.dmi'
 	},
 /area/rogue/under/desertunderdark/undercity)
-"xMe" = (
-/obj/effect/wisp/prestidigitation{
-	color = "#ffff00";
-	desc = "A small, fiery ball of light made up of mystical energy.";
-	light_color = "#33ff00";
-	name = "Will-o'-the-wisp";
-	pixel_x = 0
-	},
-/turf/open/floor/rogue/twig,
-/area/rogue/indoors/town/grove)
 "xMf" = (
 /turf/open/floor/rogue/citybrick/citybrick1,
 /area/rogue/outdoors/desertdeep/above)
@@ -310950,7 +310919,7 @@ miK
 miK
 miK
 miK
-vFF
+eqg
 wOy
 wOy
 wOy
@@ -311255,7 +311224,7 @@ iJQ
 tuU
 qeH
 miK
-xMe
+miK
 nqj
 qnD
 miK
@@ -311549,7 +311518,7 @@ qum
 trN
 eqg
 eqg
-eqg
+vFF
 eqg
 wOy
 wOy
@@ -311563,7 +311532,7 @@ wOy
 eqg
 eqg
 miK
-xMe
+miK
 miK
 miK
 qnD
@@ -311571,7 +311540,7 @@ miK
 fyj
 miK
 miK
-xMe
+miK
 sVw
 wOy
 wOy
@@ -312486,7 +312455,7 @@ yaG
 wOy
 wOy
 eqg
-vFF
+eqg
 eqg
 ceQ
 hwt
@@ -312815,7 +312784,7 @@ miK
 miK
 miK
 miK
-sFT
+qnD
 miK
 miK
 ejA
@@ -313132,7 +313101,7 @@ miK
 miK
 miK
 miK
-xMe
+miK
 eqg
 ikG
 wOy
@@ -313431,7 +313400,7 @@ mPg
 eqg
 eqg
 eqg
-vFF
+eqg
 eqg
 eqg
 wOy
@@ -568477,7 +568446,7 @@ xSF
 xSF
 eXj
 agA
-hKp
+vAM
 enW
 orM
 dkK
@@ -568791,7 +568760,7 @@ eXj
 aEI
 njH
 enW
-hKp
+vAM
 eyy
 eXj
 lvm
@@ -569101,7 +569070,7 @@ xSF
 lvm
 eXj
 agA
-hKp
+vAM
 enW
 gDS
 tbe
@@ -569725,7 +569694,7 @@ xSF
 lvm
 lvm
 nql
-uLb
+tJG
 tJG
 aFU
 fyW
