@@ -79,7 +79,7 @@
 	var/atom/highest = T
 
 	//Caustic Edit - Add Falling Vore Chomper's Style
-	var/mob/living/L
+	/*var/mob/living/L
 	if(isliving(src))
 		L = src
 	for(var/i in T.contents)
@@ -91,7 +91,7 @@
 			L.visible_message(span_danger("\The [L] falls right onto \the [A]!"))
 		if(isobj(A) || ismob(A))
 			if(A.layer > highest.layer)
-				highest = A
+				highest = A*/
 	//Caustic Edit End
 
 //	INVOKE_ASYNC(src, PROC_REF(SpinAnimation), 5, 2)

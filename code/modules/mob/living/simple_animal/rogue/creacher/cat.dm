@@ -57,6 +57,6 @@
 
 
 	// Misc
-	mob_size = MOB_SIZE_SMALL
+	mob_size = MOB_SMALL
 	footstep_type = FOOTSTEP_MOB_CLAW
 	gold_core_spawnable = FRIENDLY_SPAWN

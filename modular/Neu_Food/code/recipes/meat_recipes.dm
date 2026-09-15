@@ -212,8 +212,8 @@
 	time_per_step = 3 SECONDS
 	restricted_message = "You lack knowledge of underdark delicacies!"
 
-/datum/food_recipe/spider_meatball/user_can_make(mob/user)
-	return isdarkelf(user)
+///datum/food_recipe/spider_meatball/user_can_make(mob/user) //Caustic Edit - Let my people ... Spider Meatball, I guess?
+//	return isdarkelf(user)
 
 /datum/food_recipe/spider_surprise
 	name = "spider surprise"
@@ -224,8 +224,8 @@
 	result_type = /obj/item/reagent_containers/food/snacks/rogue/meat/spider/surprise
 	restricted_message = "You lack knowledge of underdark delicacies!"
 
-/datum/food_recipe/spider_surprise/user_can_make(mob/user)
-	return isdarkelf(user)
+///datum/food_recipe/spider_surprise/user_can_make(mob/user) //Caustic Edit - Let my people ... Spider Surprise, I guess?
+//	return isdarkelf(user)
 
 /datum/food_recipe/crabcake
 	name = "crab cake"

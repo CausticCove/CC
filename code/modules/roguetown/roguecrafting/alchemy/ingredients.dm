@@ -126,6 +126,16 @@
 	med_pot = /datum/alch_cauldron_recipe/big_mana_potion
 	minor_pot = /datum/alch_cauldron_recipe/per_potion
 
+//Caustic Edit - Add in Stonedust for Ratwood Pottery
+/obj/item/alch/stonedust
+	name = "stone dust"
+	desc = "Finely ground mineral dust used for glassmaking materials."
+	icon_state = "coaldust"
+	major_pot = null
+	med_pot = null
+	minor_pot = null
+//Caustic Edit End
+
 /obj/item/alch/coaldust
 	name = "coal dust"
 	icon_state = "coaldust"

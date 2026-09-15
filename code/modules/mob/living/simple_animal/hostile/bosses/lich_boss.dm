@@ -377,3 +377,5 @@
 	action_icon_state = "blink"
 	sound1 = 'sound/blank.ogg'
 	sound2 = 'sound/blank.ogg'
+
+	can_leave_area = FALSE

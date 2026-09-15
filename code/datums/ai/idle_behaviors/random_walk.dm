@@ -8,7 +8,7 @@
 		return
 
 	var/mob/living/simple_animal/simple_mob = controller.pawn
-	if(istype(simple_mob) && simple_mob.binded)
+	if(istype(simple_mob) && simple_mob.binded && !simple_mob.wander) //Caustic Edit - Let Simplemobs actually use the Wander Var they have :<
 		return FALSE
 	var/mob/living/wanderer = controller.pawn
 	if (wanderer.doing) //Doing something (like eating)

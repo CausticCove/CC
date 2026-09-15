@@ -487,6 +487,7 @@
 	associated_skill = /datum/skill/craft/blacksmithing	//Tongs don't do a lot of damage and have 3 defense. This associated skill should be alright.
 	var/obj/item/ingot/hingot = null
 	var/obj/item/rogueore/ore = null
+	var/obj/item/natural/glass/heated/glass = null
 	var/hott = FALSE
 	smeltresult = /obj/item/ingot/iron
 	grid_width = 32
@@ -525,10 +526,10 @@
 
 /obj/item/rogueweapon/tongs/update_icon()
 	. = ..()
-	if(!hingot && !ore)
+	if(!hingot && !ore && !glass)
 		icon_state = initial(icon_state) // Caustic Edit. We do not need every tong subtype to need their own update_icon proc
 	else
-		if(hingot)
+		if(hingot || glass)
 			if(hott)
 				icon_state = "[initial(icon_state)]i1"
 			else
@@ -563,6 +564,16 @@
 			ore = null
 			update_icon()
 
+	if(glass)
+		if(isturf(user.loc))
+			var/turf/T = get_turf(user)
+			if(!T)
+				T = get_turf(src)
+			if(T)
+				glass.forceMove(T)
+			glass = null
+			update_icon()
+
 /obj/item/rogueweapon/tongs/dropped(mob/user)
 	. = ..()
 	if(hingot)
@@ -575,6 +586,11 @@
 		if(T)
 			ore.forceMove(T)
 		ore = null
+	if(glass)
+		var/turf/T = get_turf(src) || (user ? get_turf(user) : null)
+		if(T)
+			glass.forceMove(T)
+		glass = null
 	hott = FALSE
 	update_icon()
 
@@ -644,6 +660,7 @@
 	smeltresult = null
 	auto_collect = TRUE
 
+/*
 /obj/item/rogueweapon/tongs/paalloy/update_icon()
 	. = ..()
 	if(!hingot)
@@ -653,6 +670,7 @@
 			icon_state = "atongsi1"
 		else
 			icon_state = "atongsi0"
+*/
 
 /obj/item/rogueweapon/tongs/bronze
 	name = "bronze tongs"

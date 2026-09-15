@@ -1,6 +1,6 @@
 /obj/item/reagent_containers/food/snacks/rogue/cornbread
 	cuisine = CUISINE_NORTH_IMPERIAL
-	dish_type = DISH_BREAD
+	dish_type = DISH_BREAD | DISH_SWEET //CC Edit
 	name = "cornbread"
 	desc = "A dense, golden loaf baked from cornmeal. With a crumbly texture and slightly savory flavor. A staple of the poor."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_corn.dmi'
@@ -16,6 +16,7 @@
 	tastes = list("cornbread" = 1)
 
 /obj/item/reagent_containers/food/snacks/rogue/cornbread_slice
+	dish_type = DISH_BREAD | DISH_SWEET //CC Edit
 	name = "cornbread slice"
 	desc = "A crumbly slice of cornbread."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_corn.dmi'
@@ -27,6 +28,7 @@
 	tastes = list("cornbread" = 1)
 
 /obj/item/reagent_containers/food/snacks/rogue/cornbread_honey
+	dish_type = DISH_BREAD | DISH_SWEET //CC Edit
 	name = "honey cornbread"
 	desc = "Cornbread baked with honey - much sweeter than the plain version."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_corn.dmi'
@@ -43,6 +45,7 @@
 	tastes = list("cornbread" = 1, "honey" = 1)
 
 /obj/item/reagent_containers/food/snacks/rogue/cornbread_honey_slice
+	dish_type = DISH_BREAD | DISH_SWEET //CC Edit
 	name = "honey cornbread slice"
 	desc = "A sweet, sticky slice of honey cornbread."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_corn.dmi'
@@ -71,6 +74,7 @@
 	tastes = list("frybread" = 1)
 
 /obj/item/reagent_containers/food/snacks/rogue/cornfrybread_slice
+	dish_type = DISH_BREAD //CC Edit
 	name = "corn frybread slice"
 	desc = "A crisp slice of fried corn flatbread."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_corn.dmi'
@@ -83,12 +87,13 @@
 
 /obj/item/reagent_containers/food/snacks/rogue/cornfrybread_salsa
 	cuisine = CUISINE_ETRUSCAN
+	dish_type = DISH_BREAD | DISH_VEGETABLE //CC Edit
 	name = "salsa corn frybread"
 	desc = "Frybread heaped with fresh-cut tomatoes. Bright and tangy."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_corn.dmi'
 	icon_state = "frybread_salsa"
 	faretype = FARE_FINE
-	foodtype = GRAIN | FRUIT
+	foodtype = GRAIN | VEGETABLES //CC Edit
 	list_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_MEAL_AND_HALF)
 	rotprocess = SHELFLIFE_SHORT
 	slices_num = 2
@@ -100,18 +105,20 @@
 
 /obj/item/reagent_containers/food/snacks/rogue/cornfrybread_salsa_slice
 	cuisine = CUISINE_ETRUSCAN
+	dish_type = DISH_BREAD | DISH_VEGETABLE //CC Edit
 	name = "salsa corn frybread slice"
 	desc = "A tangy, tomato-topped slice of corn frybread."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_corn.dmi'
 	icon_state = "frybread_salsa_slice"
 	faretype = FARE_FINE
-	foodtype = GRAIN | FRUIT
+	foodtype = GRAIN | VEGETABLES //CC Edit
 	list_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_THREE_QUARTER_MEAL)
 	rotprocess = SHELFLIFE_SHORT
 	tastes = list("frybread" = 1, "tomato" = 1)
 
 /obj/item/reagent_containers/food/snacks/rogue/cornfrybread_guac
 	cuisine = CUISINE_ETRUSCAN
+	dish_type = DISH_BREAD | DISH_VEGETABLE //CC Edit
 	name = "Pesto corn frybread"
 	desc = "Frybread slathered with a green, herby paste. Not quite authentic, but rich and fine."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_corn.dmi'
@@ -129,6 +136,7 @@
 
 /obj/item/reagent_containers/food/snacks/rogue/cornfrybread_guac_slice
 	cuisine = CUISINE_ETRUSCAN
+	dish_type = DISH_BREAD | DISH_VEGETABLE //CC Edit
 	name = "Pesto corn frybread slice"
 	desc = "A rich, herb-slathered slice of corn frybread."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_corn.dmi'
@@ -153,6 +161,7 @@
 	tastes = list("fried corn" = 1)
 
 /obj/item/reagent_containers/food/snacks/rogue/grilledcorn
+	dish_type = DISH_VEGETABLE //CC Edit
 	name = "grilled corn"
 	desc = "A whole cob of maize, grilled to perfection."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_corn.dmi'

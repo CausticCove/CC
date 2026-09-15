@@ -32,7 +32,7 @@
 
 /*	.................   Spaghetti   ................... */
 /obj/item/reagent_containers/food/snacks/rogue/spaghetti
-	dish_type = DISH_NOODLES
+	dish_type = DISH_NOODLES | DISH_VEGETABLE //CC Edit
 	cuisine = CUISINE_ETRUSCAN
 	name = "spaghetti"
 	desc = "Noodles mixed with fresh marinara, beloved by the Etruscan isles. It's said that Navarno cuisine is as rich as it is poor, and it's scarce ingredients was necessary before it's unification with Montecarina."
@@ -42,12 +42,12 @@
 	list_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_FULL_MEAL) //It's pasta and sauce.
 	tastes = list("richly smooth and salty tomatoes" = 1, "al dente noodles" = 1)
 	w_class = WEIGHT_CLASS_NORMAL
-	foodtype = GRAIN | FRUIT
+	foodtype = GRAIN | VEGETABLES //CC Edit
 	eat_effect = /datum/status_effect/buff/snackbuff
 	rotprocess = SHELFLIFE_DECENT
 
 /obj/item/reagent_containers/food/snacks/rogue/spaghetti_pesto
-	dish_type = DISH_NOODLES
+	dish_type = DISH_NOODLES | DISH_VEGETABLE //CC Edit
 	cuisine = CUISINE_SOUTH_IMPERIAL
 	name = "pesto spaghetti"
 	desc = "Noodles mixed with a spiced refined sauce made from smoky rocknut and garlick. A cultural blend of Azurian improvisation and Navarno ingenuity."

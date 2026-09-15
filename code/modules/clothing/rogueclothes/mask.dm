@@ -145,6 +145,7 @@
 	if(active_item)
 		return
 	else if(slot == SLOT_WEAR_MASK || slot == SLOT_HEAD)
+		ADD_TRAIT(user, TRAIT_SANDSTORM_GOGGLES, "[type]") //Caustic Edit - Add in Sandstorm Goggles Capabilities
 		if (user.get_skill_level(/datum/skill/craft/engineering) >= 2)
 			ADD_TRAIT(user, TRAIT_ENGINEERING_GOGGLES, "[type]")
 			user.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/engineeranalyze)
@@ -165,6 +166,8 @@
 
 /obj/item/clothing/mask/rogue/spectacles/golden/dropped(mob/user, slot)
 	..()
+	if(HAS_TRAIT(src, TRAIT_SANDSTORM_GOGGLES)) //Caustic Edit - Add in Sandstorm Goggles Capabilities
+		REMOVE_TRAIT(user, TRAIT_SANDSTORM_GOGGLES, "[type]")
 	if(active_item)
 		active_item = FALSE
 		REMOVE_TRAIT(user, TRAIT_ENGINEERING_GOGGLES, "[type]")
@@ -182,6 +185,32 @@
 	if(isliving(crosser) && !obj_broken)
 		take_damage(11, BRUTE, "blunt", 1)
 	..()
+
+//Caustic Edit - Add in Sandstorm Goggles
+/obj/item/clothing/mask/rogue/spectacles/goggles
+	name = "sand goggles"
+	icon = 'modular_ratwood/icons/roguetown/clothing/masks.dmi'
+	mob_overlay_icon = 'modular_ratwood/icons/roguetown/clothing/onmob/masks.dmi'
+	icon_state = "goggles_sandstorm"
+	desc = "A set of goggles of an older design, made to protect the wearer from sandstorms."
+	break_sound = "glassbreak"
+	attacked_sound = 'sound/combat/hits/onglass/glasshit.ogg'
+	max_integrity = 35
+	integrity_failure = 0.5
+	resistance_flags = FIRE_PROOF
+	body_parts_covered = EYES
+	anvilrepair = /datum/skill/craft/armorsmithing
+
+/obj/item/clothing/mask/rogue/spectacles/goggles/equipped(mob/user, slot)
+	..()
+	if(slot == SLOT_WEAR_MASK || slot == SLOT_HEAD)
+		ADD_TRAIT(user, TRAIT_SANDSTORM_GOGGLES, "generic")
+
+/obj/item/clothing/mask/rogue/spectacles/goggles/dropped(mob/user)
+	..()
+	if(HAS_TRAIT(user, TRAIT_SANDSTORM_GOGGLES))
+		REMOVE_TRAIT(user, TRAIT_SANDSTORM_GOGGLES, "generic")
+//Caustic Edit End
 
 /obj/item/clothing/mask/rogue/equipped(mob/user, slot)
 	..()
@@ -826,6 +855,18 @@
 	anvilrepair = /datum/skill/craft/armorsmithing
 	smeltresult = /obj/item/ash
 	stack_fovs = TRUE
+
+//Caustic Edit - Add in Sandstorm Goggles capabilities to these!
+/obj/item/clothing/mask/rogue/spectacles/duelist/equipped(mob/user, slot)
+	..()
+	if(slot == SLOT_WEAR_MASK || slot == SLOT_HEAD)
+		ADD_TRAIT(user, TRAIT_SANDSTORM_GOGGLES, "generic")
+
+/obj/item/clothing/mask/rogue/spectacles/duelist/dropped(mob/user)
+	..()
+	if(HAS_TRAIT(user, TRAIT_SANDSTORM_GOGGLES))
+		REMOVE_TRAIT(user, TRAIT_SANDSTORM_GOGGLES, "generic")
+//Caustic Edit End
 
 /obj/item/clothing/mask/rogue/spectacles/duelist/ComponentInitialize()
 	AddComponent(/datum/component/adjustable_clothing, NECK, null, null, 'sound/foley/equip/rummaging-03.ogg', null, (UPD_HEAD|UPD_MASK))	//Standard mask

@@ -45,11 +45,12 @@
 	// excluded_turfs = list()
 	spawnableAtoms = list(/obj/structure/flora/roguetree/palm = 0.5,
 							/obj/structure/flora/roguegrass/bush/desertshrub = 0.5,
-							/obj/structure/flora/roguegrass = 0.5,
+							/obj/structure/flora/roguegrass/desertgrass = 1,
 							/obj/structure/flora/roguetree/stump/log = 0.3,
 							/obj/structure/flora/ausbushes/ppflowers = 0.1,
 							/obj/structure/flora/ausbushes/ywflowers = 0.1,
 							/obj/item/natural/stone = 1,
+							/obj/structure/quicksand = 4,
 							/obj/item/natural/rock = 1,
 							/obj/item/magic/artifact = 0.1,
 							/obj/structure/leyline/normal/coast = 0.05,
@@ -58,7 +59,7 @@
 							/obj/structure/flora/roguegrass/herb/manabloom = 0.05,
 							/obj/item/magic/manacrystal = 0.05,
 							/obj/structure/flora/roguegrass/herb/random = 0.25,
-							/obj/effect/decal/remains/bear = 0.5,
+							/obj/effect/decal/remains/bear = 0.3,
 							/obj/effect/hunting_track = 1,
 							/obj/effect/decal/remains/human = 0.3,)
 	// spawnableTurfs = list()
@@ -87,6 +88,7 @@
 							/obj/item/magic/manacrystal = 0.1,
 							/obj/structure/closet/dirthole/closed/loot = 0.5,
 							/obj/structure/flora/roguegrass/swampweed = 0.5,
+							/obj/structure/flora/roguegrass/pyroclasticflowers = 0.5,
 							/obj/structure/flora/roguegrass/herb/random = 2,
 							/obj/effect/decal/remains/bear = 0.5,
 							/obj/effect/decal/remains/human = 0.3,

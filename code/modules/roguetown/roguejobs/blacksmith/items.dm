@@ -96,6 +96,9 @@
 /obj/item/var/polish_bonus = 0
 /obj/item/var/glazed = FALSE
 /obj/item/var/glaze_bonus_pct = 0
+/obj/item/var/pottery_quality = 0 //Caustic Edit - Add in the Ratwood Pottery vars
+/obj/item/var/creator_skill = 0 //Caustic Edit - Add in the Ratwood Pottery vars
+/obj/item/var/pottery_baked_at = 0 //Caustic Edit - Add in the Ratwood Pottery vars
 
 /obj/item/get_mechanics_examine(mob/user)
 	. = ..()
@@ -286,4 +289,4 @@
 
 /datum/component/metal_glint/proc/stop_process()
 	STOP_PROCESSING(SSobj, src)
- 
+

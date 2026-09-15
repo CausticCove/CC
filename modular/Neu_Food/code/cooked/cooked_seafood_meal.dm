@@ -17,15 +17,14 @@
 	eat_effect = /datum/status_effect/buff/mealbuff
 	drop_sound = 'sound/foley/dropsound/gen_drop.ogg'
 	//CC Edit Begin
-	diet_types = list("Meats")
-	diet_change_amount = FOOD_DIETARY_VALUE_GREAT
+	foodtype = MEAT
 	//CC Edit End
 
 
 /* salmon st dendor*/
 /obj/item/reagent_containers/food/snacks/rogue/dendorsalmon
 	cuisine = CUISINE_SOUTH_IMPERIAL|CUISINE_OTAVAIS
-	dish_type = DISH_SEAFOOD
+	dish_type = DISH_SEAFOOD | DISH_VEGETABLE
 	name = "saint dendor's salmon"
 	desc = "A dish invented in Otava, of a green sauce of fat and herbs atop salmon."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_seafood_meal.dmi'
@@ -39,15 +38,14 @@
 	eat_effect = /datum/status_effect/buff/mealbuff
 	drop_sound = 'sound/foley/dropsound/gen_drop.ogg'
 	//CC Edit Begin
-	diet_types = list("Meats", "Vegetables")
-	diet_change_amount = FOOD_DIETARY_VALUE_GREAT
+	foodtype = MEAT | VEGETABLES
 	//CC Edit End
 
 
 /* salmon wit the berry on it */
 /obj/item/reagent_containers/food/snacks/rogue/berrysalmon
 	cuisine = CUISINE_SOUTH_IMPERIAL
-	dish_type = DISH_SEAFOOD
+	dish_type = DISH_SEAFOOD | DISH_FRUIT
 	name = "berrymash salmon"
 	desc = "A dish of jacksberries mashed atop peppered salmon. Hearty."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_seafood_meal.dmi'
@@ -61,8 +59,7 @@
 	eat_effect = /datum/status_effect/buff/mealbuff
 	drop_sound = 'sound/foley/dropsound/gen_drop.ogg'
 	//CC Edit Begin
-	diet_types = list("Meats", "Fruits")
-	diet_change_amount = FOOD_DIETARY_VALUE_GREAT
+	foodtype = MEAT | FRUIT
 	//CC Edit End
 
 
@@ -83,15 +80,14 @@
 	eat_effect = /datum/status_effect/buff/mealbuff
 	drop_sound = 'sound/foley/dropsound/gen_drop.ogg'
 	//CC Edit Begin
-	diet_types = list("Meats")
-	diet_change_amount = FOOD_DIETARY_VALUE_GREAT
+	foodtype = MEAT
 	//CC Edit End
 
 
 /*garlick seabass*/
 /obj/item/reagent_containers/food/snacks/rogue/garlickbass
 	cuisine = CUISINE_SOUTH_IMPERIAL|CUISINE_OTAVAIS
-	dish_type = DISH_SEAFOOD
+	dish_type = DISH_SEAFOOD | DISH_VEGETABLE
 	name = "garlicked seabass"
 	desc = "Seabass, with cloves of garlick smothered onto it. Delicious."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_seafood_meal.dmi'
@@ -105,15 +101,14 @@
 	eat_effect = /datum/status_effect/buff/mealbuff
 	drop_sound = 'sound/foley/dropsound/gen_drop.ogg'
 	//CC Edit Begin
-	diet_types = list("Meats", "Vegetables")
-	diet_change_amount = FOOD_DIETARY_VALUE_GREAT
+	foodtype = MEAT | VEGETABLES
 	//CC Edit End
 
 
 /*milk clam*/
 /obj/item/reagent_containers/food/snacks/rogue/milkclam
 	cuisine = CUISINE_SOUTH_IMPERIAL|CUISINE_OTAVAIS
-	dish_type = DISH_SEAFOOD
+	dish_type = DISH_SEAFOOD | DISH_DAIRY
 	name = "milkclams"
 	desc = "Clams, simmered in milk... How queer."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_seafood_meal.dmi'
@@ -127,8 +122,7 @@
 	eat_effect = /datum/status_effect/buff/mealbuff
 	drop_sound = 'sound/foley/dropsound/gen_drop.ogg'
 	//CC Edit Begin
-	diet_types = list("Meats", "Dairy")
-	diet_change_amount = FOOD_DIETARY_VALUE_GREAT
+	foodtype = MEAT | DAIRY
 	//CC Edit End
 
 
@@ -149,15 +143,14 @@
 	eat_effect = /datum/status_effect/buff/mealbuff
 	drop_sound = 'sound/foley/dropsound/gen_drop.ogg'
 	//CC Edit Begin
-	diet_types = list("Meats")
-	diet_change_amount = FOOD_DIETARY_VALUE_GREAT
+	foodtype = MEAT
 	//CC Edit End
 
 
 /*onion plaice*/
 /obj/item/reagent_containers/food/snacks/rogue/onionplaice
 	cuisine = CUISINE_SOUTH_IMPERIAL
-	dish_type = DISH_SEAFOOD
+	dish_type = DISH_SEAFOOD | DISH_VEGETABLE
 	name = "plaice with onion"
 	desc = "A slab of plaice with fried onion. Delicious!"
 	icon = 'modular/Neu_Food/icons/cooked/cooked_seafood_meal.dmi'
@@ -171,8 +164,7 @@
 	eat_effect = /datum/status_effect/buff/mealbuff
 	drop_sound = 'sound/foley/dropsound/gen_drop.ogg'
 	//CC Edit Begin
-	diet_types = list("Meats", "Vegetables")
-	diet_change_amount = FOOD_DIETARY_VALUE_GREAT
+	foodtype = MEAT | VEGETABLES
 	//CC Edit End
 
 
@@ -193,8 +185,7 @@
 	eat_effect = /datum/status_effect/buff/mealbuff
 	drop_sound = 'sound/foley/dropsound/gen_drop.ogg'
 	//CC Edit Begin
-	diet_types = list("Meats", "Dairy")
-	diet_change_amount = FOOD_DIETARY_VALUE_GREAT
+	foodtype = MEAT | DAIRY
 	//CC Edit End
 
 
@@ -215,8 +206,7 @@
 	eat_effect = /datum/status_effect/buff/mealbuff
 	drop_sound = 'sound/foley/dropsound/gen_drop.ogg'
 	//CC Edit Begin
-	diet_types = list("Meats")
-	diet_change_amount = FOOD_DIETARY_VALUE_AMAZING //Fried Eel...
+	foodtype = MEAT
 	//CC Edit End
 
 /* ............ Shellfish ................... */
@@ -234,14 +224,14 @@
 	rotprocess = SHELFLIFE_DECENT
 	eat_effect = /datum/status_effect/buff/mealbuff
 	//CC Edit Begin
-	diet_types = list("Meats", "Dairy")
-	diet_change_amount = FOOD_DIETARY_VALUE_GREAT
+	dish_type = DISH_SEAFOOD | DISH_DAIRY
+	foodtype = MEAT | DAIRY
 	//CC Edit End
 // Close enough crab cake has two steps but it is a whatever
 
 /obj/item/reagent_containers/food/snacks/rogue/crabcake
 	cuisine = CUISINE_SOUTH_IMPERIAL
-	dish_type = DISH_SEAFOOD
+	dish_type = DISH_SEAFOOD | DISH_BREAD
 	name = "crab cake"
 	desc = "A variant of the handpie filled with buttery, savory shellfish meat and made with a buttered slice of dough."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_seafood_meal.dmi'
@@ -254,6 +244,5 @@
 	rotprocess = null
 	dropshrink = 0.8
 	//CC Edit Begin
-	diet_types = list("Grains", "Dairy", "Meats")
-	diet_change_amount = FOOD_DIETARY_VALUE_GREAT
+	foodtype = MEAT | GRAIN
 	//CC Edit End

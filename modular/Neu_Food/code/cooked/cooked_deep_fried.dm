@@ -2,7 +2,7 @@
 
 /obj/item/reagent_containers/food/snacks/squiresdelight
 	cuisine = CUISINE_NORTH_IMPERIAL
-	dish_type = DISH_SWEET
+	dish_type = DISH_DAIRY | DISH_SWEET //CC Edit
 	name = "squire's delight"
 	desc = "A deep-fried butter stick. Beloved by squires, often stolen by knights."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_deep_fried.dmi'
@@ -14,14 +14,11 @@
 	tastes = list("crunchy toastcrumbs" = 1, "molten butter" = 1)
 	eat_effect = /datum/status_effect/buff/greatsnackbuff
 	rotprocess = SHELFLIFE_DECENT
-	//CC Edit Begin
-	diet_types = list("Dairy", "Grains")
-	diet_change_amount = FOOD_DIETARY_VALUE_AMAZING
-	//CC Edit End
 
 // Cooked results
 /obj/item/reagent_containers/food/snacks/rogue/meat/nitzel
 	cuisine = CUISINE_NORTH_IMPERIAL
+	dish_type = DISH_BREAD | DISH_MEAT //CC Edit
 	name = "nitzel"
 	desc = "A deep-fried nitzel, coated in toastcrumbs and ready to eat."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_deep_fried.dmi'
@@ -34,10 +31,6 @@
 	cooked_type = null
 	eat_effect = /datum/status_effect/buff/greatsnackbuff
 	rotprocess = SHELFLIFE_DECENT
-	//CC Edit Begin
-	diet_types = list("Meats", "Grains")
-	diet_change_amount = FOOD_DIETARY_VALUE_AMAZING
-	//CC Edit End
 
 // Doesn't matter it was spider meat if you go through the effort it should be as good
 /obj/item/reagent_containers/food/snacks/rogue/meat/nitzel/schnitzel
@@ -45,13 +38,10 @@
 	desc = "A deep-fried schnitzel, coated in toastcrumbs and ready to eat."
 	icon_state = "schnitzel"
 	tastes = list("crunchy toastcrumbs" = 1, "tender spidermeat" = 1)
-	//CC Edit Begin
-	diet_types = list("Meats", "Grains")
-	diet_change_amount = FOOD_DIETARY_VALUE_AMAZING
-	//CC Edit End
 
 /obj/item/reagent_containers/food/snacks/rogue/meat/chickentender
 	cuisine = CUISINE_NORTHERN|CUISINE_SOUTHEASTERN
+	dish_type = DISH_BREAD | DISH_MEAT //CC Edit
 	name = "tender frybird"
 	desc = "A deep-fried frybird, coated in toastcrumbs and ready to eat."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_deep_fried.dmi'
@@ -64,23 +54,16 @@
 	cooked_type = null
 	eat_effect = /datum/status_effect/buff/greatsnackbuff
 	rotprocess = SHELFLIFE_DECENT
-	//CC Edit Begin
-	diet_types = list("Meats", "Grains")
-	diet_change_amount = FOOD_DIETARY_VALUE_AMAZING
-	//CC Edit End
 
 /obj/item/reagent_containers/food/snacks/rogue/meat/nitzel/wiener
 	name = "wiener nitzel"
 	desc = "A deep-fried wiener, coated in toastcrumbs and ready to eat."
 	icon_state = "wienernitzel"
 	tastes = list("crunchy toastcrumbs" = 1, "tender wiener" = 1)
-	//CC Edit Begin
-	diet_types = list("Meats", "Grains")
-	diet_change_amount = FOOD_DIETARY_VALUE_AMAZING
-	//CC Edit End
 
 /obj/item/reagent_containers/food/snacks/rogue/meat/griddlewiener
 	cuisine = CUISINE_NORTH_IMPERIAL
+	dish_type = DISH_BREAD | DISH_PASTRY | DISH_SWEET | DISH_MEAT //CC Edit
 	name = "griddlewiener"
 	desc = "A deep-fried sausage, tucked into a griddle blanket, beloved by all, especially during the Harvest Festival."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_deep_fried.dmi'
@@ -93,7 +76,3 @@
 	cooked_type = null
 	eat_effect = /datum/status_effect/buff/greatsnackbuff
 	rotprocess = SHELFLIFE_LONG // It's still just a sausage and griddle.
-	//CC Edit Begin
-	diet_types = list("Meats", "Grains")
-	diet_change_amount = FOOD_DIETARY_VALUE_AMAZING
-	//CC Edit End

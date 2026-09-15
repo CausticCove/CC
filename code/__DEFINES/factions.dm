@@ -26,6 +26,7 @@
 #define FACTION_GRONNMEN "gronnmen"
 #define FACTION_MADMEN "madmen"
 #define FACTION_PSY_VAULT_GUARD "psy_vault_guard"
+#define FACTION_DUNWELL "dunewell" //Caustic Edit - Adding in Dunewell Raiders faction for Desert Town
 
 #define FACTION_INFERNAL "infernal"
 #define FACTION_FAE "fae"

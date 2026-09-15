@@ -11,7 +11,7 @@
 	required_zones = list(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
 
 	windup_time = TELEGRAPH_HIGH_IMPACT
-	track_target = TRUE
+	track_target = FALSE //Caustic Edit - Turn off the Track Target so they go forward after winding up
 	lock_direction = FALSE
 	committed_strike = TRUE
 	interruptible = FALSE

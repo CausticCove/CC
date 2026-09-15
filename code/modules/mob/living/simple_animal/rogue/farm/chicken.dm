@@ -51,7 +51,7 @@
 	var/body_color
 	var/icon_prefix = "chicken"
 	pass_flags = PASSTABLE | PASSMOB
-	mob_size = MOB_SIZE_SMALL
+	mob_size = MOB_SMALL
 	var/list/layMessage = EGG_LAYING_MESSAGES
 	var/list/validColors = list("brown","black","white")
 	var/static/chicken_count = 0
