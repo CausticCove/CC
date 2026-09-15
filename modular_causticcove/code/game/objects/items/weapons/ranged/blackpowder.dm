@@ -223,7 +223,7 @@
 	load_sound = 'modular_causticcove/sound/arquebus/musketload.ogg'
 	fire_sound = 'modular_causticcove/sound/arquebus/arquefire.ogg'
 	anvilrepair = /datum/skill/craft/weaponsmithing
-	smeltresult = /obj/item/ash
+	smeltresult = /obj/item/ingot/bronze
 	pickup_sound = 'modular_causticcove/sound/sheath_sounds/draw_from_holster.ogg'
 
 	//These Variables are likely ones you'd want to override for sub-classes
@@ -385,7 +385,7 @@
 	load_sound = 'modular_causticcove/sound/arquebus/musketload.ogg'
 	fire_sound = 'modular_causticcove/sound/arquebus/arquefire.ogg'
 	anvilrepair = /datum/skill/craft/weaponsmithing
-	smeltresult = /obj/item/ingot/steel
+	smeltresult = /obj/item/ingot/bronze
 	pickup_sound = 'modular_causticcove/sound/sheath_sounds/draw_from_holster.ogg'
 
 	spread_num = 30
@@ -411,7 +411,7 @@
 
 /obj/item/gun/ballistic/revolver/grenadelauncher/blackpowder/blunderbus
 	name = "blunderbus"
-	desc = "A gunpowder weapon that shoots an armor piercing metal ball."
+	desc = "A gunpowder weapon that shoots a cluster of metal grapeshot pellets."
 	icon = 'modular_causticcove/icons/weapons/blackpowder64.dmi'
 	icon_state = "blunder"
 	item_state = "blunder"
@@ -423,15 +423,23 @@
 	mag_type = /obj/item/ammo_box/magazine/internal/blackpowder/blunderbus
 	cartridge_wording = "grapeshot"
 	load_sound = 'modular_causticcove/sound/arquebus/musketload.ogg'
-	fire_sound = 'modular_causticcove/sound/arquebus/arquefire.ogg'
+	fire_sound = 'modular_causticcove/sound/arquebus/arquefire3.ogg'
 	anvilrepair = /datum/skill/craft/weaponsmithing
-	smeltresult = /obj/item/ingot/steel
+	smeltresult = /obj/item/ingot/bronze
 	pickup_sound = 'modular_causticcove/sound/sheath_sounds/draw_from_holster.ogg'
 
 	spread_num = 30
 	damfactor = 0.21
 	range = 15
 	load_time = 50
+
+/obj/item/gun/ballistic/revolver/grenadelauncher/blackpowder/blunderbus/ornate
+	name = "blunderbus"
+	desc = "A gunpowder weapon that shoots a cluster of metal grapeshot pellets. This one has had it's stock replaced by one made of stained and polished wood, that has also been adorned with gold trimming."
+	icon_state = "blunder_ornate"
+	item_state = "blunder_ornate"
+	force = 15
+	force_wielded = 21
 
 // -- Pistols --
 /obj/item/gun/ballistic/revolver/grenadelauncher/blackpowder/small/arquebus_pistol
@@ -447,7 +455,7 @@
 	load_sound = 'modular_causticcove/sound/arquebus/musketload.ogg'
 	fire_sound = 'modular_causticcove/sound/arquebus/arquefire.ogg'
 	anvilrepair = /datum/skill/craft/weaponsmithing
-	smeltresult = /obj/item/ash
+	smeltresult = /obj/item/ingot/bronze
 	pickup_sound = 'modular_causticcove/sound/sheath_sounds/draw_from_holster.ogg'
 
 	slot_flags = ITEM_SLOT_HIP
@@ -467,10 +475,56 @@
 			if("onbelt")
 				return list("shrink" = 0.3,"sx" = -2,"sy" = -5,"nx" = 4,"ny" = -5,"wx" = 0,"wy" = -5,"ex" = 2,"ey" = -5,"nturn" = 0,"sturn" = 0,"wturn" = 0,"eturn" = 0,"nflip" = 0,"sflip" = 0,"wflip" = 0,"eflip" = 0,"northabove" = 0,"southabove" = 1,"eastabove" = 1,"westabove" = 0)
 
+// - Boomstick - And related handling override code
+/obj/item/gun/ballistic/revolver/grenadelauncher/blackpowder/small/boomstick
+	name = "The Boomstick"
+	desc = "A unique deviation on the blackpowder weaponry, constructed and sanctified by the Inquisition. Able to fire silver projectiles, the ammo is heavily regulated by the Otavan Inquisition as it's shot comes pre-blessed. Groovy."
+	icon = 'modular_causticcove/icons/weapons/blackpowder32.dmi'
+	icon_state = "boomstick"
+	item_state = "boomstick"
+	force = 16
+	possible_item_intents = list(/datum/intent/shoot/blackpowder/small, /datum/intent/arc/blackpowder/small, /datum/intent/mace/strike/wood)
+	minstr = 7
+	mag_type = /obj/item/ammo_box/magazine/internal/blackpowder/boomstick
+	cartridge_wording = "boomstick_round"
+	casing_ejector = FALSE
+	load_sound = 'modular_causticcove/sound/sheath_sounds/put_back_dagger.ogg'
+	open_sound = 'modular_causticcove/sound/arquebus/insert.ogg'
+	fire_sound = 'modular_causticcove/sound/arquebus/arquefire3.ogg'
+	anvilrepair = /datum/skill/craft/weaponsmithing
+	smeltresult = /obj/item/ash
+	pickup_sound = 'modular_causticcove/sound/sheath_sounds/draw_from_holster.ogg'
+
+	slot_flags = ITEM_SLOT_HIP
+	spread_num = 7
+	damfactor = 0.35
+	range = 12
+	load_time = 30 //Might not even use this
+
+	spin_cooldown = 5 SECONDS
+	var/barrel_open = FALSE
+
+/obj/item/gun/ballistic/revolver/grenadelauncher/blackpowder/small/boomstick/update_icon_state()
+	if(barrel_open)
+		var/num_rounds = magazine.ammo_count()
+		icon_state = "[initial(src.icon_state)]_[num_rounds]"
+	else
+		icon_state = initial(src.icon_state)
+
+/obj/item/gun/ballistic/revolver/grenadelauncher/blackpowder/small/boomstick/attack_right(mob/user)
+	if(barrel_open)
+
+
+/obj/item/gun/ballistic/revolver/grenadelauncher/blackpowder/small/boomstick/MiddleClick(mob/user, params)
+	if(barrel_open)
+		barrel_open = FALSE
+		user.visible_message(span_notice("[user] clicks [src.name]'s barrel shut."), span_notice("You snap the barrels closed!"))
+		update_icon_state()
+
 // -- Related Items --
 /obj/item/ramrod
 	name = "ramrod"
-	icon = 'modular_causticcove/icons/items/arquebus_items.dmi'
+	icon = 'modular_causticcove/icons/items/blackpowder.dmi'
 	desc = "A ramrod used for reloading a firearm."
 	icon_state = "ramrod"
 	item_state = "ramrod"
@@ -481,7 +535,7 @@
 
 /obj/item/powderflask
 	name = "powderflask"
-	icon = 'modular_causticcove/icons/items/arquebus_items.dmi'
+	icon = 'modular_causticcove/icons/items/blackpowder.dmi'
 	desc = "A flask of gunpowder used for reloading a firearm."
 	icon_state = "powderflask"
 	item_state = "powderflask"

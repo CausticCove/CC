@@ -1,4 +1,5 @@
 #define BLUNDERBUS_NUM_PELLETS 8
+#define BOOMSTICK_NUM_PELLETS 6
 
 //Internal Mag Defines for the guns
 /obj/item/ammo_box/magazine/internal/blackpowder
@@ -12,6 +13,12 @@
 	name = "blunderbus weapon barrel"
 	ammo_type = /obj/item/ammo_casing/caseless/rogue/bullet/blackpowder/grapeshot
 	caliber = "grapeshot"
+
+/obj/item/ammo_box/magazine/internal/blackpowder/boomstick
+	name = "boomstick barrels"
+	ammo_type = /obj/item/ammo_casing/caseless/rogue/bullet/blackpowder/boomstick_round
+	caliber = "boomstick_round"
+	max_ammo = 2
 
 //Bullet Ammo and Projectile Defines
 // -- Base Blackpowder Bullet --
@@ -37,7 +44,7 @@
 	embedchance = 95 //It honestly might be funny the small chance it doesn't embed to have rediculous situations. Did it go through? Did it not at all (somehow)?
 	woundclass = BCLASS_PIERCE
 	flag = "piercing"
-	armor_penetration = PEN_HEAVY
+	armor_penetration = PEN_BSTEEL
 	speed = 0.1
 	npc_simple_damage_mult = 2
 
@@ -53,12 +60,50 @@
 
 /obj/projectile/bullet/reusable/bullet/blackpowder/grapeshot
 	name = "iron grapeshot pellet"
-	//damage = 24
 	range = 15
 	embedchance = 100
-	armor_penetration = PEN_LIGHT
+	armor_penetration = PEN_MEDIUM
 	npc_simple_damage_mult = 2.5
 	ammo_type = /obj/item/pellet/grapeshot/iron //This is what is dropped when it is attempted to be re-used. So, lets instead make it drop an individual Grapeshot Pellet that can stack back to one full cluster?
+
+/obj/item/ammo_casing/caseless/rogue/bullet/blackpowder/boomstick_round
+	name = "boomstick cartridge"
+	desc = "A few blessed silver rounds encased in a single cartridge with blackpowder, ready to be fired. It bears the inquisitorial mark on it's surface."
+	projectile_type = /obj/projectile/bullet/reusable/bullet/blackpowder/boomstick_pellet
+	caliber = "boomstick_round"
+	icon = 'modular_causticcove/icons/weapons/blackpowder_ammo.dmi'
+	icon_state = "boomstickshot"
+	pellets = BOOMSTICK_NUM_PELLETS
+	variance = 15
+	var/num_rounds = 1 //If num_rounds is 0, it's already been fired and spent!
+	var/max_rounds = 2
+
+/obj/projectile/bullet/reusable/bullet/blackpowder/boomstick_pellet
+	name = "blessed silver round"
+	icon = 'icons/roguetown/weapons/ranged/sling_proj.dmi'
+	icon_state = "steelslingbullet_proj"
+	range = 12
+	embedchance = 100
+	armor_penetration = PEN_HEAVY
+	npc_simple_damage_mult = 2.5
+	is_silver_proj = TRUE
+	ammo_type = /obj/item/pellet/boomstick
+
+/obj/item/ammo_casing/caseless/rogue/bullet/blackpowder/boomstick_round/attackby(obj/item/I, mob/living/user, params) //Basically reusing the pellet code below but, much more restrictive since it's only ever going to stack to 2, so the ammo is rare, and cannot stack after firing. (Only cause we don't have sprites for 2 fired ones)
+	if(num_rounds == 1 && istype(I, /obj/item/ammo_casing/caseless/rogue/bullet/blackpowder/boomstick_round))
+		var/obj/item/ammo_casing/caseless/rogue/bullet/blackpowder/boomstick_round/hit_by = I
+		if(hit_by.num_rounds == 1)
+			hit_by.num_rounds += 1
+			to_chat(user, span_notice("You pair the [src.name] with it's partner."))
+			hit_by.update_count()
+			qdel(src)
+			return
+
+	. = ..()
+
+/obj/item/ammo_casing/caseless/rogue/bullet/blackpowder/boomstick_round/proc/update_count()
+	icon_state = "[initial(src.icon_state)]_[num_rounds]"
+	src.update_icon()
 
 /obj/item/pellet
 	var/num_rounds = 1
@@ -73,7 +118,7 @@
 /obj/item/pellet/attackby(obj/item/I, mob/living/user, params)
 	if(istype(I, /obj/item/pellet))
 		var/obj/item/pellet/hit_by = I
-		if(hit_by.num_rounds < hit_by.max_rounds && hit_by.caliber == src.caliber)
+		if(max_rounds > 0 && hit_by.num_rounds < hit_by.max_rounds && hit_by.caliber == src.caliber)
 			var/remainder = (hit_by.num_rounds + src.num_rounds) - hit_by.max_rounds
 			if(remainder <= 0) //If the remainder is less then 0, there was not enough for a full stack. If it is 0, there is exactly enough for a full stack! We can qdel src in these situations
 				hit_by.num_rounds += src.num_rounds
@@ -117,6 +162,23 @@
 	grid_height = 32
 	max_rounds = BLUNDERBUS_NUM_PELLETS
 	caliber = "grapeshot-iron"
+	full_item = /obj/item/ammo_casing/caseless/rogue/bullet/blackpowder/grapeshot
+
+/obj/item/pellet/boomstick
+	name = "blessed silver pellet"
+	desc = "Blessed Silver fired from an Inquisitorial Boomstick! Creechers of the nite beware!"
+	icon = 'icons/roguetown/weapons/ranged/sling_mob.dmi'
+	icon_state = "silverbullet"
+	w_class = WEIGHT_CLASS_TINY
+	force = 0
+	throwforce = 0
+	dropshrink = 0.5
+	possible_item_intents = list(/datum/intent/use)
+	max_integrity = 0.1
+	grid_width = 32
+	grid_height = 32
+	max_rounds = 0
+	caliber = "boomstick-silver"
 	full_item = /obj/item/ammo_casing/caseless/rogue/bullet/blackpowder/grapeshot
 
 #undef BLUNDERBUS_NUM_PELLETS
