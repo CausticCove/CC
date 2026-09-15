@@ -489,7 +489,7 @@
 	cartridge_wording = "boomstick_round"
 	casing_ejector = FALSE
 	load_sound = 'modular_causticcove/sound/sheath_sounds/put_back_dagger.ogg'
-	open_sound = 'modular_causticcove/sound/arquebus/insert.ogg'
+	var/open_sound = 'modular_causticcove/sound/arquebus/insert.ogg'
 	fire_sound = 'modular_causticcove/sound/arquebus/arquefire3.ogg'
 	anvilrepair = /datum/skill/craft/weaponsmithing
 	smeltresult = /obj/item/ash
