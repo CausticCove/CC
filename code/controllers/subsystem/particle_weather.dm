@@ -170,7 +170,7 @@ SUBSYSTEM_DEF(ParticleWeather)
 	var/datum/particle_weather/weather_type = selected_forecast.pick_weather(time_of_day)
 
 	if(!weather_type)
-		if(prob(50)) //Coin Flip for now to see if we just let the water continue or swap to 'clear' weather, by ending the current.
+		if(prob(35)) //Now 35% chance to extend the weather instead of 50%, giving more of an option for clear skies.
 			log_game("Forecast roll chose to extend the current weather for [time_of_day]")
 			return
 
