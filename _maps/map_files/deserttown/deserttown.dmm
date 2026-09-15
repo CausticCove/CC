@@ -10798,8 +10798,7 @@
 /area/rogue/under/cave/rhgoblinencampment)
 "cBE" = (
 /turf/closed/wall/mineral/rogue/sandstone{
-	max_integrity = 9999;
-	climbdiff = 0
+	max_integrity = 9999999
 	},
 /area/rogue/under/desertunderdark/pyramid)
 "cBF" = (
@@ -69227,10 +69226,12 @@
 /area/rogue/under/desertunderdark/pyramid)
 "rnv" = (
 /obj/structure/closet/crate/chest/gold,
-/obj/effect/spawner/lootdrop/general_loot_hi,
 /obj/structure/fluff/railing/border{
 	dir = 9
 	},
+/obj/effect/spawner/lootdrop/general_loot_hi,
+/obj/effect/spawner/lootdrop/general_loot_mid,
+/obj/effect/spawner/lootdrop/general_loot_low,
 /turf/open/floor/rogue/darkpath,
 /area/rogue/under/desertunderdark/pyramid)
 "rnx" = (
@@ -81617,6 +81618,13 @@
 /obj/structure/fluff/railing/border/north,
 /turf/open/water/river/flow/east,
 /area/rogue/under/cave/bizbaz)
+"uor" = (
+/mob/living/simple_animal/hostile/retaliate/rogue/troll/axe{
+	faction = list("trolls","goblins");
+	ambush_faction = "goblins"
+	},
+/turf/open/floor/carpet/red,
+/area/rogue/under/cave/rhgoblinencampment)
 "uot" = (
 /obj/structure/fluff/railing/border,
 /turf/open/floor/rogue/darkpath,
@@ -93745,7 +93753,10 @@
 /area/rogue/under/cave/skeletoncrypt)
 "xmD" = (
 /obj/structure/closet/crate/chest/gold,
-/obj/effect/spawner/lootdrop/general_loot_hi,
+/obj/item/roguecoin/gold/pile,
+/obj/effect/spawner/lootdrop/roguetown/dungeon/money,
+/obj/effect/spawner/lootdrop/roguetown/dungeon/money,
+/obj/effect/spawner/lootdrop/roguetown/dungeon/money,
 /turf/open/floor/rogue/darkpath,
 /area/rogue/under/desertunderdark/pyramid)
 "xmE" = (
@@ -96366,12 +96377,14 @@
 /turf/open/floor/rogue/grasscold,
 /area/rogue/outdoors/town/grove)
 "xTu" = (
-/mob/living/simple_animal/hostile/retaliate/rogue/troll/axe{
-	faction = list("trolls","goblins");
-	ambush_faction = "goblins"
+/obj/structure/fluff/railing/border{
+	dir = 10
 	},
-/turf/open/floor/rogue/tile/harem1,
-/area/rogue/under/cave/rhgoblinencampment)
+/obj/effect/spawner/lootdrop/roguegem/random,
+/obj/structure/closet/crate/chest/gold,
+/obj/effect/spawner/lootdrop/roguegem/random,
+/turf/open/floor/rogue/darkpath,
+/area/rogue/under/desertunderdark/pyramid)
 "xTA" = (
 /obj/item/clothing/cloak/templar/malumite,
 /obj/item/clothing/cloak/templar/malumite,
@@ -99633,21 +99646,21 @@ qeO
 qeO
 qeO
 qeO
-qeO
-qeO
-qeO
-qeO
-qeO
-qeO
-qeO
-qeO
-qeO
-qeO
-qeO
-qeO
-qeO
-qeO
-qeO
+cBE
+cBE
+cBE
+cBE
+cBE
+cBE
+cBE
+cBE
+cBE
+cBE
+cBE
+cBE
+cBE
+cBE
+cBE
 bgS
 exU
 bgS
@@ -99945,7 +99958,7 @@ ekI
 giS
 fhY
 rUZ
-qeO
+cBE
 oNO
 fhY
 fhY
@@ -99959,7 +99972,7 @@ jaT
 xOq
 fhY
 rUZ
-qeO
+cBE
 vgi
 vgi
 vgi
@@ -100257,7 +100270,7 @@ gHF
 oKr
 fhY
 pkH
-qeO
+cBE
 jwx
 fhY
 fhY
@@ -100271,7 +100284,7 @@ qNV
 xrn
 fhY
 fhY
-qeO
+cBE
 exU
 exU
 exU
@@ -100569,7 +100582,7 @@ nYD
 fhY
 fhY
 fhY
-qeO
+cBE
 skK
 fhY
 fhY
@@ -100583,7 +100596,7 @@ oab
 jpc
 fhY
 fhY
-qeO
+cBE
 brD
 vBU
 vBU
@@ -100881,7 +100894,7 @@ mTQ
 fhY
 fhY
 oEm
-qeO
+cBE
 lUs
 fhY
 fhY
@@ -100895,7 +100908,7 @@ jaT
 vMT
 fhY
 fhY
-qeO
+cBE
 cpj
 pQn
 exU
@@ -101193,21 +101206,21 @@ rfj
 fhY
 fhY
 vDW
-qeO
+cBE
 uMR
 fhY
 fhY
 fhY
 fhY
 fhY
-qeO
-qeO
-qeO
-qeO
+cBE
+cBE
+cBE
+cBE
 lVB
 fhY
 fhY
-qeO
+cBE
 brD
 aRw
 aRw
@@ -101505,21 +101518,21 @@ btf
 xOq
 fhY
 pkH
-qeO
+cBE
 wTc
 fhY
 fhY
 fhY
 fhY
 fhY
-qeO
+cBE
 eYt
 eYt
-qeO
+cBE
 eSZ
 fhY
 fhY
-qeO
+cBE
 ceW
 exU
 exU
@@ -101817,21 +101830,21 @@ oLg
 giS
 fhY
 rUZ
-qeO
+cBE
 xmD
 fhY
 kzV
 uNS
 jVu
 fhY
-qeO
+cBE
 dkc
 kks
-qeO
+cBE
 sMy
 fhY
 fhY
-qeO
+cBE
 exU
 exU
 exU
@@ -102129,21 +102142,21 @@ pLB
 oKr
 fhY
 fhY
-qeO
+cBE
 jwx
 fhY
 rfN
 fSS
 jaT
 fhY
-qeO
+cBE
 kks
 kks
-qeO
+cBE
 eSZ
 fhY
 fhY
-qeO
+cBE
 bfX
 bgS
 vgi
@@ -102441,21 +102454,21 @@ fhY
 fhY
 fhY
 fhY
-qeO
+cBE
 oNO
 xwi
 rnv
 hcI
-qNV
+xTu
 gHF
-qeO
+cBE
 mWq
 vNr
-qeO
+cBE
 lVB
 fhY
 vwu
-qeO
+cBE
 exU
 exU
 exU
@@ -102748,26 +102761,26 @@ fhY
 fhY
 fhY
 fhY
-jPX
-jPX
+cBE
+cBE
 jZh
 jZh
 stM
-qeO
-qeO
-qeO
-qeO
-qeO
-qeO
-qeO
-qeO
 cBE
 cBE
-qeO
-qeO
+cBE
+cBE
+cBE
+cBE
+cBE
+cBE
+cBE
+cBE
+cBE
+cBE
 cbS
-qeO
-qeO
+cBE
+cBE
 exU
 exU
 exU
@@ -103060,7 +103073,7 @@ fhY
 fhY
 fnj
 fhY
-jPX
+cBE
 oEm
 fhY
 fhY
@@ -103372,7 +103385,7 @@ fhY
 fhY
 pUa
 iRg
-jPX
+cBE
 rUZ
 fhY
 eti
@@ -103684,7 +103697,7 @@ fhY
 fhY
 fnj
 nxQ
-jPX
+cBE
 fhY
 eti
 smd
@@ -103996,7 +104009,7 @@ fhY
 fhY
 fhY
 rUZ
-jPX
+cBE
 fhY
 fhY
 eti
@@ -104308,7 +104321,7 @@ vfx
 jPX
 jPX
 jPX
-jPX
+cBE
 fhY
 fhY
 fhY
@@ -104327,7 +104340,7 @@ fhY
 fhY
 fhY
 fhY
-qeO
+cBE
 ccG
 exU
 exU
@@ -104620,7 +104633,7 @@ fhY
 fhY
 fhY
 fhY
-jPX
+cBE
 xfD
 xOq
 fhY
@@ -104639,7 +104652,7 @@ fhY
 fhY
 krK
 por
-qeO
+cBE
 exU
 exU
 vaA
@@ -104932,7 +104945,7 @@ fhY
 fhY
 fhY
 fhY
-jPX
+cBE
 ekI
 giS
 fhY
@@ -104951,7 +104964,7 @@ fhY
 fhY
 sEY
 oLg
-qeO
+cBE
 exU
 exU
 exU
@@ -105244,7 +105257,7 @@ fhY
 fhY
 fhY
 fhY
-jPX
+cBE
 cJb
 giS
 fhY
@@ -105263,7 +105276,7 @@ fhY
 fhY
 sEY
 pEV
-qeO
+cBE
 vgi
 bgS
 lTa
@@ -105556,7 +105569,7 @@ jPX
 dfz
 eti
 fhY
-jPX
+cBE
 oLg
 giS
 fhY
@@ -105575,7 +105588,7 @@ fhY
 fhY
 sEY
 oLg
-qeO
+cBE
 exU
 exU
 exU
@@ -105868,7 +105881,7 @@ jPX
 dfz
 eti
 fhY
-jPX
+cBE
 lNC
 oKr
 fhY
@@ -105887,7 +105900,7 @@ fhY
 fhY
 yfG
 pLB
-qeO
+cBE
 exU
 exU
 exU
@@ -106180,7 +106193,7 @@ jPX
 dfz
 eti
 fhY
-jPX
+cBE
 fhY
 fhY
 fhY
@@ -106199,7 +106212,7 @@ fhY
 fhY
 fhY
 fhY
-qeO
+cBE
 exU
 exU
 exU
@@ -106492,7 +106505,7 @@ fhY
 fhY
 fhY
 fhY
-jPX
+cBE
 fhY
 fhY
 eti
@@ -106511,7 +106524,7 @@ fhY
 eti
 fhY
 fhY
-qeO
+cBE
 exU
 brD
 dhP
@@ -106804,7 +106817,7 @@ fhY
 fhY
 fhY
 fhY
-jPX
+cBE
 fhY
 eti
 smd
@@ -106823,7 +106836,7 @@ eti
 smd
 eti
 fhY
-qeO
+cBE
 exU
 cpj
 exU
@@ -107116,7 +107129,7 @@ fhY
 fhY
 fhY
 fhY
-jPX
+cBE
 fhY
 fhY
 eti
@@ -107135,7 +107148,7 @@ fhY
 eti
 fhY
 fhY
-qeO
+cBE
 exU
 cpj
 xNB
@@ -107428,7 +107441,7 @@ fhY
 fhY
 fhY
 fhY
-jPX
+cBE
 rUZ
 fhY
 fhY
@@ -107447,7 +107460,7 @@ fhY
 fhY
 fhY
 rUZ
-qeO
+cBE
 bMn
 brD
 aRw
@@ -107740,26 +107753,26 @@ qeO
 qeO
 qeO
 qeO
-qeO
-qeO
-qeO
-qeO
-qeO
-qeO
-qeO
-qeO
-qeO
-qeO
-qeO
-qeO
-qeO
-qeO
-qeO
-qeO
-qeO
-qeO
-qeO
-qeO
+cBE
+cBE
+cBE
+cBE
+cBE
+cBE
+cBE
+cBE
+cBE
+cBE
+cBE
+cBE
+cBE
+cBE
+cBE
+cBE
+cBE
+cBE
+cBE
+cBE
 bgS
 exU
 bgS
@@ -330893,7 +330906,7 @@ cVY
 goO
 lpO
 cuT
-goO
+uor
 uVu
 xtm
 cuT
@@ -331205,7 +331218,7 @@ cRN
 utu
 wjA
 cuT
-oQE
+goO
 iYw
 cuT
 cuT
@@ -332453,7 +332466,7 @@ rAM
 rAM
 wjA
 kvU
-xTu
+mVU
 uRv
 uRv
 iiV
@@ -333701,7 +333714,7 @@ bnl
 cuT
 wjA
 cuT
-iiV
+mVU
 muF
 muF
 iiV
