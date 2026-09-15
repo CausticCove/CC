@@ -47,12 +47,14 @@
 		L.adjust_bodytemperature(-rand(5, 15))
 	//Caustic Edit End
 
-	if(prob(50))
-		var/armor_block = L.run_armor_check(BODY_ZONE_HEAD, "blunt", blade_dulling=BCLASS_BLUNT)
-		if(L.apply_damage(rand(5, 10), UNARMED_ATTACK, BODY_ZONE_HEAD, armor_block))
-			if(prob(25))
-				to_chat(L, span_danger("You're being assailed by an onslaught of hail!"))
-		else
-			if(prob(25))
-				to_chat(L, span_warning("Rocks of ice plink off of your headcover."))
+	var/turf/mob_turf = get_turf(L) //Caustic Edit - Add in a check to ensure that someone is actually like, in the hail.
+	if(mob_turf && mob_turf.is_weatherproof())
+		if(prob(15)) //Reduce chances to 15 instead of 50, cause OH BOY that was kinda frequent.
+			var/armor_block = L.run_armor_check(BODY_ZONE_HEAD, "blunt", blade_dulling=BCLASS_BLUNT)
+			if(L.apply_damage(rand(5, 10), UNARMED_ATTACK, BODY_ZONE_HEAD, armor_block))
+				if(prob(25))
+					to_chat(L, span_danger("You're being assailed by an onslaught of hail!"))
+			else
+				if(prob(25))
+					to_chat(L, span_warning("Rocks of ice plink off of your headcover."))
 

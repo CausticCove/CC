@@ -105,7 +105,7 @@ SUBSYSTEM_DEF(ParticleWeather)
 	if(force)
 		runningWeather.start(color)
 	else
-		var/randTime = rand(1 MINUTES, 3 MINUTES) //+ initial(runningWeather.weather_duration_upper) //Caustic Edit - Lets just make it a bit more consistent when it will actually start? Otherwise it's like... anywhere from almost immediately to 10 minutes later, plus the upper duration which... goodness.
+		var/randTime = rand(30 SECONDS, 1 MINUTES) //+ initial(runningWeather.weather_duration_upper) //Caustic Edit - Lets just make it a bit more consistent when it will actually start? Otherwise it's like... anywhere from almost immediately to 10 minutes later, plus the upper duration which... goodness.
 
 		queued_weather = runningWeather
 		queued_weather_start_time = world.time + randTime
@@ -175,17 +175,18 @@ SUBSYSTEM_DEF(ParticleWeather)
 			return
 
 	var/time_to_start_next
-	if(runningWeather) //Just in case. Lets make sure nothing else accidentally ended it already.
-		time_to_start_next = particleEffect.lifespan + particleEffect.fade + 10 SECONDS //Lets add a constant here as well to ensure that it runs _after_ the current has ended.
-		runningWeather.send_winddown_message()
+	if(runningWeather && !runningWeather.sent_winddown) //Just in case. Lets make sure nothing else accidentally ended it already.
+		runningWeather.sent_winddown = TRUE
+		time_to_start_next = particleEffect.lifespan + particleEffect.fade + 5 SECONDS //Lets add a constant here as well to ensure that it runs _after_ the current has ended.
 		runningWeather.wind_down()
+		runningWeather.send_winddown_message()
 
 	if(!weather_type) //If there is no weather and this point is it, it means the prob above failed to continue the weather!
 		log_game("Forecast rolled 'clear skies' for [time_of_day]")
 		return
 
 	if(!time_to_start_next)
-		time_to_start_next = 10 SECONDS
+		time_to_start_next = 5 SECONDS
 	GLOB.forecast = initial(weather_type.forecast_tag)
 
 	log_game("Forecast picked [weather_type] for [time_of_day]. It will run in [time_to_start_next] ticks.")

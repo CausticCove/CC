@@ -66,6 +66,7 @@
 	var/late_warning_message = span_greenannounce("The realms wind blows as weather begins to turn.")
 	//wind down message when the wind-down is called for this weather signalling it's end
 	var/wind_down_message
+	var/sent_winddown = FALSE
 	//Caustic Edit End
 
 	// Sounds to play at different severities - order from lowest to highest
@@ -187,6 +188,7 @@
 		return //some cheeky git has started you early
 	//weather_duration = rand(weather_duration_lower, weather_duration_upper) //Caustic Edit - Changing the weather so that it can just keep going until the particle weather controller chooses a new one, or chooses to end it!
 	running = TRUE
+	sent_winddown = FALSE
 	//addtimer(CALLBACK(src, PROC_REF(wind_down)), weather_duration) //Caustic Edit - Same as 2 lines above!
 
 	if(particleEffectType)
