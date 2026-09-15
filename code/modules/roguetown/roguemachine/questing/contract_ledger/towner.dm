@@ -238,12 +238,10 @@ GLOBAL_LIST_INIT(towner_posting_descriptors, list(
 		to_chat(poster, span_warning("No landmark could take that contract. Your funds are refunded."))
 		return
 
-	dispatched.funding_cost = cost
 	if(crown_funded)
-		dispatched.funding_fund = SStreasury.discretionary_fund
+		dispatched.add_funding(SStreasury.discretionary_fund, cost)
 	else
-		dispatched.funding_fund = poster_account
-		dispatched.funding_escrow = SStreasury.discretionary_fund
+		dispatched.add_funding(poster_account, cost, SStreasury.discretionary_fund)
 
 	playsound(src, 'sound/misc/coindispense.ogg', 60, FALSE, -1)
 	var/purse_note = crown_funded ? " Paid from the Treasury." : ""

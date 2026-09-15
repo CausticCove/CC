@@ -351,7 +351,7 @@ SUBSYSTEM_DEF(questpool)
 
 /// Bearer-bond scroll is spawned straight into the Steward's hand. Wave 1 materializes
 /// on first scroll-open, not at issue time — see quest_scroll_blockade.attack_self.
-/datum/controller/subsystem/questpool/proc/issue_blockade_defense_quest(datum/blockade/B, mob/living/carbon/human/steward, datum/fund/source_fund, cost = 0)
+/datum/controller/subsystem/questpool/proc/issue_blockade_defense_quest(datum/blockade/B, mob/living/carbon/human/steward)
 	if(!B || !steward)
 		return null
 	if(B.has_active_scroll())
@@ -376,8 +376,6 @@ SUBSYSTEM_DEF(questpool)
 		qdel(Q)
 		return null
 	Q.reward_amount = BLOCKADE_SCROLL_REWARD + TR.blockade_travel_fee
-	Q.funding_fund = source_fund
-	Q.funding_cost = cost
 	Q.issued_at = world.time
 	var/obj/item/quest_writ/blockade/scroll = new(get_turf(steward))
 	scroll.base_icon_state = Q.get_scroll_icon()
@@ -397,8 +395,8 @@ SUBSYSTEM_DEF(questpool)
 /// hoard-bearing regions without an economic region (Terrorbog) work. Raised either by a
 /// fellowship's own pledge (is_commission = FALSE, fellowship-gated at issue) or drafted
 /// by the Steward like any defense writ (is_commission = TRUE, fellowship-gated only when
-/// pinned to the ledger). source_fund/cost feed the standard recall-refund machinery.
-/datum/controller/subsystem/questpool/proc/issue_hoard_recovery_request(datum/threat_region/TR, mob/living/carbon/human/requester, datum/fund/source_fund, cost = 0, is_commission = FALSE)
+/// pinned to the ledger).
+/datum/controller/subsystem/questpool/proc/issue_hoard_recovery_request(datum/threat_region/TR, mob/living/carbon/human/requester, is_commission = FALSE)
 	if(!TR || !requester)
 		return null
 	var/fid = SSeconomy.pick_blockade_faction_for(TR)
@@ -414,8 +412,6 @@ SUBSYSTEM_DEF(questpool)
 	Q.deposit_amount = 0
 	Q.reward_amount = BLOCKADE_SCROLL_REWARD + TR.blockade_travel_fee
 	Q.required_fellowship_size = is_commission ? 0 : BLOCKADE_FELLOWSHIP_REQUIREMENT
-	Q.funding_fund = source_fund
-	Q.funding_cost = cost
 	var/obj/effect/landmark/quest_spawner/landmark = find_quest_landmark(QUEST_BLOCKADE_DEFENSE, TR.region_name, Q)
 	if(!landmark)
 		qdel(Q)

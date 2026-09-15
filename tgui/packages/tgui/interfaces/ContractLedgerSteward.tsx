@@ -24,7 +24,7 @@ type BlockadeRecallEntry = {
   recall_blocker: string | null;
   seconds_until_recallable: number;
   refund: number;
-  refund_fund: string | null;
+  refund_text: string;
 };
 
 type StewardData = {
@@ -266,6 +266,7 @@ const ComposeView = () => {
   // 0 = none, 1 = light (1.25x), 2 = full (1.5x). Matches COMMISSION_BONUS_PAY_* defines.
   const [bonusPayLevel, setBonusPayLevel] = useState<0 | 1 | 2>(0);
   const [funding, setFunding] = useState<FundingSource>('pledge');
+  const [crownTopup, setCrownTopup] = useState<boolean>(false);
   const [inflight, setInflight] = useState<boolean>(false);
 
   const aldermanActing = !!data.is_alderman_acting;
@@ -296,6 +297,14 @@ const ComposeView = () => {
         : 1;
   const scaledCost = effectiveLevel !== 0 ? Math.round(cost * bonusMult) : cost;
   const effectiveCost = funding === 'directive' ? 0 : scaledCost;
+  const pledgeShortfall =
+    funding === 'pledge' && !aldermanActing
+      ? Math.max(0, scaledCost - data.pledge_balance)
+      : 0;
+  const topupActive = pledgeShortfall > 0 && crownTopup;
+  const costLabel = topupActive
+    ? `${coin(scaledCost - pledgeShortfall)} Pledge + ${coin(pledgeShortfall)} Purse`
+    : coin(effectiveCost);
 
   // If the currently-selected funding disappears (pledge repealed, quota spent), fall back.
   if (funding === 'pledge' && !pledgeAvailable) {
@@ -362,6 +371,7 @@ const ComposeView = () => {
       // Bonus Pay forced off for Requests (directive) server-side as well.
       bonus_pay_level: effectiveLevel,
       funding,
+      crown_topup: topupActive ? 1 : 0,
     });
     setTimeout(() => setInflight(false), DISPATCH_DEBOUNCE_MS);
   };
@@ -519,6 +529,20 @@ const ComposeView = () => {
           </label>
         </div>
       </FormRow>
+
+      {pledgeShortfall > 0 && (
+        <FormRow label="Shortfall">
+          <label>
+            <input
+              type="checkbox"
+              checked={crownTopup}
+              onChange={(e) => setCrownTopup(e.target.checked)}
+            />
+            &nbsp;Cover the {coin(pledgeShortfall)} shortfall from the
+            Crown&apos;s Purse ({coin(data.crown_purse_balance)})
+          </label>
+        </FormRow>
+      )}
 
       {pledgeShortfall > 0 && (
         <FormRow label="Shortfall">

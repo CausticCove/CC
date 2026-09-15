@@ -43,9 +43,39 @@
 		"recall_eligible" = recall_eligible,
 		"recall_blocker" = reason,
 		"seconds_until_recallable" = seconds_until_recallable,
-		"refund" = Q.funding_cost,
-		"refund_fund" = Q.funding_fund ? Q.funding_fund.name : null,
+		"refund" = Q.get_funding_total(),
+		"refund_text" = Q.describe_issuer_refund(),
 	)
+
+/obj/structure/roguemachine/contractledger/proc/draw_commission_funds(list/draws, reason)
+	var/list/drawn = list()
+	for(var/list/draw as anything in draws)
+		if(!SStreasury.burn(draw["fund"], draw["amount"], reason))
+			refund_commission_draws(drawn, "[reason] - refund (draft refused)")
+			return FALSE
+		drawn += list(draw)
+		if(draw["fund"] == SStreasury.burgher_pledge_fund)
+			record_round_statistic(STATS_PLEDGE_CONSUMED, draw["amount"])
+	return TRUE
+
+/obj/structure/roguemachine/contractledger/proc/refund_commission_draws(list/draws, reason)
+	for(var/list/draw as anything in draws)
+		SStreasury.mint(draw["fund"], draw["amount"], reason)
+		if(draw["fund"] == SStreasury.burgher_pledge_fund)
+			record_round_statistic(STATS_PLEDGE_CONSUMED, -draw["amount"])
+
+/obj/structure/roguemachine/contractledger/proc/attach_commission_draws(datum/quest/Q, list/draws)
+	for(var/list/draw as anything in draws)
+		Q.add_funding(draw["fund"], draw["amount"])
+
+/obj/structure/roguemachine/contractledger/proc/commission_source_label(is_directive, list/draws)
+	if(is_directive)
+		return "as a Request"
+	var/list/names = list()
+	for(var/list/draw as anything in draws)
+		var/datum/fund/fund = draw["fund"]
+		names += (fund == SStreasury.burgher_pledge_fund) ? "the Pledge" : fund.name
+	return "from [english_list(names)]"
 
 /obj/structure/roguemachine/contractledger/proc/build_region_tp_multipliers()
 	var/list/out = list()
@@ -171,11 +201,11 @@
 			return
 
 	if(chosen_type == QUEST_BLOCKADE_DEFENSE)
-		commission_blockade_defense(steward, params, cost, source_fund, is_directive, bonus_pay_level, is_alderman_acting)
+		commission_blockade_defense(steward, params, cost, draws, funding, is_directive, bonus_pay_level, is_alderman_acting)
 		return
 
 	if(chosen_type == QUEST_HOARD_RECOVERY)
-		commission_hoard_recovery(steward, params, cost, source_fund, is_directive, bonus_pay_level, is_alderman_acting)
+		commission_hoard_recovery(steward, params, cost, draws, funding, is_directive, bonus_pay_level, is_alderman_acting)
 		return
 
 	var/region_name = params["region"]
@@ -193,8 +223,6 @@
 	if(!draw_commission_funds(draws, "Defense contract ([chosen_type] in [chosen_region.region_name])"))
 		to_chat(steward, span_warning("The payment didn't go through."))
 		return
-	if(source_fund == SStreasury.burgher_pledge_fund && cost > 0)
-		record_round_statistic(STATS_PLEDGE_CONSUMED, cost)
 	if(is_alderman_acting && cost > 0)
 		SScity_assembly.consume_defense(cost, steward, "[chosen_type] defense contract in [chosen_region.region_name]")
 	var/in_hands = params["in_hands"] ? TRUE : FALSE
@@ -218,9 +246,7 @@
 		dispatched.reward_amount = 0
 		dispatched.is_directive = TRUE
 		directives_issued_today++
-	if(source_fund && cost > 0)
-		dispatched.funding_fund = source_fund
-		dispatched.funding_cost = cost
+	attach_commission_draws(dispatched, draws)
 	if(is_alderman_acting && cost > 0)
 		dispatched.warrant_consumed = cost
 	var/bonus_label_text = get_commission_bonus_pay_label(bonus_pay_level)
@@ -239,14 +265,14 @@
 	dispatched.issue_log_entry = log_entry
 	SSquestpool.log_event("defense_issue", "[steward.real_name] commissioned [dispatched.quest_difficulty] [chosen_type] in [chosen_region.region_name] for [cost]m ([funding])[levy_exempt ? " (levy-exempt)" : ""][bonus_label_text ? " ([bonus_label_text])" : ""][in_hands ? " (in hand)" : ""]")
 	playsound(src, 'sound/misc/coindispense.ogg', 60, FALSE, -1)
-	var/source_label = is_directive ? "as a Request" : (funding == "crown" ? "from Crown's Purse" : "from the Pledge")
-	var/bonus_label = bonus_label_text ? " - <i>[bonus_label_text]</i>" : ""
+	var/source_label = commission_source_label(is_directive, draws)
+	var/bonus_label =bonus_label_text ? " - <i>[bonus_label_text]</i>" : ""
 	if(in_hands)
 		to_chat(steward, span_notice("Contract issued [source_label] and placed in your hand: <b>[dispatched.title || dispatched.quest_type]</b> in [chosen_region.region_name][levy_exempt ? " - <i>levy exempt</i>" : ""][bonus_label]."))
 	else
 		to_chat(steward, span_notice("Contract posted [source_label]: <b>[dispatched.title || dispatched.quest_type]</b> in [chosen_region.region_name][levy_exempt ? " - <i>levy exempt</i>" : ""][bonus_label]."))
 
-/obj/structure/roguemachine/contractledger/proc/commission_blockade_defense(mob/living/carbon/human/steward, list/params, cost, datum/fund/source_fund, is_directive, bonus_pay_level = COMMISSION_BONUS_PAY_NONE, is_alderman_acting = FALSE)
+/obj/structure/roguemachine/contractledger/proc/commission_blockade_defense(mob/living/carbon/human/steward, list/params, cost, list/draws, funding, is_directive,bonus_pay_level = COMMISSION_BONUS_PAY_NONE, is_alderman_acting = FALSE)
 	var/region_name = params["region"]
 	var/datum/blockade/chosen
 	for(var/datum/blockade/B as anything in GLOB.active_blockades)
@@ -263,9 +289,7 @@
 	if(!draw_commission_funds(draws, "Blockade defense scroll ([region_name])"))
 		to_chat(steward, span_warning("The payment didn't go through."))
 		return
-	if(source_fund == SStreasury.burgher_pledge_fund && cost > 0)
-		record_round_statistic(STATS_PLEDGE_CONSUMED, cost)
-	var/datum/quest/kill/blockade_defense/Q = SSquestpool.issue_blockade_defense_quest(chosen, steward, is_directive ? null : source_fund, is_directive ? 0 : cost)
+	var/datum/quest/kill/blockade_defense/Q = SSquestpool.issue_blockade_defense_quest(chosen, steward)
 	if(!Q)
 		refund_commission_draws(draws, "Blockade defense scroll refund (issue failure)")
 		SSquestpool.log_event("defense_refund", "landmark failure blockade [region_name] refunded [cost]m")
@@ -284,7 +308,6 @@
 	var/levy_exempt = (!is_directive && !is_alderman_acting && params["levy_exempt"]) ? TRUE : FALSE
 	if(levy_exempt)
 		Q.levy_exempt = TRUE
-	var/funding = is_directive ? "directive" : (source_fund == SStreasury.discretionary_fund ? "crown" : "pledge")
 	var/bonus_label_text = get_commission_bonus_pay_label(bonus_pay_level)
 	var/list/log_entry = list(
 		"title" = Q.get_title(),
@@ -305,7 +328,7 @@
 	var/source_label = commission_source_label(is_directive, draws)
 	to_chat(steward, span_notice("Blockade scroll issued [source_label] and placed in your hand: <b>[Q.get_title()]</b>[levy_exempt ? " - <i>levy exempt</i>" : ""][bonus_label_text ? " - <i>[bonus_label_text]</i>" : ""]."))
 
-/obj/structure/roguemachine/contractledger/proc/commission_hoard_recovery(mob/living/carbon/human/steward, list/params, cost, datum/fund/source_fund, is_directive, bonus_pay_level = COMMISSION_BONUS_PAY_NONE, is_alderman_acting = FALSE)
+/obj/structure/roguemachine/contractledger/proc/commission_hoard_recovery(mob/living/carbon/human/steward, list/params, cost, list/draws, funding, is_directive,bonus_pay_level = COMMISSION_BONUS_PAY_NONE, is_alderman_acting = FALSE)
 	var/region_name = params["region"]
 	var/datum/threat_region/TR = SSregionthreat.get_region(region_name)
 	if(!TR || TR.banditry_hoard < HOARD_RECOVERY_HOARD_MINIMUM)
@@ -321,9 +344,7 @@
 	if(!draw_commission_funds(draws, "Hoard recovery scroll ([region_name])"))
 		to_chat(steward, span_warning("The payment didn't go through."))
 		return
-	if(source_fund == SStreasury.burgher_pledge_fund && cost > 0)
-		record_round_statistic(STATS_PLEDGE_CONSUMED, cost)
-	var/datum/quest/kill/blockade_defense/Q = SSquestpool.issue_hoard_recovery_request(TR, steward, is_directive ? null : source_fund, is_directive ? 0 : cost, TRUE)
+	var/datum/quest/kill/blockade_defense/Q = SSquestpool.issue_hoard_recovery_request(TR, steward, TRUE)
 	if(!Q)
 		refund_commission_draws(draws, "Hoard recovery scroll refund (issue failure)")
 		SSquestpool.log_event("defense_refund", "landmark failure hoard recovery [region_name] refunded [cost]m")
@@ -342,7 +363,6 @@
 	var/levy_exempt = (!is_directive && !is_alderman_acting && params["levy_exempt"]) ? TRUE : FALSE
 	if(levy_exempt)
 		Q.levy_exempt = TRUE
-	var/funding = is_directive ? "directive" : (source_fund == SStreasury.discretionary_fund ? "crown" : "pledge")
 	var/bonus_label_text = get_commission_bonus_pay_label(bonus_pay_level)
 	var/list/log_entry = list(
 		"title" = Q.get_title(),

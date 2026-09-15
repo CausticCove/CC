@@ -278,11 +278,12 @@ GLOBAL_LIST_INIT(contract_proxy_officials, list(
 	if(!SStreasury.burn(pledge_account, HOARD_RECOVERY_PLEDGE, "Hoard Recovery stake ([TR.region_name])"))
 		to_chat(user, span_warning("The deposit could not be taken from your account."))
 		return
-	var/datum/quest/kill/blockade_defense/Q = SSquestpool.issue_hoard_recovery_request(TR, user, pledge_account, HOARD_RECOVERY_PLEDGE)
+	var/datum/quest/kill/blockade_defense/Q = SSquestpool.issue_hoard_recovery_request(TR, user)
 	if(!Q)
 		SStreasury.mint(pledge_account, HOARD_RECOVERY_PLEDGE, "Hoard Recovery deposit refund (issue failure)")
 		to_chat(user, span_warning("No recovery scroll can be raised for [TR.region_name] right now. Your deposit is returned."))
 		return
+	Q.add_funding(pledge_account, HOARD_RECOVERY_PLEDGE)
 	playsound(src, 'sound/items/inqslip_sealed.ogg', 50, TRUE, -1)
 	to_chat(user, span_notice("Recovery scroll issued for [TR.region_name]."))
 	SSquestpool.log_event("hoard_recovery_request", "[user.real_name] called a hoard recovery on [TR.region_name] (hoard [TR.banditry_hoard], pledge [HOARD_RECOVERY_PLEDGE])")

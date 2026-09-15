@@ -51,9 +51,7 @@ GLOBAL_LIST_EMPTY(quest_mobs)
 	var/band_leader_name = ""
 	var/writ_type = WRIT_TYPE_OUTLAWRY
 	var/circumstance_text = ""
-	var/datum/fund/funding_fund
-	var/datum/fund/funding_escrow
-	var/funding_cost = 0
+	var/list/funding_sources
 	var/funding_rumor_points = 0
 	var/warrant_consumed = 0
 	var/list/issue_log_entry
