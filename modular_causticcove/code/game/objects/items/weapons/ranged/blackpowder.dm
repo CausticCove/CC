@@ -38,6 +38,10 @@
 	pickup_sound = 'modular_causticcove/sound/sheath_sounds/draw_from_holster.ogg'
 
 	//These Vars are used for internal state/sound handling and storing the ramrod.
+	var/multiple_shot = FALSE //Generally intended to be used with need_handload = FALSE as well
+	var/needs_handload = TRUE
+	var/has_rod = TRUE
+
 	var/reloaded = FALSE
 	var/gunpowder = FALSE
 	var/obj/item/ramrod/myrod = null
@@ -51,7 +55,8 @@
 
 /obj/item/gun/ballistic/revolver/grenadelauncher/blackpowder/Initialize()
 	. = ..()
-	myrod = new /obj/item/ramrod(src)
+	if(has_rod)
+		myrod = new /obj/item/ramrod(src)
 
 /obj/item/gun/ballistic/revolver/grenadelauncher/blackpowder/getonmobprop(tag)
 	. = ..()
@@ -76,6 +81,9 @@
 	. = ..()
 
 /obj/item/gun/ballistic/revolver/grenadelauncher/blackpowder/attack_right(mob/user)
+	if(!has_rod)
+		return
+
 	if(user.get_active_held_item())
 		return
 	else
@@ -106,6 +114,10 @@
 	update_icon()
 
 /obj/item/gun/ballistic/revolver/grenadelauncher/blackpowder/attackby(obj/item/A, mob/living/carbon/user, params) // Reloading code for rifle
+	if(!needs_handload)
+		..()
+		return
+
 	user.stop_sound_channel(gun_sound_channel)
 	var/firearm_skill = (user?.mind ? user.get_skill_level(/datum/skill/combat/firearms) : 1)
 	var/load_time_skill = load_time - (firearm_skill*2)
@@ -173,14 +185,21 @@
 			spread = 150 - (150 * (user.client.chargedprog / 100))
 	else
 		spread = 0
-	for(var/obj/item/ammo_casing/CB in get_ammo_list(FALSE, TRUE))
-		var/obj/projectile/BB = CB.BB
-		BB.damage = BB.damage * damfactor
-		BB.range = range
-	gunpowder = FALSE
-	reloaded = FALSE
+	//for(var/obj/item/ammo_casing/CB in get_ammo_list(FALSE, TRUE))
+	var/obj/projectile/BB = chambered.BB
+	BB.damage = BB.damage * damfactor
+	BB.range = range
+
+	if(!multiple_shot)
+		gunpowder = FALSE
+		reloaded = FALSE
 	user.adjust_experience(/datum/skill/combat/firearms, (user.STAINT*5))
 	..()
+	if(multiple_shot)
+		if(!magazine.ammo_count(FALSE))
+			gunpowder = FALSE
+			reloaded = FALSE
+
 	new /obj/effect/particle_effect/sparks/muzzle(get_ranged_target_turf(user, user.dir, 1))
 	spawn (5)
 		new/obj/effect/particle_effect/smoke/arquebus(get_ranged_target_turf(user, user.dir, 1))
@@ -370,9 +389,31 @@
 	range = 30
 	load_time = 50
 
+/obj/item/gun/ballistic/revolver/grenadelauncher/blackpowder/arquebus/grenzelhoft
+	name = "grenzelhoftian arquebus rifle"
+	desc = "A gunpowder weapon that shoots an armor piercing metal ball. This one is of a Grenzelhoftian design."
+	icon_state = "arquebus"
+	item_state = "arquebus"
+
+/obj/item/gun/ballistic/revolver/grenadelauncher/blackpowder/arquebus/grenzelhoft/getonmobprop(tag)
+	if(tag)
+		switch(tag)
+			if("gen")
+				return list("shrink" = 0.6, "sx" = -7, "sy" = 6, "nx" = 7, "ny" = 6, "wx" = -2, "wy" = 3, "ex" = 1, "ey" = 3,
+							"northabove" = 0, "southabove" = 1, "eastabove" = 1, "westabove" = 0,
+							"nturn" = -43, "sturn" = 43, "wturn" = 30, "eturn" = -30, "nflip" = 0, "sflip" = 8, "wflip" = 8, "eflip" = 0)
+			if("wielded")
+				return list("shrink" = 0.6, "sx" = 5, "sy" = -2, "nx" = -5, "ny" = -1, "wx" = -8, "wy" = 2, "ex" = 8, "ey" = 2,
+							"northabove" = 0, "southabove" = 1, "eastabove" = 1, "westabove" = 1,
+							"nturn" = -45, "sturn" = 45, "wturn" = 0, "eturn" = 0, "nflip" = 8, "sflip" = 0, "wflip" = 8, "eflip" = 0)
+			if("onback")
+				return list("shrink" = 0.5, "sx" = -1, "sy" = 2, "nx" = 0, "ny" = 2, "wx" = 2, "wy" = 1, "ex" = 0, "ey" = 1,
+							"northabove" = 1, "southabove" = 0, "eastabove" = 0, "westabove" = 0,
+							"nturn" = 0, "sturn" = 0, "wturn" = 70, "eturn" = 15, "nflip" = 1, "sflip" = 1, "wflip" = 1, "eflip" = 1)
+
 /obj/item/gun/ballistic/revolver/grenadelauncher/blackpowder/handgonne
-	name = "handgonne"
-	desc = "A gunpowder weapon that shoots an armor piercing metal ball."
+	name = "hand-bombard"
+	desc = "An older gunpowder weapon that shoots a single massive projectile."
 	icon = 'modular_causticcove/icons/weapons/blackpowder64.dmi'
 	icon_state = "handgonne"
 	item_state = "handgonne"
@@ -408,6 +449,12 @@
 				return list("shrink" = 0.5, "sx" = -1, "sy" = 2, "nx" = 0, "ny" = 2, "wx" = 2, "wy" = 1, "ex" = 0, "ey" = 1,
 							"northabove" = 1, "southabove" = 0, "eastabove" = 0, "westabove" = 0,
 							"nturn" = 0, "sturn" = 0, "wturn" = 70, "eturn" = 15, "nflip" = 1, "sflip" = 1, "wflip" = 1, "eflip" = 1)
+
+/obj/item/gun/ballistic/revolver/grenadelauncher/blackpowder/handgonne/culverin
+	name = "culverin"
+	desc = "An older gunpowder weapon that shoots a single massive projectile. This one is of more recent make, with a better fitting stock and longer barrel."
+	icon_state = "handgonne_alt"
+	item_state = "handgonne_alt"
 
 /obj/item/gun/ballistic/revolver/grenadelauncher/blackpowder/blunderbus
 	name = "blunderbus"
@@ -478,7 +525,7 @@
 // - Boomstick - And related handling override code
 /obj/item/gun/ballistic/revolver/grenadelauncher/blackpowder/small/boomstick
 	name = "The Boomstick"
-	desc = "A unique deviation on the blackpowder weaponry, constructed and sanctified by the Inquisition. Able to fire silver projectiles, the ammo is heavily regulated by the Otavan Inquisition as it's shot comes pre-blessed. Groovy."
+	desc = "A unique deviation on blackpowder weaponry, constructed and sanctified by the Inquisition. Able to fire silver projectiles, the ammo is heavily regulated by the Otavan Inquisition as it's shot comes pre-blessed. Groovy."
 	icon = 'modular_causticcove/icons/weapons/blackpowder32.dmi'
 	icon_state = "boomstick"
 	item_state = "boomstick"
@@ -487,9 +534,9 @@
 	minstr = 7
 	mag_type = /obj/item/ammo_box/magazine/internal/blackpowder/boomstick
 	cartridge_wording = "boomstick_round"
-	casing_ejector = FALSE
 	load_sound = 'modular_causticcove/sound/sheath_sounds/put_back_dagger.ogg'
-	var/open_sound = 'modular_causticcove/sound/arquebus/insert.ogg'
+	var/unload_sound = 'modular_causticcove/sound/arquebus/insert.ogg'
+	var/open_sound = 'modular_causticcove/sound/arquebus/musketcock.ogg'
 	fire_sound = 'modular_causticcove/sound/arquebus/arquefire3.ogg'
 	anvilrepair = /datum/skill/craft/weaponsmithing
 	smeltresult = /obj/item/ash
@@ -500,6 +547,9 @@
 	damfactor = 0.35
 	range = 12
 	load_time = 30 //Might not even use this
+	multiple_shot = TRUE
+	needs_handload = FALSE
+	has_rod = FALSE
 
 	spin_cooldown = 5 SECONDS
 	var/barrel_open = FALSE
@@ -511,15 +561,69 @@
 	else
 		icon_state = initial(src.icon_state)
 
+/obj/item/gun/ballistic/revolver/grenadelauncher/blackpowder/small/boomstick/process_chamber(empty_chamber = TRUE, from_firing = TRUE, chamber_next_round = TRUE)
+	if(!semi_auto && from_firing)
+		return
+	var/obj/item/ammo_casing/AC = chambered //Find chambered round
+	if(istype(AC)) //there's a chambered round
+		if(empty_chamber)
+			chambered = null
+	if (chamber_next_round && (magazine?.max_ammo > 1))
+		chamber_round(TRUE)
+
 /obj/item/gun/ballistic/revolver/grenadelauncher/blackpowder/small/boomstick/attack_right(mob/user)
 	if(barrel_open)
-
+		if(!user.get_active_held_item())
+			if(magazine.ammo_count())
+				var/obj/item/ammo_casing/caseless/rogue/bullet/blackpowder/boomstick_round/round = magazine.get_round()
+				round.update_count()
+				user.put_in_active_hand(round)
+				user.visible_message(span_notice("[user] pulls a round out of [src.name]."), span_notice("You pull out a round from [src.name]."))
+				playsound(user, unload_sound, 100, FALSE, ignore_walls = FALSE)
+				update_icon_state()
+			else
+				to_chat(user, span_notice("[src.name] is already empty."))
+		else
+			if(magazine.ammo_count())
+				to_chat(user, span_notice("You need an empty hand to unload [src.name]."))
+			else
+				to_chat(user, span_notice("[src.name] is already empty."))
 
 /obj/item/gun/ballistic/revolver/grenadelauncher/blackpowder/small/boomstick/MiddleClick(mob/user, params)
 	if(barrel_open)
 		barrel_open = FALSE
-		user.visible_message(span_notice("[user] clicks [src.name]'s barrel shut."), span_notice("You snap the barrels closed!"))
+		user.visible_message(span_notice("[user] clicks [src.name]'s barrels shut."), span_notice("You snap the barrels closed!"))
+		playsound(user, open_sound, 100, FALSE, ignore_walls = FALSE)
 		update_icon_state()
+		process_chamber(FALSE, FALSE, TRUE)
+	else
+		barrel_open = TRUE
+		user.visible_message(span_notice("[user] snaps [src.name]'s barrels open."), span_notice("You crack the barrels open!"))
+		playsound(user, open_sound, 100, FALSE, ignore_walls = FALSE)
+		update_icon_state()
+		process_chamber(TRUE, FALSE, FALSE)
+
+/obj/item/gun/ballistic/revolver/grenadelauncher/blackpowder/small/boomstick/attackby(obj/item/A, mob/living/carbon/user, params)
+	if(barrel_open)
+		if(istype(A, magazine.ammo_type))
+			var/obj/item/ammo_casing/caseless/rogue/bullet/blackpowder/boomstick_round/round_stack = A
+			var/obj/item/ammo_casing/caseless/rogue/bullet/blackpowder/boomstick_round/round
+			if(round_stack.num_rounds == 2)
+				round_stack.num_rounds -= 1
+				round = new /obj/item/ammo_casing/caseless/rogue/bullet/blackpowder/boomstick_round()
+				round.update_count()
+			else
+				round = round_stack
+
+			if(magazine.attackby(round, user, params, silent = TRUE))
+				reloaded = TRUE
+				round_stack.update_count()
+				user.visible_message(span_notice("[user] loads a round into [src.name]!"), span_notice("You slide the round into a barrel."))
+				playsound(user, load_sound, 100, FALSE, ignore_walls = FALSE)
+				update_icon_state()
+	else
+		if(!istype(A, magazine.ammo_type))
+			. = ..()
 
 // -- Related Items --
 /obj/item/ramrod

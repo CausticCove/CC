@@ -75,7 +75,7 @@
 	icon_state = "boomstickshot"
 	pellets = BOOMSTICK_NUM_PELLETS
 	variance = 15
-	var/num_rounds = 1 //If num_rounds is 0, it's already been fired and spent!
+	var/num_rounds = 1
 	var/max_rounds = 2
 
 /obj/projectile/bullet/reusable/bullet/blackpowder/boomstick_pellet
@@ -89,10 +89,18 @@
 	is_silver_proj = TRUE
 	ammo_type = /obj/item/pellet/boomstick
 
+/obj/item/ammo_casing/caseless/rogue/bullet/blackpowder/boomstick_round/Initialize()
+	. = ..()
+	update_count()
+
+/obj/item/ammo_casing/caseless/rogue/bullet/blackpowder/boomstick_round/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
+	. = ..()
+	update_count()
+
 /obj/item/ammo_casing/caseless/rogue/bullet/blackpowder/boomstick_round/attackby(obj/item/I, mob/living/user, params) //Basically reusing the pellet code below but, much more restrictive since it's only ever going to stack to 2, so the ammo is rare, and cannot stack after firing. (Only cause we don't have sprites for 2 fired ones)
-	if(num_rounds == 1 && istype(I, /obj/item/ammo_casing/caseless/rogue/bullet/blackpowder/boomstick_round))
+	if(BB && num_rounds == 1 && istype(I, /obj/item/ammo_casing/caseless/rogue/bullet/blackpowder/boomstick_round))
 		var/obj/item/ammo_casing/caseless/rogue/bullet/blackpowder/boomstick_round/hit_by = I
-		if(hit_by.num_rounds == 1)
+		if(hit_by.BB && hit_by.num_rounds == 1)
 			hit_by.num_rounds += 1
 			to_chat(user, span_notice("You pair the [src.name] with it's partner."))
 			hit_by.update_count()
@@ -102,8 +110,10 @@
 	. = ..()
 
 /obj/item/ammo_casing/caseless/rogue/bullet/blackpowder/boomstick_round/proc/update_count()
-	icon_state = "[initial(src.icon_state)]_[num_rounds]"
-	src.update_icon()
+	if(!BB) //If it has no bullet, it's been fired already.
+		icon_state = "[initial(src.icon_state)]_0"
+	else
+		icon_state = "[initial(src.icon_state)]_[num_rounds]"
 
 /obj/item/pellet
 	var/num_rounds = 1
@@ -167,8 +177,8 @@
 /obj/item/pellet/boomstick
 	name = "blessed silver pellet"
 	desc = "Blessed Silver fired from an Inquisitorial Boomstick! Creechers of the nite beware!"
-	icon = 'icons/roguetown/weapons/ranged/sling_mob.dmi'
-	icon_state = "silverbullet"
+	icon = 'modular_causticcove/icons/weapons/blackpowder_ammo.dmi'
+	icon_state = "pellet_silver"
 	w_class = WEIGHT_CLASS_TINY
 	force = 0
 	throwforce = 0
@@ -177,8 +187,9 @@
 	max_integrity = 0.1
 	grid_width = 32
 	grid_height = 32
-	max_rounds = 0
+	max_rounds = BOOMSTICK_NUM_PELLETS
 	caliber = "boomstick-silver"
 	full_item = /obj/item/ammo_casing/caseless/rogue/bullet/blackpowder/grapeshot
 
 #undef BLUNDERBUS_NUM_PELLETS
+#undef BOOMSTICK_NUM_PELLETS
