@@ -18,9 +18,6 @@
 	var/current_archetype = BLOCKADE_ARCHETYPE_WARBAND
 	var/wave_boss_name
 	var/issued_at = 0
-	var/datum/fund/funding_fund
-	var/funding_cost = 0
-	var/warrant_consumed = 0
 
 /datum/quest/kill/blockade_defense/get_scroll_type()
 	return /obj/item/quest_writ/blockade
@@ -327,13 +324,8 @@
 	if(B)
 		B.active_scroll_ref = null
 		B.active_quest_ref = null
-	if(funding_fund && funding_cost > 0)
-		SStreasury.mint(funding_fund, funding_cost, "Blockade writ recall refund ([recaller ? recaller.real_name : "unknown"])")
-		if(funding_fund == SStreasury.burgher_pledge_fund)
-			record_round_statistic(STATS_PLEDGE_CONSUMED, -funding_cost)
-	if(warrant_consumed > 0)
-		SScity_assembly?.refund_defense(warrant_consumed, recaller, "blockade writ recall")
-		warrant_consumed = 0
+	var/refund_text = refund_issuer_funding("Blockade writ recall refund ([recaller ? recaller.real_name : "unknown"])", recaller)
+	mark_issue_log(QUEST_ISSUE_STATUS_RECALLED, refund_text)
 	var/obj/item/quest_writ/S = quest_scroll
 	if(S && !QDELETED(S))
 		qdel(S)

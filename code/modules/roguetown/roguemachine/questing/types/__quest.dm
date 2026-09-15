@@ -51,6 +51,16 @@ GLOBAL_LIST_EMPTY(quest_mobs)
 	var/band_leader_name = ""
 	var/writ_type = WRIT_TYPE_OUTLAWRY
 	var/circumstance_text = ""
+	var/datum/fund/funding_fund
+	var/datum/fund/funding_escrow
+	var/funding_cost = 0
+	var/funding_rumor_points = 0
+	var/warrant_consumed = 0
+	var/list/issue_log_entry
+	var/last_claimed_at = 0
+	var/engaged = FALSE
+	var/datum/fund/deposit_payer
+	var/deposit_paid = 0
 
 /datum/quest/proc/get_lapse_time()
 	var/window = (source == QUEST_SOURCE_POOL) ? QUEST_POOL_STALE_THRESHOLD : QUEST_PLAYER_STALE_THRESHOLD
@@ -63,6 +73,12 @@ GLOBAL_LIST_EMPTY(quest_mobs)
 			held_landmark.claimed_by = null
 		if(materialized)
 			held_landmark.cooldown_until = world.time + QUEST_LANDMARK_COOLDOWN
+
+	for(var/datum/weakref/spawner_ref in spawners)
+		var/obj/effect/quest_spawn/spawner = spawner_ref.resolve()
+		if(!QDELETED(spawner))
+			qdel(spawner)
+	spawners.Cut()
 
 	for(var/datum/weakref/tracked_weakref in tracked_atoms)
 		var/atom/target_atom = tracked_weakref.resolve()
@@ -131,6 +147,7 @@ GLOBAL_LIST_EMPTY(quest_mobs)
 
 /datum/quest/proc/pop_all_spawners()
 	if(length(spawners))
+		engaged = TRUE
 		on_first_pop()
 	for(var/datum/weakref/ref in spawners)
 		var/obj/effect/quest_spawn/spawner = ref.resolve()

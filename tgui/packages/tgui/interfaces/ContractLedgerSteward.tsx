@@ -2,6 +2,11 @@ import { type ReactNode, useState } from 'react';
 
 import { useBackend } from '../backend';
 import { formatRatioPct } from './common/format';
+import {
+  type IssuedContract,
+  IssuedContractsView,
+  issueStatusSuffix,
+} from './ContractLedgerIssued';
 
 type DefenseLogEntry = {
   title: string;
@@ -9,6 +14,8 @@ type DefenseLogEntry = {
   region: string;
   cost: number;
   day: number;
+  status?: string;
+  refund?: string;
 };
 
 type BlockadeRecallEntry = {
@@ -52,7 +59,7 @@ type StewardData = {
 
 type FundingSource = 'pledge' | 'crown' | 'directive';
 
-type SubTab = 'compose' | 'history';
+type SubTab = 'compose' | 'issued' | 'history';
 const RECOVERY_TYPE = 'Recovery';
 const BLOCKADE_TYPE = 'Blockade Defense';
 const HOARD_RECOVERY_TYPE = 'Hoard Recovery';
@@ -144,10 +151,12 @@ const Select = (props: {
 const SubTabBar = (props: {
   active: SubTab;
   onSelect: (t: SubTab) => void;
+  issuedCount: number;
   historyCount: number;
 }) => {
   const tabs: { id: SubTab; label: string }[] = [
     { id: 'compose', label: 'Commission' },
+    { id: 'issued', label: `Issued (${props.issuedCount})` },
     { id: 'history', label: `History (${props.historyCount})` },
   ];
   return (
@@ -189,6 +198,7 @@ const HistoryView = (props: { log: DefenseLogEntry[] }) => {
           <span className="ContractLedger__InnkeeperHistoryMeta">
             {r.type} &middot; {r.region} &middot; day {r.day} &middot;{' '}
             {coin(r.cost)}
+            {issueStatusSuffix(r.status, r.refund)}
           </span>
         </div>
       ))}
@@ -674,6 +684,7 @@ export const StewardDefensePanel = () => {
       <SubTabBar
         active={subTab}
         onSelect={setSubTab}
+        issuedCount={(data.defense_issued || []).length}
         historyCount={(data.defense_log || []).length}
       />
 
@@ -685,6 +696,7 @@ export const StewardDefensePanel = () => {
           emptyText="No contracts are in circulation."
         />
       )}
+      {subTab === 'history' && <HistoryView log={data.defense_log || []} />}
     </div>
   );
 };

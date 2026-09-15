@@ -208,6 +208,8 @@ SUBSYSTEM_DEF(questpool)
 	for(var/datum/quest/Q as anything in stale)
 		adjust_region_count(Q, -1)
 		log_event("reroll", "stale [Q.quest_difficulty] [Q.quest_type]")
+		if(Q.source != QUEST_SOURCE_POOL)
+			refund_lapsed_posting(Q)
 		qdel(Q)
 		record_round_statistic(STATS_CONTRACTS_REROLLED)
 	for(var/i in 1 to kill_replacements_needed)
@@ -218,6 +220,26 @@ SUBSYSTEM_DEF(questpool)
 		if(!type)
 			continue
 		generate_one(type, TR, is_replacement = TRUE)
+
+/datum/controller/subsystem/questpool/proc/refund_lapsed_posting(datum/quest/Q)
+	var/label = Q.title || Q.quest_type
+	var/refund_text = Q.refund_issuer_funding("Lapsed posting refund")
+	Q.mark_issue_log(QUEST_ISSUE_STATUS_LAPSED, refund_text)
+	if(!refund_text)
+		return
+	record_round_statistic(STATS_CONTRACTS_LAPSE_REFUNDED)
+	log_event("lapse_refund", "[Q.source] [Q.quest_type] \"[label]\" by [Q.quest_giver_name || "unknown"] refunded [refund_text]")
+	log_game("Contract posting \"[label]\" ([Q.source], issued by [Q.quest_giver_name || "unknown"]) lapsed untaken - refunded [refund_text].")
+	var/mob/poster = Q.quest_giver_reference?.resolve()
+	if(poster)
+		to_chat(poster, span_notice("Your posting <b>[label]</b> lapsed untaken. Refunded [refund_text]."))
+
+/datum/controller/subsystem/questpool/proc/remove_from_pool(datum/quest/Q)
+	if(!(Q in pool))
+		return FALSE
+	pool -= Q
+	adjust_region_count(Q, -1)
+	return TRUE
 
 /datum/controller/subsystem/questpool/proc/issue_rumor_quest(type, datum/threat_region/preferred_region, area/override_destination, in_hands = FALSE, mob/living/carbon/human/innkeeper = null)
 	if(!type || !(type in GLOB.rumor_point_costs))

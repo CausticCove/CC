@@ -218,8 +218,13 @@
 		dispatched.reward_amount = 0
 		dispatched.is_directive = TRUE
 		directives_issued_today++
+	if(source_fund && cost > 0)
+		dispatched.funding_fund = source_fund
+		dispatched.funding_cost = cost
+	if(is_alderman_acting && cost > 0)
+		dispatched.warrant_consumed = cost
 	var/bonus_label_text = get_commission_bonus_pay_label(bonus_pay_level)
-	SStreasury.defense_log += list(list(
+	var/list/log_entry = list(
 		"title" = dispatched.title || dispatched.quest_type,
 		"type" = dispatched.quest_type,
 		"region" = chosen_region.region_name,
@@ -229,7 +234,9 @@
 		"bonus_pay_level" = bonus_pay_level,
 		"funding" = funding,
 		"day" = GLOB.dayspassed,
-	))
+	)
+	SStreasury.defense_log += list(log_entry)
+	dispatched.issue_log_entry = log_entry
 	SSquestpool.log_event("defense_issue", "[steward.real_name] commissioned [dispatched.quest_difficulty] [chosen_type] in [chosen_region.region_name] for [cost]m ([funding])[levy_exempt ? " (levy-exempt)" : ""][bonus_label_text ? " ([bonus_label_text])" : ""][in_hands ? " (in hand)" : ""]")
 	playsound(src, 'sound/misc/coindispense.ogg', 60, FALSE, -1)
 	var/source_label = is_directive ? "as a Request" : (funding == "crown" ? "from Crown's Purse" : "from the Pledge")
@@ -279,7 +286,7 @@
 		Q.levy_exempt = TRUE
 	var/funding = is_directive ? "directive" : (source_fund == SStreasury.discretionary_fund ? "crown" : "pledge")
 	var/bonus_label_text = get_commission_bonus_pay_label(bonus_pay_level)
-	SStreasury.defense_log += list(list(
+	var/list/log_entry = list(
 		"title" = Q.get_title(),
 		"type" = QUEST_BLOCKADE_DEFENSE,
 		"region" = region_name,
@@ -289,7 +296,9 @@
 		"bonus_pay_level" = bonus_pay_level,
 		"funding" = funding,
 		"day" = GLOB.dayspassed,
-	))
+	)
+	SStreasury.defense_log += list(log_entry)
+	Q.issue_log_entry = log_entry
 	SSquestpool.log_event("defense_issue", "[steward.real_name] commissioned blockade defense on [region_name] (faction [Q.faction_id]) for [cost]m ([funding])[levy_exempt ? " (levy-exempt)" : ""][bonus_label_text ? " ([bonus_label_text])" : ""]")
 	scom_announce("A blockade defense scroll has been issued for [region_name][bonus_label_text ? ". It carries [bonus_label_text]" : ""].")
 	playsound(src, 'sound/misc/coindispense.ogg', 60, FALSE, -1)
@@ -335,7 +344,7 @@
 		Q.levy_exempt = TRUE
 	var/funding = is_directive ? "directive" : (source_fund == SStreasury.discretionary_fund ? "crown" : "pledge")
 	var/bonus_label_text = get_commission_bonus_pay_label(bonus_pay_level)
-	SStreasury.defense_log += list(list(
+	var/list/log_entry = list(
 		"title" = Q.get_title(),
 		"type" = QUEST_HOARD_RECOVERY,
 		"region" = region_name,
@@ -345,7 +354,9 @@
 		"bonus_pay_level" = bonus_pay_level,
 		"funding" = funding,
 		"day" = GLOB.dayspassed,
-	))
+	)
+	SStreasury.defense_log += list(log_entry)
+	Q.issue_log_entry = log_entry
 	SSquestpool.log_event("defense_issue", "[steward.real_name] commissioned hoard recovery on [region_name] (faction [Q.faction_id], hoard [TR.banditry_hoard]) for [cost]m ([funding])[levy_exempt ? " (levy-exempt)" : ""][bonus_label_text ? " ([bonus_label_text])" : ""]")
 	scom_announce("A hoard recovery scroll has been issued for [region_name][bonus_label_text ? ". It carries [bonus_label_text]" : ""].")
 	playsound(src, 'sound/misc/coindispense.ogg', 60, FALSE, -1)

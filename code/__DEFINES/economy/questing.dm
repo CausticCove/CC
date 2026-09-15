@@ -147,6 +147,12 @@ GLOBAL_LIST_INIT(defense_quest_tier_costs, list(
 // Player-issued listings (rumor/defense) get a longer window before reroll.
 #define QUEST_PLAYER_STALE_THRESHOLD (30 MINUTES)
 
+#define QUEST_ISSUER_CANCEL_WINDOW (30 MINUTES)
+
+#define QUEST_ISSUE_STATUS_LAPSED "lapsed"
+#define QUEST_ISSUE_STATUS_WITHDRAWN "withdrawn"
+#define QUEST_ISSUE_STATUS_RECALLED "recalled"
+
 // Per CKEY cap
 #define QUEST_TAKE_COOLDOWN (10 MINUTES)
 

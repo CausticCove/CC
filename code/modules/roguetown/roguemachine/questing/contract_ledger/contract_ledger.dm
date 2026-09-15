@@ -141,6 +141,7 @@
 	data["tax_rate"] = SStreasury.get_tax_rate(TAX_CATEGORY_CONTRACT_LEVY)
 	data["guild_cut_rate"] = GUILD_REFERRAL_FEE_PCT
 	data["can_proxy_turnin"] = (user.job in GLOB.contract_proxy_officials)
+	data["issuer_cancel_window_minutes"] = QUEST_ISSUER_CANCEL_WINDOW / (1 MINUTES)
 	var/list/dynamic_roles = resolve_dynamic_roles(user)
 	data["dynamic_roles"] = dynamic_roles
 	data["dynamic_role"] = length(dynamic_roles) ? dynamic_roles[1] : null
@@ -153,6 +154,7 @@
 		data["rumor_regions_by_type"] = build_rumor_regions_by_type()
 		data["rumor_destinations"] = build_rumor_destinations()
 		data["rumor_log"] = SStreasury.rumor_log
+		data["rumor_issued"] = build_issued_listing(QUEST_SOURCE_RUMOR)
 		data["rumor_lucrative_mult"] = RUMOR_LUCRATIVE_MULT
 	if("steward" in dynamic_roles)
 		data["is_alderman_acting"] = (SScity_assembly?.is_alderman(user) && user.job != "Steward") ? TRUE : FALSE
@@ -172,6 +174,7 @@
 		data["blockade_region_labels"] = build_blockade_region_labels()
 		data["defense_destinations"] = build_rumor_destinations()
 		data["defense_log"] = SStreasury.defense_log
+		data["defense_issued"] = build_issued_listing(QUEST_SOURCE_DEFENSE)
 		data["blockade_recall_list"] = build_blockade_recall_list()
 		data["blockade_recall_window_seconds"] = BLOCKADE_RECALL_WINDOW_DS / 10
 		data["bonus_pay_light_mult"] = COMMISSION_BONUS_PAY_LIGHT_MULT
