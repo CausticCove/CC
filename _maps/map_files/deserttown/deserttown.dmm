@@ -10798,8 +10798,7 @@
 /area/rogue/under/cave/rhgoblinencampment)
 "cBE" = (
 /turf/closed/wall/mineral/rogue/sandstone{
-	max_integrity = 9999;
-	climbdiff = 0
+	max_integrity = 9999999
 	},
 /area/rogue/under/desertunderdark/pyramid)
 "cBF" = (
@@ -33529,10 +33528,11 @@
 "inG" = (
 /obj/structure/mineral_door/wood/donjon{
 	name = "Court Magus' Office";
-	lockid = "university";
+	lockid = "mage";
 	locked = 1;
 	lock_strength = 400;
-	lockdifficulty = 3
+	lockdifficulty = 3;
+	dir = 1
 	},
 /turf/open/floor/rogue/sandbrick,
 /area/rogue/indoors/town/magician/desert)
@@ -45285,6 +45285,13 @@
 /obj/structure/spider/stickyweb,
 /turf/open/floor/rogue/citybrick/citybrick2,
 /area/rogue/under/cave/dungeon1)
+"lpt" = (
+/turf/closed/wall/mineral/rogue/sandstone{
+	color = "#000000";
+	desc = "The glitter of magic fades away into a dark wall of void.";
+	name = "Deep Void"
+	},
+/area/rogue/indoors/town/magician/desert)
 "lpv" = (
 /obj/structure/table/wood/long_table,
 /obj/item/flowercrown/salvia,
@@ -52881,7 +52888,9 @@
 	lockid = "inquisition";
 	name = "Spare Orthodixist's Chamber"
 	},
-/turf/closed/basic,
+/turf/open/floor/rogue/concrete{
+	icon = 'modular_deserttown/icons/alt/roguefloor.dmi'
+	},
 /area/rogue/indoors/inq)
 "nkw" = (
 /obj/item/reagent_containers/food/snacks/grown/onion/rogue,
@@ -69227,10 +69236,12 @@
 /area/rogue/under/desertunderdark/pyramid)
 "rnv" = (
 /obj/structure/closet/crate/chest/gold,
-/obj/effect/spawner/lootdrop/general_loot_hi,
 /obj/structure/fluff/railing/border{
 	dir = 9
 	},
+/obj/effect/spawner/lootdrop/general_loot_hi,
+/obj/effect/spawner/lootdrop/general_loot_mid,
+/obj/effect/spawner/lootdrop/general_loot_low,
 /turf/open/floor/rogue/darkpath,
 /area/rogue/under/desertunderdark/pyramid)
 "rnx" = (
@@ -81617,6 +81628,13 @@
 /obj/structure/fluff/railing/border/north,
 /turf/open/water/river/flow/east,
 /area/rogue/under/cave/bizbaz)
+"uor" = (
+/mob/living/simple_animal/hostile/retaliate/rogue/troll/axe{
+	faction = list("trolls","goblins");
+	ambush_faction = "goblins"
+	},
+/turf/open/floor/carpet/red,
+/area/rogue/under/cave/rhgoblinencampment)
 "uot" = (
 /obj/structure/fluff/railing/border,
 /turf/open/floor/rogue/darkpath,
@@ -93745,7 +93763,10 @@
 /area/rogue/under/cave/skeletoncrypt)
 "xmD" = (
 /obj/structure/closet/crate/chest/gold,
-/obj/effect/spawner/lootdrop/general_loot_hi,
+/obj/item/roguecoin/gold/pile,
+/obj/effect/spawner/lootdrop/roguetown/dungeon/money,
+/obj/effect/spawner/lootdrop/roguetown/dungeon/money,
+/obj/effect/spawner/lootdrop/roguetown/dungeon/money,
 /turf/open/floor/rogue/darkpath,
 /area/rogue/under/desertunderdark/pyramid)
 "xmE" = (
@@ -96366,12 +96387,14 @@
 /turf/open/floor/rogue/grasscold,
 /area/rogue/outdoors/town/grove)
 "xTu" = (
-/mob/living/simple_animal/hostile/retaliate/rogue/troll/axe{
-	faction = list("trolls","goblins");
-	ambush_faction = "goblins"
+/obj/structure/fluff/railing/border{
+	dir = 10
 	},
-/turf/open/floor/rogue/tile/harem1,
-/area/rogue/under/cave/rhgoblinencampment)
+/obj/effect/spawner/lootdrop/roguegem/random,
+/obj/structure/closet/crate/chest/gold,
+/obj/effect/spawner/lootdrop/roguegem/random,
+/turf/open/floor/rogue/darkpath,
+/area/rogue/under/desertunderdark/pyramid)
 "xTA" = (
 /obj/item/clothing/cloak/templar/malumite,
 /obj/item/clothing/cloak/templar/malumite,
@@ -99633,21 +99656,21 @@ qeO
 qeO
 qeO
 qeO
-qeO
-qeO
-qeO
-qeO
-qeO
-qeO
-qeO
-qeO
-qeO
-qeO
-qeO
-qeO
-qeO
-qeO
-qeO
+cBE
+cBE
+cBE
+cBE
+cBE
+cBE
+cBE
+cBE
+cBE
+cBE
+cBE
+cBE
+cBE
+cBE
+cBE
 bgS
 exU
 bgS
@@ -99945,7 +99968,7 @@ ekI
 giS
 fhY
 rUZ
-qeO
+cBE
 oNO
 fhY
 fhY
@@ -99959,7 +99982,7 @@ jaT
 xOq
 fhY
 rUZ
-qeO
+cBE
 vgi
 vgi
 vgi
@@ -100257,7 +100280,7 @@ gHF
 oKr
 fhY
 pkH
-qeO
+cBE
 jwx
 fhY
 fhY
@@ -100271,7 +100294,7 @@ qNV
 xrn
 fhY
 fhY
-qeO
+cBE
 exU
 exU
 exU
@@ -100569,7 +100592,7 @@ nYD
 fhY
 fhY
 fhY
-qeO
+cBE
 skK
 fhY
 fhY
@@ -100583,7 +100606,7 @@ oab
 jpc
 fhY
 fhY
-qeO
+cBE
 brD
 vBU
 vBU
@@ -100881,7 +100904,7 @@ mTQ
 fhY
 fhY
 oEm
-qeO
+cBE
 lUs
 fhY
 fhY
@@ -100895,7 +100918,7 @@ jaT
 vMT
 fhY
 fhY
-qeO
+cBE
 cpj
 pQn
 exU
@@ -101193,21 +101216,21 @@ rfj
 fhY
 fhY
 vDW
-qeO
+cBE
 uMR
 fhY
 fhY
 fhY
 fhY
 fhY
-qeO
-qeO
-qeO
-qeO
+cBE
+cBE
+cBE
+cBE
 lVB
 fhY
 fhY
-qeO
+cBE
 brD
 aRw
 aRw
@@ -101505,21 +101528,21 @@ btf
 xOq
 fhY
 pkH
-qeO
+cBE
 wTc
 fhY
 fhY
 fhY
 fhY
 fhY
-qeO
+cBE
 eYt
 eYt
-qeO
+cBE
 eSZ
 fhY
 fhY
-qeO
+cBE
 ceW
 exU
 exU
@@ -101817,21 +101840,21 @@ oLg
 giS
 fhY
 rUZ
-qeO
+cBE
 xmD
 fhY
 kzV
 uNS
 jVu
 fhY
-qeO
+cBE
 dkc
 kks
-qeO
+cBE
 sMy
 fhY
 fhY
-qeO
+cBE
 exU
 exU
 exU
@@ -102129,21 +102152,21 @@ pLB
 oKr
 fhY
 fhY
-qeO
+cBE
 jwx
 fhY
 rfN
 fSS
 jaT
 fhY
-qeO
+cBE
 kks
 kks
-qeO
+cBE
 eSZ
 fhY
 fhY
-qeO
+cBE
 bfX
 bgS
 vgi
@@ -102441,21 +102464,21 @@ fhY
 fhY
 fhY
 fhY
-qeO
+cBE
 oNO
 xwi
 rnv
 hcI
-qNV
+xTu
 gHF
-qeO
+cBE
 mWq
 vNr
-qeO
+cBE
 lVB
 fhY
 vwu
-qeO
+cBE
 exU
 exU
 exU
@@ -102748,26 +102771,26 @@ fhY
 fhY
 fhY
 fhY
-jPX
-jPX
+cBE
+cBE
 jZh
 jZh
 stM
-qeO
-qeO
-qeO
-qeO
-qeO
-qeO
-qeO
-qeO
 cBE
 cBE
-qeO
-qeO
+cBE
+cBE
+cBE
+cBE
+cBE
+cBE
+cBE
+cBE
+cBE
+cBE
 cbS
-qeO
-qeO
+cBE
+cBE
 exU
 exU
 exU
@@ -103060,7 +103083,7 @@ fhY
 fhY
 fnj
 fhY
-jPX
+cBE
 oEm
 fhY
 fhY
@@ -103372,7 +103395,7 @@ fhY
 fhY
 pUa
 iRg
-jPX
+cBE
 rUZ
 fhY
 eti
@@ -103684,7 +103707,7 @@ fhY
 fhY
 fnj
 nxQ
-jPX
+cBE
 fhY
 eti
 smd
@@ -103996,7 +104019,7 @@ fhY
 fhY
 fhY
 rUZ
-jPX
+cBE
 fhY
 fhY
 eti
@@ -104308,7 +104331,7 @@ vfx
 jPX
 jPX
 jPX
-jPX
+cBE
 fhY
 fhY
 fhY
@@ -104327,7 +104350,7 @@ fhY
 fhY
 fhY
 fhY
-qeO
+cBE
 ccG
 exU
 exU
@@ -104620,7 +104643,7 @@ fhY
 fhY
 fhY
 fhY
-jPX
+cBE
 xfD
 xOq
 fhY
@@ -104639,7 +104662,7 @@ fhY
 fhY
 krK
 por
-qeO
+cBE
 exU
 exU
 vaA
@@ -104932,7 +104955,7 @@ fhY
 fhY
 fhY
 fhY
-jPX
+cBE
 ekI
 giS
 fhY
@@ -104951,7 +104974,7 @@ fhY
 fhY
 sEY
 oLg
-qeO
+cBE
 exU
 exU
 exU
@@ -105244,7 +105267,7 @@ fhY
 fhY
 fhY
 fhY
-jPX
+cBE
 cJb
 giS
 fhY
@@ -105263,7 +105286,7 @@ fhY
 fhY
 sEY
 pEV
-qeO
+cBE
 vgi
 bgS
 lTa
@@ -105556,7 +105579,7 @@ jPX
 dfz
 eti
 fhY
-jPX
+cBE
 oLg
 giS
 fhY
@@ -105575,7 +105598,7 @@ fhY
 fhY
 sEY
 oLg
-qeO
+cBE
 exU
 exU
 exU
@@ -105868,7 +105891,7 @@ jPX
 dfz
 eti
 fhY
-jPX
+cBE
 lNC
 oKr
 fhY
@@ -105887,7 +105910,7 @@ fhY
 fhY
 yfG
 pLB
-qeO
+cBE
 exU
 exU
 exU
@@ -106180,7 +106203,7 @@ jPX
 dfz
 eti
 fhY
-jPX
+cBE
 fhY
 fhY
 fhY
@@ -106199,7 +106222,7 @@ fhY
 fhY
 fhY
 fhY
-qeO
+cBE
 exU
 exU
 exU
@@ -106492,7 +106515,7 @@ fhY
 fhY
 fhY
 fhY
-jPX
+cBE
 fhY
 fhY
 eti
@@ -106511,7 +106534,7 @@ fhY
 eti
 fhY
 fhY
-qeO
+cBE
 exU
 brD
 dhP
@@ -106804,7 +106827,7 @@ fhY
 fhY
 fhY
 fhY
-jPX
+cBE
 fhY
 eti
 smd
@@ -106823,7 +106846,7 @@ eti
 smd
 eti
 fhY
-qeO
+cBE
 exU
 cpj
 exU
@@ -107116,7 +107139,7 @@ fhY
 fhY
 fhY
 fhY
-jPX
+cBE
 fhY
 fhY
 eti
@@ -107135,7 +107158,7 @@ fhY
 eti
 fhY
 fhY
-qeO
+cBE
 exU
 cpj
 xNB
@@ -107428,7 +107451,7 @@ fhY
 fhY
 fhY
 fhY
-jPX
+cBE
 rUZ
 fhY
 fhY
@@ -107447,7 +107470,7 @@ fhY
 fhY
 fhY
 rUZ
-qeO
+cBE
 bMn
 brD
 aRw
@@ -107740,26 +107763,26 @@ qeO
 qeO
 qeO
 qeO
-qeO
-qeO
-qeO
-qeO
-qeO
-qeO
-qeO
-qeO
-qeO
-qeO
-qeO
-qeO
-qeO
-qeO
-qeO
-qeO
-qeO
-qeO
-qeO
-qeO
+cBE
+cBE
+cBE
+cBE
+cBE
+cBE
+cBE
+cBE
+cBE
+cBE
+cBE
+cBE
+cBE
+cBE
+cBE
+cBE
+cBE
+cBE
+cBE
+cBE
 bgS
 exU
 bgS
@@ -326016,29 +326039,29 @@ obK
 (352,1,2) = {"
 lbf
 lbf
-xSF
-xSF
-xSF
-xSF
-xSF
-xSF
-xSF
-xSF
-xSF
-xSF
-xSF
-xSF
-xSF
-xSF
-xSF
-xSF
-xSF
-xSF
-xSF
-xSF
-xSF
-xSF
-xSF
+lpt
+lpt
+lpt
+lpt
+lpt
+lpt
+lpt
+lpt
+lpt
+lpt
+lpt
+lpt
+lpt
+lpt
+lpt
+lpt
+lpt
+lpt
+lpt
+lpt
+lpt
+lpt
+lpt
 lbf
 lbf
 kvr
@@ -326328,7 +326351,7 @@ obK
 (353,1,2) = {"
 lbf
 lbf
-xSF
+lpt
 lvm
 lvm
 lvm
@@ -326350,7 +326373,7 @@ lvm
 lvm
 lvm
 lvm
-xSF
+lpt
 lbf
 lbf
 kvr
@@ -326640,7 +326663,7 @@ obK
 (354,1,2) = {"
 lbf
 lbf
-xSF
+lpt
 lvm
 lvm
 lvm
@@ -326662,7 +326685,7 @@ lvm
 lvm
 lvm
 lvm
-xSF
+lpt
 lbf
 lbf
 kvr
@@ -326952,7 +326975,7 @@ obK
 (355,1,2) = {"
 lbf
 lbf
-xSF
+lpt
 lvm
 eXj
 eXj
@@ -326974,7 +326997,7 @@ eXj
 eXj
 lvm
 lvm
-xSF
+lpt
 lbf
 lbf
 kvr
@@ -327264,7 +327287,7 @@ obK
 (356,1,2) = {"
 lbf
 lbf
-xSF
+lpt
 lvm
 eXj
 nWT
@@ -327286,7 +327309,7 @@ bXE
 eXj
 lvm
 lvm
-xSF
+lpt
 lbf
 lbf
 kvr
@@ -327576,7 +327599,7 @@ obK
 (357,1,2) = {"
 lbf
 lbf
-xSF
+lpt
 lvm
 eXj
 pOm
@@ -327598,7 +327621,7 @@ cBo
 eXj
 lvm
 lvm
-xSF
+lpt
 lbf
 lbf
 kvr
@@ -327888,7 +327911,7 @@ obK
 (358,1,2) = {"
 lbf
 lbf
-xSF
+lpt
 lvm
 eXj
 pOT
@@ -327910,7 +327933,7 @@ nWc
 eXj
 lvm
 lvm
-xSF
+lpt
 lbf
 lbf
 kvr
@@ -328200,7 +328223,7 @@ obK
 (359,1,2) = {"
 lbf
 lbf
-xSF
+lpt
 lvm
 eXj
 pOm
@@ -328222,7 +328245,7 @@ baq
 eXj
 lvm
 lvm
-xSF
+lpt
 lbf
 lbf
 kvr
@@ -328512,7 +328535,7 @@ obK
 (360,1,2) = {"
 lbf
 lbf
-xSF
+lpt
 lvm
 eXj
 brk
@@ -328534,7 +328557,7 @@ pRi
 eXj
 lvm
 lvm
-xSF
+lpt
 lbf
 lbf
 kvr
@@ -328824,7 +328847,7 @@ obK
 (361,1,2) = {"
 lbf
 lbf
-xSF
+lpt
 lvm
 eXj
 wDb
@@ -328846,7 +328869,7 @@ eXj
 eXj
 lvm
 lvm
-xSF
+lpt
 lbf
 lbf
 kvr
@@ -329136,7 +329159,7 @@ obK
 (362,1,2) = {"
 lbf
 lbf
-xSF
+lpt
 lvm
 eXj
 xPh
@@ -329158,7 +329181,7 @@ xPh
 eXj
 lvm
 lvm
-xSF
+lpt
 lbf
 lbf
 kvr
@@ -329448,7 +329471,7 @@ obK
 (363,1,2) = {"
 lbf
 lbf
-xSF
+lpt
 lvm
 eXj
 iUN
@@ -329470,7 +329493,7 @@ uRs
 eXj
 lvm
 lvm
-xSF
+lpt
 lbf
 lbf
 kvr
@@ -329760,7 +329783,7 @@ obK
 (364,1,2) = {"
 lbf
 lbf
-xSF
+lpt
 lvm
 eXj
 xPh
@@ -329782,7 +329805,7 @@ xPh
 eXj
 lvm
 lvm
-xSF
+lpt
 lbf
 lbf
 kvr
@@ -330072,7 +330095,7 @@ obK
 (365,1,2) = {"
 lbf
 lbf
-xSF
+lpt
 lvm
 eXj
 eXj
@@ -330094,7 +330117,7 @@ wDb
 eXj
 lvm
 lvm
-xSF
+lpt
 lbf
 lbf
 kvr
@@ -330384,7 +330407,7 @@ obK
 (366,1,2) = {"
 lbf
 lbf
-xSF
+lpt
 lvm
 eXj
 asP
@@ -330406,7 +330429,7 @@ bXE
 eXj
 lvm
 lvm
-xSF
+lpt
 lbf
 lbf
 kvr
@@ -330696,7 +330719,7 @@ obK
 (367,1,2) = {"
 lbf
 lbf
-xSF
+lpt
 lvm
 eXj
 aNG
@@ -330718,7 +330741,7 @@ bXE
 eXj
 lvm
 lvm
-xSF
+lpt
 lbf
 lbf
 kvr
@@ -330893,7 +330916,7 @@ cVY
 goO
 lpO
 cuT
-goO
+uor
 uVu
 xtm
 cuT
@@ -331008,7 +331031,7 @@ obK
 (368,1,2) = {"
 lbf
 lbf
-xSF
+lpt
 lvm
 eXj
 fxU
@@ -331030,7 +331053,7 @@ hrp
 eXj
 lvm
 lvm
-xSF
+lpt
 lbf
 lbf
 kvr
@@ -331205,7 +331228,7 @@ cRN
 utu
 wjA
 cuT
-oQE
+goO
 iYw
 cuT
 cuT
@@ -331320,7 +331343,7 @@ obK
 (369,1,2) = {"
 lbf
 lbf
-xSF
+lpt
 lvm
 eXj
 iYk
@@ -331342,7 +331365,7 @@ bXE
 eXj
 lvm
 lvm
-xSF
+lpt
 lbf
 lbf
 kvr
@@ -331632,7 +331655,7 @@ obK
 (370,1,2) = {"
 lbf
 lbf
-xSF
+lpt
 lvm
 eXj
 xwe
@@ -331654,7 +331677,7 @@ bXE
 eXj
 lvm
 lvm
-xSF
+lpt
 lbf
 lbf
 kvr
@@ -331944,7 +331967,7 @@ obK
 (371,1,2) = {"
 lbf
 lbf
-xSF
+lpt
 lvm
 eXj
 eXj
@@ -331966,7 +331989,7 @@ eXj
 eXj
 lvm
 lvm
-xSF
+lpt
 lbf
 lbf
 kvr
@@ -332256,12 +332279,12 @@ obK
 (372,1,2) = {"
 lbf
 lbf
-xSF
+lpt
 lvm
 lvm
 lvm
-xSF
-xSF
+lpt
+lpt
 lvm
 lvm
 lvm
@@ -332273,12 +332296,12 @@ cwY
 lvm
 lvm
 lvm
-xSF
-xSF
+lpt
+lpt
 lvm
 lvm
 lvm
-xSF
+lpt
 lbf
 lbf
 kvr
@@ -332453,7 +332476,7 @@ rAM
 rAM
 wjA
 kvU
-xTu
+mVU
 uRv
 uRv
 iiV
@@ -332568,14 +332591,11 @@ obK
 (373,1,2) = {"
 lbf
 lbf
-xSF
+lpt
 lvm
 lvm
-xSF
-xSF
-lvm
-lvm
-lvm
+lpt
+lpt
 lvm
 lvm
 lvm
@@ -332586,8 +332606,11 @@ lvm
 lvm
 lvm
 lvm
-xSF
-xSF
+lvm
+lvm
+lvm
+lpt
+lpt
 lvm
 lvm
 xSF
@@ -332880,10 +332903,10 @@ obK
 (374,1,2) = {"
 lbf
 lbf
-xSF
-xSF
-xSF
-xSF
+lpt
+lpt
+lpt
+lpt
 lvm
 lvm
 lvm
@@ -332899,10 +332922,10 @@ lvm
 lvm
 lvm
 lvm
-xSF
-xSF
-xSF
-xSF
+lpt
+lpt
+lpt
+lpt
 lbf
 lbf
 kvr
@@ -333194,8 +333217,8 @@ lbf
 lbf
 kvr
 kvr
-kvr
-xSF
+lpt
+lpt
 lvm
 lvm
 lvm
@@ -333211,8 +333234,8 @@ lvm
 lvm
 lvm
 lvm
-xSF
-xSF
+lpt
+lpt
 kvr
 kvr
 lbf
@@ -333505,9 +333528,8 @@ obK
 lbf
 lbf
 kvr
-kvr
-kvr
-xSF
+lpt
+lpt
 lvm
 lvm
 lvm
@@ -333524,8 +333546,9 @@ lvm
 lvm
 lvm
 lvm
-xSF
-kvr
+lvm
+lpt
+lpt
 kvr
 lbf
 lbf
@@ -333701,7 +333724,7 @@ bnl
 cuT
 wjA
 cuT
-iiV
+mVU
 muF
 muF
 iiV
@@ -333816,29 +333839,29 @@ obK
 (377,1,2) = {"
 lbf
 lbf
-kvr
-kvr
-kvr
-xSF
-xSF
-xSF
-xSF
-xSF
-xSF
-xSF
-xSF
-xSF
-xSF
-xSF
-xSF
-xSF
-xSF
-xSF
-xSF
-xSF
-xSF
-kvr
-kvr
+lpt
+lpt
+lvm
+lvm
+lvm
+lvm
+lvm
+lvm
+lvm
+lvm
+lvm
+lvm
+lvm
+lvm
+lvm
+lvm
+lvm
+lvm
+lvm
+lvm
+lvm
+lpt
+lpt
 lbf
 lbf
 kvr
@@ -334128,29 +334151,29 @@ obK
 (378,1,2) = {"
 lbf
 lbf
-kvr
-kvr
-kvr
-kvr
-kvr
-kvr
-kvr
-kvr
-kvr
-kvr
-kvr
-kvr
-kvr
-kvr
-kvr
-kvr
-kvr
-kvr
-kvr
-kvr
-kvr
-kvr
-kvr
+lpt
+lvm
+lvm
+lvm
+lvm
+lvm
+lvm
+lvm
+lvm
+lvm
+lvm
+lvm
+lvm
+lvm
+lvm
+lvm
+lvm
+lvm
+lvm
+lvm
+lvm
+lvm
+lpt
 lbf
 lbf
 kvr
@@ -334440,29 +334463,29 @@ obK
 (379,1,2) = {"
 lbf
 lbf
-lbf
-lbf
-lbf
-lbf
-lbf
-lbf
-lbf
-lbf
-lbf
-lbf
-lbf
-lbf
-lbf
-lbf
-lbf
-lbf
-lbf
-lbf
-lbf
-lbf
-lbf
-lbf
-lbf
+lpt
+lpt
+lpt
+lpt
+lpt
+lpt
+lpt
+lpt
+lpt
+lpt
+lpt
+lpt
+lpt
+lpt
+lpt
+lpt
+lpt
+lpt
+lpt
+lpt
+lpt
+lpt
+lpt
 lbf
 lbf
 lbf
@@ -444577,29 +444600,29 @@ obK
 (352,1,3) = {"
 rsN
 rsN
-xSF
-xSF
-xSF
-xSF
-xSF
-xSF
-xSF
-xSF
-xSF
-xSF
-xSF
-xSF
-xSF
-xSF
-xSF
-xSF
-xSF
-xSF
-xSF
-xSF
-xSF
-xSF
-xSF
+lpt
+lpt
+lpt
+lpt
+lpt
+lpt
+lpt
+lpt
+lpt
+lpt
+lpt
+lpt
+lpt
+lpt
+lpt
+lpt
+lpt
+lpt
+lpt
+lpt
+lpt
+lpt
+lpt
 rsN
 rsN
 vTa
@@ -444889,7 +444912,7 @@ obK
 (353,1,3) = {"
 rsN
 rsN
-xSF
+lpt
 lvm
 lvm
 lvm
@@ -444911,7 +444934,7 @@ lvm
 lvm
 lvm
 lvm
-xSF
+lpt
 rsN
 rsN
 vTa
@@ -445201,7 +445224,7 @@ obK
 (354,1,3) = {"
 rsN
 rsN
-xSF
+lpt
 lvm
 lvm
 lvm
@@ -445223,7 +445246,7 @@ lvm
 lvm
 lvm
 lvm
-xSF
+lpt
 rsN
 rsN
 vTa
@@ -445513,7 +445536,7 @@ obK
 (355,1,3) = {"
 rsN
 rsN
-xSF
+lpt
 lvm
 lvm
 lvm
@@ -445535,7 +445558,7 @@ lvm
 lvm
 lvm
 lvm
-xSF
+lpt
 rsN
 rsN
 vTa
@@ -445825,7 +445848,7 @@ obK
 (356,1,3) = {"
 rsN
 rsN
-xSF
+lpt
 lvm
 lvm
 lvm
@@ -445847,7 +445870,7 @@ lvm
 lvm
 lvm
 lvm
-xSF
+lpt
 rsN
 rsN
 vTa
@@ -446137,7 +446160,7 @@ obK
 (357,1,3) = {"
 rsN
 rsN
-xSF
+lpt
 lvm
 lvm
 lvm
@@ -446159,7 +446182,7 @@ lvm
 lvm
 lvm
 lvm
-xSF
+lpt
 rsN
 rsN
 vTa
@@ -446449,7 +446472,7 @@ obK
 (358,1,3) = {"
 rsN
 rsN
-xSF
+lpt
 lvm
 lvm
 lvm
@@ -446471,7 +446494,7 @@ lvm
 lvm
 lvm
 lvm
-xSF
+lpt
 rsN
 rsN
 vTa
@@ -446761,7 +446784,7 @@ obK
 (359,1,3) = {"
 rsN
 rsN
-xSF
+lpt
 lvm
 lvm
 lvm
@@ -446783,7 +446806,7 @@ oPM
 lvm
 lvm
 lvm
-xSF
+lpt
 rsN
 rsN
 vTa
@@ -447073,7 +447096,7 @@ obK
 (360,1,3) = {"
 rsN
 rsN
-xSF
+lpt
 lvm
 lvm
 lvm
@@ -447095,7 +447118,7 @@ lvm
 lvm
 lvm
 lvm
-xSF
+lpt
 rsN
 rsN
 vTa
@@ -447385,7 +447408,7 @@ obK
 (361,1,3) = {"
 rsN
 rsN
-xSF
+lpt
 lvm
 lvm
 lvm
@@ -447407,7 +447430,7 @@ bCi
 lvm
 lvm
 lvm
-xSF
+lpt
 rsN
 rsN
 vTa
@@ -447697,7 +447720,7 @@ obK
 (362,1,3) = {"
 rsN
 rsN
-xSF
+lpt
 lvm
 lvm
 lvm
@@ -447719,7 +447742,7 @@ bOT
 lvm
 lvm
 lvm
-xSF
+lpt
 rsN
 rsN
 vTa
@@ -448009,7 +448032,7 @@ obK
 (363,1,3) = {"
 rsN
 rsN
-xSF
+lpt
 lvm
 lvm
 lvm
@@ -448031,7 +448054,7 @@ bOT
 lvm
 lvm
 lvm
-xSF
+lpt
 rsN
 rsN
 vTa
@@ -448321,7 +448344,7 @@ obK
 (364,1,3) = {"
 rsN
 rsN
-xSF
+lpt
 lvm
 lvm
 lvm
@@ -448343,7 +448366,7 @@ bOT
 lvm
 lvm
 lvm
-xSF
+lpt
 rsN
 rsN
 vTa
@@ -448633,7 +448656,7 @@ obK
 (365,1,3) = {"
 rsN
 rsN
-xSF
+lpt
 lvm
 lvm
 lvm
@@ -448655,7 +448678,7 @@ cwY
 lvm
 lvm
 lvm
-xSF
+lpt
 rsN
 rsN
 vTa
@@ -448945,7 +448968,7 @@ obK
 (366,1,3) = {"
 rsN
 rsN
-xSF
+lpt
 lvm
 lvm
 lvm
@@ -448967,7 +448990,7 @@ lvm
 lvm
 lvm
 lvm
-xSF
+lpt
 rsN
 rsN
 vTa
@@ -449257,7 +449280,7 @@ obK
 (367,1,3) = {"
 rsN
 rsN
-xSF
+lpt
 lvm
 lvm
 lvm
@@ -449279,7 +449302,7 @@ oPM
 lvm
 lvm
 lvm
-xSF
+lpt
 rsN
 rsN
 vTa
@@ -449569,7 +449592,7 @@ obK
 (368,1,3) = {"
 rsN
 rsN
-xSF
+lpt
 lvm
 lvm
 lvm
@@ -449591,7 +449614,7 @@ lvm
 lvm
 lvm
 lvm
-xSF
+lpt
 rsN
 rsN
 vTa
@@ -449881,7 +449904,7 @@ obK
 (369,1,3) = {"
 rsN
 rsN
-xSF
+lpt
 lvm
 lvm
 lvm
@@ -449903,7 +449926,7 @@ lvm
 lvm
 lvm
 lvm
-xSF
+lpt
 rsN
 rsN
 vTa
@@ -450193,7 +450216,7 @@ obK
 (370,1,3) = {"
 rsN
 rsN
-xSF
+lpt
 lvm
 lvm
 lvm
@@ -450215,7 +450238,7 @@ lvm
 lvm
 lvm
 lvm
-xSF
+lpt
 rsN
 rsN
 vTa
@@ -450505,7 +450528,7 @@ obK
 (371,1,3) = {"
 rsN
 rsN
-xSF
+lpt
 lvm
 lvm
 lvm
@@ -450527,7 +450550,7 @@ lvm
 lvm
 lvm
 lvm
-xSF
+lpt
 rsN
 rsN
 vTa
@@ -450817,7 +450840,7 @@ obK
 (372,1,3) = {"
 rsN
 rsN
-xSF
+lpt
 lvm
 lvm
 lvm
@@ -450839,7 +450862,7 @@ lvm
 lvm
 lvm
 lvm
-xSF
+lpt
 rsN
 rsN
 vTa
@@ -451129,7 +451152,7 @@ obK
 (373,1,3) = {"
 rsN
 rsN
-xSF
+lpt
 lvm
 lvm
 lvm
@@ -451151,7 +451174,7 @@ lvm
 lvm
 lvm
 lvm
-xSF
+lpt
 rsN
 rsN
 vTa
@@ -451441,29 +451464,29 @@ obK
 (374,1,3) = {"
 rsN
 rsN
-xSF
-xSF
-xSF
-xSF
-xSF
-xSF
-xSF
-xSF
-xSF
-xSF
-xSF
-xSF
-xSF
-xSF
-xSF
-xSF
-xSF
-xSF
-xSF
-xSF
-xSF
-xSF
-xSF
+lpt
+lpt
+lpt
+lpt
+lpt
+lpt
+lpt
+lpt
+lpt
+lpt
+lpt
+lpt
+lpt
+lpt
+lpt
+lpt
+lpt
+lpt
+lpt
+lpt
+lpt
+lpt
+lpt
 rsN
 rsN
 vTa
@@ -561890,15 +561913,15 @@ kSl
 (348,1,4) = {"
 rsN
 rsN
-xSF
-xSF
-xSF
-xSF
-xSF
-xSF
-xSF
-xSF
-xSF
+lpt
+lpt
+lpt
+lpt
+lpt
+lpt
+lpt
+lpt
+lpt
 vTa
 vTa
 vTa
@@ -562202,7 +562225,7 @@ kSl
 (349,1,4) = {"
 rsN
 rsN
-xSF
+lpt
 lvm
 lvm
 lvm
@@ -562210,9 +562233,9 @@ lvm
 lvm
 lvm
 lvm
-xSF
-xSF
-xSF
+lpt
+lpt
+lpt
 vTa
 vTa
 vTa
@@ -562514,7 +562537,7 @@ kSl
 (350,1,4) = {"
 rsN
 rsN
-xSF
+lpt
 lvm
 lvm
 lvm
@@ -562524,8 +562547,8 @@ lvm
 lvm
 lvm
 lvm
-xSF
-xSF
+lpt
+lpt
 vTa
 vTa
 vTa
@@ -562826,7 +562849,7 @@ kSl
 (351,1,4) = {"
 rsN
 rsN
-xSF
+lpt
 lvm
 lvm
 xWX
@@ -562837,7 +562860,7 @@ bmv
 lvm
 lvm
 lvm
-xSF
+lpt
 vTa
 vTa
 vTa
@@ -563138,7 +563161,7 @@ kSl
 (352,1,4) = {"
 rsN
 rsN
-xSF
+lpt
 lvm
 lvm
 nql
@@ -563149,7 +563172,7 @@ fyW
 lvm
 lvm
 lvm
-xSF
+lpt
 vTa
 vTa
 vTa
@@ -563450,7 +563473,7 @@ kSl
 (353,1,4) = {"
 rsN
 rsN
-xSF
+lpt
 lvm
 lvm
 nql
@@ -563461,12 +563484,12 @@ fyW
 kzU
 lvm
 lvm
-xSF
-xSF
-xSF
-xSF
-xSF
-xSF
+lpt
+lpt
+lpt
+lpt
+lpt
+lpt
 vTa
 vTa
 vTa
@@ -563762,7 +563785,7 @@ kSl
 (354,1,4) = {"
 rsN
 rsN
-xSF
+lpt
 lvm
 vKO
 lDC
@@ -563772,15 +563795,15 @@ lpG
 lnW
 bmv
 lvm
-xSF
+lpt
 lvm
 lvm
 lvm
 lvm
 lvm
-xSF
-xSF
-xSF
+lpt
+lpt
+lpt
 vTa
 vTa
 vTa
@@ -564074,7 +564097,7 @@ kSl
 (355,1,4) = {"
 rsN
 rsN
-xSF
+lpt
 lvm
 eXj
 iNC
@@ -564083,7 +564106,7 @@ enW
 hKp
 pFB
 eXj
-xSF
+lpt
 lvm
 lvm
 lvm
@@ -564092,7 +564115,7 @@ lvm
 lvm
 lvm
 lvm
-xSF
+lpt
 vTa
 vTa
 vTa
@@ -564386,7 +564409,7 @@ kSl
 (356,1,4) = {"
 rsN
 rsN
-xSF
+lpt
 lvm
 eXj
 fbN
@@ -564404,7 +564427,7 @@ lvm
 lvm
 lvm
 lvm
-xSF
+lpt
 vTa
 vTa
 vTa
@@ -564698,8 +564721,8 @@ kSl
 (357,1,4) = {"
 rsN
 rsN
-xSF
-xSF
+lpt
+lpt
 eXj
 bOx
 njH
@@ -564716,9 +564739,9 @@ bmv
 lvm
 lvm
 lvm
-xSF
-xSF
-xSF
+lpt
+lpt
+lpt
 vTa
 rsN
 rsN
@@ -565030,8 +565053,8 @@ lvm
 lvm
 lvm
 lvm
-xSF
-xSF
+lpt
+lpt
 rsN
 rsN
 vTa
@@ -565343,7 +565366,7 @@ lvm
 lvm
 lvm
 lvm
-xSF
+lpt
 rsN
 rsN
 vTa
@@ -565655,7 +565678,7 @@ lvm
 lvm
 lvm
 lvm
-xSF
+lpt
 rsN
 rsN
 vTa
@@ -565967,7 +565990,7 @@ bmv
 lvm
 lvm
 lvm
-xSF
+lpt
 rsN
 rsN
 vTa
@@ -566279,7 +566302,7 @@ fyW
 lvm
 lvm
 lvm
-xSF
+lpt
 rsN
 rsN
 vTa
@@ -566591,7 +566614,7 @@ fyW
 lvm
 lvm
 lvm
-xSF
+lpt
 rsN
 rsN
 vTa
@@ -566903,7 +566926,7 @@ fyW
 lvm
 lvm
 lvm
-xSF
+lpt
 rsN
 rsN
 vTa
@@ -567215,7 +567238,7 @@ uvz
 lvm
 lvm
 lvm
-xSF
+lpt
 rsN
 rsN
 vTa
@@ -567527,7 +567550,7 @@ lvm
 lvm
 lvm
 lvm
-xSF
+lpt
 rsN
 rsN
 vTa
@@ -567839,7 +567862,7 @@ lvm
 lvm
 lvm
 lvm
-xSF
+lpt
 rsN
 rsN
 vTa
@@ -568150,8 +568173,8 @@ lvm
 lvm
 lvm
 lvm
-xSF
-xSF
+lpt
+lpt
 rsN
 rsN
 vTa
@@ -568442,8 +568465,8 @@ kSl
 (369,1,4) = {"
 rsN
 rsN
-xSF
-xSF
+lpt
+lpt
 eXj
 agA
 vAM
@@ -568451,18 +568474,18 @@ enW
 orM
 dkK
 eXj
-xSF
-xSF
+lpt
+lpt
 lvm
 lvm
 lvm
 lvm
 lvm
 lvm
-xSF
-xSF
-xSF
-xSF
+lpt
+lpt
+lpt
+lpt
 vTa
 rsN
 rsN
@@ -568754,7 +568777,7 @@ kSl
 (370,1,4) = {"
 rsN
 rsN
-xSF
+lpt
 lvm
 eXj
 aEI
@@ -568764,14 +568787,14 @@ vAM
 eyy
 eXj
 lvm
-xSF
-xSF
-xSF
-xSF
-xSF
-xSF
-xSF
-xSF
+lpt
+lpt
+lpt
+lpt
+lpt
+lpt
+lpt
+lpt
 vTa
 vTa
 vTa
@@ -569066,7 +569089,7 @@ kSl
 (371,1,4) = {"
 rsN
 rsN
-xSF
+lpt
 lvm
 eXj
 agA
@@ -569076,7 +569099,7 @@ gDS
 tbe
 eXj
 lvm
-xSF
+lpt
 vTa
 vTa
 vTa
@@ -569378,7 +569401,7 @@ kSl
 (372,1,4) = {"
 rsN
 rsN
-xSF
+lpt
 lvm
 xrh
 kdN
@@ -569388,7 +569411,7 @@ lpG
 dCr
 uvz
 lvm
-xSF
+lpt
 vTa
 vTa
 vTa
@@ -569690,7 +569713,7 @@ kSl
 (373,1,4) = {"
 rsN
 rsN
-xSF
+lpt
 lvm
 lvm
 nql
@@ -569700,7 +569723,7 @@ aFU
 fyW
 mZU
 lvm
-xSF
+lpt
 vTa
 vTa
 vTa
@@ -570002,7 +570025,7 @@ kSl
 (374,1,4) = {"
 rsN
 rsN
-xSF
+lpt
 lvm
 lvm
 nql
@@ -570012,7 +570035,7 @@ xJD
 fyW
 lvm
 lvm
-xSF
+lpt
 vTa
 vTa
 vTa
@@ -570314,7 +570337,7 @@ kSl
 (375,1,4) = {"
 rsN
 rsN
-xSF
+lpt
 lvm
 lvm
 vjE
@@ -570324,7 +570347,7 @@ nwA
 uvz
 lvm
 lvm
-xSF
+lpt
 vTa
 vTa
 vTa
@@ -570626,7 +570649,7 @@ kSl
 (376,1,4) = {"
 rsN
 rsN
-xSF
+lpt
 lvm
 lvm
 lvm
@@ -570636,7 +570659,7 @@ wpE
 lvm
 lvm
 lvm
-xSF
+lpt
 vTa
 vTa
 vTa
@@ -570938,8 +570961,8 @@ kSl
 (377,1,4) = {"
 rsN
 rsN
-xSF
-xSF
+lpt
+lpt
 lvm
 lvm
 lvm
@@ -570947,8 +570970,8 @@ lvm
 lvm
 lvm
 lvm
-xSF
-xSF
+lpt
+lpt
 vTa
 vTa
 vTa
@@ -571251,15 +571274,15 @@ kSl
 rsN
 rsN
 vTa
-xSF
-xSF
-xSF
-xSF
-xSF
-xSF
-xSF
-xSF
-xSF
+lpt
+lpt
+lpt
+lpt
+lpt
+lpt
+lpt
+lpt
+lpt
 vTa
 vTa
 vTa
