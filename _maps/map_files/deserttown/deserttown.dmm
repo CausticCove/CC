@@ -33528,10 +33528,11 @@
 "inG" = (
 /obj/structure/mineral_door/wood/donjon{
 	name = "Court Magus' Office";
-	lockid = "university";
+	lockid = "mage";
 	locked = 1;
 	lock_strength = 400;
-	lockdifficulty = 3
+	lockdifficulty = 3;
+	dir = 1
 	},
 /turf/open/floor/rogue/sandbrick,
 /area/rogue/indoors/town/magician/desert)
