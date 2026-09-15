@@ -52880,7 +52880,9 @@
 	lockid = "inquisition";
 	name = "Spare Orthodixist's Chamber"
 	},
-/turf/closed/basic,
+/turf/open/floor/rogue/concrete{
+	icon = 'modular_deserttown/icons/alt/roguefloor.dmi'
+	},
 /area/rogue/indoors/inq)
 "nkw" = (
 /obj/item/reagent_containers/food/snacks/grown/onion/rogue,
