@@ -24,7 +24,7 @@
 
 	//You're.. not REALLY a full-on church member, but being a druid implies you became a clergy-man of some sort; even if it's non-organized. So, still shouldn't be noble.
 	virtue_restrictions = list(/datum/virtue/utility/noble)
-	job_traits = list(TRAIT_SEEDKNOW, TRAIT_OUTDOORSMAN, TRAIT_RITUALIST, TRAIT_HOMESTEAD_EXPERT, TRAIT_WOODWALKER, TRAIT_EXPERT_HUNTER)
+	job_traits = list(TRAIT_SEEDKNOW, TRAIT_OUTDOORSMAN, TRAIT_RITUALIST, TRAIT_HOMESTEAD_EXPERT, TRAIT_WOODWALKER, TRAIT_EXPERT_HUNTER, TRAIT_GRAVEROBBER, TRAIT_CLERGY, TRAIT_MARRIAGE_CAPABLE, TRAIT_CIVILIZEDBARBARIAN) //cc edit. gave same as other acolytes
 
 	advclass_cat_rolls = list(CTAG_DRUID = 2)
 	job_subclasses = list(
@@ -50,8 +50,8 @@
 		/datum/skill/craft/sewing = SKILL_LEVEL_NOVICE,
 		/datum/skill/craft/tanning = SKILL_LEVEL_NOVICE,
 		/datum/skill/misc/medicine = SKILL_LEVEL_APPRENTICE,
-		/datum/skill/combat/unarmed = SKILL_LEVEL_JOURNEYMAN,
-		/datum/skill/combat/wrestling = SKILL_LEVEL_JOURNEYMAN,
+		/datum/skill/combat/unarmed = SKILL_LEVEL_EXPERT, //cc edit. acolyte levels
+		/datum/skill/combat/wrestling = SKILL_LEVEL_MASTER,
 		/datum/skill/misc/reading = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/craft/alchemy = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/magic/holy = SKILL_LEVEL_EXPERT,

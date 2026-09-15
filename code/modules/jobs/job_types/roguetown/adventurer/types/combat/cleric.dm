@@ -44,6 +44,7 @@
 	// Add druidic skill for Dendor followers
 	if(istype(H.patron, /datum/patron/divine/dendor))
 		H.adjust_skillrank(/datum/skill/magic/druidic, SKILL_LEVEL_JOURNEYMAN, TRUE)
+		H.grant_language(/datum/language/beast) //cc edit
 		to_chat(H, span_notice("As a follower of Dendor, you have innate knowledge of druidic magic."))
 
 	to_chat(H, span_warning("You are a wandering acolyte, versed in both miracles and martial arts. You forego the hauberk that paladins wear in favor of humbling your foes through bloodless strikes. Your satchel hangs heavy, too, with ample provisions for the pilgrimage you're upon."))
@@ -609,7 +610,7 @@
 	name = "Missionary"
 	tutorial = "You are a devout worshipper of the divine with a strong connection to your patron god. You've spent years studying scriptures and serving your deity - now you wander into foreign lands, spreading the word of your faith."
 	outfit = /datum/outfit/job/roguetown/adventurer/missionary
-	traits_applied = list()
+	traits_applied = list(TRAIT_CIVILIZEDBARBARIAN, TRAIT_RITUALIST, TRAIT_GRAVEROBBER) //cc again to bring up to close to acolyte.
 	subclass_stats = list(
 		STATKEY_INT = 2,
 		STATKEY_PER = 2,
@@ -619,14 +620,19 @@
 	subclass_skills = list(
 		/datum/skill/combat/polearms = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/combat/staves = SKILL_LEVEL_JOURNEYMAN,
-		/datum/skill/magic/holy = SKILL_LEVEL_EXPERT,
-		/datum/skill/combat/wrestling = SKILL_LEVEL_NOVICE,
-		/datum/skill/combat/unarmed = SKILL_LEVEL_NOVICE,
+		/datum/skill/magic/holy = SKILL_LEVEL_MASTER,
+		/datum/skill/combat/wrestling = SKILL_LEVEL_JOURNEYMAN, //cc edit to bring closer to acolyte
+		/datum/skill/combat/unarmed = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/misc/swimming = SKILL_LEVEL_NOVICE,
 		/datum/skill/misc/climbing = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/misc/athletics = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/misc/reading = SKILL_LEVEL_EXPERT,
-		/datum/skill/misc/medicine = SKILL_LEVEL_APPRENTICE,
+		/datum/skill/misc/medicine = SKILL_LEVEL_JOURNEYMAN,
+		/datum/skill/craft/alchemy = SKILL_LEVEL_APPRENTICE,
+		/datum/skill/craft/cooking = SKILL_LEVEL_APPRENTICE,
+		/datum/skill/craft/crafting = SKILL_LEVEL_JOURNEYMAN,
+		/datum/skill/craft/sewing = SKILL_LEVEL_APPRENTICE,
+		/datum/skill/labor/farming = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/craft/crafting = SKILL_LEVEL_APPRENTICE,
 	)
 	subclass_stashed_items = list(
@@ -648,6 +654,7 @@
 		/obj/item/storage/belt/rogue/pouch/coins/poor = 1,
 		/obj/item/flashlight/flare/torch = 1,
 		/obj/item/recipe_book/survival = 1,
+		/obj/item/ritechalk,
 		)
 	H.cmode_music = 'sound/music/cmode/church/combat_reckoning.ogg'
 	switch(H.patron?.type)
@@ -675,6 +682,7 @@
 		if(/datum/patron/divine/dendor)
 			head = /obj/item/clothing/head/roguetown/dendormask
 			cloak = /obj/item/clothing/suit/roguetown/shirt/robe/dendor
+			H.grant_language(/datum/language/beast) //cc edit
 			H.adjust_skillrank(/datum/skill/labor/farming, SKILL_LEVEL_APPRENTICE, TRUE)
 			H.adjust_skillrank(/datum/skill/misc/hunting, SKILL_LEVEL_NOVICE, TRUE)
 			ADD_TRAIT(H, TRAIT_EXPERT_HUNTER, TRAIT_GENERIC)
@@ -725,7 +733,7 @@
 			cloak = /obj/item/clothing/suit/roguetown/shirt/robe //placeholder, anyone who doesn't have cool patron drip sprites just gets generic robes
 			head = /obj/item/clothing/head/roguetown/roguehood
 	var/datum/devotion/C = new /datum/devotion(H, H.patron)
-	C.grant_miracles(H, cleric_tier = CLERIC_T3, passive_gain = CLERIC_REGEN_MINOR, devotion_limit = CLERIC_REQ_3)	//Minor regen, capped to T3, parity with other Holy and/or Arcyne caster - no others spend 15 minutes idling only to unlock their entire potencial.
+	C.grant_miracles(H, cleric_tier = CLERIC_T4, passive_gain = CLERIC_REGEN_MAJOR, start_maxed = TRUE)	//cc edit bring up close to acolyte
 	if(H.mind)
 		var/weapons = list("Woodstaff", "Quarterstaff")
 		var/weapon_choice = input(H, "Choose your weapon.", "TAKE UP ARMS") as anything in weapons
@@ -754,7 +762,9 @@
 			neck = /obj/item/clothing/neck/roguetown/psicross/abyssor
 			H.grant_language(/datum/language/abyssal)
 		if(/datum/patron/divine/dendor)
-			H.grant_language (/datum/language/beast)
+			ADD_TRAIT(H, TRAIT_WOODWALKER, TRAIT_GENERIC) //cc edit
+			ADD_TRAIT(H, TRAIT_OUTDOORSMAN, TRAIT_GENERIC)
+			H.grant_language(/datum/language/beast)
 			neck = /obj/item/clothing/neck/roguetown/psicross/dendor
 			H.cmode_music = 'sound/music/cmode/garrison/combat_warden.ogg' // see: druid.dm
 		if(/datum/patron/divine/necra)

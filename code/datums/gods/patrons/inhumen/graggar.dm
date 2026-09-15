@@ -13,8 +13,8 @@
 					/datum/action/cooldown/spell/projectile/graggar_net		 	= CLERIC_T2,
 					/datum/action/cooldown/spell/graggar/graggar_battlecry		= CLERIC_T2,
 					/datum/action/cooldown/spell/graggar/exsanguinate		 	= CLERIC_T3,
-					/datum/action/cooldown/spell/graggar/avatar					= CLERIC_T4,
-					/obj/effect/proc_holder/spell/invoked/resurrect/graggar		= CLERIC_T4,
+					/datum/action/cooldown/spell/graggar/avatar					= CLERIC_T3,
+					/obj/effect/proc_holder/spell/invoked/resurrect/graggar		= CLERIC_T3, //cc edit. t3 like all inhumen
 	)
 	confess_lines = list(
 		"GRAGGAR IS THE BEAST I WORSHIP!",
