@@ -20,7 +20,6 @@ export type IssuedContract = {
 const STATUS_LABELS: Record<string, string> = {
   lapsed: 'lapsed untaken',
   withdrawn: 'withdrawn',
-  recalled: 'recalled',
 };
 
 export const issueStatusSuffix = (status?: string, refund?: string) => {

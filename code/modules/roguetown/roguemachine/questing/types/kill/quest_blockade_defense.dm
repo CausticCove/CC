@@ -297,42 +297,16 @@
 	if(S && !QDELETED(S))
 		qdel(S)
 
-/datum/quest/kill/blockade_defense/proc/recall_blocker()
-	if(failed)
-		return "the writ has already lapsed"
-	if(complete)
-		return "the blockade is already broken"
-	if(current_wave > 0)
-		return "the fellowship has already engaged the blockade"
-	if(!issued_at)
-		return "the writ's issue time is unknown"
-	var/elapsed = world.time - issued_at
-	if(elapsed < BLOCKADE_RECALL_WINDOW_DS)
-		var/remaining = BLOCKADE_RECALL_WINDOW_DS - elapsed
-		var/minutes_left = max(1, round(remaining / 600))
-		return "the bearer has [minutes_left] minute(s) left to reach the blockade before it can be recalled"
-	return null
+/datum/quest/kill/blockade_defense/has_started()
+	return ..() || current_wave > 0 || failed
 
-/datum/quest/kill/blockade_defense/proc/can_recall()
-	return isnull(recall_blocker())
-
-/datum/quest/kill/blockade_defense/proc/recall(mob/recaller, reason = "recalled")
-	if(!can_recall())
-		return FALSE
-	armed = FALSE
+/datum/quest/kill/blockade_defense/on_issuer_withdrawn(mob/withdrawer)
 	var/datum/blockade/B = blockade_ref?.resolve()
+	var/datum/economic_region/ER = B?.get_region()
 	if(B)
 		B.active_scroll_ref = null
 		B.active_quest_ref = null
-	var/refund_text = refund_issuer_funding("Blockade writ recall refund ([recaller ? recaller.real_name : "unknown"])", recaller)
-	mark_issue_log(QUEST_ISSUE_STATUS_RECALLED, refund_text)
-	var/obj/item/quest_writ/S = quest_scroll
-	if(S && !QDELETED(S))
-		qdel(S)
-	else
-		SSquestpool.pool -= src
-		qdel(src)
-	return TRUE
+	scom_announce("The [B ? "blockade" : "hoard recovery"] writ for [ER ? ER.name : region] has been withdrawn.")
 
 /datum/quest/kill/blockade_defense/proc/despawn_live_wave_mobs()
 	for(var/datum/weakref/W in tracked_atoms)
@@ -397,6 +371,10 @@
 // region alone and never blocks trade.
 /datum/quest/kill/blockade_defense/hoard_recovery
 	quest_type = QUEST_HOARD_RECOVERY
+	var/raised_by_fellowship = FALSE
+
+/datum/quest/kill/blockade_defense/hoard_recovery/office_may_withdraw()
+	return !raised_by_fellowship
 
 /datum/quest/kill/blockade_defense/hoard_recovery/get_title()
 	if(title)

@@ -222,7 +222,7 @@ SUBSYSTEM_DEF(questpool)
 		generate_one(type, TR, is_replacement = TRUE)
 
 /datum/controller/subsystem/questpool/proc/refund_lapsed_posting(datum/quest/Q)
-	var/label = Q.title || Q.quest_type
+	var/label = Q.get_title() || Q.quest_type
 	var/refund_text = Q.refund_issuer_funding("Lapsed posting refund")
 	Q.mark_issue_log(QUEST_ISSUE_STATUS_LAPSED, refund_text)
 	if(!refund_text)
@@ -412,6 +412,7 @@ SUBSYSTEM_DEF(questpool)
 	Q.deposit_amount = 0
 	Q.reward_amount = BLOCKADE_SCROLL_REWARD + TR.blockade_travel_fee
 	Q.required_fellowship_size = is_commission ? 0 : BLOCKADE_FELLOWSHIP_REQUIREMENT
+	Q.raised_by_fellowship = !is_commission
 	var/obj/effect/landmark/quest_spawner/landmark = find_quest_landmark(QUEST_BLOCKADE_DEFENSE, TR.region_name, Q)
 	if(!landmark)
 		qdel(Q)

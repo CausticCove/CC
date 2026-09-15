@@ -154,7 +154,7 @@
 		data["rumor_regions_by_type"] = build_rumor_regions_by_type()
 		data["rumor_destinations"] = build_rumor_destinations()
 		data["rumor_log"] = SStreasury.rumor_log
-		data["rumor_issued"] = build_issued_listing(QUEST_SOURCE_RUMOR)
+		data["rumor_issued"] = build_issued_listing(list(QUEST_SOURCE_RUMOR))
 		data["rumor_lucrative_mult"] = RUMOR_LUCRATIVE_MULT
 	if("steward" in dynamic_roles)
 		data["is_alderman_acting"] = (SScity_assembly?.is_alderman(user) && user.job != "Steward") ? TRUE : FALSE
@@ -174,9 +174,8 @@
 		data["blockade_region_labels"] = build_blockade_region_labels()
 		data["defense_destinations"] = build_rumor_destinations()
 		data["defense_log"] = SStreasury.defense_log
-		data["defense_issued"] = build_issued_listing(QUEST_SOURCE_DEFENSE)
-		data["blockade_recall_list"] = build_blockade_recall_list()
-		data["blockade_recall_window_seconds"] = BLOCKADE_RECALL_WINDOW_DS / 10
+		data["defense_issued"] = build_issued_listing(list(QUEST_SOURCE_DEFENSE, QUEST_SOURCE_BLOCKADE))
+		data["active_writ_regions"] = build_active_writ_regions()
 		data["bonus_pay_light_mult"] = COMMISSION_BONUS_PAY_LIGHT_MULT
 		data["bonus_pay_full_mult"] = COMMISSION_BONUS_PAY_MULT
 		refresh_directive_quota()
@@ -391,9 +390,6 @@ GLOBAL_LIST_INIT(contract_proxy_officials, list(
 			return TRUE
 		if("commission_defense")
 			commission_defense_from_tgui(user, params)
-			return TRUE
-		if("recall_blockade_writ")
-			recall_blockade_writ_from_tgui(user, params)
 			return TRUE
 		if("compose_towner")
 			compose_towner_from_tgui(user, params)

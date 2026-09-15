@@ -14,38 +14,20 @@
 			return "bonus pay"
 	return ""
 
-/obj/structure/roguemachine/contractledger/proc/build_blockade_recall_list()
+/obj/structure/roguemachine/contractledger/proc/build_active_writ_regions()
 	var/list/out = list()
 	for(var/datum/blockade/B as anything in GLOB.active_blockades)
 		var/datum/quest/kill/blockade_defense/Q = B.active_quest_ref?.resolve()
 		if(!istype(Q) || QDELETED(Q))
 			continue
 		var/datum/economic_region/ER = B.get_region()
-		out += list(build_writ_recall_entry(Q, ER ? ER.name : B.region_id))
+		out += ER ? ER.name : B.region_id
 	for(var/datum/threat_region/TR as anything in SSregionthreat.threat_regions)
 		var/datum/quest/kill/blockade_defense/Q = TR.active_hoard_recovery_ref?.resolve()
 		if(!istype(Q) || QDELETED(Q) || Q.failed || Q.complete)
 			continue
-		out += list(build_writ_recall_entry(Q, TR.region_name))
+		out += TR.region_name
 	return out
-
-/obj/structure/roguemachine/contractledger/proc/build_writ_recall_entry(datum/quest/kill/blockade_defense/Q, region_label)
-	var/reason = Q.recall_blocker()
-	var/recall_eligible = isnull(reason) ? TRUE : FALSE
-	var/seconds_until_recallable = 0
-	if(Q.current_wave == 0 && !Q.failed && !Q.complete && Q.issued_at)
-		var/elapsed = world.time - Q.issued_at
-		var/until_open = BLOCKADE_RECALL_WINDOW_DS - elapsed
-		if(until_open > 0)
-			seconds_until_recallable = round(until_open / 10)
-	return list(
-		"region" = region_label,
-		"recall_eligible" = recall_eligible,
-		"recall_blocker" = reason,
-		"seconds_until_recallable" = seconds_until_recallable,
-		"refund" = Q.get_funding_total(),
-		"refund_text" = Q.describe_issuer_refund(),
-	)
 
 /obj/structure/roguemachine/contractledger/proc/draw_commission_funds(list/draws, reason)
 	var/list/drawn = list()

@@ -18,15 +18,6 @@ type DefenseLogEntry = {
   refund?: string;
 };
 
-type BlockadeRecallEntry = {
-  region: string;
-  recall_eligible: number | boolean;
-  recall_blocker: string | null;
-  seconds_until_recallable: number;
-  refund: number;
-  refund_text: string;
-};
-
 type StewardData = {
   pledge_balance: number;
   pledge_refill_base: number;
@@ -42,8 +33,7 @@ type StewardData = {
   region_tp_multipliers: Record<string, number>;
   defense_destinations: string[];
   defense_log: DefenseLogEntry[];
-  blockade_recall_list: BlockadeRecallEntry[];
-  blockade_recall_window_seconds: number;
+  active_writ_regions: string[];
   bonus_pay_light_mult: number;
   bonus_pay_full_mult: number;
   directives_per_day: number;
@@ -276,11 +266,8 @@ const ComposeView = () => {
   const isBlockade = type === BLOCKADE_TYPE;
   const isHoardRecovery = type === HOARD_RECOVERY_TYPE;
   const isWrit = isBlockade || isHoardRecovery;
-  const recallEntry =
-    isWrit && region
-      ? (data.blockade_recall_list || []).find((e) => e.region === region)
-      : undefined;
-  const regionHasActiveWrit = !!recallEntry;
+  const regionHasActiveWrit =
+    isWrit && !!region && (data.active_writ_regions || []).includes(region);
   const directivesRemaining =
     (data.directives_per_day ?? 0) - (data.directives_issued_today ?? 0);
   const pledgeAvailable = !!data.pledge_available;
@@ -640,7 +627,7 @@ const ComposeView = () => {
         </div>
       )}
 
-      {isWrit && recallEntry && (
+      {regionHasActiveWrit && (
         <div className="ContractLedger__InnkeeperFlavor">
           A scroll is already in circulation for {region}. It can be withdrawn
           from the Issued tab.
