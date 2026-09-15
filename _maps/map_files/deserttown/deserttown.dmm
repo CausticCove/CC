@@ -33856,8 +33856,8 @@
 /area/rogue/under/cave/desertdeep)
 "irM" = (
 /obj/structure/fluff/traveltile/magicportal{
-	aportalgoesto = "wizardtowertop";
-	aportalid = "wizardtowervoid2";
+	aportalgoesto = "wizardtowervoid2";
+	aportalid = "wizardtowertop";
 	name = "University Quarter's";
 	travel_time = 25
 	},
@@ -36593,7 +36593,6 @@
 /area/rogue/indoors/town/desert)
 "jeu" = (
 /obj/structure/closet/crate/roguecloset,
-/obj/item/clothing/mask/cigarette/pipe/westman,
 /obj/effect/spawner/lootdrop/potion_ingredient/herb,
 /obj/effect/spawner/lootdrop/potion_ingredient/herb,
 /obj/item/reagent_containers/glass/bucket,
@@ -59557,6 +59556,7 @@
 /obj/structure/closet/crate/chest/wicker,
 /obj/item/reagent_containers/food/snacks/grown/rogue/swampweed,
 /obj/item/clothing/mask/cigarette/pipe/westman,
+/obj/item/reagent_containers/food/snacks/grown/rogue/swampweeddry,
 /turf/open/floor/rogue/deserttile{
 	icon_state = "tilegreeny"
 	},
