@@ -43927,6 +43927,9 @@
 /obj/structure/closet/crate/chest/inqcrate,
 /obj/item/book/rogue/bibble/psy,
 /obj/item/book/rogue/bibble/psy,
+/obj/item/clothing/neck/roguetown/psicross,
+/obj/item/clothing/neck/roguetown/psicross,
+/obj/item/clothing/neck/roguetown/psicross,
 /turf/open/floor/rogue/darkpath,
 /area/rogue/indoors/inq/basement)
 "kWj" = (
@@ -97034,12 +97037,7 @@
 /turf/open/floor/rogue/naturalstone,
 /area/rogue/under/cave/deserthotsprings)
 "yby" = (
-/obj/machinery/light/rogue/torchholder{
-	pixel_y = 32
-	},
-/obj/structure/pillory/reinforced{
-	lockid = "inquisition"
-	},
+/obj/structure/fluff/psycross/psycrucifix/silver,
 /turf/open/floor/rogue/darkpath,
 /area/rogue/indoors/inq/basement)
 "ybB" = (
@@ -450878,9 +450876,9 @@ pfb
 aom
 qTT
 pfb
+mez
+rai
 yby
-rai
-rai
 qTT
 aom
 aom
@@ -451197,9 +451195,9 @@ aom
 aNU
 rai
 rai
-rai
+yby
 pfb
-pxu
+yby
 pnR
 rai
 xLl
