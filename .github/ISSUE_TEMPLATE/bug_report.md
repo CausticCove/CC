@@ -1,10 +1,10 @@
-
 ---
 name: Bug Report
 about: Create a report to help us improve
 title: "Unexpected Behavior for X"
 type: Bug
 ---
+
 <!-- Write **BELOW** The Headers and **ABOVE** The comments else it may not be viewable -->
 
 ## Describe the bug
