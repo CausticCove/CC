@@ -120,7 +120,7 @@
 			return
 
 		var/mob/thrower
-		if(istype(throwingdatum, /datum/thrownthing/throwingdatum))
+		if(istype(throwingdatum, /datum/thrownthing))
 			thrower = throwingdatum?.thrower
 
 		// PERSON BEING HIT: CAN BE DROP PRED, ALLOWS THROW VORE.
