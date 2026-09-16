@@ -197,8 +197,11 @@
 				if(get_dist(get_turf(user), get_turf(M)) <= user.used_intent.reach)
 					user.do_attack_animation(M, user.used_intent.animname, used_item = src, used_intent = user.used_intent, simplified = TRUE)
 			return
+	var/dualwield_armed = FALSE
 	if(HAS_TRAIT(user, TRAIT_DUALWIELDER))
-		user.process_dualwield(M, src, null)
+		var/datum/intent/dualwield_cached_intent = user.used_intent
+		dualwield_armed = user.process_dualwield(src)
+		user.used_intent = dualwield_cached_intent
 	var/rmb_stam_penalty = 0
 	if(istype(user.rmb_intent, /datum/rmb_intent/strong))
 		rmb_stam_penalty = EXTRA_STAMDRAIN_SWIFSTRONG
@@ -234,6 +237,7 @@
 
 	if(override_status != ATTACK_OVERRIDE_NODEFENSE)
 		if(M.checkdefense(user.used_intent, user))
+			// Defended, so an armed paired swing is simply never thrown.
 			return
 
 	if(user.mind)
@@ -294,6 +298,9 @@
 	log_combat(user, M, "attacked", src.name, "(INTENT: [uppertext(user.used_intent.name)]) (DAMTYPE: [uppertext(damtype)])")
 
 	execute_cleave(user, get_turf(M), M)
+
+	if(dualwield_armed)
+		user.fire_dualwield_paired(M, null)
 
 	add_fingerprint(user)
 
