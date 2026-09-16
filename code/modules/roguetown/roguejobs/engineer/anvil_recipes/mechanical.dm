@@ -307,6 +307,41 @@
 	created_item = /obj/item/gun/ballistic/revolver/grenadelauncher/blackpowder/arquebus
 	craftdiff = 5
 
+/datum/anvil_recipe/engineering/arquebus_grenz
+	name = "Grenzelhoftian Arquebus (+1 bronze, +1 cog, +1 wood)"
+	req_bar = /obj/item/ingot/bronze
+	additional_items = list(/obj/item/ingot/bronze, /obj/item/roguegear, /obj/item/grown/log/tree/small) //Expensive!
+	created_item = /obj/item/gun/ballistic/revolver/grenadelauncher/blackpowder/arquebus/grenzelhoft
+	craftdiff = 5
+
+/datum/anvil_recipe/engineering/handbombard
+	name = "Hand-Bombard (+3 bronze, +1 wood)"
+	req_bar = /obj/item/ingot/bronze
+	additional_items = list(/obj/item/ingot/bronze, /obj/item/ingot/bronze, /obj/item/ingot/bronze, /obj/item/grown/log/tree/small) //Expensive!
+	created_item = /obj/item/gun/ballistic/revolver/grenadelauncher/blackpowder/handgonne
+	craftdiff = 6
+
+/datum/anvil_recipe/engineering/culverin
+	name = "Culverin (+3 bronze, +1 wood)"
+	req_bar = /obj/item/ingot/bronze
+	additional_items = list(/obj/item/ingot/bronze, /obj/item/ingot/bronze, /obj/item/ingot/bronze, /obj/item/grown/log/tree/small) //Expensive!
+	created_item = /obj/item/gun/ballistic/revolver/grenadelauncher/blackpowder/handgonne/culverin
+	craftdiff = 6
+
+/datum/anvil_recipe/engineering/blunderbus
+	name = "Blunderbus (+2 bronze, +1 cog, +1 wood)"
+	req_bar = /obj/item/ingot/bronze
+	additional_items = list(/obj/item/ingot/bronze, /obj/item/ingot/bronze, /obj/item/roguegear, /obj/item/grown/log/tree/small) //Expensive!
+	created_item = /obj/item/gun/ballistic/revolver/grenadelauncher/blackpowder/blunderbus
+	craftdiff = 5
+
+/datum/anvil_recipe/engineering/blunderbus_ornate
+	name = "Blunderbus (+2 bronze, +1 gold, +1 cog, +1 wood)"
+	req_bar = /obj/item/ingot/bronze
+	additional_items = list(/obj/item/ingot/bronze, /obj/item/ingot/bronze, /obj/item/ingot/gold, /obj/item/roguegear, /obj/item/grown/log/tree/small) //Expensive!
+	created_item = /obj/item/gun/ballistic/revolver/grenadelauncher/blackpowder/blunderbus/ornate
+	craftdiff = 5
+
 /datum/anvil_recipe/engineering/pistol
 	name = "Arquebus Pistol (+1 cog, +1 wood)"
 	req_bar = /obj/item/ingot/bronze

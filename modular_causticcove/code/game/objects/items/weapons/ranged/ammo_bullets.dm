@@ -118,8 +118,8 @@
 /obj/item/pellet
 	var/num_rounds = 1
 	var/max_rounds
-	var/caliber
-	var/full_item
+	var/caliber //A tag for comparing them, should be unique for each type similar to how the ammo runs on calibers or else they will stack with one another.
+	var/full_item //Set this to an item path, and it'll spawn this when it stacks up to max_rounds
 
 /obj/item/pellet/Initialize()
 	. = ..()
@@ -146,7 +146,7 @@
 	. = ..()
 
 /obj/item/pellet/proc/update_count()
-	if(num_rounds == max_rounds)
+	if(num_rounds == max_rounds && full_item)
 		var/new_shot = new full_item(loc)
 		if(ismob(loc))
 			var/mob/holding = loc
@@ -189,7 +189,8 @@
 	grid_height = 32
 	max_rounds = BOOMSTICK_NUM_PELLETS
 	caliber = "boomstick-silver"
-	full_item = /obj/item/ammo_casing/caseless/rogue/bullet/blackpowder/grapeshot
+	full_item = null
+	is_silver = TRUE
 
 #undef BLUNDERBUS_NUM_PELLETS
 #undef BOOMSTICK_NUM_PELLETS

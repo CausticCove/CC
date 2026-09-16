@@ -191,6 +191,7 @@
 	BB.range = range
 
 	if(!multiple_shot)
+		magazine.stored_ammo.Cut() //This is needed apparently since it got commented out above. It'll just wipe the stored ammo from the magazine, but frankly this is hacky as hell. There's likely a better way using the various gun calls, but eh.
 		gunpowder = FALSE
 		reloaded = FALSE
 	user.adjust_experience(/datum/skill/combat/firearms, (user.STAINT*5))
@@ -214,7 +215,11 @@
 /obj/item/gun/ballistic/revolver/grenadelauncher/blackpowder/can_shoot()
 	if (!reloaded)
 		return FALSE
-	return ..()
+	var/is_chambered = ..()
+	if(is_chambered && chambered.BB)
+		return TRUE
+	else
+		return FALSE
 
 /obj/item/gun/ballistic/revolver/grenadelauncher/blackpowder/small
 	name = "one-handed blackpowder weaponry"
@@ -554,6 +559,15 @@
 	spin_cooldown = 5 SECONDS
 	var/barrel_open = FALSE
 
+/obj/item/gun/ballistic/revolver/grenadelauncher/blackpowder/small/boomstick/getonmobprop(tag)
+	. = ..()
+	if(tag)
+		switch(tag)
+			if("gen")
+				return list("shrink" = 0.6,"sx" = -8,"sy" = -5,"nx" = 11,"ny" = -5,"wx" = -4,"wy" = -6,"ex" = 3,"ey" = -5,"northabove" = 0,"southabove" = 1,"eastabove" = 1,"westabove" = 0,"nturn" = 75,"sturn" = -75,"wturn" = -75,"eturn" = 75,"nflip" = 0,"sflip" = 8,"wflip" = 8,"eflip" = 0)
+			if("onbelt")
+				return list("shrink" = 0.3,"sx" = -2,"sy" = -5,"nx" = 4,"ny" = -5,"wx" = 0,"wy" = -5,"ex" = 2,"ey" = -5,"nturn" = 0,"sturn" = 0,"wturn" = 0,"eturn" = 0,"nflip" = 0,"sflip" = 0,"wflip" = 0,"eflip" = 0,"northabove" = 0,"southabove" = 1,"eastabove" = 1,"westabove" = 0)
+
 /obj/item/gun/ballistic/revolver/grenadelauncher/blackpowder/small/boomstick/update_icon_state()
 	if(barrel_open)
 		var/num_rounds = magazine.ammo_count()
@@ -570,6 +584,18 @@
 			chambered = null
 	if (chamber_next_round && (magazine?.max_ammo > 1))
 		chamber_round(TRUE)
+
+/obj/item/gun/ballistic/revolver/grenadelauncher/blackpowder/small/boomstick/chamber_round(spin_cylinder)
+	if(!magazine.stored_ammo.len) //Make sure there even is something in there first, too.
+		return
+
+	for(var/obj/item/ammo_casing/AC in magazine.stored_ammo)
+		if(AC.BB)
+			chambered = AC
+			break
+
+	if(!chambered)
+		chambered = magazine.stored_ammo[1] //If all are already fired, lets just 'chamber' an empty one. It won't fire since I added the chambered check to can_fire above.
 
 /obj/item/gun/ballistic/revolver/grenadelauncher/blackpowder/small/boomstick/attack_right(mob/user)
 	if(barrel_open)
