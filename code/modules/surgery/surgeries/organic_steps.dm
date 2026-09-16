@@ -16,6 +16,11 @@
 	preop_sound = 'sound/surgery/scalpel1.ogg'
 	success_sound = 'sound/surgery/scalpel2.ogg'
 
+	//CC Edit - Incisions shouldn't be what causes infections for gameplay balance for Inquisition, Church, and anything else requiring blood.
+	causes_infection = FALSE
+	causes_pain = FALSE //Above, and to also make it easier starting surgeries after combat.
+	//CC Edit End
+
 /datum/surgery_step/incise/preop(mob/user, mob/living/target, target_zone, obj/item/tool, datum/intent/intent)
 	display_results(user, target, span_notice("I begin to make an incision in [target]'s [parse_zone(target_zone)]..."),
 		span_notice("[user] begins to make an incision in [target]'s [parse_zone(target_zone)]."),

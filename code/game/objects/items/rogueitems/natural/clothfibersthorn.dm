@@ -187,6 +187,14 @@
 	var/medicine_quality
 	var/medicine_amount = 0
 
+	//CC Edit - The type of medicine needed to actually soak the item to turn it into a new treated item.
+	var/medicine_reagent_type // /datum/reagent/medicine/healthpot
+
+	var/medicine_obj_type // /obj/item/healing/styptic_powder
+
+	var/added_desc = " It has been soaked in something very very abstract... Better call for a coder!"
+	//CC Edit End
+
 /obj/item/natural/cloth/get_mechanics_examine(mob/user)
 	. = ..()
 	. += span_info("Right-clicking a washbin or pool of water allows you to soak the cloth, which can then clean up various stains-and-dirtiness by left-clicking them.")
@@ -288,7 +296,6 @@
 	bandage(M, user)
 
 /obj/item/natural/cloth/wash_act()
-	. = ..()
 	wet = 10
 	bandage_health = initial(bandage_health)
 	medicine_amount = 0
@@ -296,56 +303,110 @@
 	detail_color = null
 	desc = initial(desc)
 	update_icon()
+	. = ..() //CC Edit
 
+//CC Edit Begin - Clean Up Treated Cloths/Bandage code.
 /obj/item/natural/cloth/attackby(obj/item/I, mob/living/user, params)
 	var/obj/item/reagent_containers/C = I
-	if(!istype(C))
-		return ..()
-	if(C.reagents.has_reagent(/datum/reagent/medicine/healthpot, 10) && !medicine_amount)
-		to_chat(user, span_notice("You start soaking the [src] in lyfeblood..."))
-		if(do_after(user, 3 SECONDS, target = src))
-			C.reagents.remove_reagent(/datum/reagent/medicine/healthpot, 10)
-			medicine_quality = 1
-			medicine_amount += 10
-			desc += " It has been soaked in lyfeblood."
-			detail_color = "#ff0000"
-			update_icon()
-	if(C.reagents.has_reagent(/datum/reagent/medicine/stronghealth, 10) && !medicine_amount)
-		to_chat(user, span_notice("You start soaking the [src] in strong lyfeblood..."))
-		if(do_after(user, 3 SECONDS, target = src))
-			C.reagents.remove_reagent(/datum/reagent/medicine/stronghealth, 10)
-			medicine_quality = 2
-			medicine_amount += 10
-			desc += " It has been soaked in strong lyfeblood."
-			detail_color = "#820000"
-			update_icon()
-	if(C.reagents.has_reagent(/datum/reagent/consumable/ethanol/aqua_vitae, 10) && !medicine_amount)
-		to_chat(user, span_notice("You start soaking the [src] in aqua vitae..."))
-		if(do_after(user, 3 SECONDS, target = src))
-			C.reagents.remove_reagent(/datum/reagent/consumable/ethanol/aqua_vitae, 10)
-			medicine_quality = 0.5 //slower than health potions, more healing overall. Good for fractures or other big wounds.
-			medicine_amount += 60
-			desc += " It has been soaked in aqua vitae."
-			detail_color = "#6e6e6e"
-			update_icon()
-	if(C.reagents.has_reagent(/datum/reagent/water/blessed, 10) && !medicine_amount)
-		to_chat(user, span_notice("You start soaking the [src] in blessed water..."))
-		if(do_after(user, 3 SECONDS, target = src))
-			C.reagents.remove_reagent(/datum/reagent/water/blessed, 10)
-			medicine_quality = 0.2 //cheap, easy to get, doesn't even heal wounds if it's not on a bandage
-			medicine_amount += 20
-			desc += " It has been soaked in blessed water."
-			detail_color = "#6a9295"
-			update_icon()
-	if(C.reagents.has_reagent(/datum/reagent/water/medicine, 10) && !medicine_amount)
-		to_chat(user, span_notice("You start soaking the [src] in Pestran Medicine..."))
-		if(do_after(user, 3 SECONDS, target = src))
-			C.reagents.remove_reagent(/datum/reagent/water/medicine, 10)
-			medicine_quality = 0.2 //cheap, easy to get, doesn't even heal wounds if it's not on a bandage
-			medicine_amount += 20
-			desc += " It has been soaked in Pestran Medicine."
-			detail_color = "#428b42"
-			update_icon()
+	if(C.reagents && do_after(user, 1 SECONDS, target = src))
+		for(var/datum/bandage_types/bandage_type as anything in subtypesof(/datum/bandage_types))
+			if(C.reagents.has_reagent(bandage_type.reagent_type, 10))
+				C.reagents.remove_reagent(bandage_type.reagent_type, 10)
+				handle_medicine_updates(bandage_type)
+
+	else if(do_after(user, 1 SECONDS, target = src))
+		for(var/datum/bandage_types/bandage_type as anything in subtypesof(/datum/bandage_types))
+			if(bandage_type.obj_type == I.type)
+				qdel(I)
+				handle_medicine_updates(bandage_type)
+
+//You can make your own variants!
+/datum/bandage_types
+	var/quality
+	var/amount
+	var/color
+	var/added_desc
+	var/reagent_type
+	var/obj_type
+
+//Reagent Required Bandages//
+/datum/bandage_types/lifeblood
+	quality = 1
+	amount = 10
+	color = "#ff0000"
+	added_desc = " It has been soaked in lyfeblood."
+	reagent_type = /datum/reagent/medicine/healthpot
+
+/datum/bandage_types/stronghealth
+	quality = 2
+	amount = 10
+	color = "#820000"
+	added_desc = " It has been soaked in strong lyfeblood."
+	reagent_type = /datum/reagent/medicine/stronghealth
+
+/datum/bandage_types/aqua_vitae
+	quality = 0.5
+	amount = 60
+	color ="#6e6e6e"
+	added_desc = " It has been soaked in aqua vitae."
+	reagent_type = /datum/reagent/consumable/ethanol/aqua_vitae
+
+/datum/bandage_types/blessed_water
+	quality = 0.2
+	amount = 20
+	color = "#6a9295"
+	added_desc = " It has been soaked in blessed water."
+	reagent_type = /datum/reagent/water/blessed
+
+/datum/bandage_types/blessed_water
+	quality = 0.4 //Slightly stronger than normal blessed water since it's pestran specific.
+	amount = 30
+	color = "#428b42"
+	added_desc = " It has been soaked in pestran medicine."
+	reagent_type = /datum/reagent/water/medicine
+
+//Object Required Bandages//
+/datum/bandage_types/calendula_poultice
+	quality = 0.5 //Half as strong as normal medicine.
+	amount = 10
+	color = "#a36c06"
+	added_desc = " It has been infused with a calendula poultice."
+	obj_type = /obj/item/alch/calendula
+
+/datum/bandage_types/urtica_poultice
+	quality = 0.25 //A Quarter as strong as normal medicine.
+	amount = 10
+	color = "#6103a0"
+	added_desc = " It has been infused with a urtica poultice."
+	obj_type = /obj/item/alch/urtica
+
+/datum/bandage_types/valeriana_poultice
+	quality = 0.25 //A Quarter as strong as normal medicine.
+	amount = 10
+	color = "#f1eece"
+	added_desc = " It has been infused with a valeriana poultice."
+	obj_type = /obj/item/alch/valeriana
+
+/datum/bandage_types/symphitum_poultice
+	quality = 0.25 //A Quarter as strong as normal medicine.
+	amount = 10
+	color = "#eeb8e7"
+	added_desc = " It has been infused with a symphitum poultice."
+	obj_type = /obj/item/alch/symphitum
+
+//Updates the bandages to utilize the bandage type provided for modification.
+/obj/item/natural/cloth/proc/handle_medicine_updates(used_bandage)
+	var/datum/bandage_types/used_type = used_bandage
+
+	medicine_quality = used_type.quality
+	medicine_amount = used_type.amount
+	detail_color = used_type.color
+
+	desc = initial(desc) //So we can't stack " it's soaked in" whatever the fuck 200 times.
+	desc += used_type.added_desc
+
+	update_icon()
+//CC Edit End
 
 /obj/item/natural/cloth/update_icon()
 	cut_overlays()
@@ -543,6 +604,9 @@
 	grid_width = 32
 	grid_height = 32
 	dropshrink = 0.9
+	//CC Edit - Bundle Bandaging
+	var/bandage_speed = 7 SECONDS
+	//CC Edit End
 
 /obj/item/natural/bundle/stick
 	name = "bundle of sticks"
