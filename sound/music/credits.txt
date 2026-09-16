@@ -73,3 +73,4 @@ templarofpsydon.ogg: 26 - Duty and Honor II (with Ryan Patrick Buckley) - Chival
 title1.ogg: Aphex Twin - Stone In Focus
 traitor.ogg: Tooth and Tail OST (2017) - Bellafide (Firebrand of The Longcoats)
 warscholar.ogg: Butcher's Boulevard - Kristjan Thomas Haaristo
+combat_lamplighter: https://www.youtube.com/watch?v=O35e6sOctmk - Verisimilitude III - burialgoods
