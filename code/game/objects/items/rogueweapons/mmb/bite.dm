@@ -271,7 +271,9 @@
 			if(istype(user.dna.species, /datum/species/werewolf))
 				if(prob(30))
 					user.werewolf_feed(C)
-
+			if(istype(user.dna.species, /datum/species/gnoll)) //CC edit: allows gnolls to heal on chew, not just initial bite
+				if(prob(30))
+					user.gnoll_feed(C, 10) //CC edit end
 			/*
 				ZOMBIE CHEW. ZOMBIFICATION
 			*/

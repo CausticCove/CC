@@ -737,7 +737,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 			if( !(I.slot_flags & ITEM_SLOT_SHOES) )
 				return FALSE
 			var/obj/item/clothing/shoes = I
-			if(is_taur && (!istype(shoes) || !(shoes.clothing_flags & TAUR_COMPATIBLE)))
+			if(is_taur && (!istype(I, /obj/item/holder/micro) && (!istype(shoes) || !(shoes.clothing_flags & TAUR_COMPATIBLE)))) //Caustic Edit - Let taurs wear Micros on feets.
 				return FALSE
 			if(num_legs < 1)
 				return FALSE

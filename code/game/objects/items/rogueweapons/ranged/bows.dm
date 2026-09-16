@@ -73,6 +73,12 @@
 				return newtime
 	return chargetime
 
+/obj/item/gun/ballistic/revolver/grenadelauncher/bow/get_npc_chargetime(mob/living/user)
+	var/newtime = (10 - user.get_skill_level(ranged_skill) * 2) + (10 - user.STASTR / 2) + (20 - user.STAPER)
+	if(chambered)
+		newtime *= chambered.charge_time_mult
+	return (max(0, newtime) + ARCHER_NPC_MIN_AIM_TIME + ARCHER_NPC_NOCK_TIME) * ARCHER_NPC_ROF_PENALTY
+
 //bow objs ฅ^•ﻌ•^ฅ
 
 /obj/item/gun/ballistic/revolver/grenadelauncher/bow

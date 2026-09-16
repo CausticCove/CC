@@ -44,8 +44,10 @@ GLOBAL_LIST_INIT(desert_river, list(
 ))
 
 GLOBAL_LIST_INIT(desert_deep, list(
-	/area/rogue/outdoors/desertdeep
+	/area/rogue/outdoors/desertdeep,
+	/area/rogue/outdoors/desertdeep/arenavillage
 ))
+//End Caustic Edit
 
 SUBSYSTEM_DEF(hunting)
 	name = "Hunting"
@@ -77,7 +79,7 @@ SUBSYSTEM_DEF(hunting)
 /datum/controller/subsystem/hunting/Initialize()
 	. = ..()
 	for(var/group_type in subtypesof(/datum/hunting_area_group))
-		var/datum/hunting_area_group/GA = new group_type() 
+		var/datum/hunting_area_group/GA = new group_type()
 		var/list/group_list = GA.get_areas()
 
 		if(!group_list || !group_list.len)

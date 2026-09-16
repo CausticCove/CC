@@ -22,6 +22,19 @@
 ///Flags for ai_behavior new()
 #define AI_CONTROLLER_INCOMPATIBLE (1<<0)
 
+//Return flags for ai_behavior/perform()
+///Update this behavior's cooldown
+#define AI_BEHAVIOR_DELAY (1<<0)
+///Finish the behavior successfully
+#define AI_BEHAVIOR_SUCCEEDED (1<<1)
+///Finish the behavior unsuccessfully
+#define AI_BEHAVIOR_FAILED (1<<2)
+
+#define AI_BEHAVIOR_INSTANT (NONE)
+
+///How long a behavior stuck inside perform() blocks re-entry before we assume it died to a runtime
+#define AI_BEHAVIOR_REENTRY_TIMEOUT (30 SECONDS)
+
 ///Does this task require movement from the AI before it can be performed?
 #define AI_BEHAVIOR_REQUIRE_MOVEMENT (1<<0)
 ///Does this require the current_movement_target to be adjacent and in reach?
@@ -168,7 +181,7 @@
 // actual mechanical limiter
 #define ARCHER_NPC_NOCK_TIME			(1.5 SECONDS)
 #define ARCHER_NPC_MIN_AIM_TIME			(0.4 SECONDS)
-#define ARCHER_NPC_ROF_PENALTY			1.3
+#define ARCHER_NPC_ROF_PENALTY			1.6
 #define ARCHER_NPC_RETREAT_PROJECT		4
 #define ARCHER_NPC_JUKE_MIN_DIST		4
 #define ARCHER_NPC_REPOSITION_TIME		(0.6 SECONDS) // how long a post-shot random juke commits before the straight retreat resumes
@@ -226,8 +239,8 @@
 #define BB_FIND_TARGETS_FIELD(type) "bb_find_targets_field_[type]"
 
 
-#define AI_ITEM_THROWING		(1<<0)
-#define AI_ITEM_QUIVER			(1<<1)
+#define AI_ITEM_THROWING        (1<<0)
+#define AI_ITEM_QUIVER          (1<<1)
 
 GLOBAL_LIST_INIT(ai_item_flags, list(
 	AI_ITEM_THROWING,

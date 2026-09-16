@@ -3,6 +3,7 @@
 	name = "Mount Decapitation"
 	loot_budget = LOOT_BUDGET_MOUNT_DECAP
 	icon_state = "decap"
+	allow_extreme_weather = TRUE //Caustic Edit - Add in the possibility for tornado spawns!
 	ambush_mobs = list(
 				// Singles — budget filler across all factions
 				/mob/living/carbon/human/species/human/northern/highwayman/ambush = 15,
@@ -49,6 +50,7 @@
 	loot_budget = LOOT_BUDGET_TARICHEA
 	loot_pool_key = "tarichea"
 	icon_state = "decap"
+	allow_extreme_weather = FALSE //Caustic Edit - No spawns here, it's Lava HELL.
 	ambush_mobs = list(
 				// Singles
 				/mob/living/carbon/human/species/human/northern/highwayman/ambush = 15,
@@ -80,6 +82,7 @@
 	loot_budget = LOOT_BUDGET_GUNDU_ZIRAK
 	loot_pool_key = "gundu_zirak"
 	icon_state = "decap"
+	allow_extreme_weather = FALSE //Caustic Edit - Turn off spawns, it's underground but... still in the outdoors path for some reason?
 	ambush_mobs = list(
 				new /datum/ambush_config/treasure_hunter_posse = 1,
 				/mob/living/carbon/human/species/dwarfskeleton/ambush = 30,
@@ -98,6 +101,7 @@
 /area/rogue/outdoors/mountains/decap/gunduzirak/bossarena
 	name = "Baronness Boss Arena"
 	first_time_text = "THE BARONESS"
+	allow_extreme_weather = FALSE //Caustic Edit - Turn off spawns, it's underground but... still in the outdoors path for some reason?
 	detail_text = DETAIL_TEXT_DECAP_GUNDU_ZIRAK
 
 
@@ -153,6 +157,7 @@
 	name = "Ancient Dwarven Forge"
 	loot_budget = LOOT_BUDGET_MINOTAUR_FORT
 	icon_state = "decap"
+	allow_extreme_weather = FALSE //Caustic Edit - Turn off spawns, it's underground but... still in the outdoors path for some reason?
 	droning_sound = 'sound/music/area/prospector.ogg'
 	droning_sound_dusk = null
 	droning_sound_night = null
@@ -170,6 +175,7 @@
 /area/rogue/outdoors/mountains/decap/banditcamp
 	name = "Bandit Camp"
 	icon_state = "decap"
+	allow_extreme_weather = FALSE //Caustic Edit - Turn off spawns, is dungeon!
 	loot_budget = LOOT_BUDGET_BANDIT_CAMP
 	loot_pool_key = "decap_bandit_camp"
 	droning_sound = 'sound/music/area/decap.ogg'

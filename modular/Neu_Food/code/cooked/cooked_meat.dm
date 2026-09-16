@@ -14,12 +14,6 @@
 	tastes = list("warm steak" = 1)
 	fried_type = null
 	cooked_type = null
-	
-	//CC Edit Begin
-	//Each bite gives 2 diet. One steak gives 6 to the Meats diet.
-	diet_types = list("Meats")
-	diet_change_amount = 2
-	//CC Edit End
 
 /* .............   Roast Pork   ................ */
 /obj/item/reagent_containers/food/snacks/rogue/meat/fatty/roast
@@ -35,10 +29,6 @@
 	rotprocess = SHELFLIFE_DECENT
 	fried_type = null
 	cooked_type = null
-	//CC Edit Begin
-	diet_types = list("Meats")
-	diet_change_amount = FOOD_DIETARY_VALUE_GOOD
-	//CC Edit End
 
 /*	.............   Crispy bacon   ................ */
 /obj/item/reagent_containers/food/snacks/rogue/meat/bacon/fried
@@ -52,10 +42,6 @@
 	rotprocess = SHELFLIFE_DECENT
 	fried_type = null
 	cooked_type = null
-	//CC Edit Begin
-	diet_types = list("Meats")
-	diet_change_amount = FOOD_DIETARY_VALUE_GOOD
-	//CC Edit End
 
 /*	.............   Fryspider   ................ */
 /obj/item/reagent_containers/food/snacks/rogue/meat/spider/fried
@@ -69,14 +55,11 @@
 	rotprocess = SHELFLIFE_DECENT
 	fried_type = null
 	cooked_type = null
-	//CC Edit Begin
-	diet_types = list("Meats")
-	diet_change_amount = FOOD_DIETARY_VALUE_GOOD
-	//CC Edit End
 
 /*	.................  Whole Chicken roast   ................... */
 /obj/item/reagent_containers/food/snacks/rogue/meat/poultry/baked
 	cuisine = CUISINE_NORTH_IMPERIAL
+	dish_type = DISH_POULTRY //CC Edit
 	desc = "A plump bird, roasted to a perfect temperature and bears a crispy skin."
 	eat_effect = null
 	slices_num = 0
@@ -89,14 +72,11 @@
 	cooked_type = null
 	bonus_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_MEAL_AND_QUARTER)
 	rotprocess = SHELFLIFE_DECENT
-	//CC Edit Begin
-	diet_types = list("Meats")
-	diet_change_amount = FOOD_DIETARY_VALUE_GOOD
-	//CC Edit End
 
 /*	.............   Frybird   ................ */
 /obj/item/reagent_containers/food/snacks/rogue/meat/poultry/cutlet/fried
 	cuisine = CUISINE_NORTHERN|CUISINE_SOUTHEASTERN
+	dish_type = DISH_POULTRY //CC Edit
 	eat_effect = null
 	slices_num = 0
 	name = "frybird"
@@ -108,13 +88,10 @@
 	fried_type = null
 	bonus_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_HALF_MEAL)
 	rotprocess = SHELFLIFE_DECENT
-	//CC Edit Begin
-	diet_types = list("Meats")
-	diet_change_amount = FOOD_DIETARY_VALUE_BAD
-	//CC Edit End
 
 /* ............. Fried Crab ................*/
 /obj/item/reagent_containers/food/snacks/rogue/meat/crab/fried
+	dish_type = DISH_SEAFOOD //CC Edit
 	eat_effect = null
 	slices_num = 0
 	name = "fried crabmeat"
@@ -127,10 +104,6 @@
 	desc = ""
 	fried_type = null
 	cooked_type = null
-	//CC Edit Begin
-	diet_types = list("Meats")
-	diet_change_amount = FOOD_DIETARY_VALUE_GOOD
-	//CC Edit End
 
 /* .............   Fried Cabbit   ................ */
 /obj/item/reagent_containers/food/snacks/rogue/meat/rabbit/fried
@@ -146,10 +119,6 @@
 	tastes = list("warm cabbit" = 1)
 	fried_type = null
 	cooked_type = null
-	//CC Edit Begin
-	diet_types = list("Meats")
-	diet_change_amount = FOOD_DIETARY_VALUE_GOOD
-	//CC Edit End
 
 /* .............   Fried Volf   ................ */
 /obj/item/reagent_containers/food/snacks/rogue/meat/wolf/fried
@@ -164,10 +133,6 @@
 	rotprocess = SHELFLIFE_DECENT
 	fried_type = null
 	cooked_type = null
-	//CC Edit Begin
-	diet_types = list("Meats")
-	diet_change_amount = FOOD_DIETARY_VALUE_GOOD
-	//CC Edit End
 
 /* .............   Fried Rous   ................ */
 /obj/item/reagent_containers/food/snacks/rogue/meat/rat/fried
@@ -226,10 +191,6 @@
 	rotprocess = SHELFLIFE_EXTREME
 	fried_type = null
 	cooked_type = null
-	//CC Edit Begin
-	diet_types = list("Meats")
-	diet_change_amount = FOOD_DIETARY_VALUE_GREAT //Gnolls are surprisingly nutritious...
-	//CC Edit End
 
 /* .............   Fried Filet    ................ */
 // This is seafood but is one of the "simple cooked meat" so I put it here.
@@ -246,10 +207,6 @@
 	tastes = list("warm fish" = 1)
 	fried_type = null
 	cooked_type = null
-	//CC Edit Begin
-	diet_types = list("Meats")
-	diet_change_amount = FOOD_DIETARY_VALUE_GOOD
-	//CC Edit End
 
 /* .............   Fried Shellfish    ................ */
 /obj/item/reagent_containers/food/snacks/rogue/meat/shellfish/fried
@@ -263,11 +220,6 @@
 	bonus_reagents = list(/datum/reagent/consumable/nutriment = MEATSLAB_NUTRITION)
 	fried_type = null
 	cooked_type = null
-	//CC Edit Begin
-	diet_types = list("Meats")
-	diet_change_amount = FOOD_DIETARY_VALUE_GOOD
-	//CC Edit End
-
 
 /*	.............   Sausage & Wiener   ................ */
 /obj/item/reagent_containers/food/snacks/rogue/meat/sausage/cooked
@@ -280,10 +232,6 @@
 	fried_type = null
 	bonus_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_HALF_MEAL)
 	rotprocess = SHELFLIFE_EXTREME
-	//CC Edit Begin
-	diet_types = list("Meats")
-	diet_change_amount = FOOD_DIETARY_VALUE_GOOD
-	//CC Edit End
 
 /*	.............   Cooked Ham   ................ */
 /obj/item/reagent_containers/food/snacks/rogue/meat/ham/steamed

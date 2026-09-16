@@ -16,10 +16,6 @@
 	tastes = list("salted meat" = 1)
 	rotprocess = null
 	slice_sound = TRUE
-	//CC Edit Begin
-	diet_types = list("Meats")
-	diet_change_amount = FOOD_DIETARY_VALUE_GOOD
-	//CC Edit End
 
 /obj/item/reagent_containers/food/snacks/rogue/meat/salami/update_icon()
 	if(slices_num)
@@ -49,10 +45,6 @@
 	list_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_QUARTER_MEAL)
 	bitesize = 2
 	tastes = list("salted meat" = 1)
-	//CC Edit Begin
-	diet_types = list("Meats")
-	diet_change_amount = FOOD_DIETARY_VALUE_BAD + 1 // If you cut it you lose out on 2 dietary value but that's so small.
-	//CC Edit End
 
 // -------------- COPPIETTE (dried meat) -----------------
 /obj/item/reagent_containers/food/snacks/rogue/meat/coppiette
@@ -69,10 +61,6 @@
 	tastes = list("salted meat" = 1)
 	rotprocess = null
 	list_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_THREE_QUARTER_MEAL)
-	//CC Edit Begin
-	diet_types = list("Meats")
-	diet_change_amount = FOOD_DIETARY_VALUE_BAD
-	//CC Edit End
 
 /obj/item/reagent_containers/food/snacks/rogue/meat/coppiette/On_Consume(mob/living/eater)
 	..()
@@ -87,7 +75,8 @@
 
 /obj/item/reagent_containers/food/snacks/rogue/lemoncoppiette
 	cuisine = CUISINE_NORTH_IMPERIAL|CUISINE_ETRUSCAN|CUISINE_RANESHENI
-	dish_type = DISH_MEAT
+	dish_type = DISH_MEAT | DISH_FRUIT | DISH_MEAT //CC Edit
+	foodtype = MEAT | FRUIT //CC Edit
 	eat_effect = null
 	name = "lemony stickets"
 	icon = 'modular/Neu_Food/icons/others/preserved_meat.dmi'
@@ -129,10 +118,6 @@
 	rotprocess = null
 	slice_sound = TRUE
 	eat_effect = null
-	//CC Edit Begin
-	diet_types = list("Meats")
-	diet_change_amount = FOOD_DIETARY_VALUE_BAD
-	//CC Edit End
 
 /obj/item/reagent_containers/food/snacks/fat/salo/update_icon()
 	if(slices_num)
@@ -157,10 +142,6 @@
 	slices_num = FALSE
 	slice_path = FALSE
 	list_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_QUARTER_MEAL)
-	//CC Edit Begin
-	diet_types = list("Meats")
-	diet_change_amount = FOOD_DIETARY_VALUE_POOR
-	//CC Edit End
 
 // ------------ PEMMICAN - BROTHBRICK --------------
 /obj/item/reagent_containers/food/snacks/rogue/meat/brothbrique
@@ -181,6 +162,10 @@
 	tastes = list("salted meat" = 1, "dried berries" = 1, "a slightly greasy aftertaste" = 1)
 	rotprocess = null
 	slice_sound = TRUE
+	//CC Edit
+	dish_type = DISH_MEAT | DISH_FRUIT
+	foodtype = MEAT | FRUIT
+	//CC Edit End
 
 /obj/item/reagent_containers/food/snacks/rogue/meat/brothbrique/update_icon()
 	if(slices_num)
@@ -222,6 +207,10 @@
 	rotprocess = null
 	slice_sound = TRUE
 	eat_effect = null
+	//CC Edit
+	dish_type = DISH_MEAT | DISH_FRUIT
+	foodtype = MEAT | FRUIT
+	//CC Edit End
 
 /obj/item/reagent_containers/food/snacks/balefire/update_icon()
 	if(slices_num)
@@ -248,6 +237,10 @@
 	slices_num = FALSE
 	slice_path = FALSE
 	list_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_HALF_MEAL * 2)
+	//CC Edit
+	dish_type = DISH_MEAT | DISH_FRUIT
+	foodtype = MEAT | FRUIT
+	//CC Edit End
 
 // -------------- DRIED FISH FILET -----------------
 /obj/item/reagent_containers/food/snacks/rogue/meat/driedfishfilet
@@ -265,6 +258,5 @@
 	tastes = list("salted fish" = 1)
 	rotprocess = null
 	//CC Edit Begin
-	diet_types = list("Meats")
-	diet_change_amount = FOOD_DIETARY_VALUE_GOOD
+	foodtype = MEAT
 	//CC Edit End

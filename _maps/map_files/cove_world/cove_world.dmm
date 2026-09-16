@@ -4187,7 +4187,7 @@
 	icon_state = "floor5-old"
 	},
 /turf/open/floor/rogue/carpet/lord/center/no_teleport,
-/area/rogue/under/cave/licharena/bossroom)
+/area/rogue/under/cave/licharena)
 "aOh" = (
 /turf/closed/wall/mineral/rogue/decostone/long{
 	density = 0
@@ -11186,7 +11186,7 @@
 "cfO" = (
 /obj/effect/decal/cleanable/blood,
 /turf/open/floor/rogue/carpet/lord/center/no_teleport,
-/area/rogue/under/cave/licharena/bossroom)
+/area/rogue/under/cave/licharena)
 "cgc" = (
 /obj/structure/fluff/railing/border,
 /obj/structure/fluff/railing/border/east,
@@ -53345,7 +53345,7 @@
 /turf/open/water/swamp/deep,
 /area/rogue/outdoors/bog/south)
 "jYw" = (
-/mob/living/simple_animal/hostile/retaliate/rogue/orc/ranged,
+/mob/living/carbon/human/species/orc/npc/archer,
 /turf/open/floor/rogue/blocks,
 /area/rogue/under/cave/orcdungeon)
 "jYA" = (
@@ -61861,7 +61861,7 @@
 	opacity = 1
 	},
 /turf/open/floor/rogue/carpet/lord/center/no_teleport,
-/area/rogue/under/cave/licharena/bossroom)
+/area/rogue/under/cave/licharena)
 "lDl" = (
 /obj/structure/bookcase,
 /obj/item/book/rogue/festus,
@@ -75869,7 +75869,7 @@
 "oib" = (
 /obj/effect/decal/remains/human,
 /turf/open/floor/rogue/carpet/lord/center/no_teleport,
-/area/rogue/under/cave/licharena/bossroom)
+/area/rogue/under/cave/licharena)
 "oif" = (
 /obj/structure/roguewindow,
 /turf/open/floor/rogue/tile/brownbrick,
@@ -78064,7 +78064,7 @@
 	opacity = 1
 	},
 /turf/closed/wall/mineral/rogue/decostone/long,
-/area/rogue/under/cave/licharena/bossroom)
+/area/rogue/under/cave/licharena)
 "oDO" = (
 /obj/structure/mineral_door/wood/donjon{
 	dir = 1;
@@ -81470,7 +81470,7 @@
 /turf/open/floor/rogue/tile/bath,
 /area/rogue/indoors/town/manor)
 "pkN" = (
-/mob/living/simple_animal/hostile/retaliate/rogue/orc/ranged,
+/mob/living/carbon/human/species/orc/npc/archer,
 /turf/open/floor/rogue/cobble,
 /area/rogue/under/cave/orcdungeon)
 "pkO" = (
@@ -92732,6 +92732,8 @@
 /obj/structure/rack/rogue,
 /obj/item/rogueweapon/eaglebeak/lucerne,
 /obj/item/rogueweapon/eaglebeak/lucerne,
+/obj/item/rogueweapon/scabbard/gwstrap,
+/obj/item/rogueweapon/scabbard/gwstrap,
 /turf/open/floor/rogue/cobble,
 /area/rogue/indoors/town/garrison)
 "rof" = (
@@ -94719,7 +94721,7 @@
 	},
 /obj/effect/decal/remains/human,
 /turf/open/floor/rogue/carpet/lord/center/no_teleport,
-/area/rogue/under/cave/licharena/bossroom)
+/area/rogue/under/cave/licharena)
 "rIf" = (
 /obj/effect/decal/cleanable/blood,
 /obj/effect/decal/edge{
@@ -95943,10 +95945,6 @@
 	},
 /turf/open/transparent/openspace,
 /area/rogue/druidsgrove)
-"rUi" = (
-/obj/effect/decal/cleanable/blood/tracks,
-/turf/open/floor/rogue/carpet/lord/center/no_teleport,
-/area/rogue/under/cave/licharena/bossroom)
 "rUk" = (
 /obj/structure/table/wood,
 /obj/effect/spawner/lootdrop/potion_ingredient,
@@ -96751,7 +96749,7 @@
 	icon_state = "floor4-old"
 	},
 /turf/open/floor/rogue/carpet/lord/center/no_teleport,
-/area/rogue/under/cave/licharena/bossroom)
+/area/rogue/under/cave/licharena)
 "sbR" = (
 /turf/closed/wall/mineral/rogue/stone/moss,
 /area/rogue/under/cave/dukecourt)
@@ -101160,7 +101158,7 @@
 	},
 /area/rogue/under/town/sewer)
 "sSr" = (
-/mob/living/simple_animal/hostile/retaliate/rogue/orc/ranged,
+/mob/living/carbon/human/species/orc/npc/archer,
 /turf/open/floor/rogue/tile/bfloorz,
 /area/rogue/under/cave/orcdungeon)
 "sSz" = (
@@ -106236,8 +106234,12 @@
 /turf/open/floor/rogue/wood/herringbone,
 /area/rogue/indoors/town)
 "tRn" = (
+/obj/effect/oneway/lich{
+	dir = 1;
+	opacity = 1
+	},
 /turf/open/floor/rogue/carpet/lord/center/no_teleport,
-/area/rogue/under/cave/licharena/bossroom)
+/area/rogue/under/cave/licharena)
 "tRo" = (
 /obj/structure/fluff/railing/wood/east{
 	layer = 2.8
@@ -113648,7 +113650,7 @@
 /turf/open/floor/rogue/blocks,
 /area/rogue/under/cave/dungeon1/gethsmane/inner)
 "viP" = (
-/mob/living/simple_animal/hostile/retaliate/rogue/orc/ranged,
+/mob/living/carbon/human/species/orc/npc/archer,
 /turf/open/floor/rogue/ruinedwood/spiral,
 /area/rogue/under/cave/orcdungeon)
 "viR" = (
@@ -114132,9 +114134,6 @@
 /obj/structure/curtain/red,
 /turf/open/floor/rogue/concrete,
 /area/rogue/indoors/town)
-"vmT" = (
-/turf/closed/wall/mineral/rogue/decostone/cand,
-/area/rogue/under/cave/licharena/bossroom)
 "vmU" = (
 /obj/structure/chair/stool/rogue,
 /obj/effect/decal/cobbleedge{
@@ -115707,7 +115706,7 @@
 "vBG" = (
 /obj/machinery/light/rogue/candle/r,
 /turf/open/floor/rogue/carpet/lord/center/no_teleport,
-/area/rogue/under/cave/licharena/bossroom)
+/area/rogue/under/cave/licharena)
 "vBH" = (
 /turf/open/floor/rogue/grass,
 /area/rogue/outdoors/mountains)
@@ -116150,7 +116149,7 @@
 /turf/open/floor/rogue/cobblerock,
 /area/rogue/outdoors/beach)
 "vGw" = (
-/mob/living/simple_animal/hostile/retaliate/rogue/orc/ranged,
+/mob/living/carbon/human/species/orc/npc/archer,
 /turf/open/floor/rogue/wood,
 /area/rogue/under/cave/orcdungeon)
 "vGy" = (
@@ -122045,7 +122044,7 @@
 "wKP" = (
 /obj/machinery/light/rogue/candle/l,
 /turf/open/floor/rogue/carpet/lord/center/no_teleport,
-/area/rogue/under/cave/licharena/bossroom)
+/area/rogue/under/cave/licharena)
 "wKQ" = (
 /obj/effect/decal/edge{
 	color = "#3f3f3f";
@@ -124732,6 +124731,8 @@
 	},
 /obj/item/rogueweapon/greataxe,
 /obj/item/rogueweapon/greataxe,
+/obj/item/rogueweapon/scabbard/gwstrap,
+/obj/item/rogueweapon/scabbard/gwstrap,
 /turf/open/floor/rogue/cobble,
 /area/rogue/indoors/town/garrison)
 "xiR" = (
@@ -253175,11 +253176,11 @@ qUz
 qUz
 uTk
 oDN
-ntd
-vmT
-ntd
-ntd
-ntd
+bLV
+mWp
+bLV
+bLV
+bLV
 iSG
 hns
 vek
@@ -253626,11 +253627,11 @@ nLN
 nLN
 nLN
 ekk
-qjB
+tRn
 cfO
 wKP
 oib
-tRn
+iLR
 aOg
 sBl
 tTT
@@ -254081,9 +254082,9 @@ jQP
 lDk
 oib
 sbQ
-rUi
-rUi
-tRn
+jpn
+jpn
+iLR
 jpn
 tTT
 lfw
@@ -254530,12 +254531,12 @@ nLN
 nLN
 nLN
 qjB
-qjB
 tRn
+iLR
 vBG
-tRn
+iLR
 rHO
-tRn
+iLR
 iLR
 tTT
 bBi
@@ -254983,11 +254984,11 @@ dYX
 dYX
 uTk
 oDN
-ntd
-vmT
-ntd
-ntd
-ntd
+bLV
+mWp
+bLV
+bLV
+bLV
 iSG
 xKB
 vek

@@ -12,11 +12,16 @@
 	var/sound1 = 'sound/blank.ogg'
 	var/sound2 = 'sound/blank.ogg'
 
+	var/can_leave_area = TRUE //Caustic Edit - Add in a check to verify that a Turf is within an area for Bosses to utilize this teleport - but stay in their room.
+
 /obj/effect/proc_holder/spell/targeted/turf_teleport/cast(list/targets,mob/user = usr)
 	playsound(get_turf(user), sound1, 50,TRUE)
+	var/area/user_area = get_area(user) //Caustic Edit - Using this to compare to a Turf's area and ensure that if they cannot leave the area they cast it in, the Turf is not a different area.
 	for(var/mob/living/target in targets)
 		var/list/turfs = new/list()
 		for(var/turf/T in range(target,outer_tele_radius))
+			if(!can_leave_area && (get_area(T) != user_area)) //Caustic Edit - Check if the Area of this possible destination is the same as the user's area. If not, they cannot TP here!
+				continue
 			if(T in range(target,inner_tele_radius))
 				continue
 			if(T.density && !include_dense)

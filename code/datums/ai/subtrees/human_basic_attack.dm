@@ -50,16 +50,22 @@
 	var/mob/living/carbon/human/pawn = controller.pawn
 	var/atom/target = controller.blackboard[target_key]
 
+	if(pawn.incapacitated())
+		return FALSE
+
 	var/obj/item/held_item = pawn.get_active_held_item()
 	if(istype(held_item, /obj/item/rogueweapon/shield))
 		var/obj/item/offhand = pawn.get_inactive_held_item()
 		if(isweapon(offhand) && !istype(offhand, /obj/item/rogueweapon/shield))
 			pawn.swap_hand()
+	else if(istype(held_item, /obj/item/gun))
+		if(controller.blackboard[BB_ARCHER_NPC_STASHED_WEAPON])
+			_restore_stashed_weapon(controller, pawn)
 	else if(!isweapon(held_item))
 		pawn.swap_hand()
 		if(pawn.belt)
 			for(var/slot in list(SLOT_BELT_R, SLOT_BELT_L))
-				if(!pawn.get_item_by_slot(slot) && pawn.equip_to_slot_if_possible(held_item, slot, disable_warning = TRUE))
+				if(!pawn.get_item_by_slot(slot) && pawn.equip_to_slot_if_possible(held_item, slot, disable_warning = TRUE, bypass_equip_delay_self = TRUE))
 					break
 
 	var/list/possible_intents = list()
@@ -75,28 +81,28 @@
 		_scan_for_weakpoint(controller, pawn, target)
 
 /datum/ai_behavior/basic_melee_attack/human_npc/perform(delta_time, datum/ai_controller/controller, target_key, targetting_datum_key, hiding_location_key)
-	controller.behavior_cooldowns[src] = world.time + get_cooldown(controller)
 	var/mob/living/carbon/human/pawn = controller.pawn
 	var/atom/target = controller.blackboard[target_key]
 	var/datum/targetting_datum/td = controller.blackboard[targetting_datum_key]
 
+	if(pawn.incapacitated())
+		return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_FAILED
+
 	var/obj/item/held_weapon = pawn.get_active_held_item()
-	if(!istype(held_weapon, /obj/item/rogueweapon))
+	if(!istype(held_weapon, /obj/item/rogueweapon) && !istype(held_weapon, /obj/item/gun))
 		for(var/obj/item/rogueweapon/candidate in range(1, pawn))
 			if(!isturf(candidate.loc))
 				continue
-			if(pawn.put_in_active_hand(candidate))
+			if(_draw_into_hand(pawn, candidate, active = TRUE))
 				held_weapon = candidate
 				break
 
 	if(!td.can_attack(pawn, target))
 		AI_THINK(pawn, "ATTACK: can't attack [target] - td rejected")
-		finish_action(controller, FALSE, target_key)
-		return
+		return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_FAILED
 	if(ismob(target) && target:stat == DEAD)
 		AI_THINK(pawn, "ATTACK: target [target] is dead")
-		finish_action(controller, FALSE, target_key)
-		return
+		return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_FAILED
 
 	SEND_SIGNAL(pawn, COMSIG_MOB_TRY_BARK)
 	var/hiding_target = td.find_hidden_mobs(pawn, target)
@@ -107,14 +113,13 @@
 
 	if(!pawn.CanReach(target, pawn.get_active_held_item()))
 		AI_THINK(pawn, "ATTACK: can't reach [target]")
-		finish_action(controller, FALSE, target_key)
-		return
+		return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_FAILED
 
 	if(pawn.STAINT >= HUMAN_NPC_MIN_INT_FOR_TACTICS)
 		// Don't open with a special — need a few normal swings first
 		var/attacks_done = controller.blackboard[BB_HUMAN_NPC_SWINGS_TAKEN]
 		if(attacks_done >= 2 && _try_weapon_special(controller))
-			return
+			return AI_BEHAVIOR_DELAY
 
 	_update_combat_intent(controller, pawn, target)
 	var/list/modifiers = list()
@@ -124,7 +129,7 @@
 		#endif
 		var/feint_ready = world.time >= (controller.blackboard[BB_HUMAN_NPC_FEINT_COOLDOWN] || 0)
 		var/technique_ready = world.time >= (controller.blackboard[BB_HUMAN_NPC_TECHNIQUE_CD] || 0)
-		if(feint_ready && technique_ready && pawn.stamina < pawn.max_stamina * 0.7 && istype(pawn.rmb_intent, /datum/rmb_intent/feint))
+		if(feint_ready && technique_ready && !pawn.is_carried() && pawn.stamina < pawn.max_stamina * 0.7 && istype(pawn.rmb_intent, /datum/rmb_intent/feint))
 			AI_THINK(pawn, "FEINT: attempting feint on [target]!")
 			modifiers = list(RIGHT_CLICK = TRUE)
 			var/feint_cd = npc_technique_cd(pawn, HUMAN_NPC_FEINT_COOLDOWN)
@@ -140,7 +145,7 @@
 
 	var/atom/swing_at = resolve_swing_target(controller, pawn, target, target_key, hiding_target)
 	if(!swing_at)
-		return
+		return AI_BEHAVIOR_DELAY
 
 	controller.ai_interact(swing_at, TRUE, TRUE, modifiers)
 
@@ -160,6 +165,7 @@
 
 	if(sidesteps_after && !pawn.mind?.has_antag_datum(/datum/antagonist/zombie) && prob(sidestep_chance))
 		pawn.combat_sidestep(target, sidestep_offsets, sidestep_seeks_flank)
+	return AI_BEHAVIOR_DELAY
 
 /datum/ai_behavior/basic_melee_attack/human_npc/finish_action(datum/ai_controller/controller, succeeded, target_key, targetting_datum_key, hiding_location_key)
 	. = ..()

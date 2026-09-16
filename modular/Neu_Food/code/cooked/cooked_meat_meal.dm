@@ -17,10 +17,6 @@
 	rotprocess = SHELFLIFE_DECENT
 	eat_effect = /datum/status_effect/buff/mealbuff
 	drop_sound = 'sound/foley/dropsound/gen_drop.ogg'
-	//CC Edit Begin
-	diet_types = list("Meats")
-	diet_change_amount = FOOD_DIETARY_VALUE_GOOD
-	//CC Edit End
 
 /*	..................   Ducal steak   ................... */
 /obj/item/reagent_containers/food/snacks/rogue/peppersteak/ducal
@@ -32,8 +28,8 @@
 	icon_state = "ducalsteak"
 	eat_effect = /datum/status_effect/buff/greatmealbuff
 	//CC Edit Begin
-	diet_types = list("Meats", "Vegetables")
-	diet_change_amount = FOOD_DIETARY_VALUE_GREAT
+	foodtype = MEAT | VEGETABLES
+	dish_type = DISH_MEAT | DISH_VEGETABLE
 	//CC Edit End
 
 /*	..................   Onion steak   ................... */
@@ -46,7 +42,6 @@
 	icon_state = "onionsteak"
 	tastes = list("steak" = 1, "onions" = 1)
 	list_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_MEAL_AND_QUARTER)
-	foodtype = MEAT
 	faretype = FARE_NEUTRAL
 	portable = FALSE
 	warming = 5 MINUTES
@@ -54,8 +49,7 @@
 	eat_effect = /datum/status_effect/buff/mealbuff
 	drop_sound = 'sound/foley/dropsound/gen_drop.ogg'
 	//CC Edit Begin
-	diet_types = list("Meats", "Vegetables")
-	diet_change_amount = FOOD_DIETARY_VALUE_GOOD
+	foodtype = MEAT | VEGETABLES
 	//CC Edit End
 
 /*	..................   Carrot Steak   ................... */
@@ -68,15 +62,13 @@
 	icon_state = "carrotsteak"
 	tastes = list("steak" = 1, "carrot" = 1)
 	list_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_MEAL_AND_QUARTER)
-	foodtype = MEAT
 	faretype = FARE_FINE
 	warming = 5 MINUTES
 	rotprocess = SHELFLIFE_DECENT
 	eat_effect = /datum/status_effect/buff/mealbuff
 	drop_sound = 'sound/foley/dropsound/gen_drop.ogg'
 	//CC Edit Begin
-	diet_types = list("Meats", "Vegetables")
-	diet_change_amount = FOOD_DIETARY_VALUE_GOOD
+	foodtype = MEAT | VEGETABLES
 	//CC Edit End
 
 /*	.................   Steak & carrot & onion   ................... */
@@ -94,10 +86,6 @@
 	faretype = FARE_LAVISH
 	rotprocess = SHELFLIFE_DECENT
 	eat_effect = /datum/status_effect/buff/greatmealbuff
-	//CC Edit Begin
-	diet_types = list("Meats", "Vegetables")
-	diet_change_amount = FOOD_DIETARY_VALUE_GREAT
-	//CC Edit End
 
 /*	.................   Wiener Cabbage   ................... */
 /obj/item/reagent_containers/food/snacks/rogue/wienercabbage
@@ -115,10 +103,6 @@
 	warming = 3 MINUTES
 	rotprocess = SHELFLIFE_LONG
 	eat_effect = /datum/status_effect/buff/mealbuff
-	//CC Edit Begin
-	diet_types = list("Meats", "Vegetables")
-	diet_change_amount = FOOD_DIETARY_VALUE_GOOD
-	//CC Edit End
 
 
 /*	.................   Wiener & Fried potato   ................... */
@@ -137,10 +121,6 @@
 	warming = 3 MINUTES
 	rotprocess = SHELFLIFE_LONG
 	eat_effect = /datum/status_effect/buff/mealbuff
-	//CC Edit Begin
-	diet_types = list("Meats", "Vegetables")
-	diet_change_amount = FOOD_DIETARY_VALUE_GOOD
-	//CC Edit End
 
 /*	.................   Wiener & Fried onions   ................... */
 /obj/item/reagent_containers/food/snacks/rogue/wieneronions
@@ -158,10 +138,6 @@
 	warming = 3 MINUTES
 	rotprocess = SHELFLIFE_LONG
 	eat_effect = /datum/status_effect/buff/mealbuff
-	//CC Edit Begin
-	diet_types = list("Meats", "Vegetables")
-	diet_change_amount = FOOD_DIETARY_VALUE_GOOD
-	//CC Edit End
 
 /*	.................   Wiener & potato & onions   ................... */
 /obj/item/reagent_containers/food/snacks/rogue/wienerpotatonions
@@ -179,14 +155,11 @@
 	warming = 3 MINUTES
 	rotprocess = SHELFLIFE_DECENT
 	eat_effect = /datum/status_effect/buff/greatmealbuff
-	//CC Edit Begin
-	diet_types = list("Meats", "Vegetables")
-	diet_change_amount = FOOD_DIETARY_VALUE_GOOD
-	//CC Edit End
 
 /*	.................  Spiced Baked Poultry  ................... */
 /obj/item/reagent_containers/food/snacks/rogue/meat/poultry/baked/spiced
 	cuisine = CUISINE_RANESHENI
+	dish_type = DISH_POULTRY //CC Edit
 	name = "spiced bird-roast"
 	desc = "A plump bird, roasted perfection, spiced to taste divine."
 	faretype = FARE_LAVISH
@@ -194,28 +167,22 @@
 	icon_state = "pepperchicken"
 	tastes = list("spicy birdmeat" = 1)
 	eat_effect = /datum/status_effect/buff/mealbuff
-	//CC Edit Begin
-	diet_types = list("Meats")
-	diet_change_amount = FOOD_DIETARY_VALUE_GOOD
-	//CC Edit End
 
 /*	.................  Ducal Spiced Baked Poultry  ................... */
 /obj/item/reagent_containers/food/snacks/rogue/meat/poultry/baked/spiced/ducal
 	cuisine = CUISINE_SOUTH_IMPERIAL
+	dish_type = DISH_POULTRY //CC Edit
 	name = "ducal bird-roast"
 	desc = "A plump bird, roasted perfection, spiced to taste divine with touch of garlick to top it all off. Perfect to feast on while your son is dying in battle..."
 	faretype = FARE_LAVISH
 	icon_state = "ducalchicken"
 	tastes = list("spicy birdmeat" = 1, "garlick" = 1)
 	eat_effect = /datum/status_effect/buff/greatmealbuff
-	//CC Edit Begin
-	diet_types = list("Meats", "Vegetables")
-	diet_change_amount = FOOD_DIETARY_VALUE_GOOD
-	//CC Edit End
 
 /*	.................  Baked Butter Poultry  ................... */
 /obj/item/reagent_containers/food/snacks/rogue/meat/poultry/baked/butter
 	cuisine = CUISINE_OTAVAIS
+	dish_type = DISH_POULTRY //CC Edit
 	name = "butter bird-roast"
 	desc = "A plump bird, roasted perfection, overflowing with butter from the inside."
 	faretype = FARE_LAVISH
@@ -224,22 +191,18 @@
 	tastes = list("buttery birdmeat" = 1)
 	eat_effect = /datum/status_effect/buff/mealbuff
 	//CC Edit Begin
-	diet_types = list("Meats", "Dairy")
-	diet_change_amount = FOOD_DIETARY_VALUE_GOOD
+	foodtype = MEAT | DAIRY
 	//CC Edit End
 
 /*	.................  Baked Double Poultry  ................... */
 /obj/item/reagent_containers/food/snacks/rogue/meat/poultry/baked/doublestacked
+	dish_type = DISH_POULTRY //CC Edit
 	name = "bird filled bird-roast"
 	desc = "A plump bird, roasted perfection.. filled with another bird - what compelled you to make this? Psydon Weeps at your hubris."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_meat_meal.dmi'
 	icon_state = "stuffedchicken"
 	eat_effect = /datum/status_effect/buff/mealbuff
 	bonus_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_MEAL_AND_QUARTER*2)
-	//CC Edit Begin
-	diet_types = list("Meats")
-	diet_change_amount = FOOD_DIETARY_VALUE_AMAZING //It's just MEAT!!!
-	//CC Edit End
 
 /*	.................   Frybird & Tato   ................... */
 /obj/item/reagent_containers/food/snacks/rogue/frybirdtato
@@ -257,10 +220,6 @@
 	warming = 3 MINUTES
 	rotprocess = SHELFLIFE_DECENT
 	eat_effect = /datum/status_effect/buff/mealbuff
-	//CC Edit Begin
-	diet_types = list("Meats", "Vegetables")
-	diet_change_amount = FOOD_DIETARY_VALUE_GOOD
-	//CC Edit End
 
 /*	.................   Frybird Bucket   ................... */
 /obj/item/reagent_containers/food/snacks/rogue/frybirdbucket
@@ -278,10 +237,6 @@
 	warming = 3 MINUTES
 	rotprocess = SHELFLIFE_DECENT
 	eat_effect = /datum/status_effect/buff/mealbuff
-	//CC Edit Begin
-	diet_types = list("Meats")
-	diet_change_amount = FOOD_DIETARY_VALUE_GOOD
-	//CC Edit End
 
 /* .............   Fried Cabbit w/ Garlick  ................ */
 /obj/item/reagent_containers/food/snacks/rogue/meat/rabbit/fried/garlick
@@ -292,8 +247,8 @@
 	icon_state = "frycabbit_garlick"
 	tastes = list("warm cabbit" = 1, "garlick" = 1)
 	//CC Edit Begin
-	diet_types = list("Meats", "Vegetables")
-	diet_change_amount = FOOD_DIETARY_VALUE_GOOD
+	foodtype = MEAT | VEGETABLES
+	dish_type = DISH_MEAT | DISH_VEGETABLE
 	//CC Edit End
 
 /* .............   Fried Cabbit w/ Garlick & Cucumber ................ */
@@ -304,8 +259,8 @@
 	tastes = list("warm cabbit" = 1, "garlick" = 1, "cucumber" = 1)
 	eat_effect = /datum/status_effect/buff/mealbuff
 	//CC Edit Begin
-	diet_types = list("Meats", "Vegetables")
-	diet_change_amount = FOOD_DIETARY_VALUE_GOOD
+	foodtype = MEAT | VEGETABLES
+	dish_type = DISH_MEAT | DISH_VEGETABLE
 	//CC Edit End
 
 /* .............  Garlicked Fried Volf   ................ */
@@ -316,8 +271,8 @@
 	icon_state = "fryvolf_garlick"
 	tastes = list("gamey volf" = 1, "garlick" = 1)
 	//CC Edit Begin
-	diet_types = list("Meats", "Vegetables")
-	diet_change_amount = FOOD_DIETARY_VALUE_GOOD
+	foodtype = MEAT | VEGETABLES
+	dish_type = DISH_MEAT | DISH_VEGETABLE
 	//CC Edit End
 
 /* .............  Garlicked Fried Volf w/ Cucumber  ................ */
@@ -328,8 +283,8 @@
 	tastes = list("gamey volf" = 1, "garlick" = 1, "cucumber" = 1)
 	eat_effect = /datum/status_effect/buff/mealbuff
 	//CC Edit Begin
-	diet_types = list("Meats", "Vegetables")
-	diet_change_amount = FOOD_DIETARY_VALUE_GREAT //Hunter's grand meal...
+	foodtype = MEAT | VEGETABLES
+	dish_type = DISH_MEAT | DISH_VEGETABLE
 	//CC Edit End
 
 /* .............  Honey glazed venison ribs  ................ */
@@ -341,10 +296,6 @@
 	tastes = list("sweet venison" = 1, "honey" = 1)
 	faretype = FARE_FINE
 	eat_effect = /datum/status_effect/buff/mealbuff
-	//CC Edit Begin
-	diet_types = list("Meats")
-	diet_change_amount = FOOD_DIETARY_VALUE_GREAT //Hunter's grand meal...
-	//CC Edit End
 
 /* .............  Wine glazed venison loins  ................ */
 /obj/item/reagent_containers/food/snacks/rogue/meat/saiga_loins/cooked/sauced
@@ -356,8 +307,8 @@
 	faretype = FARE_LAVISH
 	eat_effect = /datum/status_effect/buff/mealbuff
 	//CC Edit Begin
-	diet_types = list("Meats")
-	diet_change_amount = FOOD_DIETARY_VALUE_GREAT //Hunter's grand meal...
+	foodtype = MEAT | FRUIT
+	dish_type = DISH_MEAT | DISH_FRUIT
 	//CC Edit End
 
 /* .............  Choice venison cut  ................ */
@@ -370,8 +321,8 @@
 	faretype = FARE_LAVISH
 	eat_effect = /datum/status_effect/buff/mealbuff
 	//CC Edit Begin
-	diet_types = list("Meats")
-	diet_change_amount = FOOD_DIETARY_VALUE_GREAT //Hunter's grand meal...
+	foodtype = MEAT | VEGETABLES
+	dish_type = DISH_MEAT | DISH_VEGETABLE
 	//CC Edit End
 
 /obj/item/reagent_containers/food/snacks/rogue/meat/saiga_prime/cooked/choice/butter
@@ -384,8 +335,8 @@
 	eat_effect = /datum/status_effect/buff/mealbuff
 	rotprocess = null
 	//CC Edit Begin
-	diet_types = list("Meats")
-	diet_change_amount = FOOD_DIETARY_VALUE_GREAT //Hunter's grand meal...
+	foodtype = MEAT | VEGETABLES | DAIRY
+	dish_type = DISH_MEAT | DISH_VEGETABLE | DISH_DAIRY
 	//CC Edit End
 
 /* .............  Deadite saiga cube  ................ */
@@ -411,6 +362,10 @@
 	eat_effect = /datum/status_effect/buff/mealbuff
 	rotprocess = null
 	cooked_smell = /datum/pollutant/food/strange_meat
+	//CC Edit Begin
+	foodtype = MEAT | FRUIT
+	dish_type = DISH_MEAT | DISH_FRUIT
+	//CC Edit End
 
 /* .............  Deadite saiga roses  ................ */
 /obj/item/reagent_containers/food/snacks/rogue/meat/saiga_prime_z/cooked/roses

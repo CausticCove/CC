@@ -507,6 +507,7 @@
 
 // Raw mushroom from weird underdarky places
 /obj/item/reagent_containers/food/snacks/rogue/mushroom
+	dish_type = DISH_VEGETABLE //CC Edit
 	eat_effect = null
 	//Not really filling uncooked.
 	list_reagents = list(/datum/reagent/consumable/nutriment = 1)

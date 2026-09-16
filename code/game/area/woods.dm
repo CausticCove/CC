@@ -12,6 +12,7 @@
 	droning_sound_night = 'sound/music/area/forestnight.ogg'
 	soundenv = 15
 	warden_area = TRUE
+	allow_extreme_weather = TRUE //Caustic Edit - Allow tornado spawns!
 	ambush_times = list("night","dawn","dusk","day")
 	ambush_mobs = list(
 				/mob/living/simple_animal/hostile/retaliate/rogue/badger = 10,
@@ -126,9 +127,11 @@
 	ambush_times = list()
 	ambush_mobs = null
 	threat_region = ""
+	allow_extreme_weather = FALSE //Caustic Edit - No tornado spawns!
 
 /area/rogue/outdoors/woods/wretch_lair
 	warden_area = FALSE
 	ambush_times = list()
 	ambush_mobs = null
 	threat_region = ""
+	allow_extreme_weather = FALSE //Caustic Edit - No tornado spawns!

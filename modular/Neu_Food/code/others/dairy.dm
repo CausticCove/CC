@@ -61,10 +61,6 @@
 	slice_batch = FALSE
 	bitesize = 6
 	slice_sound = TRUE
-	//CC Edit Begin
-	diet_types = list("Dairy")
-	diet_change_amount = FOOD_DIETARY_VALUE_POOR
-	//CC Edit End
 
 /obj/item/reagent_containers/food/snacks/butter/attackby(obj/item/I, mob/living/user, params)
 	update_cooktime(user)
@@ -107,10 +103,6 @@
 	faretype = FARE_IMPOVERISHED
 	foodtype = DAIRY
 	list_reagents = list(/datum/reagent/consumable/nutriment = 2)
-	//CC Edit Begin
-	diet_types = list("Dairy")
-	diet_change_amount = FOOD_DIETARY_VALUE_POOR
-	//CC Edit End
 
 /obj/item/reagent_containers/food/snacks/butterslice/attackby(obj/item/I, mob/living/user, params)
 	var/found_table = locate(/obj/structure/table) in (loc)
@@ -172,8 +164,7 @@
 	var/mature_proc = .proc/maturing_done
 	//CC Edit Begin
 	//I don't think this... can be eaten normally? But. Just in case?
-	diet_types = list("Dairy")
-	diet_change_amount = FOOD_DIETARY_VALUE_BAD
+	foodtype = DAIRY
 	//CC Edit End
 
 /obj/item/reagent_containers/food/snacks/rogue/foodbase/cheesewheel/attackby(obj/item/I, mob/living/user, params)
@@ -233,10 +224,6 @@
 	rotprocess = SHELFLIFE_DECENT
 	become_rot_type = null
 	slice_path = null
-	//CC Edit Begin
-	diet_types = list("Dairy")
-	diet_change_amount = FOOD_DIETARY_VALUE_BAD
-	//CC Edit End
 
 /obj/item/reagent_containers/food/snacks/rogue/cheese/get_mechanics_examine(mob/user)
 	. = ..()
@@ -263,8 +250,7 @@
 	become_rot_type = /obj/item/reagent_containers/food/snacks/rogue/cheddar/aged
 	slice_sound = TRUE
 	//CC Edit Begin
-	diet_types = list("Dairy")
-	diet_change_amount = FOOD_DIETARY_VALUE_GREAT
+	foodtype = DAIRY
 	//CC Edit End
 
 /obj/item/reagent_containers/food/snacks/rogue/cheddar/get_mechanics_examine(mob/user)
@@ -319,6 +305,7 @@
 	become_rot_type = null
 	rotprocess = null
 	//CC Edit Begin
+	dish_type = DISH_DAIRY
 	foodtype = DAIRY
 	//CC Edit End
 
@@ -378,7 +365,7 @@
 
 // -------------- FROSTING -----------------
 /obj/item/reagent_containers/food/snacks/rogue/frosting
-	dish_type = DISH_DAIRY
+	dish_type = DISH_DAIRY | DISH_SWEET
 	name = "frosting"
 	desc = "Butter mixed with sugar and whipped into a delicious frosting."
 	icon = 'modular/Neu_Food/icons/others/dairy.dmi'

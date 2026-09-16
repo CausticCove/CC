@@ -13,8 +13,7 @@
 	tastes = list("warm cabbage" = 1)
 	rotprocess = SHELFLIFE_LONG
 	//CC Edit Begin
-	diet_types = list("Vegetables")
-	diet_change_amount = FOOD_DIETARY_VALUE_GOOD
+	foodtype = VEGETABLES
 	//CC Edit End
 
 /*	.............   Baked potato   ................ */
@@ -30,8 +29,7 @@
 	list_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_HALF_MEAL)
 	rotprocess = SHELFLIFE_LONG
 	//CC Edit Begin
-	diet_types = list("Vegetables")
-	diet_change_amount = FOOD_DIETARY_VALUE_GOOD
+	foodtype = VEGETABLES
 	//CC Edit End
 
 /*	.............   Fried potato   ................ */
@@ -49,8 +47,7 @@
 	tastes = list("warm potato" = 1)
 	rotprocess = SHELFLIFE_LONG
 	//CC Edit Begin
-	diet_types = list("Vegetables")
-	diet_change_amount = FOOD_DIETARY_VALUE_GOOD
+	foodtype = VEGETABLES
 	//CC Edit End
 
 /* .............   Baked Carrot   ................ */
@@ -65,8 +62,7 @@
 	tastes = list("carrot" = 1)
 	rotprocess = SHELFLIFE_DECENT
 	//CC Edit Begin
-	diet_types = list("Vegetables")
-	diet_change_amount = FOOD_DIETARY_VALUE_GOOD
+	foodtype = VEGETABLES
 	//CC Edit End
 
 /obj/item/reagent_containers/food/snacks/rogue/preserved/carrot_baked/attackby(obj/item/I, mob/living/user, params)
@@ -107,8 +103,7 @@
 	tastes = list("savoury morsel" = 1)
 	rotprocess = SHELFLIFE_DECENT
 	//CC Edit Begin
-	diet_types = list("Vegetables")
-	diet_change_amount = FOOD_DIETARY_VALUE_GOOD
+	foodtype = VEGETABLES
 	//CC Edit End
 
 /* .............   Eggplant   ................ */
@@ -121,8 +116,7 @@
 	desc = "An eggplant with its insides hollowed out, ready to be stuffed with meat."
 	rotprocess = SHELFLIFE_LONG
 	//CC Edit Begin
-	diet_types = list("Vegetables")
-	diet_change_amount = FOOD_DIETARY_VALUE_GOOD
+	foodtype = VEGETABLES
 	//CC Edit End
 
 /obj/item/reagent_containers/food/snacks/rogue/eggplantmeat
@@ -134,8 +128,7 @@
 	icon_state = "eggplantraw"
 	rotprocess = SHELFLIFE_LONG
 	//CC Edit Begin
-	diet_types = list("Vegetables")
-	diet_change_amount = FOOD_DIETARY_VALUE_GOOD
+	foodtype = VEGETABLES | MEAT
 	//CC Edit End
 
 /obj/item/reagent_containers/food/snacks/rogue/eggplantstuffedraw
@@ -146,8 +139,8 @@
 	rotprocess = SHELFLIFE_LONG
 	cooked_type = /obj/item/reagent_containers/food/snacks/rogue/preserved/eggplantstuffed
 	//CC Edit Begin
-	diet_types = list("Vegetables", "Meats")
-	diet_change_amount = FOOD_DIETARY_VALUE_GOOD
+	dish_type = DISH_VEGETABLE|DISH_MEAT
+	foodtype = VEGETABLES | MEAT
 	//CC Edit End
 
 /obj/item/reagent_containers/food/snacks/rogue/preserved/eggplantstuffed
@@ -163,13 +156,12 @@
 	rotprocess = SHELFLIFE_LONG
 	eat_effect = /datum/status_effect/buff/snackbuff
 	//CC Edit Begin
-	diet_types = list("Vegetables", "Meats")
-	diet_change_amount = FOOD_DIETARY_VALUE_GREAT
+	foodtype = VEGETABLES | MEAT
 	//CC Edit End
 
 /obj/item/reagent_containers/food/snacks/rogue/preserved/eggplantstuffedcheese
 	cuisine = CUISINE_ETRUSCAN|CUISINE_RANESHENI
-	dish_type = DISH_VEGETABLE|DISH_DAIRY
+	dish_type = DISH_VEGETABLE|DISH_DAIRY|DISH_MEAT //CC Edit
 	list_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_THREE_QUARTER_MEAL)
 	name = "stuffed aubergine with cheese"
 	desc = "Stuffed aubergine with cheese on top. Fit for a king!"
@@ -180,8 +172,7 @@
 	rotprocess = SHELFLIFE_LONG
 	eat_effect = /datum/status_effect/buff/greatsnackbuff
 	//CC Edit Begin
-	diet_types = list("Vegetables", "Dairy", "Meats")
-	diet_change_amount = FOOD_DIETARY_VALUE_AMAZING
+	foodtype = VEGETABLES | MEAT | DAIRY
 	//CC Edit End
 
 /obj/item/reagent_containers/food/snacks/roastseeds
@@ -196,24 +187,12 @@
 	color = "#e5b175"
 	foodtype = VEGETABLES
 	rotprocess = null
-	//CC Edit Begin
-	diet_types = list("Grains")
-	diet_change_amount = FOOD_DIETARY_VALUE_BAD // Just seeds... Nothing too cray cray.
-	//CC Edit End
 
 /obj/item/reagent_containers/food/snacks/roastseeds/sunflower
 	name = "roasted sunflower seeds"
 	tastes = list("toasted sunflower seeds" = 1)
-	//CC Edit Begin
-	diet_types = list("Grains")
-	diet_change_amount = FOOD_DIETARY_VALUE_GOOD //Ooo sunflower seeds?
-	//CC Edit End
 
 /obj/item/reagent_containers/food/snacks/roastseeds/pumpkin
 	name = "roasted pumpkin seeds"
 	tastes = list("toasted pumpkin seeds" = 1)
 	mill_result = /obj/item/reagent_containers/food/snacks/pumpkinspice
-	//CC Edit Begin
-	diet_types = list("Grains")
-	diet_change_amount = FOOD_DIETARY_VALUE_GOOD //Ooo pumpkin seeds?
-	//CC Edit End

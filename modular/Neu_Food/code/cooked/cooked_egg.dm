@@ -31,14 +31,14 @@
 
 /*	.............   Deviled Eggs   ................ */
 /obj/item/reagent_containers/food/snacks/rogue/stuffedegg
-	dish_type = DISH_EGG
+	dish_type = DISH_EGG | DISH_DAIRY //CC Edit
 	name = "raw stuffed egg"
 	desc = "Raw egg stuffed with a creamy cheese filling."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_egg.dmi'
 	icon_state = "deviledegg_raw"
 	cooked_type = /obj/item/reagent_containers/food/snacks/rogue/stuffedegg/cooked
 	fried_type = /obj/item/reagent_containers/food/snacks/rogue/stuffedegg/cooked
-	foodtype = MEAT
+	foodtype = MEAT | DAIRY //CC Edit
 	warming = 5 MINUTES
 	rotprocess = SHELFLIFE_DECENT
 	faretype = FARE_POOR
@@ -50,13 +50,13 @@
 	desc = "Egg stuffed with a creamy cheese filling."
 	icon_state = "deviledegg"
 	//CC Edit Begin
-	diet_types = list("Dairy")
-	diet_change_amount = FOOD_DIETARY_VALUE_GOOD
+	foodtype = MEAT | DAIRY
 	//CC Edit End
 
 /*	.............   Tartar   ................ */
 //This doesn't really count as either cooked or egg recipe (it does contain an egg at least) so whatever.
 /obj/item/reagent_containers/food/snacks/rogue/tartar
+	dish_type = DISH_MEAT | DISH_EGG
 	name = "tartar"
 	desc = "Grounded meat covered over with uncooked egg, favorite of the steppesmen. Said to have been named after a famous brigand."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_egg.dmi'
@@ -64,10 +64,6 @@
 	foodtype = MEAT
 	rotprocess = SHELFLIFE_DECENT
 	faretype = FARE_POOR //It's raw meat and egg... come now now
-	//CC Edit Begin
-	diet_types = list("Meats")
-	diet_change_amount = FOOD_DIETARY_VALUE_GOOD
-	//CC Edit End
 
 /* * * * * * * * * * * **
  *						*
@@ -89,8 +85,8 @@
 	eat_effect = /datum/status_effect/buff/mealbuff
 	rotprocess = SHELFLIFE_DECENT
 	//CC Edit Begin
-	diet_types = list("Grains", "Dairy")
-	diet_change_amount = FOOD_DIETARY_VALUE_GREAT
+	foodtype = MEAT | DAIRY
+	dish_type = DISH_EGG | DISH_DAIRY
 	//CC Edit End
 
 /*	.................   Bacon & Eggs   ................... */
@@ -105,8 +101,8 @@
 	faretype = FARE_NEUTRAL
 	rotprocess = SHELFLIFE_DECENT
 	//CC Edit Begin
-	diet_types = list("Meats")
-	diet_change_amount = FOOD_DIETARY_VALUE_GREAT
+	foodtype = MEAT
+	dish_type = DISH_EGG | DISH_MEAT
 	//CC Edit End
 
 /*	.................   Hammerholdian Breakfast   ................... */
@@ -122,8 +118,8 @@
 	faretype = FARE_NEUTRAL
 	rotprocess = SHELFLIFE_DECENT
 	//CC Edit Begin
-	diet_types = list("Meats")
-	diet_change_amount = FOOD_DIETARY_VALUE_GREAT
+	foodtype = MEAT
+	dish_type = DISH_EGG | DISH_MEAT
 	//CC Edit End
 
 /obj/item/reagent_containers/food/snacks/rogue/friedegg/sausagebacon
@@ -137,8 +133,8 @@
 	faretype = FARE_FINE
 	rotprocess = SHELFLIFE_DECENT
 	//CC Edit Begin
-	diet_types = list("Meats")
-	diet_change_amount = FOOD_DIETARY_VALUE_AMAZING
+	foodtype = MEAT
+	dish_type = DISH_EGG | DISH_MEAT
 	//CC Edit End
 
 /obj/item/reagent_containers/food/snacks/rogue/friedegg/hammerhold
@@ -153,8 +149,8 @@
 	faretype = FARE_LAVISH
 	rotprocess = SHELFLIFE_DECENT
 	//CC Edit Begin
-	diet_types = list("Meats", "Grains")
-	diet_change_amount = FOOD_DIETARY_VALUE_LEGENDARY //The first legendary meal! Eggs are great!
+	foodtype = MEAT | GRAIN
+	dish_type = DISH_EGG | DISH_MEAT | DISH_BREAD
 	//CC Edit End
 
 /*	.................   Omelettes   ................... */
@@ -220,6 +216,7 @@
 	tastes = list("egg" = 1)
 
 /obj/item/reagent_containers/food/snacks/rogue/omelette_slice
+	dish_type = DISH_EGG //CC Edit
 	name = "omelette slice"
 	desc = "A wedge of fluffy omelette."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_omelette.dmi'
@@ -250,6 +247,7 @@
 
 /obj/item/reagent_containers/food/snacks/rogue/omelette_veggie_slice
 	cuisine = CUISINE_OTAVAIS|CUISINE_SOUTHEASTERN
+	dish_type = DISH_EGG|DISH_VEGETABLE //CC Edit
 	name = "vegetable omelette slice"
 	desc = "A hearty wedge of vegetable omelette."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_omelette.dmi'
@@ -280,6 +278,7 @@
 
 /obj/item/reagent_containers/food/snacks/rogue/omelette_meat_slice
 	cuisine = CUISINE_OTAVAIS|CUISINE_SOUTHEASTERN
+	dish_type = DISH_EGG|DISH_MEAT //CC Edit
 	name = "meat omelette slice"
 	desc = "A savory wedge of minced meat omelette."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_omelette.dmi'

@@ -335,6 +335,11 @@
 		return 0
 
 /mob/living/hitby(atom/movable/AM, skipcatch, hitpush = TRUE, blocked = FALSE, datum/thrownthing/throwingdatum, damage_flag = "blunt")
+	//Caustic Edit - Add in throwing Spont Vore hook
+	if(SEND_SIGNAL(src, COMSIG_LIVING_HIT_BY_THROWN_ENTITY, AM, throwingdatum) & COMPONENT_CANCEL_THROW)
+		return FALSE
+	//Caustic Edit End
+
 	if(istype(AM, /obj/item))
 		var/obj/item/I = AM
 		// Hit the selected zone, or else a random zone centered on the chest

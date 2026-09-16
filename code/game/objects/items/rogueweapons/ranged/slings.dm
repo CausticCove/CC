@@ -65,6 +65,12 @@
 				return newtime
 	return chargetime //failsafe default value should the above conditions not be met
 
+/obj/item/gun/ballistic/revolver/grenadelauncher/sling/get_npc_chargetime(mob/living/user)
+	var/newtime = 20 - (user.get_skill_level(/datum/skill/combat/slings) * 1.5) - (user.STAPER / 2) - (user.STASTR / 5)
+	if(chambered)
+		newtime *= chambered.charge_time_mult
+	return (max(0, newtime) + ARCHER_NPC_MIN_AIM_TIME + ARCHER_NPC_NOCK_TIME) * ARCHER_NPC_ROF_PENALTY
+
 //objs
 
 /obj/item/gun/ballistic/revolver/grenadelauncher/sling

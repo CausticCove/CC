@@ -17,10 +17,6 @@
 	eat_effect = null
 	rotprocess = null
 	foodtype = FRUIT
-	//CC Edit Begin
-	diet_types = list("Fruits")
-	diet_change_amount = FOOD_DIETARY_VALUE_BAD - 1 //Good snack... Still a common item.
-	//CC Edit End
 
 /obj/item/reagent_containers/food/snacks/rogue/raisins/On_Consume(mob/living/eater)
 	..()
@@ -218,6 +214,6 @@
 	tastes = list("raisin" = 1, "pumpkin" = 1, "dry paper" = 1)
 	rotprocess = null
 	//CC Edit Begin
-	diet_types = list("Fruits", "Grains", "Vegetables")
-	diet_change_amount = FOOD_DIETARY_VALUE_GREAT //High quality snack! Requires a lot of steps!
+	dish_type = DISH_FRUIT | DISH_VEGETABLE | DISH_BREAD
+	foodtype = FRUIT | VEGETABLES | GRAIN
 	//CC Edit End

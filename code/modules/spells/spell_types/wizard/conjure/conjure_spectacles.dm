@@ -39,6 +39,7 @@
 		"Spectacles" = /obj/item/clothing/mask/rogue/spectacles,
 		"Nocshades" = /obj/item/clothing/mask/rogue/spectacles/inq_lesser_summoned,
 		"Golden Spectacles" = /obj/item/clothing/mask/rogue/spectacles/golden_lesser_summoned,
+		"Sandstorm Goggles" = /obj/item/clothing/mask/rogue/spectacles/goggles,
 	)
 
 /datum/action/cooldown/spell/conjure_spectacles/cast(list/targets, mob/living/user = usr)
@@ -70,7 +71,7 @@
 	desc = "An argument between the chosen of Noc and the Otavian Orthodoxy has raged on for years,\n\
 	no one truely knows who the original creator of these glasses truely was.\n\
 	But one thing is absolutely for certain, they are quite fashionable."
-		
+
 // Golden spectacles summonable lesser varient - with no mechanical effects
 
 /obj/item/clothing/mask/rogue/spectacles/golden_lesser_summoned

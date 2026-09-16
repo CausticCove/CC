@@ -23,10 +23,12 @@
 	wind                   = 1
 
 /datum/particle_weather/leaves_gentle
-	name = "Rain"
+	name = "Light Winds"
 	desc = "Gentle Rain, la la description."
 	particleEffectType = /particles/weather/leaves
-
+	warning_message = span_greenannounce("Light winds blow in through the forests across the realm.")
+	late_warning_message = span_greenannounce("A sudden gust scatters leaves wildly through the air.")
+	wind_down_message = span_greenannounce("A few remaining leaves flit about in the weakening wind, ready to land somewhere amongst the trees.")
 	scale_vol_with_severity = TRUE
 
 	minSeverity = 1
@@ -36,12 +38,15 @@
 	immunity_type = TRAIT_RAINSTORM_IMMUNE
 	probability = 40
 	target_trait = PARTICLEWEATHER_LEAVES
+	forecast_tag = "winds"
 
 /datum/particle_weather/leaves_storm
-	name = "Rain"
+	name = "Heavy Winds"
 	desc = "Gentle Rain, la la description."
 	particleEffectType = /particles/weather/leaves
-
+	warning_message = span_greenannounce("Heavy winds blow in through the forests across the realm.")
+	late_warning_message = span_greenannounce("A sudden gust scatters leaves wildly through the air.")
+	wind_down_message = span_greenannounce("A few remaining leaves flit about in the weakening wind, ready to land somewhere amongst the trees.")
 	scale_vol_with_severity = TRUE
 
 	minSeverity = 4
@@ -51,12 +56,15 @@
 	immunity_type = TRAIT_RAINSTORM_IMMUNE
 	probability = 20
 	target_trait = PARTICLEWEATHER_LEAVES
+	forecast_tag = "winds"
 
 /datum/particle_weather/sakura_gentle
-	name = "Rain"
+	name = "Light Winds"
 	desc = "Gentle Rain, la la description."
 	particleEffectType = /particles/weather/leaves/sakura
-
+	warning_message = span_greenannounce("Love reigns and a calm wind runs through floral trees")
+	late_warning_message = span_greenannounce("A sudden gust scatters leaves wildly through the air.")
+	wind_down_message = span_greenannounce("A few remaining leaves flit about in the weakening wind, their dancing display tapering off.")
 	scale_vol_with_severity = TRUE
 
 	minSeverity = 1
@@ -66,12 +74,15 @@
 	immunity_type = TRAIT_RAINSTORM_IMMUNE
 	probability = 0
 	target_trait = PARTICLEWEATHER_SAKURA
+	forecast_tag = "winds"
 
 /datum/particle_weather/sakura_storm
-	name = "Rain"
+	name = "Heavy Winds"
 	desc = "Gentle Rain, la la description."
 	particleEffectType = /particles/weather/leaves/sakura
-
+	warning_message = span_greenannounce("Love reigns and a heavy wind runs through floral trees")
+	late_warning_message = span_greenannounce("A sudden gust scatters leaves wildly through the air.")
+	wind_down_message = span_greenannounce("A few remaining leaves flit about in the weakening wind, their dancing display tapering off.")
 	scale_vol_with_severity = TRUE
 
 	minSeverity = 4
@@ -81,3 +92,4 @@
 	immunity_type = TRAIT_RAINSTORM_IMMUNE
 	probability = 0
 	target_trait = PARTICLEWEATHER_SAKURA
+	forecast_tag = "winds"

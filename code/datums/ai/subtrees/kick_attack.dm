@@ -23,6 +23,8 @@
 	var/mob/living/pawn = controller.pawn
 	if(!pawn.Adjacent(target))
 		return
+	if(pawn.incapacitated(ignore_restraints = TRUE) || pawn.is_carried() || pawn.is_legbound())
+		return
 	if(pawn.IsOffBalanced())
 		return
 	if(pawn.get_num_legs() < 2)
@@ -114,7 +116,9 @@
 				if(AI_INT_SCALE_PROB(pawn, KICK_EXHAUSTED_CHANCE))
 					should_kick = TRUE
 
-	controller.set_blackboard_key(BB_KICK_COOLDOWN, world.time + KICK_COOLDOWN) //Caustic Edit - Now kicks will trigger a cooldown regardless of if it succeeds or fails.
+	var/kick_cd = npc_technique_cd(pawn, KICK_COOLDOWN) //Caustic Edit - Also grabbed this from below!
+	controller.set_blackboard_key(BB_KICK_COOLDOWN, world.time + kick_cd) //Caustic Edit - Now kicks will trigger a cooldown regardless of if it succeeds or fails.
+	propagate_technique_cd(pawn, target, BB_KICK_COOLDOWN, world.time + kick_cd) //Caustic Edit - Ditto!
 	if(!should_kick)
 		return
 
@@ -133,21 +137,30 @@
 	set_movement_target(controller, target)
 
 /datum/ai_behavior/npc_kick_attack/perform(seconds_per_tick, datum/ai_controller/controller, target_key)
-	. = ..()
 	var/mob/living/pawn = controller.pawn
 	var/mob/living/target = controller.blackboard[target_key]
 
 	if(!target || QDELETED(target) || !pawn.Adjacent(target))
-		finish_action(controller, FALSE, target_key)
-		return
+		return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_FAILED
+
+	if(pawn.incapacitated(ignore_restraints = TRUE) || pawn.is_carried() || pawn.is_legbound())
+		return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_FAILED
 
 	if(!pawn.can_kick(target, do_message = FALSE))
-		finish_action(controller, FALSE, target_key)
-		return
+		return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_FAILED
 
 	// Aim low when prone - kick at feet/legs
 	if(!(pawn.mobility_flags & MOBILITY_STAND))
 		pawn.aimheight_change(rand(1, 4))
+
+	//var/kick_cd = npc_technique_cd(pawn, KICK_COOLDOWN) //Caustic Edit - Lets move these three commented out lines earlier so it triggers any time the AI attempts to even pass or fail a kick.
+	//controller.set_blackboard_key(BB_KICK_COOLDOWN, world.time + kick_cd)
+	controller.set_blackboard_key(BB_HUMAN_NPC_TECHNIQUE_CD, world.time + 3 SECONDS)
+	//propagate_technique_cd(pawn, target, BB_KICK_COOLDOWN, world.time + kick_cd)
+	// Kick is a committed action; block the next melee swing briefly so they don't immediately
+	// combo into a full attack right after.
+	if(pawn.next_click < world.time + 1.2 SECONDS)
+		pawn.next_click = world.time + 1.2 SECONDS
 
 	// Set up kick intent
 	var/old_mmb = pawn.mmb_intent
@@ -156,14 +169,8 @@
 	QDEL_NULL(pawn.mmb_intent)
 	pawn.mmb_intent = old_mmb
 
-	//controller.set_blackboard_key(BB_KICK_COOLDOWN, world.time + KICK_COOLDOWN) //Caustic Edit - Lets move this earlier so it triggers any time the AI attempts to even pass or fail a kick.
-	controller.set_blackboard_key(BB_HUMAN_NPC_TECHNIQUE_CD, world.time + 3 SECONDS)
-	// Kick is a committed action; block the next melee swing briefly so they don't immediately
-	// combo into a full attack right after.
-	if(pawn.next_click < world.time + 1.2 SECONDS)
-		pawn.next_click = world.time + 1.2 SECONDS
 	AI_THINK(pawn, "KICK: kicked [target]!")
-	finish_action(controller, TRUE, target_key)
+	return AI_BEHAVIOR_DELAY | AI_BEHAVIOR_SUCCEEDED
 
 /datum/ai_behavior/npc_kick_attack/finish_action(datum/ai_controller/controller, succeeded, target_key)
 	. = ..()

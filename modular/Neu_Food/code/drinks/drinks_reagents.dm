@@ -76,7 +76,7 @@
 	M.Jitter(2)
 	if(prob(5))
 		M.heart_attack()
-	
+
 /datum/reagent/consumable/caffeine/coffee
 	cuisine = CUISINE_RANESHENI
 	name = "coffee"
@@ -205,6 +205,9 @@
 	taste_description = "a throat-clinging sweetness, paired with a rich and warming aftertaste"
 	quality = DRINK_GOOD
 	alpha = 250
+	//CC Edit
+	foodtype = DAIRY
+	//CC Edit End
 
 /datum/reagent/consumable/chocolate/on_mob_life(mob/living/carbon/M)
 	if(!HAS_TRAIT(M,TRAIT_INFINITE_STAMINA))
@@ -230,6 +233,9 @@
 	taste_description = "an impossible blemd of richness, sweetness, and a hint of throat-tingling spiciness"
 	quality = DRINK_VERYGOOD
 	alpha = 250
+	//CC Edit
+	foodtype = DAIRY
+	//CC Edit End
 
 /datum/reagent/consumable/spiced_chocolate/on_mob_life(mob/living/carbon/M)
 	if(!HAS_TRAIT(M,TRAIT_INFINITE_STAMINA))

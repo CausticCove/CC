@@ -73,7 +73,7 @@
 
 	if(!dice_in_cup.len)
 		return
-	
+
 	playsound(src, 'sound/items/cup_dice_roll.ogg', 100, TRUE)
 	if(do_after(user, 1.5 SECONDS))
 		rolling = TRUE
@@ -173,7 +173,7 @@
 /obj/item/reagent_containers/glass/cup/glass/proc/shatter(turf/T)
 	if(istransparentturf(T))
 		shatter(GET_TURF_BELOW(T))
-		return 
+		return
 	new /obj/item/natural/glass_shard(get_turf(T))
 	new /obj/effect/decal/cleanable/debris/glassy(get_turf(T))
 	qdel(src)
@@ -283,6 +283,7 @@
 	desc = "A tea cup made out of ceramic. Used to serve tea."
 	dropshrink = 0.7
 	icon_state = "cup"
+	obj_flags = CAN_BE_HIT|UNIQUE_RENAME
 	force = 5
 	throwforce = 10
 
