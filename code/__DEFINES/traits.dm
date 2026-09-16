@@ -323,6 +323,8 @@
 #define TRAIT_FERAL "Feral Natured" //likes being in the woods, hates being in the city
 #define TRAIT_MANGLED_JAW "Mangled Jaw"
 #define TRAIT_HUNTED "Hunted" //For people who are hunted.
+#define TRAIT_SANDSTORMED "Sandstormed"
+#define TRAIT_SANDSTORM_GOGGLES "sandstorm_eyeprotection"
 //Caustice edit end
 
 // Economic Roles Traits

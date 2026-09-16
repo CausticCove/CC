@@ -10,14 +10,14 @@
 	bonus_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_HALF_MEAL)
 	rotprocess = SHELFLIFE_LONG
 	//CC Edit Begin
-	diet_types = list("Grains")
-	diet_change_amount = FOOD_DIETARY_VALUE_POOR
+	dish_type = DISH_VEGETABLE
+	foodtype = GRAIN
 	//CC Edit End
 
 /*	.................   Rice & pork  ................... */
 /obj/item/reagent_containers/food/snacks/rogue/ricepork
 	cuisine = CUISINE_SOUTHEASTERN
-	dish_type = DISH_MEAT
+	dish_type = DISH_MEAT | DISH_VEGETABLE //CC Edit
 	name = "rice and pork"
 	tastes = list("rice" = 1, "pork" = 1)
 	list_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_MEAL_AND_QUARTER)
@@ -28,8 +28,7 @@
 	rotprocess = SHELFLIFE_LONG
 	eat_effect = /datum/status_effect/buff/mealbuff
 	//CC Edit Begin
-	diet_types = list("Grains", "Meats")
-	diet_change_amount = FOOD_DIETARY_VALUE_GOOD
+	foodtype = GRAIN | MEAT
 	//CC Edit End
 
 /*	.................   Rice & pork & cucumbers ................... */
@@ -46,14 +45,13 @@
 	rotprocess = SHELFLIFE_LONG
 	eat_effect = /datum/status_effect/buff/greatmealbuff
 	//CC Edit Begin
-	diet_types = list("Grains", "Meats", "Vegetables")
-	diet_change_amount = FOOD_DIETARY_VALUE_GREAT
+	foodtype = GRAIN | MEAT | VEGETABLES
 	//CC Edit End
 
 /*	.................   Rice & beef ................... */
 /obj/item/reagent_containers/food/snacks/rogue/ricebeef
 	cuisine = CUISINE_SOUTHEASTERN|CUISINE_RANESHENI
-	dish_type = DISH_MEAT
+	dish_type = DISH_MEAT | DISH_VEGETABLE //CC Edit
 	name = "rice and beef"
 	tastes = list("rice" = 1, "steak" = 1)
 	list_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_MEAL_AND_QUARTER)
@@ -64,8 +62,7 @@
 	rotprocess = SHELFLIFE_LONG
 	eat_effect = /datum/status_effect/buff/mealbuff
 	//CC Edit Begin
-	diet_types = list("Grains", "Meats")
-	diet_change_amount = FOOD_DIETARY_VALUE_GOOD
+	foodtype = GRAIN | MEAT
 	//CC Edit End
 
 /*	.................   Rice & beef & carrots ................... */
@@ -82,14 +79,13 @@
 	rotprocess = SHELFLIFE_LONG
 	eat_effect = /datum/status_effect/buff/greatmealbuff
 	//CC Edit Begin
-	diet_types = list("Grains", "Meats", "Vegetables")
-	diet_change_amount = FOOD_DIETARY_VALUE_GREAT
+	foodtype = GRAIN | MEAT | VEGETABLES
 	//CC Edit End
 
 /*	.................   Rice & shrimp ................... */
 /obj/item/reagent_containers/food/snacks/rogue/riceshrimp
 	cuisine = CUISINE_SOUTH_IMPERIAL|CUISINE_ETRUSCAN|CUISINE_SOUTHEASTERN
-	dish_type = DISH_SEAFOOD
+	dish_type = DISH_SEAFOOD | DISH_VEGETABLE //CC Edit
 	name = "rice and shrimp"
 	tastes = list("rice" = 1, "shrimp" = 1)
 	list_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_MEAL_AND_QUARTER)
@@ -100,8 +96,7 @@
 	rotprocess = SHELFLIFE_LONG
 	eat_effect = /datum/status_effect/buff/mealbuff
 	//CC Edit Begin
-	diet_types = list("Grains", "Meats")
-	diet_change_amount = FOOD_DIETARY_VALUE_GOOD
+	foodtype = GRAIN | MEAT
 	//CC Edit End
 
 /*	.................   Rice & shrimp & carrots ................... */
@@ -118,14 +113,13 @@
 	rotprocess = SHELFLIFE_LONG
 	eat_effect = /datum/status_effect/buff/greatmealbuff
 	//CC Edit Begin
-	diet_types = list("Grains", "Meats", "Vegetables")
-	diet_change_amount = FOOD_DIETARY_VALUE_GREAT
+	foodtype = GRAIN | MEAT
 	//CC Edit End
 
 /*	.................   Rice & bird ................... */
 /obj/item/reagent_containers/food/snacks/rogue/ricebird
 	cuisine = CUISINE_SOUTHEASTERN|CUISINE_RANESHENI
-	dish_type = DISH_POULTRY
+	dish_type = DISH_POULTRY | DISH_VEGETABLE
 	name = "rice and frybird"
 	tastes = list("rice" = 1, "tasty birdmeat" = 1)
 	list_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_MEAL_AND_QUARTER)
@@ -136,8 +130,7 @@
 	rotprocess = SHELFLIFE_LONG
 	eat_effect = /datum/status_effect/buff/mealbuff
 	//CC Edit Begin
-	diet_types = list("Grains", "Meats")
-	diet_change_amount = FOOD_DIETARY_VALUE_GOOD
+	foodtype = GRAIN | MEAT
 	//CC Edit End
 
 /*	.................   Rice & bird & carrots ................... */
@@ -154,14 +147,13 @@
 	rotprocess = SHELFLIFE_LONG
 	eat_effect = /datum/status_effect/buff/greatmealbuff
 	//CC Edit Begin
-	diet_types = list("Grains", "Meats", "Vegetables")
-	diet_change_amount = FOOD_DIETARY_VALUE_GREAT
+	foodtype = GRAIN | MEAT | VEGETABLES
 	//CC Edit End
 
 /*	.................   Rice & egg ................... */
 /obj/item/reagent_containers/food/snacks/rogue/riceegg
 	cuisine = CUISINE_SOUTHEASTERN
-	dish_type = DISH_EGG
+	dish_type = DISH_EGG | DISH_VEGETABLE
 	name = "rice and egg"
 	tastes = list("rice" = 1, "egg" = 1)
 	list_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_MEAL_AND_QUARTER)
@@ -172,14 +164,13 @@
 	rotprocess = SHELFLIFE_LONG
 	eat_effect = /datum/status_effect/buff/mealbuff
 	//CC Edit Begin
-	diet_types = list("Grains")
-	diet_change_amount = FOOD_DIETARY_VALUE_GREAT
+	foodtype = GRAIN | MEAT
 	//CC Edit End
 
 /*	.................   Rice & cheese ................... */
 /obj/item/reagent_containers/food/snacks/rogue/ricecheese
 	cuisine = CUISINE_ETRUSCAN|CUISINE_SOUTHEASTERN
-	dish_type = DISH_DAIRY
+	dish_type = DISH_DAIRY | DISH_VEGETABLE
 	name = "rice and cheese"
 	tastes = list("rice" = 1, "cheese" = 1)
 	list_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_MEAL_AND_QUARTER)
@@ -190,14 +181,13 @@
 	rotprocess = SHELFLIFE_LONG
 	eat_effect = /datum/status_effect/buff/mealbuff
 	//CC Edit Begin
-	diet_types = list("Grains", "Dairy")
-	diet_change_amount = FOOD_DIETARY_VALUE_GOOD
+	foodtype = GRAIN | DAIRY
 	//CC Edit End
 
 /*	.................   Rice & egg & cheese ................... */
 /obj/item/reagent_containers/food/snacks/rogue/riceeggcheese
 	cuisine = CUISINE_SOUTHEASTERN
-	dish_type = DISH_EGG|DISH_DAIRY
+	dish_type = DISH_EGG|DISH_DAIRY| DISH_VEGETABLE
 	name = "rice with egg and cheese"
 	tastes = list("rice" = 1, "cheese" = 1, "egg" = 1)
 	list_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_TWO_MEALS)
@@ -208,6 +198,5 @@
 	rotprocess = SHELFLIFE_LONG
 	eat_effect = /datum/status_effect/buff/greatmealbuff
 	//CC Edit Begin
-	diet_types = list("Grains", "Dairy")
-	diet_change_amount = FOOD_DIETARY_VALUE_AMAZING
+	foodtype = GRAIN | MEAT | DAIRY
 	//CC Edit End

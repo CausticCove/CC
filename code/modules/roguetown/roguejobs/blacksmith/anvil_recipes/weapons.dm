@@ -509,7 +509,7 @@
 	name = "Sabre, Iron"
 	req_bar = /obj/item/ingot/iron
 	req_blade = /obj/item/blade/iron_sword
-	created_item = /obj/item/rogueweapon/sword/saber/iron
+	created_item = /obj/item/rogueweapon/sword/sabre/iron //CC Edit - Fix the pathing here
 	display_category = ITEM_CAT_WEAPONS_SWORDS
 
 /datum/anvil_recipe/weapons/iron/swordshort

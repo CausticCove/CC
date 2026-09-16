@@ -9,8 +9,8 @@
 	friction				= 0.3  // shed 30% of velocity and drift every 0.1s
 	transform				= null // Rain is directional - so don't make it "3D"
 	//Weather effects, max values
-	maxSpawning				= 250
-	minSpawning				= 50
+	maxSpawning             = 150
+	minSpawning             = 40
 	wind					= 2
 	spin					= 0 // explicitly set spin to 0 - there is a bug that seems to carry generators over from old particle effects
 
@@ -18,7 +18,9 @@
 	name = "Hail"
 	desc = "Hailstorm"
 	particleEffectType = /particles/weather/hail
-
+	warning_message = span_greenannounce("The upper air chills and freezes as clouds gather above.")
+	late_warning_message = span_greenannounce("Hard pellets of ice begin to strike the ground.")
+	wind_down_message = span_greenannounce("The thumping of ice against the ground grows more infrequent as the clouds above start to clear.")
 	scale_vol_with_severity = TRUE
 	weather_sounds = list(/datum/looping_sound/hail)
 	indoor_weather_sounds = list(/datum/looping_sound/indoor_hail)
@@ -30,6 +32,7 @@
 	immunity_type = TRAIT_SNOWSTORM_IMMUNE
 	probability = 5
 	target_trait = PARTICLEWEATHER_SNOW
+	forecast_tag = "hail"
 
 /datum/particle_weather/hail/weather_act(mob/living/L)
 	if(issimple(L))
@@ -44,11 +47,14 @@
 		L.adjust_bodytemperature(-rand(5, 15))
 	//Caustic Edit End
 
-	var/armor_block = L.run_armor_check(BODY_ZONE_HEAD, "blunt", blade_dulling=BCLASS_BLUNT)
-	if(L.apply_damage(rand(5, 10), UNARMED_ATTACK, BODY_ZONE_HEAD, armor_block))
-		if(prob(25))
-			to_chat(L, span_danger("You're being assailed by an onslaught of hail!"))
-	else
-		if(prob(25))
-			to_chat(L, span_warning("Rocks of ice plink off of your headcover."))
+	var/turf/mob_turf = get_turf(L) //Caustic Edit - Add in a check to ensure that someone is actually like, in the hail.
+	if(mob_turf && mob_turf.is_weatherproof())
+		if(prob(15)) //Reduce chances to 15 instead of 50, cause OH BOY that was kinda frequent.
+			var/armor_block = L.run_armor_check(BODY_ZONE_HEAD, "blunt", blade_dulling=BCLASS_BLUNT)
+			if(L.apply_damage(rand(5, 10), UNARMED_ATTACK, BODY_ZONE_HEAD, armor_block))
+				if(prob(25))
+					to_chat(L, span_danger("You're being assailed by an onslaught of hail!"))
+			else
+				if(prob(25))
+					to_chat(L, span_warning("Rocks of ice plink off of your headcover."))
 

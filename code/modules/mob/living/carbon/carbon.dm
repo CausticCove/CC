@@ -304,6 +304,9 @@
 			if(pulledby.grab_state >= GRAB_AGGRESSIVE)
 				return TRUE
 
+/mob/living/carbon/is_legbound()
+	return !!legcuffed
+
 /mob/living/carbon/proc/canBeHandcuffed()
 	return 0
 
@@ -851,6 +854,21 @@
 		add_client_colour(/datum/client_colour/gildsight)
 	else
 		remove_client_colour(/datum/client_colour/gildsight)
+
+	//Caustic Edit - Add in the Sandstorm Effect fullscreens!
+	if(HAS_TRAIT(src, TRAIT_SANDSTORMED))
+		if(HAS_TRAIT(src, TRAIT_SANDSTORM_GOGGLES) || src.has_sandstorm_hood())
+			clear_fullscreen("nearsighted")
+		else
+			overlay_fullscreen("nearsighted", /atom/movable/screen/fullscreen/nearsight)
+		if(HAS_TRAIT(src, TRAIT_SANDSTORM_GOGGLES) || src.has_sandstorm_hood())
+			overlay_fullscreen("dust", /atom/movable/screen/fullscreen/dustoverlay_light)
+		else
+			overlay_fullscreen("dust", /atom/movable/screen/fullscreen/dustoverlay)
+	else
+		clear_fullscreen("nearsighted")
+		clear_fullscreen("dust")
+	//Caustic Edit End
 
 	if(HAS_TRAIT(src, TRAIT_THERMAL_VISION))
 		sight |= (SEE_MOBS)

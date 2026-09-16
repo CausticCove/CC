@@ -344,6 +344,14 @@
 		return 0
 	return 1
 
+//Caustic Edit - Adding in a Flimsy Variant from Ratwood's Desert Town stuff.
+/obj/structure/fluff/railing/fence/flimsy
+	name = "weak palisade"
+	desc = "A rudimentary barrier that might keep the monsters at bay. This one looks old, weathered, and hastily constructed."
+	max_integrity = 180
+	color = "#cccac5"
+//Caustic Edit End
+
 /obj/structure/bars
 	name = "bars"
 	desc = "Rigid metal bars, intended to impair access to somewhere."

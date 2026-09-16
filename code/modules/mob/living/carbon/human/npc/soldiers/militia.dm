@@ -7,8 +7,6 @@
 	ambushable = FALSE
 	dodgetime = 28
 
-
-
 /mob/living/carbon/human/species/human/northern/militia/Initialize()
 	. = ..()
 	set_species(pick(NPC_RACES_TYPES))

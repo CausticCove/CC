@@ -48,9 +48,9 @@
 	if(!old_area)
 		return
 
-	var/was_indoors = istype(old_area, /area/rogue/indoors)
+	var/was_indoors = (istype(old_area, /area/rogue/indoors) || istype(old_area, /area/rogue/under))
 	var/was_outdoors = istype(old_area, /area/rogue/outdoors)
-	var/is_indoors = istype(new_area, /area/rogue/indoors)
+	var/is_indoors = (istype(new_area, /area/rogue/indoors) || istype(new_area, /area/rogue/under))
 	var/is_outdoors = istype(new_area, /area/rogue/outdoors)
 
 	if((was_indoors && is_outdoors) || (was_outdoors && is_indoors))

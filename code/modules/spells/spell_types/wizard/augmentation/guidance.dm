@@ -9,6 +9,7 @@
 	cooldown_time = 30 SECONDS
 
 	point_cost = 1
+	charge_required = FALSE // Special
 	charge_time = 0 // Special
 
 	self_cast_cooldown_multiplier = 1.5

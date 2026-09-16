@@ -18,6 +18,7 @@
 // No sea raiders here! The Central Coast is relatively safe.
 /area/rogue/outdoors/beach/central
 	name = "Central Coast"
+	allow_extreme_weather = TRUE //Caustic Edit - Add in the possibility for tornado spawns!
 	ambush_mobs = list(
 		/mob/living/carbon/human/species/goblin/npc/ambush/sea = 20,
 		/mob/living/carbon/human/species/goblin/npc/archer/sea = 5,
@@ -32,6 +33,7 @@
 
 /area/rogue/outdoors/beach/north
 	name = "Northern Coast"
+	allow_extreme_weather = TRUE //Caustic Edit - Add in the possibility for tornado spawns!
 	ambush_mobs = list(
 		/mob/living/carbon/human/species/human/northern/searaider/ambush = 10,
 		/mob/living/carbon/human/species/human/northern/searaider/archer/ambush = 3,
@@ -46,6 +48,7 @@
 
 /area/rogue/outdoors/beach/south
 	name = "Southern Coast"
+	allow_extreme_weather = TRUE //Caustic Edit - Add in the possibility for tornado spawns!
 	ambush_mobs = list(
 		/mob/living/carbon/human/species/human/northern/searaider/ambush = 5,
 		/mob/living/carbon/human/species/human/northern/searaider/archer/ambush = 2,

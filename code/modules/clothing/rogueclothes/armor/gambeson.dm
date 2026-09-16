@@ -348,16 +348,18 @@
 	sleeved = 'icons/roguetown/clothing/onmob/helpers/sleeves_shirts.dmi'
 	smeltresult = /obj/item/ingot/component/baotha
 
+//Caustic Edit - Let us remove and drop armors again! For fun stuffs.
 /obj/item/clothing/suit/roguetown/armor/gambeson/baotha/Initialize()
 	. = ..()
 	AddComponent(/datum/component/cursed_item, TRAIT_DEPRAVED, "VESTMENTS")
-	ADD_TRAIT(src, TRAIT_NODROP, CURSED_ITEM_TRAIT)
+	//ADD_TRAIT(src, TRAIT_NODROP, CURSED_ITEM_TRAIT)
 
 /obj/item/clothing/suit/roguetown/armor/gambeson/baotha/dropped(mob/living/carbon/human/user)
 	. = ..()
-	if(QDELETED(src))
+	/*if(QDELETED(src))
 		return
-	qdel(src)
+	qdel(src)*/
+//Caustic Edit End
 
 /obj/item/clothing/suit/roguetown/armor/gambeson/baotha/get_examine_highlight_status()
 	return list(EXAMINEHIGHLIGHT_HERESYSEVERITY_ALARMING, HERESYDESC_BAOTHA_ARMOR)

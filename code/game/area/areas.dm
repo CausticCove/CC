@@ -121,6 +121,9 @@
 	/// Whether or not an area protects against Necra's vengeful fog
 	var/fog_protected = FALSE
 
+	//Caustic Edit - Add in the ability to enable more extreme weather effects in an area - IE. Tornado and Lightning strikes
+	var/allow_extreme_weather = FALSE
+	//Caustic Edit End
 
 /**
   * A list of teleport locations

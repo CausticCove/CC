@@ -198,6 +198,16 @@
 				return
 	fuel = max(fuel - 10, 0)
 
+	//Caustic Edit - Add in weathers extinguishing held torches!
+	var/turf/obj_turf = get_turf(src)
+	if(!obj_turf)
+		return
+	if(obj_turf.outdoor_effect?.weatherproof)
+		return
+	if(SSParticleWeather?.runningWeather?.target_trait == PARTICLEWEATHER_RAIN && !weather_resistant)
+		extinguish()
+	//Caustic Edit End
+
 /obj/item/flashlight/flare/torch/attack_self(mob/user)
 
 	// Usual checks

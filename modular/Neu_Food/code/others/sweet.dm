@@ -1,7 +1,7 @@
 // -------------- CHOCOLATE -----------------
 /obj/item/reagent_containers/food/snacks/chocolate
 	cuisine = CUISINE_OTAVAIS
-	dish_type = DISH_SWEET
+	dish_type = DISH_DAIRY | DISH_SWEET //CC Edit
 	name = "chocolate ingot"
 	desc = "An unbelievably decadant slab of fudge, made with Amazonia's cocoa beans and Grenzelhoft's saiga milk. A \
 	recent trade agreement between the two nations has turned this once-expensive delicacy into a slightly-less-expensive \
@@ -21,9 +21,7 @@
 	eat_effect = /datum/status_effect/buff/sweet
 	chopping_sound = TRUE
 	//CC Edit Begin
-	//Like honey, if this is weird, do change. Chocolates are often under Carbohydrates.
-	diet_types = list("Grains")
-	diet_change_amount = FOOD_DIETARY_VALUE_GOOD
+	foodtype = DAIRY
 	//CC Edit End
 
 /obj/item/reagent_containers/food/snacks/chocolate/On_Consume(mob/living/eater)
@@ -59,7 +57,8 @@
 	slice_path = null
 
 /obj/item/reagent_containers/food/snacks/jamtallow
-	dish_type = DISH_SWEET
+	dish_type = DISH_FRUIT | DISH_SWEET //CC Edit
+	foodtype = FRUIT //CC Edit
 	name = "stick of jamtallow"
 	desc = "An ingot of jammified blackberries, fit only for the finest slices of bread. It beckons to be sliced with proper cutlery."
 	icon = 'modular/Neu_Food/icons/others/sweet.dmi'
@@ -103,9 +102,12 @@
 	list_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_HALF_MEAL)
 	tastes = list("stickied deliciousness" = 1, "subtle sour-tartiness" = 1)
 	eat_effect = /datum/status_effect/buff/sweet
+	dish_type = DISH_FRUIT | DISH_SWEET //CC Edit
+	foodtype = FRUIT //CC Edit
 
 /obj/item/reagent_containers/food/snacks/marmalade
-	dish_type = DISH_SWEET
+	dish_type = DISH_FRUIT | DISH_SWEET //CC Edit
+	foodtype = FRUIT //CC Edit
 	name = "stick of marmalade"
 	desc = "An ingot of jammified tangerines, fit only for the finest slices of bread. It beckons to be sliced with proper cutlery."
 	icon = 'modular/Neu_Food/icons/others/sweet.dmi'
@@ -149,6 +151,8 @@
 	list_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_HALF_MEAL)
 	tastes = list("stickied deliciousness" = 1, "subtle sweet-tartiness" = 1)
 	eat_effect = /datum/status_effect/buff/sweet
+	dish_type = DISH_FRUIT | DISH_SWEET //CC Edit
+	foodtype = FRUIT //CC Edit
 
 /obj/item/reagent_containers/food/snacks/caramel
 	cuisine = CUISINE_RANESHENI

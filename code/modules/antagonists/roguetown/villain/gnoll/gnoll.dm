@@ -114,13 +114,16 @@
 	name = "stained satchel"
 	desc = "A fetid sack fashioned into a storage accessory. Whatever's put there inevitably comes out twice the bloody."
 	mob_overlay_icon = null
+	species_exception = list(/datum/species/gnoll) //Caustic Edit - Let gnolls equip this in any slot!
 
+//Caustic Edit - Remove the no drop limitations
 /obj/item/storage/backpack/rogue/satchel/gnoll/Initialize()
 	. = ..()
-	ADD_TRAIT(src, TRAIT_NODROP, CURSED_ITEM_TRAIT)
+	//ADD_TRAIT(src, TRAIT_NODROP, CURSED_ITEM_TRAIT)
 
 /obj/item/storage/backpack/rogue/satchel/gnoll/dropped(mob/living/carbon/human/user)
 	. = ..()
-	if(QDELETED(src))
+	/*if(QDELETED(src))
 		return
-	qdel(src)
+	qdel(src)*/
+//Caustic Edit End

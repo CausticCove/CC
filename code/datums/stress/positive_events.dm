@@ -352,6 +352,13 @@
 	stressadd = -2
 	desc = list(span_blue("A covered stroll in the gentle snowfall is quite pleasant."))
 
+//Caustic Edit - Add in Fireflies Effect!
+/datum/stressevent/fireflies
+	timer = 10 MINUTES
+	stressadd = -5
+	desc = span_boldgreen("What wonderious fireflies...")
+//Caustic Edit End
+
 /datum/stressevent/graggarite_blood_rain
 	timer = 1 MINUTES
 	stressadd = -3

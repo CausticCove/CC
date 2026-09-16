@@ -39,16 +39,16 @@
 	if(active_item)
 		return
 	else
-		user.STAINT += 2
-		user.STAWIL -= 1
+		user.change_stat(STATKEY_INT, 2)
+		user.change_stat(STATKEY_WIL, -1)
 		to_chat(user, span_notice("I see them"))
 		active_item = TRUE
 
 /datum/magic_item/superior/barotrauma/on_drop(var/obj/item/i, var/mob/living/user)
 	if(active_item)
 		active_item = FALSE
-		user.STAINT -= 2
-		user.STAWIL += 1
+		user.change_stat(STATKEY_INT, -2)
+		user.change_stat(STATKEY_WIL, 1)
 		to_chat(user, span_notice("They fade from my mind"))
 ///T1 Enchantments
 /datum/magic_item/mundane/waterbreath

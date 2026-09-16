@@ -574,24 +574,24 @@
 	. = ..()
 	if(!isliving(user))
 		return
-	
+
 	var/mob/living/L = user
 	if(L.stat != CONSCIOUS)
 		return
-	
+
 	// Check if the user is holding a shovel
 	var/obj/item/rogueweapon/shovel/S = L.get_active_held_item()
 	if(!istype(S))
 		return
-	
+
 	// Check if in scoop intent
 	if(L.used_intent.type != /datum/intent/shovelscoop)
 		return
-	
+
 	// Call the shovel's autodig proc
 	if(S.start_autodig(L, src))
 		return TRUE
-	
+
 	return FALSE
 
 /turf/open/floor/rogue/dirt/Destroy()
@@ -720,11 +720,87 @@
 	landsound = 'sound/foley/jumpland/dirtland.wav'
 	baseturfs = /turf/open/floor/rogue/sand
 	slowdown = 0
+	var/sand_amt = 3 //CC Edit - Digable sand!
 
 /turf/open/floor/rogue/sand/Initialize(mapload)
 	. = ..()
 	if(prob(15))
 		icon_state = "sand[rand(1,4)]"
+
+/turf/open/floor/rogue/sand/attack_right(mob/user)
+	if(isliving(user))
+		var/mob/living/L = user
+		if(L.stat != CONSCIOUS)
+			return
+		if(sand_amt <= 0)
+			to_chat(L, span_warning("There's no loose sand left to scoop here."))
+			return
+		var/obj/item/I = new /obj/item/natural/dirtclod/sand(src)
+		if(L.put_in_active_hand(I))
+			L.visible_message(span_warning("[L] scoops up some sand."))
+			sand_amt--
+		else
+			qdel(I)
+	. = ..()
+
+/turf/open/floor/rogue/sand/MiddleClick(mob/user, params)
+	. = ..()
+	if(!isliving(user))
+		return
+
+	var/mob/living/L = user
+	if(L.stat != CONSCIOUS)
+		return
+
+	// Check if the user is holding a shovel
+	var/obj/item/rogueweapon/shovel/S = L.get_active_held_item()
+	if(!istype(S))
+		return
+
+	// Check if in scoop intent
+	if(L.used_intent.type != /datum/intent/shovelscoop)
+		return
+
+	// Call the shovel's autodig proc
+	if(S.start_autodig(L, src))
+		return TRUE
+
+	return FALSE
+
+/turf/open/floor/rogue/AzureSand/attack_right(mob/user)
+	if(isliving(user))
+		var/mob/living/L = user
+		if(L.stat != CONSCIOUS)
+			return
+		var/obj/item/I = new /obj/item/natural/dirtclod/sand(src)
+		if(L.put_in_active_hand(I))
+			L.visible_message(span_warning("[L] scoops up some sand."))
+		else
+			qdel(I)
+	. = ..()
+
+/turf/open/floor/rogue/AzureSand/MiddleClick(mob/user, params)
+	. = ..()
+	if(!isliving(user))
+		return
+
+	var/mob/living/L = user
+	if(L.stat != CONSCIOUS)
+		return
+
+	// Check if the user is holding a shovel
+	var/obj/item/rogueweapon/shovel/S = L.get_active_held_item()
+	if(!istype(S))
+		return
+
+	// Check if in scoop intent
+	if(L.used_intent.type != /datum/intent/shovelscoop)
+		return
+
+	if(S.start_autodig(L, src))
+		return TRUE
+
+	return FALSE
 
 /turf/open/floor/rogue/hay
 	name = "hay"
