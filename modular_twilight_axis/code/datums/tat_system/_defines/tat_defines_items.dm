@@ -523,9 +523,12 @@ GLOBAL_LIST_INIT(tat_donation_access_all_ckeys, TAT_DONATION_ACCESS_ALL_CKEYS)
 	/obj/item/folding_alchstation_stored = TAT_ITEM_ENTRY("Portable - Alchemy Station", 3, "misc", "weapon_supply", TAT_SUPPLY_BRONZE, "adventur' supply"), \
 	/obj/item/folding_table_stored = TAT_ITEM_ENTRY("Portable - Folding Table", 1, "misc", "weapon_supply", TAT_SUPPLY_BRONZE, "adventur' supply"), \
 	/obj/item/grapplinghook = TAT_ITEM_ENTRY("Tool - Grappling Hook", 8, "misc", "weapon_supply", TAT_SUPPLY_BRONZE, "adventur' supply"), \
-	/obj/item/gun/ballistic/revolver/grenadelauncher/blackpowder/handgonne = TAT_ITEM_ENTRY("Gun - Handgonne", 7, "weapon", "weapon_supply", TAT_SUPPLY_FIREARMS, "blackpowder"), \
+	/obj/item/gun/ballistic/revolver/grenadelauncher/blackpowder/handgonne = TAT_ITEM_ENTRY("Gun - Hand-Bombard", 7, "weapon", "weapon_supply", TAT_SUPPLY_FIREARMS, "blackpowder"), \
+	/obj/item/gun/ballistic/revolver/grenadelauncher/blackpowder/handgonne/culverin = TAT_ITEM_ENTRY("Gun - Culverin", 7, "weapon", "weapon_supply", TAT_SUPPLY_FIREARMS, "blackpowder"), \
 	/obj/item/gun/ballistic/revolver/grenadelauncher/blackpowder/arquebus = TAT_ITEM_ENTRY("Gun - Arquebus", 7, "weapon", "weapon_supply", TAT_SUPPLY_FIREARMS, "blackpowder"), \
+	/obj/item/gun/ballistic/revolver/grenadelauncher/blackpowder/arquebus/grenzelhoft = TAT_ITEM_ENTRY("Gun - Grenzelhoftian Arquebus", 7, "weapon", "weapon_supply", TAT_SUPPLY_FIREARMS, "blackpowder"), \
 	/obj/item/gun/ballistic/revolver/grenadelauncher/blackpowder/blunderbus = TAT_ITEM_ENTRY("Gun - Blunderbus", 7, "weapon", "weapon_supply", TAT_SUPPLY_FIREARMS, "blackpowder"), \
+	/obj/item/gun/ballistic/revolver/grenadelauncher/blackpowder/blunderbus/ornate = TAT_ITEM_ENTRY("Gun - Ornate Blunderbus", 9, "weapon", "weapon_supply", TAT_SUPPLY_FIREARMS, "blackpowder"), \
 	/obj/item/gun/ballistic/revolver/grenadelauncher/blackpowder/small/arquebus_pistol = TAT_ITEM_ENTRY("Gun - Pistol", 7, "weapon", "weapon_supply", TAT_SUPPLY_FIREARMS, "blackpowder"), \
 	/obj/item/gun/ballistic/revolver/grenadelauncher/bow = TAT_ITEM_ENTRY("Bow - Yew Hunting Bow", 1, "weapon", "weapon_supply", TAT_SUPPLY_IRON, "ranged"), \
 	/obj/item/gun/ballistic/revolver/grenadelauncher/bow/longbow = TAT_ITEM_ENTRY("Bow - Long Bow", 3, "weapon", "weapon_supply", TAT_SUPPLY_IRON, "ranged"), \
@@ -573,8 +576,8 @@ GLOBAL_LIST_INIT(tat_donation_access_all_ckeys, TAT_DONATION_ACCESS_ALL_CKEYS)
 	/obj/item/quiver/bolt/standard = TAT_ITEM_ENTRY("Bolts - Steel 16x", 2, "weapon", "weapon_supply", TAT_SUPPLY_IRON, "munition"), \
 	/obj/item/quiver/bolt/water = TAT_ITEM_ENTRY("Bolts - Water 16x", 1, "weapon", "weapon_supply", TAT_SUPPLY_IRON, "munition"), \
 	/obj/item/quiver/broadhead_aalloy = TAT_ITEM_ENTRY("Arrows - Decrepit 24x", 1, "weapon", "weapon_supply", TAT_SUPPLY_IRON, "munition"), \
-	/obj/item/quiver/bulletpouch/iron = TAT_ITEM_ENTRY("Arquebus Bullets 20x", 2, "weapon", "weapon_supply", TAT_SUPPLY_FIREARMS, "blackpowder"), \
-	/obj/item/quiver/bulletpouch/grapeshot/iron = TAT_ITEM_ENTRY("Arquebus Bullets 20x", 2, "weapon", "weapon_supply", TAT_SUPPLY_FIREARMS, "blackpowder"), \
+	/obj/item/quiver/bulletpouch/iron = TAT_ITEM_ENTRY("Musketballs 20x", 2, "weapon", "weapon_supply", TAT_SUPPLY_FIREARMS, "blackpowder"), \
+	/obj/item/quiver/bulletpouch/grapeshot/iron = TAT_ITEM_ENTRY("Grapeshot 20x", 3, "weapon", "weapon_supply", TAT_SUPPLY_FIREARMS, "blackpowder"), \
 	/obj/item/quiver/javelin/bronze = TAT_ITEM_ENTRY("Javelins - Bronze 4x", 3, "weapon", "weapon_supply", TAT_SUPPLY_BRONZE, "munition"), \
 	/obj/item/quiver/javelin/iron = TAT_ITEM_ENTRY("Javelins - Iron 4x", 2, "weapon", "weapon_supply", TAT_SUPPLY_IRON, "munition"), \
 	/obj/item/quiver/javelin/paalloy = TAT_ITEM_ENTRY("Javelins - Ancient 4x", 3, "weapon", "weapon_supply", TAT_SUPPLY_STEEL, "munition"), \

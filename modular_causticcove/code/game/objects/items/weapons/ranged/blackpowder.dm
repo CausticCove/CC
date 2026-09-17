@@ -58,6 +58,14 @@
 	if(has_rod)
 		myrod = new /obj/item/ramrod(src)
 
+/obj/item/gun/ballistic/revolver/grenadelauncher/blackpowder/get_mechanics_examine(mob/user)
+	. = ..()
+	if(needs_handload)
+		. += span_info("To actually fire your blackpowder weaponry, you will need a Powder Flask, Ammo for the weapon, and a Ramrod. All weapons that require a rod have one stored in them.")
+		. += span_info("First, you must fill your barrel with powder from your flask. Then grab your shot and insert it into the barrel.")
+		. += span_info("Remove the Ramrod from your weapon by right clicking it with an empty hand, then use the Ramrod on the weapon to chamber it. Use it on the weapon again to store it.")
+		. += span_info("Some weapons need to be aimed with both hands to be able to fire them properly! But ensure you are in Shoot or Arc mode, hold to aim and when it is charged, release to fire.")
+
 /obj/item/gun/ballistic/revolver/grenadelauncher/blackpowder/getonmobprop(tag)
 	. = ..()
 	if(tag)
@@ -559,6 +567,12 @@
 	spin_cooldown = 5 SECONDS
 	var/barrel_open = FALSE
 
+/obj/item/gun/ballistic/revolver/grenadelauncher/blackpowder/small/boomstick/get_mechanics_examine(mob/user)
+	. = ..()
+	. += span_info("Middle-Mouse click the Boomstick to open or close it's barrels. It can only fire when loaded and closed!")
+	. += span_info("When open, right click the Boomstick with an empty hand to take out a round, and left click with a round in hand to insert it.")
+	. += span_info("Each round can only be fired once and must be manually taken out afterwards and replaced.")
+
 /obj/item/gun/ballistic/revolver/grenadelauncher/blackpowder/small/boomstick/getonmobprop(tag)
 	. = ..()
 	if(tag)
@@ -677,9 +691,9 @@
 /obj/item/quiver/bulletpouch
 	name = "blackpowder bullet pouch"
 	desc = "A pouch carrying bullets for firearms."
-	icon = 'icons/roguetown/weapons/ammo.dmi'
-	icon_state = "slingpouch"
-	item_state = "slingpouch"
+	icon = 'modular_causticcove/icons/items/blackpowder.dmi'
+	icon_state = "ammopouch1"
+	item_state = "ammopouch1"
 	slot_flags = ITEM_SLOT_HIP | ITEM_SLOT_NECK
 	max_storage = 20
 	w_class = WEIGHT_CLASS_NORMAL
