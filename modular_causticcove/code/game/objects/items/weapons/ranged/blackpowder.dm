@@ -555,7 +555,7 @@
 	smeltresult = /obj/item/ash
 	pickup_sound = 'modular_causticcove/sound/sheath_sounds/draw_from_holster.ogg'
 
-	slot_flags = ITEM_SLOT_HIP
+	slot_flags = ITEM_SLOT_HIP | ITEM_SLOT_BACK
 	spread_num = 7
 	damfactor = 0.35
 	range = 12
@@ -581,6 +581,8 @@
 				return list("shrink" = 0.6,"sx" = -8,"sy" = -5,"nx" = 11,"ny" = -5,"wx" = -4,"wy" = -6,"ex" = 3,"ey" = -5,"northabove" = 0,"southabove" = 1,"eastabove" = 1,"westabove" = 0,"nturn" = 75,"sturn" = -75,"wturn" = -75,"eturn" = 75,"nflip" = 0,"sflip" = 8,"wflip" = 8,"eflip" = 0)
 			if("onbelt")
 				return list("shrink" = 0.3,"sx" = -2,"sy" = -5,"nx" = 4,"ny" = -5,"wx" = 0,"wy" = -5,"ex" = 2,"ey" = -5,"nturn" = 0,"sturn" = 0,"wturn" = 0,"eturn" = 0,"nflip" = 0,"sflip" = 0,"wflip" = 0,"eflip" = 0,"northabove" = 0,"southabove" = 1,"eastabove" = 1,"westabove" = 0)
+			if("onback")
+				return list("shrink" = 0.6, "sx" = -2, "sy" = 2, "nx" = 2, "ny" = 2, "wx" = 6, "wy" = 2, "ex" = -4, "ey" = 2, "northabove" = 1, "southabove" = 0, "eastabove" = 0, "westabove" = 0, "nturn" = 5, "sturn" = 5, "wturn" = 50, "eturn" = -50, "nflip" = 0, "sflip" = 8, "wflip" = 4, "eflip" = 0)
 
 /obj/item/gun/ballistic/revolver/grenadelauncher/blackpowder/small/boomstick/update_icon_state()
 	if(barrel_open)
