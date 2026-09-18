@@ -6,6 +6,7 @@
 	item_state = "arquebus"
 	force = 10
 	force_wielded = 15
+	ranged_skill = /datum/skill/combat/firearms
 	possible_item_intents = list(/datum/intent/mace/strike/wood)
 	gripped_intents = list(/datum/intent/shoot/blackpowder, /datum/intent/arc/blackpowder, INTENT_GENERIC)
 	internal_magazine = TRUE
@@ -127,7 +128,7 @@
 		return
 
 	user.stop_sound_channel(gun_sound_channel)
-	var/firearm_skill = (user?.mind ? user.get_skill_level(/datum/skill/combat/firearms) : 1)
+	var/firearm_skill = (user?.mind ? user.get_skill_level(ranged_skill) : 1)
 	var/load_time_skill = load_time - (firearm_skill*2)
 	gun_sound_channel = SSsounds.random_available_channel()
 
@@ -183,26 +184,26 @@
 		user.stop_sound_channel(gun_sound_channel)
 
 /obj/item/gun/ballistic/revolver/grenadelauncher/blackpowder/process_fire(atom/target, mob/living/user, message = TRUE, params = null, zone_override = "", bonus_spread = 0)
-	var/firearm_skill = (user?.mind ? user.get_skill_level(/datum/skill/combat/firearms) : 1)
+	var/firearm_skill = (user?.mind ? user.get_skill_level(ranged_skill) : 1)
 	spread = (spread_num - firearm_skill)
 	if(user.client)
 		if(user.client.chargedprog >= 100)
 			spread = 0
-			adjust_experience(user, /datum/skill/combat/firearms, user.STAINT * 4)
+			adjust_experience(user, ranged_skill, user.STAINT * 4)
 		else
 			spread = 150 - (150 * (user.client.chargedprog / 100))
 	else
 		spread = 0
 	//for(var/obj/item/ammo_casing/CB in get_ammo_list(FALSE, TRUE))
-	var/obj/projectile/BB = chambered.BB
-	BB.damage = BB.damage * damfactor
-	BB.range = range
+	//var/obj/projectile/BB = chambered.BB
+	//BB.damage = BB.damage * damfactor
+	//BB.range = range
 
 	if(!multiple_shot)
 		magazine.stored_ammo.Cut() //This is needed apparently since it got commented out above. It'll just wipe the stored ammo from the magazine, but frankly this is hacky as hell. There's likely a better way using the various gun calls, but eh.
 		gunpowder = FALSE
 		reloaded = FALSE
-	user.adjust_experience(/datum/skill/combat/firearms, (user.STAINT*5))
+	//user.adjust_experience(ranged_skill, (user.STAINT*5))
 	..()
 	if(multiple_shot)
 		if(!magazine.ammo_count(FALSE))
@@ -275,7 +276,7 @@
 	var/list/strings_noob = list("unsurely", "nervously", "anxiously", "timidly", "shakily", "clumsily", "fumblingly", "awkwardly")
 	var/list/strings_moderate = list("smoothly", "confidently", "determinately", "calmly", "skillfully", "decisively")
 	var/list/strings_pro = list("masterfully", "expertly", "flawlessly", "elegantly", "artfully", "impeccably")
-	var/firearm_skill = (user?.mind ? user.get_skill_level(/datum/skill/combat/firearms) : 1)
+	var/firearm_skill = (user?.mind ? user.get_skill_level(ranged_skill) : 1)
 	var/noob_spin_sound = 'sound/combat/weaponr1.ogg'
 	var/pro_spin_sound = 'modular_causticcove/sound/arquebus/gunspin.ogg'
 	var/spin_sound
