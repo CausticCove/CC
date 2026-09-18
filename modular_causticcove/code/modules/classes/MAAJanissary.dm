@@ -50,11 +50,11 @@
 		switch(weapon_choice)
 			if("Arquebus")
 				beltr = /obj/item/quiver/bulletpouch/iron
-				r_hand = /obj/item/gun/ballistic/blackpowder/arquebus
+				r_hand = /obj/item/gun/ballistic/revolver/grenadelauncher/blackpowder/arquebus
 				backl = /obj/item/rogueweapon/scabbard/gwstrap
 			if("Pistol")
 				beltr = /obj/item/quiver/bulletpouch/iron
-				r_hand = /obj/item/gun/ballistic/blackpowder/small/arquebus_pistol
+				r_hand = /obj/item/gun/ballistic/revolver/grenadelauncher/blackpowder/small/arquebus_pistol
 			if("Sling")
 				beltr = /obj/item/quiver/sling/iron
 				r_hand = /obj/item/gun/ballistic/revolver/grenadelauncher/sling // Both are belt slots and it's not worth setting where the cugel goes for everyone else, sad.
