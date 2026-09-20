@@ -19780,8 +19780,7 @@
 	},
 /obj/structure/standingbell{
 	name = "steward service bell";
-	pixel_y = -14;
-	pixel_x = 4
+	pixel_y = -32
 	},
 /turf/open/floor/rogue/concrete{
 	icon = 'modular_deserttown/icons/alt/roguefloor.dmi'
@@ -24726,12 +24725,23 @@
 	},
 /area/rogue/indoors/inq)
 "fXV" = (
+/obj/structure/table/wood,
+/obj/structure/bars{
+	icon_state = "barsbent";
+	layer = 2.81
+	},
+/obj/structure/bars/passage/shutter{
+	name = "Merchant";
+	redstone_id = "shutter_merchant"
+	},
+/obj/structure/fluff/canopy,
 /obj/structure/standingbell{
 	dir = 1;
-	name = "merchant service bell"
+	name = "merchant service bell";
+	pixel_y = -32
 	},
-/turf/open/floor/rogue/darkpath,
-/area/rogue/outdoors/town/desert)
+/turf/open/floor/carpet/royalblack,
+/area/rogue/indoors/town/shop/desert)
 "fXZ" = (
 /obj/structure/roguewindow/harem3,
 /turf/open/transparent/openspace,
@@ -427258,8 +427268,8 @@ xBf
 oWC
 pAU
 oiv
-gye
 fXV
+bep
 sRo
 roc
 kMo
