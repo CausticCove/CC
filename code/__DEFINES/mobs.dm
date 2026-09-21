@@ -383,7 +383,7 @@
 // one); the feminine keys are the fm.dmi values every human-shaped species already shared. Males on this
 // build read the masculine keys and females the feminine ones, as elves have always done.
 #define OFFSET_FEATURES_SLIM_REFERENCE list(\
-	OFFSET_ID = list(0,0), OFFSET_GLOVES = list(0,1), OFFSET_WRISTS = list(0,1), OFFSET_HANDS = list(0,0), \
+	OFFSET_ID = list(0,0), OFFSET_GLOVES = list(0,-1), OFFSET_WRISTS = list(0,-1), OFFSET_HANDS = list(0,0), \
 	OFFSET_CLOAK = list(0,1), OFFSET_FACEMASK = list(0,0), OFFSET_HEAD = list(0,0), \
 	OFFSET_FACE = list(0,0), OFFSET_BELT = list(0,0), OFFSET_BACK = list(0,0), \
 	OFFSET_NECK = list(0,0), OFFSET_MOUTH = list(0,0), OFFSET_PANTS = list(0,0), \
