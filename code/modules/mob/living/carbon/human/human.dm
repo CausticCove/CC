@@ -101,6 +101,9 @@
 	breath_remaining = 10
 	addtimer(CALLBACK(src, PROC_REF(update_breath_hud)), 1)
 
+	if(npc_archetype)
+		init_npc_archetype()
+
 
 /mob/living/carbon/human/ZImpactDamage(turf/T, levels)
 	var/obj/item/bodypart/affecting

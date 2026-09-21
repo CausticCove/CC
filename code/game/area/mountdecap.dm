@@ -8,18 +8,21 @@
 				// Singles — budget filler across all factions
 				/mob/living/carbon/human/species/human/northern/highwayman/ambush = 15,
 				/mob/living/carbon/human/species/human/northern/highwayman/mount_reaver = 15,
+				/mob/living/carbon/human/species/human/northern/highwayman/road_knight = 5,
+				/mob/living/carbon/human/species/human/northern/highwayman/sharpshooter = 4,
 				/mob/living/carbon/human/species/skeleton/npc/medium = 15,
 				/mob/living/carbon/human/species/skeleton/npc/hard = 10,
 				/mob/living/simple_animal/hostile/retaliate/rogue/direbear = 10,
 				// Packs
-				new /datum/ambush_config/pair_of_direbear = 10,
-				new /datum/ambush_config/trio_of_highwaymen = 10,
-				new /datum/ambush_config/singular_minotaur = 10,
-				new /datum/ambush_config/duo_minotaur = 5,
-				new /datum/ambush_config/solo_treasure_hunter = 15,
-				new /datum/ambush_config/duo_treasure_hunter = 2,
-				new /datum/ambush_config/medium_skeleton_party = 10,
-				new /datum/ambush_config/heavy_skeleton_party = 5,
+				/datum/npc_warband/pair_of_direbear = 10,
+				/datum/npc_warband/trio_of_highwaymen = 10,
+				/datum/npc_warband/road_knight_escort = 5,
+				/datum/npc_warband/singular_minotaur = 10,
+				/datum/npc_warband/duo_minotaur = 5,
+				/datum/npc_warband/solo_treasure_hunter = 15,
+				/datum/npc_warband/duo_treasure_hunter = 2,
+				/datum/npc_warband/medium_skeleton_party = 10,
+				/datum/npc_warband/heavy_skeleton_party = 5,
 				)
 	droning_sound = 'sound/music/area/decap.ogg'
 	droning_sound_dusk = null
@@ -54,18 +57,21 @@
 	ambush_mobs = list(
 				// Singles
 				/mob/living/carbon/human/species/human/northern/highwayman/ambush = 15,
+				/mob/living/carbon/human/species/human/northern/highwayman/road_knight = 4,
+				/mob/living/carbon/human/species/human/northern/highwayman/sharpshooter = 3,
 				/mob/living/carbon/human/species/skeleton/npc/medium = 15,
 				/mob/living/carbon/human/species/skeleton/npc/hard = 10,
 				/mob/living/simple_animal/hostile/retaliate/rogue/direbear = 10,
 				// Packs
-				new /datum/ambush_config/pair_of_direbear = 10,
-				new /datum/ambush_config/trio_of_highwaymen = 10,
-				new /datum/ambush_config/singular_minotaur = 10,
-				new /datum/ambush_config/duo_minotaur = 5,
-				new /datum/ambush_config/solo_treasure_hunter = 5,
-				new /datum/ambush_config/duo_treasure_hunter = 1,
-				new /datum/ambush_config/medium_skeleton_party = 20,
-				new /datum/ambush_config/heavy_skeleton_party = 10,
+				/datum/npc_warband/pair_of_direbear = 10,
+				/datum/npc_warband/trio_of_highwaymen = 10,
+				/datum/npc_warband/road_knight_escort = 4,
+				/datum/npc_warband/singular_minotaur = 10,
+				/datum/npc_warband/duo_minotaur = 5,
+				/datum/npc_warband/solo_treasure_hunter = 5,
+				/datum/npc_warband/duo_treasure_hunter = 1,
+				/datum/npc_warband/medium_skeleton_party = 20,
+				/datum/npc_warband/heavy_skeleton_party = 10,
 				)
 	droning_sound = 'sound/music/area/decap_deeper.ogg'
 	droning_sound_dusk = null
@@ -84,7 +90,7 @@
 	icon_state = "decap"
 	allow_extreme_weather = FALSE //Caustic Edit - Turn off spawns, it's underground but... still in the outdoors path for some reason?
 	ambush_mobs = list(
-				new /datum/ambush_config/treasure_hunter_posse = 1,
+				/datum/npc_warband/treasure_hunter_posse = 1,
 				/mob/living/carbon/human/species/dwarfskeleton/ambush = 30,
 				)
 	droning_sound = 'sound/music/area/prospector.ogg'

@@ -51,11 +51,6 @@ GLOBAL_LIST_INIT(duelist_aggro, list(
 	ADD_TRAIT(src, TRAIT_BADTRAINER, TRAIT_GENERIC)
 	ADD_TRAIT(src, TRAIT_NPC_EXAMINE, TRAIT_GENERIC)
 	equipOutfit(new /datum/outfit/job/roguetown/npc/mini_boss/duelist)
-	//CC Edit - This is redundant due to corpses ashing anyways, players can loot world-spawned NPC's already too.
-	/* for(var/obj/item/equipped_item in get_equipped_items() + held_items)
-		equipped_item.AddComponent(/datum/component/item_on_drop/dust)
-	for(var/obj/item/held_item in held_items)
-		ADD_TRAIT(held_item, TRAIT_NODROP, TRAIT_GENERIC) */
 	update_hair()
 	update_body()
 	def_intent_change(INTENT_DODGE)
@@ -96,11 +91,6 @@ GLOBAL_LIST_INIT(duelist_aggro, list(
 	gender = pick(MALE, FEMALE)
 	dna.species.handle_body(src)
 	src.regenerate_icons() //Fixes the weird body with random genders for NPCs.
-
-/mob/living/carbon/human/species/human/northern/outlaw_duelist/death(gibbed, nocutscene = FALSE)
-	. = ..()
-	for(var/obj/item/gear in get_equipped_items() + held_items)
-		REMOVE_TRAIT(gear, TRAIT_NODROP, "outlaw_duelist_gear")
 
 /datum/outfit/job/roguetown/npc/mini_boss/duelist/pre_equip(mob/living/carbon/human/H)
 	..()
