@@ -3898,6 +3898,7 @@
 #include "modular_causticcove\code\modules\spells\conjure\shape_wood.dm"
 #include "code\modules\spells\components\skill_bind.dm"
 #include "modular_causticcove\code\modules\spells\invoked_single_target\temperitem.dm"
+#include "modular_causticcove\code\modules\spells\removed_miracles\matthios.dm"
 #include "modular_causticcove\code\modules\spells\scrolls\spell_granters.dm"
 #include "modular_causticcove\code\modules\supplies\travellingmerchant.dm"
 #include "modular_causticcove\code\modules\taurs\taur_bodyparts.dm"

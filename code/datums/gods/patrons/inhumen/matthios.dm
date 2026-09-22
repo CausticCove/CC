@@ -9,7 +9,7 @@
 					/datum/action/cooldown/spell/matthios/freemans_tools				= CLERIC_T0,
 					/datum/action/cooldown/spell/miracle/heal 							= CLERIC_T1,
 					/datum/action/cooldown/spell/miracle/bloodmiracle					= CLERIC_T1,
-					/datum/action/cooldown/spell/matthios/mammonite						= CLERIC_T1,
+					//datum/action/cooldown/spell/matthios/mammonite						= CLERIC_T1, // CC EDIT - too OP
 					/obj/effect/proc_holder/spell/self/skulduggery						= CLERIC_T1, // CC EDIT
 					/datum/action/cooldown/spell/matthios/transact						= CLERIC_T2,
 					/datum/action/cooldown/spell/matthios/barter						= CLERIC_T2,
