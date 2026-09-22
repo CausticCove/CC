@@ -244,7 +244,9 @@ SUBSYSTEM_DEF(treasury)
 	if(!discretionary_fund)
 		return
 	var/rural_tax_amount = get_rural_tax_amount()
-	mint(discretionary_fund, rural_tax_amount, "Rural Tax Collection")
+	if(rural_tax_amount <= 0)
+		return
+	mint(discretionary_fund, rural_tax_amount, "Rural Subsidy")
 	record_round_statistic(STATS_RURAL_TAXES_COLLECTED, rural_tax_amount)
 	total_rural_tax += rural_tax_amount
 
