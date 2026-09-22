@@ -15,6 +15,7 @@
 		STATKEY_LCK = 1,
 	)
 
+	age_mod = /datum/class_age_mod/hand_bodyguard
 	subclass_skills = list(
 		/datum/skill/combat/unarmed = SKILL_LEVEL_EXPERT,
 		/datum/skill/combat/wrestling = SKILL_LEVEL_EXPERT,
@@ -46,3 +47,15 @@
 		)
 	if(H.mind)
 		SStreasury.grant_savings(ECONOMIC_RICH, H)
+
+/datum/class_age_mod/hand_bodyguard
+	target_age = AGE_OLD
+	skill_mods = list(
+		/datum/skill/combat/unarmed = SKILL_LEVEL_MASTER,
+	)
+
+	stat_mods = list(
+		STATKEY_LCK = 2
+	)
+
+
