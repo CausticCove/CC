@@ -856,8 +856,8 @@
 			msg += "<font color='#ffbd09'>A temporary ward surrounds them. It will last for [seconds] second[seconds == 1 ? "" : "s"].</font>"
 
 	if(HAS_TRAIT(src, TRAIT_DNR) && src != user)
-		var/assassinated = HAS_TRAIT_FROM(src, TRAIT_DNR, GRAGGAR_ASSASSINATED)
-		var/permanent_assassination = assassinated && HAS_TRAIT_NOT_FROM(src, TRAIT_DNR, GRAGGAR_ASSASSINATED)
+		var/assassinated = HAS_TRAIT_FROM(src, TRAIT_DNR, TRAIT_HUNTED)
+		var/permanent_assassination = assassinated && HAS_TRAIT_NOT_FROM(src, TRAIT_DNR, TRAIT_HUNTED)
 
 		if(permanent_assassination)
 			msg += span_cult("<i>A ghastly red mist spills from their chest, but there is no tether between their soul and body. Their soul has been reaped beyond return.")
