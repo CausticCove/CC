@@ -25,9 +25,21 @@
 	BB.original = target
 	BB.firer = user
 	BB.arcshot = user?.used_intent?.arc_check()
-	if(!BB.arcshot && istype(fired_from, /obj/item/gun/ballistic/revolver/grenadelauncher))
+	//Caustic Edit - Cleaning this up some to actually allow for Blunderbuses and the Boomstick to fire multiple properly scaled projectiles!
+	if(istype(fired_from, /obj/item/gun/ballistic/revolver/grenadelauncher))
 		var/obj/item/gun/ballistic/revolver/grenadelauncher/launcher = fired_from
-		BB.arcshot = launcher.npc_force_arc
+
+		if(istype(launcher, /obj/item/gun/ballistic/revolver/grenadelauncher/blackpowder))
+			var/obj/item/gun/ballistic/revolver/grenadelauncher/blackpowder/powdergun = launcher
+			powdergun.apply_ranged_accuracy(BB, user)
+			powdergun.apply_early_release_penalty(BB, user)
+			BB.armor_penetration = max(PEN_NONE, BB.armor_penetration + powdergun.penfactor)
+			BB.damage *= powdergun.damfactor
+			BB.range = powdergun.range
+
+		if(!BB.arcshot)
+			BB.arcshot = launcher.npc_force_arc
+	//Caustic Edit End
 	if(BB.arcshot)
 		BB.range = get_dist_euclidian(target, user)
 	BB.fired_from = fired_from

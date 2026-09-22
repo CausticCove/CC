@@ -142,7 +142,7 @@ All foods are distributed among various categories. Use common sense.
 //CC Edit: Rot refactor
 /obj/item/reagent_containers/food/snacks/proc/begin_rotting()
 	//START_PROCESSING(SSobj, src)
-	if(rotprocess && (!timerid))
+	if(rotprocess && !QDELING(src) && (!timerid)) //Caustic Edit - I believe the chests and other containers were handling various rotting items and containing them before these had a chance to run? They were getting marked as QDel'd and throwing runtimes, so a check here might help.
 		timerid = addtimer(CALLBACK(src, PROC_REF(rot)), (1 MINUTES), (TIMER_STOPPABLE | TIMER_LOOP))
 
 //CC Edit: Rot refactor
@@ -344,7 +344,7 @@ All foods are distributed among various categories. Use common sense.
 						H.duration += 2 SECONDS
 				else
 					eater.apply_status_effect(/datum/status_effect/buff/foodhealing, faretype, faretype)
-		
+
 		if(faretype >= FAVORITE_FOOD_MINFARE && ((cuisine & human_eater.favorite_cuisine) || (dish_type & human_eater.favorite_dish)))
 			if(human_eater.add_stress(/datum/stressevent/favourite_food))
 				new /obj/effect/temp_visual/heart(get_turf(human_eater))

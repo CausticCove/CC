@@ -27,7 +27,7 @@
 /datum/outfit/job/roguetown/adventurer/buccaneer/pre_equip(mob/living/carbon/human/H)
 	..()
 	to_chat(H, span_warning("You are a daring rogue of the seas! Buccaneers wield deadly firearms and ruthless cunning - fighting dirty to outgun foes with swagger."))
-	r_hand = /obj/item/gun/ballistic/blackpowder/small/arquebus_pistol // The gun!
+	r_hand = /obj/item/gun/ballistic/revolver/grenadelauncher/blackpowder/blunderbus // The gun!
 	l_hand = /obj/item/powderflask
 	head = /obj/item/clothing/head/roguetown/helmet/tricorn
 	pants = /obj/item/clothing/under/roguetown/tights/sailor
@@ -39,7 +39,7 @@
 	shoes = /obj/item/clothing/shoes/roguetown/boots/leather
 	neck = /obj/item/storage/belt/rogue/pouch/coins/poor
 	wrists = /obj/item/clothing/wrists/roguetown/bracers/leather
-	beltl = /obj/item/quiver/bulletpouch/iron
+	beltl = /obj/item/quiver/bulletpouch/grapeshot/iron
 	beltr = /obj/item/rogueweapon/sword/cutlass
 	backpack_contents = list(
 		/obj/item/bomb = 1,

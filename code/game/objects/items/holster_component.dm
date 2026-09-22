@@ -177,7 +177,7 @@
 	if(sheathed)
 		return FALSE
 
-	if(istype(A, /obj/item/rogueweapon) || istype(A, /obj/item/gun/ballistic/blackpowder/arquebus)) //CC edit
+	if(istype(A, /obj/item/rogueweapon) || istype(A, /obj/item/gun/ballistic/revolver/grenadelauncher/blackpowder)) //CC edit
 		if(A.w_class >= WEIGHT_CLASS_BULKY)
 			return TRUE
 
