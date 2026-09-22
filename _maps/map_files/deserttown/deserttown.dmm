@@ -9107,6 +9107,18 @@
 /obj/structure/bars,
 /turf/closed/wall/mineral/rogue/wooddark/window,
 /area/rogue/indoors/town/desert)
+"cgp" = (
+/obj/structure/closet/crate/roguecloset,
+/obj/item/clothing/head/roguetown/roguehood/shalal/hijab,
+/obj/item/clothing/head/roguetown/roguehood/shalal/hijab,
+/obj/item/clothing/head/roguetown/roguehood/shalal/hijab,
+/obj/item/clothing/head/roguetown/roguehood/shalal/hijab,
+/obj/item/clothing/head/roguetown/roguehood/shalal/hijab,
+/obj/item/clothing/head/roguetown/roguehood/shalal/hijab,
+/obj/item/clothing/head/roguetown/roguehood/shalal/hijab,
+/obj/item/clothing/head/roguetown/roguehood/shalal/hijab,
+/turf/open/floor/rogue/wood/nosmooth,
+/area/rogue/indoors/town/desert)
 "cgu" = (
 /turf/closed/mineral/rogue/bedrock/sandstone,
 /area/rogue/outdoors/desert/river)
@@ -75952,6 +75964,18 @@
 /obj/structure/table/finestone,
 /turf/open/floor/rogue/blocks/stonered/tiny,
 /area/rogue/under/cave/bizbaz)
+"sSr" = (
+/obj/structure/closet/crate/roguecloset,
+/obj/item/clothing/head/roguetown/roguehood/shalal,
+/obj/item/clothing/head/roguetown/roguehood/shalal,
+/obj/item/clothing/head/roguetown/roguehood/shalal,
+/obj/item/clothing/head/roguetown/roguehood/shalal,
+/obj/item/clothing/head/roguetown/roguehood/shalal,
+/obj/item/clothing/head/roguetown/roguehood/shalal,
+/obj/item/clothing/head/roguetown/roguehood/shalal,
+/obj/item/clothing/head/roguetown/roguehood/shalal,
+/turf/open/floor/rogue/wood/nosmooth,
+/area/rogue/indoors/town/desert)
 "sSB" = (
 /obj/structure/table/wood/poor,
 /obj/item/needle/thorn,
@@ -541266,7 +541290,7 @@ kFh
 kFh
 kFh
 gtl
-qvB
+sSr
 mnF
 atX
 atX
@@ -541890,7 +541914,7 @@ kFh
 kFh
 kFh
 gtl
-qvB
+cgp
 qvB
 atX
 gRY
