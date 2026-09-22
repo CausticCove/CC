@@ -21,6 +21,10 @@
 	preop_sound = 'sound/surgery/organ2.ogg'
 	success_sound = 'sound/surgery/organ1.ogg'
 
+	//CC Edit - Removing things should actually cause less chances of infection.
+	causes_infection = FALSE
+	//CC Edit End
+
 /datum/surgery_step/remove_object/validate_bodypart(mob/user, mob/living/carbon/target, obj/item/bodypart/bodypart, target_zone)
 	. = ..()
 	if(!.)
