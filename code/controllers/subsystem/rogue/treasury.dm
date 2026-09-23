@@ -250,6 +250,15 @@ SUBSYSTEM_DEF(treasury)
 	record_round_statistic(STATS_RURAL_TAXES_COLLECTED, rural_tax_amount)
 	total_rural_tax += rural_tax_amount
 
+/datum/controller/subsystem/treasury/proc/get_active_producer_count()
+	var/count = 0
+	for(var/mob/living/owner as anything in bank_accounts)
+		if(!owner || !owner.client)
+			continue
+		if(is_producer_job(owner.job))
+			count++
+	return count
+
 /datum/controller/subsystem/treasury/proc/get_rural_tax_amount()
 	var/producers = get_active_producer_count()
 	var/taper = clamp(1.0 - (producers / RURAL_SUBSIDY_REFERENCE_PRODUCERS), 0.0, 1.0)
