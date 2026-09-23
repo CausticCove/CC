@@ -34,7 +34,7 @@
 
 	var/direct_spawn
 	var/direct_spawn_answer = tgui_alert(src, "[prey_name] has died a vore-related death. Do you want to directly spawn them in your belly immediately - Or would you rather transfer them in as a Ghost and use the Reform Belly?", "Inbelly Spawning", list("Spawn", "Ghost"))
-	if(direct_spawn == "Ghost")
+	if(direct_spawn_answer == "Ghost")
 		direct_spawn = FALSE
 	else
 		direct_spawn = TRUE
