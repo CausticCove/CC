@@ -1486,7 +1486,7 @@ Inquisitorial armory down here
 			return TRUE
 		if(bloody)
 			to_chat(user, span_warning("The mirror is fogged over. I need to clean it with cloth before reuse."))
-			return
+			return TRUE
 		perform_mirror_styling(user, M, src)
 		return TRUE
 	if(!user.mind)
