@@ -320,6 +320,15 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	ghostize(0)
 
 /mob/dead/observer/Move(NewLoc, direct)
+	//Caustic Edit - Add in a check for if the Ghost is in a Belly, and ask if they really want to move out of it first.
+	if(isbelly(loc) && body_backup)
+		var/move_out = tgui_alert(src, "If you move as a ghost, you will leave your Pred's [loc]. You won't recieve any further messages from that Belly, and will have to hit 'return to body' to re-enter to further interact with the mechanics!", "Move out of [loc]?", list("Yes", "No"))
+		if(move_out == "No")
+			return
+		else
+			return_belly = WEAKREF(loc)
+	//Caustic Edit End
+
 	if(updatedir)
 		setDir(direct)//only update dir if we actually need it, so overlays won't spin on base sprites that don't have directions of their own
 	if(NewLoc)
@@ -343,6 +352,15 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(!mind || QDELETED(mind.current))
 		to_chat(src, span_warning("I have no body."))
 		return
+	//Caustic Edit - Adding in the ability for vore-death ghosts to return to the Belly they left when ghosting out of their pred. Pls no abuse!
+	if(return_belly && body_backup)
+		var/obj/belly/B = return_belly.resolve()
+		SSdroning.kill_rain(src.client)
+		SSdroning.kill_loop(src.client)
+		SSdroning.kill_droning(src.client)
+		ghost_enter_belly(src, B)
+		return
+	//Caustic Edit End
 	if(!can_reenter_corpse)
 		to_chat(src, span_warning("I cannot re-enter my body."))
 		return
