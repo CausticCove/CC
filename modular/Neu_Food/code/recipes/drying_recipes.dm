@@ -279,7 +279,7 @@
 	verbage_simple = "roll"
 	verbage = "rolls"
 
-/datum/crafting_recipe/roguetown/cooking/rocknutdry
+/datum/crafting_recipe/roguetown/cooking/rocknutdry                                                           // cc change to cheroot
 	name = "cheroot - rocknut"
 	display_category = ITEM_CAT_FOODSTUFF_PRESERVED
 	result = /obj/item/clothing/mask/cigarette/rollie/nicotine/cheroot/rocknut
