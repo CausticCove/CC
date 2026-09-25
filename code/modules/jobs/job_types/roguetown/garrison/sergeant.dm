@@ -87,6 +87,7 @@
 
 /datum/outfit/job/roguetown/sergeant/sergeant/pre_equip(mob/living/carbon/human/H)
 	..()
+	head = snouthelm_pick(H, /obj/item/clothing/head/roguetown/helmet/sallet/visored, /obj/item/clothing/head/roguetown/helmet/sallet/visored/snouted)
 	if(H.mind)
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/order/movemovemove)
 		H.mind.AddSpell(new /obj/effect/proc_holder/spell/invoked/order/takeaim)
