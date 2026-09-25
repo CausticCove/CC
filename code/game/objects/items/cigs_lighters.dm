@@ -568,7 +568,7 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	smoketime = 240
 	list_reagents = list(/datum/reagent/drug/westleach = 45, /datum/reagent/drug/abyss = 15)
 
-/obj/item/clothing/mask/cigarette/rollie/nicotine/cheroot/rocknut
+/obj/item/clothing/mask/cigarette/rollie/nicotine/cheroot/rocknut                       //cc edit added it
 	name = "rocknut cheroot"
 	desc = "Rich smokeleaf self-rolled into an open-clipped cigarillo. Envigorating for the enthusiast, \
 	nauseating for the laymen. This one is packed full of stimulating rocknut goodness"
