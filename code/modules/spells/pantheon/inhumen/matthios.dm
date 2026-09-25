@@ -100,14 +100,27 @@
 				var/obj/item/flashlight/flare/torch/lantern/astrata/fire_orb = new /obj/item/flashlight/flare/torch/lantern/astrata(H.drop_location())
 				if(!fire_orb)
 					return FALSE
+				fire_orb.volatile = TRUE
+				fire_orb.aura_color = "#fff346"
 				H.put_in_hands(fire_orb)
 				H.say("Divine fyre, to me!")
-				item_cooldowns["Greed Sunfyre"] = world.time + 1 MINUTES
+				item_cooldowns["Greed Sunfyre"] = world.time + 2 MINUTES
 
 			if("Thievery")
 				var/obj/item/lockpick/gilded/lockpick = new /obj/item/lockpick/gilded(H.drop_location())
 				if(!lockpick)
 					return FALSE
+				var/picklvl = 0
+				var/max_integrity = 10
+				if(skill >= SKILL_LEVEL_JOURNEYMAN)
+					picklvl = 1
+					max_integrity += 10
+				if(skill >= SKILL_LEVEL_EXPERT)
+					picklvl = 2
+					max_integrity += 90
+				lockpick.picklvl = picklvl
+				lockpick.max_integrity = max_integrity
+				lockpick.obj_integrity = max_integrity
 				H.put_in_hands(lockpick)
 				H.say("#Lord of Freedom, I beseeth a tool of liberation!")
 
@@ -123,28 +136,31 @@
 
 	switch(path)
 		if("Sunfyre")
-			if(skill < SKILL_LEVEL_EXPERT)
-				var/failure_chance = max(0, (70 - (skill * 10)))
-				if(prob(failure_chance))
-					H.adjust_fire_stacks(5, /datum/status_effect/fire_handler/fire_stacks)
-					H.ignite_mob()
-					var/fail = pick("ARGH", "OW", "OUCH", "CARK-", "HOT, HOT-", "MY HAND-", "EOWCH", "WHY-", "GODDAMN-")
-					H.say("Divine fyre, to me-- [fail]!")
-					H.emote("painscream")
-					StartCooldown()
-					return TRUE
-
 			var/obj/item/flashlight/flare/torch/lantern/astrata/fire_orb = new /obj/item/flashlight/flare/torch/lantern/astrata(H.drop_location())
 			if(!fire_orb)
 				return FALSE
+			if(skill >= SKILL_LEVEL_EXPERT)
+				fire_orb.volatile = TRUE
+				fire_orb.aura_color = "#fff346"
 			H.put_in_hands(fire_orb)
 			H.say("Divine fyre, to me!")
-			cooldown_time = 1 MINUTES
+			cooldown_time = 2 MINUTES
 
 		if("Thievery")
 			var/obj/item/lockpick/gilded/lockpick = new /obj/item/lockpick/gilded(H.drop_location())
 			if(!lockpick)
 				return FALSE
+			var/picklvl = 0
+			var/max_integrity = 10
+			if(skill >= SKILL_LEVEL_JOURNEYMAN)
+				picklvl = 1
+				max_integrity += 10
+			if(skill >= SKILL_LEVEL_EXPERT)
+				picklvl = 2
+				max_integrity += 90
+			lockpick.picklvl = picklvl
+			lockpick.max_integrity = max_integrity
+			lockpick.obj_integrity = max_integrity
 			H.put_in_hands(lockpick)
 			H.say("#Lord of Freedom, I beseeth a tool of liberation!")
 

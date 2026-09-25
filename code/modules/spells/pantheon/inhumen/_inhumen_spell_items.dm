@@ -649,8 +649,8 @@ GLOBAL_LIST_INIT(da_bubbles, list('sound/foley/bubb (1).ogg','sound/foley/bubb (
 		var/serum_choice = tgui_input_list(user, "What shall the First Law translate to?", "First Law", serums)
 		if(!serum_choice)
 			return
-		if(stored_value < 10)
-			to_chat(user, span_warning("There is not enough stored entropic dust to create this."))
+		if(stored_value < 5)
+			to_chat(user, span_warning("There is not enough stored entropic dust to create this. (5 required)"))
 			return
 		if(!do_after(user, 2 SECONDS, target = user, same_direction = TRUE))
 			return
@@ -658,10 +658,10 @@ GLOBAL_LIST_INIT(da_bubbles, list('sound/foley/bubb (1).ogg','sound/foley/bubb (
 			return
 		var/serum_path = serums[serum_choice]
 		var/obj/item/alchserum/serum = new serum_path(get_turf(src))
-		stored_value -= 10
+		stored_value -= 5
 		user.put_in_inactive_hand(serum)
 		playsound(loc, 'sound/magic/swap.ogg', 100, TRUE, -2)
-		to_chat(user, span_notice("The draught condenses 10 entropic dust into [serum]. (Remaining Value: [stored_value])"))
+		to_chat(user, span_notice("The draught condenses 5 entropic dust into [serum]. (Remaining Value: [stored_value])"))
 		update_icon()
 		return
 
@@ -1974,14 +1974,22 @@ GLOBAL_LIST_INIT(da_bubbles, list('sound/foley/bubb (1).ogg','sound/foley/bubb (
 	light_outer_range = 10
 	icon_state = "astratawisp"
 	item_state = "astratawisp"
-	desc = "A condensed sphere of... what looks like the very flames from the heavens above at daetyme. This... Should this be in the hands of mortals?..."
+	desc = "A condensed sphere of... what looks like the very flames from the heavens above at daetyme. A gift from the beneficent Sun-Tyrant to a loyal subject, or a wretched usurpation of Her power?"
+	var/volatile
 
 /obj/item/flashlight/flare/torch/lantern/astrata/get_examine_highlight_status()
 	return list(EXAMINEHIGHLIGHT_HERESYSEVERITY_WEIRD, HERESYDESC_ASTRATA_MISC)
 
 /obj/item/flashlight/flare/torch/lantern/astrata/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/cursed_item, TRAIT_FREEMAN, "FYRE")
+	AddComponent(/datum/component/cursed_item, list(
+		TRAIT_FREEMAN,
+		TRAIT_APRICITY,
+		TRAIT_UNDIVIDED,
+		TRAIT_ASTRATAN_AFFINITY,
+		TRAIT_FORGEBLESSED,
+		TRAIT_XYLIX
+	), "CONDENSED SUNFYRE")
 	spark_act()
 
 /obj/item/flashlight/flare/torch/lantern/astrata/attack_self(mob/user)
@@ -1995,7 +2003,11 @@ GLOBAL_LIST_INIT(da_bubbles, list('sound/foley/bubb (1).ogg','sound/foley/bubb (
 	if(!impact_turf)
 		return
 	playsound(impact_turf, 'sound/magic/fireball.ogg', 100, TRUE)
-	explosion(impact_turf, 0, 0, 0, 1, adminlog = FALSE, flame_range = 1)
+	var/mob/living/carbon/human/H = hit_atom
+	if(istype(H) && !H.mind)
+		H.fire_act(10,10)
+	if(volatile)
+		explosion(impact_turf, 0, 0, 0, 1, adminlog = FALSE, flame_range = 1)
 	qdel(src)
 
 /obj/item/lockpick/gilded
@@ -2009,7 +2021,6 @@ GLOBAL_LIST_INIT(da_bubbles, list('sound/foley/bubb (1).ogg','sound/foley/bubb (
 	dropshrink = 0.75
 	throwforce = 0
 	max_integrity = 10
-	picklvl = 1
 	slot_flags = ITEM_SLOT_HIP|ITEM_SLOT_MOUTH|ITEM_SLOT_NECK
 	destroy_sound = 'sound/items/pickbreak.ogg'
 	resistance_flags = FIRE_PROOF
@@ -2259,8 +2270,8 @@ GLOBAL_LIST_INIT(da_bubbles, list('sound/foley/bubb (1).ogg','sound/foley/bubb (
 			to_chat(H, span_warning("[J] has no treasury to plunder."))
 			return
 
-		if(F.balance <= J.bash_floor)
-			to_chat(H, span_warning("[J] has nothing worth stealing."))
+		if(F.balance <= 500)
+			to_chat(H, span_warning("[J] is too devoid of mammon for this trickery to work."))
 			return
 
 		using = TRUE
@@ -2271,7 +2282,7 @@ GLOBAL_LIST_INIT(da_bubbles, list('sound/foley/bubb (1).ogg','sound/foley/bubb (
 			span_notice("You carefully work the gilded lockpick into the JAWBANK's mechanisms.")
 		)
 
-		var/lockpick_time = max(1 SECONDS, 6 SECONDS - (skill * 1 SECONDS))
+		var/lockpick_time = max(1 SECONDS, 5 SECONDS - (skill * 1 SECONDS))
 		if(!do_after(H, lockpick_time, J))
 			using = FALSE
 			return
@@ -2285,25 +2296,26 @@ GLOBAL_LIST_INIT(da_bubbles, list('sound/foley/bubb (1).ogg','sound/foley/bubb (
 			using = FALSE
 			return
 
-		var/bashable = max(0, F.balance - J.bash_floor)
+		var/bashable = max(0, F.balance - 500)
 		if(bashable <= 0)
 			using = FALSE
 			to_chat(H, span_warning("The JAWBANK has nothing left to surrender."))
 			return
 
-		var/taken = min(rand(5, 90), bashable)
+		var/taken = min(rand(25, 100), bashable)
 		var/turf/budget_turf = get_turf(J)
 
 		budget2change(taken, custom_turf = budget_turf)
 		SStreasury.burn(F, taken, "!GI$%#!LD$%%$ED T##$HEF¨%#T!!")
-		playsound(J, 'sound/misc/coindispense.ogg', 70, TRUE)
+		if(skill < SKILL_LEVEL_JOURNEYMAN)
+			playsound(J, 'sound/misc/coindispense.ogg', 70, TRUE)
 
 		visible_message(
 			span_danger("The gilded lockpick clicks inside [J], and [taken] mammon spills loose!"),
 			span_notice("You feel the lock give. [taken] mammon spills from the JAWBANK.")
 		)
 
-		if(skill > SKILL_LEVEL_JOURNEYMAN)
+		if(skill < SKILL_LEVEL_JOURNEYMAN)
 			if(prob(50))
 				J.anguish()
 			if(prob(50))
