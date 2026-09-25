@@ -562,6 +562,19 @@ CIGARETTE PACKETS ARE IN FANCY.DM
 	smoketime = 240
 	list_reagents = list(/datum/reagent/drug/westleach = 45, /datum/reagent/drug/abyss = 15)
 
+/obj/item/clothing/mask/cigarette/rollie/abyss/cheroot
+	name = "jacksberries cheroot"
+	desc = "A rewrapped jacksberries zig with some alchemically extracted jacksberries and salty essence."
+	smoketime = 240
+	list_reagents = list(/datum/reagent/drug/westleach = 45, /datum/reagent/drug/abyss = 15)
+
+/obj/item/clothing/mask/cigarette/rollie/nicotine/cheroot/rocknut
+	name = "rocknut cheroot"
+	desc = "Rich smokeleaf self-rolled into an open-clipped cigarillo. Envigorating for the enthusiast, \
+	nauseating for the laymen. This one is packed full of stimulating rocknut goodness"
+	smoketime = 240
+	list_reagents = list(/datum/reagent/drug/westleach = 30, /datum/reagent/consumable/acorn_powder = 15, /datum/reagent/consumable/Acoffee = 15)
+
 ////////////
 // CIGARS //
 ////////////
