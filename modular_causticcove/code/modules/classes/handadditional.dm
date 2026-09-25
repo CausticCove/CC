@@ -5,7 +5,7 @@
 	outfit = /datum/outfit/job/roguetown/hand/bodyguard
 
 	category_tags = list(CTAG_HAND)
-	traits_applied = list(TRAIT_STEELHEARTED, TRAIT_IGNOREDAMAGESLOWDOWN, TRAIT_BLOOD_RESISTANCE, TRAIT_NOPAINSTUN, TRAIT_CRITICAL_RESISTANCE, TRAIT_CIVILIZEDBARBARIAN)
+	traits_applied = list(TRAIT_STEELHEARTED, TRAIT_IGNOREDAMAGESLOWDOWN, TRAIT_NOPAINSTUN, TRAIT_CRITICAL_RESISTANCE, TRAIT_CIVILIZEDBARBARIAN)
 	subclass_stats = list(
 		STATKEY_PER = 1,
 		STATKEY_INT = 1,
@@ -13,12 +13,13 @@
 		STATKEY_CON = 3,
 		STATKEY_WIL = 3,
 		STATKEY_LCK = 1,
+		STATKEY_SPD = -1, //Slowing down the bulky dude, he shouldn't be chasing he should be sticking near his charge.
 	)
 
 	age_mod = /datum/class_age_mod/hand_bodyguard
 	subclass_skills = list(
 		/datum/skill/combat/unarmed = SKILL_LEVEL_EXPERT,
-		/datum/skill/combat/wrestling = SKILL_LEVEL_EXPERT,
+		/datum/skill/combat/wrestling = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/combat/knives = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/misc/climbing = SKILL_LEVEL_EXPERT,
 		/datum/skill/misc/swimming = SKILL_LEVEL_EXPERT,
