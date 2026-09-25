@@ -556,7 +556,17 @@
 	var/tech_healing_modifier = 1
 	var/block_combat_mode = FALSE
 
-/datum/status_effect/buff/healing/on_creation(mob/living/new_owner, new_healing_on_tick, is_inhumen = FALSE)
+//CC Edit - Special Miracle Healing SFX to signal to others they are currently being healed by magical means.
+	//For any specific/unique healing effects.
+	var/list/healing_sound_effects = null //Intentionally left null, sound effects are applied alongside the creation of the effect.
+
+
+/datum/status_effect/buff/healing/on_creation(mob/living/new_owner, new_healing_on_tick, is_inhumen = FALSE, new_healing_sound_effects) //CC Edit - new_healing_sound_effects argument
+	//CC Edit - Healing SFX
+	if(!isnull(new_healing_sound_effects))
+		healing_sound_effects = new_healing_sound_effects
+//CC Edit End
+
 	if(!isnull(new_healing_on_tick))
 		healing_on_tick = new_healing_on_tick
 	tech_healing_modifier = SSchimeric_tech.get_healing_multiplier()
@@ -565,6 +575,7 @@
 		tech_healing_modifier = 1 + ((tech_healing_modifier - 1) * 0.5)
 	healing_on_tick *= tech_healing_modifier
 	return ..()
+
 
 /datum/status_effect/buff/healing/on_apply()
 	SEND_SIGNAL(owner, COMSIG_LIVING_MIRACLE_HEAL_APPLY, healing_on_tick, src)
@@ -592,6 +603,9 @@
 	owner.adjustToxLoss(-healing_on_tick, 0)
 	owner.adjustOrganLoss(ORGAN_SLOT_BRAIN, -healing_on_tick)
 	owner.adjustCloneLoss(-healing_on_tick, 0)
+	//CC Edit - Play the special healing SFX!
+	playsound(owner, healing_sound_effects, 45, TRUE, extrarange = -2) //Vary the sound, reduce the range, quiet it down a smidge, voila!
+	//CC Edit End
 // Lesser miracle effect end
 
 #define REWIND_AURA "originhealing"
