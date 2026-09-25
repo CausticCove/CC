@@ -29,8 +29,12 @@
 		/datum/advclass/veteran/calvaryman,
 		/datum/advclass/veteran/merc,
 		/datum/advclass/veteran/scout,
-		/datum/advclass/veteran/spy
-	)
+		/datum/advclass/veteran/spy,
+		//Caustic Edit - Adds New Subclasses from veteranadditional.dm)
+		/datum/advclass/veteran/mhunter,
+		/datum/advclass/veteran/martyr,
+		/datum/advclass/veteran/inquisition,
+	) //End Caustic Edit
 
 /datum/outfit/job/roguetown/veteran
 	job_bitflag = BITFLAG_GARRISON	//Counts towards overall combat roles
