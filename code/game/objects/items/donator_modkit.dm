@@ -11,6 +11,7 @@
 	var/result_item = null
 	/// Whether we'll be looking for exact types in target_items. This generally should be TRUE unless the user wants the elixir to be used on subtypes as well.
 	var/exact_type = FALSE
+	/// Basically checks whether anything forked off the listed paths can be transformed, or if it'll only work with the specifically-listed items. Tick this to TRUE if you want to avoid unintentional upgrades.
 
 /obj/item/enchantingkit/pre_attack(obj/item/I, mob/user)
 	if(!I || !user)
