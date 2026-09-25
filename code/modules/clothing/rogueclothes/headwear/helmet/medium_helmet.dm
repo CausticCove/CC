@@ -255,6 +255,16 @@
 	smeltresult = /obj/item/ingot/iron
 	max_integrity = ARMOR_INT_HELMET_IRON
 
+/obj/item/clothing/head/roguetown/helmet/sallet/visored/snouted
+	name = "snouted visored sallet"
+	desc = "A steel 'sallet'-styled helmet with an adjustable visor, its bevor drawn forward into a muzzle. Favored by those with snouts. Away with you, vile beggar!"
+	icon_state = "sallet_visor_s"
+
+/obj/item/clothing/head/roguetown/helmet/sallet/visored/iron/snouted
+	name = "iron snouted visored sallet"
+	desc = "An iron 'sallet'-styled helmet with an adjustable visor, its bevor drawn forward into a muzzle. Favored by those with snouts. Out for a stroll, now, are we?"
+	icon_state = "isallet_visor_s"
+
 /obj/item/clothing/head/roguetown/helmet/sallet/raneshen
 	name = "kulah khud"
 	desc = "A sturdy, conical helm that has served the Empire well throughout its many campaigns. It's a sight to see, thousands of these bobbing as an army marches. The only greater humiliation than losing it is losing one's medallion."
@@ -536,6 +546,12 @@
 	AddComponent(/datum/component/adjustable_clothing, (HEAD|EARS|HAIR), (HIDEEARS|HIDEHAIR), null, 'sound/items/visor.ogg', null, UPD_HEAD)	//Standard helmet
 	AddComponent(/datum/component/armour_filtering/negative, TRAIT_HONORBOUND)
 	AddComponent(/datum/component/armour_filtering/negative, TRAIT_FENCERDEXTERITY)
+
+/obj/item/clothing/head/roguetown/helmet/bascinet/pigface/roundface/snouted
+	name = "snouted roundface bascinet"
+	desc = "A bascinet with a conical visor, drawn forward into a muzzle for those with snouts. Nestle a feather or length of cloth onto the rim to display your allegiance."
+	icon_state = "roundface_s"
+	item_state = "roundface_s"
 
 /obj/item/clothing/head/roguetown/helmet/bascinet/etruscan
 	name = "klappvisier bascinet"
@@ -853,6 +869,12 @@
 	icon_state = "iroundface"
 	smeltresult = /obj/item/ingot/iron
 	max_integrity = ARMOR_INT_HELMET_IRON
+
+/obj/item/clothing/head/roguetown/helmet/bascinet/pigface/roundface/iron/snouted
+	name = "iron snouted roundface bascinet"
+	desc = "An iron bascinet with a conical visor, drawn forward into a muzzle for those with snouts. Nestle a feather or length of cloth onto the rim to display your allegiance."
+	icon_state = "iroundface_s"
+	item_state = "iroundface_s"
 
 /obj/item/clothing/head/roguetown/helmet/bascinet/etruscan/iron
 	name = "iron klappvisier bascinet"
