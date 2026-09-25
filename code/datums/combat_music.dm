@@ -248,6 +248,15 @@ GLOBAL_LIST_EMPTY(cmode_tracks_by_name)
 	credits = "Helbrede - Sons of Tyr"
 	musicpath = list('sound/music/combat_grenzelhoft.ogg')
 
+//Caustic Edit - Add in a second option!
+/datum/combat_music/grenzelhoft2
+	name = "Grenzelhoft - Alt"
+	desc = ""
+	shortname = "Grenzelhoft 2"
+	credits = " Defenders of The Holy Empire - Ancestors Legacy"
+	musicpath = list('sound/music/combat_grenzelhoft2.ogg')
+//Caustic Edit End
+
 /datum/combat_music/heretic_zizo
 	name = "Heretic - Zizo (Lich)"
 	desc = ""
