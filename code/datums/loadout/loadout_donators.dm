@@ -550,17 +550,17 @@
 /datum/loadout_item/donator/nero_sword
 	name = "Donator Kit - Sylvan Longsword"
 	path = /obj/item/enchantingkit/weapon/nero_lsword
-	ckeywhitelist = list("nerocavalier","yeeteryieter","irlcatgirl","wickedcybs","spartanbobby","eirenxiv","freestylalt","lagomorphica")
+	ckeywhitelist = list("nerocavalier","yeeteryieter","irlcatgirl","wickedcybs","spartanbobby","eirenxiv","freestylalt","lagomorphica","purplepineapple","stalkerino","shadowradar1212","omicega","revennui","mattatlas","gabopwn")
 
 /datum/loadout_item/donator/nero_dagger
 	name = "Donator Kit - Sylvan Dagger"
 	path = /obj/item/enchantingkit/weapon/nero_dagger
-	ckeywhitelist = list("nerocavalier","yeeteryieter","irlcatgirl","wickedcybs","spartanbobby","eirenxiv","freestylalt","lagomorphica")
+	ckeywhitelist = list("nerocavalier","yeeteryieter","irlcatgirl","wickedcybs","spartanbobby","eirenxiv","freestylalt","lagomorphica","purplepineapple","stalkerino","shadowradar1212","omicega","revennui","mattatlas","gabopwn")
 
 /datum/loadout_item/donator/nero_sabre
 	name = "Donator Kit - Sylvan Sabre"
 	path = /obj/item/enchantingkit/weapon/nero_sabre
-	ckeywhitelist = list("nerocavalier","yeeteryieter","irlcatgirl","wickedcybs","spartanbobby","eirenxiv","freestylalt","lagomorphica")
+	ckeywhitelist = list("nerocavalier","yeeteryieter","irlcatgirl","wickedcybs","spartanbobby","eirenxiv","freestylalt","lagomorphica","purplepineapple","stalkerino","shadowradar1212","omicega","revennui","mattatlas","gabopwn")
 
 /datum/loadout_item/donator/des_gaebolg
 	name = "Dontaor Kit - Gae Bolg"
@@ -596,3 +596,483 @@
 	name = "Donator Item - Gilbranzed Guitar"
 	path = /obj/item/rogue/instrument/guitar/jade_guitar
 	ckeywhitelist = list("jademanique")
+
+/datum/loadout_item/donator/olygsword
+	name = "Donator Kit - Gre'as'anto d'Shar"
+	path = /obj/item/enchantingkit/olygsword
+	ckeywhitelist = list("olympus7")
+
+/datum/loadout_item/donator/bobby
+	name = "Donator Kit - Holy Astratan Bascinet"
+	path = /obj/item/enchantingkit/bobby_helm
+	ckeywhitelist = list("spartanbobby")
+
+/datum/loadout_item/donator/ollanius_sword
+	name = "Donator Kit - Azurosa-Wrapped Sword"
+	path = /obj/item/enchantingkit/weapon/ollanius
+	ckeywhitelist = list("ollanius")
+
+/datum/loadout_item/donator/spaz_helm
+	name = "Donator Kit - Hound-Nosed Bascinet"
+	path = /obj/item/enchantingkit/spaz_helm
+	ckeywhitelist = list("seniorspaz")
+
+/datum/loadout_item/donator/lime_helm
+	name = "Donator Kit - Serpentine Bascinet"
+	path = /obj/item/enchantingkit/limetease
+	ckeywhitelist = list("limetease", "simplypoodle")
+
+/datum/loadout_item/donator/lime_dress
+	name = "Donator Item - Noviciate Robe"
+	path = /obj/item/clothing/suit/roguetown/shirt/robe/limetease
+	ckeywhitelist = list("limetease", "simplypoodle", "ketrai", "shiroseschnee", "kimmieweeb")
+
+/datum/loadout_item/donator/lime_dress_color
+	name = "Donator Item - Colorable Noviciate Robe"
+	path = /obj/item/clothing/suit/roguetown/shirt/robe/limetease/color
+	ckeywhitelist = list("limetease", "simplypoodle", "ketrai", "shiroseschnee", "kimmieweeb")
+
+/datum/loadout_item/donator/lime_swordspear
+	name = "Donator Kit - Ornate Swordspear"
+	path = /obj/item/enchantingkit/limetease_swordspear
+	ckeywhitelist = list("limetease")
+
+/datum/loadout_item/donator/gazelleskull
+	name = "Donator Item - Gazelle Skull"
+	path = /obj/item/clothing/head/roguetown/decoration/gazelleskull
+	ckeywhitelist = list("shiroseschnee")
+
+/datum/loadout_item/donator/morto_staff
+	name = "Donator Kit - Frozen Vow"
+	path = /obj/item/enchantingkit/morto_staff
+	ckeywhitelist = list("mortosasye")
+
+/datum/loadout_item/donator/mortosasye_deepcutdress
+	name = "Donator Item - Deep Cut Dress"
+	path = /obj/item/clothing/suit/roguetown/shirt/dress/silkdress/donator_mortosasye_deepcutdress
+	ckeywhitelist = list("mortosasye")
+
+/datum/loadout_item/donator/mortosasye_sunrisegown
+	name = "Donator Item - Sunrise Gown"
+	path = /obj/item/clothing/suit/roguetown/shirt/dress/silkdress/donator_mortosasye_sunrisegown
+	ckeywhitelist = list("mortosasye")
+
+/datum/loadout_item/donator/mortosasye_goldendiadem
+	name = "Donator Item - Golden Diadem"
+	path = /obj/item/clothing/head/roguetown/circlet/donator_mortosasye_golddiadem
+	ckeywhitelist = list("mortosasye", "flybrokenwings")
+
+/datum/loadout_item/donator/morto_crown
+	name = "Donator Kit - Sun Crown"
+	path = /obj/item/enchantingkit/morto_crown
+	ckeywhitelist = list("mortosasye")
+
+/datum/loadout_item/donator/racobio_staff
+	name = "Donator Kit - Obsidian Tower"
+	path = /obj/item/enchantingkit/racobio_staff
+	ckeywhitelist = list("racobio")
+
+/datum/loadout_item/donator/cobb_conviction
+	name = "Donator Kit - Conviction"
+	path = /obj/item/enchantingkit/weapon/cobb_conviction
+	ckeywhitelist = list("cobbantichrist")
+
+/datum/loadout_item/donator/athena_solace
+	name = "Donator Kit - Solace"
+	path = /obj/item/enchantingkit/weapon/athena_solace
+	ckeywhitelist = list("athena14")
+
+/datum/loadout_item/donator/longest_night
+	name = "Donator Item - Longest Night Cloak"
+	path = /obj/item/clothing/cloak/longest_night
+	ckeywhitelist = list("shiroseschnee")
+
+/datum/loadout_item/donator/moonlightdussack
+	name = "Donator Kit - Moonlight Dussack"
+	path = /obj/item/enchantingkit/weapon/moonlightdussack
+	ckeywhitelist = list("shiroseschnee")
+
+/datum/loadout_item/donator/kadeguandao
+	name = "Donator Kit - Dawn Cometh"
+	path = /obj/item/enchantingkit/weapon/kadeguandao
+	ckeywhitelist = list("shiroseschnee", "Zerantio", "elox2000")
+
+/datum/loadout_item/donator/kadedao
+	name = "Donator Kit - Spring Cometh"
+	path = /obj/item/enchantingkit/weapon/kadedao
+	ckeywhitelist = list("shiroseschnee", "Zerantio", "elox2000")
+
+/datum/loadout_item/donator/falling_star
+	name = "Donator Kit - Falling Star"
+	path = /obj/item/enchantingkit/weapon/falling_star
+	ckeywhitelist = list("octus")
+
+/datum/loadout_item/donator/aticius_fls
+	name = "Donator Kit - For Love's Sake"
+	path = /obj/item/enchantingkit/aticius_fls
+	ckeywhitelist = list("aticius")
+
+/datum/loadout_item/donator/chivalre_aasimar
+	name = "Donator Kit - Aasimari Equipment"
+	path = /obj/item/enchantingkit/chivalre_aasimar
+	ckeywhitelist = list("oddbomber3768")
+
+/datum/loadout_item/donator/chivalre_aasimar_sack
+	name = "Donator Kit - Aasimari Equipment, Sackful"
+	path = /obj/item/storage/roguebag/donator_chivalre_elixirs
+	ckeywhitelist = list("oddbomber3768")
+
+/datum/loadout_item/donator/truill_flowerblade
+	name = "Donator Kit - Beflowered Longsword"
+	path = /obj/item/enchantingkit/truill_flowerblade
+	ckeywhitelist = list("truill")
+
+/datum/loadout_item/donator/rhynnrhynn_brigandine
+	name = "Donator Kit - Jacketed Brigandine"
+	path = /obj/item/enchantingkit/rhynnrhynn_brigandine
+	ckeywhitelist = list("rhynnrhynn")
+
+/datum/loadout_item/donator/rhynnrhynn_longcloak
+	name = "Donator Item - Ladylike Longcloak"
+	path = /obj/item/clothing/cloak/donator_rhynn
+	ckeywhitelist = list("rhynnrhynn")
+
+/datum/loadout_item/donator/rhynnrhynn_longcloak_broche
+	name = "Donator Item - Ladylike Longcloak's Broche"
+	path = /obj/item/clothing/head/roguetown/decoration/broche
+	ckeywhitelist = list("rhynnrhynn")
+
+/datum/loadout_item/donator/rhynnrhynn_staff
+	name = "Donator Kit - Celestial Staff"
+	path = /obj/item/enchantingkit/rhynnrhynn_staff
+	ckeywhitelist = list("rhynnrhynn")
+
+/datum/loadout_item/donator/rhynnrhynn_staff_glow
+	name = "Donator Kit - Celestial Staff, Glowing"
+	path = /obj/item/enchantingkit/rhynnrhynn_staff_glow
+	ckeywhitelist = list("rhynnrhynn")
+
+/datum/loadout_item/donator/rhynnrhynn_staff_crested
+	name = "Donator Kit - Celestial Staff, Crested"
+	path = /obj/item/enchantingkit/rhynnrhynn_staff_crested
+	ckeywhitelist = list("rhynnrhynn")
+
+/datum/loadout_item/donator/rhynnrhynn_staff_winged
+	name = "Donator Kit - Celestial Staff, Winged"
+	path = /obj/item/enchantingkit/rhynnrhynn_staff_winged
+	ckeywhitelist = list("rhynnrhynn")
+
+/datum/loadout_item/donator/rhynnrhynn_staff_solar
+	name = "Donator Kit - Celestial Staff, Solar"
+	path = /obj/item/enchantingkit/rhynnrhynn_staff_solar
+	ckeywhitelist = list("rhynnrhynn")
+
+/datum/loadout_item/donator/lamprey_stechhelm
+	name = "Donator Kit - Stechhelm"
+	path = /obj/item/enchantingkit/lamprey_stechhelm
+	ckeywhitelist = list("derpi559")
+
+/datum/loadout_item/donator/squidqueen_longcoat
+	name = "Donator Kit - Ragged Longcoat"
+	path = /obj/item/enchantingkit/squidqueen_longcoat
+	ckeywhitelist = list("lmwevil")
+
+/datum/loadout_item/donator/squidqueen_longcoat_alt
+	name = "Donator Kit - Frayed Longcoat"
+	path = /obj/item/enchantingkit/squidqueen_longcoat_alt
+	ckeywhitelist = list("lmwevil")
+
+/datum/loadout_item/donator/squidqueen_harlottoga
+	name = "Donator Item - Harlotous Toga"
+	path = /obj/item/clothing/cloak/tabard/donator_squidqueen_harlottoga
+	ckeywhitelist = list("lmwevil")
+
+/datum/loadout_item/donator/hellpossum_apostle_armor
+	name = "Donator Kit - Apostle's Armor"
+	path = /obj/item/enchantingkit/hellpossum_apostle_armor
+	ckeywhitelist = list("dasfox", "purplepineapple", "bigfoot02", "ryan180602", "oddbomber3768", "yeeteryieter")
+
+/datum/loadout_item/donator/hellpossum_robed_apostle_armor
+	name = "Donator Kit - Apostle's Armor, Robed"
+	path = /obj/item/enchantingkit/hellpossum_robed_apostle_armor
+	ckeywhitelist = list("dasfox", "purplepineapple", "bigfoot02", "ryan180602", "oddbomber3768", "yeeteryieter")
+
+/datum/loadout_item/donator/hellpossum_apostle_helm
+	name = "Donator Kit - Apostle's Burgeonet"
+	path = /obj/item/enchantingkit/hellpossum_apostle_helm
+	ckeywhitelist = list("dasfox", "purplepineapple", "bigfoot02", "ryan180602", "oddbomber3768", "yeeteryieter")
+
+/datum/loadout_item/donator/hellpossum_apostle_winghelm
+	name = "Donator Kit - Apostle's Burgeonet, Winged"
+	path = /obj/item/enchantingkit/hellpossum_apostle_winghelm
+	ckeywhitelist = list("dasfox", "purplepineapple", "bigfoot02", "ryan180602", "oddbomber3768", "yeeteryieter")
+
+/datum/loadout_item/donator/hellpossum_apostle_wingsallet
+	name = "Donator Kit - Apostle's Sallet, Winged"
+	path = /obj/item/enchantingkit/hellpossum_apostle_wingsallet
+	ckeywhitelist = list("dasfox", "purplepineapple", "bigfoot02", "ryan180602", "oddbomber3768", "yeeteryieter")
+
+/datum/loadout_item/donator/hellpossum_grandmaster_armor
+	name = "Donator Kit - Grandmaster's Armor, Robed"
+	path = /obj/item/enchantingkit/hellpossum_grandmaster_armor
+	ckeywhitelist = list("dasfox")
+
+/datum/loadout_item/donator/hellpossum_grandmaster_helm
+	name = "Donator Kit - Grandmaster's Burgeonet"
+	path = /obj/item/enchantingkit/hellpossum_grandmaster_helm
+	ckeywhitelist = list("dasfox")
+
+/datum/loadout_item/donator/hellpossum_grandmaster_helm_habit
+	name = "Donator Kit - Grandmaster's Burgeonet, Habited"
+	path = /obj/item/enchantingkit/hellpossum_grandmaster_habit
+	ckeywhitelist = list("dasfox")
+
+/datum/loadout_item/donator/rosy/birdmask
+	name = "Donator Kit - Beaked Mask"
+	path = /obj/item/enchantingkit/rosy/birdmask
+	ckeywhitelist = list("rosysaturniidae")
+
+/datum/loadout_item/donator/nero_woodlandcloak
+	name = "Gift - Woodland Mantle"
+	path = /obj/item/clothing/cloak/furcloak/woodland
+	ckeywhitelist = list("nerocavalier","yeeteryieter","irlcatgirl","wickedcybs","spartanbobby","eirenxiv","freestylalt","lagomorphica","purplepineapple","stalkerino","shadowradar1212","omicega","revennui","mattatlas","gabopwn")
+
+/datum/loadout_item/donator/nero_woodlandhood
+	name = "Gift - Woodland Shawl"
+	path = /obj/item/clothing/head/roguetown/roguehood/shawlhood/woodland
+	ckeywhitelist = list("nerocavalier","yeeteryieter","irlcatgirl","wickedcybs","spartanbobby","eirenxiv","freestylalt","lagomorphica","purplepineapple","stalkerino","shadowradar1212","omicega","revennui","mattatlas","gabopwn")
+
+/datum/loadout_item/donator/nero_woodlandbrigplackart
+	name = "Donator Kit - Woodland Brigandine"
+	path = /obj/item/enchantingkit/nero_woodlandbrigplackart
+	ckeywhitelist = list("nerocavalier","yeeteryieter","irlcatgirl","wickedcybs","spartanbobby","eirenxiv","freestylalt","lagomorphica","purplepineapple","stalkerino","shadowradar1212","omicega","revennui","mattatlas","gabopwn")
+
+/datum/loadout_item/donator/lagomorphica_obligatoire
+	name = "Donator Kit - Obligatoire"
+	path = /obj/item/enchantingkit/weapon/donator_lagomorphica_obligatoire
+	ckeywhitelist = list("lagomorphica","stalkerino")
+
+/datum/loadout_item/donator/lagomorphica_delirante
+	name = "Donator Kit - Delirante"
+	path = /obj/item/enchantingkit/weapon/donator_lagomorphica_delirante
+	ckeywhitelist = list("lagomorphica","stalkerino")
+
+/datum/loadout_item/donator/lagomorphica_traitresse
+	name = "Donator Kit - Traitresse"
+	path = /obj/item/enchantingkit/weapon/donator_lagomorphica_traitresse
+	ckeywhitelist = list("lagomorphica","stalkerino")
+
+/datum/loadout_item/donator/stalkerino_drowsword
+	name = "Donator Kit - Skikuldic Sword"
+	path = /obj/item/enchantingkit/weapon/donator_stalkerino_drowsword
+	ckeywhitelist = list("lagomorphica","stalkerino")
+
+/datum/loadout_item/donator/stalkerino_drowcrossbow
+	name = "Donator Kit - Skikuldic Crossbow"
+	path = /obj/item/enchantingkit/donator_stalkerino_drowcrossbow
+	ckeywhitelist = list("lagomorphica","stalkerino")
+
+/datum/loadout_item/donator/stalkerino_drowhelmet
+	name = "Donator Kit - Skikudic Savoyard"
+	path = /obj/item/enchantingkit/donator_stalkerino_drowhelmet
+	ckeywhitelist = list("lagomorphica","stalkerino")
+
+/datum/loadout_item/donator/chivalre_drowmantle
+	name = "Donator Kit - Scourge Mantle"
+	path = /obj/item/enchantingkit/donator_chivalre_drowmantle
+	ckeywhitelist = list("oddbomber3768", "wickedcybs")
+
+/datum/loadout_item/donator/chivalre_drowgreatflail
+	name = "Donator Kit - Jagged Skikuldic Greatflail"
+	path = /obj/item/enchantingkit/donator_chivalre_drowgreatflail
+	ckeywhitelist = list("oddbomber3768")
+
+/datum/loadout_item/donator/chivalre_drowgreatflailalt
+	name = "Donator Kit - Smooth Skikuldic Greatflail"
+	path = /obj/item/enchantingkit/donator_chivalre_drowgreatflailalt
+	ckeywhitelist = list("oddbomber3768")
+
+/datum/loadout_item/donator/rivercadaver_tabis
+	name = "Donator Item - Tabis"
+	path = /obj/item/enchantingkit/donator_rivercadaver_tabis
+	ckeywhitelist = list("rivercadaver","poots13","nooriginality","helenmoder","oddbomber3768","waffai","castortroy23","persephoneq")
+
+/datum/loadout_item/donator/flybrokenwings_drowparasol
+	name = "Donator Item - Skikuldic Parasol"
+	path = /obj/item/rogueweapon/mace/donator_flybrokenwings_parasol
+	ckeywhitelist = list("flybrokenwings")
+
+/datum/loadout_item/donator/flybrokenwings_drowpants
+	name = "Donator Item - Underdweller's Trousers"
+	path =/obj/item/clothing/under/roguetown/trou/artipants/donator_thistle
+	ckeywhitelist = list("flybrokenwings")
+
+/datum/loadout_item/donator/flybrokenwings_drowshirt
+	name = "Donator Item - Underdweller's Shirt"
+	path = /obj/item/clothing/suit/roguetown/shirt/undershirt/artificer/donator_thistle
+	ckeywhitelist = list("flybrokenwings")
+
+/datum/loadout_item/donator/flybrokenwings_drowgloves
+	name = "Donator Item - Underdweller's Gloves"
+	path = /obj/item/clothing/gloves/roguetown/cloth/donator_thistle
+	ckeywhitelist = list("flybrokenwings")
+
+/datum/loadout_item/donator/flybrokenwings_drowboots
+	name = "Donator Item - Underdweller's Shoes"
+	path = /obj/item/clothing/shoes/roguetown/boots/leather/donator_thistle
+	ckeywhitelist = list("flybrokenwings")
+
+/datum/loadout_item/donator/flybrokenwings_drowapron
+	name = "Donator Item - Underdweller's Apron"
+	path = /obj/item/clothing/cloak/apron/blacksmith/donator_thistle
+	ckeywhitelist = list("flybrokenwings")
+
+/datum/loadout_item/donator/flybrokenwings_drowcloak
+	name = "Donator Item - Underdweller's Cloak"
+	path = /obj/item/clothing/cloak/poncho/donator_thisle
+	ckeywhitelist = list("flybrokenwings")
+
+/datum/loadout_item/donator/flybrokenwings_case
+	name = "Gift - Kit, Cased Satchel"
+	path = /obj/item/enchantingkit/donator_case
+	ckeywhitelist = list("flybrokenwings")
+
+/datum/loadout_item/donator/naman_lance
+	name = "Donator Kit - Noble Lance"
+	path = /obj/item/enchantingkit/donator_naman_lance
+	ckeywhitelist = list("copperwilson")
+
+/datum/loadout_item/donator/naman_sabre
+	name = "Donator Kit - Noble Sabre"
+	path = /obj/item/enchantingkit/donator_naman_sabre
+	ckeywhitelist = list("copperwilson")
+
+/datum/loadout_item/donator/naman_tassetedbeltpack
+	name = "Donator Kit - Tasseted Beltpack"
+	path = /obj/item/enchantingkit/donator_naman_tassetedbeltpack
+	ckeywhitelist = list("copperwilson")
+
+/datum/loadout_item/donator/naman_triumph_tassetedbeltpack
+	name = "Donator Item - Tasseted Beltpack"
+	path = /obj/item/storage/backpack/rogue/satchel/beltpack/donator_naman
+	triumph_cost = 7 //Player-requested alternative.
+	ckeywhitelist = list("copperwilson")
+
+/datum/loadout_item/donator/naman_deccoatofplates
+	name = "Donator Kit - Decorated Coat Of Plates"
+	path = /obj/item/enchantingkit/donator_naman_deccoatofplates
+	ckeywhitelist = list("copperwilson")
+
+/datum/loadout_item/donator/naman_scarfedridercloak
+	name = "Donator Item - Rider's Scarfed Cloak"
+	path = /obj/item/clothing/cloak/half/rider/donator_naman
+	ckeywhitelist = list("copperwilson","nooriginality","maesune")
+
+/datum/loadout_item/donator/sanshoom_prowlerrobe
+	name = "Donator Kit - Prowler Robe"
+	path = /obj/item/enchantingkit/donator_sanshoom_prowlerrobe
+	ckeywhitelist = list("sanshoom")
+
+/datum/loadout_item/donator/sanshoom_prowlermask
+	name = "Donator Kit - Prowler Mask"
+	path = /obj/item/enchantingkit/donator_sanshoom_prowlermask
+	ckeywhitelist = list("sanshoom")
+
+/datum/loadout_item/donator/trueterrydactyl_shibari
+	name = "Donator Item - Smallclothes, Shibari"
+	path = /obj/item/undies/bikini/shibari
+	ckeywhitelist = list("trueterrydactyl")
+
+/datum/loadout_item/donator/guidesa_bonebuckler
+	name = "Donator Kit - Bone Buckler"
+	path = /obj/item/enchantingkit/weapon/guidesa_bonebuckler
+	ckeywhitelist = list("guidesu")
+
+/datum/loadout_item/donator/guidesa_bonesickle
+	name = "Donator Kit - Bone Sickle"
+	path = /obj/item/enchantingkit/weapon/guidesa_bonesickle
+	ckeywhitelist = list("guidesu")
+
+/datum/loadout_item/donator/glassfeddockterr_bighat
+	name = "Donator Item - Eryn's Archwyzardry Hat"
+	path = /obj/item/clothing/head/roguetown/wizhat/bighat
+	ckeywhitelist = list("glassfeddockterr")
+
+/datum/loadout_item/donator/koruu_cadwyncloak_ravox
+	name = "Donator Item - Sefirot's Cloak"
+	path = /obj/item/clothing/cloak/templar/ravoxcleric/koruu
+	ckeywhitelist = list("koruu", "oddbomber3768", "nooriginality", "vakiova", "maesune")
+
+/datum/loadout_item/donator/koruu_cadwynhelm_ravox
+	name = "Donator Item - Gebura"
+	path = /obj/item/enchantingkit/donator_koruu_ravoxclerichelm
+	ckeywhitelist = list("koruu", "oddbomber3768", "nooriginality", "vakiova", "maesune")
+
+/datum/loadout_item/donator/bloom_coat
+	name = "Donator Item - Royal Coat"
+	path = /obj/item/clothing/suit/roguetown/shirt/tunic/rosacoat/three
+	ckeywhitelist = list("bloom77")
+
+/datum/loadout_item/donator/koruu_cadwyncloak_astrata
+	name = "Donator Item - Cloak of the Order of the Sun"
+	path = /obj/item/clothing/cloak/templar/astratancleric/koruu
+	ckeywhitelist = list("koruu", "oddbomber3768", "nooriginality", "vakiova", "maesune")
+
+/datum/loadout_item/donator/koruu_cadwynhelm_astrata
+	name = "Donator Item - Lux In Tenebris"
+	path = /obj/item/enchantingkit/donator_koruu_astrataclerichelm
+	ckeywhitelist = list("koruu", "oddbomber3768", "nooriginality", "vakiova", "maesune")
+
+/datum/loadout_item/donator/lief_friend
+	name = "Donator Item - Aurum's Amulets"
+	path = /obj/item/clothing/neck/roguetown/psicross/liefdonator
+	ckeywhitelist = list("linxsysart", "pessime959")
+
+/datum/loadout_item/donator/rezathedwarf
+	name = "Donator Item - Noah's Glimmering Cloak"
+	path = /obj/item/clothing/cloak/half/donator_rezathedwarf
+	ckeywhitelist = list("rezathedwarf", "maesune")
+
+/datum/loadout_item/donator/rezathedwarf/blade
+	name = "Donator Kit - The Enclave Blade"
+	path = /obj/item/enchantingkit/weapon/donator_rezathedwarf_blade
+
+/datum/loadout_item/donator/lime_saber
+	name = "Donator Kit - Malignant Blade"
+	path = /obj/item/enchantingkit/weapon/limesaber
+	ckeywhitelist = list("limetease")
+
+/datum/loadout_item/donator/rosa_silveredguitar
+	name = "Donator Item - Silvered Rosa Guitar"
+	path = /obj/item/rogue/instrument/guitar/rosa_silveredguitar
+	ckeywhitelist = list("limetease", "simplypoodle", "gentlemanlyheadcrab")
+
+/datum/loadout_item/donator/silvered_guitar
+	name = "Donator Item - Silvered Guitar"
+	path = /obj/item/rogue/instrument/guitar/silveredguitar
+	ckeywhitelist = list("limetease", "simplypoodle", "gentlemanlyheadcrab")
+
+/datum/loadout_item/donator/mystogan_radiantmask
+	name = "Donator Item - Radiant Golden Mask"
+	path = /obj/item/clothing/mask/rogue/facemask/goldmask/radiant
+	ckeywhitelist = list("mystoganzi")
+
+/datum/loadout_item/donator/thedragmeme_scarletglove
+	name = "Donator Gift - Scarlet Gloves"
+	path = /obj/item/clothing/gloves/roguetown/rosa/two
+	ckeywhitelist = list("thedragmeme")
+
+/datum/loadout_item/donator/thedragmeme_scarlethat
+	name = "Donator Gift - Scarlet Hat"
+	path = /obj/item/clothing/head/roguetown/rosa
+	ckeywhitelist = list("thedragmeme")
+
+/datum/loadout_item/donator/thedragmeme_scarletshoes
+	name = "Donator Gift - Scarlet Shoes"
+	path = /obj/item/clothing/shoes/roguetown/rosa/two
+	ckeywhitelist = list("thedragmeme")
+
+/datum/loadout_item/donator/thedragmeme_scarletdress
+	name = "Donator Gift - Scarlet Dress"
+	path = /obj/item/clothing/suit/roguetown/shirt/tunic/rosa/two
+	ckeywhitelist = list("thedragmeme")
