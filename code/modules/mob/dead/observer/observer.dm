@@ -321,12 +321,18 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 /mob/dead/observer/Move(NewLoc, direct)
 	//Caustic Edit - Add in a check for if the Ghost is in a Belly, and ask if they really want to move out of it first.
+	if(attempted_belly_move)
+		return
+
 	if(isbelly(loc) && body_backup)
+		attempted_belly_move = TRUE //This hopefully should prevent multiple popups...
 		var/move_out = tgui_alert(src, "If you move as a ghost, you will leave your Pred's [loc]. You won't recieve any further messages from that Belly, and will have to hit 'return to body' to re-enter to further interact with the mechanics!", "Move out of [loc]?", list("Yes", "No"))
+		attempted_belly_move = FALSE
 		if(move_out == "No")
 			return
 		else
-			return_belly = WEAKREF(loc)
+			return_belly = loc
+			can_reenter_corpse = TRUE
 	//Caustic Edit End
 
 	if(updatedir)
@@ -352,21 +358,20 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(!mind || QDELETED(mind.current))
 		to_chat(src, span_warning("I have no body."))
 		return
-	//Caustic Edit - Adding in the ability for vore-death ghosts to return to the Belly they left when ghosting out of their pred. Pls no abuse!
-	if(return_belly && body_backup)
-		var/obj/belly/B = return_belly.resolve()
-		SSdroning.kill_rain(src.client)
-		SSdroning.kill_loop(src.client)
-		SSdroning.kill_droning(src.client)
-		ghost_enter_belly(src, B)
-		return
-	//Caustic Edit End
 	if(!can_reenter_corpse)
 		to_chat(src, span_warning("I cannot re-enter my body."))
 		return
 	if(mind.current.key && copytext(mind.current.key,1,2)!="@")	//makes sure we don't accidentally kick any clients
 		to_chat(usr, span_warning("Another consciousness is in my body... It is resisting me."))
 		return
+	//Caustic Edit - Adding in the ability for vore-death ghosts to return to the Belly they left when ghosting out of their pred. Pls no abuse!
+	if(!istype(src, /mob/dead/observer/screye) && return_belly && body_backup)
+		SSdroning.kill_rain(src.client)
+		SSdroning.kill_loop(src.client)
+		SSdroning.kill_droning(src.client)
+		ghost_enter_belly(src, return_belly)
+		return
+	//Caustic Edit End
 //	stop_all_loops()
 	SSdroning.kill_rain(src.client)
 	SSdroning.kill_loop(src.client)

@@ -128,13 +128,12 @@
 		prey.forceMove(target_belly)
 
 		log_admin("[prey] (who has died to a vore-related death elsewhere) has entered one of [pred]'s bellies using the Inbelly-Spawn system.")				// Log it. Avoid abuse.
-		message_admins("[prey] (who has died to a vore-related death elsewhere) has entered one of [pred]'s bellies using the Inbelly-Spawn system.")
-
-/proc/ghost_return_to_pred(mob/dead/observer/prey, obj/belly/target_belly)
+		//message_admins("[prey] (who has died to a vore-related death elsewhere) has entered one of [pred]'s bellies using the Inbelly-Spawn system.")
 
 /mob/dead/observer
 	var/enable_inbelly_spawn_attempts = FALSE
-	var/datum/weakref/return_belly
+	var/obj/belly/return_belly
+	var/attempted_belly_move = FALSE
 
 /mob/dead/observer/verb/ToggleInBellySpawnAttempts()
 	set name = "Toggle In-Belly Spawn"
