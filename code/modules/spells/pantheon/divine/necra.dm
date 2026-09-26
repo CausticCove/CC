@@ -998,7 +998,7 @@ var/global/mob/_corpse_sort_ref = null
 	// Cleanup after duration
 	addtimer(CALLBACK(S, TYPE_PROC_REF(/mob/dead/observer, reenter_corpse)), 8 SECONDS)
 
-	addtimer(CALLBACK(spygrave, TYPE_PROC_REF(/atom/movable, remove_filter), GRAVE_SPY), 8 SECONDS)
+	addtimer(CALLBACK(spygrave, TYPE_PROC_REF(/datum, remove_filter), GRAVE_SPY), 8 SECONDS)
 
 	return TRUE
 
