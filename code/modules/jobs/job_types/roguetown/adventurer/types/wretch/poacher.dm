@@ -2,7 +2,7 @@
 	name = "Poacher"
 	tutorial = "You have rejected society and its laws, choosing life in the wilderness instead. Simple thieving highwayman or freedom fighter, you take from those who have and give to the have-nots. Fancy, how the latter includes yourself!"
 	allowed_sexes = list(MALE, FEMALE)
-	
+
 	outfit = /datum/outfit/job/roguetown/wretch/poacher
 	cmode_music = 'sound/music/combat_poacher.ogg'
 	class_select_category = CLASS_CAT_RANGER
@@ -35,6 +35,7 @@
 		/datum/skill/craft/cooking = SKILL_LEVEL_NOVICE,
 		/datum/skill/labor/butchering = SKILL_LEVEL_NOVICE,
 		/datum/skill/misc/hunting = SKILL_LEVEL_APPRENTICE,
+		/datum/skill/misc/reading = SKILL_LEVEL_APPRENTICE,
 	)
 	subclass_stashed_items = list(
         "Sewing Kit" =  /obj/item/repair_kit,

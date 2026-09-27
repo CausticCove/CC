@@ -26,6 +26,7 @@
 		/datum/skill/craft/tanning = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/misc/reading = SKILL_LEVEL_NOVICE, // Domesticated, they learned their ABCs
 		/datum/skill/craft/cooking = SKILL_LEVEL_NOVICE, // This should let them fry meat on fires.
+		/datum/skill/misc/hunting = SKILL_LEVEL_NOVICE // Downgrade from their Full Wildsoul counterpart
 	)
 
 /datum/outfit/job/roguetown/warden/wildsoul
