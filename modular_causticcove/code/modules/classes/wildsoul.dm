@@ -141,7 +141,7 @@
 		STATKEY_SPD = 2,
 		STATKEY_LCK = 1
 	)
-	subclass_mage_aspects = list("mastery" = FALSE, "major" = 1, "minor" = 1, "utilities" = 4, "ward" = TRUE)
+	subclass_mage_aspects = list("mastery" = FALSE, "major" = 1, "minor" = 3, "utilities" = 14, "ward" = TRUE) // Alot of utility points, mainly due to the fact they are out there probably on their own. And SURVIVING.
 	subclass_skills = list( //still can't read lol
 		/datum/skill/misc/athletics = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/combat/wrestling = SKILL_LEVEL_APPRENTICE,
@@ -159,7 +159,8 @@
 		/datum/skill/labor/fishing = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/craft/cooking = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/craft/sewing = SKILL_LEVEL_APPRENTICE,
-		/datum/skill/craft/crafting = SKILL_LEVEL_APPRENTICE
+		/datum/skill/craft/crafting = SKILL_LEVEL_APPRENTICE,
+		/datum/skill/combat/arcyne = SKILL_LEVEL_EXPERT // Expert seems in-line with the usual, they are roughing it out there. So it seems reasonable.
 	)
 	subclass_stashed_items = list(
 		"Cauldron Material" = /obj/item/ingot/iron, // So they can do the whole forest potioner cryptid gimmick without needing to make their own iron.
