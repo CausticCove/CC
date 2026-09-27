@@ -162,7 +162,7 @@
 		/datum/skill/craft/cooking = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/craft/sewing = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/craft/crafting = SKILL_LEVEL_APPRENTICE,
-		/datum/skill/combat/arcyne = SKILL_LEVEL_EXPERT // Expert seems in-line with the usual, they are roughing it out there. So it seems reasonable.
+		/datum/skill/combat/arcyne = SKILL_LEVEL_EXPERT // Expert seems in-line with the usual, they are roughing it out there. So it seems reasonable..
 	)
 	subclass_stashed_items = list(
 		"Cauldron Material" = /obj/item/ingot/iron, // So they can do the whole forest potioner cryptid gimmick without needing to make their own iron.
