@@ -628,6 +628,7 @@ GLOBAL_LIST_INIT(da_bubbles, list('sound/foley/bubb (1).ogg','sound/foley/bubb (
 		"Coin begets Coin!",
 		"Return as Stones",
 		"Morph Serum",
+		"Borrow The Flame",
 		"Cancel"
 	)
 
@@ -635,6 +636,15 @@ GLOBAL_LIST_INIT(da_bubbles, list('sound/foley/bubb (1).ogg','sound/foley/bubb (
 
 	if(!choice || choice == "Cancel")
 		return
+
+	if(choice == "Borrow The Flame")
+		if(stored_value < 30)
+			to_chat(user, span_warning("There is not enough stored entropic dust to create this. (30 required)"))
+			return
+		stored_value -= 30
+		playsound(loc, 'sound/magic/swap.ogg', 100, TRUE, -2)
+		to_chat(user, span_notice("The draught condenses 30 entropic dust into a Malchem Fyre. (Remaining Value: [stored_value])"))
+		user.put_in_inactive_hand(/obj/item/flashlight/flare/torch/lantern/malchem)
 
 	if(choice == "Morph Serum")
 		var/list/serums = list()
@@ -872,22 +882,56 @@ GLOBAL_LIST_INIT(da_bubbles, list('sound/foley/bubb (1).ogg','sound/foley/bubb (
 
 	totalmammon = get_mammons_in_atom(user) + SStreasury.get_balance(user)
 
+	var/list/blacklisted_words = list(
+		"slab of",
+		"unfinished",
+		"half-done",
+		"base",
+		"unbaked",
+		"venison",
+		"deadite",
+		"pale",
+		"slice",
+		"dough",
+		"butterdough",
+		"piece",
+		"bottom",
+		"raw",
+		"uncooked",
+		"minced",
+		"clove",
+		"medicinal",
+	)
+
 	if(totalmammon < selected_threshold)
 		var/list/fallback_foods = list(/obj/item/reagent_containers/food/snacks/rogue/bread)
+
 		for(var/food_path in subtypesof(/obj/item/reagent_containers/food/snacks/rogue))
+			if(length(subtypesof(food_path)))
+				continue
+
 			var/obj/item/reagent_containers/food/snacks/rogue/food_type = food_path
+
 			if(initial(food_type.faretype) != FARE_IMPOVERISHED)
 				continue
+			if(initial(food_type.foodtype) & RAW)
+				continue
+			if(initial(food_type.eat_effect) in list(/datum/status_effect/debuff/uncookedfood, /datum/status_effect/debuff/rotfood, /datum/status_effect/debuff/burnedfood))
+				continue
+
 			var/food_name = LOWER_TEXT(initial(food_type.name))
 			var/blacklisted = FALSE
-			var/list/blacklisted_words = list("raw", "uncooked", "slab of", "unfinished", "half-done", "base", "unbaked", "plucked", "meat", "filet", "sliced", "venison", "deadite", "pale", "belly", "mince", "minced", "pie", "dough", "butterdough", "piece")
+
 			for(var/word in blacklisted_words)
 				if(findtextEx(food_name, word))
 					blacklisted = TRUE
 					break
+
 			if(blacklisted)
 				continue
+
 			fallback_foods += food_type
+
 		var/fallback_type = pick(fallback_foods)
 		var/obj/item/reagent_containers/food/snacks/rogue/fallback_food = new fallback_type(get_turf(src))
 		to_chat(user, span_warning("Your greed is weak and lacking. The mixture simplifies itself into [fallback_food.name]."))
@@ -898,23 +942,27 @@ GLOBAL_LIST_INIT(da_bubbles, list('sound/foley/bubb (1).ogg','sound/foley/bubb (
 	var/list/foods = list()
 
 	for(var/food_path in subtypesof(/obj/item/reagent_containers/food/snacks/rogue))
+		if(length(subtypesof(food_path)))
+			continue
+
 		var/obj/item/reagent_containers/food/snacks/rogue/food_type = food_path
 
 		if(initial(food_type.faretype) != selected_fare_type)
 			continue
 
-		var/food_name = LOWER_TEXT(initial(food_type.name))
+		if(initial(food_type.foodtype) & RAW)
+			continue
 
-		switch(selected_fare_type) // i hate it here (a little less, thanks ryon!!!)
-			if(FARE_IMPOVERISHED)
-				var/list/blacklisted_words = list("snack", "flatbread", "pesto", "raw", "uncooked", "slab of", "unfinished", "half-done", "base", "unbaked", "plucked", "meat", "filet", "sliced", "venison", "deadite", "pale", "belly", "mince", "minced", "pie", "dough", "butterdough", "piece")
-				var/blacklisted = FALSE
-				for(var/word in blacklisted_words)
-					if(findtextEx(food_name, word))
-						blacklisted = TRUE
-						break
-				if(blacklisted)
-					continue
+		var/food_name = LOWER_TEXT(initial(food_type.name))
+		var/blacklisted = FALSE
+
+		for(var/word in blacklisted_words)
+			if(findtextEx(food_name, word))
+				blacklisted = TRUE
+				break
+
+		if(blacklisted)
+			continue
 
 		foods[initial(food_type.name)] = food_type
 
@@ -1648,6 +1696,7 @@ GLOBAL_LIST_INIT(da_bubbles, list('sound/foley/bubb (1).ogg','sound/foley/bubb (
 	var/active_item = FALSE
 	var/swap_type = /obj/item/clothing/neck/roguetown/psicross/inhumen/matthios/gilded/astrata
 	var/swap_message = "The gilded amulet transmutates to a different form. You feel a smile, as you profane Her fyre the same way as He did."
+	is_important = TRUE
 
 /obj/item/clothing/neck/roguetown/psicross/inhumen/matthios/gilded/proc/swap_form(mob/living/carbon/human/user)
 	var/obj/item/clothing/neck/roguetown/psicross/inhumen/matthios/gilded/new_amulet = new swap_type(user.loc)
@@ -1685,7 +1734,7 @@ GLOBAL_LIST_INIT(da_bubbles, list('sound/foley/bubb (1).ogg','sound/foley/bubb (
 	swap_type = /obj/item/clothing/neck/roguetown/psicross/inhumen/matthios/gilded
 	swap_message = "The gilded amulet settles back into familiar weight. You feel a grin, as He commends you for your boldness."
 	stolen_fyre = TRUE
-	is_important = TRUE // so this can't be sold in the navigator lol!!
+	is_important = TRUE
 
 /obj/item/clothing/neck/roguetown/psicross/inhumen/matthios/gilded/astrata/get_examine_highlight_status()
 	return null
@@ -1730,6 +1779,7 @@ GLOBAL_LIST_INIT(da_bubbles, list('sound/foley/bubb (1).ogg','sound/foley/bubb (
 	unarmed_weapon_effects = TRUE
 	equip_delay_self = 2 SECONDS // COMMIT
 	unequip_delay_self = 2 SECONDS
+	is_important = TRUE
 
 /obj/item/clothing/gloves/roguetown/fingerless_leather/muffle_matthios/equipped(mob/living/carbon/human/user, slot)
 	. = ..()
@@ -1767,10 +1817,11 @@ GLOBAL_LIST_INIT(da_bubbles, list('sound/foley/bubb (1).ogg','sound/foley/bubb (
 	body_parts_covered = FULL_HEAD
 	flags_inv = HIDEFACE
 	flags_cover = HIDEFACE
+	var/active_item = FALSE
 
 /obj/item/clothing/mask/rogue/spectacles/duelist/matthios/ComponentInitialize()
 	. = ..()
-	AddComponent(/datum/component/adjustable_clothing/matthicat, FULL_HEAD, 0, 0, 'sound/foley/equip/rummaging-03.ogg', null, (UPD_HEAD|UPD_MASK))
+	AddComponent(/datum/component/adjustable_clothing/matthicat, FULL_HEAD, 0, 0, null, null, (UPD_HEAD|UPD_MASK))
 
 /obj/item/clothing/mask/rogue/spectacles/duelist/matthios/equipped(mob/living/carbon/human/user, slot)
 	. = ..()
@@ -1861,6 +1912,7 @@ GLOBAL_LIST_INIT(da_bubbles, list('sound/foley/bubb (1).ogg','sound/foley/bubb (
 	aura_color = "#ffe600"
 	equip_delay_self = 2 SECONDS // COMMIT
 	unequip_delay_self = 2 SECONDS
+	is_important = TRUE
 
 /obj/item/clothing/shoes/roguetown/boots/muffle_matthios/equipped(mob/living/carbon/human/user, slot)
 	. = ..()
@@ -1968,34 +2020,27 @@ GLOBAL_LIST_INIT(da_bubbles, list('sound/foley/bubb (1).ogg','sound/foley/bubb (
 /obj/item/rope/chain/matthios/get_examine_highlight_status()
 	return list(EXAMINEHIGHLIGHT_HERESYSEVERITY_ALARMING, HERESYDESC_MATTHIOS_RELIC)
 
-/obj/item/flashlight/flare/torch/lantern/astrata
-	name = "sacred fyre"
+/obj/item/flashlight/flare/torch/lantern/malchem
+	name = "malchem fyre"
 	light_color = "#fff4e5"
 	light_outer_range = 10
 	icon_state = "astratawisp"
 	item_state = "astratawisp"
-	desc = "A condensed sphere of... what looks like the very flames from the heavens above at daetyme. A gift from the beneficent Sun-Tyrant to a loyal subject, or a wretched usurpation of Her power?"
-	var/volatile
+	desc = "A condensed sphere of fyre that neither flickers nor extinguishes. It does not burn as ordinary flame does, but seems to exist as the very concept of fyre given form, scorching only those hands and objects it deems worthy of burning."
+	is_important = TRUE
 
-/obj/item/flashlight/flare/torch/lantern/astrata/get_examine_highlight_status()
-	return list(EXAMINEHIGHLIGHT_HERESYSEVERITY_WEIRD, HERESYDESC_ASTRATA_MISC)
+/obj/item/flashlight/flare/torch/lantern/malchem/get_examine_highlight_status()
+	return list(EXAMINEHIGHLIGHT_HERESYSEVERITY_WEIRD, HERESYDESC_UNKNOWN_MISC)
 
-/obj/item/flashlight/flare/torch/lantern/astrata/Initialize(mapload)
+/obj/item/flashlight/flare/torch/lantern/malchem/Initialize(mapload)
 	. = ..()
-	AddComponent(/datum/component/cursed_item, list(
-		TRAIT_FREEMAN,
-		TRAIT_APRICITY,
-		TRAIT_UNDIVIDED,
-		TRAIT_ASTRATAN_AFFINITY,
-		TRAIT_FORGEBLESSED,
-		TRAIT_XYLIX
-	), "CONDENSED SUNFYRE")
+	AddComponent(/datum/component/cursed_item, list(TRAIT_FREEMAN, TRAIT_APRICITY, TRAIT_UNDIVIDED, TRAIT_ASTRATAN_AFFINITY, TRAIT_FORGEBLESSED, TRAIT_XYLIX), "CONDENSED SUNFYRE")
 	spark_act()
 
-/obj/item/flashlight/flare/torch/lantern/astrata/attack_self(mob/user)
+/obj/item/flashlight/flare/torch/lantern/malchem/attack_self(mob/user)
 	return
 
-/obj/item/flashlight/flare/torch/lantern/astrata/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
+/obj/item/flashlight/flare/torch/lantern/malchem/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	. = ..()
 	if(QDELETED(src))
 		return
@@ -2003,11 +2048,7 @@ GLOBAL_LIST_INIT(da_bubbles, list('sound/foley/bubb (1).ogg','sound/foley/bubb (
 	if(!impact_turf)
 		return
 	playsound(impact_turf, 'sound/magic/fireball.ogg', 100, TRUE)
-	var/mob/living/carbon/human/H = hit_atom
-	if(istype(H) && !H.mind)
-		H.fire_act(10,10)
-	if(volatile)
-		explosion(impact_turf, 0, 0, 0, 1, adminlog = FALSE, flame_range = 1)
+	explosion(impact_turf, 0, 0, 0, 1, adminlog = FALSE, flame_range = 1)
 	qdel(src)
 
 /obj/item/lockpick/gilded

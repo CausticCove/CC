@@ -67,16 +67,15 @@
 				to_chat(H, span_warning("Do not abuse Her good graces. Wait [seconds]s longer."))
 			return FALSE
 
-		var/obj/item/flashlight/flare/torch/lantern/astrata/fire_orb = new(H.drop_location())
+		var/obj/item/flashlight/flare/torch/lantern/malchem/fire_orb = new(H.drop_location())
 		if(!fire_orb)
 			return FALSE
 
-		fire_orb.volatile = TRUE
 		fire_orb.aura_color = "#fff346"
 		H.put_in_hands(fire_orb)
 		H.say("Divine fyre, to me!")
 
-		sacred_fyre_cd = world.time + 2 MINUTES
+		sacred_fyre_cd = world.time + 1 MINUTES
 		return TRUE
 
 	var/mob/living/spelltarget = cast_on

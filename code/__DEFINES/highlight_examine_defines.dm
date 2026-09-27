@@ -46,6 +46,7 @@
 // Misc items
 #define HERESYDESC_GRONN "A symbol of the North's archaic beliefs"
 #define HERESYDESC_WEEPING_CROSS "It is ensnared in a perpetual state of half-coagulation, the alloy cracked and bleeding"
+#define HERESYDESC_UNKNOWN_MISC "An unknown design, ancient relic or singularity"
 
 // Vampire Lord Items - General theme is mysterious but a bad omen
 #define HERESYDESC_VAMPIRE "An unnatural enchanted armor piece of solid gilbranze that crackles with strange energies"
