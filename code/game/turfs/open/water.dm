@@ -60,6 +60,10 @@
 
 /turf/open/water/Exited(atom/movable/AM, atom/newloc)
 	. = ..()
+	///CC Edit: Hopefully unhecks verglas
+	for(var/obj/effect/verglas/vg in contents)
+		return
+	///CC Edit End
 	if(isliving(AM) && !AM.throwing)
 		var/mob/living/user = AM
 		if(isliving(user) && !user.is_floor_hazard_immune())
@@ -602,6 +606,10 @@
 		. += SIDESTREAM_PENALTY // sidestream walking isn't free, bro
 
 /turf/open/water/river/proc/process_river()
+	///CC Edit: Hopefully unhecks verglas
+	for(var/obj/effect/verglas/vg in contents)
+		return
+	///CC Edit End
 	var/found_movable = FALSE
 	for(var/atom/movable/A in contents)
 		found_movable = TRUE
@@ -958,6 +966,10 @@
 
 
 /turf/open/water/transparent/surface/river/proc/process_river()
+	///CC Edit: Hopefully unhecks verglas
+	for(var/obj/effect/verglas/vg in contents)
+		return
+	///CC Edit End
 	var/found = FALSE
 	for(var/atom/movable/A in contents)
 		found = TRUE
@@ -965,6 +977,10 @@
 	if(!found) STOP_PROCESSING(SSrivers, src)
 
 /turf/open/water/transparent/inner/river/proc/process_river()
+	///CC Edit: Hopefully unhecks verglas
+	for(var/obj/effect/verglas/vg in contents)
+		return
+	///CC Edit End
 	var/found = FALSE
 	for(var/atom/movable/A in contents)
 		found = TRUE

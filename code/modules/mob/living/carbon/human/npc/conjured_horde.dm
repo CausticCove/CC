@@ -8,7 +8,7 @@
 	var/gear_tier = 1
 	var/datum/weakref/summoner_ref
 
-/mob/living/carbon/human/species/dwarf/gnome/conjured_horde/Initialize()
+/mob/living/carbon/human/species/dwarf/gnome/conjured_horde/Initialize(mapload)
 	. = ..()
 	set_species(/datum/species/dwarf/gnome)
 	gender = pick(MALE, FEMALE)
@@ -41,6 +41,8 @@
 	equipOutfit(new /datum/outfit/job/roguetown/conjured_gnome)
 	for(var/obj/item/gear in (get_equipped_items() + held_items))
 		ADD_TRAIT(gear, TRAIT_NODROP, TRAIT_GENERIC)
+	for(var/obj/item/held_item in held_items)
+		held_item.AddComponent(/datum/component/item_on_drop/dust)
 	def_intent_change(INTENT_PARRY)
 	dna.species.handle_body(src)
 	random_voice_NPC()
@@ -86,8 +88,11 @@
 			r_hand = null
 			wrists = /obj/item/gun/ballistic/revolver/grenadelauncher/sling
 			neck = /obj/item/quiver/sling/stone
+			armor = /obj/item/clothing/suit/roguetown/shirt/rags
+			head = null
 			H.STACON -= 1
 			H.STAWIL -= 1
+			H.STAPER = 6
 			H.upgrade_ai_controller(/datum/ai_controller/human_npc/archer)
 		if("flail")
 			H.adjust_skillrank_up_to(/datum/skill/combat/shields, skill, TRUE)
@@ -100,8 +105,11 @@
 			H.adjust_skillrank_up_to(/datum/skill/combat/bows, skill, TRUE)
 			r_hand = /obj/item/gun/ballistic/revolver/grenadelauncher/bow
 			backl = /obj/item/quiver/conjured_stone
+			armor = /obj/item/clothing/suit/roguetown/shirt/rags
+			head = null
 			H.STACON -= 1
 			H.STAWIL -= 1
+			H.STAPER = 6
 			H.upgrade_ai_controller(/datum/ai_controller/human_npc/archer)
 		else
 			r_hand = /obj/item/rogueweapon/sword/stone

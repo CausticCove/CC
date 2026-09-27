@@ -172,7 +172,6 @@
 /datum/action/cooldown/spell/projectile/sacred_flame
 	name = "Sacred Flame"
 	desc = "Emit a bolt of holy fire that sunders a target, setting them on fire and slowing them down for 6 seconds. \
-	Damage is increased by 100% versus simple-minded creechurs. \
 	The CC effects cannot be reapplied to the same target within 15 seconds."
 	fluff_desc = "The fourth gift to men, sliver of Astrata's fury against the horrors of Psydonia, bringing evyl to its knees at hands of Her devoted."
 	background_icon = 'icons/mob/actions/astratamiracles.dmi'
@@ -225,9 +224,7 @@
 	expose_caster_on_deflect = TRUE
 	light_color = "#a98107"
 	damage = 50
-	npc_simple_damage_mult = 2
 	damage_type = BURN
-	accuracy = 50 //Astrata show me true or something?
 	nodamage = FALSE
 	speed = 0.3
 	flag = "fire"

@@ -172,6 +172,50 @@
 		/area/rogue/under/cavewet/bogcaves/coastcaves = 60
 	)
 
+//Caustic Edit - Desert Animals
+/datum/hunting_category/desertinnerdunes //all the mid-tier desert animals
+	name = "Inner Dunes Game"
+
+	skill_weights = list(10, 40, 100, 80, 50, 30, 10)
+	bonus_animal_amount = 5
+	animals = list(
+		/mob/living/simple_animal/hostile/retaliate/rogue/hyena = 15,
+		/mob/living/simple_animal/hostile/retaliate/rogue/sandworm/wormling = 5,
+		/mob/living/simple_animal/hostile/retaliate/rogue/sandworm/stalker = 15,
+		/mob/living/simple_animal/hostile/retaliate/rogue/antlion = 15,
+	)
+
+	preferred_tracks = list(
+		/mob/living/simple_animal/hostile/retaliate/rogue/hyena = "canine",
+		/mob/living/simple_animal/hostile/retaliate/rogue/sandworm/wormling = "small",
+		/mob/living/simple_animal/hostile/retaliate/rogue/sandworm/stalker = "small",
+		/mob/living/simple_animal/hostile/retaliate/rogue/antlion = "small",
+	)
+
+	preferred_areas = list(
+		/area/rogue/outdoors/desert = 100,
+		/area/rogue/outdoors/desert/river = 50,
+		/area/rogue/outdoors/desert/dunepassage = 100,
+		/area/rogue/outdoors/desertdeep/arenavillage = 50
+	)
+
+/datum/hunting_category/desertdeepdunes //Amazing a single category just for these things for now
+	name = "Deep Dunes Game"
+	skill_weights = list(0, 5, 20, 50, 100, 120, 150)
+	bonus_animal_amount = 8
+	animals = list(
+		/mob/living/simple_animal/hostile/retaliate/rogue/sandworm/elder = 20
+	)
+
+	preferred_tracks = list(
+		/mob/living/simple_animal/hostile/retaliate/rogue/sandworm/elder = "small"
+	)
+
+	preferred_areas = list(
+		/area/rogue/outdoors/desertdeep = 100,
+	)
+//End Caustic Edit
+
 // HUNTING MAP PREFERRED CATEGORIES
 
 /datum/hunting_category/white_stag

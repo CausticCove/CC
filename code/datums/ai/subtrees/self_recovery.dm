@@ -17,6 +17,13 @@
 	//And not in some enviro that will tick damage
 	if((pawn.doing) || (pawn.get_bleed_rate() == 0) || (pawn.getBruteLoss() == 0) || (!cur_turf.can_traverse_safely(pawn)))
 		return
+
+	//Caustic Edit - Stop SimpleMobs healing while mid-combat
+	var/atom/target = controller.blackboard[BB_TARGETTING_DATUM]
+	if(target)
+		return
+	//Caustic Edit End
+
 	controller.queue_behavior(behavior, heal_message, bleed_clot, brute_heal)
 
 	return SUBTREE_RETURN_FINISH_PLANNING //we are going to heal...no distractions.

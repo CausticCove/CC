@@ -9,6 +9,7 @@
 	lefthand_file = null // No in-hand sprites (for now, anyway, we could totally add some)
 	righthand_file = null
 	pixel_y = 0		  // Override value from parent.
+	species_exception = ALL_RACES_TYPES //This should allow all species in this list to still equip micro players, even if Taur? I think? Gnolls are not included in this list I noticed but... Maybe for now it's alright.
 
 /*/obj/item/holder/micro/Initialize(mapload, mob/held) //This might not be needed, it was for handling Teshari before on Chomp
 	. = ..()

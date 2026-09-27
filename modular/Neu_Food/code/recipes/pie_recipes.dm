@@ -74,8 +74,8 @@
 	restricted_message = "You lack knowledge of underdark delicacies!"
 	hidden = TRUE
 
-/datum/food_recipe/pie/spider/user_can_make(mob/user)
-	return isdarkelf(user)
+///datum/food_recipe/pie/spider/user_can_make(mob/user) //Caustic Edit - Let my people ... Spider Pie, I guess?
+//	return isdarkelf(user)
 
 /datum/food_recipe/pie/pumpkin
 	name = "pumpkin pie"

@@ -2,7 +2,7 @@
 	i_type = "Engineering"
 	appro_skill = /datum/skill/craft/engineering
 	craftdiff = 1
-	
+
 //--------- TIN RECIPES -----------
 
 /datum/anvil_recipe/engineering/nails
@@ -95,7 +95,7 @@
 /datum/anvil_recipe/engineering/bronze/wrench
 	name = "Engineering Wrench (+1 Gear)"
 	req_bar = /obj/item/ingot/bronze
-	created_item = /obj/item/contraption/linker
+	created_item = /obj/item/rogueweapon/contraption/linker
 	additional_items = list(/obj/item/roguegear)
 	createditem_num = 1
 	craftdiff = 0
@@ -190,28 +190,28 @@
 	name = "Auto Shears (+1 Bronze Ingot, +1 Gear)"
 	req_bar = /obj/item/ingot/bronze
 	additional_items = list(/obj/item/ingot/bronze, /obj/item/roguegear)
-	created_item = /obj/item/contraption/shears
+	created_item = /obj/item/rogueweapon/contraption/shears
 	craftdiff = 4
 
 /datum/anvil_recipe/engineering/bronze/metalizer
 	name = "Wood Metalizer (+2 Gears)"
 	req_bar= /obj/item/ingot/bronze
 	additional_items = list( /obj/item/roguegear, /obj/item/roguegear)
-	created_item = /obj/item/contraption/wood_metalizer
+	created_item = /obj/item/rogueweapon/contraption/wood_metalizer
 	craftdiff = 4
 
 /datum/anvil_recipe/engineering/bronze/lockimprover
 	name = "Lock Improver (1 bronze, +1 cog)"
 	req_bar = /obj/item/ingot/bronze
 	additional_items = list(/obj/item/ingot/bronze, /obj/item/roguegear)
-	created_item = /obj/item/contraption/lock_imprinter
+	created_item = /obj/item/rogueweapon/contraption/lock_imprinter
 	craftdiff = 4
 
 /datum/anvil_recipe/engineering/bronze/tools/drill
 	name = "Clockwork Drill (+1 iron, +1 cog, +1 Wooden Plank)"
 	req_bar = /obj/item/ingot/bronze
 	additional_items = list(/obj/item/ingot/iron, /obj/item/roguegear, /obj/item/natural/wood/plank)
-	created_item = /obj/item/contraption/pick/drill
+	created_item = /obj/item/rogueweapon/contraption/pick/drill
 	craftdiff = 4
 
 //------------Mechanized Quivers ----------------
@@ -245,28 +245,28 @@
 	name = "bronze prosthetic (+2 Gears)"
 	req_bar = /obj/item/ingot/bronze
 	additional_items = list(/obj/item/roguegear, /obj/item/roguegear)
-	created_item = /obj/item/contraption/bronzeprosthetic
+	created_item = /obj/item/rogueweapon/contraption/bronzeprosthetic
 	craftdiff = 4
 
 /datum/anvil_recipe/engineering/bronze/prosthetic/ironprosthetic
 	name = "iron prosthetic (+2 Gears)"
 	req_bar = /obj/item/ingot/iron
 	additional_items = list(/obj/item/roguegear, /obj/item/roguegear)
-	created_item = /obj/item/contraption/ironprosthetic
+	created_item = /obj/item/rogueweapon/contraption/ironprosthetic
 	craftdiff = 4
 
 /datum/anvil_recipe/engineering/bronze/prosthetic/steelprosthetic
 	name = "steel prosthetic (+2 Gears)"
 	req_bar = /obj/item/ingot/steel
 	additional_items = list(/obj/item/roguegear, /obj/item/roguegear)
-	created_item = /obj/item/contraption/steelprosthetic
+	created_item = /obj/item/rogueweapon/contraption/steelprosthetic
 	craftdiff = 4
 
 /datum/anvil_recipe/engineering/bronze/prosthetic/goldprosthetic
 	name = "gold prosthetic (+2 Gears)"
 	req_bar = /obj/item/ingot/gold
 	additional_items = list(/obj/item/roguegear, /obj/item/roguegear)
-	created_item = /obj/item/contraption/goldprosthetic
+	created_item = /obj/item/rogueweapon/contraption/goldprosthetic
 	craftdiff = 4
 
 // ------------ Rings ----------------

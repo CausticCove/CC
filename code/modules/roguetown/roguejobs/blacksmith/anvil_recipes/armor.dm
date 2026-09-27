@@ -628,14 +628,7 @@
 /datum/anvil_recipe/armor/iron/maskmaille
 	name = "maille mask, iron"
 	req_bar = /obj/item/ingot/iron
-	created_item = /obj/item/clothing/mask/rogue/mailleiron
-	display_category = ITEM_CAT_ARMOR_MASKS
-	createditem_num = 1
-
-/datum/anvil_recipe/armor/iron/maskmaillefluted
-	name = "maille mask, iron"
-	req_bar = /obj/item/ingot/iron
-	created_item = /obj/item/clothing/mask/rogue/flutedmailleiron
+	created_item = /obj/item/clothing/mask/rogue/facemask/maille
 	display_category = ITEM_CAT_ARMOR_MASKS
 	createditem_num = 1
 
@@ -644,13 +637,6 @@
 	req_bar = /obj/item/ingot/iron
 	req_blade = /obj/item/blade/iron_plate
 	created_item = /obj/item/clothing/mask/rogue/wildguard
-	createditem_num = 1
-
-/datum/anvil_recipe/armor/iron/maskmaillefluted
-	name = "Maille Mask, Iron"
-	req_bar = /obj/item/ingot/iron
-	created_item = /obj/item/clothing/mask/rogue/flutedmailleiron
-	display_category = ITEM_CAT_ARMOR_MASKS
 	createditem_num = 1
 
 
@@ -1672,14 +1658,14 @@
 /datum/anvil_recipe/armor/steel/maillemask
 	name = "Maille Mask, Steel"
 	req_bar = /obj/item/ingot/steel
-	created_item = /obj/item/clothing/mask/rogue/maillesteel
+	created_item = /obj/item/clothing/mask/rogue/facemask/steel/maille
 	display_category = ITEM_CAT_ARMOR_MASKS
 	createditem_num = 1
 
 /datum/anvil_recipe/armor/steel/maillemask
 	name = "Fluted Maille Mask, Steel"
 	req_bar = /obj/item/ingot/steel
-	created_item = /obj/item/clothing/mask/rogue/flutedsteelmaille
+	created_item = /obj/item/clothing/mask/rogue/facemask/steel/maille/fluted
 	display_category = ITEM_CAT_ARMOR_MASKS
 	createditem_num = 1
 

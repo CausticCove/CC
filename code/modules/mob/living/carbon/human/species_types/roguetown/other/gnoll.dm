@@ -32,7 +32,6 @@
 		TRAIT_NOSTINK,
 		TRAIT_NASTY_EATER,
 		TRAIT_ORGAN_EATER,
-		TRAIT_BREADY,
 		TRAIT_STEELHEARTED,
 		TRAIT_BASHDOORS,
 		TRAIT_ZJUMP,
@@ -42,10 +41,13 @@
 		TRAIT_HERESIARCH, //Just because I'm putting their spawns here, that's all.
 		TRAIT_ZURCH,
 		TRAIT_UNLYCKERABLE, //Just stop
-		TRAIT_MASTERFUL_HUNTER
+		TRAIT_NOWW,
+		TRAIT_MASTERFUL_HUNTER,
+		TRAIT_TOUGH_COOKIE,
+		TRAIT_BLOOD_RESISTANCE,
 	)
 	inherent_biotypes = MOB_HUMANOID
-	no_equip = list(SLOT_SHIRT, SLOT_HEAD, SLOT_WEAR_MASK, SLOT_ARMOR, SLOT_GLOVES, SLOT_SHOES, SLOT_PANTS, SLOT_CLOAK, SLOT_BELT, SLOT_BACK_L, SLOT_S_STORE)
+	no_equip = list(SLOT_SHIRT, SLOT_HEAD, SLOT_WEAR_MASK, SLOT_ARMOR, SLOT_GLOVES, SLOT_SHOES, SLOT_PANTS, SLOT_CLOAK, SLOT_BELT, SLOT_BACK_L, SLOT_BACK_R, SLOT_S_STORE) //Caustic Edit - Add in the Slot Back R to go with the Species Exception on the Gnoll Satchel
 	nojumpsuit = 1
 	sexes = 1
 	offset_features = list(OFFSET_HANDS = list(0,2), OFFSET_HANDS_F = list(0,2))
@@ -62,6 +64,7 @@
 		ORGAN_SLOT_LIVER = /obj/item/organ/liver,
 		ORGAN_SLOT_STOMACH = /obj/item/organ/stomach,
 		ORGAN_SLOT_APPENDIX = /obj/item/organ/appendix,
+		ORGAN_SLOT_GUTS = /obj/item/organ/guts,
 		)
 	languages = list(
 		/datum/language/common,
@@ -84,7 +87,6 @@
 
 /datum/species/gnoll/on_species_gain(mob/living/carbon/C, datum/species/old_species)
 	. = ..()
-	RegisterSignal(C, COMSIG_MOB_SAY, PROC_REF(handle_speech))
 	C.icon_state = "firepelt"
 	C.base_pixel_x = -8
 	C.pixel_x = -8

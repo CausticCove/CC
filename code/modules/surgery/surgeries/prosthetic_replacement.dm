@@ -18,7 +18,7 @@
 /datum/surgery_step/add_taur
 	name = "Implant taur"
 	implements = list(
-		/obj/item/bodypart/taur = 80, 
+		/obj/item/bodypart/taur = 80,
 	)
 	target_mobtypes = list(/mob/living/carbon/human, /mob/living/carbon/monkey)
 	time = 3 SECONDS
@@ -32,7 +32,7 @@
 /datum/surgery_step/add_taur/validate_bodypart(mob/user, mob/living/carbon/target, obj/item/bodypart/bodypart, target_zone)
 	var/obj/item/bodypart/left_leg = target.get_bodypart(BODY_ZONE_L_LEG)
 	var/obj/item/bodypart/right_leg = target.get_bodypart(BODY_ZONE_R_LEG)
-	
+
 	// This already covers the taur case because both will be the taur tail
 	if(left_leg || right_leg)
 		return FALSE
@@ -42,10 +42,7 @@
 /datum/surgery_step/add_taur/preop(mob/user, mob/living/target, target_zone, obj/item/bodypart/taur/bodypart, datum/intent/intent)
 	target_zone = BODY_ZONE_TAUR
 
-	if(ismonkey(target) && bodypart.animal_origin != MONKEY_BODYPART)
-		to_chat(user, span_warning("[bodypart] doesn't match the patient's morphology."))
-		return FALSE
-	else if(bodypart.animal_origin)
+	if(bodypart.animal_origin)
 		to_chat(user, span_warning("[bodypart] doesn't match the patient's morphology."))
 		return FALSE
 
@@ -98,10 +95,7 @@
 
 /datum/surgery_step/add_prosthetic/preop(mob/user, mob/living/target, target_zone, obj/item/tool, datum/intent/intent)
 	var/obj/item/bodypart/bodypart = tool
-	if(ismonkey(target) && bodypart.animal_origin != MONKEY_BODYPART)
-		to_chat(user, span_warning("[bodypart] doesn't match the patient's morphology."))
-		return FALSE
-	else if(bodypart.animal_origin)
+	if(bodypart.animal_origin)
 		to_chat(user, span_warning("[bodypart] doesn't match the patient's morphology."))
 		return FALSE
 

@@ -12,10 +12,11 @@
 	spookynight = SPOOKY_GEN
 	ambush_times = list("night")
 	ambush_mobs = list(
+				/mob/living/simple_animal/hostile/retaliate/rogue/sandworm/stalker = 10,
 				/mob/living/simple_animal/hostile/retaliate/rogue/badger = 10,
-				/mob/living/simple_animal/hostile/retaliate/rogue/raccoon = 25,
+				/mob/living/simple_animal/hostile/retaliate/rogue/sandworm/wormling = 25,
 				/mob/living/simple_animal/hostile/retaliate/rogue/bobcat = 20,
-				/mob/living/simple_animal/hostile/retaliate/rogue/wolf = 30,
+				/mob/living/simple_animal/hostile/retaliate/rogue/wolf = 20,
 				/mob/living/simple_animal/hostile/retaliate/rogue/fox = 30,
 				/mob/living/carbon/human/species/skeleton/npc/supereasy = 30)
 	first_time_text = "Al-Ashur Dunes"
@@ -25,7 +26,8 @@
 	deathsight_message = "somewhere in the dunes, next to towering walls"
 	warden_area = TRUE
 	threat_region = THREAT_REGION_INNER_DUNES
-	
+	allow_extreme_weather = TRUE
+
 /area/rogue/outdoors/desert/river
 	name = "River"
 	icon_state = "river"
@@ -34,6 +36,27 @@
 	spookysounds = SPOOKY_FROG
 	spookynight = SPOOKY_FOREST
 	threat_region = THREAT_REGION_FRESH_RIVER
+
+/area/rogue/outdoors/desert/oasis
+	name = "Oasis"
+	first_time_text = "Forgotten Oasis"
+	icon_state = "river"
+	ambientsounds = AMB_RIVERDAY
+	ambientnight = AMB_RIVERNIGHT
+	spookysounds = SPOOKY_FROG
+	spookynight = SPOOKY_FOREST
+
+/area/rogue/outdoors/desert/mirage
+	name = "Fleeting Repose"
+	first_time_text = "Fleeting Repose"
+	icon_state = ""
+	ambientsounds = AMB_TOWNDAY
+	ambientnight = AMB_TOWNNIGHT
+	spookysounds = SPOOKY_GEN
+	spookynight = SPOOKY_GEN
+	droning_sound = 'sound/newmusic/lovecraft2.ogg'
+	droning_sound_dusk = 'sound/newmusic/lovecraft2.ogg'
+	droning_sound_night = 'sound/newmusic/lovecraft2.ogg'
 
 //Deep Dunes Area
 /area/rogue/outdoors/desertdeep
@@ -48,20 +71,21 @@
 	droning_sound = 'sound/music/area/desert/Iberia1.ogg'
 	droning_sound_dusk = 'sound/music/area/desert/NightPrayer.ogg'
 	droning_sound_night = 'sound/music/area/desert/Moonrise.ogg'
-	ambush_times = list("night","dawn","dusk","day")	
+	ambush_times = list("night","dawn","dusk","day")
 	ambush_mobs = list(
-		/mob/living/carbon/human/species/skeleton/npc/ambush = 30,
-		/mob/living/simple_animal/hostile/retaliate/rogue/bigrat = 60,
-		///mob/living/simple_animal/hostile/retaliate/rogue/spider/rock = 30,
-		/mob/living/carbon/human/species/goblin/npc/ambush/cave = 50,
-		/mob/living/simple_animal/hostile/retaliate/rogue/troll/bog = 15,
-		/mob/living/carbon/human/species/skeleton/npc/bogguard = 10,
-		///mob/living/carbon/human/species/skeleton/npc/rockhill = 15,
-		/mob/living/simple_animal/hostile/retaliate/rogue/wolf = 20,
+		new /datum/ambush_config/dunewell_raider = 60,
+		new /datum/ambush_config/antlion_party = 30,
+		new /datum/ambush_config/lamia_party = 30,
+		new /datum/ambush_config/dunewell_raider/hard = 20,
+		new /datum/ambush_config/worm_hatchling_party = 30,
+		/mob/living/simple_animal/hostile/retaliate/rogue/sandworm/stalker = 40,
+		/mob/living/simple_animal/hostile/retaliate/rogue/sandworm/elder = 20,
+		/mob/living/simple_animal/hostile/retaliate/rogue/ifrit = 20,
 		/mob/living/simple_animal/hostile/retaliate/rogue/wolf_undead = 10,)
 	converted_type = /area/rogue/indoors/shelter/desertdeep
 	deathsight_message = "an empty, parched desert"
 	threat_region = THREAT_REGION_DEEP_DUNES
+	allow_extreme_weather = TRUE
 
 /area/rogue/indoors/shelter/desertdeep
 	name = "Deep Desert (shelter)"
@@ -78,6 +102,7 @@
 	first_time_text = null
 	ambush_times = null
 	ambush_mobs = null
+	allow_extreme_weather = FALSE
 
 /area/rogue/outdoors/desert/above
 	name = "Desert Above"
@@ -87,13 +112,28 @@
 	first_time_text = null
 	ambush_times = null
 	ambush_mobs = null
+	allow_extreme_weather = FALSE
 
-/area/rogue/outdoors/desertdeep/coastal 
+/area/rogue/outdoors/desertdeep/coastal
 	name = "Coastal Inlet"
-	first_time_text = null 
-	ambush_times = null 
-	ambush_mobs = null 
+	first_time_text = null
+	ambush_times = null
+	ambush_mobs = null
 	deathsight_message = "along a small coastal space"
+	allow_extreme_weather = FALSE
+
+/area/rogue/outdoors/desertdeep/arenavillage
+	name = "Desert Claimed Village"
+	first_time_text = "The Sand Claimed Village"
+	deathsight_message = "a sand claimed village"
+
+/area/rogue/outdoors/desertdeep/colosseum
+	name = "Ruined Colosseum"
+	first_time_text = "Decrepit Colosseum"
+	deathsight_message = "a decrepit arena in the dunes"
+	ambush_times = "null"
+	ambush_mobs = "null"
+	allow_extreme_weather = FALSE
 
 /area/rogue/outdoors/desert/dunepassage
 	name = "Dunelords Pass"
@@ -159,7 +199,7 @@
 	converted_type = /area/rogue/outdoors/exposed/town
 	town_area = TRUE
 	deathsight_message = "the city of Al-Ashur and all its bustling souls"
-	
+
 /area/rogue/indoors/town/shop/desert
 	name = "Bazaar"
 	droning_sound = 'sound/music/area/desert/Caravan.ogg'
@@ -249,7 +289,7 @@
 //University Areas (Also considered Keep)
 /area/rogue/indoors/town/magician/desert
 	name = "University Wizard's Tower"
-	
+
 /area/rogue/indoors/town/magician/desertacademy
 	name = "University Academy"
 	droning_sound = 'sound/music/area/academy.ogg'
@@ -262,7 +302,7 @@
 	droning_sound = 'sound/music/area/desert/DarMeshq.ogg'
 	droning_sound_dusk = null
 	droning_sound_night = null
-	
+
 /area/rogue/indoors/town/garrison/desert/cell
 	name = "Dungeon Cell"
 	icon_state = "cell"
@@ -318,6 +358,7 @@
 	name = "Desert Pass"
 	ambush_times = null
 	ambush_mobs = null
+	allow_extreme_weather = FALSE
 
 //Unique quest area for the Town Indoor quest locations.
 /area/rogue/indoors/town/desert/quest
@@ -365,7 +406,7 @@
 	threat_region = THREAT_REGION_DESERT_TOWN_CAVES
 
 // Desert Underdark Area, If its not part of the WasteMire, use this area
-/area/rogue/under/desertunderdark 
+/area/rogue/under/desertunderdark
 	name = "The Underdark"
 	icon_state = "cavewet"
 	warden_area = FALSE
@@ -400,12 +441,14 @@
 	deathsight_message = "dark roads under the sands"
 
 /area/rogue/under/desertunderdark/pyramid
-	name = "The Condemned Pyramid"	
+	name = "The Condemned Pyramid"
 	icon_state = "basement"
-	ambush_times = null 
+	ambush_times = null
 	ambush_mobs = null
 	first_time_text = "The Condemned Pyramid"
 	deathsight_message = "a sunken pyramid"
+	droning_sound = 'sound/music/area/tombs.ogg'
+	ceiling_protected = TRUE
 
 //Desert Towns Bog Biome, shares Threat Region with rest of Underdark. Hag gets notified of people in this area.
 /area/rogue/under/desertbog
@@ -457,7 +500,7 @@
 
 	if(L in GLOB.active_hags)
 		return
-	
+
 	GLOB.bogged_players += L.real_name
 
 	if(recent_intruders[L] && recent_intruders[L] > world.time)
@@ -513,7 +556,7 @@
 /area/rogue/under/desertcaldera/upper
 	name = "Upper Caldera Pass"
 
-/area/rogue/under/desertcaldera/middle 
+/area/rogue/under/desertcaldera/middle
 	name = "Middle Caldera Pass"
 	drow_area = TRUE
 
@@ -526,8 +569,8 @@
 	first_time_text = "Outlaws Retreat"
 	drow_area = TRUE
 	ceiling_protected = TRUE
-	ambush_times = null 
-	ambush_mobs = null 
+	ambush_times = null
+	ambush_mobs = null
 	deathsight_message = "an outlaws paradise, along a caldera ridge"
 
 // CC - Dungeon or special area Additions
@@ -535,34 +578,71 @@
 	name = "Labyrinth of Penance"
 	loot_budget = LOOT_BUDGET_DESERTMINOMAZE
 	droning_sound = 'sound/music/area/prospector.ogg'
-	droning_sound_dusk = null 
-	droning_sound_night = null 
+	droning_sound_dusk = null
+	droning_sound_night = null
 	first_time_text = "The Labyrinth of Penance"
-	ambush_times = null 
-	ambush_mobs = null 
+	ambush_times = null
+	ambush_mobs = null
 	deathsight_message = "a maze of the unredeemed"
+	ceiling_protected = TRUE
 
 /area/rogue/under/cave/dunelord
 	name = "Dunelords Hideout"
 	first_time_text = "Dunelords Hideout"
-	ambush_times = null 
-	ambush_mobs = null 
+	ambush_times = null
+	ambush_mobs = null
 	deathsight_message = "the dunelords retreat"
 
 /area/rogue/under/cave/deserthotsprings
 	name = "Abandoned Hotsprings"
 	icon_state = "eora"
 	first_time_text = "Abandoned Hotsprings"
-	ambush_times = null 
-	ambush_mobs = null 
+	ambush_times = null
+	ambush_mobs = null
 	soundenv = 6
 	droning_sound = 'sound/newmusic/lovecraft2.ogg'
 	droning_sound_dusk = 'sound/newmusic/lovecraft2.ogg'
 	droning_sound_night = 'sound/newmusic/lovecraft2.ogg'
 	deathsight_message = "an abandoned hotspring under the sands"
 
+/area/rogue/under/cave/ifritdigsite
+	name = "The Digsite"
+	icon_state = "under"
+	first_time_text = "The Digsite"
+	droning_sound = 'sound/music/area/tombs.ogg'
+	droning_sound_dusk = null
+	droning_sound_night = null
+	ambush_times = null
+	ambush_mobs = null
+	deathsight_message = "a disturbed lair of spirits and flames, all dancing angrily"
+	ceiling_protected = TRUE
+
+/area/rogue/under/cave/ifritbossarena
+	name = "The Matriarch Arena"
+	icon_state = "under"
+	first_time_text = "The Matriarch"
+	droning_sound = 'sound/music/area/tombs.ogg'
+	droning_sound_dusk = null
+	droning_sound_night = null
+	ambush_times = null
+	ambush_mobs = null
+	deathsight_message = "within the disturbed matriarchs chamber"
+	ceiling_protected = TRUE
+
+/area/rogue/under/cave/bizbaz
+	name = "Bizzare Bazaar"
+	icon_state = "under"
+	first_time_text = "BIZZARE BAZAAR"
+	droning_sound = 'sound/music/area/desert/freedive_2.ogg'
+	droning_sound_dusk = null
+	droning_sound_night = null
+	ambush_times = null
+	ambush_mobs = null
+	deathsight_message = "a bizzare enclave of violent faces, and violent deals"
+	ceiling_protected = TRUE
+
 // desert_wretch_oasis Special Areas. Bandit zone uses areas earlier in code
-/area/rogue/indoors/vampire_manor/desert 
+/area/rogue/indoors/vampire_manor/desert
 	name = "Vampire Hideaway"
 	first_time_text = "Vampire Hideaway"
 	deathsight_message = "a sunless hideaway"
@@ -573,7 +653,18 @@
 
 /area/rogue/outdoors/desertdeep/wretch_lair
 	name = "Wretched Oasis"
-	ambush_times = null 
-	ambush_mobs = null 
+	ambush_times = null
+	ambush_mobs = null
 	deathsight_message = "a paradise under a wretched presence"
 
+/area/rogue/under/dungeon/bizbaz
+	name = "Bizzare Bazaar"
+	icon_state = "under"
+	first_time_text = "BIZZARE BAZAAR"
+	droning_sound = 'sound/music/area/desert/freedive_2.ogg'
+
+/area/rogue/under/dungeon/desert_pyramid
+	name = "pyramid"
+	icon_state = "under"
+	first_time_text = "Tomb of the Ancient"
+	droning_sound = 'sound/music/area/tombs.ogg'

@@ -1,12 +1,12 @@
 //Speech verbs.
 
 
-//Because of how classic keys work, we need to use a custom verb to show the typing indicator. 
+//Because of how classic keys work, we need to use a custom verb to show the typing indicator.
 //Otherwise when you press enter, it will open up the input box.
 /mob/verb/say_typing_indicator()
 	set name = "say_indicator"
 	set hidden = TRUE
-	
+
 	display_typing_indicator()
 	var/message = input(usr, "", "say") as text|null
 	// If they don't type anything just drop the message.
@@ -142,12 +142,12 @@
 	var/key = copytext_char(message, 1, 2)
 	if(key == "$" || (forced_psay && absorbed)) //Caustic Edit - Account for the absorbed and muffled effects from vorestuffs. Muffled forces a whisper! Psay is limited to absorbed mobs and the pred!
 		return MODE_PSAY
-	else if(key == "#" || muffled) 
+	else if(key == "#" || muffled)
 		return MODE_WHISPER //Caustic Edit End
 	else if(key == ";")
 		return MODE_HEADSET
 	else if(key == "%")
 		return MODE_SING
 	else if(length(message) > 2 && (key in GLOB.department_radio_prefixes))
-		var/key_symbol = lowertext(copytext_char(message, 2, 3))
+		var/key_symbol = LOWER_TEXT(copytext_char(message, 2, 3))
 		return GLOB.department_radio_keys[key_symbol]

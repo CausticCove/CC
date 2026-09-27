@@ -253,11 +253,11 @@
 		change_who_we_speak_to(hand, victim, caster)
 	else //Default to normal otherwise.
 		use_devotion = send_message(hand, victim, caster)
-		
+
 	if(use_devotion)
 		H.devotion?.update_devotion(-SPELLCOST_MIRACLE_MINOR)
 		StartCooldown()
-	
+
 	return use_devotion
 
 /datum/action/cooldown/spell/touch/orison/proc/send_message(obj/item/melee/new_touch_attack/hand, atom/victim, mob/living/carbon/caster, patron_link, adjust_hearing) //thaumaturgy(thing, mob/living/carbon/human/user, patron_link, adjust_hearing)
@@ -282,7 +282,7 @@
 
 	if((victim == caster) && patron_link)
 		caster.visible_message(span_notice("[caster] raises [caster.p_their()] head high, hushed prayers spilling from [caster.p_their()] lips..."), span_notice("O holy [caster.patron.name], may you allow me to speak through you to other disciples..."))
-		
+
 		if (!caster.has_status_effect(/datum/status_effect/thaumaturgical_communication))
 			if (do_after(caster, cast_time, target = caster))
 				caster.apply_status_effect(/datum/status_effect/thaumaturgical_communication, speaking_to)
@@ -295,7 +295,7 @@
 	if (victim == caster)
 		// give us a buff that makes our next spoken thing really loud and also cause any linked, un-muted scom to shriek out the phrase at a 15% chance
 		caster.visible_message(span_notice("[caster] lowers [caster.p_their()] head solemnly, whispered prayers spilling from [caster.p_their()] lips..."), span_notice("O holy [caster.patron.name], share unto me a sliver of your power..."))
-		
+
 		if (!caster.has_status_effect(/datum/status_effect/thaumaturgy))
 			if (do_after(caster, cast_time, target = caster))
 				caster.apply_status_effect(/datum/status_effect/thaumaturgy, holy_skill)
@@ -305,7 +305,7 @@
 			to_chat(caster, span_notice("I'm already empowered with divine thaumaturgy!"))
 			return
 	else
-		// make a light source flicker, and others around it within a radius	
+		// make a light source flicker, and others around it within a radius
 		if (istype(victim, /obj/machinery/light) || istype(victim, /obj/item/flashlight))
 			for (var/obj/maybe_light in view(3 + holy_skill, victim))
 				if (istype(maybe_light, /obj/machinery/light))
@@ -367,12 +367,12 @@
 			speaking_to = SPEAKING_TO_SAME_PATRONS_ONLY
 			to_chat(caster, span_notice("I will now only speak to disciples who worship the same patron as I."))
 			return
-			
+
 	if(speaking_to == SPEAKING_TO_CHURCH_ONLY || speaking_to == SPEAKING_TO_ASCENDANTS_ONLY)
 		speaking_to = SPEAKING_TO_SAME_PATRONS_ONLY
 		to_chat(caster, span_notice("I will now only speak to disciples who worship the same patron as I."))
 		return
-	
+
 	if(speaking_to == SPEAKING_TO_SAME_PATRONS_ONLY)
 		speaking_to = SPEAKING_TO_ALL
 		to_chat(caster, span_notice("I will now speak to everyone who can listen."))
@@ -413,7 +413,7 @@
 /datum/reagent/water/blessed/reaction_mob(mob/living/M, method=TOUCH, reac_volume)
 	if (!istype(M))
 		return ..()
-	
+
 	if (method == TOUCH)
 		if (M.mob_biotypes & MOB_UNDEAD)
 			M.adjustFireLoss(2*reac_volume, 0)
@@ -460,6 +460,7 @@
 	metabolization_rate = REAGENTS_METABOLISM
 
 /datum/reagent/water/medicine/on_mob_life(mob/living/carbon/M)
+	..() //CC Edit; I was told this makes it work like real water
 	if(volume >= 50)
 		M.reagents.remove_reagent(/datum/reagent/water/medicine, 2) // no more than 1 large bottle at a time
 	if(volume > 0.99)
@@ -484,7 +485,7 @@
 		if (victim.reagents.holder_full())
 			to_chat(caster, span_warning("[victim] is full."))
 			return
-		
+
 		caster.visible_message(span_info("[caster] closes [caster.p_their()] eyes in prayer and extends a hand over [victim] as water begins to stream from [caster.p_their()] fingertips..."), span_notice("I utter forth a plea to [caster.patron.name] for succour, and hold my hand out above [victim]..."))
 
 		var/holy_skill = caster.get_skill_level(/datum/skill/magic/holy)
@@ -511,7 +512,7 @@
 
 			if (prob(80))
 				playsound(caster, 'sound/items/fillcup.ogg', 55, TRUE)
-		
+
 		return min(50, fatigue_spent)
 	else if (istype(victim, /obj/item/natural/cloth))
 		// stupid little easter egg here: you can dampen a cloth to clean with it, because prestidigitation also lets you clean things. also a lot cheaper devotion-wise than filling a bucket
@@ -551,7 +552,7 @@
 	if(!victim.Adjacent(caster))
 		to_chat(caster, span_info("I need to be next to [victim] to bless it!"))
 		return
-	
+
 	if(victim == caster)
 		to_chat(caster, span_info("I already can feel the gaze of [caster.patron.name] on me. I don't need a minor blessing."))
 		return
@@ -563,7 +564,7 @@
 
 	if(!do_after(caster, cast_time, target = victim))
 		return
-	
+
 	if(!isliving(victim))
 		caster.visible_message(span_notice("[caster] finishes their prayer, bestowing a minor blessing on [victim]."), span_notice("I can feel the blessing of [caster.patron.name]... [victim] is slightly sanctified."))
 	else

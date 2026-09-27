@@ -30,7 +30,7 @@
 	invocation_type = INVOCATION_SHOUT
 
 	charge_required = TRUE
-	weapon_cast_penalized = TRUE // Use it with an arcyne armament noob 
+	weapon_cast_penalized = TRUE // Use it with an arcyne armament noob
 	charge_time = CHARGETIME_MINOR
 	charge_swingdelay_type = SWINGDELAY_CANCEL
 	hold_drain = 1
@@ -64,12 +64,11 @@
 	range = 7 // Let you pressure a whole screen, in theory
 	icon = 'icons/obj/magic_projectiles.dmi'
 	icon_state = "stygian"
-	max_range = MAGE_MID_PROJ_RANGE // Effective range is lower than its maximal range
+	max_range = MAGE_LONG_PROJ_RANGE // Effective range is lower than its maximal range
 	damage = 34
 	damage_type = BRUTE
 	woundclass = BCLASS_STAB
 	armor_penetration = PEN_LIGHT
-	npc_simple_damage_mult = 1.5
 	speed = MAGE_PROJ_VERY_SLOW
 	flag = "stab"
 	hitsound = 'sound/combat/hits/bladed/genstab (1).ogg'

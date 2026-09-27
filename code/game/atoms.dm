@@ -48,13 +48,6 @@
 
 	var/voicecolor_override
 
-	///overlays that should remain on top and not normally removed when using cut_overlay functions, like c4.
-	var/list/priority_overlays
-	/// a very temporary list of overlays to remove
-	var/list/remove_overlays
-	/// a very temporary list of overlays to add
-	var/list/add_overlays
-
 	///vis overlays managed by SSvis_overlays to automaticaly turn them like other overlays
 	var/list/managed_vis_overlays
 	///overlays managed by update_overlays() to prevent removing overlays that weren't added by the same proc
@@ -180,7 +173,7 @@
 
 	if (opacity && isturf(loc))
 		var/turf/T = loc
-		T.has_opaque_atom = TRUE // No need to recalculate it in this case, it's guaranteed to be on afterwards anyways.
+		T.opaque_atom_count++
 
 	if (canSmoothWith)
 		canSmoothWith = typelist("canSmoothWith", canSmoothWith)
@@ -231,7 +224,6 @@
 	orbiters = null // The component is attached to us normaly and will be deleted elsewhere
 
 	LAZYCLEARLIST(overlays)
-	LAZYCLEARLIST(priority_overlays)
 
 	QDEL_NULL(light)
 	QDEL_NULL(ai_controller)
@@ -466,7 +458,7 @@
 						if (R.volume > 0)
 							if (full_reagents)
 								full_reagents += ", "
-							full_reagents += "[lowertext(R.name)]"
+							full_reagents += "[LOWER_TEXT(R.name)]"
 					. += span_notice("My expert nose lets me distinguish this liquid as [full_reagents].")
 
 	SEND_SIGNAL(src, COMSIG_PARENT_EXAMINE, user, .)
@@ -1287,7 +1279,7 @@
 /atom/proc/get_filter_index(name)
 	return filter_data?.Find(name)
 
-//Automatically turns based on nearby walls, destroys if not valid. 
+//Automatically turns based on nearby walls, destroys if not valid.
 /atom/proc/auto_turn_destructive()
 	var/turf/closed/T = null
 	var/gotdir = 0

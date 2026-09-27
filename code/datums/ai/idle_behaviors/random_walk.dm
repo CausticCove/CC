@@ -8,7 +8,7 @@
 		return
 
 	var/mob/living/simple_animal/simple_mob = controller.pawn
-	if(istype(simple_mob) && simple_mob.binded)
+	if(istype(simple_mob) && simple_mob.binded && !simple_mob.wander) //Caustic Edit - Let Simplemobs actually use the Wander Var they have :<
 		return FALSE
 	var/mob/living/wanderer = controller.pawn
 	if (wanderer.doing) //Doing something (like eating)
@@ -17,7 +17,7 @@
 		var/move_dir = pick(GLOB.alldirs)
 		var/turf/target_turf = get_step(wanderer, move_dir)
 		if(target_turf?.can_traverse_safely(wanderer))
-			step_towards(wanderer, target_turf, wanderer.cached_multiplicative_slowdown)
+			step_towards(wanderer, target_turf)
 
 /datum/idle_behavior/idle_random_walk/less_walking
 	walk_chance = 5

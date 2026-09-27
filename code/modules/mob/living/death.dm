@@ -173,14 +173,15 @@ GLOBAL_LIST_EMPTY(last_words)
 			if(!HAS_TRAIT(stresstarget, TRAIT_UNFORGIVABLE) && HAS_TRAIT(stresstarget, TRAIT_INQUISITION)) //Inquis get lesser stress
 				stresstarget.add_stress(/datum/stressevent/witnessvheslyninquis)
 				continue
-			for (var/mob/living/flame_victim in view(2, src))
-				flame_victim.adjust_fire_stacks(10, /datum/status_effect/fire_handler/fire_stacks/vheslyn) //Unique violet firestacks on nearby people.
+			for (var/mob/living/flame_victim in view(3, src))
+				flame_victim.adjust_fire_stacks(8, /datum/status_effect/fire_handler/fire_stacks/vheslyn) //Unique violet firestacks on nearby people.
 				flame_victim.ignite_mob()
 				if(!HAS_TRAIT(flame_victim, TRAIT_UNFORGIVABLE))
 					to_chat(flame_victim, span_userdanger("you are violently set ablaze in <b>unholy fire!</b>"))
 				else
 					to_chat(flame_victim, span_notice("you are set ablaze in <b>restoring fire!</b>"))
-		explosion(get_turf(src), heavy_impact_range = 1, light_impact_range = 2, flash_range = 2, smoke = FALSE, soundin = 'sound/misc/explode/incendiary (2).ogg')
+		explosion(get_turf(src), heavy_impact_range = 0, light_impact_range = 1, flash_range = 2, smoke = FALSE, soundin = 'sound/misc/explode/incendiary (2).ogg')
+		playsound(src, 'sound/magic/soulshot.ogg', 60, FALSE)
 		src.gib()
 
 	// AZURE EDIT BEGIN: necra acolyte/priest deathsight trait
@@ -207,6 +208,9 @@ GLOBAL_LIST_EMPTY(last_words)
 						to_chat(player, span_warning("I feel the faint passage of disjointed life essence as it flees [locale]."))
 					else
 						to_chat(player, span_warning("Veiled whispers herald the Undermaiden's gaze in my mind's eye as it turn towards [locale] for but a brief, singular moment."))
+					//CC Edit - Special SFX for deathsight.
+					playsound(player, 'modular_causticcove/sound/effects/deathsight_warning.ogg', 50)
+					//CC Edit End
 	// AZURE EDIT END
 
 	return TRUE

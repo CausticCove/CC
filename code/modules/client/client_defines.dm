@@ -11,11 +11,17 @@
 	var/datum/admins/holder = null
  	///Needs to implement InterceptClickOn(user,params,atom) proc
 	var/datum/click_intercept = null
+	///The game master panel this client currently has open
+	var/datum/game_master/game_master_menu
 	///Used for admin AI interaction
 	var/AI_Interact = FALSE
 
  	///Used to cache this client's bans to save on DB queries
 	var/ban_cache = null
+	///Caps the next file this client uploads to this many bytes
+	var/upload_limit
+	///Restricts the next file this client uploads to these extensions
+	var/list/upload_exts
  	///Contains the last message sent by this client - used to protect against copy-paste spamming.
 	var/last_message = ""
 	///contins a number of how many times a message identical to last_message was sent.
@@ -145,6 +151,8 @@
 	var/list/panel_tabs = list()
 	/// Signature of the last listed-turf contents sent, to skip redundant rebuilds.
 	var/listedturf_sig
+	var/listedturf_dirty = FALSE
+	var/list/listedturf_appearances
 	/// Whether the living-only Stats tab is currently shown in the statbrowser.
 	var/statbrowser_stats_shown = FALSE
 
@@ -154,7 +162,7 @@
 	var/rain_sound = FALSE
 	var/last_droning_sound
 	var/sound/droning_sound
-	
+
 	// List of all asset filenames sent to this client by the asset cache, along with their assoicated md5s
 	var/list/sent_assets = list()
 	/// List of all completed blocking send jobs awaiting acknowledgement by send_asset

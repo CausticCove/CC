@@ -7,9 +7,9 @@
 		/obj/item/dream_material/dream_spike = 3
 	)
 	reward_items = list(
-		/obj/item/dream_material/dream_seed = 1
+		/obj/item/dream_material/dream_seed = 5
 	)
-	invocation_phases  = list(
+	invocation_phases	= list(
 		"#Depth coral, bloom for us."
 	)
 
@@ -25,7 +25,7 @@
 		/obj/item/dream_material/dream_ring = 2
 	)
 	reward_items = list(
-		/obj/item/dream_material/dream_seed/fortune = 1
+		/obj/item/dream_material/dream_seed/fortune = 2
 	)
 	invocation_phases = list(
 		"#Depths full of lost fortunes, dredge up some treasures."
@@ -39,7 +39,7 @@
 		/obj/item/dream_material/dream_fishes = 2
 	)
 	reward_items = list(
-		/obj/item/dream_material/dream_seed/perception = 1
+		/obj/item/dream_material/dream_seed/perception = 2
 	)
 	invocation_phases = list(
 		"#Open eyes of the deep, see through the dark water."
@@ -53,7 +53,7 @@
 		/obj/item/dream_material/dream_effigy = 2
 	)
 	reward_items = list(
-		/obj/item/dream_material/dream_seed/sneaky = 1
+		/obj/item/dream_material/dream_seed/sneaky = 2
 	)
 	invocation_phases = list(
 		"#The abyss swallows light, leaving nothing behind."
@@ -67,7 +67,7 @@
 		/obj/item/dream_material/dream_star = 1
 	)
 	reward_items = list(
-		/obj/item/dream_material/dream_seed/strength = 1
+		/obj/item/dream_material/dream_seed/strength = 2
 	)
 	invocation_phases = list(
 		"#Crush them beneath the weight of ten thousand leagues."
@@ -81,10 +81,59 @@
 		/obj/item/dream_material/dream_shards = 1
 	)
 	reward_items = list(
-		/obj/item/dream_material/dream_seed/speed = 1
+		/obj/item/dream_material/dream_seed/speed = 2
 	)
 	invocation_phases = list(
 		"#Currents flow fast, rip through the waves like a phantom."
+	)
+
+/datum/abyssal_ritual/seed_transmutation/healing_geyser
+	name = "Transmute Seed of Healing Geyser"
+	desc = "Infuses a basic dream seed with vibrant dream spikes to create a seed that sprouts into a soothing geyser, mending wounds."
+	required_ingredients = list(
+		/obj/item/dream_material/dream_seed = 1,
+		/obj/item/dream_material/dream_spike = 2
+	)
+	reward_items = list(
+		/obj/item/dream_material/dream_seed/geyser/healing = 2
+	)
+	invocation_phases = list(
+		"#The depths heal the ripples of a broken surface.",
+		"#Abyssor's embrace mends bone and sinew.",
+		"#Mend us, oh calm current of the abyss."
+	)
+
+/datum/abyssal_ritual/seed_transmutation/invigorating_geyser
+	name = "Transmute Seed of Invigorating Geyser"
+	desc = "Infuses a basic dream seed with gleaming dream fishes and spikes to create a seed that sprouts into an invigorating geyser, restoring energy."
+	required_ingredients = list(
+		/obj/item/dream_material/dream_seed = 1,
+		/obj/item/dream_material/dream_fishes = 1,
+		/obj/item/dream_material/dream_spike = 1
+	)
+	reward_items = list(
+		/obj/item/dream_material/dream_seed/geyser/invigorating = 2
+	)
+	invocation_phases = list(
+		"#The tide refreshes the weary spirit.",
+		"#Let the current flow through the tired.",
+		"#Awaken, and pour refreshing drink into the gasping mouths of the parched."
+	)
+
+/datum/abyssal_ritual/seed_transmutation/spiked_geyser
+	name = "Transmute Seed of Spiked Geyser"
+	desc = "Infuses a basic dream seed with sharp dream shards to create a seed that sprouts into a spiked geyser, lashing out at anyone, but it harms those attuned to the paints less."
+	required_ingredients = list(
+		/obj/item/dream_material/dream_seed = 1,
+		/obj/item/dream_material/dream_shards = 1
+	)
+	reward_items = list(
+		/obj/item/dream_material/dream_seed/geyser/spiked = 3
+	)
+	invocation_phases = list(
+		"#The abyss churns with fury and pain.",
+		"#Let the sharpened rocks from the sea floor strike true.",
+		"#Rise, bitter torrent of the drowned and forgotten."
 	)
 
 /datum/abyssal_ritual/imagine_parchment
@@ -98,7 +147,7 @@
 	reward_items = list(
 		/obj/item/dream_material/parchment_raw = 3
 	)
-	invocation_phases  = list(
+	invocation_phases	= list(
 		"Abyssor, hwja'ajaba!",
 		"Iä! Iä! Abyssor fhtagn!"
 	)
@@ -151,11 +200,38 @@
 	reward_items = list(
 		/obj/item/dream_material/parchment_dream = 1
 	)
-	invocation_phases  = list(
+	invocation_phases	= list(
 		"Abyssor, hwja'ajaba!",
 		"Iä! Iä! Abyssor fhtagn!",
 		"The deep rises to my call!",
 		"By the salt and the tide, awaken!"
+	)
+
+/datum/abyssal_ritual/robes
+	name = "Paint robes (Sea Pattern)"
+	desc = "Offer up three simple undervestments to have the paints of the pool infuse them with a new look."
+	base_channel_time = 150
+	required_ingredients = list(
+		/obj/item/clothing/suit/roguetown/shirt/undershirt/priest = 3,
+		/obj/item/dream_material/parchment_raw = 3
+	)
+	reward_items = list(
+		/obj/item/clothing/suit/roguetown/shirt/robe/abyssor_painter_sea = 3,
+		/obj/item/clothing/head/roguetown/roguehood/abyssor_painter = 3
+	)
+	invocation_phases	= list(
+		"Paints swirl and swell.",
+		"Robes to paint anew three.",
+		"Abyssor brings new dreads upon the sands."
+	)
+
+/datum/abyssal_ritual/robes/rain
+	name = "Paint robes (Rain Pattern)"
+	desc = "Offer up three simple undervestments to have the paints of the pool infuse them with a new look."
+	base_channel_time = 150
+	reward_items = list(
+		/obj/item/clothing/suit/roguetown/shirt/robe/abyssor_painter_sea = 3,
+		/obj/item/clothing/head/roguetown/roguehood/abyssor_painter = 3
 	)
 
 /datum/abyssal_ritual/communal_viscosity
@@ -220,7 +296,7 @@
 	required_ingredients = list(
 		/obj/item/dream_material/dream_star = 1,
 		/obj/item/dream_material/dream_shards = 1,
-		/obj/item/dream_material/parchment_dream = 1
+		/obj/item/dream_material/parchment_gold = 1
 	)
 
 	invocation_phases = list(
@@ -287,5 +363,72 @@
 		var/mob/living/carbon/human/H = owner
 		H.remove_movespeed_modifier(MOVESPEED_ID_WATERLOG_SLOW)
 	return ..()
+
+/datum/abyssal_ritual/dream_knife
+	name = "Create Dream Knife"
+	desc = "Drags the sharped edges of Abyssor's dream into that of a knife's blade."
+	base_channel_time = 50
+
+	required_ingredients = list(
+		/obj/item/dream_material/dream_blade = 1,
+		/obj/item/rogueweapon/huntingknife = 1,
+
+	)
+	reward_items = list(
+		/obj/item/rogueweapon/huntingknife/paint = 1
+	)
+	invocation_phases	= list(
+		"#Cut through the silence."
+	)
+
+/datum/abyssal_ritual/create_paintbrush
+	name = "Create Sacred Paintbrush (Offense)"
+	desc = "Infuses a quarterstaff with the essence of the pool, transforming it into a sacred paintbrush capable of unleashing paint-imbued attacks."
+	base_channel_time = 80
+
+	required_ingredients = list(
+		/obj/item/rogueweapon/woodstaff/quarterstaff/steel = 1,
+		/obj/item/dream_material/dream_effigy = 1,
+		/obj/item/dream_material/dream_blade = 1
+	)
+	reward_items = list(
+		/obj/item/rogueweapon/woodstaff/quarterstaff/steel/paint = 1
+	)
+	invocation_phases = list(
+		"#Let the brush carve a path through the waking world.",
+		"#Simple tool, now a true implement of the faithful.",
+		"#Create a rift in their formations."
+	)
+
+/datum/abyssal_ritual/create_paintbrush/healing
+	name = "Create Sacred Paintbrush (Healing)"
+	desc = "Infuses a quarterstaff with restorative abyssal paints, creating a paintbrush that can mend wounds while still serving as a decent weapon."
+
+	reward_items = list(
+		/obj/item/rogueweapon/woodstaff/quarterstaff/steel/paint_heal = 1
+	)
+	invocation_phases = list(
+		"#Abyssor's touch brings salvation.",
+		"#By the tide, let pain recede.",
+		"#Heal the broken, strengthen the faithful."
+	)
+
+/datum/abyssal_ritual/abyssal_scrolls
+	name = "Create Abyssal Tongue Scrolls"
+	desc = "Infuses some imagined parchment."
+	base_channel_time = 80
+
+	required_ingredients = list(
+		/obj/item/dream_material/parchment_raw = 3,
+		/obj/item/dream_material/dream_effigy = 1
+	)
+	reward_items = list(
+		/obj/item/dream_material/parchment_abyssal = 3
+	)
+	invocation_phases = list(
+		"#At the bottom lie hidden truths.",
+		"#The ancient tongue from the distant past.",
+		"#Remember the words, honor the words."
+	)
 
 #undef MOVESPEED_ID_WATERLOG_SLOW

@@ -14,17 +14,17 @@
 /datum/trade_good/equipment/crafted/bronze_prosthetic
 	id = TRADE_GOOD_BRONZE_PROSTHETIC
 	name = "bronze prosthetic"
-	item_type = /obj/item/contraption/bronzeprosthetic
+	item_type = /obj/item/rogueweapon/contraption/bronzeprosthetic
 
 /datum/trade_good/equipment/crafted/iron_prosthetic
 	id = TRADE_GOOD_IRON_PROSTHETIC
 	name = "iron prosthetic"
-	item_type = /obj/item/contraption/ironprosthetic
+	item_type = /obj/item/rogueweapon/contraption/ironprosthetic
 
 /datum/trade_good/equipment/crafted/steel_prosthetic
 	id = TRADE_GOOD_STEEL_PROSTHETIC
 	name = "steel prosthetic"
-	item_type = /obj/item/contraption/steelprosthetic
+	item_type = /obj/item/rogueweapon/contraption/steelprosthetic
 
 // ============================================================================
 // ARTIFICERY - CONTRAPTIONS

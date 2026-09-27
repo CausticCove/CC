@@ -22,3 +22,8 @@
 	triumph_cost = 4
 	sort_category = "Triumphs"
 
+/datum/loadout_item/triumph_warscholarmask
+	name = "Golden Warscholar Mask"
+	path = /obj/item/clothing/mask/rogue/lordmask/naledi/triumph
+	triumph_cost = 3
+	sort_category = "Triumphs"

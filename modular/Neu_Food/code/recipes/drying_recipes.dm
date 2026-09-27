@@ -787,3 +787,48 @@
 	verbage = "sculpts"
 	req_table = TRUE
 	structurecraft = /obj/structure/table
+
+/// -----------------Caustic Cove Edit------------------------saltpots---------
+
+/obj/item/reagent_containers/glass/cup/can
+	name = "empty saltpot"
+	desc = "A tin saltpot ready to be filled"
+	icon = 'icons/obj/items/tincans.dmi'
+	icon_state = "acan_e"
+	volume = 0
+
+/datum/crafting_recipe/roguetown/engineering/tinpot
+	name = "tin can (2x)"
+	category = "Rotational"
+	display_category = ITEM_CAT_ENG_MACHINERY
+	result = list(
+		/obj/item/reagent_containers/glass/cup/can,
+		/obj/item/reagent_containers/glass/cup/can,
+	)
+	reqs = list(/obj/item/ingot/tin = 1)
+	verbage_simple = "shape"
+	verbage = "shapes"
+	skillcraft = /datum/skill/craft/engineering
+	tools = list(/obj/item/rogueweapon/hammer = 1)
+	craftdiff = 1
+
+/datum/crafting_recipe/roguetown/cooking/tinmeat
+	category = FOOD_CAT_PRESERVED
+	name = "tinned ration"
+	display_category = ITEM_CAT_FOODSTUFF_PRESERVED
+	reqs = list(
+		/obj/item/reagent_containers/food/snacks/rogue/meat/mince = 2,
+		/obj/item/reagent_containers/powder/salt = 1,
+		/obj/item/reagent_containers/glass/cup/can = 1,
+		)
+	result = /obj/item/reagent_containers/food/snacks/canned
+	craftdiff = 2
+	verbage_simple = "can"
+	verbage = "cans"
+	req_table = TRUE
+	structurecraft = /obj/structure/table
+
+/obj/item/reagent_containers/food/snacks/canned/get_examine_highlight_status()
+	return list(EXAMINEHIGHLIGHT_HERESYSEVERITY_VERYODD)
+
+/// ---------end caustic edit saltpot----------

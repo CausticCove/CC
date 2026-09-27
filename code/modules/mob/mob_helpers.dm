@@ -193,15 +193,15 @@
 	while(counter>=1)
 		newletter=copytext_char(phrase,(leng-counter)+1,(leng-counter)+2)
 		if(rand(1,3)==3)
-			if(lowertext(newletter)=="o")
+			if(LOWER_TEXT(newletter)=="o")
 				newletter="u"
-			if(lowertext(newletter)=="s")
+			if(LOWER_TEXT(newletter)=="s")
 				newletter="ch"
-			if(lowertext(newletter)=="a")
+			if(LOWER_TEXT(newletter)=="a")
 				newletter="ah"
-			if(lowertext(newletter)=="u")
+			if(LOWER_TEXT(newletter)=="u")
 				newletter="oo"
-			if(lowertext(newletter)=="c")
+			if(LOWER_TEXT(newletter)=="c")
 				newletter="k"
 		if(rand(1,20)==20)
 			if(newletter==" ")
@@ -230,17 +230,17 @@
 	while(counter>=1)
 		newletter=copytext_char(phrase,(leng-counter)+1,(leng-counter)+2)
 		if(prob(50))
-			if(lowertext(newletter)=="o")
+			if(LOWER_TEXT(newletter)=="o")
 				newletter="u"
-			if(lowertext(newletter)=="t")
+			if(LOWER_TEXT(newletter)=="t")
 				newletter="ch"
-			if(lowertext(newletter)=="a")
+			if(LOWER_TEXT(newletter)=="a")
 				newletter="ah"
-			if(lowertext(newletter)=="u")
+			if(LOWER_TEXT(newletter)=="u")
 				newletter="oo"
-			if(lowertext(newletter)=="c")
+			if(LOWER_TEXT(newletter)=="c")
 				newletter=" NAR "
-			if(lowertext(newletter)=="s")
+			if(LOWER_TEXT(newletter)=="s")
 				newletter=" SIE "
 		if(prob(25))
 			if(newletter==" ")
@@ -329,7 +329,7 @@
 			word = copytext(word, first_letter, last_letter + 1)
 
 			// Common words or words of three or fewer characters don't need replacing.
-			if((lowertext(word) in common_words) || length(word) <= 3)
+			if((LOWER_TEXT(word) in common_words) || length(word) <= 3)
 				new_message += prefix + word + suffix
 			else
 				var/chance = rand(0, 99)
@@ -623,6 +623,19 @@
 			l_index = 1
 		rog_intent_change(r_index)
 		rog_intent_change(l_index, 1)
+
+/mob/proc/cycle_mmb_intent()
+	if(!possible_mmb_intents?.len)
+		return
+	var/next_qintent
+	switch(mmb_intent?.type)
+		if(null)			next_qintent = QINTENT_BITE
+		if(INTENT_BITE)	next_qintent = QINTENT_JUMP
+		if(INTENT_JUMP)	next_qintent = QINTENT_KICK
+		if(INTENT_KICK)	next_qintent = QINTENT_SPECIAL
+		if(INTENT_SPECIAL) next_qintent = null
+		else				next_qintent = QINTENT_BITE
+	mmb_intent_change(next_qintent)
 
 /mob/verb/mmb_intent_change(input as text)
 	set name = "mmb-change"

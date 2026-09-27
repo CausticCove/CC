@@ -15,12 +15,14 @@ GLOBAL_LIST_INIT(rumor_threat_gated_types, list(
 	QUEST_BOUNTY,
 	QUEST_RETRIEVAL,
 	QUEST_RECOVERY,
+	QUEST_ASCENDED_BOUNTY, //CC Edit - Innkeeps can give PvP Contracts for cheap.
 ))
 
 GLOBAL_LIST_INIT(rumor_point_costs, list(
 	QUEST_RETRIEVAL = 2,
 	QUEST_COURIER = 2,
 	QUEST_KILL_EASY = 2,
+	QUEST_ASCENDED_BOUNTY = 2, //CC Edit - Innkeeps can give PvP contracts for cheap.
 	QUEST_CLEAR_OUT = 4,
 	QUEST_RECOVERY = 4,
 	QUEST_RAID = 6,

@@ -10,22 +10,16 @@
 	if(!recipient.HasSpell(/obj/effect/proc_holder/spell/self/choose_riding_virtue_mount))
 		recipient.AddSpell(new /obj/effect/proc_holder/spell/self/choose_riding_virtue_mount)
 
-GLOBAL_LIST_INIT(virtue_mount_choices, (list(
+GLOBAL_LIST_INIT(virtue_mount_choices, (list( //CC Edit start
 	/mob/living/simple_animal/hostile/retaliate/rogue/saiga/tame/saddled,
 	/mob/living/simple_animal/hostile/retaliate/rogue/saiga/saigabuck/tame/saddled,
 	/mob/living/simple_animal/hostile/retaliate/rogue/swine/hog/tame/saddled,
 	/mob/living/simple_animal/hostile/retaliate/rogue/goatmale/tame/saddled,
 	/mob/living/simple_animal/hostile/retaliate/rogue/goat/tame,
-)))
-
-GLOBAL_LIST_INIT(virtue_mount_choices_noble, (list(
-	list("fogbeast mare", /mob/living/simple_animal/hostile/retaliate/rogue/fogbeast/tame/saddled),
-	list("fogbeast stallion", /mob/living/simple_animal/hostile/retaliate/rogue/fogbeast/male/tame/saddled),
-)))
-
-GLOBAL_LIST_INIT(virtue_mount_choices_anthrax, (list(
-	list("drider spider", /mob/living/simple_animal/hostile/retaliate/rogue/drider/tame/saddled),
-)))
+	/mob/living/simple_animal/hostile/retaliate/rogue/fogbeast/tame/saddled,
+	/mob/living/simple_animal/hostile/retaliate/rogue/fogbeast/male/tame/saddled,
+	/mob/living/simple_animal/hostile/retaliate/rogue/drider/tame/saddled,
+)))// CC Edit End
 
 /datum/stressevent/precious_mob_died
 	timer = INFINITY
@@ -72,16 +66,8 @@ GLOBAL_LIST_INIT(virtue_mount_choices_anthrax, (list(
 
 	var/list/choices = list()
 
-	var/list/mount_choices = GLOB.virtue_mount_choices
-	if (HAS_TRAIT(user, TRAIT_NOBLE))
-		to_chat(user, span_info("As an anointed noble, your steed can also come from pedigree stock."))
-		mount_choices += GLOB.virtue_mount_choices_noble
-	//Caustic Cove Edit
-	//if (HAS_TRAIT(user, TRAIT_ANTHRAXI))
-	if (isdarkelf(user))
-	//Caustic Cove Edit End
-		to_chat(user, span_info("As a Drow, you are skilled in handling giant spiders of the Underdark."))
-		mount_choices += GLOB.virtue_mount_choices_anthrax
+	var/list/mount_choices = GLOB.virtue_mount_choices //CC Edit Unified the list
+
 
 	for(var/i = 1, i <= mount_choices.len, i++)
 		var/mob/living/simple_animal/honse
@@ -118,7 +104,7 @@ GLOBAL_LIST_INIT(virtue_mount_choices_anthrax, (list(
 		friendly_horse.friends += user
 
 	if (has_name == "Yes")
-		var/honse_name = input(user, "What is your steed's name?", "Saddleborn")
+		var/honse_name = sanitize(input(user, "What is your steed's name?", "Saddleborn"))
 		if (honse_name)
 			the_real_honse.name = honse_name
 			the_real_honse.real_name = honse_name

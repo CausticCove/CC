@@ -1,11 +1,13 @@
 /obj/effect/proc_holder/spell/invoked/raise_undead
 	name = "Raise Greater Undead"
 	desc = "Raise a single greater skeleton that serves you. They are imbued with a fragment of a soul and is more intelligent than usual, simple-minded lesser undead.\n\
-	Should the spell fails to find a suitable soul, a mindless undead will be summoned in its place with decrepit equipment.\n\
-	This will only happen if you are in combat mode, to avoid any accident."
+	This will ask all available players if they will like to take control of and play as the skeleton." //Caustic Edit - Adjusting the description to match changes!
+	overlay_icon = 'icons/mob/actions/zizomiracles.dmi'
+	action_icon = 'icons/mob/actions/zizomiracles.dmi'
+	overlay_state = "skeleton_greater"
+
 	clothes_req = FALSE
 	range = 7
-	overlay_state = "animate"
 	sound = list('sound/magic/magnet.ogg')
 	releasedrain = 40
 	chargetime = 60
@@ -34,9 +36,9 @@
 	var/list/candidates = pollGhostCandidates("Do you want to play as a Lich's skeleton?", ROLE_LICH_SKELETON, null, null, 10 SECONDS, POLL_IGNORE_LICH_SKELETON)
 	if(!LAZYLEN(candidates))
 		var/message = "The depths are hollow."
-		if(user.cmode)
+		/*if(user.cmode) //Caustic Edit - Removing the backup summons so Greater Skeleton is Player-Only now!
 			message += " A decrepit skeleton rises instead."
-			backup_summon(T, user)
+			backup_summon(T, user)*/
 		to_chat(user, span_warning(message))
 		return TRUE
 

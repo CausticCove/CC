@@ -1,5 +1,5 @@
 /datum/job/roguetown/janissary
-	title = "Janissary"
+	name = "Janissary"
 	flag = JANISSARY
 	department_flag = GARRISON
 	faction = "Station"
@@ -26,7 +26,7 @@
 	job_subclasses = list(
 		/datum/advclass/janissary/footman,
 		/datum/advclass/janissary/zephyr,
-		/datum/advclass/janissary/jezail,
+		//datum/advclass/janissary/jezail,
 		/datum/advclass/janissary/flagbearer,
 	)
 

@@ -20,8 +20,10 @@
 	. += span_info("Visions yield materials that are used to channel rituals.")
 	. += span_info("In order to complete a vision, a specific phrase must be said whilst very close to the vision target.")
 	. += span_info("Visions induce a sleeping dream, you will receive a brief glimpse of the target.")
+	. += span_nicegreen("Lose track of your target? You can receive another glimpse by sleeping on a bed, for up to 10 minutes since receiving the first vision. A total of two bonus glimpses is allowed per vision.")
 	. += span_info("Everyone on the direct edge of the dream pool can join rituals, but only those with novice+ holy skill can help gain ritual discounts.")
 	. += span_info("Some rituals affect everyone nearby. The more valid participants, the more materials might get discounted.")
+	. += span_nicegreen("Under role unique verbs, you can recall the details of your quests as well, in case you've forgotten the phrase.")
 
 /obj/structure/roguemachine/ritual_rune/proc/attempt_pool_link()
 	if(linked_pool)
@@ -70,39 +72,50 @@
 	for(var/quest_type in subtypesof(/datum/vision_quest))
 		GLOB.all_vision_quests += new quest_type()
 
-/obj/structure/roguemachine/ritual_rune/attackby(obj/item/I, mob/user, params)
-	if(!istype(I, /obj/item/dream_material))
-		return ..()
-
+/obj/structure/roguemachine/ritual_rune/proc/can_use_rune(mob/user)
 	if(!linked_pool)
 		attempt_pool_link()
 
 	if(!linked_pool || linked_pool.linked_door?.gate_closed)
 		to_chat(user, span_warning("The dream pool gate must be open to receive visions."))
-		return
+		return FALSE
 
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
 		if(!(H.patron?.type == /datum/patron/divine/abyssor) && !HAS_TRAIT(H, TRAIT_INK_AFFINITY))
 			to_chat(user, span_warning("You must have some connection to Abyssor or His paints to call forth visions."))
-			return
+			return FALSE
 
-	var/tier = 0
+	return TRUE
+
+/obj/structure/roguemachine/ritual_rune/proc/get_parchment_tier(obj/item/I)
 	if(istype(I, /obj/item/dream_material/parchment_silver))
-		tier = 1
-	else if(istype(I, /obj/item/dream_material/parchment_gold))
-		tier = 2
-	else if(istype(I, /obj/item/dream_material/parchment_dream))
-		tier = 3
-	else
-		to_chat(user, span_warning("The rune doesn't recognize this material."))
-		return
+		return 1
+	if(istype(I, /obj/item/dream_material/parchment_gold))
+		return 2
+	if(istype(I, /obj/item/dream_material/parchment_dream))
+		return 3
+	return 0
 
-	if(tier <= 0)
-		to_chat(user, span_warning("This parchment doesn't seem powerful enough."))
-		return
+/obj/structure/roguemachine/ritual_rune/proc/try_activate_rune(mob/user, obj/item/I)
+	if(!can_use_rune(user))
+		return FALSE
+
+	var/tier = get_parchment_tier(I)
+	if(!tier)
+		to_chat(user, span_warning("The rune doesn't recognize this material."))
+		return FALSE
 
 	attempt_vision_quest(user, tier, I)
+	return TRUE
+
+/obj/structure/roguemachine/ritual_rune/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/dream_material))
+		var/obj/item/dream_material/D = I
+		if(D.is_parchment)
+			try_activate_rune(user, D)
+			return TRUE
+	return ..()
 
 /obj/structure/roguemachine/ritual_rune/proc/attempt_vision_quest(mob/living/carbon/human/user, tier, obj/item/used_parchment)
 	populate_vision_quests()
@@ -117,68 +130,53 @@
 		cached_choices = list()
 
 	var/tier_key = "[tier]"
-	var/list/tier_choices = cached_choices[tier_key]
 
+	var/list/tier_choices = cached_choices[tier_key]
 	if(!tier_choices)
 		tier_choices = list()
-		cached_choices[tier_key] = tier_choices
 
 	if(length(tier_choices) < 3)
 		var/list/existing_types = list()
-		for(var/entry in tier_choices)
-			var/datum/vision_quest/Q = entry["quest"]
-			existing_types += Q.type
+		for(var/i in 1 to length(tier_choices))
+			var/list/entry = tier_choices[i]
+			var/datum/vision_quest/existing_Q = entry["quest"]
+			if(existing_Q)
+				existing_types += existing_Q.type
+
 		var/list/available = list()
 		for(var/datum/vision_quest/Q in GLOB.all_vision_quests)
 			if(Q.required_tier == tier && !(Q.type in existing_types))
 				available += Q
-		if(length(available))
-			shuffle(available)
-			var/needed = 3 - length(tier_choices)
-			for(var/i in 1 to min(needed, length(available)))
-				var/datum/vision_quest/Q = available[i]
-				var/mob/living/carbon/human/valid_target = find_valid_target_for_quest(Q, user)
-				if(!valid_target)
-					continue
-				Q.required_phrase = pick(Q.possible_phrases)
-				var/chosen_bonus_path = pick(Q.possible_bonus_rewards)
-				tier_choices += list(list(
-					"quest" = Q,
-					"target" = valid_target,
-					"bonus" = chosen_bonus_path
-				))
 
-		if(!length(tier_choices))
-			var/list/tiered_quests = list()
-			for(var/datum/vision_quest/Q in GLOB.all_vision_quests)
-				if(Q.required_tier == tier)
-					tiered_quests += Q
+		while(length(available) && length(tier_choices) < 3)
+			var/datum/vision_quest/Q = pick(available)
+			available -= Q
 
-			if(!length(tiered_quests))
-				to_chat(user, span_warning("The pool shows only empty shadows. No vision is possible at this tier."))
-				return
+			var/mob/living/carbon/human/valid_target = find_valid_target_for_quest(Q, user)
+			if(!valid_target)
+				continue
 
-			shuffle(tiered_quests)
-			for(var/datum/vision_quest/Q in tiered_quests)
-				var/mob/living/carbon/human/valid_target = find_valid_target_for_quest(Q, user)
-				if(!valid_target)
-					continue
+			Q.required_phrase = pick(Q.possible_phrases)
+			var/chosen_bonus_path
+			var/list/bonus_keys = list()
+			for(var/key in Q.possible_bonus_rewards)
+				bonus_keys += key
 
-				Q.required_phrase = pick(Q.possible_phrases)
-				var/chosen_bonus_path = pick(Q.possible_bonus_rewards)
+			if(length(bonus_keys))
+				chosen_bonus_path = pick(bonus_keys)
 
-				tier_choices += list(list(
-					"quest" = Q,
-					"target" = valid_target,
-					"bonus" = chosen_bonus_path
-				))
-				if(length(tier_choices) >= 3)
-					break
+			tier_choices.Add(list(list(
+				"quest" = Q,
+				"target" = valid_target,
+				"bonus" = chosen_bonus_path
+			)))
 
 		cached_choices[tier_key] = tier_choices
 		src.parchment_used = used_parchment
 
-	for(var/entry in tier_choices)
+	var/list/valid_entries = list()
+	for(var/i in 1 to length(tier_choices))
+		var/list/entry = tier_choices[i]
 		var/datum/vision_quest/Q = entry["quest"]
 		var/mob/living/carbon/human/target_mob = entry["target"]
 
@@ -186,8 +184,12 @@
 			var/mob/living/carbon/human/new_target = find_valid_target_for_quest(Q, user)
 			if(new_target)
 				entry["target"] = new_target
-			else
-				tier_choices -= list(entry)
+				valid_entries.Add(list(entry))
+		else
+			valid_entries.Add(list(entry))
+
+	tier_choices = valid_entries
+	cached_choices[tier_key] = tier_choices
 
 	if(!length(tier_choices))
 		to_chat(user, span_warning("The visions for this tier are there, but no suitable targets exist in the waking world."))
@@ -199,10 +201,9 @@
 	open_quest_selection_ui(user, tier_choices, src.parchment_used, tier)
 
 /obj/structure/roguemachine/ritual_rune/proc/find_valid_target_for_quest(datum/vision_quest/Q, mob/living/carbon/human/seeker)
-
 	var/list/valid_targets = list()
 
-	for(var/mob/living/carbon/human/H in shuffle(GLOB.player_list))
+	for(var/mob/living/carbon/human/H in GLOB.player_list)
 		if(H == seeker || H.stat == DEAD)
 			continue
 		if(!H.mind || !H.mind.assigned_role)

@@ -11,11 +11,11 @@
 	no_early_release = TRUE
 	associated_skill = /datum/skill/magic/holy
 	recharge_time = 15 SECONDS
-	
+
 /obj/effect/proc_holder/spell/invoked/ventriloquism/cast(list/targets, mob/user = usr)
 	if(isobj(targets[1]))
 		var/obj/target = targets[1]
-		var/input_message = input(usr, "What shall [target] say?", src) as null|text
+		var/input_message = sanitize(input(usr, "What shall [target] say?", src) as null|text)
 		target.say("[input_message]", language = /datum/language/common)
 		return TRUE
 	revert_cast()
@@ -63,7 +63,6 @@
 	health = 20
 	canparry = TRUE
 	d_intent = INTENT_PARRY
-	defprob = 50
 	footstep_type = FOOTSTEP_MOB_BAREFOOT
 	del_on_death = TRUE
 	loot = list(/obj/item/bomb/smoke/decoy)
@@ -82,7 +81,7 @@
 	addtimer(CALLBACK(src, TYPE_PROC_REF(/mob/living/simple_animal, death), TRUE), 7 SECONDS)
 	icon = I
 	name = copycat.name
-	
+
 
 /obj/effect/proc_holder/spell/self/xylixslip
 	name = "Xylixian Slip"
@@ -261,7 +260,7 @@
 		V.unbuckle_mob(M, force = TRUE)
 	M.forceMove(src)
 	master = C
-	master.active_dummy = src 
+	master.active_dummy = src
 
 
 /obj/effect/dummy/parlor_trick/Destroy()
@@ -319,11 +318,11 @@
 	var/dist = get_dist(Tt, Tu)
 	var/last_dir
 	var/turf/last_step
-	if(Tu.z > Tt.z) 
+	if(Tu.z > Tt.z)
 		last_step = get_step_multiz(Tu, DOWN)
 	else if(Tu.z < Tt.z)
 		last_step = get_step_multiz(Tu, UP)
-	else 
+	else
 		last_step = locate(Tu.x, Tu.y, Tu.z)
 	var/success = FALSE
 	for(var/i = 0, i <= dist, i++)
@@ -466,7 +465,7 @@
 		"Vicious Mockery" = 'sound/magic/mockery.ogg',
 		"Volf Snarl" = 'sound/vo/mobs/vw/idle (1).ogg',
 	)
-	
+
 /obj/effect/proc_holder/spell/invoked/mimicry/cast(list/targets, mob/living/user)
 	var/turf/T = get_turf(targets[1])
 	var/pickedsound = input(user, "Choose a sound, my wise bureaucrat.", "Mimic Sound") as anything in soundpick
@@ -562,7 +561,7 @@
 		"Woe" = "Woe",
 		"Nevermind!" = "Nevermind"
 	)
-		
+
 /obj/effect/proc_holder/spell/invoked/tipscales/cast(list/targets, mob/user = usr)
 	if(!isliving(targets[1]))
 		to_chat(usr, span_notice("You missed that one, try another!"))
@@ -591,7 +590,7 @@
 				return TRUE
 		revert_cast()
 		return FALSE
-	
+
 /datum/status_effect/boon
 	id = "xylixboon"
 	status_type = STATUS_EFFECT_UNIQUE
@@ -603,7 +602,7 @@
 	name = "Xylix's Boon"
 	desc = "The scales feel tipped in my favor! How lucky. (You can cheat in coinflips/dice by holding a coin/dice in your offhand, and then right clicking the coin/dice while an empty hand is active!)"
 	icon_state = "asleep"
-	
+
 /datum/status_effect/boon/on_apply()
 	. = ..()
 	booneffect = rand(1,3)
@@ -614,7 +613,7 @@
 	. = ..()
 	owner.change_stat(STATKEY_LCK, -booneffect)
 	REMOVE_TRAIT(owner, TRAIT_BLACKLEG, MAGIC_TRAIT)
-	
+
 /datum/status_effect/woe
 	id = "xylixwoe"
 	status_type = STATUS_EFFECT_UNIQUE
@@ -626,7 +625,7 @@
 	name = "Xylix's Woe"
 	desc = "That damned fool has tipped the scales out of my favor, this day cannot get any worse..."
 	icon_state = "asleep"
-	
+
 /datum/status_effect/woe/on_apply()
 	. = ..()
 	woeeffect = rand(-1,-3)

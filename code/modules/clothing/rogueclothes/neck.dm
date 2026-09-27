@@ -658,7 +658,7 @@
 
 /obj/item/clothing/neck/roguetown/psicross/inhumen/aalloy
 	name = "decrepit zcross"
-	desc = "'Progress. Ascension. Destiny. A mandate, commanded by God, to be fufilled by Man. She called us forth from the edge of reality - and with Her dying breath, rasped out the final truth; the fire is gone, and the world will soon follow.'"
+	desc = "A symbol of progress from an era that had reason to believe in it."
 	icon_state = "zcross_a"
 	color = "#bb9696"
 	chunkcolor = "#532e25"
@@ -693,7 +693,7 @@
 
 /obj/item/clothing/neck/roguetown/psicross/inhumen/iron
 	name = "inverted psycross"
-	desc = "A symbol of progress from an era that had reason to believe in it."
+	desc = "'Progress commands sacrifice!'"
 	icon_state = "zcross_iron"
 	resistance_flags = FIRE_PROOF
 
@@ -1088,6 +1088,7 @@
 	desc = "In lyfe a smile is sharper than any blade."
 	icon_state = "xylix"
 	toggle_icon_state = FALSE
+	var/disguised_type = null
 
 /obj/item/clothing/neck/roguetown/psicross/xylix/wood
 	name = "wooden amulet of Xylix"
@@ -1116,6 +1117,26 @@
 	if(human.patron == GLOB.patronlist[/datum/patron/divine/xylix])
 		. += span_notice("This is an amulet of Xylix! By shift-right clicking it, I can alter its shape to whatever befits my whim.")
 
+
+/obj/item/clothing/neck/roguetown/psicross/xylix/get_examine_highlight_status()
+	// If the cross is not disguised, it's a regular Xylixian amulet. Not heretical, just silly.
+	if(!disguised_type)
+		return null
+
+	if(is_zizo_amulet(disguised_type))
+		return list(EXAMINEHIGHLIGHT_HERESYSEVERITY_SUSPICIOUS, HERESYDESC_ZIZO_ICON)
+	if(is_graggar_amulet(disguised_type))
+		return list(EXAMINEHIGHLIGHT_HERESYSEVERITY_SUSPICIOUS, HERESYDESC_GRAGGAR_ICON)
+	if(is_baotha_amulet(disguised_type))
+		return list(EXAMINEHIGHLIGHT_HERESYSEVERITY_SUSPICIOUS, HERESYDESC_BAOTHA_ICON)
+	if(is_matthios_amulet(disguised_type))
+		return list(EXAMINEHIGHLIGHT_HERESYSEVERITY_SUSPICIOUS, HERESYDESC_MATTHIOS_ICON)
+	if(is_gronn_amulet(disguised_type))
+		return list(EXAMINEHIGHLIGHT_HERESYSEVERITY_ODD, HERESYDESC_GRONN)
+
+	// Otherwise, we assume it isn't disguised as anything heretical.
+	return null
+
 /obj/item/clothing/neck/roguetown/psicross/xylix/ShiftRightClick(mob/user, params)
 	if(!ishuman(user))
 		return
@@ -1134,7 +1155,8 @@
 	if(!selected_cross)
 		return
 
-	var/obj/item/clothing/neck/roguetown/psicross/cross_type = choices[selected_cross]
+	disguised_type = choices[selected_cross]
+	var/obj/item/clothing/neck/roguetown/psicross/cross_type = disguised_type
 
 	name = initial(cross_type.name)
 	desc = initial(cross_type.desc)

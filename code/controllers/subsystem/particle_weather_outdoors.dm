@@ -73,7 +73,7 @@ SUBSYSTEM_DEF(outdoor_effects)
 	                                                   new /datum/time_of_day/sunset(),
 	                                                   new /datum/time_of_day/dusk(),
 	                                                   new /datum/time_of_day/midnight())
-	var/alist/turf_weather_affectable_z_levels = alist()												   
+	var/alist/turf_weather_affectable_z_levels = alist()
 	var/next_day = FALSE // Resets when station_time is less than the next start time.
 
 // /datum/controller/subsystem/outdoor_effects/proc/fullPlonk()
@@ -273,6 +273,8 @@ SUBSYSTEM_DEF(outdoor_effects)
 		/* check if we are globally affected or not */
 		var/static/datum/lighting_corner/dummy/dummy_lighting_corner = new
 
+		if (!OE.source_turf.lighting_corners_initialised)
+			OE.source_turf.generate_missing_corners()
 		var/list/corners = OE.source_turf.corners
 		var/datum/lighting_corner/cr = (corners && corners.len >= 3 && corners[3]) ? corners[3] : dummy_lighting_corner
 		var/datum/lighting_corner/cg = (corners && corners.len >= 2 && corners[2]) ? corners[2] : dummy_lighting_corner

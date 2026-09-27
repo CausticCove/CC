@@ -887,6 +887,15 @@
 	unequip_delay_self = 0 //No delay when drawing.
 	inv_storage_delay = 0 //No delay when retrieving from a storage slot.
 
+/obj/item/rogueweapon/huntingknife/idagger/stake/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/deaditeslayer, time = 15 SECONDS)
+
+/obj/item/rogueweapon/huntingknife/idagger/stake/get_mechanics_examine(mob/user)
+	. = ..()
+	. += span_info("Driving a stake through the heart of an incapacitated revenant is one of the few ways to put them down for the week. Sharper stakes, and ones made of silver, are better at this.")
+	. += span_info("Staking also works to kill many other types of undead - generally, anyone you can't kill with bloodloss can be staked.")
+
 /obj/item/rogueweapon/huntingknife/idagger/silver/stake
 	name = "silver-tipped stake"
 	desc = "A branch that has been broken off of a boswellia tree, sharpened to a fine point and tipped with blessed silver. It can lay most unholy creechers to rest, but only by piercing their hearts."
@@ -914,6 +923,7 @@
 		added_int = 0,\
 		added_def = 0,\
 	)
+	AddComponent(/datum/component/deaditeslayer, time = 10 SECONDS) // these r anti undead weapons so they get to be slightly better at it
 
 /obj/item/rogueweapon/huntingknife/idagger/silver/stake/preblessed/ComponentInitialize()
 	AddComponent(\
@@ -925,6 +935,12 @@
 		added_int = 0,\
 		added_def = 0,\
 	)
+	AddComponent(/datum/component/deaditeslayer, time = 10 SECONDS) // these r anti undead weapons so they get to be slightly better at it
+
+/obj/item/rogueweapon/huntingknife/idagger/silver/stake/get_mechanics_examine(mob/user)
+	. = ..()
+	. += span_info("Driving a stake through the heart of an incapacitated revenant is one of the few ways to put them down for the week. Sharper stakes, and ones made of silver, are better at this.")
+	. += span_info("Staking also works to kill many other types of undead - generally, anyone you can't kill with bloodloss can be staked.")
 
 /obj/item/rogueweapon/huntingknife/idagger/silver/stake/psy
 	name = "silver-tipped otavan stake"
@@ -940,6 +956,7 @@
 		added_int = 0,\
 		added_def = 0,\
 	)
+	AddComponent(/datum/component/deaditeslayer, time = 10 SECONDS) // these r anti undead weapons so they get to be slightly better at it
 
 /obj/item/rogueweapon/huntingknife/idagger/silver/stake/psy/preblessed/ComponentInitialize()
 	AddComponent(\
@@ -952,6 +969,7 @@
 		added_def = 0,\
 	)
 	sellprice += 200
+	AddComponent(/datum/component/deaditeslayer, time = 10 SECONDS) // these r anti undead weapons so they get to be slightly better at it
 
 /obj/item/rogueweapon/huntingknife/idagger/silver/stake/psy/lesser
 	name = "silver-tipped handstake"

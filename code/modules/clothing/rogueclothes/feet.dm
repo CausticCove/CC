@@ -526,10 +526,11 @@
 	armor_class = ARMOR_CLASS_LIGHT
 	smeltresult = /obj/item/ingot/component/baotha
 
+//Caustic Edit - Let us remove and drop armors again! For fun stuffs.
 /obj/item/clothing/shoes/roguetown/boots/armor/baotha/Initialize()
 	. = ..()
 	AddComponent(/datum/component/cursed_item, TRAIT_DEPRAVED, "BOOTS")
-	ADD_TRAIT(src, TRAIT_NODROP, CURSED_ITEM_TRAIT)
+	//ADD_TRAIT(src, TRAIT_NODROP, CURSED_ITEM_TRAIT)
 
 /obj/item/clothing/shoes/roguetown/boots/armor/baotha/ComponentInitialize()
 	. = ..()
@@ -538,9 +539,10 @@
 
 /obj/item/clothing/shoes/roguetown/boots/armor/baotha/dropped(mob/living/carbon/human/user)
 	. = ..()
-	if(QDELETED(src))
+	/*if(QDELETED(src))
 		return
-	qdel(src)
+	qdel(src)*/
+//Caustic Edit End
 
 /obj/item/clothing/shoes/roguetown/boots/armor/baotha/get_examine_highlight_status()
 	return list(EXAMINEHIGHLIGHT_HERESYSEVERITY_ALARMING, HERESYDESC_BAOTHA_ARMOR)
@@ -830,3 +832,64 @@
 		if(get_detail_color())
 			pic.color = get_detail_color()
 		add_overlay(pic)
+
+//Wraps
+
+/obj/item/clothing/shoes/roguetown/footwraps
+	name = "cloth footwraps"
+	desc = "Thickly-woven bandages that've been wrapped around the ankles to protect from any unwanted shattered teeth from sticking in your precious legs."
+	gender = PLURAL
+	icon_state = "footwraps"
+	sewrepair = TRUE
+	salvage_result = /obj/item/natural/cloth
+	var/atom/movable/holdingknife = null
+
+/obj/item/clothing/shoes/roguetown/footwraps/examine(mob/user)
+	. = ..()
+	if(holdingknife)
+		. += span_notice("There is a knife tucked into the side of the footwraps.")
+
+/obj/item/clothing/shoes/roguetown/footwraps/attackby(obj/item/W, mob/living/carbon/user, params)
+	// Special exception for rotfang to help deal with inventory woes / make it harder to steal.
+	if(istype(W, /obj/item/rogueweapon/huntingknife/throwingknife) || istype(W, /obj/item/rogueweapon/huntingknife/idagger/steel/rotfang))
+		if(holdingknife == null)
+			for(var/obj/item/clothing/shoes/roguetown/footwraps/B in user.get_equipped_items(TRUE))
+				to_chat(loc, span_warning("I quickly slot [W] into [B]!"))
+				user.transferItemToLoc(W, holdingknife)
+				holdingknife = W
+				playsound(loc, 'sound/foley/equip/swordsmall1.ogg')
+		else
+			to_chat(loc, span_warning("My boot already holds a knife."))
+		return
+	. = ..()
+
+/obj/item/clothing/shoes/roguetown/footwraps/attack_right(mob/user)
+	if(holdingknife != null)
+		if(!user.get_active_held_item())
+			user.put_in_active_hand(holdingknife, user.active_hand_index)
+			holdingknife = null
+			playsound(loc, 'sound/foley/equip/swordsmall1.ogg')
+			return TRUE
+
+/obj/item/clothing/shoes/roguetown/footwraps/padded
+	name = "padded cloth footwraps"
+	desc = "Thickly-woven padded bandages wrapped about one's ankles to maintain mobility for climbing and kicking."
+	armor = ARMOR_PADDED
+	max_integrity = ARMOR_INT_CHEST_LIGHT_MASTER
+
+/obj/item/clothing/shoes/roguetown/footwraps/hleather
+	name = "hardened leather footwraps"
+	desc = "A cut down pair of boots maintaining most of the cover they'd normally offer with added comfort for those with inhumen anatomy."
+	icon_state = "footwraps_hleather"
+	salvage_result = /obj/item/natural/hide/cured
+	armor = ARMOR_LEATHER
+	max_integrity = ARMOR_INT_SIDE_HARDLEATHER
+
+/obj/item/clothing/shoes/roguetown/sandals/toga
+	name = "toga sandals"
+	desc = "A fancy pair of sandals delicately woven in a style that harken back to bygone yils of antiquity."
+	gender = PLURAL
+	icon_state = "togasandals"
+	item_state = "togasandals"
+	salvage_amount = 1
+	salvage_result = /obj/item/natural/cloth

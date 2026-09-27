@@ -126,6 +126,8 @@
 		return
 	if(!do_after(user, sneaktime, src))
 		return
+	if(!QDELETED(src) && !isturf(loc))//prevents folding tables from nullspacing people
+		return
 	user.forceMove(src)
 	occupied = TRUE
 	hiddenguy = user
@@ -673,7 +675,7 @@
 
 // Caustic Edit
 /obj/structure/rack/rogue/shelf/OnCrafted(dirin)
-	if(move_on_craft) 
+	if(move_on_craft)
 		pixel_x = 0
 		pixel_y = 0
 		switch(dirin)

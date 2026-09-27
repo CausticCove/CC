@@ -239,7 +239,6 @@
 		/datum/special_intent/limbguard,
 		/datum/special_intent/dagger_dash,
 		/datum/special_intent/flail_sweep,
-		/datum/special_intent/charge
 		)
 
 /obj/item/rogueweapon/sword/long/blacksteel/examine(mob/user)
@@ -1328,7 +1327,7 @@
 	icon_state = "decsaber"
 	sheathe_icon = "decsaber"
 
-/obj/item/rogueweapon/sword/saber/iron
+/obj/item/rogueweapon/sword/sabre/iron
 	name = "iron saber"
 	desc = "A Naledian sword mass produced for line infantry. Its fittings are simple, munitions grade, but the construction is sturdy and the blade as threatening \
 	as any."

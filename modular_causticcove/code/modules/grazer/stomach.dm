@@ -23,7 +23,7 @@
 /datum/action/item_action/organ_action/use/grazer
 	name = "Graze"
 	desc = "Graze for food"
-	
+
 /datum/action/item_action/organ_action/use/grazer/Trigger()
 	var/turf/ownerturf = get_turf(owner)
 	for(var/maybegrass in ownerturf.contents)
@@ -37,3 +37,8 @@
 		if(do_after(owner, 20 SECONDS))
 			ownerturf.ChangeTurf(/turf/open/floor/rogue/dirt, flags = CHANGETURF_INHERIT_AIR)
 			owner.reagents.add_reagent(/datum/reagent/consumable/nutriment, 20) //2m^2 of grass is 10-12 MJ, an apple is 300 KJ on verage, this means it S H O U L D be 110 nutriment, but walancejak
+	if((istype(ownerturf, /turf/open/floor/rogue/desert_grass))) //Caustic Edit - You can now graze the Desert Grass Joy!
+		owner.visible_message(span_notice("[owner] begins to graze the grass..."))
+		if(do_after(owner, 15 SECONDS)) //Desert Grass is less time consuming to graze but also less nutritious
+			ownerturf.ChangeTurf(/turf/open/floor/rogue/dirt/desert, flags = CHANGETURF_INHERIT_AIR)
+			owner.reagents.add_reagent(/datum/reagent/consumable/nutriment, 15) // Less Nutriment

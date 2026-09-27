@@ -30,7 +30,10 @@
 		/datum/advclass/manorguard/skirmisher,
 		/datum/advclass/manorguard/cavalry,
 		/datum/advclass/manorguard/bailiff,
-		/datum/advclass/manorguard/standard_bearer
+		/datum/advclass/manorguard/standard_bearer,
+		//Caustic Edit - Adds Janissary to MAA options
+		/datum/advclass/manorguard/janissary
+		//Caustic Edit End
 	)
 
 /datum/outfit/job/roguetown/manorguard

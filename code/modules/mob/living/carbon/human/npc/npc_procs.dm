@@ -112,18 +112,18 @@
 						/datum/sprite_accessory/hair/head/hime,
 						/datum/sprite_accessory/hair/head/stacy,
 						/datum/sprite_accessory/hair/head/sabitsuki,
-						/datum/sprite_accessory/hair/head/sabitsuki_ponytail, 
+						/datum/sprite_accessory/hair/head/sabitsuki_ponytail,
 						/datum/sprite_accessory/hair/head/kusanagi_alt,
 						/datum/sprite_accessory/hair/head/fluffy,
 						/datum/sprite_accessory/hair/head/fluffylong))
 	var/hairm = pick(list(
 						/datum/sprite_accessory/hair/head/ponytailwitcher,
-						/datum/sprite_accessory/hair/head/bowlcut, 
+						/datum/sprite_accessory/hair/head/bowlcut,
 						/datum/sprite_accessory/hair/head/bowlcut2,
 						/datum/sprite_accessory/hair/head/lowbraid,
 						/datum/sprite_accessory/hair/head/emo,
 						/datum/sprite_accessory/hair/head/sabitsuki,
-						/datum/sprite_accessory/hair/head/sabitsuki_ponytail, 
+						/datum/sprite_accessory/hair/head/sabitsuki_ponytail,
 						/datum/sprite_accessory/hair/head/rogue))
 	var/beard = pick(list(/datum/sprite_accessory/hair/facial/stubble,
 						/datum/sprite_accessory/hair/facial/manly,
@@ -211,18 +211,18 @@
 						/datum/sprite_accessory/hair/head/hime,
 						/datum/sprite_accessory/hair/head/stacy,
 						/datum/sprite_accessory/hair/head/sabitsuki,
-						/datum/sprite_accessory/hair/head/sabitsuki_ponytail, 
+						/datum/sprite_accessory/hair/head/sabitsuki_ponytail,
 						/datum/sprite_accessory/hair/head/kusanagi_alt,
 						/datum/sprite_accessory/hair/head/fluffy,
 						/datum/sprite_accessory/hair/head/fluffylong))
 	var/hairm = pick(list(
 						/datum/sprite_accessory/hair/head/ponytailwitcher,
-						/datum/sprite_accessory/hair/head/bowlcut, 
+						/datum/sprite_accessory/hair/head/bowlcut,
 						/datum/sprite_accessory/hair/head/bowlcut2,
 						/datum/sprite_accessory/hair/head/lowbraid,
 						/datum/sprite_accessory/hair/head/emo,
 						/datum/sprite_accessory/hair/head/sabitsuki,
-						/datum/sprite_accessory/hair/head/sabitsuki_ponytail, 
+						/datum/sprite_accessory/hair/head/sabitsuki_ponytail,
 						/datum/sprite_accessory/hair/head/rogue))
 	//Next up, we add hair
 	var/datum/bodypart_feature/hair/head/new_hair = new()

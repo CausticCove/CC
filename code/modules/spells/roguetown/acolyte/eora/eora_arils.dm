@@ -30,7 +30,9 @@
 	if(iscarbon(user))
 		var/mob/living/carbon/c = user
 		if(c.patron.type == /datum/patron/divine/eora)
-			. += span_info(effect_desc)
+			. += skill_check_text("Eora", TRUE, effect_desc)
+		else
+			. += skill_check_text("Eora", FALSE, "My devotion to Eora is too weak, the whispers of the void remain silent.")
 
 /obj/item/reagent_containers/food/snacks/eoran_aril/proc/apply_effects(mob/living/carbon/eater)
 	return
@@ -140,7 +142,7 @@
 	desc = "An iridescent seed that shifts colors in the light."
 	icon_state = "opalescent"
 	effect_desc = "Transforms held gems into rubies."
-	
+
 /obj/item/reagent_containers/food/snacks/eoran_aril/opalescent/apply_effects(mob/living/eater)
 	for(var/obj/item/roguegem/G in eater.held_items)
 		var/obj/item/roguegem/ruby/new_gem = new(eater.loc)
@@ -292,7 +294,7 @@
 		target.emote("breathgasp")
 		target.Jitter(100)
 		target.update_body()
-		//Caustic Cove Edit - This was missing for the Aril Revival to remove 
+		//Caustic Cove Edit - This was missing for the Aril Revival to remove
 		target.mind.remove_antag_datum(/datum/antagonist/zombie)
 		target.remove_status_effect(/datum/status_effect/debuff/rotted_zombie)	//Removes the rotted-zombie debuff if they have it - Failsafe for it.
 		//Caustic Cove Edit End

@@ -1,7 +1,7 @@
 //The code execution of the emote datum is located at code/datums/emotes.dm
 /mob/proc/emote(act, m_type = null, message = null, intentional = FALSE, forced = FALSE, targetted = FALSE, custom_me = FALSE, animal = FALSE)
 	var/oldact = act
-	act = lowertext(act)
+	act = LOWER_TEXT(act)
 
 	if(HAS_TRAIT(src, TRAIT_NOBREATH))
 		var/static/list/nobreath_blocked = list(
@@ -56,10 +56,10 @@
 				return
 
 	// autopunctuation
-	if((act == "me" || act == "subtle") && !client?.prefs?.no_autopunctuate)
-		var/ending = copytext(param, length(param), (length(param) + 1))
-		if(ending && !GLOB.correct_punctuation[ending])
-			param += "."
+	if((act == "me" || act == "subtle"))
+		param = accent_emote_quotes(param)
+		if(!client?.prefs?.no_autopunctuate)
+			param = autopunct_bare(param)
 
 	var/list/key_emotes = GLOB.emote_list[act]
 	var/mute_time = 0

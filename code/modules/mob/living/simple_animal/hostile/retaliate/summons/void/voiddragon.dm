@@ -2,13 +2,11 @@
 /*
 Void dragons are creatures of a bygone age. It is a melee creature, that will chase down and cut most people to shreds if they are by themself.
 It will also call down lightning strikes from the sky, and fling people with it's tail, as well as fly up into the sky.*/
-F
-/mob/living/simple_animal/hostile/retaliate/rogue/voiddragon/Initialize()
+
+/mob/living/simple_animal/hostile/retaliate/rogue/voiddragon/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NOFIRE, "[type]")
-	ADD_TRAIT(src, TRAIT_BLOODLOSS_IMMUNE, TRAIT_GENERIC) //CC Edit - No bleed damage.
 	ADD_TRAIT(src, TRAIT_NOBREATH, TRAIT_GENERIC)
-	ADD_TRAIT(src, TRAIT_ANTIMAGIC, TRAIT_GENERIC)
 	ADD_TRAIT(src, TRAIT_TOXIMMUNE, TRAIT_GENERIC)
 	ADD_TRAIT(src, TRAIT_NOPAINSTUN, TRAIT_GENERIC)
 	ADD_TRAIT(src, TRAIT_SHOCKIMMUNE, TRAIT_GENERIC)
@@ -61,7 +59,7 @@ F
 	..()
 
 /mob/living/simple_animal/hostile/retaliate/rogue/voiddragon
-	name = "void dragon"
+	name = "void drake"
 	desc = "An ancient creature from a bygone age. Now would be a good time to run."
 	health = 5000
 	maxHealth = 5000
@@ -78,7 +76,6 @@ F
 	environment_smash = ENVIRONMENT_SMASH_WALLS
 	base_intents = list(/datum/intent/unarmed/dragonclaw)
 	faction = list(FACTION_ABBERANT)
-	//death_loot = list(/obj/item/clothing/ring/dragon_ring = 3, /obj/item/book/granter/arcane_aspect/minor = 2, /obj/item/book/granter/arcane_aspect/major = 1) //Caustic Edit - Commenting this out because we don't have the full Summon and Ritual Changes from AP - For now?
 	obj_damage = 400	//Behold, nothing shall keep the dragon out
 	melee_damage_lower = 80
 	melee_damage_upper = 80
@@ -87,11 +84,10 @@ F
 	minimum_distance = 0
 	aggressive = 1
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
-	speed = 5
+	move_base_delay = MOVEMENT_DELAY_LUMBERING
 	move_to_delay = 5
 	ranged = TRUE
 	canparry = TRUE
-	defprob = 70
 	pixel_x = -32
 	var/swooping = NONE
 	var/player_cooldown = 0
@@ -282,13 +278,6 @@ F
 		continue
 
 /mob/living/simple_animal/hostile/retaliate/rogue/voiddragon/MeleeAction(patience = TRUE)
-	//Caustic Cove Edit
-	if (melee_cooled_down > world.time)
-		return
-
-	melee_cooled_down = world.time + melee_cooldown
-	//Caustic Cove Edit End
-
 	if(rapid_melee > 1)
 		var/datum/callback/cb = CALLBACK(src, PROC_REF(CheckAndAttack))
 		var/delay = SSnpcpool.wait / rapid_melee
@@ -339,7 +328,7 @@ F
 		if(dist > last_dist)
 			last_dist = dist
 			sleep(2 + min(4 - last_dist, 12) * 0.5) //gets faster
-		new /obj/effect/temp_visual/targetlightning(T)
+		new /obj/effect/temp_visual/telegraph/targetlightning(T)
 
 /mob/living/simple_animal/hostile/retaliate/rogue/voiddragon/proc/lightning_strikes(amount, delay = 0.8)
 	if(!target)
@@ -349,7 +338,7 @@ F
 		if(QDELETED(target))
 			break
 		var/turf/T = pick(RANGE_TURFS(enraged ? 2 : 1, target))
-		new /obj/effect/temp_visual/targetlightning(T)
+		new /obj/effect/temp_visual/telegraph/targetlightning(T)
 		amount--
 		SLEEP_CHECK_DEATH(delay)
 
@@ -428,18 +417,14 @@ F
 	icon_state = "[initial(icon_state)]"
 	playsound(loc, 'sound/misc/meteorimpact.ogg', 200, TRUE)
 	for(var/mob/living/L in orange(1, src))
-		if(L.stat)
-			visible_message(span_warning("[src] slams down on [L], crushing [L.p_them()]!"))
-			L.gib()
-		else
-			L.adjustBruteLoss(75)
-			if(L && !QDELETED(L)) // Some mobs are deleted on death
-				var/throw_dir = get_dir(src, L)
-				if(L.loc == loc)
-					throw_dir = pick(GLOB.alldirs)
-				var/throwtarget = get_edge_target_turf(src, throw_dir)
-				L.throw_at(throwtarget, 3)
-				visible_message(span_warning("[L] is thrown clear of [src]!</span>"))
+		L.adjustBruteLoss(75)
+		if(L && !QDELETED(L)) // Some mobs are deleted on death
+			var/throw_dir = get_dir(src, L)
+			if(L.loc == loc)
+				throw_dir = pick(GLOB.alldirs)
+			var/throwtarget = get_edge_target_turf(src, throw_dir)
+			L.throw_at(throwtarget, 3)
+			visible_message(span_warning("[L] is thrown clear of [src]!</span>"))
 	for(var/mob/M in range(7, src))
 		shake_camera(M, 15, 1)
 	movement_type = GROUND
@@ -475,7 +460,7 @@ F
 	if(!swooping)
 		..()
 
-/mob/living/simple_animal/hostile/retaliate/rogue/voiddragon/Goto(target, delay, minimum_distance)
+/mob/living/simple_animal/hostile/retaliate/rogue/voiddragon/Goto(target, minimum_distance)
 	if(!swooping)
 		..()
 
@@ -576,7 +561,7 @@ F
 	else
 		animate(src, pixel_x = -32, pixel_z = 0, time = 5)
 
-/mob/living/simple_animal/hostile/retaliate/rogue/voiddragon/proc/chain_lightning(var/list/targets, mob/user = usr)
+/mob/living/simple_animal/hostile/retaliate/rogue/voiddragon/proc/chain_lightning(list/targets, mob/user = usr)
 	targets = list()
 
 	for(var/mob/living/target in view(7, src))
@@ -656,13 +641,13 @@ F
 
 /mob/living/simple_animal/hostile/retaliate/rogue/voiddragon/death()
 	..()
-	var/turf/deathspot = get_turf(src)
+	var/turf/deathspot = get_turf(src) // Caustic Edit
 	new /obj/item/clothing/ring/dragon_ring(deathspot)
 	new /obj/item/clothing/ring/dragon_ring(deathspot)
 	new /obj/item/clothing/ring/dragon_ring(deathspot)
 	new /obj/item/book/granter/arcane_aspect/magic/minor(deathspot)
 	new /obj/item/book/granter/arcane_aspect/magic/minor(deathspot)
-	new /obj/item/book/granter/arcane_aspect/magic/major(deathspot)
+	new /obj/item/book/granter/arcane_aspect/magic/major(deathspot) // Caustic Edit End
 	update_icon()
 	spill_embedded_objects()
 

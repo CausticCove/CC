@@ -46,10 +46,11 @@ GLOBAL_LIST_INIT(tank_aggro, list(
 	ADD_TRAIT(src, TRAIT_BADTRAINER, TRAIT_GENERIC)
 	ADD_TRAIT(src, TRAIT_NPC_EXAMINE, TRAIT_GENERIC)
 	equipOutfit(new /datum/outfit/job/roguetown/npc/mini_boss/tank)
-	for(var/obj/item/equipped_item in get_equipped_items() + held_items)
+	//CC Edit - This is redundant due to corpses ashing anyways, players can loot world-spawned NPC's already too.
+	/* for(var/obj/item/equipped_item in get_equipped_items() + held_items)
 		equipped_item.AddComponent(/datum/component/item_on_drop/dust)
 	for(var/obj/item/held_item in held_items)
-		ADD_TRAIT(held_item, TRAIT_NODROP, TRAIT_GENERIC)
+		ADD_TRAIT(held_item, TRAIT_NODROP, TRAIT_GENERIC) */
 	update_hair()
 	update_body()
 	def_intent_change(INTENT_PARRY)
@@ -92,3 +93,7 @@ GLOBAL_LIST_INIT(tank_aggro, list(
 
 	H.dna.species.soundpack_m = GLOB.voice_packs[/datum/voicepack/male/knight] //HUZZAR!!
 	H.dna.species.soundpack_f = GLOB.voice_packs[/datum/voicepack/female/warrior]
+
+	//CC Edit - Potions for the big boys so they can heal mid-fight.
+	beltr = /obj/item/reagent_containers/glass/bottle/alchemical/healthpotnew
+	//CC Edit End

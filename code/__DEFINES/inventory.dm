@@ -13,6 +13,14 @@
 #define INVENTORY_DEPTH		2
 #define STORAGE_VIEW_DEPTH	2
 
+// STRIPPING DELAYS
+#define STRIP_DELAY_TRIVIAL	(1 SECONDS)	//rings, trinkets
+#define STRIP_DELAY_FAST	(2 SECONDS)	//gloves, quivers, belt pouches, straps
+#define STRIP_DELAY_NORMAL	(4 SECONDS)	//the default for everything unspecified
+#define STRIP_DELAY_SLOW	(5 SECONDS)	//boots, laced or buckled gear
+#define STRIP_DELAY_ARMOR	(6 SECONDS)	// full plate
+#define STRIP_DELAY_LOCKED	(30 SECONDS)	//cursed or bound items
+
 //ITEM INVENTORY SLOT BITMASKS
 
 #define ITEM_SLOT_PANTS			(1<<0)

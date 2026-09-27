@@ -149,6 +149,10 @@
 //
 /proc/is_vore_predator(mob/living/O)
 	if(isliving(O))
+		if(O.client && (O.client.prefs.directory_tag == "Non-Vore" || O.client.prefs.directory_tag == "Unset" /*|| !O.client.prefs_vr.can_pred*/)) //Lets add in a hook to just, check if they are set to Non-Vore in the Directory settings or Unset, and you cannot be an accidental pred.
+			if(O.client.prefs.directory_tag == "Unset")
+				to_chat(O, span_warning("A vore attempt with you as Pred happened! To turn off this warning in chat, just navigate to the Character Directory and set your Vore Preferences to anything but 'Unset'. If you set it to Non-Vore, it will prevent you from ever being a pred when it comes to vore, and without this message."))
+			return FALSE
 		/*if(isanimal(O)) //On-demand belly loading.
 			var/mob/living/simple_animal/SM = O
 			if(SM.vore_active && !SM.voremob_loaded)

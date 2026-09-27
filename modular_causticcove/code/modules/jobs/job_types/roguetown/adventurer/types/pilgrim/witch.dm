@@ -6,7 +6,7 @@
 	allowed_sexes = list(MALE, FEMALE)
 	outfit = /datum/outfit/job/roguetown/adventurer/witch
 	category_tags = list(CTAG_PILGRIM, CTAG_TOWNER)
-	traits_applied = list(TRAIT_DEATHSIGHT, TRAIT_WITCH, TRAIT_ALCHEMY_EXPERT)
+	traits_applied = list(TRAIT_DEATHSIGHT, TRAIT_WITCH, TRAIT_ALCHEMY_EXPERT, TRAIT_RITUALIST)
 	townie_contract_gate_exempt = TRUE
 	subclass_stats = list(
 		STATKEY_INT = 3,
@@ -14,7 +14,7 @@
 		STATKEY_LCK = 1
 	)
 	age_mod = /datum/class_age_mod/witch
-	
+
 	subclass_skills = list(
 		/datum/skill/misc/reading = SKILL_LEVEL_EXPERT,
 		/datum/skill/craft/alchemy = SKILL_LEVEL_EXPERT,
@@ -43,7 +43,8 @@
 						/obj/item/reagent_containers/glass/mortar = 1,
 						/obj/item/pestle = 1,
 						/obj/item/candle/yellow = 2,
-						/obj/item/chalk = 1
+						/obj/item/chalk = 1,
+						/obj/item/ritechalk = 1
 						)
 	var/classes = list("Old Magick", "Godsblood", "Mystagogue")
 	var/classchoice = input("How do your powers manifest?", "THE OLD WAYS") as anything in classes

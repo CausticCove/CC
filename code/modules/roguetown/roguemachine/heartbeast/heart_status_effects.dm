@@ -45,10 +45,10 @@
 	if(isliving(owner))
 		var/mob/living/L = owner
 		L.remove_filter(TERRITORIAL_FILTER)
-		
+
 		// Lower back down
 		animate(L, pixel_y = L.pixel_y - 8, time = 0.5 SECONDS, easing = SINE_EASING)
-	
+
 	owner.visible_message(span_danger("The tendrils release [owner]!"))
 
 /datum/status_effect/territorial_rage/proc/remove_limb(mob/living/carbon/C)
@@ -83,10 +83,10 @@
 		to_remove = left_leg
 	else if(right_leg)
 		to_remove = right_leg
-	
+
 	if(to_remove)
-		C.visible_message(span_userdanger("[C]'s [to_remove.name] is torn off by the tendrils!"))
-		to_remove.dismember(skip_checks = TRUE)
+		C.visible_message(span_userdanger("[C]'s [to_remove.name] is twisted by the tendrils!"))
+		to_remove.dismember(damage = 190)
 
 		var/obj/effect/temp_visual/dir_setting/bloodsplatter/splatter = new(get_turf(C), pick(GLOB.cardinals))
 		splatter.color = "#880000"

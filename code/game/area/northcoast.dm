@@ -1,4 +1,4 @@
-// Azure Coast - the northern part of the map - may not be actually coast 
+// Azure Coast - the northern part of the map - may not be actually coast
 /area/rogue/outdoors/beach/forest
 	name = "Azure Coast"
 	loot_budget = LOOT_BUDGET_AZURE_COAST
@@ -13,6 +13,7 @@
 	droning_sound_dusk = 'sound/music/area/septimus.ogg'
 	droning_sound_night = 'sound/music/area/sleeping.ogg'
 	soundenv = 15
+	allow_extreme_weather = TRUE //Caustic Edit - Add in the possibility for tornado spawns!
 	ambush_times = list("night","dusk")
 	ambush_mobs = list(
 				/mob/living/simple_animal/hostile/retaliate/rogue/wolf = 30,
@@ -34,13 +35,16 @@
 	deathsight_message = "somewhere betwixt Abyssor's realm and Dendor's bounty"
 	threat_region = THREAT_REGION_AZUREAN_COAST
 	detail_text = DETAIL_TEXT_NORTH_COAST
+	area_sniff_message = "You smell deadite animals."
 
 /area/rogue/outdoors/beach/forest/hamlet
 	name = "The Azure Coast - Hamlet"
 	first_time_text = "THE HAMLET"
+	allow_extreme_weather = FALSE //Caustic Edit - No spawns here pls!
 	ambush_mobs = null // We don't want actual ambushes in Hamlet but we also don't want to misuse outdoors/beach lol
 	threat_region = THREAT_REGION_AZUREAN_COAST
 	detail_text = DETAIL_TEXT_NORTH_COAST_HAMLET
+	area_sniff_message = "You smell deadites and the sea."
 
 /area/rogue/outdoors/beach/forest/north
 	name = "The Azure Coast - North"
@@ -61,3 +65,4 @@
 	deathsight_message = "somewhere betwixt Abyssor's realm and Dendor's bounty"
 	threat_region = THREAT_REGION_AZUREAN_COAST
 	detail_text = DETAIL_TEXT_MAD_DUKE_COURT
+	area_sniff_message = "You smell an old fool."

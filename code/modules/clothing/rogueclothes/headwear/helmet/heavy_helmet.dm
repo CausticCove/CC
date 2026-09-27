@@ -1439,8 +1439,8 @@
 	desc = "A veil threaded from an otherworldly alloy, perpetually backlit with an eerie crimson haze. Glimpse into the abyss for too \
 	long.. </br>‎  <font color='FF0000'>..and something will look back.</font>."
 	body_parts_covered = FULL_HEAD|NECK
-	icon_state = "zizoplatehelm_med"
-	item_state = "zizoplatehelm_med"
+	icon_state = "zizobascinet" //"zizoplatehelm_med" //CC Edit - Sick of this throwing linters errors, just a placeholder for now. The other sprites don't actually exist yet.
+	item_state = "zizobascinet" //"zizoplatehelm_med"
 	flags_inv = HIDEFACE|HIDESNOUT|HIDEEARS
 	body_parts_covered = HEAD|EARS|HAIR
 	adjustable = CANT_CADJUST

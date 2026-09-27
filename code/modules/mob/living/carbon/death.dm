@@ -15,6 +15,10 @@
 		BT.on_death()
 
 /mob/living/carbon/dust(just_ash, drop_items, force)
+	//CC Edit - Safety Catch for when carbons get dusted.
+	if(client)
+		client.dead_observe()
+	//CC Edit End
 	if(drop_items)
 		var/turf/T = get_turf(src)
 		if(T)

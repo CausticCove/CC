@@ -133,12 +133,12 @@
 
 
 	if(item_flags & NOBLUDGEON)
-		return FALSE	
+		return FALSE
 
 	if(force && HAS_TRAIT(user, TRAIT_PACIFISM))
 		to_chat(user, span_warning("I don't want to harm other living beings!"), MESSAGE_TYPE_INFO)
 		return
-	
+
 	if(force && user.has_status_effect(/datum/status_effect/debuff/deadite_grace) && M.mind)
 		to_chat(user, span_warning("Ah, Lux... I calm down considerably, but my hunger only increases."))
 		user.remove_status_effect(/datum/status_effect/debuff/deadite_grace)
@@ -174,7 +174,7 @@
 		if(user.add_swingdelay(cached_intent))
 			sleep(cached_intent.swingdelay)
 
-	// Getting struck w/ /disrupt swingdelay type sets our swing_state to false. 
+	// Getting struck w/ /disrupt swingdelay type sets our swing_state to false.
 	// If we had the effect, but not the bool, we were interrupted. (Or something else went wrong.)
 	if(user.is_swinging() && !user.swing_state)
 		return
@@ -222,7 +222,7 @@
 			user.adjust_blurriness(3)
 			user.adjustBruteLoss(5)
 			user.apply_status_effect(/datum/status_effect/churned, M)
-	
+
 	//Niche signal for post-swingdelay attacks when we want to care about those.
 	_attacker_signal = null
 	_attacker_signal = SEND_SIGNAL(user, COMSIG_MOB_ITEM_ATTACK_POST_SWINGDELAY, M, user, src)
@@ -290,7 +290,7 @@
 
 		user.changeMaxDodge(2)
 		user.dodgetime = clamp(user.dodgetime - 2, 0, CLICK_CD_DODGE)
-				
+
 	log_combat(user, M, "attacked", src.name, "(INTENT: [uppertext(user.used_intent.name)]) (DAMTYPE: [uppertext(damtype)])")
 
 	execute_cleave(user, get_turf(M), M)
@@ -363,7 +363,7 @@
 
 	if(!istype(user))
 		return newforce
-	
+
 	var/dullness_ratio
 	if(I.max_blade_int && I.sharpness != IS_BLUNT)
 		dullness_ratio = I.blade_int / I.max_blade_int
@@ -631,7 +631,7 @@
 
 	if(multiplier)
 		newforce = newforce * multiplier
-	
+
 	take_damage(newforce, I.damtype, I.d_type, 1)
 	if(newforce > 1)
 		I.take_damage(1, BRUTE, I.d_type)
@@ -719,6 +719,11 @@
 	I.funny_attack_effects(src, user)
 	if(I.force_dynamic)
 		var/newforce = get_complex_damage(I, user)
+		var/pen = user.used_intent.penfactor
+		// No sweetspot penalty if they are prone
+		if(user.used_intent.out_of_effective_range(src, user))
+			pen = PEN_NONE
+			newforce *= EFF_RANGE_MISS_DAMFACTOR
 		apply_damage(newforce, I.damtype, def_zone = hitlim)
 		I.remove_bintegrity(1)
 		if(I.damtype == BRUTE)
@@ -726,7 +731,7 @@
 			if(HAS_TRAIT(src, TRAIT_SIMPLE_WOUNDS))
 				if(I.is_silver && HAS_TRAIT(src, TRAIT_SILVER_WEAK))
 					newforce *= SILVER_SIMPLEMOB_DAM_MULT
-				simple_woundcritroll(user.used_intent.blade_class, newforce, user, hitlim)
+				simple_woundcritroll(user.used_intent.blade_class, newforce, user, hitlim, penfactor = pen, part_mult = user.used_intent.get_part_damage_factor())
 				/* No embedding on simple mobs, thank you!
 				var/datum/wound/crit_wound  = simple_woundcritroll(user.used_intent.blade_class, newforce, user, hitlim)
 				if(should_embed_weapon(crit_wound, I))
@@ -754,13 +759,6 @@
 	send_item_attack_message(I, user, hitlim)
 	if(I.force_dynamic)
 		return TRUE
-
-/mob/living/simple_animal/attacked_by(obj/item/I, mob/living/user)
-	if(I.force_dynamic < force_threshold || I.damtype == STAMINA)
-		playsound(loc, 'sound/blank.ogg', I.get_clamped_volume(), TRUE, -1)
-	else
-		. = ..()
-		I.do_special_attack_effect(user, null, null, src, null)
 
 // Proximity_flag is 1 if this afterattack was called on something adjacent, in your square, or on your person.
 // Click parameters is the params string from byond Click() code, see that documentation.

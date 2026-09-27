@@ -21,7 +21,7 @@
 /mob/proc/flash_fullscreen(state)
 	///Caustic edit, screen epilepsy thing
 	var/atom/movable/screen/fullscreen/flashholder/screen = screens["flashholder"]
-	if(!check_epilepsy()) //This is the only new line added, the rest of the changes are simply indenting the rest of this thing by one 
+	if(!check_epilepsy()) //This is the only new line added, the rest of the changes are simply indenting the rest of this thing by one
 
 		if(!screen)
 			screen = new /atom/movable/screen/fullscreen/flashholder()
@@ -172,6 +172,27 @@
 /atom/movable/screen/fullscreen/inqvision
 	icon_state = "inqvision"
 	layer = BLIND_LAYER
+
+//Caustic Edit - Add in Ratwood Fullscreens for Weathers
+/atom/movable/screen/fullscreen/nearsight
+	icon_state = "inqvision"
+	layer = CRIT_LAYER
+	plane = FULLSCREEN_PLANE
+
+/atom/movable/screen/fullscreen/dustoverlay
+	icon_state = "smok"
+	layer = CRIT_LAYER
+	plane = FULLSCREEN_PLANE
+	color = "#C3b091"
+	alpha = 125
+
+/atom/movable/screen/fullscreen/dustoverlay_light
+	icon_state = "smok"
+	layer = CRIT_LAYER
+	plane = FULLSCREEN_PLANE
+	color = "#C3b091"
+	alpha = 90
+//Caustic Edit End
 
 /atom/movable/screen/fullscreen/blackimageoverlay
 	icon_state = "blackimageoverlay"

@@ -90,6 +90,7 @@
 	desc = "A teapot made out of ceramic. Used to serve tea, it can hold a lot of liquid. It can still spill, however."
 	dropshrink = 0.7
 	icon_state = "teapot"
+	obj_flags = CAN_BE_HIT|UNIQUE_RENAME
 	volume = 120
 
 /obj/item/reagent_containers/glass/bucket/pot/teapot/getonmobprop(tag)

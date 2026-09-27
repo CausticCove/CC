@@ -361,14 +361,14 @@
 	icon_state = "bangs"
 	default_color = "FFFFFF"
 	affected_bodyparts = HEAD
-	
+
 /datum/body_marking/small/bangs
 	icon = 'icons/mob/body_markings/other_markings.dmi'
 	name = "Bangs (Volk)"
 	icon_state = "bangs_s"
 	default_color = "FFFFFF"
 	affected_bodyparts = HEAD
-	
+
 /datum/body_marking/bun
 	icon = 'icons/mob/body_markings/other_markings.dmi'
 	name = "Bun"
@@ -382,29 +382,3 @@
 	icon_state = "bun_s"
 	default_color = "FFFFFF"
 	affected_bodyparts = HEAD
-
-// Caustic Edit start
-
-// Harpy legs
-
-/datum/body_marking/harpyleg
-	icon = 'icons/mob/body_markings/other_markings.dmi'
-	name = "Harpy Legs"
-	icon_state = "harpy_leg"
-	affected_bodyparts = LEG_LEFT | LEG_RIGHT
-	default_color = DEFAULT_SECONDARY
-
-/datum/body_marking/harpytalon
-	icon = 'icons/mob/body_markings/other_markings.dmi'
-	name = "Harpy Legs (Talons)"
-	icon_state = "harpy_talons"
-	affected_bodyparts = LEG_LEFT | LEG_RIGHT
-	default_color = DEFAULT_SECONDARY
-
-/datum/body_marking/harpythigh
-	icon = 'icons/mob/body_markings/other_markings.dmi'
-	name = "Harpy Thighs"
-	icon_state = "harpy_thigh"
-	affected_bodyparts = LEG_LEFT | LEG_RIGHT
-
-// Caustic Edit end

@@ -85,7 +85,14 @@
 					remove_status_effect(/datum/status_effect/debuff/vulnerable)
 					emote("groan", forced = TRUE)
 
+			//CC Edit - Reduce Total Integrity Damage Taken via AC ratio after all calculations were made.
+			var/armor_ratio = get_armor_class_ratio(used)
+			intdamage -= (intdamage * armor_ratio)
+			//CC Edit End
+
 			used.take_damage(intdamage, damage_flag = d_type, sound_effect = FALSE, armor_penetration = 100)
+			if(intdamage > 0)
+				SEND_SIGNAL(src, COMSIG_MOB_ARMOR_INTEGRITY_DAMAGED, intdamage, used, 1, 1)
 	else
 		// DR types: blunt, fire, acid
 		var/list/layers = get_best_worn_armor_layered(def_zone, d_type)
@@ -128,17 +135,32 @@
 
 			if(d_type in ARMOR_DR_SINGLE_LAYER_TYPES)
 				if(best_layer)
+
+					//CC Edit - Reduce Total Integrity Damage Taken via AC ratio after all calculations were made.
+					var/armor_ratio = get_armor_class_ratio(best_layer)
+					intdamage -= (intdamage * armor_ratio)
+					//CC Edit End
+
 					best_layer.take_damage(intdamage, damage_flag = d_type, sound_effect = FALSE, armor_penetration = 100)
 					if(best_layer.blocksound)
 						playsound(loc, get_armor_sound(best_layer.blocksound, blade_dulling), 100)
 			else
 				var/layers_deep = 1
 				var/played_sound = FALSE
+				var/total_layer_count = length(layers)
 				for(var/obj/item/clothing/C in layers)
 					var/actualdmg = intdamage
 					if(!full_dmg)
 						actualdmg /= layers_deep
+
+					//CC Edit - Reduce Total Integrity Damage Taken via AC ratio after all calculations were made.
+					var/armor_ratio = get_armor_class_ratio(C)
+					intdamage -= (intdamage * armor_ratio)
+					//CC Edit End
+
 					C.take_damage(actualdmg, damage_flag = d_type, sound_effect = FALSE, armor_penetration = 100)
+					if(actualdmg > 0)
+						SEND_SIGNAL(src, COMSIG_MOB_ARMOR_INTEGRITY_DAMAGED, actualdmg, C, layers_deep, total_layer_count)
 					if(C.blocksound && !played_sound)
 						playsound(loc, get_armor_sound(C.blocksound, blade_dulling), 100)
 						played_sound = TRUE
@@ -387,12 +409,12 @@
 			return FALSE
 		var/zones = M.zone_selected
 		if(!M.ckey)
-			zones = pick(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_PRECISE_NECK, BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_HAND, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)
+			zones = M.get_attack_zone(src)
 		var/dam_zone = dismembering_strike(M, zones)
 		if(!dam_zone) //Dismemberment successful
 			return TRUE
 
-		var/obj/item/bodypart/affecting = get_bodypart(ran_zone(dam_zone))
+		var/obj/item/bodypart/affecting = get_bodypart(M.ckey ? ran_zone(dam_zone) : check_zone(dam_zone))
 		if(!affecting)
 			affecting = get_bodypart(BODY_ZONE_CHEST)
 		var/armor = run_armor_check(affecting, M.d_type, armor_penetration = M.armor_penetration, damage = damage)
@@ -403,10 +425,12 @@
 			nodmg = TRUE
 			next_attack_msg += VISMSG_ARMOR_BLOCKED
 		else
-			SEND_SIGNAL(M, COMSIG_MOB_AFTERATTACK_SUCCESS, src)
+			SEND_SIGNAL(M, COMSIG_MOB_AFTERATTACK_SUCCESS, src, affecting)
 			affecting.bodypart_attacked_by(M.a_intent.blade_class, damage - armor, M, dam_zone, crit_message = TRUE)
-		visible_message(span_danger("\The [M] [pick(M.a_intent.attack_verb)] [src]![next_attack_msg.Join()]"), \
-					span_danger("\The [M] [pick(M.a_intent.attack_verb)] me![next_attack_msg.Join()]"), null, COMBAT_MESSAGE_RANGE)
+		var/attack_verb = pick(M.a_intent.attack_verb)
+		var/hit_area = parse_zone(affecting.body_zone, affecting)
+		visible_message(span_danger("\The [M] [attack_verb] [src] in the [span_combatsecondarybp(hit_area)]![next_attack_msg.Join()]"), \
+					span_danger("\The [M] [attack_verb] me in the [span_userdanger(hit_area)]![next_attack_msg.Join()]"), null, COMBAT_MESSAGE_RANGE)
 		next_attack_msg.Cut()
 		if(nodmg)
 			return FALSE
@@ -971,25 +995,19 @@
 		I.fire_act(stacks * 25 * seconds_per_tick) //damage taken is reduced to 2% of this value by fire_act()
 
 
-//Used to grab the ratio for all armor pieces meant to be damaged for use with the checkarmor() proc.
-//Can handle either one, or multiple pieces of armor.
+//Grabs the armor class ratio for the used armor piece when calculating the amount of damage to absorb.
 
-/mob/living/carbon/human/proc/get_armor_class_ratio(armor_list)
-	var/cur_armor = 1 //List indexing value
-	var/list/ratio_list = list()
-	for(var/i in 1 to length(armor_list))
-		var/obj/item/clothing/used = armor_list[cur_armor]
-		var/cur_ratio = 0
-		switch(used.armor_class)
-			if(ARMOR_CLASS_NONE)
-				cur_ratio = AC_NONE_RATIO
-			if(ARMOR_CLASS_LIGHT)
-				cur_ratio = AC_LIGHT_RATIO
-			if(ARMOR_CLASS_MEDIUM)
-				cur_ratio = AC_MEDIUM_RATIO
-			if(ARMOR_CLASS_HEAVY)
-				cur_ratio = AC_HEAVY_RATIO
-		ratio_list += cur_ratio
-		cur_armor++
-	return ratio_list
+/mob/living/carbon/human/proc/get_armor_class_ratio(armor_piece)
+	var/obj/item/clothing/used = armor_piece
+	var/cur_ratio = 0
+	switch(used.armor_class)
+		if(ARMOR_CLASS_NONE)
+			cur_ratio = AC_NONE_RATIO
+		if(ARMOR_CLASS_LIGHT)
+			cur_ratio = AC_LIGHT_RATIO
+		if(ARMOR_CLASS_MEDIUM)
+			cur_ratio = AC_MEDIUM_RATIO
+		if(ARMOR_CLASS_HEAVY)
+			cur_ratio = AC_HEAVY_RATIO
+	return cur_ratio
 

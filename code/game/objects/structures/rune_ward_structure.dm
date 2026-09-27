@@ -86,8 +86,7 @@
 /obj/structure/rune_ward/stun/rune_effect(mob/living/L)
 	to_chat(L, span_danger("<B>The rune locks your muscles in place!</B>"))
 	playsound(src, 'sound/magic/lightning.ogg', 80, TRUE)
-	L.electrocute_act(10, src, flags = SHOCK_NOGLOVES)
-	L.Paralyze(6 SECONDS)
+	L.lightning_shock(src)
 
 /obj/structure/rune_ward/fire
 	name = "flame rune"
@@ -97,10 +96,8 @@
 	to_chat(L, span_danger("<B>The rune erupts in flames!</B>"))
 	playsound(src, pick('sound/misc/explode/incendiary (1).ogg', 'sound/misc/explode/incendiary (2).ogg'), 80, TRUE)
 	new /obj/effect/hotspot(get_turf(src))
-	L.Knockdown(30)
-	L.Slowdown(2)
-	L.adjust_fire_stacks(5)
-	L.ignite_mob()
+	L.Slowdown(4)
+	apply_scorch_stack(L, 3, BODY_ZONE_CHEST)
 
 /obj/structure/rune_ward/chill
 	name = "frost rune"
@@ -109,9 +106,9 @@
 /obj/structure/rune_ward/chill/rune_effect(mob/living/L)
 	to_chat(L, span_danger("<B>Frost erupts from the rune and seizes your limbs!</B>"))
 	playsound(src, 'sound/spellbooks/crystal.ogg', 80, TRUE)
-	new /obj/effect/temp_visual/trapice(get_turf(src))
-	L.Paralyze(20)
-	L.adjustFireLoss(30)
+	new /obj/effect/temp_visual/telegraph/ice(get_turf(src))
+	L.Slowdown(4)
+	L.adjustFireLoss(10)
 	apply_frost_stack(L, 4)
 
 /obj/structure/rune_ward/damage

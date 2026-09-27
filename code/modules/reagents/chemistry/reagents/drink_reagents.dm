@@ -16,6 +16,7 @@
 	..()
 
 /datum/reagent/consumable/Acoffee
+	drink_type = DRINKTYPE_CAFFEINE
 	name = "Acorn Coffee"
 	description = "A nice bitter stimulating brew"
 	color = "#800000"
@@ -87,8 +88,7 @@
 	glass_name = "glass of milk"
 	glass_desc = ""
 	//CC Edit Begin
-	diet_types = list("Dairy")
-	diet_change_amount = FOOD_DIETARY_REAGENT_VALUE_POOR
+	foodtype = DAIRY
 	//CC Edit End
 
 /datum/reagent/consumable/milk/on_mob_life(mob/living/carbon/M)

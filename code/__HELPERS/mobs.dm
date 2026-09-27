@@ -230,6 +230,7 @@ GLOBAL_LIST_EMPTY(species_list)
 	var/titles_pref = null
 	var/clothes_pref = CLOTHES_M
 	var/obscured_flags = NONE
+	var/override_advclass_examine = FALSE // if you get converted to a different role like servant with advjob_examine set to true, your title won't change on examine bcs your advclass hasn't actually changed - so we override that setting
 
 /**
  * Timed action involving one mob user. Target is optional.
@@ -576,9 +577,9 @@ GLOBAL_LIST_EMPTY(species_list)
 //				rendered_message = "[turf_link] [message]"
 				rendered_message = "[message]"
 
-			to_chat(M, rendered_message, MESSAGE_TYPE_INFO)
+			to_chat(M, rendered_message)
 		else
-			to_chat(M, message, MESSAGE_TYPE_INFO)
+			to_chat(M, message)
 
 //Used in chemical_mob_spawn. Generates a random mob based on a given gold_core_spawnable value.
 /proc/create_random_mob(spawn_location, mob_class = HOSTILE_SPAWN)
@@ -658,11 +659,11 @@ GLOBAL_LIST_EMPTY(species_list)
 	if(!existing)
 		lobbyer.close_spawn_windows()
 		var/obj/effect/landmark/observer_start/O = locate(/obj/effect/landmark/observer_start) in GLOB.landmarks_list
-		to_chat(src, span_notice("Now teleporting."), MESSAGE_TYPE_INFO)
+		to_chat(src, span_notice("Now teleporting."))
 		if (O)
 			observer.forceMove(O.loc)
 		else
-			to_chat(src, span_notice("Teleporting failed. Ahelp an admin please"), MESSAGE_TYPE_INFO)
+			to_chat(src, span_notice("Teleporting failed. Ahelp an admin please"))
 			stack_trace("There's no freaking observer landmark available on this map or you're making observers before the map is initialised")
 
 	observer.key = key
@@ -680,3 +681,27 @@ GLOBAL_LIST_EMPTY(species_list)
 		mind = null
 		qdel(src)
 	return TRUE
+
+/proc/is_human_part_visible(mob/living/carbon/human/human, flags_inv)
+	if(!human)
+		return TRUE
+	if(flags_inv == NONE)
+		return TRUE
+	// this previously monumentally sucked and iterated over every item in a person's inventory every time their appearance needed to be checked, which was often.
+	// replaced it by checking what hide slots are obscured at any given point in a /mob/'s `obscured_flags` var, so we check that instead
+	return !(human.obscured_flags & flags_inv)
+
+/mob/living/proc/rebuild_obscured_flags()
+	// we do this when we equip and unequip anything to make sure all our flags are set properly
+	var/list/equipped_items = get_equipped_items(FALSE)
+	var/new_flags = NONE
+	for(var/obj/item/thing as anything in equipped_items)
+		if (thing.flags_inv)
+			new_flags |= thing.flags_inv
+
+	if(new_flags == obscured_flags)
+		return
+	obscured_flags = new_flags
+	if(ishuman(src))
+		var/mob/living/carbon/human/H = src
+		H.update_body_parts()

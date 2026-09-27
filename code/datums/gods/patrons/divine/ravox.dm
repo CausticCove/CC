@@ -6,8 +6,8 @@
 	mob_traits = list(TRAIT_SHARPER_BLADES)
 	traits_tier = list(TRAIT_BATTLEMASTER = CLERIC_T1, TRAIT_JUSTICARSIGHT = CLERIC_T3)
 	miracles = list(/datum/action/cooldown/spell/touch/orison				= CLERIC_ORI,
-					/datum/action/cooldown/spell/ravox/tug					= CLERIC_T0,
 					/datum/action/cooldown/spell/ravox/provocation	       	= CLERIC_T0,
+					/datum/action/cooldown/spell/projectile/ravox_tug		= CLERIC_T1,
 					/datum/action/cooldown/spell/miracle/heal 				= CLERIC_T1,
 					/datum/action/cooldown/spell/miracle/bloodmiracle		= CLERIC_T1,
 					/datum/action/cooldown/spell/ravox/strikeoraegis		= CLERIC_T1,
@@ -28,7 +28,7 @@
 
 	titles = list(
 		"Justiciar",
-		"Justicar", // it is misspelled ingame enough that we should probably accept this too 
+		"Justicar", // it is misspelled ingame enough that we should probably accept this too
 		"Ratake"
 	)
 
@@ -65,10 +65,10 @@
 
 	if(istype(target.rmb_intent, /datum/rmb_intent/strong))
 		bonus++
-	
+
 	if(istype(target.get_active_held_item(), /obj/item/rogueweapon))
 		bonus += 0.5
-	
+
 	if(target == user && target.blood_volume <= BLOOD_VOLUME_OKAY && COOLDOWN_FINISHED(src, lesser_heal_buff_cooldown))
 		user.emote("warcry")
 		user.blood_volume += BLOOD_VOLUME_SURVIVE / 3

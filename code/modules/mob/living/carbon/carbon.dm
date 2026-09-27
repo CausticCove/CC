@@ -103,7 +103,7 @@
 		selhand = (active_hand_index % held_items.len)+1
 
 	if(istext(selhand))
-		selhand = lowertext(selhand)
+		selhand = LOWER_TEXT(selhand)
 		if(selhand == "right" || selhand == "r")
 			selhand = 2
 		if(selhand == "left" || selhand == "l")
@@ -294,6 +294,8 @@
 		playsound(get_turf(src), used_sound, 60, FALSE)
 
 /mob/living/carbon/restrained(ignore_grab = TRUE)
+	if(..())
+		return TRUE
 //	. = (handcuffed || (!ignore_grab && pulledby && pulledby.grab_state >= GRAB_AGGRESSIVE))
 	if(handcuffed)
 		return TRUE
@@ -301,6 +303,9 @@
 		if(pulledby != src)
 			if(pulledby.grab_state >= GRAB_AGGRESSIVE)
 				return TRUE
+
+/mob/living/carbon/is_legbound()
+	return !!legcuffed
 
 /mob/living/carbon/proc/canBeHandcuffed()
 	return 0
@@ -849,6 +854,21 @@
 		add_client_colour(/datum/client_colour/gildsight)
 	else
 		remove_client_colour(/datum/client_colour/gildsight)
+
+	//Caustic Edit - Add in the Sandstorm Effect fullscreens!
+	if(HAS_TRAIT(src, TRAIT_SANDSTORMED))
+		if(HAS_TRAIT(src, TRAIT_SANDSTORM_GOGGLES) || src.has_sandstorm_hood())
+			clear_fullscreen("nearsighted")
+		else
+			overlay_fullscreen("nearsighted", /atom/movable/screen/fullscreen/nearsight)
+		if(HAS_TRAIT(src, TRAIT_SANDSTORM_GOGGLES) || src.has_sandstorm_hood())
+			overlay_fullscreen("dust", /atom/movable/screen/fullscreen/dustoverlay_light)
+		else
+			overlay_fullscreen("dust", /atom/movable/screen/fullscreen/dustoverlay)
+	else
+		clear_fullscreen("nearsighted")
+		clear_fullscreen("dust")
+	//Caustic Edit End
 
 	if(HAS_TRAIT(src, TRAIT_THERMAL_VISION))
 		sight |= (SEE_MOBS)

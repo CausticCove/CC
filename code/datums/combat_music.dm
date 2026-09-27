@@ -152,6 +152,15 @@ GLOBAL_LIST_EMPTY(cmode_tracks_by_name)
 	credits = "Pathologic (Classic) - Most Combat Theme"
 	musicpath = list('sound/music/combat_bum.ogg')
 
+//Caustic Edit - Add Sergeant theme!
+/datum/combat_music/certain_bogman
+	name = "A Certain Bogman's Theme"
+	desc = ""
+	shortname = "Certain Bogman"
+	credits = "A Certain Sinclair's Theme | Limbus Company Canto 9 - Uploaded by SpearHead (https://www.youtube.com/watch?v=zUPqG9ghRco)"
+	musicpath = list('sound/music/cmode/garrison/combat_sergeant.ogg')
+//Caustic Edit End
+
 /datum/combat_music/conddottiero
 	name = "Condottiero Guildsman"
 	desc = ""
@@ -284,9 +293,9 @@ GLOBAL_LIST_EMPTY(cmode_tracks_by_name)
 /datum/combat_music/inquis_ordinator
 	name = "Inquisitor ('Ordinator' Mix)"
 	desc = ""
-	shortname = "Inq. Ordinator" 
+	shortname = "Inq. Ordinator"
 	musicpath = list('sound/music/combat_inqordinator.ogg')
-	
+
 /datum/combat_music/inquis_commander
 	name = "Inquisitor ('Commander' Mix)"
 	desc = "One last parlay at the end of the world. Finish the fight, no matter the odds."

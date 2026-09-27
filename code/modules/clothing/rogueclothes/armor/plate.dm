@@ -153,7 +153,7 @@
 	smeltresult = /obj/item/ingot/aaslag
 
 /obj/item/clothing/suit/roguetown/armor/plate/paalloy/get_examine_highlight_status()
-	return list(EXAMINEHIGHLIGHT_HERESYSEVERITY_ALARMING, HERESYDESC_ZIZO_ARTIFICE)
+	return list(EXAMINEHIGHLIGHT_TOOLTIP_HERESYSEVERITY_ODD, HERESYDESC_ZIZO_ARTIFICE_RECLAIMED)
 
 /obj/item/clothing/suit/roguetown/armor/plate/paalloy/artificer
 	name = "artificed half-plate"
@@ -173,11 +173,11 @@
 	update_description()
 
 /obj/item/clothing/suit/roguetown/armor/plate/paalloy/artificer/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/contraption/linker))
+	if(istype(I, /obj/item/rogueweapon/contraption/linker))
 		if(user.get_skill_level(/datum/skill/craft/engineering) >= 3)
 			toggle_mode(user)
 			return
-	if(istype(I, /obj/item/magic/infernal/core) && !powered)
+	if(istype(I, /obj/item/magic/melded/t1) && !powered)
 		user.visible_message(span_notice("[user] starts carefully setting [I] into place as a power source."))
 		if(do_after(user, 5 SECONDS, target = src))
 			qdel(I)
@@ -523,9 +523,6 @@
 /obj/item/clothing/suit/roguetown/armor/plate/fluted/zizo/get_examine_highlight_status()
 	return list(EXAMINEHIGHLIGHT_HERESYSEVERITY_ALARMING, HERESYDESC_ZIZO_ARMOR)
 
-/obj/item/clothing/suit/roguetown/armor/plate/fluted/zizo/dropped(mob/living/carbon/human/user)
-	return ..()
-
 /obj/item/clothing/suit/roguetown/armor/plate/full/zizo
 	name = "avantyne full-plate"
 	desc = "Impossible angularities, molded into a form more comprehensible to the layman's eyes. It has been called forth \
@@ -577,16 +574,18 @@
 	body_parts_covered = COVERAGE_ALL_BUT_HANDFEET
 	smeltresult = /obj/item/ingot/component/baotha
 
+//Caustic Edit - Let us remove and drop armors again! For fun stuffs.
 /obj/item/clothing/suit/roguetown/armor/plate/fluted/baotha/Initialize()
 	. = ..()
 	AddComponent(/datum/component/cursed_item, TRAIT_DEPRAVED, "ARMOR")
-	ADD_TRAIT(src, TRAIT_NODROP, CURSED_ITEM_TRAIT)
+	//ADD_TRAIT(src, TRAIT_NODROP, CURSED_ITEM_TRAIT)
 
 /obj/item/clothing/suit/roguetown/armor/plate/fluted/baotha/dropped(mob/living/carbon/human/user)
 	. = ..()
-	if(QDELETED(src))
+	/*if(QDELETED(src))
 		return
-	qdel(src)
+	qdel(src)*/
+//Caustic Edit End
 
 /obj/item/clothing/suit/roguetown/armor/plate/fluted/baotha/get_examine_highlight_status()
 	return list(EXAMINEHIGHLIGHT_HERESYSEVERITY_ALARMING, HERESYDESC_BAOTHA_ARMOR)

@@ -31,7 +31,7 @@
 
 			//check if we're holding a drill
 			for(var/obj/item/I in user.held_items)
-				if(istype(I, /obj/item/contraption/pick/drill))
+				if(istype(I, /obj/item/rogueweapon/contraption/pick/drill))
 					holdingdrill = TRUE
 			//if no drill is found then wipe the skill
 			if (!holdingdrill)
@@ -61,11 +61,11 @@
 				// Animation and sound
 				playsound(user, 'sound/misc/DrillDone.ogg', 100, TRUE)
 				do_sparks(8, TRUE, human_target)
-				human_target.visible_message(span_danger("The drill starts to spin [human_target] core!"))				
+				human_target.visible_message(span_danger("The drill starts to spin [human_target] core!"))
 
 				if(do_after(usr, 10 SECONDS, target = human_target))
-					for(var/obj/item/contraption/I in user.held_items)
-						if(istype(I, /obj/item/contraption/pick/drill))
+					for(var/obj/item/rogueweapon/contraption/I in user.held_items)
+						if(istype(I, /obj/item/rogueweapon/contraption/pick/drill))
 							if(I.current_charge < 300)
 								to_chat(user, span_warning("There's not enough charge for this!")) //revive failed, not enough fuel
 								return
@@ -80,9 +80,9 @@
 						human_target.emote("gasp")
 						human_target.Jitter(100)
 						human_target.electrocute_act(25, src, 1)//slight damage
-						human_target.visible_message(span_notice("[human_target] jerks awake with a buzz!"), 
+						human_target.visible_message(span_notice("[human_target] jerks awake with a buzz!"),
 													 span_userdanger("You awaken with a jolt as your core is spun!"))
-						
+
 						// Apply debuffs
 						human_target.mind.remove_antag_datum(/datum/antagonist/zombie)
 						human_target.apply_status_effect(/datum/status_effect/debuff/revived)
@@ -95,11 +95,11 @@
 				// Animation and sound
 				playsound(user, 'sound/misc/DrillDone.ogg', 100, TRUE)
 				do_sparks(8, TRUE, human_target)
-				human_target.visible_message(span_danger("The drill starts to spin [human_target] core!"))			
+				human_target.visible_message(span_danger("The drill starts to spin [human_target] core!"))
 
 				if(do_after(usr, 10 SECONDS, target = human_target))
-					for(var/obj/item/contraption/I in user.held_items)
-						if(istype(I, /obj/item/contraption/pick/drill))
+					for(var/obj/item/rogueweapon/contraption/I in user.held_items)
+						if(istype(I, /obj/item/rogueweapon/contraption/pick/drill))
 							if(I.current_charge < 150)
 								to_chat(user, span_warning("There's not enough charge for this!")) //revive failed, not enough fuel
 								return
@@ -108,7 +108,7 @@
 					human_target.emote("gasp")
 					human_target.Jitter(25)
 					human_target.apply_status_effect(/datum/status_effect/buff/windup)
-					human_target.visible_message(span_notice("[human_target] body jerks with a buzz!"), 
+					human_target.visible_message(span_notice("[human_target] body jerks with a buzz!"),
 												 span_userdanger("Your body buzzes with a jolt as your core is spun!"))
 					return
 				else
@@ -118,7 +118,7 @@
 
 
 
-		else 
+		else
 			to_chat(user, span_warning("I need to be next to [human_target] to wind them up"))
 			return
 	revert_cast()

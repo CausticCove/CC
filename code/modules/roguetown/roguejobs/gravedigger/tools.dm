@@ -98,15 +98,21 @@
 	no_attack = TRUE
 
 /obj/item/rogueweapon/shovel/proc/start_autodig(mob/living/L, turf/T)
-	if(!isliving(L) || !istype(T, /turf/open/floor/rogue/dirt))
+	if(!isliving(L))
 		return FALSE
-	
+
+	if(istype(T, /turf/open/floor/rogue/sand) || istype(T, /turf/open/floor/rogue/AzureSand) || istype(T,/turf/open/floor/rogue/dunes)) //Caustic Edit - Adds Desert Town Tiles
+		return start_autodig_sand(L, T)
+
+	if(!istype(T, /turf/open/floor/rogue/dirt))
+		return FALSE
+
 	var/turf/open/floor/rogue/dirt/D = T
 	var/start_digging = !heldclod && !D.holie
-	
+
 	if(!start_digging)
 		return FALSE
-	
+
 	L.visible_message(span_notice("[L] begins digging on [T]..."))
 	// Do the first dig
 	if(!heldclod)
@@ -117,7 +123,7 @@
 		heldclod = new(src)
 		playsound(T,'sound/items/dig_shovel.ogg', 100, TRUE)
 		update_icon()
-	
+
 	// Start the continuous loop
 	while(do_after(L, 1 SECONDS, target = T))
 		D = get_turf(T)
@@ -126,16 +132,16 @@
 		if(!(L.mobility_flags & MOBILITY_STAND))
 			to_chat(L, span_warning("You are knocked down and stop digging."))
 			break
-		
+
 		L.changeNext_move(L.used_intent.clickcd)
 		if(max_blade_int)
 			remove_bintegrity(2)
-		
+
 		// Fill the hole with the clod we have
 		if(heldclod && D.holie)
 			D.holie.attackby(src, L)
 			playsound(D,'sound/items/empty_shovel.ogg', 100, TRUE)
-		
+
 		// Dig a new hole on the same tile
 		D = get_turf(T)
 		if(istype(D, /turf/open/floor/rogue/dirt))
@@ -152,7 +158,61 @@
 				break
 		else
 			break
-	
+
+	return TRUE
+
+/obj/item/rogueweapon/shovel/proc/can_autodig_sand(turf/T)
+	if(istype(T, /turf/open/floor/rogue/sand))
+		var/turf/open/floor/rogue/sand/S = T
+		return S.sand_amt > 0
+	if(istype(T, /turf/open/floor/rogue/AzureSand))
+		return TRUE
+	if(istype(T,/turf/open/floor/rogue/dunes)) //Caustic Edit - Adds Desert Town Tiles
+		return TRUE
+	return FALSE
+
+/obj/item/rogueweapon/shovel/proc/scoop_sand_clod(turf/T)
+	if(!can_autodig_sand(T))
+		return FALSE
+
+	if(istype(T, /turf/open/floor/rogue/sand))
+		var/turf/open/floor/rogue/sand/S = T
+		S.sand_amt = max(S.sand_amt - 1, 0)
+
+	heldclod = new /obj/item/natural/dirtclod/sand(src)
+	playsound(T, 'sound/items/dig_shovel.ogg', 100, TRUE)
+	update_icon()
+	return TRUE
+
+/obj/item/rogueweapon/shovel/proc/start_autodig_sand(mob/living/L, turf/T)
+	if(!can_autodig_sand(T) || heldclod)
+		return FALSE
+
+	L.visible_message(span_notice("[L] begins shoveling sand on [T]..."))
+	if(!scoop_sand_clod(T))
+		return FALSE
+
+	while(do_after(L, 1 SECONDS, target = T))
+		var/turf/current_turf = get_turf(T)
+		if(!can_autodig_sand(current_turf))
+			break
+		if(!(L.mobility_flags & MOBILITY_STAND))
+			to_chat(L, span_warning("You are knocked down and stop digging."))
+			break
+
+		L.changeNext_move(L.used_intent.clickcd)
+		if(max_blade_int)
+			remove_bintegrity(2)
+
+		if(heldclod)
+			heldclod.forceMove(current_turf)
+			heldclod = null
+			playsound(current_turf, 'sound/items/empty_shovel.ogg', 100, TRUE)
+			update_icon()
+
+		if(!scoop_sand_clod(current_turf))
+			break
+
 	return TRUE
 
 /obj/item/rogueweapon/shovel/attack(mob/living/M, mob/living/user)
@@ -260,6 +320,16 @@
 							update_icon()
 
 					return
+
+				if(istype(T, /turf/open/floor/rogue/sand) || istype(T, /turf/open/floor/rogue/AzureSand) || istype(T,/turf/open/floor/rogue/dunes)) //Caustic Edit - Adds Desert Town Tiles
+					if(heldclod)
+						heldclod.forceMove(T)
+						heldclod = null
+						playsound(T,'sound/items/empty_shovel.ogg', 100, TRUE)
+						update_icon()
+						return
+					if(scoop_sand_clod(T))
+						return
 
 				if(heldclod)
 					if(istype(T, /turf/open/water))
@@ -463,7 +533,7 @@
 	desc = "This relic, bestowed on the Order of the Veiled Lady, is cold to the touch. Faint whispers of the lost and the damned can be heard in its presence, and an inscription on the handle reads the Order's motto: \"Rest to the Restless, Death to the Deathless\""
 	icon_state = "zoe_silence"
 	icon = 'icons/obj/items/donor_weapons_48.dmi'
-	
+
 /obj/item/rogueweapon/shovel/zoe_silence/getonmobprop(tag)
 	if(tag)
 		switch(tag)

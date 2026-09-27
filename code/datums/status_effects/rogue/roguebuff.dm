@@ -247,6 +247,7 @@
 			owner.add_stress(/datum/stressevent/high)
 
 /datum/status_effect/buff/baothablessing/on_remove()
+	REMOVE_TRAIT(owner, TRAIT_CRACKHEAD, TRAIT_MIRACLE)
 	if(owner?.client)
 		if(owner.client.screen && owner.client.screen.len)
 			var/atom/movable/screen/plane_master/game_world/PM = locate(/atom/movable/screen/plane_master/game_world) in owner.client.screen
@@ -555,7 +556,17 @@
 	var/tech_healing_modifier = 1
 	var/block_combat_mode = FALSE
 
-/datum/status_effect/buff/healing/on_creation(mob/living/new_owner, new_healing_on_tick, is_inhumen = FALSE)
+//CC Edit - Special Miracle Healing SFX to signal to others they are currently being healed by magical means.
+	//For any specific/unique healing effects.
+	var/list/healing_sound_effects = null //Intentionally left null, sound effects are applied alongside the creation of the effect.
+
+
+/datum/status_effect/buff/healing/on_creation(mob/living/new_owner, new_healing_on_tick, is_inhumen = FALSE, new_healing_sound_effects) //CC Edit - new_healing_sound_effects argument
+	//CC Edit - Healing SFX
+	if(!isnull(new_healing_sound_effects))
+		healing_sound_effects = new_healing_sound_effects
+//CC Edit End
+
 	if(!isnull(new_healing_on_tick))
 		healing_on_tick = new_healing_on_tick
 	tech_healing_modifier = SSchimeric_tech.get_healing_multiplier()
@@ -564,6 +575,7 @@
 		tech_healing_modifier = 1 + ((tech_healing_modifier - 1) * 0.5)
 	healing_on_tick *= tech_healing_modifier
 	return ..()
+
 
 /datum/status_effect/buff/healing/on_apply()
 	SEND_SIGNAL(owner, COMSIG_LIVING_MIRACLE_HEAL_APPLY, healing_on_tick, src)
@@ -591,6 +603,9 @@
 	owner.adjustToxLoss(-healing_on_tick, 0)
 	owner.adjustOrganLoss(ORGAN_SLOT_BRAIN, -healing_on_tick)
 	owner.adjustCloneLoss(-healing_on_tick, 0)
+	//CC Edit - Play the special healing SFX!
+	playsound(owner, healing_sound_effects, 45, TRUE, extrarange = -2) //Vary the sound, reduce the range, quiet it down a smidge, voila!
+	//CC Edit End
 // Lesser miracle effect end
 
 #define REWIND_AURA "originhealing"
@@ -1309,6 +1324,61 @@
 	REMOVE_TRAIT(owner, TRAIT_DARKVISION, MAGIC_TRAIT)
 
 
+/datum/status_effect/buff/knowledgerituos
+	id = "knowledgerituos"
+	alert_type = /atom/movable/screen/alert/status_effect/buff/knowledgerituos
+	duration = 25 MINUTES
+	effectedstats = list(STATKEY_INT = 1)
+
+/atom/movable/screen/alert/status_effect/buff/knowledgerituos
+	name = "Insightful Chant"
+	desc = "Zizo's mandate and her absolute truth reshapes my mynd, bringing me clarity from ignorance."
+	icon_state = "rituos_exchange"
+
+/datum/status_effect/buff/knowledgerituos/on_apply()
+	. = ..()
+	if(HAS_TRAIT(owner, TRAIT_NOMOOD))
+		to_chat(owner, span_warning("I see through Zizo's vision. No truth can hide from me."))
+	else
+		to_chat(owner, span_warning("I see through Zizo's vision. No truth can hide from me; I feel a strange hollowness in my chest as my emotions fade away."))
+	//Now we add traits after our flavor check.
+	ADD_TRAIT(owner, TRAIT_NITEVISION, MAGIC_TRAIT) //better night vision than Noc... but...
+	ADD_TRAIT(owner, TRAIT_NOMOOD, MAGIC_TRAIT)
+
+
+/datum/status_effect/buff/knowledgerituos/on_remove()
+	. = ..()
+	REMOVE_TRAIT(owner, TRAIT_NITEVISION, MAGIC_TRAIT)
+	REMOVE_TRAIT(owner, TRAIT_NOMOOD, MAGIC_TRAIT)
+	//we now check for our removal message.
+	if(HAS_TRAIT(owner, TRAIT_NOMOOD))
+		to_chat(owner, span_warning("Zizo's vision leaves my mynd, the pain from the light receeds."))
+	else
+		to_chat(owner, span_warning("Zizo's vision leaves my mynd, the pain from the light receeds and I feel that vibrant feeling of emotion again."))
+
+
+/datum/status_effect/buff/utilityrituos
+	id = "utilityrituos"
+	alert_type = /atom/movable/screen/alert/status_effect/buff/utilityrituos
+	effectedstats = list(STATKEY_WIL = 1) //Bare minimal needed to labor slightly easier.
+	duration = 25 MINUTES
+
+/atom/movable/screen/alert/status_effect/buff/utilityrituos
+	name = "Progressive Trance"
+	desc = "Zizo's mandate and her absolute truth reshapes my mynd, I learn unnaturally fast and my hands work wrydly fast."
+	icon_state = "rituos_exchange"
+
+
+/datum/status_effect/buff/utilityrituos/on_apply()
+	. = ..()
+	to_chat(owner, span_warning("My mynd and talent bends to Zizo's will, I learn unnaturally fast."))
+	ADD_TRAIT(owner, TRAIT_JACKOFALLTRADES, MAGIC_TRAIT)
+
+
+/datum/status_effect/buff/utilityrituos/on_remove()
+	. = ..()
+	to_chat(owner, span_warning("Zizo's will loosens upon my mynd and everything slows back to normal."))
+	REMOVE_TRAIT(owner, TRAIT_JACKOFALLTRADES, MAGIC_TRAIT)
 
 
 /atom/movable/screen/alert/status_effect/buff/flylordstriage
@@ -1931,47 +2001,6 @@
 /datum/status_effect/buff/clash/limbguard/guard_on_kick()
 	return
 
-#define BLOODRAGE_FILTER "bloodrage"
-
-/atom/movable/screen/alert/status_effect/buff/graggar_bloodrage
-	name = "BLOODRAGE"
-	desc = "GRAGGAR! GRAGGAR! GRAGGAR!"
-	icon_state = "bloodrage"
-
-/datum/status_effect/buff/bloodrage
-	id = "bloodrage"
-	alert_type = /atom/movable/screen/alert/status_effect/buff/graggar_bloodrage
-	var/outline_color = "#ad0202"
-	duration = 15 SECONDS
-
-/datum/status_effect/buff/bloodrage/on_apply()
-	ADD_TRAIT(owner, TRAIT_STRENGTH_UNCAPPED, TRAIT_MIRACLE)
-	var/holyskill = owner.get_skill_level(/datum/skill/magic/holy)
-	duration = ((15 SECONDS) * holyskill)
-	var/filter = owner.get_filter(BLOODRAGE_FILTER)
-	if(!filter)
-		owner.add_filter(BLOODRAGE_FILTER, 2, list("type" = "outline", "color" = outline_color, "alpha" = 60, "size" = 2))
-	if(!HAS_TRAIT(owner, TRAIT_DODGEEXPERT))
-		if(owner.STASTR < STRENGTH_SOFTCAP)
-			effectedstats = list(STATKEY_STR = (STRENGTH_SOFTCAP - owner.STASTR))
-			. = ..()
-			return TRUE
-	if(holyskill >= SKILL_LEVEL_APPRENTICE)
-		effectedstats = list(STATKEY_STR = 2)
-	else
-		effectedstats = list(STATKEY_STR = 1)
-	. = ..()
-	return TRUE
-
-/datum/status_effect/buff/bloodrage/on_remove()
-	. = ..()
-	REMOVE_TRAIT(owner, TRAIT_STRENGTH_UNCAPPED, TRAIT_MIRACLE)
-	owner.visible_message(span_warning("[owner] wavers, their rage simmering down."))
-	owner.OffBalance(3 SECONDS)
-	owner.remove_filter(BLOODRAGE_FILTER)
-	owner.emote("breathgasp", forced = TRUE)
-	owner.Slowdown(3)
-
 /datum/status_effect/buff/psydonic_endurance
 	id = "psydonic_endurance"
 	alert_type = /atom/movable/screen/alert/status_effect/buff/psydonic_endurance
@@ -1990,8 +2019,6 @@
 	name = "Psydonic Vitality"
 	desc = "I feel blessed, underneath this holy armor!"
 	icon_state = "stressvg"
-
-#undef BLOODRAGE_FILTER
 
 /datum/status_effect/buff/sermon
 	id = "sermon"
@@ -2078,6 +2105,9 @@
 
 /datum/status_effect/buff/adrenaline_rush/melee
 	effectedstats = list(STATKEY_WIL = 1, STATKEY_CON = 1)
+
+/datum/status_effect/buff/adrenaline_rush/graggar
+	effectedstats = list(STATKEY_CON = 3)
 
 /datum/status_effect/buff/nocblessing
 	id = "nocblessing"
@@ -2746,16 +2776,25 @@
 	var/energy_per_tick = 0
 	var/total_to_restore = 0
 	var/currently_restored = 0
+	/// Missing energy percentage to restore
+	var/restore_percent_missing = 34
+	/// Minimum safety floor percentage to restore
+	var/min_restore_percent = 20
 
-/datum/status_effect/buff/invigoration/on_creation(mob/living/new_owner, set_duration = 10 SECONDS, restore_percent_missing = 34, min_restore_percent = 20)
+/datum/status_effect/buff/invigoration/on_creation(mob/living/new_owner, set_duration, set_restore_missing, set_min_restore)
+	// Respect custom overrides passed in, otherwise fall back to path variables
 	if(set_duration)
 		duration = set_duration
+	if(set_restore_missing)
+		restore_percent_missing = set_restore_missing
+	if(set_min_restore)
+		min_restore_percent = set_min_restore
 
 	var/missing_energy = new_owner.max_energy - new_owner.energy
 	var/percent_missing = (missing_energy / new_owner.max_energy) * 100
 	var/percent_missing_percent = percent_missing * (restore_percent_missing / 100)
 
-	// either the provided restore missing % or the minimum safety floor
+	// Either the calculated missing % or the minimum safety floor
 	var/restore_target_percent = max(percent_missing_percent, min_restore_percent)
 
 	// Total amount we want to restore over the whole duration
@@ -2763,8 +2802,9 @@
 
 	// Divide that total by the number of ticks
 	var/tick_interval = 1 SECONDS
-	var/num_ticks = max(round(set_duration / tick_interval), 1)
+	var/num_ticks = max(round(duration / tick_interval), 1)
 	energy_per_tick = total_to_restore / num_ticks
+
 	return ..()
 
 /datum/status_effect/buff/invigoration/on_apply()

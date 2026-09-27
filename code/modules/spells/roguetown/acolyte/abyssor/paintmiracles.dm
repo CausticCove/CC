@@ -2,6 +2,7 @@
 	name = "Depth Stride"
 	desc = "Start leaving paint trails as you move. You and those with paint affinity are sped up and regain a smidge of nutrition for touching trails, everyone else touching the trail is slowed."
 	button_icon = 'icons/mob/actions/abyssormiracles.dmi'
+	background_icon = 'icons/mob/actions/abyssormiracles.dmi'
 	button_icon_state = "paint"
 	sound = 'sound/magic/abyssor_splash.ogg'
 	spell_color = "#00051f"
@@ -22,42 +23,20 @@
 	devotion_cost = 25
 	associated_skill = /datum/skill/magic/holy
 
-	var/active_duration = 7 SECONDS
-
 /datum/action/cooldown/spell/ink_presence/cast(atom/cast_on)
 	. = ..()
 	var/mob/living/user = owner
 	if(!user)
 		return FALSE
 
-	RegisterSignal(user, COMSIG_MOVABLE_MOVED, .proc/generate_ink_trail)
-	addtimer(CALLBACK(src, .proc/stop_ink_presence, user), active_duration)
+	user.apply_status_effect(/datum/status_effect/buff/ink_presence)
 	return TRUE
-
-/datum/action/cooldown/spell/ink_presence/proc/generate_ink_trail(mob/living/user, turf/old_turf, dir)
-	SIGNAL_HANDLER
-	if(!user || user.stat != CONSCIOUS)
-		return
-	var/turf/current_turf = get_turf(user)
-	if(!current_turf || !isopenturf(current_turf))
-		return
-
-	var/obj/effect/ink_trail/existing_trail = locate(/obj/effect/ink_trail) in current_turf
-
-	if(existing_trail)
-		existing_trail.refresh_lifetime()
-	else
-		new /obj/effect/ink_trail(current_turf, user)
-		user.apply_status_effect(/datum/status_effect/buff/ink_surge)
-
-/datum/action/cooldown/spell/ink_presence/proc/stop_ink_presence(mob/living/user)
-	if(user)
-		UnregisterSignal(user, COMSIG_MOVABLE_MOVED)
 
 /datum/action/cooldown/spell/paint_blessing
 	name = "Paint Attunement"
-	desc = "Conduct a lengthy attunement mracle to bind an ally to your paint trails. Targets cannot move during the ritual. Casting without a direct target allows you to manage or revoke existing blessings."
+	desc = "Conduct a lengthy attunement miracle to bind an ally to your paint trails. Targets cannot move during the ritual. Casting without a direct target allows you to manage or revoke existing blessings."
 	button_icon = 'icons/mob/actions/abyssormiracles.dmi'
+	background_icon = 'icons/mob/actions/abyssormiracles.dmi'
 	button_icon_state = "paint_bless"
 	sound = 'sound/magic/abyssor_splash.ogg'
 	spell_color = "#5c0099"
@@ -177,6 +156,7 @@
 	name = "Umbral Coating"
 	desc = "Infuse your active weapon with a heavy, abyssal paint. Strikes against mindless beasts deal devastating damage. Conscious targets take minimal damage but bleed paint trails. If cast with an empty hand, shapes the paint into a short-lived bow preloaded with a single paint arrow."
 	button_icon = 'icons/mob/actions/abyssormiracles.dmi'
+	background_icon = 'icons/mob/actions/abyssormiracles.dmi'
 	button_icon_state = "paint_blade"
 	sound = 'sound/magic/abyssor_splash.ogg'
 	spell_color = "#03000a"
@@ -191,8 +171,8 @@
 	)
 	invocation_type = INVOCATION_SHOUT
 	charge_required = TRUE
-	charge_time = 0.7 SECONDS
-	cooldown_time = 60 SECONDS
+	charge_time = 0.5 SECONDS
+	cooldown_time = 35 SECONDS
 	devotion_cost = 25
 	associated_skill = /datum/skill/magic/holy
 
@@ -230,7 +210,7 @@
 	. = ..()
 	if(.)
 		var/mob/living/user = owner
-		addtimer(CALLBACK(src, .proc/self_consume, user), 1)
+		addtimer(CALLBACK(src, PROC_REF(self_consume), user), 1)
 
 /datum/action/cooldown/spell/umbral_viscosity/single_use/proc/self_consume(mob/living/L)
 	if(L?.mind)
@@ -238,8 +218,9 @@
 
 /datum/action/cooldown/spell/transmute_ink
 	name = "Purifying Wave"
-	desc = "Purify nearby abyssal paint trails within your immediate surroundings, turning them into healing trails for the attuned. The more paint affected (up to 10), the longer the cooldown."
+	desc = "Purify nearby abyssal paint trails within your immediate surroundings, turning them into healing trails for the attuned. The more paint affected (up to 10), the longer the cooldown. If you pull targets, those attuned will get healed in your stead. If you use a paint brush staff, you can heal via pulling regardless."
 	button_icon = 'icons/mob/actions/abyssormiracles.dmi'
+	background_icon = 'icons/mob/actions/abyssormiracles.dmi'
 	button_icon_state = "paint_heal"
 	sound = 'sound/magic/abyssor_splash.ogg'
 	spell_color = "#125a00"
@@ -273,13 +254,16 @@
 
 	var/affected_count = 0
 	for(var/obj/effect/ink_trail/trail in range(transmute_range, center))
-		trail.buff_payload = /datum/status_effect/buff/umbral_recovery
-		trail.debuff_payload = null
-		trail.icon_state = "paint_gray"
-		trail.color = "#b6e6b6"
-		trail.consume_buff = TRUE
-		trail.deny_buff = TRUE
-		trail.refresh_lifetime(15 SECONDS)
+		trail.apply_custom_effect(
+			new_buff = /datum/status_effect/buff/umbral_recovery,
+			new_debuff = null,
+			new_icon_state = "paint_gray",
+			new_color = "#b6e6b6",
+			consume = TRUE,
+			deny = TRUE,
+			new_duration = 15 SECONDS,
+			to_pulled = TRUE
+		)
 		affected_count++
 
 	if(affected_count > 0)
@@ -299,6 +283,7 @@
 	name = "Umbral Replenishment"
 	desc = "Channel your devotion into a depleted pylon, restoring its current infusion reservoirs up to half capacity. Can only be performed once per unique infusion cycle."
 	button_icon = 'icons/mob/actions/abyssormiracles.dmi'
+	background_icon = 'icons/mob/actions/abyssormiracles.dmi'
 	button_icon_state = "paint_infusion"
 	sound = 'sound/magic/abyssor_splash.ogg'
 	spell_color = "#330066"

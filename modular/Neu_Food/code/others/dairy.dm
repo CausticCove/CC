@@ -9,8 +9,7 @@
 /datum/reagent/consumable/milk/salted
 	taste_description = "salty milk"
 	//CC Edit Begin
-	diet_types = list("Dairy")
-	diet_change_amount = FOOD_DIETARY_REAGENT_VALUE_POOR
+	foodtype = DAIRY
 	//CC Edit End
 
 /obj/item/reagent_containers/attackby(obj/item/I, mob/living/user, params) // add cook time to containers & salted milk for butter churning
@@ -49,6 +48,7 @@
 
 // -------------- BUTTER -----------------
 /obj/item/reagent_containers/food/snacks/butter
+	dish_type = DISH_DAIRY
 	icon = 'modular/Neu_Food/icons/others/dairy.dmi'
 	name = "stick of butter"
 	desc = "Delicious fattiness, fit for elevating meals-a-plenty."
@@ -61,10 +61,6 @@
 	slice_batch = FALSE
 	bitesize = 6
 	slice_sound = TRUE
-	//CC Edit Begin
-	diet_types = list("Dairy")
-	diet_change_amount = FOOD_DIETARY_VALUE_POOR
-	//CC Edit End
 
 /obj/item/reagent_containers/food/snacks/butter/attackby(obj/item/I, mob/living/user, params)
 	update_cooktime(user)
@@ -99,6 +95,7 @@
 			changefood(slice_path, eater)
 
 /obj/item/reagent_containers/food/snacks/butterslice
+	dish_type = DISH_DAIRY
 	icon = 'modular/Neu_Food/icons/others/dairy.dmi'
 	icon_state = "butter_slice"
 	name = "butter"
@@ -106,10 +103,6 @@
 	faretype = FARE_IMPOVERISHED
 	foodtype = DAIRY
 	list_reagents = list(/datum/reagent/consumable/nutriment = 2)
-	//CC Edit Begin
-	diet_types = list("Dairy")
-	diet_change_amount = FOOD_DIETARY_VALUE_POOR
-	//CC Edit End
 
 /obj/item/reagent_containers/food/snacks/butterslice/attackby(obj/item/I, mob/living/user, params)
 	var/found_table = locate(/obj/structure/table) in (loc)
@@ -161,6 +154,8 @@
 	..()
 
 /obj/item/reagent_containers/food/snacks/rogue/foodbase/cheesewheel
+	cuisine = CUISINE_OTAVAIS|CUISINE_NORTHERN|CUISINE_ETRUSCAN
+	dish_type = DISH_DAIRY
 	name = "unfinished cheese wheel"
 	icon = 'modular/Neu_Food/icons/others/dairy.dmi'
 	icon_state = "cheesewheel_1"
@@ -169,8 +164,7 @@
 	var/mature_proc = .proc/maturing_done
 	//CC Edit Begin
 	//I don't think this... can be eaten normally? But. Just in case?
-	diet_types = list("Dairy")
-	diet_change_amount = FOOD_DIETARY_VALUE_BAD
+	foodtype = DAIRY
 	//CC Edit End
 
 /obj/item/reagent_containers/food/snacks/rogue/foodbase/cheesewheel/attackby(obj/item/I, mob/living/user, params)
@@ -214,6 +208,8 @@
 
 // -------------- CHEESE -----------------
 /obj/item/reagent_containers/food/snacks/rogue/cheese
+	cuisine = CUISINE_OTAVAIS|CUISINE_NORTHERN|CUISINE_ETRUSCAN
+	dish_type = DISH_DAIRY
 	name = "fresh cheese"
 	desc = "Clotted and salted milk, eager to be cocooned in cloth so that it may realize its fullest potential."
 	icon = 'modular/Neu_Food/icons/others/dairy.dmi'
@@ -223,15 +219,11 @@
 	w_class = WEIGHT_CLASS_TINY
 	tastes = list("cheese" = 1)
 	faretype = FARE_POOR
-	foodtype = GRAIN
+	foodtype = DAIRY
 	eat_effect = null
 	rotprocess = SHELFLIFE_DECENT
 	become_rot_type = null
 	slice_path = null
-	//CC Edit Begin
-	diet_types = list("Dairy")
-	diet_change_amount = FOOD_DIETARY_VALUE_BAD
-	//CC Edit End
 
 /obj/item/reagent_containers/food/snacks/rogue/cheese/get_mechanics_examine(mob/user)
 	. = ..()
@@ -239,6 +231,8 @@
 	. += span_info("Repeating this process until four clumps of fresh cheese are used will result in a tied-together package. This package will eventually blossom into a cheese wheel, once enough time has passed.")
 
 /obj/item/reagent_containers/food/snacks/rogue/cheddar
+	cuisine = CUISINE_OTAVAIS|CUISINE_NORTHERN|CUISINE_ETRUSCAN
+	dish_type = DISH_DAIRY
 	name = "wheel of cheese"
 	desc = "A hunk of burning love, aching to age."
 	icon = 'modular/Neu_Food/icons/others/dairy.dmi'
@@ -256,8 +250,7 @@
 	become_rot_type = /obj/item/reagent_containers/food/snacks/rogue/cheddar/aged
 	slice_sound = TRUE
 	//CC Edit Begin
-	diet_types = list("Dairy")
-	diet_change_amount = FOOD_DIETARY_VALUE_GREAT
+	foodtype = DAIRY
 	//CC Edit End
 
 /obj/item/reagent_containers/food/snacks/rogue/cheddar/get_mechanics_examine(mob/user)
@@ -280,6 +273,8 @@
 
 
 /obj/item/reagent_containers/food/snacks/rogue/cheddarwedge
+	cuisine = CUISINE_OTAVAIS|CUISINE_NORTHERN|CUISINE_ETRUSCAN
+	dish_type = DISH_DAIRY
 	name = "wedge of cheese"
 	desc = "Talk about a chunk of cheddar!"
 	icon = 'modular/Neu_Food/icons/others/dairy.dmi'
@@ -296,8 +291,7 @@
 	slice_path = /obj/item/reagent_containers/food/snacks/rogue/cheddarslice
 	become_rot_type = /obj/item/reagent_containers/food/snacks/rogue/cheddarwedge/aged
 	//CC Edit Begin
-	diet_types = list("Dairy")
-	diet_change_amount = FOOD_DIETARY_VALUE_GREAT
+	foodtype = DAIRY
 	//CC Edit End
 
 
@@ -311,14 +305,16 @@
 	become_rot_type = null
 	rotprocess = null
 	//CC Edit Begin
-	diet_types = list("Dairy")
-	diet_change_amount = FOOD_DIETARY_VALUE_GOOD //It's aged, tastes great but not as nutritious.
+	dish_type = DISH_DAIRY
+	foodtype = DAIRY
 	//CC Edit End
 
 
 /obj/item/reagent_containers/food/snacks/rogue/cheddarslice
+	cuisine = CUISINE_OTAVAIS|CUISINE_NORTHERN|CUISINE_ETRUSCAN
+	dish_type = DISH_DAIRY
 	name = "slice of cheese"
-	desc = "A sliver of savoriness." 
+	desc = "A sliver of savoriness."
 	icon = 'modular/Neu_Food/icons/others/dairy.dmi'
 	icon_state = "cheese_slice"
 	bitesize = 1
@@ -343,8 +339,7 @@
 		"cheeseFishingMod" = 1 // Just for the funny gimmick of a higher chance for rats and rouses.
 	)
 	//CC Edit Begin
-	diet_types = list("Dairy")
-	diet_change_amount = FOOD_DIETARY_VALUE_POOR
+	foodtype = DAIRY
 	//CC Edit End
 
 /obj/item/reagent_containers/food/snacks/rogue/cheddarslice/aged
@@ -365,12 +360,12 @@
 		"cheeseFishingMod" = 1.5 // Just for the funny gimmick of a higher chance for rats and rouses.
 	)
 	//CC Edit Begin
-	diet_types = list("Dairy")
-	diet_change_amount = FOOD_DIETARY_VALUE_POOR - 1 //Aged, less dietary value.
+	foodtype = DAIRY
 	//CC Edit End
 
 // -------------- FROSTING -----------------
 /obj/item/reagent_containers/food/snacks/rogue/frosting
+	dish_type = DISH_DAIRY | DISH_SWEET
 	name = "frosting"
 	desc = "Butter mixed with sugar and whipped into a delicious frosting."
 	icon = 'modular/Neu_Food/icons/others/dairy.dmi'
@@ -382,7 +377,3 @@
 	faretype = FARE_NEUTRAL
 	foodtype = DAIRY | SUGAR
 	eat_effect = /datum/status_effect/buff/sweet
-	//CC Edit Begin
-	diet_types = list("Dairy")
-	diet_change_amount = FOOD_DIETARY_VALUE_BAD //Sugar isn't beneficial to your diet!
-	//CC Edit End

@@ -57,6 +57,8 @@
 	else
 		if(isitem(target))
 			var/obj/item/I = target
+			if(I.anchored || I.move_resist >= MOVE_FORCE_STRONG)
+				return
 			var/mob/living/carbon/human/carbon_firer
 			if (ishuman(firer))
 				carbon_firer = firer

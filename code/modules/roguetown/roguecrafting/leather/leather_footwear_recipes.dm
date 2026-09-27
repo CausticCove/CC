@@ -2,10 +2,10 @@
 	abstract_type = /datum/crafting_recipe/roguetown/leather/footwear
 	display_category = ITEM_CAT_ARMOR_BOOTS
 	category = "Footwear"
-	reqs = list(/obj/item/natural/hide/cured = 1, 
+	reqs = list(/obj/item/natural/hide/cured = 1,
 				/obj/item/natural/fibers = 1) //basic footwear all have the same recipe
 
-/datum/crafting_recipe/roguetown/leather/footwear/shoes 
+/datum/crafting_recipe/roguetown/leather/footwear/shoes
 	name = "shoes"
 	result = /obj/item/clothing/shoes/roguetown/simpleshoes
 
@@ -16,6 +16,13 @@
 /datum/crafting_recipe/roguetown/leather/footwear/boots_heavy
 	name = "hardened leather boots"
 	result = /obj/item/clothing/shoes/roguetown/boots/leather/reinforced
+	reqs = list(/obj/item/natural/hide/cured = 1,
+				/obj/item/natural/fur = 1)
+	craftdiff = 3	//Same as the hardened leather gloves.
+
+/datum/crafting_recipe/roguetown/leather/footwear/boots_heavy_footwrap
+	name = "hardened leather footwraps"
+	result = /obj/item/clothing/shoes/roguetown/footwraps/hleather
 	reqs = list(/obj/item/natural/hide/cured = 1,
 				/obj/item/natural/fur = 1)
 	craftdiff = 3	//Same as the hardened leather gloves.

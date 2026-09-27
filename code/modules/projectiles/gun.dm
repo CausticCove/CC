@@ -1,6 +1,4 @@
 
-#define DUALWIELD_PENALTY_EXTRA_MULTIPLIER 1.4
-
 /obj/item/gun
 	name = "gun"
 	desc = ""
@@ -142,7 +140,7 @@
 		user.apply_status_effect(/datum/status_effect/combat_tag)
 		if(user.get_skill_level(/datum/skill/misc/sneaking) >= SKILL_LEVEL_JOURNEYMAN || HAS_TRAIT(user, TRAIT_LIGHT_STEP))
 			user.apply_status_effect(/datum/status_effect/stealth_revealed)
-		sprd = round((rand() - 0.5) * DUALWIELD_PENALTY_EXTRA_MULTIPLIER * (randomized_gun_spread + randomized_bonus_spread))
+		sprd = round((rand() - 0.5) * RANGED_SPREAD_JITTER * (randomized_gun_spread + randomized_bonus_spread))
 		before_firing(target,user)
 		if(!chambered.fire_casing(target, user, params, , FALSE, zone_override, sprd, src))
 			shoot_with_empty_chamber(user)
@@ -196,5 +194,3 @@
 //Happens before the actual projectile creation
 /obj/item/gun/proc/before_firing(atom/target,mob/user)
 	return
-
-#undef DUALWIELD_PENALTY_EXTRA_MULTIPLIER

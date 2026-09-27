@@ -21,7 +21,7 @@
 	dir = get_dir(src, target)
 	switch(chosen_mob)
 		if("volf")
-			image = image('icons/roguetown/mob/monster/volf.dmi',src,"vv",OBJ_LAYER+0.01, dir)
+			image = image('icons/roguetown/mob/monster/volf.dmi',src,"volf_black",OBJ_LAYER+0.01, dir)
 		if("skele")
 			image = image('icons/mob/skeletons.dmi',src,"skeleton",OBJ_LAYER+0.01, dir)
 		if("goblin")
@@ -75,7 +75,7 @@
 				qdel(A)
 		helper_proc()
 		qdel(src)
-	
+
 	if(prob(15))
 		switch(chosen_mob)
 			if("skele")
@@ -102,7 +102,7 @@
 		dir = pick(ALL_CARDINALS)
 		step(src, dir)
 		return
-		
+
 	face_atom(target) //Face the hallucinatee.
 	show_icon() //Update dir post-facing...
 	step(src, src.dir) //Step...
@@ -231,7 +231,7 @@
 				return
 			sleep(15) //See above sleep
 			target.clear_fullscreen("HE_IS_HERE")
-		
+
 /datum/hallucination/psydon_is_here/proc/handle_floors(mob/living/dreamer)
 	if(!dreamer.client)
 		return

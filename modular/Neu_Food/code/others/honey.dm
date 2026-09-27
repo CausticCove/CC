@@ -1,6 +1,8 @@
 
 // -------------- SPIDER HONEY -----------------
 /obj/item/reagent_containers/food/snacks/rogue/honey
+	cuisine = CUISINE_SOUTH_IMPERIAL
+	dish_type = DISH_SWEET
 	name = "honey"
 	icon = 'modular/Neu_Food/icons/others/honey.dmi'
 	icon_state = "honeycomb"
@@ -18,11 +20,6 @@
 	tastes = list("sweetness" = 1)
 	eat_effect = null
 	rotprocess = null
-	//CC Edit Begin
-	//This can be removed if it's too weird. My reasoning behind this is that honey falls under the Carbohydrates food group, grains is often formed of carbohydrates.
-	diet_types = list("Grains")
-	diet_change_amount = FOOD_DIETARY_VALUE_GOOD
-	//CC Edit End
 
 	var/honey_color = ""
 

@@ -346,7 +346,7 @@
 //CC Edit: unfucks this entire proc as well by moving from get_flat_human_icon to get_flat_icon for human
 	if(!mind || !client)
 		return
-	
+
 	//Caustic Edit - Add in Piggyback Call to Character Directory Photo here!
 	get_chardirectory_photo()
 	//Caustic Edit End
@@ -375,7 +375,7 @@
 	return TRUE
 
 /datum/job/proc/GetAntagRep()
-	. = CONFIG_GET(keyed_list/antag_rep)[lowertext(title)]
+	. = CONFIG_GET(keyed_list/antag_rep)[LOWER_TEXT(title)]
 	if(. == null)
 		return antag_rep
 
@@ -527,7 +527,7 @@
 /proc/should_wear_masc_clothes(mob/living/carbon/human/H)
 	if(!H.mind)
 		return (H.pronouns == HE_HIM || H.pronouns == THEY_THEM || H.pronouns == IT_ITS)
-	else 
+	else
 		return (H.clothes_pref == CLOTHES_M)
 
 /proc/should_wear_femme_clothes(mob/living/carbon/human/H)

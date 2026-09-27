@@ -2,8 +2,8 @@
 	button_icon = 'icons/mob/actions/mage_ferramancy.dmi'
 	name = "Arcyne Lance"
 	desc = "Hurl a spectral arcyne lance that pierces through up to 3 targets without losing momentum. \
-	Toggle arc mode (Ctrl+G) to lob over obstacles at reduced damage. Arced projectiles will not pierce multiple targets."
-	button_icon_state = "arcyne_lance"
+	Toggle arc mode (Shift+G) to lob over obstacles at reduced damage. Arced projectiles will not pierce multiple targets."
+	button_icon_state = "sorcerers_lance"
 	sound = 'sound/magic/scrapeblade.ogg'
 	spell_color = GLOW_COLOR_METAL
 	glow_intensity = GLOW_INTENSITY_MEDIUM
@@ -21,7 +21,7 @@
 	invocation_type = INVOCATION_SHOUT
 
 	charge_required = TRUE
-	weapon_cast_penalized = FALSE
+	weapon_cast_penalized = TRUE
 	charge_time = CHARGETIME_POKE
 	charge_swingdelay_type = SWINGDELAY_PENALTY
 	hold_drain = 1
@@ -32,6 +32,8 @@
 	associated_skill = /datum/skill/magic/arcane
 	spell_tier = 2
 	spell_impact_intensity = SPELL_IMPACT_MEDIUM
+
+	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC | SPELL_REQUIRES_HUMAN
 
 // --- Arcyne spear projectile ---
 
@@ -44,13 +46,12 @@
 	damage = 66
 	damage_type = BRUTE
 	woundclass = BCLASS_STAB
-	npc_simple_damage_mult = 1.5
 	nodamage = FALSE
 	speed = MAGE_PROJ_MEDIUM
 	armor_penetration = PEN_LIGHT
 	movement_type = UNSTOPPABLE
 	range = SPELL_RANGE_PROJECTILE
-	flag = "piercing"
+	flag = "stab"
 	hitsound = 'sound/combat/hits/bladed/genthrust (1).ogg'
 	/// How many mob targets have been pierced
 	var/hits = 0

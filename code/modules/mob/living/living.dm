@@ -762,6 +762,15 @@
 			say(word_input)
 		death()
 
+/mob/living/restrained(ignore_grab)
+	return ..() || istype(loc, /obj/item/mob_item)
+
+/mob/living/proc/is_carried()
+	return ismob(buckled) && buckled.buckle_lying > 0
+
+/mob/living/proc/is_legbound()
+	return FALSE
+
 /mob/living/incapacitated(ignore_restraints = FALSE, ignore_grab = TRUE, check_immobilized = FALSE, ignore_stasis = FALSE)
 	if(stat || IsUnconscious() || IsStun() || IsParalyzed() || (!ignore_restraints && restrained(ignore_grab)))
 		return TRUE
@@ -1293,6 +1302,7 @@
 
 
 /mob/proc/stop_attack(message = FALSE)
+	used_intent?.on_charge_cancel()
 	if(atkswinging)
 		atkswinging = FALSE
 		if(message)
@@ -2046,8 +2056,8 @@
 		return
 	if(!over.Adjacent(src) || (user != src) || !canUseTopic(over))
 		return
-	if(can_be_held)
-		mob_try_pickup(over)
+	if(can_be_held(user))
+		mob_try_pickup(user)
 
 /mob/living/proc/mob_pickup(mob/living/L)
 	return
@@ -2068,6 +2078,9 @@
 		return FALSE
 	mob_pickup(user)
 	return TRUE
+
+/mob/living/proc/can_be_held(mob/by)
+	return FALSE
 
 /mob/living/reset_perspective(atom/A)
 	if(..())
@@ -2232,6 +2245,8 @@
 				if(isturf(M.loc) && M.armed)
 					found_ping(get_turf(M), client, "trap")
 			if(istype(O, /obj/structure/flora/roguegrass/maneater/real))
+				found_ping(get_turf(O), client, "trap")
+			if(istype(O, /obj/structure/quicksand)) //Caustic Edit - Add in Quicksand tracking pings!
 				found_ping(get_turf(O), client, "trap")
 			if(istype(O, /obj/item/clothing) || istype(O, /obj/item/rogueweapon) || istype(O, /obj/item/gun))	//bows and crossbows are... guns...
 				if(!isturf(O.loc))

@@ -12,6 +12,7 @@
 	droning_sound_night = 'sound/music/area/forestnight.ogg'
 	soundenv = 15
 	warden_area = TRUE
+	allow_extreme_weather = TRUE //Caustic Edit - Allow tornado spawns!
 	ambush_times = list("night","dawn","dusk","day")
 	ambush_mobs = list(
 				/mob/living/simple_animal/hostile/retaliate/rogue/badger = 10,
@@ -28,6 +29,7 @@
 	deathsight_message = "somewhere in the wilds"
 	threat_region = THREAT_REGION_AZURE_GROVE
 	detail_text = DETAIL_TEXT_AZURE_GROVE
+	area_sniff_message = "You smell old, mighty trees."
 
 /area/rogue/indoors/shelter/woods
 	name = "Azure Grove"
@@ -37,7 +39,7 @@
 	droning_sound_night = 'sound/music/area/forestnight.ogg'
 	threat_region = THREAT_REGION_AZURE_GROVE
 	deathsight_message = "somewhere in the wilds"
-
+	area_sniff_message = "You smell old, mighty trees... But someone cut them into planks."
 
 /area/rogue/outdoors/woods/north
 	name = "Azure Grove - North"
@@ -125,9 +127,11 @@
 	ambush_times = list()
 	ambush_mobs = null
 	threat_region = ""
+	allow_extreme_weather = FALSE //Caustic Edit - No tornado spawns!
 
 /area/rogue/outdoors/woods/wretch_lair
 	warden_area = FALSE
 	ambush_times = list()
 	ambush_mobs = null
 	threat_region = ""
+	allow_extreme_weather = FALSE //Caustic Edit - No tornado spawns!

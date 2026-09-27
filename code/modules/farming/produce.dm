@@ -149,6 +149,7 @@
 	fried_type = /obj/item/reagent_containers/food/snacks/rogue/grilledcorn
 
 /obj/item/reagent_containers/food/snacks/grown/apple
+	dish_type = DISH_FRUIT
 	seed = /obj/item/seeds/apple
 	name = "apple"
 	desc = "Deliciously crisp and fragrant. It's said that archers will sometimes \
@@ -228,6 +229,7 @@
 		)
 
 /obj/item/reagent_containers/food/snacks/grown/fruit
+	dish_type = DISH_FRUIT
 	name = "generic fruit"
 	desc = "Uh oh, this shouldn't be here."
 	bitesize = 2
@@ -286,6 +288,8 @@
 	splat_color = "#FFA500"
 
 /obj/item/reagent_containers/food/snacks/grown/fruit/tangerine_sugared
+	cuisine = CUISINE_RANESHENI
+	dish_type = DISH_FRUIT|DISH_SWEET
 	name = "smothered tangerine"
 	desc = "Sugared tangerines, smothered in sweetness and awaiting to be baptized in a pot of boiling fat."
 	icon_state = "tangerinesugar"
@@ -343,6 +347,8 @@
 		)
 
 /obj/item/reagent_containers/food/snacks/grown/fruit/blackberry_sugared
+	cuisine = CUISINE_RANESHENI
+	dish_type = DISH_FRUIT|DISH_SWEET
 	name = "smothered blackberry"
 	desc = "Sugared blackberries, smothered in sweetness and awaiting to be baptized in a pot of boiling fat."
 	icon_state = "blackberrysugar"
@@ -392,6 +398,7 @@
 
 
 /obj/item/reagent_containers/food/snacks/grown/berries/rogue
+	dish_type = DISH_FRUIT
 	seed = /obj/item/seeds/berryrogue
 	name = "jacksberries"
 	desc = ""
@@ -488,7 +495,7 @@
 	filling_color = "#6b4d18"
 	bitesize = 1
 	foodtype = FRUIT
-	list_reagents = list(/datum/reagent/consumable/nutriment = 4, /datum/reagent/consumable/acorn_powder = 4, /datum/reagent/drug/nicotine = 1)
+	list_reagents = list(/datum/reagent/consumable/nutriment = 4, /datum/reagent/consumable/acorn_powder = 4, /datum/reagent/drug/westleach = 1)
 	grind_results = list(/datum/reagent/consumable/acorn_powder = 4)
 	mill_result = /obj/item/reagent_containers/powder/rocknut
 	//CC Edit Begin
@@ -497,6 +504,8 @@
 	//CC Edit End
 
 /obj/item/reagent_containers/food/snacks/grown/nut_sugared
+	cuisine = CUISINE_RANESHENI
+	dish_type = DISH_SWEET
 	name = "smothered rocknut"
 	desc = "Sugary rocknuts, smothered in herbal sweetness and awaiting a baptism in boiling fat."
 	icon_state = "rocknutssugar"
@@ -706,8 +715,8 @@
 	bitesize_mod = 1
 	foodtype = VEGETABLES
 	tastes = list("sweet" = 1,"bitterness" = 1)
-	list_reagents = list(/datum/reagent/drug/nicotine = 2, /datum/reagent/consumable/nutriment = 1, /datum/reagent/berrypoison = 5)
-	grind_results = list(/datum/reagent/drug/nicotine = 5)
+	list_reagents = list(/datum/reagent/drug/westleach = 2, /datum/reagent/consumable/nutriment = 1, /datum/reagent/berrypoison = 5)
+	grind_results = list(/datum/reagent/drug/westleach = 5)
 	eat_effect = /datum/status_effect/debuff/badmeal
 	rotprocess = SHELFLIFE_SHORT
 	//CC Edit Begin
@@ -721,10 +730,10 @@
 	desc = "A dried pipeweed, ready to smoke."
 	icon_state = "westleachd"
 	dry = TRUE
-	pipe_reagents = list(/datum/reagent/drug/nicotine = 30)
+	pipe_reagents = list(/datum/reagent/drug/westleach = 30)
 	eat_effect = /datum/status_effect/debuff/badmeal
-	list_reagents = list(/datum/reagent/drug/nicotine = 5, /datum/reagent/consumable/nutriment = 1)
-	grind_results = list(/datum/reagent/drug/nicotine = 10)
+	list_reagents = list(/datum/reagent/drug/westleach = 5, /datum/reagent/consumable/nutriment = 1)
+	grind_results = list(/datum/reagent/drug/westleach = 10)
 
 /obj/item/reagent_containers/food/snacks/grown/rogue/pipeweeddry/Initialize()
 	. = ..()
@@ -745,9 +754,9 @@
 	desc = "A prepared pipeweed prized for its foggy effects."
 	icon_state = "swampweedd"
 	dry = TRUE
-	pipe_reagents = list(/datum/reagent/drug/space_drugs = 30)
-	list_reagents = list(/datum/reagent/drug/space_drugs = 2,/datum/reagent/consumable/nutriment = 1)
-	grind_results = list(/datum/reagent/drug/space_drugs = 5)
+	pipe_reagents = list(/datum/reagent/drug/swampweed = 30)
+	list_reagents = list(/datum/reagent/drug/swampweed = 2,/datum/reagent/consumable/nutriment = 1)
+	grind_results = list(/datum/reagent/drug/swampweed = 5)
 	eat_effect = /datum/status_effect/debuff/badmeal
 
 /obj/item/reagent_containers/food/snacks/grown/rogue/swampweeddry/Initialize()
@@ -882,6 +891,7 @@
 	//CC Edit End
 
 /obj/item/reagent_containers/food/snacks/grown/carrot
+	dish_type = DISH_VEGETABLE
 	name = "carrot"
 	desc = "A long vegetable said to help with eyesight. Often baked"
 	icon_state = "carrot"
@@ -958,6 +968,7 @@
 
 /*	..................   Cucumber   ................... */
 /obj/item/reagent_containers/food/snacks/grown/cucumber
+	dish_type = DISH_VEGETABLE
 	name = "cucumber"
 	desc = "A long, green vegetable that is crunchy and refreshing. Can be sliced for easier consumption."
 	icon_state = "cucumber"
@@ -972,6 +983,7 @@
 	//CC Edit End
 
 /obj/item/reagent_containers/food/snacks/grown/eggplant
+	dish_type = DISH_VEGETABLE
 	name = "eggplant"
 	desc = "A large, purple vegetable with a mild taste. Can be carved to be filled up."
 	icon_state = "eggplant"

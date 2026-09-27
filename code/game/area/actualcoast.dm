@@ -12,11 +12,13 @@
 	converted_type = /area/rogue/under/lake
 	first_time_text = "CITY HARBOR"
 	deathsight_message = "a windswept shore"
+	area_sniff_message = "You smell the town, faintly, buried underneath the scent of the sea."
 	detail_text = DETAIL_TEXT_ACTUAL_COAST
 
 // No sea raiders here! The Central Coast is relatively safe.
 /area/rogue/outdoors/beach/central
 	name = "Central Coast"
+	allow_extreme_weather = TRUE //Caustic Edit - Add in the possibility for tornado spawns!
 	ambush_mobs = list(
 		/mob/living/carbon/human/species/goblin/npc/ambush/sea = 20,
 		/mob/living/carbon/human/species/goblin/npc/archer/sea = 5,
@@ -27,9 +29,11 @@
 	)
 	first_time_text = "CENTRAL COAST"
 	threat_region = THREAT_REGION_AZURE_GROVE
+	area_sniff_message = "You smell the seas and the sands."
 
 /area/rogue/outdoors/beach/north
 	name = "Northern Coast"
+	allow_extreme_weather = TRUE //Caustic Edit - Add in the possibility for tornado spawns!
 	ambush_mobs = list(
 		/mob/living/carbon/human/species/human/northern/searaider/ambush = 10,
 		/mob/living/carbon/human/species/human/northern/searaider/archer/ambush = 3,
@@ -40,9 +44,11 @@
 	)
 	first_time_text = "NORTHERN COAST"
 	threat_region = THREAT_REGION_AZUREAN_COAST
+	area_sniff_message = "You smell the seas and the sands."
 
 /area/rogue/outdoors/beach/south
 	name = "Southern Coast"
+	allow_extreme_weather = TRUE //Caustic Edit - Add in the possibility for tornado spawns!
 	ambush_mobs = list(
 		/mob/living/carbon/human/species/human/northern/searaider/ambush = 5,
 		/mob/living/carbon/human/species/human/northern/searaider/archer/ambush = 2,
@@ -56,3 +62,4 @@
 	first_time_text = "SOUTHERN COAST"
 	detail_text = DETAIL_TEXT_CITY_COAST
 	threat_region = THREAT_REGION_AZURE_BASIN
+	area_sniff_message = "You smell the seas and the sands."

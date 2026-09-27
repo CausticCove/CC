@@ -26,7 +26,7 @@
 	var/maxrange = 4
 
 /datum/intent/mace/smash/spec_on_apply_effect(mob/living/H, mob/living/user, params)
-	var/chungus_khan_str = user.STASTR 
+	var/chungus_khan_str = user.STASTR
 	if(H.has_status_effect(/datum/status_effect/debuff/yeetcd))
 		return // Recently knocked back, cannot be knocked back again yet
 	if(chungus_khan_str < 10)
@@ -70,6 +70,20 @@
 	item_d_type = "blunt"
 	penfactor = PEN_NONE
 	demolition_mod = 3.5
+	clickcd = CLICK_CD_HEAVY
+	swingdelay = 10
+
+/datum/intent/mace/lesserdemolish
+	name = "break"
+	desc = "A deliberate structure-breaking blow. Deals triple the damage to structures"
+	icon_state = "incrush"
+	blade_class = BCLASS_SMASH
+	attack_verb = list("demolishes", "crushes", "wrecks")
+	animname = "strike"
+	hitsound = list('sound/combat/hits/blunt/metalblunt (1).ogg', 'sound/combat/hits/blunt/metalblunt (2).ogg', 'sound/combat/hits/blunt/metalblunt (3).ogg')
+	item_d_type = "blunt"
+	penfactor = PEN_NONE
+	demolition_mod = 3
 	clickcd = CLICK_CD_HEAVY
 	swingdelay = 10
 
@@ -322,7 +336,7 @@
 	name = "bogbark club"
 	desc = "A primitive cudgel carved of a stout piece of treefall, from the deepest parts of the Terrorbog. An unmistakable aura of power surrounds it. This thing looks dangerously strong."
 	aura_color = "#00ff00"
-	gripped_intents = list(/datum/intent/mace/strike/wood/, /datum/intent/mace/smash/wood, /datum/intent/effect/daze, /datum/intent/mace/demolish)
+	gripped_intents = list(/datum/intent/mace/strike/wood/, /datum/intent/mace/smash/wood, /datum/intent/effect/daze, /datum/intent/mace/lesserdemolish)
 	w_class = WEIGHT_CLASS_NORMAL // it's just a stick, can put it in your backpack
 
 /obj/item/rogueweapon/mace/woodclub
@@ -433,7 +447,7 @@
 	damfactor = 1.25
 	intent_intdamage_factor = 0.4 //Reduces integrity damage modifier from +60% to -60%.
 	swingdelay = 6 //Slower than a strike, quicker than a chop or old-school smash.
-	icon_state = "inthresh"	
+	icon_state = "inthresh"
 	desc = "A slow-swinging strike that can cripple unarmored limbs with tremendous force. </br>Deals TWIST damage instead of BLUNT damage. Critical hits cause DISLOCATIONS, instead of FRACTURES. </br>DISLOCATED ARMS and HANDS cannot wield, grab, or use anything. </br>DISLOCATED LEGS and FEET prevent the target from standing."
 
 /obj/item/rogueweapon/mace/cudgel/flanged
@@ -563,7 +577,7 @@
 	force = 25
 	force_wielded = 30
 	minstr = 7
-	wdefense = 5 
+	wdefense = 5
 	wbalance = WBALANCE_SWIFT
 	resistance_flags = FIRE_PROOF
 	icon_state = "psyflangedmacelegacy"
@@ -954,7 +968,7 @@
 /obj/item/rogueweapon/mace/maul
 	force = 12 //Don't one-hand this.
 	force_wielded = 32 //-3 compared to grand mace(steel goden). Better intents.
-	possible_item_intents = list(/datum/intent/mace/strike, /datum/intent/mace/bash/ranged) 
+	possible_item_intents = list(/datum/intent/mace/strike, /datum/intent/mace/bash/ranged)
 	gripped_intents = list(/datum/intent/mace/smash/crush, /datum/intent/mace/strike/grand, /datum/intent/mace/sweep, /datum/intent/effect/hobble)
 	name = "maul"
 	desc = "Who would need something this large? It looks like it was made for tearing down walls, rather than men."
@@ -1265,7 +1279,7 @@
 		var/obj/effect/temp_visual/spore/old_spores = locate(/obj/effect/temp_visual/spore) in cloud_turf
 		if(old_spores)
 			qdel(old_spores)
-		new /obj/effect/temp_visual/spore(cloud_turf) 
+		new /obj/effect/temp_visual/spore(cloud_turf)
 
 /datum/component/mushroom_mace/proc/mushroom_boom(mob/living/target, mob/living/user)
 	var/turf/T = get_turf(target)
@@ -1331,3 +1345,178 @@
 /obj/item/rogueweapon/mace/mushroom/Initialize()
 	. = ..()
 	AddComponent(/datum/component/mushroom_mace)
+
+/obj/item/rogueweapon/contraption/linker/mace //roughly equivalent to a blacksmith hammer in damage and carryability
+	name = "Bronze-Reinforced Wrench"
+	desc = "A wrench, reinforced with bronze. It'd hurt to get smacked with this."
+	icon_state = "2hbronze"
+	wlength = WLENGTH_SHORT
+	w_class = WEIGHT_CLASS_NORMAL
+	grid_width = 32
+	grid_height = 64
+	possible_item_intents = list(/datum/intent/mace/strike, /datum/intent/use, /datum/intent/mace/strike/dislocate)
+	force = 20
+	max_integrity = 200
+	dropshrink = 0.8
+	throwforce = 15
+	associated_skill = /datum/skill/combat/maces
+	anvilrepair = /datum/skill/craft/engineering
+	wdefense = 3
+	wdefense_wbonus = 3
+	experimental_onhip = TRUE
+	experimental_onback = TRUE
+	brute_attack = TRUE
+	smeltresult = /obj/item/ingot/bronze
+	w_class = WEIGHT_CLASS_NORMAL
+	slot_flags = ITEM_SLOT_HIP | ITEM_SLOT_BACK
+	parrysound = list('sound/combat/parry/parrygen.ogg')
+	swingsound = BLUNTWOOSH_MED
+	//special = /datum/special_intent/dissassemble
+
+/obj/item/rogueweapon/contraption/linker/mace/precharged
+	current_charge = 80
+
+/obj/item/rogueweapon/contraption/linker/mace/big
+	name = "Massive Bronze Wrench"
+	desc = "A wrench with a massive handle, for the toughest of bolts. Clumsy to handle, but weighted for breaking down structures with ease."
+	icon_state = "bronzewrench"
+	icon = 'icons/roguetown/weapons/blunt64.dmi'
+	force = 13
+	force_wielded = 25
+	possible_item_intents = list(/datum/intent/mace/strike, /datum/intent/mace/bash/ranged)
+	gripped_intents = list(/datum/intent/mace/strike, /datum/intent/use, /datum/intent/mace/strike/dislocate, /datum/intent/mace/lesserdemolish)
+	minstr = 8
+	max_integrity = 350
+	w_class = WEIGHT_CLASS_BULKY
+	swingsound = BLUNTWOOSH_LARGE
+	gripsprite = TRUE
+	wlength = WLENGTH_LONG
+	wbalance = WBALANCE_HEAVY
+	grid_width = null
+	grid_height = null
+	pixel_y = -16
+	pixel_x = -16
+	inhand_x_dimension = 64
+	inhand_y_dimension = 64
+	bigboy = TRUE
+	gripsprite = TRUE
+	walking_stick = TRUE //that's just cool
+
+/obj/item/rogueweapon/contraption/linker/mace/big/getonmobprop(tag)
+	. = ..()
+	if(tag)
+		switch(tag)
+			if("gen")
+				return list("shrink" = 0.6, "sx" = -7,"sy" = 2,"nx" = 7,"ny" = 3,"wx" = -2,"wy" = 1,"ex" = 1,"ey" = 1,"northabove" = 0,"southabove" = 1,"eastabove" = 1,"westabove" = 0,"nturn" = -38,"sturn" = 37,"wturn" = 30,"eturn" = -30,"nflip" = 0,"sflip" = 8,"wflip" = 8,"eflip" = 0)
+			if("wielded")
+				return list("shrink" = 0.6,"sx" = 5,"sy" = -3,"nx" = -5,"ny" = -2,"wx" = -5,"wy" = -1,"ex" = 3,"ey" = -2,"northabove" = 0,"southabove" = 1,"eastabove" = 1,"westabove" = 0,"nturn" = 7,"sturn" = -7,"wturn" = 16,"eturn" = -22,"nflip" = 8,"sflip" = 0,"wflip" = 8,"eflip" = 0)
+
+/obj/item/rogueweapon/contraption/linker/mace/big/precharged
+	current_charge = 80
+
+/obj/item/rogueweapon/contraption/linker/mace/iron
+	name = "Iron-Reinforced Wrench"
+	desc = "A wrench, reinforced with iron. It'd hurt to get smacked with this."
+	icon_state = "2hiron"
+	smeltresult = /obj/item/ingot/iron
+
+/obj/item/rogueweapon/contraption/linker/mace/big/iron
+	name = "Massive Iron Wrench"
+	icon_state = "ironwrench"
+	smeltresult = /obj/item/ingot/iron
+
+/obj/item/rogueweapon/contraption/linker/mace/steel
+	name = "Steel-Reinforced Wrench"
+	desc = "A wrench, reinforced with steel. It'd hurt to get smacked with this."
+	icon_state = "2hsteel"
+	smeltresult = /obj/item/ingot/steel
+	force = 24
+
+/obj/item/rogueweapon/contraption/linker/mace/big/steel
+	name = "Massive Steel Wrench"
+	icon_state = "steelwrench"
+	smeltresult = /obj/item/ingot/steel
+	force = 15
+	force_wielded = 28
+
+/obj/item/rogueweapon/contraption/linker/mace/big/steel/precharged
+	current_charge = 80
+
+/obj/item/rogueweapon/contraption/linker/mace/silver
+	name = "Silver-Reinforced Wrench"
+	desc = "A wrench, reinforced with silver. Whilst the metal does the tool's integrity no favors, it serves as a charm of good luck for those who work under moonlight."
+	icon_state = "2hsilver"
+	max_integrity = 150
+	smeltresult = /obj/item/ingot/silver
+	is_silver = TRUE
+
+/obj/item/rogueweapon/contraption/linker/mace/big/silver
+	name = "Massive Silver Wrench"
+	desc = "A massive wrench, plated with silver. Well-weighted for smashing troublesome furniture and nite-creatures alike."
+	icon_state = "silverwrench"
+	max_integrity = 200
+	smeltresult = /obj/item/ingot/silver
+	is_silver = TRUE
+
+/obj/item/rogueweapon/contraption/linker/mace/master
+	name = "Gold-Reinforced Wrench"
+	desc = "A wrench, adorned with gold. The badge of an accomplished guildmaster. Capable of advanced linkages, and marvelously heavy"
+	icon_state = "2hgold"
+	max_integrity = 100
+	max_stored_charge = 100
+	smeltresult = /obj/item/ingot/gold
+	force = 24
+
+/obj/item/rogueweapon/contraption/linker/mace/big/master
+	name = "Massive Gold Wrench"
+	desc = "A massive wrench, plated and gold. The badge of an accomplished guildmaster. Capable of delightfully advanced linkages."
+	icon_state = "goldwrench"
+	smeltresult = /obj/item/ingot/gold
+	max_integrity = 200
+	force = 15
+	force_wielded = 28
+
+/obj/item/rogueweapon/contraption/linker/mace/master/bsteel
+	name = "Blacksteel-Reinforced Wrench"
+	desc = "A wrench, reinforced with blacksteel. Capable of terrifyingly advanced linkage."
+	icon_state = "2hbsteel"
+	max_integrity = 350
+	smeltresult = /obj/item/ingot/blacksteel
+	force = 24
+
+/obj/item/rogueweapon/contraption/linker/mace/big/master/bsteel
+	name = "Massive Blacksteel Wrench"
+	desc = "A massive wrench of blacksteel. The durable alloy affords more complex machinations."
+	icon_state = "bsteelwrench"
+	smeltresult = /obj/item/ingot/blacksteel
+	max_integrity = 500
+	max_stored_charge = 100
+	force = 15
+	force_wielded = 28
+
+/obj/item/rogueweapon/contraption/linker/mace/decrepit
+	name = "Decrepit Wrench"
+	desc = "An ancient wrench, reinforced with frayed bronze. Once a tool of progress, repurposed into little more than a cudgel"
+	max_integrity = 150
+	icon_state = "2hdecrepit"
+	smeltresult = /obj/item/ingot/aaslag
+	force = 18
+	max_stored_charge = 40
+
+/obj/item/rogueweapon/contraption/linker/mace/decrepit/Initialize()
+	. = ..()
+	current_charge = rand(0, max_stored_charge) // it's an ancient artifact, rather than crafted. might have some charge left
+
+/obj/item/rogueweapon/contraption/linker/mace/big/decrepit
+	name = "Massive Decrepit Wrench"
+	desc = "A massive tool of ancient, frayed bronze. The teeth at its head have been stripped clean from countless years of pointless toil, maintaining a great construct of no clear purpose"
+	max_integrity = 200
+	icon_state = "decrepitwrench"
+	smeltresult = /obj/item/ingot/aaslag
+	force = 12
+	force_wielded = 21
+	max_stored_charge = 40
+
+/obj/item/rogueweapon/contraption/linker/mace/big/decrepit/Initialize()
+	. = ..()
+	current_charge = rand(0, max_stored_charge) // it's an ancient artifact, rather than crafted. might have some charge left

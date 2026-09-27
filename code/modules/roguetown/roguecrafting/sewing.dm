@@ -319,7 +319,7 @@
 /datum/crafting_recipe/roguetown/sewing/paddedmask
 	name = "padded mask"
 	category = "Hoods"
-	result = list(/obj/item/clothing/mask/rogue/padded)
+	result = list(/obj/item/clothing/mask/rogue/facemask/padded)
 	reqs = list(/obj/item/natural/cloth = 3,)
 	craftdiff = 1
 
@@ -445,6 +445,13 @@
 	)
 	craftdiff = 1
 
+/datum/crafting_recipe/roguetown/sewing/footwrap
+	name = "bandages, ankles"
+	category = ITEM_CAT_ARMOR_BOOTS
+	result = list(/obj/item/clothing/shoes/roguetown/footwraps)
+	reqs = list(/obj/item/natural/cloth = 3)
+	craftdiff = 1
+
 /* craftdif of 2+ */
 
 /datum/crafting_recipe/roguetown/sewing/clothpaddedgloves
@@ -517,6 +524,14 @@
 	reqs = list(/obj/item/natural/cloth = 4,
 				/obj/item/natural/fibers = 1)
 	craftdiff = 3
+
+/datum/crafting_recipe/roguetown/sewing/clothpaddedfootwraps
+	name = "padded footwraps"
+	category = "Boots"
+	result = list(/obj/item/clothing/shoes/roguetown/footwraps/padded)
+	reqs = list(/obj/item/natural/cloth = 2,
+				/obj/item/natural/fibers = 1)
+	craftdiff = 2
 
 /datum/crafting_recipe/roguetown/sewing/coif
 	name = "coif"
@@ -1982,18 +1997,6 @@
 	reqs = list(
 		/obj/item/clothing/cloak/tabard = 1,
 		/obj/item/storage/belt/rogue/leather = 1
-	)
-	craftdiff = 1
-
-/datum/crafting_recipe/roguetown/sewing/breechclothbeltaltimprovised
-	name = "belt with breechcloth, black, improvised"
-	category = "Misc"
-	display_category = ITEM_CAT_ARMOR_BELTS
-	result = list(/obj/item/storage/belt/rogue/leather/battleskirt/breechcloth/blackbelt)
-	tools = list(/obj/item/rogueweapon/huntingknife)
-	reqs = list(
-		/obj/item/clothing/cloak/tabard = 1,
-		/obj/item/storage/belt/rogue/leather/black = 1
 	)
 	craftdiff = 1
 

@@ -79,7 +79,7 @@
 	var/atom/highest = T
 
 	//Caustic Edit - Add Falling Vore Chomper's Style
-	var/mob/living/L
+	/*var/mob/living/L
 	if(isliving(src))
 		L = src
 	for(var/i in T.contents)
@@ -91,7 +91,7 @@
 			L.visible_message(span_danger("\The [L] falls right onto \the [A]!"))
 		if(isobj(A) || ismob(A))
 			if(A.layer > highest.layer)
-				highest = A
+				highest = A*/
 	//Caustic Edit End
 
 //	INVOKE_ASYNC(src, PROC_REF(SpinAnimation), 5, 2)
@@ -773,15 +773,16 @@
 		return TRUE
 	return ..()
 
-// called when this atom is removed from a storage item, which is passed on as S. The loc variable is already set to the new destination before this is called.
+/// Called when this atom is removed from a storage item, which is passed on as S. The loc variable is already set to the new destination before this is called.
 /atom/movable/proc/on_exit_storage(datum/component/storage/concrete/S)
 	return
 
-// called when this atom is added into a storage item, which is passed on as S. The loc variable is already set to the storage item.
-/atom/movable/proc/on_enter_storage(datum/component/storage/concrete/S)
+/// Called when this atom is added into a storage item, which is passed on as S. The loc variable is already set to the storage item.
+/// If the mob putting the atom in storage is known, it is passed on as M.
+/atom/movable/proc/on_enter_storage(datum/component/storage/concrete/S, mob/M)
 	return
 
-//called when a mob resists while inside a container that is itself inside something.
+/// Called when a mob resists while inside a container that is itself inside something.
 /atom/movable/proc/relay_container_resist(mob/living/user, obj/O)
 	return
 

@@ -17,7 +17,7 @@
 
 /datum/anvil_recipe/weapons/bronze
 	abstract_type = /datum/anvil_recipe/weapons/bronze
-	craftdiff = SKILL_LEVEL_NOVICE //Situationally better than iron, but far more limited in terms of recipes and availability. 
+	craftdiff = SKILL_LEVEL_NOVICE //Situationally better than iron, but far more limited in terms of recipes and availability.
 
 /datum/anvil_recipe/weapons/iron
 	abstract_type = /datum/anvil_recipe/weapons/iron
@@ -414,6 +414,20 @@
 	created_item = /obj/item/rogueweapon/mace/warhammer/bronze
 	display_category = ITEM_CAT_WEAPONS_MACES
 
+/datum/anvil_recipe/weapons/bronze/battlewrench
+	name = "Reinforced Wrench, Bronze (+1 Wrench)"
+	req_bar = /obj/item/ingot/bronze
+	additional_items = list(/obj/item/rogueweapon/contraption/linker)
+	created_item = /obj/item/rogueweapon/contraption/linker/mace
+	display_category = ITEM_CAT_WEAPONS_MACES
+
+/datum/anvil_recipe/weapons/bronze/bigbattlewrench
+	name = "Large Reinforced Wrench, Bronze (+1 Wrench, +1 Bronze)"
+	req_bar = /obj/item/ingot/bronze
+	additional_items = list(/obj/item/rogueweapon/contraption/linker, /obj/item/ingot/bronze)
+	created_item = /obj/item/rogueweapon/contraption/linker/mace/big
+	display_category = ITEM_CAT_WEAPONS_MACES
+
 /datum/anvil_recipe/weapons/bronze/whip
 	name = "Whip, Bronze-Tipped (+1 Leather Whip)"
 	req_bar = /obj/item/ingot/bronze
@@ -495,7 +509,7 @@
 	name = "Sabre, Iron"
 	req_bar = /obj/item/ingot/iron
 	req_blade = /obj/item/blade/iron_sword
-	created_item = /obj/item/rogueweapon/sword/saber/iron
+	created_item = /obj/item/rogueweapon/sword/sabre/iron //CC Edit - Fix the pathing here
 	display_category = ITEM_CAT_WEAPONS_SWORDS
 
 /datum/anvil_recipe/weapons/iron/swordshort
@@ -643,6 +657,20 @@
 	created_item = /obj/item/rogueweapon/mace/warhammer
 	display_category = ITEM_CAT_WEAPONS_MACES
 	i_type = "Weapons"
+
+/datum/anvil_recipe/weapons/iron/battlewrench
+	name = "Reinforced Wrench, Iron (+1 Wrench)"
+	req_bar = /obj/item/ingot/iron
+	additional_items = list(/obj/item/rogueweapon/contraption/linker)
+	created_item = /obj/item/rogueweapon/contraption/linker/mace/iron
+	display_category = ITEM_CAT_WEAPONS_MACES
+
+/datum/anvil_recipe/weapons/iron/bigbattlewrench
+	name = "Large Reinforced Wrench, Iron (+1 Wrench, +1 Iron)"
+	req_bar = /obj/item/ingot/iron
+	additional_items = list(/obj/item/rogueweapon/contraption/linker, /obj/item/ingot/iron)
+	created_item = /obj/item/rogueweapon/contraption/linker/mace/big/iron
+	display_category = ITEM_CAT_WEAPONS_MACES
 
 /datum/anvil_recipe/weapons/iron/spear
 	name = "Spear, Iron (+1 Small Log)"
@@ -920,6 +948,20 @@
 	created_item = /obj/item/rogueweapon/mace/cudgel/flanged
 	display_category = ITEM_CAT_WEAPONS_MACES
 	i_type = "Weapons"
+
+/datum/anvil_recipe/weapons/steel/battlewrench
+	name = "Reinforced Wrench, Steel (+1 Wrench)"
+	req_bar = /obj/item/ingot/steel
+	additional_items = list(/obj/item/rogueweapon/contraption/linker)
+	created_item = /obj/item/rogueweapon/contraption/linker/mace/steel
+	display_category = ITEM_CAT_WEAPONS_MACES
+
+/datum/anvil_recipe/weapons/steel/bigbattlewrench
+	name = "Large Reinforced Wrench, Steel (+1 Wrench, +1 Steel)"
+	req_bar = /obj/item/ingot/steel
+	additional_items = list(/obj/item/rogueweapon/contraption/linker, /obj/item/ingot/steel)
+	created_item = /obj/item/rogueweapon/contraption/linker/mace/big/steel
+	display_category = ITEM_CAT_WEAPONS_MACES
 
 /datum/anvil_recipe/weapons/steel/greatsword
 	name = "Greatsword, Steel (+2 Steel)"
@@ -1329,6 +1371,20 @@
 	created_item = /obj/item/rogueweapon/mace/warhammer/steel/silver
 	display_category = ITEM_CAT_WEAPONS_MACES
 
+/datum/anvil_recipe/weapons/silver/battlewrench
+	name = "Reinforced Wrench, Silver (+1 Wrench)"
+	req_bar = /obj/item/ingot/silver
+	additional_items = list(/obj/item/rogueweapon/contraption/linker)
+	created_item = /obj/item/rogueweapon/contraption/linker/mace/silver
+	display_category = ITEM_CAT_WEAPONS_MACES
+
+/datum/anvil_recipe/weapons/silver/bigbattlewrench
+	name = "Large Reinforced Wrench, Silver (+1 Wrench, +1 Silver)"
+	req_bar = /obj/item/ingot/silver
+	additional_items = list(/obj/item/rogueweapon/contraption/linker, /obj/item/ingot/silver)
+	created_item = /obj/item/rogueweapon/contraption/linker/mace/big/silver
+	display_category = ITEM_CAT_WEAPONS_MACES
+
 /datum/anvil_recipe/weapons/silver/quarterstaff
 	name = "Quarterstaff, Silver (+3 Small Logs)"
 	req_bar = /obj/item/ingot/silver
@@ -1509,57 +1565,57 @@
 	display_category = ITEM_CAT_SMITHING_MISC
 
 /datum/anvil_recipe/weapons/iron/bolts
-	name = "Crossbow Bolts (+2 Stick) (x10)"
+	name = "Crossbow Bolts (+2 Stick) (x16)"
 	req_bar = /obj/item/ingot/iron
 	additional_items = list(/obj/item/grown/log/tree/stick, /obj/item/grown/log/tree/stick)
 	created_item = /obj/item/ammo_casing/caseless/rogue/bolt
 	display_category = ITEM_CAT_WEAPONS_AMMO
-	createditem_num = 10
+	createditem_num = BOLT_SMITH_BATCH
 	i_type = "Ammo"
 
 /datum/anvil_recipe/weapons/iron/bolts/light
-	name = "Light Slurbow Bolts (+1 Stick) (x10)"
+	name = "Light Slurbow Bolts (+1 Stick) (x16)"
 	req_bar = /obj/item/ingot/iron
 	additional_items = list(/obj/item/grown/log/tree/stick)
 	created_item = /obj/item/ammo_casing/caseless/rogue/bolt/light
 	display_category = ITEM_CAT_WEAPONS_AMMO
-	createditem_num = 10
+	createditem_num = BOLT_SMITH_BATCH
 	i_type = "Ammo"
 
 /datum/anvil_recipe/weapons/bronze/bolts
-	name = "Hastequilled Bolts, Bronze (+2 Stick) (x10)"
+	name = "Hastequilled Bolts, Bronze (+2 Stick) (x16)"
 	req_bar = /obj/item/ingot/bronze
 	additional_items = list(/obj/item/grown/log/tree/stick, /obj/item/grown/log/tree/stick)
 	created_item = /obj/item/ammo_casing/caseless/rogue/bolt/bronze
 	display_category = ITEM_CAT_WEAPONS_AMMO
-	createditem_num = 10
+	createditem_num = BOLT_SMITH_BATCH
 	i_type = "Ammo"
 
 /datum/anvil_recipe/weapons/aalloy/bolts
-	name = "Bolts, Decrepit (+2 Stick) (x10)"
+	name = "Bolts, Decrepit (+2 Stick) (x16)"
 	req_bar = /obj/item/ingot/aalloy
 	additional_items = list(/obj/item/grown/log/tree/stick, /obj/item/grown/log/tree/stick)
 	created_item = /obj/item/ammo_casing/caseless/rogue/bolt/aalloy
 	display_category = ITEM_CAT_WEAPONS_AMMO
-	createditem_num = 10
+	createditem_num = BOLT_SMITH_BATCH
 	i_type = "Ammo"
 
 /datum/anvil_recipe/weapons/paalloy/bolts
-	name = "Bolts, Ancient (+2 Stick) (x10)"
+	name = "Bolts, Ancient (+2 Stick) (x16)"
 	req_bar = /obj/item/ingot/purifiedaalloy
 	additional_items = list(/obj/item/grown/log/tree/stick, /obj/item/grown/log/tree/stick)
 	created_item = /obj/item/ammo_casing/caseless/rogue/bolt/paalloy
 	display_category = ITEM_CAT_WEAPONS_AMMO
-	createditem_num = 10
+	createditem_num = BOLT_SMITH_BATCH
 	i_type = "Ammo"
 
 /datum/anvil_recipe/weapons/iron/bluntbolts
-	name = "Bolts, Blunt (+2 Stick) (x10)"
+	name = "Bolts, Blunt (+2 Stick) (x16)"
 	req_bar = /obj/item/ingot/iron
 	additional_items = list(/obj/item/grown/log/tree/stick, /obj/item/grown/log/tree/stick)
 	created_item = /obj/item/ammo_casing/caseless/rogue/bolt/blunt
 	display_category = ITEM_CAT_WEAPONS_AMMO
-	createditem_num = 10
+	createditem_num = BOLT_SMITH_BATCH
 	i_type = "Ammo"
 
 /datum/anvil_recipe/weapons/aalloy/heavybolts
@@ -1610,48 +1666,48 @@
 // BOW
 
 /datum/anvil_recipe/weapons/iron/arrows
-	name = "Broadhead Arrows, Iron (+2 Stick) (x10)"
+	name = "Broadhead Arrows, Iron (+2 Stick) (x12)"
 	req_bar = /obj/item/ingot/iron
 	additional_items = list(/obj/item/grown/log/tree/stick, /obj/item/grown/log/tree/stick)
 	created_item = /obj/item/ammo_casing/caseless/rogue/arrow/iron
 	display_category = ITEM_CAT_WEAPONS_AMMO
-	createditem_num = 10
+	createditem_num = ARROW_SMITH_BATCH
 	i_type = "Ammo"
 
 /datum/anvil_recipe/weapons/aalloy/arrows
-	name = "Broadhead Arrows, Decrepit (+2 Stick) (x10)"
+	name = "Broadhead Arrows, Decrepit (+2 Stick) (x12)"
 	req_bar = /obj/item/ingot/aalloy
 	additional_items = list(/obj/item/grown/log/tree/stick, /obj/item/grown/log/tree/stick)
 	created_item = /obj/item/ammo_casing/caseless/rogue/arrow/iron/aalloy
 	display_category = ITEM_CAT_WEAPONS_AMMO
-	createditem_num = 10
+	createditem_num = ARROW_SMITH_BATCH
 	i_type = "Ammo"
 
 /datum/anvil_recipe/weapons/steel/arrows
-	name = "Bodkin Arrows, Steel (+2 Stick) (x10)"
+	name = "Bodkin Arrows, Steel (+2 Stick) (x12)"
 	req_bar = /obj/item/ingot/steel
 	additional_items = list(/obj/item/grown/log/tree/stick, /obj/item/grown/log/tree/stick)
 	created_item = /obj/item/ammo_casing/caseless/rogue/arrow/steel
 	display_category = ITEM_CAT_WEAPONS_AMMO
-	createditem_num = 10
+	createditem_num = ARROW_SMITH_BATCH
 	i_type = "Ammo"
 
 /datum/anvil_recipe/weapons/paalloy/arrows
-	name = "Bodkin Arrows, Ancient (+2 Stick) (x10)"
+	name = "Bodkin Arrows, Ancient (+2 Stick) (x12)"
 	req_bar = /obj/item/ingot/purifiedaalloy
 	additional_items = list(/obj/item/grown/log/tree/stick, /obj/item/grown/log/tree/stick)
 	created_item = /obj/item/ammo_casing/caseless/rogue/arrow/steel/paalloy
 	display_category = ITEM_CAT_WEAPONS_AMMO
-	createditem_num = 10
+	createditem_num = ARROW_SMITH_BATCH
 	i_type = "Ammo"
 
 /datum/anvil_recipe/weapons/bronze/arrows
-	name = "Hastequilled Arrows, Bronze (+2 Stick) (x10)"
+	name = "Hastequilled Arrows, Bronze (+2 Stick) (x12)"
 	req_bar = /obj/item/ingot/bronze
 	additional_items = list(/obj/item/grown/log/tree/stick, /obj/item/grown/log/tree/stick)
 	created_item = /obj/item/ammo_casing/caseless/rogue/arrow/bronze
 	display_category = ITEM_CAT_WEAPONS_AMMO
-	createditem_num = 10
+	createditem_num = ARROW_SMITH_BATCH
 	i_type = "Ammo"
 
 // SLING
@@ -2211,6 +2267,24 @@
 	created_item = /obj/item/clothing/gloves/roguetown/knuckles/blacksteel
 	display_category = ITEM_CAT_WEAPONS_MACES
 
+/datum/anvil_recipe/weapons/blacksteel/battlewrench
+	name = "Reinforced Wrench, Blacksteel (+1 Wrench, +1 Silk)"
+	req_bar = /obj/item/ingot/blacksteel
+	additional_items = list(/obj/item/rogueweapon/contraption/linker, /obj/item/natural/silk)
+	created_item = /obj/item/rogueweapon/contraption/linker/mace/master/bsteel
+	display_category = ITEM_CAT_WEAPONS_MACES
+	appro_skill = /datum/skill/craft/engineering
+	craftdiff = SKILL_LEVEL_LEGENDARY //unlike with the gold version, you can make this if you're not a guildmaster
+
+/datum/anvil_recipe/weapons/blacksteel/bigbattlewrench
+	name = "Large Reinforced Wrench, Blacksteel (+1 Wrench, +1 Blacksteel, +1 Silk)"
+	req_bar = /obj/item/ingot/blacksteel
+	additional_items = list(/obj/item/rogueweapon/contraption/linker, /obj/item/ingot/blacksteel, /obj/item/natural/silk)
+	created_item = /obj/item/rogueweapon/contraption/linker/mace/big/master/bsteel
+	display_category = ITEM_CAT_WEAPONS_MACES
+	appro_skill = /datum/skill/craft/engineering
+	craftdiff = SKILL_LEVEL_LEGENDARY //ditto
+
 /datum/anvil_recipe/weapons/blacksteel/hurlbat
 	name = "Blacksteel Hurlbat (+1 Silk)"
 	req_bar = /obj/item/ingot/blacksteel
@@ -2277,20 +2351,20 @@
 	createditem_num = 2
 
 /datum/anvil_recipe/weapons/blacksteel/bolts
-	name = "Crossbow Bolts, Blacksteel (+1 Stick, +1 Silk) (x5)"
+	name = "Crossbow Bolts, Blacksteel (+1 Stick, +1 Silk) (x8)"
 	req_bar = /obj/item/ingot/blacksteel
 	additional_items = list(/obj/item/grown/log/tree/stick, /obj/item/natural/silk)
 	created_item = /obj/item/ammo_casing/caseless/rogue/bolt/blacksteel
 	display_category = ITEM_CAT_WEAPONS_AMMO
-	createditem_num = 5
+	createditem_num = 8
 
 /datum/anvil_recipe/weapons/blacksteel/arrows
-	name = "Arrows, Blacksteel (+2 Sticks, +1 Silk) (x5)"
+	name = "Arrows, Blacksteel (+2 Sticks, +1 Silk) (x6)"
 	req_bar = /obj/item/ingot/blacksteel
 	additional_items = list(/obj/item/grown/log/tree/stick, /obj/item/grown/log/tree/stick, /obj/item/natural/silk)
 	created_item = /obj/item/ammo_casing/caseless/rogue/arrow/blacksteel
 	display_category = ITEM_CAT_WEAPONS_AMMO
-	createditem_num = 5
+	createditem_num = 6
 
 /datum/anvil_recipe/weapons/blacksteel/scattershot
 	name = "Scattershot, Blacksteel (x10)"

@@ -25,6 +25,7 @@ GLOBAL_LIST_EMPTY(quest_factions)
 		allowed_quest_types = list(QUEST_KILL_EASY, QUEST_CLEAR_OUT, QUEST_RAID, QUEST_RECOVERY)
 		if(length(boss_mob_types))
 			allowed_quest_types += QUEST_BOUNTY
+			allowed_quest_types += QUEST_ASCENDED_BOUNTY // CC Edit - PvP Contracts, any boss mob can be considered for an ascended contract.
 
 /datum/quest_faction/proc/allows_quest_type(quest_type)
 	return (quest_type in allowed_quest_types)

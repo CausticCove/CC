@@ -270,7 +270,7 @@
 					//I.polished = 4 //CC Edit - See above
 					I.AddComponent(/datum/component/metal_glint)
 
-		I.sellprice *= modifier	
+		I.sellprice *= modifier
 		//CC Edit Begin - More Smithing Modifiers
 		if(I.max_blade_int || I.blade_int)
 			I.max_blade_int *= modifier //Sharper blades simply last longer in combat, and reduce the needs to return to a whetstone so often.
@@ -296,18 +296,18 @@
 		if(istype(I, /obj/item/lockpick))
 			var/obj/item/lockpick/L = I
 			L.picklvl = modifier
-		
+
 		if(istype(I, /obj/item/flashlight/flare/torch/lantern))
 			var/obj/item/flashlight/flare/torch/lantern/L = I
 			L.light_outer_range *= modifier //Can be on the same brightness as a torch with masterwork.
-		
+
 		if(istype(I, /obj/item/needle))
 			var/obj/item/needle/N = I
 			N.maxstring += skill_quality //Better needle for tighter threads in stitching and cleaner, more precise strokes through open wounds!
 			N.stringamt += skill_quality //If you don't know how to make it.. Well.. it's not going to be a lot...
-		
-		if(istype(I, /obj/item/contraption))
-			var/obj/item/contraption/C = I
+
+		if(istype(I, /obj/item/rogueweapon/contraption))
+			var/obj/item/rogueweapon/contraption/C = I
 			C.charge_per_source += max(1, skill_quality) //Note: Skill Quality is not restricted to max/min level cap.
 
 		if(istype(I, /obj/item/repair_kit/metal)) //Repair kits made by the smithy should be far more valuable than the normal ones.
@@ -318,7 +318,7 @@
 				M.table_need = FALSE //Make armor plates work without a table, just like fabric! Encourage the use of good quality armor kits!
 				M.desc = "[initial(M.desc)] This kit features a special instructional pamphlet, allowing you to repair without the need of a table!"
 
-		
+
 		//CC Edit End
 
 	// Clean up the original workpiece

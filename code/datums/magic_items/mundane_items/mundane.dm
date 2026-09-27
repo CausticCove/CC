@@ -63,14 +63,14 @@
 	if(active_item)
 		return
 	else
-		user.STALUC += 1
+		user.change_stat(STATKEY_LCK, 1) //Caustic Edit - Fix the enchantment to use the change_stat instead.
 		to_chat(user, span_notice("I feel rather lucky"))
 		active_item = TRUE
 
 /datum/magic_item/mundane/xylix/on_drop(var/obj/item/i, var/mob/living/user)
 	if(active_item)
 		active_item = FALSE
-		user.STALUC -= 1
+		user.change_stat(STATKEY_LCK, -1) //Caustic Edit - Fix the enchantment to use the change_stat instead.
 		to_chat(user, span_notice("I feel mundane once more"))
 
 /datum/magic_item/mundane/revealinglight

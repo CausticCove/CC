@@ -10,7 +10,7 @@
 	var/paths = subtypesof(/datum/reagent)
 	GLOB.chemical_reagents_list = list()
 
-	
+
 
 	for(var/path in paths)
 		var/datum/reagent/D = new path()
@@ -952,7 +952,7 @@
 /proc/get_chem_id(chem_name)
 	for(var/X in GLOB.chemical_reagents_list)
 		var/datum/reagent/R = GLOB.chemical_reagents_list[X]
-		if(ckey(chem_name) == ckey(lowertext(R.name)))
+		if(ckey(chem_name) == ckey(LOWER_TEXT(R.name)))
 			return X
 
 #undef CHEMICAL_QUANTISATION_LEVEL

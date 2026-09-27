@@ -34,10 +34,11 @@ GLOBAL_LIST_INIT(hedgeknight_aggro, world.file2list("strings/rt/hedgeknightaggro
 	equipOutfit(outfit)
 	// Apply dust-on-drop to all equipped gear so it can't be looted via dismemberment or stripping.
 	// TRAIT_NODROP on held items prevents grab disarming.
-	for(var/obj/item/equipped_item in get_equipped_items() + held_items)
+	//CC Edit - No Drop Bullshit
+	/* for(var/obj/item/equipped_item in get_equipped_items() + held_items)
 		equipped_item.AddComponent(/datum/component/item_on_drop/dust)
 	for(var/obj/item/held_item in held_items)
-		ADD_TRAIT(held_item, TRAIT_NODROP, TRAIT_GENERIC)
+		ADD_TRAIT(held_item, TRAIT_NODROP, TRAIT_GENERIC) */
 
 /mob/living/carbon/human/species/human/northern/deranged_knight/after_creation()
 	..()

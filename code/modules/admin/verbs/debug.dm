@@ -391,7 +391,7 @@ GLOBAL_LIST_EMPTY(loadout_selected_advclasses)
 				// Filter by search term
 				var/list/matching_jobs = list()
 				for(var/job_title in job_list)
-					if(findtext(lowertext(job_title), lowertext(search_term)))
+					if(findtext(LOWER_TEXT(job_title), LOWER_TEXT(search_term)))
 						matching_jobs[job_title] = job_list[job_title]
 
 				if(!matching_jobs.len)
@@ -621,7 +621,7 @@ GLOBAL_LIST_EMPTY(loadout_selected_advclasses)
 		for(var/path in roguejob_paths)
 			var/datum/outfit/O = path
 			var/path_string = "[path]"
-			if(findtext(lowertext(path_string), lowertext(search_term)))
+			if(findtext(LOWER_TEXT(path_string), LOWER_TEXT(search_term)))
 				if(initial(O.can_be_admin_equipped))
 					matching_jobs["[path]"] = path
 

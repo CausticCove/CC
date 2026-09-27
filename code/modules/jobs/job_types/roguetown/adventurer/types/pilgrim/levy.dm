@@ -117,7 +117,7 @@
 				beltr = /obj/item/rogueweapon/pick/bronze
 
 			if("MINE WAR THRESHER (Flail, 2H)")
-				H.adjust_skillrank_up_to(/datum/skill/combat/whipsflails, SKILL_LEVEL_JOURNEYMAN, TRUE)
+				H.adjust_skillrank_up_to(/datum/skill/combat/polearms, SKILL_LEVEL_JOURNEYMAN, TRUE)
 				r_hand = /obj/item/rogueweapon/flail/peasantwarflail
 				backr = /obj/item/rogueweapon/scabbard/gwstrap
 				gloves = /obj/item/clothing/gloves/roguetown/leather

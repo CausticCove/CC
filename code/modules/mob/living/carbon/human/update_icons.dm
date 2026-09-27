@@ -60,19 +60,52 @@ There are several things that need to be remembered:
 //HAIR OVERLAY
 /mob/living/carbon/human/update_hair()
 	rebuild_obscured_flags()
-	update_body_parts(TRUE)
+	update_body_parts()
 	return
 
+/mob/living/carbon/human/proc/update_female_chest()
+	update_body_parts()
+
+/mob/living/carbon/human/proc/update_shirt_body()
+	update_body_parts()
+
+/mob/living/carbon/human/proc/update_mask_body()
+	update_body_parts(TRUE)
+
 /mob/living/carbon/human/update_body()
-	var/obj/item/bodypart/head/HD = get_bodypart(BODY_ZONE_HEAD)
-	var/new_cache_key = "[HD ? HD.skeletonized : "nohead"]|[HAS_TRAIT(src, TRAIT_HUSK)]|[lip_style]|[lip_color]|[gender]|[dna?.species?.hairyness]|[hair_color]"
-
-	if(body_overlay_cache_key == new_cache_key)
-		return
-	body_overlay_cache_key = new_cache_key
-
 	dna.species.handle_body(src)
 	..()
+
+#define VHESLYNFIRE_FILTER "vheslynfire_filter"
+
+/mob/living/carbon/human/update_fire()
+	var/datum/status_effect/fire_handler/fire_stacks/vheslyn_status = has_status_effect(/datum/status_effect/fire_handler/fire_stacks/vheslyn)
+	if(vheslyn_status?.on_fire)
+		var/filter = get_filter(VHESLYNFIRE_FILTER)
+		if(!filter)
+			add_filter(VHESLYNFIRE_FILTER, 2, list("type" = "outline", "color" = "#ff8c5f", "alpha" = 60, "size" = 2)) //lore-accurate w/ orchre-violet flames, this is the outline
+		if(!sunder_light_obj)
+			sunder_light_obj = mob_light("#e88dff", 5, 5) //on the violet flames
+		remove_overlay(SUNDER_LAYER)
+		var/mutable_appearance/new_fire_overlay = mutable_appearance('icons/mob/OnFire.dmi', "sunder_burning", -SUNDER_LAYER)
+		new_fire_overlay.appearance_flags = RESET_COLOR
+		overlays_standing[SUNDER_LAYER] = new_fire_overlay
+		apply_overlay(SUNDER_LAYER)
+		return
+	else
+		remove_filter(VHESLYNFIRE_FILTER)
+		remove_overlay(SUNDER_LAYER)
+		QDEL_NULL(sunder_light_obj)
+
+	if(fire_stacks < 10)
+		return ..("Generic_mob_burning")
+	else
+		var/burning = dna.species.enflamed_icon
+		if(!burning)
+			return ..("widefire")
+		return ..(burning)
+
+#undef VHESLYNFIRE_FILTER
 
 #define SUNDER_FILTER "sunder_filter"
 
@@ -109,45 +142,10 @@ There are several things that need to be remembered:
 /mob/living/carbon/human/update_damage_overlays()
 	START_PROCESSING(SSdamoverlays,src)
 
-/// Generates a cache key for current damage overlay state
-/mob/living/carbon/human/proc/generate_damage_overlay_key()
-	var/key = "[gender]|[dna?.species?.type]|"
-
-	if(gender == FEMALE || dna?.species?.use_f)
-		key += wear_armor?.flags_inv & HIDEBOOB ? "1" : "0"
-		key += wear_shirt?.flags_inv & HIDEBOOB ? "1" : "0"
-		key += cloak?.flags_inv & HIDEBOOB ? "1" : "0"
-	else
-		key += "000"
-	key += "|"
-
-	// Bodypart states
-	for(var/obj/item/bodypart/BP as anything in bodyparts)
-		key += "[BP.body_zone][BP.brutestate][BP.burnstate]"
-		key += BP.skeletonized ? "S" : "N"
-		key += BP.bleeding > 0 ? "B" : "N"
-		key += "[length(BP.embedded_objects)]"
-		key += BP.bandage ? "b[BP.bandage.color]" : "n"
-
-		// Wound overlays - only add if present
-		if(BP.wounds && length(BP.wounds))
-			for(var/datum/wound/wound in BP.wounds)
-				if(wound.mob_overlay)
-					key += wound.mob_overlay
-		key += "|"
-
-	return key
-
 /mob/living/carbon/human/proc/update_damage_overlays_real()
-	if(dna?.species?.update_damage_overlays(src))
-		return
-
-	// Check if damage overlay state has changed - skip rebuild if unchanged
-	var/new_cache_key = generate_damage_overlay_key()
-	if(damage_overlay_cache_key == new_cache_key)
-		return
-	damage_overlay_cache_key = new_cache_key
-
+	if(dna.species)
+		if(dna.species.update_damage_overlays(src))
+			return
 	remove_overlay(DAMAGE_LAYER)
 	remove_overlay(LEG_DAMAGE_LAYER)
 	remove_overlay(ARM_DAMAGE_LAYER)
@@ -157,40 +155,36 @@ There are several things that need to be remembered:
 	var/list/limb_overlaysa = list()
 	var/list/limb_overlaysb = list()
 	var/list/limb_overlaysc = list()
-	var/is_female = gender == FEMALE
-	var/use_female_icon = (is_female && !dna.species.use_m) || dna.species.use_f
 
-	if(use_female_icon)
+	if((gender == FEMALE && !dna.species.use_m)|| dna.species.use_f)
 		limb_icon = dna.species.dam_icon_f
+
 		if(gender == MALE || dna.species.use_m)
 			hidechest = TRUE
-		else if(!hidechest)
-			if((wear_armor?.flags_inv & HIDEBOOB) || (wear_shirt?.flags_inv & HIDEBOOB) || (cloak?.flags_inv & HIDEBOOB))
-				hidechest = TRUE
 
-	var/list/offset_features = dna.species.offset_features
+		var/obj/item/bodypart/CH = get_bodypart(BODY_ZONE_CHEST)
+		if(CH && !hidechest)
+			if(wear_armor)
+				var/obj/item/I = wear_armor
+				if(I.flags_inv & HIDEBOOB)
+					hidechest = TRUE
+			if(wear_shirt)
+				var/obj/item/I = wear_shirt
+				if(I.flags_inv & HIDEBOOB)
+					hidechest = TRUE
+			if(cloak)
+				var/obj/item/I = cloak
+				if(I.flags_inv & HIDEBOOB)
+					hidechest = TRUE
 
-	var/needs_hair_update = FALSE
 	for(var/obj/item/bodypart/BP as anything in bodyparts)
 		var/list/damage_overlays = list()
 		var/list/legdam_overlays = list()
 		var/list/armdam_overlays = list()
-
 		if(BP.body_zone == BODY_ZONE_HEAD)
-			needs_hair_update = TRUE
-
+			update_hair()
 		var/bleed_checker = FALSE
-		var/body_zone = BP.body_zone
-		var/aux_zone = BP.aux_zone
-
-		var/used_offset = use_female_icon ? BP.offset_f : BP.offset
-		var/offset_x = 0
-		var/offset_y = 0
-		if(used_offset in offset_features)
-			var/list/offset_data = offset_features[used_offset]
-			offset_x = offset_data[1]
-			offset_y = offset_data[2]
-
+		var/list/wound_overlays
 		if(!BP.skeletonized)
 			if(BP.brutestate)
 				var/mutable_appearance/damage_overlay = mutable_appearance(limb_icon, "[BP.body_zone]_[BP.brutestate]0", -DAMAGE_LAYER)
@@ -203,65 +197,111 @@ There are several things that need to be remembered:
 				armdam_overlay.color = dna.species.blood_color
 				armdam_overlays += armdam_overlay
 			if(BP.burnstate)
-				damage_overlays += get_cached_damage_overlay(limb_icon, "[body_zone]_0[BP.burnstate]", DAMAGE_LAYER, offset_x, offset_y)
-				legdam_overlays += get_cached_damage_overlay(limb_icon, "legdam_[body_zone]_0[BP.burnstate]", LEG_DAMAGE_LAYER, offset_x, offset_y)
-				armdam_overlays += get_cached_damage_overlay(limb_icon, "armdam_[body_zone]_0[BP.burnstate]", ARM_DAMAGE_LAYER, offset_x, offset_y)
-			if(BP.bandage)
-				// Check if bleeding to determine bandage appearance
-				if(BP.bleeding || length(BP.embedded_objects))
-					bleed_checker = TRUE
-					var/bandage_color = BP.bandage.color
-					damage_overlays += get_cached_damage_overlay(limb_icon, "[body_zone]_b", DAMAGE_LAYER, offset_x, offset_y, bandage_color)
-					legdam_overlays += get_cached_damage_overlay(limb_icon, "legdam_[body_zone]_b", LEG_DAMAGE_LAYER, offset_x, offset_y, bandage_color)
-					armdam_overlays += get_cached_damage_overlay(limb_icon, "armdam_[body_zone]_b", ARM_DAMAGE_LAYER, offset_x, offset_y, bandage_color)
-
-			if(BP.wounds && length(BP.wounds))
-				for(var/datum/wound/wound in BP.wounds)
-					if(wound.mob_overlay)
-						var/wound_overlay = wound.mob_overlay
-						damage_overlays += get_cached_damage_overlay(limb_icon, "[body_zone]_[wound_overlay]", DAMAGE_LAYER, offset_x, offset_y)
-						legdam_overlays += get_cached_damage_overlay(limb_icon, "legdam_[body_zone]_[wound_overlay]", LEG_DAMAGE_LAYER, offset_x, offset_y)
-						armdam_overlays += get_cached_damage_overlay(limb_icon, "armdam_[body_zone]_[wound_overlay]", ARM_DAMAGE_LAYER, offset_x, offset_y)
-
+				var/mutable_appearance/damage_overlay = mutable_appearance(limb_icon, "[BP.body_zone]_0[BP.burnstate]", -DAMAGE_LAYER)
+				damage_overlays += damage_overlay
+				var/mutable_appearance/legdam_overlay = mutable_appearance(limb_icon, "legdam_[BP.body_zone]_0[BP.burnstate]", -LEG_DAMAGE_LAYER)
+				legdam_overlays += legdam_overlay
+				var/mutable_appearance/armdam_overlay = mutable_appearance(limb_icon, "armdam_[BP.body_zone]_0[BP.burnstate]", -ARM_DAMAGE_LAYER)
+				armdam_overlays += armdam_overlay
+			if(BP.get_bleed_rate())
+				bleed_checker = TRUE
+				if(BP.bandage)
+					var/mutable_appearance/damage_overlay = mutable_appearance(limb_icon, "[BP.body_zone]_b", -DAMAGE_LAYER)
+					damage_overlay.color = BP.bandage.color
+					damage_overlays += damage_overlay
+					var/mutable_appearance/legdam_overlay = mutable_appearance(limb_icon, "legdam_[BP.body_zone]_b", -LEG_DAMAGE_LAYER)
+					legdam_overlay.color = BP.bandage.color
+					legdam_overlays += legdam_overlay
+					var/mutable_appearance/armdam_overlay = mutable_appearance(limb_icon, "armdam_[BP.body_zone]_b", -ARM_DAMAGE_LAYER)
+					armdam_overlay.color = BP.bandage.color
+					armdam_overlays += armdam_overlay
+			wound_overlays = list()
+			for(var/datum/wound/wound as anything in BP.wounds)
+				if(!wound.mob_overlay)
+					continue
+				wound_overlays |= wound.mob_overlay
+			for(var/wound_overlay in wound_overlays)
+				var/mutable_appearance/damage_overlay = mutable_appearance(limb_icon, "[BP.body_zone]_[wound_overlay]", -DAMAGE_LAYER)
+				damage_overlays += damage_overlay
+				var/mutable_appearance/legdam_overlay = mutable_appearance(limb_icon, "legdam_[BP.body_zone]_[wound_overlay]", -LEG_DAMAGE_LAYER)
+				legdam_overlays += legdam_overlay
+				var/mutable_appearance/armdam_overlay = mutable_appearance(limb_icon, "armdam_[BP.body_zone]_[wound_overlay]", -ARM_DAMAGE_LAYER)
+				armdam_overlays += armdam_overlay
 		if(!bleed_checker && BP.bandage)
-			var/bandage_color = BP.bandage.color
-			damage_overlays += get_cached_damage_overlay(limb_icon, "[body_zone]_b", DAMAGE_LAYER, offset_x, offset_y, bandage_color)
-			legdam_overlays += get_cached_damage_overlay(limb_icon, "legdam_[body_zone]_b", LEG_DAMAGE_LAYER, offset_x, offset_y, bandage_color)
-			armdam_overlays += get_cached_damage_overlay(limb_icon, "armdam_[body_zone]_b", ARM_DAMAGE_LAYER, offset_x, offset_y, bandage_color)
-
-		if(aux_zone && !((body_zone == BODY_ZONE_CHEST) && hidechest))
+			var/mutable_appearance/damage_overlay = mutable_appearance(limb_icon, "[BP.body_zone]_b", -DAMAGE_LAYER)
+			damage_overlay.color = BP.bandage.color
+			damage_overlays += damage_overlay
+			var/mutable_appearance/legdam_overlay = mutable_appearance(limb_icon, "legdam_[BP.body_zone]_b", -LEG_DAMAGE_LAYER)
+			legdam_overlay.color = BP.bandage.color
+			legdam_overlays += legdam_overlay
+			var/mutable_appearance/armdam_overlay = mutable_appearance(limb_icon, "armdam_[BP.body_zone]_b", -ARM_DAMAGE_LAYER)
+			armdam_overlay.color = BP.bandage.color
+			armdam_overlays += armdam_overlay
+		if(BP.aux_zone && !((BP.body_zone == BODY_ZONE_CHEST) && hidechest))
 			if(!BP.skeletonized)
 				if(BP.brutestate)
-					damage_overlays += get_cached_damage_overlay(limb_icon, "[aux_zone]_[BP.brutestate]0", DAMAGE_LAYER, offset_x, offset_y)
-					legdam_overlays += get_cached_damage_overlay(limb_icon, "legdam_[aux_zone]_[BP.brutestate]0", LEG_DAMAGE_LAYER, offset_x, offset_y)
-					armdam_overlays += get_cached_damage_overlay(limb_icon, "armdam_[aux_zone]_[BP.brutestate]0", ARM_DAMAGE_LAYER, offset_x, offset_y)
+					var/mutable_appearance/damage_overlay = mutable_appearance(limb_icon, "[BP.aux_zone]_[BP.brutestate]0", -DAMAGE_LAYER)
+					damage_overlays += damage_overlay
+					var/mutable_appearance/legdam_overlay = mutable_appearance(limb_icon, "legdam_[BP.aux_zone]_[BP.brutestate]0", -LEG_DAMAGE_LAYER)
+					legdam_overlays += legdam_overlay
+					var/mutable_appearance/armdam_overlay = mutable_appearance(limb_icon, "armdam_[BP.aux_zone]_[BP.brutestate]0", -ARM_DAMAGE_LAYER)
+					armdam_overlays += armdam_overlay
 				if(BP.burnstate)
-					damage_overlays += get_cached_damage_overlay(limb_icon, "[aux_zone]_0[BP.burnstate]", DAMAGE_LAYER, offset_x, offset_y)
-					legdam_overlays += get_cached_damage_overlay(limb_icon, "legdam_[aux_zone]_0[BP.burnstate]", LEG_DAMAGE_LAYER, offset_x, offset_y)
-					armdam_overlays += get_cached_damage_overlay(limb_icon, "armdam_[aux_zone]_0[BP.burnstate]", ARM_DAMAGE_LAYER, offset_x, offset_y)
-				if(bleed_checker && BP.bandage)
-					var/bandage_color = BP.bandage.color
-					damage_overlays += get_cached_damage_overlay(limb_icon, "[aux_zone]_b", DAMAGE_LAYER, offset_x, offset_y, bandage_color)
-					legdam_overlays += get_cached_damage_overlay(limb_icon, "legdam_[aux_zone]_b", LEG_DAMAGE_LAYER, offset_x, offset_y, bandage_color)
-					armdam_overlays += get_cached_damage_overlay(limb_icon, "armdam_[aux_zone]_b", ARM_DAMAGE_LAYER, offset_x, offset_y, bandage_color)
-
-				if(BP.wounds && length(BP.wounds))
-					for(var/datum/wound/wound in BP.wounds)
-						if(wound.mob_overlay)
-							var/wound_overlay = wound.mob_overlay
-							damage_overlays += get_cached_damage_overlay(limb_icon, "[aux_zone]_[wound_overlay]", DAMAGE_LAYER, offset_x, offset_y)
-							legdam_overlays += get_cached_damage_overlay(limb_icon, "legdam_[aux_zone]_[wound_overlay]", LEG_DAMAGE_LAYER, offset_x, offset_y)
-							armdam_overlays += get_cached_damage_overlay(limb_icon, "armdam_[aux_zone]_[wound_overlay]", ARM_DAMAGE_LAYER, offset_x, offset_y)
+					var/mutable_appearance/damage_overlay = mutable_appearance(limb_icon, "[BP.aux_zone]_0[BP.burnstate]", -DAMAGE_LAYER)
+					damage_overlays += damage_overlay
+					var/mutable_appearance/legdam_overlay = mutable_appearance(limb_icon, "legdam_[BP.aux_zone]_0[BP.burnstate]", -LEG_DAMAGE_LAYER)
+					legdam_overlays += legdam_overlay
+					var/mutable_appearance/armdam_overlay = mutable_appearance(limb_icon, "armdam_[BP.aux_zone]_0[BP.burnstate]", -ARM_DAMAGE_LAYER)
+					armdam_overlays += armdam_overlay
+				if(bleed_checker)
+					if(BP.bandage)
+						var/mutable_appearance/damage_overlay = mutable_appearance(limb_icon, "[BP.aux_zone]_b", -DAMAGE_LAYER)
+						damage_overlay.color = BP.bandage.color
+						damage_overlays += damage_overlay
+						var/mutable_appearance/legdam_overlay = mutable_appearance(limb_icon, "legdam_[BP.aux_zone]_b", -LEG_DAMAGE_LAYER)
+						legdam_overlay.color = BP.bandage.color
+						legdam_overlays += legdam_overlay
+						var/mutable_appearance/armdam_overlay = mutable_appearance(limb_icon, "armdam_[BP.aux_zone]_b", -ARM_DAMAGE_LAYER)
+						armdam_overlay.color = BP.bandage.color
+						armdam_overlays += armdam_overlay
+				//We got the wound overlays before, it's all good
+				for(var/wound_overlay in wound_overlays)
+					var/mutable_appearance/damage_overlay = mutable_appearance(limb_icon, "[BP.aux_zone]_[wound_overlay]", -DAMAGE_LAYER)
+					damage_overlays += damage_overlay
+					var/mutable_appearance/legdam_overlay = mutable_appearance(limb_icon, "legdam_[BP.aux_zone]_[wound_overlay]", -LEG_DAMAGE_LAYER)
+					legdam_overlays += legdam_overlay
+					var/mutable_appearance/armdam_overlay = mutable_appearance(limb_icon, "armdam_[BP.aux_zone]_[wound_overlay]", -ARM_DAMAGE_LAYER)
+					armdam_overlays += armdam_overlay
 			if(!bleed_checker && BP.bandage)
-				var/bandage_color = BP.bandage.color
-				damage_overlays += get_cached_damage_overlay(limb_icon, "[aux_zone]_b", DAMAGE_LAYER, offset_x, offset_y, bandage_color)
-				legdam_overlays += get_cached_damage_overlay(limb_icon, "legdam_[aux_zone]_b", LEG_DAMAGE_LAYER, offset_x, offset_y, bandage_color)
-				armdam_overlays += get_cached_damage_overlay(limb_icon, "armdam_[aux_zone]_b", ARM_DAMAGE_LAYER, offset_x, offset_y, bandage_color)
+				var/mutable_appearance/damage_overlay = mutable_appearance(limb_icon, "[BP.aux_zone]_b", -DAMAGE_LAYER)
+				damage_overlay.color = BP.bandage.color
+				damage_overlays += damage_overlay
+				var/mutable_appearance/legdam_overlay = mutable_appearance(limb_icon, "legdam_[BP.aux_zone]_b", -LEG_DAMAGE_LAYER)
+				legdam_overlay.color = BP.bandage.color
+				legdam_overlays += legdam_overlay
+				var/mutable_appearance/armdam_overlay = mutable_appearance(limb_icon, "armdam_[BP.aux_zone]_b", -ARM_DAMAGE_LAYER)
+				armdam_overlay.color = BP.bandage.color
+				armdam_overlays += armdam_overlay
 
+		var/used_offset = BP.offset
+		if(gender == FEMALE)
+			used_offset = BP.offset_f
 
-		limb_overlaysa += damage_overlays
-		limb_overlaysb += legdam_overlays
-		limb_overlaysc += armdam_overlays
+		for(var/mutable_appearance/M in damage_overlays)
+			if(used_offset in dna.species.offset_features)
+				M.pixel_x += dna.species.offset_features[used_offset][1]
+				M.pixel_y += dna.species.offset_features[used_offset][2]
+			limb_overlaysa += M
+		for(var/mutable_appearance/M in legdam_overlays)
+			if(used_offset in dna.species.offset_features)
+				M.pixel_x += dna.species.offset_features[used_offset][1]
+				M.pixel_y += dna.species.offset_features[used_offset][2]
+			limb_overlaysb += M
+		for(var/mutable_appearance/M in armdam_overlays)
+			if(used_offset in dna.species.offset_features)
+				M.pixel_x += dna.species.offset_features[used_offset][1]
+				M.pixel_y += dna.species.offset_features[used_offset][2]
+			limb_overlaysc += M
 
 	overlays_standing[DAMAGE_LAYER] = limb_overlaysa
 	overlays_standing[LEG_DAMAGE_LAYER] = limb_overlaysb
@@ -271,8 +311,6 @@ There are several things that need to be remembered:
 	apply_overlay(LEG_DAMAGE_LAYER)
 	apply_overlay(ARM_DAMAGE_LAYER)
 
-	if(needs_hair_update)
-		queue_icon_update(PENDING_UPDATE_HAIR)
 
 /* --------------------------------------- */
 //For legacy support.
@@ -295,6 +333,7 @@ There are several things that need to be remembered:
 		update_inv_head()
 		update_inv_belt()
 		update_inv_back()
+		update_inv_pants()
 //		update_inv_wear_suit()
 		update_inv_armor()
 		update_inv_pockets()
@@ -309,6 +348,7 @@ There are several things that need to be remembered:
 
 /mob/proc/regenerate_clothes()
 	return
+
 /mob/living/carbon/human/regenerate_clothes()
 	update_inv_wear_id()
 	update_inv_gloves()
@@ -437,9 +477,6 @@ There are several things that need to be remembered:
 
 
 /mob/living/carbon/human/update_inv_gloves()
-	queue_icon_update(PENDING_UPDATE_INV_GLOVES)
-
-/mob/living/carbon/human/update_inv_gloves_real()
 	remove_overlay(GLOVES_LAYER)
 	remove_overlay(GLOVESLEEVE_LAYER)
 
@@ -448,21 +485,26 @@ There are several things that need to be remembered:
 		inv.update_icon()
 
 	if(!gloves && bloody_hands)
-		var/mutable_appearance/bloody_overlay = mutable_appearance('icons/effects/blood.dmi', "bloodyhands", -GLOVES_LAYER)
+		var/hand_state = "bloodyhands"
 		if(get_num_arms(FALSE) < 2)
 			if(has_left_hand(FALSE))
-				bloody_overlay.icon_state = "bloodyhands_left"
+				hand_state = "bloodyhands_left"
 			else if(has_right_hand(FALSE))
-				bloody_overlay.icon_state = "bloodyhands_right"
+				hand_state = "bloodyhands_right"
 
 		if(dna && dna.species.sexes)
 			if(gender == FEMALE)
-				bloody_overlay.icon_state += "_f"
+				hand_state += "_f"
 
-		if(bloody_hands_color)
-			bloody_overlay.color = bloody_hands_color
-
-		overlays_standing[GLOVESLEEVE_LAYER] = bloody_overlay
+		var/tint = bloody_hands_color || BLOOD_COLOR_RED
+		var/static/list/bloody_hands_cache = list()
+		var/cache_key = "[hand_state]-[tint]"
+		var/icon/tinted_icon = bloody_hands_cache[cache_key]
+		if(!tinted_icon)
+			tinted_icon = icon('icons/effects/blood.dmi', hand_state)
+			tinted_icon.Blend(tint, ICON_MULTIPLY)
+			bloody_hands_cache[cache_key] = fcopy_rsc(tinted_icon)
+		overlays_standing[GLOVESLEEVE_LAYER] = mutable_appearance(tinted_icon, -GLOVES_LAYER)
 
 	if(gloves)
 		gloves.screen_loc = rogueui_gloves
@@ -626,9 +668,6 @@ There are several things that need to be remembered:
 
 
 /mob/living/carbon/human/update_inv_shoes()
-	queue_icon_update(PENDING_UPDATE_INV_SHOES)
-
-/mob/living/carbon/human/update_inv_shoes_real()
 	remove_overlay(SHOES_LAYER)
 	remove_overlay(SHOESLEEVE_LAYER)
 	if(client && hud_used)
@@ -703,9 +742,6 @@ There are several things that need to be remembered:
 
 
 /mob/living/carbon/human/update_inv_head(hide_nonstandard = FALSE)
-	update_inv_head_real(hide_nonstandard)
-
-/mob/living/carbon/human/update_inv_head_real(hide_nonstandard = FALSE)
 	remove_overlay(HEAD_LAYER)
 
 	if(!get_bodypart(BODY_ZONE_HEAD)) //Decapitated
@@ -736,9 +772,6 @@ There are several things that need to be remembered:
 	update_hair() //hoodies
 
 /mob/living/carbon/human/update_inv_belt(hide_experimental = FALSE)
-	queue_icon_update(PENDING_UPDATE_INV_BELT)
-
-/mob/living/carbon/human/update_inv_belt_real(hide_experimental = FALSE)
 	remove_overlay(BELT_LAYER)
 	remove_overlay(BELT_BEHIND_LAYER)
 
@@ -964,7 +997,7 @@ There are several things that need to be remembered:
 
 /mob/living/carbon/human/update_inv_wear_mask()
 	..()
-	queue_icon_update(PENDING_UPDATE_BODY)
+	update_mask_body()
 	var/mutable_appearance/mask_overlay = overlays_standing[MASK_LAYER]
 	if(mask_overlay)
 		rebuild_obscured_flags()
@@ -981,9 +1014,6 @@ There are several things that need to be remembered:
 		apply_overlay(MASK_LAYER)
 
 /mob/living/carbon/human/update_inv_back(hide_experimental = FALSE)
-	queue_icon_update(PENDING_UPDATE_INV_BACK)
-
-/mob/living/carbon/human/update_inv_back_real(hide_experimental = FALSE)
 	remove_overlay(BACK_LAYER)
 	remove_overlay(BACK_BEHIND_LAYER)
 	remove_overlay(UNDER_CLOAK_LAYER)
@@ -1110,15 +1140,21 @@ There are several things that need to be remembered:
 	if(undercloaks.len)
 		overlays_standing[UNDER_CLOAK_LAYER] = undercloaks
 
+	//OV ADD START
+	var/obj/item/bodypart/taur/taur_back = get_taur_tail()
+	if(taur_back?.taur_clothing_category && allow_taur_clothing && (istype(backr, /obj/item/storage) || istype(backl, /obj/item/storage)))
+		var/mutable_appearance/saddlebag_ov = mutable_appearance('modular_ochrevalley/icons/roguetown/clothing/onmob/taur_clothing.dmi', "saddlebag_[taur_back.taur_clothing_category]", -BACK_LAYER)
+		saddlebag_ov.pixel_x = taur_back.offset_x
+		overcloaks += saddlebag_ov
+		overlays_standing[BACK_LAYER] = overcloaks
+	//OV ADD END
+
 	rebuild_obscured_flags()
 	apply_overlay(BACK_LAYER)
 	apply_overlay(BACK_BEHIND_LAYER)
 	apply_overlay(UNDER_CLOAK_LAYER)
 
 /mob/living/carbon/human/update_inv_cloak()
-	queue_icon_update(PENDING_UPDATE_INV_CLOAK)
-
-/mob/living/carbon/human/update_inv_cloak_real()
 	remove_overlay(CLOAK_LAYER)
 	remove_overlay(CLOAK_BEHIND_LAYER)
 	remove_overlay(TABARD_LAYER)
@@ -1165,9 +1201,23 @@ There are several things that need to be remembered:
 					cloak_overlay.pixel_x += dna.species.offset_features[OFFSET_CLOAK_F][1]
 					cloak_overlay.pixel_y += dna.species.offset_features[OFFSET_CLOAK_F][2]
 			if(cloak.alternate_worn_layer == TABARD_LAYER)
-				overlays_standing[TABARD_LAYER] = cloak_overlay
-			if(cloak.alternate_worn_layer == UNDER_ARMOR_LAYER)
-				overlays_standing[UNDER_ARMOR_LAYER] = cloak_overlay	
+				//OV EDIT START overlays_standing[TABARD_LAYER] = cloak_overlay
+				if(taur?.taur_clothing_category && allow_taur_clothing && istype(cloak, /obj/item/clothing/cloak/tabard/stabard))
+					var/mutable_appearance/taur_cap_ov = mutable_appearance('modular_ochrevalley/icons/roguetown/clothing/onmob/taur_clothing.dmi', "caparison_[taur.taur_clothing_category]", -TABARD_LAYER)
+					taur_cap_ov.pixel_x = taur.offset_x
+					if(cloak.color)
+						taur_cap_ov.color = cloak.color
+					overlays_standing[TABARD_LAYER] = list(cloak_overlay, taur_cap_ov)
+				else if(taur?.taur_clothing_category && allow_taur_clothing && istype(cloak, /obj/item/clothing/cloak/tabard))
+					var/mutable_appearance/taur_tabard_ov = mutable_appearance('modular_ochrevalley/icons/roguetown/clothing/onmob/taur_clothing.dmi', "caparison-tabard_[taur.taur_clothing_category]", -TABARD_LAYER)
+					taur_tabard_ov.pixel_x = taur.offset_x
+					if(cloak.color)
+						taur_tabard_ov.color = cloak.color
+					overlays_standing[TABARD_LAYER] = list(cloak_overlay, taur_tabard_ov)
+				else
+					overlays_standing[TABARD_LAYER] = cloak_overlay
+				//OV EDIT END
+				overlays_standing[UNDER_ARMOR_LAYER] = cloak_overlay
 			if(cloak.alternate_worn_layer == CLOAK_BEHIND_LAYER)
 				overlays_standing[CLOAK_BEHIND_LAYER] = cloak_overlay
 			if(!cloak.alternate_worn_layer)
@@ -1245,12 +1295,9 @@ There are several things that need to be remembered:
 	apply_overlay(UNDER_ARMOR_LAYER)
 
 /mob/living/carbon/human/update_inv_shirt()
-	queue_icon_update(PENDING_UPDATE_INV_SHIRT)
-
-/mob/living/carbon/human/update_inv_shirt_real()
 	remove_overlay(SHIRT_LAYER)
 	remove_overlay(SHIRTSLEEVE_LAYER)
-	update_body_parts(TRUE)
+	update_shirt_body()
 
 	var/obj/item/bodypart/taur/taur = get_taur_tail()
 	//Caustic Edit - Adding in the option to enable or disable the clipping mask
@@ -1288,7 +1335,43 @@ There are several things that need to be remembered:
 				if(OFFSET_SHIRT_F in dna.species.offset_features)
 					shirt_overlay.pixel_x += dna.species.offset_features[OFFSET_SHIRT_F][1]
 					shirt_overlay.pixel_y += dna.species.offset_features[OFFSET_SHIRT_F][2]
-			overlays_standing[SHIRT_LAYER] = shirt_overlay
+			// OV EDIT START overlays_standing[SHIRT_LAYER] = shirt_overlay
+			// Taur barding overlay for shirt slot
+			if(taur?.taur_clothing_category && allow_taur_clothing)
+				var/list/taur_shirt_states = list()
+				switch(wear_shirt.armor_class)
+					if(ARMOR_CLASS_LIGHT)
+						taur_shirt_states += "leather"
+					if(ARMOR_CLASS_MEDIUM)
+						taur_shirt_states += "chainmail"
+					if(ARMOR_CLASS_HEAVY)
+						taur_shirt_states += "plate"
+				if(taur_shirt_states.len)
+					var/list/all_shirt = list(shirt_overlay)
+					for(var/taur_state in taur_shirt_states)
+						var/mutable_appearance/taur_ov = mutable_appearance('modular_ochrevalley/icons/roguetown/clothing/onmob/taur_clothing.dmi', "[taur_state]_[taur.taur_clothing_category]", -SHIRT_LAYER)
+						taur_ov.pixel_x = taur.offset_x
+						all_shirt += taur_ov
+					// Colorable tasset overlays for heavy armor
+					if(wear_shirt.armor_class == ARMOR_CLASS_HEAVY)
+						var/mutable_appearance/tasset1_ov = mutable_appearance('modular_ochrevalley/icons/roguetown/clothing/onmob/taur_clothing.dmi', "plate-tasset1_[taur.taur_clothing_category]", -SHIRT_LAYER)
+						tasset1_ov.pixel_x = taur.offset_x
+						tasset1_ov.appearance_flags = RESET_COLOR
+						if(taur.tasset1_color)
+							tasset1_ov.color = taur.tasset1_color
+						all_shirt += tasset1_ov
+						var/mutable_appearance/tasset2_ov = mutable_appearance('modular_ochrevalley/icons/roguetown/clothing/onmob/taur_clothing.dmi', "plate-tasset2_[taur.taur_clothing_category]", -SHIRT_LAYER)
+						tasset2_ov.pixel_x = taur.offset_x
+						tasset2_ov.appearance_flags = RESET_COLOR
+						if(taur.tasset2_color)
+							tasset2_ov.color = taur.tasset2_color
+						all_shirt += tasset2_ov
+					overlays_standing[SHIRT_LAYER] = all_shirt
+				else
+					overlays_standing[SHIRT_LAYER] = shirt_overlay
+			else
+				overlays_standing[SHIRT_LAYER] = shirt_overlay
+			//OV EDIT END
 
 			//add sleeve overlays, then offset
 			var/list/sleeves = list()
@@ -1309,18 +1392,14 @@ There are several things that need to be remembered:
 
 	rebuild_obscured_flags()
 	if(gender == FEMALE && dna?.species)
-		update_body_parts(redraw = TRUE)
+		update_female_chest()
 		dna.species.handle_body(src)
 	update_hair()
-	// Note: wrists will update gloves in its own update
 
 	apply_overlay(SHIRT_LAYER)
 	apply_overlay(SHIRTSLEEVE_LAYER)
 
 /mob/living/carbon/human/update_inv_armor()
-	queue_icon_update(PENDING_UPDATE_INV_ARMOR)
-
-/mob/living/carbon/human/update_inv_armor_real()
 	// Snowflake check to stop species with custom body sprites of losing their armor when it's handled by the skin armor they wear.
 	if(dna.species.custom_base_icon)
 		return
@@ -1355,6 +1434,7 @@ There are several things that need to be remembered:
 				desired_gender_render = FEMALE
 			if(dna.species.use_m)
 				desired_gender_render = MALE
+
 			if(desired_gender_render == FEMALE)
 				armor_overlay = wear_armor.build_worn_icon(default_layer = ARMOR_LAYER, default_icon_file = 'icons/mob/clothing/feet.dmi', female = TRUE, customi = racecustom, sleeveindex = armsindex, boobed_overlay = has_boobed_overlay(), clip_mask = c_mask)
 			else
@@ -1368,7 +1448,43 @@ There are several things that need to be remembered:
 				if(OFFSET_ARMOR_F in dna.species.offset_features)
 					armor_overlay.pixel_x += dna.species.offset_features[OFFSET_ARMOR_F][1]
 					armor_overlay.pixel_y += dna.species.offset_features[OFFSET_ARMOR_F][2]
-			overlays_standing[ARMOR_LAYER] = armor_overlay
+			// OV EDIT START overlays_standing[ARMOR_LAYER] = armor_overlay
+			// Taur barding overlay for armor slot
+			if(taur?.taur_clothing_category && allow_taur_clothing)
+				var/list/taur_armor_states = list()
+				switch(wear_armor.armor_class)
+					if(ARMOR_CLASS_LIGHT)
+						taur_armor_states += "leather"
+					if(ARMOR_CLASS_MEDIUM)
+						taur_armor_states += "chainmail"
+					if(ARMOR_CLASS_HEAVY)
+						taur_armor_states += "plate"
+				if(taur_armor_states.len)
+					var/list/all_armor = list(armor_overlay)
+					for(var/taur_state in taur_armor_states)
+						var/mutable_appearance/taur_ov = mutable_appearance('modular_ochrevalley/icons/roguetown/clothing/onmob/taur_clothing.dmi', "[taur_state]_[taur.taur_clothing_category]", -ARMOR_LAYER)
+						taur_ov.pixel_x = taur.offset_x
+						all_armor += taur_ov
+					// Colorable tasset overlays for heavy armor
+					if(wear_armor.armor_class == ARMOR_CLASS_HEAVY)
+						var/mutable_appearance/tasset1_ov = mutable_appearance('modular_ochrevalley/icons/roguetown/clothing/onmob/taur_clothing.dmi', "plate-tasset1_[taur.taur_clothing_category]", -ARMOR_LAYER)
+						tasset1_ov.pixel_x = taur.offset_x
+						tasset1_ov.appearance_flags = RESET_COLOR
+						if(taur.tasset1_color)
+							tasset1_ov.color = taur.tasset1_color
+						all_armor += tasset1_ov
+						var/mutable_appearance/tasset2_ov = mutable_appearance('modular_ochrevalley/icons/roguetown/clothing/onmob/taur_clothing.dmi', "plate-tasset2_[taur.taur_clothing_category]", -ARMOR_LAYER)
+						tasset2_ov.pixel_x = taur.offset_x
+						tasset2_ov.appearance_flags = RESET_COLOR
+						if(taur.tasset2_color)
+							tasset2_ov.color = taur.tasset2_color
+						all_armor += tasset2_ov
+					overlays_standing[ARMOR_LAYER] = all_armor
+				else
+					overlays_standing[ARMOR_LAYER] = armor_overlay
+			else
+				overlays_standing[ARMOR_LAYER] = armor_overlay
+			//OV EDIT END
 
 			//add sleeve overlays, then offset
 			var/list/sleeves = list()
@@ -1389,18 +1505,15 @@ There are several things that need to be remembered:
 
 	rebuild_obscured_flags()
 	if(gender == FEMALE && dna?.species)
-		queue_icon_update(PENDING_UPDATE_BODY)
+		update_female_chest()
 		dna.species.handle_body(src)
-	queue_icon_update(PENDING_UPDATE_HAIR)
+	update_hair()
 	update_inv_shirt() // fix boob
 
 	apply_overlay(ARMOR_LAYER)
 	apply_overlay(ARMORSLEEVE_LAYER)
 
 /mob/living/carbon/human/update_inv_pants()
-	queue_icon_update(PENDING_UPDATE_INV_PANTS)
-
-/mob/living/carbon/human/update_inv_pants_real()
 	remove_overlay(PANTS_LAYER)
 	remove_overlay(LEGSLEEVE_LAYER)
 
@@ -1409,6 +1522,10 @@ There are several things that need to be remembered:
 	var/icon/c_mask = null
 	if(taur?.use_mask)
 		c_mask = taur?.clip_mask
+
+	if(isharpy(src)) //feathered legs clip clothing the same way a taur body does
+		var/static/icon/harpy_clip_mask = icon(icon = 'modular_causticcove/icons/roguetown/harpies/f/harpy.dmi', icon_state = "harpy_clipmask")
+		c_mask = harpy_clip_mask
 	//Caustic Edit End
 
 	if(client && hud_used)
@@ -1425,7 +1542,8 @@ There are several things that need to be remembered:
 			var/racecustom
 			var/legsindex = get_limbloss_index(LEG_RIGHT, LEG_LEFT)
 			var/mutable_appearance/pants_overlay
-			if(dna.species.custom_clothes) // should prolly make it a separate limb or just use clipmask then
+
+			if(dna.species.custom_clothes)
 				racecustom = dna.species.clothes_id
 			if(gender == FEMALE && !dna.species.use_m)
 				pants_overlay = wear_pants.build_worn_icon(default_layer = PANTS_LAYER, default_icon_file = 'icons/mob/clothing/feet.dmi', female = TRUE, customi = racecustom, sleeveindex = legsindex, boobed_overlay = has_boobed_overlay(), clip_mask = c_mask)
@@ -1499,7 +1617,7 @@ There are several things that need to be remembered:
 				mouth_overlay.pixel_y += dna.species.offset_features[OFFSET_MOUTH_F][2]
 		overlays_standing[MOUTH_LAYER] = mouth_overlay
 		apply_overlay(MOUTH_LAYER)
-	
+
 	rebuild_obscured_flags()
 
 /mob/living/carbon/human/proc/update_inv_armor_special()
@@ -1514,7 +1632,7 @@ There are several things that need to be remembered:
 	var/armor_icon_state = skin_armor.icon_state
 	if(!(src.mobility_flags & MOBILITY_STAND))
 		armor_icon_state = "[skin_armor.icon_state]_down"
-	
+
 	var/mutable_appearance/armor_overlay = mutable_appearance(skin_armor.icon, armor_icon_state, layer = ARMOR_LAYER)
 
 	overlays_standing[ARMOR_LAYER] = armor_overlay
@@ -1709,40 +1827,42 @@ generate/load female uniform sprites matching all previously decided variables
 		var/mutable_appearance/boob_overlay = mutable_appearance(file2use, "[t_state]_boob", -layer2use)
 		standing.overlays.Add(boob_overlay)
 
+	var/detail_state = get_detail_state(t_state)
+
 	if(get_detail_tag())
-		var/mutable_appearance/pic = mutable_appearance(icon(file2use, "[t_state][get_detail_tag()]"), -layer2use)
+		var/mutable_appearance/pic = mutable_appearance(icon(file2use, "[detail_state][get_detail_tag()]"), -layer2use)
 		pic.appearance_flags = RESET_COLOR
 		if(get_detail_color())
 			pic.color = get_detail_color()
 		standing.overlays.Add(pic)
 		if(!isinhands && boobed_overlay && boobed_detail && boobed)
-			pic = mutable_appearance(icon(file2use, "[t_state]_boob[get_detail_tag()]"), -layer2use)
+			pic = mutable_appearance(icon(file2use, "[detail_state]_boob[get_detail_tag()]"), -layer2use)
 			pic.appearance_flags = RESET_COLOR
 			if(get_detail_color())
 				pic.color = get_detail_color()
 			standing.overlays.Add(pic)
 
 	if(get_altdetail_tag())
-		var/mutable_appearance/pic = mutable_appearance(icon(file2use, "[t_state][get_altdetail_tag()]"), -layer2use)
+		var/mutable_appearance/pic = mutable_appearance(icon(file2use, "[detail_state][get_altdetail_tag()]"), -layer2use)
 		pic.appearance_flags = RESET_COLOR
 		if(get_altdetail_color())
 			pic.color = get_altdetail_color()
 		standing.overlays.Add(pic)
 		if(!isinhands && boobed_overlay && boobed_detail && boobed)
-			pic = mutable_appearance(icon(file2use, "[t_state]_boob[get_altdetail_tag()]"), -layer2use)
+			pic = mutable_appearance(icon(file2use, "[detail_state]_boob[get_altdetail_tag()]"), -layer2use)
 			pic.appearance_flags = RESET_COLOR
 			if(get_altdetail_color())
 				pic.color = get_altdetail_color()
 			standing.overlays.Add(pic)
 
-
-	if(!isinhands && HAS_BLOOD_DNA(src))
+	var/datum/component/decal/blood/item_blood = GetComponent(/datum/component/decal/blood)
+	if(!isinhands && (HAS_BLOOD_DNA(src) || item_blood))
 		var/index = "[t_state][sleeveindex]"
-		var/datum/component/decal/blood/item_blood = GetComponent(/datum/component/decal/blood)
 		var/mob/living/carbon/human/wearer = loc
 		var/blood_color = item_blood?.blood_color || (ishuman(wearer) ? wearer.get_blood_color() : "#C80000")
 		var/static/list/bloody_onmob = list()
-		var/icon/clothing_icon = bloody_onmob["[index][(boobed_overlay) ? "_boob" : ""]-[blood_color]"]
+		var/cache_key = "[index][(boobed_overlay) ? "_boob" : ""]-[blood_color]"
+		var/icon/clothing_icon = bloody_onmob[cache_key]
 		if(!clothing_icon)
 			if(sleeved && sleeveindex < 4) //cut out sleeves from north/south sprites
 				clothing_icon = icon(GLOB.dismembered_clothing_icons[index])
@@ -1752,8 +1872,8 @@ generate/load female uniform sprites matching all previously decided variables
 				clothing_icon.Blend(icon(file2use, "[t_state]_boob"), ICON_OVERLAY)
 			clothing_icon.Blend("#fff", ICON_ADD) 			//fills the icon_state with white (except where it's transparent)
 			clothing_icon.Blend(icon(bloody_icon, bloody_icon_state), ICON_MULTIPLY) //adds blood and the remaining white areas become transparant
-			clothing_icon.ColorTone(blood_color)
-			bloody_onmob["[index][(boobed_overlay) ? "_boob" : ""]-[blood_color]"] = fcopy_rsc(clothing_icon)
+			clothing_icon.Blend(blood_color, ICON_MULTIPLY) //tint the white blood mask to the source colour
+			bloody_onmob[cache_key] = fcopy_rsc(clothing_icon)
 		var/mutable_appearance/pic = mutable_appearance(clothing_icon, -layer2use)
 		standing.overlays.Add(pic)
 
@@ -1829,6 +1949,10 @@ generate/load female uniform sprites matching all previously decided variables
 	if(I.nodismemsleeves && sleeveindex) //armor pauldrons that show up above arms but don't get dismembered
 		sleeveindex = 4
 
+	var/datum/component/decal/blood/item_blood = I.GetComponent(/datum/component/decal/blood)
+	var/has_blood = HAS_BLOOD_DNA(I) || item_blood
+	var/blood_color = item_blood?.blood_color || get_blood_color() || "#C80000"
+
 	var/leftused = FALSE
 	var/rightused = FALSE
 	if(I.inhand_mod) //cloak holding icons
@@ -1857,13 +1981,15 @@ generate/load female uniform sprites matching all previously decided variables
 				pic.color = I.get_detail_color()
 			sleeves += pic
 
-		if(HAS_BLOOD_DNA(I))
-			var/icon/blood_overlay = bloody_r[used]
+		if(has_blood)
+			var/cache_key = "[used]-[blood_color]"
+			var/icon/blood_overlay = bloody_r[cache_key]
 			if(!blood_overlay)
 				blood_overlay = icon(I.sleeved, used)
 				blood_overlay.Blend("#fff", ICON_ADD) 			//fills the icon_state with white (except where it's transparent)
 				blood_overlay.Blend(icon(I.bloody_icon, I.bloody_icon_state), ICON_MULTIPLY) //adds blood and the remaining white areas become transparant
-				bloody_r[used] = fcopy_rsc(blood_overlay)
+				blood_overlay.Blend(blood_color, ICON_MULTIPLY) //tint the white blood mask to the source colour
+				bloody_r[cache_key] = fcopy_rsc(blood_overlay)
 			var/mutable_appearance/pic = mutable_appearance(blood_overlay, layer=-layer2use)
 			sleeves += pic
 
@@ -1884,13 +2010,15 @@ generate/load female uniform sprites matching all previously decided variables
 				pic.color = I.get_detail_color()
 			sleeves += pic
 
-		if(HAS_BLOOD_DNA(I))
-			var/icon/blood_overlay = bloody_l[used]
+		if(has_blood)
+			var/cache_key = "[used]-[blood_color]"
+			var/icon/blood_overlay = bloody_l[cache_key]
 			if(!blood_overlay)
 				blood_overlay = icon(I.sleeved, used)
 				blood_overlay.Blend("#fff", ICON_ADD) 			//fills the icon_state with white (except where it's transparent)
 				blood_overlay.Blend(icon(I.bloody_icon, I.bloody_icon_state), ICON_MULTIPLY) //adds blood and the remaining white areas become transparant
-				bloody_l[used] = fcopy_rsc(blood_overlay)
+				blood_overlay.Blend(blood_color, ICON_MULTIPLY) //tint the white blood mask to the source colour
+				bloody_l[cache_key] = fcopy_rsc(blood_overlay)
 			var/mutable_appearance/pic = mutable_appearance(blood_overlay, layer=-layer2use)
 			sleeves += pic
 
@@ -1932,7 +2060,6 @@ generate/load female uniform sprites matching all previously decided variables
 		. += "not_coloured"
 
 	. += gender
-	. += age
 
 	for(var/obj/item/bodypart/BP as anything in bodyparts)
 		. += BP.body_zone
@@ -1946,9 +2073,16 @@ generate/load female uniform sprites matching all previously decided variables
 			. += "rotted"
 		if(BP.skeletonized)
 			. += "skeletonized"
-		if(BP.dmg_overlay_type)
-			. += BP.dmg_overlay_type
+		for(var/datum/bodypart_feature/feature as anything in BP.bodypart_features)
+			. += feature.get_cache_key(BP)
+		for(var/marking_name in BP.markings)
+			. += "mark[marking_name]-[BP.markings[marking_name]]"
+		for(var/marking_name in BP.aux_markings)
+			. += "auxmark[marking_name]-[BP.aux_markings[marking_name]]"
 
+	for(var/obj/item/organ/organ as anything in visible_organs)
+		. += organ.get_cache_key()
+	. += "[obscured_flags]"
 	if(HAS_TRAIT(src, TRAIT_HUSK))
 		. += "husk"
 	return jointext(., "-")
@@ -1975,6 +2109,7 @@ generate/load female uniform sprites matching all previously decided variables
 					break
 
 /mob/living/carbon/human/update_body_parts(redraw = FALSE)
+	//CHECK FOR UPDATE
 	var/oldkey = icon_render_key
 	icon_render_key = generate_icon_render_key()
 	if(oldkey == icon_render_key && !redraw)
@@ -1982,24 +2117,36 @@ generate/load female uniform sprites matching all previously decided variables
 
 	remove_overlay(BODYPARTS_LAYER)
 
-	if(!redraw && limb_icon_cache[icon_render_key])
-		load_limb_from_cache()
-		return
-
-	var/list/new_limbs = list()
-	var/hiden = (wear_armor?.flags_inv & HIDEBOOB) || (wear_shirt?.flags_inv & HIDEBOOB) || (cloak?.flags_inv & HIDEBOOB)
-	var/hidearms = (wear_armor && (wear_armor.body_parts_covered & ARMS) && !wear_armor.sleeved) || \
-					(wear_shirt && (wear_shirt.body_parts_covered & ARMS) && !wear_shirt.sleeved)
-
 	for(var/obj/item/bodypart/BP as anything in bodyparts)
 		BP.update_limb()
-		if(BP.body_zone == BODY_ZONE_CHEST)
+
+	//LOAD ICONS
+	if(!redraw)
+		if(limb_icon_cache[icon_render_key])
+			load_limb_from_cache()
+			return
+
+	//GENERATE NEW LIMBS
+	var/list/new_limbs = list()
+	var/hiden = FALSE //used to tell if we should hide boobs, basically
+	for(var/obj/item/bodypart/BP as anything in bodyparts)
+		if(BP.name == BODY_ZONE_CHEST)
+			if(wear_armor)
+				var/obj/item/I = wear_armor
+				if(I.flags_inv & HIDEBOOB)
+					hiden = TRUE
+			if(wear_shirt)
+				var/obj/item/I = wear_shirt
+				if(I.flags_inv & HIDEBOOB)
+					hiden = TRUE
+			if(cloak)
+				var/obj/item/I = cloak
+				if(I.flags_inv & HIDEBOOB)
+					hiden = TRUE
 			new_limbs += BP.get_limb_icon(hideaux = hiden)
-		else if(BP.body_part == ARM_LEFT || BP.body_part == ARM_RIGHT)
-			new_limbs += BP.get_limb_icon(hideaux = hidearms)
 		else
 			new_limbs += BP.get_limb_icon()
-	
+
 	if(isooze(src))
 		for(var/image/limb_alpha in new_limbs)
 			limb_alpha.alpha = 180
@@ -2018,3 +2165,16 @@ generate/load female uniform sprites matching all previously decided variables
 	if(boobs.breast_size == 0)
 		return FALSE
 	return TRUE
+
+//OCHRE VALLEY EDIT BEGIN//
+/mob/living/carbon/human/verb/toggle_taur_clothing()
+	set name = "Toggle Taur Clothing"
+	set desc = "Show or hide clothing appearing over taur bodies."
+	set category = "IC"
+
+	allow_taur_clothing = !allow_taur_clothing
+	if(allow_taur_clothing)
+		to_chat(src, "Some clothing will now show on your taur body.")
+	else
+		to_chat(src, "Clothing will no longer appear over your taur body.")
+//OCHRE VALLEY EDIT END//

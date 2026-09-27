@@ -57,6 +57,29 @@
 	daily_payments["Court Magician"] = 40 //University
 	daily_payments["Archivist"] = 20
 	daily_payments["Magicians Associate"] = 10
+	//CC Edit - Grant more Jobs some Money!
+
+	//Lower Class Villagers
+	daily_payments["Soilson"] = 5
+	daily_payments["Miner"] = 5
+	daily_payments["Blacksmith"] = 5
+	daily_payments["Seamster"] = 5
+	daily_payments["Levy"] = 5 //Serviced to the crown, they should be payed.
+	daily_payments["Woodworker"] = 5
+	daily_payments["Cook"] = 5
+	daily_payments["Tapster"] = 5
+
+	//Higher Class Burghers
+	daily_payments["Bathmaster"] = 5 //You kind of earn your own mammon already?
+	daily_payments["Town Crier"] = 10 //You just yap.
+	daily_payments["Guildsman"] = 10 //A little less than the guildmaster.
+	daily_payments["Guild Blacksmith"] = 10
+	daily_payments["Artificer"] = 10
+	daily_payments["Architect"] = 10
+	daily_payments["Innkeeper"] = 15 //A bonus for keeping the town happy!
+	daily_payments["Tailor"] = 15 //Make something nice for the people.
+	daily_payments["Guildmaster"] = 20 //Buy your goods!
+	//CC Edit End
 	enforce_wage_floors()
 
 /obj/structure/roguemachine/steward/proc/enforce_wage_floors()
@@ -107,8 +130,8 @@
 		return
 	if(istype(P, /obj/item/roguecoin/aalloy))
 		return
-	if(istype(P, /obj/item/roguecoin/inqcoin))	
-		return	
+	if(istype(P, /obj/item/roguecoin/inqcoin))
+		return
 	if(istype(P, /obj/item/roguecoin))
 		record_round_statistic(STATS_MAMMONS_DEPOSITED, P.get_real_price())
 		SStreasury.mint(SStreasury.discretionary_fund, P.get_real_price(), "NERVE MASTER deposit")
@@ -717,7 +740,7 @@
 			// ── Active Loans ──────────────────────────────────────────────────
 			if(length(SStreasury.loans))
 				var/crown_loans = 0
-				var/crown_loan_content = "" 
+				var/crown_loan_content = ""
 				for(var/datum/loan/L in SStreasury.loans)
 					crown_loans++
 					if(L.source_fund == SStreasury.discretionary_fund)

@@ -52,6 +52,18 @@
 	user.update_inv_wear_mask()
 	user.update_inv_head()
 
+//Caustic Edit - Add in the hoods capability to protect against sandstorms
+/obj/item/clothing/head/roguetown/roguehood/equipped(mob/user, slot)
+	..()
+	if(slot == SLOT_WEAR_MASK || slot == SLOT_HEAD)
+		ADD_TRAIT(user, TRAIT_SANDSTORM_GOGGLES, "generic")
+
+/obj/item/clothing/head/roguetown/roguehood/dropped(mob/user)
+	..()
+	if(HAS_TRAIT(user, TRAIT_SANDSTORM_GOGGLES))
+		REMOVE_TRAIT(user, TRAIT_SANDSTORM_GOGGLES, "generic")
+//Caustic Edit End
+
 /obj/item/clothing/head/roguetown/roguehood/get_mechanics_examine(mob/user)
 	. = ..()
 	. += span_info("Right click to adjust the hood's coverage. Most fully-drawn hoods will hide the wearer's identity.")

@@ -6,7 +6,7 @@
 	footstep_type = FOOTSTEP_MOB_CLAW
 	ambushable = FALSE
 	wildshape_icon = 'icons/roguetown/mob/monster/volf.dmi'
-	wildshape_icon_state = "vv"
+	wildshape_icon_state = "volf_black"
 
 /mob/living/carbon/human/species/wildshape/witch/volf/gain_inherent_skills()
 	. = ..()
@@ -53,6 +53,7 @@
 		ORGAN_SLOT_LIVER = /obj/item/organ/liver,
 		ORGAN_SLOT_STOMACH = /obj/item/organ/stomach,
 		ORGAN_SLOT_APPENDIX = /obj/item/organ/appendix,
+		ORGAN_SLOT_GUTS = /obj/item/organ/guts,
 		)
 
 	languages = list(
@@ -63,7 +64,7 @@
 /datum/species/witch/volf/regenerate_icons(mob/living/carbon/human/human)
 	human.icon = 'icons/roguetown/mob/monster/volf.dmi'
 	human.base_intents = list(INTENT_HELP)
-	human.icon_state = "vv"
+	human.icon_state = "volf_black"
 	human.update_damage_overlays()
 	return TRUE
 

@@ -7,11 +7,20 @@ SUBSYSTEM_DEF(nightshift)
 	priority = 1
 	var/current_tod = null
 
-	var/nightshift_active = FALSE
-	var/nightshift_start_time = 576000	//4pm	//702000=7:30 PM, station time
-	var/nightshift_dawn_start = 288000		//198000=    530am
-	var/nightshift_day_start = 360000		//270000=    730am
-	var/nightshift_dusk_start = 504000		//630000=    530pm
+	//Caustic Edit - Adjusting the hours of daylight vs nighttime - To account for Weather Ticking on it's own time-frame, try to ensure that the 4 TOD regions each have a weather tick that lands in them. Currently it's running starting at 1:00 AM, and every 3 hours it will tick, so 4:00 AM, 7:00 AM, etc.
+	var/nightshift_active = FALSE //The times below are all in station time
+	var/nightshift_start_time = 612000		//612000=	 5:30pm - 13 hours of night
+	var/nightshift_dawn_start = 234000		//234000=    6:30am - 2 hours of dawn
+	var/nightshift_day_start = 306000		//306000=    8:30am - 7 hours of day - Totalling 11 daylight hours
+	var/nightshift_dusk_start = 558000		//558000=    3:30pm - 2 hours of dusk
+
+	/* Default AP Config
+	var/nightshift_start_time = 576000		//576000=	 4:00pm - 16 hours of night
+	var/nightshift_dawn_start = 288000		//288000=    8:00am - 2 hours of dawn
+	var/nightshift_day_start = 360000		//360000=    10:00am - 4 hours of day
+	var/nightshift_dusk_start = 504000		//504000=    2:00pm - 2 hours of dusk <- These times are kinda insane wow
+	*/
+	//Caustic Edit End
 
 	/* Default STONEKEEP config.
 	var/nightshift_start_time = 756000	//9:00 PM - 2100 hrs
@@ -36,10 +45,14 @@ SUBSYSTEM_DEF(nightshift)
 	if(SSmapping.config.map_name == "Desert Town")
 		//Longer days in favor of shorter nights compared to default Cove World
 		//Nights are also slightly brighter in the desert due to a lack of foliage and often clear skies
-		nightshift_start_time = 774000		//774000=	930pm
-		nightshift_dawn_start = 198000		//198000=   530am
-		nightshift_day_start =  270000		//270000=   730am
-		nightshift_dusk_start = 666000		//630000=   630pm
+		nightshift_start_time = 738000		//738000=	8:30pm - 9 hours night
+		nightshift_dawn_start = 198000		//198000=   5:30am - 2 hours dawn
+		nightshift_day_start =  270000		//270000=   7:30am - 11 hours day - Totalling 15 daylight hours
+		nightshift_dusk_start = 666000		//660000=   6:30pm - 2 hours dusk
+
+		if(!GLOB.mirage_controller)
+			GLOB.mirage_controller = new
+			GLOB.mirage_controller.MoveOasis()
 
 	return ..()
 

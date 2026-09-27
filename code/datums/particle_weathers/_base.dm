@@ -9,7 +9,7 @@
 	spawning = 0
 	width                  = 800  // I think this is supposed to be in pixels, but it doesn't match bounds, so idk - 800x800 seems to prevent particle-less edges
 	height                 = 800
-	count                  = 3000 // 3000 particles
+	count                  = 1200 // max live particles rendered per client
 	//Set bounds to rough screensize + some extra on the side and top movement for "wind"
 	bound1                 = list(-500,-256,-10)
 	bound2                 = list(500,500,10)
@@ -58,6 +58,16 @@
 
 	//messages to send at different severities
 	var/list/weather_messages = list()
+
+	//Caustic Edit - Adding in the Ratwood Weather system.
+	//warning message that plays when weather is picked
+	var/warning_message
+	//warning message just before weather fires
+	var/late_warning_message = span_greenannounce("The realms wind blows as weather begins to turn.")
+	//wind down message when the wind-down is called for this weather signalling it's end
+	var/wind_down_message
+	var/sent_winddown = FALSE
+	//Caustic Edit End
 
 	// Sounds to play at different severities - order from lowest to highest
 	var/list/weather_sounds = list()
@@ -116,11 +126,19 @@
 	//assoc list of mob=timestamp -> Next time we can send a message
 	var/list/messagedMobs = list()
 
+	/// How often (deciseconds) the heavy weather_act effect (soak/wash/etc) runs per mob
+	var/weather_act_interval = 3 SECONDS
+	/// assoc list of mob=timestamp -> Next time we may run weather_act on them
+	var/list/actCooldowns = list()
+
 	var/last_message = ""
 
 	var/blend_type
 	var/filter_type
 	var/secondary_filter_type
+	var/forecast_tag
+
+	var/datum/weather_effect/weather_special_effect
 
 /datum/particle_weather/proc/severityMod()
 	return max(0.3, severity / maxSeverity)
@@ -132,6 +150,20 @@
 	return
 
 /datum/particle_weather/Destroy()
+	//Caustic Edit - Add in Ratwood Weather system
+	// Remove particle effect if it exists
+	if(SSParticleWeather?.particleEffect)
+		qdel(SSParticleWeather.particleEffect)
+		SSParticleWeather.particleEffect = null
+
+	// Clear subsystem references
+	if(SSParticleWeather?.runningWeather == src)
+		SSParticleWeather.runningWeather = null
+
+	if(SSParticleWeather?.queued_weather == src)
+		SSParticleWeather.queued_weather = null
+	//Caustic Edit End
+
 	for(var/S in currentSounds)
 		var/datum/looping_sound/looping_sound = currentSounds[S]
 		if(istype(looping_sound))
@@ -147,11 +179,17 @@
  *
  */
 /datum/particle_weather/proc/start(color)
+	var/datum/controller/subsystem/ParticleWeather/PW = SSParticleWeather
+
+	if(PW.queued_weather == src)	//We want to clear weather from the subsystem 'queued_weather' on start
+		PW.queued_weather = null
+		PW.queued_weather_start_time = null
 	if(running)
 		return //some cheeky git has started you early
-	weather_duration = rand(weather_duration_lower, weather_duration_upper)
+	//weather_duration = rand(weather_duration_lower, weather_duration_upper) //Caustic Edit - Changing the weather so that it can just keep going until the particle weather controller chooses a new one, or chooses to end it!
 	running = TRUE
-	addtimer(CALLBACK(src, PROC_REF(wind_down)), weather_duration)
+	sent_winddown = FALSE
+	//addtimer(CALLBACK(src, PROC_REF(wind_down)), weather_duration) //Caustic Edit - Same as 2 lines above!
 
 	if(particleEffectType)
 		SSParticleWeather.SetparticleEffect(new particleEffectType, blend_type, filter_type, color, secondary_filter_type)
@@ -159,6 +197,8 @@
 	//Always step severity to start
 	ChangeSeverity()
 
+	// Once weather actually starts, forecast is consumed
+	GLOB.forecast = null
 
 /datum/particle_weather/proc/ChangeSeverity()
 	if(!running)
@@ -193,6 +233,9 @@
  *
  */
 /datum/particle_weather/proc/wind_down()
+	if(QDELETED(src))
+		return
+
 	severity = 0
 	if(SSParticleWeather.particleEffect)
 		SSParticleWeather.particleEffect.animateSeverity(severityMod())
@@ -263,10 +306,11 @@
 
 	weather_sound_effect(L)
 	if(can_weather_effect(L))
-		weather_act(L)
+		if(!actCooldowns[L] || world.time >= actCooldowns[L])
+			actCooldowns[L] = world.time + weather_act_interval
+			weather_act(L)
 		if(!messagedMobs[L] || world.time > messagedMobs[L])
 			weather_message(L) //Try not to spam
-
 
 //Overload with weather effects
 /datum/particle_weather/proc/weather_act(mob/living/L)
@@ -281,7 +325,7 @@
 		L.weather = FALSE
 
 //Not using looping_sounds properly. somebody smart should fix this //actually this kind of works, just done a bit backwards
-/datum/particle_weather/proc/weather_sound_effect(mob/living/L, var/outside = TRUE)
+/datum/particle_weather/proc/weather_sound_effect(mob/living/L, outside = TRUE)
 	var/datum/looping_sound/currentSound = currentSounds[L]
 	if(currentSound)
 		//SET VOLUME
@@ -386,3 +430,79 @@
 	message_admins("[key_name_admin(usr)] started weather of type [weather_type].")
 	log_admin("[key_name(usr)] started weather of type [weather_type].")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Run Custom Particle Weather")
+
+//Caustic Edit - Add in the Ratwood Weather additions.
+/datum/weather_effect
+	var/name = "effect"
+	var/probability = 0
+	var/datum/particle_weather/initiator_ref
+
+/datum/weather_effect/proc/effect_affect(turf/target_turf)
+	return FALSE
+
+/turf/Exit(atom/movable/AM, atom/newLoc)
+	. = ..()
+
+	if(!isturf(newLoc))
+		return
+	if(!ishuman(AM))
+		return
+
+	var/mob/living/victim = AM
+
+	if(!victim.mind)
+		return
+	if(!SSParticleWeather.runningWeather)
+		return
+	if(!SSParticleWeather.runningWeather.running)
+		return
+
+	var/turf/current_turfarea = loc
+	var/turf/next_turfarea = newLoc.loc
+
+	if(current_turfarea.type == next_turfarea.type)
+		return
+
+	if(
+		istype(current_turfarea, /area/rogue/indoors) && istype(next_turfarea, /area/rogue/outdoors) || \
+		istype(next_turfarea, /area/rogue/indoors) && istype(current_turfarea, /area/rogue/outdoors)
+	)
+		SSParticleWeather.runningWeather.stop_weather_sound_effect(victim)
+
+/datum/particle_weather/proc/send_warning()
+	if(!warning_message)
+		return
+
+	for(var/mob/living/M in GLOB.player_list)
+		if(!M.client)
+			continue
+		if(can_weather(M))
+			to_chat(M, warning_message)
+	notify_queued()
+
+/datum/particle_weather/proc/notify_queued()
+	/*for (var/obj/item/barometer/B in GLOB.weather_observers) //Unsure if we want to bother with this? Since we could instead just add in a miracle or some way to divine it instead.
+		if (QDELETED(B))
+			continue
+		B.on_weather_queued(src)*/
+
+/datum/particle_weather/proc/send_late_warning()
+	if(!late_warning_message)
+		return
+
+	for(var/mob/living/M in GLOB.player_list)
+		if(!M.client)
+			continue
+		if(can_weather(M))
+			to_chat(M, late_warning_message)
+
+/datum/particle_weather/proc/send_winddown_message()
+	if(!wind_down_message)
+		return
+
+	for(var/mob/living/M in GLOB.player_list)
+		if(!M.client)
+			continue
+		if(can_weather(M))
+			to_chat(M, wind_down_message)
+//Caustic Edit End

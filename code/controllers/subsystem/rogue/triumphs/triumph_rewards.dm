@@ -19,7 +19,7 @@
 	scent_description = "memories of a former triumph"
 
 /datum/reagent/buff/tri/on_mob_life(mob/living/carbon/M)
-	if(volume >= 10)  //Ensures that, no matter what, you can only buff one person from one vial. 
+	if(volume >= 10)  //Ensures that, no matter what, you can only buff one person from one vial.
 		M.apply_status_effect(/datum/status_effect/buff/alch/tripot)
 	return ..()
 
@@ -129,6 +129,16 @@
 	name = "ornate golden halfmask"
 	desc = "An ornate halfmask of pure, glistening gold. What lies underneath to cradle the face: a besilked cushion, or cold alloys?"
 	sellprice = 33
+
+// Caustic Cove Edit Start
+/obj/item/clothing/mask/rogue/lordmask/naledi/triumph
+	name = "tarnished war scholar's mask"
+	item_state = "naledimask"
+	icon_state = "naledimask"
+	desc = "Runes and wards, meant for daemons; the gold has somehow rusted in unnatural, impossible agony. The most prominent of these etchings is in the shape of the Naledian psycross. This one will not provide armor to the wearer's face."
+	armor = null
+	sellprice = 25
+// Caustic Cove Edit End
 
 /obj/item/clothing/mask/rogue/facemask/goldmask/triumph
 	name = "ornate golden mask"

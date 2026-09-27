@@ -1,0 +1,5 @@
+author: "Dreathtil"
+delete-after: True
+changes:
+  - rscadd: "Added new Janissary Class for Man At Arms!"
+  - rscdel: "some older files in Desert Town's Modular folder"

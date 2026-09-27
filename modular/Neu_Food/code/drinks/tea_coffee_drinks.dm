@@ -10,8 +10,7 @@
 	rotprocess = null
 	w_class = WEIGHT_CLASS_TINY
 	//CC Edit Begin
-	diet_types = list("Vegetables")
-	diet_change_amount = FOOD_DIETARY_VALUE_POOR
+	foodtype = VEGETABLES
 	//CC Edit End
 
 /obj/item/reagent_containers/food/snacks/grown/rogue/rosa_petals_dried
@@ -25,8 +24,7 @@
 	rotprocess = null
 	w_class = WEIGHT_CLASS_TINY
 	//CC Edit Begin
-	diet_types = list("Vegetables")
-	diet_change_amount = FOOD_DIETARY_VALUE_POOR
+	foodtype = VEGETABLES
 	//CC Edit End
 
 /obj/item/reagent_containers/food/snacks/grown/rogue/rosa_petals_spiced
@@ -39,6 +37,9 @@
 	list_reagents = list(/datum/reagent/consumable/nutriment = 2, /datum/reagent/medicine/antidote = 1)
 	rotprocess = null
 	w_class = WEIGHT_CLASS_TINY
+	//CC Edit Begin
+	foodtype = VEGETABLES
+	//CC Edit End
 
 /obj/item/reagent_containers/food/snacks/grown/coffeebeans
 	name = "coffee beans"
@@ -53,8 +54,7 @@
 	rotprocess = null
 	w_class = WEIGHT_CLASS_TINY
 	//CC Edit Begin
-	diet_types = list("Fruits")
-	diet_change_amount = FOOD_DIETARY_VALUE_POOR
+	foodtype = FRUIT
 	//CC Edit End
 
 /obj/item/reagent_containers/food/snacks/grown/coffeebeansroasted
@@ -68,8 +68,7 @@
 	rotprocess = null
 	w_class = WEIGHT_CLASS_TINY
 	//CC Edit Begin
-	diet_types = list("Fruits")
-	diet_change_amount = FOOD_DIETARY_VALUE_POOR
+	foodtype = FRUIT
 	//CC Edit End
 
 /obj/item/reagent_containers/food/snacks/grown/coffeebeans_spiced
@@ -82,10 +81,13 @@
 	list_reagents = list(/datum/reagent/consumable/nutriment = 2)
 	rotprocess = null
 	w_class = WEIGHT_CLASS_TINY
+	//CC Edit Begin
+	foodtype = FRUIT
+	//CC Edit End
 
 /obj/item/reagent_containers/food/snacks/grown/rogue/tealeaves_dry
 	name = "dried tea leaves"
-	desc = "Dried tea leaves. Edible. Seeds can be extracted from them. Needs to be processed in a millstone." 
+	desc = "Dried tea leaves. Edible. Seeds can be extracted from them. Needs to be processed in a millstone."
 	icon = 'modular/Neu_Food/icons/drinks.dmi'
 	icon_state = "teadry"
 	tastes = list("bitterness" = 1)
@@ -96,8 +98,7 @@
 	w_class = WEIGHT_CLASS_TINY
 	mill_result = /obj/item/reagent_containers/food/snacks/grown/rogue/tealeaves_ground
 	//CC Edit Begin
-	diet_types = list("Vegetables")
-	diet_change_amount = FOOD_DIETARY_VALUE_POOR
+	foodtype = VEGETABLES
 	//CC Edit End
 
 /obj/item/reagent_containers/food/snacks/grown/rogue/tealeaves_ground
@@ -111,8 +112,7 @@
 	rotprocess = null
 	w_class = WEIGHT_CLASS_TINY
 	//CC Edit Begin
-	diet_types = list("Vegetables")
-	diet_change_amount = FOOD_DIETARY_VALUE_POOR
+	foodtype = VEGETABLES
 	//CC Edit End
 
 /obj/item/reagent_containers/food/snacks/grown/rogue/tealeaves_spiced
@@ -125,8 +125,12 @@
 	list_reagents = list(/datum/reagent/consumable/nutriment = 2)
 	rotprocess = null
 	w_class = WEIGHT_CLASS_TINY
+	//CC Edit Begin
+	foodtype = VEGETABLES
+	//CC Edit End
 
 /obj/item/reagent_containers/food/snacks/grown/rogue/chocolate_spiced
+	cuisine = CUISINE_RANESHENI
 	name = "spiced chocolate"
 	desc = "A spiced sliver of heaven, awaiting to be brewed into a velvetly rich drink."
 	icon = 'modular/Neu_Food/icons/drinks.dmi'
@@ -138,6 +142,9 @@
 	faretype = FARE_LAVISH
 	rotprocess = null
 	eat_effect = /datum/status_effect/buff/snackbuff
+	//CC Edit Begin
+	foodtype = DAIRY
+	//CC Edit End
 
 /obj/item/reagent_containers/food/snacks/chocolate_spiced/On_Consume(mob/living/eater)
 	if(islupian(eater) || isvulp(eater))

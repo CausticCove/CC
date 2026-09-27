@@ -68,7 +68,7 @@
 		adjust_skillrank(/datum/skill/misc/sneaking, SKILL_LEVEL_EXPERT, TRUE)
 		adjust_skillrank(/datum/skill/misc/climbing, SKILL_LEVEL_EXPERT, TRUE)
 
-		AddSpell(new /obj/effect/proc_holder/spell/self/hagclaws) 
+		AddSpell(new /obj/effect/proc_holder/spell/self/hagclaws)
 		apply_status_effect(/datum/status_effect/debuff/hag_bog_tether/wildshape)
 	//faction |= list("hag", "spiders")
 	//Caustic Edit - Copied over a fix from OV that sets their name and everything proper here.
@@ -151,7 +151,7 @@
 	candodge = TRUE
 	canparry = TRUE
 	miss_text = "slashes the air!"
-	miss_sound = "bluntswoosh"
+	miss_sound = "bladewooshmed"
 	item_d_type = "slash"
 
 /obj/item/rogueweapon/hag_claw

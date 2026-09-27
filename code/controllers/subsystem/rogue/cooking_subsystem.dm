@@ -37,7 +37,7 @@ SUBSYSTEM_DEF(cooking)
 /datum/controller/subsystem/cooking/proc/init_recipes()
 	for(var/R in typesof(/datum/food_recipe) - /datum/food_recipe)
 		var/datum/food_recipe/recipe = new R()
-		if(!recipe.base_item) 
+		if(!recipe.base_item)
 			continue
 		for(var/base in (islist(recipe.base_item) ? recipe.base_item : list(recipe.base_item)))
 			if(!recipe_index[base])
@@ -59,7 +59,7 @@ SUBSYSTEM_DEF(cooking)
 			continue
 		for(var/list/T in get_auto_transforms(snack_type))
 			add_auto_single(snack_type, T["result"], T["method"], T["generic"], T["category"], covered, T["amount"], T["extra"])
-	
+
 /datum/controller/subsystem/cooking/proc/get_auto_transforms(snack_type)
 	var/list/out = list()
 	var/obj/item/reagent_containers/food/snacks/proto = snack_type
@@ -113,7 +113,7 @@ SUBSYSTEM_DEF(cooking)
 	covered["[source]>[result]"] = TRUE
 	var/datum/food_recipe/single_cook/R = new
 	var/atom/res = result
-	R.name = lowertext(initial(res.name))
+	R.name = LOWER_TEXT(initial(res.name))
 	R.base_item = source
 	R.result_type = result
 	R.result_amount = amount || 1

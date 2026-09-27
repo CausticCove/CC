@@ -84,8 +84,8 @@
 /datum/status_effect/buff/lightningstruck
 	id = "lightningstruck"
 	alert_type = /atom/movable/screen/alert/status_effect/buff/lightningstruck
-	duration = 4 SECONDS
-	effectedstats = list(STATKEY_SPD = -2, STATKEY_PER = -2, STATKEY_INT = -2)
+	duration = 6 SECONDS
+	effectedstats = list(STATKEY_STR = -2, STATKEY_PER = -3, STATKEY_INT = -2)
 
 /atom/movable/screen/alert/status_effect/buff/lightningstruck
 	name = "Lightning Struck"

@@ -97,6 +97,7 @@
 				recipient.mind?.special_items["Hammer"] = /obj/item/rogueweapon/hammer/wood
 				recipient.mind?.special_items["Chisel"] = /obj/item/rogueweapon/chisel
 				recipient.mind?.special_items["Hand Saw"] = /obj/item/rogueweapon/handsaw
+				recipient.mind?.special_items["Blowing Pipe"] = /obj/item/rogueweapon/blowrod //CC Edit
 			if(SKILLED_ENCHANT)
 				added_skills.Add(list(list(/datum/skill/craft/alchemy, 2, 2)))
 				added_skills.Add(list(list(/datum/skill/craft/blacksmithing, 2, 2)))

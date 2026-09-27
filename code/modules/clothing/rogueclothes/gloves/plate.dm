@@ -115,16 +115,18 @@
 	armor_class = ARMOR_CLASS_LIGHT
 	smeltresult = /obj/item/ingot/component/baotha
 
+//Caustic Edit - Let us remove and drop armors again! For fun stuffs.
 /obj/item/clothing/gloves/roguetown/plate/baotha/Initialize()
 	. = ..()
 	AddComponent(/datum/component/cursed_item, TRAIT_DEPRAVED, "GLOVES")
-	ADD_TRAIT(src, TRAIT_NODROP, CURSED_ITEM_TRAIT)
+	//ADD_TRAIT(src, TRAIT_NODROP, CURSED_ITEM_TRAIT)
 
 /obj/item/clothing/gloves/roguetown/plate/baotha/dropped(mob/living/carbon/human/user)
 	. = ..()
-	if(QDELETED(src))
+	/*if(QDELETED(src))
 		return
-	qdel(src)
+	qdel(src)*/
+//Caustic Edit End
 
 /obj/item/clothing/gloves/roguetown/plate/baotha/get_examine_highlight_status()
 	return list(EXAMINEHIGHLIGHT_HERESYSEVERITY_ALARMING, HERESYDESC_BAOTHA_ARMOR)
@@ -146,9 +148,6 @@
 
 /obj/item/clothing/gloves/roguetown/plate/zizo/get_examine_highlight_status()
 	return list(EXAMINEHIGHLIGHT_HERESYSEVERITY_ALARMING, HERESYDESC_ZIZO_ARMOR)
-
-/obj/item/clothing/gloves/roguetown/plate/zizo/dropped(mob/living/carbon/human/user)
-	return ..()
 
 /obj/item/clothing/gloves/roguetown/plate/zizo/heavy
 	name = "avantyne plate gauntlets"

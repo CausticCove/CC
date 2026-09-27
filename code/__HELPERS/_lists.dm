@@ -847,8 +847,7 @@ GLOBAL_LIST_EMPTY(string_lists)
 				return_list += bit
 
 	return return_list
-
-/* 
+/*
 Port of: https://github.com/Monkestation/Vanderlin/commit/84b8b6a716a80040145bb9372641084b32708923 by Sutures / noelle-lavenza
 // A wrapper for baseturf string lists, to offer support of non list values, and a stack_trace if we have major issues
 */
@@ -857,9 +856,7 @@ Port of: https://github.com/Monkestation/Vanderlin/commit/84b8b6a716a80040145bb9
 		return values //baseturf things
 	// return values
 	if(length(values) > 10)
-		stack_trace("The baseturfs list of [baseturf_holder] at [baseturf_holder.x], [baseturf_holder.y], [baseturf_holder.z] is [length(values)], it should never be this long, investigate. I've set baseturfs to a flashing wall as a visual queue")
-		baseturf_holder.ChangeTurf(/turf/closed/indestructible/baseturfs_ded, list(/turf/closed/indestructible/baseturfs_ded), flags = CHANGETURF_FORCEOP)
-		return string_list(list(/turf/closed/indestructible/baseturfs_ded)) //I want this reported god damn it
+		stack_trace("The baseturfs list of [baseturf_holder] at [baseturf_holder.x], [baseturf_holder.y], [baseturf_holder.z] is [length(values)], it should never be this long, investigate.")
 
 	return string_list(values)
 
@@ -868,3 +865,18 @@ Port of: https://github.com/Monkestation/Vanderlin/commit/84b8b6a716a80040145bb9
 	desc = "It looks like base turfs went to the fucking moon, TELL YOUR LOCAL CODER TODAY"
 	icon = 'icons/turf/debug.dmi'
 	icon_state = "debug_turf"
+
+/proc/find_key_by_value(var/list/list, value)
+	for(var/key in list)
+		var/found_value = list[key]
+		if(found_value == value)
+			return key
+	return null
+
+/// Trims an insertion-ordered cache back down to `limit` entries, evicting the oldest first.
+/// Lists keep insertion order, so cutting from the front drops the least recently added keys.
+/// Use on caches whose keys are open-ended (colours, user input) so they cannot grow without bound.
+/proc/trim_cache(list/cache, limit)
+	if(!islist(cache) || cache.len <= limit)
+		return
+	cache.Cut(1, (cache.len - limit) + 1)

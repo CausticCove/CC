@@ -38,7 +38,7 @@
 	if(_allowed_quest_types)
 		allowed_quest_types = _allowed_quest_types
 	else
-		allowed_quest_types = list(QUEST_KILL_EASY, QUEST_CLEAR_OUT, QUEST_RAID, QUEST_BOUNTY, QUEST_COURIER, QUEST_RETRIEVAL, QUEST_RECOVERY)
+		allowed_quest_types = list(QUEST_KILL_EASY, QUEST_CLEAR_OUT, QUEST_RAID, QUEST_BOUNTY, QUEST_COURIER, QUEST_RETRIEVAL, QUEST_RECOVERY, QUEST_ASCENDED_BOUNTY) //CC Edit - Added Ascended Bounty
 	kill_target_floor = _kill_target_floor
 	evergreen_target = _evergreen_target
 

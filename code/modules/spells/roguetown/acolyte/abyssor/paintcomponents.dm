@@ -36,16 +36,16 @@
 		return
 
 	parent_weapon.add_filter(UMBRAL_FILTER_COATING, 1, list(
-		"type"  = "outline", 
-		"color" = UMBRAL_COLOR_INK, 
-		"alpha" = UMBRAL_INK_ALPHA, 
+		"type"  = "outline",
+		"color" = UMBRAL_COLOR_INK,
+		"alpha" = UMBRAL_INK_ALPHA,
 		"size"  = 1
 	))
 
 	parent_weapon.add_filter(UMBRAL_FILTER_GLOW, 2, list(
-		"type"  = "outline", 
-		"color" = UMBRAL_COLOR_GLOW, 
-		"alpha" = UMBRAL_GLOW_ALPHA, 
+		"type"  = "outline",
+		"color" = UMBRAL_COLOR_GLOW,
+		"alpha" = UMBRAL_GLOW_ALPHA,
 		"size"  = 1
 	))
 

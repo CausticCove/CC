@@ -9,7 +9,7 @@ SUBSYSTEM_DEF(regionthreat)
 	// Basin & Grove & Terrorbog are fully tameable (min 0). Coast & Decap stay dangerous (min > 0).
 	// Budget = player_factor * pool * 3%. Solo combat budgets shown at max pool.
 	// Additive group drain: 5-man party drains at 3x/player_factor efficiency (0.5x per extra player).
-	var/list/threat_regions 
+	var/list/threat_regions
 
 	//CC Edit - Desert Mappification
 /datum/controller/subsystem/regionthreat/Initialize(start_timeofday)
@@ -19,7 +19,7 @@ SUBSYSTEM_DEF(regionthreat)
 		threat_regions = list(
 			new /datum/threat_region(
 				_region_name = THREAT_REGION_DESERT_TOWN,
-				_latent_ambush = 0, 
+				_latent_ambush = 0,
 				_min_ambush = 0, //This is within the town.
 				_max_ambush = 100, //Within the town, starter quests basically.
 				_fixed_ambush = FALSE,
@@ -39,7 +39,7 @@ SUBSYSTEM_DEF(regionthreat)
 			),
 			new /datum/threat_region(
 				_region_name = THREAT_REGION_DESERT_TOWN_CAVES,
-				_latent_ambush = 0, 
+				_latent_ambush = 0,
 				_min_ambush = 0, //This is within the town.
 				_max_ambush = 250, //Within the town, starter quests basically.
 				_fixed_ambush = FALSE,
@@ -128,8 +128,8 @@ SUBSYSTEM_DEF(regionthreat)
 				//Grand amount of quests out here.
 				_kill_target_floor = 4, //Kill Target = Kill/Clear Out quests, min amount -> QUEST_KILL_TYPE_WEIGHTS
 				_evergreen_target = 1, //Evergreen = Courier/Retrieval quests, min amount -> QUEST_EVERGREEN_TYPE_WEIGHTS
-				//Natural Blockade Quests, only recovery quests, 
-				_allowed_quest_types = list(QUEST_CLEAR_OUT, QUEST_RAID, QUEST_BOUNTY, QUEST_RECOVERY, QUEST_BLOCKADE_DEFENSE),
+				//Natural Blockade Quests, only recovery quests,
+				_allowed_quest_types = list(QUEST_CLEAR_OUT, QUEST_RAID, QUEST_BOUNTY, QUEST_RECOVERY, QUEST_BLOCKADE_DEFENSE, QUEST_ASCENDED_BOUNTY), //CC Edit - Added Quest Ascended Bounty
 			),
 			new /datum/threat_region(
 				_region_name = THREAT_REGION_DESERT_UNDERDARK,
@@ -152,7 +152,7 @@ SUBSYSTEM_DEF(regionthreat)
 				_delivery_reward_multiplier = 1.0,
 				_kill_target_floor = 3, //Kill Target = Kill/Clear Out quests, min amount -> QUEST_KILL_TYPE_WEIGHTS
 				_evergreen_target = 0, //No courier quests here in the underdark.
-				_allowed_quest_types = list(QUEST_CLEAR_OUT, QUEST_RAID, QUEST_BOUNTY, QUEST_BLOCKADE_DEFENSE),
+				_allowed_quest_types = list(QUEST_CLEAR_OUT, QUEST_RAID, QUEST_BOUNTY, QUEST_BLOCKADE_DEFENSE, QUEST_ASCENDED_BOUNTY), //CC Edit - Added Quest Ascended Bounty
 			),
 		)
 	else
@@ -216,7 +216,7 @@ SUBSYSTEM_DEF(regionthreat)
 				_tp_budget_multiplier = 1.5,
 				_delivery_reward_multiplier = 2.0,
 				_payout_multiplier = 1.3,
-				_allowed_quest_types = list(QUEST_CLEAR_OUT, QUEST_RAID, QUEST_BOUNTY, QUEST_COURIER, QUEST_RETRIEVAL, QUEST_RECOVERY, QUEST_TOWNER_SMITH_CARAVAN, QUEST_TOWNER_MINER_OREVEIN),
+				_allowed_quest_types = list(QUEST_CLEAR_OUT, QUEST_RAID, QUEST_BOUNTY, QUEST_COURIER, QUEST_RETRIEVAL, QUEST_RECOVERY, QUEST_TOWNER_SMITH_CARAVAN, QUEST_TOWNER_MINER_OREVEIN, QUEST_ASCENDED_BOUNTY), //CC Edit - Added Quest Ascended Bounty
 				_kill_target_floor = 3,
 				_evergreen_target = 2
 			),
@@ -238,7 +238,7 @@ SUBSYSTEM_DEF(regionthreat)
 				),
 				_tp_budget_multiplier = 1.2,
 				_delivery_reward_multiplier = 1.8,
-				_allowed_quest_types = list(QUEST_CLEAR_OUT, QUEST_RAID, QUEST_BOUNTY, QUEST_RECOVERY, QUEST_TOWNER_SMITH_CARAVAN, QUEST_TOWNER_MINER_OREVEIN),
+				_allowed_quest_types = list(QUEST_CLEAR_OUT, QUEST_RAID, QUEST_BOUNTY, QUEST_RECOVERY, QUEST_TOWNER_SMITH_CARAVAN, QUEST_TOWNER_MINER_OREVEIN, QUEST_ASCENDED_BOUNTY), //CC Edit - Added Quest Ascended Bounty
 				_kill_target_floor = 3
 			),
 			new /datum/threat_region(
@@ -260,7 +260,7 @@ SUBSYSTEM_DEF(regionthreat)
 				),
 				_tp_budget_multiplier = 1.5,
 				_delivery_reward_multiplier = 2.0,
-				_allowed_quest_types = list(QUEST_CLEAR_OUT, QUEST_RAID, QUEST_BOUNTY, QUEST_RECOVERY, QUEST_TOWNER_SMITH_CARAVAN, QUEST_TOWNER_MINER_OREVEIN),
+				_allowed_quest_types = list(QUEST_CLEAR_OUT, QUEST_RAID, QUEST_BOUNTY, QUEST_RECOVERY, QUEST_TOWNER_SMITH_CARAVAN, QUEST_TOWNER_MINER_OREVEIN, QUEST_ASCENDED_BOUNTY), //CC Edit - Added Quest Ascended Bounty
 				_kill_target_floor = 3
 			),
 			// Underdark cannot be tamed — min_ambush is high, keeping the region permanently dangerous.
@@ -282,7 +282,7 @@ SUBSYSTEM_DEF(regionthreat)
 				_tp_budget_multiplier = 1.5,
 				_delivery_reward_multiplier = 2.0,
 				_payout_multiplier = 1.2,
-				_allowed_quest_types = list(QUEST_CLEAR_OUT, QUEST_RAID, QUEST_BOUNTY, QUEST_RECOVERY, QUEST_TOWNER_SMITH_CARAVAN, QUEST_TOWNER_MINER_OREVEIN),
+				_allowed_quest_types = list(QUEST_CLEAR_OUT, QUEST_RAID, QUEST_BOUNTY, QUEST_RECOVERY, QUEST_TOWNER_SMITH_CARAVAN, QUEST_TOWNER_MINER_OREVEIN, QUEST_ASCENDED_BOUNTY), //CC Edit - Added Ascended Bounty
 				_kill_target_floor = 3
 			)
 		)

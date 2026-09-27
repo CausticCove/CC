@@ -88,6 +88,7 @@
 		ORGAN_SLOT_LIVER = /obj/item/organ/liver,
 		ORGAN_SLOT_STOMACH = /obj/item/organ/stomach,
 		ORGAN_SLOT_APPENDIX = /obj/item/organ/appendix,
+		ORGAN_SLOT_GUTS = /obj/item/organ/guts,
 		//ORGAN_SLOT_TESTICLES = /obj/item/organ/testicles,
 		//ORGAN_SLOT_PENIS = /obj/item/organ/penis/knotted,
 		//ORGAN_SLOT_BREASTS = /obj/item/organ/breasts,
@@ -178,14 +179,6 @@
 		/datum/descriptor_choice/prominent_five_wild,
 		/datum/descriptor_choice/prominent_six_wild
 	)
-
-/datum/species/anthromorph/on_species_gain(mob/living/carbon/C, datum/species/old_species)
-	..()
-	RegisterSignal(C, COMSIG_MOB_SAY, PROC_REF(handle_speech))
-
-/datum/species/anthromorph/on_species_loss(mob/living/carbon/C)
-	. = ..()
-	UnregisterSignal(C, COMSIG_MOB_SAY)
 
 /datum/species/anthromorph/check_roundstart_eligible()
 	return TRUE

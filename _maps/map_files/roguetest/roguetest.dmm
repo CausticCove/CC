@@ -308,7 +308,6 @@
 /area/rogue/indoors/town/physician)
 "jC" = (
 /obj/structure/bed/rogue,
-/obj/item/gun/ballistic/revolver/grenadelauncher/bow/recurve,
 /turf/open/floor/rogue/dirt/road,
 /area/rogue/outdoors)
 "jI" = (
@@ -625,10 +624,6 @@
 /turf/open/floor/rogue/tile/masonic/single,
 /area/rogue/indoors/town/vault)
 "rT" = (
-/turf/open/floor/rogue/dirt/road,
-/area/rogue/outdoors)
-"rZ" = (
-/obj/item/gun/ballistic/revolver/grenadelauncher/bow/recurve,
 /turf/open/floor/rogue/dirt/road,
 /area/rogue/outdoors)
 "sh" = (
@@ -1054,11 +1049,6 @@
 	},
 /turf/open/floor/rogue/blocks/stonered/tiny,
 /area/rogue/indoors)
-"Cz" = (
-/mob/living/carbon/human/species/human/northern/highwayman/archer,
-/obj/item/gun/ballistic/revolver/grenadelauncher/bow/recurve,
-/turf/open/floor/rogue/dirt/road,
-/area/rogue/outdoors)
 "CB" = (
 /mob/living/simple_animal/hostile/retaliate/rogue/trufflepig,
 /turf/open/floor/rogue/hay,
@@ -3225,9 +3215,9 @@ yK
 rT
 vq
 eg
-Cz
-rZ
-Cz
+rT
+rT
+rT
 sR
 IC
 rT
@@ -3277,9 +3267,9 @@ yK
 rT
 rb
 rT
-rZ
+rT
 YZ
-Cz
+rT
 Yf
 hq
 rT
@@ -3329,9 +3319,9 @@ yK
 rT
 vq
 rT
-Cz
-rZ
-Cz
+rT
+rT
+rT
 YU
 XN
 rT
@@ -3381,9 +3371,9 @@ yK
 yK
 UV
 Vm
-rZ
-rZ
-Cz
+rT
+rT
+rT
 rT
 BU
 rT
@@ -3433,9 +3423,9 @@ yK
 yK
 yK
 ud
-Cz
+rT
 jC
-Cz
+rT
 rT
 rT
 rT
@@ -3485,8 +3475,8 @@ rT
 yK
 yK
 rT
-rZ
-Cz
+rT
+rT
 rT
 rT
 rT

@@ -45,10 +45,11 @@ GLOBAL_LIST_INIT(ranger_aggro, list(
 	ADD_TRAIT(src, TRAIT_BADTRAINER, TRAIT_GENERIC)
 	ADD_TRAIT(src, TRAIT_NPC_EXAMINE, TRAIT_GENERIC)
 	equipOutfit(new /datum/outfit/job/roguetown/npc/mini_boss/ranger)
-	for(var/obj/item/equipped_item in get_equipped_items() + held_items)
+	//CC Edit - This is redundant due to corpses ashing anyways, players can loot world-spawned NPC's already too.
+	/* for(var/obj/item/equipped_item in get_equipped_items() + held_items)
 		equipped_item.AddComponent(/datum/component/item_on_drop/dust)
 	for(var/obj/item/held_item in held_items)
-		ADD_TRAIT(held_item, TRAIT_NODROP, TRAIT_GENERIC)
+		ADD_TRAIT(held_item, TRAIT_NODROP, TRAIT_GENERIC) */
 	update_hair()
 	update_body()
 	AddComponent(/datum/component/npc_death_line)
@@ -70,7 +71,7 @@ GLOBAL_LIST_INIT(ranger_aggro, list(
 	H.STASPD = 14
 	H.STACON = 12
 	H.STAWIL = 12
-	H.STAPER = 16
+	H.STAPER = 14
 	H.STAINT = 12
 	H.STALUC = 12
 	shirt = /obj/item/clothing/suit/roguetown/armor/gambeson
@@ -84,7 +85,7 @@ GLOBAL_LIST_INIT(ranger_aggro, list(
 	mask = /obj/item/clothing/mask/rogue/facemask/steel
 	r_hand = /obj/item/rogueweapon/sword/short/iron
 	backr = /obj/item/gun/ballistic/revolver/grenadelauncher/bow/longbow
-	backl = /obj/item/quiver/bodkin
+	backl = /obj/item/quiver/npc
 	H.adjust_skillrank(/datum/skill/combat/bows, 5, TRUE)
 	H.adjust_skillrank(/datum/skill/combat/swords, 4, TRUE)
 	H.adjust_skillrank(/datum/skill/combat/wrestling, 3, TRUE)
@@ -92,3 +93,7 @@ GLOBAL_LIST_INIT(ranger_aggro, list(
 
 	H.dna.species.soundpack_m = GLOB.voice_packs[/datum/voicepack/male/evil] //Aura
 	H.dna.species.soundpack_f = GLOB.voice_packs[/datum/voicepack/female/haughty]
+
+	//CC Edit - Potions for the big boys so they can heal mid-fight.
+	beltr = /obj/item/reagent_containers/glass/bottle/alchemical/healthpotnew
+	//CC Edit End

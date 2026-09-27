@@ -3,6 +3,7 @@
 	name = "Mount Decapitation"
 	loot_budget = LOOT_BUDGET_MOUNT_DECAP
 	icon_state = "decap"
+	allow_extreme_weather = TRUE //Caustic Edit - Add in the possibility for tornado spawns!
 	ambush_mobs = list(
 				// Singles — budget filler across all factions
 				/mob/living/carbon/human/species/human/northern/highwayman/ambush = 15,
@@ -29,6 +30,7 @@
 	deathsight_message = "a twisted tangle of soaring peaks"
 	threat_region = THREAT_REGION_MOUNT_DECAP
 	detail_text = DETAIL_TEXT_DECAP
+	area_sniff_message = "You smell ancient bones and pine wood."
 
 /area/rogue/indoors/shelter/mountains/decap
 	name = "Mount Decapitation"
@@ -41,12 +43,14 @@
 	threat_region = THREAT_REGION_MOUNT_DECAP
 	deathsight_message = "a twisted tangle of soaring peaks"
 	detail_text = DETAIL_TEXT_DECAP_TARICHEA
+	area_sniff_message = "You smell ancient bones and pine wood planks."
 
 /area/rogue/outdoors/mountains/decap/stepbelow
 	name = "Tarichea - Valley of Loss"
 	loot_budget = LOOT_BUDGET_TARICHEA
 	loot_pool_key = "tarichea"
 	icon_state = "decap"
+	allow_extreme_weather = FALSE //Caustic Edit - No spawns here, it's Lava HELL.
 	ambush_mobs = list(
 				// Singles
 				/mob/living/carbon/human/species/human/northern/highwayman/ambush = 15,
@@ -71,12 +75,14 @@
 	converted_type = /area/rogue/indoors/shelter/mountains/decap
 	threat_region = THREAT_REGION_MOUNT_DECAP
 	detail_text = DETAIL_TEXT_DECAP_TARICHEA
+	area_sniff_message = "You smell sulfur."
 
 /area/rogue/outdoors/mountains/decap/gunduzirak
 	name = "Gundu Zirak"
 	loot_budget = LOOT_BUDGET_GUNDU_ZIRAK
 	loot_pool_key = "gundu_zirak"
 	icon_state = "decap"
+	allow_extreme_weather = FALSE //Caustic Edit - Turn off spawns, it's underground but... still in the outdoors path for some reason?
 	ambush_mobs = list(
 				new /datum/ambush_config/treasure_hunter_posse = 1,
 				/mob/living/carbon/human/species/dwarfskeleton/ambush = 30,
@@ -90,10 +96,12 @@
 	ceiling_protected = TRUE
 	threat_region = THREAT_REGION_MOUNT_DECAP
 	detail_text = DETAIL_TEXT_DECAP_GUNDU_ZIRAK
+	area_sniff_message = "You smell old grudges and copper flakes."
 
 /area/rogue/outdoors/mountains/decap/gunduzirak/bossarena
 	name = "Baronness Boss Arena"
 	first_time_text = "THE BARONESS"
+	allow_extreme_weather = FALSE //Caustic Edit - Turn off spawns, it's underground but... still in the outdoors path for some reason?
 	detail_text = DETAIL_TEXT_DECAP_GUNDU_ZIRAK
 
 
@@ -112,6 +120,7 @@
 	deathsight_message = "a twisted tangle of soaring peaks"
 	threat_region = THREAT_REGION_MOUNT_DECAP
 	detail_text = DETAIL_TEXT_DECAP_DRAGONDEN
+	area_sniff_message = "You smell drakynn."
 
 /area/rogue/under/cave/dragonden/can_craft_here()
 	return FALSE
@@ -128,6 +137,7 @@
 	deathsight_message = "a twisted tangle of soaring peaks"
 	threat_region = THREAT_REGION_MOUNT_DECAP
 	detail_text = DETAIL_TEXT_DECAP_GOBLIN_FORTRESS
+	area_sniff_message = "You smell vile daemonspawn."
 
 /area/rogue/under/cave/scarymaze
 	name = "Necran Labyrinth"
@@ -141,11 +151,13 @@
 	deathsight_message = "a twisted tangle of soaring peaks"
 	threat_region = THREAT_REGION_MOUNT_DECAP
 	detail_text = DETAIL_TEXT_DECAP_NECRAN_LABYRINTH
+	area_sniff_message = "You smell death and black roses."
 
 /area/rogue/outdoors/mountains/decap/minotaurfort
 	name = "Ancient Dwarven Forge"
 	loot_budget = LOOT_BUDGET_MINOTAUR_FORT
 	icon_state = "decap"
+	allow_extreme_weather = FALSE //Caustic Edit - Turn off spawns, it's underground but... still in the outdoors path for some reason?
 	droning_sound = 'sound/music/area/prospector.ogg'
 	droning_sound_dusk = null
 	droning_sound_night = null
@@ -155,6 +167,7 @@
 	ceiling_protected = TRUE
 	threat_region = THREAT_REGION_MOUNT_DECAP
 	detail_text = DETAIL_TEXT_DECAP_MINOTAUR_FORTRESS
+	area_sniff_message = "You smell beef."
 
 /area/rogue/outdoors/mountains/decap/minotaurfort/can_craft_here()
 	return FALSE
@@ -162,6 +175,7 @@
 /area/rogue/outdoors/mountains/decap/banditcamp
 	name = "Bandit Camp"
 	icon_state = "decap"
+	allow_extreme_weather = FALSE //Caustic Edit - Turn off spawns, is dungeon!
 	loot_budget = LOOT_BUDGET_BANDIT_CAMP
 	loot_pool_key = "decap_bandit_camp"
 	droning_sound = 'sound/music/area/decap.ogg'
@@ -172,6 +186,7 @@
 	converted_type = /area/rogue/indoors/shelter/mountains/decap
 	ceiling_protected = TRUE
 	threat_region = THREAT_REGION_MOUNT_DECAP
+	area_sniff_message = "You smell sweaty men, women, and pine wood."
 
 /area/rogue/indoors/shelter/mountains/decap/banditcamp
 	name = "Bandit Camp"
@@ -186,6 +201,7 @@
 	converted_type = /area/rogue/indoors/shelter/mountains/decap
 	ceiling_protected = TRUE
 	threat_region = DETAIL_TEXT_DECAP
+	area_sniff_message = "You smell sweat men, women, and pine wood."
 
 /area/rogue/under/cave/minotaurcave
 	name = "Minotaur Cave"
@@ -198,6 +214,7 @@
 	deathsight_message = "a twisted tangle of soaring peaks"
 	threat_region = THREAT_REGION_MOUNT_DECAP
 	detail_text = DETAIL_TEXT_DECAP
+	area_sniff_message = "You smell beef and undergrowth."
 
 /area/rogue/under/cave/taricheamanor
 	name = "Manor of Tarichea"
@@ -210,3 +227,4 @@
 	deathsight_message = "a twisted tangle of soaring peaks"
 	threat_region = THREAT_REGION_MOUNT_DECAP
 	detail_text = DETAIL_TEXT_DECAP_TARICHEA
+	area_sniff_message = "You smell stone floors and sulfur."

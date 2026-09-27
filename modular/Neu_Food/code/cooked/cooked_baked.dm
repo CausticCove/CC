@@ -12,12 +12,13 @@
 	eat_effect = null
 	cooked_smell = /datum/pollutant/food/hardtack
 	//CC Edit Begin
-	diet_types = list("Grains")
-	diet_change_amount = FOOD_DIETARY_VALUE_POOR
+	foodtype = GRAIN
 	//CC Edit End
 
 /*	.................   Hardtack   ................... */
 /obj/item/reagent_containers/food/snacks/rogue/crackerscooked
+	cuisine = CUISINE_NORTH_IMPERIAL|CUISINE_NORTHERN
+	dish_type = DISH_BREAD
 	name = "hardtack"
 	desc = "Brittle and hard, like chewing on a rock. These salted biscuits will never expire, however: and for those who travel across Psydonia, that fact alone earns it a space in their packs."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_baked.dmi'
@@ -29,8 +30,7 @@
 	bitesize = 6
 	rotprocess = null
 	//CC Edit Begin
-	diet_types = list("Grains")
-	diet_change_amount = FOOD_DIETARY_VALUE_GOOD
+	foodtype = GRAIN
 	//CC Edit End
 
 /obj/item/reagent_containers/food/snacks/rogue/crackerscooked/On_Consume(mob/living/eater)
@@ -49,6 +49,8 @@
 
 /*	.................   Bread   ................... */
 /obj/item/reagent_containers/food/snacks/rogue/bread
+	cuisine = CUISINE_NORTH_IMPERIAL|CUISINE_SOUTH_IMPERIAL
+	dish_type = DISH_BREAD
 	name = "bread loaf"
 	desc = "One of Psydonia's staple foodstuffs, made from leavened dough. From the pauper to the papal, none can deny the simplistic beauty of a freshly-baked loaf."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_baked.dmi'
@@ -64,8 +66,7 @@
 	slice_sound = TRUE
 	rotprocess = SHELFLIFE_EXTREME
 	//CC Edit Begin
-	diet_types = list("Grains")
-	diet_change_amount = FOOD_DIETARY_VALUE_GOOD
+	foodtype = GRAIN
 	//CC Edit End
 
 /obj/item/reagent_containers/food/snacks/rogue/bread/update_icon()
@@ -90,6 +91,8 @@
 
 /*	.................   Breadslice & Toast   ................... */
 /obj/item/reagent_containers/food/snacks/rogue/breadslice
+	cuisine = CUISINE_NORTH_IMPERIAL|CUISINE_SOUTH_IMPERIAL
+	dish_type = DISH_BREAD
 	name = "sliced bread"
 	desc = "A bit of comfort to start your dae. The finest choice-of-vessel for a slice of saloumi, salo, cheese, bacon, or jam."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_baked.dmi'
@@ -101,8 +104,7 @@
 	rotprocess = SHELFLIFE_LONG
 	dropshrink = 0.8
 	//CC Edit Begin
-	diet_types = list("Grains")
-	diet_change_amount = FOOD_DIETARY_VALUE_BAD
+	foodtype = GRAIN
 	//CC Edit End
 
 //this is a child so we can be used in sammies
@@ -118,8 +120,7 @@
 	bitesize = 3
 	rotprocess = null
 	//CC Edit Begin
-	diet_types = list("Grains")
-	diet_change_amount = FOOD_DIETARY_VALUE_POOR //Toasty...
+	foodtype = GRAIN
 	//CC Edit End
 
 /obj/item/reagent_containers/food/snacks/rogue/breadslice/toast/buttered
@@ -130,8 +131,7 @@
 	tastes = list("butter" = 1)
 	list_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_HALF_MEAL)
 	//CC Edit Begin
-	diet_types = list("Grains", "Dairy")
-	diet_change_amount = FOOD_DIETARY_VALUE_POOR
+	foodtype = GRAIN | DAIRY
 	//CC Edit End
 
 /obj/item/reagent_containers/food/snacks/rogue/breadslice/toast/jamtallowed_slice
@@ -144,6 +144,9 @@
 	list_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_FULL_MEAL)
 	eat_effect = /datum/status_effect/buff/greatsnackbuff
 	foodtype = GRAIN | FRUIT
+	//CC Edit Begin
+	dish_type = DISH_BREAD | DISH_SWEET | DISH_FRUIT
+	//CC Edit End
 
 /obj/item/reagent_containers/food/snacks/rogue/breadslice/toast/marmaladed_slice
 	tastes = list("crunchy, sweet-tarty jamminess" = 1, "a wonderful end to the dae" = 1)
@@ -154,8 +157,12 @@
 	list_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_FULL_MEAL)
 	eat_effect = /datum/status_effect/buff/greatsnackbuff
 	foodtype = GRAIN | FRUIT
+	//CC Edit Begin
+	dish_type = DISH_BREAD | DISH_SWEET | DISH_FRUIT
+	//CC Edit End
 
 /obj/item/reagent_containers/food/snacks/rogue/toastcrumbs
+	dish_type = DISH_BREAD
 	name = "toast crumbs"
 	desc = "Perfect for adding some crunch to deep-fried food."
 	icon = 'modular/Neu_Food/icons/raw/raw_deep_fried.dmi'
@@ -168,10 +175,6 @@
 	foodtype = GRAIN
 	bitesize = 1
 	rotprocess = SHELFLIFE_DECENT
-	//CC Edit Begin
-	diet_types = list("Grains")
-	diet_change_amount = FOOD_DIETARY_VALUE_POOR
-	//CC Edit End
 
 // -------------- BREAD WITH FOOD ON IT (not american sandwich) -----------------
 /obj/item/reagent_containers/food/snacks/rogue/sandwich
@@ -190,8 +193,7 @@
 	icon_state = "bread_salami"
 	foodtype = GRAIN | MEAT
 	//CC Edit Begin
-	diet_types = list("Grains", "Meats")
-	diet_change_amount = FOOD_DIETARY_VALUE_GREAT
+	dish_type = DISH_BREAD | DISH_MEAT
 	//CC Edit End
 
 /obj/item/reagent_containers/food/snacks/rogue/sandwich/cheese
@@ -201,8 +203,7 @@
 	icon_state = "bread_cheese"
 	foodtype = GRAIN | DAIRY
 	//CC Edit Begin
-	diet_types = list("Grains", "Dairy")
-	diet_change_amount = FOOD_DIETARY_VALUE_GREAT
+	dish_type = DISH_BREAD | DISH_DAIRY
 	//CC Edit End
 
 /obj/item/reagent_containers/food/snacks/rogue/sandwich/egg
@@ -213,8 +214,7 @@
 	icon_state = "bread_egg"
 	foodtype = GRAIN | MEAT
 	//CC Edit Begin
-	diet_types = list("Grains", "Meats")
-	diet_change_amount = FOOD_DIETARY_VALUE_GREAT
+	dish_type = DISH_BREAD | DISH_EGG
 	//CC Edit End
 
 /obj/item/reagent_containers/food/snacks/rogue/sandwich/salo
@@ -226,8 +226,7 @@
 	icon_state = "bread_salo"
 	foodtype = GRAIN | MEAT
 	//CC Edit Begin
-	diet_types = list("Grains", "Meats")
-	diet_change_amount = FOOD_DIETARY_VALUE_GREAT
+	dish_type = DISH_BREAD | DISH_DAIRY
 	//CC Edit End
 
 /obj/item/reagent_containers/food/snacks/rogue/sandwich/bacon
@@ -238,8 +237,7 @@
 	icon_state = "toast_bacon"
 	foodtype = GRAIN | MEAT
 	//CC Edit Begin
-	diet_types = list("Grains", "Meats")
-	diet_change_amount = FOOD_DIETARY_VALUE_GREAT
+	dish_type = DISH_BREAD | DISH_MEAT
 	//CC Edit End
 /*
 /obj/item/reagent_containers/food/snacks/rogue/sandwich/tartar
@@ -256,9 +254,14 @@
 	desc = "A piece of toast with a thick slice of ham on top. A delight enjoyed by many burghers."
 	icon_state = "toast_ham"
 	foodtype = GRAIN | MEAT
+	//CC Edit Begin
+	dish_type = DISH_BREAD | DISH_MEAT
+	//CC Edit End
 
 /*	.................   Bread Buns   ................... */
 /obj/item/reagent_containers/food/snacks/rogue/bun
+	cuisine = CUISINE_NORTH_IMPERIAL|CUISINE_SOUTH_IMPERIAL
+	dish_type = DISH_BREAD | DISH_PASTRY //CC Edit
 	name = "bun"
 	desc = "Portable, quaint, and entirely consumable - for the discerning traveler. It yearns to be further dolled with a sausage, wedge of cheese, or some delicious jams."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_baked.dmi'
@@ -270,11 +273,12 @@
 	bitesize = 3
 	rotprocess = SHELFLIFE_EXTREME
 	//CC Edit Begin
-	diet_types = list("Grains")
-	diet_change_amount = FOOD_DIETARY_VALUE_BAD
+	foodtype = GRAIN
 	//CC Edit End
 
 /obj/item/reagent_containers/food/snacks/rogue/bun_jamtallow
+	cuisine = CUISINE_RANESHENI
+	dish_type = DISH_BREAD | DISH_FRUIT | DISH_SWEET //CC Edit
 	name = "jamtallowed bun"
 	desc = "A delicious treat to bring along for those long-and-lonesome hikes through the Naledian deserts; doubly-so, if you happen to be smuggling enough starsugar to buy out Astrata's throne."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_baked.dmi'
@@ -286,8 +290,13 @@
 	bitesize = 4
 	rotprocess = SHELFLIFE_EXTREME
 	eat_effect = /datum/status_effect/buff/greatsnackbuff
+	//CC Edit Begin
+	foodtype = GRAIN | FRUIT
+	//CC Edit End
 
 /obj/item/reagent_containers/food/snacks/rogue/bun_marmalade
+	cuisine = CUISINE_NORTH_IMPERIAL|CUISINE_SOUTH_IMPERIAL
+	dish_type = DISH_BREAD | DISH_FRUIT | DISH_SWEET //CC Edit
 	name = "marmaladed bun"
 	desc = "A delicious treat to bring along for those long-and-lonesome hikes through the Azurian forests; doubly-so, if you happen to be a tallow-coated wildkin of the urisine variety."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_baked.dmi'
@@ -299,6 +308,9 @@
 	bitesize = 4
 	rotprocess = SHELFLIFE_EXTREME
 	eat_effect = /datum/status_effect/buff/greatsnackbuff
+	//CC Edit Begin
+	foodtype = GRAIN | FRUIT
+	//CC Edit End
 
 /* 	.................   Crossbuns   ................... */
 /obj/item/reagent_containers/food/snacks/rogue/foodbase/crossbun_raw
@@ -309,8 +321,7 @@
 	list_reagents = list(/datum/reagent/consumable/nutriment = SMALLDOUGH_NUTRITION)
 	cooked_type = /obj/item/reagent_containers/food/snacks/rogue/crossbun
 	//CC Edit Begin
-	diet_types = list("Grains")
-	diet_change_amount = FOOD_DIETARY_VALUE_POOR
+	foodtype = GRAIN
 	//CC Edit End
 
 // Psydon variant
@@ -321,12 +332,13 @@
 	icon_state = "psycrossbun_raw"
 	cooked_type = /obj/item/reagent_containers/food/snacks/rogue/psycrossbun
 	//CC Edit Begin
-	diet_types = list("Grains")
-	diet_change_amount = FOOD_DIETARY_VALUE_POOR
+	foodtype = GRAIN
 	//CC Edit End
 
 /* 	.................   Crossbuns   ................... */
 /obj/item/reagent_containers/food/snacks/rogue/crossbun
+	cuisine = CUISINE_NORTH_IMPERIAL|CUISINE_SOUTH_IMPERIAL
+	dish_type = DISH_BREAD | DISH_PASTRY //CC Edit
 	name = "crossbun"
 	desc = "Traditionally eaten for breakfast amongst Psydonia's abbeys. Astratans in particular have made it a \
 	practice to add a slice of marmalade to their crossbuns, in reverance of Her golden authority."
@@ -338,11 +350,11 @@
 	bitesize = 3
 	rotprocess = SHELFLIFE_EXTREME
 	//CC Edit Begin
-	diet_types = list("Grains")
-	diet_change_amount = FOOD_DIETARY_VALUE_GOOD
+	foodtype = GRAIN
 	//CC Edit End
 
 /obj/item/reagent_containers/food/snacks/rogue/crossbun_jamtallowed
+	cuisine = CUISINE_NORTH_IMPERIAL
 	name = "jamtallowed crossbun"
 	desc = "So sinfully delicious!"
 	icon = 'modular/Neu_Food/icons/cooked/cooked_baked.dmi'
@@ -354,8 +366,12 @@
 	tastes = list("sweet-tarty jamminess" = 1, "a sense of divine fufillment" = 1)
 	eat_effect = /datum/status_effect/buff/greatsnackbuff
 	foodtype = GRAIN | FRUIT
+	//CC Edit Begin
+	dish_type = DISH_BREAD | DISH_PASTRY | DISH_FRUIT | DISH_SWEET
+	//CC Edit End
 
 /obj/item/reagent_containers/food/snacks/rogue/crossbun_marmaladed
+	cuisine = CUISINE_NORTH_IMPERIAL
 	name = "marmaladed crossbun"
 	desc = "A particularly favorite treat amonst the papacies of Grenzelhoft and Etruscea, especially during the \
 	holidaes that pay reverance to Astrata. The marmalade is said to represent the Sun's blessed light and warming \
@@ -369,8 +385,12 @@
 	tastes = list("sweetly-sour jamminess" = 1, "a sense of divine communion" = 1)
 	eat_effect = /datum/status_effect/buff/greatsnackbuff
 	foodtype = GRAIN | FRUIT
+	//CC Edit Begin
+	dish_type = DISH_BREAD | DISH_PASTRY | DISH_FRUIT | DISH_SWEET
+	//CC Edit End
 
 /obj/item/reagent_containers/food/snacks/rogue/psycrossbun
+	dish_type = DISH_BREAD | DISH_PASTRY //CC Edit
 	name = "psycrossbun"
 	desc = "How long will you endure the temptation to eat it? Surely, you wouldn't dare to jam it up as well, would you.. ?"
 	icon = 'modular/Neu_Food/icons/cooked/cooked_baked.dmi'
@@ -382,8 +402,7 @@
 	bitesize = 3
 	rotprocess = SHELFLIFE_EXTREME
 	//CC Edit Begin
-	diet_types = list("Grains")
-	diet_change_amount = FOOD_DIETARY_VALUE_GOOD
+	foodtype = GRAIN
 	//CC Edit End
 
 /obj/item/reagent_containers/food/snacks/rogue/psycrossbun_jamtallowed
@@ -400,6 +419,9 @@
 	tastes = list("sweet-tarty jamminess" = 1, "a sense of enduring sorrow" = 1)
 	eat_effect = /datum/status_effect/buff/greatsnackbuff
 	foodtype = GRAIN | FRUIT
+	//CC Edit Begin
+	dish_type = DISH_BREAD | DISH_PASTRY | DISH_FRUIT | DISH_SWEET
+	//CC Edit End
 
 /obj/item/reagent_containers/food/snacks/rogue/psycrossbun_marmaladed
 	name = "marmaladed psycrossbun"
@@ -413,6 +435,9 @@
 	tastes = list("sweetly-sour jamminess" = 1, "a sense of enduring confusion" = 1)
 	eat_effect = /datum/status_effect/buff/greatsnackbuff
 	foodtype = GRAIN | FRUIT
+	//CC Edit Begin
+	dish_type = DISH_BREAD | DISH_PASTRY | DISH_FRUIT | DISH_SWEET
+	//CC Edit End
 
 /*	.................   Raisin Bread   ................... */
 /obj/item/reagent_containers/food/snacks/rogue/rbread_half
@@ -424,8 +449,7 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	rotprocess = SHELFLIFE_DECENT
 	//CC Edit Begin
-	diet_types = list("Grains", "Fruits")
-	diet_change_amount = FOOD_DIETARY_VALUE_GOOD
+	foodtype = GRAIN | FRUIT
 	//CC Edit End
 
 /obj/item/reagent_containers/food/snacks/rogue/rbreaduncooked
@@ -440,11 +464,12 @@
 	rotprocess = SHELFLIFE_DECENT
 	cooked_smell = /datum/pollutant/food/raisin_bread
 	//CC Edit Begin
-	diet_types = list("Grains", "Fruits")
-	diet_change_amount = FOOD_DIETARY_VALUE_GOOD
+	foodtype = GRAIN | FRUIT
 	//CC Edit End
 
 /obj/item/reagent_containers/food/snacks/rogue/raisinbread
+	cuisine = CUISINE_RANESHENI
+	dish_type = DISH_BREAD | DISH_FRUIT //CC Edit
 	name = "raisin loaf"
 	desc = "A popular dessert amongst the peasantry, this loaf of sweetbread's speckled with fruity surprises. In recent years, it has more palettes amongst the papacy: t'was Rockhill's abbey that christened a variant, glazed with a sugary veneer."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_baked.dmi'
@@ -461,8 +486,7 @@
 	rotprocess = SHELFLIFE_EXTREME
 	eat_effect = /datum/status_effect/buff/snackbuff
 	//CC Edit Begin
-	diet_types = list("Grains", "Fruits")
-	diet_change_amount = FOOD_DIETARY_VALUE_GREAT //Extra steps merits extra rewards!
+	foodtype = GRAIN | FRUIT
 	//CC Edit End
 
 /obj/item/reagent_containers/food/snacks/rogue/raisinbread/update_icon()
@@ -486,6 +510,7 @@
 			changefood(slice_path, eater)
 
 /obj/item/reagent_containers/food/snacks/rogue/raisinbreadslice
+	cuisine = CUISINE_RANESHENI
 	name = "raisin loaf slice"
 	desc = "Soft and chewy. Nourishing and filling. Simple and decent."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_baked.dmi'
@@ -500,8 +525,8 @@
 	dropshrink = 0.8
 	eat_effect = /datum/status_effect/buff/snackbuff
 	//CC Edit Begin
-	diet_types = list("Grains", "Fruits")
-	diet_change_amount = FOOD_DIETARY_VALUE_GOOD
+	foodtype = GRAIN | FRUIT
+	dish_type = DISH_BREAD | DISH_FRUIT
 	//CC Edit End
 
 /*	.................   Apple Bread   ................... */
@@ -513,6 +538,9 @@
 	list_reagents = list(/datum/reagent/consumable/nutriment = 1)
 	w_class = WEIGHT_CLASS_NORMAL
 	rotprocess = SHELFLIFE_DECENT
+	//CC Edit Begin
+	foodtype = GRAIN | FRUIT
+	//CC Edit End
 
 /obj/item/reagent_containers/food/snacks/rogue/abreaduncooked
 	name = "raw apple loaf"
@@ -525,8 +553,13 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	rotprocess = SHELFLIFE_DECENT
 	cooked_smell = /datum/pollutant/food/apple_bread
+	//CC Edit Begin
+	foodtype = GRAIN | FRUIT
+	//CC Edit End
 
 /obj/item/reagent_containers/food/snacks/rogue/applebread
+	cuisine = CUISINE_NORTH_IMPERIAL|CUISINE_SOUTH_IMPERIAL
+	dish_type = DISH_BREAD | DISH_FRUIT //CC Edit
 	name = "apple loaf"
 	desc = "A fresher cousin of the oft-adored 'raisin loaf', bespeckled with baked apples that dare to melt upon an indulger's tongue. It holds a special place in the hearts of Valoria's people, for both the peasantry and nobility."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_baked.dmi'
@@ -542,6 +575,9 @@
 	slice_sound = TRUE
 	rotprocess = SHELFLIFE_EXTREME
 	eat_effect = /datum/status_effect/buff/snackbuff
+	//CC Edit Begin
+	foodtype = GRAIN | FRUIT
+	//CC Edit End
 
 /obj/item/reagent_containers/food/snacks/rogue/applebread/update_icon()
 	if(slices_num)
@@ -564,6 +600,7 @@
 			changefood(slice_path, eater)
 
 /obj/item/reagent_containers/food/snacks/rogue/applebreadslice
+	cuisine = CUISINE_NORTH_IMPERIAL|CUISINE_SOUTH_IMPERIAL
 	name = "apple loaf slice"
 	desc = "Soft and chewy. Nourishing and filling. Simple yet decadant. Certainly a step up from raisins, that's for sure."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_baked.dmi'
@@ -577,11 +614,16 @@
 	rotprocess = SHELFLIFE_LONG
 	dropshrink = 0.8
 	eat_effect = /datum/status_effect/buff/snackbuff
+	//CC Edit Begin
+	foodtype = GRAIN | FRUIT
+	dish_type = DISH_BREAD | DISH_FRUIT
+	//CC Edit End
 
 /*	.................   Tomatoplate  ................... */
 /obj/item/reagent_containers/food/snacks/rogue/tomatoplate
+	cuisine = CUISINE_SOUTH_IMPERIAL|CUISINE_ETRUSCAN
 	name = "tomatoplate"
-	desc = "A culinary delight from Azuria's shores, purported to've originated from an inflow of Etruscean refugees from long ago. The \
+	desc = "A culinary delight from Azuria's shores, purported to've originated from an inflow of Etruscan refugees from long ago. The \
 	richness of the flatbread's sauced tomatoes is perfectly complemented by its cheesey blanket; all it's missing is a cold pint of \
 	ale and an ongoing game of lampternball to jeer at."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_baked.dmi'
@@ -596,8 +638,11 @@
 	slice_batch = TRUE
 	slice_sound = TRUE
 	rotprocess = SHELFLIFE_EXTREME
-	foodtype = GRAIN | FRUIT | DAIRY
+	foodtype = GRAIN | VEGETABLES | DAIRY
 	eat_effect = /datum/status_effect/buff/snackbuff
+	//CC Edit
+	dish_type = DISH_BREAD | DISH_VEGETABLE | DISH_DAIRY
+	//CC Edit End
 
 /obj/item/reagent_containers/food/snacks/rogue/tomatoplate_slice
 	name = "slice of tomatoplate"
@@ -611,14 +656,18 @@
 	bitesize = 3
 	rotprocess = SHELFLIFE_EXTREME
 	dropshrink = 0.8
-	foodtype = GRAIN | FRUIT | DAIRY
+	foodtype = GRAIN | VEGETABLES | DAIRY
 	eat_effect = /datum/status_effect/buff/snackbuff
+	//CC Edit
+	dish_type = DISH_BREAD | DISH_VEGETABLE | DISH_DAIRY
+	//CC Edit End
 
 //
 
 /obj/item/reagent_containers/food/snacks/rogue/meattomatoplate
+	cuisine = CUISINE_SOUTH_IMPERIAL|CUISINE_ETRUSCAN
 	name = "sausaged tomatoplate"
-	desc = "A culinary delight from Azuria's shores, purported to've originated from an inflow of Etruscean refugees from long ago. The \
+	desc = "A culinary delight from Azuria's shores, purported to've originated from an inflow of Etruscan refugees from long ago. The \
 	richness of the flatbread's sauced tomatoes is perfectly complemented by its cheesey blanket and crispy sasuages; all it's missing \
 	is a cold pint of ale and an ongoing game of lampternball to jeer at."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_baked.dmi'
@@ -633,8 +682,11 @@
 	slice_batch = TRUE
 	slice_sound = TRUE
 	rotprocess = SHELFLIFE_EXTREME
-	foodtype = GRAIN | FRUIT | DAIRY | MEAT
+	foodtype = GRAIN | VEGETABLES | DAIRY | MEAT //CC Edit
 	eat_effect = /datum/status_effect/buff/snackbuff
+	//CC Edit
+	dish_type = DISH_BREAD | DISH_VEGETABLE | DISH_DAIRY | DISH_MEAT
+	//CC Edit End
 
 /obj/item/reagent_containers/food/snacks/rogue/meattomatoplate_slice
 	name = "slice of sausaged tomatoplate"
@@ -648,14 +700,17 @@
 	bitesize = 3
 	rotprocess = SHELFLIFE_EXTREME
 	dropshrink = 0.8
-	foodtype = GRAIN | FRUIT | DAIRY | MEAT
+	foodtype = GRAIN | VEGETABLES | DAIRY | MEAT //CC Edit
 	eat_effect = /datum/status_effect/buff/snackbuff
-
+	//CC Edit
+	dish_type = DISH_BREAD | DISH_VEGETABLE | DISH_DAIRY | DISH_MEAT
+	//CC Edit End
 //
 
 /obj/item/reagent_containers/food/snacks/rogue/fishtomatoplate
+	cuisine = CUISINE_SOUTH_IMPERIAL|CUISINE_ETRUSCAN
 	name = "fished tomatoplate"
-	desc = "A culinary delight from Azuria's shores, purported to've originated from an inflow of Etruscean refugees from long ago. The \
+	desc = "A culinary delight from Azuria's shores, purported to've originated from an inflow of Etruscan refugees from long ago. The \
 	richness of the flatbread's sauced tomatoes is perfectly complemented by its cheesey blanket and oily fishes; all it's missing \
 	is a cold pint of ale and an ongoing game of lampternball to jeer at."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_baked.dmi'
@@ -670,8 +725,11 @@
 	slice_batch = TRUE
 	slice_sound = TRUE
 	rotprocess = SHELFLIFE_EXTREME
-	foodtype = GRAIN | FRUIT | DAIRY | MEAT
+	foodtype = GRAIN | VEGETABLES | DAIRY | MEAT //CC Edit
 	eat_effect = /datum/status_effect/buff/snackbuff
+	//CC Edit
+	dish_type = DISH_BREAD | DISH_VEGETABLE | DISH_DAIRY | DISH_SEAFOOD
+	//CC Edit End
 
 /obj/item/reagent_containers/food/snacks/rogue/fishtomatoplate_slice
 	name = "slice of fished tomatoplate"
@@ -685,14 +743,16 @@
 	bitesize = 3
 	rotprocess = SHELFLIFE_EXTREME
 	dropshrink = 0.8
-	foodtype = GRAIN | FRUIT | DAIRY | MEAT
+	foodtype = GRAIN | VEGETABLES | DAIRY | MEAT //CC Edit
 	eat_effect = /datum/status_effect/buff/snackbuff
-
+	//CC Edit
+	dish_type = DISH_BREAD | DISH_VEGETABLE | DISH_DAIRY | DISH_SEAFOOD
+	//CC Edit End
 //
 
 /obj/item/reagent_containers/food/snacks/rogue/oniontomatoplate
 	name = "onioned tomatoplate"
-	desc = "A culinary delight from Azuria's shores, purported to've originated from an inflow of Etruscean refugees from long ago. The \
+	desc = "A culinary delight from Azuria's shores, purported to've originated from an inflow of Etruscan refugees from long ago. The \
 	richness of the flatbread's sauced tomatoes is perfectly complemented by its cheesey blanket and crunchy onions; all it's missing \
 	is a cold pint of ale and an ongoing game of lampternball to jeer at."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_baked.dmi'
@@ -707,8 +767,11 @@
 	slice_batch = TRUE
 	slice_sound = TRUE
 	rotprocess = SHELFLIFE_EXTREME
-	foodtype = GRAIN | FRUIT | DAIRY
+	foodtype = GRAIN | VEGETABLES | DAIRY //CC Edit
 	eat_effect = /datum/status_effect/buff/snackbuff
+	//CC Edit
+	dish_type = DISH_BREAD | DISH_VEGETABLE | DISH_DAIRY
+	//CC Edit End
 
 /obj/item/reagent_containers/food/snacks/rogue/oniontomatoplate_slice
 	name = "slice of onioned tomatoplate"
@@ -722,14 +785,17 @@
 	bitesize = 3
 	rotprocess = SHELFLIFE_EXTREME
 	dropshrink = 0.8
-	foodtype = GRAIN | FRUIT | DAIRY
+	foodtype = GRAIN | VEGETABLES | DAIRY //CC Edit
 	eat_effect = /datum/status_effect/buff/snackbuff
-
+	//CC Edit
+	dish_type = DISH_BREAD | DISH_VEGETABLE | DISH_DAIRY
+	//CC Edit End
 //
 
 /obj/item/reagent_containers/food/snacks/rogue/truffletomatoplate
+	cuisine = CUISINE_SOUTH_IMPERIAL|CUISINE_ETRUSCAN
 	name = "truffled tomatoplate"
-	desc = "A culinary delight from Azuria's shores, purported to've originated from an inflow of Etruscean refugees from long ago. The \
+	desc = "A culinary delight from Azuria's shores, purported to've originated from an inflow of Etruscan refugees from long ago. The \
 	richness of the flatbread's sauced tomatoes is perfectly complemented by its cheesey blanket and decadant truffles; all it's missing \
 	is a cold pint of ale and an ongoing game of lampternball to jeer at."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_baked.dmi'
@@ -744,10 +810,14 @@
 	slice_batch = TRUE
 	slice_sound = TRUE
 	rotprocess = SHELFLIFE_EXTREME
-	foodtype = GRAIN | FRUIT | DAIRY
-	eat_effect = /datum/status_effect/buff/snackbuff
+	foodtype = GRAIN | VEGETABLES | DAIRY | MEAT //CC Edit
+	eat_effect = /datum/status_effect/buff/greatsnackbuff
+	//CC Edit
+	dish_type = DISH_BREAD | DISH_VEGETABLE | DISH_DAIRY | DISH_MEAT
+	//CC Edit End
 
 /obj/item/reagent_containers/food/snacks/rogue/truffletomatoplate_slice
+	cuisine = CUISINE_SOUTH_IMPERIAL|CUISINE_ETRUSCAN
 	name = "slice of truffled tomatoplate"
 	desc = "A slice that's fit for a king! ..so long as that trufflepig didn't accidentally pick a poisoned patch of truffles, of course."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_baked.dmi'
@@ -759,14 +829,17 @@
 	bitesize = 3
 	rotprocess = SHELFLIFE_EXTREME
 	dropshrink = 0.8
-	foodtype = GRAIN | FRUIT | DAIRY
+	foodtype = GRAIN | VEGETABLES | DAIRY | MEAT //CC Edit
 	eat_effect = /datum/status_effect/buff/greatsnackbuff
-
+	//CC Edit
+	dish_type = DISH_BREAD | DISH_VEGETABLE | DISH_DAIRY | DISH_MEAT
+	//CC Edit End
 //
 
 /obj/item/reagent_containers/food/snacks/rogue/poisontruffletomatoplate
+	cuisine = CUISINE_SOUTH_IMPERIAL|CUISINE_ETRUSCAN
 	name = "truffled tomatoplate" //Like jackberried treats, this is a poisoned variant! For those who don't properly source their truffles.. or simply want to poison others!
-	desc = "A culinary delight from Azuria's shores, purported to've originated from an inflow of Etruscean refugees from long ago. The \
+	desc = "A culinary delight from Azuria's shores, purported to've originated from an inflow of Etruscan refugees from long ago. The \
 	richness of the flatbread's sauced tomatoes is perfectly complemented by its cheesey blanket and decadant truffles; all it's missing \
 	is a cold pint of ale and an ongoing game of lampternball to jeer at."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_baked.dmi'
@@ -781,10 +854,14 @@
 	slice_batch = TRUE
 	slice_sound = TRUE
 	rotprocess = SHELFLIFE_EXTREME
-	foodtype = GRAIN | FRUIT | DAIRY
+	foodtype = GRAIN | VEGETABLES | DAIRY | MEAT //CC Edit
 	eat_effect = /datum/status_effect/buff/greatsnackbuff
+	//CC Edit
+	dish_type = DISH_BREAD | DISH_VEGETABLE | DISH_DAIRY | DISH_MEAT
+	//CC Edit End
 
 /obj/item/reagent_containers/food/snacks/rogue/poisontruffletomatoplate_slice
+	cuisine = CUISINE_SOUTH_IMPERIAL|CUISINE_ETRUSCAN
 	name = "slice of truffled tomatoplate" //Ditto.
 	desc = "A slice that's fit for a king! ..so long as that trufflepig didn't accidentally pick a poisoned patch of truffles, of course."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_baked.dmi'
@@ -796,12 +873,15 @@
 	bitesize = 3
 	rotprocess = SHELFLIFE_EXTREME
 	dropshrink = 0.8
-	foodtype = GRAIN | FRUIT | DAIRY
+	foodtype = GRAIN | VEGETABLES | DAIRY | MEAT //CC Edit
 	eat_effect = /datum/status_effect/buff/greatsnackbuff
-
+	//CC Edit
+	dish_type = DISH_BREAD | DISH_VEGETABLE | DISH_DAIRY | DISH_MEAT
+	//CC Edit End
 //
 
 /obj/item/reagent_containers/food/snacks/rogue/peartomatoplate
+	cuisine = CUISINE_SOUTH_IMPERIAL|CUISINE_ETRUSCAN
 	name = "pearacotta tomatoplate"
 	desc = "A curious spin on an Azurian classic, attributed to the hands of Vanderlin's most esteemed culinarians. The \
 	richness of the flatbread's sauced tomatoes is perfectly complemented by its cheesey blanket and sweet pears; a melody of flavors \
@@ -818,10 +898,14 @@
 	slice_batch = TRUE
 	slice_sound = TRUE
 	rotprocess = SHELFLIFE_EXTREME
-	foodtype = GRAIN | FRUIT | DAIRY
+	foodtype = GRAIN | VEGETABLES | DAIRY | FRUIT //CC Edit
 	eat_effect = /datum/status_effect/buff/snackbuff
+	//CC Edit
+	dish_type = DISH_BREAD | DISH_VEGETABLE | DISH_DAIRY | DISH_FRUIT
+	//CC Edit End
 
 /obj/item/reagent_containers/food/snacks/rogue/peartomatoplate_slice
+	cuisine = CUISINE_SOUTH_IMPERIAL|CUISINE_ETRUSCAN
 	name = "slice of pearacotta tomatoplate"
 	desc = "You'd never imagine that such contrasting ingredients could meld together so wonderfully; and yet, they do! Such is the joy of creation.."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_baked.dmi'
@@ -833,8 +917,11 @@
 	bitesize = 3
 	rotprocess = SHELFLIFE_EXTREME
 	dropshrink = 0.8
-	foodtype = GRAIN | FRUIT | DAIRY
+	foodtype = GRAIN | VEGETABLES | DAIRY | FRUIT //CC Edit
 	eat_effect = /datum/status_effect/buff/snackbuff
+	//CC Edit
+	dish_type = DISH_BREAD | DISH_VEGETABLE | DISH_DAIRY | DISH_FRUIT
+	//CC Edit End
 
 /*	.................   Cheese Bun   ................... */
 
@@ -848,14 +935,12 @@
 	list_reagents = list(/datum/reagent/consumable/nutriment = 4)
 	w_class = WEIGHT_CLASS_NORMAL
 	foodtype = GRAIN | DAIRY
-	//CC Edit Begin
-	diet_types = list("Grains", "Dairy")
-	diet_change_amount = FOOD_DIETARY_VALUE_GOOD
-	//CC Edit End
 
 /obj/item/reagent_containers/food/snacks/rogue/cheesebun
+	cuisine = CUISINE_NORTH_IMPERIAL|CUISINE_OTAVAIS|CUISINE_NORTHERN
+	dish_type = DISH_BREAD|DISH_DAIRY|DISH_PASTRY //CC Edit
 	name = "fresh cheese bun"
-	desc = "A quaint treat from the Grenzelhoftian kitchens."
+	desc = "A quaint treat with fresh cheese topped on top of a bun. A delicious, decadent, yet inexpensive."
 	faretype = FARE_FINE
 	icon = 'modular/Neu_Food/icons/cooked/cooked_baked.dmi'
 	icon_state = "cheesebun"
@@ -866,12 +951,10 @@
 	bitesize = 3
 	rotprocess = SHELFLIFE_DECENT
 	eat_effect = /datum/status_effect/buff/greatsnackbuff
-	//CC Edit Begin
-	diet_types = list("Grains", "Meats")
-	diet_change_amount = FOOD_DIETARY_VALUE_GOOD
-	//CC Edit End
 
 /obj/item/reagent_containers/food/snacks/rogue/bun_raston
+	cuisine = CUISINE_OTAVAIS
+	dish_type = DISH_BREAD|DISH_DAIRY|DISH_PASTRY //CC Edit
 	list_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_THREE_QUARTER_MEAL)
 	tastes = list("cheese" = 1, "bread" = 1)
 	icon = 'modular/Neu_Food/icons/cooked/cooked_baked.dmi'
@@ -882,13 +965,14 @@
 	rotprocess = SHELFLIFE_EXTREME
 	eat_effect = /datum/status_effect/buff/greatsnackbuff
 	//CC Edit Begin
-	diet_types = list("Grains", "Dairy")
-	diet_change_amount = FOOD_DIETARY_VALUE_GOOD
+	foodtype = GRAIN | DAIRY
 	//CC Edit End
 
 /*	.................   Lasagna   ................... */
 
 /obj/item/reagent_containers/food/snacks/rogue/lasagna
+	dish_type = DISH_NOODLES
+	cuisine = CUISINE_ETRUSCAN
 	name = "lasagna"
 	desc = "Stacked pasta sheets layered with fresh marinara, made with limited ingredients. One might call this Navarno, but even there the Montecarinan style is the norm."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_pasta.dmi'
@@ -897,11 +981,13 @@
 	list_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_MEAL_AND_QUARTER) // It's MORE pasta and sauce.
 	tastes = list("richly smooth and salty tomatoes" = 1, "soft noodle sheets" = 1)
 	w_class = WEIGHT_CLASS_NORMAL
-	foodtype = GRAIN | FRUIT
+	foodtype = GRAIN | VEGETABLES //CC Edit
 	eat_effect = /datum/status_effect/buff/mealbuff
 	rotprocess = SHELFLIFE_LONG
 
 /obj/item/reagent_containers/food/snacks/rogue/lasagna_white
+	dish_type = DISH_NOODLES
+	cuisine = CUISINE_ETRUSCAN
 	name = "white lasagna"
 	desc = "Stacked pasta sheets layered with béchamel sauce and melted cheese. Lasagna was brought to Valoria by a Montecarinan royal chef, but the price of tomatoes made locals forgo it for a very Otavan white sauce."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_pasta.dmi'
@@ -915,6 +1001,8 @@
 	rotprocess = SHELFLIFE_LONG
 
 /obj/item/reagent_containers/food/snacks/rogue/lasagna_redwhite
+	dish_type = DISH_NOODLES
+	cuisine = CUISINE_ETRUSCAN
 	name = "cheesy lasagna"
 	desc = "Pasta sheets decadently stacked with marinara and cheese, something so simple has no right to be so rich. The condottieri and captains of Montecarina's royal navy hate leaving port, not knowing when next they can gorge on this soldiery pasta loaf of cheese and sauce."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_pasta.dmi'
@@ -923,18 +1011,20 @@
 	list_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_TWO_MEALS)
 	tastes = list("richly smooth and salty tomatoes" = 1, "melted cheese between noodle sheets" = 1)
 	w_class = WEIGHT_CLASS_NORMAL
-	foodtype = GRAIN | DAIRY | FRUIT
+	foodtype = GRAIN | DAIRY | VEGETABLES
 	eat_effect = /datum/status_effect/buff/greatmealbuff
 	rotprocess = SHELFLIFE_LONG
 
 /obj/item/reagent_containers/food/snacks/rogue/lasagna_pesto
+	dish_type = DISH_NOODLES
+	cuisine = CUISINE_SOUTH_IMPERIAL
 	name = "pesto lasagna"
 	desc = "Pasta sheets elegantly stacked with pesto neatly spread between. It's taste can only be described as 'zig-like', the rocknut in the pesto seeming to boil from the heat. This version is even more loved by Azurian nobles, though visiting Montecarinan signoria-bloods are known occasionally to be offended at the taste."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_pasta.dmi'
 	icon_state = "lasagna_pesto"
 	faretype = FARE_LAVISH
-	list_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_MEAL_AND_QUARTER, /datum/reagent/consumable/acorn_powder = 4, /datum/reagent/drug/nicotine = 4)
-	tastes = list("richly smooth and salty tomatoes" = 1, "melted cheese between noodle sheets" = 1)
+	list_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_MEAL_AND_QUARTER, /datum/reagent/consumable/acorn_powder = 4, /datum/reagent/drug/westleach = 4)
+	tastes = list("heavy herbal tones and nutty olives" = 1, "soft noodle sheets" = 1) //CC Edit
 	w_class = WEIGHT_CLASS_NORMAL
 	foodtype = GRAIN | VEGETABLES
 	eat_effect = /datum/status_effect/buff/greatmealbuff
@@ -942,6 +1032,8 @@
 
 /*	.................   Miscellanious Buns   ................... */
 /obj/item/reagent_containers/food/snacks/rogue/frybread
+	cuisine = CUISINE_NORTH_IMPERIAL|CUISINE_SOUTH_IMPERIAL
+	dish_type = DISH_BREAD
 	name = "frybread"
 	desc = "Flatbread fried with butter until crispy. A staple of the elven kitchen."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_baked.dmi'
@@ -952,8 +1044,11 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	bitesize = 4
 	eat_effect = /datum/status_effect/buff/snackbuff
+	foodtype = GRAIN
 
 /obj/item/reagent_containers/food/snacks/rogue/bun_grenz
+	cuisine = CUISINE_NORTH_IMPERIAL
+	dish_type = DISH_BREAD | DISH_MEAT //CC Edit
 	list_reagents = list(/datum/reagent/consumable/nutriment = SAUSAGE_NUTRITION+SMALLDOUGH_NUTRITION)
 	tastes = list("savory sausage" = 1, "bread" = 1)
 	name = "grenzelbun"
@@ -968,6 +1063,7 @@
 
 /*	.................   Griddle   ................... */
 /obj/item/reagent_containers/food/snacks/rogue/griddle
+	cuisine = CUISINE_OTAVAIS
 	name = "Griddles"
 	desc = "Fluffy griddlecakes fried to perfection, plain yet delicious. They take well to a topping of sliced butter, honey, or a slice of chocolate left to melt atop them."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_griddles.dmi'
@@ -982,6 +1078,10 @@
 	var/syrup_kind = null
 	var/syrup_overlay_state = FALSE
 	var/butter = FALSE
+	//CC Edit
+	dish_type = DISH_PASTRY | DISH_DAIRY | DISH_SWEET
+	foodtype = GRAIN | DAIRY
+	//CC Edit End
 
 /obj/item/reagent_containers/food/snacks/rogue/griddle/proc/rebuild_overlays()
 	cut_overlays()
@@ -1068,12 +1168,16 @@
 
 /obj/item/reagent_containers/food/snacks/rogue/griddle/fruit/lemon
 	name = "Lemongriddles"
-	desc = "Fluffy griddlecakes fried to perfection and enough to make a bishop feel sour!."
+	desc = "Fluffy griddlecakes fried to perfection and enough lemon to make a bishop feel sour!."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_griddles.dmi'
 	icon_state = "griddlelemon"
 	faretype = FARE_FINE
 	list_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_MEAL_AND_HALF)
 	tastes = list("soft and fluffy dough" = 1, "sour lemon pulp" = 1)
+	//Caustic Edit - Add in foodtypes
+	dish_type = DISH_PASTRY | DISH_DAIRY | DISH_SWEET | DISH_FRUIT
+	foodtype = GRAIN | DAIRY | FRUIT
+	//Caustic Edit End
 
 /obj/item/reagent_containers/food/snacks/rogue/griddle/fruit/berry
 	name = "Berrygriddles"
@@ -1083,6 +1187,10 @@
 	faretype = FARE_FINE
 	list_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_MEAL_AND_HALF)
 	tastes = list("soft and fluffy dough" = 1, "sweet berry mash" = 1)
+	//Caustic Edit - Add in foodtypes
+	dish_type = DISH_PASTRY | DISH_DAIRY | DISH_SWEET | DISH_FRUIT
+	foodtype = GRAIN | DAIRY | FRUIT
+	//Caustic Edit End
 
 /obj/item/reagent_containers/food/snacks/rogue/griddle/fruit/poisonberry
 	name = "Berrygriddles"
@@ -1092,6 +1200,10 @@
 	faretype = FARE_FINE
 	list_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_MEAL_AND_HALF, /datum/reagent/berrypoison = 5)
 	tastes = list("soft and fluffy dough" = 1, "bitter berry mash" = 1)
+	//Caustic Edit - Add in foodtypes
+	dish_type = DISH_PASTRY | DISH_DAIRY | DISH_SWEET | DISH_FRUIT
+	foodtype = GRAIN | DAIRY | FRUIT
+	//Caustic Edit End
 
 /obj/item/reagent_containers/food/snacks/rogue/griddle/fruit/apple
 	name = "Applegriddles"
@@ -1101,8 +1213,15 @@
 	faretype = FARE_FINE
 	list_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_MEAL_AND_HALF)
 	tastes = list("soft and fluffy dough" = 1, "caramelized apple slices" = 1)
+	//Caustic Edit - Add in foodtypes
+	dish_type = DISH_PASTRY | DISH_DAIRY | DISH_SWEET | DISH_FRUIT
+	foodtype = GRAIN | DAIRY | FRUIT
+	//Caustic Edit End
+
 /*	.................   Challah   ................... */
 /obj/item/reagent_containers/food/snacks/rogue/challah
+	cuisine = CUISINE_RANESHENI
+	dish_type = DISH_BREAD
 	name = "challah loaf"
 	desc = "A Nshkormh loaf of bread, made from leavened dough and egg, the communities of Psydonites in the region continued it's usage even during the Sun Dominion's banning of it's creation for it's 'rejection of Astratan butterness'."
 	icon = 'modular/Neu_Food/icons/cooked/cooked_baked.dmi'
@@ -1150,3 +1269,6 @@
 	dropshrink = 0.8
 	eat_effect = /datum/status_effect/buff/snackbuff
 	foodtype = GRAIN
+	//Caustic Edit - Add in foodtypes
+	dish_type = DISH_BREAD
+	//Caustic Edit End

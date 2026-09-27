@@ -1,7 +1,7 @@
 /datum/advclass/wretch/munitioneer
 	name = "Munitioneer"
 	tutorial = "You are a true devotee of the God of the Forge; a wandering priest of Malum, your altar an anvil and your prayer the hiss of steam from a fresh-wrought blade. You care little for 'politics' or 'schisms'; you are a hammer in a worlde of nails."
-	
+
 	outfit = /datum/outfit/job/roguetown/wretch/munitioneer
 	cmode_music = 'sound/music/combat_dwarf.ogg'
 	class_select_category = CLASS_CAT_WARRIOR
@@ -20,12 +20,12 @@
 		/datum/skill/combat/maces = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/combat/axes = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/misc/swimming = SKILL_LEVEL_APPRENTICE,
-		/datum/skill/combat/wrestling = SKILL_LEVEL_JOURNEYMAN, 
+		/datum/skill/combat/wrestling = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/combat/unarmed = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/misc/climbing = SKILL_LEVEL_EXPERT,
 		/datum/skill/craft/crafting = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/craft/carpentry = SKILL_LEVEL_APPRENTICE,
-		/datum/skill/craft/masonry = SKILL_LEVEL_JOURNEYMAN, 
+		/datum/skill/craft/masonry = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/misc/athletics = SKILL_LEVEL_EXPERT,
 		/datum/skill/misc/reading = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/misc/medicine = SKILL_LEVEL_APPRENTICE,
@@ -71,7 +71,7 @@
 		H.mind?.current.faction += "[H.name]_faction"
 		H.set_patron(/datum/patron/divine/malum)
 		H.AddComponent(/datum/component/ore_sight) // controversial, and powerful, but it means you're spending less Wretch Time just mining.
-	var/weapons = list("Path of the Hammer - Steel Warhammer", "Path of the Crossbow - Crossbow and Bolts", "Path of the Pick - Pulaski Axe")
+	var/weapons = list("Path of the Hammer - Steel Warhammer", "Path of the Crossbow - Crossbow and Bolts", "Path of the Pick - Pulaski Axe", "Path of Artifice - Steel Wrench and Engineering")
 	var/weapon_choice = input(H, "Choose your weapon.", "HOT IS THE ANVYL") as anything in weapons
 	switch(weapon_choice)
 		if("Path of the Hammer - Steel Warhammer")
@@ -84,6 +84,10 @@
 		if("Path of the Pick - Pulaski Axe")
 			H.adjust_skillrank_up_to(/datum/skill/combat/axes, SKILL_LEVEL_EXPERT, TRUE)
 			H.put_in_hands(new /obj/item/rogueweapon/stoneaxe/woodcut/pick)
+		if("Path of Artifice - Steel Wrench and Engineering") //they can level engineering already- the wrench is a downgrade from the warhammer, but someone picking this probably wants to be an engineer
+			H.adjust_skillrank_up_to(/datum/skill/combat/maces, SKILL_LEVEL_EXPERT, TRUE)
+			H.adjust_skillrank_up_to(/datum/skill/craft/engineering, SKILL_LEVEL_EXPERT, TRUE)
+			H.put_in_hands(new /obj/item/rogueweapon/contraption/linker/mace/big/steel/precharged)
 	var/datum/devotion/C = new /datum/devotion(H, H.patron)
 	C.grant_miracles(H, cleric_tier = CLERIC_T1, passive_gain = CLERIC_REGEN_MINOR, devotion_limit = CLERIC_REQ_4)	//Minor regen, can level up to T4.
 	wretch_select_bounty(H)

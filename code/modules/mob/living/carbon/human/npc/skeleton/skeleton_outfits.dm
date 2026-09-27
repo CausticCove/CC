@@ -32,53 +32,45 @@
 // For Duke Manor & Zizo Manor - Ground based spread, so no pirate in pool!
 /mob/living/carbon/human/species/skeleton/npc/mediumspread
 	threat_point = THREAT_MODERATE
-
-/mob/living/carbon/human/species/skeleton/npc/mediumspread/Initialize()
-	var/outfit = rand(1, 5)
-	switch(outfit)
-		if(1)
-			skel_outfit = /datum/outfit/job/roguetown/skeleton/npc/supereasy
-		if(2)
-			skel_outfit = /datum/outfit/job/roguetown/skeleton/npc/easy
-		if(3)
-			skel_outfit = /datum/outfit/job/roguetown/skeleton/npc/medium
-		if(4)
-			skel_outfit = /datum/outfit/job/roguetown/skeleton/npc/hard
-		if(5)
-			skel_outfit = /datum/outfit/job/roguetown/skeleton/npc/archer
-	..()
+	skel_outfit_spread = list(
+		/datum/outfit/job/roguetown/skeleton/npc/supereasy,
+		/datum/outfit/job/roguetown/skeleton/npc/easy,
+		/datum/outfit/job/roguetown/skeleton/npc/medium,
+		/datum/outfit/job/roguetown/skeleton/npc/hard,
+		/datum/outfit/job/roguetown/skeleton/npc/archer,
+	)
 
 /mob/living/carbon/human/species/skeleton/npc/mediumspread/lich
 	faction = list(FACTION_LICH)
+	skel_outfit_spread = list(
+		/datum/outfit/job/roguetown/skeleton/npc/supereasy,
+		/datum/outfit/job/roguetown/skeleton/npc/easy,
+		/datum/outfit/job/roguetown/skeleton/npc/medium,
+		/datum/outfit/job/roguetown/skeleton/npc/hard,
+	)
 
 // for Lich Dungeon
 /mob/living/carbon/human/species/skeleton/npc/hardspread
 	threat_point = THREAT_TOUGH
-
-/mob/living/carbon/human/species/skeleton/npc/hardspread/Initialize()
-	var/outfit = rand(1,5)
-	switch(outfit)
-		if(1)
-			skel_outfit = /datum/outfit/job/roguetown/skeleton/npc/hard
-		if(2)
-			skel_outfit = /datum/outfit/job/roguetown/skeleton/npc/medium
-		if(3)
-			skel_outfit = /datum/outfit/job/roguetown/skeleton/npc/pirate
-		if(4)
-			skel_outfit = /datum/outfit/job/roguetown/skeleton/npc/hard
-		if(5)
-			skel_outfit = /datum/outfit/job/roguetown/skeleton/npc/archer
-	..()
+	skel_outfit_spread = list(
+		/datum/outfit/job/roguetown/skeleton/npc/hard,
+		/datum/outfit/job/roguetown/skeleton/npc/medium,
+		/datum/outfit/job/roguetown/skeleton/npc/pirate,
+		/datum/outfit/job/roguetown/skeleton/npc/hard,
+		/datum/outfit/job/roguetown/skeleton/npc/archer,
+	)
 
 // For Tomb of Matthios/Tomb of Alothesos Supreme Difficulty:TM: encounters.
 /mob/living/carbon/human/species/skeleton/npc/special/vile_doctor
 	skel_outfit = /datum/outfit/job/roguetown/skeleton/npc/vile_doctor
 	dodgetime = 15 //Moves a lot
 	d_intent = INTENT_DODGE //Expert in this
+	threat_point = THREAT_ELITE //CC Edit - Makes them elite tiered for the PvP contracts and in general.
 
 /mob/living/carbon/human/species/skeleton/npc/special/disgraced_noble
 	skel_outfit = /datum/outfit/job/roguetown/skeleton/npc/disgraced_noble
 	dodgetime = 15 //Moves a lot
+	threat_point = THREAT_ELITE //CC Edit - Makes them elite tiered for the PvP contracts and in general.
 
 /datum/outfit/job/roguetown/skeleton/npc/supereasy/pre_equip(mob/living/carbon/human/H)
 	..()
@@ -426,7 +418,7 @@
 	H.STASPD = 10
 	H.STACON = 4
 	H.STAWIL = 7
-	H.STAPER = 13
+	H.STAPER = 11
 	H.STAINT = 1
 	name = "Skeleton Archer"
 	head = /obj/item/clothing/head/roguetown/helmet/kettle/aalloy
@@ -536,7 +528,7 @@
 		mask = /obj/item/clothing/mask/rogue/facemask // nose crits not as easy
 		gloves = /obj/item/clothing/gloves/roguetown/chain/aalloy
 		cloak = /obj/item/clothing/cloak/cape/purple
-	
+
 	H.adjust_skillrank(/datum/skill/combat/polearms, 4, TRUE)
 	H.adjust_skillrank(/datum/skill/combat/maces, 4, TRUE)
 	H.adjust_skillrank(/datum/skill/combat/axes, 4, TRUE)

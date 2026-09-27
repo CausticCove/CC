@@ -89,7 +89,7 @@
 				var/target_zone = caster.zone_selected || BODY_ZONE_CHEST
 				arcyne_strike(caster, L, null, total_damage, target_zone, \
 					BCLASS_CUT, spell_name = "Blade Burst", \
-					damage_type = BRUTE, npc_simple_damage_mult = npc_simple_damage_mult, \
+					damage_type = BRUTE, \
 					skip_animation = TRUE)
 			else
 				var/actual_damage = total_damage

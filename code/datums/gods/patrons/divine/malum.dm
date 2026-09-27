@@ -12,7 +12,7 @@
 					/datum/action/cooldown/spell/arcyne_forge/miracle			= CLERIC_T1,
 					/obj/effect/proc_holder/spell/invoked/vigorousexchange		= CLERIC_T1,
 					/obj/effect/proc_holder/spell/invoked/heatmetal				= CLERIC_T2,
-					/obj/effect/proc_holder/spell/invoked/hammerfall			= CLERIC_T3,
+					/datum/action/cooldown/spell/malum/hammerfall			= CLERIC_T3,
 					/obj/effect/proc_holder/spell/self/repair                   = CLERIC_T3,
 					/datum/action/cooldown/spell/malum_blessing					= CLERIC_T3,
 					/obj/effect/proc_holder/spell/invoked/craftercovenant		= CLERIC_T4,

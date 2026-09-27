@@ -18,6 +18,12 @@
 /datum/bodypart_feature/proc/bodypart_overlays(mutable_appearance/standing)
 	return
 
+/// Returns extra appearances that need a layer of their own instead of riding along with the
+/// accessory overlay. Nested overlays float at their parent's layer, so anything that has to sort
+/// against other accessories (snouts, markings) has to be emitted as a sibling appearance here.
+/datum/bodypart_feature/proc/extra_bodypart_overlays(obj/item/bodypart/bodypart)
+	return
+
 /datum/bodypart_feature/proc/get_bodypart_overlay(obj/item/bodypart/bodypart)
 	if(!accessory_type)
 		return
@@ -29,7 +35,13 @@
 	for(var/standing in appearances)
 		bodypart_icon(standing)
 		bodypart_overlays(standing)
+	var/list/extra_appearances = extra_bodypart_overlays(bodypart)
+	if(extra_appearances)
+		appearances += extra_appearances
 	return appearances
+
+/datum/bodypart_feature/proc/get_cache_key(obj/item/bodypart/bodypart)
+	return "[accessory_type]-[accessory_colors]"
 
 /// Sets an accessory type and optionally colors too.
 /datum/bodypart_feature/proc/set_accessory_type(new_accessory_type, colors, owner)
@@ -63,10 +75,7 @@
 		remove_bodypart_feature(existing_feature)
 	bodypart_features += feature
 	if(owner)
-		if(ishuman(owner))
-			var/mob/living/carbon/human/H = owner
-			H.icon_render_key = null
-		owner.queue_icon_update(PENDING_UPDATE_BODY)
+		owner.update_body()
 	return TRUE
 
 /obj/item/bodypart/proc/remove_bodypart_feature(datum/bodypart_feature/feature)
@@ -74,10 +83,7 @@
 		return
 	bodypart_features -= feature
 	if(owner)
-		if(ishuman(owner))
-			var/mob/living/carbon/human/H = owner
-			H.icon_render_key = null
-		owner.queue_icon_update(PENDING_UPDATE_BODY)
+		owner.update_body()
 	return
 
 /obj/item/bodypart/proc/remove_all_bodypart_features()
@@ -85,10 +91,7 @@
 		return
 	bodypart_features.Cut()
 	if(owner)
-		if(ishuman(owner))
-			var/mob/living/carbon/human/H = owner
-			H.icon_render_key = null
-		owner.queue_icon_update(PENDING_UPDATE_BODY)
+		owner.update_body()
 
 /mob/living/carbon/proc/remove_all_bodypart_features()
 	for(var/obj/item/bodypart/bodypart as anything in bodyparts)

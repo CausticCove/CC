@@ -1,11 +1,15 @@
 /datum/outfit/job/roguetown/orc/npc/archer/pre_equip(mob/living/carbon/human/H)
 	..()
 	backr = /obj/item/gun/ballistic/revolver/grenadelauncher/bow
-	backl = /obj/item/quiver/arrows
+	backl = /obj/item/quiver/npc
 	l_hand = /obj/item/rogueweapon/stoneaxe/boneaxe
 	r_hand = null
+	armor = /obj/item/clothing/suit/roguetown/shirt/rags
+	head = null
+	mask = null
+	neck = null
 	H.STASTR -= 2
-	H.STAPER += 3
+	H.STAPER = 6
 	H.STACON -= 1
 	H.STAWIL -= 1
 	H.adjust_skillrank(/datum/skill/combat/bows, 3, TRUE)
@@ -201,7 +205,7 @@
 // Heavily armored orc with complete iron protection, heavy armor, and a two hander. Is able to do special attacks.
 /datum/outfit/job/roguetown/orc/npc/warlord/pre_equip(mob/living/carbon/human/H)
 	wrists = /obj/item/clothing/wrists/roguetown/bracers/leather/heavy
-	armor = /obj/item/clothing/suit/roguetown/armor/plate/iron/banded //Tough upgrade for ironclad, pretty average for anyone else who can't use heavy armor 
+	armor = /obj/item/clothing/suit/roguetown/armor/plate/iron/banded //Tough upgrade for ironclad, pretty average for anyone else who can't use heavy armor
 	shirt = /obj/item/clothing/suit/roguetown/armor/chainmail
 	pants = /obj/item/clothing/under/roguetown/chainlegs/iron
 	head = /obj/item/clothing/head/roguetown/helmet/sallet/iron/banded
@@ -209,8 +213,13 @@
 	belt = /obj/item/storage/belt/rogue/leather/battleskirt/black //Cosmetic + Holding repair kits for looting mostly.
 	if(prob(50))
 		beltl = /obj/item/repair_kit/bad //So you can get repair kits easier from looting them
-	if(prob(66))
-		beltr = /obj/item/reagent_containers/glass/bottle/alchemical/healthpot //Small heal to loot since they do a lot of damage
+
+	//CC Edit - Garuntee's the health pot spawn for PvP purposes.
+	beltr = /obj/item/reagent_containers/glass/bottle/alchemical/healthpotnew
+	/* if(prob(66))
+		beltr = /obj/item/reagent_containers/glass/bottle/alchemical/healthpot */ //Small heal to loot since they do a lot of damage
+	//CC Edit End
+
 	if(prob(60))
 		id = /obj/item/clothing/neck/roguetown/psicross/inhumen/graggar //SHATTER MY BINDS
 	var/neck_choice = rand(1, 3)
@@ -275,13 +284,17 @@
 	var/obj/item/bodypart/head/jug_head = get_bodypart(BODY_ZONE_HEAD)
 	if(jug_head)
 		jug_head.sellprice = HEAD_BOUNTY_BIG_GUY
-	for(var/obj/item/gear in get_equipped_items() + held_items)
-		lock_gear_piece(gear, "orc_juggernaut_gear")
+	//CC Edit - Commented out to allow PvP to function more clearly.
+	/* for(var/obj/item/gear in get_equipped_items() + held_items)
+		lock_gear_piece(gear, "orc_juggernaut_gear") */
+	//CC Edit End
 
 /mob/living/carbon/human/species/orc/npc/juggernaut/death(gibbed, nocutscene = FALSE)
 	. = ..()
-	for(var/obj/item/gear in get_equipped_items() + held_items)
-		REMOVE_TRAIT(gear, TRAIT_NODROP, "orc_juggernaut_gear")
+	//CC Edit - Commented out to allow PvP to function more clearly.
+	/* for(var/obj/item/gear in get_equipped_items() + held_items)
+		REMOVE_TRAIT(gear, TRAIT_NODROP, "orc_juggernaut_gear") */
+	//CC Edit End
 
 /datum/outfit/job/roguetown/orc/npc/warlord/juggernaut/pre_equip(mob/living/carbon/human/H)
 	..()

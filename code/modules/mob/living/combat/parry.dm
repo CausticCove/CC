@@ -1,6 +1,4 @@
 // Unarmed base weapon defense equivalents — fed into the same (skill * 20) + (wdef * 10) formula as weapons
-#define UNARMED_BASE_WDEF_BARE 2		// Bare fists — still bad, but not hopeless
-#define UNARMED_BASE_WDEF_EQUIPPED 8	// Bracers / knuckles / bandages — 80 base parry for expert pugilists
 
 /mob/living/proc/attempt_parry(datum/intent/intenty, mob/living/user)
 	var/prob2defend = user.defprob
@@ -8,7 +6,7 @@
 	var/mob/living/U = user
 	if(H && U)
 		prob2defend = 0
-	
+
 	if(!can_see_cone(user))
 		if(!H.get_tempo_bonus(TEMPO_TAG_NOLOS_PARRY))
 			return FALSE
@@ -47,7 +45,7 @@
 		var/parrytime = setparrytime
 		parrytime -= get_tempo_bonus(TEMPO_TAG_PARRYCD_BONUS)
 		changeNext_def(parrytime)
-	
+
 	var/drained = BASE_PARRY_STAMINA_DRAIN
 	var/weapon_parry = FALSE
 	var/offhand_defense = 0
@@ -56,22 +54,22 @@
 	var/obj/item/mainhand = get_active_held_item()
 	var/obj/item/offhand = get_inactive_held_item()
 	var/obj/item/used_weapon = mainhand
-	var/obj/item/rogueweapon/shield/buckler/skiller = get_inactive_held_item()  // buckler code
+	var/obj/item/rogueweapon/shield/buckler/skiller = get_inactive_held_item()	// buckler code
 	var/obj/item/rogueweapon/shield/buckler/skillerbuck = get_active_held_item()
 
 	if(istype(offhand, /obj/item/rogueweapon/shield/buckler))
 		skiller.bucklerskill(H)
 	if(istype(mainhand, /obj/item/rogueweapon/shield/buckler))
-		skillerbuck.bucklerskill(H)  //buckler code end
+		skillerbuck.bucklerskill(H)	//buckler code end
 
 	if(mainhand)
 		if(mainhand.can_parry)
-			mainhand_defense += (H.get_skill_level(mainhand.associated_skill) * 20)
-			mainhand_defense += (mainhand.wdefense_dynamic * 10)
+			mainhand_defense += (H.get_skill_level(mainhand.associated_skill) * PARRY_PER_SKILL_LEVEL)
+			mainhand_defense += (mainhand.wdefense_dynamic * PARRY_PER_WDEF_POINT)
 	if(offhand)
 		if(offhand.can_parry)
-			offhand_defense += (H.get_skill_level(offhand.associated_skill) * 20)
-			offhand_defense += (offhand.wdefense_dynamic * 10)
+			offhand_defense += (H.get_skill_level(offhand.associated_skill) * PARRY_PER_SKILL_LEVEL)
+			offhand_defense += (offhand.wdefense_dynamic * PARRY_PER_WDEF_POINT)
 
 	if(mainhand_defense >= offhand_defense)
 		highest_defense += mainhand_defense
@@ -92,16 +90,16 @@
 	var/obj/K = H.get_item_by_slot(SLOT_GLOVES)
 	var/is_pugilist = HAS_TRAIT(H, TRAIT_CIVILIZEDBARBARIAN) // Only expert pugilists get the generous unarmed wdef
 	if(istype(B, /obj/item/clothing/wrists/roguetown/bracers))
-		unarmed_defense = (unarmed_skill * 20) + ((is_pugilist ? UNARMED_BASE_WDEF_EQUIPPED : UNARMED_BASE_WDEF_BARE) * 10)
+		unarmed_defense = (unarmed_skill * PARRY_PER_SKILL_LEVEL) + ((is_pugilist ? UNARMED_BASE_WDEF_EQUIPPED : UNARMED_BASE_WDEF_BARE) * PARRY_PER_WDEF_POINT)
 		unarmed_bracers = B
 	else if(istype(K, /obj/item/clothing/gloves/roguetown/knuckles))
-		unarmed_defense = (unarmed_skill * 20) + ((is_pugilist ? UNARMED_BASE_WDEF_EQUIPPED : UNARMED_BASE_WDEF_BARE) * 10)
+		unarmed_defense = (unarmed_skill * PARRY_PER_SKILL_LEVEL) + ((is_pugilist ? UNARMED_BASE_WDEF_EQUIPPED : UNARMED_BASE_WDEF_BARE) * PARRY_PER_WDEF_POINT)
 		unarmed_knuckles = K
 	else if(istype(K, /obj/item/clothing/gloves/roguetown/bandages))
-		unarmed_defense = (unarmed_skill * 20) + ((is_pugilist ? UNARMED_BASE_WDEF_EQUIPPED : UNARMED_BASE_WDEF_BARE) * 10)
+		unarmed_defense = (unarmed_skill * PARRY_PER_SKILL_LEVEL) + ((is_pugilist ? UNARMED_BASE_WDEF_EQUIPPED : UNARMED_BASE_WDEF_BARE) * PARRY_PER_WDEF_POINT)
 		unarmed_bandages = K
 	else
-		unarmed_defense = (unarmed_skill * 20) + (UNARMED_BASE_WDEF_BARE * 10)
+		unarmed_defense = (unarmed_skill * PARRY_PER_SKILL_LEVEL) + (UNARMED_BASE_WDEF_BARE * PARRY_PER_WDEF_POINT)
 
 	// If held weapon uses unarmed skill (katar, etc), allow unarmed parry fallback
 	var/allow_unarmed_fallback = FALSE
@@ -132,7 +130,7 @@
 
 	var/att_swift_capable = U.check_dodge_skill(check_trait = FALSE)
 	var/def_swift_capable = H.check_dodge_skill(check_trait = FALSE)
-	
+
 	if(used_weapon)
 		if(used_weapon.wbalance == WBALANCE_SWIFT)
 			if(mainhand && !offhand && def_swift_capable) // We're one-handing a swift-balanced weapon (rapiers, sabers, etc). Small parry boost (1 wdef equiv.)
@@ -144,7 +142,7 @@
 		if(intenty.sharpness_penalty)
 			intenty.masteritem.remove_bintegrity(intenty.sharpness_penalty)
 
-		prob2defend -= (attacker_skill * 20)
+		prob2defend -= (attacker_skill * PARRY_PER_SKILL_LEVEL)
 		if(att_swift_capable)
 			if(!has_status_effect(/datum/status_effect/buff/weapon_binded))
 				if((intenty.masteritem.wbalance == WBALANCE_SWIFT) && (user.STASPD > src.STASPD)) //enemy weapon is quick, so get a bonus based on spddiff
@@ -169,7 +167,7 @@
 					prob2defend -= finalmod
 	else
 		attacker_skill = U.get_skill_level(/datum/skill/combat/unarmed)
-		prob2defend -= (attacker_skill * 20)
+		prob2defend -= (attacker_skill * PARRY_PER_SKILL_LEVEL)
 		if(user.STASPD > src.STASPD) //unarmed is inherently swift
 			var/spdmod = ((user.STASPD - src.STASPD) * 10)
 			var/permod = ((src.STAPER - user.STAPER) * 10)
@@ -196,7 +194,7 @@
 					return TRUE	//Tentative, might be better if it only increased parry chance on the initial binding rather than a full block.
 
 	// --- Weapon Binding End! ---
-	
+
 	if(HAS_TRAIT(user, TRAIT_CURSE_RAVOX))
 		prob2defend -= 40
 
@@ -214,10 +212,6 @@
 	if(HAS_TRAIT(U, TRAIT_ARMOUR_LIKED))
 		if(HAS_TRAIT(U, TRAIT_FENCERDEXTERITY))
 			prob2defend -= 5
-	//CC + TA edit
-	if(HAS_TRAIT(src, TRAIT_PARRYEXPERT)) 
-		prob2defend += 30
-	//CC + TA edit
 
 	prob2defend = clamp(prob2defend, 5, 90)
 	if(HAS_TRAIT(user, TRAIT_HARDSHELL) && H.client)	//Dwarf-merc specific limitation w/ their armor on in pvp
@@ -285,7 +279,7 @@
 		if(do_parry(used_weapon, drained, user, untrained_armor)) //show message
 			//only gain experience if attacker and defender aren't using non-combat skills for their weapons
 			if(ispath(attacker_skill_type, /datum/skill/combat) && ispath(used_weapon.associated_skill, /datum/skill/combat))
-				if ((mobility_flags & MOBILITY_STAND))
+				if ((mobility_flags & MOBILITY_STAND) && !isanimal(U))
 					var/skill_target = attacker_skill
 					if(!HAS_TRAIT(U, TRAIT_GOODTRAINER))
 						skill_target -= SKILL_LEVEL_NOVICE
@@ -295,7 +289,7 @@
 						mind.add_sleep_experience(used_weapon.associated_skill, max(round(STAINT*exp_multi), 0), FALSE)
 
 				//attacker skill gain
-				if(U.mind)
+				if(U.mind && !isanimal(U))
 					if ((mobility_flags & MOBILITY_STAND))
 						var/skill_target = defender_skill
 						if(!HAS_TRAIT(src, TRAIT_GOODTRAINER))
@@ -366,7 +360,7 @@
 		if(do_unarmed_parry(drained, user, untrained_armor))
 			//only gain experience if attacker isn't using a non-combat skill for their weapon
 			if(ispath(attacker_skill_type, /datum/skill/combat))
-				if((mobility_flags & MOBILITY_STAND))
+				if((mobility_flags & MOBILITY_STAND) && !isanimal(U))
 					var/skill_target = attacker_skill
 					if(!HAS_TRAIT(U, TRAIT_GOODTRAINER))
 						skill_target -= SKILL_LEVEL_NOVICE
@@ -422,12 +416,6 @@
 				if(prob(7 + (L.STALUC - 10)))
 					L.sate_addiction(/datum/charflaw/addiction/clamorous)
 
-			if(!iscarbon(user))	//Non-carbon mobs never make it to the proper parry proc where the other calculations are done.
-				if(W.max_blade_int)
-					W.remove_bintegrity(SHARPNESS_ONHIT_DECAY, user)
-					W.take_damage(INTEG_PARRY_DECAY, BRUTE, "slash")
-				else
-					W.take_damage(INTEG_PARRY_DECAY_NOSHARP, BRUTE, "slash")
 			return TRUE
 		else
 			to_chat(src, span_warning("I'm too tired to parry!"))
@@ -471,5 +459,3 @@
 			return pick('sound/foley/binds/bind_heavy1.ogg','sound/foley/binds/bind_heavy2.ogg','sound/foley/binds/bind_heavy3.ogg','sound/foley/binds/bind_heavy4.ogg','sound/foley/binds/bind_heavy5.ogg','sound/foley/binds/bind_heavy6.ogg','sound/foley/binds/bind_heavy7.ogg','sound/foley/binds/bind_heavy8.ogg','sound/foley/binds/bind_heavy9.ogg','sound/foley/binds/bind_heavy10.ogg','sound/foley/binds/bind_heavy11.ogg','sound/foley/binds/bind_heavy12.ogg')
 		if(WBALANCE_SWIFT)
 			return pick('sound/foley/binds/bind_swift1.ogg','sound/foley/binds/bind_swift2.ogg','sound/foley/binds/bind_swift3.ogg','sound/foley/binds/bind_swift4.ogg','sound/foley/binds/bind_swift5.ogg','sound/foley/binds/bind_swift6.ogg')
-#undef UNARMED_BASE_WDEF_BARE
-#undef UNARMED_BASE_WDEF_EQUIPPED

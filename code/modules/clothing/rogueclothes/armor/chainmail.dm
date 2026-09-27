@@ -233,6 +233,9 @@
 	max_integrity = ARMOR_INT_CHEST_PLATE_PSYDON + 50
 	smeltresult = /obj/item/ingot/silverblessed
 
+/obj/item/clothing/suit/roguetown/armor/chainmail/hauberk/ornate/ComponentInitialize() //CCedit
+	AddComponent(/datum/component/armour_filtering/positive, TRAIT_PSYDONIAN_GRIT, "ornate_plate") //ccedit end
+
 /obj/item/clothing/suit/roguetown/armor/chainmail/hauberk/ornate/get_mechanics_examine(mob/user)
 	. = ..()
 	. += span_info("With more blessed silver and an armorsmith's hammer, this armor can be further upgraded.")

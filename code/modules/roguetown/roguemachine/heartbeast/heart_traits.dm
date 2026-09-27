@@ -18,7 +18,7 @@
 	required_item = /obj/item/alch/artemisia
 
 /datum/flesh_trait/violent
-	name = "Violent" 
+	name = "Violent"
 	description = "Thrives on aggression, pain, and destruction"
 	conflicting_traits = list(/datum/flesh_trait/peaceful)
 	preferred_approaches = list("min_words" = 1, "max_words" = 8, "punctuation" = "!")
@@ -36,7 +36,7 @@
 	required_item = /obj/item/alch/valeriana
 
 /datum/flesh_trait/observant
-	name = "Observant" 
+	name = "Observant"
 	description = "Notices small details and patterns"
 	conflicting_traits = list(/datum/flesh_trait/impulsive)
 	preferred_approaches = list("min_words" = 8, "max_words" = 25, "punctuation" = ".")

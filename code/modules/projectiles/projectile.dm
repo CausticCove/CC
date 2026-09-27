@@ -11,6 +11,7 @@
 	pass_flags = PASSTABLE
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	movement_type = FLYING
+	light_system = MOVABLE_LIGHT
 	//The sound this plays on impact.
 	var/hitsound = 'sound/blank.ogg'
 	var/hitsound_wall = ""
@@ -107,7 +108,8 @@
 	var/ignore_source_check = FALSE
 
 	var/damage = 10
-	var/npc_simple_damage_mult = 1 // Multiplicative bonus damage vs mindless simple animals.
+	/// Bonus damage vs simple animals. DO NOT EVER SET THIS OUTSIDE THE CROSSBOW / SLURBOW / STAKER AMMO FAMILY. It used to exists on nearly every projectile to get around simple animals being unfun. I don't see a way to make it "viable" in PVE without using this multiplier. DO NOT UNDER ANY CIRCUMSTANCES PROLIFERATE THIS.
+	var/npc_simple_damage_mult = 1
 	var/damage_type = BRUTE //BRUTE, BURN, TOX, OXY, CLONE are the only things that should be in here
 	var/nodamage = FALSE //Determines if the projectile will skip any damage inflictions
 	var/flag = "piercing" //Defines what armor to use when it hits things. Setting this to "blunt" might result in unexpected behavior (i.e. knockout on hit, figure out the root causes and excise it)
@@ -157,12 +159,11 @@
 	var/poisonamount
 	var/poisonfeel
 
-	var/accuracy = 65 //How likely the project will hit it's intended target area. Decreases over distance moved, increased from perception.
-	var/bonus_accuracy = 0 //bonus accuracy that cannot be affected by range drop off.
+	var/aim_peak = 0
 
-	/// Min tile distance for full damage/AP.
+	/// Min tile distance for full damage.
 	var/min_range = 0
-	/// Max tile distance for full damage/AP.
+	/// Max tile distance for full damage.
 	var/max_range = 0
 	/// Falloff factor for damage. Multiplicative.
 	var/dam_falloff_factor = 1
@@ -175,17 +176,42 @@
 /obj/projectile/proc/out_of_effective_range()
 	return suppress_effects_past_range && max_range && check_range(get_turf(src))
 
-/obj/projectile/Initialize()
+/obj/projectile/Initialize(mapload)
 	. = ..()
 	permutated = list()
 	decayedRange = range
+	aim_peak = ACC_RANGED_NPC_BASE
 
 /obj/projectile/proc/Range()
 	range--
-	if(accuracy > 20) //so there is always a somewhat prevalent chance to hit the target, despite distance.
-		accuracy -= 10
 	if(range <= 0 && loc)
 		on_range()
+
+/* Ranged AIM Formula, greatly simplified.
+- If you are outside the min/max range, you hit chest (0 accuracy)
+- Outside of visual reach (7 tiles), -10 penalty per tile
+- Crossing a Z = 2 tiles of penalty (20).
+*/
+/obj/projectile/proc/get_aim_at(distance, crossed_z = FALSE)
+	if(min_range && distance < min_range)
+		return ACC_RANGED_FLOOR
+	if(max_range && distance > max_range)
+		return ACC_RANGED_FLOOR
+	var/aim = aim_peak
+	if(distance > ACC_RANGED_VISUAL_REACH)
+		aim -= (distance - ACC_RANGED_VISUAL_REACH) * ACC_RANGED_FARSIGHT_PENALTY
+	if(crossed_z)
+		aim -= ACC_RANGED_ZCROSS_PENALTY
+	return max(ACC_RANGED_FLOOR, aim)
+
+//
+/obj/projectile/proc/get_aim_from(atom/target)
+	if(!starting)
+		return aim_peak
+	var/turf/T = get_turf(target)
+	if(!istype(T))
+		return aim_peak
+	return get_aim_at(max(abs(T.x - starting.x), abs(T.y - starting.y)), T.z != starting.z)
 
 /obj/projectile/proc/check_range(turf/T)
 	if(!starting)
@@ -216,6 +242,9 @@
 		return hit_zone
 	//when a limb is missing the damage is actually passed to the chest
 	return BODY_ZONE_CHEST
+
+/mob/living/proc/hit_zone_name(hit_zone)
+	return parse_zone(check_limb_hit(hit_zone))
 
 /obj/projectile/proc/prehit(atom/target)
 	return TRUE
@@ -277,9 +306,9 @@
 			reagent_note += "[R.name] ([num2text(R.volume)])"
 
 	if(ismob(firer))
-		log_combat(firer, L, "shot", src, reagent_note)
+		log_combat(firer, L, "shot", src, reagent_note, def_zone)
 	else
-		L.log_message("has been shot by [firer] with [src]", LOG_ATTACK, color="orange")
+		L.log_message("has been shot by [firer] with [src] (ZONE: [uppertext(def_zone)])", LOG_ATTACK, color="orange")
 
 	if((min_range || max_range) && !check_range(target_loca) && isliving(target))
 		var/obj/effect/temp_visual/dir_setting/attack_effect/atk_effrange = new(target_loca, target.dir)
@@ -390,7 +419,7 @@
 		playsound(loc, hitsound_wall, volume, TRUE, -1)
 
 	if(arcshot)
-		if(A.loc != original.loc)
+		if(get_turf(A) != get_turf(original))
 			if(ismob(A))
 				var/mob/M = A
 				if(!CHECK_BITFIELD(movement_type, UNSTOPPABLE))
@@ -405,7 +434,7 @@
 #define DO_NOT_QDEL 2		//Pass through.
 #define FORCE_QDEL 3		//Force deletion.
 
-/obj/projectile/proc/process_hit(turf/T, atom/target, qdel_self, hit_something = FALSE) 	//probably needs to be reworked entirely when pixel movement is done.
+/obj/projectile/proc/process_hit(turf/T, atom/target, qdel_self, hit_something = FALSE)	//probably needs to be reworked entirely when pixel movement is done.
 	if(check_range(T))
 		if(damage)
 			damage = round(damage * dam_falloff_factor)
@@ -501,6 +530,7 @@
 	last_process = world.time
 	if(!loc || !fired || !trajectory)
 		fired = FALSE
+		qdel(src)
 		return PROCESS_KILL
 	if(paused || !isturf(loc))
 		last_projectile_move += world.time - last_process		//Compensates for pausing, so it doesn't become a hitscan projectile when unpaused from charged up ticks.
@@ -667,6 +697,8 @@
 			step_towards(src, T)
 			hitscan_last = loc
 
+	if(QDELETED(src) || !trajectory)
+		return
 	if(!hitscanning && !forcemoved)
 		pixel_x = trajectory.return_px() - trajectory.mpx * trajectory_multiplier * SSprojectiles.global_iterations_per_move
 		pixel_y = trajectory.return_py() - trajectory.mpy * trajectory_multiplier * SSprojectiles.global_iterations_per_move
@@ -721,13 +753,15 @@
 	else
 		var/mob/living/L = target
 		if(!direct_target)
-			//If they're able to 1. stand or 2. use items or 3. move, AND they are not softcrit,  they are able to avoid indirect projectiles passing over.
+			//If they're able to 1. stand or 2. use items or 3. move, AND they are not softcrit,	they are able to avoid indirect projectiles passing over.
 			//If they're unconscious or dead they shouldn't be getting hit by indirect fire
 			if((CHECK_BITFIELD(L.mobility_flags, MOBILITY_USE | MOBILITY_STAND | MOBILITY_MOVE) && L.stat == CONSCIOUS) || L.stat >= UNCONSCIOUS)
 				return FALSE
 			if(L.lying)
 				return FALSE
 	return TRUE
+
+#define BUCKLE_PENALTY 0.5
 
 //Spread is FORCED!
 /obj/projectile/proc/preparePixelProjectile(atom/target, atom/source, params, spread = 0)
@@ -752,6 +786,13 @@
 	trajectory_ignore_forcemove = FALSE
 	starting = start_loc
 	original = target
+
+	// mounted penalty
+	if(isliving(source))
+		var/mob/living/shooter = source
+		if(shooter.buckled)
+			aim_peak = max(0, aim_peak * BUCKLE_PENALTY)
+
 	if(targloc && !params)
 		yo = targloc.y - curloc.y
 		xo = targloc.x - curloc.x
@@ -770,6 +811,8 @@
 	else
 		stack_trace("WARNING: Projectile [type] fired without either mouse parameters, or a target atom to aim at!")
 		qdel(src)
+
+#undef BUCKLE_PENALTY
 
 /proc/calculate_projectile_angle_and_pixel_offsets(mob/user, params)
 	var/list/mouse_control = params2list(params)
@@ -821,6 +864,11 @@
 /obj/projectile/Destroy()
 	if(hitscan)
 		finalize_hitscan_and_generate_tracers()
+	permutated = null
+	firer = null
+	fired_from = null
+	original = null
+	starting = null
 	STOP_PROCESSING(SSprojectiles, src)
 	cleanup_beam_segments()
 	QDEL_NULL(trajectory)

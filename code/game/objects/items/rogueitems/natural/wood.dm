@@ -313,7 +313,7 @@
 				qdel(src)
 				if (L.alpha == 0 && L.rogue_sneaking) // not anymore you're not
 					L.update_sneak_invis(TRUE)
-				if(!HAS_TRAIT(L, TRAIT_WOODWALKER))	
+				if(!HAS_TRAIT(L, TRAIT_WOODWALKER))
 					L.consider_ambush()
 
 /obj/item/grown/log/tree/stick/Initialize()
@@ -334,7 +334,7 @@
 		/datum/crafting_recipe/roguetown/survival/wickercloak,
 		/datum/crafting_recipe/roguetown/survival/torch,
 		// /datum/crafting_recipe/roguetown/survival/stonearrow, // Caustic edit
-		/datum/crafting_recipe/roguetown/survival/stonearrow_five,
+		/datum/crafting_recipe/roguetown/survival/stonearrow_six,
 		/datum/crafting_recipe/roguetown/survival/wood_stake
 		)
 
@@ -432,6 +432,8 @@
 	. = ..()
 	. += span_info("Stakes can be crafted with a stone to make whetstones, which are better at sharpening blades.")
 	. += span_info("Stakes are weak, but can double as improvised weapons with total armor penetration. Crafting a stake with a whetstone can make it into a more refined weapon.")
+	. += span_info("Driving a stake through the heart of an incapacitated revenant is one of the few ways to put them down for the week. Sharper stakes, and ones made of silver, are better at this.")
+	. += span_info("Staking also works to kill many other types of undead - generally, anyone you can't kill with bloodloss can be staked.")
 
 /obj/item/grown/log/tree/stake/getonmobprop(tag)
 	. = ..()
@@ -452,6 +454,10 @@
 		/datum/element/slapcrafting,\
 		slapcraft_recipes = slapcraft_recipe_list,\
 		)
+
+/obj/item/grown/log/tree/stake/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/deaditeslayer, time = 20 SECONDS) // improvised as hell, so it takes a while. sharpen it first you peasant
 
 /obj/item/grown/log/tree/stake/attack_obj(obj/O, mob/living/user)
 	. = ..()
@@ -496,7 +502,7 @@
 	sellprice = 4
 	bundletype = /obj/item/natural/bundle/plank
 	smeltresult = /obj/item/ash
-	
+
 /obj/item/natural/wood/plank/attack_right(mob/living/user)
 	if(user.get_active_held_item())
 		return

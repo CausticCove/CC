@@ -44,6 +44,7 @@
 		TRAIT_STRONGBITE,
 		TRAIT_LYCANRESILENCE,
 		TRAIT_CHUNKYFINGERS, //So they can no longer use weapons at all.
+		TRAIT_TOUGH_COOKIE,
 		TRAIT_UNLYCKERABLE, //Literal archenemy
 		TRAIT_ZOMBIE_IMMUNE
 	)
@@ -147,7 +148,7 @@
 	//No cross species pollination!!!
 	if(mind.has_antag_datum(/datum/antagonist/gnoll))
 		return FALSE
-	if(HAS_TRAIT(src, TRAIT_SILVER_BLESSED) || HAS_TRAIT(src, TRAIT_IRONMAN) || HAS_TRAIT(src, TRAIT_ROTMAN)) // i don't know if other padding keeps them from turning but just to make sure lmao
+	if(HAS_TRAIT(src, TRAIT_SILVER_BLESSED) || HAS_TRAIT(src, TRAIT_IRONMAN) || HAS_TRAIT(src, TRAIT_ROTMAN) || HAS_TRAIT(src, TRAIT_NOWW)) // i don't know if other padding keeps them from turning but just to make sure lmao
 		return FALSE
 	return TRUE
 
@@ -257,7 +258,7 @@
 	parrysound = list('sound/combat/parry/parrygen.ogg')
 	embedding = list("embedded_pain_multiplier" = 0, "embed_chance" = 0, "embedded_fall_chance" = 0)
 	item_flags = DROPDEL
-	special = /datum/special_intent/axe_swing	//Good pairing for area denial for WW's.
+	special = /datum/special_intent/axe_swing/werewolf	//CC edit custom WW special attack
 	experimental_inhand = FALSE
 
 /obj/item/rogueweapon/werewolf_claw/right
@@ -269,3 +270,6 @@
 /obj/item/rogueweapon/werewolf_claw/Initialize()
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NOEMBED, TRAIT_GENERIC)
+//CC edit start: Custom special intent for werewolves
+/datum/special_intent/axe_swing/werewolf
+	requires_wielding = FALSE

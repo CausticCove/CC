@@ -1,6 +1,8 @@
 
 // -------------- RAISINS, SWEETGLASS ------------------
 /obj/item/reagent_containers/food/snacks/rogue/raisins
+	cuisine = CUISINE_RANESHENI
+	dish_type = DISH_FRUIT
 	name = "raisins"
 	desc = "Jackberries that've been pruned of their juiciness, and turned into flavorful nuggets. Like the humble hardtack, so \
 	too will these raisins outlast their creators.  When combined with honey and doused in a pot of boiling fat, it can birth \
@@ -15,10 +17,6 @@
 	eat_effect = null
 	rotprocess = null
 	foodtype = FRUIT
-	//CC Edit Begin
-	diet_types = list("Fruits")
-	diet_change_amount = FOOD_DIETARY_VALUE_BAD - 1 //Good snack... Still a common item.
-	//CC Edit End
 
 /obj/item/reagent_containers/food/snacks/rogue/raisins/On_Consume(mob/living/eater)
 	..()
@@ -117,6 +115,8 @@
 //
 
 /obj/item/reagent_containers/food/snacks/rogue/raisins/sweetglass
+	cuisine = NONE
+	dish_type = DISH_FRUIT|DISH_SWEET
 	name = "sweetglass"
 	desc = "A palmful of crystallized dried raisins, popular amongst the elders and children-of-nobility. Their tendancy to only \
 	spoil under very specific circumstances makes it a favored treat for those traveling afar; so long as they can afford it, of course."
@@ -214,6 +214,6 @@
 	tastes = list("raisin" = 1, "pumpkin" = 1, "dry paper" = 1)
 	rotprocess = null
 	//CC Edit Begin
-	diet_types = list("Fruits", "Grains", "Vegetables")
-	diet_change_amount = FOOD_DIETARY_VALUE_GREAT //High quality snack! Requires a lot of steps!
+	dish_type = DISH_FRUIT | DISH_VEGETABLE | DISH_BREAD
+	foodtype = FRUIT | VEGETABLES | GRAIN
 	//CC Edit End

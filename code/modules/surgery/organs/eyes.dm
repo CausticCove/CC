@@ -155,7 +155,7 @@
 	name = "construct eyes"
 	desc = "Some beast's eyes, preserved through artifice and with magical rock embedded in their back. Seems to fit a construct's head."
 	icon_state = "eyeball-con"
-	
+
 /obj/item/organ/eyes/night_vision/zombie/on_life()
 	. = ..()
 	if (!(owner.mob_biotypes & MOB_UNDEAD))
@@ -401,7 +401,7 @@
 	on_mob.forceMove(scanning)
 	for(var/i in 1 to light_beam_distance)
 		scanning = get_step(scanning, scandir)
-		if(scanning.opacity || scanning.has_opaque_atom)
+		if(scanning.opacity || (scanning.opaque_atom_count > 0))
 			stop = TRUE
 		var/obj/effect/abstract/eye_lighting/L = LAZYACCESS(eye_lighting, i)
 		if(stop)

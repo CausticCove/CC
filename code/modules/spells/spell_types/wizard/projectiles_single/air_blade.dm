@@ -1,22 +1,21 @@
 /* ALMAH & SPELLBLADE ARCHETYPE EXCLUSIVE
- Do not make this learnable by wizards in general. It is part of spellblade's identity.
- Design is that this is an Arcyne Bolt sidegrade that don't works well as a DPS spell
- And is meant to be weaved in between attacks in melee to keep pressure
- It can access all damage types and can crit, like Arcyne Bolt.
+	Do not make this learnable by wizards in general. It is part of spellblade's identity.
+	Design is that this is an Arcyne Bolt sidegrade that don't works well as a DPS spell
+	And is meant to be weaved in between attacks in melee to keep pressure
+	It can access all damage types and can crit, like Arcyne Bolt.
 */
 
 /obj/effect/proc_holder/spell/invoked/projectile/airblade
 	name = "Air Blade"
 	desc = "Slash the air with your weapon, forming an arcyne blade in the air that can strike enemies at range. Adds a stack of <b>Arcane Mark</b> to the target. \n\
-	Damage type depends on your current intent. It defaults to cut, but change to blunt if it is Blunt / Smash, and stabbing if it is stab / pick\n\
-	Damage is increased by 50% versus simple-minded creechurs."
+	Damage type depends on your current intent. It defaults to cut, but change to blunt if it is Blunt / Smash, and stabbing if it is stab / pick"
 	clothes_req = FALSE
 	range = 6
 	projectile_type = /obj/projectile/energy/airblade
 	overlay_state = "air_blade"
 	sound = list('sound/combat/wooshes/bladed/wooshsmall (1).ogg')
 	active = FALSE
-	releasedrain = 20 // Same stamina cost as Arcyne bolt
+	releasedrain = SPELLCOST_MINOR_PROJECTILE
 	chargedrain = 0
 	chargetime = 0
 	recharge_time = 8 SECONDS //2x longer recharge than Arcyne Bolt so not spammable
@@ -33,6 +32,7 @@
 	chargedloop = /datum/looping_sound/invokegen
 	associated_skill = /datum/skill/magic/arcane
 	cost = 3 // Just in case
+	human_req = TRUE
 
 /obj/effect/proc_holder/spell/invoked/projectile/airblade/cast(list/targets, mob/user = user)
 	var/mob/living/carbon/human/H = user
@@ -67,7 +67,6 @@
 	flag = "slash"
 	woundclass = BCLASS_CUT
 	nodamage = FALSE
-	npc_simple_damage_mult = 1.5 // Makes it more effective against NPCs.
 	hitsound = 'sound/combat/hits/bladed/smallslash (1).ogg'
 	speed = 1
 

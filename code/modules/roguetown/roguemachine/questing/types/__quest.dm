@@ -115,7 +115,7 @@ GLOBAL_LIST_EMPTY(quest_mobs)
 			Q.assigned_quest = null
 			qdel(Q)
 		quest_scroll_ref = null
-		
+
 	return ..()
 
 /datum/quest/proc/add_tracked_atom(atom/movable/to_track)
@@ -234,6 +234,10 @@ GLOBAL_LIST_EMPTY(quest_mobs)
 			return QUEST_DIFFICULTY_BONUS_MEDIUM
 		if(QUEST_DIFFICULTY_HARD)
 			return QUEST_DIFFICULTY_BONUS_HARD
+		//CC Edit - PvP Contract
+		if(QUEST_DIFFICULTY_PLAYER_VS_PLAYER)
+			return QUEST_DIFFICULTY_BONUS_PLAYER_VS_PLAYER
+		//CC Edit - PvP Contract
 	return QUEST_DIFFICULTY_BONUS_EASY
 
 /// Calculate deposit based on difficulty
@@ -245,6 +249,10 @@ GLOBAL_LIST_EMPTY(quest_mobs)
 			return QUEST_DEPOSIT_MEDIUM
 		if(QUEST_DIFFICULTY_HARD)
 			return QUEST_DEPOSIT_HARD
+		//CC Edit - PvP contract
+		if(QUEST_DIFFICULTY_PLAYER_VS_PLAYER)
+			return QUEST_DEPOSIT_PLAYER_VS_PLAYER
+		//CC Edit - PvP contract
 	return 0
 
 /// Get icon for scroll based on difficulty
@@ -256,6 +264,8 @@ GLOBAL_LIST_EMPTY(quest_mobs)
 			return "scroll_quest_mid"
 		if(QUEST_DIFFICULTY_HARD)
 			return "scroll_quest_high"
+		if(QUEST_DIFFICULTY_PLAYER_VS_PLAYER)
+			return "scroll_quest_pvp"
 	return quest_icon
 
 /// Get target location for compass - returns turf of nearest tracked atom

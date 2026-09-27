@@ -1,6 +1,7 @@
 #define QUEST_DIFFICULTY_EASY "Easy"
 #define QUEST_DIFFICULTY_MEDIUM "Medium"
 #define QUEST_DIFFICULTY_HARD "Hard"
+#define QUEST_DIFFICULTY_PLAYER_VS_PLAYER "PvP" //CC Edit - PvP Difficulty
 
 #define QUEST_RETRIEVAL "Retrieval"
 #define QUEST_COURIER "Courier"
@@ -12,6 +13,10 @@
 #define QUEST_BLOCKADE_DEFENSE "Blockade Defense"
 #define QUEST_TOWNER_SMITH_CARAVAN "Smith Caravan"
 #define QUEST_TOWNER_MINER_OREVEIN "Ore Vein"
+
+//CC Edit - PvP Contracts
+#define QUEST_ASCENDED_BOUNTY "Ascended Bounty"
+//CC Edit End - PvP Contracts
 
 #define QUEST_TURNIN_SELF 1
 #define QUEST_TURNIN_FELLOWSHIP 2
@@ -57,8 +62,13 @@ GLOBAL_LIST_INIT(defense_quest_tier_costs, list(
 
 // Multipliers applied to the base TP for kill request rewards
 #define QUEST_KILL_THREAT_MULT 1.0
-// Bounty's main target is further multiplied  
+// Bounty's main target is further multiplied
 #define QUEST_BOUNTY_THREAT_MULT 1
+
+//CC Edit - Ascended Bounty Multiplier
+//Ascended Bounty is 1.5x better.
+#define QUEST_ASCENDED_BOUNTY_THREAT_MULT 2 //2x the threat point value is ideal
+//CC Edit End
 
 // Max mobs for kill request to avoid lagging
 #define QUEST_KILL_MAX_MOBS 20
@@ -70,6 +80,7 @@ GLOBAL_LIST_INIT(defense_quest_tier_costs, list(
 #define QUEST_TP_BUDGET_KILL_EASY 35
 #define QUEST_TP_BUDGET_CLEAR_OUT 80
 #define QUEST_TP_BUDGET_RAID 200
+#define QUEST_TP_BUDGET_PLAYER_VS_PLAYER 125 //CC Edit - Cheaper than goons!
 #define QUEST_TP_BUDGET_BOUNTY_GOONS 150
 #define QUEST_TP_BUDGET_RECOVERY 80
 
@@ -79,6 +90,7 @@ GLOBAL_LIST_INIT(defense_quest_tier_costs, list(
 // Bands of threat cleared on completion
 #define QUEST_BANDS_KILL_EASY 1
 #define QUEST_BANDS_CLEAR_OUT 2
+#define QUEST_BANDS_PLAYER_VS_PLAYER 3 //CC Edit - 3 Bands seems fair, an inbetween of bounty and clear out.
 #define QUEST_BANDS_RAID 4
 #define QUEST_BANDS_BOUNTY 4
 #define QUEST_BANDS_RECOVERY 2
@@ -95,10 +107,12 @@ GLOBAL_LIST_INIT(defense_quest_tier_costs, list(
 #define QUEST_DIFFICULTY_BONUS_EASY 0
 #define QUEST_DIFFICULTY_BONUS_MEDIUM 0
 #define QUEST_DIFFICULTY_BONUS_HARD 25
+#define QUEST_DIFFICULTY_BONUS_PLAYER_VS_PLAYER 125 //CC Edit - PvP Bonus Reward, 125 Mammaroons!
 
 #define QUEST_DEPOSIT_EASY 5
 #define QUEST_DEPOSIT_MEDIUM 10
 #define QUEST_DEPOSIT_HARD 20
+#define QUEST_DEPOSIT_PLAYER_VS_PLAYER 40 //CC Edit - Costs 40 Mammons, earn 35 back from the bonus!
 
 
 // Jobs may override via /datum/job.max_active_quests.
@@ -143,7 +157,8 @@ GLOBAL_LIST_INIT(defense_quest_tier_costs, list(
 	QUEST_RAID = 30,\
 	QUEST_BOUNTY = 15,\
 	QUEST_RECOVERY = 5,\
-)
+	QUEST_ASCENDED_BOUNTY = 20,\
+) //CC Edit - Quest Ascended Bounty addition
 
 
 #define QUEST_EVERGREEN_TYPE_WEIGHTS list(\

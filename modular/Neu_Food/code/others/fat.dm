@@ -9,11 +9,8 @@
 	possible_item_intents = list(/datum/intent/food, /datum/intent/splash)
 	fat_yield = 30
 	//CC Edit Begin
-	diet_types = list("Meats")
-	diet_change_amount = FOOD_DIETARY_VALUE_POOR - 1 //Pure fat isn't... Ideal to your health.
+	foodtype = MEAT
 	//CC Edit End
-
-
 
 /obj/item/reagent_containers/food/snacks/fat/attackby(obj/item/I, mob/living/user, params)
 	var/found_table = locate(/obj/structure/table) in (loc)
@@ -64,8 +61,7 @@
 	dropshrink = 0.75
 	var/wax_pigment = "white" //Default pigment for tallow, can be changed by mixing with other reagents
 	//CC Edit Begin
-	diet_types = list("Dairy")
-	diet_change_amount = FOOD_DIETARY_VALUE_POOR
+	foodtype = DAIRY
 	//CC Edit End
 
 /obj/item/reagent_containers/food/snacks/tallow/Initialize()
@@ -138,7 +134,7 @@
 					success = TRUE
 					IND.fullreset(user)
 				else
-					return	
+					return
 				if(success)
 					changefood(/obj/item/reagent_containers/food/snacks/tallow/red, user)
 	if(istype(I, /obj/item/ash))

@@ -93,4 +93,6 @@
 			return "parasite egg"
 		if(ORGAN_SLOT_REGENERATIVE_CORE)
 			return "regenerative core"
+		if(ORGAN_SLOT_GUTS)
+			return "guts"
 	return slot

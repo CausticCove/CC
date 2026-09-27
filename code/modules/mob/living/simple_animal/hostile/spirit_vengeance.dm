@@ -26,15 +26,14 @@
 	attack_verb_continuous = "hacks"
 	attack_verb_simple = "hack"
 	attack_sound = 'sound/blank.ogg'
-	canparry = TRUE
 	d_intent = INTENT_DODGE
-	defprob = 20
 	speak_emote = list("growls")
 	footstep_type = null
 	del_on_death = TRUE
 	can_have_ai = FALSE //disable native ai
 	AIStatus = AI_OFF
 	ai_controller = /datum/ai_controller/spirit_vengeance
+	move_base_delay = MOVEMENT_DELAY_SPD_23
 	melee_cooldown = SKELETON_ATTACK_SPEED
 
 /mob/living/simple_animal/hostile/rogue/spirit_vengeance/get_sound(input)
@@ -54,5 +53,3 @@
 	. = ..()
 	AddComponent(/datum/component/ai_aggro_system)
 	addtimer(CALLBACK(src, TYPE_PROC_REF(/mob/living/simple_animal, death), TRUE), 30 SECONDS)
-
-

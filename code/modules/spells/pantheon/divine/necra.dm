@@ -6,6 +6,8 @@
 /obj/effect/proc_holder/spell/invoked/avert
 	name = "Borrowed Time"
 	desc = "Request Necra's aid to buy your fellow man time, preventing them from slipping into death for as long as your faith and fatigue may muster."
+	action_icon = 'icons/mob/actions/necramiracles.dmi'
+	overlay_icon = 'icons/mob/actions/necramiracles.dmi'
 	overlay_state = "borrowtime"
 	req_items = list(/obj/item/clothing/neck/roguetown/psicross)
 	associated_skill = /datum/skill/magic/holy
@@ -66,6 +68,8 @@
 	name = "Abrogation"
 	desc = "Debuffs targeted undead as long as they remain near you, slowly getting set on fire if they stay."
 	range = 8
+	action_icon = 'icons/mob/actions/necramiracles.dmi'
+	overlay_icon = 'icons/mob/actions/necramiracles.dmi'
 	overlay_state = "necra"
 	releasedrain = 30
 	chargedloop = /datum/looping_sound/invokeholy
@@ -196,7 +200,9 @@
 /obj/effect/proc_holder/spell/self/locate_dead
 	name = "Locate Corpse"
 	desc = "Invoke the Undermaiden's guidance to sense the direction of those within her domain who lack proper burial. She may also reveal the earthbound, though seeking those newly claimed is more difficult for her to locate as they have only recently entered her realm.<br><br>Costs 20 Devotion to use, and the sustain cost varies on corpse freshness." //Caustic Edit - Changing the fluff texts to make Necra more of a Compassionate Death God!
-	overlay_state = "necraeye"
+	action_icon = 'icons/mob/actions/necramiracles.dmi'
+	overlay_icon = 'icons/mob/actions/necramiracles.dmi'
+	overlay_state = "locatecorpse"
 	sound = 'sound/magic/whiteflame.ogg'
 	cast_without_targets = TRUE
 	miracle = TRUE
@@ -902,6 +908,8 @@ var/global/mob/_corpse_sort_ref = null
 	invocation_type = "whisper"
 	invocations = list("Undermaiden guide my gaze...")
 	associated_skill = /datum/skill/magic/holy
+	action_icon = 'icons/mob/actions/necramiracles.dmi'
+	overlay_icon = 'icons/mob/actions/necramiracles.dmi'
 	overlay_state = "necraeye"
 	miracle = TRUE
 	devotion_cost = 30

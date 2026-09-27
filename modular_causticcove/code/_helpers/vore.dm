@@ -9,7 +9,7 @@
 		return FALSE
 	if(!istype(pred) || !istype(prey))
 		return FALSE
-	if(!prey.devourable)
+	if(!prey.devourable || prey.client?.prefs.directory_tag == "Non-Vore") //If you are set to non-vore in the Directory, we will respect that!
 		return FALSE
 	if(!is_vore_predator(pred))
 		return FALSE

@@ -18,6 +18,7 @@
 		/mob/living/simple_animal/hostile/retaliate/rogue/minotaur = 10,
 		/mob/living/simple_animal/hostile/retaliate/rogue/infernal/watcher = 8,
 	)
+	//CC Edit - Overidden in hell_goblin_overrides.dm to avoid spawning the watcher.
 	boss_mob_types = list(
 		/mob/living/simple_animal/hostile/retaliate/rogue/infernal/watcher = 60,
 		/mob/living/carbon/human/species/goblin/npc/large/hell = 40,

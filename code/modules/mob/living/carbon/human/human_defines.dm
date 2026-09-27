@@ -47,7 +47,7 @@
 	var/accessory = "None"
 	var/detail = "None"
 	var/marking = "None"
-	
+
 	var/shavelevel = 0
 	var/breathe_tick = 0 // Used for gas mask delays.
 	var/socks = "Nude" //Which socks the player wants
@@ -68,6 +68,12 @@
 	var/obj/item/s_store = null
 	var/obj/item/cloak = null
 	var/obj/item/clothing/wear_shirt = null
+
+	var/cached_worn_ac = ARMOR_CLASS_NONE
+	var/cached_head_ac = ARMOR_CLASS_NONE
+	var/cached_hands_ac = ARMOR_CLASS_NONE
+	var/cached_body_ac = ARMOR_CLASS_NONE
+	var/worn_ac_dirty = TRUE
 
 	var/special_voice = "" // For changing our voice. Used by a symptom.
 
@@ -135,7 +141,7 @@
 	var/examine_theme
 	var/list/img_gallery = list()
 	var/list/nsfw_img_gallery = list()
-	
+
 
 	possible_rmb_intents = list(/datum/rmb_intent/feint,\
 	/datum/rmb_intent/aimed,\
@@ -170,8 +176,9 @@
 	/// Ref to orison-like sunder object
 	var/sunder_light_obj = null
 
-	/// Assoc list of culinary preferences of the mob
-	var/list/culinary_preferences = list()
+	var/favorite_cuisine = NONE
+	var/favorite_dish = NONE
+	var/favorite_drink = NONE
 
 	/// List of mobs that have attacked us. Only relevant to someone with TRAIT_TEMPO.
 	var/list/tempo_attackers = list()
@@ -216,4 +223,8 @@
 
 	//Caustic Edit
 	var/time_of_last_move = 0
+	
+/mob/living/carbon/human
+	var/allow_taur_clothing = TRUE
+
 	//Caustic Edit End

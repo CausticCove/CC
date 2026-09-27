@@ -42,7 +42,7 @@
 
 /datum/status_effect/buff/rot_cleansing/tick()
 	var/datum/status_effect/black_rot/rot = owner.has_status_effect(/datum/status_effect/black_rot)
-	
+
 	if(!rot || total_to_cleanse <= currently_cleansed)
 		owner.remove_status_effect(src)
 		return
