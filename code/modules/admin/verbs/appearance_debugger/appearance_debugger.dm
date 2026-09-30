@@ -295,3 +295,5 @@
 /datum/appearance_debugger/proc/warn_update()
 	SIGNAL_HANDLER
 	update_warning = TRUE
+
+#undef SET_PLANE_IMPLICIT
