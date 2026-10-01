@@ -154,6 +154,8 @@
 			owner.adjustToxLoss(-(healing_on_tick/2), 0)
 
 	last_tox_tick = owner.getToxLoss() //And record this tick's last seen toxloss after we might've healed some.
+	if(last_tox_tick == 0)
+		other_tox_heal = 200
 
 	owner.stamina_add(-(healing_on_tick)) //6 stamina per tick. Since the Energy Bar has been filled for free, this ensures they have energy to keep running if needed.
 
