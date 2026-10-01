@@ -99,6 +99,7 @@
 	//Apply the phasing effect from the Dagger Special
 	owner.pass_flags |= PASSMOB
 	ADD_TRAIT(owner, TRAIT_GRABIMMUNE, TRAIT_STATUS_EFFECT)
+	ADD_TRAIT(owner, TRAIT_IGNOREDAMAGESLOWDOWN, TRAIT_STATUS_EFFECT)
 	original_alpha = owner.alpha
 	animate(owner, alpha = 180, time = 2)
 
@@ -172,6 +173,7 @@
 
 	if(current_bleed_reduction > 0 && time > last_reduction_tick)
 		if(current_bleed_reduction == bleed_reduction_start)
+			REMOVE_TRAIT(owner, TRAIT_IGNOREDAMAGESLOWDOWN, TRAIT_STATUS_EFFECT)
 			to_chat(owner, span_warningbig("My wounds are starting to bleed like before! I need to patch them up before it's too late..."))
 		current_bleed_reduction -= bleed_reduction_loss
 		last_reduction_tick = time + bleed_reduction_loss_tick
