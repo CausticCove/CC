@@ -252,6 +252,10 @@
 	set desc = "Use your Second Wind, granting yourself a temporary buff to get the hell out of that situation. Various effects have different times associated with them."
 
 	if(can_second_wind)
+		if(stat == DEAD)
+			to_chat(src, span_warningbig("It's unfortunately too late for me to push myself to my limits..."))
+			return
+
 		//Limiting Factors!
 		var/num_players_nearby_max = 2 //If there are more then this many OTHER (alive and well) players around, you can't activate this along with one of the following conditions.
 		var/players_within_range = 7 //Players within this many tiles count towards the nearby max. Currently if they are on-screen at all!
@@ -285,8 +289,10 @@
 			cmode_music_override = 'modular_causticcove/sound/music/SECOND_WIND.ogg'
 			cmode_music_override_name = "Chop Shop Jungle Breaks - ChristmasKrumble666"
 			SSdroning.play_combat_music(cmode_music_override, client)
+			return
 		else
 			to_chat(src, span_warningbig("I'm doing fine right now! I don't need my Second Wind yet."))
+			return
 
 		/*switch(alert("Do you wish to take your Second Wind?",,"Yes","No")) //The old methods still remain here, but commented out!
 			if("Yes")
