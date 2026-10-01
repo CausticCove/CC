@@ -94,20 +94,20 @@
 	alert_type = /atom/movable/screen/alert/status_effect/buff/zombified
 
 /datum/status_effect/buff/zombified/on_apply()
-	owner.visible_message(span_warning("[owner] DEBUG - had zombification added."))
+	//owner.visible_message(span_warning("[owner] DEBUG - had zombification added."))
   /*So how does this work, simply put - we check if you have X stat, if not we take our number and take away your stat from this
 
   That means we always have the stat change number as our buff/debuff to change your stats to this, its quite a fussy thing to work with
   But this means that we can keep applying this buff until you de-zombify, constantly changing your statline.
   Its janky and frankly I would much rather we re-factored buffs to modify an "effective" statline
-  
+
   As we can then change your "true" statline for antag roles properly currently our only "reasonable" method that we have is using buffs
   to inefficently do math to figure out our difference and pray it works, this...
-  
+
   isn't super effective as you can imagine and isn't without flaw. - A good example is debuff/buff before turning will...
   change our statline since this doesn't update, this is unfortnately an issue with buffs but this is the closet to fixing it..
 
-  Blame Blackstone era roguecode's statcaps for /not/ having a seperated /true/ statline vs buffed one. 
+  Blame Blackstone era roguecode's statcaps for /not/ having a seperated /true/ statline vs buffed one.
   */
 
 	effectedstats = list(
@@ -123,7 +123,7 @@
 
 /datum/status_effect/buff/zombified/on_remove()
 	. = ..()
-	owner.visible_message(span_warning("[owner] DEBUG - had zombification removed."))
+	//owner.visible_message(span_warning("[owner] DEBUG - had zombification removed."))
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -319,7 +319,7 @@
 	if((our_area.town_area))
 		zombie.apply_status_effect(/datum/status_effect/buff/deadite_pacified)
 	zombie.playsound_local(get_turf(zombie), 'sound/music/wolfintro.ogg', 80, FALSE, pressure_affected = FALSE) //Extra bit of AURA
-	to_chat(zombie, span_infection("My mind grows numb and empty as unlyfe takes ahold of my body..."))
+	to_chat(zombie, span_infection("My mind grows numb and empty as unlyfe takes ahold of my body... If I still have a shred of self about me, the cross in the church may be able to purge this - but I must be prepared with healing assistance."))
 	//Caustic edit end
 	zombie.cmode_music = 'sound/music/combat_weird.ogg'
 	zombie.apply_status_effect(/datum/status_effect/debuff/deadite_grace)
@@ -425,7 +425,7 @@
 
 	if (!istype(zombie, /mob/living/carbon/human)) // Ensure the zombie is human
 		return
-	
+
 	//Caustic Edit - Prevent Zombification if currently held within an Observer mob. IE: got digested probably
 	if(istype(zombie.loc, /mob/dead/observer))
 		return
@@ -509,7 +509,7 @@
 	ADD_TRAIT(owner, TRAIT_IGNORESLOWDOWN, id)
 	ADD_TRAIT(owner, TRAIT_LONGSTRIDER, id)
 	ADD_TRAIT(owner, TRAIT_STRONG_GRABBER, id)
-	to_chat(owner, span_userdanger("I feel my body tense up immensely in response to this hunger, tendrils of darkness crawling under my skin.")) 
+	to_chat(owner, span_userdanger("I feel my body tense up immensely in response to this hunger, tendrils of darkness crawling under my skin."))
 
 /datum/status_effect/debuff/deadite_grace/on_remove()
 	. = ..()

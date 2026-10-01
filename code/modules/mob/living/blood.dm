@@ -185,6 +185,11 @@
 	bleed_rate = get_bleed_rate() // expensive proc, but we zero it on bled-out mobs
 	if(HAS_TRAIT(src, TRAIT_ADRENALINE_RUSH))
 		bleed_rate = FALSE
+	//Caustic Edit - Add in Second Wind's Bleed reduction effect here!
+	var/datum/status_effect/buff/second_wind/wind = has_status_effect(/datum/status_effect/buff/second_wind)
+	if(wind)
+		bleed_rate -= (bleed_rate * wind.current_bleed_reduction)
+	//Caustic Edit End
 	if(bleed_rate)
 		bleed(bleed_rate) // bandage handling moved to bodypart.get_bleed_rate()
 
