@@ -163,8 +163,8 @@
 	name = "incision"
 	check_name = span_bloody("<B>INCISION</B>")
 	severity = WOUND_SEVERITY_SUPERFICIAL
-	whp = 40
-	sewn_whp = 12
+	whp = 25 //CC Edit - Lower WHP for Incisions so you can easily close them.
+	sewn_whp = 25 //CC Edit - Lower WHP for Incisions so you can easily close them.
 	bleed_rate = 1
 	sewn_bleed_rate = 0.05
 	clotting_rate = null

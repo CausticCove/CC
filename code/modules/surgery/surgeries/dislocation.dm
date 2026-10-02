@@ -37,6 +37,9 @@
 	skill_min = SKILL_LEVEL_APPRENTICE
 	skill_median = SKILL_LEVEL_JOURNEYMAN
 
+	//CC Edit - This shouldn't cause infection at this step.
+	causes_infection = FALSE
+	//CC Edit End
 /datum/surgery_step/relocate_bone/validate_bodypart(mob/user, mob/living/carbon/target, obj/item/bodypart/bodypart, target_zone)
 	. = ..()
 	if(!.)
