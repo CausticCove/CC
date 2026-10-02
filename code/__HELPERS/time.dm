@@ -34,9 +34,12 @@ GLOBAL_VAR_INIT(dayspassed, 0)
 // Currently this will start the first weather tick 1 hour after Midnight, and then it ticks every 3 hours. So: 1:00am, 4:00am, 7:00am, 10:00am and continues on accordingly
 #define WEATHER_HOURS_TO_NEXT 108000 //1hr = 36000
 #define WEATHER_INIT_OFFSET 36000
+#define NOON_TIME 432000 //This is the time of Noon, so, roll the is_AM over to false if the time ticks past this number
 
+GLOBAL_VAR_INIT(is_AM, TRUE) //Since the world starts in the morning always, it starts in the AM.
 GLOBAL_VAR_INIT(next_weather_change, ((WEATHER_HOURS_TO_NEXT * 2) + WEATHER_INIT_OFFSET)) //Manually set the first weather change to be 7:00am ([2 * 3hours] + 1hour), then let the system just run normally after.
 // The rounds always start with the station time at 8:00, so this will roll a weather at round start, then again in 2 hours.
+GLOBAL_VAR_INIT(next_weather_is_AM, TRUE)
 //Caustic Edit End
 
 GLOBAL_VAR_INIT(date_override_enabled, FALSE)
@@ -53,6 +56,11 @@ GLOBAL_VAR_INIT(date_override_offset, 0)
 	//if(SSmapping.config.map_name == "Desert Town") //This bit got moved into the particle weather system, and the separation into different forcasts for different maps!
 	//	desert = TRUE //We're the desert map.
 
+	if(time >= 0 && time < NOON_TIME)
+		GLOB.is_AM = TRUE
+	else
+		GLOB.is_AM = FALSE
+
 	if(time >= SSnightshift.nightshift_start_time || time <= SSnightshift.nightshift_dawn_start)
 		GLOB.tod = "night"
 	else if(time > SSnightshift.nightshift_dawn_start && time <= SSnightshift.nightshift_day_start)
@@ -63,13 +71,17 @@ GLOBAL_VAR_INIT(date_override_offset, 0)
 		GLOB.tod = "dusk"
 	else if(GLOB.todoverride)
 		GLOB.tod = GLOB.todoverride
-	if(time >= GLOB.next_weather_change) //Since the station_time() call automatically handles the rollover after midnight to trim the excess 24 hours with the modulus math, we can just look at the time as expected here
+
+	if(time >= GLOB.next_weather_change && GLOB.is_AM == GLOB.next_weather_is_AM) //Since the station_time() call automatically handles the rollover after midnight to trim the excess 24 hours with the modulus math, we can just look at the time as expected here
 		//Because the Nightshift ticks every 10 seconds, and it always calls settod() each tick, this should be reliable
 		SSParticleWeather.check_forecast(GLOB.tod)
 
 		var/new_weather_time = GLOB.next_weather_change + WEATHER_HOURS_TO_NEXT
 		if(new_weather_time > TICKS_IN_A_DAY)
+			GLOB.next_weather_is_AM = TRUE
 			new_weather_time -= TICKS_IN_A_DAY //This accounts for the same rollover done in station_time, but I'm lazy to verify modulus math :P
+		else if(new_weather_time >= NOON_TIME)
+			GLOB.next_weather_is_AM = FALSE
 
 		GLOB.next_weather_change = new_weather_time
 	/*if((GLOB.tod != oldtod) && !GLOB.todoverride) //&& (GLOB.dayspassed>1)) //weather check on tod changes, disabled first day weather block

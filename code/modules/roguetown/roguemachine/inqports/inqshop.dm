@@ -16,23 +16,23 @@
 
 /obj/structure/closet/crate/chest/inqcrate/supplies/
 	name = "inquisitorial supply crate"
-	desc = "A crate of boswellia wood, marked with the sigil of the Holy Psydonic Inquisition." 
+	desc = "A crate of boswellia wood, marked with the sigil of the Holy Psydonic Inquisition."
 
 /obj/structure/closet/crate/chest/inqcrate/articles/
 	name = "inquisitorial article crate"
-	desc = "A crate of boswellia wood, marked with the sigil of the Holy Psydonic Inquisition." 
+	desc = "A crate of boswellia wood, marked with the sigil of the Holy Psydonic Inquisition."
 
 /obj/structure/closet/crate/chest/inqreliquary/relic/
 	name = "reliquary crate"
-	desc = "A decorated crate of boswellia wood, braced with silver and marked with the Archbishop's personal sigil. It houses a " 
+	desc = "A decorated crate of boswellia wood, braced with silver and marked with the Archbishop's personal sigil. It houses a "
 
 /obj/structure/closet/crate/chest/inqcrate/equipment/
 	name = "inquisitorial equipment crate"
-	desc = "A crate of boswellia wood, marked with the sigil of the Holy Psydonic Inquisition." 
+	desc = "A crate of boswellia wood, marked with the sigil of the Holy Psydonic Inquisition."
 
 /obj/structure/closet/crate/chest/inqcrate/wardrobe/
 	name = "inquisitorial wardrobe crate"
-	desc = "A crate of boswellia wood, marked with the sigil of the Holy Psydonic Inquisition." 
+	desc = "A crate of boswellia wood, marked with the sigil of the Holy Psydonic Inquisition."
 
 /// ✤ RELIQUARY ✤ START HERE! WOW!
 
@@ -253,6 +253,22 @@
 	new /obj/item/gun/ballistic/revolver/grenadelauncher/crossbow/heavy/relic/marque(src)
 	new /obj/item/quiver/bolt/heavy/stake_silver(src)
 
+//Caustic Edit - Add in the Boomstick!
+/datum/inqports/articles/boomstick
+	name = "Relic - The Boomstick, Bane of Undead"
+	item_type = /obj/structure/closet/crate/chest/inqreliquary/relic/boomstick/
+	marquescost = 24
+	maximum = 1
+
+/obj/structure/closet/crate/chest/inqreliquary/relic/boomstick/Initialize()
+	. = ..()
+	new /obj/item/gun/ballistic/revolver/grenadelauncher/blackpowder/small/boomstick(src)
+	new /obj/item/ammo_casing/caseless/rogue/bullet/blackpowder/boomstick_round(src)
+	new /obj/item/ammo_casing/caseless/rogue/bullet/blackpowder/boomstick_round(src)
+	new /obj/item/ammo_casing/caseless/rogue/bullet/blackpowder/boomstick_round(src)
+	new /obj/item/ammo_casing/caseless/rogue/bullet/blackpowder/boomstick_round(src)
+//Caustic Edit End
+
 /datum/inqports/articles/psyarmor
 	name = "Relic - The Platemaille, Everwithstanding"
 	item_type = /obj/structure/closet/crate/chest/inqreliquary/relic/psyarmor/
@@ -450,6 +466,18 @@
 	new /obj/item/book/rogue/bibble/psy(src)
 	new /obj/item/book/rogue/bibble/psy(src)
 	new /obj/item/book/rogue/bibble/psy(src)
+
+//Caustic Edit - Add in extra Boomstick Ammo
+/datum/inqports/equipment/boomstick_rounds
+	name = "2 Rounds for the Boomstick"
+	item_type = /obj/structure/closet/crate/chest/inqcrate/articles/boomstick_rounds
+	marquescost = 8
+
+/obj/structure/closet/crate/chest/inqcrate/articles/boomstick_rounds/Initialize()
+	. = ..()
+	new /obj/item/ammo_casing/caseless/rogue/bullet/blackpowder/boomstick_round(src)
+	new /obj/item/ammo_casing/caseless/rogue/bullet/blackpowder/boomstick_round(src)
+//Caustic Edit End
 
 // ✤ WARDROBE ✤ STARTS HERE! YEP!
 
