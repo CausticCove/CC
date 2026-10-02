@@ -34,7 +34,8 @@
 	button_icon = 'icons/mob/actions/matthiosmiracles.dmi'
 	button_icon_state = "lockpick"
 	name = "Freeman's Tools"
-	desc = "A simple prayer to the Free-God Matthios, for tools of liberation or transaction.<br><br>His will manifests in three forms: gutter-born tricks of want, gilded tools of blessed liberation, or by granting the bases of Malchem, a form of primordial alchemy so impossible it is oft mistaken for sorcery."
+	desc = "A simple prayer to the Free-God, granting the faithful a choice of three humble tools: an orb of Sacred Fyre, the most reliable tool for thievery, or the first secrets of Malchemy."
+	fluff_desc = "The first lesson of any servant of Matthios is a simple one: freedom means being given the means to choose. This humble miracle offers just that, a choice of tools to begin walking one's own path. Whether fire stolen from Astrata, the implements of a thief, or the first instruments of Malchemy, the choice is yours. Matthios merely opens the door; what you do with what lies beyond is your own."
 	associated_skill = /datum/skill/magic/holy
 	click_to_activate = FALSE
 	self_cast_possible = TRUE
@@ -43,144 +44,7 @@
 	charge_required = FALSE
 	cooldown_time = 10 SECONDS
 	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC | SPELL_REQUIRES_HUMAN | SPELL_REQUIRES_SAME_Z
-	var/list/options = list(
-		//a simple 'blinds u for 1 sec' throwable
-		"Pocket Sand" = list(
-			path = /obj/item/impact_grenade/pocketsand,
-			m_cooldown = 60 SECONDS,
-			m_devotion = 10,
-			m_rank = SKILL_LEVEL_NOVICE,
-			category = "Rogue Arts",
-			lines = list("Dust to blind thee!", "A handful of freedom!", "A gift for thee!", "Mind yer eyes!", "This always works like a miracle!")
-		),
-		//basically just lesser knock
-		"Gilded Lockpick" = list(
-			path = /obj/item/melee/touch_attack/lesserknock/matthios,
-			m_cooldown = 5 SECONDS,
-			m_devotion = 10,
-			m_rank = SKILL_LEVEL_NOVICE,
-			category = "Gilded Tools",
-			lines = list("#By thine hands...", "#No locks shall bar the free!", "#Thine tool shall bring liberation!", "#Matthios, shatter my locks!")
-		),
-		//rip the bag of bribery, say hello to pouch of smuggling
-		"Pouch of Smuggling" = list(
-			path = /obj/item/storage/belt/rogue/pouch/matthios,
-			m_cooldown = 10 MINUTES,
-			m_devotion = 100,
-			m_rank = SKILL_LEVEL_NOVICE,
-			category = "Rogue Arts",
-			lines = list("#Let me begin your work!", "#Matthios, protect my well-deserved goods!", "#Grant me protection against those tyrant knaves!", "#Matthios, ordain me your blessed storage!")
-		),
-		//like a pouch of smuggling, but smugglier
-		"Bag of Smuggling" = list(
-			path = /obj/item/storage/backpack/rogue/backpack/matthios,
-			m_cooldown = -1,
-			m_devotion = 200,
-			m_rank = SKILL_LEVEL_APPRENTICE,
-			category = "Rogue Arts",
-			lines = list("#Let me begin your work!", "#Matthios, protect my well-deserved goods!", "#Grant me protection against those tyrant knaves!", "#Matthios, ordain me your blessed storage!")
-		),
-		//makes failed lockpicking attempts muffled
-		"Gilded Dexterous Gloves" = list(
-			path = /obj/item/clothing/gloves/roguetown/fingerless_leather/muffle_matthios,
-			m_cooldown = 5 MINUTES,
-			m_devotion = 100,
-			m_rank = SKILL_LEVEL_JOURNEYMAN,
-			category = "Gilded Tools",
-			lines = list("#Hands of trade, be silent.", "#Let fingers dance for thy amusement.", "#Dexterity bought in faith.")
-		),
-		//makes your footsteps muffled
-		"Gilded Muffled Boots" = list(
-			path = /obj/item/clothing/shoes/roguetown/boots/muffle_matthios,
-			m_cooldown = 5 MINUTES,
-			m_devotion = 100,
-			m_rank = SKILL_LEVEL_APPRENTICE,
-			category = "Gilded Tools",
-			lines = list("#Steps unheard, as I walk in thy shadow.", "#Silent as coin slipping, for thy hoard.", "#No sound, no chain, no better wisdom, O' Lord.")
-		),
-		//enables piss night vision and sets your lockpick timer to 1.5 secs, makes you insane over time and prolonged use and ofc, will burn you the fuck down, it will also not really increase success chance only pick speed, and if you break those? rip, no refunds, as HE ordained
-		"Gilded Lockpicking Specs" = list(
-			path = /obj/item/clothing/mask/rogue/spectacles/matthios,
-			m_cooldown = -1, // this is too stronk, so only 1 allowed now
-			m_devotion = 200,
-			m_rank = SKILL_LEVEL_EXPERT,
-			category = "Gilded Tools",
-			lines = list("#Guide my sight, O' Matthios.","#Through pins and wards, thy Free eyes see.","#No door shall be between me and truth.")
-		),
-		//normal chains that bind nobility faster
-		"Gilded Chains" = list(
-			path = /obj/item/rope/chain/matthios,
-			m_cooldown = 10 MINUTES,
-			m_devotion = 200,
-			m_rank = SKILL_LEVEL_JOURNEYMAN,
-			category = "Gilded Tools",
-			lines = list("Matthios! Chains for the tyrants!", "Matthios! Transact me thy chains!", "Lord of Freedom, chains for the unworthy!")
-		),
-		//enables thieves' cant when worn on neck
-		"Gilded Amulet of Matthios" = list(
-			path = /obj/item/clothing/neck/roguetown/psicross/inhumen/matthios/gilded,
-			m_cooldown = 1 MINUTES,
-			m_devotion = 50,
-			m_rank = SKILL_LEVEL_NONE,
-			category = "Gilded Tools",
-			lines = list("#Matthios, let thine will be done.", "#Lord of Exchange, my soul is yours.", "#God of the Stolen Fyre, thou will be done.")
-		),
-		//miralchemy mode on
-		"Vial of Firstlaw" = list(
-			path = /obj/item/matthios_canister/firstlaw,
-			m_cooldown = 1 MINUTES,
-			m_devotion = 75,
-			m_rank = SKILL_LEVEL_NOVICE,
-			category = "Malchem Vials",
-			lines = list("#Matthios, provide the base, I shall complete thy work!", "#Matthios! Deliver unto me the truth of alchemy!", "#Lord of Exchange, I shall finish thy work!")
-		),
-		//turns 10 organic items into 1 rich food of choice (that will often be burned mess or bread if you're not starving to death)
-		"Vial of Kingsfeast Base" = list(
-			path = /obj/item/matthios_canister/kingsfeast,
-			m_cooldown = 2 MINUTES,
-			m_devotion = 25,
-			m_rank = SKILL_LEVEL_NOVICE,
-			category = "Malchem Vials",
-			lines = list("#Matthios, provide the base, I shall complete thy work!", "#Matthios! Deliver unto me the truth of alchemy!", "#Lord of Exchange, I shall finish thy work!")
-		),
-		//basically turns water or fruits into wine, if used with blood or lux instead, becomes Kingsblood
-		"Vial of Kingswine Base" = list(
-			path = /obj/item/matthios_canister/kingswine,
-			m_cooldown = 2 MINUTES,
-			m_devotion = 25,
-			m_rank = SKILL_LEVEL_NOVICE,
-			category = "Malchem Vials",
-			lines = list("#Matthios, provide the base, I shall complete thy work!", "#Matthios! Deliver unto me the truth of alchemy!", "#Lord of Exchange, I shall finish thy work!")
-		),
-		//makes you honk shoo mimimi, while restoring energy over time
-		"Vial of Goodnite Base" = list(
-			path = /obj/item/matthios_canister/goodnite,
-			m_cooldown = 2 MINUTES,
-			m_devotion = 50,
-			m_rank = SKILL_LEVEL_APPRENTICE,
-			category = "Malchem Vials",
-			lines = list("#Matthios, provide the base, I shall complete thy work!", "#Matthios! Deliver unto me the truth of alchemy!", "#Lord of Exchange, I shall finish thy work!")
-		),
-		//a 4 use vial of mending
-		"Vial of Warsmith Base" = list(
-			path = /obj/item/matthios_canister/warsmith,
-			m_cooldown = 2 MINUTES,
-			m_devotion = 50,
-			m_rank = SKILL_LEVEL_JOURNEYMAN,
-			category = "Malchem Vials",
-			lines = list("#Matthios, provide the base, I shall complete thy work!", "#Matthios! Deliver unto me the truth of alchemy!", "#Lord of Exchange, I shall finish thy work!")
-		),
-		// a spicy, explosive, very, very difficult-to-make revive vial, uses all herbs in the world and 1 of any lux type
-		"Vial of Lyfestruth Base" = list(
-			path = /obj/item/matthios_canister/lyfestruth,
-			m_cooldown = 30 MINUTES,
-			m_devotion = 100,
-			m_rank = SKILL_LEVEL_EXPERT,
-			category = "Malchem Vials",
-			lines = list("#Matthios, provide the base, I shall complete thy work!", "#Matthios! Deliver unto me the truth of alchemy!", "#Lord of Exchange, I shall finish thy work!")
-		),
-	)
-
+	var/path = null
 	var/list/item_cooldowns = list()
 
 /datum/action/cooldown/spell/matthios/freemans_tools/cast(atom/cast_on)
@@ -188,114 +52,89 @@
 	var/mob/living/carbon/human/H = owner
 	if(!istype(H))
 		return FALSE
-
 	var/skill = H.get_skill_level(associated_skill)
 
-	// FILTER VALID OPTIONS
-	var/list/valid = list()
-	for(var/name in options)
-		var/list/entry = options[name]
-		if(!islist(entry))
-			continue
-		if(skill >= entry["m_rank"])
-			valid[name] = entry
-
-	if(!valid.len)
-		return FALSE
-
-	// CATEGORY SELECTION
-	var/list/categories = list(
-		"Rogue Arts",
-		"Gilded Tools",
-		"Malchem Vials"
-	)
-
-	var/category = tgui_input_list(H, "Choose your path", "Freeman's Tools", categories)
-	if(!category)
-		return FALSE
-
-	// BUILD DISPLAY LIST
-	var/list/display = list()
-
-	for(var/name in valid)
-		var/list/entry = valid[name]
-
-		if(entry["category"] != category)
-			continue
-
-		var/cd = item_cooldowns[name]
-		var/display_name
-
-		var/devotion_cost = entry["m_devotion"] || 0
-
-		if(cd == -1)
-			display_name = "[name] (UNAVAILABLE)"
-		else
-			var/time_left = cd ? max(0, cd - world.time) : 0
-			if(time_left > 0)
-				display_name = "[name] ([round(time_left/10, 1)]s | [devotion_cost] Devotion)"
-			else
-				display_name = "[name] ([devotion_cost] Devotion)"
-
-		display[display_name] = name
-
-	if(!display.len)
-		to_chat(H, span_warning("Nothing available in this category."))
-		return FALSE
-
-	// CHOICE
-	var/choice_display = tgui_input_list(H, "Choose your tool", "Freeman's Tools", display)
-	if(!choice_display)
-		return FALSE
-
-	var/choice = display[choice_display]
-	if(!choice)
-		return FALSE
-
-	var/list/entry = valid[choice]
-	var/item_path = entry["path"]
-	var/m_cd = entry["m_cooldown"]
-	var/list/lines = entry["lines"]
-	var/devotion_cost = entry["m_devotion"] || 0
-
-	if(!item_path)
-		return FALSE
-
-	// COOLDOWN CHECK
-	if(item_cooldowns[choice] == -1)
-		to_chat(H, span_warning("[choice] cannot be used again."))
-		return FALSE
-
-	if(item_cooldowns[choice] && world.time < item_cooldowns[choice])
-		to_chat(H, span_warning("[choice] is on cooldown for [round((item_cooldowns[choice] - world.time)/10, 1)] seconds."))
-		return FALSE
-
-	// DEVOTION CHECK
-	if(devotion_cost > 0)
-		src.devotion_cost = devotion_cost
-		if(!H.devotion?.check_devotion(src))
-			to_chat(H, span_warning("Your connection to the Free God is faint. Don't ask favors you cannot pay for."))
+	if(!path)
+		var/list/paths = list("Thievery", "Malchemy")
+		if(skill >= SKILL_LEVEL_JOURNEYMAN)
+			paths += "Greed"
+		path = tgui_input_list(H, "Commit to a path (NOTE: ONLY ONE CHOICE!)", "Freeman's Tools", paths)
+		if(!path)
 			return FALSE
 
-	// SPAWN ITEM
-	var/obj/item/I = new item_path(H.drop_location())
-	if(!I)
-		return FALSE
+		switch(path)
+			if("Thievery")
+				name = "Thievery"
+				desc = "Call upon the Free-God for a tool fit to bypass locks and open what was meant to remain closed. It can also be used to open access into Matthios's hoard, where you can draw a few extra tools to help your endeavors."
+				fluff_desc = "A locked door is merely an invitation written in an inconvenient language. Matthios teaches that nothing is truly beyond reach when one has the wit, patience, and proper tools to claim it."
+			if("Malchemy")
+				name = "Malchemy"
+				desc = "Invoke the First Law and receive a vessel through which all value of Psydonia may be dissolved, stored, and exchanged into other substances."
+				fluff_desc = "The First Law is simple: nothing is created and nothing is lost. Value merely changes shape. What distant alchemists spent lifetimes pursuing, Malchem once accomplished with casual certainty. Matthios preserves a fragment of that old truth for those willing to use it."
+			if("Greed")
+				desc = "Take freely from the two aspects of Matthios, choosing whichever serves your immediate purpose."
+				fluff_desc = "The Free-God does not begrudge the ambitious. Why choose one road when you possess the means to walk all of them? Take what you need, He sees it as an investment."
 
-	H.put_in_hands(I)
+	if(path == "Greed")
+		var/list/choices = list("Thievery", "Malchemy")
+		var/greed_choice = tgui_input_list(H, "Choose your tool", "Freeman's Tools", choices)
+		if(!greed_choice)
+			return FALSE
 
-	if(lines && lines.len)
-		H.say(pick(lines), language = /datum/language/common)
+		switch(greed_choice)
+			if("Thievery")
+				var/obj/item/lockpick/gilded/lockpick = new /obj/item/lockpick/gilded(H.drop_location())
+				if(!lockpick)
+					return FALSE
+				var/picklvl = 0
+				var/max_integrity = 5
+				if(skill >= SKILL_LEVEL_JOURNEYMAN)
+					picklvl = 1
+					max_integrity += 10
+				if(skill >= SKILL_LEVEL_EXPERT)
+					picklvl = 2
+					max_integrity += 50
+				lockpick.picklvl = picklvl
+				lockpick.max_integrity = max_integrity
+				lockpick.obj_integrity = max_integrity
+				H.put_in_hands(lockpick)
+				H.say("#Grant me a tool of liberation!")
 
-	// APPLY DEVOTION COST
-	if(devotion_cost > 0)
-		H.devotion.update_devotion(-devotion_cost)
+			if("Malchemy")
+				var/obj/item/matthios_canister/firstlaw/malchem = new /obj/item/matthios_canister/firstlaw(H.drop_location())
+				if(!malchem)
+					return FALSE
+				H.put_in_hands(malchem)
+				H.say("#Grant me the secrets of Malchem!")
 
-	// APPLY COOLDOWN
-	if(m_cd == -1)
-		item_cooldowns[choice] = -1
-	else
-		item_cooldowns[choice] = world.time + m_cd
+		StartCooldown()
+		return TRUE
+
+	switch(path)
+		if("Thievery")
+			var/obj/item/lockpick/gilded/lockpick = new /obj/item/lockpick/gilded(H.drop_location())
+			if(!lockpick)
+				return FALSE
+			var/picklvl = 0
+			var/max_integrity = 10
+			if(skill >= SKILL_LEVEL_JOURNEYMAN)
+				picklvl = 1
+				max_integrity += 10
+			if(skill >= SKILL_LEVEL_EXPERT)
+				picklvl = 2
+				max_integrity += 90
+			lockpick.picklvl = picklvl
+			lockpick.max_integrity = max_integrity
+			lockpick.obj_integrity = max_integrity
+			H.put_in_hands(lockpick)
+			H.say("#Grant me a tool of liberation!")
+
+		if("Malchemy")
+			var/obj/item/matthios_canister/firstlaw/fl = new /obj/item/matthios_canister/firstlaw(H.drop_location())
+			if(!fl)
+				return FALSE
+			H.put_in_hands(fl)
+			H.say("#Grant me the secrets of Malchem!")
 
 	StartCooldown()
 	return TRUE
@@ -347,91 +186,6 @@
 	return TRUE
 
 ///////////////////
-//T1 - Mammonite //
-///////////////////
-//Uses up to 200 Mammon to deal damage with equivalent armor penetration on your next strike. Can't get simpler than that.
-//if you toast more than 80 mammon (I.E, Strong stance), you have a chance to gib NPCs. Let's go gambling.
-
-/datum/action/cooldown/spell/matthios/mammonite
-	name = "Mammonite"
-	desc = "Invoke Matthios's name and invest 10 to 200 mammon from your possessions and treasury into your next strike (based on your intent, min. 'Weak', max. 'Strong'). The attack penetrates armor equal to 75% of the mammon spent and grows stronger with the value of the offering. Offering over 80 mammon in one strike has a chance to obliterate the mindless."
-	fluff_desc = "The faithful tell of a merchant cornered by death, bereft of allies, steel, and hope. With nothing left but his fortune and his faith in Matthios, he offered both in desperate prayer. The coins vanished, and in their place came strength enough to fell those who would have slain him. Thus Mammonite serves as a reminder that wealth is never truly powerless in the hands of the devoted. Through greed, you proliferate His ambition, His name."
-	button_icon_state = "mammonite"
-	glow_intensity = GLOW_INTENSITY_MEDIUM
-	click_to_activate = FALSE
-	primary_resource_cost = SPELLCOST_MIRACLE
-	secondary_resource_cost = SPELLCOST_MIRACLE
-	invocation_type = "shout"
-	charge_required = FALSE
-	cooldown_time = 25 SECONDS
-	associated_skill = /datum/skill/magic/holy
-	spell_tier = 0
-	spell_requirements = SPELL_REQUIRES_NO_ANTIMAGIC | SPELL_REQUIRES_HUMAN
-	var/min_mammon = 10
-	var/max_mammon = 200
-
-/datum/action/cooldown/spell/matthios/mammonite/cast(atom/cast_on)
-	. = ..()
-	var/mob/living/carbon/human/H = owner
-	if(!istype(H))
-		return FALSE
-	if(!H.cmode)
-		to_chat(H, span_warning("I need some adrenaline pumping for this, my good sire!"))
-		return FALSE
-	if(H.has_status_effect(/datum/status_effect/buff/mammonite))
-		to_chat(H, span_warning("Matthios' truth already lays claim to my next strike."))
-		return FALSE
-
-	var/datum/status_effect/buff/matthios_loan/loan = H.has_status_effect(/datum/status_effect/buff/matthios_loan)
-	var/mammon_used
-	if(loan)
-		mammon_used = max_mammon
-		H.devotion.devotion -= 200 // ka-chim!
-		to_chat(H, span_warning("DEVOTION for DEVASTATION! Matthios, my GREED is YOURS!! (-200 Devotion)"))
-	else
-		var/bank = 0
-		if(SStreasury.has_account(H))
-			bank = SStreasury.get_balance(H)
-		var/onhand = get_mammons_in_atom(H)
-		var/total = bank + onhand
-		var/list/range = get_investment_range(H)
-		var/min_invest = range[1]
-		var/max_invest = range[2]
-		if(total < min_invest)
-			to_chat(H, span_warning("I lack the wealth to invoke Matthios' favor... ([min_invest] mammon needed for [H.rmb_intent.name] stance.)"))
-			return FALSE
-		mammon_used = min(rand(min_invest, max_invest), total)
-		var/remaining = mammon_used
-		var/from_inventory = 0
-		var/from_bank = 0
-		var/drained_onhand = min(onhand, remaining)
-		if(drained_onhand > 0)
-			from_inventory = remove_mammons_from_atom(H, drained_onhand)
-			remaining -= from_inventory
-		if(remaining > 0 && SStreasury.has_account(H))
-			from_bank = min(remaining, SStreasury.get_balance(H))
-			if(from_bank > 0)
-				SStreasury.burn(SStreasury.get_account(H), from_bank, "A worthy Transaction. Is this true?")
-
-		var/source_text = ""
-		if(from_inventory > 0 && from_bank > 0)
-			source_text = " MATTHIOS claims [from_inventory] from my possessions and [from_bank] from my treasury!"
-		else if(from_inventory > 0)
-			source_text = " MATTHIOS claims [from_inventory] from my possessions!"
-		else if(from_bank > 0)
-			source_text = " MATTHIOS claims [from_bank] from my treasury!"
-		H.visible_message(span_danger("[H]'s weapon gleams with a greedy golden light!"), span_notice("I invest [mammon_used] mammon into my next strike.[source_text]"))
-	if(loan)
-		H.remove_status_effect(/datum/status_effect/buff/matthios_loan)
-		H.visible_message(span_danger("[H]'s weapon erupts with a brilliant golden light!"), span_notice("Matthios extends His credit. I invest [mammon_used] mammon without spending a single coin!"))
-	var/datum/status_effect/buff/mammonite/E = H.apply_status_effect(/datum/status_effect/buff/mammonite)
-	if(E)
-		E.bonus_damage = round(mammon_used * 3)
-		E.cap = max_mammon
-	playsound(get_turf(H), loan ? 'sound/magic/blade_burst.ogg' : 'sound/magic/antimagic.ogg', 60, TRUE)
-	return TRUE
-
-///////////////////
 // T2 - Transact //
 ///////////////////
 
@@ -472,11 +226,6 @@
 		return
 	if(isliving(cast_on))
 		var/mob/living/target = cast_on
-		if(HAS_TRAIT(target, TRAIT_BLACKBLOOD))
-			owner.playsound_local(owner, 'sound/magic/PSY.ogg', 100, FALSE, -1)
-			target.visible_message(span_info("[target] stirs for a moment, the miracle dissipates."), span_notice("A dull warmth swells in your heart, only to fade as quickly as it arrived."))
-			playsound(target, 'sound/magic/PSY.ogg', 100, FALSE, -1)
-			return FALSE
 		owner.visible_message(span_notice("The transaction is made! [target] is bathed in a golden light!"))
 		if(iscarbon(target))
 			var/mob/living/carbon/C = target
@@ -505,14 +254,14 @@
 		return TRUE
 	return FALSE
 
-
 /////////////////
 // T2 - Barter //
 /////////////////
 
 /datum/action/cooldown/spell/matthios/barter
 	name = "Barter"
-	desc = "Offer the targeted item to your patron, in exchange for a sum of mammon, scaling with my expertise in holy skill. The capricious nature of Matthios makes this a poor value exchange, all in all."
+	desc = "Offer the targeted item to your patron in exchange for mammon. Matthios takes His cut from the offering, and His generosity depends upon its quality."
+	fluff_desc = "Barter is a rite reserved for Matthios's most devoted followers, born from the ancient custom of honoring Him through worthy exchange. The faithful surrender an offering to His Hoard, and in return He grants a portion of His wealth. Yet the bargain is sacred: a worthy offering honors the god, while a poor one risks His displeasure."
 	button_icon_state = "barter"
 	sound = null
 
@@ -520,19 +269,133 @@
 	cast_range = SPELL_RANGE_ADJACENT
 
 	primary_resource_cost = SPELLCOST_MIRACLE
-
-	secondary_resource_cost = SPELLCOST_MIRACLE
+	secondary_resource_cost = SPELLCOST_MIRACLE + 20
 
 	invocation_type = INVOCATION_NONE
 
 	charge_required = TRUE
-	charge_time = 1 SECONDS
+	charge_time = 2 SECONDS
 	charge_sound = 'sound/magic/chargingold.ogg'
-	cooldown_time = 35 SECONDS
+	cooldown_time = 15 SECONDS
 
 	spell_requirements = SPELL_REQUIRES_SAME_Z
 
-	//This is an EXPLICIT list of paths that we CAN Barter. We do not istype() here, it's a .type == .type check.
+	var/testing_his_patience // 3 strikes and ur out!!! only way to regain his favor is with a fine item or more
+
+/datum/action/cooldown/spell/matthios/barter/cast(atom/cast_on)
+	. = ..()
+
+	if(!istype(cast_on, /obj/item))
+		to_chat(owner, span_warning("This is not a suitable item to Barter with."))
+		return FALSE
+
+	var/obj/item/I = cast_on
+
+	if(!validate_matthios_item(I, owner))
+		return FALSE
+
+	if(I.GetComponent(/datum/component/holster))
+		var/datum/component/holster/SC = I.GetComponent(/datum/component/holster)
+		if(SC.sheathed)
+			to_chat(owner, span_warning("I should empty it, first."))
+			return FALSE
+
+	if(!I.Adjacent(owner))
+		return TRUE
+
+	var/item_value = I.get_real_price()
+	var/quality_multiplier = I.has_item_quality ? ITEM_QUALITY_MULT(I.item_quality) : 1
+	var/final_value = round(item_value * quality_multiplier)
+	var/god_favor = 90 - (20 * associated_skill)
+	var/matthios_cut = rand(10, god_favor)
+	if(I.has_item_quality && I.item_quality > ITEM_QUALITY_STANDARD)
+		matthios_cut *= 0.5
+	var/mammonreward = round(final_value * (1 - (matthios_cut / 100)))
+
+	if(!do_after(owner, 3 SECONDS))
+		return TRUE
+
+	if(!I || QDELETED(I) || !I.Adjacent(owner))
+		return TRUE
+
+	if(I.has_item_quality && I.item_quality < ITEM_QUALITY_ROUGH)
+		if(testing_his_patience >= 3)
+			var/mob/living/carbon/human/H = owner
+			to_chat(owner, span_danger("Matthios has ENDURED enough of your insults. He will suffer your jests no longer!"))
+			H.emote("superagony")
+			H.adjustFireLoss(150)
+			H.adjustBruteLoss(150)
+			var/turf/target_turf = get_turf(H)
+			new /obj/effect/temp_visual/thunderstrike_actual(target_turf)
+			playsound(target_turf, 'sound/magic/lightning.ogg', 50)
+			H.adjust_fire_stacks(10)
+			H.ignite_mob()
+			return TRUE
+
+		testing_his_patience++
+
+	else if(I.has_item_quality && I.item_quality >= ITEM_QUALITY_FINE)
+		testing_his_patience = 0
+
+	to_chat(owner, span_notice("You offer the item to Matthios. In the silence of prayer, He names its worth: [item_value] mammons."))
+
+	if(!I.has_item_quality || I.item_quality == ITEM_QUALITY_STANDARD || I.item_quality == ITEM_QUALITY_ROUGH)
+		to_chat(owner, span_warning("<font color='#fffb00'>Matthios regards the offering with indifference. The appraisal stands at [final_value] mammons."))
+	else if(I.item_quality < ITEM_QUALITY_ROUGH)
+		to_chat(owner, span_danger("Matthios accepts the offering, though His patience wears thin... The appraisal stands at [final_value] mammons."))
+	else
+		to_chat(owner, span_warning("<font color='#fffb00'>You feel Matthios's delight at the quality of the offering. Its worth is settled at [final_value] mammons.</font>"))
+
+	if(mammonreward > 0)
+		to_chat(owner, span_warning("A bargain is struck. Matthios claims [matthios_cut]% of the value for His divine attention."))
+		to_chat(owner, span_yellow("The remainder, [mammonreward] mammons, is granted back to you."))
+	else
+		to_chat(owner, span_warning("Matthios claims the entire value of the offering. Nothing is granted back to you."))
+		to_chat(owner, span_yellow("Matthios grants you nothing in return. What did you expect?"))
+
+	if(I.GetComponent(/datum/component/storage))
+		var/datum/component/storage/ST = I.GetComponent(/datum/component/storage)
+		if(!ST.do_quick_empty(get_turf(I)))
+			return FALSE
+
+	var/turf/T = get_turf(I)
+	new /obj/effect/temp_visual/barter_fx(T)
+	qdel(I)
+
+	addtimer(CALLBACK(src, PROC_REF(process_barter), mammonreward, owner, T), 0.3 SECONDS)
+	return TRUE
+
+/datum/action/cooldown/spell/matthios/barter/proc/process_barter(mammon, mob/user, turf/target_turf)
+	playsound(target_turf, 'sound/effects/matth_barter.ogg', 100, TRUE)
+	budget2change(mammon, user, putinhands = FALSE, custom_turf = target_turf)
+
+/datum/action/cooldown/spell/matthios/barter_secular
+	name = "Secular Barter" //rebased, mostly copypasta but with some differences
+	desc = "Your contacts allow you to find a buyer for most items, though it at a lesser rate than reputable merchants"
+	background_icon = 'icons/mob/actions/antiquarianspells.dmi'
+	button_icon = 'icons/mob/actions/antiquarianspells.dmi'
+	button_icon_state = "secularbarter"
+	sound = null
+	associated_skill = /datum/skill/misc/reading
+
+	click_to_activate = TRUE
+	cast_range = SPELL_RANGE_ADJACENT
+
+
+	primary_resource_type = SPELL_COST_ENERGY
+	primary_resource_cost = SPELLCOST_MIRACLE
+
+	secondary_resource_type = SPELL_COST_STAMINA
+	secondary_resource_cost = SPELLCOST_MIRACLE
+
+	invocation_type = INVOCATION_NONE
+
+	charge_required = FALSE
+	cooldown_time = 35 SECONDS
+
+	spell_requirements = SPELL_REQUIRES_SAME_Z
+	required_items = null
+
 	var/static/list/barter_whitelist = list(
 		/obj/item/clothing/ring,
 		/obj/item/clothing/ring/gold,
@@ -555,7 +418,7 @@
 		/obj/item/clothing/ring/signet/silver,
 	)
 
-/datum/action/cooldown/spell/matthios/barter/cast(atom/cast_on)
+/datum/action/cooldown/spell/matthios/barter_secular/cast(atom/cast_on)
 	. = ..()
 	if(!istype(cast_on, /obj/item))
 		to_chat(owner, span_warning("This is not a suitable item to Barter with."))
@@ -565,9 +428,6 @@
 	if(item_value < 2)
 		to_chat(owner, span_warning("This thing is worthless."))
 		return FALSE
-	if(I.GetComponent(/datum/component/martyrweapon))
-		to_chat(owner, span_danger("My divine energies recoil from the relic! It resists!"))
-		return TRUE	//why did you try this? Go on full CD, bad.
 	if(I.override_state)	//-some- reskinned triumph kit weapons / -some- donor weapons, active martyr weapon
 		to_chat(owner, span_warning("This thing has been glamoured or changed -- its value is too unclear."))
 		return FALSE
@@ -578,8 +438,11 @@
 			return FALSE
 	if((istype(I, /obj/item/rogueweapon) || istype(I, /obj/item/clothing)))
 		if(!(I.type in barter_whitelist))
-			to_chat(owner, span_warning("Weapons and clothing do not appease my Patron, He is not lacking in fashion."))
+			to_chat(owner, span_warning("Arms and armor are too difficult to fence on the market, best stick to valuables."))
 			return FALSE
+	if(!SStreasury.has_account(owner))
+		to_chat(owner, span_warning("Your contacts can't pay you without a registered treasury account. Visit a Meister."))
+		return FALSE
 
 	var/delay = 1 SECONDS
 	delay += round((item_value / 50) SECONDS)
@@ -590,16 +453,22 @@
 				var/mammonreward = round(item_value * ratio)
 				var/turf/T = get_turf(I)
 				new /obj/effect/temp_visual/barter_fx(T)
-				addtimer(CALLBACK(src, PROC_REF(process_barter), mammonreward, owner, T), 0.3 SECONDS)	//fluffy delay to make it sync up with the barter_fx.
+				addtimer(CALLBACK(src, PROC_REF(process_secularbarter), mammonreward, owner, T), 0.3 SECONDS)	//fluffy delay to make it sync up with the barter_fx.
 				if(I.GetComponent(/datum/component/storage))
 					var/datum/component/storage/ST = I.GetComponent(/datum/component/storage)
 					if(!ST.do_quick_empty(T))
 						return FALSE
 				qdel(I)
+				owner.visible_message(span_info("[owner] markets [I] off to [owner.p_their()] contacts."), span_danger("Fencing off [I] to your contacts, [mammonreward] mammons are transferred to your account."))
+				var/datum/fund/account = SStreasury.get_account(owner)
+				SStreasury.mint(account, mammonreward, "interstate mammon transfer")
 
-/datum/action/cooldown/spell/matthios/barter/proc/process_barter(mammon, mob/user, turf/target_turf)
-	playsound(target_turf, 'sound/effects/matth_barter.ogg', 100, TRUE)
-	budget2change(mammon, user, putinhands = FALSE, custom_turf = target_turf)
+/datum/action/cooldown/spell/matthios/barter_secular/proc/process_secularbarter(mammon, mob/user, turf/target_turf)
+	playsound(target_turf, 'sound/effects/secularbarter.ogg', 100, TRUE)
+
+//////////////////////////
+// T2 - Guilded Flames //
+/////////////////////////
 
 /datum/action/cooldown/spell/projectile/matthios/gilded_flames
 	background_icon = 'icons/mob/actions/matthiosmiracles.dmi'
@@ -760,104 +629,6 @@
 		holder.maptext = MAPTEXT(tag)
 		holder.color = "#ffd45a"
 
-/datum/action/cooldown/spell/matthios/barter_secular
-	name = "Secular Barter" //rebased, mostly copypasta but with some differences
-	desc = "Your contacts allow you to find a buyer for most items, though it at a lesser rate than reputable merchants"
-	background_icon = 'icons/mob/actions/antiquarianspells.dmi'
-	button_icon = 'icons/mob/actions/antiquarianspells.dmi'
-	button_icon_state = "secularbarter"
-	sound = null
-	associated_skill = /datum/skill/misc/reading
-
-	click_to_activate = TRUE
-	cast_range = SPELL_RANGE_ADJACENT
-
-
-	primary_resource_type = SPELL_COST_ENERGY
-	primary_resource_cost = SPELLCOST_MIRACLE
-
-	secondary_resource_type = SPELL_COST_STAMINA
-	secondary_resource_cost = SPELLCOST_MIRACLE
-
-	invocation_type = INVOCATION_NONE
-
-	charge_required = FALSE
-	cooldown_time = 35 SECONDS
-
-	spell_requirements = SPELL_REQUIRES_SAME_Z
-	required_items = null
-
-	var/static/list/barter_whitelist = list(
-		/obj/item/clothing/ring,
-		/obj/item/clothing/ring/gold,
-		/obj/item/clothing/ring/blacksteel,
-		/obj/item/clothing/ring/coral,
-		/obj/item/clothing/ring/opal,
-		/obj/item/clothing/ring/jade,
-		/obj/item/clothing/ring/aalloy,
-		/obj/item/clothing/ring/amber,
-		/obj/item/clothing/ring/band,
-		/obj/item/clothing/ring/bronze,
-		/obj/item/clothing/ring/diamond,
-		/obj/item/clothing/ring/diamonds,
-		/obj/item/clothing/ring/diamondbs,
-		/obj/item/clothing/ring/dragon_ring,
-		/obj/item/clothing/ring/emerald,
-		/obj/item/clothing/ring/emeraldbs,
-		/obj/item/clothing/ring/emeralds,
-		/obj/item/clothing/ring/signet,
-		/obj/item/clothing/ring/signet/silver,
-	)
-
-/datum/action/cooldown/spell/matthios/barter_secular/cast(atom/cast_on)
-	. = ..()
-	if(!istype(cast_on, /obj/item))
-		to_chat(owner, span_warning("This is not a suitable item to Barter with."))
-		return FALSE
-	var/obj/item/I = cast_on
-	var/item_value = I.get_real_price()
-	if(item_value < 2)
-		to_chat(owner, span_warning("This thing is worthless."))
-		return FALSE
-	if(I.override_state)	//-some- reskinned triumph kit weapons / -some- donor weapons, active martyr weapon
-		to_chat(owner, span_warning("This thing has been glamoured or changed -- its value is too unclear."))
-		return FALSE
-	if(I.GetComponent(/datum/component/holster))
-		var/datum/component/holster/SC = I.GetComponent(/datum/component/holster)
-		if(SC.sheathed)
-			to_chat(owner, span_warning("I should empty it, first."))
-			return FALSE
-	if((istype(I, /obj/item/rogueweapon) || istype(I, /obj/item/clothing)))
-		if(!(I.type in barter_whitelist))
-			to_chat(owner, span_warning("Arms and armor are too difficult to fence on the market, best stick to valuables."))
-			return FALSE
-	if(!SStreasury.has_account(owner))
-		to_chat(owner, span_warning("Your contacts can't pay you without a registered treasury account. Visit a Meister."))
-		return FALSE
-
-	var/delay = 1 SECONDS
-	delay += round((item_value / 50) SECONDS)
-	if(I.Adjacent(owner))
-		if(do_after(owner, delay))
-			if(I.Adjacent(owner))	//We make sure it didnt' get yoinked after the delay.
-				var/ratio = 0.4 + ((owner.get_skill_level(associated_skill)) * 0.05)
-				var/mammonreward = round(item_value * ratio)
-				var/turf/T = get_turf(I)
-				new /obj/effect/temp_visual/barter_fx(T)
-				addtimer(CALLBACK(src, PROC_REF(process_secularbarter), mammonreward, owner, T), 0.3 SECONDS)	//fluffy delay to make it sync up with the barter_fx.
-				if(I.GetComponent(/datum/component/storage))
-					var/datum/component/storage/ST = I.GetComponent(/datum/component/storage)
-					if(!ST.do_quick_empty(T))
-						return FALSE
-				qdel(I)
-				owner.visible_message(span_info("[owner] markets [I] off to [owner.p_their()] contacts."), span_danger("Fencing off [I] to your contacts, [mammonreward] mammons are transferred to your account."))
-				var/datum/fund/account = SStreasury.get_account(owner)
-				SStreasury.mint(account, mammonreward, "interstate mammon transfer")
-
-/datum/action/cooldown/spell/matthios/barter_secular/proc/process_secularbarter(mammon, mob/user, turf/target_turf)
-	playsound(target_turf, 'sound/effects/secularbarter.ogg', 100, TRUE)
-
-
 ///////////////////
 // T3 - Equalize //
 ///////////////////
@@ -876,8 +647,7 @@
 
 	secondary_resource_cost = SPELLCOST_MIRACLE_MAJOR
 
-	invocation_type = INVOCATION_SHOUT
-	invocations = list("Transaction for a lyfe!")
+	invocation_type = INVOCATION_NONE
 
 	charge_required = TRUE
 	charge_time = 4 SECONDS
@@ -904,7 +674,7 @@
 			return TRUE
 	return FALSE
 
- // buff
+// buff
 /datum/status_effect/buff/equalizebuff
 	id = "equalize"
 	alert_type = /atom/movable/screen/alert/status_effect/buff/equalized
@@ -928,7 +698,7 @@
 	to_chat(owner, "<font color='yellow'>The link wears off, and the stolen fyre returns to them.</font>")
 
 
- // debuff
+// debuff
 /datum/status_effect/debuff/equalizedebuff
 	id = "equalize"
 	alert_type = /atom/movable/screen/alert/status_effect/buff/equalized
@@ -950,7 +720,7 @@
 	owner.remove_filter(EQUALIZED_GLOW)
 	to_chat(owner, "<font color='yellow'>My fire returns!</font>")
 
- // debuff - noble
+// debuff - noble
 /datum/status_effect/debuff/equalizedebuff_noble
 	id = "equalize"
 	alert_type = /atom/movable/screen/alert/status_effect/debuff/equalized_noble

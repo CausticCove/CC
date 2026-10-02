@@ -9,13 +9,13 @@
 					/datum/action/cooldown/spell/matthios/freemans_tools				= CLERIC_T0,
 					/datum/action/cooldown/spell/miracle/heal 							= CLERIC_T1,
 					/datum/action/cooldown/spell/miracle/bloodmiracle					= CLERIC_T1,
-					/datum/action/cooldown/spell/matthios/mammonite						= CLERIC_T1,
+					//datum/action/cooldown/spell/matthios/mammonite						= CLERIC_T1, // CC EDIT - too OP
 					/obj/effect/proc_holder/spell/self/skulduggery						= CLERIC_T1, // CC EDIT
 					/datum/action/cooldown/spell/matthios/transact						= CLERIC_T2,
 					/datum/action/cooldown/spell/matthios/barter						= CLERIC_T2,
 					/datum/action/cooldown/spell/projectile/matthios/gilded_flames 		= CLERIC_T2,
 					/datum/action/cooldown/spell/matthios/equalize						= CLERIC_T3,
-					/obj/effect/proc_holder/spell/invoked/resurrect/matthios			= CLERIC_T3,
+					/datum/action/cooldown/spell/matthios/anastasis						= CLERIC_T3,
 					/datum/action/cooldown/spell/matthios/churn							= CLERIC_T3  // CC EDIT - Back to t3
 	)
 	confess_lines = list(

@@ -1921,6 +1921,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			return "Blessed"
 		if(EXAMINEHIGHLIGHT_HERESYSEVERITY_VERYODD)
 			return "ALARMINGLY ODD"
+		if(EXAMINEHIGHLIGHT_HERESYSEVERITY_WEIRD)
+			return "Strange"
 	return null
 
 /// See `proc/get_examine_highlight_status()` and `code\__DEFINES\highlight_examine_defines.dm`.
@@ -1942,6 +1944,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			return EXAMINEHIGHLIGHT_TOOLTIP_VIBE_GOLGATHA
 		if(EXAMINEHIGHLIGHT_HERESYSEVERITY_VERYODD)
 			return EXAMINEHIGHLIGHT_TOOLTIP_HERESYSEVERITY_VERYODD
+		if(EXAMINEHIGHLIGHT_HERESYSEVERITY_WEIRD)
+			return EXAMINEHIGHLIGHT_TOOLTIP_HERESYSEVERITY_WEIRD
 	return null
 
 /// See `proc/get_examine_highlight_status()` and `code\__DEFINES\highlight_examine_defines.dm`.
@@ -1963,6 +1967,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			return COLOR_VIBE_GOLGATHA
 		if(EXAMINEHIGHLIGHT_HERESYSEVERITY_VERYODD)
 			return COLOR_HERESYSEVERITY_VERYODD //Its meant to be a double-take. Intentional.
+		if(EXAMINEHIGHLIGHT_HERESYSEVERITY_WEIRD)
+			return COLOR_HERESYSEVERITY_WEIRD // why do you have astrata's fire on your belt, ser?
 	return null
 
 /// See `proc/get_examine_highlight_status()` and `code\__DEFINES\highlight_examine_defines.dm`.
@@ -1984,6 +1990,8 @@ GLOBAL_VAR_INIT(rpg_loot_items, FALSE)
 			return SYMBOL_VIBE_GOLGATHA
 		if(EXAMINEHIGHLIGHT_HERESYSEVERITY_VERYODD)
 			return EXAMINEHIGHLIGHT_SYMBOL_HERESYSEVERITY_VERYODD //Its meant to be a double-take. Intentional.
+		if(EXAMINEHIGHLIGHT_HERESYSEVERITY_WEIRD)
+			return EXAMINEHIGHLIGHT_SYMBOL_HERESYSEVERITY_WEIRD
 	return null
 
 /obj/item/proc/apply_stacked_auras()

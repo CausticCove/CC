@@ -545,26 +545,27 @@
 /datum/status_effect/buff/mammonite/proc/do_mammon_execution(mob/living/target)
 	if(QDELETED(owner) || QDELETED(target))
 		return
-	owner.visible_message(span_boldwarning("[target] is slammed by the unrestrained might of a raging dragon!"), span_notice("Their life was worth less than the investment!~"))
+	owner.visible_message(span_boldwarning("[target] suddenly contorts, twists and lets out a blood-curling screech--!"), span_notice("Their life was worth less than the investment."))
 	target.emote("superagony")
 	mammon_coin_burst(get_turf(target))
 	playsound(get_turf(target), 'sound/combat/hits/burn (2).ogg', 60, TRUE)
 	target.apply_status_effect(/datum/status_effect/debuff/dramatic_finish, owner)
+	target.safe_throw_at(target, 3, 1, owner, force = MOVE_FORCE_EXTREMELY_STRONG)
+	target.Knockdown(5)
 
 /datum/status_effect/buff/mammonite/proc/do_mammon_strike(mob/living/target, obj/item/weapon)
 	if(QDELETED(owner) || QDELETED(target))
 		return
+
 	var/damage = bonus_damage
 	var/mammon_spent = round(bonus_damage / 3)
-	var/apen = clamp(round(mammon_spent / 20), PEN_NONE, PEN_HEAVY)
-	var/bclass = BCLASS_BLUNT
-	var/damtype = BRUTE
-	var/npc_mult = 2
-	if(mammon_spent >= 80)
-		bclass = BCLASS_BURN
-		damtype = BURN
+	var/npc_mult = target.mind ? 1 : 2
+	var/apen = mammon_spent < 80 ? PEN_NONE : PEN_BSTEEL
+	var/bclass = mammon_spent < 80 ? BCLASS_BLUNT : BCLASS_BURN
+	var/damtype = mammon_spent < 80 ? BRUTE : BURN
+
 	arcyne_strike(owner, target, weapon, damage, owner.zone_selected, bclass, apen, "Mammonite", FALSE, FALSE, FALSE, damtype, npc_mult, 1)
-	owner.visible_message(span_danger("[owner]'s strike crashes down with the weight of greed!"), span_notice("My investment pays off in full!"))
+	owner.visible_message(span_danger("[owner]'s strike crashes down with the weight of their greed!"), span_notice("My investment pays off in full!"))
 	mammon_coin_burst(get_turf(target))
 	playsound(get_turf(target), 'sound/combat/hits/burn (2).ogg', 60, TRUE)
 
@@ -1017,3 +1018,57 @@
 	animate(src, pixel_x = 0, time = 2)
 
 #undef MAMMON_FILTER
+
+////////////////////
+/// BARTER UTILS ///
+////////////////////
+
+/proc/validate_matthios_item(obj/item/I, mob/user)
+	if(!I)
+		return FALSE
+	if(I.GetComponent(/datum/component/cursed_item) || I.GetComponent(/datum/component/martyrweapon) || I.GetComponent(/datum/component/silverbless))
+		to_chat(user, span_warning("You feel like Matthios would not like this at all, there is a warding quality to it."))
+		return FALSE
+	if(I.override_state)
+		to_chat(user, span_warning("You feel like Matthios would not like this at all, as it is too quirky."))
+		return FALSE
+	if(I.GetComponent(/datum/component/decal/blood))
+		to_chat(user, span_warning("You feel like Matthios would not like this at all, as it is bloodstained."))
+		return FALSE
+	if(I.obj_broken)
+		to_chat(user, span_warning("You feel like Matthios would not like this at all, as it is broken."))
+		return FALSE
+	if(I.max_integrity != I.obj_integrity)
+		to_chat(user, span_warning("You feel like Matthios would not like this at all, as it is damaged."))
+		return FALSE
+	if(I.is_important)
+		to_chat(user, span_warning("You feel like Matthios would not like this at all, it just doesn't mesh with Him."))
+		return FALSE
+	if(istype(I, /obj/item/roguecoin))
+		to_chat(user, span_warning("You feel like Matthios would not like this at all, He could take it as an insult."))
+		return FALSE
+	if(istype(I, /obj/structure/handcart))
+		to_chat(user, span_warning("Doing it like this would make this Barter less personal than He would like."))
+		return FALSE
+	if(I.get_real_price() < 1)
+		to_chat(user, span_info("This is worthless, both for you and for Him. You know better."))
+		return FALSE
+	var/category = (GLOB.derived_categories && GLOB.derived_categories[I.type]) || ITEM_CAT_MISCELLANEOUS
+	var/bucket = get_navigator_bucket_for_item(I, category)
+	if(bucket == NAVIGATOR_BUCKET_MISCELLANEOUS)
+		if(GLOB.bulk_trade_item_types && GLOB.bulk_trade_item_types[I.type])
+			to_chat(user, span_warning("You feel like Matthios would not like this at all, bulk goods are meaningless for Gods."))
+			return FALSE
+	var/refusal = get_barter_refusal_message(bucket)
+	if(refusal)
+		to_chat(user, span_warning(refusal))
+		return FALSE
+	return TRUE
+
+/proc/get_barter_refusal_message(bucket)
+	switch(bucket)
+		if(NAVIGATOR_BUCKET_REFUSED_FOOD)
+			return "You feel like Matthios would not like this at all, He doesn't need food or drinks."
+		if(NAVIGATOR_BUCKET_REFUSED_BULK)
+			return "You feel like Matthios would not like this at all, His hoard is no warehouse."
+	return null
