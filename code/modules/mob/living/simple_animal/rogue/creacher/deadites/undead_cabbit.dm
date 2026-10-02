@@ -47,8 +47,8 @@
 	penfactor = PEN_LIGHT
 	blade_class = BCLASS_CUT
 
-/mob/living/simple_animal/hostile/retaliate/rogue/mudcrab/cabbit/undead/attempt_dodge(datum/intent/intenty, mob/living/user)
-	if(world.time < last_dodge + dodgetime)
+/mob/living/simple_animal/hostile/retaliate/rogue/mudcrab/cabbit/undead/attempt_dodge(datum/intent/attack_intent, mob/living/user)
+	if(!user?.dualwield_twoswing && world.time < last_dodge + dodgetime)
 		return FALSE
 
 	if(pulledby || pulling)
@@ -59,7 +59,7 @@
 		return FALSE
 	if(src.loc == user.loc)
 		return FALSE
-	if(intenty && !intenty.candodge)
+	if(attack_intent && !attack_intent.candodge)
 		return FALSE
 	if(HAS_TRAIT(src, TRAIT_NODEF))
 		return FALSE
@@ -96,8 +96,8 @@
 			turfy = turfcheck
 
 	if(!turfy)
-		for(var/x in shuffle(dirry.Copy()))
-			var/turf/turfcheck = get_step(src, x)
+		for(var/dodge_dir in shuffle(dirry.Copy()))
+			var/turf/turfcheck = get_step(src, dodge_dir)
 			if(turfcheck && check_dodge_turf(turfcheck))
 				turfy = turfcheck
 				break

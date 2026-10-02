@@ -248,6 +248,7 @@
 	var/dualwield_finisher = FALSE
 	var/dualwield_resets_in = 0
 	var/dualwield_buff_cd = 0
+	var/dualwield_twoswing = FALSE
 
 	var/is_swimming = FALSE
 	var/is_underwater = FALSE
