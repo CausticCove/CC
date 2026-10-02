@@ -127,7 +127,7 @@
 		healing += situational_bonus
 
 	if(!ishuman(spelltarget))
-		spelltarget.apply_status_effect(/datum/status_effect/buff/healing, healing, is_inhumen)
+		spelltarget.apply_status_effect(/datum/status_effect/buff/healing, healing, is_inhumen, DEFAULT_HEAL_SFX) //CC Edit - Add Healing SFX
 		return TRUE
 
 	var/no_embeds = TRUE
@@ -147,7 +147,7 @@
 		spelltarget.emote("agony")
 		return FALSE
 
-	spelltarget.apply_status_effect(/datum/status_effect/buff/healing, healing)
+	spelltarget.apply_status_effect(/datum/status_effect/buff/healing, healing, null, DEFAULT_HEAL_SFX) //CC Edit - Add Healing SFX
 
 	// Edit - Overwriting the outgoing message here to prevent metagaming faith via message.
 	// Not getting rid of the messages in the code, we might want them for something else later.

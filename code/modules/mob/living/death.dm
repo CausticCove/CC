@@ -208,6 +208,9 @@ GLOBAL_LIST_EMPTY(last_words)
 						to_chat(player, span_warning("I feel the faint passage of disjointed life essence as it flees [locale]."))
 					else
 						to_chat(player, span_warning("Veiled whispers herald the Undermaiden's gaze in my mind's eye as it turn towards [locale] for but a brief, singular moment."))
+					//CC Edit - Special SFX for deathsight.
+					playsound(player, 'modular_causticcove/sound/effects/deathsight_warning.ogg', 50)
+					//CC Edit End
 	// AZURE EDIT END
 
 	return TRUE
