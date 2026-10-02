@@ -32,6 +32,42 @@
 	// slowdown = 1
 	// neighborlay = "duneedge"
 
+/turf/open/floor/rogue/dunes/attack_right(mob/user)
+	if(isliving(user))
+		var/mob/living/L = user
+		if(L.stat != CONSCIOUS)
+			return
+		var/obj/item/I = new /obj/item/natural/dirtclod/sand(src)
+		if(L.put_in_active_hand(I))
+			L.visible_message(span_warning("[L] scoops up some sand."))
+		else
+			qdel(I)
+	. = ..()
+
+/turf/open/floor/rogue/dunes/MiddleClick(mob/user, params)
+	. = ..()
+	if(!isliving(user))
+		return
+
+	var/mob/living/L = user
+	if(L.stat != CONSCIOUS)
+		return
+
+	// Check if the user is holding a shovel
+	var/obj/item/rogueweapon/shovel/S = L.get_active_held_item()
+	if(!istype(S))
+		return
+
+	// Check if in scoop intent
+	if(L.used_intent.type != /datum/intent/shovelscoop)
+		return
+
+	if(S.start_autodig(L, src))
+		return TRUE
+
+	return FALSE
+
+
 /turf/open/floor/rogue/dunes/cardinal_smooth(adjacencies)
 	roguesmooth(adjacencies)
 
