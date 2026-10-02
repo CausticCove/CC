@@ -168,6 +168,8 @@
 	desc = "Coarsely powdered rocknuts, ready to be rolled into a zig or made into azurian pesto!"
 	gender = PLURAL
 	icon_state = "rocknut"
+	list_reagents = list(/datum/reagent/consumable/acorn_powder = 10, /datum/reagent/consumable/Acoffee = 2) //cc edit actually added reagents
+	grind_results = list(/datum/reagent/consumable/acorn_powder = 10)
 	volume = 1
 	sellprice = 0
 
