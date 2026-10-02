@@ -1,6 +1,6 @@
 /datum/job/roguetown/lamplighter
 	title = "Lamplighter"
-	vice_restrictions = list()
+	vice_restrictions = list(/datum/charflaw/targeted, /datum/charflaw/hunted, /datum/charflaw/wanted) // The guild of Not Starting Shit does not allow you in their ranks if you're Going To Cause Shit
 	virtue_restrictions = list(/datum/virtue/combat/magical_potential, /datum/virtue/combat/devotee)
 	flag = LAMPLIGHTER
 	department_flag = WANDERERS
@@ -10,6 +10,7 @@
 
 	tutorial = "A seasoned member of the Roadsmans guild, you dedicate your life to keeping the roads and their wanderers safe from the various evils that go bump in the night no matter their allegiance or faith.."
 
+	townie_contract_gate_exempt = TRUE
 	display_order = JDO_LAMPLIGHTER
 	selection_color = JCOLOR_WANDERER
 	show_in_credits = TRUE
@@ -36,7 +37,7 @@
 	outfit = /datum/outfit/job/roguetown/lampwarden
 	cmode_music = 'sound/music/cmode/adventurer/combat_lamplighter.ogg'
 	category_tags = list(CTAG_LAMPLIGHTER)
-	traits_applied = list(TRAIT_OUTDOORSMAN)
+	traits_applied = list(TRAIT_OUTDOORSMAN, TRAIT_HOMESTEAD_EXPERT)
 	subclass_stats = list(
 		STATKEY_STR = 1,
 		STATKEY_PER = 2,
@@ -48,7 +49,7 @@
 		/datum/skill/combat/knives = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/misc/medicine = SKILL_LEVEL_NOVICE,
 		/datum/skill/misc/swimming = SKILL_LEVEL_APPRENTICE,
-		/datum/skill/misc/athletics = SKILL_LEVEL_JOURNEYMAN,
+		/datum/skill/misc/athletics = SKILL_LEVEL_EXPERT,
 		/datum/skill/misc/climbing = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/misc/reading = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/craft/crafting = SKILL_LEVEL_JOURNEYMAN,
@@ -61,17 +62,19 @@
 
 /datum/outfit/job/roguetown/lampwarden/pre_equip(mob/living/carbon/human/H)
 	..()
-	to_chat(H, span_warning("You are a member of the Roadsman's guild. The Roadsman's guild is a neutral party in all affairs, their only concern is the safety of the roads and their wanderers. Were my staff to be destroyed I've been trained to craft another."))
+	to_chat(H, span_warning("You are a member of the Roadsman's guild. The Roadsman's guild is a neutral party in all affairs, their only concern is the safety of the roads and their wanderers."))
+	to_chat(H, span_warning("As a Lamplighter, I'm trained to rebuild my staff were it to be broken. I also know cheaper techniques for building braziers."))
 	H.mind.AddSpell(new /datum/action/cooldown/spell/lamplighter/cauterize)
 	H.mind.AddSpell(new /datum/action/cooldown/spell/lamplighter/firestrike)
 	H.mind.AddSpell(new /datum/action/cooldown/spell/lamplighter/firespin)
 	H.mind.AddSpell(new /datum/action/cooldown/spell/lamplighter/oil_spill)
 	H.mind.AddSpell(new /datum/action/cooldown/spell/lamplighter/burn_it_down)
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/roguetown/survival/lampwarden)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/roguetown/structure/lamplighter_brazier)
 	head = /obj/item/clothing/head/roguetown/inqhat/lamplighter/warden
 	neck = /obj/item/clothing/neck/roguetown/chaincoif/chainmantle/lamplighter
 	armor = /obj/item/clothing/suit/roguetown/armor/leather/heavy/coat/lamplighter/warden
-	mask = /obj/item/clothing/mask/rogue/lamplighter
+	mask = /obj/item/clothing/mask/rogue/facemask/leather/lamplighter
 	gloves = /obj/item/clothing/gloves/roguetown/angle
 	shirt = /obj/item/clothing/suit/roguetown/armor/gambeson/dark
 	shoes = /obj/item/clothing/shoes/roguetown/boots/leather/reinforced
@@ -79,7 +82,6 @@
 	backr = /obj/item/storage/backpack/rogue/satchel/black
 	backl = /obj/item/rogueweapon/woodstaff/quarterstaff/lamplighter/warden
 	belt = /obj/item/storage/belt/rogue/leather/black
-	beltr = /obj/item/storage/belt/rogue/pouch/coins/poor
 	backpack_contents = list(/obj/item/storage/belt/rogue/pouch/coins/poor = 1,
 						/obj/item/rogueweapon/huntingknife = 1,
 						/obj/item/book/rogue/lamplighter = 1)
@@ -90,7 +92,7 @@
 	outfit = /datum/outfit/job/roguetown/lampwicker
 	cmode_music = 'sound/music/cmode/adventurer/combat_lamplighter.ogg'
 	category_tags = list(CTAG_LAMPLIGHTER)
-	traits_applied = list(TRAIT_OUTDOORSMAN)
+	traits_applied = list(TRAIT_OUTDOORSMAN, TRAIT_HOMESTEAD_EXPERT)
 	subclass_stats = list(
 		STATKEY_PER = 1,
 		STATKEY_INT = 2,
@@ -102,7 +104,7 @@
 		/datum/skill/combat/knives = SKILL_LEVEL_APPRENTICE,
 		/datum/skill/misc/medicine = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/misc/swimming = SKILL_LEVEL_APPRENTICE,
-		/datum/skill/misc/athletics = SKILL_LEVEL_JOURNEYMAN,
+		/datum/skill/misc/athletics = SKILL_LEVEL_EXPERT,
 		/datum/skill/misc/climbing = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/misc/reading = SKILL_LEVEL_JOURNEYMAN,
 		/datum/skill/craft/crafting = SKILL_LEVEL_JOURNEYMAN,
@@ -115,7 +117,8 @@
 
 /datum/outfit/job/roguetown/lampwicker/pre_equip(mob/living/carbon/human/H)
 	..()
-	to_chat(H, span_warning("You are a member of the Roadsman's guild. The Roadsman's guild is a neutral party in all affairs, their only concern is the safety of the roads and their wanderers. Were my staff to be destroyed I've been trained to craft another."))
+	to_chat(H, span_warning("You are a member of the Roadsman's guild. The Roadsman's guild is a neutral party in all affairs, their only concern is the safety of the roads and their wanderers."))
+	to_chat(H, span_warning("As a Lamplighter, I'm trained to rebuild my staff were it to be broken. I also know cheaper techniques for building braziers."))
 	H.mind.AddSpell(new /datum/action/cooldown/spell/lamplighter/scare_beast)
 	H.mind.AddSpell(new /datum/action/cooldown/spell/lamplighter/sooth_the_soul)
 	H.mind.AddSpell(new /datum/action/cooldown/spell/lamplighter/smoke_food)
@@ -124,10 +127,11 @@
 	H.mind.AddSpell(new /datum/action/cooldown/spell/lamplighter/bulwark_of_oil)
 	H.mind.AddSpell(new /datum/action/cooldown/spell/lamplighter/provide_beacon)
 	H.mind.teach_crafting_recipe(/datum/crafting_recipe/roguetown/survival/lampstaff)
+	H.mind.teach_crafting_recipe(/datum/crafting_recipe/roguetown/structure/lamplighter_brazier)
 	head = /obj/item/clothing/head/roguetown/inqhat/lamplighter
 	neck = /obj/item/clothing/neck/roguetown/chaincoif/chainmantle/lamplighter
 	armor = /obj/item/clothing/suit/roguetown/armor/leather/heavy/coat/lamplighter
-	mask = /obj/item/clothing/mask/rogue/lamplighter/beaked
+	mask = /obj/item/clothing/mask/rogue/facemask/leather/lamplighter/beaked
 	gloves = /obj/item/clothing/gloves/roguetown/angle
 	shirt = /obj/item/clothing/suit/roguetown/armor/gambeson/dark
 	shoes = /obj/item/clothing/shoes/roguetown/boots/leather/reinforced
@@ -135,7 +139,6 @@
 	backr = /obj/item/storage/backpack/rogue/satchel/black
 	backl = /obj/item/rogueweapon/woodstaff/quarterstaff/lamplighter
 	belt = /obj/item/storage/belt/rogue/leather/black
-	beltr = /obj/item/storage/belt/rogue/pouch/coins/poor
 	backpack_contents = list(/obj/item/storage/belt/rogue/pouch/coins/poor = 1,
 						/obj/item/rogueweapon/huntingknife = 1,
 						/obj/item/book/rogue/lamplighter = 1)
@@ -151,6 +154,7 @@
 	light_outer_range = 15
 	light_power = 2
 	light_color = "#e66b45"
+	max_integrity = 250
 
 /obj/item/rogueweapon/woodstaff/quarterstaff/lamplighter/MiddleClick(mob/user)
 	var/turf/target_turf = get_step(user,user.dir)
@@ -184,7 +188,7 @@
 	light_power = 2
 	force = 18
 	force_wielded = 25
-	max_integrity = 200
+	max_integrity = 300
 	light_color = "#e66b45"
 
 /obj/item/rogueweapon/woodstaff/quarterstaff/lamplighter/warden/MiddleClick(mob/user)
