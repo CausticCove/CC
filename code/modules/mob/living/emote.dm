@@ -680,6 +680,7 @@
 		//Caustic Edit
 		if(H.show_redflash())
 			H.flash_fullscreen("redflash3")
+		H.stop_all_doing() //This might let Slap stop all do-afters
 		//Caustic Edit End
 		H.AdjustSleeping(-50)
 		playsound(target.loc, 'sound/foley/slap.ogg', 100, TRUE, -1)
