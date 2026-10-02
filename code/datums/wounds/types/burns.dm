@@ -18,9 +18,9 @@
 	severity_stages = list( // burn_dam as a percent of the limb's max_damage
 		"reddened" = 5,
 		"blistering" = 20,
-		"raw" = 40,
-		"blackened" = 60,
-		"necrotic" = 80,
+		"scalded" = 40,
+		"charred" = 60,
+		"cindered" = 80,
 	)
 
 #define BURN_UPG_WHPRATE 1.2
@@ -70,10 +70,10 @@
 	check_name = span_warning("<B>CHARRED</B>")
 	severity = WOUND_SEVERITY_SEVERE
 	crit_message = list(
-		"The flesh is destroyed down to the bone!",
-		"The %BODYPART is blackened and dead!",
+		"The flesh is seared to the bone!",
+		"The %BODYPART is charred black!",
 		"The skin blisters and splits open!",
-		"The flesh crackles and sloughs away!",
+		"The flesh crackles and chars!",
 	)
 	sound_effect = 'sound/combat/crit.ogg'
 	whp = 60
@@ -116,17 +116,27 @@
 /datum/wound/charring/chest
 	name = "torso charring"
 	crit_message = list(
-		"The torso is ruined to the bone!",
-		"The chest blackens and splits!",
-		"The ribcage crackles beneath dead flesh!",
+		"The torso is seared!",
+		"The chest is charred black!",
+		"The ribcage crackles with heat!",
 	)
 	mortal = TRUE
 
 /datum/wound/charring/head
 	name = "head charring"
 	crit_message = list(
-		"The skull is laid bare!",
-		"The face is ruined beyond recognition!",
-		"The scalp blackens and peels away!",
+		"The skull is seared!",
+		"The face is charred beyond recognition!",
+		"The head is engulfed in searing heat!",
 	)
 	mortal = TRUE
+
+/datum/wound/lampcautery
+	name = "cauterized wound"
+	whp = 240
+	bleed_rate = 0
+	clotting_rate = 0
+	clotting_threshold = 0
+	passive_healing = 1
+	woundpain = 100
+	healable_by_miracles = FALSE
