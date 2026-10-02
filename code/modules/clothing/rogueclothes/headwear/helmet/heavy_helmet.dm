@@ -175,6 +175,16 @@
 	flags_inv = HIDEEARS|HIDEFACE|HIDEHAIR|HIDESNOUT
 	block2add = FOV_BEHIND
 
+/obj/item/clothing/head/roguetown/helmet/heavy/burgonet
+	name = "snouted burgonet"
+	desc = "A burgonet, though this one's not in blacksteel - the visor far more suited for snouts."
+	max_integrity = ARMOR_INT_HELMET_HEAVY_STEEL
+	icon_state = "burgonet_s"
+	item_state = "burgonet_s"
+	emote_environment = 3
+	flags_inv = HIDEEARS|HIDEFACE|HIDEHAIR|HIDESNOUT
+	block2add = FOV_BEHIND
+
 /obj/item/clothing/head/roguetown/helmet/heavy/kabuto
 	name = "kabuto"
 	desc = "A Kazengunite helmet of steel plates, gilded in blacksteel and gold trim alike to evoke feelings of nobility and strength. Commonly worn with a mask or mouthguard."
@@ -605,6 +615,10 @@
 		if(get_altdetail_color())
 			pic2.color = get_altdetail_color()
 		add_overlay(pic2)
+
+/obj/item/clothing/head/roguetown/helmet/heavy/knight/armet/snouted
+	name = "snouted armet"
+	icon_state = "armet_s"
 
 /obj/item/clothing/head/roguetown/helmet/heavy/bucket
 	name = "bucket helmet"
@@ -1050,6 +1064,12 @@
 	block2add = FOV_DEFAULT
 	smeltresult = /obj/item/ingot/steel
 	smelt_bar_num = 2
+
+/obj/item/clothing/head/roguetown/helmet/heavy/nochelm/snouted
+	name = "noc burgonet"
+	desc = "Headwear commonly worn by Templars in service to Noc, an open face to settle snouts. Without the night there can be no day; without Noc there can be no light in the dark hours."
+	icon_state = "nochelm_s"
+	item_state = "nochelm_s"
 
 /obj/item/clothing/head/roguetown/helmet/heavy/necrahelm
 	name = "necra helmet"
@@ -1607,6 +1627,10 @@
 	icon_state = "iarmet"
 	smeltresult = /obj/item/ingot/iron
 	max_integrity = ARMOR_INT_HELMET_HEAVY_IRON - ARMOR_INT_HELMET_HEAVY_ADJUSTABLE_PENALTY
+
+/obj/item/clothing/head/roguetown/helmet/heavy/knight/armet/iron/snouted
+	name = "iron snouted armet"
+	icon_state = "iarmet_s"
 
 /obj/item/clothing/head/roguetown/helmet/heavy/volfplate/iron
 	name = "iron volf-face helm"

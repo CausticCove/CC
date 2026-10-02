@@ -642,13 +642,15 @@
 				armor = /obj/item/clothing/suit/roguetown/armor/plate/cuirass/fluted
 				shirt = /obj/item/clothing/suit/roguetown/shirt/undershirt/puritan
 				belt = /obj/item/storage/belt/rogue/leather/black
-				var/helmets = list("Puritan's Armored Hat", "Visored Sallet", "Volfskulle Bascinet", "Fluted Armet", "Fluted Armet With Greatplume", "Sugarloaf Greathelm", "Barbute Greathelm", "Pigface Bascinet", "Roundface Bascinet")
+				var/helmets = list("Puritan's Armored Hat", "Visored Sallet", "Snouted Visored Sallet", "Volfskulle Bascinet", "Fluted Armet", "Fluted Armet With Greatplume", "Sugarloaf Greathelm", "Barbute Greathelm", "Snouted Burgonet", "Pigface Bascinet", "Roundface Bascinet", "Snouted Roundface Bascinet")
 				var/helmet_choice = input(H, "Choose your VISAGE.", "GET PSYCHED.") as anything in helmets
 				switch(helmet_choice)
 					if("Puritan's Armored Hat")
 						head = /obj/item/clothing/head/roguetown/puritan/armored
 					if("Visored Sallet")
 						head = /obj/item/clothing/head/roguetown/helmet/sallet/visored
+					if("Snouted Visored Sallet")
+						head = /obj/item/clothing/head/roguetown/helmet/sallet/visored/snouted
 					if("Volfskulle Bascinet")
 						head = /obj/item/clothing/head/roguetown/helmet/heavy/volfplate/puritan
 					if("Fluted Armet")
@@ -659,10 +661,14 @@
 						head = /obj/item/clothing/head/roguetown/helmet/heavy/bucket/crusader
 					if("Barbute Greathelm")
 						head = /obj/item/clothing/head/roguetown/helmet/heavy/barbute/great
+					if("Snouted Burgonet")
+						head = /obj/item/clothing/head/roguetown/helmet/heavy/burgonet
 					if("Pigface Bascinet")
 						head = /obj/item/clothing/head/roguetown/helmet/bascinet/pigface
 					if("Roundface Bascinet")
 						head = /obj/item/clothing/head/roguetown/helmet/bascinet/pigface/roundface
+					if("Snouted Roundface Bascinet")
+						head = /obj/item/clothing/head/roguetown/helmet/bascinet/pigface/roundface/snouted
 
 	shoes = /obj/item/clothing/shoes/roguetown/boots/leather/reinforced
 	pants = /obj/item/clothing/under/roguetown/tights/puritan
