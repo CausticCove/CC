@@ -260,6 +260,7 @@
 #define STATS_CONTRACTS_LAPSE_REFUNDED "contracts_lapse_refunded"
 #define STATS_CONTRACTS_WITHDRAWN "contracts_withdrawn"
 #define STATS_CONTRACT_MAMMONS_REFUNDED "contract_mammons_refunded"
+#define STATS_CONTRACT_MAMMONS_GUILD_CUT "contract_mammons_guild_cut"
 /// Source-split contract stats. Aggregates above keep incrementing; these ones split by Q.source.
 #define STATS_CONTRACTS_GENERATED_POOL "contracts_generated_pool"
 #define STATS_CONTRACTS_GENERATED_RUMOR "contracts_generated_rumor"
@@ -523,6 +524,66 @@ GLOBAL_LIST_INIT(azure_round_stats, list(
 	STATS_KILLED_LIVESTOCK = 0,
 	STATS_GRAVES_CONSECRATED = 0, //CC edit this was missing?
 ))
+
+#define CONTRACT_STAT_POSTED "posted"
+#define CONTRACT_STAT_TAKEN "taken"
+#define CONTRACT_STAT_COMPLETED "completed"
+#define CONTRACT_STAT_FAILED "failed"
+#define CONTRACT_STAT_ABANDONED "abandoned"
+#define CONTRACT_STAT_WITHDRAWN "withdrawn"
+#define CONTRACT_STAT_PAID "paid"
+
+GLOBAL_LIST_EMPTY(contract_type_stats)
+GLOBAL_LIST_EMPTY(contract_type_signers)
+GLOBAL_LIST_INIT(contract_stat_type_order, list(
+	QUEST_KILL_EASY,
+	QUEST_CLEAR_OUT,
+	QUEST_RAID,
+	QUEST_BOUNTY,
+	QUEST_NOTORIOUS_BOUNTY,
+	QUEST_RECOVERY,
+	QUEST_RETRIEVAL,
+	QUEST_COURIER,
+	QUEST_BLOCKADE_DEFENSE,
+	QUEST_HOARD_RECOVERY,
+	QUEST_TOWNER_SMITH_CARAVAN,
+	QUEST_TOWNER_MINER_OREVEIN,
+))
+
+/proc/record_contract_stat(quest_type, metric, amount = 1)
+	if(SSticker.current_state == GAME_STATE_FINISHED)
+		return
+	if(!quest_type || !metric)
+		return
+	var/list/row = GLOB.contract_type_stats[quest_type]
+	if(!row)
+		row = list()
+		GLOB.contract_type_stats[quest_type] = row
+	row[metric] = (row[metric] || 0) + amount
+
+/proc/record_contract_signer(quest_type, ckey)
+	if(SSticker.current_state == GAME_STATE_FINISHED)
+		return
+	if(!quest_type || !ckey)
+		return
+	var/list/signers = GLOB.contract_type_signers[quest_type]
+	if(!signers)
+		signers = list()
+		GLOB.contract_type_signers[quest_type] = signers
+	signers[ckey] = TRUE
+
+/proc/get_contract_stat(quest_type, metric)
+	var/list/row = GLOB.contract_type_stats[quest_type]
+	return row ? (row[metric] || 0) : 0
+
+/proc/count_contract_signers(quest_type)
+	return length(GLOB.contract_type_signers[quest_type])
+
+/proc/count_all_contract_signers()
+	var/list/everyone = list()
+	for(var/quest_type in GLOB.contract_type_signers)
+		everyone |= GLOB.contract_type_signers[quest_type]
+	return length(everyone)
 
 GLOBAL_LIST_EMPTY(patron_follower_counts)
 

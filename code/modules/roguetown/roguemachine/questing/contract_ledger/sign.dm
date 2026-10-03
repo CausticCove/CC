@@ -141,6 +141,9 @@
 
 	var/take_home = gross_reward - tax_amt - guild_fee_paid
 	SSquestpool.record_completion(user, completed_quest, take_home, tax_amt)
+	record_contract_stat(completed_quest.quest_type, CONTRACT_STAT_COMPLETED)
+	if(base_reward > 0)
+		record_contract_stat(completed_quest.quest_type, CONTRACT_STAT_PAID, base_reward)
 
 	var/list/deductions = list()
 	if(tax_amt > 0)

@@ -286,6 +286,7 @@ SUBSYSTEM_DEF(questpool)
 		scroll.update_quest_text()
 		innkeeper.put_in_hands(scroll)
 		record_round_statistic(STATS_CONTRACTS_GENERATED)
+		record_contract_stat(Q.quest_type, CONTRACT_STAT_POSTED)
 		record_round_statistic(STATS_CONTRACTS_GENERATED_RUMOR)
 		log_event("generate", "rumor-in-hands [Q.quest_difficulty] [type] at [Q.target_spawn_area || "unknown"] (reward [Q.reward_amount])")
 		return Q
@@ -294,6 +295,7 @@ SUBSYSTEM_DEF(questpool)
 	adjust_region_count(Q, 1)
 	record_round_statistic(STATS_CONTRACTS_GENERATED)
 	record_round_statistic(STATS_CONTRACTS_GENERATED_RUMOR)
+	record_contract_stat(Q.quest_type, CONTRACT_STAT_POSTED)
 	log_event("generate", "rumor-pool [Q.quest_difficulty] [type] at [Q.target_spawn_area || "unknown"] (reward [Q.reward_amount])")
 	return Q
 
@@ -346,6 +348,7 @@ SUBSYSTEM_DEF(questpool)
 		adjust_region_count(Q, 1)
 	record_round_statistic(STATS_CONTRACTS_GENERATED)
 	record_round_statistic(STATS_CONTRACTS_GENERATED_DEFENSE)
+	record_contract_stat(Q.quest_type, CONTRACT_STAT_POSTED)
 	log_event("generate", "[in_hands ? "defense-in-hands" : "defense-pool"] [Q.quest_difficulty] [type] at [Q.target_spawn_area || "unknown"] (reward [Q.reward_amount])")
 	return Q
 
@@ -387,6 +390,7 @@ SUBSYSTEM_DEF(questpool)
 	B.active_scroll_ref = WEAKREF(scroll)
 	B.active_quest_ref = WEAKREF(Q)
 	record_round_statistic(STATS_CONTRACTS_GENERATED)
+	record_contract_stat(Q.quest_type, CONTRACT_STAT_POSTED)
 	log_event("generate", "blockade-defense in-hand for [ER.name] (faction [Q.faction_id], reward [Q.reward_amount])")
 	return Q
 
@@ -430,6 +434,7 @@ SUBSYSTEM_DEF(questpool)
 	requester.put_in_hands(scroll)
 	TR.active_hoard_recovery_ref = WEAKREF(Q)
 	record_round_statistic(STATS_CONTRACTS_GENERATED)
+	record_contract_stat(Q.quest_type, CONTRACT_STAT_POSTED)
 	log_event("generate", "hoard-recovery [is_commission ? "commission" : "request"] in-hand for [TR.region_name] (faction [Q.faction_id], hoard [TR.banditry_hoard])")
 	return Q
 
@@ -477,6 +482,7 @@ SUBSYSTEM_DEF(questpool)
 		pool += Q
 		adjust_region_count(Q, 1)
 	record_round_statistic(STATS_CONTRACTS_GENERATED)
+	record_contract_stat(Q.quest_type, CONTRACT_STAT_POSTED)
 	log_event("generate", "towner-[to_hand ? "hand" : "pool"] [Q.quest_difficulty] [type] at [Q.target_spawn_area || "unknown"] (poster [poster.real_name], tier [posting_tier], variety [TQ.effective_variety() || "none"], reward [Q.reward_amount])")
 	return Q
 
@@ -505,6 +511,7 @@ SUBSYSTEM_DEF(questpool)
 	Q.reward_amount = Q.calculate_reward(origin, landmark_turf)
 	pool += Q
 	adjust_region_count(Q, 1)
+	record_contract_stat(Q.quest_type, CONTRACT_STAT_POSTED)
 	// Skip the generation counter when this is a stale-reroll replacement - reroll already bumped STATS_CONTRACTS_REROLLED.
 	if(!is_replacement)
 		record_round_statistic(STATS_CONTRACTS_GENERATED)
@@ -636,6 +643,7 @@ SUBSYSTEM_DEF(questpool)
 
 /datum/controller/subsystem/questpool/proc/mark_abandoned(mob/user, datum/quest/Q, forfeited)
 	record_round_statistic(STATS_CONTRACTS_ABANDONED)
+	record_contract_stat(Q?.quest_type, CONTRACT_STAT_ABANDONED)
 	if(forfeited)
 		record_round_statistic(STATS_CONTRACT_MAMMONS_FORFEITED, forfeited)
 	log_event("abandon", "[describe_user(user)] forfeited [forfeited] on [Q?.quest_difficulty] [Q?.quest_type]")

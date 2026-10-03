@@ -235,6 +235,26 @@
 	out += chronicle_kv("Abandoned / Rerolled", "[GLOB.azure_round_stats[STATS_CONTRACTS_ABANDONED]] / [GLOB.azure_round_stats[STATS_CONTRACTS_REROLLED]]")
 	out += chronicle_kv("Lapsed & refunded / Withdrawn", "[GLOB.azure_round_stats[STATS_CONTRACTS_LAPSE_REFUNDED]] / [GLOB.azure_round_stats[STATS_CONTRACTS_WITHDRAWN]]")
 	out += chronicle_kv("Mammons paid / taxed / forfeited / refunded", "[GLOB.azure_round_stats[STATS_CONTRACT_MAMMONS_PAID]] / [GLOB.azure_round_stats[STATS_CONTRACT_MAMMONS_TAXED]] / [GLOB.azure_round_stats[STATS_CONTRACT_MAMMONS_FORFEITED]] / [GLOB.azure_round_stats[STATS_CONTRACT_MAMMONS_REFUNDED]]")
+	out += chronicle_kv("Guild cut", "[GLOB.azure_round_stats[STATS_CONTRACT_MAMMONS_GUILD_CUT] || 0]")
+	out += "\n"
+	out += chronicle_section_contract_types()
+	return jointext(out, "")
+
+/proc/chronicle_section_contract_types()
+	var/list/out = list()
+	out += chronicle_section_header("Contracts by Type")
+	out += "	[chronicle_pad_right("Contract", 18)] | Posted | Taken | Players | Done | Failed | Aband | Withdr | Open | Done% | Paid\n"
+	for(var/quest_type in GLOB.contract_stat_type_order)
+		var/posted = get_contract_stat(quest_type, CONTRACT_STAT_POSTED)
+		var/taken = get_contract_stat(quest_type, CONTRACT_STAT_TAKEN)
+		var/done = get_contract_stat(quest_type, CONTRACT_STAT_COMPLETED)
+		var/failed = get_contract_stat(quest_type, CONTRACT_STAT_FAILED)
+		var/abandoned = get_contract_stat(quest_type, CONTRACT_STAT_ABANDONED)
+		var/withdrawn = get_contract_stat(quest_type, CONTRACT_STAT_WITHDRAWN)
+		var/open = max(0, taken - done - failed - abandoned - withdrawn)
+		var/done_pct = taken ? "[round(done / taken * 100)]%" : "-"
+		out += "	[chronicle_pad_right(quest_type, 18)] | [chronicle_pad_left(posted, 6)] | [chronicle_pad_left(taken, 5)] | [chronicle_pad_left(count_contract_signers(quest_type), 7)] | [chronicle_pad_left(done, 4)] | [chronicle_pad_left(failed, 6)] | [chronicle_pad_left(abandoned, 5)] | [chronicle_pad_left(withdrawn, 6)] | [chronicle_pad_left(open, 4)] | [chronicle_pad_left(done_pct, 5)] | [get_contract_stat(quest_type, CONTRACT_STAT_PAID)]\n"
+	out += chronicle_kv("Distinct signers (all types)", "[count_all_contract_signers()]")
 	out += "\n"
 	return jointext(out, "")
 

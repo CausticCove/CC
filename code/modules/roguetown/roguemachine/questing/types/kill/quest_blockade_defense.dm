@@ -362,6 +362,7 @@
 	clear_wave_timers()
 	announce_to_bearer("<b>The blockade holds.</b> The scroll smolders and crumbles in your grip.")
 	record_round_statistic(STATS_BLOCKADE_CONTRACTS_FAILED, 1)
+	record_contract_stat(quest_type, CONTRACT_STAT_FAILED)
 	var/datum/blockade/B = blockade_ref?.resolve()
 	if(B)
 		B.active_scroll_ref = null
@@ -402,7 +403,9 @@
 		SSeconomy.clear_blockade(B, "cleared")
 	var/mob/lead = quest_receiver_reference?.resolve()
 	var/payout = round(reward_amount * reward_turnout_mult())
+	record_contract_stat(quest_type, CONTRACT_STAT_COMPLETED)
 	if(payout > 0)
+		record_contract_stat(quest_type, CONTRACT_STAT_PAID, payout)
 		if(lead && SStreasury.has_account(lead))
 			var/datum/fund/lead_account = SStreasury.get_account(lead)
 			SStreasury.mint(lead_account, payout, "Blockade defense reward ([quest_giver_name || "Crown"] -> [lead.real_name])")

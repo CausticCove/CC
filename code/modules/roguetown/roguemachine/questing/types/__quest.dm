@@ -285,6 +285,8 @@ GLOBAL_LIST_EMPTY(quest_mobs)
 	quest_receiver_reference = WEAKREF(user)
 	quest_receiver_name = user.real_name
 	last_claimed_at = world.time
+	record_contract_stat(quest_type, CONTRACT_STAT_TAKEN)
+	record_contract_signer(quest_type, user.ckey)
 
 /datum/quest/proc/has_started()
 	if(complete || engaged || progress_current > 0)
