@@ -3820,6 +3820,7 @@
 #include "modular_causticcove\code\modules\harpies\wings.dm"
 #include "modular_causticcove\code\modules\icon_gen\icon_gen_human.dm"
 #include "modular_causticcove\code\modules\jobs\job_types\roguetown\adventurer\types\combat\rogue.dm"
+#include "modular_causticcove\code\modules\jobs\job_types\roguetown\adventurer\types\combat\stigmata.dm"
 #include "modular_causticcove\code\modules\jobs\job_types\roguetown\adventurer\types\pilgrim\witch.dm"
 #include "modular_causticcove\code\modules\jobs\job_types\roguetown\town\mage\summoning\sea branch\enchantments.dm"
 #include "modular_causticcove\code\modules\jobs\job_types\roguetown\town\mage\summoning\sea branch\items.dm"
