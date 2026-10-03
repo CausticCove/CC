@@ -118,6 +118,7 @@
 	var/gross_reward = base_reward + deposit_return
 
 	var/quest_levy_exempt = completed_quest.levy_exempt
+	completed_quest.record_completion_stats(base_reward)
 	if(completed_quest.source == QUEST_SOURCE_TOWNER && hascall(completed_quest, "on_turn_in_pay_giver"))
 		call(completed_quest, "on_turn_in_pay_giver")(user, get_turf(src))
 	qdel(scroll.assigned_quest)
@@ -141,9 +142,6 @@
 
 	var/take_home = gross_reward - tax_amt - guild_fee_paid
 	SSquestpool.record_completion(user, completed_quest, take_home, tax_amt)
-	record_contract_stat(completed_quest.quest_type, CONTRACT_STAT_COMPLETED)
-	if(base_reward > 0)
-		record_contract_stat(completed_quest.quest_type, CONTRACT_STAT_PAID, base_reward)
 
 	var/list/deductions = list()
 	if(tax_amt > 0)

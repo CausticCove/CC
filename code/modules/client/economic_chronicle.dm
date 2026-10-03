@@ -338,22 +338,29 @@ GLOBAL_DATUM(economic_chronicle, /datum/economic_chronicle)
 		"lapsed_rumor" = GLOB.azure_round_stats[STATS_CONTRACTS_LAPSED_RUMOR] || 0,
 		"lapsed_defense" = GLOB.azure_round_stats[STATS_CONTRACTS_LAPSED_DEFENSE] || 0,
 		"players_total" = count_all_contract_signers(),
-		"types" = build_contract_type_rows(),
+		"types" = build_contract_axis_rows(CONTRACT_AXIS_TYPE, GLOB.contract_stat_type_order),
+		"regions" = build_contract_axis_rows(CONTRACT_AXIS_REGION, contract_region_order()),
+		"groups" = build_contract_axis_rows(CONTRACT_AXIS_GROUP, contract_group_order()),
 	)
 
-/datum/economic_chronicle/proc/build_contract_type_rows()
+/datum/economic_chronicle/proc/build_contract_axis_rows(axis, list/keys)
 	var/list/rows = list()
-	for(var/quest_type in GLOB.contract_stat_type_order)
+	for(var/key in keys)
 		rows += list(list(
-			"name" = quest_type,
-			"posted" = get_contract_stat(quest_type, CONTRACT_STAT_POSTED),
-			"taken" = get_contract_stat(quest_type, CONTRACT_STAT_TAKEN),
-			"players" = count_contract_signers(quest_type),
-			"completed" = get_contract_stat(quest_type, CONTRACT_STAT_COMPLETED),
-			"failed" = get_contract_stat(quest_type, CONTRACT_STAT_FAILED),
-			"abandoned" = get_contract_stat(quest_type, CONTRACT_STAT_ABANDONED),
-			"withdrawn" = get_contract_stat(quest_type, CONTRACT_STAT_WITHDRAWN),
-			"paid" = get_contract_stat(quest_type, CONTRACT_STAT_PAID),
+			"name" = key,
+			"posted" = get_contract_stat(axis, key, CONTRACT_STAT_POSTED),
+			"taken" = get_contract_stat(axis, key, CONTRACT_STAT_TAKEN),
+			"lapsed" = get_contract_stat(axis, key, CONTRACT_STAT_LAPSED),
+			"players" = count_contract_signers(axis, key),
+			"completed" = get_contract_stat(axis, key, CONTRACT_STAT_COMPLETED),
+			"failed" = get_contract_stat(axis, key, CONTRACT_STAT_FAILED),
+			"abandoned" = get_contract_stat(axis, key, CONTRACT_STAT_ABANDONED),
+			"withdrawn" = get_contract_stat(axis, key, CONTRACT_STAT_WITHDRAWN),
+			"paid" = get_contract_stat(axis, key, CONTRACT_STAT_PAID),
+			"wait_ds" = get_contract_stat(axis, key, CONTRACT_STAT_WAIT_DS),
+			"run_ds" = get_contract_stat(axis, key, CONTRACT_STAT_RUN_DS),
+			"party" = get_contract_stat(axis, key, CONTRACT_STAT_PARTY),
+			"deaths" = get_contract_stat(axis, key, CONTRACT_STAT_DEATHS),
 		))
 	return rows
 
@@ -366,7 +373,7 @@ GLOBAL_DATUM(economic_chronicle, /datum/economic_chronicle)
 		"pledge_generated" = pledge_gen,
 		"pledge_consumed" = pledge_con,
 		"pledge_unused" = max(0, pledge_gen - pledge_con),
-		"rumor_generated" = rumor_gen,
-		"rumor_consumed" = rumor_con,
-		"rumor_unused" = max(0, rumor_gen - rumor_con),
+		"rumor_generated" = round(rumor_gen, 1),
+		"rumor_consumed" = round(rumor_con, 1),
+		"rumor_unused" = round(max(0, rumor_gen - rumor_con), 1),
 	)

@@ -155,19 +155,26 @@ export type ContractsSnapshot = {
   lapsed_rumor: number;
   lapsed_defense: number;
   players_total: number;
-  types: ContractTypeRow[];
+  types: ContractStatRow[];
+  regions: ContractStatRow[];
+  groups: ContractStatRow[];
 };
 
-export type ContractTypeRow = {
+export type ContractStatRow = {
   name: string;
   posted: number;
   taken: number;
+  lapsed: number;
   players: number;
   completed: number;
   failed: number;
   abandoned: number;
   withdrawn: number;
   paid: number;
+  wait_ds: number;
+  run_ds: number;
+  party: number;
+  deaths: number;
 };
 
 export type RoyalFavorsSnapshot = {

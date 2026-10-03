@@ -494,7 +494,7 @@ GLOBAL_LIST_INIT(contract_proxy_officials, list(
 	SSquestpool.remove_from_pool(Q)
 	record_round_statistic(STATS_CONTRACTS_WITHDRAWN)
 	if(Q.quest_receiver_reference)
-		record_contract_stat(Q.quest_type, CONTRACT_STAT_WITHDRAWN)
+		record_contract_stat(Q, CONTRACT_STAT_WITHDRAWN)
 	SSquestpool.log_event("withdraw", "[SSquestpool.describe_user(user)] withdrew [log_text]")
 	log_quest(user.ckey, user.mind, user, "Withdraw [log_text]")
 	qdel(Q)

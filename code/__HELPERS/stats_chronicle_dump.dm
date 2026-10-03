@@ -241,23 +241,45 @@
 	out += chronicle_section_contract_types()
 	return jointext(out, "")
 
+/proc/chronicle_avg_minutes(total_ds, count)
+	if(!count)
+		return "-"
+	return "[round(total_ds / count / 600, 0.1)]m"
+
 /proc/chronicle_section_contract_types()
 	var/list/out = list()
 	out += chronicle_section_header("Contracts by Type")
-	out += "	[chronicle_pad_right("Contract", 18)] | Posted | Taken | Players | Done | Failed | Aband | Withdr | Open | Done% | Paid\n"
+	out += "	[chronicle_pad_right("Contract", 18)] | Posted | Taken | Lapsed | Players | Done | Failed | Aband | Withdr | Open | Done% | Wait | Run | Party | Deaths | Paid\n"
 	for(var/quest_type in GLOB.contract_stat_type_order)
-		var/posted = get_contract_stat(quest_type, CONTRACT_STAT_POSTED)
-		var/taken = get_contract_stat(quest_type, CONTRACT_STAT_TAKEN)
-		var/done = get_contract_stat(quest_type, CONTRACT_STAT_COMPLETED)
-		var/failed = get_contract_stat(quest_type, CONTRACT_STAT_FAILED)
-		var/abandoned = get_contract_stat(quest_type, CONTRACT_STAT_ABANDONED)
-		var/withdrawn = get_contract_stat(quest_type, CONTRACT_STAT_WITHDRAWN)
-		var/open = max(0, taken - done - failed - abandoned - withdrawn)
-		var/done_pct = taken ? "[round(done / taken * 100)]%" : "-"
-		out += "	[chronicle_pad_right(quest_type, 18)] | [chronicle_pad_left(posted, 6)] | [chronicle_pad_left(taken, 5)] | [chronicle_pad_left(count_contract_signers(quest_type), 7)] | [chronicle_pad_left(done, 4)] | [chronicle_pad_left(failed, 6)] | [chronicle_pad_left(abandoned, 5)] | [chronicle_pad_left(withdrawn, 6)] | [chronicle_pad_left(open, 4)] | [chronicle_pad_left(done_pct, 5)] | [get_contract_stat(quest_type, CONTRACT_STAT_PAID)]\n"
+		out += chronicle_contract_row(CONTRACT_AXIS_TYPE, quest_type)
 	out += chronicle_kv("Distinct signers (all types)", "[count_all_contract_signers()]")
 	out += "\n"
+	out += chronicle_section_header("Contracts by Region")
+	out += "	[chronicle_pad_right("Region", 18)] | Posted | Taken | Lapsed | Players | Done | Failed | Aband | Withdr | Open | Done% | Wait | Run | Party | Deaths | Paid\n"
+	for(var/region in contract_region_order())
+		out += chronicle_contract_row(CONTRACT_AXIS_REGION, region)
+	out += "\n"
+	out += chronicle_section_header("Contracts by Role")
+	out += "	[chronicle_pad_right("Role", 18)] | Posted | Taken | Lapsed | Players | Done | Failed | Aband | Withdr | Open | Done% | Wait | Run | Party | Deaths | Paid\n"
+	for(var/group in contract_group_order())
+		out += chronicle_contract_row(CONTRACT_AXIS_GROUP, group)
+	out += "\n"
 	return jointext(out, "")
+
+/proc/chronicle_contract_row(axis, key)
+	var/posted = get_contract_stat(axis, key, CONTRACT_STAT_POSTED)
+	var/taken = get_contract_stat(axis, key, CONTRACT_STAT_TAKEN)
+	var/lapsed = get_contract_stat(axis, key, CONTRACT_STAT_LAPSED)
+	var/done = get_contract_stat(axis, key, CONTRACT_STAT_COMPLETED)
+	var/failed = get_contract_stat(axis, key, CONTRACT_STAT_FAILED)
+	var/abandoned = get_contract_stat(axis, key, CONTRACT_STAT_ABANDONED)
+	var/withdrawn = get_contract_stat(axis, key, CONTRACT_STAT_WITHDRAWN)
+	var/open = max(0, taken - done - failed - abandoned - withdrawn)
+	var/done_pct = taken ? "[round(done / taken * 100)]%" : "-"
+	var/wait = chronicle_avg_minutes(get_contract_stat(axis, key, CONTRACT_STAT_WAIT_DS), taken)
+	var/run = chronicle_avg_minutes(get_contract_stat(axis, key, CONTRACT_STAT_RUN_DS), done)
+	var/party = done ? "[round(get_contract_stat(axis, key, CONTRACT_STAT_PARTY) / done, 0.1)]" : "-"
+	return "	[chronicle_pad_right(key, 18)] | [chronicle_pad_left(posted, 6)] | [chronicle_pad_left(taken, 5)] | [chronicle_pad_left(lapsed, 6)] | [chronicle_pad_left(count_contract_signers(axis, key), 7)] | [chronicle_pad_left(done, 4)] | [chronicle_pad_left(failed, 6)] | [chronicle_pad_left(abandoned, 5)] | [chronicle_pad_left(withdrawn, 6)] | [chronicle_pad_left(open, 4)] | [chronicle_pad_left(done_pct, 5)] | [chronicle_pad_left(wait, 4)] | [chronicle_pad_left(run, 3)] | [chronicle_pad_left(party, 5)] | [chronicle_pad_left(get_contract_stat(axis, key, CONTRACT_STAT_DEATHS), 6)] | [get_contract_stat(axis, key, CONTRACT_STAT_PAID)]\n"
 
 /proc/chronicle_section_events()
 	var/list/out = list()
