@@ -271,6 +271,9 @@
 #define STATS_CONTRACTS_COMPLETED_POOL "contracts_completed_pool"
 #define STATS_CONTRACTS_COMPLETED_RUMOR "contracts_completed_rumor"
 #define STATS_CONTRACTS_COMPLETED_DEFENSE "contracts_completed_defense"
+#define STATS_CONTRACTS_LAPSED_POOL "contracts_lapsed_pool"
+#define STATS_CONTRACTS_LAPSED_RUMOR "contracts_lapsed_rumor"
+#define STATS_CONTRACTS_LAPSED_DEFENSE "contracts_lapsed_defense"
 
 GLOBAL_LIST_INIT(azure_round_stats, list(
 	STATS_DEATHS = 0,

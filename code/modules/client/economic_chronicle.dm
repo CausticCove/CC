@@ -333,7 +333,29 @@ GLOBAL_DATUM(economic_chronicle, /datum/economic_chronicle)
 		"mammons_taxed" = GLOB.azure_round_stats[STATS_CONTRACT_MAMMONS_TAXED] || 0,
 		"mammons_forfeited" = GLOB.azure_round_stats[STATS_CONTRACT_MAMMONS_FORFEITED] || 0,
 		"mammons_refunded" = GLOB.azure_round_stats[STATS_CONTRACT_MAMMONS_REFUNDED] || 0,
+		"guild_cut" = GLOB.azure_round_stats[STATS_CONTRACT_MAMMONS_GUILD_CUT] || 0,
+		"lapsed_pool" = GLOB.azure_round_stats[STATS_CONTRACTS_LAPSED_POOL] || 0,
+		"lapsed_rumor" = GLOB.azure_round_stats[STATS_CONTRACTS_LAPSED_RUMOR] || 0,
+		"lapsed_defense" = GLOB.azure_round_stats[STATS_CONTRACTS_LAPSED_DEFENSE] || 0,
+		"players_total" = count_all_contract_signers(),
+		"types" = build_contract_type_rows(),
 	)
+
+/datum/economic_chronicle/proc/build_contract_type_rows()
+	var/list/rows = list()
+	for(var/quest_type in GLOB.contract_stat_type_order)
+		rows += list(list(
+			"name" = quest_type,
+			"posted" = get_contract_stat(quest_type, CONTRACT_STAT_POSTED),
+			"taken" = get_contract_stat(quest_type, CONTRACT_STAT_TAKEN),
+			"players" = count_contract_signers(quest_type),
+			"completed" = get_contract_stat(quest_type, CONTRACT_STAT_COMPLETED),
+			"failed" = get_contract_stat(quest_type, CONTRACT_STAT_FAILED),
+			"abandoned" = get_contract_stat(quest_type, CONTRACT_STAT_ABANDONED),
+			"withdrawn" = get_contract_stat(quest_type, CONTRACT_STAT_WITHDRAWN),
+			"paid" = get_contract_stat(quest_type, CONTRACT_STAT_PAID),
+		))
+	return rows
 
 /datum/economic_chronicle/proc/build_royal_favors_snapshot()
 	var/pledge_gen = GLOB.azure_round_stats[STATS_PLEDGE_GENERATED] || 0

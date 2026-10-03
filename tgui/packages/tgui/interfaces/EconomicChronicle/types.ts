@@ -150,6 +150,24 @@ export type ContractsSnapshot = {
   mammons_taxed: number;
   mammons_forfeited: number;
   mammons_refunded: number;
+  guild_cut: number;
+  lapsed_pool: number;
+  lapsed_rumor: number;
+  lapsed_defense: number;
+  players_total: number;
+  types: ContractTypeRow[];
+};
+
+export type ContractTypeRow = {
+  name: string;
+  posted: number;
+  taken: number;
+  players: number;
+  completed: number;
+  failed: number;
+  abandoned: number;
+  withdrawn: number;
+  paid: number;
 };
 
 export type RoyalFavorsSnapshot = {
@@ -211,7 +229,7 @@ export type CrownExpenseSnapshot = {
   total: number;
 };
 
-export type ChronicleTab = 'realm' | 'trade' | 'materials';
+export type ChronicleTab = 'realm' | 'trade' | 'materials' | 'contracts';
 
 export type EconomicChronicleData = {
   treasury_balance: number;
