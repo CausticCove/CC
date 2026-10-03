@@ -765,11 +765,11 @@ const ActiveStrip = (props: {
                 Abandon
               </Button>
             )}
-            {!a.complete && !!data.can_admin_complete && (
+            {!!data.can_admin_complete && (
               <Button
                 icon="check"
                 color="good"
-                tooltip="Admin: force-complete this contract."
+                tooltip="Admin: force-complete and turn in this contract."
                 onClick={() => act('admin_complete', { ref: a.ref })}
               >
                 Complete
