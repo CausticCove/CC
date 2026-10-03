@@ -160,6 +160,26 @@
 		else
 			say("Your reward of [base_reward] mammon has been credited[deductions_clause].[deposit_clause]")
 
+/obj/structure/roguemachine/contractledger/proc/admin_complete_by_ref(mob/user, ref)
+	if(!ref || !check_rights_for(user?.client, R_DEBUG))
+		return
+	var/datum/weakref/user_ref = WEAKREF(user)
+	var/datum/quest/matched_quest
+	for(var/obj/item/quest_writ/scroll in GLOB.quest_scrolls)
+		var/datum/quest/Q = scroll.assigned_quest
+		if(!Q || Q.quest_receiver_reference != user_ref)
+			continue
+		if(REF(Q) != ref)
+			continue
+		matched_quest = Q
+		break
+	if(!matched_quest || matched_quest.complete)
+		return
+	matched_quest.progress_current = matched_quest.progress_required
+	matched_quest.mark_complete()
+	log_admin("[key_name(user)] force-completed a [matched_quest.quest_type] contract at the Contract Ledger.")
+	to_chat(user, span_notice("Contract force-completed."))
+
 /obj/structure/roguemachine/contractledger/proc/abandon_by_ref(mob/user, ref)
 	if(!ref)
 		return
