@@ -23,6 +23,7 @@ GLOBAL_LIST_EMPTY(quest_mobs)
 	var/progress_required = 1
 
 	var/obj/item/target_item_type
+	var/target_item_plural
 	var/obj/item/target_delivery_item
 	var/mob/living/target_mob_type
 	var/area/rogue/indoors/town/target_delivery_location
@@ -260,11 +261,91 @@ GLOBAL_LIST_EMPTY(quest_mobs)
 	if(required_fellowship_size > 0)
 		var/datum/fellowship/F = user?.current_fellowship
 		if(!F)
-			return "This contract requires a Fellowship of [required_fellowship_size]."
+			return "This contract needs a fellowship of [required_fellowship_size]."
 		if(length(F.get_members()) < required_fellowship_size)
-			return "Your Fellowship is too small - requires [required_fellowship_size] members."
+			return "Your fellowship is too small. It needs [required_fellowship_size] members."
 	return "You cannot sign that contract."
 
 /datum/quest/proc/on_claim(mob/user)
 	quest_receiver_reference = WEAKREF(user)
 	quest_receiver_name = user.real_name
+	last_claimed_at = world.time
+
+/datum/quest/proc/has_started()
+	if(complete || engaged || progress_current > 0)
+		return TRUE
+	for(var/datum/weakref/ref in tracked_atoms)
+		var/atom/movable/tracked = ref.resolve()
+		if(QDELETED(tracked) || isliving(tracked))
+			continue
+		if(!isturf(tracked.loc))
+			return TRUE
+	return FALSE
+
+/datum/quest/proc/issuer_cancel_blocker()
+	if(complete)
+		return "the contract is already fulfilled"
+	if(has_started())
+		return "the work has already begun"
+	if(!quest_receiver_reference)
+		return null
+	var/remaining = last_claimed_at + QUEST_ISSUER_CANCEL_WINDOW - world.time
+	if(remaining > 0)
+		return "its holder has [max(1, round(remaining / (1 MINUTES)))] more minute(s) before it can be withdrawn"
+	return null
+
+/datum/quest/proc/add_funding(datum/fund/fund, amount, datum/fund/escrow)
+	if(!fund || amount <= 0)
+		return
+	if(!funding_sources)
+		funding_sources = list()
+	funding_sources += list(list("fund" = fund, "amount" = amount, "escrow" = escrow))
+
+/datum/quest/proc/get_funding_total()
+	. = 0
+	for(var/list/source as anything in funding_sources)
+		. += source["amount"]
+
+/datum/quest/proc/describe_issuer_refund()
+	var/list/parts = list()
+	for(var/list/source as anything in funding_sources)
+		var/datum/fund/fund = source["fund"]
+		parts += "[source["amount"]]m to [fund.name]"
+	if(funding_rumor_points > 0)
+		parts += "[funding_rumor_points] Rumor Points"
+	if(warrant_consumed > 0)
+		parts += "[warrant_consumed]p to the defense warrant"
+	return english_list(parts, nothing_text = "")
+
+/datum/quest/proc/refund_issuer_funding(reason, mob/actor)
+	. = describe_issuer_refund()
+	var/label = get_title() || quest_type
+	for(var/list/source as anything in funding_sources)
+		var/datum/fund/fund = source["fund"]
+		var/datum/fund/escrow = source["escrow"]
+		var/amount = source["amount"]
+		if(!escrow || !SStreasury.transfer(escrow, fund, amount, "[reason] - [label]"))
+			SStreasury.mint(fund, amount, "[reason] - [label]")
+		if(fund == SStreasury.burgher_pledge_fund)
+			record_round_statistic(STATS_PLEDGE_CONSUMED, -amount)
+		record_round_statistic(STATS_CONTRACT_MAMMONS_REFUNDED, amount)
+	funding_sources = null
+	if(funding_rumor_points > 0)
+		SStreasury.rumor_points += funding_rumor_points
+		record_round_statistic(STATS_RUMOR_POINTS_CONSUMED, -funding_rumor_points)
+		funding_rumor_points = 0
+	if(warrant_consumed > 0)
+		SScity_assembly?.refund_defense(warrant_consumed, actor, "[reason] - [label]")
+		warrant_consumed = 0
+
+/datum/quest/proc/mark_issue_log(status, refund_text)
+	if(!issue_log_entry)
+		return
+	issue_log_entry["status"] = status
+	issue_log_entry["refund"] = refund_text
+
+/datum/quest/proc/on_issuer_withdrawn(mob/withdrawer)
+	return
+
+/datum/quest/proc/office_may_withdraw()
+	return TRUE

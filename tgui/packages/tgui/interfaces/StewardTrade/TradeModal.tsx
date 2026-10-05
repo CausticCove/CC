@@ -213,18 +213,43 @@ export const TradeModal = (props: TradeModalProps) => {
   const blockaded = !!quote?.is_blockaded;
   const escalation = quote?.escalation_subtotal ?? 0;
   const hasEscalation = escalation > 0;
-  const escalationColor = isImport ? SEAL_RED : SEAL_RED;
+  const escalationColor = SEAL_RED;
+
+  const bulkMax = quote?.max_units ?? 50;
+  const stockpile = quote?.stockpile_amount ?? 0;
+  const batchCapacity = quote?.batch_capacity ?? 0;
+  const maxUnits = isImport
+    ? bulkMax
+    : Math.max(1, Math.min(bulkMax, stockpile));
+  const fillTarget = computeFillTarget(quote);
+  const canFill = fillTarget >= 1;
+  const atFill = canFill && quantity === fillTarget;
+  const fillTooltip = !quote
+    ? 'Calculating...'
+    : batchCapacity < 1
+      ? (isImport ? 'No supply left today.' : 'No demand left today.')
+      : !canFill
+        ? isImport
+          ? "The Treasury can't afford even one."
+          : 'Nothing in the stockpile to sell.'
+        : atFill
+          ? `Already at ${fillTarget}, the most at base price.`
+          : `Set quantity to ${fillTarget}, the most at base price.`;
+
+  const shortStock = !isImport && !!quote && quantity > stockpile;
   const submitDisabled =
     !quote?.ok || (isImport && !quote.can_afford) || !quote.warrant_ok;
   const submitTooltip = !quote
     ? 'Calculating...'
     : !quote.ok
       ? quote.reason
-      : isImport && !quote.can_afford
-        ? 'Treasury cannot cover this trade.'
-        : !quote.warrant_ok
-          ? 'Warrant cannot cover this trade.'
-          : '';
+      : shortStock
+        ? `Stockpile holds only ${stockpile} unit${stockpile === 1 ? '' : 's'}.`
+        : isImport && !quote.can_afford
+          ? "The Treasury can't afford this trade."
+          : !quote.warrant_ok
+            ? "Your warrant can't cover this trade."
+            : '';
 
   const change = (delta: number) => {
     setQuantity((q) => Math.max(1, Math.min(maxUnits, q + delta)));
@@ -261,9 +286,7 @@ export const TradeModal = (props: TradeModalProps) => {
           <span style={{ color: INK, fontWeight: 'bold', marginLeft: '4px' }}>
             {quote ? `${quote.stockpile_amount}` : '...'}
           </span>
-          <span style={{ color: INK_FAINT, marginLeft: '4px' }}>
-            units on hand
-          </span>
+          <span style={{ color: INK_FAINT, marginLeft: '4px' }}>units</span>
         </div>
 
         <div style={stepperRowStyle}>
@@ -324,7 +347,8 @@ export const TradeModal = (props: TradeModalProps) => {
             justifyContent: 'center',
           }}
         >
-          (max {maxUnits} units per trade)
+          (max {maxUnits} units per trade
+          {!isImport && stockpile < bulkMax ? ', limited by stockpile' : ''})
         </div>
 
         <div
@@ -344,14 +368,14 @@ export const TradeModal = (props: TradeModalProps) => {
                 {quote.capacity_today === 1 ? '' : 's'} available at base price
                 today.
                 <br />
-                Buying past that drives the price up the more you take.
+                More than that costs extra per unit.
               </>
             ) : (
               <>
                 {quote.capacity_today} unit
                 {quote.capacity_today === 1 ? '' : 's'} of demand left today.
                 <br />
-                Selling past that floods the market and the price drops.
+                More than that pays less per unit.
               </>
             )
           ) : (
@@ -361,7 +385,17 @@ export const TradeModal = (props: TradeModalProps) => {
 
         <div style={{ marginTop: '6px' }}>
           <div style={lineStyle}>
-            <span style={lineLabelStyle}>Units within capacity</span>
+            <span style={lineLabelStyle}>
+              {isImport ? 'Region output today' : 'Region demand today'}
+            </span>
+            <span style={lineValueStyle}>
+              {quote
+                ? `${quote.capacity_today} / ${quote.capacity_total} units`
+                : '...'}
+            </span>
+          </div>
+          <div style={lineStyle}>
+            <span style={lineLabelStyle}>Units at base price</span>
             <span style={lineValueStyle}>
               {quote
                 ? `${Math.min(quote.quantity, quote.capacity_today)} / ${quote.quantity}`
@@ -369,7 +403,7 @@ export const TradeModal = (props: TradeModalProps) => {
             </span>
           </div>
           <div style={lineStyle}>
-            <span style={lineLabelStyle}>Units past capacity</span>
+            <span style={lineLabelStyle}>Units above base</span>
             <span
               style={{
                 ...lineValueStyle,
@@ -406,7 +440,7 @@ export const TradeModal = (props: TradeModalProps) => {
                 fontWeight: 'bold',
               }}
             >
-              {isImport ? 'Escalation surcharge' : 'Revenue lost to oversupply'}
+              {isImport ? 'Surcharge' : 'Oversupply loss'}
             </span>
             <span style={{ ...lineValueStyle, color: escalationColor }}>
               {isImport ? '+' : '-'}
@@ -431,7 +465,7 @@ export const TradeModal = (props: TradeModalProps) => {
             </span>
           </div>
           <div style={lineStyle}>
-            <span style={lineLabelStyle}>Crown's Purse after</span>
+            <span style={lineLabelStyle}>Treasury after</span>
             <span
               style={{
                 ...lineValueStyle,

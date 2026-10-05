@@ -127,6 +127,10 @@
 // 500 above the default purse floor so that banditry won't tank econ on its own
 #define BANDITRY_DEBT_FLOOR 1500
 
+// Fraction of any Crown's Purse credit skimmed to pay down banditry debt while it's outstanding.
+// Was 1.0 (100%), which made the purse unable to visibly recover until debt cleared.
+#define BANDITRY_DEBT_SKIM_RATE 0.75
+
 
 #define BLOCKADE_ROUNDSTART_COUNT_MIN 2
 #define BLOCKADE_ROUNDSTART_COUNT_MAX 3
