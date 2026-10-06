@@ -68,6 +68,10 @@
 			var/datum/virtue/origin/origin = virtue
 			GLOB.origins[origin.origin_name] = origin.origin_desc
 
+	for(var/path in subtypesof(/datum/quirk))
+		var/datum/quirk/quirk = new path()
+		GLOB.quirks[path] = quirk
+
 	for (var/path in subtypesof(/datum/sizecat))
 		var/datum/sizecat/sc = new path()
 		GLOB.sizecats[path] = sc

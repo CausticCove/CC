@@ -18,9 +18,9 @@
 
 /obj/structure/mirror/fancy/hag/get_mechanics_examine(mob/user)
 	. = ..()
-
-	if(HAS_TRAIT(user, TRAIT_ANCIENT_HAG) || HAS_TRAIT(user, TRAIT_FEYTOUCHED))
-		. += span_info("Right-click the mirror to scry with it.")
+	. += span_info("Right-click the mirror to style your hair.")
+	if(HAS_TRAIT(user, TRAIT_ANCIENT_HAG) || HAS_TRAIT(user, TRAIT_FEYBOUND))
+		. += span_info("You can also right-click the mirror to scry with it.")
 
 /obj/structure/mirror/fancy/hag/attack_right(mob/user, list/modifiers)
 	. = ..()
@@ -40,8 +40,8 @@
 	
 	if(obj_broken || !Adjacent(user))
 		return
-	
-	if(!HAS_TRAIT(H, TRAIT_ANCIENT_HAG) && !HAS_TRAIT(H, TRAIT_FEYTOUCHED))
+
+	if(!HAS_TRAIT(H, TRAIT_ANCIENT_HAG) && !HAS_TRAIT(H, TRAIT_FEYBOUND))
 		return
 	
 	var/input = input(user, "WHO DO YOU SEEK?", "THE ROOTS SEE ALL") as text|null
@@ -95,8 +95,8 @@
 	
 	if (world.time < (last_scry + cooldown))
 		return
-	
-	if(!HAS_TRAIT(H, TRAIT_ANCIENT_HAG) && !HAS_TRAIT(H, TRAIT_FEYTOUCHED))
+
+	if(!HAS_TRAIT(H, TRAIT_ANCIENT_HAG) && !HAS_TRAIT(H, TRAIT_FEYBOUND))
 		return
 
 	if(!length(H.mind.known_people + GLOB.bogged_players))
@@ -149,7 +149,7 @@
 /obj/item/handmirror/hag/get_mechanics_examine(mob/user)
 	. = ..()
 
-	if(HAS_TRAIT(user, TRAIT_ANCIENT_HAG) || HAS_TRAIT(user, TRAIT_FEYTOUCHED))
+	if(HAS_TRAIT(user, TRAIT_ANCIENT_HAG) || HAS_TRAIT(user, TRAIT_FEYBOUND))
 		. += span_info("Right-click the mirror to scry with it.")
 		. += span_info("You can only scry people if you know them, or if they are in the bog.")
 
