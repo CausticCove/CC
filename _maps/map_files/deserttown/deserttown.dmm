@@ -9088,10 +9088,6 @@
 /obj/machinery/light/rogue/candle,
 /turf/open/floor/rogue/twig,
 /area/rogue/indoors/town/manor/desert)
-"cfT" = (
-/obj/effect/landmark/start/orthodoxist,
-/turf/open/floor/rogue/herringbone,
-/area/rogue/indoors/inq)
 "cga" = (
 /obj/machinery/light/rogue/candle/r,
 /obj/structure/rack/rogue,
@@ -19162,6 +19158,7 @@
 /obj/machinery/light/rogue/candle{
 	pixel_y = -32
 	},
+/obj/effect/landmark/start/orthodoxist,
 /turf/open/floor/carpet/royalblack,
 /area/rogue/indoors/inq)
 "eCJ" = (
@@ -562987,7 +562984,7 @@ hAE
 hAE
 jrH
 nNn
-nNn
+mmu
 mmu
 mmu
 mmu
@@ -683101,7 +683098,7 @@ vTa
 ftL
 rOb
 kiA
-cfT
+kiA
 ftL
 ous
 fmk
@@ -684661,7 +684658,7 @@ vTa
 ftL
 rNR
 nVj
-cfT
+kiA
 ftL
 ous
 xTo
@@ -685909,7 +685906,7 @@ vTa
 ftL
 rNR
 nVj
-cfT
+kiA
 ftL
 ous
 ous
