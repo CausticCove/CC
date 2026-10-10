@@ -13,7 +13,7 @@
 /client/proc/get_looc()
 	var/msg = input(src, "", "looc") as text|null
 	do_looc(msg, FALSE)
-	
+
 
 /client/verb/looc(msg as text)
 	set name = "LOOC"
@@ -219,7 +219,7 @@
 		if(!M.client)
 			continue
 		if((C in GLOB.admins) && (C.prefs.admin_chat_toggles & CHAT_ADMINLOOC))
-			added_text += " ([mob.ckey]) [ADMIN_FLW(mob)]
+			added_text += " ([mob.ckey]) [ADMIN_FLW(mob)]"
 			is_admin = 1
 		mobs += C
 		var/turf/speakturf = get_turf(M)

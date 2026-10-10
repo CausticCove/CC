@@ -129,7 +129,6 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	S["preferred_ui_language"] >> preferred_ui_language
 	S["windowflash"]		>> windowflashing
 	S["be_special"] 		>> be_special
-	S["triumphs"]			>> triumphs
 	S["verbose_character_creator"] >> verbose_character_creator
 	S["musicvol"]			>> musicvol
 	S["lobbymusicvol"]		>> lobbymusicvol
@@ -165,10 +164,8 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	S["auto_fit_viewport"]	>> auto_fit_viewport
 	S["menuoptions"]		>> menuoptions
 	S["attack_blip_frequency"] >> attack_blip_frequency
-	S["tip_delay"]			>> tip_delay
-	S["pda_style"]			>> pda_style
-	S["pda_color"]			>> pda_color
-	///Caustic edit
+
+	//Caustic edit
 	S["epilepsy"]			>> epilepsy
 
 	S["vore_health_bars"]	>> vore_health_bars
@@ -189,7 +186,8 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 
 	if(!rp_guidance)
 		rp_guidance = 3 //Reset it to default if it's somehow null.
-	///Caustic edit end
+	//Caustic edit end
+
 	// Custom hotkeys
 	S["key_bindings"]		>> key_bindings
 	//CC + TA edit
