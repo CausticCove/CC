@@ -27,6 +27,7 @@ GLOBAL_LIST_INIT(averse_factions, list(
 	var/desc
 	var/ui_fa_icon = null // FontAwesome icon to use in the pref menu, null gives a question mark
 	var/ephemeral = FALSE // This flaw is currently disabled and will not process
+	var/needs_extra_vice = FALSE
 	/// For voyeur vice examines only. Format is "[name] is " + this + "...", leave blank to use the flaw's name.
 	/// Intended for addiction types only.
 	var/voyeur_descriptor
@@ -87,10 +88,6 @@ GLOBAL_LIST_INIT(averse_factions, list(
 			return cf
 	return null
 
-/datum/charflaw/eznoflaw
-	name = "Flawless"
-	desc = "I'm untempted by even the simplest vices. Am I riding the high of my latest TRIUMPH, or am I simply a rarity amongst rarities?" //Originally 'No Flaw', with "I'm a normal person, how rare!" as the desc.
-
 /datum/charflaw/noflaw // Caustic Cove Edit start - Our rounds are now 4 hours long, so this has to cost a tiny bit more!
 	name = "Flawless (-4 TRI)" // Edit here
 	desc = "I'm untempted by even the simplest vices. Am I riding the high of my latest TRIUMPH, or am I simply a rarity amongst rarities?"
@@ -99,12 +96,9 @@ GLOBAL_LIST_INIT(averse_factions, list(
 /datum/charflaw/noflaw/apply_post_equipment(mob/user)
 	var/mob/living/carbon/human/H = user
 	if(H.get_triumphs() < 4) // CC Edit 3 -> 4
-		var/flawz = GLOB.character_flaws.Copy()
-		var/charflaw = pick_n_take(flawz)
-		charflaw = GLOB.character_flaws[charflaw]
-		var/datum/charflaw/new_flaw = new charflaw()
-		H.charflaws.Add(new_flaw)
-		new_flaw.on_mob_creation(H)
+		var/datum/charflaw/randflaw/rand_flaw = new()
+		H.charflaws.Add(rand_flaw)
+		rand_flaw.apply_post_equipment(H)
 	else
 		H.adjust_triumphs(-4) // CC Edit 3 -> 4
 
@@ -194,7 +188,7 @@ GLOBAL_LIST_INIT(averse_factions, list(
 		H.equip_to_slot_or_del(new /obj/item/clothing/mask/rogue/spectacles(H), SLOT_WEAR_MASK)
 	else
 		new /obj/item/clothing/mask/rogue/spectacles(get_turf(H))
-	
+
 	// we don't seem to have a mind when on_mob_creation fires, so set up a timer to check when we probably will
 	addtimer(CALLBACK(src, PROC_REF(apply_reading_skill), H), 5 SECONDS)
 
@@ -369,7 +363,7 @@ GLOBAL_LIST_INIT(averse_factions, list(
 /datum/charflaw/clingy/apply_post_equipment(mob/user)
 	if(user.mind)
 		is_active = TRUE
-	
+
 
 /datum/charflaw/noeyer
 	name = "Cyclops (R)"
@@ -426,17 +420,17 @@ GLOBAL_LIST_INIT(averse_factions, list(
 	..()
 	user.add_client_colour(/datum/client_colour/monochrome)
 
-/datum/charflaw/armor_break
+/*/datum/charflaw/armor_break //Caustic Edit - Commenting this out because we don't really have this functionality nabbed from AP
 	name = "Loose Straps"
 	desc = "My armor never seems to fit quite right. It has a nasty habit of exploding off my body when under inordinate stress."
 	ui_fa_icon = "shield-halved"
-	needs_extra_vice = TRUE
+	//needs_extra_vice = TRUE
 
 /datum/charflaw/armor_break/on_mob_creation(mob/user)
 	..()
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
-		ADD_TRAIT(H, TRAIT_ARMOR_BREAK, TRAIT_GENERIC)
+		ADD_TRAIT(H, TRAIT_ARMOR_BREAK, TRAIT_GENERIC)*/
 
 /datum/charflaw/hunted
 	name = "Hunted"
@@ -687,7 +681,7 @@ GLOBAL_LIST_INIT(averse_factions, list(
 	name = "Silver Weakness"
 	desc = "Silver is the greatest threat to my lyfe. Blows from silver weapons will set me alight, inhibit my ability to regenerate, and - if blessed - can outright destroy my vessel. However small items like cutlery and smaller objects will not harm me if i don't hold it for too long."
 	ui_fa_icon = "cross"
-	needs_extra_vice = TRUE
+	//needs_extra_vice = TRUE //Caustic Edit - Lets just turn some of these off.
 
 /datum/charflaw/silverweakness/on_mob_creation(mob/user)
 	ADD_TRAIT(user, TRAIT_SILVER_WEAK, TRAIT_GENERIC)
@@ -721,7 +715,7 @@ GLOBAL_LIST_INIT(averse_factions, list(
 	insane_fool.hallucination = INFINITY
 	ADD_TRAIT(insane_fool, TRAIT_PSYCHOSIS, TRAIT_GENERIC)
 	insane_fool.adjust_triumphs(3)
-	if(insane_fool.patron?.type == /datum/patron/divine/abyssor) 
+	if(insane_fool.patron?.type == /datum/patron/divine/abyssor)
 	 insane_fool.grant_language(/datum/language/abyssal)
 
 /datum/charflaw/indebted
