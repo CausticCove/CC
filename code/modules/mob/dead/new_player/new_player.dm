@@ -378,7 +378,7 @@ GLOBAL_LIST_INIT(roleplay_readme, world.file2list("strings/rt/rp_prompt.txt"))
 		humanc = character	//Let's retypecast the var to be human,
 
 	GLOB.joined_player_list += character.ckey
-	update_scaling_slots()
+	//update_scaling_slots()
 
 	if(humanc)
 		var/fakekey = character.ckey

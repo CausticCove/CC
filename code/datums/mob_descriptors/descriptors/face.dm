@@ -59,6 +59,9 @@
 /datum/mob_descriptor/face/full
 	name = "Full"
 
+/datum/mob_descriptor/face/punchable
+	name = "Punchable"
+
 /datum/mob_descriptor/face/flat
 	name = "Flat"
 

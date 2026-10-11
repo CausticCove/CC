@@ -29,7 +29,8 @@
 	var/datum/customizer_entry/organ/belly/belly_entry = entry
 	belly_dna.belly_size = belly_entry.belly_size
 
-/datum/customizer_choice/organ/belly/generate_pref_choices(list/dat, datum/preferences/prefs, datum/customizer_entry/entry, customizer_type)
+//This is from the old pre-TGUI Character Editor
+/*/datum/customizer_choice/organ/belly/generate_pref_choices(list/dat, datum/preferences/prefs, datum/customizer_entry/entry, customizer_type)
 	..()
 	var/datum/customizer_entry/organ/belly/belly_entry = entry
 	dat += "<br>Belly size: <a href='?_src_=prefs;task=change_customizer;customizer=[customizer_type];customizer_task=belly_size''>[find_key_by_value(GLOB.named_belly_sizes, belly_entry.belly_size)]</a>"
@@ -43,7 +44,7 @@
 			if(isnull(named_size))
 				return
 			var/new_size = GLOB.named_belly_sizes[named_size]
-			belly_entry.belly_size = sanitize_integer(new_size, MIN_BELLY_SIZE, MAX_BELLY_SIZE, DEFAULT_BELLY_SIZE)
+			belly_entry.belly_size = sanitize_integer(new_size, MIN_BELLY_SIZE, MAX_BELLY_SIZE, DEFAULT_BELLY_SIZE)*/
 
 /datum/customizer/organ/belly/human
 	customizer_choices = list(/datum/customizer_choice/organ/belly/human)
@@ -131,7 +132,8 @@
 	var/datum/customizer_entry/organ/butt/butt_entry = entry
 	butt_dna.organ_size = butt_entry.organ_size
 
-/datum/customizer_choice/organ/butt/generate_pref_choices(list/dat, datum/preferences/prefs, datum/customizer_entry/entry, customizer_type)
+//This is from the old pre-TGUI Character Editor
+/*/datum/customizer_choice/organ/butt/generate_pref_choices(list/dat, datum/preferences/prefs, datum/customizer_entry/entry, customizer_type)
 	..()
 	var/datum/customizer_entry/organ/butt/butt_entry = entry
 	dat += "<br>Butt size: <a href='?_src_=prefs;task=change_customizer;customizer=[customizer_type];customizer_task=organ_size''>[find_key_by_value(GLOB.named_butt_sizes, butt_entry.organ_size)]</a>"
@@ -145,7 +147,7 @@
 			if(isnull(named_size))
 				return
 			var/new_size = GLOB.named_butt_sizes[named_size]
-			butt_entry.organ_size = sanitize_integer(new_size, MIN_BUTT_SIZE, MAX_BUTT_SIZE, DEFAULT_BUTT_SIZE)
+			butt_entry.organ_size = sanitize_integer(new_size, MIN_BUTT_SIZE, MAX_BUTT_SIZE, DEFAULT_BUTT_SIZE)*/
 
 /datum/customizer/organ/butt/human
 	customizer_choices = list(/datum/customizer_choice/organ/butt/human)
