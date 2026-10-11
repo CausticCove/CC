@@ -599,7 +599,7 @@
 	equip_delay_self = 8 SECONDS
 	unequip_delay_self = 8 SECONDS
 	equip_delay_other = 3 SECONDS
-	strip_delay = 6 SECONDS
+	strip_delay = STRIP_DELAY_ARMOR
 	smelt_bar_num = 3
 
 /obj/item/clothing/suit/roguetown/armor/heartfelt
@@ -695,7 +695,7 @@
 /obj/item/clothing/suit/roguetown/armor/plate/cuirass
 	slot_flags = ITEM_SLOT_ARMOR
 	name = "steel cuirass"
-	desc = "A steel cuirass. It bares all the hallmarks of sixteenth-century nobility: angularity, polishedness, and - above all else - class."
+	desc = "A steel cuirass. It bears all the hallmarks of sixteenth-century nobility: angularity, polishedness, and - above all else - class."
 	body_parts_covered = COVERAGE_VEST
 	icon_state = "cuirass"
 	item_state = "cuirass"
@@ -708,6 +708,12 @@
 	smeltresult = /obj/item/ingot/steel
 	armor_class = ARMOR_CLASS_MEDIUM
 	smelt_bar_num = 1
+
+/obj/item/clothing/suit/roguetown/armor/plate/cuirass/ComponentInitialize()
+	AddComponent(/datum/component/item_equipped_movement_rustle, SFX_PLATE_STEP, 12)
+	AddComponent(/datum/component/armour_filtering/negative, TRAIT_FENCERDEXTERITY)
+	AddComponent(/datum/component/armour_filtering/negative, TRAIT_HONORBOUND)
+	AddComponent(/datum/component/armour_filtering/positive, TRAIT_FREEBLADEDEXTERITY)
 
 /obj/item/clothing/suit/roguetown/armor/plate/cuirass/fencer
 	name = "fencer's cuirass"
@@ -725,9 +731,42 @@
 	AddComponent(/datum/component/armour_filtering/positive, TRAIT_FENCERDEXTERITY)
 	AddComponent(/datum/component/armour_filtering/negative, TRAIT_HONORBOUND)
 
+/obj/item/clothing/suit/roguetown/armor/plate/cuirass/fencer/legacy
+	name = "valorian fencer's cuirass"
+	desc = "A steel cuirass. Do you still remember the first time you tasted blood; that sanguine succor, dribbling from a busted lip?"
+	icon_state = "legacycuirass"
+	item_state = "legacycuirass"
+
+/obj/item/clothing/suit/roguetown/armor/plate/cuirass/fencer/donator
+	name = "steel heartplate"
+	desc = "A curious - and particularly revealing - variant of a common cuirass. It's said that the intentionally provocative design \
+	excels at diverting strikes that'd otherwise pierce the wearer's unprotected regions."
+	icon = 'icons/clothing/donor_clothes.dmi'
+	mob_overlay_icon = 'icons/clothing/onmob/donor_clothes.dmi'
+	item_state = "heartplates"
+	icon_state = "heartplates"
+
+/obj/item/clothing/suit/roguetown/armor/plate/cuirass/fencer/donator_girdle
+	name = "steel plackart"
+	desc = "A curious - and particularly revealing - variant of a common cuirass. It's said that the intentionally provocative design \
+	excels at diverting strikes that'd otherwise pierce the wearer's unprotected regions."
+	icon = 'icons/clothing/donor_clothes.dmi'
+	mob_overlay_icon = 'icons/clothing/onmob/donor_clothes.dmi'
+	item_state = "plackarts"
+	icon_state = "plackarts"
+
+/obj/item/clothing/suit/roguetown/armor/plate/cuirass/fencer/donator_gothic
+	name = "gothic cuirass"
+	desc = "A magnificent steel cuirass, assembled by an Azurian mastersmith. The intricate fluting and interlocked plates are clear \
+	signs of its Grenzelhoftian heritage; expensive, but second-to-none when it comes to what truly matters in life."
+	icon = 'icons/clothing/donor_clothes.dmi'
+	mob_overlay_icon = 'icons/clothing/onmob/donor_clothes.dmi'
+	item_state = "gcuirass"
+	icon_state = "gcuirass"
+
 /obj/item/clothing/suit/roguetown/armor/plate/cuirass/fencer/psydon
 	name = "psydonic chestplate"
-	desc = "A form-fitting steel cuirass with flutings of blessed server. It is much lighter and agile than its contemporaries, but breaks \
+	desc = "A form-fitting steel cuirass with flutings of blessed silver. It is much lighter and agile than its contemporaries, but breaks \
 	with much more ease. In lieu of traditional padding, the underside is backed with thickly-woven silk to thwart deadlier blows."
 	smelt_bar_num = 1
 	max_integrity = ARMOR_INT_CHEST_LIGHT_BASE
@@ -737,7 +776,7 @@
 
 /obj/item/clothing/suit/roguetown/armor/plate/cuirass/aalloy
 	name = "decrepit cuirass"
-	desc = "Frayed bronze, pounded into a breastplate. It feels more like a corset than a cuirass; there's barely enough width \
+	desc = "Rotted metal, pounded into a breastplate. It feels more like a corset than a cuirass; there's barely enough width \
 	to let those aching lungs breathe."
 	icon_state = "ancientcuirass"
 	max_integrity = ARMOR_INT_CHEST_MEDIUM_DECREPIT
@@ -814,6 +853,14 @@
 	. += span_info("If a character has the 'Maille Training' trait and has Psydon as their selected patron, they can comfortably wear Psydonic plate armor without suffering any downsides.")
 	. += span_hypnophrase("'..the feeling of Aeon's grasp upon your shoulders, imparting the world's burden unto flesh and bone..'")
 
+/obj/item/clothing/suit/roguetown/armor/plate/cuirass/fluted/grinning
+	name = "grinning cuirass"
+	icon_state = "grinningcuirass"
+	desc = "The steel of this chestpiece is deformed into sharp fangs crowning under the breast, equal parts to catch blades and mock your opponent, while gilt tooth-inlays line the waist. Stay hungry, hustler. Get your laughs in while you can."
+
+/obj/item/clothing/suit/roguetown/armor/plate/cuirass/fluted/grinning/get_examine_highlight_status()
+	return list(EXAMINEHIGHLIGHT_HERESYSEVERITY_SUSPICIOUS, HERESYDESC_MATTHIOS_GRINNING)
+
 /obj/item/clothing/suit/roguetown/armor/plate/cuirass/iron
 	name = "iron breastplate"
 	desc = "An iron cuirass. While most would sneer at the idea of wearing 'lesser alloys', many-a-levyman can attest to its robustness."
@@ -848,7 +895,6 @@
 	allowed_sex = list(MALE, FEMALE)
 	anvilrepair = /datum/skill/craft/armorsmithing
 	smeltresult = /obj/item/ingot/steel
-	armor_class = ARMOR_CLASS_MEDIUM
 	smelt_bar_num = 3
 
 //Coats of Plates
@@ -883,6 +929,7 @@
 	max_integrity = ARMOR_INT_CHEST_MEDIUM_BRONZE
 	smeltresult = /obj/item/ingot/bronze
 	armor_class = ARMOR_CLASS_MEDIUM
+	armor = ARMOR_BRONZE
 
 /obj/item/clothing/suit/roguetown/armor/plate/scale/copper
 	name = "copper lamellar"
@@ -900,6 +947,7 @@
 	hope to bear its burden, both metaphorically and quite literally."
 	icon_state = "leathercoat"
 	item_state = "leathercoat"
+	boobed = FALSE
 
 /obj/item/clothing/suit/roguetown/armor/plate/scale/marshal/update_icon()
 	cut_overlays()
@@ -910,7 +958,7 @@
 			pic.color = get_detail_color()
 		add_overlay(pic)
 
-/obj/item/clothing/suit/roguetown/armor/plate/scale/marshal/Initialize()
+/obj/item/clothing/suit/roguetown/armor/plate/scale/marshal/Initialize(mapload)
 	. = ..()
 	if(GLOB.lordprimary)
 		lordcolor(GLOB.lordprimary,GLOB.lordsecondary)
@@ -948,7 +996,7 @@
 	icon_state = "inqcoat"
 	item_state = "inqcoat"
 	sleevetype = "shirt"
-	max_integrity = 300
+	max_integrity = ARMOR_INT_CHEST_LIGHT_ELITE
 	anvilrepair = /datum/skill/craft/armorsmithing
 	equip_delay_self = 4 SECONDS
 	armor_class = ARMOR_CLASS_LIGHT
@@ -979,7 +1027,19 @@
 		else
 			user.visible_message(span_warning("[user] stops fitting [W] inside the [src]."))
 		return
-
+	if(istype(W, /obj/item/clothing/suit/roguetown/armor/plate/full/fluted/ornate/ordinator))
+		user.visible_message(span_warning("[user] starts to fit [W] inside the [src]."))
+		if(do_after(user, 12 SECONDS))
+			var/obj/item/clothing/suit/roguetown/armor/plate/scale/inqcoat/armored/heavy/P = new /obj/item/clothing/suit/roguetown/armor/plate/scale/inqcoat/armored/heavy(get_turf(src.loc))
+			if(user.is_holding(src))
+				user.dropItemToGround(src)
+			user.put_in_hands(P)
+			P.obj_integrity = src.obj_integrity
+			qdel(src)
+			qdel(W)
+		else
+			user.visible_message(span_warning("[user] stops fitting [W] inside the [src]."))
+		return
 
 /obj/item/clothing/suit/roguetown/armor/plate/scale/inqcoat/armored
 	slot_flags = ITEM_SLOT_ARMOR
@@ -1002,19 +1062,72 @@
 	AddComponent(/datum/component/item_equipped_movement_rustle, SFX_PLATE_STEP, 12)
 	return
 
+/obj/item/clothing/suit/roguetown/armor/plate/scale/inqcoat/armored/heavy
+	name = "plated inquisitorial duster"
+	desc = "A heavy longcoat that's fitted atop a set of blessed plate armor, donned by the Holy Psydonic Inquisition's finest. As expected from \
+	such a doursome country, this style is quite popular in Otava - where the skies are always overcast, and where sanctioned Ordinators often have \
+	to roam in the downpour. </br>At least, that's what the Holy See would probably say. What would <i>they</i> know about fashion, however?"
+	icon_state = "ordinatorplatecoat"
+	item_state = "ordinatorplatecoat"
+	icon = 'icons/clothing/donor_clothes.dmi'
+	mob_overlay_icon = 'icons/clothing/onmob/donor_clothes.dmi'
+	sleeved = 'icons/clothing/onmob/donor_sleeves_armor.dmi'
+	equip_delay_self = 8 SECONDS
+	armor_class = ARMOR_CLASS_HEAVY
+	armor = ARMOR_PLATE
+	max_integrity = ARMOR_INT_CHEST_PLATE_PSYDON
+	is_silver = TRUE
+	is_lesser_silver = TRUE
+
+/obj/item/clothing/suit/roguetown/armor/plate/scale/inqcoat/armored/heavy/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/armour_filtering/positive, TRAIT_PSYDONIAN_GRIT, "ornate_plate")
+
 /obj/item/clothing/suit/roguetown/armor/plate/cuirass/fencer/decorated
 	name = "decorated chestplate"
 	icon_state = "gildedchestplate"
 	smeltresult = /obj/item/ingot/gold
 	desc = "An ornate steel chestplate, decorated with golden fluting. For when you need to bring a little bit of regal style to that upcoming duel with your lyfe's greatest adversary."
 	smelt_bar_num = 1
-	
+	color = null
+	detail_color = CLOTHING_WHITE
+	detail_tag = "_detail"
+
+/obj/item/clothing/suit/roguetown/armor/plate/cuirass/fencer/decorated/Initialize(mapload)
+	. = ..()
+	update_icon()
+
+/obj/item/clothing/suit/roguetown/armor/plate/cuirass/fencer/decorated/update_icon()
+	cut_overlays()
+	if(get_detail_tag())
+		var/mutable_appearance/pic = mutable_appearance(icon(icon, "[icon_state][detail_tag]"))
+		pic.appearance_flags = RESET_COLOR
+		if(get_detail_color())
+			pic.color = get_detail_color()
+		add_overlay(pic)
+
 /obj/item/clothing/suit/roguetown/armor/plate/cuirass/fluted/decorated
 	name = "decorated cuirass"
 	icon_state = "gildedcuirass"
 	smeltresult = /obj/item/ingot/gold
 	desc = "An ornate steel cuirass, decorated with golden fluting. For when you need to ensure that you look dapper, during your mustering for the latest crusade into some gods-forsaken land."
 	smelt_bar_num = 1
+	color = null
+	detail_color = CLOTHING_WHITE
+	detail_tag = "_detail"
+
+/obj/item/clothing/suit/roguetown/armor/plate/cuirass/fluted/decorated/Initialize(mapload)
+	. = ..()
+	update_icon()
+
+/obj/item/clothing/suit/roguetown/armor/plate/cuirass/fluted/decorated/update_icon()
+	cut_overlays()
+	if(get_detail_tag())
+		var/mutable_appearance/pic = mutable_appearance(icon(icon, "[icon_state][detail_tag]"))
+		pic.appearance_flags = RESET_COLOR
+		if(get_detail_color())
+			pic.color = get_detail_color()
+		add_overlay(pic)
 
 /obj/item/clothing/suit/roguetown/armor/plate/fluted/decorated
 	name = "decorated half-plate"
@@ -1022,6 +1135,22 @@
 	smeltresult = /obj/item/ingot/gold
 	desc = "An ornate set of steel armor, decorated with golden fluting. For when you need to remind those of lesser stations about whose authority reigns supreme, in lieu of a King's command."
 	smelt_bar_num = 1
+	color = null
+	detail_color = CLOTHING_WHITE
+	detail_tag = "_detail"
+
+/obj/item/clothing/suit/roguetown/armor/plate/fluted/decorated/Initialize(mapload)
+	. = ..()
+	update_icon()
+
+/obj/item/clothing/suit/roguetown/armor/plate/fluted/decorated/update_icon()
+	cut_overlays()
+	if(get_detail_tag())
+		var/mutable_appearance/pic = mutable_appearance(icon(icon, "[icon_state][detail_tag]"))
+		pic.appearance_flags = RESET_COLOR
+		if(get_detail_color())
+			pic.color = get_detail_color()
+		add_overlay(pic)
 
 /obj/item/clothing/suit/roguetown/armor/plate/full/fluted/decorated
 	name = "decorated plate armor"
@@ -1029,3 +1158,43 @@
 	smeltresult = /obj/item/ingot/gold
 	desc = "An ornate set of steel plate armor, decorated with golden fluting. For when you need to do something with all of that precious, precious wealth gathering dust in a fief's ducal treasury."
 	smelt_bar_num = 1
+	color = null
+	detail_color = CLOTHING_WHITE
+	detail_tag = "_detail"
+
+/obj/item/clothing/suit/roguetown/armor/plate/full/fluted/decorated/Initialize(mapload)
+	. = ..()
+	update_icon()
+
+/obj/item/clothing/suit/roguetown/armor/plate/full/fluted/decorated/update_icon()
+	cut_overlays()
+	if(get_detail_tag())
+		var/mutable_appearance/pic = mutable_appearance(icon(icon, "[icon_state][detail_tag]"))
+		pic.appearance_flags = RESET_COLOR
+		if(get_detail_color())
+			pic.color = get_detail_color()
+		add_overlay(pic)
+
+/obj/item/clothing/suit/roguetown/armor/brigandine/heavy/decorated
+	name = "decorated coat of plates"
+	desc = "An ornate coat-of-plates, adorned with a pair of steel vambraces and decorated with golden fluting. For when 'commanding by saigaback' is both a tactically unsound yet tempting option."
+	icon_state = "gildedcoatofplates"
+	item_state = "gildedcoatofplates"
+	color = null
+	detail_color = CLOTHING_WHITE
+	detail_tag = "_detail"
+	sleeved_detail = TRUE
+	nodismemsleeves = FALSE
+
+/obj/item/clothing/suit/roguetown/armor/brigandine/heavy/decorated/Initialize(mapload)
+	. = ..()
+	update_icon()
+
+/obj/item/clothing/suit/roguetown/armor/brigandine/heavy/decorated/update_icon()
+	cut_overlays()
+	if(get_detail_tag())
+		var/mutable_appearance/pic = mutable_appearance(icon(icon, "[icon_state][detail_tag]"))
+		pic.appearance_flags = RESET_COLOR
+		if(get_detail_color())
+			pic.color = get_detail_color()
+		add_overlay(pic)
