@@ -264,6 +264,7 @@
 	associated_skill = /datum/skill/combat/staves
 	anvilrepair = /datum/skill/craft/carpentry
 	resistance_flags = FLAMMABLE
+	twirl_speed = 6
 
 /obj/item/rogueweapon/woodstaff/getonmobprop(tag)
 	. = ..()
