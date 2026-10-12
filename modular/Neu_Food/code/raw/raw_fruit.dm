@@ -58,7 +58,7 @@
 
 /obj/item/reagent_containers/food/snacks/rogue/fruit/apple_sliced/gold
 	cuisine = CUISINE_SOUTH_IMPERIAL
-	name = "sliceed ambrosia"
+	name = "sliced ambrosia"
 	icon_state = "gapple_sliced"
 	desc = "A golden apple, parted into perfectly symmetrical thirds. Opulance has never tasted so sweet!"
 	faretype = FARE_LAVISH

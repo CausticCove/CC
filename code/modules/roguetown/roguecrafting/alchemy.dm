@@ -78,6 +78,91 @@
 	reqs = list(/obj/item/ash = 3, /obj/item/reagent_containers/food/snacks/grown/rogue/pipeweeddry = 2, /datum/reagent/berrypoison = 3)
 	craftdiff = 3
 
+/datum/crafting_recipe/roguetown/alchemy/moon_purest
+	name = "purified moondust"
+	category = "Table"
+	result = list(/obj/item/reagent_containers/powder/moondust_purest)
+	reqs = list(/obj/item/reagent_containers/powder/moondust = 1, /datum/reagent/buff/speed = 15, /datum/reagent/buff/endurance = 15)
+	craftdiff = 4
+
+/datum/crafting_recipe/roguetown/alchemy/moon_purest_3x
+	name = "purified moondust (x3)"
+	category = "Table"
+	result = list(/obj/item/reagent_containers/powder/moondust_purest,
+					/obj/item/reagent_containers/powder/moondust_purest,
+					/obj/item/reagent_containers/powder/moondust_purest
+				)
+	reqs = list(/obj/item/reagent_containers/powder/moondust = 3, /datum/reagent/buff/speed = 30, /datum/reagent/buff/endurance = 30)
+	craftdiff = 5
+
+/datum/crafting_recipe/roguetown/alchemy/spice_compost
+	name = "spice (compost)"
+	category = "Table"
+	result = list(/obj/item/reagent_containers/powder/spice)
+	reqs = list(/obj/item/ash = 2, /obj/item/compost = 2, /datum/reagent/berrypoison = 2)
+	craftdiff = 3
+
+/datum/crafting_recipe/roguetown/alchemy/spice_compost_3x
+	name = "spice (compost) (x3)"
+	category = "Table"
+	result = list(/obj/item/reagent_containers/powder/spice,
+					/obj/item/reagent_containers/powder/spice,
+					/obj/item/reagent_containers/powder/spice
+				)
+	reqs = list(/obj/item/ash = 3, /obj/item/compost = 3, /datum/reagent/berrypoison = 3)
+	craftdiff = 4
+
+/datum/crafting_recipe/roguetown/alchemy/spice_poo
+	name = "spice (nightsoil)"
+	category = "Table"
+	result = list(/obj/item/reagent_containers/powder/spice)
+	reqs = list(/obj/item/ash = 2, /obj/item/natural/poo = 1, /datum/reagent/berrypoison = 2)
+	craftdiff = 3
+
+/datum/crafting_recipe/roguetown/alchemy/spice_poo_3x
+	name = "spice (nightsoil) (x3)"
+	category = "Table"
+	result = list(/obj/item/reagent_containers/powder/spice,
+					/obj/item/reagent_containers/powder/spice,
+					/obj/item/reagent_containers/powder/spice
+				)
+	reqs = list(/obj/item/ash = 3, /obj/item/natural/poo = 2, /datum/reagent/berrypoison = 3)
+	craftdiff = 4
+
+/datum/crafting_recipe/roguetown/alchemy/herozium
+	name = "herozium"
+	category = "Table"
+	result = list(/obj/item/reagent_containers/powder/herozium)
+	reqs = list(/obj/item/reagent_containers/powder/ozium = 1, /datum/reagent/buff/strength = 15, /obj/item/ash = 2)
+	craftdiff = 4
+
+/datum/crafting_recipe/roguetown/alchemy/herozium_3x
+	name = "herozium (x3)"
+	category = "Table"
+	result = list(/obj/item/reagent_containers/powder/herozium,
+					/obj/item/reagent_containers/powder/herozium,
+					/obj/item/reagent_containers/powder/herozium
+				)
+	reqs = list(/obj/item/reagent_containers/powder/ozium = 3, /datum/reagent/buff/strength = 30, /obj/item/ash = 3)
+	craftdiff = 5
+
+/datum/crafting_recipe/roguetown/alchemy/starsugar
+	name = "starsugar"
+	category = "Table"
+	result = list(/obj/item/reagent_containers/powder/starsugar)
+	reqs = list(/obj/item/alch/solardust = 1, /obj/item/alch/salvia = 1, /datum/reagent/medicine/strongmana = 15, /obj/item/alch/sleep_powder = 1)
+	craftdiff = 4
+
+/datum/crafting_recipe/roguetown/alchemy/starsugar_3x
+	name = "starsugar (x3)"
+	category = "Table"
+	result = list(/obj/item/reagent_containers/powder/starsugar,
+					/obj/item/reagent_containers/powder/starsugar,
+					/obj/item/reagent_containers/powder/starsugar
+				)
+	reqs = list(/obj/item/alch/solardust = 2, /obj/item/alch/salvia = 2, /datum/reagent/medicine/strongmana = 30, /obj/item/alch/sleep_powder = 2)
+	craftdiff = 5
+
 /datum/crafting_recipe/roguetown/alchemy/salt
 	name = "salt pile (fat)"
 	category = "Table"
@@ -278,7 +363,7 @@
 	craftdiff = 4
 	verbage_simple = "transmute"
 
-/datum/crafting_recipe/roguetown/alchemy/i2sil //Caustic edit. 
+/datum/crafting_recipe/roguetown/alchemy/i2sil //Caustic edit.
 	name = "gold to silver"
 	category = "Transmutation"
 	result = list(/obj/item/rogueore/silver = 1)

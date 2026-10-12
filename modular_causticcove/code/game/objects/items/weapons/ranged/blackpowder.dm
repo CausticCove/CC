@@ -1,11 +1,12 @@
-/obj/item/gun/ballistic/blackpowder //A new base for all blackpowder weaponry. Lets just use the Arq's stats as the baseline for now?
+/obj/item/gun/ballistic/revolver/grenadelauncher/blackpowder //A new base for all blackpowder weaponry. Lets just use the Arq's stats as the baseline for now?
 	name = "blackpowder weaponry"
 	desc = "A gunpowder weapon that shoots an armor piercing metal ball."
-	icon = 'modular_causticcove/icons/weapons/arquebus.dmi'
+	icon = 'modular_causticcove/icons/weapons/blackpowder64.dmi'
 	icon_state = "arquebus"
 	item_state = "arquebus"
 	force = 10
 	force_wielded = 15
+	ranged_skill = /datum/skill/combat/firearms
 	possible_item_intents = list(/datum/intent/mace/strike/wood)
 	gripped_intents = list(/datum/intent/shoot/blackpowder, /datum/intent/arc/blackpowder, INTENT_GENERIC)
 	internal_magazine = TRUE
@@ -15,7 +16,7 @@
 	inhand_x_dimension = 64
 	inhand_y_dimension = 64
 	bigboy = TRUE
-	gripsprite = TRUE
+	//gripsprite = TRUE
 	wlength = WLENGTH_LONG
 	slot_flags = null
 	w_class = WEIGHT_CLASS_BULKY
@@ -28,6 +29,7 @@
 	minstr = 6
 	experimental_onback = TRUE
 	cartridge_wording = "musketball"
+	obj_flags = UNIQUE_RENAME
 	load_sound = 'modular_causticcove/sound/arquebus/musketload.ogg'
 	fire_sound = 'modular_causticcove/sound/arquebus/arquefire.ogg'
 	anvilrepair = /datum/skill/craft/weaponsmithing
@@ -37,6 +39,10 @@
 	pickup_sound = 'modular_causticcove/sound/sheath_sounds/draw_from_holster.ogg'
 
 	//These Vars are used for internal state/sound handling and storing the ramrod.
+	var/multiple_shot = FALSE //Generally intended to be used with need_handload = FALSE as well
+	var/needs_handload = TRUE
+	var/has_rod = TRUE
+
 	var/reloaded = FALSE
 	var/gunpowder = FALSE
 	var/obj/item/ramrod/myrod = null
@@ -44,31 +50,49 @@
 
 	//These Vars should be changed as needed for the subweapons!
 	var/spread_num = 10 //This spread value is eventually translated into the random angle it will spread from the intended firing path - if not fully charged
-	var/damfactor = 1 //Default 1 here translates to 100 damage when fired
+	damfactor = 1 //Default 1 here translates to 100 damage when fired
 	var/range = 30 //The shot will have it's range set to this when fired
 	var/load_time = 50 //Ticks it takes to load the weapon
 
-/obj/item/gun/ballistic/blackpowder/getonmobprop(tag)
+/obj/item/gun/ballistic/revolver/grenadelauncher/blackpowder/Initialize()
+	. = ..()
+	if(has_rod)
+		myrod = new /obj/item/ramrod(src)
+
+/obj/item/gun/ballistic/revolver/grenadelauncher/blackpowder/get_mechanics_examine(mob/user)
+	. = ..()
+	if(needs_handload)
+		. += span_info("To actually fire your blackpowder weaponry, you will need a Powder Flask, Ammo for the weapon, and a Ramrod. All weapons that require a rod have one stored in them.")
+		. += span_info("First, you must fill your barrel with powder from your flask. Then grab your shot and insert it into the barrel.")
+		. += span_info("Remove the Ramrod from your weapon by right clicking it with an empty hand, then use the Ramrod on the weapon to chamber it. Use it on the weapon again to store it.")
+		. += span_info("Some weapons need to be aimed with both hands to be able to fire them properly! But ensure you are in Shoot or Arc mode, hold to aim and when it is charged, release to fire.")
+
+/obj/item/gun/ballistic/revolver/grenadelauncher/blackpowder/getonmobprop(tag)
 	. = ..()
 	if(tag)
 		switch(tag)
 			if("gen")
-				return list("shrink" = 0.6,"sx" = -7,"sy" = 6,"nx" = 7,"ny" = 6,"wx" = -2,"wy" = 3,"ex" = 1,"ey" = 3,"northabove" = 0,"southabove" = 1,"eastabove" = 1,"westabove" = 0,"nturn" = -43,"sturn" = 43,"wturn" = 30,"eturn" = -30, "nflip" = 0, "sflip" = 8,"wflip" = 8,"eflip" = 0)
+				return list("shrink" = 0.6, "sx" = -6, "sy" = 2, "nx" = 6, "ny" = 2, "wx" = 1, "wy" = 2, "ex" = 1, "ey" = 2,
+							"northabove" = 0, "southabove" = 1, "eastabove" = 1, "westabove" = 0,
+							"nturn" = -70, "sturn" = 70, "wturn" = -70, "eturn" = -110, "nflip" = 0, "sflip" = 8, "wflip" = 0, "eflip" = 1)
 			if("wielded")
-				return list("shrink" = 0.6,"sx" = 5,"sy" = -2,"nx" = -5,"ny" = -1,"wx" = -8,"wy" = 2,"ex" = 8,"ey" = 2,"northabove" = 0,"southabove" = 1,"eastabove" = 1,"westabove" = 1,"nturn" = -45,"sturn" = 45,"wturn" = 0,"eturn" = 0,"nflip" = 8,"sflip" = 0,"wflip" = 8,"eflip" = 0)
+				return list("shrink" = 0.6, "sx" = 2, "sy" = 0, "nx" = -2, "ny" = 0, "wx" = -5, "wy" = 0, "ex" = 7, "ey" = 0,
+							"northabove" = 0, "southabove" = 1, "eastabove" = 1, "westabove" = 1,
+							"nturn" = 0, "sturn" = 0, "wturn" = 35, "eturn" = -35, "nflip" = 8, "sflip" = 0, "wflip" = 8, "eflip" = 0)
 			if("onback")
-				return list("shrink" = 0.5,"sx" = -1,"sy" = 2,"nx" = 0,"ny" = 2,"wx" = 2,"wy" = 1,"ex" = 0,"ey" = 1,"nturn" = 0,"sturn" = 0,"wturn" = 70,"eturn" = 15,"nflip" = 1,"sflip" = 1,"wflip" = 1,"eflip" = 1,"northabove" = 1,"southabove" = 0,"eastabove" = 0,"westabove" = 0)
+				return list("shrink" = 0.6, "sx" = -6, "sy" = 2, "nx" = 6, "ny" = 2, "wx" = 1, "wy" = 2, "ex" = 1, "ey" = 2,
+							"northabove" = 0, "southabove" = 1, "eastabove" = 1, "westabove" = 0,
+							"nturn" = -70, "sturn" = 70, "wturn" = -70, "eturn" = -110, "nflip" = 0, "sflip" = 8, "wflip" = 0, "eflip" = 1)
 
-/obj/item/gun/ballistic/blackpowder/Initialize()
-	. = ..()
-	myrod = new /obj/item/ramrod(src)
-
-/obj/item/gun/ballistic/blackpowder/shoot_live_shot(mob/living/user as mob|obj, pointblank = 0, mob/pbtarget = null, message = 1)
+/obj/item/gun/ballistic/revolver/grenadelauncher/blackpowder/shoot_live_shot(mob/living/user as mob|obj, pointblank = 0, mob/pbtarget = null, message = 1)
 	fire_sound = pick('modular_causticcove/sound/arquebus/arquefire.ogg', 'modular_causticcove/sound/arquebus/arquefire2.ogg', 'modular_causticcove/sound/arquebus/arquefire3.ogg',
 				'modular_causticcove/sound/arquebus/arquefire4.ogg', 'modular_causticcove/sound/arquebus/arquefire5.ogg')
 	. = ..()
 
-/obj/item/gun/ballistic/blackpowder/attack_right(mob/user)
+/obj/item/gun/ballistic/revolver/grenadelauncher/blackpowder/attack_right(mob/user)
+	if(!has_rod)
+		return
+
 	if(user.get_active_held_item())
 		return
 	else
@@ -82,11 +106,11 @@
 		else
 			to_chat(user, "<span class='warning'>There is no rod stowed in [src]!</span>")
 
-/obj/item/gun/ballistic/blackpowder/shoot_with_empty_chamber()
+/obj/item/gun/ballistic/revolver/grenadelauncher/blackpowder/shoot_with_empty_chamber()
 	playsound(src.loc, 'modular_causticcove/sound/arquebus/musketcock.ogg', 100, FALSE)
 	update_icon()
 
-/obj/item/gun/ballistic/blackpowder/attack_self(mob/living/user)
+/obj/item/gun/ballistic/revolver/grenadelauncher/blackpowder/attack_self(mob/living/user)
 	if(twohands_required)
 		return
 	if(altgripped || wielded) //Trying to unwield it
@@ -98,9 +122,13 @@
 		wield(user)
 	update_icon()
 
-/obj/item/gun/ballistic/blackpowder/attackby(obj/item/A, mob/living/carbon/user, params) // Reloading code for rifle
+/obj/item/gun/ballistic/revolver/grenadelauncher/blackpowder/attackby(obj/item/A, mob/living/carbon/user, params) // Reloading code for rifle
+	if(!needs_handload)
+		..()
+		return
+
 	user.stop_sound_channel(gun_sound_channel)
-	var/firearm_skill = (user?.mind ? user.get_skill_level(/datum/skill/combat/firearms) : 1)
+	var/firearm_skill = (user?.mind ? user.get_skill_level(ranged_skill) : 1)
 	var/load_time_skill = load_time - (firearm_skill*2)
 	gun_sound_channel = SSsounds.random_available_channel()
 
@@ -155,25 +183,33 @@
 			return
 		user.stop_sound_channel(gun_sound_channel)
 
-/obj/item/gun/ballistic/blackpowder/process_fire(atom/target, mob/living/user, message = TRUE, params = null, zone_override = "", bonus_spread = 0)
-	var/firearm_skill = (user?.mind ? user.get_skill_level(/datum/skill/combat/firearms) : 1)
+/obj/item/gun/ballistic/revolver/grenadelauncher/blackpowder/process_fire(atom/target, mob/living/user, message = TRUE, params = null, zone_override = "", bonus_spread = 0)
+	var/firearm_skill = (user?.mind ? user.get_skill_level(ranged_skill) : 1)
 	spread = (spread_num - firearm_skill)
 	if(user.client)
 		if(user.client.chargedprog >= 100)
 			spread = 0
-			adjust_experience(user, /datum/skill/combat/firearms, user.STAINT * 4)
+			adjust_experience(user, ranged_skill, user.STAINT * 4)
 		else
 			spread = 150 - (150 * (user.client.chargedprog / 100))
 	else
 		spread = 0
-	for(var/obj/item/ammo_casing/CB in get_ammo_list(FALSE, TRUE))
-		var/obj/projectile/BB = CB.BB
-		BB.damage = BB.damage * damfactor
-		BB.range = range
-	gunpowder = FALSE
-	reloaded = FALSE
-	user.adjust_experience(/datum/skill/combat/firearms, (user.STAINT*5))
+	//for(var/obj/item/ammo_casing/CB in get_ammo_list(FALSE, TRUE))
+	//var/obj/projectile/BB = chambered.BB
+	//BB.damage = BB.damage * damfactor
+	//BB.range = range
+
+	if(!multiple_shot)
+		magazine.stored_ammo.Cut() //This is needed apparently since it got commented out above. It'll just wipe the stored ammo from the magazine, but frankly this is hacky as hell. There's likely a better way using the various gun calls, but eh.
+		gunpowder = FALSE
+		reloaded = FALSE
+	//user.adjust_experience(ranged_skill, (user.STAINT*5))
 	..()
+	if(multiple_shot)
+		if(!magazine.ammo_count(FALSE))
+			gunpowder = FALSE
+			reloaded = FALSE
+
 	new /obj/effect/particle_effect/sparks/muzzle(get_ranged_target_turf(user, user.dir, 1))
 	spawn (5)
 		new/obj/effect/particle_effect/smoke/arquebus(get_ranged_target_turf(user, user.dir, 1))
@@ -185,15 +221,19 @@
 		if(!M.stat)
 			shake_camera(M, 3, 1)
 
-/obj/item/gun/ballistic/blackpowder/can_shoot()
+/obj/item/gun/ballistic/revolver/grenadelauncher/blackpowder/can_shoot()
 	if (!reloaded)
 		return FALSE
-	return ..()
+	var/is_chambered = ..()
+	if(is_chambered && chambered.BB)
+		return TRUE
+	else
+		return FALSE
 
-/obj/item/gun/ballistic/blackpowder/small
+/obj/item/gun/ballistic/revolver/grenadelauncher/blackpowder/small
 	name = "one-handed blackpowder weaponry"
 	desc = "A gunpowder weapon that shoots an armor piercing metal ball."
-	icon = 'icons/roguetown/weapons/32.dmi'
+	icon = 'modular_causticcove/icons/weapons/blackpowder32.dmi'
 	icon_state = "pistol"
 	item_state = "pistol"
 	force = 10
@@ -216,7 +256,7 @@
 	load_sound = 'modular_causticcove/sound/arquebus/musketload.ogg'
 	fire_sound = 'modular_causticcove/sound/arquebus/arquefire.ogg'
 	anvilrepair = /datum/skill/craft/weaponsmithing
-	smeltresult = /obj/item/ash
+	smeltresult = /obj/item/ingot/bronze
 	pickup_sound = 'modular_causticcove/sound/sheath_sounds/draw_from_holster.ogg'
 
 	//These Variables are likely ones you'd want to override for sub-classes
@@ -231,21 +271,12 @@
 	var/last_spun
 	var/spin_cooldown = 3 SECONDS
 
-/obj/item/gun/ballistic/blackpowder/small/getonmobprop(tag)
-	. = ..()
-	if(tag)
-		switch(tag)
-			if("gen")
-				return list("shrink" = 0.4,"sx" = -10,"sy" = -8,"nx" = 13,"ny" = -8,"wx" = -8,"wy" = -7,"ex" = 7,"ey" = -8,"northabove" = 0,"southabove" = 1,"eastabove" = 1,"westabove" = 0,"nturn" = 30,"sturn" = -30,"wturn" = -30,"eturn" = 30,"nflip" = 0,"sflip" = 8,"wflip" = 8,"eflip" = 0)
-			if("onbelt")
-				return list("shrink" = 0.3,"sx" = -2,"sy" = -5,"nx" = 4,"ny" = -5,"wx" = 0,"wy" = -5,"ex" = 2,"ey" = -5,"nturn" = 0,"sturn" = 0,"wturn" = 0,"eturn" = 0,"nflip" = 0,"sflip" = 0,"wflip" = 0,"eflip" = 0,"northabove" = 0,"southabove" = 1,"eastabove" = 1,"westabove" = 0)
-
-/obj/item/gun/ballistic/blackpowder/small/attack_self(mob/living/user)
+/obj/item/gun/ballistic/revolver/grenadelauncher/blackpowder/small/attack_self(mob/living/user)
 	var/string = "smoothly"
 	var/list/strings_noob = list("unsurely", "nervously", "anxiously", "timidly", "shakily", "clumsily", "fumblingly", "awkwardly")
 	var/list/strings_moderate = list("smoothly", "confidently", "determinately", "calmly", "skillfully", "decisively")
 	var/list/strings_pro = list("masterfully", "expertly", "flawlessly", "elegantly", "artfully", "impeccably")
-	var/firearm_skill = (user?.mind ? user.get_skill_level(/datum/skill/combat/firearms) : 1)
+	var/firearm_skill = (user?.mind ? user.get_skill_level(ranged_skill) : 1)
 	var/noob_spin_sound = 'sound/combat/weaponr1.ogg'
 	var/pro_spin_sound = 'modular_causticcove/sound/arquebus/gunspin.ogg'
 	var/spin_sound
@@ -281,7 +312,7 @@
 /datum/intent/shoot/blackpowder/can_charge()
 	if(mastermob && masteritem.wielded)
 		return TRUE
-	
+
 	return FALSE
 
 /datum/intent/shoot/blackpowder/get_chargetime() //Changing this up to blend a bit of how Bows and Crossbows are handled, but (large) guns should have an aiming time even on regular shoot intent
@@ -310,7 +341,7 @@
 /datum/intent/arc/blackpowder/can_charge()
 	if(mastermob && masteritem.wielded)
 		return TRUE
-	
+
 	return FALSE
 
 /datum/intent/arc/blackpowder/get_chargetime()
@@ -349,12 +380,12 @@
 		return TRUE
 
 // -- Rifles --
-/obj/item/gun/ballistic/blackpowder/arquebus
+/obj/item/gun/ballistic/revolver/grenadelauncher/blackpowder/arquebus
 	name = "arquebus rifle"
 	desc = "A gunpowder weapon that shoots an armor piercing metal ball."
-	icon = 'modular_causticcove/icons/weapons/arquebus.dmi'
-	icon_state = "arquebus"
-	item_state = "arquebus"
+	icon = 'modular_causticcove/icons/weapons/blackpowder64.dmi'
+	icon_state = "longgun_0"
+	item_state = "longgun_0"
 	force = 10
 	force_wielded = 15
 	possible_item_intents = list(/datum/intent/mace/strike/wood)
@@ -372,10 +403,32 @@
 	range = 30
 	load_time = 50
 
-/obj/item/gun/ballistic/blackpowder/handgonne
-	name = "handgonne"
-	desc = "A gunpowder weapon that shoots an armor piercing metal ball."
-	icon = 'modular_causticcove/icons/weapons/handgonne.dmi'
+/obj/item/gun/ballistic/revolver/grenadelauncher/blackpowder/arquebus/grenzelhoft
+	name = "grenzelhoftian arquebus rifle"
+	desc = "A gunpowder weapon that shoots an armor piercing metal ball. This one is of a Grenzelhoftian design."
+	icon_state = "arquebus"
+	item_state = "arquebus"
+
+/obj/item/gun/ballistic/revolver/grenadelauncher/blackpowder/arquebus/grenzelhoft/getonmobprop(tag)
+	if(tag)
+		switch(tag)
+			if("gen")
+				return list("shrink" = 0.6, "sx" = -7, "sy" = 6, "nx" = 7, "ny" = 6, "wx" = -2, "wy" = 3, "ex" = 1, "ey" = 3,
+							"northabove" = 0, "southabove" = 1, "eastabove" = 1, "westabove" = 0,
+							"nturn" = -43, "sturn" = 43, "wturn" = 30, "eturn" = -30, "nflip" = 0, "sflip" = 8, "wflip" = 8, "eflip" = 0)
+			if("wielded")
+				return list("shrink" = 0.6, "sx" = 5, "sy" = -2, "nx" = -5, "ny" = -1, "wx" = -8, "wy" = 2, "ex" = 8, "ey" = 2,
+							"northabove" = 0, "southabove" = 1, "eastabove" = 1, "westabove" = 1,
+							"nturn" = -45, "sturn" = 45, "wturn" = 0, "eturn" = 0, "nflip" = 8, "sflip" = 0, "wflip" = 8, "eflip" = 0)
+			if("onback")
+				return list("shrink" = 0.5, "sx" = -1, "sy" = 2, "nx" = 0, "ny" = 2, "wx" = 2, "wy" = 1, "ex" = 0, "ey" = 1,
+							"northabove" = 1, "southabove" = 0, "eastabove" = 0, "westabove" = 0,
+							"nturn" = 0, "sturn" = 0, "wturn" = 70, "eturn" = 15, "nflip" = 1, "sflip" = 1, "wflip" = 1, "eflip" = 1)
+
+/obj/item/gun/ballistic/revolver/grenadelauncher/blackpowder/handgonne
+	name = "hand-bombard"
+	desc = "An older gunpowder weapon that shoots a single massive projectile."
+	icon = 'modular_causticcove/icons/weapons/blackpowder64.dmi'
 	icon_state = "handgonne"
 	item_state = "handgonne"
 	force = 10
@@ -387,19 +440,73 @@
 	load_sound = 'modular_causticcove/sound/arquebus/musketload.ogg'
 	fire_sound = 'modular_causticcove/sound/arquebus/arquefire.ogg'
 	anvilrepair = /datum/skill/craft/weaponsmithing
-	smeltresult = /obj/item/ingot/steel
+	smeltresult = /obj/item/ingot/bronze
 	pickup_sound = 'modular_causticcove/sound/sheath_sounds/draw_from_holster.ogg'
-	
+
 	spread_num = 30
 	damfactor = 1.35
 	range = 50
 	load_time = 80
 
+/obj/item/gun/ballistic/revolver/grenadelauncher/blackpowder/handgonne/getonmobprop(tag)
+	if(tag)
+		switch(tag)
+			if("gen")
+				return list("shrink" = 0.6, "sx" = -7, "sy" = 6, "nx" = 7, "ny" = 6, "wx" = -2, "wy" = 3, "ex" = 1, "ey" = 3,
+							"northabove" = 0, "southabove" = 1, "eastabove" = 1, "westabove" = 0,
+							"nturn" = -43, "sturn" = 43, "wturn" = 30, "eturn" = -30, "nflip" = 0, "sflip" = 8, "wflip" = 8, "eflip" = 0)
+			if("wielded")
+				return list("shrink" = 0.6, "sx" = 5, "sy" = -2, "nx" = -5, "ny" = -1, "wx" = -8, "wy" = 2, "ex" = 8, "ey" = 2,
+							"northabove" = 0, "southabove" = 1, "eastabove" = 1, "westabove" = 1,
+							"nturn" = -45, "sturn" = 45, "wturn" = 0, "eturn" = 0, "nflip" = 8, "sflip" = 0, "wflip" = 8, "eflip" = 0)
+			if("onback")
+				return list("shrink" = 0.5, "sx" = -1, "sy" = 2, "nx" = 0, "ny" = 2, "wx" = 2, "wy" = 1, "ex" = 0, "ey" = 1,
+							"northabove" = 1, "southabove" = 0, "eastabove" = 0, "westabove" = 0,
+							"nturn" = 0, "sturn" = 0, "wturn" = 70, "eturn" = 15, "nflip" = 1, "sflip" = 1, "wflip" = 1, "eflip" = 1)
+
+/obj/item/gun/ballistic/revolver/grenadelauncher/blackpowder/handgonne/culverin
+	name = "culverin"
+	desc = "An older gunpowder weapon that shoots a single massive projectile. This one is of more recent make, with a better fitting stock and longer barrel."
+	icon_state = "handgonne_alt"
+	item_state = "handgonne_alt"
+
+/obj/item/gun/ballistic/revolver/grenadelauncher/blackpowder/blunderbus
+	name = "blunderbus"
+	desc = "A gunpowder weapon that shoots a cluster of metal grapeshot pellets."
+	icon = 'modular_causticcove/icons/weapons/blackpowder64.dmi'
+	icon_state = "blunder"
+	item_state = "blunder"
+	force = 10
+	force_wielded = 15
+	possible_item_intents = list(/datum/intent/mace/strike/wood)
+	gripped_intents = list(/datum/intent/shoot/blackpowder, /datum/intent/arc/blackpowder, INTENT_GENERIC)
+	minstr = 9
+	mag_type = /obj/item/ammo_box/magazine/internal/blackpowder/blunderbus
+	cartridge_wording = "grapeshot"
+	load_sound = 'modular_causticcove/sound/arquebus/musketload.ogg'
+	fire_sound = 'modular_causticcove/sound/arquebus/arquefire3.ogg'
+	anvilrepair = /datum/skill/craft/weaponsmithing
+	smeltresult = /obj/item/ingot/bronze
+	pickup_sound = 'modular_causticcove/sound/sheath_sounds/draw_from_holster.ogg'
+
+	spread_num = 30
+	damfactor = 0.21
+	range = 15
+	load_time = 50
+
+/obj/item/gun/ballistic/revolver/grenadelauncher/blackpowder/blunderbus/ornate
+	name = "blunderbus"
+	desc = "A gunpowder weapon that shoots a cluster of metal grapeshot pellets. This one has had it's stock replaced by one made of stained and polished wood, that has also been adorned with gold trimming."
+	icon_state = "blunder_ornate"
+	item_state = "blunder_ornate"
+	force = 15
+	force_wielded = 21
+
 // -- Pistols --
-/obj/item/gun/ballistic/blackpowder/small/arquebus_pistol
+/obj/item/gun/ballistic/revolver/grenadelauncher/blackpowder/small/arquebus_pistol
 	name = "arquebus pistol"
 	desc = "A gunpowder weapon that shoots an armor piercing metal ball."
-	icon = 'icons/roguetown/weapons/32.dmi'
+	icon = 'modular_causticcove/icons/weapons/blackpowder32.dmi'
 	icon_state = "pistol"
 	item_state = "pistol"
 	force = 10
@@ -409,7 +516,7 @@
 	load_sound = 'modular_causticcove/sound/arquebus/musketload.ogg'
 	fire_sound = 'modular_causticcove/sound/arquebus/arquefire.ogg'
 	anvilrepair = /datum/skill/craft/weaponsmithing
-	smeltresult = /obj/item/ash
+	smeltresult = /obj/item/ingot/bronze
 	pickup_sound = 'modular_causticcove/sound/sheath_sounds/draw_from_holster.ogg'
 
 	slot_flags = ITEM_SLOT_HIP
@@ -420,10 +527,151 @@
 
 	spin_cooldown = 3 SECONDS
 
+/obj/item/gun/ballistic/revolver/grenadelauncher/blackpowder/small/arquebus_pistol/getonmobprop(tag)
+	. = ..()
+	if(tag)
+		switch(tag)
+			if("gen")
+				return list("shrink" = 0.4,"sx" = -10,"sy" = -8,"nx" = 13,"ny" = -8,"wx" = -8,"wy" = -7,"ex" = 7,"ey" = -8,"northabove" = 0,"southabove" = 1,"eastabove" = 1,"westabove" = 0,"nturn" = 30,"sturn" = -30,"wturn" = -30,"eturn" = 30,"nflip" = 0,"sflip" = 8,"wflip" = 8,"eflip" = 0)
+			if("onbelt")
+				return list("shrink" = 0.3,"sx" = -2,"sy" = -5,"nx" = 4,"ny" = -5,"wx" = 0,"wy" = -5,"ex" = 2,"ey" = -5,"nturn" = 0,"sturn" = 0,"wturn" = 0,"eturn" = 0,"nflip" = 0,"sflip" = 0,"wflip" = 0,"eflip" = 0,"northabove" = 0,"southabove" = 1,"eastabove" = 1,"westabove" = 0)
+
+// - Boomstick - And related handling override code
+/obj/item/gun/ballistic/revolver/grenadelauncher/blackpowder/small/boomstick
+	name = "The Boomstick"
+	desc = "A unique deviation on blackpowder weaponry, constructed and sanctified by the Inquisition. Able to fire silver projectiles, the ammo is heavily regulated by the Otavan Inquisition as it's shot comes pre-blessed. Groovy."
+	icon = 'modular_causticcove/icons/weapons/blackpowder32.dmi'
+	icon_state = "boomstick"
+	item_state = "boomstick"
+	force = 16
+	possible_item_intents = list(/datum/intent/shoot/blackpowder/small, /datum/intent/arc/blackpowder/small, /datum/intent/mace/strike/wood)
+	minstr = 7
+	mag_type = /obj/item/ammo_box/magazine/internal/blackpowder/boomstick
+	cartridge_wording = "boomstick_round"
+	load_sound = 'modular_causticcove/sound/sheath_sounds/put_back_dagger.ogg'
+	var/unload_sound = 'modular_causticcove/sound/arquebus/insert.ogg'
+	var/open_sound = 'modular_causticcove/sound/arquebus/musketcock.ogg'
+	fire_sound = 'modular_causticcove/sound/arquebus/arquefire3.ogg'
+	anvilrepair = /datum/skill/craft/weaponsmithing
+	smeltresult = /obj/item/ash
+	pickup_sound = 'modular_causticcove/sound/sheath_sounds/draw_from_holster.ogg'
+
+	slot_flags = ITEM_SLOT_HIP | ITEM_SLOT_BACK
+	spread_num = 7
+	damfactor = 0.35
+	range = 12
+	load_time = 30 //Might not even use this
+	multiple_shot = TRUE
+	needs_handload = FALSE
+	has_rod = FALSE
+
+	spin_cooldown = 5 SECONDS
+	var/barrel_open = FALSE
+
+/obj/item/gun/ballistic/revolver/grenadelauncher/blackpowder/small/boomstick/get_mechanics_examine(mob/user)
+	. = ..()
+	. += span_info("Middle-Mouse click the Boomstick to open or close it's barrels. It can only fire when loaded and closed!")
+	. += span_info("When open, right click the Boomstick with an empty hand to take out a round, and left click with a round in hand to insert it.")
+	. += span_info("Each round can only be fired once and must be manually taken out afterwards and replaced.")
+
+/obj/item/gun/ballistic/revolver/grenadelauncher/blackpowder/small/boomstick/getonmobprop(tag)
+	. = ..()
+	if(tag)
+		switch(tag)
+			if("gen")
+				return list("shrink" = 0.6,"sx" = -8,"sy" = -5,"nx" = 11,"ny" = -5,"wx" = -4,"wy" = -6,"ex" = 3,"ey" = -5,"northabove" = 0,"southabove" = 1,"eastabove" = 1,"westabove" = 0,"nturn" = 75,"sturn" = -75,"wturn" = -75,"eturn" = 75,"nflip" = 0,"sflip" = 8,"wflip" = 8,"eflip" = 0)
+			if("onbelt")
+				return list("shrink" = 0.3,"sx" = -2,"sy" = -5,"nx" = 4,"ny" = -5,"wx" = 0,"wy" = -5,"ex" = 2,"ey" = -5,"nturn" = 0,"sturn" = 0,"wturn" = 0,"eturn" = 0,"nflip" = 0,"sflip" = 0,"wflip" = 0,"eflip" = 0,"northabove" = 0,"southabove" = 1,"eastabove" = 1,"westabove" = 0)
+			if("onback")
+				return list("shrink" = 0.6, "sx" = -2, "sy" = 2, "nx" = 2, "ny" = 2, "wx" = 6, "wy" = 2, "ex" = -4, "ey" = 2, "northabove" = 1, "southabove" = 0, "eastabove" = 0, "westabove" = 0, "nturn" = 5, "sturn" = 5, "wturn" = 50, "eturn" = -50, "nflip" = 0, "sflip" = 8, "wflip" = 4, "eflip" = 0)
+
+/obj/item/gun/ballistic/revolver/grenadelauncher/blackpowder/small/boomstick/update_icon_state()
+	if(barrel_open)
+		var/num_rounds = magazine.ammo_count()
+		icon_state = "[initial(src.icon_state)]_[num_rounds]"
+	else
+		icon_state = initial(src.icon_state)
+
+/obj/item/gun/ballistic/revolver/grenadelauncher/blackpowder/small/boomstick/process_chamber(empty_chamber = TRUE, from_firing = TRUE, chamber_next_round = TRUE)
+	if(!semi_auto && from_firing)
+		return
+	var/obj/item/ammo_casing/AC = chambered //Find chambered round
+	if(istype(AC)) //there's a chambered round
+		if(empty_chamber)
+			chambered = null
+	if (chamber_next_round && (magazine?.max_ammo > 1))
+		chamber_round(TRUE)
+
+/obj/item/gun/ballistic/revolver/grenadelauncher/blackpowder/small/boomstick/chamber_round(spin_cylinder)
+	if(!magazine.stored_ammo.len) //Make sure there even is something in there first, too.
+		return
+
+	for(var/obj/item/ammo_casing/AC in magazine.stored_ammo)
+		if(AC.BB)
+			chambered = AC
+			break
+
+	if(!chambered)
+		chambered = magazine.stored_ammo[1] //If all are already fired, lets just 'chamber' an empty one. It won't fire since I added the chambered check to can_fire above.
+
+/obj/item/gun/ballistic/revolver/grenadelauncher/blackpowder/small/boomstick/attack_right(mob/user)
+	if(barrel_open)
+		if(!user.get_active_held_item())
+			if(magazine.ammo_count())
+				var/obj/item/ammo_casing/caseless/rogue/bullet/blackpowder/boomstick_round/round = magazine.get_round()
+				round.update_count()
+				user.put_in_active_hand(round)
+				user.visible_message(span_notice("[user] pulls a round out of [src.name]."), span_notice("You pull out a round from [src.name]."))
+				playsound(user, unload_sound, 100, FALSE, ignore_walls = FALSE)
+				update_icon_state()
+			else
+				to_chat(user, span_notice("[src.name] is already empty."))
+		else
+			if(magazine.ammo_count())
+				to_chat(user, span_notice("You need an empty hand to unload [src.name]."))
+			else
+				to_chat(user, span_notice("[src.name] is already empty."))
+
+/obj/item/gun/ballistic/revolver/grenadelauncher/blackpowder/small/boomstick/MiddleClick(mob/user, params)
+	if(barrel_open)
+		barrel_open = FALSE
+		user.visible_message(span_notice("[user] clicks [src.name]'s barrels shut."), span_notice("You snap the barrels closed!"))
+		playsound(user, open_sound, 100, FALSE, ignore_walls = FALSE)
+		update_icon_state()
+		process_chamber(FALSE, FALSE, TRUE)
+	else
+		barrel_open = TRUE
+		user.visible_message(span_notice("[user] snaps [src.name]'s barrels open."), span_notice("You crack the barrels open!"))
+		playsound(user, open_sound, 100, FALSE, ignore_walls = FALSE)
+		update_icon_state()
+		process_chamber(TRUE, FALSE, FALSE)
+
+/obj/item/gun/ballistic/revolver/grenadelauncher/blackpowder/small/boomstick/attackby(obj/item/A, mob/living/carbon/user, params)
+	if(barrel_open)
+		if(istype(A, magazine.ammo_type))
+			var/obj/item/ammo_casing/caseless/rogue/bullet/blackpowder/boomstick_round/round_stack = A
+			var/obj/item/ammo_casing/caseless/rogue/bullet/blackpowder/boomstick_round/round
+			if(round_stack.num_rounds == 2)
+				round_stack.num_rounds -= 1
+				round = new /obj/item/ammo_casing/caseless/rogue/bullet/blackpowder/boomstick_round()
+				round.update_count()
+			else
+				round = round_stack
+
+			if(magazine.attackby(round, user, params, silent = TRUE))
+				reloaded = TRUE
+				round_stack.update_count()
+				user.visible_message(span_notice("[user] loads a round into [src.name]!"), span_notice("You slide the round into a barrel."))
+				playsound(user, load_sound, 100, FALSE, ignore_walls = FALSE)
+				update_icon_state()
+	else
+		if(!istype(A, magazine.ammo_type))
+			. = ..()
+
 // -- Related Items --
 /obj/item/ramrod
 	name = "ramrod"
-	icon = 'modular_causticcove/icons/items/arquebus_items.dmi'
+	icon = 'modular_causticcove/icons/items/blackpowder.dmi'
 	desc = "A ramrod used for reloading a firearm."
 	icon_state = "ramrod"
 	item_state = "ramrod"
@@ -434,7 +682,7 @@
 
 /obj/item/powderflask
 	name = "powderflask"
-	icon = 'modular_causticcove/icons/items/arquebus_items.dmi'
+	icon = 'modular_causticcove/icons/items/blackpowder.dmi'
 	desc = "A flask of gunpowder used for reloading a firearm."
 	icon_state = "powderflask"
 	item_state = "powderflask"
@@ -444,11 +692,11 @@
 	grid_width = 32
 
 /obj/item/quiver/bulletpouch
-	name = "arquebus bullet pouch"
+	name = "blackpowder bullet pouch"
 	desc = "A pouch carrying bullets for firearms."
-	icon = 'icons/roguetown/weapons/ammo.dmi'
-	icon_state = "slingpouch"
-	item_state = "slingpouch"
+	icon = 'modular_causticcove/icons/items/blackpowder.dmi'
+	icon_state = "ammopouch1"
+	item_state = "ammopouch1"
 	slot_flags = ITEM_SLOT_HIP | ITEM_SLOT_NECK
 	max_storage = 20
 	w_class = WEIGHT_CLASS_NORMAL
@@ -467,10 +715,10 @@
 				break
 
 /obj/item/quiver/bulletpouch/attackby(obj/A, loc, params)
-	if(istype(A, /obj/item/gun/ballistic/blackpowder))
-		var/obj/item/gun/ballistic/blackpowder/B = A
+	if(istype(A, /obj/item/gun/ballistic/revolver/grenadelauncher/blackpowder))
+		var/obj/item/gun/ballistic/revolver/grenadelauncher/blackpowder/B = A
 		if(arrows.len && !B.chambered)
-			var/obj/item/ammo_casing/caseless/rogue/AR = pick_ammo(/obj/item/ammo_casing/caseless/rogue/bullet/blackpowder)
+			var/obj/item/ammo_casing/caseless/rogue/AR = pick_ammo(allowed_ammo_type)
 			if(AR)
 				arrows -= AR
 				B.attackby(AR, loc, params)
@@ -498,6 +746,13 @@
 	. = ..()
 	for(var/i in 1 to max_storage)
 		var/obj/item/ammo_casing/caseless/rogue/bullet/blackpowder/A = new()
+		arrows += A
+	update_icon()
+
+/obj/item/quiver/bulletpouch/grapeshot/iron/Initialize()
+	. = ..()
+	for(var/i in 1 to max_storage)
+		var/obj/item/ammo_casing/caseless/rogue/bullet/blackpowder/grapeshot/A = new()
 		arrows += A
 	update_icon()
 

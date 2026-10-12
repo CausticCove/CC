@@ -240,11 +240,13 @@
 	shoes = /obj/item/clothing/shoes/roguetown/boots/leather
 	neck = /obj/item/storage/belt/rogue/pouch/coins/poor
 	wrists = /obj/item/clothing/wrists/roguetown/bracers/leather
-	beltl = /obj/item/flashlight/flare/torch/lantern
+	beltl = /obj/item/gun/ballistic/revolver/grenadelauncher/blackpowder/small/arquebus_pistol
 	beltr = /obj/item/rogueweapon/sword/cutlass
+	l_hand = /obj/item/powderflask
 	backpack_contents = list(
-		/obj/item/bomb = 1,
+		/obj/item/flashlight/flare/torch/lantern = 1,
 		/obj/item/lockpick = 1,
+		/obj/item/quiver/bulletpouch/iron = 1,
 		/obj/item/rogueweapon/huntingknife/idagger/steel/parrying = 1,
 		/obj/item/rogueweapon/scabbard/sheath = 1
 		)

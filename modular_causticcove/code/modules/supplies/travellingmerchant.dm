@@ -32,7 +32,7 @@
 	armor = /obj/item/clothing/suit/roguetown/armor/leather/heavy/jacket
 	head = /obj/item/clothing/head/roguetown/archercap
 	belt = /obj/item/storage/belt/rogue/leather
-	beltl = /obj/item/gun/ballistic/blackpowder/small/arquebus_pistol
+	beltl = /obj/item/gun/ballistic/revolver/grenadelauncher/blackpowder/small/arquebus_pistol
 	beltr = /obj/item/rogueweapon/scabbard/sheath/courtphysician
 	backl = /obj/item/storage/backpack/rogue/satchel
 	backr = /obj/item/storage/backpack/rogue/backpack/bagpack
@@ -133,7 +133,7 @@
 		unlockedcats += choice
 		if(catunlockspending > 0)
 			choice = SelectCategory()
-	
+
 /datum/component/travelling_merchant/proc/SelectCategory()
 	var/list/catchoices = allcats - unlockedcats
 	var/choice = tgui_input_list(parent,"Category slots currently left: [catunlockspending]","Choose your starting categories. You can choose additional categories later, at any hermes, and buy additional slots as well.",catchoices)
@@ -152,7 +152,7 @@
 	var/list/data = list()
 	data["supplypacks"] = generate_supplypacks_data(SSmerchant.supply_packs, allcats)
 	return data
-	
+
 
 /datum/component/travelling_merchant/proc/ui_dynamic_data_fill_in()
 	var/list/data = list()
@@ -283,7 +283,7 @@
 				to_chat(user, span_warning("You blow the horn but no sound comes out... the conditions seem to not be right, ensure there are no unnatural light sources are nearby, those seem to mess with your little magical horn?"))
 		else
 			user.visible_message("[user] lowers the horn from their lips...")
-			return			
+			return
 	else if(attunedmark)
 		to_chat(user,span_warning("You try to blow the horn but absolutely no sound comes out. Wrong place! The horn can guide you if you look closely..."))
 	else if(!attunedmark)
@@ -358,19 +358,19 @@
 
 /datum/supply_pack/rogue/travelling_merchant_pw/enchanting/woodcutting
 	name = "Woodcutting enchantment scroll"
-	cost = 100 
+	cost = 100
 	contains = list(/obj/item/enchantmentscroll/basic/woodcut)
 
 /datum/supply_pack/rogue/travelling_merchant_pw/enchanting/mining
 	name = "Mining enchantment scroll"
-	cost = 100 
+	cost = 100
 	contains = list(/obj/item/enchantmentscroll/basic/mining)
 
 /datum/supply_pack/rogue/travelling_merchant_pw/enchanting/light
 	name = "Light enchantment scroll"
-	cost = 100 
+	cost = 100
 	contains = list(/obj/item/enchantmentscroll/basic/revealinglight)
-	
+
 /datum/supply_pack/rogue/travelling_merchant_pw/enchanting/holding
 	name = "Holding enchantment scroll"
 	cost = 250

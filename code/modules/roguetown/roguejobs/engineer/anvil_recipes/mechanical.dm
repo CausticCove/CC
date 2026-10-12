@@ -304,14 +304,49 @@
 	name = "Arquebus (+1 bronze, +1 cog, +1 wood)"
 	req_bar = /obj/item/ingot/bronze
 	additional_items = list(/obj/item/ingot/bronze, /obj/item/roguegear, /obj/item/grown/log/tree/small) //Expensive!
-	created_item = /obj/item/gun/ballistic/blackpowder/arquebus
+	created_item = /obj/item/gun/ballistic/revolver/grenadelauncher/blackpowder/arquebus
+	craftdiff = 5
+
+/datum/anvil_recipe/engineering/arquebus_grenz
+	name = "Grenzelhoftian Arquebus (+1 bronze, +1 cog, +1 wood)"
+	req_bar = /obj/item/ingot/bronze
+	additional_items = list(/obj/item/ingot/bronze, /obj/item/roguegear, /obj/item/grown/log/tree/small) //Expensive!
+	created_item = /obj/item/gun/ballistic/revolver/grenadelauncher/blackpowder/arquebus/grenzelhoft
+	craftdiff = 5
+
+/datum/anvil_recipe/engineering/handbombard
+	name = "Hand-Bombard (+3 bronze, +1 wood)"
+	req_bar = /obj/item/ingot/bronze
+	additional_items = list(/obj/item/ingot/bronze, /obj/item/ingot/bronze, /obj/item/ingot/bronze, /obj/item/grown/log/tree/small) //Expensive!
+	created_item = /obj/item/gun/ballistic/revolver/grenadelauncher/blackpowder/handgonne
+	craftdiff = 6
+
+/datum/anvil_recipe/engineering/culverin
+	name = "Culverin (+3 bronze, +1 wood)"
+	req_bar = /obj/item/ingot/bronze
+	additional_items = list(/obj/item/ingot/bronze, /obj/item/ingot/bronze, /obj/item/ingot/bronze, /obj/item/grown/log/tree/small) //Expensive!
+	created_item = /obj/item/gun/ballistic/revolver/grenadelauncher/blackpowder/handgonne/culverin
+	craftdiff = 6
+
+/datum/anvil_recipe/engineering/blunderbus
+	name = "Blunderbus (+2 bronze, +1 cog, +1 wood)"
+	req_bar = /obj/item/ingot/bronze
+	additional_items = list(/obj/item/ingot/bronze, /obj/item/ingot/bronze, /obj/item/roguegear, /obj/item/grown/log/tree/small) //Expensive!
+	created_item = /obj/item/gun/ballistic/revolver/grenadelauncher/blackpowder/blunderbus
+	craftdiff = 5
+
+/datum/anvil_recipe/engineering/blunderbus_ornate
+	name = "Blunderbus (+2 bronze, +1 gold, +1 cog, +1 wood)"
+	req_bar = /obj/item/ingot/bronze
+	additional_items = list(/obj/item/ingot/bronze, /obj/item/ingot/bronze, /obj/item/ingot/gold, /obj/item/roguegear, /obj/item/grown/log/tree/small) //Expensive!
+	created_item = /obj/item/gun/ballistic/revolver/grenadelauncher/blackpowder/blunderbus/ornate
 	craftdiff = 5
 
 /datum/anvil_recipe/engineering/pistol
 	name = "Arquebus Pistol (+1 cog, +1 wood)"
 	req_bar = /obj/item/ingot/bronze
 	additional_items = list(/obj/item/roguegear, /obj/item/grown/log/tree/small) //A little cheaper!
-	created_item = /obj/item/gun/ballistic/blackpowder/small/arquebus_pistol
+	created_item = /obj/item/gun/ballistic/revolver/grenadelauncher/blackpowder/small/arquebus_pistol
 	craftdiff = 5
 
 /datum/anvil_recipe/engineering/powderbag
@@ -329,11 +364,19 @@
 	craftdiff = 0
 
 /datum/anvil_recipe/engineering/leadbullets
-	name = "Firearm Bullets (x10)"
+	name = "Firearm Bullets x10"
 	req_bar = /obj/item/ingot/iron
-	created_item = /obj/item/ammo_casing/caseless/rogue/bullet/blackpowder //Caustic Edit - Changing the output to be our new refactored (basic) bullets
+	created_item = /obj/item/ammo_casing/caseless/rogue/bullet/blackpowder
 	createditem_num = 10
 	craftdiff = 2
+
+/datum/anvil_recipe/engineering/grapeshot
+	name = "Grapeshot x8 (+1 Iron)"
+	req_bar = /obj/item/ingot/iron
+	additional_items = list(/obj/item/ingot/iron)
+	created_item = /obj/item/ammo_casing/caseless/rogue/bullet/blackpowder/grapeshot
+	createditem_num = 8
+	craftdiff = 3
 
 /datum/anvil_recipe/engineering/ramrod
 	name = "Replacement Firearm Ramrod"
