@@ -199,7 +199,6 @@
 	armor = ARMOR_PADDED	//Equal to a padded gambeson, like before.
 	max_integrity = ARMOR_INT_CHEST_LIGHT_MASTER
 	slot_flags = ITEM_SLOT_ARMOR|ITEM_SLOT_SHIRT
-	storage = FALSE
 	adjustable = CAN_CADJUST
 
 /obj/item/clothing/suit/roguetown/shirt/robe/monk/ComponentInitialize()
@@ -416,5 +415,5 @@
 	mob_overlay_icon = 'icons/roguetown/clothing/onmob/armor.dmi'
 	color = CLOTHING_WHITE
 
-	
-	
+
+
