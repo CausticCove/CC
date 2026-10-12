@@ -198,15 +198,8 @@
 /obj/item/clothing/suit/roguetown/armor/leather/heavy/coat/elven/loadout
 	name = "aesthetic fur-lined trophy robes"
 
-/obj/item/clothing/suit/roguetown/armor/leather/heavy/coat/elven/loadout/Initialize()
-	. = ..()
-
 /obj/item/clothing/suit/roguetown/armor/leather/heavy/coat/steppe/loadout
 	name = "aesthetic fur-woven hatanga coat"
-
-/obj/item/clothing/suit/roguetown/armor/leather/heavy/coat/steppe/loadout/Initialize()
-	. = ..()
-	loadoutize()
 
 /obj/item/clothing/suit/roguetown/armor/leather/heavy/coat/gravecoat
 	name = "gravetender's coat"
@@ -227,10 +220,6 @@
 
 /obj/item/clothing/suit/roguetown/armor/leather/heavy/coat/trophyfur/loadout
 	name = "aesthetic treated trophy fur robes"
-
-/obj/item/clothing/suit/roguetown/armor/leather/heavy/coat/trophyfur/loadout/Initialize()
-	. = ..()
-	loadoutize()
 
 /obj/item/clothing/suit/roguetown/armor/leather/heavy/jacket
 	name = "hardened leather jacket"
