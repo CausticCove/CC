@@ -1587,6 +1587,10 @@
 	},
 /turf/open/floor/rogue/darkpath,
 /area/rogue/outdoors/town/grove)
+"atS" = (
+/obj/structure/fluff/alch/trans,
+/turf/open/water/swamp/deep,
+/area/rogue/under/desertbog)
 "atX" = (
 /turf/closed/wall/mineral/rogue/sandbrick,
 /area/rogue/indoors/town/desert)
@@ -21798,9 +21802,6 @@
 	pixel_x = 0;
 	pixel_y = 34
 	},
-/obj/item/gun/ballistic/blackpowder/arquebus,
-/obj/item/gun/ballistic/blackpowder/small/arquebus_pistol,
-/obj/item/gun/ballistic/blackpowder/small/arquebus_pistol,
 /turf/open/floor/rogue/woodturned,
 /area/rogue/indoors/town/garrison/desert)
 "flJ" = (
@@ -25124,7 +25125,7 @@
 /area/rogue/outdoors/town/desertvilla)
 "gep" = (
 /obj/structure/rack/rogue/shelf,
-/obj/structure/fluff/alch,
+/obj/structure/fluff/alch/trans/uni,
 /turf/open/floor/rogue/concrete,
 /area/rogue/indoors/town/magician/desert)
 "geq" = (
@@ -50829,8 +50830,8 @@
 /turf/open/floor/rogue/wood,
 /area/rogue/indoors/town/desert)
 "mIp" = (
-/obj/structure/fluff/alch,
 /obj/machinery/light/rogue/candle/blue,
+/obj/structure/fluff/alch/trans,
 /turf/open/floor/rogue/wood,
 /area/rogue/indoors/town/desert)
 "mIr" = (
@@ -205777,7 +205778,7 @@ tDY
 iyP
 fIN
 mGu
-fIN
+atS
 fIN
 eTt
 eTt

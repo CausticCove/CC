@@ -15,6 +15,7 @@
 	cooked_smell = /datum/pollutant/food/fried_meat
 	var/fresh_meat = FALSE
 	become_rot_type = /obj/item/reagent_containers/food/snacks/rogue/meat_rotten
+	materia = list(/datum/materia_aspect/animal)
 	//CC Edit Begin
 	diet_types = list("Meats")
 	diet_change_amount = FOOD_DIETARY_VALUE_BAD
@@ -28,6 +29,7 @@
 	of stomachs."
 	icon = 'modular/Neu_Food/icons/raw/raw_meat.dmi'
 	icon_state = "meat_rotten"
+	materia = list(/datum/materia_aspect/change)
 	rotprocess = null //CC Edit
 
 /obj/item/reagent_containers/food/snacks/rogue/meat_rotten/Initialize()

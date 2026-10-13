@@ -164,6 +164,17 @@
     . = ..()
     . += span_info("Right click to adjust the coif's coverage. Certain coifs with multiple adjustments - like the full chain coif - might need to be right-clicked multiple times, in order to cycle back to its default state.")
 
+/obj/item/clothing/neck/roguetown/chaincoif/aventail
+	name = "aventail"
+	desc = "A thick garment of steel maille and padding, traditionally attached to bascinets. It's burdensome on the shoulders of those who aren't properly \
+	trained to wear knightly garments."
+	icon_state = "aventailbase"
+	body_parts_covered = NECK|MOUTH
+	slot_flags = ITEM_SLOT_NECK
+	max_integrity = ARMOR_INT_SIDE_STEEL + ARMOR_INT_SIDE_COVERAGE_BONUS //In essence, a chainmail gorget.
+	flags_inv = HIDEFACE|HIDEFACIALHAIR|HIDESNOUT
+	armor_class = ARMOR_CLASS_MEDIUM
+
 /obj/item/clothing/neck/roguetown/chaincoif/paalloy
 	name = "ancient coif"
 	desc = "Polished gilbranze rings, linked together to form a billowing hood. Let it not be a crown of thorns that saves this dying world, but a crown of progress; of fettered metal and stained bone, rejuvenated by Zizo's will to herald Her greatest works yet."
@@ -196,17 +207,6 @@
 	AddComponent(/datum/component/armour_filtering/negative, TRAIT_HONORBOUND)
 	if(armor_class > ARMOR_CLASS_LIGHT)
 		AddComponent(/datum/component/armour_filtering/negative, TRAIT_IRONMAN)
-
-/obj/item/clothing/neck/roguetown/chaincoif/aventail
-	name = "aventail"
-	desc = "A thick garment of steel maille and padding, traditionally attached to bascinets. It's burdensome on the shoulders of those who aren't properly \
-	trained to wear knightly garments."
-	icon_state = "aventailbase"
-	body_parts_covered = NECK|MOUTH
-	slot_flags = ITEM_SLOT_NECK
-	max_integrity = ARMOR_INT_SIDE_STEEL + ARMOR_INT_SIDE_COVERAGE_BONUS //In essence, a chainmail gorget.
-	flags_inv = HIDEFACE|HIDEFACIALHAIR|HIDESNOUT
-	armor_class = ARMOR_CLASS_MEDIUM
 
 /obj/item/clothing/neck/roguetown/chaincoif/chainmantle/ComponentInitialize()
 	AddComponent(/datum/component/armour_filtering/negative, TRAIT_FENCERDEXTERITY)

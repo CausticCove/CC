@@ -29,22 +29,6 @@
 	reqs = list(/obj/item/reagent_containers/glass/bottle = 1, /obj/item/ash = 2, /obj/item/rogueore/coal = 1, /obj/item/natural/cloth = 1)
 	craftdiff = 2
 
-/datum/crafting_recipe/roguetown/alchemy/viscera
-	name = "viscera"
-	category = "Table"
-	result = list(/obj/item/alch/viscera)
-	reqs = list(/obj/item/ash = 1, /obj/item/reagent_containers/food/snacks/rogue/meat/mince/beef = 2)
-	craftdiff = 2
-
-/datum/crafting_recipe/roguetown/alchemy/viscera_3x
-	name = "viscera (x3)"
-	category = "Table"
-	result = list(/obj/item/alch/viscera,
-					/obj/item/alch/viscera,
-					/obj/item/alch/viscera)
-	reqs = list(/obj/item/ash = 2, /obj/item/reagent_containers/food/snacks/rogue/meat/mince/beef = 6)
-	craftdiff = 3
-
 /datum/crafting_recipe/roguetown/alchemy/ozium
 	name = "ozium"
 	category = "Table"
@@ -163,20 +147,6 @@
 	reqs = list(/obj/item/alch/solardust = 2, /obj/item/alch/salvia = 2, /datum/reagent/medicine/strongmana = 30, /obj/item/alch/sleep_powder = 2)
 	craftdiff = 5
 
-/datum/crafting_recipe/roguetown/alchemy/salt
-	name = "salt pile (fat)"
-	category = "Table"
-	result = list(/obj/item/reagent_containers/powder/salt)
-	reqs = list(/obj/item/ash = 1, /datum/reagent/water = 10, /obj/item/reagent_containers/food/snacks/fat = 1)
-	craftdiff = 0
-
-/datum/crafting_recipe/roguetown/alchemy/salt_2
-	name = "salt pile (mince)"
-	category = "Table"
-	result = list(/obj/item/reagent_containers/powder/salt)
-	reqs = list(/obj/item/ash = 1, /datum/reagent/water = 10, /obj/item/reagent_containers/food/snacks/rogue/meat/mince = 1)
-	craftdiff = 0
-
 /datum/crafting_recipe/roguetown/alchemy/quicksilver
 	name = "quicksilver"
 	category = "Table"
@@ -186,7 +156,7 @@
 
 /datum/crafting_recipe/roguetown/alchemy/qsabsolution
 	name = "absolving silver"
-	category = "Transmutation"
+	category = "Basic Transmutation"
 	req_table = FALSE
 	result = list(/obj/item/quicksilver/luxinfused = 1)
 	reqs = list(/obj/item/reagent_containers/food/snacks/grown/rogue/fyritius/bloodied = 1, /datum/reagent/water/blessed = 45, /obj/item/natural/cloth = 1, /obj/item/alch/silverdust = 1)
@@ -240,6 +210,31 @@
 	craftdiff = 5
 	verbage_simple = "mix"
 
+/obj/item/trans_table_upgrade
+	name = "Transmutation Equipment Kit"
+	desc = "An expensive and difficult endeavor to forge: a complete set of equipment that can be used to upgrade a mundane alchemy station into a transmutative laboratory."
+	icon = 'icons/roguetown/misc/gadgets.dmi'
+	icon_state = "atinkerkit"
+	grid_height = 64
+	grid_width = 64
+
+/obj/item/trans_table_upgrade/attack_obj(obj/O, mob/living/user)
+	. = ..()
+	if(istype(O, /obj/structure/fluff/alch) && !istype(O, /obj/structure/fluff/alch/trans))
+		var/newloc = get_turf(O)
+		user.visible_message(span_notice("[user] tinkers with [O], setting up an advanced alchemical workspace!"), span_notice("I set out my tools and upgrade [O]."))
+		qdel(O)
+		new /obj/structure/fluff/alch/trans(newloc)
+		qdel(src)
+
+/datum/crafting_recipe/roguetown/alchemy/transmutation_equipment
+	name = "transmutation equipment"
+	category = "Table"
+	result = list(/obj/item/trans_table_upgrade)
+	reqs = list(/obj/item/ingot/iron = 3, /obj/item/magic/leyline, /obj/item/magic/melded/t2)
+	craftdiff = 1
+	verbage_simple = "forge"
+
 /// bottle craft
 
 /datum/crafting_recipe/roguetown/alchemy/glassbottles
@@ -247,7 +242,7 @@
 	category = "Containers"
 	result = list(/obj/item/reagent_containers/glass/bottle/alchemical, /obj/item/reagent_containers/glass/bottle/alchemical, /obj/item/reagent_containers/glass/bottle/alchemical, /obj/item/reagent_containers/glass/bottle/alchemical, /obj/item/reagent_containers/glass/bottle/alchemical, /obj/item/reagent_containers/glass/bottle/alchemical)
 	reqs = list(/obj/item/natural/stone = 1, /obj/item/natural/dirtclod = 1)
-	craftdiff = 1
+	craftdiff = 0
 	verbage_simple = "forge"
 
 /datum/crafting_recipe/roguetown/alchemy/glassbottles2
@@ -255,21 +250,19 @@
 	category = "Containers"
 	result = list(/obj/item/reagent_containers/glass/bottle, /obj/item/reagent_containers/glass/bottle, /obj/item/reagent_containers/glass/bottle)
 	reqs = list(/obj/item/natural/stone = 1, /obj/item/natural/dirtclod = 1)
-	craftdiff = 1
+	craftdiff = 0
 	verbage_simple = "forge"
-
-/// transmutation
 
 /datum/crafting_recipe/roguetown/alchemy/distill
 	name = "distill water"
-	category = "Transmutation"
+	category = "Basic Transmutation"
 	result = list(/obj/item/reagent_containers/glass/bottle/rogue/water = 1)
 	reqs = list(/obj/item/reagent_containers/glass/bottle = 1, /datum/reagent/water/gross = 48)
 	craftdiff = 1
 
 /datum/crafting_recipe/roguetown/alchemy/w2w
 	name = "water to wine"
-	category = "Transmutation"
+	category = "Basic Transmutation"
 	result = list(/obj/item/reagent_containers/glass/bottle/rogue/wine = 1)
 	reqs = list(/obj/item/reagent_containers/glass/bottle = 1, /datum/reagent/water = 48)
 	craftdiff = 3 //WHO THE FUCK THOUGHT SETTING THIS AT 2 WAS A GOOD IDEA? MAKE IT MAKE SENSE.
@@ -291,76 +284,12 @@
 	craftdiff = 3
 	verbage_simple = "transmute"
 
-/datum/crafting_recipe/roguetown/alchemy/f2gra
-	name = "fiber to grain"
-	category = "Transmutation"
-	result = list(/obj/item/reagent_containers/food/snacks/grown/wheat = 1)
-	reqs = list(/obj/item/natural/fibers = 4)
-	craftdiff = 3
-	verbage_simple = "transmute"
-
 /datum/crafting_recipe/roguetown/alchemy/b2app
 	name = "berry to apple"
 	category = "Transmutation"
 	result = list(/obj/item/reagent_containers/food/snacks/grown/apple = 1)
 	reqs = list(/obj/item/reagent_containers/food/snacks/grown/berries/rogue = 2)
 	craftdiff = 3
-	verbage_simple = "transmute"
-
-/datum/crafting_recipe/roguetown/alchemy/d2cla
-	name = "dirt to clay"
-	category = "Transmutation"
-	result = list(/obj/item/natural/clay = 1)
-	reqs = list(/obj/item/natural/dirtclod = 2)
-	craftdiff = 3
-	verbage_simple = "transmute"
-
-/datum/crafting_recipe/roguetown/alchemy/c2sto
-	name = "clay to stone"
-	category = "Transmutation"
-	result = list(/obj/item/natural/stone = 1)
-	reqs = list(/obj/item/natural/clay = 2)
-	craftdiff = 2
-	verbage_simple = "transmute"
-
-/datum/crafting_recipe/roguetown/alchemy/s2coa
-	name = "stone to coal"
-	category = "Transmutation"
-	result = list(/obj/item/rogueore/coal = 1)
-	reqs = list(/obj/item/natural/stone = 4)
-	craftdiff = 2
-	verbage_simple = "transmute"
-
-/datum/crafting_recipe/roguetown/alchemy/cl2st2copp
-	name = "stone & clay to copper"
-	category = "Transmutation"
-	result = list(/obj/item/rogueore/copper = 1)
-	reqs = list(/obj/item/natural/stone = 2, /obj/item/natural/clay = 2)
-	craftdiff = 3
-	verbage_simple = "transmute"
-
-/datum/crafting_recipe/roguetown/alchemy/st2di2tin
-	name = "stone & dirt to tin"
-	category = "Transmutation"
-	result = list(/obj/item/rogueore/tin = 1)
-	reqs = list(/obj/item/natural/stone = 2, /obj/item/natural/dirtclod = 2)
-	craftdiff = 3
-	verbage_simple = "transmute"
-
-/datum/crafting_recipe/roguetown/alchemy/c2irn
-	name = "coal to iron"
-	category = "Transmutation"
-	result = list(/obj/item/rogueore/iron = 1)
-	reqs = list(/obj/item/rogueore/coal = 2)
-	craftdiff = 3
-	verbage_simple = "transmute"
-
-/datum/crafting_recipe/roguetown/alchemy/i2gol
-	name = "iron to gold"
-	category = "Transmutation"
-	result = list(/obj/item/rogueore/gold = 1)
-	reqs = list(/obj/item/rogueore/iron = 4)
-	craftdiff = 4
 	verbage_simple = "transmute"
 
 /datum/crafting_recipe/roguetown/alchemy/i2sil //Caustic edit.
@@ -371,57 +300,9 @@
 	craftdiff = 6
 	verbage_simple = "transmute"
 
-/datum/crafting_recipe/roguetown/alchemy/g2top
-	name = "gold to toper"
-	category = "Transmutation"
-	result = list(/obj/item/roguegem/yellow = 1)
-	reqs = list(/obj/item/rogueore/gold = 2, /obj/item/natural/stone = 1)
-	craftdiff = 4
-	verbage_simple = "transmute"
-
-/datum/crafting_recipe/roguetown/alchemy/t2gem
-	name = "toper to gemerald"
-	category = "Transmutation"
-	result = list(/obj/item/roguegem/green = 1)
-	reqs = list(/obj/item/roguegem/yellow = 1, /obj/item/rogueore/gold = 2)
-	craftdiff = 4
-	verbage_simple = "transmute"
-
-/datum/crafting_recipe/roguetown/alchemy/g2saf
-	name = "gemerald to saffira"
-	category = "Transmutation"
-	result = list(/obj/item/roguegem/violet = 1)
-	reqs = list(/obj/item/roguegem/green = 1, /obj/item/rogueore/gold = 2)
-	craftdiff = 4
-	verbage_simple = "transmute"
-
-/datum/crafting_recipe/roguetown/alchemy/s2blo
-	name = "saffira to blortz"
-	category = "Transmutation"
-	result = list(/obj/item/roguegem/blue = 1)
-	reqs = list(/obj/item/roguegem/violet = 1, /obj/item/rogueore/gold = 2)
-	craftdiff = 4
-	verbage_simple = "transmute"
-
-/datum/crafting_recipe/roguetown/alchemy/r2dia
-	name = "blortz to dorpel"
-	category = "Transmutation"
-	result = list(/obj/item/roguegem/diamond = 1)
-	reqs = list(/obj/item/roguegem/blue = 2, /obj/item/rogueore/gold = 2)
-	craftdiff = 5
-	verbage_simple = "transmute"
-
-/datum/crafting_recipe/roguetown/alchemy/d2ros
-	name = "dorpel to riddle of steel" /// holy grail requires legendary. (sell price on average is 350. rontz and diamond worth 100 each. you get to legndary you deserve 150-200 profit)
-	category = "Transmutation"
-	result = list(/obj/item/riddleofsteel = 1)
-	reqs = list(/obj/item/roguegem/diamond = 2, /obj/item/rogueore/iron = 1, /obj/item/rogueore/coal = 1)
-	craftdiff = 6
-	verbage_simple = "transmute"
-
 /datum/crafting_recipe/roguetown/alchemy/skysugarbase
 	name = "panacea of skysugar"
-	category = "Transmutation"
+	category = "Basic Transmutation"
 	result = list(/obj/item/reagent_containers/food/snacks/grown/fruit/blackberry/skysugarbase = 1)
 	reqs = list(/obj/item/reagent_containers/food/snacks/rogue/raisins/blackberry = 1, /obj/item/reagent_containers/lux_impure = 1, /obj/item/reagent_containers/powder/starsugar = 1)
 	craftdiff = 5 //Better hope you've been practicing!
@@ -429,36 +310,12 @@
 
 /datum/crafting_recipe/roguetown/alchemy/skysugar
 	name = "skysugar slab to skysugar powder (x3)"
-	category = "Transmutation"
+	category = "Basic Transmutation"
 	result = list(/obj/item/reagent_containers/powder/starsugar/skysugar,
 					/obj/item/reagent_containers/powder/starsugar/skysugar,
 					/obj/item/reagent_containers/powder/starsugar/skysugar)
 	reqs = list(/obj/item/reagent_containers/food/snacks/grown/skysugarslab = 1)
 	craftdiff = 1 //Hard part's done. Time to break it up!
-	verbage_simple = "transmute"
-
-/datum/crafting_recipe/roguetown/alchemy/cd2coa
-	name = "coal dust to coal"
-	category = "Transmutation"
-	result = list(/obj/item/rogueore/coal = 1)
-	reqs = list(/obj/item/alch/coaldust = 3)
-	craftdiff = 2
-	verbage_simple = "transmute"
-
-/datum/crafting_recipe/roguetown/alchemy/id2irn
-	name = "iron dust to iron"
-	category = "Transmutation"
-	result = list(/obj/item/rogueore/iron = 1)
-	reqs = list(/obj/item/alch/irondust = 3)
-	craftdiff = 3
-	verbage_simple = "transmute"
-
-/datum/crafting_recipe/roguetown/alchemy/gd2gol
-	name = "gold dust to gold"
-	category = "Transmutation"
-	result = list(/obj/item/rogueore/gold = 1)
-	reqs = list(/obj/item/alch/golddust = 3)
-	craftdiff = 4
 	verbage_simple = "transmute"
 
 /datum/crafting_recipe/roguetown/alchemy/frankenbrew
@@ -527,3 +384,42 @@
 		/obj/item/roguegem/blood_diamond = 2,
 		)
 	subtype_reqs = TRUE
+
+/datum/crafting_recipe/roguetown/alchemy/begin_magnum_opus
+	name = "blackened materia"
+	category = "Magnum Opus"
+	craftdiff = SKILL_LEVEL_MASTER // you need expert to make catalysts, but mages have positive int = they can craft 1 level above their tier, also this should be difficult ic
+	result = list(
+		/obj/item/alch/precursor/nigredo,
+		/obj/item/alch/precursor/nigredo // one for a catalyst, one to take with you up the chain
+	)
+	reqs = list(
+		/obj/item/rogueore/cinnabar = 1,
+		/obj/item/ash = 3
+	)
+
+/datum/crafting_recipe/roguetown/alchemy/catalyzation_reagent_pacifist
+	name = "catalyzing reagent (cinnabar)" // expensive alternative to planar materials
+	category = "Basic Transmutation"
+	craftdiff = SKILL_LEVEL_EXPERT
+	result = list(
+		/obj/item/storage/roguebag/trans
+	)
+	reqs = list(
+		/obj/item/rogueore/cinnabar = 1,
+		/obj/item/ash = 3,
+		/obj/item/storage/roguebag = 1
+	)
+
+/datum/crafting_recipe/roguetown/alchemy/catalyzation_reagent
+	name = "catalyzing reagent (iridescent scale)"
+	category = "Basic Transmutation"
+	craftdiff = SKILL_LEVEL_EXPERT
+	result = list(
+		/obj/item/storage/roguebag/trans
+	)
+	reqs = list(
+		/obj/item/magic/fae/iridescentscale = 1,
+		/obj/item/ash = 3,
+		/obj/item/storage/roguebag = 1
+	)

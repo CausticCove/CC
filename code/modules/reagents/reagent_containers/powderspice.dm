@@ -22,6 +22,7 @@
 	list_reagents = list(/datum/reagent/druqks = 15)
 	grind_results = list(/datum/reagent/druqks = 15)
 	sellprice = 10
+	materia = list(/datum/materia_aspect/air)
 
 /datum/reagent/druqks
 	name = "Drukqs"
@@ -232,6 +233,7 @@
 	volume = 15
 	list_reagents = list(/datum/reagent/ozium = 15)
 	grind_results = list(/datum/reagent/ozium = 15)
+	materia = list(/datum/materia_aspect/air)
 	sellprice = 5
 
 /datum/reagent/ozium
@@ -259,7 +261,7 @@
 
 /datum/reagent/allspice
 	name = "allspice"
-	description = "A blend of toasted spices, temptingly aromatic to the senses." 
+	description = "A blend of toasted spices, temptingly aromatic to the senses."
 	color = "#CE8C33"
 	overdose_threshold = 0
 	metabolization_rate = 1
@@ -279,6 +281,7 @@
 	list_reagents = list(/datum/reagent/moondust = 15)
 	grind_results = list(/datum/reagent/moondust = 15)
 	sellprice = 5
+	materia = list(/datum/materia_aspect/air)
 
 /datum/reagent/moondust
 	name = "moondust"
@@ -323,6 +326,7 @@
 	volume = 18
 	list_reagents = list(/datum/reagent/moondust_purest = 18)
 	grind_results = list(/datum/reagent/moondust_purest = 15)
+	materia = list(/datum/materia_aspect/air, /datum/materia_aspect/lunar)
 	sellprice = 30
 
 /datum/reagent/moondust_purest
@@ -382,6 +386,7 @@
 	volume = 15
 	list_reagents = list(/datum/reagent/starsugar = 15, /datum/reagent/consumable/nutriment = 24) // monster and newports diet
 	grind_results = list(/datum/reagent/starsugar = 15)
+	materia = list(/datum/materia_aspect/air)
 	sellprice = 25
 
 /datum/reagent/starsugar
@@ -468,6 +473,7 @@
 	volume = 15
 	list_reagents = list(/datum/reagent/herozium = 15)
 	grind_results = list(/datum/reagent/herozium = 15)
+	materia = list(/datum/materia_aspect/air)
 	sellprice = 30
 
 /atom/movable/screen/fullscreen/herozium
@@ -503,7 +509,7 @@
 	M.sate_addiction(/datum/charflaw/addiction/junkie)
 	..()
 	. = 1
-	
+
 
 /datum/reagent/herozium/on_mob_end_metabolize(mob/living/M)
 	M.clear_fullscreen("herozium")

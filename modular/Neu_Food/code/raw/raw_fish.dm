@@ -24,6 +24,7 @@
 	cooked_smell = /datum/pollutant/food/cooked_fish
 	possible_item_intents = list(/datum/intent/food, /datum/intent/mace/slap)
 	force = 8
+	materia = list(/datum/materia_aspect/water)
 	//CC Edit Begin
 	diet_types = list("Meats")
 	diet_change_amount = FOOD_DIETARY_VALUE_GREAT //Fish are a great source of Omega 3's!

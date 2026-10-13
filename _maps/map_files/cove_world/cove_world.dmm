@@ -14721,7 +14721,7 @@
 /turf/open/floor/rogue/dirt/road,
 /area/rogue/indoors/town/church/basement)
 "cPn" = (
-/obj/structure/fluff/alch,
+/obj/structure/fluff/alch/trans/uni,
 /turf/open/floor/rogue/concrete,
 /area/rogue/indoors/town/magician)
 "cPo" = (
@@ -59268,8 +59268,9 @@
 /turf/open/floor/carpet/red,
 /area/rogue/indoors/town/dwarfin)
 "les" = (
-/obj/structure/table/vtable,
 /obj/item/rogueweapon/huntingknife/stoneknife,
+/obj/item/reagent_containers/glass/bucket/pot/stone,
+/obj/structure/table/wood/poor,
 /turf/open/floor/rogue/blocks/newstone/alt,
 /area/rogue/indoors/town)
 "let" = (
@@ -104137,11 +104138,10 @@
 /turf/open/floor/rogue/ruinedwood/spiral,
 /area/rogue/indoors/town/shop)
 "twk" = (
-/obj/structure/table/vtable/v2,
 /obj/structure/fluff/walldeco/med{
 	pixel_y = 32
 	},
-/obj/item/reagent_containers/glass/bucket/pot/stone,
+/obj/structure/fluff/alch/trans,
 /turf/open/floor/rogue/blocks/newstone/alt,
 /area/rogue/indoors/town)
 "twm" = (
