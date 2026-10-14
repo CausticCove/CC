@@ -158,11 +158,32 @@ A LITTLE MORE CONSISTENT IN HERE. PLEASE DO YOUR BEST. THANKS.
 					/obj/item/clothing/mask/rogue/spectacles,
 				)
 
+/datum/supply_pack/rogue/wardrobe/masks/thinspecs
+	name = "Thin Spectacles"
+	cost = 25
+	contains = list(
+					/obj/item/clothing/mask/rogue/spectacles/thin,
+				)
+
 /datum/supply_pack/rogue/wardrobe/masks/goldspecs
 	name = "Golden Spectacles"
 	cost = 60
 	contains = list(
 					/obj/item/clothing/mask/rogue/spectacles/golden,
+				)
+
+/datum/supply_pack/luxury/spectacles_onyxa
+	name = "Onyxa Spectacles"
+	cost = 45
+	contains = list(
+					/obj/item/clothing/mask/rogue/spectacles/sglasses,
+				)
+
+/datum/supply_pack/luxury/spectacles_monocle
+	name = "Monocle"
+	cost = 30
+	contains = list(
+					/obj/item/clothing/mask/rogue/spectacles/monocle,
 				)
 
 /datum/supply_pack/rogue/wardrobe/masks/ragmask

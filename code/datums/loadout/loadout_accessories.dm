@@ -19,6 +19,11 @@
 	path = /obj/item/clothing/mask/rogue/spectacles
 	sort_category = "Accessories"
 
+/datum/loadout_item/thinspectacles
+	name = "Thin Spectacles"
+	path = /obj/item/clothing/mask/rogue/spectacles/thin
+	sort_category = "Accessories"
+
 /datum/loadout_item/fingerless
 	name = "Fingerless Gloves"
 	path = /obj/item/clothing/gloves/roguetown/fingerless
@@ -105,7 +110,7 @@
 	name= "Face Veil"
 	path = /obj/item/clothing/mask/rogue/faceveil
 	sort_category = "Accessories"
-	
+
 /datum/loadout_item/cursed_collar
 	name = "Cursed Collar"
 	path = /obj/item/clothing/neck/roguetown/gorget/cursed_collar
