@@ -16,7 +16,6 @@
 	throwforce = 10
 	dropshrink = 1 // Override for bucket
 	volume = 240
-
 	var/fillingprefix = "pote" // CC edit. Allows changing the liquid overlay for differently sized pot openings
 
 /obj/item/reagent_containers/glass/bucket/get_mechanics_examine(mob/user)
