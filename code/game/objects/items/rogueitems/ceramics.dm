@@ -782,6 +782,8 @@
 	volume = 90 // 3 ingredients. You could make soup in it, if you're a maniac
 	glazeable = TRUE
 
+	fillingprefix = "teapot" // CC edit. Let's not use the full pot liquid overlay
+
 // Pre-glazed
 
 /obj/item/reagent_containers/glass/bucket/pot/clayteapot/brown

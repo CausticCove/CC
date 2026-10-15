@@ -17,6 +17,8 @@
 	dropshrink = 1 // Override for bucket
 	volume = 240
 
+	var/fillingprefix = "pote" // CC edit. Allows changing the liquid overlay for differently sized pot openings
+
 /obj/item/reagent_containers/glass/bucket/get_mechanics_examine(mob/user)
 	. = ..()
 	. += span_notice("Freshwater can be collected by leaving out buckets, pots, washbins, and any other uncovered containers on an uncovered tile while it's raining.")
@@ -33,13 +35,13 @@
 	cut_overlays()
 	if(reagents.total_volume > 0)
 		if(reagents.total_volume <= 50)
-			var/mutable_appearance/filling = mutable_appearance(icon, "pote_half")
+			var/mutable_appearance/filling = mutable_appearance(icon, "[fillingprefix]_half") // CC edit
 			filling.color = mix_color_from_reagents(reagents.reagent_list)
 			filling.alpha = mix_alpha_from_reagents(reagents.reagent_list)
 			add_overlay(filling)
 
 		if(reagents.total_volume > 50)
-			var/mutable_appearance/filling = mutable_appearance(icon, "pote_full")
+			var/mutable_appearance/filling = mutable_appearance(icon, "[fillingprefix]_full") // CC edit
 			filling.color = mix_color_from_reagents(reagents.reagent_list)
 			filling.alpha = mix_alpha_from_reagents(reagents.reagent_list)
 			add_overlay(filling)
