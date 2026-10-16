@@ -34,8 +34,6 @@
 
 	init_subtypes(/datum/alch_cauldron_recipe, GLOB.alch_cauldron_recipes)
 
-	init_subtypes(/datum/stew_recipe, GLOB.stew_recipes)
-
 	for(var/i in 0 to 20)
 		GLOB.mouseicons_human += file("icons/effects/mousemice/swang/[i * 5].dmi")
 
@@ -71,7 +69,7 @@
 	for (var/path in subtypesof(/datum/sizecat))
 		var/datum/sizecat/sc = new path()
 		GLOB.sizecats[path] = sc
-	
+
 	// Loadout items
 	for (var/path in subtypesof(/datum/loadout_item))
 		var/datum/loadout_item/loadout_item = new path()

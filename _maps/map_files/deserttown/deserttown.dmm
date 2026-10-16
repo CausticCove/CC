@@ -21798,9 +21798,6 @@
 	pixel_x = 0;
 	pixel_y = 34
 	},
-/obj/item/gun/ballistic/blackpowder/arquebus,
-/obj/item/gun/ballistic/blackpowder/small/arquebus_pistol,
-/obj/item/gun/ballistic/blackpowder/small/arquebus_pistol,
 /turf/open/floor/rogue/woodturned,
 /area/rogue/indoors/town/garrison/desert)
 "flJ" = (
@@ -95576,6 +95573,9 @@
 /obj/machinery/light/rogue/candle/weak{
 	pixel_y = -32
 	},
+/obj/structure/table/wood/folding,
+/obj/item/ration_lootbox,
+/obj/item/ration_lootbox,
 /turf/open/floor/rogue/tile/brownbrick{
 	icon = 'modular_deserttown/icons/alt/roguefloor.dmi'
 	},

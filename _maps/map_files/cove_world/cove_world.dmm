@@ -105371,7 +105371,7 @@
 /obj/structure/bakers_trough{
 	pixel_y = 17
 	},
-/obj/item/rogueweapon/bakers_peel{
+/obj/item/storage/bag/tray/peel{
 	pixel_y = -19;
 	pixel_x = -18
 	},
@@ -108815,6 +108815,8 @@
 	icon_state = "shelf_biggest";
 	pixel_y = 0
 	},
+/obj/item/ration_lootbox,
+/obj/item/ration_lootbox,
 /turf/open/floor/rogue/cobble,
 /area/rogue/under/town/basement)
 "uqn" = (
