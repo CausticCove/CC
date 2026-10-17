@@ -619,10 +619,16 @@
 	w_class = WEIGHT_CLASS_TINY
 	throw_speed = 1
 	throw_range = 3
-	//CC Edit Begin
+	mob_overlay_icon = 'icons/roguetown/clothing/onmob/head_items.dmi'
+	slot_flags = ITEM_SLOT_HEAD|ITEM_SLOT_MASK
+	body_parts_covered = NONE
+	spitoutmouth = FALSE
+	muteinmouth = FALSE
+	alternate_worn_layer	= 8.9 //On top of helmet
+		//CC Edit Begin
 	diet_types = list("Vegetables")
 	diet_change_amount = FOOD_DIETARY_VALUE_POOR - 1.5 //This shit is literally burning your guts lol
-	//CC Edit End
+		//CC Edit End
 
 /obj/item/reagent_containers/food/snacks/grown/rogue/fyritius/attack(mob/living/carbon/human/M, mob/user)
 	if(M == user)
@@ -678,10 +684,16 @@
 	bitesize = 1
 	list_reagents = list(/datum/reagent/consumable/nutriment = 2, /datum/reagent/toxin/fyritiusnectar = 5)
 	rotprocess = SHELFLIFE_SHORT
+	mob_overlay_icon = 'icons/roguetown/clothing/onmob/head_items.dmi'
+	slot_flags = ITEM_SLOT_HEAD|ITEM_SLOT_MASK
+	body_parts_covered = NONE
+	spitoutmouth = FALSE
+	muteinmouth = FALSE
+	alternate_worn_layer	= 8.9 //On top of helmet
 		//CC Edit Begin
 	diet_types = list("Vegetables")
 	diet_change_amount = FOOD_DIETARY_VALUE_POOR - 1.25 //You're crazy.
-	//CC Edit End
+		//CC Edit End
 
 /obj/item/reagent_containers/food/snacks/grown/rogue/fyritius/bloodied/become_rotten()
 	visible_message(span_danger("[src] burns into ash!"))
