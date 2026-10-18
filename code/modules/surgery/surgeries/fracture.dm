@@ -36,6 +36,10 @@
 	skill_min = SKILL_LEVEL_JOURNEYMAN
 	skill_median = SKILL_LEVEL_EXPERT
 
+	//CC Edit - This shouldn't cause infection at this step.
+	causes_infection = FALSE
+	//CC Edit End
+
 /datum/surgery_step/set_bone/validate_bodypart(mob/user, mob/living/carbon/target, obj/item/bodypart/bodypart, target_zone)
 	. = ..()
 	if(!.)
