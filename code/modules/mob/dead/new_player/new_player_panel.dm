@@ -1,5 +1,5 @@
 /mob/dead/new_player/verb/new_player_panel()
-	set category = "Preferences.New Player"
+	set category = "OPTIONS"
 	set name = "Reopen Lobby Menu"
 	return ui_interact(src)
 
