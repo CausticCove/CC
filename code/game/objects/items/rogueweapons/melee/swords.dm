@@ -2198,7 +2198,7 @@
 	icon_state = "wodao"
 	sheathe_icon = "wodao"
 
-/obj/item/rogueweapon/sword/saber/iron/wodao
+/obj/item/rogueweapon/sword/sabre/iron/wodao
 	name = "iron wodao"
 	desc = "A wrought-iron wodao, mass produced by the thousands in the state arsenals for Xinyi infantry and provincial militias. The blade is competent, its edge sharp, but it will not hold as long under use. But at a fraction of the cost of a hwando, it is more than enough to slay a man or five before it needs to be sharpened."
 	icon_state = "iwodao"

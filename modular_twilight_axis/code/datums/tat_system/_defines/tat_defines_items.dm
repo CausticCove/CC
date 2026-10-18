@@ -733,7 +733,6 @@ GLOBAL_LIST_INIT(tat_donation_access_all_ckeys, TAT_DONATION_ACCESS_ALL_CKEYS)
 	/obj/item/rogueweapon/huntingknife/idagger/navaja = TAT_ITEM_ENTRY("Cultural - Etrusca - Iron - Navaja", 3, "weapon", "weapon_supply", TAT_SUPPLY_STEEL, "knife"), \
 	/obj/item/rogueweapon/huntingknife/idagger/silver = TAT_ITEM_ENTRY("Silver - Dagger", 3, "weapon", "weapon_supply", TAT_SUPPLY_SILVER, "knife"), \
 	/obj/item/rogueweapon/huntingknife/idagger/silver/elvish = TAT_ITEM_ENTRY("Cultural - Elvish - Silver - Dagger", 3.5, "weapon", "weapon_supply", TAT_SUPPLY_SILVER, "knife"), \
-	/obj/item/rogueweapon/huntingknife/idagger/steel/stalker = TAT_ITEM_ENTRY("Cultural - Elvish - Drow - Dark Dagger", 3, "weapon", "weapon_supply", TAT_SUPPLY_STEEL, "knife"), \
 	/obj/item/rogueweapon/huntingknife/idagger/silver/stake = TAT_ITEM_ENTRY("Silver - Stake", 2, "weapon", "weapon_supply", TAT_SUPPLY_SILVER, "knife"), \
 	/obj/item/rogueweapon/huntingknife/idagger/stake = TAT_ITEM_ENTRY("Wood - Sharpened Stake", 0.5, "weapon", "weapon_supply", TAT_SUPPLY_IRON, "knife"), \
 	/obj/item/rogueweapon/huntingknife/idagger/steel = TAT_ITEM_ENTRY("Steel - Dagger", 2, "weapon", "weapon_supply", TAT_SUPPLY_STEEL, "knife"), \
@@ -900,7 +899,7 @@ GLOBAL_LIST_INIT(tat_donation_access_all_ckeys, TAT_DONATION_ACCESS_ALL_CKEYS)
 	/obj/item/rogueweapon/sword/rapier = TAT_ITEM_ENTRY("Steel - Rapier", 3, "weapon", "weapon_supply", TAT_SUPPLY_STEEL, "sword"), \
 	/obj/item/rogueweapon/sword/rapier/silver = TAT_ITEM_ENTRY("Silver - Rapier", 4, "weapon", "weapon_supply", TAT_SUPPLY_SILVER, "sword"), \
 	/obj/item/rogueweapon/sword/rapier/vaquero = TAT_ITEM_ENTRY("Cultural - Etrusca - Steel - Rapier", 5, "weapon", "weapon_supply", TAT_SUPPLY_STEEL, "sword"), \
-	/obj/item/rogueweapon/sword/saber/iron = TAT_ITEM_ENTRY("Iron - Saber", 2, "weapon", "weapon_supply", TAT_SUPPLY_IRON, "sword"), \
+	/obj/item/rogueweapon/sword/sabre/iron = TAT_ITEM_ENTRY("Iron - Saber", 2, "weapon", "weapon_supply", TAT_SUPPLY_IRON, "sword"), \
 	/obj/item/rogueweapon/sword/sabre = TAT_ITEM_ENTRY("Steel - Sabre", 3, "weapon", "weapon_supply", TAT_SUPPLY_STEEL, "sword"), \
 	/obj/item/rogueweapon/sword/sabre/alloy = TAT_ITEM_ENTRY("Decrepit - Khopesh", 2, "weapon", "weapon_supply", TAT_SUPPLY_IRON, "sword"), \
 	/obj/item/rogueweapon/sword/sabre/bane = TAT_ITEM_ENTRY("Artifact - Bane's Edge", 13, "weapon", "weapon_supply", TAT_SUPPLY_ARTIFACTS, "artifact"), \
