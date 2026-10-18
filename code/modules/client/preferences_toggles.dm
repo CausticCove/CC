@@ -430,7 +430,7 @@
 		to_chat(src, span_info("I will now only hear LOOC chatter around me."))
 
 /client/proc/hearsubtleLOOC()
-	set category = "Admin.Preferences"
+	set category = "ADMIN.Preferences"
 	set name = "Show/Hide Subtle LOOC"
 	if(!holder)
 		return

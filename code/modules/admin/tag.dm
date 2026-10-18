@@ -50,7 +50,7 @@
 
 // ADMIN_VERB(display_tags, R_ADMIN, "View Tags", "Display all of the tagged datums.", ADMIN_CATEGORY_GAME)
 /client/proc/display_tags()
-	set category = "Admin.Admin"
+	set category = "ADMIN.Admin"
 	set name = "Tagged Datums"
 	set desc = "Display all of your tagged datums."
 
