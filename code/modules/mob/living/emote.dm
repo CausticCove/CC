@@ -704,6 +704,7 @@
 		//Caustic Edit
 		if(H.show_redflash())
 			H.flash_fullscreen("redflash3")
+		H.stop_all_doing() //This might let Slap stop all do-afters
 		//Caustic Edit End
 		H.AdjustSleeping(-50)
 		if(HAS_TRAIT(target, TRAIT_CAUSTIC) && get_location_accessible(user, BODY_ZONE_PRECISE_L_HAND))

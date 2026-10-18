@@ -35,6 +35,7 @@
 	desc = "A clump of dirty lustrous nuggets!"
 	icon_state = "oregold1"
 	smeltresult = /obj/item/ingot/gold
+	materia = list(/datum/materia_aspect/solar, /datum/materia_aspect/metal)
 	sellprice = SELLPRICE_GOLD_ORE
 
 /obj/item/rogueore/gold/Initialize()
@@ -48,6 +49,7 @@
 	icon_state = "oresilv1"
 	smeltresult = /obj/item/ingot/silver
 	sellprice = SELLPRICE_SILVER_ORE
+	materia = list(/datum/materia_aspect/lunar, /datum/materia_aspect/metal)
 
 /obj/item/rogueore/silver/Initialize()
 	icon_state = "oresilv[rand(1,3)]"
@@ -59,6 +61,7 @@
 	desc = "A dark ore of rugged strength."
 	icon_state = "oreiron1"
 	smeltresult = /obj/item/ingot/iron
+	materia = list(/datum/materia_aspect/metal)
 	sellprice = SELLPRICE_IRON_ORE
 
 /obj/item/rogueore/iron/Initialize()
@@ -75,6 +78,7 @@
 	icon_state = "orecop1"
 	smeltresult = /obj/item/ingot/copper
 	sellprice = SELLPRICE_COPPER_ORE
+	materia = list(/datum/materia_aspect/change, /datum/materia_aspect/metal)
 
 /obj/item/rogueore/copper/Initialize()
 	icon_state = "orecop[rand(1,3)]"
@@ -90,6 +94,7 @@
 	icon_state = "oretin1"
 	smeltresult = /obj/item/ingot/tin
 	sellprice = SELLPRICE_TIN_ORE
+	materia = list(/datum/materia_aspect/mundane, /datum/materia_aspect/metal)
 
 /obj/item/rogueore/tin/Initialize()
 	icon_state = "oretin[rand(1,3)]"
@@ -106,6 +111,7 @@
 	firefuel = 30 MINUTES
 	smeltresult = /obj/item/rogueore/coal
 	sellprice = SELLPRICE_COAL
+	materia = list(/datum/materia_aspect/earth, /datum/materia_aspect/fire)
 
 /obj/item/rogueore/coal/Initialize()
 	icon_state = "orecoal[rand(1,3)]"
@@ -127,6 +133,7 @@
 	icon_state = "orecinnabar"
 	grind_results = list(/datum/reagent/mercury = 15)
 	sellprice = SELLPRICE_CINNABAR
+	materia = list(/datum/materia_aspect/malleability)
 
 /obj/item/rogueore/lithmyc
 	name = "lithmyc"
@@ -134,6 +141,7 @@
 	icon_state = "orelithmyc"
 	sellprice = 100
 	smeltresult = /obj/item/ingot/lithmyc
+	materia = list(/datum/materia_aspect/herb, /datum/materia_aspect/metal)
 
 /obj/item/rogueore/lithmyc/Initialize()
   ..()
@@ -230,6 +238,7 @@
 	icon_state = "ingotgold"
 	smeltresult = /obj/item/ingot/gold
 	sellprice = SELLPRICE_GOLD_INGOT
+	materia = list(/datum/materia_aspect/solar, /datum/materia_aspect/metal)
 
 /obj/item/ingot/iron
 	name = "iron bar"
@@ -237,6 +246,7 @@
 	icon_state = "ingotiron"
 	smeltresult = /obj/item/ingot/iron
 	sellprice = SELLPRICE_IRON_INGOT
+	materia = list(/datum/materia_aspect/metal)
 
 /obj/item/ingot/iron/Initialize(mapload, smelt_quality)
 	. = ..()
@@ -264,6 +274,7 @@
 	icon_state = "ingotcop"
 	smeltresult = /obj/item/ingot/copper
 	sellprice = SELLPRICE_COPPER_INGOT
+	materia = list(/datum/materia_aspect/change, /datum/materia_aspect/metal)
 
 /obj/item/ingot/copper/get_mechanics_examine(mob/user)
 	. = ..()
@@ -275,6 +286,7 @@
 	icon_state = "ingottin"
 	smeltresult = /obj/item/ingot/tin
 	sellprice = SELLPRICE_TIN_INGOT
+	materia = list(/datum/materia_aspect/mundane, /datum/materia_aspect/metal)
 
 /obj/item/ingot/tin/get_mechanics_examine(mob/user)
 	. = ..()
@@ -286,6 +298,7 @@
 	icon_state = "ingotbronze"
 	smeltresult = /obj/item/ingot/bronze
 	sellprice = 25
+	materia = list(/datum/materia_aspect/motion, /datum/materia_aspect/metal)
 
 /obj/item/ingot/silver
 	name = "silver bar"
@@ -295,6 +308,7 @@
 	sellprice = SELLPRICE_SILVER_INGOT
 	is_silver = TRUE
 	is_lesser_silver = TRUE
+	materia = list(/datum/materia_aspect/lunar, /datum/materia_aspect/metal)
 
 /obj/item/ingot/steel
 	name = "steel bar"
@@ -302,6 +316,7 @@
 	icon_state = "ingotsteel"
 	smeltresult = /obj/item/ingot/steel
 	sellprice = SELLPRICE_STEEL_INGOT
+	materia = list(/datum/materia_aspect/defense, /datum/materia_aspect/metal)
 
 /obj/item/ingot/blacksteel
 	name = "blacksteel bar"
@@ -309,6 +324,7 @@
 	icon_state = "ingotblacksteel"
 	smeltresult = /obj/item/ingot/blacksteel
 	sellprice = 80 // CC edit, individual bars made very slightly less valuable due to alloying now producing 2 instead of 1.
+	materia = list(/datum/materia_aspect/defense, /datum/materia_aspect/metal)
 
 //Blessed Ingots
 /obj/item/ingot/steelholy/
@@ -317,6 +333,7 @@
 	icon_state = "ingotsteelholy"
 	smeltresult = /obj/item/ingot/steel //Smelting it removes the blessing
 	sellprice = 20
+	materia = list(/datum/materia_aspect/defense, /datum/materia_aspect/metal, /datum/materia_aspect/fire)
 
 /obj/item/ingot/steelholy/Initialize()
   ..()
@@ -330,6 +347,7 @@
 	sellprice = 100
 	is_silver = TRUE
 	is_lesser_silver = TRUE
+	materia = list(/datum/materia_aspect/lunar, /datum/materia_aspect/metal)
 
 /obj/item/ingot/silverblessed/Initialize()
   ..()
@@ -343,6 +361,7 @@
 	sellprice = 100
 	is_silver = TRUE
 	is_lesser_silver = TRUE
+	materia = list(/datum/materia_aspect/lunar, /datum/materia_aspect/metal)
 
 /obj/item/ingot/aalloy
 	name = "decrepit ingot"
@@ -358,6 +377,7 @@
 	icon_state = "ingotancient"
 	smeltresult = /obj/item/ingot/purifiedaalloy
 	sellprice = 111
+	materia = list(/datum/materia_aspect/aalloy)
 
 /obj/item/ingot/aaslag
 	name = "glimmering slag"
@@ -407,6 +427,7 @@
 	icon_state = "ingotenduring"
 	smeltresult = /obj/item/ingot/weeping
 	sellprice = 222
+	materia = list(/datum/materia_aspect/aalloy) // if you use this for this i will be genuinely dumbfounded
 
 /obj/item/ingot/weeping/Initialize()
   ..()
@@ -418,6 +439,7 @@
 	icon_state = "ingotdraconic"
 	smeltresult = /obj/item/ingot/draconic
 	sellprice = 333
+	materia = list(/datum/materia_aspect/arcyne, /datum/materia_aspect/metal)
 
 /obj/item/ingot/draconic/Initialize()
   ..()
@@ -429,6 +451,7 @@
 	icon_state = "ingotlithmyc"
 	smeltresult = /obj/item/ingot/lithmyc
 	sellprice = 444
+	materia = list(/datum/materia_aspect/herb, /datum/materia_aspect/metal)
 
 /obj/item/ingot/lithmyc/Initialize()
   ..()
@@ -454,6 +477,7 @@
 	icon_state = "ingotvampire"
 	smeltresult = /obj/item/ingot/purifiedaalloy
 	sellprice = 256
+	materia = list(/datum/materia_aspect/aalloy)
 
 /obj/item/ingot/vampire/Initialize()
   ..()
@@ -502,6 +526,7 @@
 	icon_state = "component_berserkheap"
 	smeltresult = /obj/item/rogueore/iron
 	smelt_bar_num = 4
+	materia = list(/datum/materia_aspect/metal)
 
 /obj/item/ingot/component/berserkswordblade
 	name = "blade of the berserkers sword"
@@ -509,6 +534,7 @@
 	icon_state = "component_berserkblade"
 	smeltresult = /obj/item/ingot/iron
 	smelt_bar_num = 3
+	materia = list(/datum/materia_aspect/metal, /datum/materia_aspect/weapon)
 
 /obj/item/ingot/component/berserkswordgrip
 	name = "handle of the berserkers sword"
@@ -516,6 +542,7 @@
 	icon_state = "component_berserkhandle"
 	smeltresult = /obj/item/ingot/iron
 	sellprice = 33
+	materia = list(/datum/materia_aspect/metal)
 
 /obj/item/ingot/component/threadavantyne
 	name = "avantyne thread"

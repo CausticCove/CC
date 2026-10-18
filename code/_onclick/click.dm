@@ -343,7 +343,9 @@
 
 	// Allows you to click on a box's contents, if that box is on the ground or held by something on the ground, but no deeper than that
 	if(isturf(A) || isturf(A.loc) || isturf(A.loc?.loc) || isturf(A.loc?.loc?.loc))
-		var/can_reach = CanReach(A, W)
+		var/can_reach = CanReach(A)
+		if(!can_reach && W)
+			can_reach = CanReach(A, W)
 		if(can_reach)
 			if(isopenturf(A))
 				var/turf/T = A

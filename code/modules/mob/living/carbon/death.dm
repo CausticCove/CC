@@ -14,11 +14,12 @@
 	for(var/datum/brain_trauma/BT as anything in get_traumas())
 		BT.on_death()
 
-	//CC Edit
-	if(can_second_wind) //Only give this timer if they actually can so we don't overlap timers.
+	//CC Edit - Second Wind hook
+	can_second_wind = TRUE //If they die for real, just refresh it. Second iteration has no Second Chance option, so we can just always set it back to true on death.
+	/*if(can_second_wind) //Only give this timer if they actually can so we don't overlap timers. - Commented out for now while we change it around how it works.
 		to_chat(src, span_biginfo("<B>I have a Second Chance! I must wait 3:30 minutes before I can use my Second Wind ability, located in the IC tab under the Actions category.</B>"))
 		can_second_wind = FALSE
-		addtimer(CALLBACK(src, PROC_REF(clear_second_wind)), 3.5 MINUTES)
+		addtimer(CALLBACK(src, PROC_REF(clear_second_wind)), 3.5 MINUTES)*/
 	//CC Edit End
 
 /mob/living/carbon/dust(just_ash, drop_items, force)

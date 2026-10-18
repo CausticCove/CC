@@ -140,6 +140,10 @@
 			return
 		lensmoved = FALSE
 
+/obj/item/clothing/mask/rogue/spectacles/thin
+	name = "thin-lensed spectacles"
+	icon_state = "glassesa"
+
 /obj/item/clothing/mask/rogue/spectacles/golden
 	name = "golden spectacles"
 	icon_state = "goggles"

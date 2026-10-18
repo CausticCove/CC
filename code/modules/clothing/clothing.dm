@@ -83,6 +83,18 @@
 		max_integrity += (max_integrity * 0.11142857143)	// don't ask
 		obj_integrity = max_integrity
 
+/obj/item/clothing/Initialize(mapload)
+	. = ..()
+	if(!length(materia))
+		if(anvilrepair) // metal, cloth, and leather/fur items... approximately
+			materia = list(/datum/materia_aspect/defense)
+		else if (salvage_result == /obj/item/natural/cloth || salvage_result == /obj/item/natural/fibers)
+			materia = list(/datum/materia_aspect/plant)
+		else
+			materia = list(/datum/materia_aspect/animal)
+		if(smeltresult == /obj/item/ingot/aaslag && findtext(name, "ancient"))
+			materia += /datum/materia_aspect/aalloy
+
 /obj/item/clothing/examine(mob/user)
 	. = ..()
 	if(torn_sleeve_number)

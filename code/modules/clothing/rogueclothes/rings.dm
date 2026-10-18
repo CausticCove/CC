@@ -17,6 +17,7 @@
 	no_loot_taint = TRUE
 	dropshrink = 0.4
 	var/overarmor
+	materia = list(/datum/materia_aspect/solar) // in absence of other traits, they're valuable
 
 /obj/item/clothing/ring/MiddleClick(mob/user, params)
 	. = ..()
@@ -42,6 +43,7 @@
 	name = "bronze ring"
 	desc = "A ring of bronzen resiliance."
 	icon_state = "ring_b"
+	materia = list(/datum/materia_aspect/motion)
 
 /obj/item/clothing/ring/silver
 	name = "silver ring"
@@ -49,6 +51,7 @@
 	icon_state = "ring_s"
 	is_silver = TRUE
 	is_lesser_silver = TRUE
+	materia = list(/datum/materia_aspect/lunar)
 
 /obj/item/clothing/ring/silver/cleric
 	name = "clerical silver ring"
@@ -66,6 +69,7 @@
 	desc = "A ring of mythical blacksteel."
 	icon_state = "ring_bs"
 	sellprice = 70
+	materia = list(/datum/materia_aspect/defense)
 
 /obj/item/clothing/ring/jade
 	name = "jade ring"
@@ -544,7 +548,7 @@
 
 /obj/item/clothing/ring/statgemerald/antiquarian
 	sellprice = 30
-	desc = "A gemerald ring, glimmering with verdant brilliance. The closer your hand drifts to it, the stronger that the wind howls. The precious stone has chipped with long use, and is quite worthless except in its magick."	
+	desc = "A gemerald ring, glimmering with verdant brilliance. The closer your hand drifts to it, the stronger that the wind howls. The precious stone has chipped with long use, and is quite worthless except in its magick."
 /obj/item/clothing/ring/statonyx/antiquarian
 	sellprice = 30
 	desc = "An onyx ring, shining with violet determination. The closer your hand drifts to it, the faster your heart pounds. The precious stone has chipped with long use, and is quite worthless except in its magick."

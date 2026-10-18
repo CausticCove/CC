@@ -17,6 +17,7 @@
 	spitoutmouth = FALSE
 	w_class = WEIGHT_CLASS_TINY
 	dropshrink = 0.75
+	materia = list(/datum/materia_aspect/air)
 
 /obj/item/natural/feather/get_mechanics_examine(mob/user)
 	. = ..()
