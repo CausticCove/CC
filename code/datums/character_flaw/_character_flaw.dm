@@ -432,7 +432,7 @@ GLOBAL_LIST_INIT(averse_factions, list(
 		var/mob/living/carbon/human/H = user
 		ADD_TRAIT(H, TRAIT_ARMOR_BREAK, TRAIT_GENERIC)*/
 
-/datum/charflaw/hunted
+/*/datum/charflaw/hunted //Caustic Edit - Commenting out Hunted since it seems like Ephemeral is not accounted for in the new menu?
 	name = "Hunted"
 	desc = "Something in my past has made me a target. I'm always looking over my shoulder.	\
 	\nTHIS IS A DIFFICULT FLAW, YOU WILL BE HUNTED BY GNOLLS. \
@@ -463,7 +463,7 @@ GLOBAL_LIST_INIT(averse_factions, list(
 	if(gnoll_increase >= 1)
 		to_chat(user, span_notice("I have offended graggarite agents, and they may be tracking my scent."))
 		gnoll_job.total_positions = min(total_gnoll_positions + gnoll_increase, 10)
-		gnoll_job.spawn_positions = min(total_gnoll_positions + gnoll_increase, 10)
+		gnoll_job.spawn_positions = min(total_gnoll_positions + gnoll_increase, 10)*/
 
 /datum/charflaw/unintelligible
 	name = "Unintelligible"
