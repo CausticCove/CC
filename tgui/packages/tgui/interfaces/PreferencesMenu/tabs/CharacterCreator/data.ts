@@ -28,7 +28,7 @@ export type BodyData = {
   skin_tone_wording: string;
   available_skin_tones: Record<string, string>;
   skin_tone: string; // VALUE of available_skin_tones
-  body_size: number;
+  size_scale: number;
 
   update_mutant_colors: BooleanLike;
   use_mutcolor: BooleanLike;

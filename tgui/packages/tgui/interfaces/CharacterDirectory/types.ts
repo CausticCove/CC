@@ -4,7 +4,6 @@ export type Data = {
   personalVisibility: BooleanLike;
   personalTag: string;
   personalErpTag: string;
-  personalEventTag: string;
   personalGenderTag: string;
   personalSexualityTag: string;
   directory: mobEntry[];

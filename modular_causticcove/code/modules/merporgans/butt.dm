@@ -8,15 +8,15 @@
 	slot = ORGAN_SLOT_BUTT
 	organ_dna_type = /datum/organ_dna/butt
 	accessory_type = /datum/sprite_accessory/butt/pair
-	var/organ_size = DEFAULT_BUTT_SIZE
+	var/butt_size = DEFAULT_BUTT_SIZE
 
 /datum/organ_dna/butt
-	var/organ_size = DEFAULT_BUTT_SIZE
+	var/butt_size = DEFAULT_BUTT_SIZE
 
 /datum/organ_dna/butt/imprint_organ(obj/item/organ/organ)
 	..()
 	var/obj/item/organ/butt/butt_organ = organ
-	butt_organ.organ_size = organ_size
+	butt_organ.butt_size = butt_size
 
 GLOBAL_LIST_INIT(named_butt_sizes, list(
 	"flat" = 0,
@@ -46,7 +46,7 @@ GLOBAL_LIST_INIT(named_butt_sizes, list(
 
 /datum/sprite_accessory/butt/get_icon_state(obj/item/organ/organ, obj/item/bodypart/bodypart, mob/living/carbon/owner)
 	var/obj/item/organ/butt/buttie = organ
-	return "butt_[icon_state]_[buttie.organ_size]_[buttie.always_show ? "show" : "hide"]"
+	return "butt_[icon_state]_[buttie.butt_size]_[buttie.always_show ? "show" : "hide"]"
 
 /datum/sprite_accessory/butt/is_visible(obj/item/organ/organ, obj/item/bodypart/bodypart, mob/living/carbon/owner)
 	//Caustic Edit - Support to always show/hide parts!

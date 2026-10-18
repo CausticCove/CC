@@ -3835,6 +3835,7 @@
 #include "modular_causticcove\code\modules\cargo\packsrogue\merchant\weapons\merch_weapons_ranged.dm"
 #include "modular_causticcove\code\modules\character_directory\character_directory.dm"
 #include "modular_causticcove\code\modules\character_directory\mind.dm"
+#include "modular_causticcove\code\modules\character_setup_overrides\general_panel_overrides.dm"
 #include "modular_causticcove\code\modules\chemistry\reagents\caustic_sauces.dm"
 #include "modular_causticcove\code\modules\chemistry\reagents\caustic_sauces_reactions.dm"
 #include "modular_causticcove\code\modules\classes\domesticated_wildsoul.dm"

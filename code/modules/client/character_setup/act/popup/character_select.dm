@@ -75,7 +75,7 @@
 
 			to_chat(user, span_danger("Copying slot #[from_index] ([from_name]) over #[to_index] ([to_name || "None"])"))
 
-			do_copy_slot(S, from_index, to_index)
+			copy_slot(S, from_index, to_index)
 
 			to_chat(user, span_danger("Successfully wrote slot #[from_index] ([from_name]) over #[to_index] ([to_name || "None"])."))
 			verbose_pref_log_notification(user, "danger", "Copied slot #[from_index] ([from_name]) over #[to_index] ([to_name || "None"])")

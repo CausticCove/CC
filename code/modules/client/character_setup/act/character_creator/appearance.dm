@@ -86,6 +86,16 @@
 				verbose_pref_log_change(user, "notice", "Body Size", "[features["body_size"] * 100]%", "[new_body_size * 100]%")
 				features["body_size"] = new_body_size
 			return CHARACTER_ACT_PREVIEW_UPDATE
+		//Caustic Edit - Add in Size Scale instead of Body Size!
+		if("size_scale")
+			var/old_scale = sizescale
+			select_sizescale(user)
+			var/new_scale = sizescale
+			if(old_scale != new_scale)
+				verbose_pref_log_change(user, "notice", "Size Scale", "[features["size_scale"]]%", "[new_scale]%")
+				features["size_scale"] = new_scale
+			return CHARACTER_ACT_PREVIEW_UPDATE
+		//Caustic Edit End
 
 /datum/preferences/proc/try_update_mutant_colors(user)
 	if(update_mutant_colors)

@@ -76,6 +76,11 @@ export const SubtabClass = () => {
                   <Controls />
                 </>
               ) : null}
+              {i === 3 ? ( // Caustic Edit - Added this whole i === 4 block. Adding in Pliant Soul Configs here where it makes the most sense
+                <>
+                  <Pliant />
+                </>
+              ) : null}
             </Stack>
           </Stack.Item>
         ))}
@@ -83,6 +88,22 @@ export const SubtabClass = () => {
     </Section>
   );
 };
+
+const Pliant = () => { // Caustic Edit - Add in the Pliant Button used above
+  const { act } = useBackendStrict<ClassData>();
+
+  return (
+    <Stack.Item>
+      <Section title="Pliant Soul">
+        <Stack vertical>
+          <Button fluid onClick={() => act('open_pliant')}>
+            Edit Settings
+          </Button>
+        </Stack>
+      </Section>
+    </Stack.Item>
+  );
+}
 
 const Controls = () => {
   const { act, data } = useBackendStrict<ClassData>();

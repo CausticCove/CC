@@ -55,11 +55,11 @@ const SubtabAppearanceCardBody = () => {
   const { act, data } = useBackendStrict<AppearanceData>();
   const {
     allowed_taur_types,
-    body_size,
     body_type,
     mcolor,
     mcolor2,
     mcolor3,
+    size_scale,
     skin_tone_wording,
     taur_color,
     taur_name,
@@ -128,8 +128,8 @@ const SubtabAppearanceCardBody = () => {
             </LabeledGridList.Item>
           </>
         ) : null}
-        <LabeledGridList.Item label="Sprite Scale">
-          <Button onClick={() => act('body_size')}>{body_size}%</Button>
+        <LabeledGridList.Item label="Size Scale">
+          <Button onClick={() => act('size_scale')}>{size_scale}%</Button>
         </LabeledGridList.Item>
         {allowed_taur_types.length ? (
           <LabeledGridList.Item label="Taur Body Type">

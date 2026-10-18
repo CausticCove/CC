@@ -67,6 +67,15 @@
 		/datum/sprite_accessory/tail/lizard/dtiger,
 		/datum/sprite_accessory/tail/lizard/ltiger,
 		/datum/sprite_accessory/tail/lizard/spikes,
+		//Caustic Edit
+		/datum/sprite_accessory/tail/large_snake,
+		/datum/sprite_accessory/tail/large_snake_plain,
+		/datum/sprite_accessory/tail/rattlesnake,
+		/datum/sprite_accessory/tail/guilmon,
+		/datum/sprite_accessory/tail/sharknofin,
+		/datum/sprite_accessory/tail/lizard/kobold,
+		/datum/sprite_accessory/tail/axolotl,
+		//Caustic Edit End
 		)
 
 /datum/customizer/organ/tail/axian

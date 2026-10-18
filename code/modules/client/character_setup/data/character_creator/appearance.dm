@@ -16,7 +16,7 @@
 		"skin_tone_wording" = pref_species.skin_tone_wording,
 		"available_skin_tones" = get_valid_skin_tones(),
 		"skin_tone" = skin_tone,
-		"body_size" = (features["body_size"] * 100),
+		"size_scale" = sizescale,
 
 		"update_mutant_colors" = update_mutant_colors,
 		"use_mutcolor" = (MUTCOLORS in pref_species.species_traits) || (MUTCOLORS_PARTSONLY in pref_species.species_traits),

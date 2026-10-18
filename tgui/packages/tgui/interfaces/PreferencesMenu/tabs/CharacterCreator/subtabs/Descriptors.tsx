@@ -135,10 +135,10 @@ const MechanicalDescriptions = () => {
       <Box bold inline mt={1}>
         Custom descriptor rules:
       </Box>
-      <Box inline mb={1}>
-        No proper nouns. No immersion breaking words. No overtly sexual
-        descriptors. Look at the pre-written descriptors for examples of what is
-        acceptable. Capitalization is handled automatically.
+      <Box inline mb={1} /* Caustic Edit - Changed the rules described here! */>
+        No proper nouns. No immersion breaking words. Please look at the
+        pre-written descriptors for examples. Capitalization is handled
+        automatically.
       </Box>
       <LabeledGridList>
         {descriptors_custom.map((desc) => (
