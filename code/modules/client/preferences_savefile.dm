@@ -206,6 +206,8 @@ SAVEFILE UPDATING/VERSIONING - 'Simplified', or rather, more coder-friendly ~Car
 	//Sanitize
 	sanitize_preferences()
 
+	tat_build.load_from_list(sanitize_islist(L, list())) //CC + TA edit
+
 	return TRUE
 
 /datum/preferences/proc/sanitize_preferences()
