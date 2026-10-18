@@ -1,5 +1,5 @@
 import { useBackendStrict } from 'tgui/backend';
-import { Button, LabeledList, Section, Stack } from 'tgui-core/components';
+import { Button, Section, Stack } from 'tgui-core/components';
 import type { BooleanLike } from 'tgui-core/react';
 import {
   LabeledGridList,

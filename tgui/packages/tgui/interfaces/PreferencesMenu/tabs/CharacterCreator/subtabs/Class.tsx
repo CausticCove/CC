@@ -77,9 +77,7 @@ export const SubtabClass = () => {
                 </>
               ) : null}
               {i === 3 ? ( // Caustic Edit - Added this whole i === 4 block. Adding in Pliant Soul Configs here where it makes the most sense
-                <>
-                  <Pliant />
-                </>
+                <Pliant />
               ) : null}
             </Stack>
           </Stack.Item>
