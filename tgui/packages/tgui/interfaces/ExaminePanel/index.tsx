@@ -1,8 +1,8 @@
 import type { Dispatch, ReactNode, SetStateAction } from 'react';
-import { useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useBackend } from 'tgui/backend';
 import { Window } from 'tgui/layouts';
-import { Button, Stack } from 'tgui-core/components';
+import { Box, Button, Section, Stack } from 'tgui-core/components';
 import type { ExaminePanelData } from './data';
 import { FlavorTextPage, ImageGalleryPage } from './pages';
 
