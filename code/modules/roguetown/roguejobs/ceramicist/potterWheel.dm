@@ -143,7 +143,7 @@
 			generated_recipes += R
 			if(!R.valid_for_clay(loaded_clay))
 				continue
-			var/choice_label = "[R.name] ([SSskills.level_names_plain[R.craftdiff]])"
+			var/choice_label = "[R.name] ([skill_to_string(R.craftdiff)])"
 			recipe_map[choice_label] = R
 			var/atom/result_preview = initial(R.result_type)
 			var/preview_icon = R.recipe_icon || initial(result_preview.icon)
@@ -179,7 +179,7 @@
 
 	var/skill_level = user.get_skill_level(/datum/skill/craft/ceramics)
 	if(skill_level < selected_recipe.craftdiff)
-		to_chat(user, span_warning("I need [SSskills.level_names_plain[selected_recipe.craftdiff]] pottery skill for this."))
+		to_chat(user, span_warning("I need [skill_to_string(selected_recipe.craftdiff)] pottery skill for this."))
 		reset_shaping_progress()
 		return
 
@@ -275,6 +275,7 @@
 	name = "clay platter"
 	base_time = 20
 	result_type = /obj/item/natural/clay/clayplatter
+	recipe_icon = 'modular/Neu_Food/icons/cookware/platter.dmi'
 	recipe_icon_state = "platter_clay_raw"
 
 /datum/pottery_wheel_recipe/basic/platter3
@@ -282,6 +283,7 @@
 	base_time = 40
 	result_type = /obj/item/natural/clay/clayplatter
 	result_count = 3
+	recipe_icon = 'modular/Neu_Food/icons/cookware/platter.dmi'
 	recipe_icon_state = "platter_clay_raw"
 	required_clay_type = /obj/item/natural/clay/kneaded
 
@@ -289,6 +291,7 @@
 	name = "clay bowl"
 	base_time = 20
 	result_type = /obj/item/natural/clay/claybowl
+	recipe_icon = 'modular/Neu_Food/icons/cookware/bowl.dmi'
 	recipe_icon_state = "bowl_clay_raw"
 
 /datum/pottery_wheel_recipe/basic/bowl3
@@ -296,6 +299,7 @@
 	base_time = 40
 	result_type = /obj/item/natural/clay/claybowl
 	result_count = 3
+	recipe_icon = 'modular/Neu_Food/icons/cookware/bowl.dmi'
 	recipe_icon_state = "bowl_clay_raw"
 	required_clay_type = /obj/item/natural/clay/kneaded
 
@@ -338,6 +342,7 @@
 	name = "clay mug"
 	base_time = 25
 	result_type = /obj/item/natural/clay/claymug
+	recipe_icon = 'modular/Neu_Food/icons/cookware/cup.dmi'
 	recipe_icon_state = "claymugraw"
 
 /datum/pottery_wheel_recipe/average/mug3
@@ -345,6 +350,7 @@
 	base_time = 45
 	result_type = /obj/item/natural/clay/claymug
 	result_count = 3
+	recipe_icon = 'modular/Neu_Food/icons/cookware/cup.dmi'
 	recipe_icon_state = "claymugraw"
 	required_clay_type = /obj/item/natural/clay/kneaded
 
@@ -364,6 +370,7 @@
 	name = "clay pot"
 	base_time = 45
 	result_type = /obj/item/natural/clay/claypot
+	recipe_icon = 'modular/Neu_Food/icons/cookware/pot.dmi'
 	recipe_icon_state = "pote_clay_raw"
 	required_clay_type = /obj/item/natural/clay/kneaded
 
@@ -405,6 +412,7 @@
 	name = "clay teapot"
 	base_time = 45
 	result_type = /obj/item/natural/clay/clayteapot
+	recipe_icon = 'modular/Neu_Food/icons/cookware/pot.dmi'
 	recipe_icon_state = "teapot_clay_raw"
 	required_clay_type = /obj/item/natural/clay/kneaded
 
@@ -412,6 +420,7 @@
 	name = "clay teacup"
 	base_time = 35
 	result_type = /obj/item/natural/clay/clayteacup
+	recipe_icon = 'modular/Neu_Food/icons/cookware/cup.dmi'
 	recipe_icon_state = "claycupraw"
 
 /datum/pottery_wheel_recipe/advanced/teacup3
@@ -419,6 +428,7 @@
 	base_time = 55
 	result_type = /obj/item/natural/clay/clayteacup
 	result_count = 3
+	recipe_icon = 'modular/Neu_Food/icons/cookware/cup.dmi'
 	recipe_icon_state = "claycupraw"
 	required_clay_type = /obj/item/natural/clay/kneaded
 
