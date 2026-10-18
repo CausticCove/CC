@@ -19,7 +19,7 @@
 	scent_description = "memories of a former triumph"
 
 /datum/reagent/buff/tri/on_mob_life(mob/living/carbon/M)
-	if(volume >= 10)  //Ensures that, no matter what, you can only buff one person from one vial.
+	if(volume >= 10)	//Ensures that, no matter what, you can only buff one person from one vial.
 		M.apply_status_effect(/datum/status_effect/buff/alch/tripot)
 	return ..()
 
@@ -130,16 +130,6 @@
 	desc = "An ornate halfmask of pure, glistening gold. What lies underneath to cradle the face: a besilked cushion, or cold alloys?"
 	sellprice = 33
 
-// Caustic Cove Edit Start
-/obj/item/clothing/mask/rogue/lordmask/naledi/triumph
-	name = "tarnished war scholar's mask"
-	item_state = "naledimask"
-	icon_state = "naledimask"
-	desc = "Runes and wards, meant for daemons; the gold has somehow rusted in unnatural, impossible agony. The most prominent of these etchings is in the shape of the Naledian psycross. This one will not provide armor to the wearer's face."
-	armor = null
-	sellprice = 25
-// Caustic Cove Edit End
-
 /obj/item/clothing/mask/rogue/facemask/goldmask/triumph
 	name = "ornate golden mask"
 	desc = "An ornate mask of pure, glistening gold. If you have no face to call your own, then can you truly call yourself humen at all?"
@@ -154,7 +144,7 @@
 
 /obj/item/clothing/head/roguetown/grenzelhofthat/triumph
 	name = "grenzelhoft tellerbarret"
-	desc = "The latest in sixteenth-century fashionwear, stitched by the finest tailors in Grenzelhoft. </br>I can fit this onto a sallet, Etruscan bascinet, or Blacksteel armet for added protection."
+	desc = "The latest in sixteenth-century fashionwear, stitched by the finest tailors in Grenzelhoft. </br>I can fit this onto a sallet, Etruscan bascinet, or Blacksteel armet for added protection. Alternatively, I can nestle it onto my helmet's cosmetic inventory."
 	max_integrity = ARMOR_INT_HELMET_CLOTH
 	icon_state = "grenzelhat"
 	item_state = "grenzelhat"
@@ -163,9 +153,9 @@
 	detail_tag = "_detail"
 	altdetail_tag = "_detailalt"
 	dynamic_hair_suffix = ""
-	armor = ARMOR_PADDED_BAD
+	armor = null
 	resistance_flags = FLAMMABLE
-	color = "#262927"
+	color = "#007fff"
 	detail_color = "#FFFFFF"
 	altdetail_color = "#007fff"
 
@@ -181,6 +171,10 @@
 		if(loc == user && ishuman(user))
 			var/mob/living/carbon/H = user
 			H.update_inv_head()
+
+/obj/item/clothing/head/roguetown/grenzelhofthat/triumph/Initialize(mapload)
+	. = ..()
+	update_icon()
 
 /obj/item/clothing/head/roguetown/grenzelhofthat/triumph/update_icon()
 	cut_overlays()
@@ -202,3 +196,13 @@
 	name = "bottle of beer"
 	list_reagents = list(/datum/reagent/consumable/ethanol/beer = 50)
 	desc = "A glass bottle with a laced cork-seal. It swishes with fizzled goodness; a cure to the parched throat, a remedy to the sleepless nites, and a toast for the journey ahead."
+
+// Caustic Cove Edit Start
+/obj/item/clothing/mask/rogue/lordmask/naledi/triumph
+	name = "tarnished war scholar's mask"
+	item_state = "naledimask"
+	icon_state = "naledimask"
+	desc = "Runes and wards, meant for daemons; the gold has somehow rusted in unnatural, impossible agony. The most prominent of these etchings is in the shape of the Naledian psycross. This one will not provide armor to the wearer's face."
+	armor = null
+	sellprice = 25
+// Caustic Cove Edit End

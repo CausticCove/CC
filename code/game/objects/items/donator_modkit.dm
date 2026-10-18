@@ -422,6 +422,7 @@
 		/obj/item/rogueweapon/huntingknife/idagger/steel/decorated			= /obj/item/rogueweapon/huntingknife/idagger/steel/decorated/donator_elegant,
 		/obj/item/rogueweapon/huntingknife/idagger/steel					= /obj/item/rogueweapon/huntingknife/idagger/steel/donator_elegant,
 		/obj/item/rogueweapon/flail/peasantwarflail/iron					= /obj/item/rogueweapon/flail/peasantwarflail/iron/donator_elegant,
+		/obj/item/rogueweapon/greataxe/steel/doublehead						= /obj/item/rogueweapon/greataxe/steel/doublehead/donator_elegant,
 		/obj/item/rogueweapon/mace/warhammer/steel							= /obj/item/rogueweapon/mace/warhammer/steel/donator_elegant,
 		/obj/item/rogueweapon/mace/steel/silver								= /obj/item/rogueweapon/mace/steel/silver/donator_elegant,
 		/obj/item/rogueweapon/mace/goden/steel								= /obj/item/rogueweapon/mace/goden/steel/donator_elegant,
@@ -452,6 +453,7 @@
 		/obj/item/rogueweapon/halberd										= /obj/item/rogueweapon/halberd/donator_elegant,
 		/obj/item/rogueweapon/eaglebeak										= /obj/item/rogueweapon/eaglebeak/donator_elegant,
 		/obj/item/rogueweapon/estoc											= /obj/item/rogueweapon/estoc/donator_elegant,
+		/obj/item/rogueweapon/contraption/linker/mace/big/steel				= /obj/item/rogueweapon/contraption/linker/mace/big/steel/donator_elegant,
 		/obj/item/rogueweapon/sword											= /obj/item/rogueweapon/sword/donator_elegant
 	)
 	result_item = null
@@ -1039,17 +1041,6 @@
 		/obj/item/rogueweapon/eaglebeak
 	)
 	result_item = /obj/item/rogueweapon/example/des_gaebolg
-
-// inverserun
-/obj/item/enchantingkit/weapon/arra_amdir
-	name = "'Amdir' morphing elixir"
-	target_items = list(
-	/obj/item/rogueweapon/greataxe/steel/knight,
-	/obj/item/rogueweapon/greataxe/steel/knight/silver,
-	/obj/item/rogueweapon/greataxe/steel/knight/psy
-
-	)
-	result_item = /obj/item/rogueweapon/example/arra_amdir
 
 //sakuyzo
 /obj/item/enchantingkit/weapon/sakuyzo
@@ -1726,3 +1717,17 @@
 	target_items = list(
 		/obj/item/rogueweapon/sword/sabre/shamshir = /obj/item/rogueweapon/sword/sabre/shamshir/dono_scidragon_sand
 	)
+
+// Cynthia
+/obj/item/enchantingkit/weapon/forgefiend_wrench
+	name = "'Forgefiend Wrench' morphing elixir"
+	desc = "A small container of special morphing dust, perfect to make a specific item. It can be used to alter the appearance of any massive wrench."
+	target_items = list(
+		/obj/item/rogueweapon/contraption/linker/mace/big
+	)
+	result_item = /obj/item/rogueweapon/example/forgefiend_wrench
+/obj/item/enchantingkit/weapon/yoshi_estoc
+	name = "'The Malignant Sabre' morphing elixir"
+	desc = "A small container of special morphing dust, perfect to make a specific item. It can be used to alter the appearance of a Steel Sabre."
+	target_items = list(/obj/item/rogueweapon/sword/long/ap)
+	result_item = /obj/item/rogueweapon/sword/long/ap/yoshi_estoc

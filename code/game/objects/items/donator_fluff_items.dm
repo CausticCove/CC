@@ -922,6 +922,19 @@
 	detail_tag = "_detail"
 	detail_color = CLOTHING_WHITE
 
+/obj/item/clothing/head/roguetown/decoration/featherplume
+	name = "helmet's featherplume"
+	desc = "A resplendant plume, intended to be worn atop a helmet; a touch of flamboyance, indiscriminate of the alloy."
+	item_state = "pplume"
+	icon_state = "pplume"
+	icon = 'icons/clothing/donor_clothes.dmi'
+	mob_overlay_icon = 'icons/clothing/onmob/donor_clothes.dmi'
+	slot_flags = ITEM_SLOT_HEAD
+	worn_offsets = list("x" = 0, "y" = 5)
+	color = null
+	detail_tag = "_detail"
+	detail_color = CLOTHING_WHITE
+
 /obj/item/clothing/head/roguetown/decoration/featherplume/Initialize(mapload)
 	. = ..()
 	update_icon()
@@ -1513,6 +1526,13 @@
 	icon = 'icons/obj/items/donor_weapons_64.dmi'
 	bigboy = TRUE
 
+/obj/item/rogueweapon/greataxe/steel/doublehead/donator_elegant
+	name = "elegant double-headed greataxe"
+	desc = "An elegant double-headed greataxe for an elegant wielder."
+	icon_state = "donator_dgreataxe"
+	icon = 'icons/obj/items/donor_weapons_64.dmi'
+	bigboy = TRUE
+
 /obj/item/rogueweapon/sword/rapier/donator_elegant
 	name = "elegant rapier"
 	desc = "An elegant rapier for an elegant wielder."
@@ -1611,6 +1631,13 @@
 	name = "elegant greatflail"
 	desc = "An elegant greatflail for an elegant wielder."
 	icon_state = "donatorgreatflail"
+	icon = 'icons/obj/items/donor_weapons_64.dmi'
+	bigboy = TRUE
+
+/obj/item/rogueweapon/contraption/linker/mace/big/steel/donator_elegant
+	name = "elegant wrench"
+	desc = "An elegant wrench for an elegant artificer."
+	icon_state = "donatorwrench"
 	icon = 'icons/obj/items/donor_weapons_64.dmi'
 	bigboy = TRUE
 

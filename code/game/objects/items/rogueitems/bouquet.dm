@@ -36,6 +36,12 @@
 	item_state = "bouquet_calendula"
 	icon_state = "bouquet_calendula"
 
+/obj/item/bouquet/fyritius
+	name = "fyritius bouquet"
+	desc = ""
+	item_state = "bouquet_fyritius"
+	icon_state = "bouquet_fyritius"
+
 /obj/item/flowercrown
 	name = "flowercrown"
 	desc = "A carefully woven crown of fresh flowers, yet to wilt. Headwear beloved \
@@ -91,3 +97,9 @@
 	. = ..()
 	to_chat(user, span_warning ("The thorns prick me."))
 	user.adjustBruteLoss(4)
+
+/obj/item/flowercrown/fyritius
+	name = "crown of fyre"
+	desc = ""
+	item_state = "fyritius_crown"
+	icon_state = "fyritius_crown"
