@@ -10,7 +10,7 @@ GLOBAL_LIST_EMPTY(custom_fermentation_recipes)
 	desc = "A keg that bares the duty of birthing plenty of bubbling brews."
 
 	icon = 'icons/obj/brewing.dmi'
-	icon_state = "barrel_tapless"
+	icon_state = "barrel" // CC edit
 
 	density = TRUE
 	anchored = FALSE
@@ -19,8 +19,8 @@ GLOBAL_LIST_EMPTY(custom_fermentation_recipes)
 	var/datum/looping_sound/boiling/soundloop
 	/// The volume of the barrel sounds
 	var/sound_volume = 25
-	var/open_icon_state = "barrel_tapless_open"
-	var/tapped_icon_state = "barrel_tapped_ready"
+	var/open_icon_state = "barrel_open" // CC edit
+	var/tapped_icon_state = "barrel_tapped" // CC edit. These get overriden in /Initialize()
 
 	//After brewing we can sell or bottle, this is for the latter
 	var/ready_to_bottle = FALSE
@@ -63,16 +63,31 @@ GLOBAL_LIST_EMPTY(custom_fermentation_recipes)
 	if(heated)
 		START_PROCESSING(SSobj, src)
 
+	// CC edit start.
+	if(open_icon_state) // Checks if the state 'exists' for things that don't have them, like the distillery
+		open_icon_state = "[icon_state]_open"
+	if(tapped_icon_state)
+		tapped_icon_state = "[icon_state]_tapped"
+	// CC edit end
+
 /obj/structure/fermentation_keg/update_overlays()
 	. = ..()
 	if(length(overlays))
 		overlays.Cut()
-
+	// CC edit start / Checks if the barrel is finished brewing - ready to bottle, then adds the lord ribbon to the overlays.
+	if(ready_to_bottle)
+		var/mutable_appearance/MA = mutable_appearance(icon, "[initial(icon_state)]_ready_primary", -(layer+0.1))
+		MA.color = GLOB.lordprimary
+		overlays += MA
+		MA = mutable_appearance(icon, "[initial(icon_state)]_ready_secondary", -(layer+0.1))
+		MA.color = GLOB.lordsecondary
+		overlays += MA
+	// CC edit end
 	if(!reagents.total_volume)
 		return
 	if(icon_state != open_icon_state)
 		return
-	var/mutable_appearance/MA = mutable_appearance(icon, "filling")
+	var/mutable_appearance/MA = mutable_appearance(icon, "[initial(icon_state)]_filling") // CC edit
 	MA.color = mix_color_from_reagents(reagents)
 	overlays += MA
 
@@ -345,8 +360,7 @@ GLOBAL_LIST_EMPTY(custom_fermentation_recipes)
 
 /obj/structure/fermentation_keg/proc/end_brew()
 	if(!heated)
-		icon_state = "barrel_tapless_ready"
-	update_overlays()
+		icon_state = "[icon_state]_ready"
 	soundloop.stop()
 	ready_to_bottle = TRUE
 	brewing = FALSE
@@ -354,6 +368,7 @@ GLOBAL_LIST_EMPTY(custom_fermentation_recipes)
 	made_item = selected_recipe.name
 	start_time = 0
 	heated_progress_time = 0
+	update_overlays() // CC edit
 	if(selected_recipe.ages)
 		age_start_time = world.time
 

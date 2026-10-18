@@ -79,6 +79,7 @@
 	icon = 'modular_deserttown/icons/pots.dmi'
 	icon_state = "sandpot1"
 
+
 /datum/crafting_recipe/roguetown/structure/sandpot
 	name = "sand pot"
 	result = /obj/structure/fermentation_keg/sandpot
@@ -87,6 +88,38 @@
 	verbage = "makes"
 	skillcraft = /datum/skill/craft/ceramics
 	craftdiff = 1
+
+// CC edit start / Specific variants
+
+/obj/structure/fermentation_keg/sandpot/var_one
+	icon_state = "sandpot1"
+
+/obj/structure/fermentation_keg/sandpot/var_two
+	icon_state = "sandpot2"
+
+/obj/structure/fermentation_keg/sandpot/var_three
+	icon_state = "sandpot3"
+
+/obj/structure/fermentation_keg/sandpot/var_four
+	icon_state = "sandpot4"
+
+
+/datum/crafting_recipe/roguetown/structure/sandpot/var_one
+	name = "sand pot (Variant 1)"
+	result = /obj/structure/fermentation_keg/sandpot/var_one
+
+/datum/crafting_recipe/roguetown/structure/sandpot/var_two
+	name = "sand pot (Variant 2)"
+	result = /obj/structure/fermentation_keg/sandpot/var_two
+
+/datum/crafting_recipe/roguetown/structure/sandpot/var_three
+	name = "sand pot (Variant 3)"
+	result = /obj/structure/fermentation_keg/sandpot/var_three
+
+/datum/crafting_recipe/roguetown/structure/sandpot/var_four
+	name = "sand pot (Variant 4)"
+	result = /obj/structure/fermentation_keg/sandpot/var_four
+// CC edit end
 
 /obj/structure/fermentation_keg/fancypot
 	name = "fancy pot"
@@ -103,8 +136,36 @@
 	skillcraft = /datum/skill/craft/ceramics
 	craftdiff = 3
 
+// CC edit start / Specific variants
+
+/obj/structure/fermentation_keg/fancypot/var_one
+	icon_state = "fancypot1"
+
+/obj/structure/fermentation_keg/fancypot/var_two
+	icon_state = "fancypot2"
+
+/obj/structure/fermentation_keg/fancypot/var_three
+	icon_state = "fancypot3"
+
+
+/datum/crafting_recipe/roguetown/structure/fancypot/var_one
+	name = "sand pot (fancy) (Variant 1)"
+	result = /obj/structure/fermentation_keg/fancypot/var_one
+
+/datum/crafting_recipe/roguetown/structure/fancypot/var_two
+	name = "sand pot (fancy) (Variant 2)"
+	result = /obj/structure/fermentation_keg/fancypot/var_two
+
+/datum/crafting_recipe/roguetown/structure/fancypot/var_three
+	name = "sand pot (fancy) (Variant 3)"
+	result = /obj/structure/fermentation_keg/fancypot/var_three
+
+// CC edit end
+
+
 /obj/item/reagent_containers/glass/bucket/tinypot
 	name = "tiny pot"
+	desc = "A small, common clay pot used for hauling and storing fluids. Too thin and delicate to be put on a hearth, but suitable for use akin to a bucket." // Caustic Edit. It's not wooden
 	icon = 'modular_deserttown/icons/pots.dmi'
 	icon_state = "tinypot1"
 
@@ -119,11 +180,42 @@
 
 /obj/structure/fermentation_keg/sandpot/Initialize()
 	. = ..()
-	icon_state = "sandpot[rand(1, 2)]"
+	icon_state = "sandpot[rand(1, 4)]" // CC edit. Using the unused sprites
 
 /obj/structure/fermentation_keg/fancypot/Initialize()
 	. = ..()
-	icon_state = "fancypot[rand(1, 2)]"
+	icon_state = "fancypot[rand(1, 3)]" // CC edit. Using the unused sprites
+
+
+// CC edit start / Specific variants
+/obj/structure/fermentation_keg/sandpot/var_one/Initialize()
+	. = ..()
+	icon_state = "sandpot1"
+
+/obj/structure/fermentation_keg/sandpot/var_two/Initialize()
+	. = ..()
+	icon_state = "sandpot2"
+
+/obj/structure/fermentation_keg/sandpot/var_three/Initialize()
+	. = ..()
+	icon_state = "sandpot3"
+
+/obj/structure/fermentation_keg/sandpot/var_four/Initialize()
+	. = ..()
+	icon_state = "sandpot4"
+
+/obj/structure/fermentation_keg/fancypot/var_one/Initialize()
+	. = ..()
+	icon_state = "fancypot1"
+
+/obj/structure/fermentation_keg/fancypot/var_two/Initialize()
+	. = ..()
+	icon_state = "fancypot2"
+
+/obj/structure/fermentation_keg/fancypot/var_three/Initialize()
+	. = ..()
+	icon_state = "fancypot3"
+// CC edit end
 
 
 // Subtypes for sandpots
