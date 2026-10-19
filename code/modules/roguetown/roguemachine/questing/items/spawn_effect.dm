@@ -74,7 +74,7 @@
 /obj/effect/quest_spawn/ex_act()
 	return
 
-/obj/effect/quest_spawn/notorious
+/*/obj/effect/quest_spawn/notorious
 	prox_range = NOTORIOUS_BOUNTY_PROX_RANGE
 
 /obj/effect/quest_spawn/notorious/reveal_contained()
@@ -85,7 +85,7 @@
 		var/datum/quest/kill/notorious_bounty/quest = quest_component?.quest_ref?.resolve()
 		if(istype(quest))
 			INVOKE_ASYNC(quest, TYPE_PROC_REF(/datum/quest/kill/notorious_bounty, offer_boss_control), contained_atom)
-	return ..()
+	return ..()*/
 
 //CC Edit - PvP specific quest spawn range.
 /obj/effect/quest_spawn/pvp
