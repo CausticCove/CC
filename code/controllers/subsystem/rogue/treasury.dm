@@ -190,7 +190,7 @@ SUBSYSTEM_DEF(treasury)
 			if(!initial_payment_done)
 				initial_payment_done = TRUE
 				distribute_daily_payments()
-			/*for(var/datum/roguestock/X in stockpile_datums) //Caustic Note - I guess this is likely from the old method of 
+			/*for(var/datum/roguestock/X in stockpile_datums) //Caustic Note - I guess this is likely from the old method of
 				if(!X.stable_price && !X.transport_item)
 					if(X.demand < initial(X.demand))
 						X.demand += rand(5,15)
@@ -205,7 +205,7 @@ SUBSYSTEM_DEF(treasury)
 				else if(A.auto_regen && A.stockpile_amount < A.regen_limit && ((A.stockpile_amount + A.regen_amount) < A.stockpile_limit)) //Otherwise, always generate this amount
 					should_regen = TRUE
 					num_to_gen = A.regen_amount
-				
+
 				if(should_regen)
 					A.stockpile_amount += num_to_gen
 			//Caustic Edit End
@@ -249,7 +249,9 @@ SUBSYSTEM_DEF(treasury)
 	total_rural_tax += rural_tax_amount
 
 /datum/controller/subsystem/treasury/proc/get_rural_tax_amount()
-	return RURAL_TAX
+	var/producers = get_active_producer_count()
+	var/taper = clamp(1.0 - (producers / RURAL_SUBSIDY_REFERENCE_PRODUCERS), 0.0, 1.0)
+	return RURAL_SUBSIDY_FLOOR + round((RURAL_SUBSIDY_BASE - RURAL_SUBSIDY_FLOOR) * taper)
 
 // Mark the cached stewardry market / region / arbitrage
 // View as needing rebuild on next read.
