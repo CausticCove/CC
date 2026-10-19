@@ -1515,7 +1515,7 @@
 		return 1
 	if(target.is_unclaimed_corpse())
 		return STRIP_DELAY_MULT_UNCLAIMED_CORPSE
-	if(target.compliance || target.surrendering || HAS_TRAIT(target, TRAIT_ARMOR_BREAK))
+	if(target.compliance || target.surrendering /*|| HAS_TRAIT(target, TRAIT_ARMOR_BREAK)*/)
 		return STRIP_DELAY_MULT_SURRENDER
 	return 1
 

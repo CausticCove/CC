@@ -57,7 +57,7 @@
 	data["order_pool_cap"] = STANDING_ORDERS_POOL_CAP
 	data["auto_limit_days"] = STOCKPILE_AUTO_LIMIT_DAYS
 	data["quality_payouts"] = list(
-		list("label" = "worn", "pct" = round(ITEM_QUALITY_MULT_WORN * 100)),
+		//list("label" = "worn", "pct" = round(ITEM_QUALITY_MULT_WORN * 100)),
 		list("label" = "ruined", "pct" = round(ITEM_QUALITY_MULT_RUINED * 100)),
 		list("label" = "scavenged", "pct" = round(ITEM_QUALITY_MULT_LOOTED * 100)),
 		list("label" = "awful", "pct" = round(ITEM_QUALITY_MULT_AWFUL * 100)),

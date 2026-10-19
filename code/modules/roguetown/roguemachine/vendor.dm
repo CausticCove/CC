@@ -464,7 +464,7 @@
 		held_items[P]["NAME"] = P.name
 		held_items[P]["PRICE"] = 15
 	update_icon()
-	
+
 /obj/structure/roguemachine/vendor/church_bedroomset_one //contains the keys to the church bedrooms, better visually than having them on a table
 	keycontrol = "priest"
 	will_hawk = FALSE
@@ -657,7 +657,7 @@
 	. += span_info("Owners of the PEDDLER CART can UNLOCK it by left-clicking with the relevant key. They can then restock wares and vend whatever coinage might've been earned from completed sales.")
 	. += span_info("Owners of the PEDDLER CART can ANCHOR it by right-clicking with the relevant key. This locks the wheels in place.")
 //PILGRIM
-
+/*
 /obj/structure/roguemachine/vendor/church_bedroomset_grim
 	keycontrol = "priest"
 	will_hawk = FALSE
@@ -682,5 +682,5 @@
 		var/obj/P = new X(src)
 		held_items[P] = list()
 		held_items[P]["NAME"] = P.name
-		held_items[P]["PRICE"] = 0
+		held_items[P]["PRICE"] = 0*/
 //PILGRIM END
