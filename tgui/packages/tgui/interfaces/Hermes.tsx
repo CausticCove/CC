@@ -40,16 +40,16 @@ type tm = {
   favours: number;
   unlockedCats: string[];
   catunlockspending : number;
-  currentcart: merchant_supply_pack_cat[];
+  currentcart: Record<string, Record<string, merchant_supply_pack>>;//merchant_supply_pack_cat[string];
 }
 
 type tm_static = {
-  supplypacks: merchant_supply_pack_cat[]
+  supplypacks: Record<string, Record<string, merchant_supply_pack>>;//merchant_supply_pack_cat[string];
 }
 
-type merchant_supply_pack_cat = {
+/*type merchant_supply_pack_cat = {
 
-}
+}*/
 
 
 
