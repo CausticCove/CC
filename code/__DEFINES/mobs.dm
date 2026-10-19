@@ -376,7 +376,8 @@
 	OFFSET_FACE_F = list(0,-1), OFFSET_BELT_F = list(0,0), OFFSET_BACK_F = list(0,-1), \
 	OFFSET_NECK_F = list(0,-1), OFFSET_MOUTH_F = list(0,-1), OFFSET_PANTS_F = list(0,0), \
 	OFFSET_SHIRT_F = list(0,0), OFFSET_ARMOR_F = list(0,0), OFFSET_UNDIES_F = list(0,-1), \
-	)
+	OFFSET_TAUR = list(-16,0), OFFSET_TAUR_F = list(-16,0), \
+	) //Caustic Edit - Adding in the Taur Offsets to these
 
 // Offset table for the slim build, tuned for the shared mem.dmi/fm.dmi silhouette. The masculine keys come
 // from the Sun/Dark Elf table (mem.dmi sits one pixel below mt.dmi, so most slots are the bulky value minus
@@ -393,7 +394,8 @@
 	OFFSET_FACE_F = list(0,-1), OFFSET_BELT_F = list(0,0), OFFSET_BACK_F = list(0,-1), \
 	OFFSET_NECK_F = list(0,-1), OFFSET_MOUTH_F = list(0,-1), OFFSET_PANTS_F = list(0,0), \
 	OFFSET_SHIRT_F = list(0,0), OFFSET_ARMOR_F = list(0,0), OFFSET_UNDIES_F = list(0,-1), \
-	)
+	OFFSET_TAUR = list(-16,0), OFFSET_TAUR_F = list(-16,0), \
+	) //Caustic Edit - Adding in the Taur Offsets to these
 
 // Offset table for the elven build: the slim table raised a pixel, except on the legs and arms. A raised body lifts
 // the torso but leaves the feet planted, so the leg slots keep their slim values while everything hanging
@@ -410,7 +412,8 @@
 	OFFSET_BELT_F = list(0,1), OFFSET_BACK_F = list(0,0), OFFSET_NECK_F = list(0,0), \
 	OFFSET_MOUTH_F = list(0,0), OFFSET_PANTS_F = list(0,0), OFFSET_SHIRT_F = list(0,1), \
 	OFFSET_ARMOR_F = list(0,1), OFFSET_UNDIES_F = list(0,0), \
-	)
+	OFFSET_TAUR = list(-16,0), OFFSET_TAUR_F = list(-16,0), \
+	) //Caustic Edit - Adding in the Taur Offsets to these
 
 //MINOR TWEAKS/MISC
 #define AGE_MIN				18	//youngest a character can be
