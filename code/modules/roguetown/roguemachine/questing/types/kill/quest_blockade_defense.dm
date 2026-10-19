@@ -11,6 +11,7 @@
 	var/wave_warn_30s_id
 	var/datum/weakref/wave_landmark_ref
 	var/datum/weakref/blockade_ref
+	var/failed = FALSE
 	var/armed = FALSE
 	var/max_defenders_seen = 0
 	var/current_archetype = BLOCKADE_ARCHETYPE_WARBAND
