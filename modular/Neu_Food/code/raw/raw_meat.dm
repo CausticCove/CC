@@ -15,6 +15,7 @@
 	cooked_smell = /datum/pollutant/food/fried_meat
 	var/fresh_meat = FALSE
 	become_rot_type = /obj/item/reagent_containers/food/snacks/rogue/meat_rotten
+	materia = list(/datum/materia_aspect/animal)
 	//CC Edit Begin
 	diet_types = list("Meats")
 	diet_change_amount = FOOD_DIETARY_VALUE_BAD
@@ -28,6 +29,7 @@
 	of stomachs."
 	icon = 'modular/Neu_Food/icons/raw/raw_meat.dmi'
 	icon_state = "meat_rotten"
+	materia = list(/datum/materia_aspect/change)
 	rotprocess = null //CC Edit
 
 /obj/item/reagent_containers/food/snacks/rogue/meat_rotten/Initialize()
@@ -45,6 +47,7 @@
 	icon_state = "meatsteak"
 	fried_type = /obj/item/reagent_containers/food/snacks/rogue/meat/steak/fried
 	cooked_type = /obj/item/reagent_containers/food/snacks/rogue/meat/steak/fried
+	smoked_type = /obj/item/reagent_containers/food/snacks/rogue/meat/steak/smoked
 	slices_num = 2
 	slice_path = /obj/item/reagent_containers/food/snacks/rogue/meat/mince/beef
 	slice_bclass = BCLASS_CHOP
@@ -68,6 +71,7 @@
 	slice_path = /obj/item/reagent_containers/food/snacks/rogue/meat/bacon
 	chopping_sound = TRUE
 	cooked_smell = /datum/pollutant/food/fried_meat
+	smoked_type = /obj/item/reagent_containers/food/snacks/rogue/meat/steak/smoked
 	//CC Edit Begin
 	diet_types = list("Meats")
 	diet_change_amount = FOOD_DIETARY_VALUE_GOOD //Fatty... Pork...
@@ -111,6 +115,7 @@
 	fried_type = /obj/item/reagent_containers/food/snacks/rogue/meat/spider/fried
 	cooked_type = /obj/item/reagent_containers/food/snacks/rogue/meat/spider/fried
 	slice_path = /obj/item/reagent_containers/food/snacks/rogue/meat/mince/spider
+	smoked_type = /obj/item/reagent_containers/food/snacks/rogue/meat/steak/smoked
 	slices_num = 2
 	cooked_smell = /datum/pollutant/food/fried_spidermeat
 	tastes = list("slimy insectoid" = 1)
@@ -126,6 +131,7 @@
 	icon_state = "halfchicken"
 	slice_path = /obj/item/reagent_containers/food/snacks/rogue/meat/poultry/cutlet
 	cooked_type = /obj/item/reagent_containers/food/snacks/rogue/meat/poultry/baked
+	smoked_type = /obj/item/reagent_containers/food/snacks/rogue/meat/steak/smoked
 	fried_type = null
 	slices_num = 2
 	slice_sound = TRUE
@@ -169,21 +175,6 @@
 	diet_change_amount = FOOD_DIETARY_VALUE_POOR
 	//CC Edit End
 
-/* ............. Cabbit Meat ................*/
-/obj/item/reagent_containers/food/snacks/rogue/meat/rabbit
-	cuisine = CUISINE_SOUTH_IMPERIAL
-	name = "raw cabbit meat"
-	icon_state = "cabbitcutlet"
-	slice_path = /obj/item/reagent_containers/food/snacks/rogue/meat/mince/rabbit
-	fried_type = /obj/item/reagent_containers/food/snacks/rogue/meat/rabbit/fried
-	cooked_type = /obj/item/reagent_containers/food/snacks/rogue/meat/rabbit/fried
-	slices_num = 1
-	ingredient_size = 1
-	//CC Edit Begin
-	diet_types = list("Meats")
-	diet_change_amount = FOOD_DIETARY_VALUE_POOR
-	//CC Edit End
-
 /* ............. Volf Meat ................*/
 /obj/item/reagent_containers/food/snacks/rogue/meat/wolf
 	cuisine = CUISINE_NORTHERN
@@ -195,6 +186,7 @@
 	slice_path = /obj/item/reagent_containers/food/snacks/rogue/meat/mince/beef		//Honestly, we don't need our own minced type on this one.
 	fried_type = /obj/item/reagent_containers/food/snacks/rogue/meat/wolf/fried
 	cooked_type = /obj/item/reagent_containers/food/snacks/rogue/meat/wolf/fried
+	smoked_type = /obj/item/reagent_containers/food/snacks/rogue/meat/steak/smoked
 	//CC Edit Begin
 	diet_types = list("Meats")
 	diet_change_amount = FOOD_DIETARY_VALUE_POOR //Very gamey.
@@ -212,6 +204,7 @@
 	slice_path = /obj/item/reagent_containers/food/snacks/rogue/meat/mince/beef		//Honestly, we don't need our own minced type on this one.
 	fried_type = /obj/item/reagent_containers/food/snacks/rogue/meat/rat/fried
 	cooked_type = /obj/item/reagent_containers/food/snacks/rogue/meat/rat/fried
+	smoked_type = /obj/item/reagent_containers/food/snacks/rogue/meat/steak/smoked
 
 /* ............. Bear Meat ................*/
 /obj/item/reagent_containers/food/snacks/rogue/meat/bear
@@ -225,6 +218,7 @@
 	slice_path = /obj/item/reagent_containers/food/snacks/rogue/meat/mince/beef
 	fried_type = /obj/item/reagent_containers/food/snacks/rogue/meat/bear/fried
 	cooked_type = /obj/item/reagent_containers/food/snacks/rogue/meat/bear/fried
+	smoked_type = /obj/item/reagent_containers/food/snacks/rogue/meat/bear/smoked
 
 /* ............. Troll Meat ................*/
 /obj/item/reagent_containers/food/snacks/rogue/meat/steak/troll
@@ -241,7 +235,7 @@
 	cuisine = CUISINE_SOUTH_IMPERIAL
 	dish_type = DISH_SEAFOOD
 	name = "fish filet"
-	desc = "A filet of fish. All of them are the same inside."
+	desc = "A filet of fish. Most of them are the same inside."
 	icon_state = "fish_filet"
 	slice_path = /obj/item/reagent_containers/food/snacks/rogue/meat/mince/fish
 	fried_type = /obj/item/reagent_containers/food/snacks/rogue/meat/fish/fried
@@ -253,6 +247,14 @@
 	diet_types = list("Meats")
 	diet_change_amount = FOOD_DIETARY_VALUE_BAD //Fish!
 	//CC Edit End
+
+/obj/item/reagent_containers/food/snacks/rogue/meat/fish/salmon
+	name = "salmon filet"
+	desc = "A filet of salmon, prized by Dendorites for its ability to dance upon river, sea, and your plate alike."
+	icon_state = "salmon"
+	fried_type = /obj/item/reagent_containers/food/snacks/rogue/meat/fish/salmon/fried
+	cooked_type = /obj/item/reagent_containers/food/snacks/rogue/meat/fish/salmon/fried
+	smoked_type = /obj/item/reagent_containers/food/snacks/rogue/meat/fish/salmon/smoked
 
 /* .........   Shellfish    ................. */
 /obj/item/reagent_containers/food/snacks/rogue/meat/shellfish
@@ -406,8 +408,13 @@
 	slice_path = /obj/item/reagent_containers/food/snacks/rogue/meat/mince/rabbit
 	fried_type = /obj/item/reagent_containers/food/snacks/rogue/meat/rabbit/fried
 	cooked_type = /obj/item/reagent_containers/food/snacks/rogue/meat/rabbit/fried
+	smoked_type = /obj/item/reagent_containers/food/snacks/rogue/meat/steak/smoked
 	slices_num = 1
 	ingredient_size = 1
+	//CC Edit Begin
+	diet_types = list("Meats")
+	diet_change_amount = FOOD_DIETARY_VALUE_POOR
+	//CC Edit End
 
 /* ............. Volf Meat ................*/
 /obj/item/reagent_containers/food/snacks/rogue/meat/wolf
@@ -421,6 +428,7 @@
 	slice_path = /obj/item/reagent_containers/food/snacks/rogue/meat/mince/beef		//Honestly, we don't need our own minced type on this one.
 	fried_type = /obj/item/reagent_containers/food/snacks/rogue/meat/wolf/fried
 	cooked_type = /obj/item/reagent_containers/food/snacks/rogue/meat/wolf/fried
+	smoked_type = /obj/item/reagent_containers/food/snacks/rogue/meat/steak/smoked
 
 // Do NOT add this to the stockpile, they have other uses and are unique in how they're obtained.
 /* ............. Gnoll Meat ................*/
@@ -496,6 +504,7 @@
 	rotprocess = SHELFLIFE_DECENT
 	fried_type = /obj/item/reagent_containers/food/snacks/rogue/meat/ham/steamed
 	cooked_type = /obj/item/reagent_containers/food/snacks/rogue/meat/ham/steamed
+	smoked_type = /obj/item/reagent_containers/food/snacks/rogue/meat/ham/smoked
 	slices_num = 2
 	slice_path = null
 	tastes = list("hog" = 1)

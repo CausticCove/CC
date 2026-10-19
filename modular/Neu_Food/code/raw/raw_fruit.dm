@@ -6,6 +6,7 @@
 	faretype = FARE_FINE
 	tastes = list("airy apple" = 1)
 	list_reagents = list(/datum/reagent/consumable/nutriment = 1)
+	materia = list(/datum/materia_aspect/plant)
 	//CC Edit Begin
 	diet_types = list("Fruits")
 	diet_change_amount = FOOD_DIETARY_VALUE_POOR
@@ -22,6 +23,7 @@
 	fried_type = /obj/item/reagent_containers/food/snacks/rogue/preserved/pumpkin_mashed
 	list_reagents = list(/datum/reagent/consumable/nutriment = 1)
 	rotprocess = SHELFLIFE_LONG
+	materia = list(/datum/materia_aspect/plant)
 	//CC Edit Begin
 	diet_types = list("Fruits", "Vegetables") //It's quite universal.
 	diet_change_amount = FOOD_DIETARY_VALUE_POOR - 1
@@ -44,6 +46,7 @@
 	rotprocess = null
 	eat_effect = /datum/status_effect/buff/snackbuff
 	list_reagents = list(/datum/reagent/consumable/nutriment = NUTRITION_TWO_MEALS, /datum/reagent/medicine/stronghealth = 12)
+	materia = list(/datum/materia_aspect/plant, /datum/materia_aspect/solar)
 
 /obj/item/reagent_containers/food/snacks/grown/apple/gold/Initialize()
   ..()

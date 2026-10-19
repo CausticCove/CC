@@ -160,6 +160,7 @@
 	grid_height = 32
 	dropshrink = 0.7
 	anvilrepair = /datum/skill/craft/blacksmithing //for empty kit code
+	materia = list(/datum/materia_aspect/metal)
 
 /obj/item/scrap/attack(mob/living/M, mob/user)
 	if(!user.cmode)

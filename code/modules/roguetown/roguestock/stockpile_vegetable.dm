@@ -256,3 +256,23 @@
 	regen_amount = 0.75
 	regen_limit = 8
 	//Caustic Edit End
+
+/datum/roguestock/stockpile/beans
+	name = "Beans"
+	desc = "Red beans from Naledi."
+	item_type = /obj/item/reagent_containers/food/snacks/grown/beans
+	trade_good_id = TRADE_GOOD_BEANS
+	importexport_amt = 10
+	stockpile_amount = 0
+	stockpile_limit = 50
+	category = "Vegetable"
+
+/datum/roguestock/stockpile/lentils
+	name = "Lentils"
+	desc = "Multicolored nutty lentils from Naledi."
+	item_type = /obj/item/reagent_containers/food/snacks/grown/lentils
+	trade_good_id = TRADE_GOOD_LENTILS
+	importexport_amt = 10
+	stockpile_amount = 0
+	stockpile_limit = 50
+	category = "Vegetable"

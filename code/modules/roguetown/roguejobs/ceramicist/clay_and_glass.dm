@@ -24,6 +24,7 @@
 	var/sand_added = FALSE
 	var/is_wet = FALSE
 	var/needs_knead_after_wet = FALSE
+	materia = list(/datum/materia_aspect/earth, /datum/materia_aspect/change)
 
 /obj/item/natural/clay/Initialize()
 	if(cooked_type)

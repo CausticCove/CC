@@ -257,3 +257,15 @@
 /obj/item/seeds/eggplant
 	seed_identity = "eggplant seeds"
 	plant_def_type = /datum/plant_def/bush/eggplant
+
+/obj/item/seeds/cucumber
+	seed_identity = "cucumber seeds"
+	plant_def_type = /datum/plant_def/bush/cucumber
+
+/obj/item/seeds/beans
+	seed_identity = "bean seeds"
+	plant_def_type = /datum/plant_def/bush/beans
+
+/obj/item/seeds/lentils
+	seed_identity = "lentil seeds"
+	plant_def_type = /datum/plant_def/bush/lentils

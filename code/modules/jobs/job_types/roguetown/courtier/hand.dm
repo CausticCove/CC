@@ -25,7 +25,10 @@
 	job_subclasses = list(
 		/datum/advclass/hand/blademaster,
 		/datum/advclass/hand/spymaster,
-		/datum/advclass/hand/advisor
+		/datum/advclass/hand/advisor,
+		//Caustic Edit - Adds additional hand class(es) from handadditional.dm
+		/datum/advclass/hand/bodyguard,
+		//End Caustic Edit
 	)
 
 /datum/outfit/job/roguetown/hand
