@@ -1,0 +1,9 @@
+author: "Ollanius"
+delete-after: True
+changes:
+  - rscadd: "A slew of Azure-specific ports! More specifically.."
+  - rscadd: "Fyritius flowers not only have new sprites, but can now be woven into bouqets and crowns."
+  - rscadd: "Hounskulls and Pigfaces - the bascinets - now have their names uninverted, after so long."
+  - rscadd: "Classic-style armets no longer look bobbleheadish, and now have proportions appropriate for their class."
+  - rscadd: "All universal donor items, with the necessary permissions, can now be acquired through the Triumph section of the Loadout menu."
+  - rscadd: "The \"custom_name\" variable for modkits. Essentially, it determines whether an item inherits its original pre-reskinned name or not. False by default, True on certain items that can already be readily identifiable."

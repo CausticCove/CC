@@ -279,13 +279,13 @@
 	verbage_simple = "roll"
 	verbage = "rolls"
 
-/datum/crafting_recipe/roguetown/cooking/rocknutdry
-	name = "zig - rocknut"
+/datum/crafting_recipe/roguetown/cooking/rocknutdry                                                           // cc change to cheroot
+	name = "cheroot - rocknut"
 	display_category = ITEM_CAT_FOODSTUFF_PRESERVED
-	result = /obj/item/clothing/mask/cigarette/rollie/nicotine
+	result = /obj/item/clothing/mask/cigarette/rollie/nicotine/cheroot/rocknut
 	reqs = list(
 		/obj/item/reagent_containers/powder/rocknut = 1,
-		/obj/item/paper = 1,
+		/obj/item/reagent_containers/food/snacks/grown/rogue/pipeweeddry = 1,
 		)
 	time = 10 SECONDS
 	verbage_simple = "roll"

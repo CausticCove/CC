@@ -329,7 +329,7 @@
 				our_type = "Human"
 
 			else if(isobserver(O))
-				our_type = "Obeserver"
+				our_type = "Observer"
 
 			else if(isliving(O))
 				var/mob/living/datarget = O
