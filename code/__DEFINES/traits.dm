@@ -94,6 +94,7 @@
 #define TRAIT_NOHEAL "Laden Soul" // Only affects magic healing, such as miracle or supernatural heals.
 #define TRAIT_NOREGEN "Laden Body" // Only affects natural healing, such as resting, campfires, potions, etc.
 #define TRAIT_HALFHEAL "Laden Lux" // -50% Magic Heal.
+#define TRAIT_TAINTEDLUX "Tainted Lux" // lux can't be extracted surgically
 
 #define TRAIT_EASYDISMEMBER	"Easy Dismemberment"
 #define TRAIT_HARDDISMEMBER	"Hard Dismemberment"
@@ -127,6 +128,7 @@
 #define TRAIT_ARMOUR_DISLIKED "Misfitting Armour"
 #define TRAIT_FENCERDEXTERITY "Fencer's Dexterity"
 #define TRAIT_NALEDI "Naledi Complex"
+#define TRAIT_JAILOR "Gnarly Jailor"
 #define TRAIT_LONGSWORDSMAN "Master Longswordman"
 #define TRAIT_SABRIST "Renowned Sabrist"
 #define TRAIT_STANDARD_BEARER "Standard Bearer" //Can use the keep's standard to provide buffs and rally the retinue.
@@ -307,6 +309,7 @@
 //Magic Related
 #define TRAIT_ARCYNE "Arcyne Training" //enables full-mage interactions
 #define TRAIT_LEYLINE_ATTUNEMENT "Leyline Attunement" //enables echanting
+#define TRAIT_LEYLINE_EXPERTISE "Leyline Expertise" // gives more leyline charges
 
 //Antagonist role unique
 #define TRAIT_ASSASSIN	"Assassin"
@@ -346,7 +349,6 @@
 #define TRAIT_HORDE "Anointed" //Graggarites can use exclusive gear
 #define TRAIT_DEPRAVED "Fallen" //Baothans can use exclusive gear
 #define TRAIT_DUSTRUNNER "Dust Runner" //Dust runners recognize each other, and are known to bathhouse workers and matthiosites
-#define TRAIT_MATTHIOS_EYES	"Eyes of Matthios" //Examine to see the most expensive item someone has (Replaces shitty-appraisal)
 
 //ASCENDANT GOD CURSES
 
@@ -386,6 +388,7 @@
 #define TRAIT_SIMPLE_WOUNDS "simple_wounds"
 #define TRAIT_LIMPDICK "Limp Dick"
 #define TRAIT_STEELHEARTED "Steelhearted" //no bad mood from dismembering or seeing this
+#define TRAIT_NIHILIST "Nihilist" //no bad mood from dismembering only
 #define TRAIT_PSYCHOSIS "Psychosis" //replaces all ambience with creepy shit
 #define TRAIT_SCREENSHAKE "Tremors" //screen will always be shaking, you cannot stop it
 #define TRAIT_NORUN "Decayed Flesh"
@@ -395,6 +398,7 @@
 #define TRAIT_TECHNOPHOBE "Technophobe"
 #define TRAIT_BIGGUY "Big Guy"
 #define TRAIT_RESIDENT "Resident"
+#define TRAIT_WELLKNOWN "Well Known"
 #define TRAIT_UNSEEMLY "Ugly"
 #define TRAIT_DUALWIELDER "Dual Wielder"
 #define TRAIT_SENTINELOFWITS "Sentinel of Wits"
@@ -424,7 +428,6 @@
 #define TRAIT_WHITE_STAG "Stag Protection"
 #define TRAIT_EDIT_DESCRIPTORS "Edit Descriptors"
 #define TRAIT_NIGHT_OWL_LESSER "Nocturnal" // inverted sleepcycle but no moodbuff
-#define TRAIT_INK_AFFINITY "Paint Affinity"
 
 //Ecom Related traits
 #define TRAIT_DEBTOR "Default Debtor"
@@ -441,11 +444,6 @@
 //Decree related traits
 #define TRAIT_ALDERMAN "Alderman of the Assembly"
 #define TRAIT_ALDERMAN_CENSURED "Assembly Censure"
-
-//Magic Related
-#define TRAIT_ARCYNE "Arcyne Training" //enables full-mage interactions
-#define TRAIT_LEYLINE_ATTUNEMENT "Leyline Attunement" //enables echanting
-#define TRAIT_LEYLINE_EXPERTISE "Leyline Expertise" // gives more leyline charges
 
 //Caustic edit
 #define TRAIT_NECRAS_ABATEMENT "Necra's Abatement" //keeps deadites from doing much of anything in town
