@@ -1100,6 +1100,21 @@
 	skillcraft = /datum/skill/craft/carpentry
 	craftdiff = 0
 
+// CC edit - Hay beds. They look nice, but are uncraftable
+
+/datum/crafting_recipe/roguetown/structure/haybed
+	name = "bed, hay"
+	category = "Beds"
+	result = /obj/structure/bed/rogue/inn/hay
+	reqs = list(/obj/item/grown/log/tree/small = 1,
+				/obj/item/natural/fibers = 2)
+	verbage_simple = "construct"
+	verbage = "constructs"
+	skillcraft = /datum/skill/craft/carpentry
+	craftdiff = 1
+
+// CC edit end
+
 /datum/crafting_recipe/roguetown/structure/bed
 	name = "bed, nice"
 	category = "Beds"
@@ -1418,7 +1433,7 @@
 	craftdiff = 0
 
 /datum/crafting_recipe/roguetown/structure/stonewalldeco
-	name = "stone wall decoration"
+	name = "stone wall decoration (Variant 1)" // CC edit. Changed name to be specific
 	category = "Misc"
 	result = /obj/structure/fluff/walldeco/stone
 	reqs = list(/obj/item/natural/stone = 1)
@@ -1428,8 +1443,32 @@
 	wallcraft = TRUE
 	craftdiff = 2
 
+// CC edit start / Wall decoration variants
+
+/datum/crafting_recipe/roguetown/structure/stonewalldeco/two
+	name = "stone wall decoration (Variant 2)"
+	result = /obj/structure/fluff/walldeco/stone/stone2
+
+/datum/crafting_recipe/roguetown/structure/stonewalldeco/three
+	name = "stone wall decoration (Variant 3)"
+	result = /obj/structure/fluff/walldeco/stone/stone3
+
+/datum/crafting_recipe/roguetown/structure/stonewalldeco/four
+	name = "stone wall decoration (Variant 4)"
+	result = /obj/structure/fluff/walldeco/stone/stone4
+
+/datum/crafting_recipe/roguetown/structure/stonewalldeco/five
+	name = "stone wall decoration (Variant 5)"
+	result = /obj/structure/fluff/walldeco/stone/stone5
+
+/datum/crafting_recipe/roguetown/structure/stonewalldeco/six
+	name = "stone wall decoration (Variant 6)"
+	result = /obj/structure/fluff/walldeco/stone/stone6
+
+// CC edit end
+
 /datum/crafting_recipe/roguetown/structure/statue
-	name = "statue"
+	name = "statue (Standing Female 1)" // CC edit. Changed name to be specific
 	category = "Misc"
 	result = /obj/structure/fluff/statue/femalestatue //TODO: Add sculpting
 	reqs = list(/obj/item/natural/stone = 3)
@@ -1437,6 +1476,100 @@
 	verbage = "builds"
 	skillcraft = /datum/skill/craft/masonry
 	craftdiff = 3
+
+// CC Edit. Other types of statues.
+/datum/crafting_recipe/roguetown/structure/statue/fem_2
+	name = "statue (Standing Female 2)"
+	result = /obj/structure/fluff/statue/femalestatue1
+
+/datum/crafting_recipe/roguetown/structure/statue/fem_3
+	name = "statue (Laying Mermaid)"
+	result = /obj/structure/fluff/statue/femalestatue2
+
+/datum/crafting_recipe/roguetown/structure/statue/zizo
+	name = "statue (Elven Woman)"
+	result = /obj/structure/fluff/statue/femalestatue/zizo
+
+/obj/structure/fluff/statue/femalestatue/zizo/OnCrafted(dirin)
+	switch(dirin) // Putting this here, because the zizo statue doesn't have and west/east sprites, so it'd be invisible
+		if(EAST)
+			dirin = NORTH
+		if(WEST)
+			dirin = SOUTH
+	. = ..()
+
+/datum/crafting_recipe/roguetown/structure/statue/psy
+	name = "statue (Standing Legionaire)"
+	result = /obj/structure/fluff/statue/psy
+	reqs = list(/obj/item/natural/stone = 4) // Larger statue, so it costs a little more
+
+/datum/crafting_recipe/roguetown/structure/statue/smallelf
+	name = "statue (Elven w/ Harp)"
+	result = /obj/structure/fluff/statue/small
+	reqs = list(/obj/item/natural/stone = 2) // Smaller statue
+
+/datum/crafting_recipe/roguetown/structure/statue/gargoyle
+
+	name = "statue (Garloyle)"
+	result = /obj/structure/fluff/statue/gargoyle
+
+/datum/crafting_recipe/roguetown/structure/statue/aasimar
+
+	name = "statue (Aasimar)"
+	result = /obj/structure/fluff/statue/aasimar
+
+/datum/crafting_recipe/roguetown/structure/statue/knight
+
+	name = "statue (Knight Left)"
+	result = /obj/structure/fluff/statue/knight
+
+/datum/crafting_recipe/roguetown/structure/statue/knightright
+
+	name = "statue (Knight Right)"
+	result = /obj/structure/fluff/statue/knight/r
+
+/datum/crafting_recipe/roguetown/structure/statue/knightalt
+
+	name = "statue (Knight Shield Left)"
+	result = /obj/structure/fluff/statue/knightalt
+
+/datum/crafting_recipe/roguetown/structure/statue/knightaltright
+
+	name = "statue (Knight Shield Right)"
+	result = /obj/structure/fluff/statue/knightalt/r
+
+/datum/crafting_recipe/roguetown/structure/statue/astrata
+
+	name = "statue (Astrata)"
+	result = /obj/structure/fluff/statue/astrata
+	reqs = list(/obj/item/natural/stone = 4, /obj/item/candle/yellow = 1)
+
+/datum/crafting_recipe/roguetown/structure/statue/astratagold
+
+	name = "statue (Astrata Gold)"
+	result = /obj/structure/fluff/statue/astrata/gold
+	reqs = list(/obj/item/natural/stone = 4, /obj/item/ingot/gold = 1, /obj/item/candle/yellow = 1) // The sun goddess gets blinged out
+
+/datum/crafting_recipe/roguetown/structure/statue/abyssor
+
+	name = "statue (Abyssor)"
+	result = /obj/structure/fluff/statue/abyssor
+	reqs = list(/obj/item/natural/stone = 5)
+
+
+/datum/crafting_recipe/roguetown/structure/scarecrow
+	name = "statue (scarecrow)"
+	category = "Misc"
+	result = /obj/structure/fluff/statue/scare
+	reqs = list(/obj/item/grown/log/tree/small = 1,
+				/obj/item/grown/log/tree/stick = 1,
+				/obj/item/natural/fibers = 1)
+	verbage_simple = "construct"
+	verbage = "constructs"
+	skillcraft = /datum/skill/craft/carpentry
+	craftdiff = 1
+
+// CC edit end
 
 // SCOM is not constructable, only the receive only version is constructable to prevent unactionable sneeding.
 /datum/crafting_recipe/roguetown/structure/rcom

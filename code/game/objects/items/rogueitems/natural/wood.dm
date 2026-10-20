@@ -46,30 +46,33 @@
 /obj/item/grown/log/tree/attacked_by(obj/item/I, mob/living/user) //This serves to reward woodcutting
 	user.changeNext_move(CLICK_CD_INTENTCAP)
 	var/skill_level = user.get_skill_level(/datum/skill/labor/lumberjacking)
-	var/planking_time = (40 - (skill_level * 5))
-	if(lumber_amount && I.tool_behaviour == TOOL_SAW)
+	var/lumber_time = (40 - (skill_level * 5)) // Caustic Edit. Unifies the sawing/chopping times, since they are the same thing
+	var/minimum = 1
+	if(skill_level > 0) // If skill level is 1 or higher, we get more minimum wood!
+		minimum = 2
+	lumber_amount = rand(minimum, max(round(skill_level), minimum))
+	if((I.tool_behaviour == TOOL_SAW || I.tool_behaviour == TOOL_IMPROVISED_SAW) && lumber_amount && lumber) // Caustic Edit. Allows using primitive saws to saw logs
 		playsound(get_turf(src.loc), 'sound/foley/sawing.ogg', 100)
 		user.visible_message("<span class='notice'>[user] starts sawing [src] to smaller pieces.</span>")
-		if(do_after(user, planking_time))
-			new /obj/item/grown/log/tree/small(get_turf(src.loc))
-			new /obj/item/grown/log/tree/small(get_turf(src.loc))
-			if(prob(skill_level + user.goodluck(2)))	// when sawing instead of essence you get extra small log
-				new /obj/item/grown/log/tree/small(get_turf(src.loc))
-			if(user.is_holding(src))
-				user.dropItemToGround(src)
+		if(lumber_amount < 2)
+			lumber_amount = 2 // Keeps the minimum amount from sawing to 2
+		if(I.tool_behaviour == TOOL_IMPROVISED_SAW)
+			lumber_time *= 1.5 // Primitive saws are slower. Get a proper one
+		if(do_after(user, lumber_time))
+			for(var/i = 0; i < lumber_amount; i++)
+				new lumber(get_turf(src)) // Caustic Edit. Equalizes the sawing/chopping results. Sawing will give an extra log once in a while, while chopping will give essence
+				if(prob(skill_level + user.goodluck(2))) // when sawing instead of essence you get extra small log
+					new lumber(get_turf(src))
+				if(user.is_holding(src))
+					user.dropItemToGround(src)
 			user.mind.add_sleep_experience(/datum/skill/labor/lumberjacking, (user.STAINT*0.5))
 			new /obj/effect/decal/cleanable/debris/woody(get_turf(src))
 			qdel(src)
-			return
+			return TRUE
 	if(user.used_intent.blade_class == BCLASS_CHOP && lumber_amount && lumber)
-		var/lumber_time = (40 - (skill_level * 5))
-		var/minimum = 1
 		playsound(src, 'sound/misc/woodhit.ogg', 100, TRUE)
 		if(!do_after(user, lumber_time, target = user))
 			return
-		if(skill_level > 0) // If skill level is 1 or higher, we get more minimum wood!
-			minimum = 2
-		lumber_amount = rand(minimum, max(round(skill_level), minimum))
 		var/sound_played = FALSE
 		for(var/i = 0; i < lumber_amount; i++)
 			new lumber(get_turf(src))
@@ -216,18 +219,24 @@
 			woodtotal = 1
 	if(HAS_TRAIT(user, TRAIT_MASTER_CARPENTER)) //we give extra to those in the role
 		woodtotal += pick(1,2)
-	if(I.tool_behaviour == TOOL_SAW)
-		playsound(get_turf(src.loc), 'sound/foley/sawing.ogg', 100)
+	if(I.tool_behaviour == TOOL_SAW || I.tool_behaviour == TOOL_IMPROVISED_SAW) // CC edit - Allows using primitive/stone saws to make planks
+		if(I.tool_behaviour == TOOL_IMPROVISED_SAW)
+			planking_time *= 1.5 // Primitive saws are slower. Get a proper one
 		user.visible_message("<span class='notice'>[user] starts sawing planks from [src].</span>")
-		if(do_after(user, planking_time))
-			if(user.is_holding(src))
-				user.dropItemToGround(src)
-			for(var/i=1, i<=woodtotal, ++i)
-				new /obj/item/natural/wood/plank(get_turf(src.loc))
-			user.mind.add_sleep_experience(/datum/skill/craft/carpentry, (user.STAINT*0.5))
-			new /obj/effect/decal/cleanable/debris/woody(get_turf(src))
-			qdel(src)
-			return
+		var/location = src.loc
+		for(var/obj/item/grown/log/tree/small/S in get_turf(src)) // CC edit - Port from Ochre Valley, makes sawing check for any extra logs on the tile, then saws them up as well.
+			playsound(get_turf(location), 'sound/foley/sawing.ogg', 100)
+			if(do_after(user, planking_time))
+				if(user.is_holding(src))
+					user.dropItemToGround(location)
+				for(var/i=1, i<=woodtotal, ++i)
+					new /obj/item/natural/wood/plank(get_turf(location))
+				user.mind.add_sleep_experience(/datum/skill/craft/carpentry, (user.STAINT*0.5))
+				new /obj/effect/decal/cleanable/debris/woody(get_turf(location))
+				qdel(S)
+			else
+				return
+		return
 	..()
 
 /obj/item/grown/log/tree/bowpartial

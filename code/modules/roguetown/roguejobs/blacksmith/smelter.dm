@@ -117,6 +117,29 @@
 				tongs.update_icon()
 		return
 
+// Caustic Edit start / Allows using sacks to quick-fill smelters
+	if(istype(attacking_item, /obj/item/storage/roguebag))
+		var/datum/component/storage/STR = attacking_item.GetComponent(/datum/component/storage)
+		if(!STR)
+			return FALSE
+		var/list/things = STR.contents()
+		for(var/obj/item/smelty in things)
+			if(length(contained_items) >= max_contained_items)
+				to_chat(user, span_warn("\The [src] is full!"))
+				return
+			if(smelty.smeltresult)
+				var/delay = 1 SECONDS // Same delays as taking things out via tongs.
+				delay -= (user.STASPD - 10)
+				delay -= (user.STASTR - 10)
+				delay = max(0.2 SECONDS, delay)
+				if(do_after(user, delay, TRUE, src))
+					playsound(user, pick('sound/items/hit_plateobj1.ogg', 'sound/items/hit_plateobj2.ogg', 'sound/items/hit_plateobj3.ogg'), 100, TRUE)
+					STR.remove_from_storage(smelty, src) // An attempt to remove the inventory border when putting in from a sack, then removing the item from the smelter
+					add_item(smelty, user)
+		attacking_item.update_icon() // To prevent the bag from being large, and showing the full sprite when it gets emptied.
+		return
+// Caustic Edit end
+
 	if(istype(attacking_item, /obj/item/rogueweapon/hammer))
 		to_chat(user, span_warning("\The [attacking_item] should be used at an anvil, not \the [src]!"))
 		return
