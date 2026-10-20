@@ -45,21 +45,21 @@
 	/// Whether the "hopper is empty of grindables" alert has already fired.
 	var/empty_alert = FALSE
 
-	var/datum/looping_sound/autogrinder_work/soundloop
+	//var/datum/looping_sound/autogrinder_work/soundloop
 	debris = list(/obj/item/roguegear = 2, /obj/item/natural/wood/plank = 2, /obj/item/natural/stone = 2)
 
-/obj/structure/autogrinder/Initialize()
+/obj/structure/autogrinder/Initialize(mapload)
 	. = ..()
 	var/turf/hopper_turf = get_step(src, EAST)
 	hopper = new hopper_type(hopper_turf)
 	hopper.parent = src
-	soundloop = new(src, FALSE)
+	//soundloop = new(src, FALSE)
 	START_PROCESSING(SSobj, src)
 
 /obj/structure/autogrinder/Destroy()
 	STOP_PROCESSING(SSobj, src)
 	current_item = null
-	QDEL_NULL(soundloop)
+	//QDEL_NULL(soundloop)
 	QDEL_NULL(hopper)
 	return ..()
 
@@ -176,7 +176,7 @@
 			if(prob(recipe.bonus_chance_outputs[bonus_path]))
 				new bonus_path(get_turf(src))
 	else if(ground.mill_result)
-	new ground.mill_result(get_turf(src))
+		new ground.mill_result(get_turf(src))
 	qdel(ground)
 	current_item = null
 	progress = 0
@@ -216,11 +216,12 @@
 
 /// Switches the stone (and, through it, the hopper gears) between the idle and running animations.
 /obj/structure/autogrinder/proc/update_working_visuals()
-	update_soundloop()
+	//update_soundloop()
 	icon_state = is_spinning() ? "mill_on" : "mill_off"
 	if(hopper && !QDELETED(hopper))
 		hopper.update_gear_anim()
 
+/* removing soundloop due to the audio glitches this proc makes.
 /obj/structure/autogrinder/proc/update_soundloop()
 	if(!soundloop)
 		return
@@ -230,6 +231,7 @@
 		return
 	if(!soundloop.stopped)
 		soundloop.stop()
+*/
 
 /obj/structure/autogrinder/set_rotations_per_minute(speed)
 	. = ..()
@@ -297,7 +299,7 @@
 
 /obj/structure/closet/crate/chest/autogrinder/Initialize(mapload)
 	. = ..()
-	open()   // it has no lid; it stays open for good
+	open()	// it has no lid; it stays open for good
 
 /obj/structure/closet/crate/chest/autogrinder/CanAStarPass(ID, dir, caller)
 	return TRUE
@@ -321,9 +323,7 @@
 
 /// The gears turn only while the parent grinder is powered and switched on.
 /obj/structure/closet/crate/chest/autogrinder/proc/update_gear_anim()
-	var/spinning = parent && parent.is_spinning()
-	if(opened)
-		layer = BELOW_OBJ_LAYER
+	layer = BELOW_OBJ_LAYER
 	icon_state = (parent && parent.is_spinning()) ? "open_on" : "open_off"
 
 /obj/structure/closet/crate/chest/autogrinder/Destroy()

@@ -4,14 +4,16 @@
 	RegisterSignal(src, SIGNAL_ADDTRAIT(TRAIT_DARKVISION), PROC_REF(on_darkvision_trait_changed))
 	RegisterSignal(src, SIGNAL_REMOVETRAIT(TRAIT_DARKVISION), PROC_REF(on_darkvision_trait_changed))
 
-	pain_threshold = STAWIL * 10
-
-	if(HAS_TRAIT(src, TRAIT_NOPAIN))
-		pain_threshold = 250
+	recalculate_pain_threshold()
 
 	create_reagents(1000)
 	update_body_parts() //to update the carbon's new bodyparts appearance
 	GLOB.carbon_list += src
+
+/mob/living/carbon/proc/recalculate_pain_threshold()
+	pain_threshold = STAWIL * 10
+	if(HAS_TRAIT(src, TRAIT_NOPAIN))
+		pain_threshold = 250
 
 /mob/living/carbon/Destroy()
 	//This must be done first, so the mob ghosts correctly before DNA etc is nulled

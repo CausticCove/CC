@@ -207,3 +207,4 @@
 	armor = /obj/item/clothing/suit/roguetown/armor/plate/cuirass/iron/hobgoblin
 	head = /obj/item/clothing/head/roguetown/helmet/hobgoblin
 	r_hand = /obj/item/rogueweapon/greatsword/iron
+

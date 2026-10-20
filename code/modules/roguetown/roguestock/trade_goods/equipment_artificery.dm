@@ -59,7 +59,7 @@
 /datum/trade_good/equipment/crafted/auto_shears
 	id = TRADE_GOOD_AUTO_SHEARS
 	name = "auto shears"
-	item_type = /obj/item/contraption/shears
+	item_type = /obj/item/rogueweapon/contraption/shears
 
 // ============================================================================
 // ARTIFICERY - CONTRAPTIONS

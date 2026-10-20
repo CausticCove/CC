@@ -4,7 +4,7 @@
 	faction = list()
 	ambushable = FALSE
 	skel_fragile = TRUE
-	skel_outfit = null
+	var/skel_outfit = null
 
 	var/arcane_scale = 3
 	var/gear_tier = 1
@@ -41,18 +41,21 @@
 		faction -= FACTION_SKELETON
 		faction -= FACTION_DUNDEAD
 
-	var/outfit = rand(1, 5)
-	switch(outfit)
-		if(1)
-			outfit_skeleton(new /datum/outfit/job/roguetown/necro_summon/soldier)
-		if(2)
-			outfit_skeleton(new /datum/outfit/job/roguetown/necro_summon/spear)
-		if(3)
-			outfit_skeleton(new /datum/outfit/job/roguetown/necro_summon/heavy)
-		if(4)
-			outfit_skeleton(new /datum/outfit/job/roguetown/necro_summon/dagger)
-		if(5)
-			outfit_skeleton(new /datum/outfit/job/roguetown/necro_summon/hammer)
+	if(skel_outfit)
+		outfit_skeleton(new skel_outfit)
+	else
+		var/outfit = rand(1, 5)
+		switch(outfit)
+			if(1)
+				outfit_skeleton(new /datum/outfit/job/roguetown/necro_summon/soldier)
+			if(2)
+				outfit_skeleton(new /datum/outfit/job/roguetown/necro_summon/spear)
+			if(3)
+				outfit_skeleton(new /datum/outfit/job/roguetown/necro_summon/heavy)
+			if(4)
+				outfit_skeleton(new /datum/outfit/job/roguetown/necro_summon/dagger)
+			if(5)
+				outfit_skeleton(new /datum/outfit/job/roguetown/necro_summon/hammer)
 
 	def_intent_change(INTENT_PARRY)
 

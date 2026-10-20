@@ -209,7 +209,7 @@ GLOBAL_LIST_EMPTY(respawncounts)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "View Chronicle")
 
 /client/proc/cmd_admin_view_economics()
-	set category = "Debug"
+	set category = "DEBUG.Logs"
 	set name = "View Economics"
 	set desc = "Open the Realm Economics panel without waiting for round end."
 

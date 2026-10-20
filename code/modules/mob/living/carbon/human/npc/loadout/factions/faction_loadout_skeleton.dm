@@ -486,7 +486,7 @@
 
 /datum/npc_loadout/kit/fallen_duke
 	belt = /obj/item/storage/belt/rogue/leather/black
-	backl = /obj/item/storage/backpack/rogue/satchel/short/black
+	backl = /obj/item/storage/backpack/rogue/satchel/short
 	backpack_contents = list(
 		/obj/item/clothing/head/roguetown/crown/fakecrown = 1,
 		/obj/item/roguegem/diamond = 1,

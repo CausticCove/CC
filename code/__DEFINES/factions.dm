@@ -27,6 +27,7 @@
 #define FACTION_MADMEN "madmen"
 #define FACTION_PSY_VAULT_GUARD "psy_vault_guard"
 #define FACTION_DUNWELL "dunewell" //Caustic Edit - Adding in Dunewell Raiders faction for Desert Town
+#define FACTION_DESERT_WILDS "desert_wildlife" //Caustic Edit - Add in a category for all the Desert Wildlife
 
 #define FACTION_INFERNAL "infernal"
 #define FACTION_FAE "fae"
@@ -77,6 +78,7 @@ GLOBAL_LIST_INIT(gm_spawn_factions, list(
 	FACTION_DREAM,
 	FACTION_DROW,
 	FACTION_DUNDEAD,
+	FACTION_DUNWELL, //Caustic Edit - Add in Dunwell Faction for spawn
 	FACTION_ELEMENTAL,
 	FACTION_FAE,
 	FACTION_GOATS,
