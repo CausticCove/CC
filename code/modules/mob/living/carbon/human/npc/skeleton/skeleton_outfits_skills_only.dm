@@ -1,7 +1,10 @@
 // Skeleton with no equipments but skills and stats
 // Mostly meant for Tomb of Alotheos
 /mob/living/carbon/human/species/skeleton/npc/medium/noequip
-	skel_outfit = /datum/outfit/job/roguetown/skeleton/npc/medium_skills_only
+
+/mob/living/carbon/human/species/skeleton/npc/medium/noequip/after_creation()
+	..()
+	equipOutfit(/datum/outfit/job/roguetown/skeleton/npc/medium_skills_only)
 
 /datum/outfit/job/roguetown/skeleton/npc/medium_skills_only/pre_equip(mob/living/carbon/human/H)
 	..()
@@ -23,7 +26,10 @@
 	H.adjust_skillrank(/datum/skill/misc/climbing, 3, TRUE)
 
 /mob/living/carbon/human/species/skeleton/npc/hard/noequip
-	skel_outfit = /datum/outfit/job/roguetown/skeleton/npc/hard_skills_only
+
+/mob/living/carbon/human/species/skeleton/npc/hard/noequip/after_creation()
+	..()
+	equipOutfit(/datum/outfit/job/roguetown/skeleton/npc/hard_skills_only)
 
 /datum/outfit/job/roguetown/skeleton/npc/hard_skills_only/pre_equip(mob/living/carbon/human/H)
 	..()
