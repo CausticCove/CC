@@ -50,45 +50,46 @@
 	var/minimum = 1
 	if(skill_level > 0) // If skill level is 1 or higher, we get more minimum wood!
 		minimum = 2
-	lumber_amount = rand(minimum, max(round(skill_level), minimum))
-	if((I.tool_behaviour == TOOL_SAW || I.tool_behaviour == TOOL_IMPROVISED_SAW) && lumber_amount && lumber) // Caustic Edit. Allows using primitive saws to saw logs
-		playsound(get_turf(src.loc), 'sound/foley/sawing.ogg', 100)
-		user.visible_message("<span class='notice'>[user] starts sawing [src] to smaller pieces.</span>")
-		if(lumber_amount < 2)
-			lumber_amount = 2 // Keeps the minimum amount from sawing to 2
-		if(I.tool_behaviour == TOOL_IMPROVISED_SAW)
-			lumber_time *= 1.5 // Primitive saws are slower. Get a proper one
-		if(do_after(user, lumber_time))
+	if(lumber_amount && lumber) // A check to see if it gives lumber, to prevent wood duplication
+		lumber_amount = rand(minimum, max(round(skill_level), minimum))
+		if(I.tool_behaviour == TOOL_SAW || I.tool_behaviour == TOOL_IMPROVISED_SAW) // Caustic Edit. Allows using primitive saws to saw logs
+			playsound(get_turf(src.loc), 'sound/foley/sawing.ogg', 100)
+			user.visible_message("<span class='notice'>[user] starts sawing [src] to smaller pieces.</span>")
+			if(lumber_amount < 2)
+				lumber_amount = 2 // Keeps the minimum amount from sawing to 2
+			if(I.tool_behaviour == TOOL_IMPROVISED_SAW)
+				lumber_time *= 1.5 // Primitive saws are slower. Get a proper one
+			if(do_after(user, lumber_time))
+				for(var/i = 0; i < lumber_amount; i++)
+					new lumber(get_turf(src)) // Caustic Edit. Equalizes the sawing/chopping results. Sawing will give an extra log once in a while, while chopping will give essence
+					if(prob(skill_level + user.goodluck(2))) // when sawing instead of essence you get extra small log
+						new lumber(get_turf(src))
+					if(user.is_holding(src))
+						user.dropItemToGround(src)
+				user.mind.add_sleep_experience(/datum/skill/labor/lumberjacking, (user.STAINT*0.5))
+				new /obj/effect/decal/cleanable/debris/woody(get_turf(src))
+				qdel(src)
+				return TRUE
+		if(user.used_intent.blade_class == BCLASS_CHOP)
+			playsound(src, 'sound/misc/woodhit.ogg', 100, TRUE)
+			if(!do_after(user, lumber_time, target = user))
+				return
+			var/sound_played = FALSE
 			for(var/i = 0; i < lumber_amount; i++)
-				new lumber(get_turf(src)) // Caustic Edit. Equalizes the sawing/chopping results. Sawing will give an extra log once in a while, while chopping will give essence
-				if(prob(skill_level + user.goodluck(2))) // when sawing instead of essence you get extra small log
-					new lumber(get_turf(src))
-				if(user.is_holding(src))
-					user.dropItemToGround(src)
+				new lumber(get_turf(src))
+					// Scaling is less steep than tanning as lumberjacking is easier to level and get
+				if(prob(skill_level + user.goodluck(2)))
+					new /obj/item/natural/cured/essence(get_turf(user))
+					if(!sound_played)
+						sound_played = TRUE
+						to_chat(user, span_warning("Dendor weeps..."))
+						playsound(src,pick('sound/items/gem.ogg'), 100, FALSE)
+			if(!skill_level)
+				to_chat(user, span_info("Due to inexperience, I ruin some of the timber..."))
 			user.mind.add_sleep_experience(/datum/skill/labor/lumberjacking, (user.STAINT*0.5))
-			new /obj/effect/decal/cleanable/debris/woody(get_turf(src))
+			playsound(src, destroy_sound, 100, TRUE)
 			qdel(src)
 			return TRUE
-	if(user.used_intent.blade_class == BCLASS_CHOP && lumber_amount && lumber)
-		playsound(src, 'sound/misc/woodhit.ogg', 100, TRUE)
-		if(!do_after(user, lumber_time, target = user))
-			return
-		var/sound_played = FALSE
-		for(var/i = 0; i < lumber_amount; i++)
-			new lumber(get_turf(src))
-				// Scaling is less steep than tanning as lumberjacking is easier to level and get
-			if(prob(skill_level + user.goodluck(2)))
-				new /obj/item/natural/cured/essence(get_turf(user))
-				if(!sound_played)
-					sound_played = TRUE
-					to_chat(user, span_warning("Dendor weeps..."))
-					playsound(src,pick('sound/items/gem.ogg'), 100, FALSE)
-		if(!skill_level)
-			to_chat(user, span_info("Due to inexperience, I ruin some of the timber..."))
-		user.mind.add_sleep_experience(/datum/skill/labor/lumberjacking, (user.STAINT*0.5))
-		playsound(src, destroy_sound, 100, TRUE)
-		qdel(src)
-		return TRUE
 	..()
 
 //log munching
