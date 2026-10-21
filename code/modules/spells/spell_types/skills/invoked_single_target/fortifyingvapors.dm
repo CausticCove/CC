@@ -276,7 +276,7 @@
 		if("Coffee")
 			visible_message(span_notice("A rich aroma surrounds [src], who suddenly looks sharper and more alert."), span_artery("What an elegant, invigorating scent!"))
 			apply_status_effect(/datum/status_effect/buff/invigoration, 30 SECONDS, 25, 15)
-			apply_status_effect(/datum/status_effect/buff/vigorized)
+			apply_status_effect(/datum/status_effect/buff/brew/vigorized)
 			sate_addiction(/datum/charflaw/addiction/caffiend)
 
 		if("Fae Dust")

@@ -4,6 +4,8 @@
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "ash"
 	w_class = WEIGHT_CLASS_TINY
+	materia = list(/datum/materia_aspect/fire)
+	gender = PLURAL
 
 /obj/item/ash/get_mechanics_examine(mob/user)
 	. = ..()

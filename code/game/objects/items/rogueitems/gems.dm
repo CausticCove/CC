@@ -12,6 +12,7 @@
 	drop_sound = 'sound/items/gem.ogg'
 	static_price = FALSE
 	resistance_flags = FIRE_PROOF
+	materia = list(/datum/materia_aspect/arcyne)
 
 /obj/item/roguegem/getonmobprop(tag)
 	. = ..()
@@ -37,7 +38,7 @@
 			return
 	else
 		return ..()
-		
+
 	return ..()
 
 /obj/item/roguegem/green
@@ -157,9 +158,9 @@
 //CC Edit Begin - Like the Mushrooms, gems should also respect lootdrop spawners for better performance and less strain on the GC.
 /obj/effect/spawner/lootdrop/roguegem/random
 	lootcount =  1 //Its 1 by default but lets make sure to always stay 1.
-	loot = list(/obj/item/roguegem/ruby = 5, 
-		/obj/item/roguegem/green = 15, 
-		/obj/item/roguegem/blue = 10, 
+	loot = list(/obj/item/roguegem/ruby = 5,
+		/obj/item/roguegem/green = 15,
+		/obj/item/roguegem/blue = 10,
 		/obj/item/roguegem/yellow = 20,
 		/obj/item/roguegem/violet = 10,
 		/obj/item/roguegem/diamond = 5,
@@ -182,9 +183,9 @@
 
 /obj/item/roguegem/random/Initialize()
 	..()
-	var/newgem = list(/obj/item/roguegem/ruby = 5, 
-		/obj/item/roguegem/green = 15, 
-		/obj/item/roguegem/blue = 10, 
+	var/newgem = list(/obj/item/roguegem/ruby = 5,
+		/obj/item/roguegem/green = 15,
+		/obj/item/roguegem/blue = 10,
 		/obj/item/roguegem/yellow = 20,
 		/obj/item/roguegem/violet = 10,
 		/obj/item/roguegem/diamond = 5,
@@ -239,6 +240,7 @@
 	dropshrink = 0.4
 	drop_sound = 'sound/items/gem.ogg'
 	sellprice = 400
+	materia = list(/datum/materia_aspect/fire, /datum/materia_aspect/earth, /datum/materia_aspect/arcyne, /datum/materia_aspect/solar)
 
 /obj/item/riddleofsteel/Initialize()
 	. = ..()

@@ -1,0 +1,4 @@
+author: "kaylexis"
+delete-after: True
+changes:
+  - bugfix: "gave censer it's sprite back"

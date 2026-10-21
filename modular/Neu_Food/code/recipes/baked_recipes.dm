@@ -115,9 +115,18 @@
 	name = "ham bread"
 	base_item = /obj/item/reagent_containers/food/snacks/rogue/breadslice/toast
 	ingredients = list(
-		/obj/item/reagent_containers/food/snacks/rogue/meat/ham/sliced
+		/obj/item/reagent_containers/food/snacks/rogue/meat/ham_sliced
 	)
 	result_type = /obj/item/reagent_containers/food/snacks/rogue/sandwich/ham
+
+// Bread + Smoked Ham -> Smoked Ham Bread
+/datum/food_recipe/sandwich/ham_smoked
+	name = "smoked ham bread"
+	base_item = /obj/item/reagent_containers/food/snacks/rogue/breadslice
+	ingredients = list(
+		/obj/item/reagent_containers/food/snacks/rogue/meat/ham_smoked_sliced
+	)
+	result_type = /obj/item/reagent_containers/food/snacks/rogue/sandwich/ham_smoked
 
 // Bun + Sausage -> Grenzelbun (Hotdog)
 /datum/food_recipe/sandwich/grenzelbun
@@ -208,8 +217,8 @@
 		/obj/item/reagent_containers/food/snacks/rogue/fruit/apple_sliced,
 	)
 	step_visuals = list(
-		list('modular/Neu_Food/icons/cooked/cooked_baked.dmi', "dough_apple"), 
-		list('modular/Neu_Food/icons/cooked/cooked_baked.dmi', "applebread_uncooked"), 
+		list('modular/Neu_Food/icons/cooked/cooked_baked.dmi', "dough_apple"),
+		list('modular/Neu_Food/icons/cooked/cooked_baked.dmi', "applebread_uncooked"),
 	)
 	cook_method = COOK_BAKE
 	result_type = /obj/item/reagent_containers/food/snacks/rogue/applebread
@@ -376,3 +385,40 @@
 	step_visuals = list(list('modular/Neu_Food/icons/raw/raw_dough.dmi', "griddleapple_uncooked"))
 	cook_method = COOK_FRY
 	result_type = /obj/item/reagent_containers/food/snacks/rogue/griddle/fruit/apple
+
+// Naledi cuisine
+// Bulgur + Onion -> Onion'd Bulgur
+/datum/food_recipe/baked/bulgur_onion
+	name = "onion'd bulgur"
+	base_item = /obj/item/reagent_containers/food/snacks/rogue/bulgur
+	ingredients = list(
+		/obj/item/reagent_containers/food/snacks/rogue/preserved/onion_fried
+	)
+	result_type = /obj/item/reagent_containers/food/snacks/rogue/bulgur/onion
+
+// Bulgur + Carrot -> Carrot'd Bulgur
+/datum/food_recipe/baked/bulgur_carrot
+	name = "carrot'd bulgur"
+	base_item = /obj/item/reagent_containers/food/snacks/rogue/bulgur
+	ingredients = list(
+		/obj/item/reagent_containers/food/snacks/grown/carrot
+	)
+	result_type = /obj/item/reagent_containers/food/snacks/rogue/bulgur/carrot
+
+// Onion'd Bulgur + Carrot -> Bulgur Meal
+/datum/food_recipe/baked/bulgur_meal_from_onion
+	name = "bulgur meal"
+	base_item = /obj/item/reagent_containers/food/snacks/rogue/bulgur/onion
+	ingredients = list(
+		/obj/item/reagent_containers/food/snacks/grown/carrot
+	)
+	result_type = /obj/item/reagent_containers/food/snacks/rogue/bulgur/meal
+
+// Carrot'd Bulgur + Onion -> Bulgur Meal
+/datum/food_recipe/baked/bulgur_meal_from_carrot
+	name = "bulgur meal"
+	base_item = /obj/item/reagent_containers/food/snacks/rogue/bulgur/carrot
+	ingredients = list(
+		/obj/item/reagent_containers/food/snacks/rogue/preserved/onion_fried
+	)
+	result_type = /obj/item/reagent_containers/food/snacks/rogue/bulgur/meal

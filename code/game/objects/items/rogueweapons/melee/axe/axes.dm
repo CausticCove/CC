@@ -450,6 +450,7 @@
 	pickup_sound = 'sound/foley/equip/rummaging-03.ogg'
 	gripped_intents = list(/datum/intent/axe/cut,/datum/intent/axe/chop)
 	resistance_flags = FLAMMABLE
+	materia = list(/datum/materia_aspect/tool, /datum/materia_aspect/death)
 
 // Caustic edit start
 // Mild TODO: Migrate all these to modular_causticcove

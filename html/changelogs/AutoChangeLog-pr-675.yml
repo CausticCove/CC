@@ -1,0 +1,5 @@
+author: "ShadieFox"
+delete-after: True
+changes:
+  - rscadd: "Added stigmata subclass to adventurer"
+  - rscadd: "Added AMEND miracle"

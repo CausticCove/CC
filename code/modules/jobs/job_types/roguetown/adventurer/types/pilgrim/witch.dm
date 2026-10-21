@@ -35,7 +35,8 @@
 	shirt = /obj/item/clothing/suit/roguetown/shirt/undershirt/priest
 	gloves = /obj/item/clothing/gloves/roguetown/leather/black
 	belt = /obj/item/storage/belt/rogue/leather/black
-	beltr = /obj/item/storage/belt/rogue/pouch/coins/poor
+	beltr = /obj/item/storage/belt/rogue/pouch/coins/aalloy
+	beltl = /obj/item/storage/magebag/witch
 	pants = /obj/item/clothing/under/roguetown/trou
 	shoes = /obj/item/clothing/shoes/roguetown/shortboots
 	backl = /obj/item/storage/backpack/rogue/satchel
@@ -61,6 +62,14 @@
 				H.mind.setup_mage_aspects(list("mastery" = FALSE, "major" = 1, "minor" = 1, "utilities" = 8, "ward" = TRUE))
 			backr = choose_implement(H, "lesser")
 			beltl = /obj/item/storage/magebag/starter
+			backpack_contents = list(
+								/obj/item/rogueweapon/spellbook = 1,
+								/obj/item/reagent_containers/glass/mortar = 1,
+								/obj/item/pestle = 1,
+								/obj/item/candle/yellow = 2,
+								/obj/item/chalk = 1,
+								/obj/item/trans_table_upgrade = 1
+								)
 			if (H.age == AGE_OLD)
 				H.adjust_skillrank(/datum/skill/magic/arcane, SKILL_LEVEL_APPRENTICE, TRUE)
 		if("Godsblood")
@@ -70,6 +79,11 @@
 			D.grant_miracles(H, cleric_tier = CLERIC_T2, passive_gain = CLERIC_REGEN_WITCH, devotion_limit = CLERIC_REQ_2)
 			D.max_devotion *= 0.5
 			neck = /obj/item/clothing/neck/roguetown/psicross/wood
+			backpack_contents = list(
+								/obj/item/reagent_containers/glass/mortar = 1,
+								/obj/item/pestle = 1,
+								/obj/item/candle/yellow = 2
+								)
 			if (H.age == AGE_OLD)
 				H.adjust_skillrank(/datum/skill/magic/holy, SKILL_LEVEL_NOVICE, TRUE)
 		if("Mystagogue")
@@ -82,7 +96,14 @@
 			H.adjust_skillrank(/datum/skill/magic/arcane, SKILL_LEVEL_NOVICE, TRUE)
 			if(H.mind)
 				H.mind.setup_mage_aspects(list("mastery" = FALSE, "major" = 0, "minor" = 1, "utilities" = 5))
-			beltl = /obj/item/storage/magebag/starter
+			backpack_contents = list(
+								/obj/item/rogueweapon/spellbook = 1,
+								/obj/item/reagent_containers/glass/mortar = 1,
+								/obj/item/pestle = 1,
+								/obj/item/candle/yellow = 2,
+								/obj/item/chalk = 1,
+								/obj/item/trans_table_upgrade = 1
+								)
 			H.equip_to_slot_or_del(new /obj/item/rogueweapon/spellbook(H), SLOT_IN_BACKPACK)
 			neck = /obj/item/clothing/neck/roguetown/psicross/wood
 			if (H.age == AGE_OLD)

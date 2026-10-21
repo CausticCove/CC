@@ -478,7 +478,7 @@ GLOBAL_PROTECT(admin_verbs_hideable)
 		if (aghost_toggle)
 			body.invisibility = INVISIBILITY_MAXIMUM
 			body.density = 0
-		body.ghostize(TRUE, admin = TRUE)
+		body.ghostize(TRUE, admin = TRUE, ignore_zombie = TRUE) //Caustic Edit - Actually let Aghost ignore Zombification
 		if(body && !body.key)
 			body.key = "@[key]"	//Haaaaaaaack. But the people have spoken. If it breaks; blame adminbus
 		show_popup_menus = TRUE

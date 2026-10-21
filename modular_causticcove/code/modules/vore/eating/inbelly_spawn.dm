@@ -2,12 +2,13 @@
 	if(!potential_prey || !istype(potential_prey))		// Did our prey cease to exist?
 		return
 
-	if(!potential_prey.started_as_observer) //Lets check this, just to be sure no one spawns over and over this way... You gotta at least go to the main menu and observe to in-belly spawn.
-		to_chat(potential_prey, span_notice("In order to In-Belly Spawn, you need to join the round as an observer. Please don't attempt to use this as a free respawn!"))
+	if(!potential_prey.started_as_observer && potential_prey.body_backup == null) //Lets check this, just to be sure no one spawns over and over this way... You gotta at least go to the main menu and observe to in-belly spawn, OR you died to Digestion Death and have a body properly set up on your ghost.
+		to_chat(potential_prey, span_notice("In order to In-Belly Spawn, you need to join the round as an observer, or have died to a Vore Scene. Please don't attempt to use this as a free respawn!"))
 		return
 
+	var/prey_name = potential_prey.client.prefs.real_name
 	// Are we cool with this prey spawning in at all?
-	var/answer = tgui_alert(src, "[potential_prey.client.prefs.real_name] wants to spawn in one of your bellies. Do you accept?", "Inbelly Spawning", list("Yes", "No"))
+	var/answer = tgui_alert(src, "[prey_name] wants to spawn in [potential_prey.body_backup ? "- or enter as a ghost to - " : ""]one of your bellies. Do you accept?", "Inbelly Spawning", list("Yes", "No"))
 	if(answer != "Yes")
 		to_chat(potential_prey, span_notice("Your request was turned down."))
 		return
@@ -31,12 +32,20 @@
 			to_chat(potential_prey, span_notice("Something went wrong with predator selecting a belly. Try again?"))
 			to_chat(src, span_notice("Inbelly spawn cancelled."))
 
+	var/direct_spawn
+	var/direct_spawn_answer = tgui_alert(src, "[prey_name] has died a vore-related death. Do you want to directly spawn them in your belly immediately - Or would you rather transfer them in as a Ghost and use the Reform Belly?", "Inbelly Spawning", list("Spawn", "Ghost"))
+	if(direct_spawn_answer == "Ghost")
+		direct_spawn = FALSE
+	else
+		direct_spawn = TRUE
+
 	// Are they already fat (and/or appropriate equivalent)?
 	var/absorbed = FALSE
-	var/absorbed_answer = tgui_alert(src, "Do you want them to start absorbed?", "Inbelly Spawning", list("Yes", "No"))
+	if(direct_spawn)
+		var/absorbed_answer = tgui_alert(src, "Do you want them to start absorbed?", "Inbelly Spawning", list("Yes", "No"))
 
-	if(absorbed_answer == "Yes")
-		absorbed = TRUE
+		if(absorbed_answer == "Yes")
+			absorbed = TRUE
 
 	// They disappeared?
 	if(!potential_prey)
@@ -44,7 +53,7 @@
 		return
 
 	// Final confirmation for pred
-	var/confirmation_pred = tgui_alert(src, "Are you certain that you want [potential_prey.client.prefs.real_name] spawned in your [belly_choice][absorbed ? ", absorbed" : ""]?", "Inbelly Spawning", list("Yes", "No"))
+	var/confirmation_pred = tgui_alert(src, "Are you certain that you want [potential_prey.client.prefs.real_name][direct_spawn ? " spawned in your " : "'s ghost moved into your "][belly_choice][absorbed ? ", absorbed" : ""]?", "Inbelly Spawning", list("Yes", "No"))
 
 	if(confirmation_pred != "Yes")
 		to_chat(potential_prey, span_notice("Your pred couldn't finish selection. Try again?"))
@@ -54,7 +63,7 @@
 	to_chat(src, span_notice("Waiting for prey's confirmation..."))
 
 	// And final confirmation for prey
-	var/confirmation_prey = tgui_alert(potential_prey, "Are you certain that you to spawn in [src]'s [belly_choice][absorbed ? ", absorbed" : ""]?", "Inbelly Spawning", list("Yes", "No"))
+	var/confirmation_prey = tgui_alert(potential_prey, "Are you certain that you want to[direct_spawn ? " spawn in " : " enter into "][src]'s [belly_choice][absorbed ? ", absorbed" : ""]?", "Inbelly Spawning", list("Yes", "No"))
 
 	if(confirmation_prey == "Yes" && potential_prey && src && belly_choice)
 		//Now we finally spawn them in!
@@ -62,7 +71,10 @@
 			to_chat(potential_prey, span_notice("You are not whitelisted to play as currently selected character."))
 			to_chat(src, span_notice("Prey accepted the confirmation, but something went wrong with spawning their character."))
 			return*/
-		inbelly_spawn(potential_prey, src, belly_choice, absorbed)
+		if(direct_spawn)
+			inbelly_spawn(potential_prey, src, belly_choice, absorbed)
+		else
+			potential_prey.forceMove(belly_choice)
 	else
 		to_chat(potential_prey, span_notice("Inbelly spawn cancelled."))
 		to_chat(src, span_notice("Prey cancelled their inbelly spawn request."))
@@ -106,12 +118,22 @@
 		target_belly.absorb_living(new_character)	// Glorp.
 
 	log_admin("[prey] (as [new_character.real_name]) has spawned inside one of [pred]'s bellies.")				// Log it. Avoid abuse.
-	message_admins("[prey] (as [new_character.real_name]) has spawned inside one of [pred]'s bellies.", 1)
+	message_admins("[prey] (as [new_character.real_name]) has spawned inside one of [pred]'s bellies.")
 
 	return new_character			// incase its ever needed
 
+/proc/ghost_enter_belly(mob/dead/observer/prey, obj/belly/target_belly)
+	var/pred = target_belly.loc
+	if(pred)
+		prey.forceMove(target_belly)
+
+		log_admin("[prey] (who has died to a vore-related death elsewhere) has entered one of [pred]'s bellies using the Inbelly-Spawn system.")				// Log it. Avoid abuse.
+		//message_admins("[prey] (who has died to a vore-related death elsewhere) has entered one of [pred]'s bellies using the Inbelly-Spawn system.")
+
 /mob/dead/observer
 	var/enable_inbelly_spawn_attempts = FALSE
+	var/obj/belly/return_belly
+	var/attempted_belly_move = FALSE
 
 /mob/dead/observer/verb/ToggleInBellySpawnAttempts()
 	set name = "Toggle In-Belly Spawn"
@@ -119,7 +141,7 @@
 	set category = "VORE.Prefs"
 
 	enable_inbelly_spawn_attempts = !enable_inbelly_spawn_attempts
-	to_chat(src, span_notice("In-Belly spawn attempts [enable_inbelly_spawn_attempts ? "enabled! Middle-Mouse click on your pred to request a spawn (if they have it set up!) This is generally for ease of continuing a scene, you will spawn without any gear or stats and skills." : "disabled! Middle-Mouse clicks will revert to their usual actions."]"))	
+	to_chat(src, span_notice("In-Belly spawn attempts [enable_inbelly_spawn_attempts ? "enabled! Middle-Mouse click on your pred to request a spawn (if they have it set up!) This is generally for ease of continuing a scene, you will spawn without any gear or stats and skills." : "disabled! Middle-Mouse clicks will revert to their usual actions."]"))
 
 /mob/dead/observer/MiddleClickOn(atom/A, params)
 	if(enable_inbelly_spawn_attempts && isliving(A))

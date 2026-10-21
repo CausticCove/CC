@@ -10,22 +10,30 @@
 		If no recipe gets above 5 points, it makes nothing,otherwise It then makes the recipe with the HIGHEST POINTS.
 		all 3 of the below variables should be NULL or the type-path of the recipe to make.
 	*/
+	var/complete_pot = null // this is only used for alchemically synthesized reagents from the rubedo catalyst - they give a full 5 points
 	var/major_pot = null
 	var/med_pot = null
 	var/minor_pot = null
 	//Dont worry, these 3 are just to cache the 'smell' of their pot on initialization to not have to re-look every examine.
 	//No need to set them.
+	var/complete_smell
 	var/major_smell
 	var/med_smell
 	var/minor_smell
 	///Same as the smells, just caching what the potion name is
+	var/complete_name
 	var/major_name
 	var/med_name
 	var/minor_name
 	var/herb_powder_type = null
+	materia = list(/datum/materia_aspect/herb) // yes not everything is an herb, but the herbs are just dumped into the main alch namespace for some reason so here we are it's overridden by subtypes
 
 /obj/item/alch/Initialize()
 	. = ..()
+	if(!isnull(complete_pot))
+		var/datum/alch_cauldron_recipe/rec = locate(complete_pot) in GLOB.alch_cauldron_recipes
+		complete_smell = rec.smells_like
+		complete_name = rec.name
 	if(!isnull(major_pot))
 		var/datum/alch_cauldron_recipe/rec = locate(major_pot) in GLOB.alch_cauldron_recipes
 		major_smell = rec.smells_like
@@ -48,6 +56,8 @@
 			var/mob/living/lmob = user
 			perint = FLOOR((lmob.STAPER + lmob.STAINT)/2,1)
 		if(HAS_TRAIT(user,TRAIT_LEGENDARY_ALCHEMIST))
+			if(!isnull(complete_name))
+				. += span_notice(" Completely attuned to making [complete_name].")
 			if(!isnull(major_name))
 				. += span_notice(" Strongly attuned to making [major_name].")
 			if(!isnull(med_name))
@@ -55,6 +65,8 @@
 			if(!isnull(minor_name))
 				. += span_notice(" Minorly attuned to making [minor_name].")
 		else
+			if(!isnull(complete_smell) && (!istype(src, /obj/item/alch/hag_moss) || user.mind?.has_antag_datum(/datum/antagonist/hag)))
+				. += span_notice(" Smells overwhelmingly of [complete_smell].") // normal people don't know moss can be used that way
 			if(!isnull(major_smell))
 				if(alch_skill >= SKILL_LEVEL_NOVICE || perint >= 6)
 					. += span_notice(" Smells strongly of [major_smell].")
@@ -71,6 +83,7 @@
 	major_pot = /datum/alch_cauldron_recipe/big_health_potion
 	med_pot = /datum/alch_cauldron_recipe/health_potion
 	minor_pot = /datum/alch_cauldron_recipe/antidote
+	materia = list(/datum/materia_aspect/herb, /datum/materia_aspect/animal)
 
 /obj/item/alch/sleep_powder
 	name = "sleeping powder"
@@ -99,6 +112,7 @@
 	major_pot = /datum/alch_cauldron_recipe/int_potion
 	med_pot = /datum/alch_cauldron_recipe/big_mana_potion
 	minor_pot = /datum/alch_cauldron_recipe/per_potion
+	materia = list(/datum/materia_aspect/water)
 
 /obj/item/alch/bonemeal
 	name = "bone meal"
@@ -107,6 +121,7 @@
 	major_pot = /datum/alch_cauldron_recipe/mana_potion
 	med_pot = /datum/alch_cauldron_recipe/per_potion
 	minor_pot = /datum/alch_cauldron_recipe/antidote
+	materia = list(/datum/materia_aspect/arcyne, /datum/materia_aspect/death)
 
 	herb_powder_type = /obj/item/herb_powder/white
 
@@ -117,6 +132,7 @@
 	major_pot = /datum/alch_cauldron_recipe/big_stamina_potion
 	med_pot = /datum/alch_cauldron_recipe/stamina_potion
 	minor_pot = /datum/alch_cauldron_recipe/strong_antidote
+	materia = list(/datum/materia_aspect/earth, /datum/materia_aspect/air)
 
 /obj/item/alch/runedust
 	name = "raw essentia"
@@ -125,6 +141,7 @@
 	major_pot = /datum/alch_cauldron_recipe/int_potion
 	med_pot = /datum/alch_cauldron_recipe/big_mana_potion
 	minor_pot = /datum/alch_cauldron_recipe/per_potion
+	materia = list(/datum/materia_aspect/lunar)
 
 //Caustic Edit - Add in Stonedust for Ratwood Pottery
 /obj/item/alch/stonedust
@@ -143,6 +160,7 @@
 	major_pot = /datum/alch_cauldron_recipe/antidote
 	med_pot = /datum/alch_cauldron_recipe/end_potion
 	minor_pot = /datum/alch_cauldron_recipe/str_potion
+	materia = list(/datum/materia_aspect/fire)
 
 /obj/item/alch/silverdust
 	name = "silver dust"
@@ -151,6 +169,7 @@
 	major_pot = /datum/alch_cauldron_recipe/strong_antidote
 	med_pot = /datum/alch_cauldron_recipe/restoration_potion
 	minor_pot = /datum/alch_cauldron_recipe/big_health_potion
+	materia = list(/datum/materia_aspect/lunar)
 
 /obj/item/alch/magicdust
 	name = "pure essentia"
@@ -159,6 +178,7 @@
 	major_pot = /datum/alch_cauldron_recipe/big_mana_potion
 	med_pot = /datum/alch_cauldron_recipe/end_potion
 	minor_pot = /datum/alch_cauldron_recipe/con_potion
+	materia = list(/datum/materia_aspect/arcyne)
 
 /obj/item/alch/firedust
 	name = "fire essentia"
@@ -167,6 +187,7 @@
 	major_pot = /datum/alch_cauldron_recipe/str_potion
 	med_pot = /datum/alch_cauldron_recipe/con_potion
 	minor_pot = /datum/alch_cauldron_recipe/fire_potion
+	materia = list(/datum/materia_aspect/fire)
 
 /obj/item/alch/sinew
 	name = "sinew"
@@ -177,6 +198,7 @@
 	major_pot = /datum/alch_cauldron_recipe/stam_poison
 	med_pot = /datum/alch_cauldron_recipe/end_potion
 	minor_pot = /datum/alch_cauldron_recipe/health_potion
+	materia = list(/datum/materia_aspect/animal)
 
 /obj/item/alch/sinew/get_mechanics_examine(mob/user)
 	. = ..()
@@ -189,6 +211,7 @@
 	major_pot = /datum/alch_cauldron_recipe/end_potion
 	med_pot = /datum/alch_cauldron_recipe/con_potion
 	minor_pot = /datum/alch_cauldron_recipe/str_potion
+	materia = list(/datum/materia_aspect/metal)
 
 /obj/item/alch/airdust
 	name = "air essentia"
@@ -197,6 +220,7 @@
 	major_pot = /datum/alch_cauldron_recipe/spd_potion
 	med_pot = /datum/alch_cauldron_recipe/stamina_potion
 	minor_pot = /datum/alch_cauldron_recipe/int_potion
+	materia = list(/datum/materia_aspect/air)
 
 /obj/item/alch/swampdust
 	name = "swampweed dust"
@@ -205,6 +229,7 @@
 	major_pot = /datum/alch_cauldron_recipe/berrypoison
 	med_pot = /datum/alch_cauldron_recipe/big_stam_poison
 	minor_pot = /datum/alch_cauldron_recipe/end_potion
+	materia = list(/datum/materia_aspect/air)
 
 /obj/item/alch/tobaccodust
 	name = "westleach dust"
@@ -213,6 +238,7 @@
 	major_pot = /datum/alch_cauldron_recipe/per_potion
 	med_pot = /datum/alch_cauldron_recipe/stamina_potion
 	minor_pot = /datum/alch_cauldron_recipe/spd_potion
+	materia = list(/datum/materia_aspect/fire)
 
 /obj/item/alch/earthdust
 	name = "earth essentia"
@@ -221,6 +247,7 @@
 	major_pot = /datum/alch_cauldron_recipe/con_potion
 	med_pot = /datum/alch_cauldron_recipe/end_potion
 	minor_pot = /datum/alch_cauldron_recipe/str_potion
+	materia = list(/datum/materia_aspect/earth)
 
 /obj/item/alch/bone
 	name = "tail bone"
@@ -236,6 +263,7 @@
 	major_pot = /datum/alch_cauldron_recipe/strong_antidote
 	med_pot = /datum/alch_cauldron_recipe/health_potion
 	minor_pot = /datum/alch_cauldron_recipe/con_potion
+	materia = list(/datum/materia_aspect/arcyne, /datum/materia_aspect/death)
 
 /obj/item/alch/bone/get_mechanics_examine(mob/user)
 	. = ..()
@@ -256,6 +284,8 @@
 	med_pot = /datum/alch_cauldron_recipe/con_potion
 	minor_pot = /datum/alch_cauldron_recipe/end_potion
 
+	materia = list(/datum/materia_aspect/arcyne, /datum/materia_aspect/animal)
+
 /obj/item/alch/horn/get_mechanics_examine(mob/user)
 	. = ..()
 	. += span_info("These horns are chiefly obtained by butchering trolls. To butcher an animal, middle-click it with a knife without any miracles, spells, or special intents selected. The higher your Butchering skill, the more you'll carve.")
@@ -268,6 +298,7 @@
 	major_pot = /datum/alch_cauldron_recipe/big_mana_potion
 	med_pot = /datum/alch_cauldron_recipe/restoration_potion
 	minor_pot = /datum/alch_cauldron_recipe/per_potion
+	materia = list(/datum/materia_aspect/solar)
 
 /obj/item/alch/feaudust
 	name = "feau dust"
@@ -277,6 +308,7 @@
 	major_pot = /datum/alch_cauldron_recipe/spd_potion
 	med_pot = /datum/alch_cauldron_recipe/big_mana_potion
 	minor_pot = /datum/alch_cauldron_recipe/strong_antidote
+	materia = list(/datum/materia_aspect/metal, /datum/materia_aspect/solar)
 
 /obj/item/alch/ozium
 	name = "alchemical ozium"
@@ -287,11 +319,13 @@
 	major_pot = /datum/alch_cauldron_recipe/big_stamina_potion
 	med_pot = /datum/alch_cauldron_recipe/lck_potion
 	minor_pot = /datum/alch_cauldron_recipe/int_potion
+	materia = list(/datum/materia_aspect/fire, /datum/materia_aspect/air)
 
 /obj/item/alch/transisdust
 	name = "sui dust"
 	desc = "A long mix of herbs resulting in a special dust. For you. Use it while held."
 	icon_state = "transisdust"
+	materia = list(/datum/materia_aspect/air, /datum/materia_aspect/motion, /datum/materia_aspect/arcyne)
 
 /obj/item/alch/transisdust/attack_self(mob/living/user)
 	..()
@@ -327,6 +361,7 @@
 	major_pot = /datum/alch_cauldron_recipe/antidote
 	med_pot = /datum/alch_cauldron_recipe/strong_antidote
 	minor_pot = /datum/alch_cauldron_recipe/big_mana_potion
+	materia = list(/datum/materia_aspect/water, /datum/materia_aspect/arcyne)
 
 /obj/item/alch/mineraldust
 	name = "mineral dusts"
@@ -337,6 +372,7 @@
 	major_pot = /datum/alch_cauldron_recipe/doompoison
 	med_pot = /datum/alch_cauldron_recipe/big_mana_potion
 	minor_pot = /datum/alch_cauldron_recipe/big_stam_poison
+	materia = list(/datum/materia_aspect/fire, /datum/materia_aspect/arcyne)
 
 /obj/item/alch/infernaldust
 	name = "infernal dust"
@@ -347,6 +383,7 @@
 	major_pot = /datum/alch_cauldron_recipe/fire_potion
 	med_pot = /datum/alch_cauldron_recipe/big_stam_poison
 	minor_pot = /datum/alch_cauldron_recipe/int_potion
+	materia = list(/datum/materia_aspect/fire, /datum/materia_aspect/arcyne)
 
 /obj/item/alch/solardust
 	name = "solar dust"
@@ -357,6 +394,7 @@
 	major_pot = /datum/alch_cauldron_recipe/fire_potion
 	med_pot = /datum/alch_cauldron_recipe/int_potion
 	minor_pot = /datum/alch_cauldron_recipe/per_potion
+	materia = list(/datum/materia_aspect/solar, /datum/materia_aspect/fire)
 
 /obj/item/alch/berrypowder
 	name = "berry powder"
@@ -368,6 +406,7 @@
 	major_pot = /datum/alch_cauldron_recipe/berrypoison
 	med_pot = /datum/alch_cauldron_recipe/mana_potion
 	minor_pot = /datum/alch_cauldron_recipe/big_mana_potion
+	materia = list(/datum/materia_aspect/arcyne, /datum/materia_aspect/herb)
 
 	herb_powder_type = /obj/item/herb_powder/blue
 
@@ -607,6 +646,7 @@
 	major_pot = /datum/alch_cauldron_recipe/mana_potion
 	med_pot = /datum/alch_cauldron_recipe/int_potion
 	minor_pot = /datum/alch_cauldron_recipe/big_mana_potion
+	materia = list(/datum/materia_aspect/arcyne)
 
 	herb_powder_type = /obj/item/herb_powder/blue
 
@@ -639,6 +679,125 @@
 	else
 		icon_state = "rosa"
 		user.update_icon()
+
+// t2 alchemical reagents
+/obj/item/alch/rubedo_reagent
+	icon_state = "whitepowder"
+	sellprice = SELLPRICE_ARCANE_DUST_HIGH
+	gender = PLURAL
+
+/obj/item/alch/rubedo_reagent/Initialize(mapload) // look at what byond's default multiplicative color blending has led to
+	. = ..()
+	if(!complete_pot)
+		return
+	var/datum/alch_cauldron_recipe/ACR
+	for(var/datum/alch_cauldron_recipe/test in GLOB.alch_cauldron_recipes)
+		if(istype(test, complete_pot))
+			ACR = test
+			break
+	if(!ACR || !istype(ACR))
+		return
+	var/datum/reagent/reagent = ACR.output_reagents[1]
+	var/icon/newicon = icon('icons/roguetown/misc/alchemy.dmi', icon_state)
+	var/list/newcolor = ReadHSV(RGBtoHSV(reagent::color))
+	newicon.Blend(HSVtoRGB(hsv(newcolor[1], min(newcolor[2], 150), newcolor[3])), BLEND_ADD)
+	icon = newicon
+
+/obj/item/alch/rubedo_reagent/nitevision
+	name = "\improper Lunar Quintessence"
+	icon_state = "whitepowder"
+	desc = "A potent alchemical creation, brimming with silvery moonlight."
+	complete_pot = /datum/alch_cauldron_recipe/trait/nitevision
+	materia = list(/datum/materia_aspect/lunar, /datum/materia_aspect/arcyne)
+
+/obj/item/alch/rubedo_reagent/sleepdraught
+	name = "\improper Nocturnal Grace"
+	icon_state = "whitepowder"
+	sellprice = SELLPRICE_ARCANE_DUST_HIGH
+	desc = "A potent alchemical creation, merely looking at it guides the mind towards restful thoughts."
+	complete_pot = /datum/alch_cauldron_recipe/trait/sleepdraught
+	materia = list(/datum/materia_aspect/lunar, /datum/materia_aspect/arcyne)
+
+/obj/item/alch/rubedo_reagent/waterbreathing
+	name = "\improper Call of the Abyss"
+	icon_state = "whitepowder"
+	sellprice = SELLPRICE_ARCANE_DUST_HIGH
+	desc = "A potent alchemical creation, the sounds of the sea emanate from it."
+	complete_pot = /datum/alch_cauldron_recipe/trait/waterbreathing
+	materia = list(/datum/materia_aspect/water, /datum/materia_aspect/arcyne)
+
+/obj/item/alch/rubedo_reagent/nutrientslurry
+	name = "\improper Wyld Nourishment"
+	icon_state = "whitepowder"
+	sellprice = SELLPRICE_ARCANE_DUST_HIGH
+	desc = "A potent alchemical creation, holding it makes your mouth water."
+	complete_pot = /datum/alch_cauldron_recipe/trait/nutrientslurry
+	materia = list(/datum/materia_aspect/plant, /datum/materia_aspect/arcyne)
+
+/obj/item/alch/rubedo_reagent/ravenous
+	name = "\improper Feral Nature"
+	icon_state = "whitepowder"
+	sellprice = SELLPRICE_ARCANE_DUST_HIGH
+	desc = "A potent alchemical creation, holding it inspires an unnatural hunger."
+	complete_pot = /datum/alch_cauldron_recipe/trait/ravenous
+	materia = list(/datum/materia_aspect/animal, /datum/materia_aspect/arcyne)
+
+/obj/item/alch/rubedo_reagent/antidepressants
+	name = "\improper Lady's Mercy"
+	icon_state = "whitepowder"
+	sellprice = SELLPRICE_ARCANE_DUST_HIGH
+	desc = "A potent alchemical creation, gazing at it makes the world seem less consequential."
+	complete_pot = /datum/alch_cauldron_recipe/trait/antidepressants
+	materia = list(/datum/materia_aspect/air, /datum/materia_aspect/arcyne)
+
+/obj/item/alch/rubedo_reagent/wyrdlaborer
+	name = "\improper Steelbound Might"
+	icon_state = "whitepowder"
+	sellprice = SELLPRICE_ARCANE_DUST_HIGH
+	desc = "A potent alchemical creation, it brims with strength."
+	complete_pot = /datum/alch_cauldron_recipe/trait/wyrdlaborer
+	materia = list(/datum/materia_aspect/tool, /datum/materia_aspect/arcyne)
+
+/obj/item/alch/rubedo_reagent/prodepressants
+	name = "\improper Grave's Premonition"
+	icon_state = "whitepowder"
+	sellprice = SELLPRICE_ARCANE_DUST_HIGH
+	desc = "A potent alchemical creation, looking upon it is unpleasant."
+	complete_pot = /datum/alch_cauldron_recipe/trait/negative/prodepressants
+	materia = list(/datum/materia_aspect/earth, /datum/materia_aspect/arcyne)
+
+/obj/item/alch/rubedo_reagent/evilcaffiene
+	name = "\improper Boundless Effervescence"
+	icon_state = "whitepowder"
+	sellprice = SELLPRICE_ARCANE_DUST_HIGH
+	desc = "A potent alchemical creation, it is impossible to relax in its presence."
+	complete_pot = /datum/alch_cauldron_recipe/trait/negative/evilcaffiene
+	materia = list(/datum/materia_aspect/fire, /datum/materia_aspect/arcyne)
+
+/obj/item/alch/rubedo_reagent/singing
+	name = "\improper Weft of the Tragedian"
+	icon_state = "whitepowder"
+	sellprice = SELLPRICE_ARCANE_DUST_HIGH
+	desc = "A potent alchemical creation, the world feels lighter in its presence."
+	complete_pot = /datum/alch_cauldron_recipe/trait/negative/singing
+	materia = list(/datum/materia_aspect/air, /datum/materia_aspect/arcyne)
+
+/obj/item/alch/rubedo_reagent/funnyvoice
+	name = "\improper Weave of the Tragedian"
+	icon_state = "whitepowder"
+	sellprice = SELLPRICE_ARCANE_DUST_HIGH
+	desc = "A potent alchemical creation, the world feels lighter in its presence."
+	complete_pot = /datum/alch_cauldron_recipe/trait/negative/funnyvoice
+	materia = list(/datum/materia_aspect/air, /datum/materia_aspect/arcyne)
+
+/obj/item/alch/rubedo_reagent/mending
+	name = "\improper Careworn Respite"
+	icon_state = "whitepowder"
+	sellprice = SELLPRICE_ARCANE_DUST_HIGH
+	desc = "A potent alchemical creation, it bonds readily to anything it touches."
+	complete_pot = /datum/alch_cauldron_recipe/repairelixir
+	materia = list(/datum/materia_aspect/water, /datum/materia_aspect/arcyne)
+
 
 //dust mix crafting
 /datum/crafting_recipe/roguetown/alch/feaudust

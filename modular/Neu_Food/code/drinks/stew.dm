@@ -1036,13 +1036,27 @@
 	foodtype = VEGETABLES
 	//CC Edit End
 
-/datum/reagent/consumable/soup/stew/nutty_stew
-	name = "nutty stew"
+/datum/reagent/consumable/soup/stew/nutty_stew                         //cc edit to add stimulant properties
+	name = "rocknut stimulant stew"
 	color = "#807b78"
 	taste_description = "nutty"
 	//CC Edit Begin
 	foodtype = GRAIN
 	//CC Edit End
+
+/datum/reagent/consumable/soup/stew/nutty_stew/on_mob_life(mob/living/carbon/M)        //cc edit
+	if(!HAS_TRAIT(M,TRAIT_INFINITE_STAMINA))
+		M.energy_add(8)
+		M.dizziness = max(0, M.dizziness - 5)
+		M.drowsyness = max(0, M.drowsyness - 3)
+		M.SetSleeping(0, FALSE)
+	if(M.blood_volume < BLOOD_VOLUME_NORMAL)
+		M.blood_volume = min(M.blood_volume+10, BLOOD_VOLUME_MAXIMUM)
+	if(M.has_status_effect(/datum/status_effect/debuff/sleepytime))
+		M.remove_status_effect(/datum/status_effect/debuff/sleepytime)
+		M.remove_stress(/datum/stressevent/sleepytime)
+		M.mind.sleep_adv.advance_cycle()
+	..()
 
 /datum/reagent/consumable/soup/stew/tomato_soup
 	name = "tomato soup"
