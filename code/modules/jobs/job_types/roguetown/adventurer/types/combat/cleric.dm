@@ -133,6 +133,18 @@
 			mask = /obj/item/clothing/head/roguetown/eoramask
 		if (/datum/patron/divine/xylix)
 			cloak = /obj/item/clothing/cloak/tabard/devotee/xylix
+		if (/datum/patron/divine/undivided)
+			mask = /obj/item/clothing/head/roguetown/roguehood/undividedcleric
+			if(H.mind)
+				var/cloaks = list("Cloak", "Tabard", "Robes")
+				var/cloakchoice = input(H,"Choose your covering", "TAKE UP FASHION") as anything in cloaks
+				switch(cloakchoice)
+					if("Cloak")
+						H.equip_to_slot_or_del(new /obj/item/clothing/cloak/undividedcleric, SLOT_CLOAK, TRUE)
+					if("Tabard")
+						H.equip_to_slot_or_del(new /obj/item/clothing/cloak/templar/undividedcleric, SLOT_CLOAK, TRUE)
+					if("Robes")
+						H.equip_to_slot_or_del(new /obj/item/clothing/suit/roguetown/shirt/robe/undividedcleric, SLOT_CLOAK, TRUE)
 		else
 			cloak = /obj/item/clothing/suit/roguetown/shirt/robe //placeholder, anyone who doesn't have cool patron drip sprites just gets generic robes
 			mask = /obj/item/clothing/head/roguetown/roguehood
@@ -533,6 +545,15 @@
 			cloak = /obj/item/clothing/cloak/tabard/devotee/xylix
 		if (/datum/patron/divine/pestra)
 			cloak = /obj/item/clothing/cloak/tabard/devotee/pestra
+		if (/datum/patron/divine/undivided)
+			if(H.mind)
+				var/cloaks = list("Cloak", "Tabard")
+				var/cloakchoice = input(H,"Choose your covering", "TAKE UP FASHION") as anything in cloaks
+				switch(cloakchoice)
+					if("Cloak")
+						H.equip_to_slot_or_del(new /obj/item/clothing/cloak/undividedcleric, SLOT_CLOAK, TRUE)
+					if("Tabard")
+						H.equip_to_slot_or_del(new /obj/item/clothing/cloak/templar/undividedcleric, SLOT_CLOAK, TRUE)
 		else
 			cloak = /obj/item/clothing/cloak/cape/crusader
 	if(H.mind)
@@ -659,8 +680,16 @@
 			cloak = /obj/item/clothing/cloak/absolutionistrobe/black
 			head = /obj/item/clothing/head/roguetown/roguehood/psydon/black
 		if(/datum/patron/divine/undivided)
-			head = /obj/item/clothing/head/roguetown/roguehood
-			cloak = /obj/item/clothing/cloak/tabard/stabard/crusader/undivided
+			head = /obj/item/clothing/head/roguetown/roguehood/undividedcleric
+			armor = /obj/item/clothing/suit/roguetown/shirt/robe/undividedcleric //Only exclusion cause it looks bad without the cloak over it
+			if(H.mind)
+				var/cloaks = list("Cloak", "Tabard")
+				var/cloakchoice = input(H,"Choose your covering", "TAKE UP FASHION") as anything in cloaks
+				switch(cloakchoice)
+					if("Cloak")
+						H.equip_to_slot_or_del(new /obj/item/clothing/cloak/undividedcleric, SLOT_CLOAK, TRUE)
+					if("Tabard")
+						H.equip_to_slot_or_del(new /obj/item/clothing/cloak/templar/undividedcleric, SLOT_CLOAK, TRUE)
 			H.adjust_skillrank(/datum/skill/magic/holy, SKILL_LEVEL_NOVICE, TRUE)
 		if(/datum/patron/divine/astrata)
 			head = /obj/item/clothing/head/roguetown/roguehood/astrata

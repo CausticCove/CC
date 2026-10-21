@@ -83,6 +83,7 @@ GLOBAL_VAR_INIT(adventurer_hugbox_duration_still, 3 MINUTES)
 		/datum/advclass/foreigner/otava_maid,
 		//CC edit end
 	)
+	has_subprefs = TRUE
 
 /datum/status_effect/advclass_selection
 	id = "advclass_selection"

@@ -4,7 +4,7 @@ import { Button, Image, Section, Stack, Table } from 'tgui-core/components';
 
 import { SortButton } from './CharacterDirectorySortButton';
 //import { getTagColor } from './constants';
-import type { mobEntry } from './types';
+import type { mobEntry, mobEntrySortableKey } from './types';
 
 export const CharacterDirectoryList = (props: {
   directory: mobEntry[];
@@ -14,7 +14,7 @@ export const CharacterDirectoryList = (props: {
 
   const { directory, onOpenAd } = props;
 
-  const [sortId, setSortId] = useState<string>('name');
+  const [sortId, setSortId] = useState<mobEntrySortableKey>('name');
   const [sortOrder, setSortOrder] = useState<boolean>(true);
   const [hoveredAction, setHoveredAction] = useState<string | null>(null);
 

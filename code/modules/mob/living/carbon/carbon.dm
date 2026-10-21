@@ -4,14 +4,16 @@
 	RegisterSignal(src, SIGNAL_ADDTRAIT(TRAIT_DARKVISION), PROC_REF(on_darkvision_trait_changed))
 	RegisterSignal(src, SIGNAL_REMOVETRAIT(TRAIT_DARKVISION), PROC_REF(on_darkvision_trait_changed))
 
-	pain_threshold = STAWIL * 10
-
-	if(HAS_TRAIT(src, TRAIT_NOPAIN))
-		pain_threshold = 250
+	recalculate_pain_threshold()
 
 	create_reagents(1000)
 	update_body_parts() //to update the carbon's new bodyparts appearance
 	GLOB.carbon_list += src
+
+/mob/living/carbon/proc/recalculate_pain_threshold()
+	pain_threshold = STAWIL * 10
+	if(HAS_TRAIT(src, TRAIT_NOPAIN))
+		pain_threshold = 250
 
 /mob/living/carbon/Destroy()
 	//This must be done first, so the mob ghosts correctly before DNA etc is nulled
@@ -333,7 +335,7 @@
 
 	for(var/i in 1 to held_items.len)
 		var/obj/item/I = get_item_for_held_index(i)
-		dat += "<BR><B>[get_held_index_name(i)]:</B> </td><td><A href='?src=[REF(src)];item=[SLOT_HANDS];hand_index=[i]'>[(I && !(I.item_flags & ABSTRACT)) ? I : "Nothing"]</a>"
+		dat += "<BR><B>[get_held_index_name(i)]:</B> <A href='?src=[REF(src)];item=[SLOT_HANDS];hand_index=[i]'>[(I && !(I.item_flags & ABSTRACT)) ? I : "Nothing"]</a>"
 
 	dat += "<BR><B>Back:</B> <A href='?src=[REF(src)];item=[SLOT_BACK]'>[back ? back : "Nothing"]</A>"
 
@@ -1271,7 +1273,7 @@
 
 /mob/living/carbon/vv_get_dropdown()
 	. = ..()
-	VV_DROPDOWN_OPTION("", "---------")
+	VV_DROPDOWN_OPTION("", "--- /carbon ---")
 	VV_DROPDOWN_OPTION(VV_HK_MODIFY_BODYPART, "Modify bodypart")
 	VV_DROPDOWN_OPTION(VV_HK_MODIFY_ORGANS, "Modify organs")
 	VV_DROPDOWN_OPTION(VV_HK_HALLUCINATION, "Hallucinate")

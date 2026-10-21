@@ -34,6 +34,11 @@
 	path = /obj/item/clothing/gloves/roguetown/bandages
 	sort_category = "Accessories"
 
+/datum/loadout_item/leathergloves
+	name = "Leather Gloves"
+	path = /obj/item/clothing/gloves/roguetown/leather
+	sort_category = "Accessories"
+
 /datum/loadout_item/silkbelt
 	name = "Giltsilk Belt"
 	path = /obj/item/storage/belt/rogue/leather/silkbelt
@@ -43,6 +48,11 @@
 /datum/loadout_item/ragmask
 	name = "Rag Mask"
 	path = /obj/item/clothing/mask/rogue/ragmask
+	sort_category = "Accessories"
+
+/datum/loadout_item/flimsy_visor
+	name = "Helmetless Visor"
+	path = /obj/item/clothing/mask/rogue/facemask/steel/visor/flimsy
 	sort_category = "Accessories"
 
 /datum/loadout_item/halfmask
@@ -121,6 +131,11 @@
 	path = /obj/item/clothing/neck/roguetown/collar/woolen
 	sort_category = "Accessories"
 
+/datum/loadout_item/furcollar
+	name = "Fur Collar"
+	path = /obj/item/clothing/neck/roguetown/collar/fur
+	sort_category = "Accessories"
+
 /datum/loadout_item/cloth_blindfold
 	name = "Cloth Blindfold"
 	path = /obj/item/clothing/mask/rogue/blindfold
@@ -154,6 +169,21 @@
 /datum/loadout_item/doublebelt
 	name = "Paired slim belts"
 	path = /obj/item/storage/belt/rogue/leather/double
+	sort_category = "Accessories"
+
+/datum/loadout_item/knifebelt // comes empty
+	name = "Tossblade Belt"
+	path = /obj/item/storage/belt/rogue/leather/knifebelt/black
+	sort_category = "Accessories"
+
+/datum/loadout_item/blackbelt
+	name = "Black Belt"
+	path = /obj/item/storage/belt/rogue/leather/black
+	sort_category = "Accessories"
+
+/datum/loadout_item/suspenders
+	name = "Suspenders"
+	path = /obj/item/storage/belt/rogue/leather/suspenders
 	sort_category = "Accessories"
 
 /datum/loadout_item/psicross

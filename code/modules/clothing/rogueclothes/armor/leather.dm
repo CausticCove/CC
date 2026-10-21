@@ -176,17 +176,30 @@
 
 /obj/item/clothing/suit/roguetown/armor/leather/heavy/coat/raneshen
 	name = "megarmach scale coat"
-	desc = "A set of lightweight armor fashioned from the scales of the Ranesheni \'megarmach\', an armored reptilian creacher that ambushes prey by the riverside, and drags them deep into Abyssor's domain."
+	desc = "A set of lightweight armor fashioned from the scales of the Ranesheni \"megarmach\", an armored reptilian creacher that ambushes prey by the riverside, and drags them deep into Abyssor's domain."
 	icon_state = "pangolin"
 	item_state = "pangolin"
 	color = null
 
 /obj/item/clothing/suit/roguetown/armor/leather/heavy/coat/steppe
-	name = "fur-woven hatanga coat"
-	desc = "A finely woven hatagna coat, replacing much of its scaled armor with fine furs and reinforced padding for lighter rides."
+	name = "fur-woven chargah coat"
+	desc = "A finely woven chargah coat, replacing much of its scaled armor with fine furs and reinforced padding for lighter rides."
+	icon_state = "chargahfur"
+	item_state = "chargahfur"
+	color = null
+
+/obj/item/clothing/suit/roguetown/armor/leather/heavy/coat/elven
+	name = "fur-lined trophy robes"
+	desc = "A heavy set of hardened robes, lined with fur. The leather is composed of several creatures that were notably difficult to fell by arrow. A proof or rangership among many."
 	icon_state = "hatangafur"
 	item_state = "hatangafur"
 	color = null
+
+/obj/item/clothing/suit/roguetown/armor/leather/heavy/coat/elven/loadout
+	name = "aesthetic fur-lined trophy robes"
+
+/obj/item/clothing/suit/roguetown/armor/leather/heavy/coat/steppe/loadout
+	name = "aesthetic fur-woven hatanga coat"
 
 /obj/item/clothing/suit/roguetown/armor/leather/heavy/coat/gravecoat
 	name = "gravetender's coat"
@@ -204,6 +217,9 @@
 	item_state = "hatanga"
 	sellprice = 100
 	color = null
+
+/obj/item/clothing/suit/roguetown/armor/leather/heavy/coat/trophyfur/loadout
+	name = "aesthetic treated trophy fur robes"
 
 /obj/item/clothing/suit/roguetown/armor/leather/heavy/jacket
 	name = "hardened leather jacket"
@@ -248,6 +264,12 @@
 /obj/item/clothing/suit/roguetown/armor/leather/heavy/freifechter/Initialize()
 	..()
 	update_icon()
+
+/obj/item/clothing/suit/roguetown/armor/leather/heavy/freifechter/loadout
+	name = "aesthetic fencing jacket"
+	max_integrity = ARMOR_INT_CHEST_CIVILIAN
+	armor = ARMOR_CLOTHING
+	armor_class = ARMOR_CLASS_NONE
 
 /obj/item/clothing/suit/roguetown/armor/leather/heavy/shepherd
 	name = "shepherd's vest"
@@ -406,3 +428,16 @@
 	detail_color = CLOTHING_DARK_GREY
 	slot_flags = ITEM_SLOT_ARMOR
 	armor = ARMOR_PADDED
+
+/obj/item/clothing/suit/roguetown/armor/leather/druid
+	name = "druid armor"
+	desc = "A carefully layered armor of cured leather, living oak bark, and woven leaves. Flexible yet resilient, it carries the quiet strength of the forest."
+	icon_state = "druidarmor"
+	item_state = "druidarmor"
+	color = null
+	icon = 'icons/roguetown/clothing/armor.dmi'
+	sleeved = 'icons/roguetown/clothing/onmob/helpers/sleeves_armor.dmi'
+	mob_overlay_icon = 'icons/roguetown/clothing/onmob/armor.dmi'
+	slot_flags = ITEM_SLOT_ARMOR
+	armor = ARMOR_LEATHER
+

@@ -42,6 +42,8 @@
 		// /datum/virtue/combat/bowman,
 		/datum/virtue/utility/feytouched
 		)
+	quirk_restrictions = list(/datum/quirk/noble, /datum/quirk/feytouched)
 	job_subclasses = list(
 		/datum/advclass/hag,
 	)
+	has_subprefs = FALSE // only one subclass

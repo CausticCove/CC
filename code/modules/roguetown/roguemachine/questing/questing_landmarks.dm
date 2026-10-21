@@ -25,15 +25,6 @@
 	SSquestpool?.unregister_landmark(src)
 	return ..()
 
-/obj/effect/landmark/quest_spawner/proc/add_quest_faction_to_nearby_mobs(turf/center)
-	if(!center)
-		return
-	for(var/mob/living/M in view(7, center))
-		if(M.z != center.z)
-			continue
-		if(!M.ckey && !("quest" in M.faction))
-			M.faction |= "quest"
-
 /obj/effect/landmark/quest_spawner/proc/get_safe_spawn_turf()
 	var/list/possible_turfs = list()
 	var/turf/origin = get_turf(src)

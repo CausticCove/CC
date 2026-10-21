@@ -1,5 +1,9 @@
 /mob/living/carbon/human/species/skeleton/npc/cultist
-	skel_outfit = /datum/outfit/job/roguetown/skeleton/npc/cultist
+	threat_point = THREAT_LOW
+
+/mob/living/carbon/human/species/skeleton/npc/cultist/after_creation()
+	. = ..()
+	equipOutfit(/datum/outfit/job/roguetown/skeleton/npc/cultist)
 
 /datum/outfit/job/roguetown/skeleton/npc/cultist/pre_equip(mob/living/carbon/human/H)
 	..()
@@ -53,7 +57,11 @@
 
 
 /mob/living/carbon/human/species/skeleton/npc/miner
-	skel_outfit = /datum/outfit/job/roguetown/skeleton/npc/miner
+	threat_point = THREAT_LOW
+
+/mob/living/carbon/human/species/skeleton/npc/miner/after_creation()
+	. = ..()
+	equipOutfit(/datum/outfit/job/roguetown/skeleton/npc/miner)
 
 /datum/outfit/job/roguetown/skeleton/npc/miner/pre_equip(mob/living/carbon/human/H)
 	..()

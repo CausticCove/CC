@@ -36,6 +36,18 @@
 
 	extra_context = "This subclass gain the Wound Heal miracle and the Convert Heretic spell."
 
+/datum/advclass/wretch/heretic/get_vice_limits(mob/living/carbon/human/H)
+	. = ..()
+	if(istype(H.patron, /datum/patron/old_god) || HAS_TRAIT(H, TRAIT_PSYDONIAN_GRIT))
+		if(!(/datum/charflaw/silverweakness in .))
+			. += /datum/charflaw/silverweakness
+
+/datum/advclass/wretch/heretic/get_prefs_vice_limits(client/player)
+	. = ..()
+	if(istype(player?.prefs?.selected_patron, /datum/patron/old_god))
+		if(!(/datum/charflaw/silverweakness in .))
+			. += /datum/charflaw/silverweakness
+
 /datum/outfit/job/roguetown/wretch/heretic
 	has_loadout = TRUE
 
@@ -245,14 +257,14 @@
 			H.change_stat(STATKEY_PER, 2)
 			H.equip_to_slot_or_del(new /obj/item/clothing/neck/roguetown/psicross/undivided, SLOT_RING, TRUE)
 			H.adjust_skillrank(/datum/skill/magic/holy, 1, TRUE)
-			if(H.mind)
+			if(H.mind) //To make it obviously not clergy related
 				var/cloaks = list("Cloak", "Tabard")
 				var/cloakchoice = input(H,"Choose your covering", "TAKE UP FASHION") as anything in cloaks
 				switch(cloakchoice)
 					if("Cloak")
-						H.equip_to_slot_or_del(new /obj/item/clothing/cloak/undivided, SLOT_CLOAK, TRUE)
+						H.equip_to_slot_or_del(new /obj/item/clothing/cloak/undividedcleric, SLOT_CLOAK, TRUE)
 					if("Tabard")
-						H.equip_to_slot_or_del(new /obj/item/clothing/cloak/templar/undivided, SLOT_CLOAK, TRUE)
+						H.equip_to_slot_or_del(new /obj/item/clothing/cloak/templar/undividedcleric, SLOT_CLOAK, TRUE)
 		if(/datum/patron/old_god)
 			H.equip_to_slot_or_del(new /obj/item/clothing/neck/roguetown/psicross/silver, SLOT_RING, TRUE)
 			H.equip_to_slot_or_del(new /obj/item/clothing/suit/roguetown/armor/chainmail/hauberk/ornate, SLOT_ARMOR, TRUE)

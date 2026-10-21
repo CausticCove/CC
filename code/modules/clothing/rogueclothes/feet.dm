@@ -269,10 +269,20 @@
 	sleeved = 'icons/roguetown/clothing/onmob/helpers/stonekeep_merc.dmi'
 	armor = ARMOR_LEATHER
 	max_integrity = ARMOR_INT_SIDE_HARDLEATHER
-	allowed_race = NON_DWARVEN_RACE_TYPES
 	salvage_amount = 1
 	salvage_result = /obj/item/natural/hide/cured
 	sewrepair = TRUE
+
+/obj/item/clothing/shoes/roguetown/grenzelhoft/ComponentInitialize()
+	AddComponent(/datum/component/armour_filtering/positive, TRAIT_FENCERDEXTERITY)
+	AddComponent(/datum/component/armour_filtering/negative, TRAIT_HONORBOUND)
+
+/obj/item/clothing/shoes/roguetown/grenzelhoft/loadout
+	name = "aesthetic grenzelhoft boots"
+
+/obj/item/clothing/shoes/roguetown/grenzelhoft/loadout/Initialize()
+	. = ..()
+	loadoutize()
 
 /obj/item/clothing/shoes/roguetown/grenzelhoft/freifechter
 	name = "fencing boots"
@@ -280,6 +290,13 @@
 	icon_state = "freiboots"
 	item_state = "freiboots"
 	max_integrity = ARMOR_INT_SIDE_HARDLEATHER + ARMOR_INT_LIGHT_FENCER_MODIFIER
+
+/obj/item/clothing/shoes/roguetown/grenzelhoft/freifechter/loadout
+	name = "aesthetic fencing boots"
+
+/obj/item/clothing/shoes/roguetown/grenzelhoft/freifechter/loadout/Initialize()
+	. = ..()
+	loadoutize()
 
 /obj/item/clothing/shoes/roguetown/boots/armor/dwarven
 	name = "grudgebearer dwarven boots"
@@ -886,10 +903,55 @@
 	max_integrity = ARMOR_INT_SIDE_HARDLEATHER
 
 /obj/item/clothing/shoes/roguetown/sandals/toga
-	name = "toga sandals"
-	desc = "A fancy pair of sandals delicately woven in a style that harken back to bygone yils of antiquity."
+	name = "classical sandals"
+	desc = "A fancy pair of sandals delicately woven in a style that hark back to bygone yils of antiquity."
 	gender = PLURAL
 	icon_state = "togasandals"
 	item_state = "togasandals"
 	salvage_amount = 1
 	salvage_result = /obj/item/natural/cloth
+
+/obj/item/clothing/shoes/roguetown/rosa
+	name = "ivory shoes"
+	desc = "Finely crafted shoes of silk and leather."
+	icon_state = "rosashoes1"
+	icon = 'icons/roguetown/clothing/special/rosewood.dmi'
+	mob_overlay_icon = 'icons/roguetown/clothing/special/onmob/rosewood.dmi'
+	sleeved = 'icons/roguetown/clothing/special/onmob/rosewood.dmi'
+
+/obj/item/clothing/shoes/roguetown/rosa/two
+	name = "scarlet shoes"
+	icon_state = "rosashoes2"
+
+/obj/item/clothing/shoes/roguetown/rosa/three
+	name = "silvered shoes"
+	icon_state = "rosashoes3"
+
+/obj/item/clothing/shoes/roguetown/rosa/four
+	name = "obsidian shoes"
+	icon_state = "rosashoes4"
+
+/obj/item/clothing/shoes/roguetown/rosa/five
+	name = "sable shoes"
+	icon_state = "rosashoes5"
+
+/obj/item/clothing/shoes/roguetown/rosa/six
+	name = "maroon shoes"
+	icon_state = "rosashoes6"
+
+/obj/item/clothing/shoes/roguetown/rosa/seven
+	name = "regal shoes"
+	icon_state = "rosashoes7"
+
+/obj/item/clothing/shoes/roguetown/rosa/eight
+	name = "courtly shoes"
+	icon_state = "rosashoes8"
+
+/obj/item/clothing/shoes/roguetown/rosa/nine
+	name = "royal shoes"
+	icon_state = "rosashoes9"
+
+/obj/item/clothing/shoes/roguetown/rosa/ten
+	name = "stately shoes"
+	icon_state = "rosashoes10"
+

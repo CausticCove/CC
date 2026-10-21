@@ -94,19 +94,7 @@
 				change_stat(STATKEY_CON, -2)
 				change_stat(STATKEY_INT, 2)
 				change_stat(STATKEY_LCK, 1)
-		if(key)
-			if(check_blacklist(ckey(key)))
-				change_stat(STATKEY_STR, -5)
-				change_stat(STATKEY_SPD, -20)
-				change_stat(STATKEY_WIL, -2)
-				change_stat(STATKEY_CON, -2)
-				change_stat(STATKEY_INT, -20)
-				change_stat(STATKEY_LCK, -20)
-			if(check_psychokiller(ckey(key)))
 
-				H.eye_color = "ff0000"
-				H.voice_color = "ff0000"
-	
 	update_sight() //Caustic Edit - Adding in with the Perception effecting Darvision Port
 
 /mob/living/proc/get_stat(stat)

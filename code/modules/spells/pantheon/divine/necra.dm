@@ -321,8 +321,8 @@ var/global/mob/_corpse_sort_ref = null
 	var/list/departed = list()
 	var/list/forsaken = list()
 
-	for(var/mob/living/carbon/C in GLOB.mob_list)
-		if(!C || QDELETED(C))
+	for(var/mob/living/carbon/C in GLOB.dead_mob_list)
+		if(QDELETED(C) || C.burialrited || C.contract_spawned)
 			continue
 
 		// --- corpse logic ---
@@ -998,7 +998,7 @@ var/global/mob/_corpse_sort_ref = null
 	// Cleanup after duration
 	addtimer(CALLBACK(S, TYPE_PROC_REF(/mob/dead/observer, reenter_corpse)), 8 SECONDS)
 
-	addtimer(CALLBACK(spygrave, TYPE_PROC_REF(/atom/movable, remove_filter), GRAVE_SPY), 8 SECONDS)
+	addtimer(CALLBACK(spygrave, TYPE_PROC_REF(/datum, remove_filter), GRAVE_SPY), 8 SECONDS)
 
 	return TRUE
 

@@ -506,3 +506,58 @@
 //Can do conversions here
 /datum/vore_preferences/proc/patch_version(var/list/json_from_file,var/version)
 	return json_from_file
+
+//
+// Copy and Delete Vore Prefs
+//
+/datum/vore_preferences/proc/build_path(ckey, slot, filename="character", ext="json")
+	if(!ckey || !slot)
+		return
+	path = "data/player_saves/[copytext(ckey,1,2)]/[ckey]/vore/[filename][slot].[ext]"
+
+/datum/vore_preferences/proc/copy_vore(from_index, to_index)
+	if(!client || !client_ckey)
+		return FALSE
+	if(!from_index || !to_index)
+		return FALSE //Were we sent two actual indecies?
+
+	var/from_path = build_path(client_ckey, from_index)
+	if(!from_path)
+		return FALSE //Path couldn't be set?
+	if(!fexists(from_path))
+		return FALSE //No file, somehow
+
+	var/to_path = build_path(client_ckey, to_index)
+	if(!to_path)
+		return FALSE //The destination path failed?
+
+	var/source_json_file = file2text(from_path) //Don't need to bother Decoding or encoding it, we just want to write it to the other.
+	if(!source_json_file)
+		return FALSE //My concern grows
+
+	//Copy it over
+	rustg_file_write(source_json_file, to_path)
+
+	if(!fexists(to_path))
+		log_runtime("Copying Vore Prefs from [from_path] to [to_path] failed")
+		return FALSE
+
+	return TRUE
+
+/datum/vore_preferences/proc/delete_vore(delete_index)
+	if(!client || !client_ckey)
+		return FALSE
+	if(!delete_index)
+		return FALSE
+
+	var/delete_path = build_path(client_ckey, delete_index)
+	if(!delete_path)
+		return FALSE
+	if(!fexists(delete_path))
+		return TRUE //It already doesn't exist! Somehow? Well, nothing to delete then.
+
+	if(!fdel(delete_path))
+		log_runtime("Deleting Vore Prefs at [delete_path] failed")
+		return FALSE
+
+	return TRUE

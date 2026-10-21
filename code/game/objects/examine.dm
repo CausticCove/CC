@@ -51,7 +51,7 @@
 	. = ..()
 	. += integrity_check()
 
-	var/derived_cat = GLOB.derived_categories ? GLOB.derived_categories[type] : null
+	var/derived_cat = get_derived_category(type)
 	var/display_cat = derived_cat
 	if(derived_cat)
 		var/bucket = get_navigator_bucket_for_item(src, derived_cat)
@@ -59,7 +59,7 @@
 			display_cat = bucket
 	var/list/quality_data = quality_examine_suffix()
 	var/quality_tag = quality_data ? " - [quality_data["text"]]" : ""
-	if(HAS_TRAIT(user, TRAIT_SEEPRICES) || simpleton_price)
+	if(HAS_TRAIT(user, TRAIT_SEEPRICES) || simpleton_price || isobserver(user))
 		var/appraised_value = appraise_price()
 		if(appraised_value > 0)
 			var/cat_tag = display_cat ? " - <b>[display_cat]</b>" : ""

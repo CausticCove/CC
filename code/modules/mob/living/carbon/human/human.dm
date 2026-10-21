@@ -101,6 +101,9 @@
 	breath_remaining = 10
 	addtimer(CALLBACK(src, PROC_REF(update_breath_hud)), 1)
 
+	if(npc_archetype)
+		init_npc_archetype()
+
 
 /mob/living/carbon/human/ZImpactDamage(turf/T, levels)
 	var/obj/item/bodypart/affecting
@@ -177,12 +180,32 @@
 
 	dat += "<table>"
 
+	if(is_unclaimed_corpse())
+		var/has_fabric = FALSE
+		var/has_smelt = FALSE
+		for(var/obj/item/I in (get_equipped_items(TRUE) + held_items))
+			if(I.item_flags & ABSTRACT)
+				continue
+			if(I.is_salvageable())
+				has_fabric = TRUE
+			if(I.is_smeltable())
+				has_smelt = TRUE
+			if(has_fabric && has_smelt)
+				break
+		dat += "<tr><td><A href='?src=[REF(src)];strip_all=[LOOT_FILTER_ALL]'><B>Loot Everything</B></A></td></tr>"
+		if(has_fabric)
+			dat += "<tr><td><A href='?src=[REF(src)];strip_all=[LOOT_FILTER_FABRIC]'>Loot Fabric</A></td></tr>"
+		if(has_smelt)
+			dat += "<tr><td><A href='?src=[REF(src)];strip_all=[LOOT_FILTER_SMELT]'>Loot Smeltable</A></td></tr>"
+		dat += "<tr><td><hr></td></tr>"
+
 	if(handcuffed)
 		dat += "<tr><td><A href='?src=[REF(src)];item=[SLOT_HANDCUFFED]'>Remove [handcuffed]</A></td></tr>"
 	if(legcuffed)
 		dat += "<tr><td><A href='?src=[REF(src)];item=[SLOT_LEGCUFFED]'>Remove [legcuffed]</A></td></tr>"
 
-	dat += "<tr><td><hr></td></tr>"
+	if(handcuffed || legcuffed)
+		dat += "<tr><td><hr></td></tr>"
 
 	for(var/i in 1 to held_items.len)
 		var/obj/item/I = get_item_for_held_index(i)
@@ -297,14 +320,11 @@
 	else
 		dat += "<tr><td><A href='?src=[REF(src)];item=[SLOT_SHOES]'>[(shoes && !(shoes.item_flags & ABSTRACT)) ? shoes : "<font color=grey>Boots</font>"]</A></td></tr>"
 
-	dat += "<tr><td><hr></td></tr>"
-
 #ifdef MATURESERVER
 	if(get_location_accessible(src, BODY_ZONE_PRECISE_GROIN, skipundies = TRUE))
-		dat += "<tr><td><BR><B>Underwear:</B> <A href='?src=[REF(src)];undiesthing=1'>[!underwear ? "Nothing" : "Remove"]</A></td></tr>"
-	dat += "<tr><td><hr></td></tr>"
-	if(get_location_accessible(src, BODY_ZONE_PRECISE_GROIN, skipundies = TRUE))
-		dat += "<tr><td><BR><B>Legwear:</B> <A href='?src=[REF(src)];legwearsthing=1'>[!legwear_socks ? "Nothing" : "Remove"]</A></td></tr>"
+		dat += "<tr><td><hr></td></tr>"
+		dat += "<tr><td><B>Underwear:</B> <A href='?src=[REF(src)];undiesthing=1'>[!underwear ? "Nothing" : "Remove"]</A></td></tr>"
+		dat += "<tr><td><B>Legwear:</B> <A href='?src=[REF(src)];legwearsthing=1'>[!legwear_socks ? "Nothing" : "Remove"]</A></td></tr>"
 #endif
 
 	dat += {"</table>"}
@@ -716,7 +736,7 @@
 
 /mob/living/carbon/human/vv_get_dropdown()
 	. = ..()
-	VV_DROPDOWN_OPTION("", "---------")
+	VV_DROPDOWN_OPTION("", "--- /human ---")
 	VV_DROPDOWN_OPTION(VV_HK_REAPPLY_PREFS, "Reapply Preferences")
 	VV_DROPDOWN_OPTION(VV_HK_SET_SPECIES, "Set Species")
 	VV_DROPDOWN_OPTION(VV_HK_PURGE_PARTOF_SLOT, "Purge Part of Slot")
@@ -958,40 +978,6 @@
 		remove_movespeed_modifier(MOVESPEED_ID_DAMAGE_SLOWDOWN)
 		remove_movespeed_modifier(MOVESPEED_ID_DAMAGE_SLOWDOWN_FLYING)
 
-/mob/living/carbon/human/adjust_nutrition(change) //Honestly FUCK the oldcoders for putting nutrition on /mob someone else can move it up because holy hell I'd have to fix SO many typechecks
-	if(HAS_TRAIT(src, TRAIT_NOHUNGER))
-		remove_status_effect(/datum/status_effect/debuff/hungryt1)
-		remove_status_effect(/datum/status_effect/debuff/hungryt2)
-		remove_status_effect(/datum/status_effect/debuff/hungryt3)
-		return FALSE
-
-	//Caustic Edit - Add a call to hook in the restarting of Natural Armor Regen
-	if(change > 0 && skin_armor)
-		if(istype(skin_armor, /obj/item/clothing/suit/roguetown/armor/regenerating/skin/natural_armor) && ((nutrition + change) > NUTRITION_LEVEL_HUNGRY))
-			var/obj/item/clothing/suit/roguetown/armor/regenerating/skin/natural_armor/armor = skin_armor
-			armor.restart_regen()
-	//Caustic Edit End
-
-	return ..()
-
-/mob/living/carbon/human/set_nutrition(change) //Seriously fuck you oldcoders.
-	if(HAS_TRAIT(src, TRAIT_NOHUNGER))
-		return FALSE
-	return ..()
-
-/mob/living/carbon/human/adjust_hydration(change)
-	if(HAS_TRAIT(src, TRAIT_NOHUNGER))
-		remove_status_effect(/datum/status_effect/debuff/thirstyt1)
-		remove_status_effect(/datum/status_effect/debuff/thirstyt2)
-		remove_status_effect(/datum/status_effect/debuff/thirstyt3)
-		return FALSE
-	return ..()
-
-/mob/living/carbon/human/set_hydration(change)
-	if(HAS_TRAIT(src, TRAIT_NOHUNGER))
-		return FALSE
-	return ..()
-
 /// copies the physical cosmetic features of another human mob.
 /mob/living/carbon/human/proc/copy_physical_features(mob/living/carbon/human/target)
 	if(!istype(target))
@@ -1168,3 +1154,25 @@
 	vocal_pitch_range = client.prefs.bark_variance
 	apply_voicepacks(src, client)
 	return TRUE
+
+// mood penalties for poor equipment as a noble: if they're not spawn equipment and are poor quality, mood debuff. if you're covered in blood, mood debuff
+/mob/living/carbon/human/check_equipment_mood_penalty()
+	if(HAS_TRAIT(src, TRAIT_NOBLE_UNLANDED))
+		var/any_bad = FALSE
+		var/any_bloody = FALSE
+		for(var/obj/item/I in get_equipped_items())
+			if(I.item_quality < ITEM_QUALITY_STANDARD)
+				any_bad = TRUE
+			if(!cmode && (HAS_BLOOD_DNA(I) || I.GetComponent(/datum/component/decal/blood)))
+				any_bloody = TRUE
+			if(any_bad && (cmode || any_bloody))
+				break
+		if(any_bad && !has_stress_event(/datum/stressevent/unlanded_noble_shitty_equipment))
+			add_stress(/datum/stressevent/unlanded_noble_shitty_equipment)
+		else if(!any_bad && has_stress_event(/datum/stressevent/unlanded_noble_shitty_equipment))
+			remove_stress(/datum/stressevent/unlanded_noble_shitty_equipment)
+
+		if(any_bloody && !has_stress_event(/datum/stressevent/unlanded_noble_bloody_equipment))
+			add_stress(/datum/stressevent/unlanded_noble_bloody_equipment)
+		else if(!any_bloody && has_stress_event(/datum/stressevent/unlanded_noble_bloody_equipment))
+			remove_stress(/datum/stressevent/unlanded_noble_bloody_equipment)

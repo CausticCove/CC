@@ -3,6 +3,7 @@
 	name = "robe"
 	desc = ""
 	body_parts_covered = CHEST|GROIN|ARMS|LEGS|VITALS
+	armor = ARMOR_CLOTHING
 	icon_state = "white_robe"
 	icon = 'icons/roguetown/clothing/armor.dmi'
 	mob_overlay_icon = 'icons/roguetown/clothing/onmob/armor.dmi'
@@ -13,6 +14,23 @@
 	r_sleeve_status = SLEEVE_NORMAL
 	l_sleeve_status = SLEEVE_NORMAL
 	experimental_inhand = TRUE
+	var/storage = TRUE
+
+	grid_width = 64
+	grid_height = 64
+
+/obj/item/clothing/suit/roguetown/shirt/robe/ComponentInitialize()
+	. = ..()
+	if(storage)
+		AddComponent(/datum/component/storage/concrete/roguetown/cloak)
+
+/obj/item/clothing/suit/roguetown/shirt/robe/dropped(mob/living/carbon/human/user)
+	..()
+	var/datum/component/storage/STR = GetComponent(/datum/component/storage)
+	if(STR)
+		var/list/things = STR.contents()
+		for(var/obj/item/I in things)
+			STR.remove_from_storage(I, get_turf(src))
 
 /obj/item/clothing/suit/roguetown/shirt/robe/unholy
 	name = "foreboding robes"
@@ -24,6 +42,7 @@
 	boobed = null
 	item_state = "warlock"
 	icon_state = "warlock"
+	storage = FALSE
 
 /obj/item/clothing/suit/roguetown/shirt/robe/unholy/lich
 	name = "ominous robes"
@@ -37,6 +56,7 @@
 	allowed_race = ALL_RACES_TYPES
 	item_state = "ewarlock"
 	icon_state = "ewarlock"
+	storage = FALSE
 
 /obj/item/clothing/suit/roguetown/shirt/robe/astrata
 	slot_flags = ITEM_SLOT_ARMOR|ITEM_SLOT_SHIRT|ITEM_SLOT_CLOAK
@@ -59,6 +79,20 @@
 	desc = "Undivided, we stand - a Pantheon of Ten, shepherding Psydonia's flock towards providence."
 	body_parts_covered = CHEST|GROIN|ARMS|LEGS|VITALS
 	icon_state = "undividedrobe"
+	icon = 'icons/roguetown/clothing/armor.dmi'
+	mob_overlay_icon = 'icons/roguetown/clothing/onmob/armor.dmi'
+	sleeved = null
+	boobed = TRUE
+	color = null
+	r_sleeve_status = SLEEVE_NORMAL
+	l_sleeve_status = SLEEVE_NORMAL
+
+/obj/item/clothing/suit/roguetown/shirt/robe/undividedcleric
+	slot_flags = ITEM_SLOT_ARMOR|ITEM_SLOT_SHIRT|ITEM_SLOT_CLOAK
+	name = "undivided clerical robe"
+	desc = "Undivided, we walk - a Pantheon of Ten, guiding Psydonia's wanderers towards providence."
+	body_parts_covered = CHEST|GROIN|ARMS|LEGS|VITALS
+	icon_state = "tenclericrobe"
 	icon = 'icons/roguetown/clothing/armor.dmi'
 	mob_overlay_icon = 'icons/roguetown/clothing/onmob/armor.dmi'
 	sleeved = null
@@ -167,6 +201,7 @@
 	resistance_flags = FIRE_PROOF // astratan
 	armor = ARMOR_PADDED	//Equal to gamby
 	color = null
+	storage = FALSE
 
 /obj/item/clothing/suit/roguetown/shirt/robe/priest/Initialize()
 	. = ..()
@@ -199,6 +234,12 @@
 	armor = ARMOR_PADDED	//Equal to a padded gambeson, like before.
 	max_integrity = ARMOR_INT_CHEST_LIGHT_MASTER
 	slot_flags = ITEM_SLOT_ARMOR|ITEM_SLOT_SHIRT
+	storage = FALSE
+	adjustable = CAN_CADJUST
+
+/obj/item/clothing/suit/roguetown/shirt/robe/monk/ComponentInitialize()
+	..()
+	AddComponent(/datum/component/adjustable_clothing, CHEST|GROIN|ARMS|VITALS, null, null, 'sound/foley/cloth_wipe (1).ogg', null, UPD_CHEST)
 
 //This is for templars/psydonites. Gives a boon for wearing it to counter-act giving up plate and such.
 /obj/item/clothing/suit/roguetown/shirt/robe/monk/holy
@@ -352,9 +393,16 @@
 	icon_state = "desertgown"
 	item_state = "desertgown"
 	color = null
+	storage = FALSE
+
+/obj/item/clothing/suit/roguetown/shirt/robe/hierophant/loadout
+	name = "aesthetic hierophant's kandys"
+	armor = ARMOR_CLOTHING
+	max_integrity = ARMOR_INT_CHEST_CIVILIAN
+	armor_class = ARMOR_CLASS_NONE
 
 /obj/item/clothing/suit/roguetown/shirt/robe/pointfex
-	name = "pointfex's qaba"
+	name = "pontifex's qaba"
 	desc = "A slimmed down, tighter fitting robe made of fine silks and fabrics. Somehow you feel more mobile in it than in the nude. Despite the light fabric, it offers decent protection."
 	armor = ARMOR_PADDED
 	icon_state = "monkcloth"
@@ -362,6 +410,13 @@
 	color = null
 	r_sleeve_status = SLEEVE_NOMOD
 	l_sleeve_status = SLEEVE_NOMOD
+	storage = FALSE
+
+/obj/item/clothing/suit/roguetown/shirt/robe/pointfex/loadout
+	name = "aesthetic pontifex's qaba"
+	armor = ARMOR_CLOTHING
+	max_integrity = ARMOR_INT_CHEST_CIVILIAN
+	armor_class = ARMOR_CLASS_NONE
 
 /obj/item/clothing/suit/roguetown/shirt/robe/feld
 	name = "feldsher's robe"
@@ -410,5 +465,90 @@
 	mob_overlay_icon = 'icons/roguetown/clothing/onmob/armor.dmi'
 	color = CLOTHING_WHITE
 
-	
-	
+/obj/item/clothing/suit/roguetown/shirt/robe/lunar
+	slot_flags = ITEM_SLOT_ARMOR|ITEM_SLOT_SHIRT
+	name = "moonlit robe"
+	desc = "A moon-silver robe that catches the glint of Noc's light."
+	icon_state = "lunarrobe"
+	item_state = "lunarrobe"
+	icon = 'icons/roguetown/clothing/armor.dmi'
+	sleeved = 'icons/roguetown/clothing/onmob/shirts.dmi'
+	mob_overlay_icon = 'icons/roguetown/clothing/onmob/armor.dmi'
+	r_sleeve_status = SLEEVE_NORMAL
+	l_sleeve_status = SLEEVE_NORMAL
+	storage = FALSE
+	color = null
+
+/obj/item/clothing/suit/roguetown/shirt/robe/magician
+	slot_flags = ITEM_SLOT_ARMOR|ITEM_SLOT_SHIRT
+	name = "mage robe"
+	desc = "Simple but finely woven robes favored by the mages. The cloth is light, warm, and practical."
+	icon_state = "magerobe"
+	item_state = "magerobe"
+	icon = 'icons/roguetown/clothing/armor.dmi'
+	sleeved = 'icons/roguetown/clothing/onmob/shirts.dmi'
+	mob_overlay_icon = 'icons/roguetown/clothing/onmob/armor.dmi'
+	r_sleeve_status = SLEEVE_NORMAL
+	l_sleeve_status = SLEEVE_NORMAL
+	storage = FALSE
+	color = null
+
+/obj/item/clothing/suit/roguetown/shirt/robe/leopard/get_mechanics_examine(mob/user)
+	. = ..()
+	. += span_info("Right-clicking this robe allows for it to be dynamically worn as a traditional robe, or as an open robe that partially exposes the chest.")
+
+/obj/item/clothing/suit/roguetown/shirt/robe/leopard
+	slot_flags = ITEM_SLOT_ARMOR|ITEM_SLOT_SHIRT
+	name = "leopard robe"
+	desc = "An exquisite silky robe with a leopard pattern."
+	icon_state = "lpbathrobe"
+	item_state = "lpbathrobe"
+	icon = 'icons/roguetown/clothing/shirts.dmi'
+	sleeved = 'icons/roguetown/clothing/onmob/helpers/sleeves_shirts.dmi'
+	mob_overlay_icon = 'icons/roguetown/clothing/onmob/shirts.dmi'
+	storage = FALSE
+	var/open_wear = FALSE
+
+/obj/item/clothing/suit/roguetown/shirt/robe/leopard/alt
+	slot_flags = ITEM_SLOT_ARMOR|ITEM_SLOT_SHIRT
+	name = "open leopard robe"
+	desc = "An exquisite silky robe with a leopard pattern, untied to reveal what's beneath."
+	icon_state = "lpbathrobe_open"
+	item_state = "lpbathrobe_open"
+	icon = 'icons/roguetown/clothing/shirts.dmi'
+	sleeved = 'icons/roguetown/clothing/onmob/helpers/sleeves_shirts.dmi'
+	mob_overlay_icon = 'icons/roguetown/clothing/onmob/shirts.dmi'
+	storage = FALSE
+	open_wear = TRUE
+
+/obj/item/clothing/suit/roguetown/shirt/robe/leopard/MiddleClick(mob/user)
+	..()
+	user.update_inv_shirt()
+
+/obj/item/clothing/suit/roguetown/shirt/robe/leopard/attack_right(mob/user)
+	switch(open_wear)
+		if(FALSE)
+			name = "bared leopard robe"
+			desc = "An exquisite silky robe with a leopard pattern, untied to reveal what's beneath."
+			body_parts_covered = GROIN
+			icon_state = "lpbathrobe_open"
+			item_state = "lpbathrobe_open"
+			open_wear = TRUE
+			flags_inv = HIDECROTCH
+			to_chat(usr, span_warning("You pull back the threaded cloth, baring your heart to Psydonia's eyes."))
+		if(TRUE)
+			name = "leopard robe"
+			desc = "An exquisite silky robe with a leopard pattern."
+			body_parts_covered = CHEST|GROIN
+			icon_state = "lpbathrobe"
+			item_state = "lpbathrobe"
+			flags_inv = HIDECROTCH|HIDEBOOB
+			open_wear = FALSE
+			to_chat(usr, span_warning("You cloak yourself in the threaded cloth, veiling your heart from Psydonia's eyes."))
+	update_icon()
+	if(user)
+		if(ishuman(user))
+			var/mob/living/carbon/H = user
+			H.update_inv_cloak()
+			H.update_inv_armor()
+

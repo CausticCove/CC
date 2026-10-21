@@ -23,9 +23,15 @@ type Data = {
   free_send_ready: 0 | 1;
   free_send_remaining_ds: number;
   has_tube?: boolean;
+  ghost_mode?: boolean;
+  delay_min?: number;
+  delay_max?: number;
+  letter_count?: number;
   travellingmerchant_static?: tm_static;
   travellingmerchant?: tm;
 };
+
+const dsToMinutes = (ds: number) => Math.round(ds / 600);
 
 const dsToClock = (ds: number) => {
     if (ds <= 0) return '0s';
@@ -40,23 +46,37 @@ type tm = {
   favours: number;
   unlockedCats: string[];
   catunlockspending : number;
-  currentcart: merchant_supply_pack_cat[];
+  currentcart: Record<string, Record<string, merchant_supply_pack>>;//merchant_supply_pack_cat[string];
 }
 
 type tm_static = {
-  supplypacks: merchant_supply_pack_cat[]
+  supplypacks: Record<string, Record<string, merchant_supply_pack>>;//merchant_supply_pack_cat[string];
 }
 
-type merchant_supply_pack_cat = {
+/*type merchant_supply_pack_cat = {
 
-}
+}*/
 
 
 
 
 export const Hermes = (props: any, context: any) => {
   const { act, data } = useBackend<Data>();
-    const { balance, paper_cost, quill_cost, letter_cost, free_send_ready, free_send_remaining_ds, has_tube, travellingmerchant_static, travellingmerchant } = data;
+  const {
+    balance,
+    paper_cost,
+    quill_cost,
+    letter_cost,
+    free_send_ready,
+    free_send_remaining_ds,
+    has_tube,
+    ghost_mode,
+    delay_min,
+    delay_max,
+    letter_count,
+    travellingmerchant_static,
+    travellingmerchant,
+  } = data;
 
   const [recipient, setRecipient] = useState('');
   const [sender, setSender] = useState('');
@@ -69,8 +89,93 @@ export const Hermes = (props: any, context: any) => {
   const canBuyQuill = balance >= quill_cost;
   const canSendTube = letterContent.length > 0;
 
-  const packsByCat = travellingmerchant_static ? travellingmerchant_static.supplypacks : null;
+  if (ghost_mode) {
+    const canPost = recipient.length > 0 && letterContent.length > 0;
+    const delayLabel =
+      delay_min && delay_max
+        ? `${dsToMinutes(delay_min)}-${dsToMinutes(delay_max)} minutes`
+        : 'some time';
 
+    return (
+      <Window title="HERMES" width={400} height={440}>
+        <Window.Content>
+          <Stack vertical fill>
+            <Stack.Item>
+              <Box italic color="label">
+                A letter posted from beyond takes {delayLabel} to arrive.
+              </Box>
+            </Stack.Item>
+            {!!letter_count && (
+              <Stack.Item>
+                <Button
+                  fluid
+                  icon="envelope-open-text"
+                  onClick={() => act('read_letters')}
+                >
+                  Read My Letters ({letter_count})
+                </Button>
+              </Stack.Item>
+            )}
+            <Stack.Item grow>
+              <Section title="Post a Letter" fill>
+                <Stack vertical fill>
+                  <Stack.Item>
+                    <Stack>
+                      <Stack.Item grow>
+                        <Input
+                          fluid
+                          placeholder="To: Name or #number"
+                          value={recipient}
+                          onChange={(value) => setRecipient(value)}
+                        />
+                      </Stack.Item>
+                      <Stack.Item grow>
+                        <Input
+                          fluid
+                          placeholder="From: Anonymous"
+                          value={sender}
+                          onChange={(value) => setSender(value)}
+                        />
+                      </Stack.Item>
+                    </Stack>
+                  </Stack.Item>
+                  <Stack.Item grow>
+                    <TextArea
+                      fluid
+                      height="100%"
+                      placeholder="Write your letter here..."
+                      value={letterContent}
+                      maxLength={2000}
+                      onChange={(value) => setLetterContent(value)}
+                    />
+                  </Stack.Item>
+                  <Stack.Item>
+                    <Button
+                      fluid
+                      icon="paper-plane"
+                      color="good"
+                      disabled={!canPost}
+                      onClick={() =>
+                        act('send_letter', {
+                          recipient: recipient,
+                          sender: sender || 'Anonymous',
+                          content: letterContent,
+                        })
+                      }
+                    >
+                      Post Letter
+                    </Button>
+                  </Stack.Item>
+                </Stack>
+              </Section>
+            </Stack.Item>
+          </Stack>
+        </Window.Content>
+      </Window>
+    );
+  }
+
+  const packsByCat = travellingmerchant_static ? travellingmerchant_static.supplypacks : null;
 
   const addToCart = (pck : merchant_supply_pack) => {
     act("addToCart", { pckpath : pck.path });
@@ -78,8 +183,6 @@ export const Hermes = (props: any, context: any) => {
   const removeFromCart = (pck : merchant_supply_pack) => {
 
   };
-
-
 
   return (
     <Window title="HERMES" width={800} height={800}>

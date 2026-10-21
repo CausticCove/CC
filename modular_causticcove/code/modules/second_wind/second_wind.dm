@@ -378,7 +378,6 @@
 		/datum/surgery_step/infuse_wind,
 		/datum/surgery_step/cauterize
 	)
-	target_mobtypes = list(/mob/living/carbon/human, /mob/living/carbon/monkey)
 	possible_locs = list(BODY_ZONE_CHEST)
 
 /datum/surgery_step/infuse_wind
@@ -386,7 +385,6 @@
 	implements = list(
 		/obj/item/alch/vigor_mix = 80,
 	)
-	target_mobtypes = list(/mob/living/carbon/human, /mob/living/carbon/monkey)
 	time = 10 SECONDS
 	surgery_flags = SURGERY_BLOODY | SURGERY_INCISED | SURGERY_CLAMPED | SURGERY_RETRACTED
 	skill_min = SKILL_LEVEL_EXPERT

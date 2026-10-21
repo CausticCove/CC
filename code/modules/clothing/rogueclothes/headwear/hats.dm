@@ -252,6 +252,11 @@
 	sewrepair = TRUE
 	//dropshrink = 0.75
 	dynamic_hair_suffix = null
+	adjustable = CAN_CADJUST
+
+/obj/item/clothing/head/roguetown/headband/ComponentInitialize()
+	..()
+	AddComponent(/datum/component/adjustable_clothing, HEAD|HAIR|EARS, null, null, 'sound/foley/cloth_wipe (1).ogg', null, UPD_HEAD)
 
 /obj/item/clothing/head/roguetown/headband/bloodied
 	name = "bloodied headband"
@@ -655,3 +660,34 @@
 	icon_state = "maidband"
 	body_parts_covered = NONE
 	sewrepair = TRUE // Caustic Edit
+
+/obj/item/clothing/head/roguetown/rosa
+	name = "scarlet hat"
+	desc = "A finely crafted hat of silk and leather, adorned with rosas. It continues the tradition of wide brimmed Otavan hats."
+	icon_state = "rosahat2"
+	icon = 'icons/roguetown/clothing/special/rosewood.dmi'
+	mob_overlay_icon = 'icons/roguetown/clothing/special/onmob/rosewood.dmi'
+
+/obj/item/clothing/head/roguetown/rosa/three
+	name = "velvet hat"
+	icon_state = "rosahat3"
+
+/obj/item/clothing/head/roguetown/rosa/four
+	name = "obsidian hat"
+	icon_state = "rosahat4"
+
+/obj/item/clothing/head/roguetown/rosa/five
+	name = "sable hat"
+	icon_state = "rosahat5"
+
+/obj/item/clothing/head/roguetown/rosa/six
+	name = "maroon cap"
+	icon_state = "rosahat6"
+
+/obj/item/clothing/head/roguetown/headband/fur
+	name = "fur headband"
+	desc = "A rough thick fur headband, worn by the more rugged folk."
+	icon_state = "fur_headband"
+	item_state = "fur_headband"
+	body_parts_covered = HEAD|HAIR|EARS
+	salvage_result = /obj/item/natural/hide/cured

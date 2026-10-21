@@ -50,7 +50,6 @@
 	var/no_update = 0
 	var/species_icon = ""
 
-	var/animal_origin = null //for nonhuman bodypart (e.g. monkey)
 	var/prosthetic_prefix = "pr" // for unique prosthetic icons on mob
 	var/dismemberable = 1 //whether it can be dismembered with a weapon.
 	var/disableable = 1
@@ -122,16 +121,23 @@
 //	var/specific_layer = aux ? aux_layer : BODYPARTS_LAYER
 	var/specific_layer = aux_layer ? aux_layer : BODYPARTS_LAYER
 	var/specific_render_zone = aux ? aux_zone : body_zone
+
 	for(var/key in specific_markings)
 		var/color = specific_markings[key]
 		var/datum/body_marking/BM = GLOB.body_markings[key]
 
 		var/render_limb_string = specific_render_zone
+		var/pixel_y_offset = 0
 		if(BM.gendered && (!BM.gender_only_chest || specific_render_zone == BODY_ZONE_CHEST))
-			var/gendaar = (human_owner.gender == FEMALE) ? "f" : "m"
+			var/gendaar = human_owner.is_bulky_body() ? "m" : "f"
 			render_limb_string = "[render_limb_string]_[gendaar]"
+			// Only gendered markings need this: one drawn as a single shared sprite was never drawn against her
+			// body to begin with. The per-zone amounts live on the build, as marking_offsets.
+			if(gendaar == "f" && human_owner.gender == MALE)
+				pixel_y_offset = human_owner.get_marking_offset(specific_render_zone)
 
 		var/mutable_appearance/accessory_overlay = mutable_appearance(BM.icon, "[BM.icon_state]_[render_limb_string]", -specific_layer)
+		accessory_overlay.pixel_y += pixel_y_offset
 		if(override_color)
 			accessory_overlay.color = "#[override_color]"
 		else
@@ -244,7 +250,7 @@
 	if(ishuman(C))
 		var/mob/living/carbon/human/H = C
 		if(HAS_TRAIT(C, TRAIT_LIMBATTACHMENT))
-			if(!H.get_bodypart(body_zone) && !animal_origin)
+			if(!H.get_bodypart(body_zone))
 				if(HAS_TRAIT(C, TRAIT_IRONMAN)) // there we go, figured a way to give this a delay, now ima go sleep
 					if(!do_after(C, 20 SECONDS))
 						return
@@ -518,44 +524,37 @@
 	if(no_update)
 		return
 
-	if(!animal_origin)
-		var/mob/living/carbon/human/H = C
-		should_draw_greyscale = FALSE
-		if(!H.dna || !H.dna.species)
-			return
-		var/datum/species/S = H.dna.species
-		species_id = S.limbs_id
-		if(H.gender == MALE)
-			species_icon = S.limbs_icon_m
+	var/mob/living/carbon/human/H = C
+	should_draw_greyscale = FALSE
+	if(!H.dna || !H.dna.species)
+		return
+	var/datum/species/S = H.dna.species
+	species_id = S.limbs_id
+	species_icon = S.get_limbs_icon(H)
+	species_flags_list = H.dna.species.species_traits
+
+
+	if(S.use_skintones)
+		skin_tone = H.skin_tone
+		should_draw_greyscale = TRUE
+	else
+		skin_tone = ""
+
+	body_gender = H.gender
+	should_draw_gender = S.sexes
+
+	if((MUTCOLORS in S.species_traits) || (DYNCOLORS in S.species_traits))
+		if(S.fixed_mut_color)
+			species_color = S.fixed_mut_color
 		else
-			species_icon = S.limbs_icon_f
-		species_flags_list = H.dna.species.species_traits
+			species_color = H.dna.features["mcolor"]
+		should_draw_greyscale = TRUE
+	else
+		species_color = ""
 
+	mutation_color = ""
 
-		if(S.use_skintones)
-			skin_tone = H.skin_tone
-			should_draw_greyscale = TRUE
-		else
-			skin_tone = ""
-
-		body_gender = H.gender
-		should_draw_gender = S.sexes
-
-		if((MUTCOLORS in S.species_traits) || (DYNCOLORS in S.species_traits))
-			if(S.fixed_mut_color)
-				species_color = S.fixed_mut_color
-			else
-				species_color = H.dna.features["mcolor"]
-			should_draw_greyscale = TRUE
-		else
-			species_color = ""
-
-		mutation_color = ""
-
-		dmg_overlay_type = S.damage_overlay_type
-
-	else if(animal_origin == MONKEY_BODYPART) //currently monkeys are the only non human mob to have damage overlays.
-		dmg_overlay_type = animal_origin
+	dmg_overlay_type = S.damage_overlay_type
 
 	if(status == BODYPART_ROBOTIC)
 		dmg_overlay_type = "robotic"
@@ -622,18 +621,6 @@
 	var/image/aux
 
 	. += limb
-
-	if(animal_origin)
-		if(is_organic_limb())
-			limb.icon = 'icons/mob/animal_parts.dmi'
-			if(species_id == "husk")
-				limb.icon_state = "[animal_origin]_husk_[body_zone]"
-			else
-				limb.icon_state = "[animal_origin]_[body_zone]"
-		else
-			limb.icon = 'icons/mob/augmentation/augments.dmi'
-			limb.icon_state = "[animal_origin]_[body_zone]"
-		return
 
 //	if((body_zone != BODY_ZONE_HEAD && body_zone != BODY_ZONE_CHEST))
 //		should_draw_gender = FALSE
@@ -736,7 +723,7 @@
 	name = BODY_ZONE_CHEST
 	desc = ""
 	icon_state = "default_human_chest"
-	max_damage = 300
+	max_damage = BODYPART_MAX_DAMAGE_CHEST
 	body_zone = BODY_ZONE_CHEST
 	body_part = CHEST
 	px_x = 0
@@ -772,22 +759,12 @@
 		cavity_item = null
 	..()
 
-/obj/item/bodypart/chest/monkey
-	icon = 'icons/mob/animal_parts.dmi'
-	icon_state = "default_monkey_chest"
-	animal_origin = MONKEY_BODYPART
-
-/obj/item/bodypart/chest/devil
-	dismemberable = 0
-	max_damage = 5000
-	animal_origin = DEVIL_BODYPART
-
 /obj/item/bodypart/l_arm
 	name = "left arm"
 	desc = ""
 	icon_state = "default_human_l_arm"
 	attack_verb = list("slapped", "punched")
-	max_damage = 200
+	max_damage = BODYPART_MAX_DAMAGE_LIMB
 	max_stamina_damage = 50
 	body_zone = BODY_ZONE_L_ARM
 	body_part = ARM_LEFT
@@ -827,24 +804,12 @@
 		if(L)
 			L.update_hand_vis()
 
-/obj/item/bodypart/l_arm/monkey
-	icon = 'icons/mob/animal_parts.dmi'
-	icon_state = "default_monkey_l_arm"
-	animal_origin = MONKEY_BODYPART
-	px_x = -5
-	px_y = -3
-
-/obj/item/bodypart/l_arm/devil
-	dismemberable = 0
-	max_damage = 5000
-	animal_origin = DEVIL_BODYPART
-
 /obj/item/bodypart/r_arm
 	name = "right arm"
 	desc = ""
 	icon_state = "default_human_r_arm"
 	attack_verb = list("slapped", "punched")
-	max_damage = 200
+	max_damage = BODYPART_MAX_DAMAGE_LIMB
 	body_zone = BODY_ZONE_R_ARM
 	body_part = ARM_RIGHT
 	aux_zone = BODY_ZONE_PRECISE_R_HAND
@@ -884,24 +849,12 @@
 		if(R)
 			R.update_hand_vis()
 
-/obj/item/bodypart/r_arm/monkey
-	icon = 'icons/mob/animal_parts.dmi'
-	icon_state = "default_monkey_r_arm"
-	animal_origin = MONKEY_BODYPART
-	px_x = 5
-	px_y = -3
-
-/obj/item/bodypart/r_arm/devil
-	dismemberable = 0
-	max_damage = 5000
-	animal_origin = DEVIL_BODYPART
-
 /obj/item/bodypart/l_leg
 	name = "left leg"
 	desc = ""
 	icon_state = "default_human_l_leg"
 	attack_verb = list("kicked", "stomped")
-	max_damage = 200
+	max_damage = BODYPART_MAX_DAMAGE_LIMB
 	body_zone = BODY_ZONE_L_LEG
 	body_part = LEG_LEFT
 	body_damage_coeff = 1
@@ -934,24 +887,13 @@
 	name = "left digitigrade leg"
 	use_digitigrade = FULL_DIGITIGRADE
 
-/obj/item/bodypart/l_leg/monkey
-	icon = 'icons/mob/animal_parts.dmi'
-	icon_state = "default_monkey_l_leg"
-	animal_origin = MONKEY_BODYPART
-	px_y = 4
-
-/obj/item/bodypart/l_leg/devil
-	dismemberable = 0
-	max_damage = 5000
-	animal_origin = DEVIL_BODYPART
-
 /obj/item/bodypart/r_leg
 	name = "right leg"
 	desc = ""
 	// alternative spellings of 'pokey' are availible
 	icon_state = "default_human_r_leg"
 	attack_verb = list("kicked", "stomped")
-	max_damage = 200
+	max_damage = BODYPART_MAX_DAMAGE_LIMB
 	body_zone = BODY_ZONE_R_LEG
 	body_part = LEG_RIGHT
 	body_damage_coeff = 1
@@ -983,14 +925,3 @@
 /obj/item/bodypart/r_leg/digitigrade
 	name = "right digitigrade leg"
 	use_digitigrade = FULL_DIGITIGRADE
-
-/obj/item/bodypart/r_leg/monkey
-	icon = 'icons/mob/animal_parts.dmi'
-	icon_state = "default_monkey_r_leg"
-	animal_origin = MONKEY_BODYPART
-	px_y = 4
-
-/obj/item/bodypart/r_leg/devil
-	dismemberable = 0
-	max_damage = 5000
-	animal_origin = DEVIL_BODYPART

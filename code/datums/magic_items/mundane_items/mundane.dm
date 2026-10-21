@@ -1,7 +1,7 @@
 //T1 Enchantments
 /datum/magic_item/mundane/woodcut
 	name = "woodcutting"
-	description = "It is firm like an tree."
+	description = "It is firm like a tree."
 	glow_color = "#6B8E23"
 	var/last_used
 
@@ -109,6 +109,7 @@
 		new /obj/effect/temp_visual/cleaning_pulse(get_turf(user))
 		wash_atom(user, CLEAN_STRONG)
 		user.remove_stress(/datum/stressevent/sewertouched)
+		user.remove_stress(/datum/stressevent/unlanded_noble_bloody_equipment)
 		to_chat(user, span_notice("The glamour settles, and I am spotless once more."))
 	. = ..()
 

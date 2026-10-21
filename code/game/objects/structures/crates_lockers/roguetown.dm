@@ -40,7 +40,7 @@
 	name = "otavan chest"
 	desc = "A foreboding red chest with black dye-washed silver embellishments."
 	icon_state = "chestweird2"
-	base_icon_state = "chestweird2"	
+	base_icon_state = "chestweird2"
 
 //obj/structure/closet/crate/chest/Initialize(mapload)
 //	. = ..()
@@ -107,7 +107,7 @@
 		/obj/item/storage/backpack/rogue/satchel/otavan=30,
 		/obj/item/roguestatue/gold/loot=1,
 		/obj/item/clothing/neck/roguetown/talkstone=2)
-	
+
 	var/i
 	for(i=0, i<3, i++)
 		var/I = pickweight(loot)
@@ -129,6 +129,10 @@
 	blade_dulling = DULLING_BASHCHOP
 	dense_when_open = FALSE
 	mob_storage_capacity = 2
+
+/obj/structure/closet/crate/roguecloset/attack_right(mob/user)
+	handle_special_items_retrieval(user, src)
+	return
 
 /obj/structure/closet/crate/roguecloset/inn/south
 	base_icon_state = "closet3"
@@ -368,7 +372,7 @@
 	name = "coffin"
 	desc = "A coffin of some burgher."
 	icon_state = "vcasket" //Fancy casket
-	base_icon_state = "vcasket" 
+	base_icon_state = "vcasket"
 	locked = TRUE
 
 /obj/structure/closet/crate/chest/coffinlootbox_middle/PopulateContents()
@@ -391,7 +395,7 @@
 		/obj/item/reagent_containers/food/snacks/canned = 15,
 		/obj/item/storage/backpack/rogue/satchel = 3,
 		/obj/item/storage/roguebag = 3, //Weapons / tools
-		/obj/item/rogueweapon/stoneaxe/woodcut/triumph = 5,
+		/obj/item/rogueweapon/stoneaxe/woodcut = 5,
 		/obj/item/rogueweapon/sword/broken = 5,
 		/obj/item/flashlight/flare/torch/lantern = 5,
 		/obj/item/rogue/instrument/lute = 5,

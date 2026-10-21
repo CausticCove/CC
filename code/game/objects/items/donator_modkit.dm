@@ -112,6 +112,15 @@
 	TI.righthand_file = RI::righthand_file
 	TI.sheathe_icon = RI::sheathe_icon ? RI::sheathe_icon : TI.sheathe_icon
 	TI.bigboy = RI::bigboy
+	TI.examine_highlight_severity = RI::examine_highlight_severity
+	TI.examine_highlight_desc = RI::examine_highlight_desc
+	TI.twirly = RI::twirly
+	TI.twirl_speed = RI::twirl_speed
+	TI.twirl_verb = RI::twirl_verb
+	TI.twirl_sound = RI::twirl_sound
+	TI.twirl_flourish_sound = RI::twirl_flourish_sound
+	TI.twirl_cmode = RI::twirl_cmode
+	TI.fumble_chance = RI::fumble_chance
 
 	to_chat(user, span_notice("You apply the [src] to [I], using the enchanting dust and tools to turn it into [RI::name]."))
 	if(custom_name == FALSE)
@@ -702,6 +711,17 @@
 	)
 	result_item = /obj/item/rogueweapon/eirenxiv/eirensword
 
+//waffai - silver for monsters, steel for men
+/obj/item/enchantingkit/weapon/waff
+	name = "'Weeper's Lathe' morphing elixir"
+	target_items = list(/obj/item/rogueweapon/sword/long/kriegmesser/silver)
+	result_item = /obj/item/rogueweapon/example/waffai_broadsword // silver broadsword is actually a kriegmesser subtype, who knew?
+
+/obj/item/enchantingkit/weapon/wafflamberge
+	name = "'Xenolalia' morphing elixir"
+	target_items = list(/obj/item/rogueweapon/greatsword/grenz/flamberge)
+	result_item = /obj/item/rogueweapon/example/waffai_flamberge
+
 //inverserun claymore
 /obj/item/enchantingkit/weapon/inverserun
 	name = "'Votive Thorns' morphing elixir"
@@ -1099,6 +1119,13 @@
 		/obj/item/rogueweapon/woodstaff/implement/amethyst			=	/obj/item/rogueweapon/woodstaff/implement/amethyst/morto
 	)
 	result_item = null
+
+/obj/item/enchantingkit/morto_crown
+	name = "'Sun Crown' morphing elixir"
+	target_items = list(
+		/obj/item/clothing/head/roguetown/crown/serpcrown
+	)
+	result_item = /obj/item/clothing/head/roguetown/crown/serpcrown/mortosuncrown
 
 //Tyesca
 
@@ -1569,6 +1596,30 @@
 	)
 	result_item = null
 
+// Naman - Emblems of Fyre
+/obj/item/enchantingkit/donator_naman_deccoatofplates
+	name = "'Decorated Coat Of Plates' morphing elixir"
+	desc = "A small container of special morphing dust, perfect to make a specific item. It can be used to alter the appearance of a Steel Coat-Of-Plates."
+	target_items = list(/obj/item/clothing/suit/roguetown/armor/brigandine/heavy)
+	result_item = /obj/item/clothing/suit/roguetown/armor/brigandine/heavy/decorated
+
+/obj/item/enchantingkit/donator_naman_tassetedbeltpack
+	name = "'Tasseted Beltpack' morphing elixir"
+	desc = "A small container of special morphing dust, perfect to make a specific item. It can be used to alter the appearance of either a Steel Tasseted Belt or \
+	a Beltpack. Note that this will dissolve any items stored inside the chosen Backpack; make sure to empty it out, beforehand!"
+	target_items = list(
+		/obj/item/storage/belt/rogue/leather/steel/tasset			= /obj/item/storage/belt/rogue/leather/steel/tasset/donator_naman,
+		/obj/item/storage/backpack/rogue/satchel/beltpack			= /obj/item/storage/backpack/rogue/satchel/beltpack/donator_naman
+	)
+	result_item = null
+
+// Naman - Emblems of Fyre
+/obj/item/enchantingkit/donator_naman_deccoatofplates
+	name = "'Decorated Coat Of Plates' morphing elixir"
+	desc = "A small container of special morphing dust, perfect to make a specific item. It can be used to alter the appearance of a Steel Coat-Of-Plates."
+	target_items = list(/obj/item/clothing/suit/roguetown/armor/brigandine/heavy)
+	result_item = /obj/item/clothing/suit/roguetown/armor/brigandine/heavy/decorated
+
 /obj/item/enchantingkit/donator_naman_tassetedbeltpack
 	name = "'Tasseted Beltpack' morphing elixir"
 	desc = "A small container of special morphing dust, perfect to make a specific item. It can be used to alter the appearance of either a Steel Tasseted Belt or \
@@ -1675,6 +1726,7 @@
 		/obj/item/rogueweapon/contraption/linker/mace/big
 	)
 	result_item = /obj/item/rogueweapon/example/forgefiend_wrench
+
 /obj/item/enchantingkit/weapon/yoshi_estoc
 	name = "'The Malignant Sabre' morphing elixir"
 	desc = "A small container of special morphing dust, perfect to make a specific item. It can be used to alter the appearance of a Steel Sabre."

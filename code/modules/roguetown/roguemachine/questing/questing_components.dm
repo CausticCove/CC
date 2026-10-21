@@ -54,7 +54,7 @@
 		var/datum/quest/user_quest = scroll.assigned_quest
 		if(user_quest && ((user_quest.quest_type == QUEST_RETRIEVAL && istype(parent, user_quest.target_item_type)) || \
 						(user_quest.quest_type == QUEST_COURIER && istype(parent, user_quest.target_delivery_item))))
-			examine_list += span_notice("This looks like an item you need for your quest: [user_quest.title]!")
+			examine_list += span_notice("This looks like an item you need for your contract: [user_quest.title]!")
 			break
 
 /datum/component/quest_object/proc/on_mob_examine(datum/source, mob/user, list/examine_list)
@@ -70,7 +70,7 @@
 		if(user_quest && (user_quest.quest_type in list(QUEST_KILL_EASY, QUEST_CLEAR_OUT, QUEST_RAID, QUEST_BOUNTY, QUEST_ASCENDED_BOUNTY)) && istype(parent, user_quest.target_mob_type)) //CC Edit - Added Ascended Bounty
 			examine_list += span_notice("This looks like the target of your quest: [user_quest.title]!")
 			if(Q.target_spawn_area != get_area(get_turf(src)))
-				examine_list += span_notice("It was last reported in the [Q.target_spawn_area] area, however.")
+				examine_list += span_notice("It was last reported in the [Q.target_spawn_area] area.")
 			break
 
 /datum/component/quest_object/proc/find_quest_scrolls(atom/container)
@@ -118,7 +118,6 @@
 
 // ==================== SPECIALIZED COMPONENT SUBTYPES ====================
 
-/// Component for kill/clearout/outlaw quests - handles mob death
 /datum/component/quest_object/kill
 	var/counted = FALSE
 
@@ -136,7 +135,6 @@
 	SIGNAL_HANDLER
 	count_kill()
 
-/// Guard against double-counting when a mob both dies and is later qdeleted.
 /datum/component/quest_object/kill/proc/count_kill()
 	if(counted)
 		return
@@ -145,12 +143,15 @@
 	if(!Q || Q.complete)
 		return
 	var/datum/quest/kill/KQ = Q
-	if(istype(KQ) && !KQ.kills_count_progress)
-		return
+	if(istype(KQ))
+		if(KQ.failed)
+			return
+		KQ.on_guardian_killed()
+		if(!KQ.kills_count_progress)
+			return
 	Q.progress_current++
 	Q.on_progress_update()
 
-/// Component for retrieval quests - handles item collection
 /datum/component/quest_object/retrieval
 
 /datum/component/quest_object/retrieval/Initialize(datum/quest/target_quest)
@@ -176,7 +177,6 @@
 			qdel(dropped_item)
 			return
 
-/// Component for courier quests - handles delivery
 /datum/component/quest_object/courier
 
 /datum/component/quest_object/courier/Initialize(datum/quest/target_quest)
@@ -210,7 +210,6 @@
 		Q.on_progress_update()
 		return
 
-/// Component for kill quest spawners
 /datum/component/quest_object/mob_spawner
 	override_compatibility = TRUE
 	no_outline = TRUE

@@ -36,7 +36,6 @@ GLOBAL_LIST_INIT(special_traits, build_special_traits())
 	if(!player)
 		player = character.client
 	apply_charflaw_equipment(character, player)
-	apply_prefs_special(character, player)
 	apply_prefs_virtue(character, player)
 	apply_prefs_race_bonus(character, player)
 	apply_voicepacks(character, player)
@@ -61,6 +60,7 @@ GLOBAL_LIST_INIT(special_traits, build_special_traits())
 	if(assigned_job)
 		assigned_job.clamp_stats(character)
 	check_trait_incompatibilities(character)
+	apply_prefs_quirk(character, player) // this needs to be after all traits are applied, so that trait incompats will work
 	character.calculate_energy()
 	character.calculate_stamina()
 	character.energy = character.max_energy
@@ -72,10 +72,10 @@ GLOBAL_LIST_INIT(special_traits, build_special_traits())
 		REMOVE_TRAIT(H, TRAIT_EASYDISMEMBER, null) // Doesn't care for source, they ARE getting canceled
 		REMOVE_TRAIT(H, TRAIT_CRITICAL_RESISTANCE, null)
 		to_chat(H, span_warning("My limbs are too frail and my body too tough... the contradiction leaves me unable to resist critical wounds."), MESSAGE_TYPE_INFO)
-		
+
 	if((H.advjob != "Knight Banneret" && H.mind.assigned_role != "Court Agent" && H.mind.assigned_role != "Adventurer" && H.mind.assigned_role != "Prince" && H.mind.assigned_role != "Court Magician" && H.mind.assigned_role != "Inquisitor"))
 		if(!H.mind.has_antag_datum(/datum/antagonist/skeleton) && !H.mind.has_antag_datum(/datum/antagonist/lich) && !H.mind.has_antag_datum(/datum/antagonist/vampire) && !H.mind.has_antag_datum(/datum/antagonist/vampire/lord))
-			ADD_TRAIT(H, TRAIT_TEMPO, SPECIES_TRAIT)		
+			ADD_TRAIT(H, TRAIT_TEMPO, SPECIES_TRAIT)
 	return TRUE
 
 /proc/apply_voicepacks(mob/living/carbon/human/character, client/player)
@@ -125,7 +125,7 @@ GLOBAL_LIST_INIT(special_traits, build_special_traits())
 		else
 			to_chat(character, "Incorrect Extra Virtue parameters! It will not be applied.", MESSAGE_TYPE_INFO)
 	//Caustic Edit End
-			
+
 	if(origin_type)
 		if((language_type && language_type != "None"))
 			character.grant_language(language_type)
@@ -140,7 +140,42 @@ GLOBAL_LIST_INIT(special_traits, build_special_traits())
 				origin_type = new character.dna.species.origin_default
 				apply_virtue(character, origin_type)
 
-/proc/origin_check(var/datum/virtue/V, datum/species/species)
+/// Virtuous/fated alone, or two vices: lesser. Virtuous/fated AND two vices: lesser and greater. Neither: no quirks
+/proc/get_quirk_slots(datum/preferences/prefs)
+	. = 0
+	if(prefs.statpack.virtuous)
+		.++
+	var/flaws = 0
+	for(var/datum/charflaw/cf as anything in prefs.charflaws) // difficulty flaws don't count as each other's extra vice
+		if(!cf::needs_extra_vice)
+			flaws++
+	if(flaws >= 2)
+		.++
+
+/proc/apply_prefs_quirk(mob/living/carbon/human/character, client/player)
+	if (!player)
+		player = character.client
+	if (!player)
+		return
+	if (!player.prefs)
+		return
+
+	var/slots = get_quirk_slots(player.prefs)
+	var/datum/quirk/lesser = player.prefs.quirklesser
+	var/datum/quirk/greater = player.prefs.quirkgreater
+
+	if(slots && lesser)
+		if(quirk_check(lesser, player.prefs))
+			apply_quirk(character, lesser)
+		else
+			to_chat(character, "Incorrect Lesser Quirk parameters! It will not be applied.")
+	if((slots >= 2) && greater)
+		if(quirk_check(greater, player.prefs))
+			apply_quirk(character, greater)
+		else
+			to_chat(character, "Incorrect Greater Quirk parameters! It will not be applied.")
+
+/proc/origin_check(datum/virtue/V, datum/species/species)
 	if(!species || !V)
 		return
 	if(V)
@@ -169,7 +204,7 @@ GLOBAL_LIST_INIT(special_traits, build_special_traits())
 	var/bonus = player.prefs.race_bonus
 	if(!(bonus in character.dna.species.custom_selection))
 		return
-	var/full_bonus 
+	var/full_bonus
 	full_bonus = character.dna.species.custom_selection[bonus]
 	if(!full_bonus)
 		return
@@ -205,9 +240,31 @@ GLOBAL_LIST_INIT(special_traits, build_special_traits())
 		return TRUE
 	return FALSE
 
+/proc/quirk_check(datum/quirk/quirk, datum/preferences/prefs)
+	if(quirk)
+		if(LAZYLEN(quirk.restricted_species) && (prefs.pref_species.type in quirk.restricted_species))
+			return FALSE
+		if(LAZYLEN(quirk.restricted_virtues))
+			if(prefs.virtue && (prefs.virtue.type in quirk.restricted_virtues))
+				return FALSE
+			if(prefs.statpack.virtuous && prefs.virtuetwo && (prefs.virtuetwo.type in quirk.restricted_virtues))
+				return FALSE
+		if(LAZYLEN(quirk.allowed_species) && !(prefs.pref_species.type in quirk.allowed_species))
+			if(LAZYLEN(quirk.allowed_virtues) && ((prefs.virtue.type in quirk.allowed_virtues) || (prefs.statpack.virtuous && (prefs.virtuetwo.type in quirk.allowed_virtues))))
+				return TRUE
+			if(LAZYLEN(quirk.allowed_quirks) && ((prefs.quirklesser.type in quirk.allowed_quirks) || ((get_quirk_slots(prefs) == 2) && (prefs.quirkgreater.type in quirk.allowed_quirks))))
+				return TRUE
+			return FALSE
+		return TRUE
+	return FALSE
+
 /proc/apply_charflaw_equipment(mob/living/carbon/human/character, client/player)
 	for(var/datum/charflaw/cf in character.charflaws)
 		cf.apply_post_equipment(character)
+		if(cf.needs_extra_vice && character.charflaws.len < 2)
+			var/datum/charflaw/randflaw/rf = new()
+			character.charflaws.Add(rf)
+			rf.apply_post_equipment(character)
 		record_featured_object_stat(FEATURED_STATS_VICES, cf.name)
 
 /proc/apply_dnr_trait(mob/living/carbon/human/character, client/player)
@@ -215,19 +272,6 @@ GLOBAL_LIST_INIT(special_traits, build_special_traits())
 
 /proc/apply_qsr_trait(mob/living/carbon/human/character, client/player)
 	ADD_TRAIT(player.mob, TRAIT_QUICKSILVERRESISTANT, TRAIT_GENERIC)
-
-/proc/apply_prefs_special(mob/living/carbon/human/character, client/player)
-	if(!player)
-		player = character.client
-	if(!player)
-		return
-	if(!player.prefs)
-		return
-	var/trait_type = player.prefs.next_special_trait
-	if(!trait_type)
-		return
-	apply_special_trait_if_able(character, player, trait_type)
-	player.prefs.next_special_trait = null
 
 /proc/apply_special_trait_if_able(mob/living/carbon/human/character, client/player, trait_type)
 	if(!charactet_eligible_for_trait(character, player, trait_type))

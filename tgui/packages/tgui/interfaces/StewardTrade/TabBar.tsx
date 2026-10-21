@@ -56,7 +56,7 @@ export const TabBar = (props: {
         style={tabStyle(tab === 'auto_import')}
         onClick={() => onSwitch('auto_import')}
       >
-        Imports
+        Autoimport
       </div>
       <div
         style={tabStyle(tab === 'petition')}
@@ -75,6 +75,12 @@ export const TabBar = (props: {
         onClick={() => onSwitch('royal_custom')}
       >
         Royal Custom
+      </div>
+      <div
+        style={tabStyle(tab === 'advanced')}
+        onClick={() => onSwitch('advanced')}
+      >
+        Advanced
       </div>
     </div>
   );
