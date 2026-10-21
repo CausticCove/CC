@@ -253,7 +253,7 @@
 		if(comp)
 			comp.damage_from_pain(CAUSTIC_PAIN_DMG)
 			comp.try_do_pain_effect(CAUSTIC_PAIN_DMG, giving)
-	SEND_SIGNAL(action_target, COMSIG_SEX_RECEIVE_ACTION, arousal_amt, pain_amt, giving)
+	SEND_SIGNAL(action_target, COMSIG_SEX_RECEIVE_ACTION, arousal_amt, pain_amt, giving, force, speed)
 
 #undef CAUSTIC_PAIN_DMG
 
