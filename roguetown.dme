@@ -3769,6 +3769,7 @@
 #include "modular_causticcove\code\game\objects\items\rogueitems\plumb.dm"
 #include "modular_causticcove\code\game\objects\items\weapons\ranged\ammo_bullets.dm"
 #include "modular_causticcove\code\game\objects\items\weapons\ranged\blackpowder.dm"
+#include "modular_causticcove\code\game\objects\items\weapons\ranged\relic_staff.dm"
 #include "modular_causticcove\code\game\objects\structures\staircase_helper.dm"
 #include "modular_causticcove\code\modules\accessability\epilepsy.dm"
 #include "modular_causticcove\code\modules\accessability\epilepsy_prefs.dm"
