@@ -1959,6 +1959,10 @@
 	verbage = "constructs"
 	skillcraft = /datum/skill/craft/carpentry
 
+/datum/crafting_recipe/roguetown/structure/bookcase/archive
+	name = "Bookcase (Archive)"
+	result = /obj/structure/bookcase/random/archive/empty
+
 /datum/crafting_recipe/roguetown/structure/plat_edge
 	name = "platform edge"
 	category = "Railings"
