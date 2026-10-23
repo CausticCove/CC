@@ -12,18 +12,21 @@
 	name = "staff of exchange"
 	icon_state = "faestaff"
 	specialcaster_effect = 1
+	special = /datum/special_intent/polearm_backstep
 
 /obj/item/rogueweapon/woodstaff/implement/special/infernal
 	base_implement_name = "inferno staff"
 	name = "inferno staff"
 	icon_state = "infernalstaff"
 	specialcaster_effect = 2
+	special = /datum/special_intent/whip_coil
 
 /obj/item/rogueweapon/woodstaff/implement/special/earth
 	base_implement_name = "mountain staff"
 	name = "mountain staff"
 	icon_state = "earthstaff"
 	specialcaster_effect = 3
+	special = /datum/special_intent/ground_smash
 
 //related buffs
 //fae
