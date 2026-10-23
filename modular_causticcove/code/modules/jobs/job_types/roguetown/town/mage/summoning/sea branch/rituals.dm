@@ -47,3 +47,28 @@
 	tier = 3
 	required_atoms = list(/obj/item/magic/deepsea/tiertwo = 2, /obj/item/alch/waterdust = 3)
 	mob_to_summon = /mob/living/simple_animal/hostile/retaliate/rogue/deepsea/ghostlight
+
+//Elemental Staffs
+/datum/runeritual/enchanting/staffexchange
+	name = "Staff of Exchange"
+	desc = "Forge a staff of fae esscense, allowing you to trade physical health for speed as you cast spells."
+	blacklisted = FALSE
+	tier = 3
+	required_atoms = list(/obj/item/rogueore/cinnabar = 2, /obj/item/magic/fae/fairydust = 4, /obj/item/magic/fae/iridescentscale = 3, /obj/item/magic/fae/heartwoodcore = 2, /obj/item/magic/leyline = 1)
+	result_atoms = list(/obj/item/rogueweapon/woodstaff/implement/special/fae)
+
+/datum/runeritual/enchanting/infernalstaff
+	name = "Infernal Staff"
+	desc = "Forge a staff of infernal esscense, wreathing you in flames as you cast spells."
+	blacklisted = FALSE
+	tier = 3
+	required_atoms = list(/obj/item/rogueore/cinnabar = 2, /obj/item/magic/infernal/ash = 4, /obj/item/magic/infernal/fang = 3, /obj/item/magic/infernal/core = 2, /obj/item/magic/leyline = 1)
+	result_atoms = list(/obj/item/rogueweapon/woodstaff/implement/special/infernal)
+
+/datum/runeritual/enchanting/mountainstaff
+	name = "Mountain Staff"
+	desc = "Forge a staff of earthen esscense, bolstering your defense as you cast spells."
+	blacklisted = FALSE
+	tier = 3
+	required_atoms = list(/obj/item/rogueore/cinnabar = 2, /obj/item/magic/elemental/mote = 4, /obj/item/magic/elemental/shard = 3, /obj/item/magic/elemental/fragment = 2, /obj/item/magic/leyline = 1)
+	result_atoms = list(/obj/item/rogueweapon/woodstaff/implement/special/earth)

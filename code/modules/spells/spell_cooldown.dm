@@ -1478,6 +1478,15 @@
 		return
 	var/mob/living/L = owner
 	L.apply_status_effect(/datum/status_effect/buff/residual_focus, pool)
+	//CausticAdd Begin
+	if(implement.specialcaster_effect == 1)
+		L.apply_status_effect(/datum/status_effect/buff/faebargain_mage, 5 SECONDS)
+		L.apply_status_effect(/datum/status_effect/debuff/faebargain_mage, 5 SECONDS)
+	if(implement.specialcaster_effect == 2)
+		L.apply_status_effect(/datum/status_effect/buff/infernal_ward, 5 SECONDS)
+	if(implement.specialcaster_effect == 3)
+		L.apply_status_effect(/datum/status_effect/buff/iron_skin, 5 SECONDS)
+	//CausticAdd End
 
 /// Drain a specific resource type by the given base cost.
 /// INT scaling applies to stamina and energy. Devotion uses raw cost.
