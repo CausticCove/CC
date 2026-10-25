@@ -1740,7 +1740,7 @@
 	craftdiff = 0
 
 /datum/crafting_recipe/roguetown/structure/pillory
-	name = "pillory"
+	name = "pillory (Makeshift)" // CC edit
 	category = "Misc"
 	result = /obj/structure/pillory/crafted
 	reqs = list(/obj/item/grown/log/tree/small = 2,
@@ -1752,6 +1752,18 @@
 
 
 // Caustic Edit Start
+
+/datum/crafting_recipe/roguetown/structure/pillory/normal
+	name = "pillory"
+	category = "Misc"
+	result = /obj/structure/pillory
+	reqs = list(/obj/item/natural/wood/plank = 3,
+				/obj/item/scrap = 2)
+	craftdiff = 3
+
+/datum/crafting_recipe/roguetown/structure/pillory/normal/double
+	name = "pillory (Double-Legged)"
+	result = /obj/structure/pillory/double
 
 /datum/crafting_recipe/roguetown/structure/polishstone
 	name = "polishing stone"

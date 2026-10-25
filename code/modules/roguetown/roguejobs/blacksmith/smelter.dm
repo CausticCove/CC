@@ -61,109 +61,111 @@
 		smelt_sfx = 'sound/misc/smelter_sound.ogg'
 
 /obj/machinery/light/rogue/smelter/attackby(obj/item/attacking_item, mob/living/user, params)
-	if(istype(attacking_item, /obj/item/rogueweapon/tongs))
-		var/obj/item/rogueweapon/tongs/tongs = attacking_item
-		//Caustic Edit - Add Tongs ability to put ore in Smelters
-		if(tongs.hingot || tongs.ore)
-			if(length(contained_items) >= max_contained_items)
-				to_chat(user, span_warn("\The [src] is already full!"))
-				return
-			if(tongs.hingot)
-				add_item(tongs.hingot, user)
-				tongs.hingot = null
-			else
-				add_item(tongs.ore, user)
-				tongs.ore = null
+	if(!user.cmode) // CC edit. Allows using combat mode to bash these things down
+		if(istype(attacking_item, /obj/item/rogueweapon/tongs))
+			var/obj/item/rogueweapon/tongs/tongs = attacking_item
+			//Caustic Edit - Add Tongs ability to put ore in Smelters
+			if(tongs.hingot || tongs.ore)
+				if(length(contained_items) >= max_contained_items)
+					to_chat(user, span_warn("\The [src] is already full!"))
+					return
+				if(tongs.hingot)
+					add_item(tongs.hingot, user)
+					tongs.hingot = null
+				else
+					add_item(tongs.ore, user)
+					tongs.ore = null
 
-			tongs.update_icon()
-		//Caustic Edit End
-		else
-			if(actively_smelting) // Prevents an exp gain exploit. - Foxtrot
-				to_chat(user, span_warning("\The [src] is currently smelting. Wait for it to finish, or douse it with water to retrieve items from it."))
-				return
-			if(!length(contained_items))
-				to_chat(user, span_warn("Nothing to retrieve from inside."))
-				return
-			if(length(contained_items) > 1 && tongs.auto_collect)
-				for(var/obj/item/I in contained_items)
-					var/delay = 1 SECONDS
+				tongs.update_icon()
+			//Caustic Edit End
+			else
+				if(actively_smelting) // Prevents an exp gain exploit. - Foxtrot
+					to_chat(user, span_warning("\The [src] is currently smelting. Wait for it to finish, or douse it with water to retrieve items from it."))
+					return
+				if(!length(contained_items))
+					to_chat(user, span_warn("Nothing to retrieve from inside."))
+					return
+				if(length(contained_items) > 1 && tongs.auto_collect)
+					for(var/obj/item/I in contained_items)
+						var/delay = 1 SECONDS
+						delay -= (user.STASPD - 10)
+						delay -= (user.STASTR - 10)
+						delay = max(0.2 SECONDS, delay)
+						if(do_after(user, delay, TRUE, src))
+							user.visible_message(span_info("[user] retrieves \the [I] from \the [src]."), span_info("You retrieve \the [I] from \the [src]."))
+							LAZYREMOVE(contained_items, I)
+							I.forceMove(get_turf(user))
+							playsound(user, pick('sound/items/ingot_collect1.ogg', 'sound/items/ingot_collect2.ogg'), 100, TRUE)
+						if(user.mind && isliving(user) && istype(I, /obj/item/ingot))
+							var/obj/item/ingot/ING = I
+							if(ING.smelted && ING.smeltresult)
+								var/mob/living/L = user
+								user.mind.add_sleep_experience(/datum/skill/craft/smelting, L.STAINT * 2, FALSE)
+				else
+					var/obj/item/item_to_remove = contained_items[contained_items.len]
+					contained_items -= item_to_remove
+					item_to_remove.forceMove(tongs)
+					tongs.hingot = item_to_remove
+					if(user.mind && isliving(user) && tongs.hingot?.smeltresult) // Prevents an exploit with coal and runtimes with everything else
+						if(!istype(tongs.hingot, /obj/item/rogueore) && tongs.hingot?.smelted) // Burning items to ash won't level smelting.
+							var/mob/living/L = user
+							user.mind.add_sleep_experience(/datum/skill/craft/smelting, L.STAINT * 2, FALSE)// Smelting is already a timesink, this is justified to accelerate levelling
+					user.visible_message(span_info("[user] retrieves \the [item_to_remove] from \the [src]."), span_info("You retrieve \the [item_to_remove] from \the [src]."))
+					if(on)
+						var/tyme = world.time
+						tongs.hott = tyme
+						addtimer(CALLBACK(tongs, TYPE_PROC_REF(/obj/item/rogueweapon/tongs, make_unhot), tyme), 20 SECONDS)
+					tongs.update_icon()
+			return
+
+	// Caustic Edit start / Allows using sacks to quick-fill smelters
+		if(istype(attacking_item, /obj/item/storage/roguebag))
+			var/datum/component/storage/STR = attacking_item.GetComponent(/datum/component/storage)
+			if(!STR)
+				return FALSE
+			var/list/things = STR.contents()
+			for(var/obj/item/smelty in things)
+				if(length(contained_items) >= max_contained_items)
+					to_chat(user, span_warn("\The [src] is full!"))
+					return
+				if(smelty.smeltresult)
+					var/delay = 1 SECONDS // Same delays as taking things out via tongs.
 					delay -= (user.STASPD - 10)
 					delay -= (user.STASTR - 10)
 					delay = max(0.2 SECONDS, delay)
 					if(do_after(user, delay, TRUE, src))
-						user.visible_message(span_info("[user] retrieves \the [I] from \the [src]."), span_info("You retrieve \the [I] from \the [src]."))
-						LAZYREMOVE(contained_items, I)
-						I.forceMove(get_turf(user))
-						playsound(user, pick('sound/items/ingot_collect1.ogg', 'sound/items/ingot_collect2.ogg'), 100, TRUE)
-					if(user.mind && isliving(user) && istype(I, /obj/item/ingot))
-						var/obj/item/ingot/ING = I
-						if(ING.smelted && ING.smeltresult)
-							var/mob/living/L = user
-							user.mind.add_sleep_experience(/datum/skill/craft/smelting, L.STAINT * 2, FALSE)
-			else
-				var/obj/item/item_to_remove = contained_items[contained_items.len]
-				contained_items -= item_to_remove
-				item_to_remove.forceMove(tongs)
-				tongs.hingot = item_to_remove
-				if(user.mind && isliving(user) && tongs.hingot?.smeltresult) // Prevents an exploit with coal and runtimes with everything else
-					if(!istype(tongs.hingot, /obj/item/rogueore) && tongs.hingot?.smelted) // Burning items to ash won't level smelting.
-						var/mob/living/L = user
-						user.mind.add_sleep_experience(/datum/skill/craft/smelting, L.STAINT * 2, FALSE)// Smelting is already a timesink, this is justified to accelerate levelling
-				user.visible_message(span_info("[user] retrieves \the [item_to_remove] from \the [src]."), span_info("You retrieve \the [item_to_remove] from \the [src]."))
-				if(on)
-					var/tyme = world.time
-					tongs.hott = tyme
-					addtimer(CALLBACK(tongs, TYPE_PROC_REF(/obj/item/rogueweapon/tongs, make_unhot), tyme), 20 SECONDS)
-				tongs.update_icon()
-		return
+						playsound(user, pick('sound/items/hit_plateobj1.ogg', 'sound/items/hit_plateobj2.ogg', 'sound/items/hit_plateobj3.ogg'), 100, TRUE)
+						STR.remove_from_storage(smelty, src) // An attempt to remove the inventory border when putting in from a sack, then removing the item from the smelter
+						add_item(smelty, user)
+			attacking_item.update_icon() // To prevent the bag from being large, and showing the full sprite when it gets emptied.
+			return
+	// Caustic Edit end
 
-// Caustic Edit start / Allows using sacks to quick-fill smelters
-	if(istype(attacking_item, /obj/item/storage/roguebag))
-		var/datum/component/storage/STR = attacking_item.GetComponent(/datum/component/storage)
-		if(!STR)
-			return FALSE
-		var/list/things = STR.contents()
-		for(var/obj/item/smelty in things)
-			if(length(contained_items) >= max_contained_items)
-				to_chat(user, span_warn("\The [src] is full!"))
-				return
-			if(smelty.smeltresult)
-				var/delay = 1 SECONDS // Same delays as taking things out via tongs.
-				delay -= (user.STASPD - 10)
-				delay -= (user.STASTR - 10)
-				delay = max(0.2 SECONDS, delay)
-				if(do_after(user, delay, TRUE, src))
-					playsound(user, pick('sound/items/hit_plateobj1.ogg', 'sound/items/hit_plateobj2.ogg', 'sound/items/hit_plateobj3.ogg'), 100, TRUE)
-					STR.remove_from_storage(smelty, src) // An attempt to remove the inventory border when putting in from a sack, then removing the item from the smelter
-					add_item(smelty, user)
-		attacking_item.update_icon() // To prevent the bag from being large, and showing the full sprite when it gets emptied.
-		return
-// Caustic Edit end
-
-	if(istype(attacking_item, /obj/item/rogueweapon/hammer))
-		to_chat(user, span_warning("\The [attacking_item] should be used at an anvil, not \the [src]!"))
-		return
-
-	if(istype(attacking_item, /obj/item/reagent_containers))
-		var/obj/item/reagent_containers/container = attacking_item
-		var/found_splash = FALSE
-		if(INTENT_SPLASH in container.possible_item_intents)
-			found_splash = TRUE
-		if(found_splash)
-			. = ..()
-			if(!.)
-				return
-
-	if(attacking_item.firefuel)
-		. = ..()
-		if(!.) //False/null if using the item as fuel. If true, we want to try smelt it so go onto next segment.
+		if(istype(attacking_item, /obj/item/rogueweapon/hammer))
+			to_chat(user, span_warning("\The [attacking_item] should be used at an anvil, not \the [src]!"))
 			return
 
-	if(attacking_item.smeltresult)
-		add_item(attacking_item, user) // Adds the item to the smelter's contained_items list, if it can be smelted.
-		return
+		if(istype(attacking_item, /obj/item/reagent_containers))
+			var/obj/item/reagent_containers/container = attacking_item
+			var/found_splash = FALSE
+			if(INTENT_SPLASH in container.possible_item_intents)
+				found_splash = TRUE
+			if(found_splash)
+				. = ..()
+				if(!.)
+					return
 
-	to_chat(user, span_warning("\The [attacking_item] cannot be smelted."))
+		if(attacking_item.firefuel)
+			. = ..()
+			if(!.) //False/null if using the item as fuel. If true, we want to try smelt it so go onto next segment.
+				return
+
+		if(attacking_item.smeltresult)
+			add_item(attacking_item, user) // Adds the item to the smelter's contained_items list, if it can be smelted.
+			return
+
+		to_chat(user, span_warning("\The [attacking_item] cannot be smelted."))
+	. = ..() // CC edit. Allows using combat mode to bash these things down
 
 /obj/machinery/light/rogue/smelter/attack_right(mob/user)
 	if(!ishuman(user))
