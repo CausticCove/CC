@@ -49,6 +49,7 @@
 	update_icon()
 
 /obj/structure/bookcase/random/archive
+	name = "bookcase (Archive)" // CC edit. Shows which bookcases can save books for the future
 	book_count = 10
 
 /obj/structure/bookcase/random/archive/Initialize(mapload)
@@ -65,6 +66,11 @@
 			PB.is_in_round_player_generated = FALSE
 
 	. = ..()
+
+// CC Edit. Craftable/empty archive bookcases
+/obj/structure/bookcase/random/archive/empty
+	book_count = 0
+// CC edit end
 
 /proc/create_random_books(amount = 2, location, fail_loud = FALSE, category = null)
 	. = list()

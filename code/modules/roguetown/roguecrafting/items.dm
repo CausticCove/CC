@@ -198,7 +198,7 @@
 	display_category = ITEM_CAT_BOOK_WRIT
 	result = /obj/item/book_crafting_kit
 	reqs = list(
-		/obj/item/natural/hide = 2,
+		/obj/item/natural/hide/cured = 2, // CC edit. Uses leather instead of hide
 		/obj/item/natural/cloth = 1,
 		)
 	tools = list(/obj/item/needle = 1)
