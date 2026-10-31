@@ -1,59 +1,206 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "a" = (
-/turf/open/floor/rogue/dirt,
-/area/rogue/outdoors/rtfield)
+/turf/closed/wall/mineral/rogue/craftstone,
+/area/rogue/outdoors/beach/south)
 "b" = (
-/turf/open/floor/rogue/twig,
+/obj/structure/bed/rogue/shit,
+/turf/open/floor/rogue/dirt/road,
 /area/rogue/outdoors/rtfield)
 "c" = (
-/obj/structure/rack/rogue,
-/obj/effect/spawner/lootdrop/roguetown/dungeon/tools,
-/turf/open/floor/rogue/twig,
+/obj/structure/fluff/railing/border/west,
+/turf/open/floor/rogue/ruinedwood/turned,
 /area/rogue/outdoors/rtfield)
+"d" = (
+/obj/effect/landmark/chest_or_mimic/loot_chest,
+/turf/open/floor/rogue/naturalstone,
+/area/rogue/outdoors/beach/south)
 "e" = (
-/mob/living/carbon/human/species/akula/npc,
-/turf/open/floor/rogue/twig,
+/turf/closed/wall/mineral/rogue/wood,
+/area/rogue/outdoors/rtfield)
+"f" = (
+/obj/structure/fluff/railing/border/west{
+	dir = 1
+	},
+/obj/structure/fluff/railing/border/west{
+	layer = 4.3
+	},
+/turf/open/floor/rogue/ruinedwood/turned,
 /area/rogue/outdoors/rtfield)
 "g" = (
 /turf/open/transparent/openspace,
 /area/rogue/outdoors/rtfield)
+"j" = (
+/obj/structure/fluff/railing/border/west{
+	layer = 4.3
+	},
+/turf/open/floor/rogue/ruinedwood/turned,
+/area/rogue/outdoors/rtfield)
+"k" = (
+/obj/structure/fluff/railing/border/west{
+	layer = 4.3
+	},
+/obj/structure/fluff/railing/border/west{
+	dir = 2
+	},
+/turf/open/floor/rogue/ruinedwood/turned,
+/area/rogue/outdoors/rtfield)
 "l" = (
-/obj/structure/rack/rogue,
-/obj/effect/spawner/lootdrop/roguetown/dungeon/armor,
-/turf/open/floor/rogue/twig,
+/obj/structure/stairs{
+	dir = 8
+	},
+/turf/open/floor/rogue/dirt/road,
 /area/rogue/outdoors/rtfield)
 "m" = (
-/obj/effect/landmark/chest_or_mimic/locked_or_trapped,
-/turf/open/floor/rogue/twig,
+/turf/open/water/ocean/deep,
+/area/rogue/outdoors/beach/south)
+"o" = (
+/obj/structure/fluff/railing/border/west{
+	layer = 4.3
+	},
+/obj/structure/fluff/railing/border/west{
+	dir = 1
+	},
+/turf/open/floor/rogue/ruinedwood/turned,
 /area/rogue/outdoors/rtfield)
-"B" = (
+"q" = (
+/obj/structure/fluff/railing/border/west{
+	dir = 2
+	},
+/obj/structure/fluff/railing/border/west{
+	layer = 4.3
+	},
+/turf/open/floor/rogue/ruinedwood/turned,
+/area/rogue/outdoors/rtfield)
+"s" = (
+/obj/structure/fluff/railing/border/west{
+	dir = 4
+	},
+/obj/structure/fluff/railing/border/west{
+	dir = 1
+	},
+/turf/open/floor/rogue/ruinedwood/turned,
+/area/rogue/outdoors/rtfield)
+"t" = (
+/obj/structure/fluff/railing/border/west{
+	dir = 1
+	},
+/turf/open/floor/rogue/ruinedwood/turned,
+/area/rogue/outdoors/rtfield)
+"u" = (
 /obj/structure/closet/crate/chest,
-/obj/effect/spawner/lootdrop/magic_loot_tier_2/x3,
-/obj/effect/spawner/lootdrop/magic_loot_tier_1,
-/turf/open/floor/rogue/twig,
+/turf/open/floor/rogue/naturalstone,
+/area/rogue/outdoors/beach/south)
+"v" = (
+/obj/structure/fluff/railing/border/west{
+	dir = 4
+	},
+/obj/structure/fluff/railing/border/west{
+	dir = 2
+	},
+/turf/open/floor/rogue/ruinedwood/turned,
+/area/rogue/outdoors/rtfield)
+"w" = (
+/obj/structure/bed/rogue/shit,
+/mob/living/carbon/human/species/akula/npc/titan,
+/turf/open/floor/rogue/dirt/road,
+/area/rogue/outdoors/rtfield)
+"z" = (
+/obj/structure/fluff/railing/border/west{
+	dir = 4
+	},
+/turf/open/floor/rogue/ruinedwood/turned,
+/area/rogue/outdoors/rtfield)
+"A" = (
+/obj/effect/landmark/chimeric_calyx_spawner/fifteen,
+/turf/open/floor/rogue/naturalstone,
+/area/rogue/outdoors/beach/south)
+"B" = (
+/turf/closed/wall/mineral/rogue/craftstone,
 /area/rogue/outdoors/rtfield)
 "E" = (
+/turf/closed/mineral/random/rogue,
+/area/rogue/outdoors/beach/south)
+"H" = (
+/obj/structure/fluff/railing/border/west{
+	dir = 1
+	},
+/obj/structure/fluff/railing/border/west{
+	dir = 4
+	},
+/turf/open/floor/rogue/ruinedwood/turned,
+/area/rogue/outdoors/rtfield)
+"I" = (
+/obj/structure/rack/rogue,
+/obj/effect/spawner/lootdrop/roguetown/dungeon/materials,
+/obj/effect/spawner/lootdrop/roguetown/dungeon/materials,
+/obj/effect/spawner/lootdrop/roguetown/dungeon/materials,
+/turf/open/floor/rogue/naturalstone,
+/area/rogue/outdoors/beach/south)
+"J" = (
 /mob/living/carbon/human/species/akula/npc,
-/turf/open/floor/rogue/dirt,
+/obj/structure/fluff/railing/border/west{
+	dir = 4
+	},
+/turf/open/floor/rogue/ruinedwood/turned,
+/area/rogue/outdoors/rtfield)
+"K" = (
+/obj/structure/mineral_door/wood/red{
+	locked = 1
+	},
+/obj/effect/spawner/trap,
+/turf/open/floor/rogue/dirt/road,
+/area/rogue/outdoors/rtfield)
+"N" = (
+/mob/living/carbon/human/species/akula/npc/rogue,
+/turf/open/floor/rogue/dirt/road,
 /area/rogue/outdoors/rtfield)
 "O" = (
-/obj/structure/rack/rogue,
-/turf/open/floor/rogue/twig,
-/area/rogue/outdoors/rtfield)
+/mob/living/carbon/human/species/akula/npc/rogue,
+/turf/open/floor/rogue/naturalstone,
+/area/rogue/outdoors/beach/south)
 "P" = (
-/obj/structure/rack/rogue,
-/obj/effect/spawner/lootdrop/roguetown/dungeon/weapons,
-/turf/open/floor/rogue/twig,
+/turf/open/floor/rogue/dirt/road,
+/area/rogue/outdoors/rtfield)
+"Q" = (
+/mob/living/carbon/human/species/akula/npc,
+/turf/open/floor/rogue/ruinedwood/turned,
+/area/rogue/outdoors/rtfield)
+"R" = (
+/obj/structure/fluff/railing/border/west{
+	dir = 2
+	},
+/obj/structure/fluff/railing/border/west{
+	dir = 4
+	},
+/turf/open/floor/rogue/ruinedwood/turned,
 /area/rogue/outdoors/rtfield)
 "S" = (
-/turf/closed/wall/mineral/rogue/wooddark,
+/turf/open/floor/rogue/naturalstone,
+/area/rogue/outdoors/beach/south)
+"V" = (
+/obj/structure/rack/rogue,
+/obj/effect/spawner/lootdrop/roguetown/dungeon/armor,
+/obj/effect/spawner/lootdrop/roguetown/dungeon/weapons,
+/turf/open/floor/rogue/dirt/road,
 /area/rogue/outdoors/rtfield)
 "W" = (
-/obj/structure/bed/rogue/shit,
-/turf/open/floor/rogue/twig,
+/turf/open/floor/rogue/ruinedwood/turned,
 /area/rogue/outdoors/rtfield)
+"X" = (
+/obj/structure/fluff/railing/border/west{
+	dir = 2
+	},
+/turf/open/floor/rogue/ruinedwood/turned,
+/area/rogue/outdoors/rtfield)
+"Y" = (
+/obj/structure/stairs{
+	dir = 8
+	},
+/turf/open/floor/rogue/naturalstone,
+/area/rogue/outdoors/beach/south)
 
 (1,1,1) = {"
+E
 a
 a
 a
@@ -66,73 +213,79 @@ a
 a
 a
 a
-a
+E
+E
 "}
 (2,1,1) = {"
+E
 a
 S
 S
-a
-a
-a
-a
-a
-a
-a
+S
+S
+S
+S
+S
+S
 S
 S
 a
+E
+E
 "}
 (3,1,1) = {"
-a
-S
-S
-a
-a
-a
-a
-a
 E
 a
 S
 S
+S
+S
+S
+O
+S
+S
+S
+S
 a
+E
+E
 "}
 (4,1,1) = {"
+E
 a
+S
+S
+S
 a
+S
+S
 a
+S
+S
+S
 a
-a
-a
-a
-a
-a
-a
-a
-a
-a
+E
+E
 "}
 (5,1,1) = {"
-a
 E
 a
-a
+u
+I
+A
 a
 S
 S
-S
 a
+d
+I
+A
 a
-a
-a
-a
+E
+E
 "}
 (6,1,1) = {"
-a
-a
-S
-S
+E
 a
 a
 a
@@ -142,38 +295,49 @@ S
 S
 a
 a
+a
+a
+a
+E
+E
 "}
 (7,1,1) = {"
+E
+E
 a
-a
-S
-S
-a
-a
-a
-a
+Y
+Y
 a
 S
 S
 a
+Y
+Y
 a
+E
+E
+E
 "}
 (8,1,1) = {"
-a
-a
-a
-a
-a
-S
-S
-S
-a
-a
-a
+E
 E
 a
+S
+S
+S
+O
+S
+S
+S
+S
+a
+E
+E
+E
 "}
 (9,1,1) = {"
+m
+m
 a
 a
 a
@@ -184,232 +348,160 @@ a
 a
 a
 a
-a
-a
-a
-"}
-(10,1,1) = {"
-a
-S
-S
-a
-a
-a
-a
-a
-a
-a
-S
-S
-a
-"}
-(11,1,1) = {"
-a
-S
-S
-a
-E
-a
-a
-a
-a
-a
-S
-S
-a
-"}
-(12,1,1) = {"
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
-a
+m
+m
+m
 "}
 
 (1,1,2) = {"
-g
-g
-g
-g
-g
-g
-g
-g
-g
-g
-g
-g
-g
+P
+P
+e
+e
+B
+e
+B
+B
+e
+B
+e
+e
+P
+P
+P
 "}
 (2,1,2) = {"
-g
+P
+P
+e
+V
 b
 b
+w
+w
 b
 b
-b
-b
-b
-b
-b
-b
-b
-g
+V
+e
+P
+P
+P
 "}
 (3,1,2) = {"
-g
-S
-S
-b
-b
-b
-e
-b
-b
-b
-S
-S
-g
+P
+P
+B
+N
+P
+P
+P
+P
+P
+P
+N
+B
+P
+P
+P
 "}
 (4,1,2) = {"
-g
-g
-g
-l
-c
-b
-b
-b
 P
 P
-g
-g
-g
+e
+P
+P
+B
+B
+B
+B
+P
+P
+e
+P
+P
+P
 "}
 (5,1,2) = {"
+P
+P
+K
+P
+P
+B
 g
 g
-g
-g
-g
-b
-b
-b
-g
-g
-g
-g
-g
+B
+P
+P
+K
+P
+P
+P
 "}
 (6,1,2) = {"
+P
+P
+e
+l
+l
+B
 g
 g
-S
-S
-g
-g
-g
-g
-g
-S
-S
-g
-g
+B
+l
+l
+e
+P
+P
+P
 "}
 (7,1,2) = {"
+P
+P
+B
 g
 g
-S
-S
+B
+B
+B
+B
 g
 g
-g
-g
-g
-S
-S
-g
-g
+B
+P
+P
+P
 "}
 (8,1,2) = {"
+P
+P
+e
 g
 g
+e
+e
+e
+e
 g
 g
-g
-b
-b
-b
-g
-g
-g
-g
-g
+e
+P
+P
+P
 "}
 (9,1,2) = {"
 g
 g
-g
-P
-P
-b
-b
-b
-O
-l
-g
-g
-g
-"}
-(10,1,2) = {"
-g
-S
-S
-b
-b
-b
 e
-b
-b
-b
-S
-S
-g
-"}
-(11,1,2) = {"
-g
-b
-b
-b
-b
-b
-b
-b
-b
-b
-b
-b
-g
-"}
-(12,1,2) = {"
-g
-g
-g
-g
-g
-g
-g
-g
-g
-g
+e
+B
+e
+B
+B
+e
+B
+e
+e
 g
 g
 g
@@ -418,14 +510,16 @@ g
 (1,1,3) = {"
 g
 g
-g
-g
-g
-g
-g
-g
-g
-g
+f
+j
+j
+j
+W
+W
+j
+j
+j
+q
 g
 g
 g
@@ -433,139 +527,143 @@ g
 (2,1,3) = {"
 g
 g
-g
-g
-g
-g
-g
-g
-g
-g
+t
+Q
+W
+W
+W
+W
+W
+W
+W
+X
 g
 g
 g
 "}
 (3,1,3) = {"
 g
-b
-b
+g
+W
+W
+e
+e
+e
+e
+e
+e
+W
+W
 g
 g
-g
-g
-g
-g
-g
-b
-b
 g
 "}
 (4,1,3) = {"
 g
-b
-b
+g
+W
+W
+e
+B
+B
+B
+B
+e
+W
+W
 g
 g
-g
-g
-g
-g
-g
-b
-b
 g
 "}
 (5,1,3) = {"
 g
-b
-b
 g
 W
 W
+e
 B
+g
+g
+B
+e
 W
 W
 g
-b
-b
+g
 g
 "}
 (6,1,3) = {"
 g
-b
+g
+W
+W
 e
-b
-b
-b
-b
-b
-b
-b
+B
+g
+g
+B
 e
-b
+W
+W
+g
+g
 g
 "}
 (7,1,3) = {"
 g
-b
-b
-b
-b
-b
-b
-b
-b
-b
-b
-b
+g
+W
+W
+e
+B
+B
+B
+B
+e
+W
+W
+g
+g
 g
 "}
 (8,1,3) = {"
 g
-b
-b
 g
+t
 W
+e
+e
+e
+e
+e
+e
 W
-m
-W
-W
+X
 g
-b
-b
+g
 g
 "}
 (9,1,3) = {"
 g
-b
-b
+g
+H
+z
+z
+z
+z
+z
+z
+z
+J
+R
 g
 g
-g
-g
-g
-g
-g
-b
-b
 g
 "}
-(10,1,3) = {"
-g
-b
-b
+
+(1,1,4) = {"
 g
 g
-g
-g
-g
-g
-g
-b
-b
-g
-"}
-(11,1,3) = {"
 g
 g
 g
@@ -580,7 +678,128 @@ g
 g
 g
 "}
-(12,1,3) = {"
+(2,1,4) = {"
+g
+g
+g
+g
+g
+g
+g
+g
+g
+g
+g
+g
+g
+g
+g
+"}
+(3,1,4) = {"
+g
+g
+g
+g
+o
+j
+W
+W
+j
+k
+g
+g
+g
+g
+g
+"}
+(4,1,4) = {"
+g
+g
+g
+g
+t
+W
+z
+z
+Q
+X
+g
+g
+g
+g
+g
+"}
+(5,1,4) = {"
+g
+g
+g
+g
+W
+X
+g
+g
+t
+W
+g
+g
+g
+g
+g
+"}
+(6,1,4) = {"
+g
+g
+g
+g
+W
+X
+g
+g
+t
+W
+g
+g
+g
+g
+g
+"}
+(7,1,4) = {"
+g
+g
+g
+g
+t
+Q
+c
+c
+W
+X
+g
+g
+g
+g
+g
+"}
+(8,1,4) = {"
+g
+g
+g
+g
+s
+z
+W
+W
+z
+v
+g
+g
+g
+g
+g
+"}
+(9,1,4) = {"
+g
+g
 g
 g
 g
