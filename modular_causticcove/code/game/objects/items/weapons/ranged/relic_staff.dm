@@ -141,6 +141,7 @@
 
 	)
 	use_clickloc = TRUE
+	range = 7
 	respect_adjacency = TRUE
 	respect_dir = TRUE
 	delay = 0.7 SECONDS
