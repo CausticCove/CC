@@ -24,6 +24,7 @@
 	var/implement_tier = 0
 	/// Fraction (0..1) of a spell's resource cost returned by the arcyne refund buff when this item is held.
 	var/implement_refund = 0
+	var/specialcaster_effect = 0 //CausticEdit
 	COOLDOWN_DECLARE(attunement_cd)
 
 /obj/item/rogueweapon/proc/attune_implement(spell_color, spell_name)
