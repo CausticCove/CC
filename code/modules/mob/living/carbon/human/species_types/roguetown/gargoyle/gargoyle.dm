@@ -9,8 +9,8 @@
 	base_name = "Godtouched"
 	is_subrace = TRUE
 	desc = "<b>Stone Construct</b><br>\
-	Great statues of stone, brought to life by the arcane. Originating from the gargoyles commonly found looming within the larger towns of Grenzelhoft, mages of the celestial academy sought to make their own sort of constructs, after researching their production and artifice. And as they did not want to rely on smiths for this, they found geomancy for the base, and reproduced the life of constructs using only magic. For a time it was a well-kept secret by Grenzelhoftian mages and royalty, rumors of moving statues. Once revealed to the public, many sought to have them for work and protection> stonemasons began creating intricate statues to be brought to life by the academy, many of these of free will, finding themselves across Psydonia.<br>\
-	<span style='color: #6a8cb7;text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;'><b>+1 WIL | -2 SPD | No Hunger | No Breath | No Blood | Toxic Immunity</b></span><br><br>"
+	Great statues of stone, brought to life by the arcane. Originating from the gargoyles commonly found looming within the larger towns of Grenzelhoft, the mages of the celestial academy sought to make their own sort of constructs after studying specimens of metal constructs. They found geomancy to be useful the base, and reproduced the life of constructs using only magic. For a time it was a well-kept secret by Grenzelhoftian mages and royalty, rumors of moving statues guarding certain places.. Once revealed to the public, many sought to have them for work and protection. Stonemasons began creating intricate statues to be brought to life by mages across Psydonia, leading to the spread of these new constructs.<br>\
+	<span style='color: #6a8cb7;text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;'><b>+1 PER | -2 SPD | No Hunger | No Breath | No Blood | Toxic Immunity</b></span><br><br>"
 	skin_tone_wording = "Material"
 	use_skin_tone_wording_for_examine = FALSE
 	default_color = "FFFFFF"
@@ -83,7 +83,7 @@
 		OFFSET_TAUR = list(-16,0), OFFSET_TAUR_F = list(-16,0), \
 		//Caustic End
 		)
-	race_bonus = list(STAT_WILLPOWER = 1, STAT_SPEED = -2)
+	race_bonus = list(STAT_PERCEPTION = 1, STAT_SPEED = -2)
 	enflamed_icon = "widefire"
 	organs = list(
 		ORGAN_SLOT_BRAIN = /obj/item/organ/brain/construct,
@@ -187,7 +187,6 @@
 		"Can mine rocky terrain by trying to walk into it while in Combat Mode and while in STRONG stance.",
 		"Have unique interactions when certain items are used on them:\n\
 		\t<b>Gemstones, Ingots, Raw Ores, and Stones</b>: Are consumed to heal the construct. Stones are more effective on stone constructs than metal ones.\n\
-		\t<b>Cut Tree Logs</b>: Are turned into charcoal.\n\
 		\t<b>Whole Tree Logs</b>: Are split in half.\n\
 		\t<b>Large Rocks</b>: Are broken down into stones.")
 
@@ -386,6 +385,22 @@
 		user.drop_all_held_items()
 		S.deconstruct(FALSE)
 		new /obj/effect/decal/cleanable/debris/stony(get_turf(user))
+		return TRUE
+
+	// === LOG ===
+	if(I.type == /obj/item/grown/log/tree)
+		var/obj/item/grown/log/tree/L = I
+		user.visible_message(
+			span_notice("[user] presses [L] to [M]'s arms, and they crush it in two!"),
+			span_notice("I crush [L] down, splitting it in two!")
+		)
+		playsound(user.loc, 'sound/misc/woodhit.ogg', 30)
+		sleep(4)
+		playsound(user, 'sound/combat/hits/blunt/woodblunt (2).ogg', 100, TRUE)
+		qdel(I)
+		new /obj/item/grown/log/tree/small(get_turf(user.loc))
+		new /obj/item/grown/log/tree/small(get_turf(user.loc))
+		new /obj/effect/decal/cleanable/debris/woody(get_turf(user))
 		return TRUE
 
 	// === ORE ===
@@ -652,7 +667,7 @@
 
 		user.stamina_add(1)
 
-		var/bongo = pick('sound/combat/hits/armor/plate_blunt (1).ogg','sound/combat/hits/armor/plate_blunt (2).ogg','sound/combat/hits/armor/plate_blunt (3).ogg')
+		var/bongo = pick('sound/foley/smash_rock.ogg',)
 
 		shake_camera(user, 1, 1)
 		playsound(user.loc, 'sound/combat/wooshes/punch/punchwoosh (1).ogg', rand(60,100), TRUE)
@@ -681,11 +696,11 @@
 	desc = "Your crumbling body has been temporarily held together, at a heavy cost of your performance."
 	icon_state = "muscles"
 
-/datum/status_effect/debuff/integrity_rig
-	id = "integrity_rig"
+/datum/status_effect/debuff/integrity_stone
+	id = "integrity_stone"
 	duration = 1 MINUTES
 	status_type = STATUS_EFFECT_REPLACE
-	alert_type = /atom/movable/screen/alert/status_effect/debuff/integrity_rig
+	alert_type = /atom/movable/screen/alert/status_effect/debuff/integrity_stone
 	effectedstats = list(STATKEY_STR = -7, STATKEY_WIL = -7, STATKEY_LCK = -7)
 
 /datum/status_effect/debuff/integrity_rig/on_creation(mob/living/new_owner, custom_duration)
