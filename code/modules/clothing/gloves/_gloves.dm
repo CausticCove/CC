@@ -64,7 +64,7 @@
 
 	var/attachment_component = /datum/component/storage/concrete/roguetown/gloves
 
-/obj/item/clothing/gloves/Initialize()
+/obj/item/clothing/gloves/Initialize(mapload)
 	. = ..()
 	if(attachment_component)
 		AddComponent(attachment_component)
@@ -123,7 +123,7 @@
 
 // since we want rings to layer over the gloves, we set the layer manually here - amulets, in turn, override it in their own build_worn_icon proc
 // we also override female here because rings and amulets don't have _f sprites!
-/obj/item/clothing/gloves/build_worn_icon(default_layer = 0, default_icon_file = null, isinhands = FALSE, femaleuniform = NO_FEMALE_UNIFORM, override_state = null, female = FALSE, customi = null, sleeveindex, boobed_overlay = FALSE, var/icon/clip_mask = null)
+/obj/item/clothing/gloves/build_worn_icon(default_layer = 0, default_icon_file = null, isinhands = FALSE, femaleuniform = NO_FEMALE_UNIFORM, override_state = null, female = FALSE, customi = null, sleeveindex, boobed_overlay = FALSE, icon/clip_mask = null)
 	var/mutable_appearance/standing = ..()
 	// get attachment component and check if there's anything inside
 	if(attachment_component)
@@ -134,7 +134,6 @@
 					continue
 				var/shouldrenderfemale = (female && !(thing.slot_flags & SLOT_RING)) // rings and amulets don't have _f icons, but gloves _do_
 				var/mutable_appearance/thing_appearance = thing.build_worn_icon(RING_LAYER, default_icon_file, isinhands, femaleuniform, override_state, shouldrenderfemale, customi, sleeveindex, boobed_overlay, clip_mask)
-				to_chat(world, span_warning("[thing_appearance.icon],[thing_appearance.icon_state]"))
 				thing_appearance.appearance_flags = RESET_COLOR
 				thing_appearance.pixel_x -= standing.pixel_x
 				thing_appearance.pixel_y -= standing.pixel_y
