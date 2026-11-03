@@ -2581,6 +2581,7 @@
 #include "code\modules\mob\living\carbon\human\species_types\roguetown\elf\elfc.dm"
 #include "code\modules\mob\living\carbon\human\species_types\roguetown\elf\elfd.dm"
 #include "code\modules\mob\living\carbon\human\species_types\roguetown\elf\elfs.dm"
+#include "code\modules\mob\living\carbon\human\species_types\roguetown\gargoyle\gargoyle.dm" //CC EDIT
 #include "code\modules\mob\living\carbon\human\species_types\roguetown\goblin\goblinp.dm"
 #include "code\modules\mob\living\carbon\human\species_types\roguetown\human\_human.dm"
 #include "code\modules\mob\living\carbon\human\species_types\roguetown\human\humen.dm"

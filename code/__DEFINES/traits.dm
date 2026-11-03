@@ -331,6 +331,7 @@
 #define TRAIT_HUNTED "Hunted" //For people who are hunted.
 #define TRAIT_SANDSTORMED "Sandstormed"
 #define TRAIT_SANDSTORM_GOGGLES "sandstorm_eyeprotection"
+#define TRAIT_STONEMAN "Stone Construct"
 //Caustice edit end
 
 // Economic Roles Traits
@@ -616,7 +617,7 @@ GLOBAL_LIST_INIT(roguetraits, list(
 	TRAIT_NECRAS_ABATEMENT = span_info("The Undermaiden's gaze lingers upon me, and intensifies as I draw closer to hallowed ground."),
 	TRAIT_MANGLED_JAW = span_info("I've suffered a horrible injury to my jaw in the past. It's harder to eat, drink, or bite anything."),
 	TRAIT_HUNTED = span_info("I've done something in my past to upset a certain party. Whatever it may be, if they find me, I may be in deep trouble."),
-
+	TRAIT_STONEMAN = span_info("I am a living statue carved out of stone, brought to life by magic. I share most similarities with metal constructs, minerals, gems, and rocks restore me. I can process certain materials on the go, and with empty hands, Combat Mode active, and a STRONG stance, I can mine mineral walls and topple trees by bumping into them."),
 	//Caustic edit end
 	TRAIT_ENGINEERING_GOGGLES = span_warning("I can see structural details others can't."),
 	TRAIT_ASSASSIN = span_warning("My soul has been tainted by foul spirits, through them I honor my pact."),
