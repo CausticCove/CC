@@ -181,6 +181,7 @@
 
 	mechanics_explanations = list("Their wounds cannot be mended with needles or surgery, but instead with stonemason repairs. All severities of wounds require a hammer and chisel to heal.",
 		"Generic healing miracles used on them will be less effective the closer they are to being at perfect condition.",
+		"They are revived the same as normal constructs, as an emergency arcane cranking system is present in their torso.",
 		"Spells of mending can heal their wounds.",
 		"While on the brink of death, can be temporarily stabilized by sticks or rocks.",
 		"Can easily attach any prosthetic limbs to their bodies, including their own when they are lost.",
