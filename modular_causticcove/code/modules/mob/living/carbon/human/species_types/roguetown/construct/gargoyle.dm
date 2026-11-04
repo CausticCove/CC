@@ -62,8 +62,8 @@
 		TRAIT_ZOMBIE_IMMUNE,
 		)
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_MAGIC | MIRROR_PRIDE | RACE_SWAP | SLIME_EXTRACT
-	limbs_icon_m = 'icons/roguetown/mob/bodies/m/mcom.dmi'
-	limbs_icon_f = 'icons/roguetown/mob/bodies/f/fcom.dmi'
+	limbs_icon_m = 'icons/roguetown/mob/bodies/m/mta.dmi' // stone constructs are not the same as metal constructs. they can be more humanlike
+	limbs_icon_f = 'icons/roguetown/mob/bodies/f/fma.dmi'
 	dam_icon = 'icons/roguetown/mob/bodies/dam/dam_male.dmi'
 	dam_icon_f = 'icons/roguetown/mob/bodies/dam/dam_female.dmi'
 	soundpack_m = /datum/voicepack/male
