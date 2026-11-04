@@ -55,7 +55,7 @@
 
 	if(isliving(victim))
 		var/mob/living/L = victim
-		if(HAS_TRAIT(victim, TRAIT_IRONMAN))
+		if(HAS_TRAIT(victim, TRAIT_IRONMAN) || HAS_TRAIT(victim, TRAIT_STONEMAN)) //cc edit
 			if(L.getBruteLoss() <= 0 && L.getFireLoss() <= 0)
 				to_chat(caster, span_info("[L] appears to be in perfect condition."))
 				return FALSE
