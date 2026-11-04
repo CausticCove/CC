@@ -86,14 +86,14 @@
 	race_bonus = list(STAT_PERCEPTION = 1, STAT_SPEED = -2)
 	enflamed_icon = "widefire"
 	organs = list(
-		ORGAN_SLOT_BRAIN = /obj/item/organ/brain/construct,
-		ORGAN_SLOT_HEART = /obj/item/organ/heart/construct,
-		ORGAN_SLOT_LUNGS = /obj/item/organ/lungs/construct,
-		ORGAN_SLOT_EYES = /obj/item/organ/eyes/construct,
+		ORGAN_SLOT_BRAIN = /obj/item/organ/brain/construct/stone,
+		ORGAN_SLOT_HEART = /obj/item/organ/heart/construct/stone,
+		ORGAN_SLOT_LUNGS = /obj/item/organ/lungs/construct/stone,
+		ORGAN_SLOT_EYES = /obj/item/organ/eyes/construct/stone,
 		ORGAN_SLOT_EARS = /obj/item/organ/ears,
-		ORGAN_SLOT_TONGUE = /obj/item/organ/tongue/construct,
-		ORGAN_SLOT_LIVER = /obj/item/organ/liver/construct,
-		ORGAN_SLOT_STOMACH = /obj/item/organ/stomach/construct,
+		ORGAN_SLOT_TONGUE = /obj/item/organ/tongue/construct/stone,
+		ORGAN_SLOT_LIVER = /obj/item/organ/liver/construct/stone,
+		ORGAN_SLOT_STOMACH = /obj/item/organ/stomach/construct/stone,
 		)
 	customizers = list(
 		/datum/customizer/organ/eyes/humanoid,
@@ -191,14 +191,14 @@
 		\t<b>Whole Tree Logs</b>: Are split in half.\n\
 		\t<b>Large Rocks</b>: Are broken down into stones.")
 
-/datum/species/construct/metal/check_roundstart_eligible()
+/datum/species/construct/stone/check_roundstart_eligible()
 	return TRUE
 
 /datum/species/construct/on_species_gain(mob/living/carbon/foreign, datum/species/old_species)
 	..()
 	foreign.AddComponent(/datum/component/abberant_eater, list(/obj/item/rogueore/coal), TRUE)
 
-/datum/species/construct/metal/get_skin_list()
+/datum/species/construct/stone/get_skin_list()
 	return list(
 		"SANDSTONE" = "#dfbd6c",
 		"ANDESITE" = "#525352",
@@ -209,7 +209,7 @@
 		"OBSIDIAN" = "#1d1827",
 	)
 
-/datum/species/construct/metal/get_hairc_list()
+/datum/species/construct/stone/get_hairc_list()
 	return sortList(list(
 
 	"black - midnight" = "1d1b2b",

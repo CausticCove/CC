@@ -342,7 +342,9 @@
 		selfheal = TRUE
 
 	else
-		if(user.get_skill_level(/datum/skill/craft/masonry))
+		if(user.get_skill_level(/datum/skill/craft/masonry) >= SKILL_LEVEL_JOURNEYMAN)
+			qualified = TRUE
+		if(user.get_skill_level(/datum/skill/magic/arcane) >= SKILL_LEVEL_JOURNEYMAN)
 			qualified = TRUE
 
 	if(!ishuman(M))
@@ -414,8 +416,8 @@
 		var/used_time = 90
 
 		if(user.mind)
-			used_time -= (user.get_skill_level(/datum/skill/craft/masonry) * 4)
-			used_time -= (user.get_skill_level(/datum/skill/magic/arcane) * 6)
+			used_time -= (user.get_skill_level(/datum/skill/craft/masonry) * 7)
+			used_time -= (user.get_skill_level(/datum/skill/magic/arcane) * 4)
 
 		used_time = round(max(used_time, 5))
 
@@ -466,7 +468,7 @@
 			H.heal_wounds(5)
 
 		H.update_damage_overlays()
-		user.mind.add_sleep_experience(/datum/skill/craft/engineering, (user.STAINT*2.5))
+		user.mind.add_sleep_experience(/datum/skill/craft/masonry, (user.STAINT*2.5))
 
 		if(M == user)
 			user.visible_message(span_notice("[user] repairs [user.p_their()] [affecting.name]."), span_notice("I repair my [affecting.name]."))

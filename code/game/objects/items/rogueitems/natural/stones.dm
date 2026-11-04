@@ -366,7 +366,7 @@ GLOBAL_LIST_INIT(stone_personality_descs, list(
 //rock munching
 /obj/item/natural/stone/attack(mob/living/M, mob/user)
 	if(!user.cmode)
-		if(try_construct_consume(src, M, user))
+		if(try_construct_consume(src, M, user) || try_stoneconstruct_consume(src, M, user))
 			return
 		else // if theyre not a construct, but we're not in cmode, beat them 2 death with rocks.
 			return ..()
@@ -426,7 +426,7 @@ GLOBAL_LIST_INIT(stone_personality_descs, list(
 //le rocke CRUSHER
 /obj/item/natural/rock/attack(mob/living/M, mob/user)
 	if(!user.cmode)
-		if(try_construct_consume(src, M, user))
+		if(try_construct_consume(src, M, user) || try_stoneconstruct_consume(src, M, user))
 			return
 		else // if theyre not a construct, but we're not in cmode, beat them 2 death with rocks.
 			return ..()

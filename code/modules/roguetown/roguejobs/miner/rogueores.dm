@@ -23,7 +23,7 @@
 
 /obj/item/rogueore/attack(mob/living/M, mob/user)
 	if(!user.cmode)
-		if(try_construct_consume(src, M, user))
+		if(try_construct_consume(src, M, user) || try_stoneconstruct_consume(src, M, user))
 			return
 	else
 		return ..()
@@ -228,7 +228,7 @@
 
 /obj/item/ingot/attack(mob/living/M, mob/user)
 	if(!user.cmode)
-		if(try_construct_consume(src, M, user))
+		if(try_construct_consume(src, M, user) || try_stoneconstruct_consume(src, M, user))
 			return
 	return ..()
 

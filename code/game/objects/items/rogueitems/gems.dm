@@ -34,7 +34,7 @@
 
 /obj/item/roguegem/attack(mob/living/M, mob/user)
 	if(!user.cmode)
-		if(try_construct_consume(src, M, user))
+		if(try_construct_consume(src, M, user) || try_stoneconstruct_consume(src, M, user))
 			return
 	else
 		return ..()
