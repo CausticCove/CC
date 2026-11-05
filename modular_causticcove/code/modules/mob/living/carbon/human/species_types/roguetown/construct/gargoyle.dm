@@ -179,7 +179,7 @@
 
 	restricted_virtues = list(/datum/virtue/utility/noble, /datum/virtue/utility/hollow)
 
-	mechanics_explanations = list("Their wounds cannot be mended with needles or surgery, but instead with stonemason repairs. All severities of wounds require a hammer and chisel to heal.",
+	mechanics_explanations = list("Their wounds cannot be mended with needles or surgery, but instead with stonemason repairs. All severities of wounds require a hammer and chisel set to heal.",
 		"Generic healing miracles used on them will be less effective the closer they are to being at perfect condition.",
 		"They are revived the same as normal constructs, as an emergency arcane cranking system is present in their torso.",
 		"Spells of mending can heal their wounds.",
@@ -344,11 +344,11 @@
 
 	// === STONE ===
 	if(istype(I, /obj/item/natural/stone))		//slightly changed compared to normal construct, better effects since they're made out of stone
-		var/obj/item/natural/stone/S = I
+		var/obj/item/natural/stone/S = I		//i love eating rocks
 		var/pow = S.magic_power + 2
 		var/brute = M.getBruteLoss()
 		var/fire  = M.getFireLoss()
-		var/MAX_DMG = 250
+		var/MAX_DMG = 300
 		var/MULT = 8
 		// Normalize damage
 		var/brute_ratio = clamp(brute / MAX_DMG, 0, 1)
