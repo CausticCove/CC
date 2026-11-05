@@ -349,7 +349,7 @@
 		var/brute = M.getBruteLoss()
 		var/fire  = M.getFireLoss()
 		var/MAX_DMG = 300
-		var/MULT = 8
+		var/MULT = 7
 		// Normalize damage
 		var/brute_ratio = clamp(brute / MAX_DMG, 0, 1)
 		var/fire_ratio  = clamp(fire  / MAX_DMG, 0, 1)
