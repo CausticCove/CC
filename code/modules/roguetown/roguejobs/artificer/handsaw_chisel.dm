@@ -416,10 +416,10 @@
 		var/used_time = 90
 
 		if(user.mind)
-			used_time -= (user.get_skill_level(/datum/skill/craft/masonry) * 7)
+			used_time -= (user.get_skill_level(/datum/skill/craft/masonry) * 8)
 			used_time -= (user.get_skill_level(/datum/skill/magic/arcane) * 4)
 
-		used_time = round(max(used_time, 5))
+		used_time = round(max(used_time, 4))
 
 		if(has_complex_wounds)
 			playsound(user.loc, 'sound/items/bsmith1.ogg', 100, FALSE)
