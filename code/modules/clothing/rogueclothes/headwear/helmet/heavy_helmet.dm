@@ -859,7 +859,7 @@
 	mob_overlay_icon = 'icons/roguetown/clothing/onmob/64x64/head.dmi'
 	bloody_icon = 'icons/effects/blood64.dmi'
 	smeltresult = /obj/item/ingot/silver
-	
+
 /obj/item/clothing/head/roguetown/helmet/heavy/knight/psy/greatplume
 	name = "psydonic armet with greatplume"
 	desc = "An ornate helmet, whose visor has been bound shut with blacksteel chains. The Order of Saint Eora often decorates \
@@ -1443,7 +1443,7 @@
 	smeltresult = /obj/item/ingot/component/zizo
 	material_category = ARMOR_MAT_PLATE
 	toggle_icon_state = TRUE
-	
+
 /obj/item/clothing/head/roguetown/helmet/heavy/zizo/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/cursed_item, TRAIT_CABAL, "HELMET")
@@ -1546,7 +1546,7 @@
 	adjustable = CAN_CADJUST
 	emote_environment = 3
 	body_parts_covered = FULL_HEAD|NECK
-	flags_inv = HIDEEARS|HIDEFACE|HIDEHAIR
+	flags_inv = HIDEEARS|HIDEFACE|HIDESNOUT|HIDEHAIR //Caustic Edit - Add in Hidesnout here
 	block2add = FOV_RIGHT|FOV_LEFT
 	max_integrity = ARMOR_INT_HELMET_HEAVY_STEEL + ARMOR_INT_HELMET_HEAVY_ADJUSTABLE_PENALTY //Froggemunds, galore!
 	smeltresult = /obj/item/ingot/steel
