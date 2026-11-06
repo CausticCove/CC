@@ -98,8 +98,6 @@
 #define DEFAULT_BODYPART_ICON_ORGANIC 'icons/mob/human_parts_greyscale.dmi'
 #define DEFAULT_BODYPART_ICON_ROBOTIC 'icons/mob/augmentation/augments.dmi'
 
-#define MONKEY_BODYPART "monkey"
-#define DEVIL_BODYPART "devil"
 /*see __DEFINES/inventory.dm for bodypart bitflag defines*/
 
 // Health/damage defines for carbon mobs
@@ -299,14 +297,6 @@
 #define INCORPOREAL_MOVE_SHADOW 2 // leaves a trail of shadows
 #define INCORPOREAL_MOVE_JAUNT 3 // is blocked by holy water/salt
 
-//Secbot and ED209 judgement criteria bitflag values
-#define JUDGE_EMAGGED		(1<<0)
-#define JUDGE_IDCHECK		(1<<1)
-#define JUDGE_WEAPONCHECK	(1<<2)
-#define JUDGE_RECORDCHECK	(1<<3)
-//ED209's ignore monkeys
-#define JUDGE_IGNOREMONKEYS	(1<<4)
-
 #define MEGAFAUNA_DEFAULT_RECOVERY_TIME 5
 
 #define SHADOW_SPECIES_LIGHT_THRESHOLD 0.2
@@ -358,13 +348,79 @@
 #define OFFSET_TAUR_F "taurf"
 //Caustic End
 
+// Body builds: alternate silhouettes a character can be rendered on, independent of their species.
+// Each build owns a limb sprite per gender and one offset table shared by every species offering it,
+// so clothing lines up with the body being drawn rather than with the species' native proportions.
+// BULKY is the mt.dmi/ft_muscular.dmi silhouette (masculine clothing cut); SLIM is mem.dmi/fm.dmi
+// (feminine cut, as elves have always rendered). See /datum/species/allowed_body_builds.
+#define BODY_BUILD_BULKY "bulky"
+#define BODY_BUILD_SLIM "slim"
+/// The old Wood Elf male sprite: the slim body raised a pixel. Masculine only, and offered to elves alone.
+#define BODY_BUILD_ELVEN "elven"
+/// Every build, in the order they should be listed to the player.
+#define ALL_BODY_BUILDS list(BODY_BUILD_BULKY, BODY_BUILD_SLIM, BODY_BUILD_ELVEN)
+/// The two builds any human-shaped species can offer.
+#define STANDARD_BODY_BUILDS list(BODY_BUILD_BULKY, BODY_BUILD_SLIM)
+
+// Offset table for the bulky build, tuned for the shared mt.dmi/ft_muscular.dmi silhouette. Taken from
+// Human's own offsets, which every mt.dmi species had already converged on identically. Both genders read
+// the masculine (OFFSET_X) keys here, since the bulky female body is pixel-identical to the male one.
+#define OFFSET_FEATURES_BULKY_REFERENCE list(\
+	OFFSET_ID = list(0,1), OFFSET_GLOVES = list(0,1), OFFSET_WRISTS = list(0,1),\
+	OFFSET_CLOAK = list(0,1), OFFSET_FACEMASK = list(0,1), OFFSET_HEAD = list(0,1), \
+	OFFSET_FACE = list(0,1), OFFSET_BELT = list(0,1), OFFSET_BACK = list(0,1), \
+	OFFSET_NECK = list(0,1), OFFSET_MOUTH = list(0,1), OFFSET_PANTS = list(0,1), \
+	OFFSET_SHIRT = list(0,1), OFFSET_ARMOR = list(0,1), OFFSET_HANDS = list(0,1), OFFSET_UNDIES = list(0,1), \
+	OFFSET_ID_F = list(0,-1), OFFSET_GLOVES_F = list(0,0), OFFSET_WRISTS_F = list(0,0), OFFSET_HANDS_F = list(0,0), \
+	OFFSET_CLOAK_F = list(0,0), OFFSET_FACEMASK_F = list(0,-1), OFFSET_HEAD_F = list(0,-1), \
+	OFFSET_FACE_F = list(0,-1), OFFSET_BELT_F = list(0,0), OFFSET_BACK_F = list(0,-1), \
+	OFFSET_NECK_F = list(0,-1), OFFSET_MOUTH_F = list(0,-1), OFFSET_PANTS_F = list(0,0), \
+	OFFSET_SHIRT_F = list(0,0), OFFSET_ARMOR_F = list(0,0), OFFSET_UNDIES_F = list(0,-1), \
+	OFFSET_TAUR = list(-16,0), OFFSET_TAUR_F = list(-16,0), \
+	) //Caustic Edit - Adding in the Taur Offsets to these
+
+// Offset table for the slim build, tuned for the shared mem.dmi/fm.dmi silhouette. The masculine keys come
+// from the Sun/Dark Elf table (mem.dmi sits one pixel below mt.dmi, so most slots are the bulky value minus
+// one); the feminine keys are the fm.dmi values every human-shaped species already shared. Males on this
+// build read the masculine keys and females the feminine ones, as elves have always done.
+#define OFFSET_FEATURES_SLIM_REFERENCE list(\
+	OFFSET_ID = list(0,0), OFFSET_GLOVES = list(0,-1), OFFSET_WRISTS = list(0,-1), OFFSET_HANDS = list(0,0), \
+	OFFSET_CLOAK = list(0,1), OFFSET_FACEMASK = list(0,0), OFFSET_HEAD = list(0,0), \
+	OFFSET_FACE = list(0,0), OFFSET_BELT = list(0,0), OFFSET_BACK = list(0,0), \
+	OFFSET_NECK = list(0,0), OFFSET_MOUTH = list(0,0), OFFSET_PANTS = list(0,0), \
+	OFFSET_SHIRT = list(0,1), OFFSET_ARMOR = list(0,1), OFFSET_UNDIES = list(0,0), \
+	OFFSET_ID_F = list(0,-1), OFFSET_GLOVES_F = list(0,0), OFFSET_WRISTS_F = list(0,0), OFFSET_HANDS_F = list(0,0), \
+	OFFSET_CLOAK_F = list(0,0), OFFSET_FACEMASK_F = list(0,-1), OFFSET_HEAD_F = list(0,-1), \
+	OFFSET_FACE_F = list(0,-1), OFFSET_BELT_F = list(0,0), OFFSET_BACK_F = list(0,-1), \
+	OFFSET_NECK_F = list(0,-1), OFFSET_MOUTH_F = list(0,-1), OFFSET_PANTS_F = list(0,0), \
+	OFFSET_SHIRT_F = list(0,0), OFFSET_ARMOR_F = list(0,0), OFFSET_UNDIES_F = list(0,-1), \
+	OFFSET_TAUR = list(-16,0), OFFSET_TAUR_F = list(-16,0), \
+	) //Caustic Edit - Adding in the Taur Offsets to these
+
+// Offset table for the elven build: the slim table raised a pixel, except on the legs and arms. A raised body lifts
+// the torso but leaves the feet planted, so the leg slots keep their slim values while everything hanging
+// off the body moves up with it. Written out in full so it reads the same way as its two neighbours.
+#define OFFSET_FEATURES_ELVEN_REFERENCE list(\
+	OFFSET_ID = list(0,1), OFFSET_GLOVES = list(0,0), OFFSET_WRISTS = list(0,0), \
+	OFFSET_HANDS = list(0,0), OFFSET_CLOAK = list(0,2), OFFSET_FACEMASK = list(0,1), \
+	OFFSET_HEAD = list(0,1), OFFSET_FACE = list(0,1), OFFSET_BELT = list(0,1), \
+	OFFSET_BACK = list(0,1), OFFSET_NECK = list(0,1), OFFSET_MOUTH = list(0,1), \
+	OFFSET_PANTS = list(0,0), OFFSET_SHIRT = list(0,2), OFFSET_ARMOR = list(0,2), \
+	OFFSET_UNDIES = list(0,1), OFFSET_ID_F = list(0,0), OFFSET_GLOVES_F = list(0,1), \
+	OFFSET_WRISTS_F = list(0,1), OFFSET_HANDS_F = list(0,1), OFFSET_CLOAK_F = list(0,1), \
+	OFFSET_FACEMASK_F = list(0,0), OFFSET_HEAD_F = list(0,0), OFFSET_FACE_F = list(0,0), \
+	OFFSET_BELT_F = list(0,1), OFFSET_BACK_F = list(0,0), OFFSET_NECK_F = list(0,0), \
+	OFFSET_MOUTH_F = list(0,0), OFFSET_PANTS_F = list(0,0), OFFSET_SHIRT_F = list(0,1), \
+	OFFSET_ARMOR_F = list(0,1), OFFSET_UNDIES_F = list(0,0), \
+	OFFSET_TAUR = list(-16,0), OFFSET_TAUR_F = list(-16,0), \
+	) //Caustic Edit - Adding in the Taur Offsets to these
+
 //MINOR TWEAKS/MISC
 #define AGE_MIN				18	//youngest a character can be
 #define AGE_MAX				85	//oldest a character can be
 #define WIZARD_AGE_MIN		30	//youngest a wizard can be
 #define APPRENTICE_AGE_MIN	29	//youngest an apprentice can be
 #define SHOES_SLOWDOWN		0	//How much shoes slow you down by default. Negative values speed you up
-#define POCKET_STRIP_DELAY			40	//time taken (in deciseconds) to search somebody's pockets
 #define DOOR_CRUSH_DAMAGE	15	//the amount of damage that airlocks deal when they crush you
 
 #define HUNGER_FACTOR		0.15	//factor at which mob nutrition decreases

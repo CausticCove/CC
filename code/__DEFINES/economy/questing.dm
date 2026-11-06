@@ -11,8 +11,10 @@
 #define QUEST_BOUNTY "Bounty"
 #define QUEST_RECOVERY "Recovery"
 #define QUEST_BLOCKADE_DEFENSE "Blockade Defense"
+#define QUEST_HOARD_RECOVERY "Hoard Recovery"
 #define QUEST_TOWNER_SMITH_CARAVAN "Smith Caravan"
 #define QUEST_TOWNER_MINER_OREVEIN "Ore Vein"
+#define QUEST_NOTORIOUS_BOUNTY "Notorious Bounty"
 
 //CC Edit - PvP Contracts
 #define QUEST_ASCENDED_BOUNTY "Ascended Bounty"
@@ -25,28 +27,32 @@
 #define TOWNER_POSTING_TIER_MEDIUM "medium"
 #define TOWNER_POSTING_TIER_HARD "hard"
 
-#define TOWNER_POSTING_COST_MEDIUM 50
-#define TOWNER_POSTING_COST_HARD 100
+#define TOWNER_POSTING_COST_MEDIUM 100
+#define TOWNER_POSTING_COST_HARD 200
 
-#define TOWNER_QUEST_FELLOWSHIP_SIZE 2
+#define TOWNER_POSTING_CROWN_COST_MULT 2
 
-#define TOWNER_CARAVAN_FLAT_BONUS_MEDIUM 60
-#define TOWNER_CARAVAN_FLAT_BONUS_HARD 120
+#define TOWNER_REWARD_CAP_MEDIUM 300
+#define TOWNER_REWARD_CAP_HARD 500
 
-#define TOWNER_PRESENCE_RADIUS 7
-#define TOWNER_PRESENCE_POLL_INTERVAL (3 SECONDS)
-#define TOWNER_CARAVAN_EXPIRY_DS (20 MINUTES)
-
-#define TOWNER_CARAVAN_TP_BUDGET_MEDIUM 100
+#define TOWNER_CARAVAN_TP_BUDGET_MEDIUM 80
 #define TOWNER_CARAVAN_TP_BUDGET_HARD 150
 
-#define TOWNER_OREVEIN_EXPIRY_DS (30 MINUTES)
 #define TOWNER_OREVEIN_TP_BUDGET_MEDIUM 80
-#define TOWNER_OREVEIN_TP_BUDGET_HARD 130
-#define TOWNER_OREVEIN_FLAT_BONUS_MEDIUM 60
-#define TOWNER_OREVEIN_FLAT_BONUS_HARD 120
-#define TOWNER_OREVEIN_CLUSTER_COUNT_MEDIUM 4
-#define TOWNER_OREVEIN_CLUSTER_COUNT_HARD 6
+#define TOWNER_OREVEIN_TP_BUDGET_HARD 150
+
+// Flat sweetener layered on combat & distance pay. Easy postings get none; shared by both types.
+#define TOWNER_FLAT_BONUS_MEDIUM 50
+#define TOWNER_FLAT_BONUS_HARD 100
+
+#define OREVEIN_VARIETY_IRON "iron"
+#define OREVEIN_VARIETY_CUPROSTANNIC "cuprostannic"
+#define OREVEIN_VARIETY_GEMMIFEROUS "gemmiferous"
+#define OREVEIN_VARIETY_AURICINNABAR "auricinnabar"
+
+#define CARAVAN_VARIETY_IRON "iron"
+#define CARAVAN_VARIETY_BRONZE "bronze"
+#define CARAVAN_VARIETY_BULLION "bullion"
 
 // Recovery is intentionally omitted - the Steward cannot directly commission recoveries.
 // Those spawn from the pool (SSquestpool.regen_kill_targets) and from Innkeeper rumors only.
@@ -58,12 +64,15 @@ GLOBAL_LIST_INIT(defense_quest_tier_costs, list(
 	QUEST_BOUNTY = BURGHER_PLEDGE_COST_MAJOR,
 	QUEST_RAID = BURGHER_PLEDGE_COST_MAJOR,
 	QUEST_BLOCKADE_DEFENSE = BLOCKADE_SCROLL_PLEDGE_COST,
+	QUEST_HOARD_RECOVERY = BLOCKADE_SCROLL_PLEDGE_COST,
 ))
 
 // Multipliers applied to the base TP for kill request rewards
 #define QUEST_KILL_THREAT_MULT 1.0
 // Bounty's main target is further multiplied
 #define QUEST_BOUNTY_THREAT_MULT 1
+// 2x the threat point value is ideal
+#define QUEST_NOTORIOUS_BOUNTY_THREAT_MULT 2
 
 //CC Edit - Ascended Bounty Multiplier
 //Ascended Bounty is 1.5x better.
@@ -138,6 +147,11 @@ GLOBAL_LIST_INIT(defense_quest_tier_costs, list(
 // Player-issued listings (rumor/defense) get a longer window before reroll.
 #define QUEST_PLAYER_STALE_THRESHOLD (30 MINUTES)
 
+#define QUEST_ISSUER_CANCEL_WINDOW (30 MINUTES)
+
+#define QUEST_ISSUE_STATUS_LAPSED "lapsed"
+#define QUEST_ISSUE_STATUS_WITHDRAWN "withdrawn"
+
 // Per CKEY cap
 #define QUEST_TAKE_COOLDOWN (10 MINUTES)
 
@@ -159,6 +173,27 @@ GLOBAL_LIST_INIT(defense_quest_tier_costs, list(
 	QUEST_RECOVERY = 5,\
 	QUEST_ASCENDED_BOUNTY = 20,\
 ) //CC Edit - Quest Ascended Bounty addition
+
+#define NOTORIOUS_BOUNTY_POLL_TIME (15 SECONDS)
+#define NOTORIOUS_BOUNTY_POLL_WIDTH 520
+#define NOTORIOUS_BOUNTY_POLL_HEIGHT 260
+#define NOTORIOUS_BOUNTY_PROX_RANGE 35
+
+#define NOTORIOUS_BOUNTY_CONTROL_TIME (15 MINUTES)
+#define NOTORIOUS_BOUNTY_LEASH_RANGE 40
+#define NOTORIOUS_BOUNTY_LEASH_INTERVAL (10 SECONDS)
+#define NOTORIOUS_BOUNTY_GOON_CAP 3
+// Extra goons compensate when no ghost answers the poll and the boss stays an NPC.
+#define NOTORIOUS_BOUNTY_REINFORCE_TP 140
+#define NOTORIOUS_BOUNTY_REINFORCE_CAP 7
+// Flat mammon bump when a player assumes the boss - the hunt got harder, the pay follows.
+#define NOTORIOUS_BOUNTY_PLAYER_BONUS 125
+#define NOTORIOUS_BOUNTY_NPC_BONUS 60
+
+#define NOTORIOUS_BOUNTY_SURVIVAL_TRIUMPH 1
+#define NOTORIOUS_BOUNTY_ENGAGE_RANGE 10
+// Grace period between the boss dying and the player being released to a ghost.
+#define NOTORIOUS_BOUNTY_DEATH_RELEASE (5 SECONDS)
 
 
 #define QUEST_EVERGREEN_TYPE_WEIGHTS list(\
@@ -183,12 +218,34 @@ GLOBAL_LIST_INIT(defense_quest_tier_costs, list(
 #define QUEST_DELIVERY_THREAT_BONUS 20
 
 #define BLOCKADE_FELLOWSHIP_REQUIREMENT 3
-#define BLOCKADE_WAVE_TIMER_DS (10 MINUTES)
+#define BLOCKADE_WAVE_TIMER_DS (15 MINUTES)
+#define BLOCKADE_INTERMISSION_DS (3 MINUTES)
+#define BLOCKADE_INTERMISSION_BELL_DS (15 SECONDS)
+#define BLOCKADE_HORN_EXTRARANGE 10
+#define BLOCKADE_WAVE_WARN_FIRST (7.5 MINUTES)
+#define BLOCKADE_WAVE_WARN_SECOND (5 MINUTES)
+#define BLOCKADE_WAVE_WARN_THIRD (2 MINUTES)
+#define NOM_DE_GUERRE_MAX_LENGTH 60
 
-#define BLOCKADE_ARM_TIMEOUT_DS (30 MINUTES)
-#define BLOCKADE_RECALL_WINDOW_DS (15 MINUTES)
+// Minimum Pledge to call a hoard recovery writ from a fellowship without being the Steward.
+#define HOARD_RECOVERY_PLEDGE 200
+#define HOARD_RECOVERY_HOARD_MINIMUM 200
 
 #define BLOCKADE_TOTAL_WAVES 3
-#define BLOCKADE_WAVE_1_TP 120
-#define BLOCKADE_WAVE_2_TP 120
-#define BLOCKADE_WAVE_3_TP 150
+#define BLOCKADE_WAVE_BASE_TP 180
+#define BLOCKADE_DEFENDER_SCAN_RANGE 7
+#define BLOCKADE_DEFENDER_SCALE_MIN 3
+#define BLOCKADE_DEFENDER_SCALE_MAX 5
+#define BLOCKADE_TP_PER_EXTRA_DEFENDER 0.20
+#define BLOCKADE_REWARD_PER_EXTRA_DEFENDER 0.20
+
+#define BLOCKADE_ARCHETYPE_WARBAND "warband"
+#define BLOCKADE_ARCHETYPE_SWARM "swarm"
+#define BLOCKADE_ARCHETYPE_ELITE "elite"
+#define BLOCKADE_ARCHETYPE_WEIGHTS list(\
+	BLOCKADE_ARCHETYPE_WARBAND = 55,\
+	BLOCKADE_ARCHETYPE_SWARM = 25,\
+	BLOCKADE_ARCHETYPE_ELITE = 20,\
+)
+#define BLOCKADE_ARCHETYPE_PIVOT_TP 20
+#define BLOCKADE_ARCHETYPE_BIAS_STRENGTH 1.5

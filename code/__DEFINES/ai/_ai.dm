@@ -170,6 +170,11 @@
 #define BB_MUG_TARGET "mug_target"
 #define BB_MUG_TARGET_ITEM "mug_rootbeer"
 
+//Caustic Edit
+/// Set on sentries and set dressing that should hold their post instead of idle-wandering.
+#define BB_NPC_STAY_PUT                  "npc_stay_put" //Ported from Valmorian Isles and their Idle NPC wander!
+//Caustic Edit End
+
 #define ARCHER_NPC_EQUIPMENT_CACHE_TIME (40 SECONDS)
 #define ARCHER_NPC_MIN_RANGE			4
 #define ARCHER_NPC_KITE_FLOOR			1

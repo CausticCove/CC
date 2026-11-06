@@ -1,15 +1,16 @@
-/datum/ambush_config/dunewell_raider
-	mob_types = list(
-		/mob/living/carbon/human/species/human/northern/dunewell_raider/ambush = 2,
-		/mob/living/carbon/human/species/human/northern/dunewell_raider/better_gear/ambush = 1
-	)
-	threat_point = THREAT_MODERATE * 2 + THREAT_HIGH
+/datum/npc_warband/dunewell_raider
+	name = "Dunewell Raider Squad"
+	category = FACTION_DUNWELL
 	faction_tag = "bandits"
+	members = list(
+		/mob/living/carbon/human/species/human/northern/dunewell_raider/ambush = 3
+	)
 
-/datum/ambush_config/dunewell_raider/hard
-	mob_types = list(
+/datum/npc_warband/dunewell_raider/hard
+	name = "Well-Equipped Dunewell Raider Squad"
+	category = FACTION_DUNWELL
+	faction_tag = "bandits"
+	members = list(
 		/mob/living/carbon/human/species/human/northern/dunewell_raider/better_gear/ambush = 2,
 		/mob/living/carbon/human/species/human/northern/dunewell_raider/ambush = 1,
 	)
-	threat_point = THREAT_HIGH * 2 + THREAT_MODERATE
-	faction_tag = "bandits"

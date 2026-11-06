@@ -485,11 +485,11 @@
 	createditem_num = 3
 
 /datum/anvil_recipe/tools/iron/scrap
-	name = "Pieces Of Scrap, Iron (x6)"
+	name = "Pieces Of Scrap, Iron (x4)"
 	req_bar = /obj/item/ingot/iron
 	created_item = /obj/item/scrap
-	display_category = ITEM_CAT_TOOLS_SUNDRIES
-	createditem_num = 6 // Caustic Edit / Makes smithing scrap more worth it than breaking down bars.
+	display_category = ITEM_CAT_SALVAGE
+	createditem_num = 4 // Caustic Edit / Makes smithing scrap more worth it than breaking down bars.
 
 /datum/anvil_recipe/tools/iron/cups
 	name = "Cups, Iron (x3)"

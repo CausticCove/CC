@@ -9,6 +9,7 @@ GLOBAL_PROTECT(admin_verbs_default)
 	/client/proc/adjust_pq,
 	/client/proc/hearallasghost,
 	/client/proc/hearglobalLOOC,
+	/client/proc/hearsubtleLOOC,
 	/client/proc/togglespawnmessages,
 	/client/proc/toggle_aghost_invis,
 	/client/proc/admin_ghost,
@@ -56,7 +57,6 @@ GLOBAL_PROTECT(admin_verbs_admin)
 	/client/proc/hide_most_verbs,		/*hides all our hideable adminverbs*/
 	/client/proc/investigate_show,		/*various admintools for investigation. Such as a singulo grief-log*/
 	/client/proc/secrets,				/* Almost entirely non-functional after Azure Peak Debloatening. Final few are redundant, but keeping just in case */
-	/client/proc/toggle_hear_radio,		/*allows admins to hide all radio output*/
 	/client/proc/reload_admins,
 	/client/proc/recalc_pq_bulk,
 	/client/proc/recalc_pq_single,
@@ -178,7 +178,6 @@ GLOBAL_PROTECT(admin_verbs_server)
 	/client/proc/cmd_debug_del_all,
 	/client/proc/cmd_controller_view_ui,
 	/client/proc/toggle_random_events,
-	/client/proc/forcerandomrotate,
 	/client/proc/adminchangemap,
 	/client/proc/panicbunker,
 	/datum/admins/proc/BC_WhitelistKeyVerb,
@@ -191,7 +190,8 @@ GLOBAL_LIST_INIT(admin_verbs_debug, world.AVerbsDebug())
 GLOBAL_PROTECT(admin_verbs_debug)
 /world/proc/AVerbsDebug()
 	return list(
-	/client/proc/debug_variables,		/*allows us to -see- the variables of any instance in the game. +VAREDIT needed to modify*/
+	/client/proc/debug_variables_verb,		/*allows us to -see- the variables of any instance in the game. +VAREDIT needed to modify*/
+	/client/proc/display_tags,
 	/client/proc/restart_controller,
 	/client/proc/cmd_controller_view_ui,
 	/client/proc/cmd_admin_list_open_jobs,
@@ -232,8 +232,9 @@ GLOBAL_PROTECT(admin_verbs_debug)
 	/client/proc/cleanup_stress_test_mobs,
 	/client/proc/cmd_admin_economic_panel,
 	/client/proc/cmd_admin_view_chronicle,
+	/client/proc/cmd_admin_view_economics,
 	//CC Edit
-	/client/proc/allow_broser_inspect
+	/client/proc/allow_browser_inspect
 	//CC Edit End
 	)
 GLOBAL_LIST_INIT(admin_verbs_possess, list(/proc/possess, GLOBAL_PROC_REF(release)))

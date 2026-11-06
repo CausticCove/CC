@@ -70,7 +70,7 @@ export const VorePanelImport = () => {
   }
 
   return (
-    <Window width={520} height={700} theme="abstract">
+    <Window width={520} height={700}>
       <Window.Content>
         <Stack fill vertical>
           <Stack.Item>

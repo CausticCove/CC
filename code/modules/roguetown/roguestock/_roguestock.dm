@@ -6,6 +6,7 @@
 	var/payout_price = 1
 	var/withdraw_price = 1
 	var/withdraw_disabled = FALSE
+	var/autoexport_disabled = FALSE
 	var/transport_item = FALSE
 	var/stockpile_limit = 100
 	var/importexport_amt = 10

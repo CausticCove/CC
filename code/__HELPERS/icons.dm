@@ -1047,7 +1047,7 @@ GLOBAL_LIST_EMPTY(friendly_animal_types)
 		var/mob/living/carbon/human/dummy/body = generate_or_wait_for_human_dummy(dummy_key)
 
 		if(prefs)
-			prefs.copy_to(body,TRUE,FALSE)
+			prefs.copy_to(body, TRUE, FALSE, character_setup = TRUE)
 		if(human_gear_override) //EVIL CODE!!
 			var/static/list/all_item_slots = ALL_ITEM_SLOTS
 			for(var/slot in all_item_slots)
@@ -1089,8 +1089,9 @@ GLOBAL_LIST_EMPTY(friendly_animal_types)
 		body.update_inv_back()
 		body.update_inv_head()
 
-		humanoid_icon_cache[icon_id] = out_icon
-		dummy_key? unset_busy_human_dummy(dummy_key) : qdel(body)
+		if(icon_id)
+			humanoid_icon_cache[icon_id] = out_icon
+		dummy_key ? unset_busy_human_dummy(dummy_key) : qdel(body)
 		return out_icon
 	else
 		return humanoid_icon_cache[icon_id]

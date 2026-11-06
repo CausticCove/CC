@@ -264,6 +264,7 @@
 	associated_skill = /datum/skill/combat/staves
 	anvilrepair = /datum/skill/craft/carpentry
 	resistance_flags = FLAMMABLE
+	twirl_speed = 6
 
 /obj/item/rogueweapon/woodstaff/getonmobprop(tag)
 	. = ..()
@@ -339,6 +340,8 @@
 	throwforce = 25
 	resistance_flags = FLAMMABLE
 	special = /datum/special_intent/polearm_backstep
+	twirly = SKILL_LEVEL_EXPERT // safely twirling like, a halberd, is going to be harder than a blunt staff
+	twirl_speed = 6
 
 /obj/item/rogueweapon/spear/short
 	force = 25
@@ -651,8 +654,8 @@
 
 /obj/item/rogueweapon/spear/billhook/avantyne
 	name = "avantyne-threaded billhook"
-	desc = "A twisted implement of harvest, it's hooked edge festering with crystalline malice. It is a weapon of pure upheaval, designed \
-	to drag the Psydonia's false idols into the dirt."
+	desc = "A twisted implement of harvest, its hooked edge festering with crystalline malice. It is a weapon of pure upheaval, designed \
+	to drag Psydonia's false idols into the dirt."
 	icon_state = "zizobillhook"
 	force = 30
 	force_wielded = 35
@@ -1560,15 +1563,6 @@
 	icon_state = "elfglaive"
 	max_blade_int = 180 //Elven design makes it sharper
 	sellprice = 60
-
-/obj/item/rogueweapon/halberd/glaive/elvish/getonmobprop(tag)
-	. = ..()
-	if(tag)
-		switch(tag)
-			if("gen")
-				return list("shrink" = 0.6,"sx" = -6,"sy" = 2,"nx" = 8,"ny" = 2,"wx" = -4,"wy" = 2,"ex" = 1,"ey" = 2,"northabove" = 0,"southabove" = 1,"eastabove" = 1,"westabove" = 0,"nturn" = -38,"sturn" = 300,"wturn" = 32,"eturn" = -23,"nflip" = 0,"sflip" = 100,"wflip" = 8,"eflip" = 0)
-			if("wielded")
-				return list("shrink" = 0.6,"sx" = 4,"sy" = -2,"nx" = -3,"ny" = -2,"wx" = -5,"wy" = -1,"ex" = 3,"ey" = -2,"northabove" = 0,"southabove" = 1,"eastabove" = 1,"westabove" = 0,"nturn" = 7,"sturn" = -7,"wturn" = 16,"eturn" = -22,"nflip" = 8,"sflip" = 0,"wflip" = 8,"eflip" = 0)
 
 /obj/item/rogueweapon/spear/partizan/baotha
 	name = "saccharine swordspear"

@@ -113002,11 +113002,14 @@
 	pixel_y = 5
 	},
 /obj/item/soap/bath,
-/obj/item/soap/bath,
-/obj/item/soap/bath,
-/obj/item/soap/bath,
-/obj/item/soap/bath,
-/obj/item/soap/bath,
+/obj/item/soap/citrus,
+/obj/item/soap/coffee,
+/obj/item/soap/jackberry,
+/obj/item/soap/tea,
+/obj/item/soap/vanilla,
+/obj/item/soap/mana,
+/obj/item/soap/calendula,
+/obj/item/soap/rosa,
 /turf/open/floor/rogue/tile/brownbrick,
 /area/rogue/indoors/town/bath)
 "vrG" = (

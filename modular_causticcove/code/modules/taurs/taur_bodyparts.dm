@@ -66,7 +66,7 @@
 
 /obj/item/bodypart/taur/cow
 	name = "Cow Body"
-	
+
 	offset_x = -16
 	taur_icon_state = "cow_s"
 
@@ -269,6 +269,7 @@
 	name = "Lupine Venard Body"
 
 	offset_x = -16
+	taur_clothing_category = "chem" //Chemlights modification
 	taur_icon_state = "chemtaur_s"
 
 	has_taur_color = TRUE

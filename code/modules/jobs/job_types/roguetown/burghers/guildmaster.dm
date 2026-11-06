@@ -29,6 +29,8 @@
 	job_subclasses = list(
 		/datum/advclass/guildmaster
 	)
+	has_subprefs = FALSE // only one subclass
+	spells = list(/obj/effect/proc_holder/spell/invoked/takeapprentice)
 
 /datum/advclass/guildmaster
 	name = "Guildmaster"

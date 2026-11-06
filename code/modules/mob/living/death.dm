@@ -187,7 +187,7 @@ GLOBAL_LIST_EMPTY(last_words)
 	// AZURE EDIT BEGIN: necra acolyte/priest deathsight trait
 	// this was a player that just died, so do the honors
 	// Vheslynites/second life people don't show up for this.
-	if (client)
+	if (client && !contract_spawned)
 		//Caustic Edit Start - Only send whispers for deaths _not_ in a Player's Belly. NPC ones we do want to send.
 		if(istype(src.loc, /obj/belly))
 			var/mob/living/belly_owner = src.loc.loc //The loc of the belly is the one who has it in them.
@@ -197,7 +197,7 @@ GLOBAL_LIST_EMPTY(last_words)
 			return
 		//Caustic Edit End
 		// Stop necrans from freaking out from digestion and unrevivable simplemob deaths
-	if (client)
+	if (client && !contract_spawned)
 		if (!gibbed && !( (src.mind && src.mind.has_antag_datum(/datum/antagonist/zombie)) || (src.mind && src.mind.has_antag_datum(/datum/antagonist/skeleton)) || HAS_TRAIT(src, TRAIT_SECONDLIFE) || HAS_TRAIT(src, TRAIT_UNFORGIVABLE) )) // because I hate being jumpscared by "OOH SOMEONE DIED IN THE CHURCH" when they're just killing a deadite with burn rot to rez them
 			for (var/mob/living/player in GLOB.player_list)
 				if (player.stat == DEAD || isbrain(player))

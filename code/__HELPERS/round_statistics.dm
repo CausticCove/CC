@@ -98,6 +98,7 @@
 #define STATS_REVENUE_HEADEATER_LEVY "revenue_headeater_levy"
 #define STATS_REVENUE_IMPORT_TARIFF "revenue_import_tariff"
 #define STATS_REVENUE_EXPORT_DUTY "revenue_export_duty"
+#define STATS_REVENUE_RECOVERED_SPOILS "revenue_recovered_spoils"
 // Tax revenue forgone due to exemption (Charter, patronage, levy-exempt stamp). Per category.
 #define STATS_EXEMPTED_CONTRACT_LEVY "exempted_contract_levy"
 #define STATS_EXEMPTED_HEADEATER_LEVY "exempted_headeater_levy"
@@ -124,6 +125,11 @@
 #define STATS_BLOCKADES_CLEARED "blockades_cleared"
 #define STATS_BLOCKADE_CONTRACTS_FAILED "blockade_contracts_failed"
 #define STATS_BLOCKADE_REWARDS_PAID "blockade_rewards_paid"
+// For material flows
+#define STATS_COMMISSION_MAMMONS_PAID "commission_mammons_paid"
+#define STATS_SCRAP_MAMMONS_PAID "scrap_mammons_paid"
+#define STATS_MATERIAL_UNITS_IN "material_units_in"
+#define STATS_MATERIAL_UNITS_OUT "material_units_out"
 
 // Influence related statistics
 
@@ -141,6 +147,7 @@
 #define STATS_TAXES_COLLECTED "taxes_collected"
 #define STATS_BANDITRY_LOSSES "banditry_losses"
 #define STATS_BANDITRY_DEBT_OUTSTANDING "banditry_debt_outstanding"
+#define STATS_BANDITRY_HOARD_OUTSTANDING "banditry_hoard_outstanding"
 #define STATS_TREASURY_DEBT_OUTSTANDING "treasury_debt_outstanding"
 #define STATS_TREASURY_DEBT_REPAID "treasury_debt_repaid"
 #define STATS_BANKRUPTCY_DECLARED "bankruptcy_declared"
@@ -250,6 +257,10 @@
 #define STATS_CONTRACT_MAMMONS_PAID "contract_mammons_paid"
 #define STATS_CONTRACT_MAMMONS_TAXED "contract_mammons_taxed"
 #define STATS_CONTRACT_MAMMONS_FORFEITED "contract_mammons_forfeited"
+#define STATS_CONTRACTS_LAPSE_REFUNDED "contracts_lapse_refunded"
+#define STATS_CONTRACTS_WITHDRAWN "contracts_withdrawn"
+#define STATS_CONTRACT_MAMMONS_REFUNDED "contract_mammons_refunded"
+#define STATS_CONTRACT_MAMMONS_GUILD_CUT "contract_mammons_guild_cut"
 /// Source-split contract stats. Aggregates above keep incrementing; these ones split by Q.source.
 #define STATS_CONTRACTS_GENERATED_POOL "contracts_generated_pool"
 #define STATS_CONTRACTS_GENERATED_RUMOR "contracts_generated_rumor"
@@ -260,6 +271,9 @@
 #define STATS_CONTRACTS_COMPLETED_POOL "contracts_completed_pool"
 #define STATS_CONTRACTS_COMPLETED_RUMOR "contracts_completed_rumor"
 #define STATS_CONTRACTS_COMPLETED_DEFENSE "contracts_completed_defense"
+#define STATS_CONTRACTS_LAPSED_POOL "contracts_lapsed_pool"
+#define STATS_CONTRACTS_LAPSED_RUMOR "contracts_lapsed_rumor"
+#define STATS_CONTRACTS_LAPSED_DEFENSE "contracts_lapsed_defense"
 
 GLOBAL_LIST_INIT(azure_round_stats, list(
 	STATS_DEATHS = 0,
@@ -492,6 +506,10 @@ GLOBAL_LIST_INIT(azure_round_stats, list(
 	STATS_BLOCKADES_CLEARED = 0,
 	STATS_BLOCKADE_CONTRACTS_FAILED = 0,
 	STATS_BLOCKADE_REWARDS_PAID = 0,
+	STATS_COMMISSION_MAMMONS_PAID = 0,
+	STATS_SCRAP_MAMMONS_PAID = 0,
+	STATS_MATERIAL_UNITS_IN = 0,
+	STATS_MATERIAL_UNITS_OUT = 0,
 	STATS_KILLED_HIGHWAYMEN = 0,
 	STATS_KILLED_BOGMEN = 0,
 	STATS_KILLED_LESSER_BEASTS = 0,
@@ -509,6 +527,157 @@ GLOBAL_LIST_INIT(azure_round_stats, list(
 	STATS_KILLED_LIVESTOCK = 0,
 	STATS_GRAVES_CONSECRATED = 0, //CC edit this was missing?
 ))
+
+#define CONTRACT_STAT_POSTED "posted"
+#define CONTRACT_STAT_TAKEN "taken"
+#define CONTRACT_STAT_LAPSED "lapsed"
+#define CONTRACT_STAT_COMPLETED "completed"
+#define CONTRACT_STAT_FAILED "failed"
+#define CONTRACT_STAT_ABANDONED "abandoned"
+#define CONTRACT_STAT_WITHDRAWN "withdrawn"
+#define CONTRACT_STAT_PAID "paid"
+#define CONTRACT_STAT_WAIT_DS "wait_ds"
+#define CONTRACT_STAT_RUN_DS "run_ds"
+#define CONTRACT_STAT_PARTY "party"
+#define CONTRACT_STAT_DEATHS "deaths"
+
+#define CONTRACT_AXIS_TYPE "type"
+#define CONTRACT_AXIS_REGION "region"
+#define CONTRACT_AXIS_GROUP "group"
+
+#define CONTRACT_GROUP_NOBILITY "Nobility & Court"
+#define CONTRACT_GROUP_GARRISON "Garrison"
+#define CONTRACT_GROUP_CLERGY "Clergy"
+#define CONTRACT_GROUP_BURGHERS "Burghers"
+#define CONTRACT_GROUP_PEASANTS "Peasants"
+#define CONTRACT_GROUP_OUTLAWS "Outlaws"
+#define CONTRACT_GROUP_OTHER "Other"
+
+GLOBAL_LIST_EMPTY(contract_stats)
+GLOBAL_LIST_EMPTY(contract_signers)
+GLOBAL_LIST_INIT(contract_stat_type_order, list(
+	QUEST_KILL_EASY,
+	QUEST_CLEAR_OUT,
+	QUEST_RAID,
+	QUEST_BOUNTY,
+	QUEST_NOTORIOUS_BOUNTY,
+	QUEST_RECOVERY,
+	QUEST_RETRIEVAL,
+	QUEST_COURIER,
+	QUEST_BLOCKADE_DEFENSE,
+	QUEST_HOARD_RECOVERY,
+	QUEST_TOWNER_SMITH_CARAVAN,
+	QUEST_TOWNER_MINER_OREVEIN,
+))
+GLOBAL_LIST_INIT(contract_stat_group_order, list(
+	CONTRACT_GROUP_NOBILITY,
+	CONTRACT_GROUP_GARRISON,
+	CONTRACT_GROUP_CLERGY,
+	CONTRACT_GROUP_BURGHERS,
+	CONTRACT_GROUP_PEASANTS,
+	CONTRACT_GROUP_OUTLAWS,
+	CONTRACT_GROUP_OTHER,
+))
+
+/proc/contract_signer_group(mob/user)
+	var/datum/job/J = user?.job ? SSjob.GetJob(user.job) : null
+	if(!J)
+		return CONTRACT_GROUP_OTHER
+	switch(J.department_flag)
+		if(NOBLEMEN, COURTIERS, RETINUE)
+			return CONTRACT_GROUP_NOBILITY
+		if(GARRISON)
+			return CONTRACT_GROUP_GARRISON
+		if(CHURCHMEN, INQUISITION)
+			return CONTRACT_GROUP_CLERGY
+		if(BURGHERS, ATC)
+			return CONTRACT_GROUP_BURGHERS
+		if(PEASANTS)
+			return CONTRACT_GROUP_PEASANTS
+		if(SIDEFOLK, WANDERERS)
+			return J.title
+		if(ANTAGONIST)
+			return CONTRACT_GROUP_OUTLAWS
+	return CONTRACT_GROUP_OTHER
+
+/proc/record_contract_axis(axis, key, metric, amount)
+	var/list/by_key = GLOB.contract_stats[axis]
+	if(!by_key)
+		by_key = list()
+		GLOB.contract_stats[axis] = by_key
+	var/list/row = by_key[key]
+	if(!row)
+		row = list()
+		by_key[key] = row
+	row[metric] = (row[metric] || 0) + amount
+
+/proc/record_contract_stat(datum/quest/Q, metric, amount = 1)
+	if(SSticker.current_state == GAME_STATE_FINISHED)
+		return
+	if(!Q || !metric)
+		return
+	if(Q.quest_type)
+		record_contract_axis(CONTRACT_AXIS_TYPE, Q.quest_type, metric, amount)
+	if(Q.region)
+		record_contract_axis(CONTRACT_AXIS_REGION, Q.region, metric, amount)
+	if(Q.signer_group)
+		record_contract_axis(CONTRACT_AXIS_GROUP, Q.signer_group, metric, amount)
+
+/proc/record_contract_signer_axis(axis, key, ckey)
+	if(!key)
+		return
+	var/list/by_key = GLOB.contract_signers[axis]
+	if(!by_key)
+		by_key = list()
+		GLOB.contract_signers[axis] = by_key
+	var/list/signers = by_key[key]
+	if(!signers)
+		signers = list()
+		by_key[key] = signers
+	signers[ckey] = TRUE
+
+/proc/record_contract_signer(datum/quest/Q, ckey)
+	if(SSticker.current_state == GAME_STATE_FINISHED)
+		return
+	if(!Q || !ckey)
+		return
+	record_contract_signer_axis(CONTRACT_AXIS_TYPE, Q.quest_type, ckey)
+	record_contract_signer_axis(CONTRACT_AXIS_REGION, Q.region, ckey)
+	record_contract_signer_axis(CONTRACT_AXIS_GROUP, Q.signer_group, ckey)
+
+/proc/get_contract_stat(axis, key, metric)
+	var/list/by_key = GLOB.contract_stats[axis]
+	var/list/row = by_key?[key]
+	return row ? (row[metric] || 0) : 0
+
+/proc/count_contract_signers(axis, key)
+	var/list/by_key = GLOB.contract_signers[axis]
+	return length(by_key?[key])
+
+/proc/count_all_contract_signers()
+	var/list/everyone = list()
+	var/list/by_type = GLOB.contract_signers[CONTRACT_AXIS_TYPE]
+	for(var/quest_type in by_type)
+		everyone |= by_type[quest_type]
+	return length(everyone)
+
+/proc/contract_group_order()
+	var/list/titles = list()
+	for(var/group in GLOB.contract_stats[CONTRACT_AXIS_GROUP])
+		if(!(group in GLOB.contract_stat_group_order))
+			titles += group
+	sortTim(titles, GLOBAL_PROC_REF(cmp_text_asc))
+	var/list/order = GLOB.contract_stat_group_order.Copy()
+	order.Insert(order.Find(CONTRACT_GROUP_OUTLAWS), titles)
+	return order
+
+/proc/contract_region_order()
+	var/list/order = list()
+	for(var/datum/threat_region/TR as anything in SSregionthreat?.threat_regions)
+		order += TR.region_name
+	for(var/region in GLOB.contract_stats[CONTRACT_AXIS_REGION])
+		order |= region
+	return order
 
 GLOBAL_LIST_EMPTY(patron_follower_counts)
 
@@ -531,6 +700,7 @@ GLOBAL_LIST_EMPTY(patron_follower_counts)
 #define FEATURED_STATS_STORYTELLERS "storytellers"
 #define FEATURED_STATS_VIRTUES	"virtues"
 #define FEATURED_STATS_SUBVIRTUES	"subvirtues"
+#define FEATURED_STATS_QUIRKS	"quirks"
 #define FEATURED_STATS_ORIGINS	"origins"
 #define FEATURED_STATS_STATPACKS "statpacks"
 #define FEATURED_STATS_VICES	"vices"
@@ -639,7 +809,7 @@ GLOBAL_LIST_INIT(featured_stats, list(
 		"color" = "#6375c5",
 		"entries" = list(),
 		"object_stat" = TRUE
-	),	
+	),
 	FEATURED_STATS_ORIGINS = list(
 		"name" = "TOP Origins",
 		"color" = "#602d91",
@@ -656,6 +826,13 @@ GLOBAL_LIST_INIT(featured_stats, list(
 	FEATURED_STATS_SUBVIRTUES = list(
 		"name" = "TOP Subvirtues",
 		"color" = "#8d3c75",
+		"entries" = list(),
+		"object_stat" = TRUE,
+		"admin_only" = TRUE
+	),
+	FEATURED_STATS_QUIRKS = list(
+		"name" = "TOP Quirks",
+		"color" = "#f09fd6",
 		"entries" = list(),
 		"object_stat" = TRUE,
 		"admin_only" = TRUE

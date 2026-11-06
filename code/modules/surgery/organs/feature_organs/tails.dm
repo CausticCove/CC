@@ -61,7 +61,7 @@
 
 /obj/item/organ/tail/dullahan
 	name = "revenant tail"
-	accessory_type =  /datum/sprite_accessory/tail/dullahan
+	accessory_type =	/datum/sprite_accessory/tail/tiefling
 
 /obj/item/organ/tail/akula
 	name = "axian tail"
@@ -78,3 +78,7 @@
 	desc = ""
 	color = "#116611"
 	accessory_type =  /datum/sprite_accessory/tail/lizard/kobold
+
+/obj/item/organ/tail/goblin
+	name = "goblin tail"
+	accessory_type =  /datum/sprite_accessory/tail/goblin1

@@ -66,11 +66,7 @@
 	for(var/mob/living/L in GLOB.player_list)
 		if(L == user || istype(L, /mob/living/carbon/human/dummy) || !L.mind)
 			continue
-		var/is_hunted = L.has_flaw(/datum/charflaw/hunted)
-		//Caustic edit
-		if(HAS_TRAIT(L, TRAIT_HUNTED))
-			is_hunted = TRUE
-		//Caustic edit end
+		var/is_hunted = HAS_TRAIT(L, TRAIT_HUNTED) //Caustic Edit - Change it from looking for the Flaw to looking for the trait we have instead.
 		// Don't uncomment for now
 		// var/target_role = L.job
 		var/is_valid_prey = is_hunted
@@ -185,7 +181,7 @@
 
 	// Determine Channel Time
 	var/channel_time = 15 SECONDS
-	if(target.has_flaw(/datum/charflaw/hunted))
+	if(HAS_TRAIT(target, TRAIT_HUNTED))
 		channel_time = 6 SECONDS
 
 	to_chat(user, span_notice("You begin pulling [target] into graggar's plane"))

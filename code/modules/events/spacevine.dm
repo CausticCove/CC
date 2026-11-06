@@ -354,11 +354,6 @@
 	user_unbuckle_mob(user, user)
 	. = ..()
 
-/obj/structure/vine/attack_paw(mob/living/user)
-	for(var/datum/vine_mutation/SM in mutations)
-		SM.on_hit(src, user)
-	user_unbuckle_mob(user,user)
-
 /datum/vine_controller
 	var/list/obj/structure/vine/vines
 	var/obj/structure/flora/roguetree/evil/tree
@@ -387,6 +382,7 @@
 
 /datum/vine_controller/vv_get_dropdown()
 	. = ..()
+	VV_DROPDOWN_OPTION("", "--- /spacevine_controller ---")
 	VV_DROPDOWN_OPTION(VV_HK_SPACEVINE_PURGE, "Delete Vines")
 
 /datum/vine_controller/vv_do_topic(href_list)

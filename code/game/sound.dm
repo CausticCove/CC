@@ -464,6 +464,17 @@
 							'sound/foley/footsteps/highheel3.ogg',
 							'sound/foley/footsteps/highheel4.ogg',
 							)
+			if(SFX_TRICK)
+				soundin = pick(
+							'sound/misc/trick/trick1.ogg',
+							'sound/misc/trick/trick2.ogg',
+							'sound/misc/trick/trick3.ogg',
+							'sound/misc/trick/trick4.ogg',
+							'sound/misc/trick/trick5.ogg',
+							'sound/misc/trick/trick6.ogg',
+							'sound/misc/trick/trick7.ogg',
+							'sound/misc/trick/trick8.ogg',
+							)
 	//START OF CIT CHANGES - adds random vore sounds
 			if ("hunger_sounds") soundin = pick('modular_causticcove/sound/cvore/vore/growl1.ogg','modular_causticcove/sound/cvore/vore/growl2.ogg','modular_causticcove/sound/cvore/vore/growl3.ogg','modular_causticcove/sound/cvore/vore/growl4.ogg','modular_causticcove/sound/cvore/vore/growl5.ogg')
 

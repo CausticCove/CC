@@ -9,6 +9,8 @@
 	sleeved = 'icons/roguetown/clothing/onmob/helpers/sleeves_pants.dmi'
 	alternate_worn_layer = (SHIRT_LAYER)
 	salvage_amount = 1
+	var/shiftable = TRUE
+	var/shifted = FALSE
 
 /obj/item/clothing/under/roguetown/skirt/random
 	name = "skirt"
@@ -112,8 +114,6 @@
 	cold_protection = 10
 	color = "#ad977d"
 	chunkcolor = "#978151"
-	var/shiftable = TRUE
-	var/shifted = FALSE
 
 /obj/item/clothing/under/roguetown/skirt/gambeson/attack_right(mob/user)
 	if(!shiftable)
@@ -158,8 +158,6 @@
 	armor = ARMOR_PADDED
 	max_integrity = ARMOR_INT_LEG_HARDLEATHER
 	color = "#976E6B"
-	shiftable = TRUE
-	shifted = FALSE
 
 /obj/item/clothing/under/roguetown/skirt/gambeson/heavy/attack_right(mob/user)
 	if(!shiftable)
@@ -186,3 +184,15 @@
 					var/mob/living/carbon/H = user
 					H.update_inv_pants()
 			return
+
+/obj/item/clothing/under/roguetown/skirt/formal
+	name = "knee-high skirt"
+	desc = "A fitted skirt tailored to follow the line of the legs, narrowing toward the hem."
+	icon_state = "formalskirt"
+	item_state = "formalskirt"
+	mob_overlay_icon = 'icons/roguetown/clothing/onmob/pants.dmi'
+	sleevetype = "skirt"
+	sleeved = 'icons/roguetown/clothing/onmob/helpers/sleeves_pants.dmi'
+	detail_tag = "_detail"
+	detail_color = "CLOTHING_WHITE"
+

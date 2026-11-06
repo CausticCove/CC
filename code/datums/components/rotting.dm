@@ -1,6 +1,3 @@
-#define DEAD_TO_ZOMBIE_TIME 7 MINUTES	//Time before death -> raised as zombie (when outside of the city)	
-										//(This isn't exact time. Extended 5 -> 7 because only takes 2-3 min in testing at 5.)
-
 /datum/component/rot
 	var/amount = 0
 	var/last_process = 0
@@ -25,15 +22,15 @@
 
 /datum/component/rot/process()
 
-	var/amt2add = 10 // 1 Second. Base increment. 
+	var/amt2add = 10 // 1 Second. Base increment.
 	var/current_time = world.time
-    
+
 	// time elapsed since the last rot/process
 	var/elapsed_time = last_process ? (current_time - last_process) : 0
 	last_process = current_time
 
 	// Add amount based on the time elapsed. This is used to calculate when to wake/decompose
-	amount += (elapsed_time / 10) * amt2add 
+	amount += (elapsed_time / 10) * amt2add
 
 	return
 
@@ -170,5 +167,3 @@
 	mid_length = 60
 	volume = 50
 	extra_range = 0
-
-#undef DEAD_TO_ZOMBIE_TIME

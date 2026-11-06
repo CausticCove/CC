@@ -14,6 +14,19 @@
 // Above all else? Have fun! If you have any questions, let me know.
 
 // -1 TRI
+
+/datum/loadout_item/shirt/ilamellar
+	name = "Gift - Iron Lamellar Armor decoration"
+	path = /obj/item/clothing/suit/roguetown/shirt/ilamellar
+	triumph_cost = 1
+	sort_category = "Triumphs"
+
+/datum/loadout_item/shirt/blamellar
+	name = "Gift - Bronze Lamellar Armor decoration"
+	path = /obj/item/clothing/suit/roguetown/shirt/blamellar
+	triumph_cost = 1
+	sort_category = "Triumphs"
+
 /datum/loadout_item/psicross/noc/bronze
 	name = "Bronze Amulet of Noc"
 	path = /obj/item/clothing/neck/roguetown/psicross/noc/bronze
@@ -393,6 +406,12 @@
 	triumph_cost = 2
 	sort_category = "Triumphs"
 
+/datum/loadout_item/triumph_armorkit_slimmedsteel
+	name = "Triumph Kit - Slimfitted Steel Armor"
+	path = /obj/item/enchantingkit/triumph_armorkit_slimmedsteel
+	triumph_cost = 3
+	sort_category = "Triumphs"
+
 /datum/loadout_item/triumph_armorkit_drow
 	name = "Triumph Kit - Drowcraft Armor"
 	path = /obj/item/enchantingkit/triumph_armorkit_drow
@@ -552,6 +571,12 @@
 /datum/loadout_item/triumph_weaponkit_classicleathers
 	name = "Triumph Kit - Classic Leather Armor"
 	path = /obj/item/enchantingkit/triumph_armorkit_classicleather
+	triumph_cost = 3
+	sort_category = "Triumphs"
+
+/datum/loadout_item/triumph_armorkit_pleather
+	name = "Triumph Kit - Padded Leather Armor"
+	path = /obj/item/enchantingkit/triumph_armorkit_pleather
 	triumph_cost = 3
 	sort_category = "Triumphs"
 
