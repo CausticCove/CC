@@ -8,7 +8,6 @@
 	var/virtextra
 	S["extravirtuechoices"] >> virtextra
 	extravirtue_choices = virtextra
-	virtuetwo_choices = virttwo
 
 	// If we still find a living ref, we clean it up. This is deprecated and we shouldn't be saving whole datums.
 	if (istype(extravirtue_type, /datum/virtue))
