@@ -1,0 +1,16 @@
+/obj/item/ammo_casing/caseless/rogue/arrow/obsidian
+	name = "obsidian arrow"
+	desc = "A serrated edge of black volcanic glass on a wooden dowel. Many hunters swear by these arrows as they cut through hide and flesh like parchment, though they are prone to shatter on impact with armor."
+	icon = 'modular_causticcove/icons/roguetown/weapons/ranged/arrow_mob.dmi'
+	icon_state = "arrowobsidian"
+	max_integrity = 5
+	projectile_type = /obj/projectile/bullet/reusable/arrow/obsidian
+
+// Flint arrow. Stone but better™.
+/obj/item/ammo_casing/caseless/rogue/arrow/flint
+	name = "flint arrow"
+	desc = "A finely knapped and polished piece of flint, tied onto a wooden dowel. Colorful fletching adorns the shaft. Olden wisdom says that they cut cleaner than metal arrows."
+	icon = 'modular_causticcove/icons/roguetown/weapons/ranged/arrow_mob.dmi'
+	icon_state = "arrowflint"
+	max_integrity = 7
+	projectile_type = /obj/projectile/bullet/reusable/arrow/flint

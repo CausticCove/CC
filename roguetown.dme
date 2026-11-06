@@ -3794,6 +3794,7 @@
 #include "modular_causticcove\code\game\objects\items\rogueitems\leash.dm"
 #include "modular_causticcove\code\game\objects\items\rogueitems\util.dm"
 #include "modular_causticcove\code\game\objects\items\rogueitems\plumb.dm"
+#include "modular_causticcove\code\game\objects\items\weapons\ranged\ammo_arrows.dm"
 #include "modular_causticcove\code\game\objects\items\weapons\ranged\ammo_bullets.dm"
 #include "modular_causticcove\code\game\objects\items\weapons\ranged\blackpowder.dm"
 #include "modular_causticcove\code\game\objects\structures\staircase_helper.dm"
