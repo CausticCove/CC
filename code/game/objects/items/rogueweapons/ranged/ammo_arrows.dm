@@ -128,21 +128,6 @@
 	max_range = MAX_ARROW_RANGE
 	dam_falloff_factor = DAM_FALLOFF_ARROW
 
-//Caustic Edit - Obsidian and Flint Projectiles!
-/obj/projectile/bullet/reusable/arrow/obsidian
-	name = "obsidian arrow"
-	icon_state = "arrowobs_proj"
-	ammo_type = /obj/item/ammo_casing/caseless/rogue/arrow/obsidian
-	armor_penetration = -20
-	damage = 40
-
-/obj/projectile/bullet/reusable/arrow/flint
-	name = "flint arrow"
-	icon_state = "arrowflnt_proj"
-	ammo_type = /obj/item/ammo_casing/caseless/rogue/arrow/flint
-	damage = 30
-//Caustic Edit End
-
 // Broadheads are high damage, low AP. Very high base damage - relies on breaking armor
 // Broadheads check against slash armor instead of piercing.
 /obj/projectile/bullet/reusable/arrow/iron

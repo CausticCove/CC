@@ -1,3 +1,5 @@
+// Base items
+
 /obj/item/ammo_casing/caseless/rogue/arrow/obsidian
 	name = "obsidian arrow"
 	desc = "A serrated edge of black volcanic glass on a wooden dowel. Many hunters swear by these arrows as they cut through hide and flesh like parchment, though they are prone to shatter on impact with armor."
@@ -14,3 +16,18 @@
 	icon_state = "arrowflint"
 	max_integrity = 7
 	projectile_type = /obj/projectile/bullet/reusable/arrow/flint
+
+// Projectiles
+
+/obj/projectile/bullet/reusable/arrow/obsidian
+	name = "obsidian arrow"
+	icon_state = "arrowobs_proj"
+	ammo_type = /obj/item/ammo_casing/caseless/rogue/arrow/obsidian
+	armor_penetration = -20
+	damage = 40
+
+/obj/projectile/bullet/reusable/arrow/flint
+	name = "flint arrow"
+	icon_state = "arrowflnt_proj"
+	ammo_type = /obj/item/ammo_casing/caseless/rogue/arrow/flint
+	damage = 30
