@@ -21,6 +21,7 @@
 
 /obj/projectile/bullet/reusable/arrow/obsidian
 	name = "obsidian arrow"
+	icon = 'modular_causticcove/icons/weapons/ranged/arrow_proj.dmi'
 	icon_state = "arrowobs_proj"
 	ammo_type = /obj/item/ammo_casing/caseless/rogue/arrow/obsidian
 	armor_penetration = -20
@@ -28,6 +29,7 @@
 
 /obj/projectile/bullet/reusable/arrow/flint
 	name = "flint arrow"
+	icon = 'modular_causticcove/icons/weapons/ranged/arrow_proj.dmi'
 	icon_state = "arrowflnt_proj"
 	ammo_type = /obj/item/ammo_casing/caseless/rogue/arrow/flint
 	damage = 30
