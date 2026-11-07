@@ -344,7 +344,9 @@
 	else
 		if(user.get_skill_level(/datum/skill/craft/masonry) >= SKILL_LEVEL_JOURNEYMAN)
 			qualified = TRUE
-		if(user.get_skill_level(/datum/skill/magic/arcane) >= SKILL_LEVEL_JOURNEYMAN)
+		if(user.get_skill_level(/datum/skill/craft/crafting) >= SKILL_LEVEL_JOURNEYMAN)
+			qualified = TRUE
+		if(user.get_skill_level(/datum/skill/labor/mining) >= SKILL_LEVEL_JOURNEYMAN)
 			qualified = TRUE
 
 	if(!ishuman(M))
@@ -417,7 +419,8 @@
 
 		if(user.mind)
 			used_time -= (user.get_skill_level(/datum/skill/craft/masonry) * 8)
-			used_time -= (user.get_skill_level(/datum/skill/magic/arcane) * 4)
+			used_time -= (user.get_skill_level(/datum/skill/craft/crafting) * 5)
+			used_time -= (user.get_skill_level(/datum/skill/labor/mining) * 5)
 
 		used_time = round(max(used_time, 4))
 
@@ -449,9 +452,9 @@
 				break
 
 			if(prob(50))
-				user.visible_message(span_notice("[user] manages to hammer [M]'s [affecting.name] into better shape."),span_notice("I think that worked."))
+				user.visible_message(span_notice("[user] manages to chisel [M]'s [affecting.name] into better shape."),span_notice("I think that worked."))
 			else
-				user.visible_message(span_warning("[user] awkwardly tinkers with [M]'s [affecting.name], uncertain what to do."), span_warning("I'm not sure what I'm doing..."))
+				user.visible_message(span_warning("[user] awkwardly chips at [M]'s [affecting.name], uncertain what to do."), span_warning("I'm not sure what I'm doing..."))
 				playsound(user.loc, 'sound/items/bsmith4.ogg', 100, FALSE)
 				shake_camera(M, 2, 1)
 				shake_camera(user, 2, 1)
