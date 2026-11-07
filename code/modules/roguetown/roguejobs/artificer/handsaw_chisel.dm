@@ -419,8 +419,8 @@
 
 		if(user.mind)
 			used_time -= (user.get_skill_level(/datum/skill/craft/masonry) * 8)
-			used_time -= (user.get_skill_level(/datum/skill/craft/crafting) * 5)
-			used_time -= (user.get_skill_level(/datum/skill/labor/mining) * 5)
+			used_time -= (user.get_skill_level(/datum/skill/craft/crafting) * 4)
+			used_time -= (user.get_skill_level(/datum/skill/labor/mining) * 4)
 
 		used_time = round(max(used_time, 4))
 
