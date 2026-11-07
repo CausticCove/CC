@@ -15,7 +15,6 @@
 	use_skin_tone_wording_for_examine = FALSE
 	default_color = "FFFFFF"
 	species_traits = list(EYECOLOR,HAIR,FACEHAIR,LIPS,STUBBLE,OLDGREY,NOBLOOD,MUTCOLORS) // this already overwrites all blood-related things, I made it better at stopping bleeding completely
-	///Caustic edit
 	allowed_taur_types = list(
 		/obj/item/bodypart/taur/lamia,
 		/obj/item/bodypart/taur/spider,
@@ -45,7 +44,6 @@
 		/obj/item/bodypart/taur/biglegsstanced,
 		/obj/item/bodypart/taur/lupine_venard,
 	)
-	///Caustic edit end
 	default_features = MANDATORY_FEATURE_LIST
 	use_skintones = TRUE
 	possible_ages = ALL_AGES_LIST
@@ -110,7 +108,7 @@
 		/datum/customizer/organ/penis/anthro,
 		/datum/customizer/organ/breasts/animal,
 		/datum/customizer/organ/vagina/human_anthro,
-		//Caustic edit
+		/datum/customizer/organ/horns/tusks
 		/datum/customizer/organ/belly/animal,
 		/datum/customizer/organ/butt/animal,
 		/datum/customizer/organ/testicles/anthro,
@@ -122,19 +120,16 @@
 		/datum/customizer/organ/frills/anthro,
 		/datum/customizer/organ/wings/anthro,
 		/datum/customizer/organ/neck_feature/anthro,
-		//Caustic edit end
 		)
 	body_marking_sets = list(
 		/datum/body_marking_set/none,
 		/datum/body_marking_set/construct_plating_light,
 		/datum/body_marking_set/construct_plating_medium,
 		/datum/body_marking_set/construct_plating_heavy,
-		//Caustic edit
 		/datum/body_marking_set/belly,
 		/datum/body_marking_set/bellysocks,
 		/datum/body_marking_set/tiger,
 		/datum/body_marking_set/tiger_dark,
-		//Caustic edit end
 		)
 	body_markings = list(
 		/datum/body_marking/eyeliner,
@@ -148,7 +143,6 @@
 		/datum/body_marking/construct_standard_eyes,
 		/datum/body_marking/construct_visor_eyes,
 		/datum/body_marking/construct_psyclops_eye,
-		//Caustic edit
 		/datum/body_marking/flushed_cheeks,
 		/datum/body_marking/plain,
 		/datum/body_marking/tiger,
@@ -174,7 +168,6 @@
 		/datum/body_marking/harlequinreversed,
 		/datum/body_marking/bangs,
 		/datum/body_marking/bun,
-		//Caustic edit end
 	)
 
 	restricted_virtues = list(/datum/virtue/utility/noble, /datum/virtue/utility/hollow)
