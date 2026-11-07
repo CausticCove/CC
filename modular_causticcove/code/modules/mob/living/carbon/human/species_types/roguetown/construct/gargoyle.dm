@@ -359,7 +359,7 @@
 		// Final healing
 		var/brute_heal = max(1, round(pow * MULT * brute_factor))
 		var/fire_heal  = max(1, round(pow * MULT * fire_factor))
-		M.energy_add(20 + (S.magic_power * 10))
+		M.energy_add(100 + (S.magic_power * 10))
 		M.adjustBruteLoss(-brute_heal)
 		M.adjustFireLoss(-fire_heal)
 		user.visible_message(
