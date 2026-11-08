@@ -108,7 +108,7 @@
 		/datum/customizer/organ/penis/anthro,
 		/datum/customizer/organ/breasts/animal,
 		/datum/customizer/organ/vagina/human_anthro,
-		/datum/customizer/organ/horns/tusks
+		/datum/customizer/organ/horns/tusks,
 		/datum/customizer/organ/belly/animal,
 		/datum/customizer/organ/butt/animal,
 		/datum/customizer/organ/testicles/anthro,
