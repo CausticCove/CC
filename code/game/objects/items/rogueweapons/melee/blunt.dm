@@ -1363,6 +1363,7 @@
 	anvilrepair = /datum/skill/craft/engineering
 	wdefense = 3
 	wdefense_wbonus = 3
+	canparry = TRUE
 	experimental_onhip = TRUE
 	experimental_onback = TRUE
 	brute_attack = TRUE
