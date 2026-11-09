@@ -87,6 +87,7 @@ GLOBAL_LIST_INIT(tat_donation_access_all_ckeys, TAT_DONATION_ACCESS_ALL_CKEYS)
 	/obj/item/clothing/gloves/roguetown/chain/contraption/voltic = TAT_ITEM_ENTRY("Artifact - Voltic Gauntlets", 4, "weapon", "weapon_supply", TAT_SUPPLY_ARTIFACTS, "artifact"), \
 	/obj/item/clothing/gloves/roguetown/chain/gronn = TAT_ITEM_ENTRY("Cultural - Gronn - Chain - Byrine Gloves", 2.5, "clothing", "armor_family", TAT_ARMOR_MAIL, "gloves"), \
 	/obj/item/clothing/gloves/roguetown/chain/iron = TAT_ITEM_ENTRY("Chain - Iron - Gauntlets", 1.5, "clothing", "armor_family", TAT_ARMOR_MAIL, "gloves"), \
+	/obj/item/clothing/gloves/roguetown/chain/bronze = TAT_ITEM_ENTRY("Chain - Bronze - Gauntlets", 1.5, "clothing", "armor_family", TAT_ARMOR_MAIL, "gloves"), \
 	/obj/item/clothing/gloves/roguetown/chain/paalloy = TAT_ITEM_ENTRY("Chain - Ancient - Gauntlets", 2.5, "clothing", "armor_family", TAT_ARMOR_MAIL, "gloves"), \
 	/obj/item/clothing/gloves/roguetown/chain/psydon = TAT_ITEM_ENTRY("Chain - Psydonic - Gauntlets", 1.5, "clothing", "armor_family", TAT_ARMOR_MAIL, "gloves"), \
 	/obj/item/clothing/gloves/roguetown/eastgloves1 = TAT_ITEM_ENTRY("Cultural - Eastern - Leather - Black Gloves", 1, "clothing", "armor_family", TAT_ARMOR_LEATHER, "gloves"), \
@@ -454,7 +455,8 @@ GLOBAL_LIST_INIT(tat_donation_access_all_ckeys, TAT_DONATION_ACCESS_ALL_CKEYS)
 	/obj/item/clothing/under/roguetown/chainlegs/hose/dyeable = TAT_ITEM_ENTRY("Steel - Chain Hosen - Details Coverings", 2.5, "clothing", "armor_family", TAT_ARMOR_MAIL, "pants"), \
 	/obj/item/clothing/under/roguetown/chainlegs/iron/hose/dyeable = TAT_ITEM_ENTRY("Iron - Chain Hosen - Details Coverings", 1.5, "clothing", "armor_family", TAT_ARMOR_MAIL, "pants"), \
 	/obj/item/clothing/under/roguetown/chainlegs/iron/kilt = TAT_ITEM_ENTRY("Iron - Chain Kilt", 1.5, "clothing", "armor_family", TAT_ARMOR_MAIL, "pants"), \
-	/obj/item/clothing/under/roguetown/chainlegs/kilt = TAT_ITEM_ENTRY("Steel - Chain Kilt", 2.5, "clothing", "armor_family", TAT_ARMOR_MAIL, "pants"), \
+	/obj/item/clothing/under/roguetown/chainlegs/kilt/bronze = TAT_ITEM_ENTRY("Bronze - Chain Kilt", 2.5, "clothing", "armor_family", TAT_ARMOR_MAIL, "pants"), \
+	/obj/item/clothing/under/roguetown/chainlegs/kilt = TAT_ITEM_ENTRY("Steel - Chain Kilt", 1.5, "clothing", "armor_family", TAT_ARMOR_MAIL, "pants"), \
 	/obj/item/clothing/under/roguetown/chainlegs/kilt/aalloy = TAT_ITEM_ENTRY("Decrepit - Chain Kilt", 1, "clothing", "armor_family", TAT_ARMOR_MAIL, "pants"), \
 	/obj/item/clothing/under/roguetown/chainlegs/kilt/paalloy = TAT_ITEM_ENTRY("Ancient - Chain Kilt", 2.5, "clothing", "armor_family", TAT_ARMOR_MAIL, "pants"), \
 	/obj/item/clothing/under/roguetown/chainlegs/skirt = TAT_ITEM_ENTRY("Steel - Chain Skirt", 1.5, "clothing", "armor_family", TAT_ARMOR_MAIL, "pants"), \
@@ -755,6 +757,8 @@ GLOBAL_LIST_INIT(tat_donation_access_all_ckeys, TAT_DONATION_ACCESS_ALL_CKEYS)
 	/obj/item/rogueweapon/mace = TAT_ITEM_ENTRY("Iron - Mace", 2, "weapon", "weapon_supply", TAT_SUPPLY_IRON, "blunt"), \
 	/obj/item/rogueweapon/mace/alloy = TAT_ITEM_ENTRY("Decrepit - Mace", 1.5, "weapon", "weapon_supply", TAT_SUPPLY_IRON, "blunt"), \
 	/obj/item/rogueweapon/mace/bronze = TAT_ITEM_ENTRY("Bronze - Mace", 2, "weapon", "weapon_supply", TAT_SUPPLY_BRONZE, "blunt"), \
+	/obj/item/rogueweapon/contraption/linker/mace = TAT_ITEM_ENTRY("Bronze - Reinforced Wrench", 2.5, "weapon", "weapon_supply", TAT_SUPPLY_BRONZE, "blunt"), \
+	/obj/item/rogueweapon/contraption/linker/mace/big = TAT_ITEM_ENTRY("Bronze - Massive Reinforced Wrench", 3, "weapon", "weapon_supply", TAT_SUPPLY_BRONZE, "blunt"), \
 	/obj/item/rogueweapon/mace/cudgel = TAT_ITEM_ENTRY("Iron - Cudgel", 2, "weapon", "weapon_supply", TAT_SUPPLY_IRON, "blunt"), \
 	/obj/item/rogueweapon/mace/cudgel/copper = TAT_ITEM_ENTRY("Copper - Bludgeon", 1, "weapon", "weapon_supply", TAT_SUPPLY_IRON, "blunt"), \
 	/obj/item/rogueweapon/mace/cudgel/flanged = TAT_ITEM_ENTRY("Steel - Flanged Mace", 3, "weapon", "weapon_supply", TAT_SUPPLY_STEEL, "blunt"), \
