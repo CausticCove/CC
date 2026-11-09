@@ -76,6 +76,13 @@
 		user.add_stress(/datum/stressevent/meditation_ironman)
 		user.energy_add(percent)
 		playsound(user, 'sound/misc/machineyes.ogg', 25)
+//cc edit start
+	if(HAS_TRAIT(user, TRAIT_IRONMAN))
+		var/mob/living/U = user
+		var/percent = U.max_energy * 0.3
+		user.add_stress(/datum/stressevent/meditation_stoneman)
+		user.energy_add(percent)
+//cc edit end
 	else
 		user.add_stress(/datum/stressevent/meditation)
 

@@ -94,6 +94,8 @@
 					H.adjust_skillrank(/datum/skill/misc/reading, 1, TRUE)
 				if(H.dna.species.name in list("Metal Construct"))
 					H.adjust_skillrank(/datum/skill/craft/engineering, 2, TRUE)
+				if(H.dna.species.name in list("Stone Construct")) //cc edit
+					H.adjust_skillrank(/datum/skill/craft/masonry, 2, TRUE)
 	H.update_body()
 
 /datum/outfit/job/roguetown/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)

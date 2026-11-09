@@ -2,7 +2,7 @@
     name = "The Unraveled"
     tutorial = "Once you sought to understand the mind’s decay — now you live within it, a wandering physician bound to his own affliction."
     allowed_sexes = list(MALE, FEMALE)
-    forbidden_races = list(RACES_CONSTRUCT) //Caustic Edit - Just a global tweak to remove 'races_despised' from this check everywhere
+    forbidden_races = list(RACES_CONSTRUCT RACES_STONE) //Caustic Edit - Just a global tweak to remove 'races_despised' from this check everywhere
     outfit = /datum/outfit/job/roguetown/vagabond/unraveled
     category_tags = list(CTAG_VAGABOND)
     traits_applied = list(TRAIT_PSYCHOSIS, TRAIT_NOSTINK)
@@ -19,10 +19,10 @@
 
 /datum/outfit/job/roguetown/vagabond/unraveled/pre_equip(mob/living/carbon/human/human)
     ..()
-    
+
     if(should_wear_femme_clothes(human))
         armor = /obj/item/clothing/suit/roguetown/shirt/rags
-    
+
     pants = /obj/item/clothing/under/roguetown/loincloth
     r_hand = /obj/item/rogueweapon/woodstaff
 

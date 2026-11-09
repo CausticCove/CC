@@ -30,7 +30,7 @@
 		// Penetration types: slash, stab, piercing
 		used = get_best_worn_armor(def_zone, d_type)
 
-		if(!used && HAS_TRAIT(src, TRAIT_IRONMAN))
+		if(!used && HAS_TRAIT(src, TRAIT_IRONMAN) || HAS_TRAIT(src, TRAIT_STONEMAN)) //cc edit
 			if(!blade_dulling)
 				blade_dulling = BCLASS_BLUNT
 			playsound(loc, get_armor_sound(PLATEHIT, blade_dulling), 100) // SOVLNUKE!!!
