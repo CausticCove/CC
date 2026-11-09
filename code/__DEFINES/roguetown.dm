@@ -115,6 +115,8 @@ Balloon Alert / Floating Text defines
 
 #define RACES_CONSTRUCT \
 	/datum/species/construct/metal,\
+
+#define RACES_STONE \
 	/datum/species/construct/stone,\
 
 #define RACES_OOZE \
