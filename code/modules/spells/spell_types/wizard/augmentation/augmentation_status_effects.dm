@@ -94,8 +94,8 @@
 	alert_type = /atom/movable/screen/alert/status_effect/buff/attune_hawk
 	effectedstats = list(STATKEY_STR = 1, STATKEY_PER = 4)
 	duration = STAT_BUFF_SELF_DURATION
-	exclusive_group = "augment_perception"
-	exclusive_priority = 2 // supersedes Guidance
+	// exclusive_group = "augment_perception"
+	// exclusive_priority = 2 // supersedes Guidance
 
 /datum/status_effect/buff/attune_hawk/on_creation(mob/living/new_owner, var/new_duration = null)
 	if(new_duration)
@@ -133,8 +133,8 @@
 	alert_type = /atom/movable/screen/alert/status_effect/buff/guidance
 	effectedstats = list(STATKEY_PER = 3)
 	duration = STAT_BUFF_SELF_DURATION
-	exclusive_group = "augment_perception"
-	exclusive_priority = 1 // yields to Hawk's Eyes
+	// exclusive_group = "augment_perception"
+	// exclusive_priority = 1 // yields to Hawk's Eyes
 
 /datum/status_effect/buff/guidance/on_creation(mob/living/new_owner, var/new_duration = null)
 	if(new_duration)
@@ -154,8 +154,8 @@
 /datum/status_effect/buff/guidance/on_remove()
 	. = ..()
 	owner.remove_filter(GUIDANCE_FILTER)
-	if(rejected_by_exclusion)
-		return
+	// if(rejected_by_exclusion)
+	// 	return
 	to_chat(owner, span_warning("The arcyne clarity fades from my senses."))
 
 #undef GUIDANCE_FILTER
