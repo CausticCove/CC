@@ -183,7 +183,7 @@
 	name = "Quad"
 	color_key_defaults = list(KEY_CHEST_COLOR, KEY_CHEST_COLOR)
 //cc addition start
-/datum/sprite_accessory/breasts/quadalt
+/datum/sprite_accessory/breasts/quadalt,
 	icon_state = "quadalt"
 	name = "Quad (ALT)"
 	color_key_defaults = list(KEY_CHEST_COLOR, KEY_CHEST_COLOR)
