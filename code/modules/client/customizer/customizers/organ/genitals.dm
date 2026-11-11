@@ -346,6 +346,7 @@
 		/datum/sprite_accessory/breasts/pair,
 		/datum/sprite_accessory/breasts/quad,
 		/datum/sprite_accessory/breasts/sextuple,
+		/datum/sprite_accessory/breasts/quadalt, //cc addition
 		)
 
 /datum/customizer/organ/vagina
@@ -386,7 +387,7 @@
 	switch(href_list["customizer_task"])
 		if("fertile")
 			vagina_entry.fertility = !vagina_entry.fertility
-			
+
 
 /datum/customizer/organ/vagina/human
 	customizer_choices = list(/datum/customizer_choice/organ/vagina/human)
