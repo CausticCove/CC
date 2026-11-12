@@ -54,7 +54,7 @@
 	desc = "Hide yourself from prying eyes."
 	blacklisted = FALSE
 	tier = 4
-	required_atoms = list(/obj/item/rogueore/cinnabar = 1, /obj/item/reagent_containers/glass/bottle/alchemical = 1,/obj/item/magic/deepsea/tierthree = 1, /obj/item/alch/waterdust = 3, /obj/item/magic/fae/sylvanessence = 2, /obj/item/magic/infernal/flame = 2)
+	required_atoms = list(/obj/item/rogueore/cinnabar = 1, /obj/item/reagent_containers/glass/bottle/alchemical = 1,/obj/item/magic/deepsea/tierthree = 2, /obj/item/alch/waterdust = 3, /obj/item/magic/fae/sylvanessence = 2, /obj/item/magic/infernal/flame = 2)
 	result_atoms = list(/obj/item/enchantmentscroll/mythic/murkyveil)
 
 /datum/runeritual/enchanting/lightweight
@@ -62,7 +62,7 @@
 	desc = "Hide yourself from prying eyes."
 	blacklisted = FALSE
 	tier = 4
-	required_atoms = list(/obj/item/rogueore/cinnabar = 1, /obj/item/reagent_containers/glass/bottle/alchemical = 1,/obj/item/magic/deepsea/tiertwo = 1, /obj/item/alch/waterdust = 3, /obj/item/magic/fae/sylvanessence = 2, /obj/item/magic/elemental/relic = 2)
+	required_atoms = list(/obj/item/rogueore/cinnabar = 1, /obj/item/reagent_containers/glass/bottle/alchemical = 1,/obj/item/magic/deepsea/tiertwo = 2, /obj/item/alch/waterdust = 3, /obj/item/magic/fae/sylvanessence = 2, /obj/item/magic/elemental/relic = 2)
 	result_atoms = list(/obj/item/enchantmentscroll/mythic/lightweight)
 
 //Summoning//
