@@ -160,13 +160,13 @@
 	reqs = list(/obj/item/natural/clay = 3)
 	craftdiff = 2
 
-/datum/crafting_recipe/roguetown/ceramics/clay/teapot
+/datum/crafting_recipe/roguetown/ceramics/clay/teapotold
 	name = "teapot (old)"
 	result = list(/obj/item/natural/clay/rawteapot)
 	reqs = list(/obj/item/natural/clay = 2)
 	craftdiff = 2
 
-/datum/crafting_recipe/roguetown/ceramics/clay/teacup
+/datum/crafting_recipe/roguetown/ceramics/clay/teacupold
 	name = "teacup (old)"
 	result = list(/obj/item/natural/clay/rawteacup)
 	reqs = list(/obj/item/natural/clay = 1)
