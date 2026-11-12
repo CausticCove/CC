@@ -21,7 +21,7 @@
 	blacklisted = FALSE
 	tier = 2
 	required_atoms = list(/obj/item/rogueore/cinnabar = 1, /obj/item/reagent_containers/glass/bottle/alchemical = 1,/obj/item/magic/deepsea/tiertwo = 1, /obj/item/alch/waterdust = 1)
-	result_atoms = list(/obj/item/enchantmentscroll/superior/barotrauma)
+	result_atoms = list(/obj/item/enchantmentscroll/superior/chargedthorns)
 
 //Tier 3
 /datum/runeritual/enchanting/energysiphon

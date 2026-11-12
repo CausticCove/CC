@@ -133,8 +133,8 @@
 
 /mob/living/simple_animal/hostile/retaliate/rogue/deepsea/coralback
 	name = "living heartstone"
-	desc = "A large hunk of beating coralstone."
-	summon_primer = "You are an ocean coralback."
+	desc = "A large hunk of beating heartstone."
+	summon_primer = "You are a living heartstone."
 	summon_tier = 2
 	icon_state = "coralback"
 	icon_living = "coralback"
