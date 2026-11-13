@@ -2,7 +2,8 @@
 /mob/living/verb/vore_player()
 	set name = "Vore Player"
 	set desc = "Attempt to eat an adjacent player."
-	set category = "Vore"
+//	set category = "Vore"
+	set category = "VORE"
 
 	if(stat)
 		to_chat(src,span_warning("You can't do that right now."))
