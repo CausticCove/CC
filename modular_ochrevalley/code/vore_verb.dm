@@ -28,16 +28,17 @@
 			continue
 		potential_targets |= L
 
-	for(var/thing in contents)
-		if(!istype(thing,/obj/item/micro))	//U can also eat players in your hand
-			continue
-		var/obj/item/micro/M = thing
-		if(M.held_mob == src)
-			continue
-		if(!vore_pref_compat(src,M.held_mob))
-			continue
+	// CC does not have micro content yet
+	// for(var/thing in contents)
+	// 	if(!istype(thing,/obj/item/micro))	//U can also eat players in your hand
+	// 		continue
+	// 	var/obj/item/micro/M = thing
+	// 	if(M.held_mob == src)
+	// 		continue
+	// 	if(!vore_pref_compat(src,M.held_mob))
+	// 		continue
 
-		potential_targets |= M.held_mob
+	// 	potential_targets |= M.held_mob
 
 	if(potential_targets.len <= 0)
 		to_chat(src, span_warning("There are no valid targets in range."))
