@@ -3978,6 +3978,7 @@
 #include "modular_causticcove\code\modules\vore\eating\contaminate_vr.dm"
 #include "modular_causticcove\code\modules\vore\eating\digest_act_vr.dm"
 #include "modular_causticcove\code\modules\vore\eating\dumbass_globals.dm"
+#include "modular_ochrevalley\code\vore_verb.dm"
 #include "modular_causticcove\code\modules\vore\eating\exportpanel_vr.dm"
 #include "modular_causticcove\code\modules\vore\eating\human.dm"
 #include "modular_causticcove\code\modules\vore\eating\inbelly_spawn.dm"
