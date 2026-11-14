@@ -436,23 +436,19 @@ GLOBAL_LIST_INIT(hallucination_list, list(
 		if(target.client)
 			target.client.images |= speech_overlay
 			sleep(rand(8,15)) //Simulate human delay.
-			if(target.client?.prefs)
-				if(!target.client?.prefs.chat_on_map) //Only if they don't have chat_on_map prefs enabled send this message
-					to_chat(target, message)
 			sleep(30)
 			target.client.images.Remove(speech_overlay)
 		var/spans = list(person.speech_span)
-		if(target.client?.prefs)
-			if(target.client?.prefs.chat_on_map)
-				sleep(rand(8,15))
-				to_chat(target, message)
-				target.create_chat_message(person, understood_language, chosen, spans, 0)
-				spawn(1)
-					target.playsound_local(get_turf(person), 'sound/misc/talk.ogg', 100, FALSE, -1)
+		if(target.client)
+			sleep(rand(8,15))
+			to_chat(target, message)
+			target.create_chat_message(person, understood_language, chosen, spans, 0)
+			spawn(1)
+				target.playsound_local(get_turf(person), 'sound/misc/talk.ogg', 100, FALSE, -1)
 	if(!person)
 		//If we can't find anyone nearby, reduce the next hallucination tick to 10-30 seconds.
 		target.next_hallucination = world.time + rand(100, 300)
-
+	
 	QDEL_IN(src, 5) //Garuntee talk sound plays...
 
 /datum/hallucination/message

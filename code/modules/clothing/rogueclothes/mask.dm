@@ -66,6 +66,18 @@
 	grid_width = 32
 	grid_height = 32
 
+/obj/item/clothing/mask/rogue/spectacles/fancy
+	name = "fancy spectacles"
+	desc = "Delicate, thin-lensed spectacles of foreign make, their craft finer than most local wares."
+	icon_state = "glassesb"
+	mob_overlay_icon = 'icons/roguetown/clothing/onmob/masks.dmi'
+	max_integrity = 30
+
+/obj/item/clothing/mask/rogue/spectacles/fancy/dark
+	name = "fancy tinted spectacles"
+	desc = "Delicate, thin-lensed spectacles of foreign make, their craft finer than most local wares. This variant has a darker tint to its lenses."
+	icon_state = "glassesb_dark"
+
 /obj/item/clothing/mask/rogue/faceveil
 	name = "simple veil"
 	icon_state = "faceveil"

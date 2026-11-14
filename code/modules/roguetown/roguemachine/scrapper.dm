@@ -21,6 +21,7 @@
 	var/bark_dirty = TRUE
 	var/next_bark = 0
 	var/recycle_sound = 'sound/misc/smelter_fin.ogg'
+	var/flow_source = MATERIAL_SOURCE_SCRAP
 
 /obj/structure/roguemachine/scrapper/Initialize()
 	. = ..()
@@ -52,9 +53,9 @@
 		return null
 	if((I.type in material_prices) && material_enabled[I.type])
 		return I.type
-	if(I.smeltresult && (I.smeltresult in material_prices) && material_enabled[I.smeltresult])
+	if(I.is_smeltable() && (I.smeltresult in material_prices) && material_enabled[I.smeltresult])
 		return I.smeltresult
-	if(I.sewrepair && I.salvage_result && (I.salvage_result in material_prices) && material_enabled[I.salvage_result])
+	if(I.is_salvageable() && (I.salvage_result in material_prices) && material_enabled[I.salvage_result])
 		return I.salvage_result
 	return null
 
@@ -107,8 +108,9 @@
 		var/processed = 0
 		var/hit_broke = FALSE
 		var/hit_full = FALSE
-		for(var/obj/item/SI in P.contents.Copy())
-			switch(try_recycle(SI, user, TRUE))
+		var/list/payout = list(0)
+		for(var/obj/item/SI in P.held_contents())
+			switch(try_recycle(SI, user, TRUE, payout))
 				if(SCRAPPER_RECYCLE_OK)
 					processed++
 				if(SCRAPPER_RECYCLE_BROKE)
@@ -170,6 +172,8 @@
 	material_held[path] = held + units
 	budget -= total_price
 	bark_dirty = TRUE
+	record_material_flow(MATERIAL_FLOW_IN, flow_source, path, units, total_price)
+	record_round_statistic(STATS_SCRAP_MAMMONS_PAID, total_price)
 	qdel(I)
 	for(var/i in 1 to units)
 		new path(src)
@@ -349,7 +353,7 @@
 /obj/structure/roguemachine/scrapper/smith
 	name = "smith's scrapper"
 	desc = "A brass-trimmed contraption with a hopper above and an iron strongbox beneath. Takes whatever a smith can smelt back into ingots."
-	seed_budget = 50
+	seed_budget = SCRAPPER_SEED_BUDGET
 
 /obj/structure/roguemachine/scrapper/smith/populate_defaults()
 	material_prices = list(
@@ -377,7 +381,7 @@
 /obj/structure/roguemachine/scrapper/tailor
 	name = "rag-picker"
 	desc = "A brass-trimmed contraption with a hopper above and an iron strongbox beneath. Takes whatever a tailor can rework into fabrics."
-	seed_budget = 50
+	seed_budget = SCRAPPER_SEED_BUDGET
 	recycle_sound = 'sound/foley/cloth_rip.ogg'
 
 /obj/structure/roguemachine/scrapper/tailor/populate_defaults()

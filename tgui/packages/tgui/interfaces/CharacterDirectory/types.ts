@@ -4,7 +4,6 @@ export type Data = {
   personalVisibility: BooleanLike;
   personalTag: string;
   personalErpTag: string;
-  personalEventTag: string;
   personalGenderTag: string;
   personalSexualityTag: string;
   directory: mobEntry[];
@@ -30,4 +29,8 @@ export type mobEntry = {
   flavor_text: string;
   custom_link: string;
   photo: string | null;
+};
+
+export type mobEntrySortableKey = keyof {
+  [K in keyof mobEntry as mobEntry[K] extends string ? K : never]: string;
 };

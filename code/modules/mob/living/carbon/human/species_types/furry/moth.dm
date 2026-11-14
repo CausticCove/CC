@@ -69,6 +69,7 @@
 		/datum/customizer/bodypart_feature/legwear,
 		/datum/customizer/bodypart_feature/piercing,
 		/datum/customizer/organ/wings/moth,
+		/datum/customizer/organ/tail/moth, //Caustic Edit - Just add in the Moth Tails here, keeps it organized then just all ours at the bottom
 		/datum/customizer/organ/antennas/moth,
 		/datum/customizer/organ/neck_feature/moth_fluff,
 		/datum/customizer/organ/testicles/anthro,

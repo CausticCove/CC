@@ -61,7 +61,7 @@
 	cost = 250 //Note that the Merchant's abode always spawns with a free silver dagger.
 	contains = list(/obj/item/rogueweapon/huntingknife/idagger/silver)
 
-/datum/supply_pack/rogue/luxury/nomag
+/*/datum/supply_pack/rogue/luxury/nomag //Caustic Edit - Lets comment out the Ring of Null Magic and the Scrying Orb from the Silverface for now.
 	name = "Ring of Null Magic"
 	cost = 300
 	contains = list(/obj/item/clothing/ring/active/nomag)
@@ -69,7 +69,7 @@
 /datum/supply_pack/rogue/luxury/scrying
 	name = "Scrying Orb"
 	cost = 300
-	contains = list(/obj/item/scrying)
+	contains = list(/obj/item/scrying)*/
 
 /datum/supply_pack/rogue/luxury/listenst
 	name = "Emerald Choker"

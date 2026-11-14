@@ -2,8 +2,9 @@
 	name = "Arcyne Potential"
 	//Caustic edit
 	desc = "I am talented in the Arcyne arts, expanding my capacity for magic. I have become more intelligent from its studies."
+	ui_fa_icon = "hand-sparkles"
 	custom_text = "Gives +4 utility spellpoints, and T1 Arcyne Potential if you don't have any Arcyne."
-	added_skills = list(list(/datum/skill/magic/arcane, 1, 6))
+	added_skills = list(list(/datum/skill/magic/arcane, 1, 6), list(/datum/skill/misc/reading, 1, 6))
 
 /datum/virtue/combat/magical_potential/apply_to_human(mob/living/carbon/human/recipient)
 	if (!recipient.get_skill_level(/datum/skill/magic/arcane))
@@ -27,6 +28,7 @@
 /datum/virtue/combat/devotee
 	name = "Devotee"
 	desc = "Though not officially of the Church, my relationship with my chosen Patron is strong enough to grant me the most minor of their blessings. I've also kept a psycross of my deity."
+	ui_fa_icon = "person-praying"
 
 	custom_text = "You gain access to T0 miracles of your patron. As a non-combat role you also receive a minor passive devotion gain. If you already have access to Miracles, you get slightly increased passive devotion gain."
 
@@ -94,6 +96,7 @@
 /datum/virtue/combat/combat_virtue
 	name = "Trained & Ready"
 	desc = "There are many facets of lyfe that can end it. I've taken to learning some of them, and kept the tools for them close."
+	ui_fa_icon = "shield"
 	max_choices = 5
 	choice_costs = list(0, 0, 0, 2, 4, 4)
 	extra_choices = list(
@@ -141,6 +144,7 @@
 /*/datum/virtue/combat/bowman
 	name = "Toxophilite"
 	desc = "I've had an interest in archery from a young age, and I always keep a spare bow and quiver around."
+	ui_fa_icon = "bullseye"
 	custom_text = "+1 to Bows, Up to Legendary, Minimum Apprentice"
 	added_stashed_items = list("Recurve Bow" = /obj/item/gun/ballistic/revolver/grenadelauncher/bow/recurve,
 								"Quiver (Arrows)" = /obj/item/quiver/arrows
@@ -156,6 +160,7 @@
 /datum/virtue/combat/crossbowman
 	name = "Marksman"
 	desc = "Warfare is changing, and the crossbow is the next pedestal. I have always been ahead of the curve, as compared to my peers."
+	ui_fa_icon = "circle-dot-o"
 	custom_text = "+1 to Crossbows, Up to Legendary, Minimum Apprentice"
 	added_stashed_items = list(
 		"Quiver (Bolts)" = /obj/item/quiver/bolt/standard
@@ -171,6 +176,7 @@
 /datum/virtue/combat/guarded
 	name = "Guarded"
 	desc = "I have long kept my true capabilities and vices a secret. Sometimes being deceptively weak can save one's lyfe."
+	ui_fa_icon = "user-secret"
 	custom_text = "Obfuscates information about you from all sorts of effects, including patron abilities & passives, combat information, Assess and other virtues."
 	added_traits = list(TRAIT_DECEIVING_MEEKNESS)
 
@@ -188,6 +194,7 @@
 /datum/virtue/combat/second_chance
 	name = "Second Chance"
 	desc = "Not many are given second chances. Somehow, you're among the lucky bastards who were. What foul, cruel fate did you narrowly escape, changed yet still living?"
+	ui_fa_icon = "biohazard"
 	max_choices = 1
 	restricted = TRUE
 	races = list(/datum/species/construct/metal, /datum/species/gnoll)
@@ -301,16 +308,19 @@
 /datum/virtue/combat/dualwielder
 	name = "Dual Wielder"
 	desc = "Whether it was by the Naledi scholars, Etruscan privateers or even the Kazengan senseis. I've been graced with the knowledge of how to wield two weapons at once."
+	ui_fa_icon = "2"
 	added_traits = list(TRAIT_DUALWIELDER)
 
 /datum/virtue/combat/sharp
 	name = "Sentinel of Wits"
 	desc = "Whether it's by having an annoying sibling that kept prodding me with a stick, or years of study and observation, I've become adept at both parrying and dodging stronger opponents, by learning their moves and studying them."
+	ui_fa_icon = "user-ninja"
 	added_traits = list(TRAIT_SENTINELOFWITS)
 
 /datum/virtue/combat/combat_aware
 	name = "Combat Aware"
 	desc = "The opponent's flick of their wrist. The sound of maille snapping. The desperate breath as the opponent's stamina wanes. All of this is made more clear to you through intuition or experience."
+	ui_fa_icon = "eye-o"
 	custom_text = "Shows a lot more combat information via floating text. Has a toggle."
 	added_traits = list(TRAIT_COMBAT_AWARE)
 

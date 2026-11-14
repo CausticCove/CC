@@ -52,11 +52,13 @@
 
 /datum/sprite_accessory/penis/human
 	icon_state = "human"
+	preview_states = list("human_2_1_FRONT")
 	name = "Plain"
 	color_key_defaults = list(KEY_CHEST_COLOR) //list(KEY_CHEST_COLOR, KEY_CHEST_COLOR)
 
 /datum/sprite_accessory/penis/knotted
 	icon_state = "knotted"
+	preview_states = list("knotted_2_1_FRONT")
 	name = "Knotted"
 	color_key_defaults = list(KEY_CHEST_COLOR) //list(null, KEY_CHEST_COLOR)
 	//default_colors = list("C52828", null)
@@ -64,48 +66,57 @@
 /*/datum/sprite_accessory/penis/knotted2
 	name = "Knotted 2"
 	icon_state = "knotted2"
+	preview_states = list("knotted2_2_1_FRONT")
 	color_key_defaults = list(KEY_CHEST_COLOR) //list(null, KEY_CHEST_COLOR)
 	//default_colors = list("C52828", null)
 */
 /datum/sprite_accessory/penis/flared
 	icon_state = "flared"
+	preview_states = list("flared_2_1_FRONT")
 	name = "Flared"
 	color_key_defaults = list(KEY_CHEST_COLOR) //list(KEY_CHEST_COLOR, KEY_CHEST_COLOR)
 
 /datum/sprite_accessory/penis/barbknot
 	icon_state = "barbknot"
+	preview_states = list("barbknot_2_1_FRONT")
 	name = "Barbed, Knotted"
 	color_key_defaults = list(KEY_CHEST_COLOR) //list(null, KEY_CHEST_COLOR)
 	//default_colors = list("C52828", null)
 
 /datum/sprite_accessory/penis/tapered
 	icon_state = "tapered"
+	preview_states = list("tapered_2_1_FRONT")
 	name = "Tapered"
 	default_colors = list("C52828") //list("C52828", "C52828")
 
 /datum/sprite_accessory/penis/tapered_mammal
 	icon_state = "tapered"
+	preview_states = list("tapered_2_1_FRONT")
 	name = "Tapered"
 	color_key_defaults = list(KEY_CHEST_COLOR) //list(null, KEY_CHEST_COLOR)
 	//default_colors = list("C52828", null)
 
 /datum/sprite_accessory/penis/tentacle
 	icon_state = "tentacle"
+	preview_states = list("tentacle_2_1_FRONT")
 	name = "Tentacled"
 	default_colors = list("C52828") //list("C52828", "C52828")
 
 /datum/sprite_accessory/penis/hemi
 	icon_state = "hemi"
+	preview_states = list("hemi_2_1_FRONT")
 	name = "Hemi"
 	default_colors = list("C52828") //list("C52828", "C52828")
 
 /datum/sprite_accessory/penis/hemiknot
 	icon_state = "hemiknot"
+	preview_states = list("hemiknot_2_1_FRONT")
 	name = "Knotted Hemi"
 	default_colors = list("C52828") //list("C52828", "C52828")
 
 /datum/sprite_accessory/penis/nondescript
 	icon_state = "nondescript"
+	preview_states = list("nondescript_2_1_FRONT")
 	name = "Nondescript"
 	color_key_defaults = list(KEY_CHEST_COLOR) //list("C52828", "C52828")
 //Caustic edit end
@@ -140,11 +151,13 @@
 /datum/sprite_accessory/testicles/pair
 	name = "Pair"
 	icon_state = "pair"
+	preview_states = list("pair_2_FRONT")
 	color_key_defaults = list(KEY_SKIN_COLOR)
 
 /datum/sprite_accessory/testicles/sheath
 	name = "Sheath"
 	icon_state = "sheath"
+	preview_states = list("sheath_2_FRONT")
 	color_key_defaults = list(KEY_SKIN_COLOR)
 
 /datum/sprite_accessory/breasts
@@ -175,16 +188,19 @@
 
 /datum/sprite_accessory/breasts/pair
 	icon_state = "pair"
+	preview_states = list("pair_2_FRONT_1")
 	name = "Pair"
 	color_key_defaults = list(KEY_CHEST_COLOR, KEY_CHEST_COLOR)
 
 /datum/sprite_accessory/breasts/quad
 	icon_state = "quad"
+	preview_states = list("quad_2_FRONT_1")
 	name = "Quad"
 	color_key_defaults = list(KEY_CHEST_COLOR, KEY_CHEST_COLOR)
 
 /datum/sprite_accessory/breasts/sextuple
 	icon_state = "sextuple"
+	preview_states = list("sextuple_2_FRONT_1")
 	name = "Sextuple"
 	color_key_defaults = list(KEY_CHEST_COLOR, KEY_CHEST_COLOR)
 

@@ -217,7 +217,6 @@
 	key = ""
 	key_third_person = ""
 	message = "gasps out their last breath."
-	message_monkey = "lets out a faint chimper as it collapses and stops moving..."
 	message_simple =  "falls limp."
 	stat_allowed = UNCONSCIOUS
 
@@ -486,6 +485,14 @@
 				message_param = "kisses %t on the forehead."
 			else
 				message_param = "kisses %t on \the [parse_zone(H.zone_selected)]."
+		if(HAS_TRAIT(target, TRAIT_CAUSTIC) && get_location_accessible(user, BODY_ZONE_PRECISE_MOUTH) && get_location_accessible(target, H.zone_selected))
+			if(user.show_redflash())
+				user.flash_fullscreen("redflash1")
+			to_chat(user, span_smallred("Ouch..."))
+		if(HAS_TRAIT(user, TRAIT_CAUSTIC) && get_location_accessible(target, H.zone_selected))
+			if(target.show_redflash())
+				target.flash_fullscreen("redflash1")
+			to_chat(target, span_smallred("Ouch...")) // note that this doesn't deal real pain to prevent people from. like. spamming kisses to paincrit? as funny as that would be
 	playsound(target.loc, pick('sound/vo/kiss (1).ogg','sound/vo/kiss (2).ogg'), 100, FALSE, -1)
 	if(user.mind)
 		/// Blackblood hidden interactions
@@ -538,8 +545,16 @@
 			else if(J.zone_selected == BODY_ZONE_HEAD)
 				message_param = "licks %t cheek"
 			else
-				message_param = "licks %t [parse_zone(J.zone_selected)]."
-	playsound(target.loc, pick('sound/vo/lick.ogg'), 100, FALSE, -1)
+				message_param = "licks %t on the [parse_zone(J.zone_selected)]."
+		if(HAS_TRAIT(target, TRAIT_CAUSTIC) && get_location_accessible(user, BODY_ZONE_PRECISE_MOUTH) && get_location_accessible(target, J.zone_selected))
+			if(user.show_redflash())
+				user.flash_fullscreen("redflash1")
+			to_chat(user, span_smallred("Ouch..."))
+		if(HAS_TRAIT(user, TRAIT_CAUSTIC) && get_location_accessible(target, J.zone_selected))
+			if(target.show_redflash())
+				target.flash_fullscreen("redflash1")
+			to_chat(target, span_smallred("Ouch..."))
+	playsound(target.loc, pick("sound/vo/lick.ogg"), 100, FALSE, -1)
 
 /datum/emote/living/spit
 	key = "spit"
@@ -596,6 +611,14 @@
 		return
 	if(ishuman(target))
 		playsound(target.loc, pick('sound/vo/hug.ogg'), 100, FALSE, -1)
+		if(HAS_TRAIT(target, TRAIT_CAUSTIC) && (get_location_accessible(user, BODY_ZONE_CHEST) || get_location_accessible(user, BODY_ZONE_L_ARM) || get_location_accessible(user, BODY_ZONE_R_ARM)) && (get_location_accessible(target, BODY_ZONE_CHEST) || get_location_accessible(target, BODY_ZONE_L_ARM) || get_location_accessible(target, BODY_ZONE_R_ARM))) // basically if you both leave chest/arms uncovered. owie
+			if(user.show_redflash())
+				user.flash_fullscreen("redflash1")
+			to_chat(user, span_smallred("Ouch..."))
+		if(HAS_TRAIT(user, TRAIT_CAUSTIC) && (get_location_accessible(user, BODY_ZONE_CHEST) || get_location_accessible(user, BODY_ZONE_L_ARM) || get_location_accessible(user, BODY_ZONE_R_ARM)) && (get_location_accessible(target, BODY_ZONE_CHEST) || get_location_accessible(target, BODY_ZONE_L_ARM) || get_location_accessible(target, BODY_ZONE_R_ARM)))
+			if(target.show_redflash())
+				target.flash_fullscreen("redflash1")
+			to_chat(target, span_smallred("Ouch...")) // note that this doesn't deal real pain to prevent people from. like. spamming hugs to paincrit?
 		if(user.mind)
 			/// Blackblood hidden interactions
 			var/mob/living/carbon/carbs = target
@@ -683,6 +706,10 @@
 		H.stop_all_doing() //This might let Slap stop all do-afters
 		//Caustic Edit End
 		H.AdjustSleeping(-50)
+		if(HAS_TRAIT(target, TRAIT_CAUSTIC) && get_location_accessible(user, BODY_ZONE_PRECISE_L_HAND))
+			if(user.show_redflash())
+				user.flash_fullscreen("redflash1")
+			to_chat(user, span_smallred("Ouch..."))
 		playsound(target.loc, 'sound/foley/slap.ogg', 100, TRUE, -1)
 		/// Blackblood hidden interactions
 		var/mob/living/carbon/carbs = target
@@ -708,6 +735,10 @@
 		if (H.show_redflash())
 			H.flash_fullscreen("redflash1")
 		//Caustic Edit End
+	if(HAS_TRAIT(target, TRAIT_CAUSTIC))
+		if(user.show_redflash())
+			user.flash_fullscreen("redflash1")
+		to_chat(user, span_smallred("Ouch..."))
 
 /mob/living/carbon/human/verb/emote_pinch()
 	set name = "Pinch"
@@ -1679,15 +1710,9 @@
 			var/color_to_use = human.voice_color
 			if(human.voicecolor_override)
 				color_to_use = human.voicecolor_override
-			msg = "<span style='color:#[color_to_use];text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;'><b>[emotelocation]</b></span> " + msg
+			msg = "<span style='color:[color_to_use];text-shadow:-1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;'><b>[emotelocation]</b></span> " + msg
 		else
 			msg = "<b>[emotelocation]</b> " + msg
-		for(var/mob/M in GLOB.dead_mob_list)
-			if(!M.client || isnewplayer(M))
-				continue
-			var/T = get_turf(emotelocation)
-			if(M.stat == DEAD && M.client && (M.client.prefs?.chat_toggles & CHAT_GHOSTSIGHT) && !(M in viewers(T, null)))
-				M.show_message(msg)
 		var/runechat_msg_to_use = null
 		if(show_runechat)
 			runechat_msg_to_use = runechat_msg ? runechat_msg : pre_color_msg

@@ -42,7 +42,8 @@
 	RegisterSignal(user, COMSIG_SEX_CLIMAX, PROC_REF(on_climax))
 	RegisterSignal(user, COMSIG_SEX_AROUSAL_CHANGED, PROC_REF(on_arousal_changed), TRUE)
 	RegisterSignal(user, COMSIG_MOVABLE_MOVED, PROC_REF(on_moved))
-	RegisterSignal(target, COMSIG_MOVABLE_MOVED, PROC_REF(on_moved))
+	if(user != target) //Caustic Edit - Lets prevent doubling up on the Comsigs if you are sexing yourself?
+		RegisterSignal(target, COMSIG_MOVABLE_MOVED, PROC_REF(on_moved))
 
 /datum/sex_session/Destroy(force, ...)
 	UnregisterSignal(user, list(COMSIG_SEX_CLIMAX, COMSIG_SEX_AROUSAL_CHANGED, COMSIG_MOVABLE_MOVED))
@@ -240,8 +241,22 @@
 			return FALSE
 	return TRUE
 
+#define CAUSTIC_PAIN_DMG 5
+
 /datum/sex_session/proc/perform_sex_action(mob/living/carbon/human/action_target, arousal_amt, pain_amt, giving)
+	if(HAS_TRAIT(user, TRAIT_CAUSTIC))
+		var/datum/component/arousal/comp = target.GetComponent(/datum/component/arousal)
+		if(comp)
+			comp.damage_from_pain(CAUSTIC_PAIN_DMG)
+			comp.try_do_pain_effect(CAUSTIC_PAIN_DMG, giving)
+	if(HAS_TRAIT(action_target, TRAIT_CAUSTIC))
+		var/datum/component/arousal/comp = user.GetComponent(/datum/component/arousal)
+		if(comp)
+			comp.damage_from_pain(CAUSTIC_PAIN_DMG)
+			comp.try_do_pain_effect(CAUSTIC_PAIN_DMG, giving)
 	SEND_SIGNAL(action_target, COMSIG_SEX_RECEIVE_ACTION, arousal_amt, pain_amt, giving, force, speed)
+
+#undef CAUSTIC_PAIN_DMG
 
 /datum/sex_session/proc/handle_passive_ejaculation(mob/living/carbon/human/handler)
 	if(!handler)

@@ -360,7 +360,7 @@
 	density = TRUE
 	anchored = TRUE
 	blade_dulling = DULLING_BASHCHOP
-	max_integrity = 700
+	max_integrity = 1400
 	damage_deflection = 12
 	integrity_failure = 0.15
 	dir = SOUTH
@@ -394,7 +394,7 @@
 
 /obj/structure/bars/steel
 	name = "steel bars"
-	max_integrity = 2000
+	max_integrity = 2500
 
 /obj/structure/bars/tough
 	max_integrity = 9000
@@ -410,7 +410,10 @@
 	..()
 */
 /obj/structure/bars/obj_break(damage_flag)
-	icon_state = "[initial(icon_state)]b"
+	if(isnull(broken_icon_state))
+		icon_state = "[initial(icon_state)]b"
+	else
+		icon_state = broken_icon_state
 	density = FALSE
 	..()
 
@@ -421,12 +424,13 @@
 	icon_state = "passage0"
 	desc = "This looks like it can open and close!"
 	density = TRUE
-	max_integrity = 1500
+	max_integrity = 2000
 	redstone_structure = TRUE
+	broken_icon_state = "passage1b"
 
 /obj/structure/bars/passage/steel
 	name = "steel bars"
-	max_integrity = 2000
+	max_integrity = 2500
 
 /obj/structure/bars/passage/redstone_triggered()
 	if(obj_broken)
@@ -489,7 +493,7 @@
 	desc = ""
 	icon_state = "floorgrille"
 	density = FALSE
-	layer = TABLE_LAYER
+	//layer = TABLE_LAYER
 	plane = GAME_PLANE
 	damage_deflection = 5
 	blade_dulling = DULLING_BASHCHOP
@@ -1796,14 +1800,14 @@
 
 /obj/structure/fluff/psycross/zizocross/stone
 	name = "stone inverted cross"
-	desc = "An unholy symbol, the knowledge that something so sturdy was able to be put up in reverence of the dark star, completely unattended... is a difficult anchovy to swallow for many."
+	desc = "An unholy symbol. The knowledge that something so sturdy was able to be put up in reverence of the archlych, completely unattended, is a difficult anchovy to swallow for many."
 	icon_state = "cross_zizo_r"
 	divine = FALSE
 	max_integrity = 200
 
 /obj/structure/fluff/psycross/zizocross/golden
 	name = "golden inverted cross"
-	desc = "An unholy symbol meticilously plated with leaf gold. It stands in defiance to order. The dead will rise."
+	desc = "An unholy symbol meticulously plated with leaf gold. It stands in defiance to order. The dead will rise."
 	icon_state = "cross_zizo_u"
 	divine = FALSE
 	max_integrity = 350

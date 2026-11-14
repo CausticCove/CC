@@ -333,7 +333,7 @@ T1 Enchantments below here*/
 /obj/item/enchantmentscroll/greater/lifesteal/attack_obj(obj/item/O, mob/living/user)
 	if(!..())
 		return
-	if(istype(O,/obj/item/rogueweapon))
+	if(istype(O,/obj/item/rogueweapon) || istype(O,/obj/item/clothing/gloves/roguetown/knuckles) || istype(O,/obj/item/clothing/gloves/roguetown/bandages))
 		to_chat(user, span_notice("You scribe intricate runes onto [O] with [src], imbuing it with an enchantment!"))
 		var/magiceffect= new component
 		O.AddComponent(/datum/component/magic_item, magiceffect)
@@ -352,7 +352,7 @@ T1 Enchantments below here*/
 /obj/item/enchantmentscroll/greater/lightning/attack_obj(obj/item/O, mob/living/user)
 	if(!..())
 		return
-	if(istype(O,/obj/item/rogueweapon))
+	if(istype(O,/obj/item/rogueweapon) || istype(O,/obj/item/clothing/gloves/roguetown/knuckles) || istype(O,/obj/item/clothing/gloves/roguetown/bandages))
 		to_chat(user, span_notice("You scribe intricate runes onto [O] with [src], imbuing it with an enchantment!"))
 		var/magiceffect= new component
 		O.AddComponent(/datum/component/magic_item, magiceffect)
@@ -539,7 +539,7 @@ T1 Enchantments below here*/
 /obj/item/enchantmentscroll/mythic/briars/attack_obj(obj/item/O, mob/living/user)
 	if(!..())
 		return
-	if(istype(O,/obj/item/rogueweapon))
+	if(istype(O,/obj/item/rogueweapon) || istype(O,/obj/item/clothing/gloves/roguetown/knuckles) || istype(O,/obj/item/clothing/gloves/roguetown/bandages))
 		to_chat(user, span_notice("You scribe intricate runes onto [O] with [src], imbuing it with an enchantment!"))
 		var/magiceffect= new component
 		O.AddComponent(/datum/component/magic_item, magiceffect)

@@ -75,7 +75,7 @@
 
 /obj/structure/roguemachine/goldface/public
 	name = "SILVERFACE"
-	extra_fee = 0.5
+	extra_fee = GOLDFACE_PUBLIC_FEE
 	is_public = TRUE
 	locked = FALSE
 	is_command_center = FALSE
@@ -100,7 +100,7 @@
 
 /obj/structure/roguemachine/goldface/public/examine()
 	. = ..()
-	. += "<span class='info'>A public version of the GOLDFACE. The company charges a hefty fee for its usage. Per agreement, it cannot be locked by anyone.</span>"
+	. += "<span class='info'>A public GOLDFACE. The Azurian Trading Company charges a hefty fee to use it, and by agreement no one can lock it.</span>"
 
 /obj/structure/roguemachine/goldface/public/smith
 	name = "Smithy's SILVERFACE"
@@ -167,22 +167,22 @@
 	if(SSmerchant_trade?.current_kinship_realm)
 		var/datum/foreign_realm/KR = SSmerchant_trade.realms[SSmerchant_trade.current_kinship_realm]
 		if(KR)
-			. += span_info("The Realm of <b>[KR.name]</b> recognize the Factor as kin - buys cost -[round((1 - KINSHIP_BUY_MULT) * 100)]% and bulk-demand payouts gain +[round((KINSHIP_SELL_MULT - 1) * 100)]%.")
+			. += span_info("The Realm of <b>[KR.name]</b> recognizes the Factor as kin. Buys from its ships cost [round((1 - KINSHIP_BUY_MULT) * 100)]% less, and its bulk demand pays [round((KINSHIP_SELL_MULT - 1) * 100)]% more.")
 	if(SSmerchant_trade && ishuman(user))
 		var/agent_realm = SSmerchant_trade.get_agent_personal_kinship_realm(user)
 		if(agent_realm && agent_realm != SSmerchant_trade.current_kinship_realm)
 			var/datum/foreign_realm/AKR = SSmerchant_trade.realms[agent_realm]
 			if(AKR)
-				. += span_info("As an Agent, you personally recognize <b>[AKR.name]</b> as kin - your goldface buys from their ships cost -[round((1 - KINSHIP_BUY_MULT) * 100)]%.")
+				. += span_info("<b>[AKR.name]</b> counts you as kin. Your Goldface buys from their ships cost [round((1 - KINSHIP_BUY_MULT) * 100)]% less.")
 
 /obj/structure/roguemachine/goldface/proc/get_effective_fee()
 	if(is_public && SSmerchant_trade?.gnome_automation_unlocked)
 		return SSmerchant_trade.silverface_margin_percent / 100
 	return extra_fee
 
-/obj/structure/roguemachine/goldface/proc/compute_pack_price(datum/supply_pack/PA)
+/obj/structure/roguemachine/goldface/proc/compute_pack_price(datum/supply_pack/PA, mob/living/carbon/human/H)
 	var/cost = PA.cost + PA.cost * get_effective_fee()
-	if(!(upgrade_flags & UPGRADE_NOTAX) && !bypass_tax)
+	if(!is_tax_exempt(H))
 		cost += compute_pack_tax(PA)
 	return round(cost)
 
@@ -263,7 +263,7 @@
 	if(!ishuman(user))
 		return
 	if(locked)
-		to_chat(user, span_warning("It's locked. Of course."))
+		to_chat(user, span_warning("It's locked."))
 		return
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
@@ -292,7 +292,7 @@
 	var/can_read = istype(H) ? H.can_read(src, TRUE) : FALSE
 	var/is_proprietor = istype(H) && (H.job in profit_id)
 	var/is_agent_viewer = !is_proprietor && is_chartered_agent(H)
-	var/dodging = (upgrade_flags & UPGRADE_NOTAX) || bypass_tax
+	var/dodging = is_tax_exempt(H)
 	data["motto"] = motto
 	data["budget"] = budget
 	data["locked"] = locked ? TRUE : FALSE
@@ -320,7 +320,7 @@
 	data["result_cap"] = search_result_cap
 	var/list/packs_data = list()
 	var/total_matches = 0
-	var/tariff_active = !(upgrade_flags & UPGRADE_NOTAX) && !bypass_tax
+	var/tariff_active = !is_tax_exempt(H)
 	if(search_query != "")
 		var/needle = LOWER_TEXT(search_query)
 		var/list/matches = list()
@@ -359,33 +359,42 @@
 
 /obj/structure/roguemachine/goldface/proc/build_harbor_data(mob/living/carbon/human/viewer)
 	var/list/docked = list()
+	var/list/departing = list()
 	var/list/pool = list()
 	var/kin_realm = SSmerchant_trade.current_kinship_realm
 	var/agent_kin_realm = SSmerchant_trade.get_agent_personal_kinship_realm(viewer)
 	for(var/datum/trade_ship/ship in SSmerchant_trade.all_ships)
 		var/is_docked = ship.dock_state == TRADE_SHIP_STATE_DOCKED
+		var/is_departing = ship.dock_state == TRADE_SHIP_STATE_DEPARTING
 		var/global_kin = (kin_realm && ship.realm_id == kin_realm) ? TRUE : FALSE
 		var/agent_kin = (!global_kin && agent_kin_realm && ship.realm_id == agent_kin_realm) ? TRUE : FALSE
 		var/any_kin = global_kin || agent_kin
 		var/list/row = list(
 			"ship_id" = ship.ship_id,
 			"ship_name" = ship.ship_name,
-			"captain_name" = is_docked ? ship.captain_name : null,
+			"captain_name" = (is_docked || is_departing) ? ship.captain_name : null,
 			"port_of_origin" = ship.port_of_origin,
 			"realm_id" = ship.realm_id,
 			"is_kin" = any_kin ? TRUE : FALSE,
 			"ship_type" = ship.ship_type,
 			"tonnage" = ship.tonnage,
 			"tonnage_mult" = ship.tonnage_scale_mult(),
+			"base_tonnage" = TRADE_SHIP_DEFAULT_TONNAGE,
+			"cap_tonnage" = TRADE_SHIP_DEFAULT_TONNAGE + TRADE_SHIP_TONNAGE_SCALE_SPAN * (TRADE_SHIP_TONNAGE_SCALE_CAP - 1),
+			"cap_mult" = TRADE_SHIP_TONNAGE_SCALE_CAP,
+			"honored_pct" = FAVOR_SEND_CLEAN_THRESHOLD * 100,
+			"partial_pct" = FAVOR_SEND_PARTIAL_THRESHOLD * 100,
+			"partial_share_pct" = FAVOR_SEND_PARTIAL_MULT * 100,
+			"dishonor_penalty" = round(FAVOR_SEND_FAILURE_PENALTY * ship.tonnage_scale_mult()),
 			"expected_favor" = ship.expected_favor,
 			"favor_earned" = ship.favor_earned,
 			"auto_hailed" = ship.auto_hailed ? TRUE : FALSE,
 		)
-		if(is_docked)
+		if(is_docked || is_departing)
 			var/seconds_left = max(0, round((ship.dock_expires_at - world.time) / 10))
 			row["seconds_until_departure"] = seconds_left
-			var/honored = ship.expected_favor > 0 && ship.favor_earned >= ship.expected_favor
-			row["can_send_away"] = (ship.auto_hailed || honored || world.time >= ship.docked_at + TRADE_SHIP_SEND_AWAY_GRACE) ? TRUE : FALSE
+			row["departing"] = is_departing
+			row["can_send_away"] = (is_docked && (ship.auto_hailed || ship.is_honored() || world.time >= ship.docked_at + TRADE_SHIP_SEND_AWAY_GRACE)) ? TRUE : FALSE
 			if(any_kin)
 				var/list/kin_supplies = list()
 				for(var/list/L in ship.bulk_supplies)
@@ -405,7 +414,11 @@
 			else
 				row["bulk_supplies"] = ship.bulk_supplies.Copy()
 				row["bulk_demands"] = ship.bulk_demands.Copy()
-			docked += list(row)
+			if(is_departing)
+				row["bulk_supplies"] = list()
+				departing += list(row)
+			else
+				docked += list(row)
 		else
 			pool += list(row)
 	var/kinship_realm_id = SSmerchant_trade.current_kinship_realm
@@ -437,6 +450,7 @@
 	var/datum/foreign_realm/agent_kin_datum = agent_kin_realm ? SSmerchant_trade.realms[agent_kin_realm] : null
 	return list(
 		"ships_docked" = docked,
+		"ships_departing" = departing,
 		"ships_pool" = pool,
 		"realms" = realms,
 		"hails_remaining" = SSmerchant_trade.hails_remaining,
@@ -507,6 +521,7 @@
 		"gnome_margin_collected" = SSmerchant_trade.gnome_margin_collected,
 		"silverface_margin_percent" = SSmerchant_trade.silverface_margin_percent,
 		"fund_log" = fund_log,
+		"fund_log_max" = MERCHANT_FUND_LOG_MAX,
 	)
 
 /obj/structure/roguemachine/goldface/proc/build_favor_data()
@@ -534,6 +549,8 @@
 		"from_goldface" = SSmerchant_trade.favor_from_goldface,
 		"from_silverface" = SSmerchant_trade.favor_from_silverface,
 		"penalties" = SSmerchant_trade.favor_penalties,
+		"passive_pct" = FAVOR_PASSIVE_TRADE_FRACTION * 100,
+		"sendoff_partial_pct" = FAVOR_SEND_PARTIAL_THRESHOLD * 100,
 	)
 
 /obj/structure/roguemachine/goldface/proc/cultural_pack_names(list/pack_paths)
@@ -563,7 +580,7 @@
 
 /obj/structure/roguemachine/goldface/proc/build_cultural_stock_data(mob/living/carbon/human/viewer)
 	var/list/result = list()
-	var/tariff_active = !(upgrade_flags & UPGRADE_NOTAX) && !bypass_tax
+	var/tariff_active = !is_tax_exempt(viewer)
 	var/tariff_rate = SStreasury.get_tax_rate(TAX_CATEGORY_IMPORT_TARIFF)
 	var/kin_realm = SSmerchant_trade?.current_kinship_realm
 	var/agent_kin_realm = SSmerchant_trade?.get_agent_personal_kinship_realm(viewer)
@@ -601,7 +618,7 @@
 	var/list/result = list()
 	if(!SSmerchant_trade)
 		return result
-	var/tariff_active = !(upgrade_flags & UPGRADE_NOTAX) && !bypass_tax
+	var/tariff_active = !is_tax_exempt(viewer)
 	var/tariff_rate = SStreasury.get_tax_rate(TAX_CATEGORY_IMPORT_TARIFF)
 	for(var/cid in SSmerchant_trade.catalogs)
 		var/datum/merchant_catalog/C = SSmerchant_trade.catalogs[cid]
@@ -716,8 +733,11 @@
 				return TRUE
 			if(is_public && locked)
 				return TRUE
-			var/cost = compute_pack_price(PA)
-			var/tax_amt = compute_pack_tax(PA)
+			var/has_stipend = HAS_TRAIT(H, TRAIT_ROYAL_SUBSIDY)
+			var/cost = compute_pack_price(PA, H)
+			var/tax_amt = has_stipend ? 0 : compute_pack_tax(PA)
+			if(has_stipend)
+				cost -= compute_pack_tax(PA)
 			if(budget < cost)
 				say("Not enough!")
 				return TRUE
@@ -725,7 +745,7 @@
 			record_round_statistic(value_record_key, cost)
 			record_round_statistic(STATS_TRADE_VALUE_IMPORTED, cost)
 			playsound(loc, 'sound/misc/gold_misc.ogg', 70, FALSE, -1)
-			if(!(upgrade_flags & UPGRADE_NOTAX) && !bypass_tax)
+			if(!(is_tax_exempt(H)))
 				SStreasury.mint(SStreasury.discretionary_fund, tax_amt, "[TAX_CATEGORY_IMPORT_TARIFF] ([src.name])")
 				SStreasury.apply_concordat_tithe(cost, TAX_CATEGORY_IMPORT_TARIFF, "[src.name]")
 				record_featured_stat(FEATURED_STATS_TAX_PAYERS, H, tax_amt)
@@ -750,6 +770,7 @@
 					SSmerchant_trade.favor_from_goldface += passive
 			for(var/pathi in PA.contains)
 				var/obj/item/spawned = new pathi(get_turf(usr))
+				record_material_flow(MATERIAL_FLOW_IN, MATERIAL_SOURCE_MERCHANT_IMPORT, pathi, 1)
 				if(istype(spawned))
 					spawned.atc_sealed = TRUE
 			return TRUE
@@ -765,8 +786,10 @@
 			if(!is_command_center || !can_view_harbor(H) || !SSmerchant_trade)
 				return TRUE
 			var/ship_id = "[params["ship_id"]]"
+			var/datum/trade_ship/target = SSmerchant_trade.find_ship_by_id(ship_id)
+			var/target_name = target?.ship_name
 			var/result = SSmerchant_trade.send_away_ship(ship_id, usr)
-			handle_send_away_result(result, usr)
+			handle_send_away_result(result, usr, target_name)
 			return TRUE
 		if("cultural_buy")
 			if(!is_command_center || !SSmerchant_trade)
@@ -792,7 +815,7 @@
 					kin_saving = pre_kin - discounted_base
 			var/tax_amt = round(SStreasury.get_tax_rate(TAX_CATEGORY_IMPORT_TARIFF) * discounted_base)
 			var/total_cost = discounted_base
-			if(!(upgrade_flags & UPGRADE_NOTAX) && !bypass_tax)
+			if(!is_tax_exempt(H))
 				total_cost += tax_amt
 			if(budget < total_cost)
 				say("Not enough!")
@@ -803,7 +826,7 @@
 			budget -= total_cost
 			record_round_statistic(value_record_key, total_cost)
 			record_round_statistic(STATS_TRADE_VALUE_IMPORTED, total_cost)
-			if(!(upgrade_flags & UPGRADE_NOTAX) && !bypass_tax)
+			if(!is_tax_exempt(H))
 				SStreasury.mint(SStreasury.discretionary_fund, tax_amt, "[TAX_CATEGORY_IMPORT_TARIFF] ([src.name])")
 				SStreasury.apply_concordat_tithe(total_cost, TAX_CATEGORY_IMPORT_TARIFF, "[src.name]")
 				record_featured_stat(FEATURED_STATS_TAX_PAYERS, H, tax_amt)
@@ -815,11 +838,12 @@
 				tariff_evaded_here += tax_amt
 			for(var/pathi in PA.contains)
 				var/obj/item/spawned = new pathi(get_turf(usr))
+				record_material_flow(MATERIAL_FLOW_IN, MATERIAL_SOURCE_MERCHANT_IMPORT, pathi, 1)
 				if(istype(spawned))
 					spawned.atc_sealed = TRUE
-			source_ship.favor_earned += discounted_base
-			var/tariff_active_cultural = !(upgrade_flags & UPGRADE_NOTAX) && !bypass_tax
-			to_chat(H, span_notice("You buy [PA.name] from [source_ship.ship_name] for [total_cost]m[tariff_active_cultural && tax_amt > 0 ? " (incl. [tax_amt]m Crown duty)" : ""][kin_saving > 0 ? " (Kinship saved [kin_saving]m)" : ""]."))
+			source_ship.add_favor(discounted_base)
+			var/tariff_active_cultural = !is_tax_exempt(H)
+			to_chat(H, span_notice("You buy [PA.name] from [source_ship.ship_name] for [total_cost]m[tariff_active_cultural && tax_amt > 0 ? " (incl. [tax_amt]m import tariff)" : ""][kin_saving > 0 ? " (Kinship saved [kin_saving]m)" : ""]."))
 			playsound(loc, 'sound/misc/gold_misc.ogg', 70, FALSE, -1)
 			return TRUE
 		if("catalog_buy")
@@ -848,7 +872,7 @@
 				var/pre_kin = base_cost
 				base_cost = max(1, round(base_cost * CATALOG_KIN_BUY_MULT))
 				kin_saving = pre_kin - base_cost
-			var/tariff_active = !(upgrade_flags & UPGRADE_NOTAX) && !bypass_tax
+			var/tariff_active = !is_tax_exempt(H)
 			var/tax_amt = round(SStreasury.get_tax_rate(TAX_CATEGORY_IMPORT_TARIFF) * base_cost)
 			var/total_cost = base_cost
 			if(tariff_active)
@@ -872,9 +896,10 @@
 				tariff_evaded_here += tax_amt
 			for(var/pathi in PA.contains)
 				var/obj/item/spawned = new pathi(get_turf(usr))
+				record_material_flow(MATERIAL_FLOW_IN, MATERIAL_SOURCE_MERCHANT_IMPORT, pathi, 1)
 				if(istype(spawned))
 					spawned.atc_sealed = TRUE
-			to_chat(H, span_notice("You order [PA.name] from the [C.name] for [total_cost]m[tariff_active && tax_amt > 0 ? " (incl. [tax_amt]m Crown duty)" : ""][kin_saving > 0 ? " (Kinship saved [kin_saving]m)" : ""]."))
+			to_chat(H, span_notice("You order [PA.name] from the [C.name] for [total_cost]m[tariff_active && tax_amt > 0 ? " (incl. [tax_amt]m import tariff)" : ""][kin_saving > 0 ? " (Kinship saved [kin_saving]m)" : ""]."))
 			playsound(loc, 'sound/misc/gold_misc.ogg', 70, FALSE, -1)
 			return TRUE
 		if("bulk_buy")
@@ -915,7 +940,7 @@
 					var/kin_unit = max(1, round(unit_cost * kin_mult))
 					gross = kin_unit * qty
 					kin_saving = pre_kin - gross
-			var/tariff_active = !(upgrade_flags & UPGRADE_NOTAX) && !bypass_tax
+			var/tariff_active = !is_tax_exempt(H)
 			var/tariff_float = SStreasury.get_tax_rate(TAX_CATEGORY_IMPORT_TARIFF) * gross
 			var/total_cost = gross + (tariff_active ? round(tariff_float) : 0)
 			if(budget < total_cost)
@@ -937,13 +962,14 @@
 				record_round_statistic(STATS_TAXES_EVADED, round(tariff_float))
 				tariff_evaded_here += round(tariff_float)
 			var/turf/T = get_turf(src)
+			record_material_flow(MATERIAL_FLOW_IN, MATERIAL_SOURCE_MERCHANT_IMPORT, TG.item_type, qty, total_cost)
 			for(var/i in 1 to qty)
 				var/obj/item/spawned = new TG.item_type(T)
 				if(istype(spawned))
 					spawned.atc_sealed = TRUE
-			source_ship.favor_earned += gross
+			source_ship.add_favor(gross)
 			playsound(loc, 'sound/misc/gold_misc.ogg', 70, FALSE, -1)
-			to_chat(H, span_notice("You buy [qty] [TG.name] from [source_ship.ship_name] for [total_cost]m[tariff_active && tariff_float > 0 ? " (incl. [round(tariff_float)]m Crown duty)" : ""][kin_saving > 0 ? " (Kinship saved [kin_saving]m)" : ""]."))
+			to_chat(H, span_notice("You buy [qty] [TG.name] from [source_ship.ship_name] for [total_cost]m[tariff_active && tariff_float > 0 ? " (incl. [round(tariff_float)]m import tariff)" : ""][kin_saving > 0 ? " (Kinship saved [kin_saving]m)" : ""]."))
 			return TRUE
 		if("set_levy")
 			if(!is_command_center || !(H.job in profit_id) || !SSmerchant_trade)
@@ -965,27 +991,27 @@
 			if(isnull(requested))
 				return TRUE
 			var/applied = SSmerchant_trade.set_silverface_margin(requested)
-			to_chat(H, span_notice("Silverface margin set to <b>[applied]%</b>. The Gnomes adjust their pricing accordingly."))
+			to_chat(H, span_notice("Silverface margin set to <b>[applied]%</b>."))
 			playsound(loc, 'sound/misc/gold_misc.ogg', 70, FALSE, -1)
 			return TRUE
 		if("unlock_gnomes")
-			if(try_favor_unlock(H, SSmerchant_trade?.gnome_automation_unlocked, GNOME_AUTOMATION_FAVOR, "The Company Gnomes are already on the books.", "Not enough favor with the Company to call in the gnomes."))
+			if(try_favor_unlock(H, SSmerchant_trade?.gnome_automation_unlocked, GNOME_AUTOMATION_FAVOR, "The Company Gnomes are already on the books.", "Not enough favor with the ATC to call in the gnomes."))
 				if(SSmerchant_trade.unlock_gnome_automation())
-					scom_announce("The Azurian Trading Company has dispatched a gnomish crew to staff the public stalls.")
-					to_chat(H, span_notice("The Company Gnomes are now staffing every Silverface. Their margin flows to your fund."))
+					scom_announce("The ATC has hired a gnomish crew from the Azurian Guild of Porters and Stevedores to staff the public stalls.")
+					to_chat(H, span_notice("The Company Gnomes now staff every Silverface. Their margin goes to your fund."))
 					playsound(loc, 'sound/misc/gold_misc.ogg', 70, FALSE, -1)
 			return TRUE
 		if("rent_pier")
-			if(try_favor_unlock(H, SSmerchant_trade?.extra_pier_rented, ADDITIONAL_PIER_FAVOR, "The extra pier is already paid up for the week.", "Not enough favor with the Company to lean on the dockmaster."))
+			if(try_favor_unlock(H, SSmerchant_trade?.extra_pier_rented, ADDITIONAL_PIER_FAVOR, "The extra pier is already paid up for the week.", "Not enough favor with the ATC to lean on the dockmaster."))
 				if(SSmerchant_trade.rent_extra_pier())
-					scom_announce("Word travels along the wharf - the fishermen's pier has been let to the Azurian Trading Company for the week.")
+					scom_announce("The ATC has rented the fishermen's pier for the week.")
 					to_chat(H, span_notice("The extra pier is yours. The harbor can now hold one more vessel at a time."))
 					playsound(loc, 'sound/misc/gold_misc.ogg', 70, FALSE, -1)
 			return TRUE
 		if("unlock_auto_hailer")
-			if(try_favor_unlock(H, SSmerchant_trade?.auto_hailer_unlocked, AUTO_HAILER_FAVOR, "The harbor crew already has a retainer with the Company.", "Not enough favor with the Company to retain the harbor crew."))
+			if(try_favor_unlock(H, SSmerchant_trade?.auto_hailer_unlocked, AUTO_HAILER_FAVOR, "The harbor crew already has a retainer with the ATC.", "Not enough favor with the ATC to retain the harbor crew."))
 				if(SSmerchant_trade.unlock_auto_hailer())
-					to_chat(H, span_notice("The harbor crew is on retainer. Toggle the Auto-Hailer when you wish them to work."))
+					to_chat(H, span_notice("The harbor crew is on retainer. Set them to work from the Harbor Crew toggle."))
 					playsound(loc, 'sound/misc/gold_misc.ogg', 70, FALSE, -1)
 			return TRUE
 		if("unlock_catalog")
@@ -995,10 +1021,10 @@
 			var/datum/merchant_catalog/C = SSmerchant_trade.catalogs[cid]
 			if(!C)
 				return TRUE
-			if(try_favor_unlock(H, SSmerchant_trade.catalog_unlocked(cid), C.favor_cost, "The [C.name] is already open to the company.", "Not enough favor with the Company to open the [C.name]."))
+			if(try_favor_unlock(H, SSmerchant_trade.catalog_unlocked(cid), C.favor_cost, "The [C.name] is already open to you.", "Not enough favor with the ATC to open the [C.name]."))
 				if(SSmerchant_trade.unlock_catalog(cid))
-					scom_announce("The Azurian Trading Company has secured a trade agreement with the [C.name].")
-					to_chat(H, span_notice("The [C.name] is now open to the company."))
+					scom_announce("The ATC has secured a trade agreement with the [C.name].")
+					to_chat(H, span_notice("The [C.name] is now open to you."))
 					playsound(loc, 'sound/misc/gold_misc.ogg', 70, FALSE, -1)
 			return TRUE
 		if("toggle_auto_hailer")
@@ -1011,7 +1037,7 @@
 				if(SSmerchant_trade.auto_hailer_on)
 					to_chat(H, span_notice("The harbor crew begins their rounds. Ships will be hailed and dismissed in your absence."))
 				else
-					to_chat(H, span_notice("The harbor crew stands down. The wharf returns to your sole judgement."))
+					to_chat(H, span_notice("The harbor crew stands down. You hail and dismiss ships yourself again."))
 				playsound(loc, 'sound/misc/gold_misc.ogg', 70, FALSE, -1)
 			return TRUE
 
@@ -1049,10 +1075,10 @@
 		return
 	say("Captain [ship.captain_name] sends their greeting: \"[line]\"")
 
-/obj/structure/roguemachine/goldface/proc/handle_send_away_result(result, mob/user)
+/obj/structure/roguemachine/goldface/proc/handle_send_away_result(result, mob/user, ship_name)
 	switch(result)
-		if("ok")
-			to_chat(user, span_notice("You signal the vessel to cast off. The pier is yours again."))
+		if("ok", "departing")
+			to_chat(user, span_notice("You signal [ship_name] to depart. The pier is free again."))
 		if("early")
 			to_chat(user, span_warning("She has only just tied up. Give the captain a few moments to settle their business."))
 		if("ship_gone")
@@ -1073,5 +1099,14 @@
 /obj/structure/roguemachine/goldface/Initialize()
 	. = ..()
 	update_icon()
+
+/obj/structure/roguemachine/goldface/proc/is_tax_exempt(mob/living/carbon/human/H) // communism was actually kinda tight!!!!
+	if(bypass_tax)
+		return TRUE
+	if(upgrade_flags & UPGRADE_NOTAX)
+		return TRUE
+	if(istype(H) && HAS_TRAIT(H, TRAIT_ROYAL_SUBSIDY))
+		return TRUE
+	return FALSE
 
 #undef UPGRADE_NOTAX

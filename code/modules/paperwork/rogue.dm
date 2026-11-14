@@ -74,7 +74,7 @@
 	update_icon_state()
 	..()
 
-/obj/item/paper/scroll/rmb_self(mob/user)
+/obj/item/paper/scroll/rmb_self(mob/user, keybind = FALSE)
 	attack_right(user)
 	return
 

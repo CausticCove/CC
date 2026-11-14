@@ -200,6 +200,13 @@
 			pic2.color = get_altdetail_color()
 		add_overlay(pic2)
 
+/obj/item/clothing/head/roguetown/grenzelhofthat/loadout
+	name = "aesthetic grenzelhoft plume hat"
+
+/obj/item/clothing/head/roguetown/grenzelhofthat/loadout/Initialize()
+	. = ..()
+	loadoutize()
+
 //................ Briar Thorns ............... //	- Dendor Briar
 /obj/item/clothing/head/roguetown/briarthorns
 	name = "briar thorns"
@@ -234,6 +241,13 @@
 	AddComponent(/datum/component/armour_filtering/positive, TRAIT_HONORBOUND)
 	if(armor_class > ARMOR_CLASS_LIGHT)
 		AddComponent(/datum/component/armour_filtering/negative, TRAIT_IRONMAN)
+
+/obj/item/clothing/head/roguetown/mentorhat/loadout
+	name = "aesthetic worn bamboo hat"
+
+/obj/item/clothing/head/roguetown/mentorhat/loadout/Initialize()
+	. = ..()
+	loadoutize()
 
 /obj/item/clothing/head/roguetown/inqhat/lamplighter
 	name = "lampwicker's hat"

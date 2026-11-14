@@ -21,9 +21,12 @@
 #define DANGER_PCT_MODERATE 55 // to this = Moderate (orange)
 #define DANGER_PCT_DANGEROUS 80 // to this = Dangerous (red), above = Bleak (purple)
 
-/// Tick rate multipliers — fraction of max_ambush added per SS tick.
-/// SS fires every 30 minutes = 6 ticks per 3-hour round.
-/// Highpop: 20% of max per tick → full refill in 5 ticks (2.5 hours).
-/// Lowpop: 10% of max per tick → full refill in 10 ticks (5 hours).
-#define THREAT_HIGHPOP_TICK_RATE 0.2
-#define THREAT_LOWPOP_TICK_RATE 0.1
+#define THREAT_HIGHPOP_TICK_RATE 0.1
+#define THREAT_LOWPOP_TICK_RATE 0.05
+
+// Below THRESHOLD: same floor+ramp as before (lowpop_tick*MIN_MULT at pop 0, ramping to
+// lowpop_tick at THRESHOLD). At/above THRESHOLD: ramps on to highpop_tick by REF_POP instead of
+// snapping straight to it, so there's no jump at the THRESHOLD boundary.
+#define THREAT_LOWPOP_TICK_MIN_MULT 0.5
+#define THREAT_LOWPOP_THRESHOLD 30
+#define THREAT_TICK_HIGHPOP_REF_POP 60

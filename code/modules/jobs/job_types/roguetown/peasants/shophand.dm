@@ -35,6 +35,7 @@
 		/datum/advclass/shoplackey,
 		//Caustic edit end
 	)
+	has_subprefs = FALSE // only one subclass
 
 /datum/job/roguetown/shophand/after_spawn(mob/living/L, mob/M, latejoin = TRUE)
 	..()

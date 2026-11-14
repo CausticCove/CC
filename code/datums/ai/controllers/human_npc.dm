@@ -4,6 +4,7 @@
 /datum/ai_controller/human_npc
 	max_target_distance = 13
 	ai_movement = /datum/ai_movement/hybrid_pathing
+	idle_behavior = /datum/idle_behavior/idle_npc_wander //Caustic Edit - Grabbing the Valmorian Isle Idle NPC actions so they are not stuck just doing nothing forever
 	blackboard = list(
 		BB_WEAPON_TYPE = /obj/item/rogueweapon,
 		BB_ARMOR_CLASS = 2,
@@ -80,6 +81,7 @@
 /// Archer human NPC. Adds archer-specific planning subtrees and blackboard keys on top of
 /// the base. Uses the same melee subtree as a fallback when out of ammo / in melee range.
 /datum/ai_controller/human_npc/archer
+	idle_behavior = /datum/idle_behavior/idle_npc_wander //Caustic Edit - Grabbing the Valmorian Isle Idle NPC actions so they are not stuck just doing nothing forever
 	blackboard = list(
 		BB_WEAPON_TYPE = /obj/item/rogueweapon,
 		BB_ARMOR_CLASS = 2,

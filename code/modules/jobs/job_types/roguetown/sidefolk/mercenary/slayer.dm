@@ -53,7 +53,7 @@
 			/obj/item/natural/head/troll = 1 // will spawn inside of the belt but I can't be bothered to make it spawn in the headhook
 		)
 		var/weapons = list("Hatchets", "Greataxe")
-		var/weapon_choice = input("Choose your weapon", "How will you channel your rage?") as anything in weapons
+		var/weapon_choice = input(H, "Choose your weapon", "How will you channel your rage?") as anything in weapons
 		switch(weapon_choice)
 			if("Greataxe")
 				backl = /obj/item/rogueweapon/stoneaxe/battle/slayer

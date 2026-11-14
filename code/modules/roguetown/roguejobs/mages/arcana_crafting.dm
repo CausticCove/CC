@@ -148,6 +148,21 @@
 				/obj/item/magic/melded/t5 = 1)
 	craftdiff = SKILL_LEVEL_MASTER
 
+// ========== Archivist and CM only Artificing recipes ==========
+
+/datum/crafting_recipe/roguetown/arcana/limitedartifice
+	always_availible = FALSE
+
+/datum/crafting_recipe/roguetown/arcana/limitedartifice/scryorb //Currently just CM
+	name = "Scrying Orb"
+	result = /obj/item/scrying
+	reqs = list(/obj/item/alch/magicdust = 1,
+				/obj/item/alch/airdust = 1,
+				/obj/item/alch/firedust = 1,
+				/obj/item/magic/melded/t4 = 1,
+				/obj/item/natural/glassbatch = 1)
+	craftdiff = SKILL_LEVEL_MASTER
+
 // ========== Fission (downgrade, same realm) ==========
 // Lesser: 1 T2 → 2 T1. Greater: 1 T3 → 2 T2. Grand: 1 T4 → 1 T3.
 

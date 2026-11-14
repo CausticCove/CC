@@ -10,7 +10,7 @@
 	ambientnight = AMB_TOWNNIGHT
 	spookysounds = SPOOKY_GEN
 	spookynight = SPOOKY_GEN
-	ambush_times = list("night")
+	//ambush_times = list("night")
 	ambush_mobs = list(
 				/mob/living/simple_animal/hostile/retaliate/rogue/sandworm/stalker = 10,
 				/mob/living/simple_animal/hostile/retaliate/rogue/badger = 10,
@@ -71,13 +71,13 @@
 	droning_sound = 'sound/music/area/desert/Iberia1.ogg'
 	droning_sound_dusk = 'sound/music/area/desert/NightPrayer.ogg'
 	droning_sound_night = 'sound/music/area/desert/Moonrise.ogg'
-	ambush_times = list("night","dawn","dusk","day")
+	//ambush_times = list("night","dawn","dusk","day")
 	ambush_mobs = list(
-		new /datum/ambush_config/dunewell_raider = 60,
-		new /datum/ambush_config/antlion_party = 30,
-		new /datum/ambush_config/lamia_party = 30,
-		new /datum/ambush_config/dunewell_raider/hard = 20,
-		new /datum/ambush_config/worm_hatchling_party = 30,
+		/datum/npc_warband/dunewell_raider = 60,
+		/datum/npc_warband/antlion_party = 30,
+		/datum/npc_warband/lamia_party = 30,
+		/datum/npc_warband/dunewell_raider/hard = 20,
+		/datum/npc_warband/worm_hatchling_party = 30,
 		/mob/living/simple_animal/hostile/retaliate/rogue/sandworm/stalker = 40,
 		/mob/living/simple_animal/hostile/retaliate/rogue/sandworm/elder = 20,
 		/mob/living/simple_animal/hostile/retaliate/rogue/ifrit = 20,
@@ -100,7 +100,6 @@
 	ambientnight = AMB_MOUNTAIN
 	soundenv = 17
 	first_time_text = null
-	ambush_times = null
 	ambush_mobs = null
 	allow_extreme_weather = FALSE
 
@@ -110,14 +109,12 @@
 	ambientnight = AMB_MOUNTAIN
 	soundenv = 17
 	first_time_text = null
-	ambush_times = null
 	ambush_mobs = null
 	allow_extreme_weather = FALSE
 
 /area/rogue/outdoors/desertdeep/coastal
 	name = "Coastal Inlet"
 	first_time_text = null
-	ambush_times = null
 	ambush_mobs = null
 	deathsight_message = "along a small coastal space"
 	allow_extreme_weather = FALSE
@@ -131,8 +128,7 @@
 	name = "Ruined Colosseum"
 	first_time_text = "Decrepit Colosseum"
 	deathsight_message = "a decrepit arena in the dunes"
-	ambush_times = "null"
-	ambush_mobs = "null"
+	ambush_mobs = null
 	allow_extreme_weather = FALSE
 
 /area/rogue/outdoors/desert/dunepassage
@@ -356,7 +352,6 @@
 
 /area/rogue/outdoors/desertdeep/safe
 	name = "Desert Pass"
-	ambush_times = null
 	ambush_mobs = null
 	allow_extreme_weather = FALSE
 
@@ -393,7 +388,7 @@
 	droning_sound = 'sound/music/area/caves.ogg'
 	droning_sound_dusk = null
 	droning_sound_night = null
-	ambush_times = list("night","dawn","dusk","day")
+	//ambush_times = list("night","dawn","dusk","day")
 	ambush_mobs = list(
 				/mob/living/carbon/human/species/skeleton/npc/easy = 10,
 				/mob/living/simple_animal/hostile/retaliate/rogue/bigrat = 30,
@@ -419,7 +414,7 @@
 	droning_sound = 'sound/music/area/underdark.ogg'
 	droning_sound_dusk = null
 	droning_sound_night = null
-	ambush_times = list("night","dawn","dusk","day")
+	//ambush_times = list("night","dawn","dusk","day")
 	ambush_mobs = list(
 				/mob/living/simple_animal/hostile/retaliate/rogue/spider/mutated = 20,
 				/mob/living/carbon/human/species/elf/dark/drowraider/ambush = 10,
@@ -443,7 +438,6 @@
 /area/rogue/under/desertunderdark/pyramid
 	name = "The Condemned Pyramid"
 	icon_state = "basement"
-	ambush_times = null
 	ambush_mobs = null
 	first_time_text = "The Condemned Pyramid"
 	deathsight_message = "a sunken pyramid"
@@ -464,7 +458,7 @@
 	droning_sound = 'sound/music/area/underdark.ogg'
 	droning_sound_dusk = null
 	droning_sound_night = null
-	ambush_times = list("night","dawn","dusk","day")
+	//ambush_times = list("night","dawn","dusk","day")
 	ambush_mobs = list(
 // Singles — budget filler across all factions present in the bog
 				/mob/living/simple_animal/hostile/retaliate/rogue/troll/bog = 20,
@@ -476,12 +470,12 @@
 				/mob/living/carbon/human/species/human/northern/bog_deserters/better_gear/ambush = 10,
 				/mob/living/simple_animal/hostile/retaliate/rogue/ooze_blob = 5,
 				// Packs — big-ticket purchases for high budgets
-				new /datum/ambush_config/bog_guard_deserters = 50,
-				new /datum/ambush_config/bog_guard_deserters/hard = 25,
-				new /datum/ambush_config/mirespiders_ambush = 110,
-				new /datum/ambush_config/mirespiders_crawlers = 25,
-				new /datum/ambush_config/mirespiders_aragn = 10,
-				new /datum/ambush_config/mirespiders_unfair = 5)
+				/datum/npc_warband/bog_guard_deserters = 50,
+				/datum/npc_warband/bog_guard_deserters/hard = 25,
+				/datum/npc_warband/mirespiders_ambush = 110,
+				/datum/npc_warband/mirespiders_crawlers = 25,
+				/datum/npc_warband/mirespiders_aragn = 10,
+				/datum/npc_warband/mirespiders_unfair = 5)
 	converted_type = /area/rogue/outdoors/caves
 	deathsight_message = "a filthy swamp, far beneath the dunes"
 	detail_text = DETAIL_TEXT_UNDERDARK
@@ -537,16 +531,16 @@
 				/mob/living/carbon/human/species/skeleton/npc/medium = 15,
 				/mob/living/carbon/human/species/skeleton/npc/hard = 10,
 				// Packs
-				new /datum/ambush_config/trio_of_highwaymen = 10,
-				new /datum/ambush_config/singular_minotaur = 10,
-				new /datum/ambush_config/duo_minotaur = 5,
-				new /datum/ambush_config/solo_treasure_hunter = 15,
-				new /datum/ambush_config/duo_treasure_hunter = 2,
-				new /datum/ambush_config/medium_skeleton_party = 10,
-				new /datum/ambush_config/heavy_skeleton_party = 5,
+				/datum/npc_warband/trio_of_highwaymen = 10,
+				/datum/npc_warband/singular_minotaur = 10,
+				/datum/npc_warband/duo_minotaur = 5,
+				/datum/npc_warband/solo_treasure_hunter = 15,
+				/datum/npc_warband/duo_treasure_hunter = 2,
+				/datum/npc_warband/medium_skeleton_party = 10,
+				/datum/npc_warband/heavy_skeleton_party = 5,
 				)
 	converted_type = /area/rogue/outdoors/caves
-	ambush_times = list("night","dawn","dusk","day")
+	//ambush_times = list("night","dawn","dusk","day")
 	droning_sound = 'sound/music/area/decap_deeper.ogg'
 	droning_sound_dusk = null
 	droning_sound_night = null
@@ -569,7 +563,6 @@
 	first_time_text = "Outlaws Retreat"
 	drow_area = TRUE
 	ceiling_protected = TRUE
-	ambush_times = null
 	ambush_mobs = null
 	deathsight_message = "an outlaws paradise, along a caldera ridge"
 
@@ -581,7 +574,6 @@
 	droning_sound_dusk = null
 	droning_sound_night = null
 	first_time_text = "The Labyrinth of Penance"
-	ambush_times = null
 	ambush_mobs = null
 	deathsight_message = "a maze of the unredeemed"
 	ceiling_protected = TRUE
@@ -589,7 +581,6 @@
 /area/rogue/under/cave/dunelord
 	name = "Dunelords Hideout"
 	first_time_text = "Dunelords Hideout"
-	ambush_times = null
 	ambush_mobs = null
 	deathsight_message = "the dunelords retreat"
 
@@ -597,7 +588,6 @@
 	name = "Abandoned Hotsprings"
 	icon_state = "eora"
 	first_time_text = "Abandoned Hotsprings"
-	ambush_times = null
 	ambush_mobs = null
 	soundenv = 6
 	droning_sound = 'sound/newmusic/lovecraft2.ogg'
@@ -612,7 +602,6 @@
 	droning_sound = 'sound/music/area/tombs.ogg'
 	droning_sound_dusk = null
 	droning_sound_night = null
-	ambush_times = null
 	ambush_mobs = null
 	deathsight_message = "a disturbed lair of spirits and flames, all dancing angrily"
 	ceiling_protected = TRUE
@@ -624,7 +613,6 @@
 	droning_sound = 'sound/music/area/tombs.ogg'
 	droning_sound_dusk = null
 	droning_sound_night = null
-	ambush_times = null
 	ambush_mobs = null
 	deathsight_message = "within the disturbed matriarchs chamber"
 	ceiling_protected = TRUE
@@ -636,7 +624,6 @@
 	droning_sound = 'sound/music/area/desert/freedive_2.ogg'
 	droning_sound_dusk = null
 	droning_sound_night = null
-	ambush_times = null
 	ambush_mobs = null
 	deathsight_message = "a bizzare enclave of violent faces, and violent deals"
 	ceiling_protected = TRUE
@@ -653,7 +640,6 @@
 
 /area/rogue/outdoors/desertdeep/wretch_lair
 	name = "Wretched Oasis"
-	ambush_times = null
 	ambush_mobs = null
 	deathsight_message = "a paradise under a wretched presence"
 
