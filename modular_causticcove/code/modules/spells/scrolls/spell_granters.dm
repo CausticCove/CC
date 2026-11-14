@@ -7,7 +7,7 @@
 	oneuse = TRUE
 	drop_sound = 'sound/foley/dropsound/paper_drop.ogg'
 	pickup_sound = 'sound/blank.ogg'
-	pages_to_mastery = 1
+	pages_to_mastery = 0
 
 /obj/item/book/granter/spell/mirror_transform // Mirror Transform Spell
 	name = "Scroll of Mirror Transform"
@@ -18,7 +18,7 @@
 	oneuse = TRUE
 	drop_sound = 'sound/foley/dropsound/paper_drop.ogg'
 	pickup_sound = 'sound/blank.ogg'
-	pages_to_mastery = 1
+	pages_to_mastery = 0
 
 /obj/item/book/granter/spell/sizespell/loadout // Loadout specific ones!
 	needLit = FALSE
