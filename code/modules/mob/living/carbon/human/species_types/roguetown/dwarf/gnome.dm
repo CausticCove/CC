@@ -48,6 +48,9 @@ Even though they are of mixed blood and smaller than typical dwarves, most gnome
 		OFFSET_FACE_F = list(0,-5), OFFSET_BELT_F = list(0,-5), OFFSET_BACK_F = list(0,-5), \
 		OFFSET_NECK_F = list(0,-5), OFFSET_MOUTH_F = list(0,-5), OFFSET_PANTS_F = list(0,0), \
 		OFFSET_SHIRT_F = list(0,0), OFFSET_ARMOR_F = list(0,0), OFFSET_UNDIES = list(0,-4), OFFSET_UNDIES_F = list(0,-4), \
+		//Caustic Edit
+		OFFSET_BUTT = list(0,-4), \
+		//Caustic End
 		)
 	race_bonus = list( STAT_INTELLIGENCE = 1, STAT_PERCEPTION = 1,)// STAT_CONSTITUTION = -1, ) //leaving off the negative con for now, if inteligence and perception is too strong together, I can put it back in
 	enflamed_icon = "widefire"
@@ -76,6 +79,10 @@ Even though they are of mixed blood and smaller than typical dwarves, most gnome
 		/datum/customizer/organ/penis/anthro,
 		/datum/customizer/organ/breasts/human,
 		/datum/customizer/organ/vagina/human,
+		//Caustic edit
+		/datum/customizer/organ/belly/human,
+		/datum/customizer/organ/butt/human,
+		//Caustic edit end
 		)
 	body_markings = list(
 	)

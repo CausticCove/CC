@@ -1,51 +1,15 @@
+GLOBAL_LIST_INIT(character_flaws_singletons, build_character_flaws())
 
-GLOBAL_LIST_INIT(character_flaws, list(
-	/datum/charflaw/addiction/alcoholic::name = /datum/charflaw/addiction/alcoholic,
-	/datum/charflaw/averse::name = /datum/charflaw/averse,
-	/datum/charflaw/addiction/godfearing::name = /datum/charflaw/addiction/godfearing,
-	/datum/charflaw/addiction/caffiend::name = /datum/charflaw/addiction/caffiend,
-	/datum/charflaw/colorblind::name = /datum/charflaw/colorblind,
-	/datum/charflaw/addiction/smoker::name = /datum/charflaw/addiction/smoker,
-	/datum/charflaw/addiction/junkie::name = /datum/charflaw/addiction/junkie,
-	/datum/charflaw/unintelligible::name = /datum/charflaw/unintelligible,
-	/datum/charflaw/greedy::name = /datum/charflaw/greedy,
-	/datum/charflaw/narcoleptic::name = /datum/charflaw/narcoleptic,
-	/datum/charflaw/addiction/lovefiend::name = /datum/charflaw/addiction/lovefiend,
-	/datum/charflaw/addiction/sadist::name = /datum/charflaw/addiction/sadist,
-	/datum/charflaw/addiction/masochist::name = /datum/charflaw/addiction/masochist,
-	/datum/charflaw/clingy::name = /datum/charflaw/clingy,
-	/datum/charflaw/finicky::name = /datum/charflaw/finicky,
-	/datum/charflaw/lonely::name = /datum/charflaw/lonely,
-	/datum/charflaw/addiction/paranoid::name = /datum/charflaw/addiction/paranoid,
-	/datum/charflaw/addiction/clamorous::name = /datum/charflaw/addiction/clamorous,
-	/datum/charflaw/addiction/thrillseeker::name = /datum/charflaw/addiction/thrillseeker,
-	/datum/charflaw/indebted::name = /datum/charflaw/indebted,
-	/datum/charflaw/addiction/voyeur::name = /datum/charflaw/addiction/voyeur,
-	/datum/charflaw/badsight::name = /datum/charflaw/badsight,
-	/datum/charflaw/noeyer::name = /datum/charflaw/noeyer,
-	/datum/charflaw/noeyel::name = /datum/charflaw/noeyel,
-	/datum/charflaw/noeyeall::name = /datum/charflaw/noeyeall,
-	/datum/charflaw/limbloss/arm_r::name = /datum/charflaw/limbloss/arm_r,
-	/datum/charflaw/limbloss/arm_l::name = /datum/charflaw/limbloss/arm_l,
-	/datum/charflaw/sleepless::name = /datum/charflaw/sleepless,
-	/datum/charflaw/mute::name = /datum/charflaw/mute,
-	/datum/charflaw/critweakness::name = /datum/charflaw/critweakness,
-	// /datum/charflaw/hunted::name = /datum/charflaw/hunted, //CC Edit - REMOVE HUNTED VICE IN FAVOR OF ROLEPLAY GUIDANCE SELECTION.
-	/datum/charflaw/mind_broken::name = /datum/charflaw/mind_broken,
-	/datum/charflaw/noflaw::name = /datum/charflaw/noflaw,
-	/datum/charflaw/leprosy::name = /datum/charflaw/leprosy,
-	/datum/charflaw/randflaw::name = /datum/charflaw/randflaw,
+/proc/build_character_flaws()
+	. = list()
 
-	//Caustic edit
-	/datum/charflaw/bottomless::name=/datum/charflaw/bottomless,
-	/datum/charflaw/mind_broken::name=/datum/charflaw/mind_broken,
-	/datum/charflaw/combat_adverse::name=/datum/charflaw/combat_adverse,
-	/datum/charflaw/mangled_jaw::name=/datum/charflaw/mangled_jaw,
-	//Caustic edit end
-	))
+	for(var/datum/charflaw/C as anything in subtypesof(/datum/charflaw))
+		if(IS_ABSTRACT(C))
+			continue
+		.[C] = new C()
 
 GLOBAL_LIST_INIT(averse_factions, list(
-	"Courtiers & Nobility" = (COURTIERS | NOBLEMEN | COUNCILLOR),
+	"Courtiers & Nobility" = (COURTIERS | NOBLEMEN),
 	"Inquisition" = INQUISITION,
 	"Burghers" = BURGHERS,
 	"Azurian Trading Company" = ATC,
@@ -54,17 +18,37 @@ GLOBAL_LIST_INIT(averse_factions, list(
 	"Churchmen" = CHURCHMEN,
 	"Peasants" = PEASANTS,
 	"Wanderers" = WANDERERS,
-	"Everyone" = (COURTIERS | NOBLEMEN | INQUISITION | BURGHERS | ATC | RETINUE | GARRISON | CHURCHMEN | PEASANTS | WANDERERS | SIDEFOLK | ANTAGONIST | COUNCILLOR)
+	"Everyone" = (COURTIERS | NOBLEMEN | INQUISITION | BURGHERS | ATC | RETINUE | GARRISON | CHURCHMEN | PEASANTS | WANDERERS | SIDEFOLK | ANTAGONIST)
 ))
 
 /datum/charflaw
+	abstract_type = /datum/charflaw
 	var/name
 	var/desc
+	var/ui_fa_icon = null // FontAwesome icon to use in the pref menu, null gives a question mark
 	var/ephemeral = FALSE // This flaw is currently disabled and will not process
+	var/needs_extra_vice = FALSE
 	/// For voyeur vice examines only. Format is "[name] is " + this + "...", leave blank to use the flaw's name.
 	/// Intended for addiction types only.
 	var/voyeur_descriptor
 	var/list/restricted_species = list()
+
+/// Constant UI data for TGUI to display these in the prefs menu
+/datum/charflaw/proc/constant_ui_data()
+	var/list/data = list(
+		"name" = name,
+		"desc" = desc,
+		"icon" = ui_fa_icon,
+		"needs_extra_vice" = needs_extra_vice,
+		"restricted_species" = null
+	)
+
+	var/list/restricted_species_data = list()
+	for(var/datum/species/S as anything in restricted_species)
+		UNTYPED_LIST_ADD(restricted_species_data, S::name)
+	data["restricted_species"] = restricted_species_data
+
+	return data
 
 /datum/charflaw/proc/on_mob_creation(mob/user)
 	return
@@ -87,15 +71,9 @@ GLOBAL_LIST_INIT(averse_factions, list(
 	if(!flaw)
 		return FALSE
 
-	if(charflaws && charflaws.len)
-		for(var/datum/charflaw/cf in charflaws)
-			if(istype(cf, flaw))
-				return TRUE
-
-	if(client?.prefs?.charflaws && client.prefs.charflaws.len)
-		for(var/datum/charflaw/cf in client.prefs.charflaws)
-			if(istype(cf, flaw))
-				return TRUE
+	for(var/datum/charflaw/cf in charflaws)
+		if(istype(cf, flaw))
+			return TRUE
 
 	return FALSE
 
@@ -110,59 +88,60 @@ GLOBAL_LIST_INIT(averse_factions, list(
 			return cf
 	return null
 
-/datum/charflaw/eznoflaw
-	name = "Flawless"
-	desc = "I'm untempted by even the simplest vices. Am I riding the high of my latest TRIUMPH, or am I simply a rarity amongst rarities?" //Originally 'No Flaw', with "I'm a normal person, how rare!" as the desc.
-
 /datum/charflaw/noflaw // Caustic Cove Edit start - Our rounds are now 4 hours long, so this has to cost a tiny bit more!
 	name = "Flawless (-4 TRI)" // Edit here
 	desc = "I'm untempted by even the simplest vices. Am I riding the high of my latest TRIUMPH, or am I simply a rarity amongst rarities?"
+	ui_fa_icon = "face-laugh-beam"
 
 /datum/charflaw/noflaw/apply_post_equipment(mob/user)
 	var/mob/living/carbon/human/H = user
 	if(H.get_triumphs() < 4) // CC Edit 3 -> 4
-		var/flawz = GLOB.character_flaws.Copy()
-		var/charflaw = pick_n_take(flawz)
-		charflaw = GLOB.character_flaws[charflaw]
-		var/datum/charflaw/new_flaw = new charflaw()
-		H.charflaws.Add(new_flaw)
-		new_flaw.on_mob_creation(H)
+		var/datum/charflaw/randflaw/rand_flaw = new()
+		H.charflaws.Add(rand_flaw)
+		rand_flaw.apply_post_equipment(H)
 	else
 		H.adjust_triumphs(-4) // CC Edit 3 -> 4
 
 /datum/charflaw/randflaw
 	name = "Random"
 	desc = "A chance for a random flaw."
+	ui_fa_icon = "dice"
 
 /datum/charflaw/randflaw/apply_post_equipment(mob/user)
 	var/mob/living/carbon/human/target = user
 
-	var/list/cf_list = GLOB.character_flaws.Copy()
-	for(var/key in cf_list)
-		if(cf_list[key] == type || cf_list[key] == /datum/charflaw/noflaw)
-			cf_list -= key
-		var/datum/charflaw/cf = cf_list[key]
-		if(cf)
-			cf = new cf()
-			var/mob/living/carbon/human/H = user
-			if(length(cf.restricted_species) && (H.dna.species.type in cf.restricted_species))
-				cf_list.Remove(key)
+	var/list/cf_list = GLOB.character_flaws_singletons.Copy()
+	for(var/cf_path in cf_list)
+		if(cf_path == type || cf_path == /datum/charflaw/noflaw)
+			cf_list -= cf_path
+			continue
+
+		var/datum/charflaw/cf = cf_list[cf_path]
+		var/mob/living/carbon/human/H = user
+		if(length(cf.restricted_species) && (H.dna.species.type in cf.restricted_species))
+			cf_list -= cf_path
+		if(cf.needs_extra_vice) // difficulty flaws require a deliberate extra vice - never resolve into one at random
+			cf_list -= cf_path
 
 	var/datum/job/mob_job = null
 	if(target.mind?.assigned_role)
 		mob_job = SSjob.GetJob(target.mind.assigned_role)
-	else if(target.client?.prefs?.lastclass)
-		mob_job = SSjob.GetJob(target.client.prefs.lastclass)
 
 	if(mob_job && mob_job.vice_restrictions)
-		for(var/key in cf_list)
-			if(cf_list[key] in mob_job.vice_restrictions)
-				cf_list -= key
+		for(var/cf_path in cf_list)
+			if(cf_path in mob_job.vice_restrictions)
+				cf_list -= cf_path
 
-	var/datum/charflaw/chosen_type = null
-	if(length(cf_list))
-		var/chosen_key = pick_n_take(cf_list)
-		chosen_type = GLOB.character_flaws[chosen_key]
+	var/datum/advclass/mob_advclass = target.mind?.picked_advclass
+	if(!mob_advclass && target.advjob)
+		mob_advclass = SSrole_class_handler.get_advclass_by_name(target.advjob)
+	if(mob_advclass)
+		var/list/current_vice_limits = mob_advclass.get_vice_limits(target)
+		for(var/cf_path in cf_list)
+			if(mob_advclass.is_vice_limited(cf_path, current_vice_limits))
+				cf_list -= cf_path
+
+	var/chosen_type = pick_n_take(cf_list)
 
 	if(chosen_type)
 		var/datum/charflaw/added_flaw = new chosen_type()
@@ -175,6 +154,7 @@ GLOBAL_LIST_INIT(averse_factions, list(
 /datum/charflaw/badsight
 	name = "Bad Eyesight"
 	desc = "I need spectacles to see normally from my years spent reading books."
+	ui_fa_icon = "glasses"
 
 /datum/charflaw/badsight/flaw_on_life(mob/user)
 	if(!ishuman(user))
@@ -208,7 +188,7 @@ GLOBAL_LIST_INIT(averse_factions, list(
 		H.equip_to_slot_or_del(new /obj/item/clothing/mask/rogue/spectacles(H), SLOT_WEAR_MASK)
 	else
 		new /obj/item/clothing/mask/rogue/spectacles(get_turf(H))
-	
+
 	// we don't seem to have a mind when on_mob_creation fires, so set up a timer to check when we probably will
 	addtimer(CALLBACK(src, PROC_REF(apply_reading_skill), H), 5 SECONDS)
 
@@ -252,6 +232,7 @@ GLOBAL_LIST_INIT(averse_factions, list(
 /datum/charflaw/finicky
 	name = "Finicky"
 	desc = "I don't like crowds. I don't like being alone, neither. There's a middle, isn't there?"
+	ui_fa_icon = "triangle-exclamation"
 	var/interval = 1 MINUTES
 	var/is_active = FALSE
 	var/next_check = 0
@@ -287,6 +268,7 @@ GLOBAL_LIST_INIT(averse_factions, list(
 /datum/charflaw/lonely
 	name = "Lonely"
 	desc = "I just don't like being alone."
+	ui_fa_icon = "square-person-confined"
 	var/interval = 1 MINUTES
 	var/severity_interval = 5 MINUTES
 	var/stacks = 0
@@ -344,6 +326,7 @@ GLOBAL_LIST_INIT(averse_factions, list(
 /datum/charflaw/clingy
 	name = "Clingy"
 	desc = "I like being close to people. Real close."
+	ui_fa_icon = "user-group"
 	var/next_check = 0
 	var/interval = 1 MINUTES
 	var/is_active = FALSE
@@ -380,11 +363,12 @@ GLOBAL_LIST_INIT(averse_factions, list(
 /datum/charflaw/clingy/apply_post_equipment(mob/user)
 	if(user.mind)
 		is_active = TRUE
-	
+
 
 /datum/charflaw/noeyer
 	name = "Cyclops (R)"
 	desc = "I lost my right eye long ago."
+	ui_fa_icon = "eye-low-vision-flip"
 
 /datum/charflaw/noeyer/on_mob_creation(mob/user)
 	..()
@@ -400,6 +384,7 @@ GLOBAL_LIST_INIT(averse_factions, list(
 /datum/charflaw/noeyel
 	name = "Cyclops (L)"
 	desc = "I lost my left eye long ago."
+	ui_fa_icon = "eye-low-vision"
 
 /datum/charflaw/noeyel/on_mob_creation(mob/user)
 	..()
@@ -415,6 +400,7 @@ GLOBAL_LIST_INIT(averse_factions, list(
 /datum/charflaw/noeyeall
 	name = "Blindness"
 	desc = "I lost both of my eyes long ago."
+	ui_fa_icon = "eye-slash"
 
 /datum/charflaw/noeyeall/on_mob_creation(mob/user)
 	..()
@@ -428,16 +414,31 @@ GLOBAL_LIST_INIT(averse_factions, list(
 /datum/charflaw/colorblind
 	name = "Colorblind"
 	desc = "I was cursed with flawed eyesight from birth, and can't discern things others can. Incompatible with Night-eyed virtue."
+	ui_fa_icon = "palette"
 
 /datum/charflaw/colorblind/on_mob_creation(mob/user)
 	..()
 	user.add_client_colour(/datum/client_colour/monochrome)
 
-/datum/charflaw/hunted
+/*/datum/charflaw/armor_break //Caustic Edit - Commenting this out because we don't really have this functionality nabbed from AP
+	name = "Loose Straps"
+	desc = "My armor never seems to fit quite right. It has a nasty habit of exploding off my body when under inordinate stress."
+	ui_fa_icon = "shield-halved"
+	//needs_extra_vice = TRUE
+
+/datum/charflaw/armor_break/on_mob_creation(mob/user)
+	..()
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		ADD_TRAIT(H, TRAIT_ARMOR_BREAK, TRAIT_GENERIC)*/
+
+/*/datum/charflaw/hunted //Caustic Edit - Commenting out Hunted since it seems like Ephemeral is not accounted for in the new menu?
 	name = "Hunted"
 	desc = "Something in my past has made me a target. I'm always looking over my shoulder.	\
-	\nTHIS IS A DIFFICULT FLAW, YOU WILL BE HUNTED BY ASSASSINS AND HAVE ASSASINATION ATTEMPTS MADE AGAINST YOU WITHOUT ANY ESCALATION. \
-	EXPECT A MORE DIFFICULT EXPERIENCE. PLAY AT YOUR OWN RISK."
+	\nTHIS IS A DIFFICULT FLAW, YOU WILL BE HUNTED BY GNOLLS. \
+	EXPECT A MORE DIFFICULT EXPERIENCE. PLAY AT YOUR OWN RISK. IT REQUIRES AN EXTRA VICE."
+	ui_fa_icon = "tooth"
+	needs_extra_vice = TRUE
 	var/logged = FALSE
 	//CC Edit - Unused currently.
 	ephemeral = TRUE
@@ -462,11 +463,12 @@ GLOBAL_LIST_INIT(averse_factions, list(
 	if(gnoll_increase >= 1)
 		to_chat(user, span_notice("I have offended graggarite agents, and they may be tracking my scent."))
 		gnoll_job.total_positions = min(total_gnoll_positions + gnoll_increase, 10)
-		gnoll_job.spawn_positions = min(total_gnoll_positions + gnoll_increase, 10)
+		gnoll_job.spawn_positions = min(total_gnoll_positions + gnoll_increase, 10)*/
 
 /datum/charflaw/unintelligible
 	name = "Unintelligible"
 	desc = "I cannot speak the common tongue!"
+	ui_fa_icon = "language"
 
 /datum/charflaw/unintelligible/on_mob_creation(mob/user)
 	var/mob/living/carbon/human/recipient = user
@@ -482,6 +484,7 @@ GLOBAL_LIST_INIT(averse_factions, list(
 /datum/charflaw/greedy
 	name = "Greedy"
 	desc = "I can't get enough of mammons, I need more and more! I've also become good at knowing how much things are worth"
+	ui_fa_icon = "sack-dollar"
 	var/last_checked_mammons = 0
 	var/required_mammons = 0
 	var/next_mammon_increase = 0
@@ -556,6 +559,7 @@ GLOBAL_LIST_INIT(averse_factions, list(
 /datum/charflaw/narcoleptic
 	name = "Narcoleptic"
 	desc = "I get drowsy during the day and tend to fall asleep suddenly, but I can sleep easier if I want to, and moon dust can help me stay awake."
+	ui_fa_icon = "bed"
 	var/last_unconsciousness = 0
 	var/next_sleep = 0
 	var/concious_timer = (10 MINUTES)
@@ -644,6 +648,7 @@ GLOBAL_LIST_INIT(averse_factions, list(
 /datum/charflaw/sleepless
 	name = "Sleepless"
 	desc = "I do not sleep. I cannot sleep. I've tried everything."
+	ui_fa_icon = "face-tired"
 	var/drugged_up = FALSE
 	var/dream_prob = 1000
 
@@ -659,6 +664,7 @@ GLOBAL_LIST_INIT(averse_factions, list(
 /datum/charflaw/mute
 	name = "Mute"
 	desc = "I was born without the ability to speak."
+	ui_fa_icon = "comment-slash"
 
 /datum/charflaw/mute/on_mob_creation(mob/user)
 	ADD_TRAIT(user, TRAIT_PERMAMUTE, TRAIT_GENERIC)
@@ -666,13 +672,24 @@ GLOBAL_LIST_INIT(averse_factions, list(
 /datum/charflaw/critweakness
 	name = "Critical Weakness"
 	desc = "My body is as fragile as an eggshell. A critical strike is like to end me then and there."
+	ui_fa_icon = "heart-circle-exclamation"
 
 /datum/charflaw/critweakness/on_mob_creation(mob/user)
 	ADD_TRAIT(user, TRAIT_CRITICAL_WEAKNESS, TRAIT_GENERIC)
 
+/datum/charflaw/silverweakness
+	name = "Silver Weakness"
+	desc = "Silver is the greatest threat to my lyfe. Blows from silver weapons will set me alight, inhibit my ability to regenerate, and - if blessed - can outright destroy my vessel. However small items like cutlery and smaller objects will not harm me if i don't hold it for too long."
+	ui_fa_icon = "cross"
+	//needs_extra_vice = TRUE //Caustic Edit - Lets just turn some of these off.
+
+/datum/charflaw/silverweakness/on_mob_creation(mob/user)
+	ADD_TRAIT(user, TRAIT_SILVER_WEAK, TRAIT_GENERIC)
+
 /datum/charflaw/leprosy
 	name = "Leper (+3 TRI)"
 	desc = "I am cursed with leprosy! Too poor to afford treatment, my skin now lays violated by lesions, my extremities are numb, and my presence disturbs even the most stalwart men."
+	ui_fa_icon = "head-side-mask"
 
 /datum/charflaw/leprosy/apply_post_equipment(mob/user)
 	var/mob/living/carbon/human/H = user
@@ -692,17 +709,19 @@ GLOBAL_LIST_INIT(averse_factions, list(
 	desc = "My mind is asundered, wether it was by own means or an unfortunate accident. Nothing seems real to me... \
 	\nWARNING: HALLUCINATIONS MAY JUMPSCARE YOU, AND PREVENT YOU FROM TELLING APART REALITY AND IMAGINATION. \
 	FURTHERMORE, THIS DOES NOT EXEMPT YOU FROM ANY RULES SET BY THE SERVER. ESCALATION STILL APPLIES."
+	ui_fa_icon = "ghost"
 
 /datum/charflaw/mind_broken/apply_post_equipment(mob/living/carbon/human/insane_fool)
 	insane_fool.hallucination = INFINITY
 	ADD_TRAIT(insane_fool, TRAIT_PSYCHOSIS, TRAIT_GENERIC)
 	insane_fool.adjust_triumphs(3)
-	if(insane_fool.patron?.type == /datum/patron/divine/abyssor) 
-	 insane_fool.grant_language(/datum/language/abyssal)
+	if(insane_fool.patron?.type == /datum/patron/divine/abyssor)
+		insane_fool.grant_language(/datum/language/abyssal)
 
 /datum/charflaw/indebted
 	name = "Indebted"
 	desc = "Whether by divorce, gambling debts, or wages due, I must pay a sum from my meister every dae. Not doing this will bring about great stress and potentially a bounty."
+	ui_fa_icon = "comments-dollar"
 	var/minimum = 30
 	var/relative = 0.2
 	var/interval = 30 MINUTES
@@ -765,6 +784,7 @@ GLOBAL_LIST_INIT(averse_factions, list(
 /datum/charflaw/averse
 	name = "Averse"
 	desc = "I hate being around a particular kind of group."
+	ui_fa_icon = "person-circle-xmark"
 	var/chosen_group
 	var/paid_triumphs = FALSE
 	var/is_active = FALSE
@@ -882,6 +902,5 @@ GLOBAL_LIST_INIT(averse_factions, list(
 			active_since = world.time
 	if(is_active && user && !QDELETED(user))
 		addtimer(CALLBACK(src, PROC_REF(check_for_candidates), user), 5 SECONDS)
-
 
 

@@ -202,6 +202,9 @@
 		var/datum/intent/dualwield_cached_intent = user.used_intent
 		dualwield_armed = user.process_dualwield(src)
 		user.used_intent = dualwield_cached_intent
+
+	M.on_attacked_as_pacifist(user)
+
 	var/rmb_stam_penalty = 0
 	if(istype(user.rmb_intent, /datum/rmb_intent/strong))
 		rmb_stam_penalty = EXTRA_STAMDRAIN_SWIFSTRONG
@@ -276,6 +279,8 @@
 			return
 
 	if(M.attacked_by(src, user))
+		M.on_hit_as_pacifist(user)
+
 		var/tempsound = cached_intent?.hitsound
 		if(tempsound)
 			playsound(M.loc, tempsound, 100, FALSE, -1)
@@ -295,7 +300,7 @@
 		user.changeMaxDodge(2)
 		user.dodgetime = clamp(user.dodgetime - 2, 0, CLICK_CD_DODGE)
 
-	log_combat(user, M, "attacked", src.name, "(INTENT: [uppertext(user.used_intent.name)]) (DAMTYPE: [uppertext(damtype)])")
+	log_combat(user, M, "attacked", src.name, zone=user.zone_selected, intent=user.used_intent.name, damtype=damtype)
 
 	execute_cleave(user, get_turf(M), M)
 
@@ -355,7 +360,7 @@
 			var/tempsound = user.used_intent?.hitsound
 			if(tempsound)
 				playsound(L.loc, tempsound, 100, FALSE, -1)
-			log_combat(user, L, "cleaved", src.name, "(INTENT: [uppertext(user.used_intent.name)])")
+			log_combat(user, L, "cleaved", src.name, zone=user.zone_selected, intent=user.used_intent.name)
 	cleave_sharpness_mult = 1
 
 /atom/movable/proc/attacked_by()
@@ -532,7 +537,7 @@
 		newforce += (I.force_dynamic * STRONG_STANCE_DMG_BONUS)
 
 	if(istype(user.rmb_intent, /datum/rmb_intent/weak))
-		newforce = (newforce * 0.2)
+		newforce = (newforce * WEAK_STANCE_DMG_MULT)
 
 	newforce = CLAMP(newforce, user.used_intent.min_intent_damage, user.used_intent.max_intent_damage)
 
@@ -588,6 +593,12 @@
 	if(newforce > 1)
 		I.take_damage(1, BRUTE, I.d_type)
 
+	try_damage_pushback(user)
+
+	SEND_SIGNAL(src, COMSIG_ITEM_ATTACK_OBJ, I, user)
+	return TRUE
+
+/obj/proc/try_damage_pushback(mob/user)
 	if((obj_flags & CLAMP_BREAK) && !density && !anchored && isturf(loc))
 		var/sfx = 'sound/items/hit_normalobj.ogg'
 		if(isclothing(src))	// Lazy check for fluffy sparks
@@ -611,9 +622,6 @@
 		var/target_turf = get_ranged_target_turf(current_turf, throwdir, dist)
 		playsound(current_turf, sfx, 100, TRUE)
 		throw_at(target_turf, dist, 12, user, FALSE)
-
-	SEND_SIGNAL(src, COMSIG_ITEM_ATTACK_OBJ, I, user)
-	return TRUE
 
 /turf/proc/attacked_by(obj/item/I, mob/living/user, multiplier)
 	var/newforce = get_complex_damage(I, user, blade_dulling)
@@ -840,3 +848,20 @@
 	return 1
 
 #undef ATTACK_OVERRIDE_NODEFENSE
+
+/mob/living/proc/on_attacked_as_pacifist(mob/living/attacker)
+	if(!HAS_TRAIT(src, TRAIT_PACIFISM))
+		return
+	// The pacifist's Clash cooldown is reduced when attacked.
+	reduce_intent_cooldown(src, /datum/status_effect/debuff/clashcd, amount = 5 SECONDS)
+
+/mob/living/proc/on_hit_as_pacifist(mob/living/attacker)
+	if(!HAS_TRAIT(src, TRAIT_PACIFISM))
+		return
+	// The person who hit the pacifist feels remorse.
+	if(HAS_TRAIT(attacker, TRAIT_NOMOOD))
+		return
+	if(attacker.patron?.type in ALL_INHUMEN_PATRONS)
+		attacker.add_stress(/datum/stressevent/remorse_evil)
+	else
+		attacker.add_stress(/datum/stressevent/remorse)

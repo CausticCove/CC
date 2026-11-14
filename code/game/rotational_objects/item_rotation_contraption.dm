@@ -183,6 +183,12 @@
 	. = ..()
 	. += span_info("Waterwheels must be placed in flowing river water and turned across the current to generate power.")
 
+/obj/item/rotation_contraption/windmill
+	placed_type = /obj/structure/windmill
+
+/obj/item/rotation_contraption/windmill/get_mechanics_examine(mob/user)
+	. = ..()
+	. += span_info("Windmills only turn under open sky, and spin slower on each level below the top of the map.")
 
 /obj/item/rotation_contraption/debug_source
 	placed_type = /obj/structure/debug_rotation_source

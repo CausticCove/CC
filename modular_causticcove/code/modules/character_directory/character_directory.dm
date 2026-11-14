@@ -63,18 +63,22 @@ GLOBAL_DATUM(character_directory, /datum/character_directory)
 /datum/character_directory/ui_data(mob/user, datum/tgui/ui, datum/ui_state/state)
 	var/list/data = ..()
 
-	if (user?.mind)
+	if (isnewplayer(user))
+		data["personalVisibility"] = user.client.prefs.show_in_directory
+		data["personalTag"] = user.client.prefs.directory_tag || "Unset"
+		data["personalErpTag"] = user.client.prefs.directory_erptag || "Unset"
+		data["personalGenderTag"] = user.client.prefs.directory_gendertag || "Unset"
+		data["personalSexualityTag"] = user.client.prefs.directory_sexualitytag || "Unset"
+	else if (user?.mind)
 		data["personalVisibility"] = user.mind.show_in_directory
 		data["personalTag"] = user.mind.directory_tag || "Unset"
 		data["personalErpTag"] = user.mind.directory_erptag || "Unset"
-		//data["personalEventTag"] = GLOB.vantag_choices_list[user.mind.vantag_preference]
 		data["personalGenderTag"] = user.mind.directory_gendertag || "Unset"
 		data["personalSexualityTag"] = user.mind.directory_sexualitytag || "Unset"
 	else if (user?.client?.prefs)
 		data["personalVisibility"] = user.client.prefs.show_in_directory
 		data["personalTag"] = user.client.prefs.directory_tag || "Unset"
 		data["personalErpTag"] = user.client.prefs.directory_erptag || "Unset"
-		//data["personalEventTag"] = GLOB.vantag_choices_list[user.client.prefs.vantag_preference]
 		data["personalGenderTag"] = user.client.prefs.directory_gendertag || "Unset"
 		data["personalSexualityTag"] = user.client.prefs.directory_sexualitytag || "Unset"
 
@@ -94,7 +98,7 @@ GLOBAL_LIST_EMPTY(chardirectory_photos)
 		F = icon(H.get_flat_icon(list(SOUTH)),frame=1)
 	else
 		F = getFlatIcon(src, defdir = SOUTH, no_anim = TRUE)
-	
+
 	var/new_base64 = "'data:image/png;base64,[icon2base64(F)]'"
 	set_chardirectory_photo(new_base64)
 	return new_base64
@@ -120,12 +124,6 @@ GLOBAL_LIST_EMPTY(chardirectory_photos)
 		// The approach differs based on the mob the client is controlling
 		var/name = null
 		var/species = null
-		var/ooc_notes = null
-		/*var/ooc_notes_favs = null
-		var/ooc_notes_likes = null
-		var/ooc_notes_maybes = null
-		var/ooc_notes_dislikes = null
-		var/ooc_notes_style = null*/
 		var/gendertag = null
 		var/sexualitytag = null
 		var/rpguidance = "Unset"
@@ -135,12 +133,9 @@ GLOBAL_LIST_EMPTY(chardirectory_photos)
 			if(1) //Encourages Conflict
 				rpguidance = "Mechanics Willing"
 			if(2) //Same as normal. This can be changed in the future however if people wish. Encourages Conflict + Hunted.
-				rpguidance = "Mechanics Willing"
+				rpguidance = "Mech. Willing and Hunted"
 			if(3)
 				rpguidance = "Neutral"
-		//var/eventtag = GLOB.vantag_choices_list[VANTAG_NONE]
-		var/flavor_text = null
-		var/custom_link = null
 		var/tag
 		var/erptag
 		var/character_ad
@@ -148,17 +143,15 @@ GLOBAL_LIST_EMPTY(chardirectory_photos)
 		if (C.mob?.mind) //could use ternary for all three but this is more efficient
 			tag = C.mob.mind.directory_tag || "Unset"
 			erptag = C.mob.mind.directory_erptag || "Unset"
-			character_ad = get_character_ad_value(C.mob, C.prefs, C.mob.mind)
 			gendertag = C.mob.mind.directory_gendertag || "Unset"
 			sexualitytag = C.mob.mind.directory_sexualitytag || "Unset"
-			//eventtag = GLOB.vantag_choices_list[C.mob.mind.vantag_preference]
+			character_ad = get_character_ad_value(C.mob, C.prefs, C.mob.mind)
 		else
 			tag = C.prefs.directory_tag || "Unset"
 			erptag = C.prefs.directory_erptag || "Unset"
-			character_ad = get_character_ad_value(null, C.prefs, null)
 			gendertag = C.prefs.directory_gendertag || "Unset"
 			sexualitytag = C.prefs.directory_sexualitytag || "Unset"
-			//eventtag = GLOB.vantag_choices_list[C.prefs.vantag_preference]
+			character_ad = get_character_ad_value(null, C.prefs, null)
 
 		if(ishuman(C.mob))
 			var/mob/living/carbon/human/H = C.mob
@@ -168,55 +161,12 @@ GLOBAL_LIST_EMPTY(chardirectory_photos)
 					if(!find_record("name", H.real_name, GLOB.data_core.hidden_general))
 						strangername = "unknown"*/
 			name = strangername
-			species = H.client.prefs.pref_species.sub_name //"[H.custom_species ? H.custom_species : H.species.name]"
-			ooc_notes = H.ooc_notes
-			if(H.erpprefs)
-				ooc_notes += "\n\n-- NSFW OOC Notes --\n\n" + H.erpprefs
-			/*if(H.ooc_notes_style && (H.ooc_notes_favs || H.ooc_notes_likes || H.ooc_notes_maybes || H.ooc_notes_dislikes))
-				ooc_notes = H.ooc_notes + "\n\n"
-				ooc_notes_favs = H.ooc_notes_favs
-				ooc_notes_likes = H.ooc_notes_likes
-				ooc_notes_maybes = H.ooc_notes_maybes
-				ooc_notes_dislikes = H.ooc_notes_dislikes
-				ooc_notes_style = H.ooc_notes_style
-			else
-				if(H.ooc_notes_favs)
-					ooc_notes += "\n\nFAVOURITES\n\n[H.ooc_notes_favs]"
-				if(H.ooc_notes_likes)
-					ooc_notes += "\n\nLIKES\n\n[H.ooc_notes_likes]"
-				if(H.ooc_notes_maybes)
-					ooc_notes += "\n\nMAYBES\n\n[H.ooc_notes_maybes]"
-				if(H.ooc_notes_dislikes)
-					ooc_notes += "\n\nDISLIKES\n\n[H.ooc_notes_dislikes]"*/
-			if(H.flavortext)
-				flavor_text = H.flavortext
-				if(H.nsfwflavortext)
-					flavor_text += "\n\n-- NSFW Flavortext --\n\n" + H.nsfwflavortext
-			if(H.headshot_link)
-				custom_link = H.headshot_link
+			species = H.client.prefs.pref_species.sub_name
 
 		/*if(isanimal(C.mob))
 			var/mob/living/simple_animal/S = C.mob
 			name = S.name
-			species = S.character_directory_species()
-			ooc_notes = S.ooc_notes
-			if(S.ooc_notes_style && (S.ooc_notes_favs || S.ooc_notes_likes || S.ooc_notes_maybes || S.ooc_notes_dislikes))
-				ooc_notes = S.ooc_notes + "\n\n"
-				ooc_notes_favs = S.ooc_notes_favs
-				ooc_notes_likes = S.ooc_notes_likes
-				ooc_notes_maybes = S.ooc_notes_maybes
-				ooc_notes_dislikes = S.ooc_notes_dislikes
-				ooc_notes_style = S.ooc_notes_style
-			else
-				if(S.ooc_notes_favs)
-					ooc_notes += "\n\nFAVOURITES\n\n[S.ooc_notes_favs]"
-				if(S.ooc_notes_likes)
-					ooc_notes += "\n\nLIKES\n\n[S.ooc_notes_likes]"
-				if(S.ooc_notes_maybes)
-					ooc_notes += "\n\nMAYBES\n\n[S.ooc_notes_maybes]"
-				if(S.ooc_notes_dislikes)
-					ooc_notes += "\n\nDISLIKES\n\n[S.ooc_notes_dislikes]"
-			flavor_text = S.desc*/
+			species = S.character_directory_species()*/
 
 		// It's okay if we fail to find OOC notes and flavor text
 		// But if we can't find the name, they must be using a non-compatible mob type currently.
@@ -229,21 +179,12 @@ GLOBAL_LIST_EMPTY(chardirectory_photos)
 			"ckey" = C.ckey,
 			"name" = name,
 			"species" = species,
-			/*"ooc_notes_favs" = ooc_notes_favs,
-			"ooc_notes_likes" = ooc_notes_likes,
-			"ooc_notes_maybes" = ooc_notes_maybes,
-			"ooc_notes_dislikes" = ooc_notes_dislikes,
-			"ooc_notes_style" = ooc_notes_style,*/
 			"gendertag" = gendertag,
 			"sexualitytag" = sexualitytag,
 			"rpguidance" = rpguidance,
-			//"eventtag" = eventtag,
-			"ooc_notes" = ooc_notes,
 			"tag" = tag,
 			"erptag" = erptag,
 			"character_ad" = character_ad,
-			"flavor_text" = flavor_text,
-			"custom_link" = custom_link,
 			"photo" = photo,
 		)))
 

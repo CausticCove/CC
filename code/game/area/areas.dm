@@ -107,7 +107,8 @@
 	var/list/canSmoothWithAreas
 
 	var/list/ambush_mobs
-	var/list/ambush_times
+	var/list/ambush_factions
+	var/ambush_tp_ceiling = 0
 
 	var/converted_type
 

@@ -63,9 +63,6 @@
 			new buildstacktype(loc,buildstackamount)
 	..()
 
-/obj/structure/chair/attack_paw(mob/user)
-	return attack_hand(user)
-
 /obj/structure/chair/narsie_act()
 	var/obj/structure/chair/wood/W = new/obj/structure/chair/wood(get_turf(src))
 	W.setDir(dir)

@@ -36,6 +36,18 @@
 
 	extra_context = "This subclass gain the Wound Heal miracle and the Convert Heretic spell."
 
+/datum/advclass/wretch/heretic/get_vice_limits(mob/living/carbon/human/H)
+	. = ..()
+	if(istype(H.patron, /datum/patron/old_god) || HAS_TRAIT(H, TRAIT_PSYDONIAN_GRIT))
+		if(!(/datum/charflaw/silverweakness in .))
+			. += /datum/charflaw/silverweakness
+
+/datum/advclass/wretch/heretic/get_prefs_vice_limits(client/player)
+	. = ..()
+	if(istype(player?.prefs?.selected_patron, /datum/patron/old_god))
+		if(!(/datum/charflaw/silverweakness in .))
+			. += /datum/charflaw/silverweakness
+
 /datum/outfit/job/roguetown/wretch/heretic
 	has_loadout = TRUE
 
@@ -245,14 +257,14 @@
 			H.change_stat(STATKEY_PER, 2)
 			H.equip_to_slot_or_del(new /obj/item/clothing/neck/roguetown/psicross/undivided, SLOT_RING, TRUE)
 			H.adjust_skillrank(/datum/skill/magic/holy, 1, TRUE)
-			if(H.mind)
+			if(H.mind) //To make it obviously not clergy related
 				var/cloaks = list("Cloak", "Tabard")
 				var/cloakchoice = input(H,"Choose your covering", "TAKE UP FASHION") as anything in cloaks
 				switch(cloakchoice)
 					if("Cloak")
-						H.equip_to_slot_or_del(new /obj/item/clothing/cloak/undivided, SLOT_CLOAK, TRUE)
+						H.equip_to_slot_or_del(new /obj/item/clothing/cloak/undividedcleric, SLOT_CLOAK, TRUE)
 					if("Tabard")
-						H.equip_to_slot_or_del(new /obj/item/clothing/cloak/templar/undivided, SLOT_CLOAK, TRUE)
+						H.equip_to_slot_or_del(new /obj/item/clothing/cloak/templar/undividedcleric, SLOT_CLOAK, TRUE)
 		if(/datum/patron/old_god)
 			H.equip_to_slot_or_del(new /obj/item/clothing/neck/roguetown/psicross/silver, SLOT_RING, TRUE)
 			H.equip_to_slot_or_del(new /obj/item/clothing/suit/roguetown/armor/chainmail/hauberk/ornate, SLOT_ARMOR, TRUE)
@@ -335,10 +347,27 @@
 	H.cmode_music = 'sound/music/cmode/antag/combat_cutpurse.ogg'
 	if(H.mind)
 		H.mind?.current.faction += "[H.name]_faction"
-		var/weapons = list("Rapier", "Sabre", "Bow", "Crossbow", "Slurbow")
+		var/weapons = list("Daggers", "Rapier", "Sabre", "Bow", "Crossbow", "Slurbow")
 		var/weapon_choice = input(H, "Choose your weapon.", "TAKE UP ARMS") as anything in weapons
 		H.set_blindness(0)
 		switch(weapon_choice)
+			if("Daggers")
+				H.adjust_skillrank_up_to(/datum/skill/combat/knives, SKILL_LEVEL_EXPERT, TRUE)
+				if(HAS_TRAIT(H, TRAIT_PSYDONIAN_GRIT))
+					l_hand = /obj/item/rogueweapon/huntingknife/idagger/silver/psydagger
+				else if(istype(H.patron, /datum/patron/inhumen/zizo))
+					l_hand = /obj/item/rogueweapon/huntingknife/idagger/steel/zizo
+				else if(istype(H.patron, /datum/patron/inhumen/baotha))
+					l_hand = /obj/item/rogueweapon/huntingknife/idagger/steel/baotha
+				else if(istype(H.patron, /datum/patron/inhumen/graggar))
+					l_hand = /obj/item/rogueweapon/huntingknife/combat/graggar
+				else if(istype(H.patron, /datum/patron/inhumen/matthios))
+					l_hand = /obj/item/rogueweapon/huntingknife/idagger/steel/matthios
+				else
+					l_hand = /obj/item/rogueweapon/huntingknife/idagger/steel/rondel
+				r_hand = /obj/item/rogueweapon/huntingknife/idagger/steel/parrying
+				beltl = /obj/item/rogueweapon/scabbard/sheath
+				beltr = /obj/item/rogueweapon/scabbard/sheath
 			if("Rapier")
 				H.adjust_skillrank_up_to(/datum/skill/combat/swords, SKILL_LEVEL_EXPERT, TRUE)
 				if(HAS_TRAIT(H, TRAIT_PSYDONIAN_GRIT))
@@ -360,6 +389,12 @@
 					l_hand = /obj/item/rogueweapon/huntingknife/idagger/silver/psydagger
 				else if(istype(H.patron, /datum/patron/inhumen/zizo))
 					l_hand = /obj/item/rogueweapon/huntingknife/idagger/steel/zizo
+				else if(istype(H.patron, /datum/patron/inhumen/baotha))
+					l_hand = /obj/item/rogueweapon/huntingknife/idagger/steel/baotha
+				else if(istype(H.patron, /datum/patron/inhumen/graggar))
+					l_hand = /obj/item/rogueweapon/huntingknife/combat/graggar
+				else if(istype(H.patron, /datum/patron/inhumen/matthios))
+					l_hand = /obj/item/rogueweapon/huntingknife/idagger/steel/matthios
 				else
 					l_hand = /obj/item/rogueweapon/huntingknife/idagger/steel
 			if("Crossbow")
@@ -372,6 +407,12 @@
 					l_hand = /obj/item/rogueweapon/huntingknife/idagger/silver/psydagger
 				else if(istype(H.patron, /datum/patron/inhumen/zizo))
 					l_hand = /obj/item/rogueweapon/huntingknife/idagger/steel/zizo
+				else if(istype(H.patron, /datum/patron/inhumen/baotha))
+					l_hand = /obj/item/rogueweapon/huntingknife/idagger/steel/baotha
+				else if(istype(H.patron, /datum/patron/inhumen/graggar))
+					l_hand = /obj/item/rogueweapon/huntingknife/combat/graggar
+				else if(istype(H.patron, /datum/patron/inhumen/matthios))
+					l_hand = /obj/item/rogueweapon/huntingknife/idagger/steel/matthios
 				else
 					l_hand = /obj/item/rogueweapon/huntingknife/idagger/steel
 			if("Slurbow")
@@ -384,6 +425,12 @@
 					l_hand = /obj/item/rogueweapon/huntingknife/idagger/silver/psydagger
 				else if(istype(H.patron, /datum/patron/inhumen/zizo))
 					l_hand = /obj/item/rogueweapon/huntingknife/idagger/steel/zizo
+				else if(istype(H.patron, /datum/patron/inhumen/baotha))
+					l_hand = /obj/item/rogueweapon/huntingknife/idagger/steel/baotha
+				else if(istype(H.patron, /datum/patron/inhumen/graggar))
+					l_hand = /obj/item/rogueweapon/huntingknife/combat/graggar
+				else if(istype(H.patron, /datum/patron/inhumen/matthios))
+					l_hand = /obj/item/rogueweapon/huntingknife/idagger/steel/matthios
 				else
 					l_hand = /obj/item/rogueweapon/huntingknife/idagger/steel
 		var/datum/devotion/C = new /datum/devotion(H, H.patron)

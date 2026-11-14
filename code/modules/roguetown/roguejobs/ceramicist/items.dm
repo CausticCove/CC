@@ -172,7 +172,7 @@
 				continue
 			var/datum/glass_blow_recipe/R = new path
 			generated_recipes += R
-			var/choice_label = "[R.name] ([SSskills.level_names_plain[R.craftdiff]])"
+			var/choice_label = "[R.name] ([skill_to_string(R.craftdiff)])"
 			recipe_map[choice_label] = R
 			radial_choices[choice_label] = image(icon = R.recipe_icon, icon_state = R.recipe_icon_state)
 
@@ -200,7 +200,7 @@
 
 	var/skill_level = user.get_skill_level(/datum/skill/craft/ceramics)
 	if(skill_level < G.selected_recipe.craftdiff)
-		to_chat(user, span_warning("I need [SSskills.level_names_plain[G.selected_recipe.craftdiff]] pottery skill for this glasswork."))
+		to_chat(user, span_warning("I need [skill_to_string(G.selected_recipe.craftdiff)] pottery skill for this glasswork."))
 		QDEL_NULL(G.selected_recipe)
 		G.blow_progress = 0
 		return
@@ -326,7 +326,7 @@
 	recipe_icon_state = "statueglass5"
 
 /datum/glass_blow_recipe/pane
-	name = "glass pane"
+	name = "glass pane (x2)"
 	craftdiff = SKILL_LEVEL_APPRENTICE
 	base_time = 20
 	result_type = /obj/item/natural/glass
@@ -335,7 +335,7 @@
 	recipe_icon_state = "glasspane"
 
 /datum/glass_blow_recipe/bottle
-	name = "glass bottle"
+	name = "glass bottle (x2)"
 	craftdiff = SKILL_LEVEL_EXPERT
 	base_time = 28
 	result_type = /obj/item/reagent_containers/glass/bottle
@@ -344,7 +344,7 @@
 	recipe_icon_state = "clear_bottle1"
 
 /datum/glass_blow_recipe/alch_vial
-	name = "alchemical vial"
+	name = "alchemical vial (x6)"
 	craftdiff = SKILL_LEVEL_EXPERT
 	base_time = 24
 	result_type = /obj/item/reagent_containers/glass/bottle/alchemical

@@ -142,7 +142,7 @@ Intended to be a reward or a goal for pure mage, allowing them to rebind their a
 		return
 	conjure_aegis(user)
 
-/obj/item/rogueweapon/spellbook/rmb_self(mob/user)
+/obj/item/rogueweapon/spellbook/rmb_self(mob/user, keybind = FALSE)
 	attack_right(user)
 	return
 

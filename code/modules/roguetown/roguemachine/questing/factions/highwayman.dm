@@ -11,11 +11,14 @@
 		/mob/living/carbon/human/species/human/northern/militia/deserter = 20,
 		/mob/living/carbon/human/species/human/northern/highwayman/archer = 19, // archer+crossbowman+sharpshooter ~30% of highwaymen (ranged)
 		/mob/living/carbon/human/species/human/northern/highwayman/crossbowman = 7,
+		/mob/living/carbon/human/species/human/northern/highwayman/light = 14,
+		/mob/living/carbon/human/species/human/northern/highwayman/bulwark = 8,
 		/mob/living/carbon/human/species/human/northern/highwayman/road_knight = 8,
 		/mob/living/carbon/human/species/human/northern/highwayman/sharpshooter = 8,
 	)
 	boss_mob_types = list(
-		/mob/living/carbon/human/species/human/northern/outlaw_duelist = 100,
+		/mob/living/carbon/human/species/human/northern/outlaw_duelist = 70,
+		/mob/living/carbon/human/species/human/northern/outlaw_ranger = 30,
 	)
 	boss_title_templates = list(
 		"%N the Cutthroat",

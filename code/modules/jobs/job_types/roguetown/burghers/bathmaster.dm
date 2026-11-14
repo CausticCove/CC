@@ -14,20 +14,20 @@
 	give_bank_account = 20
 	min_pq = 10 //CC Edit - You deal with thieves and drugs, you aren't just some random owner of a bathhouse.
 	max_pq = null
-	bypass_lastclass = TRUE
 	round_contrib_points = 3
 	cmode_music = 'sound/music/cmode/nobility/combat_spymaster.ogg'
 
-	job_traits = list(TRAIT_SEEPRICES, 
-		TRAIT_CICERONE, 
+	job_traits = list(TRAIT_SEEPRICES,
+		TRAIT_CICERONE,
 		TRAIT_NUTCRACKER,
-		TRAIT_GOODLOVER, 
+		TRAIT_GOODLOVER,
 		TRAIT_HOMESTEAD_EXPERT)
 
 	advclass_cat_rolls = list(CTAG_BATHMOM = 2)
 	job_subclasses = list(
 		/datum/advclass/bathmaster
 	)
+	has_subprefs = FALSE // only one subclass
 
 /datum/advclass/bathmaster
 	name = "Bathmaster"

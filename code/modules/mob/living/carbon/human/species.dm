@@ -1,6 +1,68 @@
 // This code handles different species in the game.
 
 GLOBAL_LIST_EMPTY(roundstart_races)
+GLOBAL_LIST_EMPTY(roundstart_races_paths)
+
+/// One alternate silhouette a character can be rendered on, shared by every species offering it. The sprites and
+/// offsets live here rather than on /datum/species so the ~40 species that offer no builds don't each carry a
+/// copy they can never use, and so a bulky elf and a bulky human are guaranteed to be drawn on the same body.
+/datum/body_build
+	/// The BODY_BUILD_* id this build is registered under.
+	var/id
+	/// Limb sprites. A null here means the build isn't offered to that gender at all.
+	var/limbs_icon_m
+	var/limbs_icon_f
+	var/list/offset_features
+	/// TRUE if worn clothing should use its masculine cut on this build. See is_bulky_body().
+	var/bulky_cut = FALSE
+	/// Pixel nudge for body markings on this build, by body zone, for a character wearing marking art drawn for
+	/// a body that isn't his - see get_specific_markings_overlays. Positive moves a marking up. A zone left out
+	/// is not nudged, which is why the legs never appear here: a raised body leaves the feet planted.
+	var/list/marking_offsets
+
+/// Whether this build has a body for the given gender, and so can be offered to them.
+/datum/body_build/proc/supports_gender(gender)
+	return (gender == MALE) ? limbs_icon_m : limbs_icon_f
+
+/datum/body_build/bulky
+	id = BODY_BUILD_BULKY
+	limbs_icon_m = 'icons/roguetown/mob/bodies/m/mt.dmi'
+	limbs_icon_f = 'icons/roguetown/mob/bodies/f/ft_muscular.dmi'
+	offset_features = OFFSET_FEATURES_BULKY_REFERENCE
+	bulky_cut = TRUE
+
+/datum/body_build/slim
+	id = BODY_BUILD_SLIM
+	limbs_icon_m = 'icons/roguetown/mob/bodies/m/mem.dmi'
+	limbs_icon_f = 'icons/roguetown/mob/bodies/f/fm.dmi'
+	offset_features = OFFSET_FEATURES_SLIM_REFERENCE
+	marking_offsets = list(
+		BODY_ZONE_HEAD = 1,
+		BODY_ZONE_PRECISE_L_HAND = -1,
+		BODY_ZONE_PRECISE_R_HAND = -1,
+	)
+
+/// The Wood Elf male body, kept as an option for elves after they standardised onto mem.dmi. It is the slim
+/// body one pixel higher, so it borrows the slim table wholesale and raises it rather than defining its own.
+/// There is no female counterpart sprite, so no limbs_icon_f - it is offered to masculine characters only.
+/datum/body_build/elven
+	id = BODY_BUILD_ELVEN
+	limbs_icon_m = 'icons/roguetown/mob/bodies/m/met.dmi'
+	offset_features = OFFSET_FEATURES_ELVEN_REFERENCE
+	marking_offsets = list(
+		BODY_ZONE_HEAD = 2,
+		BODY_ZONE_CHEST = 1,
+		BODY_ZONE_L_ARM = 1,
+		BODY_ZONE_R_ARM = 1,
+	)
+
+GLOBAL_LIST_INIT(body_builds, init_body_builds())
+
+/proc/init_body_builds()
+	. = list()
+	for(var/build_type in subtypesof(/datum/body_build))
+		var/datum/body_build/build = new build_type
+		.[build.id] = build
 
 /datum/species
 	var/id	// if the game needs to manually check my race to do something not included in a proc here, it will use this
@@ -13,12 +75,20 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	var/default_color = "#FFF"	// if alien colors are disabled, this is the color that will be used by that race
 	var/limbs_icon_m
 	var/limbs_icon_f
+	/// Body builds this species offers in character creation, from ALL_BODY_BUILDS. Null (the default) means the
+	/// species only has its own limbs_icon_m/limbs_icon_f and shows the plain Masculine/Feminine choice instead.
+	var/list/allowed_body_builds
+	/// The build a new character of this species starts on, and the one fallen back to whenever
+	/// features["body_build"] is unset or invalid — so NPCs and old savefiles keep rendering as they always did.
+	/// Split by gender, because a species' native male and female bodies need not be the same build: a human
+	/// male is bulky where a human female is slim. Set each to the build matching limbs_icon_m/limbs_icon_f.
+	var/default_body_build_m
+	var/default_body_build_f
 	var/icon_override
 	var/icon_override_m
 	var/icon_override_f
 	var/list/possible_ages = ALL_AGES_LIST
 	var/sexes = 1		// whether or not the race has sexual characteristics. at the moment this is only 0 for skeletons and shadows
-	var/patreon_req = 0
 	var/base_name
 	var/sub_name
 	var/psydonic = FALSE
@@ -203,6 +273,38 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 // PROCS //
 ///////////
 
+/// The build this species falls back to for a given gender when nothing valid has been picked. Guaranteed to
+/// name a build the species actually offers, so callers can trust the result without re-validating it: a
+/// default that isn't in allowed_body_builds would otherwise reach the savefile and the UI, where it renders
+/// as a blank dropdown and a body the species has no sprites for.
+/datum/species/proc/get_default_body_build(gender)
+	if(!length(allowed_body_builds))
+		return null
+	var/build = (gender == MALE) ? default_body_build_m : default_body_build_f
+	if(is_body_build_valid(build, gender))
+		return build
+	for(var/fallback in allowed_body_builds)
+		if(is_body_build_valid(fallback, gender))
+			return fallback
+	return null
+
+/// Whether this species offers `build`, and that build has a body for `gender`.
+/datum/species/proc/is_body_build_valid(build, gender)
+	if(!(build in allowed_body_builds))
+		return FALSE
+	var/datum/body_build/candidate = GLOB.body_builds[build]
+	return candidate?.supports_gender(gender)
+
+/// The limb sprite sheet this character's body is drawn from: the sheet belonging to their current build if
+/// their species offers builds, otherwise the species' own limbs_icon_m/limbs_icon_f. Every consumer of a body
+/// sprite should go through here rather than reading limbs_icon_m/limbs_icon_f directly, or overlays meant to
+/// sit on the body (damage, body hair) end up drawn against a silhouette the character isn't wearing.
+/datum/species/proc/get_limbs_icon(mob/living/carbon/human/H)
+	var/datum/body_build/build = GLOB.body_builds[H.get_body_build()]
+	if(build)
+		return (H.gender == MALE) ? build.limbs_icon_m : build.limbs_icon_f
+	return (H.gender == MALE) ? limbs_icon_m : limbs_icon_f
+
 /datum/species/proc/is_organ_slot_allowed(mob/living/carbon/human/human, organ_slot)
 	return TRUE
 
@@ -244,14 +346,22 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 		generate_selectable_species()
 	return GLOB.roundstart_races
 
+/proc/get_selectable_species_paths()
+	if(!GLOB.roundstart_races_paths.len)
+		generate_selectable_species()
+	return GLOB.roundstart_races_paths
+
 /proc/generate_selectable_species()
 	for(var/species_type in subtypesof(/datum/species))
 		var/datum/species/species = new species_type
 		if(species.check_roundstart_eligible())
 			GLOB.roundstart_races += species.name
+			GLOB.roundstart_races_paths += species.type
 		qdel(species)
 	if(!GLOB.roundstart_races.len)
 		GLOB.roundstart_races += "Humen"
+	if(!GLOB.roundstart_races.len)
+		GLOB.roundstart_races_paths += /datum/species/human/northern
 	sortList(GLOB.roundstart_races, GLOBAL_PROC_REF(cmp_text_dsc))
 
 /datum/species/proc/check_roundstart_eligible()
@@ -434,7 +544,6 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	var/list/skins = get_skin_list()
 	H.skin_tone = skins[pick(skins)]
 	H.eye_color = random_eye_color()
-	H.accessory = "Nothing"
 	if(H.dna)
 		H.dna.real_name = H.real_name
 		H.dna.features = get_random_features()
@@ -458,8 +567,8 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	replace_body(C, src)
 
 	// this needs to be FIRST because qdel calls update_body which checks if we have DIGITIGRADE legs or not and if not then removes DIGITIGRADE from species_traits
-	if(("legs" in C.dna.species.mutant_bodyparts) && C.dna.features["legs"] == "Digitigrade Legs")
-		species_traits += DIGITIGRADE
+	// if(("legs" in C.dna.species.mutant_bodyparts) && C.dna.features["legs"] == "Digitigrade Legs")
+	// 	species_traits += DIGITIGRADE
 	if(DIGITIGRADE in species_traits)
 		C.Digitigrade_Leg_Swap(FALSE)
 
@@ -571,24 +680,13 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 		if(H.lip_style && (LIPS in species_traits))
 			var/mutable_appearance/lip_overlay = mutable_appearance('icons/mob/human_face.dmi', "lips_[H.lip_style]", -BODY_LAYER)
 			lip_overlay.color = H.lip_color
-			if(H.gender == MALE)
-				if(OFFSET_FACE in H.dna.species.offset_features)
-					lip_overlay.pixel_x += H.dna.species.offset_features[OFFSET_FACE][1]
-					lip_overlay.pixel_y += H.dna.species.offset_features[OFFSET_FACE][2]
-			else
-				if(OFFSET_FACE_F in H.dna.species.offset_features)
-					lip_overlay.pixel_x += H.dna.species.offset_features[OFFSET_FACE_F][1]
-					lip_overlay.pixel_y += H.dna.species.offset_features[OFFSET_FACE_F][2]
+			H.apply_offset(lip_overlay, OFFSET_FACE, OFFSET_FACE_F)
 			standing += lip_overlay
 
 
 #ifdef MATURESERVER
 		if(H.dna.species.hairyness)
-			var/mutable_appearance/bodyhair_overlay
-			if(H.gender == MALE)
-				bodyhair_overlay = mutable_appearance(H.dna.species.limbs_icon_m, "[H.dna.species.hairyness]", -BODY_LAYER)
-			else
-				bodyhair_overlay = mutable_appearance(H.dna.species.limbs_icon_f, "[H.dna.species.hairyness]", -BODY_LAYER)
+			var/mutable_appearance/bodyhair_overlay = mutable_appearance(H.dna.species.get_limbs_icon(H), "[H.dna.species.hairyness]", -BODY_LAYER)
 			bodyhair_overlay.color = "#" + H.hair_color
 			standing += bodyhair_overlay
 #endif
@@ -976,41 +1074,11 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 ////////
 
 /datum/species/proc/handle_digestion(mob/living/carbon/human/H)
-//CC Edit Begin
+	//CC Edit Begin
 	handle_diet(H)
-//CC Edit End
-	//The fucking TRAIT_FAT mutation is the dumbest shit ever. It makes the code so difficult to work with
-//	if(HAS_TRAIT_FROM(H, TRAIT_FAT, OBESITY))//I share my pain, past coder.
-//		if(H.overeatduration < 100)
-//			to_chat(H, span_notice("I feel fit again!"))
-//			REMOVE_TRAIT(H, TRAIT_FAT, OBESITY)
-//			H.remove_movespeed_modifier(MOVESPEED_ID_FAT)
-//			H.update_inv_w_uniform()
-//			H.update_inv_wear_suit()
-//	else
-//		if(H.overeatduration >= 100)
-//			to_chat(H, span_danger("I suddenly feel blubbery!"))
-//			ADD_TRAIT(H, TRAIT_FAT, OBESITY)
-//			H.add_movespeed_modifier(MOVESPEED_ID_FAT, multiplicative_slowdown = 1.5)
-//			H.update_inv_w_uniform()
-//			H.update_inv_wear_suit()
-
-	// nutrition decrease and satiety
-	if (H.nutrition > 0 && H.stat != DEAD && !HAS_TRAIT(H, TRAIT_NOHUNGER))
-		// THEY HUNGER
+	//CC Edit End
+	if(H.nutrition > 0 && H.stat != DEAD && !HAS_TRAIT(H, TRAIT_NOHUNGER))
 		var/hunger_rate = HUNGER_FACTOR
-/*		if(H.satiety > MAX_SATIETY)
-			H.satiety = MAX_SATIETY
-		else if(H.satiety > 0)
-			H.satiety--
-		else if(H.satiety < -MAX_SATIETY)
-			H.satiety = -MAX_SATIETY
-		else if(H.satiety < 0)
-			H.satiety++
-			if(prob(round(-H.satiety/40)))
-				H.Jitter(5)
-			hunger_rate = 10 * HUNGER_FACTOR*/
-//		hunger_rate *= H.physiology.hunger_mod
 		//Caustic Edit - Add in adjustments to Bottomless, and also the 10-minute grace timer for nutrition is added here!
 		if(H.has_flaw(/datum/charflaw/bottomless))
 			hunger_rate = (hunger_rate * 1.5) //Bottomless Flaw players just drain their nutrition faster instead of that constantly increasing max.
@@ -1018,134 +1086,137 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 			H.adjust_nutrition(-hunger_rate)
 		//Caustic Edit End
 
-		var/obj/item/organ/breasts/breasts = H.has_breasts()
-		if(breasts)
-			if(H.nutrition > NUTRITION_LEVEL_HUNGRY && breasts.lactating && breasts.milk_max > breasts.milk_stored) //Vrell - numbers may need to be tweaked for balance but hey this works for now.
-				var/milk_to_make = min(hunger_rate, breasts.milk_max - breasts.milk_stored)
-				breasts.milk_stored += milk_to_make
-				H.adjust_nutrition(-milk_to_make)
-
-			else if(H.nutrition < NUTRITION_LEVEL_STARVING && breasts.lactating) //Vrell - If starving, your milk drains automatically to slow your starvation.
-				var/milk_to_take = min(hunger_rate, breasts.milk_stored)
-				breasts.milk_stored -= milk_to_take
-				H.adjust_nutrition(milk_to_take)
-
 	if (H.hydration > 0 && H.stat != DEAD && !HAS_TRAIT(H, TRAIT_NOHUNGER))
-		// THEY HUNGER
 		var/hunger_rate = HUNGER_FACTOR
-//		hunger_rate *= H.physiology.hunger_mod
 		if(!H.mind || world.time < H.time_of_last_move + 10 MINUTES)
 			H.adjust_hydration(-hunger_rate)
 
-
-	if (H.nutrition > NUTRITION_LEVEL_FULL)
-		if(H.overeatduration < 600) //capped so people don't take forever to unfat
+	if(H.nutrition > NUTRITION_LEVEL_FULL)
+		if(H.overeatduration < 600)
 			H.overeatduration++
 	else
 		if(H.overeatduration > 1)
-			H.overeatduration -= 2 //doubled the unfat rate
+			H.overeatduration -= 2
 
-	//metabolism change
-//	if(H.nutrition > NUTRITION_LEVEL_FAT)
-//		H.metabolism_efficiency = 1
-//	else if(H.nutrition > NUTRITION_LEVEL_FED && H.satiety > 80)
-//		if(H.metabolism_efficiency != 1.25 && !HAS_TRAIT(H, TRAIT_NOHUNGER))
-//			to_chat(H, span_notice("I feel vigorous."))
-//			H.metabolism_efficiency = 1.25
-//	else if(H.nutrition < NUTRITION_LEVEL_STARVING + 50)
-//		if(H.metabolism_efficiency != 0.8)
-//			to_chat(H, span_notice("I feel sluggish."))
-//		H.metabolism_efficiency = 0.8
-//	else
-//		if(H.metabolism_efficiency == 1.25)
-//			to_chat(H, span_notice("I no longer feel vigorous."))
-//		H.metabolism_efficiency = 1
-
-	//Hunger slowdown for if mood isn't enabled
-//	if(CONFIG_GET(flag/disable_human_mood))
-//		if(!HAS_TRAIT(H, TRAIT_NOHUNGER))
-//			var/hungry = (500 - H.nutrition) / 5 //So overeat would be 100 and default level would be 80
-//			if(hungry >= 70)
-//				H.add_movespeed_modifier(MOVESPEED_ID_HUNGRY, override = TRUE, multiplicative_slowdown = (hungry / 50))
-//			else if(isethereal(H))
-//				var/datum/species/ethereal/E = H.dna.species
-//				if(E.get_charge(H) <= ETHEREAL_CHARGE_NORMAL)
-//					H.add_movespeed_modifier(MOVESPEED_ID_HUNGRY, override = TRUE, multiplicative_slowdown = (1.5 * (1 - E.get_charge(H) / 100)))
-//			else
-//				H.remove_movespeed_modifier(MOVESPEED_ID_HUNGRY)
-
-	if(HAS_TRAIT(H, TRAIT_NOHUNGER)) //hunger is for BABIES
+	if(HAS_TRAIT(H, TRAIT_NOHUNGER))
 		H.nutrition = NUTRITION_LEVEL_DEATHLESS
 		H.hydration = HYDRATION_LEVEL_DEATHLESS
 
-	switch(H.nutrition)
-//		if(NUTRITION_LEVEL_FAT to INFINITY) //currently disabled/999999 define
-//			if(H.energy >= H.max_energy)
-//				H.apply_status_effect(/datum/status_effect/debuff/fat)
-		if(NUTRITION_LEVEL_FAT to INFINITY)
-			H.add_stress(/datum/stressevent/stuffed)
-			H.remove_stress_list(list(/datum/stressevent/peckish,/datum/stressevent/hungry,/datum/stressevent/starving))
-			H.remove_status_effect(/datum/status_effect/debuff/hungryt1)
-			H.remove_status_effect(/datum/status_effect/debuff/hungryt2)
-			H.remove_status_effect(/datum/status_effect/debuff/hungryt3)
-		if(NUTRITION_LEVEL_FED to NUTRITION_LEVEL_FAT)
-			H.remove_stress_list(list(/datum/stressevent/peckish,/datum/stressevent/hungry,/datum/stressevent/starving))
-			H.remove_status_effect(/datum/status_effect/debuff/hungryt1)
-			H.remove_status_effect(/datum/status_effect/debuff/hungryt2)
-			H.remove_status_effect(/datum/status_effect/debuff/hungryt3)
-		if(NUTRITION_LEVEL_HUNGRY to NUTRITION_LEVEL_FED)
-			H.add_stress(/datum/stressevent/peckish)
-			H.remove_stress_list(list(/datum/stressevent/stuffed,/datum/stressevent/hungry,/datum/stressevent/starving))
-			H.apply_status_effect(/datum/status_effect/debuff/hungryt1)
-			H.remove_status_effect(/datum/status_effect/debuff/hungryt2)
-			H.remove_status_effect(/datum/status_effect/debuff/hungryt3)
-		if(NUTRITION_LEVEL_STARVING to NUTRITION_LEVEL_HUNGRY)
-			H.add_stress(/datum/stressevent/hungry)
-			H.remove_stress_list(list(/datum/stressevent/stuffed,/datum/stressevent/peckish,/datum/stressevent/starving))
-			H.apply_status_effect(/datum/status_effect/debuff/hungryt2)
-			H.remove_status_effect(/datum/status_effect/debuff/hungryt1)
-			H.remove_status_effect(/datum/status_effect/debuff/hungryt3)
-		if(0 to NUTRITION_LEVEL_STARVING)
-			H.add_stress(/datum/stressevent/starving)
-			H.remove_stress_list(list(/datum/stressevent/stuffed,/datum/stressevent/peckish,/datum/stressevent/hungry))
-			H.apply_status_effect(/datum/status_effect/debuff/hungryt3)
-			H.remove_status_effect(/datum/status_effect/debuff/hungryt1)
-			H.remove_status_effect(/datum/status_effect/debuff/hungryt2)
-			//Cove edit start
-			if(!istype(H.loc, /obj/belly))
-				if(prob(3))
-					playsound(get_turf(H), pick('sound/vo/hungry1.ogg','sound/vo/hungry2.ogg','sound/vo/hungry3.ogg'), 100, TRUE, -1)
-			//Cove edit end
+	update_needs(H)
 
+/datum/species/proc/get_hunger_stage(mob/living/carbon/human/H)
+	if(HAS_TRAIT(H, TRAIT_NOHUNGER))
+		return 0
+	switch(H.nutrition)
+		if(NUTRITION_LEVEL_FAT to INFINITY)
+			return -1
+		if(NUTRITION_LEVEL_FED to NUTRITION_LEVEL_FAT)
+			return 0
+		if(NUTRITION_LEVEL_HUNGRY to NUTRITION_LEVEL_FED)
+			return 1
+		if(NUTRITION_LEVEL_STARVING to NUTRITION_LEVEL_HUNGRY)
+			return 2
+		if(0 to NUTRITION_LEVEL_STARVING)
+			return 3
+	return 0
+
+/datum/species/proc/get_thirst_stage(mob/living/carbon/human/H)
+
+	if(HAS_TRAIT(H, TRAIT_NOHUNGER))
+		return 0
 	switch(H.hydration)
-//		if(HYDRATION_LEVEL_WATERLOGGED to INFINITY)
-//			H.apply_status_effect(/datum/status_effect/debuff/waterlogged)
 		if(HYDRATION_LEVEL_HYDRATED to INFINITY)
-			H.add_stress(/datum/stressevent/hydrated)
-			H.remove_status_effect(/datum/status_effect/debuff/thirstyt1)
-			H.remove_status_effect(/datum/status_effect/debuff/thirstyt2)
-			H.remove_status_effect(/datum/status_effect/debuff/thirstyt3)
+			return -1
 		if(HYDRATION_LEVEL_SMALLTHIRST to HYDRATION_LEVEL_HYDRATED)
-			H.remove_stress_list(list(/datum/stressevent/drym,/datum/stressevent/thirst,/datum/stressevent/parched))
-			H.remove_status_effect(/datum/status_effect/debuff/thirstyt1)
-			H.remove_status_effect(/datum/status_effect/debuff/thirstyt2)
-			H.remove_status_effect(/datum/status_effect/debuff/thirstyt3)
+			return 0
 		if(HYDRATION_LEVEL_THIRSTY to HYDRATION_LEVEL_SMALLTHIRST)
-			H.add_stress(/datum/stressevent/drym)
-			H.remove_stress_list(list(/datum/stressevent/parched,/datum/stressevent/thirst))
-			H.apply_status_effect(/datum/status_effect/debuff/thirstyt1)
+			return 1
 		if(HYDRATION_LEVEL_DEHYDRATED to HYDRATION_LEVEL_THIRSTY)
-			H.add_stress(/datum/stressevent/thirst)
-			H.remove_stress_list(list(/datum/stressevent/parched,/datum/stressevent/drym))
-			H.apply_status_effect(/datum/status_effect/debuff/thirstyt2)
-			H.remove_status_effect(/datum/status_effect/debuff/thirstyt1)
-			H.remove_status_effect(/datum/status_effect/debuff/thirstyt3)
+			return 2
 		if(0 to HYDRATION_LEVEL_DEHYDRATED)
-			H.add_stress(/datum/stressevent/parched)
-			H.remove_stress_list(list(/datum/stressevent/thirst,/datum/stressevent/drym))
-			H.apply_status_effect(/datum/status_effect/debuff/thirstyt3)
-			H.remove_status_effect(/datum/status_effect/debuff/thirstyt1)
-			H.remove_status_effect(/datum/status_effect/debuff/thirstyt2)
+			return 3
+	return 0
+
+
+/datum/species/proc/get_vitae_stage(mob/living/carbon/human/H)
+	switch(H.bloodpool)
+		if(VITAE_LEVEL_HUNGRY to VITAE_LEVEL_FED)
+			return 1
+		if(VITAE_LEVEL_STARVING to VITAE_LEVEL_HUNGRY)
+			return 2
+		if(-INFINITY to VITAE_LEVEL_STARVING)
+			return 3
+	return 0
+
+/datum/species/proc/set_need_tier(mob/living/carbon/human/H, tier, t1, t2, t3)
+	if(tier != 1)
+		H.remove_status_effect(t1)
+	if(tier != 2)
+		H.remove_status_effect(t2)
+	if(tier != 3)
+		H.remove_status_effect(t3)
+
+	switch(tier)
+		if(1)
+			H.apply_status_effect(t1)
+		if(2)
+			H.apply_status_effect(t2)
+		if(3)
+			H.apply_status_effect(t3)
+
+
+/datum/species/proc/update_needs(mob/living/carbon/human/H)
+	var/new_hunger_stage = get_hunger_stage(H)
+
+	if(new_hunger_stage != H.hunger_stage)
+		H.hunger_stage = new_hunger_stage
+		set_need_tier(H, new_hunger_stage, /datum/status_effect/debuff/hungryt1, /datum/status_effect/debuff/hungryt2,/datum/status_effect/debuff/hungryt3)
+
+		switch(new_hunger_stage)
+			if(-1)
+				H.add_stress(/datum/stressevent/stuffed)
+				H.remove_stress_list(list(/datum/stressevent/peckish, /datum/stressevent/hungry, /datum/stressevent/starving))
+			if(0)
+				H.remove_stress_list(list(/datum/stressevent/stuffed, /datum/stressevent/peckish, /datum/stressevent/hungry, /datum/stressevent/starving))
+			if(1)
+				H.add_stress(/datum/stressevent/peckish)
+				H.remove_stress_list(list(/datum/stressevent/stuffed, /datum/stressevent/hungry, /datum/stressevent/starving))
+			if(2)
+				H.add_stress(/datum/stressevent/hungry)
+				H.remove_stress_list(list(/datum/stressevent/stuffed, /datum/stressevent/peckish, /datum/stressevent/starving))
+			if(3)
+				H.add_stress(/datum/stressevent/starving)
+				H.remove_stress_list(list(/datum/stressevent/stuffed, /datum/stressevent/peckish, /datum/stressevent/hungry))
+				if(prob(3))
+					playsound(
+						get_turf(H), pick('sound/vo/hungry1.ogg', 'sound/vo/hungry2.ogg', 'sound/vo/hungry3.ogg'), 100, TRUE, -1)
+
+	var/new_thirst_stage = get_thirst_stage(H)
+	if(new_thirst_stage != H.thirst_stage)
+		H.thirst_stage = new_thirst_stage
+		set_need_tier(H, new_thirst_stage, /datum/status_effect/debuff/thirstyt1, /datum/status_effect/debuff/thirstyt2,/datum/status_effect/debuff/thirstyt3)
+
+		switch(new_thirst_stage)
+			if(-1)
+				H.add_stress(/datum/stressevent/hydrated)
+				H.remove_stress_list(list(/datum/stressevent/drym, /datum/stressevent/thirst, /datum/stressevent/parched))
+			if(0)
+				H.remove_stress_list(list(/datum/stressevent/hydrated, /datum/stressevent/drym, /datum/stressevent/thirst,/datum/stressevent/parched))
+			if(1)
+				H.add_stress(/datum/stressevent/drym)
+				H.remove_stress_list(list(/datum/stressevent/hydrated, /datum/stressevent/thirst, /datum/stressevent/parched))
+			if(2)
+				H.add_stress(/datum/stressevent/thirst)
+				H.remove_stress_list(list(/datum/stressevent/hydrated, /datum/stressevent/drym, /datum/stressevent/parched))
+			if(3)
+				H.add_stress(/datum/stressevent/parched)
+				H.remove_stress_list(list(/datum/stressevent/hydrated, /datum/stressevent/drym, /datum/stressevent/thirst))
+
+	var/new_vitae_stage = get_vitae_stage(H)
+	if(new_vitae_stage != H.vitae_stage)
+		H.vitae_stage = new_vitae_stage
+		set_need_tier(H, new_vitae_stage,/datum/status_effect/debuff/vthirstt1, /datum/status_effect/debuff/vthirstt2,/datum/status_effect/debuff/vthirstt3)
+
 
 /datum/species/proc/update_health_hud(mob/living/carbon/human/H)
 	return 0
@@ -1226,6 +1297,8 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	if(user.has_status_effect(/datum/status_effect/debuff/deadite_grace) && target.mind)
 		to_chat(user, span_warning("Ah, Lux... I calm down considerably, but my hunger only increases."))
 		user.remove_status_effect(/datum/status_effect/debuff/deadite_grace)
+
+	target.on_attacked_as_pacifist(user)
 
 	if(user.rogue_sneaking)
 		user.mob_timers[MT_FOUNDSNEAK] = world.time
@@ -1345,10 +1418,12 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 			if(affecting.body_zone == BODY_ZONE_HEAD)
 				SEND_SIGNAL(user, COMSIG_HEAD_PUNCHED, target)
 
+			target.on_hit_as_pacifist(user)
+
 			var/obj/item/clothing/gloves/roguetown/worn_gloves = user.get_item_by_slot(SLOT_GLOVES)
 			if(istype(worn_gloves))
 				worn_gloves.apply_unarmed_weapon_effects(user, affecting, user.used_intent, target, selzone)
-		log_combat(user, target, "punched")
+		log_combat(user, target, "punched", zone=selzone)
 		if(ishuman(user))
 			var/text = "[bodyzone2readablezone(selzone_real)]..."
 			user.filtered_balloon_alert(TRAIT_COMBAT_AWARE, text, show_self = FALSE)
@@ -1815,7 +1890,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	var/hit_area
 	var/selzone_real = user.zone_selected
 
-	selzone = melee_accuracy_check(user.zone_selected, user, H, I.associated_skill, user.used_intent, I)
+	selzone = melee_accuracy_check(user.zone_selected, user, H, null, user.used_intent, I)
 	affecting = H.get_bodypart(check_zone(selzone))
 
 	if(!affecting)
@@ -2576,7 +2651,7 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 		return null
 	var/ret = ""
 	for(var/tutorial in mechanics_explanations)
-		ret += "<br>- [tutorial]"
+		ret += "\n- [tutorial]"
 	return ret
 
 /datum/species/proc/get_string_bonus_traits()
@@ -2585,9 +2660,30 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 		// THIS is how we avoid showing hidden traits? Really?? Surely there's a better way than this?!
 		if(!(trait in GLOB.roguetraits))
 			continue
-		bonuses.Add(SPAN_TOOLTIP_DANGEROUS_HTML(GLOB.roguetraits[trait], "\[<u>[trait]</u>\]"))
+		bonuses.Add("[trait]: [GLOB.roguetraits[trait]]")
 	if(length(bonuses))
-		return jointext(bonuses, " | ")
+		return jointext(bonuses, "\n")
+	else
+		return null
+
+/datum/species/proc/get_string_languages()
+	var/list/ret_languages = list()
+	for (var/language_type in languages)
+		var/datum/language/lang = GLOB.language_datum_instances[language_type]
+		if(!lang)
+			continue
+		var/lang_name = initial(lang.name)
+		// Everyone knows Imperial, therefore it's redundant to list. So we'll skip over it
+		if(lang_name == "Imperial")
+			continue
+		var/lang_desc = initial(lang.desc)
+		// If it has a description, give it a tooltip and underline to indicate said tooltip being there
+		if(length(lang_desc))
+			ret_languages.Add("[lang_name]: [lang_desc]")
+		else
+			ret_languages.Add("[lang_name]")
+	if(length(ret_languages))
+		return jointext(ret_languages, "\n")
 	else
 		return null
 
@@ -2620,3 +2716,19 @@ GLOBAL_LIST_EMPTY(roundstart_races)
 	var/obj/item/organ/ears/E = H.getorganslot(ORGAN_SLOT_EARS)
 	E.is_flicking = FALSE
 	H.update_body_parts(TRUE)
+
+/datum/species/proc/constant_ui_data()
+	return list(
+		"name" = name,
+		"base_name" = base_name,
+		"sub_name" = sub_name,
+		"id" = id,
+		"type" = type,
+		"is_subrace" = is_subrace,
+		"desc" = desc,
+		"desc_title" = desc_title,
+		"bonus_stats" = get_string_bonus_stats(return_null_if_no_stats = TRUE),
+		"bonus_traits" = get_string_bonus_traits(),
+		"mechanics" = get_string_mechanics_explanations(),
+		"languages" = get_string_languages(),
+	)

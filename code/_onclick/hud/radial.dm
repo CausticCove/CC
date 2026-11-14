@@ -15,6 +15,8 @@ GLOBAL_LIST_EMPTY(radial_menus)
 	var/next_page = FALSE
 	var/tooltips = FALSE
 
+	nomouseover = FALSE // CC edit. Makes hovering the mouse over the selection show its name, same as hovering over regular items
+
 /atom/movable/screen/radial/slice/MouseEntered(location, control, params)
 	. = ..()
 	icon_state = "radial_slice_focus"

@@ -36,6 +36,16 @@
 	if(armor_class > ARMOR_CLASS_LIGHT)
 		AddComponent(/datum/component/armour_filtering/negative, TRAIT_IRONMAN)
 
+/obj/item/clothing/suit/roguetown/armor/basiceast/loadout
+	name = "aesthetic simple dobo robe"
+
+/obj/item/clothing/suit/roguetown/armor/basiceast/loadout/ComponentInitialize()
+	return
+
+/obj/item/clothing/suit/roguetown/armor/basiceast/loadout/Initialize()
+	. = ..()
+	loadoutize()
+
 //less integrity than a leather cuirass, incredibly weak to blunt damage - great against slash - standard leather value against stab
 //the intent for these armors is to create specific weaknesses/strengths for people to play with
 
@@ -47,6 +57,16 @@
 	armor = ARMOR_LEATHER // Makes it the equivalence of studded with less integrity and better armor 
 	max_integrity = ARMOR_INT_CHEST_LIGHT_MASTER
 
+/obj/item/clothing/suit/roguetown/armor/basiceast/crafteast/loadout
+	name = "aesthetic decorated dobo robe"
+
+/obj/item/clothing/suit/roguetown/armor/basiceast/crafteast/loadout/ComponentInitialize()
+	return
+
+/obj/item/clothing/suit/roguetown/armor/basiceast/crafteast/loadout/Initialize()
+	. = ..()
+	loadoutize()
+
 //craftable variation of eastsuit, essentially requiring the presence of a tailor with relevant materials
 //still weak against blunt
 
@@ -57,6 +77,16 @@
 	item_state = "eastsuit1"
 	sleeved = 'icons/roguetown/clothing/onmob/helpers/sleeves_armor.dmi'
 	max_integrity = ARMOR_INT_CHEST_LIGHT_MASTER
+
+/obj/item/clothing/suit/roguetown/armor/basiceast/mentorsuit/loadout
+	name = "aesthetic old dobo robe"
+
+/obj/item/clothing/suit/roguetown/armor/basiceast/mentorsuit/loadout/ComponentInitialize()
+	return
+
+/obj/item/clothing/suit/roguetown/armor/basiceast/mentorsuit/loadout/Initialize()
+	. = ..()
+	loadoutize()
 
 /obj/item/clothing/suit/roguetown/armor/plate/full/dwarven
 	name = "grudgebearer dwarven plate"

@@ -1516,7 +1516,7 @@ GLOBAL_LIST_EMPTY(loadout_selected_advclasses)
 
 
 //CC Edit: Heck TGUI, seriously, why is this missing!
-/client/proc/allow_broser_inspect()
+/client/proc/allow_browser_inspect()
 	set category = "DEBUG.UI"
 	set name = "Allow Browser Inspect"
 	set desc = ""

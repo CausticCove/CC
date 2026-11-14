@@ -90,7 +90,7 @@ export const VorePanel = () => {
   tabs[3] = prefs && <VoreUserPreferences prefs={prefs} />;
 
   return (
-    <Window width={1030} height={760} theme="abstract">
+    <Window width={1030} height={760}>
       <Window.Content>
         <Stack fill vertical>
           <Stack.Item>

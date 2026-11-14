@@ -31,6 +31,7 @@
 	job_subclasses = list(
 		/datum/advclass/courtmage
 	)
+	has_subprefs = FALSE // only one subclass
 
 /datum/advclass/courtmage
 	name = "Court Magician"
@@ -130,3 +131,4 @@
 		H.mind.teach_crafting_recipe(/datum/crafting_recipe/roguetown/arcana/scrolls/minor)
 		H.mind.teach_crafting_recipe(/datum/crafting_recipe/roguetown/arcana/scrolls/major)
 		H.mind.teach_crafting_recipe(/datum/crafting_recipe/roguetown/arcana/scrolls/mastery)
+		H.mind.teach_crafting_recipe(/datum/crafting_recipe/roguetown/arcana/limitedartifice/scryorb)

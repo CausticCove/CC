@@ -22,11 +22,10 @@
 		if (receiver && !(istype(M, receiver) || (sender && M == sender)))
 			return
 
-		to_chat(M, announcement, MESSAGE_TYPE_LOCALCHAT)
-		if (M.client.prefs.toggles & SOUND_ANNOUNCEMENTS)
-			if (!sound)
-				return
-			M.playsound_local(M, s, 100)
+		to_chat(M, announcement)
+		if (!sound)
+			return
+		M.playsound_local(M, s, 100)
 
 /proc/minor_announce(message, title = "", alert)
 	if(!message)
@@ -34,9 +33,6 @@
 
 	for(var/mob/M in GLOB.player_list)
 		if(M.can_hear())
-			to_chat(M, "<span class='big bold'><font color = purple>[html_encode(title)]</font color><BR>[html_encode(message)]</span><BR>", MESSAGE_TYPE_LOCALCHAT)
-			if(M.client.prefs.toggles & SOUND_ANNOUNCEMENTS)
-				if(alert)
-					M.playsound_local(M, 'sound/misc/alert.ogg', 100)
-				else
-					M.playsound_local(M, 'sound/misc/alert.ogg', 100)
+			to_chat(M, "<span class='big bold'><font color = purple>[html_encode(title)]</font color><BR>[html_encode(message)]</span><BR>")
+			if(alert)
+				M.playsound_local(M, 'sound/misc/alert.ogg', 100)

@@ -355,7 +355,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 			keenears = HAS_TRAIT(H, TRAIT_KEENEARS)
 			var/name_to_highlight = H.nickname
 			if(name_to_highlight && name_to_highlight != "" && name_to_highlight != "Please Change Me")	//We don't need to highlight an unset or blank one.
-				highlighted_message = replacetext_char(message, name_to_highlight, "<b><font color = #[H.highlight_color]>[name_to_highlight]</font></b>")
+				highlighted_message = replacetext_char(message, name_to_highlight, "<b><font color = '[H.highlight_color]'>[name_to_highlight]</font></b>")
 		if(eavesdrop_range && get_dist(source, AM) > message_range+keenears && !(the_dead[AM]))
 			AM.Hear(eavesrendered, src, message_language, eavesdropping, , spans, message_mode, original_message)
 		else if(highlighted_message)
@@ -375,18 +375,8 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 		mob_color = H.voice_color
 		if(H.voicecolor_override)
 			mob_color = H.voicecolor_override
-	var/chatmsg = "<font color = #[mob_color]><b>[src]</b></font> " + sign_verb + "."
+	var/chatmsg = "<font color = [mob_color]><b>[src]</b></font> " + sign_verb + "."
 	visible_message(chatmsg, runechat_message = sign_verb, log_seen = SEEN_LOG_EMOTE, ignored_mobs = understanders)
-
-	//speech bubble
-	var/list/speech_bubble_recipients = list()
-	for(var/mob/M in listening)
-		if(M.client?.prefs)
-			if(M.client && !M.client.prefs.chat_on_map)
-				speech_bubble_recipients.Add(M.client)
-	var/image/I = image('icons/mob/talk.dmi', src, "[bubble_type][say_test(message)]", FLY_LAYER)
-	I.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
-	INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(flick_overlay), I, speech_bubble_recipients, 30)
 
 /datum/species/proc/get_span_language(datum/language/message_language)
 	if(!message_language)
@@ -397,11 +387,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 /mob/proc/can_see_runechat(atom/movable/speaker)
 	if(!client || !client.prefs)
 		return FALSE
-	if(!client.prefs.chat_on_map)
-		return FALSE
 	if(stat >= UNCONSCIOUS)
-		return FALSE
-	if(!ismob(speaker) && !client.prefs.see_chat_non_mob)
 		return FALSE
 	return TRUE
 
@@ -599,7 +585,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 			keenears = HAS_TRAIT(H, TRAIT_KEENEARS)
 			var/name_to_highlight = H.nickname
 			if(name_to_highlight && name_to_highlight != "" && name_to_highlight != "Please Change Me")	//We don't need to highlight an unset or blank one.
-				highlighted_message = replacetext_char(message, name_to_highlight, "<b><font color = #[H.highlight_color]>[name_to_highlight]</font></b>")
+				highlighted_message = replacetext_char(message, name_to_highlight, "<b><font color = '[H.highlight_color]'>[name_to_highlight]</font></b>")
 
 			if(H != src && message_mode != MODE_WHISPER && H.has_flaw(/datum/charflaw/addiction/clamorous))
 				var/chance = 5
@@ -621,16 +607,6 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 
 
 	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_LIVING_SAY_SPECIAL, src, message)
-
-	//speech bubble
-	var/list/speech_bubble_recipients = list()
-	for(var/mob/M in listening)
-		if(M.client?.prefs)
-			if(M.client && !M.client.prefs.chat_on_map)
-				speech_bubble_recipients.Add(M.client)
-	var/image/I = image('icons/mob/talk.dmi', src, "[bubble_type][say_test(message)]", FLY_LAYER)
-	I.appearance_flags = APPEARANCE_UI_IGNORE_ALPHA
-	INVOKE_ASYNC(GLOBAL_PROC, GLOBAL_PROC_REF(flick_overlay), I, speech_bubble_recipients, 30)
 
 	//Listening gets trimmed here if a vocal bark's present. If anyone ever makes this proc return listening, make sure to instead initialize a copy of listening in here to avoid wonkiness
 	if(SEND_SIGNAL(src, COMSIG_MOVABLE_QUEUE_BARK, listening, args) || vocal_bark || vocal_bark_id)

@@ -1,4 +1,8 @@
 //body damage zones
+// Baseline Health for body parts.
+#define BODYPART_MAX_DAMAGE_CHEST 300
+#define BODYPART_MAX_DAMAGE_LIMB 200	//Head, arms and legs all share this.
+
 #define BODY_ZONE_HEAD		"head"
 #define BODY_ZONE_CHEST		"chest"
 #define BODY_ZONE_L_ARM		"l_arm"

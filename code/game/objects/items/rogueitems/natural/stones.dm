@@ -346,17 +346,21 @@ GLOBAL_LIST_INIT(stone_personality_descs, list(
 			qdel(src)
 // Caustic edit end
 
-	if( user.used_intent.type == /datum/intent/chisel )
+	if(user.used_intent.type == /datum/intent/chisel)
 		playsound(src.loc, pick('sound/combat/hits/onrock/onrock (1).ogg', 'sound/combat/hits/onrock/onrock (2).ogg', 'sound/combat/hits/onrock/onrock (3).ogg', 'sound/combat/hits/onrock/onrock (4).ogg'), 100)
-		user.visible_message("<span class='info'>[user] chisels the stone into a block.</span>")
-		if(do_after(user, work_time))
-			new /obj/item/natural/stoneblock(get_turf(src.loc))
-			if(HAS_TRAIT(user, TRAIT_MASTER_MASON)) //double the amount for any in a stone worker role
-				new /obj/item/natural/stoneblock(get_turf(src.loc))
-			new /obj/effect/decal/cleanable/debris/stony(get_turf(src))
-			playsound(src.loc, pick('sound/combat/hits/onrock/onrock (1).ogg', 'sound/combat/hits/onrock/onrock (2).ogg', 'sound/combat/hits/onrock/onrock (3).ogg', 'sound/combat/hits/onrock/onrock (4).ogg'), 100)
-			qdel(src)
-			user.mind.add_sleep_experience(/datum/skill/craft/masonry, (user.STAINT*0.2))
+		var/location = src.loc
+		for(var/obj/item/natural/stone/S in get_turf(src)) // CC edit - Port from Ochre Valley, makes chiseling check for any extra stones on the tile, then turns them into blocks as well.
+			user.visible_message("<span class='info'>[user] chisels the stone into a block.</span>")
+			if(do_after(user, work_time))
+				new /obj/item/natural/stoneblock(get_turf(location))
+				if(HAS_TRAIT(user, TRAIT_MASTER_MASON)) //double the amount for any in a stone worker role
+					new /obj/item/natural/stoneblock(get_turf(location))
+				new /obj/effect/decal/cleanable/debris/stony(get_turf(location))
+				playsound(location, pick('sound/combat/hits/onrock/onrock (1).ogg', 'sound/combat/hits/onrock/onrock (2).ogg', 'sound/combat/hits/onrock/onrock (3).ogg', 'sound/combat/hits/onrock/onrock (4).ogg'), 100)
+				qdel(S)
+				user.mind.add_sleep_experience(/datum/skill/craft/masonry, (user.STAINT*0.2))
+			else
+				return
 		return
 	else if(istype(W, /obj/item/rogueweapon/chisel/assembly))
 		to_chat(user, span_warning("You most use both hands to chisel blocks."))
@@ -501,21 +505,25 @@ GLOBAL_LIST_INIT(stone_personality_descs, list(
 		if (drillitem.current_charge < 1)
 			ungrip(user, "it runs out of fuel")
 		return
-	if( user.used_intent.type == /datum/intent/chisel )
+	if(user.used_intent.type == /datum/intent/chisel)
 		playsound(src.loc, pick('sound/combat/hits/onrock/onrock (1).ogg', 'sound/combat/hits/onrock/onrock (2).ogg', 'sound/combat/hits/onrock/onrock (3).ogg', 'sound/combat/hits/onrock/onrock (4).ogg'), 100)
-		user.visible_message("<span class='info'>[user] chisels the boulder into blocks.</span>")
-		if(do_after(user, work_time))
-			new /obj/item/natural/stoneblock(get_turf(src.loc))
-			new /obj/item/natural/stoneblock(get_turf(src.loc))
-			new /obj/item/natural/stoneblock(get_turf(src.loc))
-			if(HAS_TRAIT(user, TRAIT_MASTER_MASON)) //double the amount for any in a stone worker role
-				new /obj/item/natural/stoneblock(get_turf(src.loc))
-				new /obj/item/natural/stoneblock(get_turf(src.loc))
-				new /obj/item/natural/stoneblock(get_turf(src.loc))
-			new /obj/effect/decal/cleanable/debris/stony(get_turf(src))
-			playsound(src.loc, pick('sound/combat/hits/onrock/onrock (1).ogg', 'sound/combat/hits/onrock/onrock (2).ogg', 'sound/combat/hits/onrock/onrock (3).ogg', 'sound/combat/hits/onrock/onrock (4).ogg'), 100)
-			user.mind.add_sleep_experience(/datum/skill/craft/masonry, (user.STAINT*0.5))
-			qdel(src)
+		var/location = src.loc
+		for(var/obj/item/natural/rock/B in get_turf(src)) // CC edit - Port from Ochre Valley, chiseling boulders checks for other boulders on the tile, chiseling them as well
+			user.visible_message("<span class='info'>[user] chisels the boulder into blocks.</span>")
+			if(do_after(user, work_time))
+				new /obj/item/natural/stoneblock(get_turf(location))
+				new /obj/item/natural/stoneblock(get_turf(location))
+				new /obj/item/natural/stoneblock(get_turf(location))
+				if(HAS_TRAIT(user, TRAIT_MASTER_MASON)) //double the amount for any in a stone worker role
+					new /obj/item/natural/stoneblock(get_turf(location))
+					new /obj/item/natural/stoneblock(get_turf(location))
+					new /obj/item/natural/stoneblock(get_turf(location))
+				new /obj/effect/decal/cleanable/debris/stony(get_turf(location))
+				playsound(location, pick('sound/combat/hits/onrock/onrock (1).ogg', 'sound/combat/hits/onrock/onrock (2).ogg', 'sound/combat/hits/onrock/onrock (3).ogg', 'sound/combat/hits/onrock/onrock (4).ogg'), 100)
+				user.mind.add_sleep_experience(/datum/skill/craft/masonry, (user.STAINT*0.5))
+				qdel(B)
+			else
+				return
 		return
 	else if(istype(W, /obj/item/rogueweapon/chisel/assembly))
 		to_chat(user, span_warning("You most use both hands to chisel blocks."))

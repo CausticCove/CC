@@ -43,6 +43,8 @@
 	inv_storage_delay = 1.5 SECONDS
 	edelay_type = 1
 	special = /datum/special_intent/shin_swipe
+	twirly = SKILL_LEVEL_EXPERT // possible, but harder than staves n knives
+	twirl_speed = 6
 
 /obj/item/rogueweapon/sword/Initialize()
 	. = ..()
@@ -266,7 +268,7 @@
 /obj/item/rogueweapon/sword/long/ap
 	name = "stecher"
 	desc = "A unique longsword from the highest plateaus of the Azure Peak, sacrificing its cutting edge for a piercing tip that can easily penetrate maille. Tracing its roots to the \
-	late fourteenth century, this noble sidearm - borne from Grenzelhoftian imitations of the Otavan estoc - is proudly displayed on Azuria's official coat-of-arms."
+	late fourteenth century, this noble sidearm - born from Grenzelhoftian imitations of the Otavan estoc - is proudly displayed on Azuria's official coat-of-arms."
 	icon_state = "aplongsword"
 	sheathe_icon = "aplongsword"
 	force = 20
@@ -288,7 +290,7 @@
 		return .
 	if(tag)
 		switch(tag)
-			if("gen") return list("shrink" = 0.5, "sx" = -14, "sy" = -8, "nx" = 15, "ny" = -7, "wx" = -10, "wy" = -5, "ex" = 7, "ey" = -6, "northabove" = 0, "southabove" = 1, "eastabove" = 1, "westabove" = 0, "nturn" = -13, "sturn" = 110, "wturn" = -60, "eturn" = -30, "nflip" = 1, "sflip" = 1, "wflip" = 8, "eflip" = 1)
+			if("gen") return list("shrink" = 0.5, "sx" = -14, "sy" = -8, "nx" = 15, "ny" = -7, "wx" = -10, "wy" = -5, "ex" = 7, "ey" = -6, "northabove" = 0, "southabove" = 1, "eastabove" = 1, "westabove" = 0, "nturn" = -13, "sturn" = 110, "wturn" = -60, "eturn" = -30, "nflip" = 1, "sflip" = 1, "wflip" = 8, "eflip" = 1, "gripx" = 20, "gripy" = 20)
 			if("wielded") return list("shrink" = 0.6,"sx" = 9,"sy" = -4,"nx" = -7,"ny" = 1,"wx" = -9,"wy" = 2,"ex" = 10,"ey" = 2,"northabove" = 0,"southabove" = 1,"eastabove" = 1,"westabove" = 0,"nturn" = 5,"sturn" = -190,"wturn" = -170,"eturn" = -10,"nflip" = 8,"sflip" = 8,"wflip" = 1,"eflip" = 0)
 			if("onback") return list("shrink" = 0.5, "sx" = -1, "sy" = 2, "nx" = 0, "ny" = 2, "wx" = 2, "wy" = 1, "ex" = 0, "ey" = 1, "nturn" = 0, "sturn" = 0, "wturn" = 70, "eturn" = 15, "nflip" = 1, "sflip" = 1, "wflip" = 1, "eflip" = 1, "northabove" = 1, "southabove" = 0, "eastabove" = 0, "westabove" = 0)
 			if("onbelt") return list("shrink" = 0.4, "sx" = -4, "sy" = -6, "nx" = 5, "ny" = -6, "wx" = 0, "wy" = -6, "ex" = -1, "ey" = -6, "nturn" = 100, "sturn" = 156, "wturn" = 90, "eturn" = 180, "nflip" = 0, "sflip" = 0, "wflip" = 0, "eflip" = 0, "northabove" = 0, "southabove" = 1, "eastabove" = 1, "westabove" = 0)
@@ -511,7 +513,7 @@
 
 /obj/item/rogueweapon/sword/long/avantyne
 	name = "avantyne-threaded longsword"
-	desc = "A parasitic mandate to progress, borne through the cultivation of crystalline metastasis. This otherworldly blade is stronger and sharper than any \
+	desc = "A parasitic mandate to progress, born through the cultivation of crystalline metastasis. This otherworldly blade is stronger and sharper than any \
 	mortal-made masterwork, yet comes at a cost that has yet to be realized."
 	icon_state = "zizolongsword"
 	sheathe_icon = "zizolongsword"
@@ -584,7 +586,9 @@
 
 /obj/item/rogueweapon/sword/long/judgement/vlord
 	name = "\"Ichor Fang\""
-	desc = "An unholy longsword, who's crystalline blade radiates with insurmountable sharpness. It has been brought forth unto this world for a singular purpose; not to bring peace, but to dominate all who'd dare to oppose the coming darkness. ‎</br>‎‎ </br>'And I looked, and beheld a pale horse - the name that sat upon Her was Death, and Hell followed with them.'"
+	desc = "An unholy longsword, whose crystalline blade radiates with insurmountable sharpness. It has been brought forth into this world \
+	for a singular purpose; not to bring peace, but to dominate all who'd dare to oppose the coming darkness. ‎</br>‎‎ </br>'And I looked, and \
+	beheld a pale horse - the name that sat upon Her was Death, and Hell followed with them.'"
 	force = 40
 	force_wielded = 55
 	possible_item_intents = list(/datum/intent/sword/cut, /datum/intent/sword/thrust, /datum/intent/sword/cut/rend, /datum/intent/sword/strike)
@@ -642,7 +646,7 @@
   add_filter(FORCE_FILTER, 2, list("type" = "outline", "color" = GLOW_COLOR_VAMPIRIC, "alpha" = 120, "size" = 2)) //Its a cursed blade, it gets to glow ominiously now.
 
 /obj/item/rogueweapon/sword/long/marlin
-	name = "shalal saber"
+	name = "shalal sabre"
 	desc = "A large yet surprisingly agile curved blade meant to be wielded in two hands. It has a similar composition to northwestern Psydonian longswords, but it's notably lighter."
 	force = 26
 	force_wielded = 31
@@ -739,7 +743,7 @@
 	max_blade_int = 363
 	smelt_bar_num = 2
 
-/obj/item/rogueweapon/sword/long/exe/cloth/rmb_self(mob/user)
+/obj/item/rogueweapon/sword/long/exe/cloth/rmb_self(mob/user, keybind = FALSE)
 	user.changeNext_move(CLICK_CD_MELEE)
 	playsound(user, "clothwipe", 100, TRUE)
 	SEND_SIGNAL(src, COMSIG_COMPONENT_CLEAN_ACT, CLEAN_STRONG)
@@ -1290,8 +1294,8 @@
 /obj/item/rogueweapon/sword/sabre
 	name = "sabre"
 	desc = "A very popular backsword made for cavalrymen that originated in Naledi and spread its influence further north, reaching Aavnr as a \"Szablya\" and notoriously cementing itself as the preferred weapon of the Potentate's Hussars."
-	icon_state = "saber"
-	sheathe_icon = "saber"
+	icon_state = "sabre"
+	sheathe_icon = "sabre"
 	possible_item_intents = list(/datum/intent/sword/cut/sabre, /datum/intent/sword/cut/sabre/heavy, /datum/intent/sword/thrust/sabre, /datum/intent/sword/strike)
 	gripped_intents = null
 	parrysound = list('sound/combat/parry/bladed/bladedthin (1).ogg', 'sound/combat/parry/bladed/bladedthin (2).ogg', 'sound/combat/parry/bladed/bladedthin (3).ogg')
@@ -1324,16 +1328,16 @@
 	penfactor = PEN_LIGHT	//Curved blade — can poke through cloth but not mail.
 
 /obj/item/rogueweapon/sword/sabre/dec
-	icon_state = "decsaber"
-	sheathe_icon = "decsaber"
+	icon_state = "decsabre"
+	sheathe_icon = "decsabre"
 
 /obj/item/rogueweapon/sword/sabre/iron
-	name = "iron saber"
+	name = "iron sabre"
 	desc = "A Naledian sword mass produced for line infantry. Its fittings are simple, munitions grade, but the construction is sturdy and the blade as threatening \
 	as any."
 	smeltresult = /obj/item/ingot/iron
 	max_integrity = 100
-	icon_state = "isaber"
+	icon_state = "isabre"
 
 /obj/item/rogueweapon/sword/sabre/steppesman
 	name = "aavnic shashka"
@@ -1414,11 +1418,11 @@
 	icon_state = "akhopesh"
 
 /obj/item/rogueweapon/sword/sabre/elf
-	name = "elvish saber"
+	name = "elvish sabre"
 	desc = "A single-edged masterwork of Elven design, who's silvered blade glimmers under the sun's glare."
-	icon_state = "esaber"
-	item_state = "esaber"
-	sheathe_icon = "esaber"
+	icon_state = "esabre"
+	item_state = "esabre"
+	sheathe_icon = "esabre"
 	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
 	force = 23 //Equalized with the Stalker Sabre, with a +1DMG boost to its original stats.
@@ -1444,7 +1448,7 @@
 /obj/item/rogueweapon/sword/sabre/stalker
 	name = "stalker sabre"
 	desc = "A once-elegant blade of ketryl, who's sunless edge now menaces with obsidian-hued mirth."
-	icon_state = "spidersaber"
+	icon_state = "spidersabre"
 	force = 23
 	force_wielded = 23
 	minstr = 7
@@ -2194,7 +2198,7 @@
 	icon_state = "wodao"
 	sheathe_icon = "wodao"
 
-/obj/item/rogueweapon/sword/saber/iron/wodao
+/obj/item/rogueweapon/sword/sabre/iron/wodao
 	name = "iron wodao"
 	desc = "A wrought-iron wodao, mass produced by the thousands in the state arsenals for Xinyi infantry and provincial militias. The blade is competent, its edge sharp, but it will not hold as long under use. But at a fraction of the cost of a hwando, it is more than enough to slay a man or five before it needs to be sharpened."
 	icon_state = "iwodao"
@@ -2378,7 +2382,7 @@
 /obj/item/rogueweapon/sword/sabre/bane
 	name = "Bane's Edge"
 	desc = "A stained sabre made of blacksteel, its edge is coated in long-dried blood as well as poison."
-	icon_state = "poisonsaber"
+	icon_state = "poisonsabre"
 	force = 25
 	max_integrity = 200
 	parrysound = list('sound/combat/parry/bladed/bladedthin (1).ogg', 'sound/combat/parry/bladed/bladedthin (2).ogg', 'sound/combat/parry/bladed/bladedthin (3).ogg')

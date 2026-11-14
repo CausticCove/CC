@@ -1,6 +1,7 @@
 /datum/mob_descriptor/trait
 	abstract_type = /datum/mob_descriptor/trait
 	slot = MOB_DESCRIPTOR_SLOT_TRAIT
+	prefix = "%ARE%"
 
 /datum/mob_descriptor/trait/moderate
 	name = "Moderate"
@@ -239,6 +240,59 @@
 	name = "Volfish"
 	prefix = "%ARE% very"
 
+/datum/mob_descriptor/trait/radiant
+	name = "Radiant"
+	prefix = "%ARE% very"
+
+/datum/mob_descriptor/trait/bountiful
+	name = "Bountiful"
+	prefix = "%ARE% very"
+
+/datum/mob_descriptor/trait/trembling
+	name = "Trembling"
+	prefix = "%ARE%"
+
+/datum/mob_descriptor/trait/magnificent
+	name = "Magnificent"
+	prefix = "%ARE% very"
+
+/datum/mob_descriptor/trait/esteemed
+	name = "Esteemed"
+	prefix = "%ARE% very"
+
+/datum/mob_descriptor/trait/regal
+	name = "Regal"
+	prefix = "%ARE% very"
+
+/datum/mob_descriptor/trait/decadent
+	name = "Decadent"
+	prefix = "%ARE% very"
+
+/datum/mob_descriptor/trait/lavish
+	name = "Lavish"
+	prefix = "%ARE% very"
+
+/datum/mob_descriptor/trait/pompous
+	name = "Pompous"
+	prefix = "%ARE% very"
+
+/datum/mob_descriptor/trait/dashing
+	name = "Dashing"
+	prefix = "%ARE% very"
+
+/datum/mob_descriptor/trait/gravid
+	name = "Gravid"
+	prefix = "%ARE%"
+
+/datum/mob_descriptor/trait/fecund
+	name = "Fecund"
+	prefix = "%ARE%"
+
+/datum/mob_descriptor/trait/vainglorious
+	name = "Vainglorious"
+	prefix = "%ARE%"
+
+//Caustic Edit - Add in more Descriptors
 /datum/mob_descriptor/trait/plump
 	name = "Plump"
 	prefix = "%ARE% very"
@@ -378,3 +432,18 @@
 /datum/mob_descriptor/trait/sweaty
 	name = "Sweaty"
 	prefix = "%ARE% very"
+//Caustic Edit End
+
+/datum/mob_descriptor/trait/custom
+	var/custom_index
+
+/datum/mob_descriptor/trait/custom/can_describe(mob/living/described)
+	return length(described.custom_descriptors) >= custom_index
+
+/datum/mob_descriptor/trait/custom/get_description(mob/living/described)
+	var/datum/custom_descriptor_entry/entry = described.custom_descriptors[custom_index]
+	return entry.content_text
+
+/datum/mob_descriptor/trait/custom/twelve
+	name = "Custom Trait"
+	custom_index = 12

@@ -151,6 +151,7 @@
 	var/gm_name // Display label in the game master panel. Unset derives one from the type path.
 	var/gm_category // Filter category in the game master panel. Unset uses the primary faction.
 	var/gm_hidden = FALSE // Keep this type out of the game master panel entirely.
+	var/datum/npc_archetype/npc_archetype // NPC Archetype that is composed from multiple components to make them more reusable
 
 	var/datum/fellowship/current_fellowship
 	var/list/incoming_fellowship_invites = list() // list of /datum/weakref to /datum/fellowship; kept in sync with fellowship.pending_invites
@@ -241,6 +242,10 @@
 	var/mid_climb = FALSE
 	/// This one's for when you're choking to death.
 	var/last_gasp
+	/// Fixes to the hunger/thirst nonsense, stuffing them in species rather than mob.
+	var/hunger_stage
+	var/thirst_stage
+	var/vitae_stage
 
 	/// Had to put this here because attack() is not used solely by humans. That's fucked up, manne.
 	var/dualwield_attack_count = 0

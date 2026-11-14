@@ -13,6 +13,7 @@
 /obj/item/millstone/get_mechanics_examine(mob/user)
 	. = ..()
 	. += span_info("Left-clicking the millstone with certain ingredients, such as grain, will turn it into powder.")
+	. += span_info("Middle-clicking the millstone with a sack with grindable ingredients will process them in bulk.") // CC edit
 	. += span_info("For powdered grain, left-clicking it with a container of water will wetten it. Left-click it with an open palm to knead it into a half-clump of dough.")
 	. += span_info("Once kneaded, left-click the half-clump with another handful of powdered grain to turn it into a completed ball of dough; fit to bake in an oven, or to be further bedazzled upon.")
 
@@ -24,5 +25,25 @@
 			new W.mill_result(get_turf(loc))
 			qdel(W)
 	..()
+
+// Caustic Edit start / Allows using sacks to bulk-grind things
+// Preventing repetitive strain injuries since 1513
+/obj/item/millstone/MiddleClick(mob/user)
+	var/datum/skill/craft/cooking/cs = user?.get_skill_level(/datum/skill/craft/cooking)
+	var/scaled_grind_time = BASE_GRIND_TIME / get_cooktime_divisor(cs)
+	var/obj/item/held = user.get_active_held_item()
+	if(istype(held, /obj/item/storage/roguebag))
+		var/datum/component/storage/STR = held.GetComponent(/datum/component/storage)
+		var/list/things = STR.contents()
+		for(var/obj/item/grindable in things)
+			if(grindable.mill_result)
+				if(do_after(user, scaled_grind_time, target = src))
+					new grindable.mill_result(get_turf(loc))
+					qdel(grindable)
+			else
+				to_chat(user, span_warning("[grindable.name] can't be ground down and stalls the [name]."))
+				break
+	..()
+	// Caustic Edit end
 
 #undef BASE_GRIND_TIME

@@ -13,14 +13,28 @@
 
 /datum/round_event_control/zizo_pet_cementery
 	name = "Zizo's Pet Cementery"
-	track = EVENT_TRACK_INTERVENTION
 	typepath = /datum/round_event/zizo_pet_cementery
-	weight = 8
+	weight = 6
 	earliest_start = 25 MINUTES
 	max_occurrences = 2
-	min_players = 20 //May need to be observed and or removed, as deaddite animals can cause infections. Shouldn't be an issue at 20 pop however.
+	min_players = 15 //Lowered, infection chance was removed!
 	allowed_storytellers = list(/datum/storyteller/zizo)
 
 /datum/round_event/zizo_pet_cementery/start()
 	//Long duration but you might not even notice it.
 	SSmapping.add_world_trait(/datum/world_trait/zizo_pet_cementery, 60 MINUTES)
+	var/message
+	switch(GLOB.tod)
+		if("night")
+			message = "The pale moon glimmers with an unnatural light, as the wails of creatures fill the night."
+		if("dawn")
+			message = "With the dawn rolls in a pale, sickly fog. The birds chirp a warped tune."
+		if("dusk")
+			message = "The fading twilight turns blood red for a moment. Creechers do not quieten, it is too dangerous to sleep."
+		else
+			message = "The sun quickly pales underneath a blanket of strangely shaped clouds. The bell of a saiga is followed by the scream of a hunter."
+	to_world("<b><span class='span_danger'><span class='big'>[message]</span></span></b>")
+	for(var/mob/M in GLOB.player_list)
+		if (!M.can_hear())
+			return
+		M.playsound_local(M, 'sound/misc/evilevent.ogg', 100)

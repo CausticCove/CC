@@ -130,7 +130,7 @@ SUBSYSTEM_DEF(nightshift)
 			if(HAS_TRAIT(src, TRAIT_VAMP_DREAMS))
 				apply_status_effect(/datum/status_effect/debuff/vamp_dreams)
 				handle_sleep_triumphs() //CC Edit: Moving triumphs to whenever the character becomes eepy sleepies
-			if(HAS_TRAIT(src, TRAIT_NIGHT_OWL))
+			if(HAS_TRAIT(src, TRAIT_NIGHT_OWL) || HAS_TRAIT(src, TRAIT_NIGHT_OWL_LESSER))
 				apply_status_effect(/datum/status_effect/debuff/sleepytime)
 				handle_sleep_triumphs()//CC Edit: Moving triumphs to whenever the character becomes eepy sleepies
 			if(HAS_TRAIT(src, TRAIT_INFINITE_STAMINA))
@@ -146,8 +146,9 @@ SUBSYSTEM_DEF(nightshift)
 				add_stress(/datum/stressevent/night_owl)
 			else
 				handle_sleep_triumphs()//CC Edit: Moving triumphs to whenever the character becomes eepy sleepies
-				apply_status_effect(/datum/status_effect/debuff/sleepytime)
-				add_stress(/datum/stressevent/sleepytime)
+				if (!HAS_TRAIT(src, TRAIT_NIGHT_OWL_LESSER))
+					apply_status_effect(/datum/status_effect/debuff/sleepytime)
+					add_stress(/datum/stressevent/sleepytime)
 
 ///CC Edit: Moving dreampoints to whenever triumph gets dispensed
 /mob/living/carbon/human/proc/handle_sleep_triumphs()

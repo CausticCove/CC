@@ -19,6 +19,8 @@
 	var/base_icon = "pillory_single"
 	var/list/lockid = list()
 
+	var/lockhash // CC edit. For adding custom locks to pillories
+
 /obj/structure/pillory/get_mechanics_examine(mob/user)
 	. = ..()
 	. += span_info("Right clicking the pillory will latch it onto the head and hands of anyone on the same turf.")
@@ -79,6 +81,25 @@
 	togglelatch(user)
 
 /obj/structure/pillory/attackby(obj/item/P, mob/user, params)
+
+	// CC edit. Allows adding custom locks to pillories
+	if(istype(P, /obj/item/customlock/finished))
+		var/obj/item/customlock/finished/lock = P
+		if(makeshift)
+			to_chat(user, span_warning("There is nowhere to attach the lock to!"))
+			return
+		else if(lockid.len || lockhash)
+			to_chat(user, span_warning("There is already a lock attached to the [src]"))
+			return
+		else
+			lockhash = lock.lockhash
+			user.visible_message(span_warning("[user] attaches the [lock] to the [src]."), \
+			span_notice("I attach the [lock] to the [src]."))
+			playsound(src, 'sound/foley/doors/lock.ogg', 100)
+			qdel(lock)
+			return
+	// CC edit end
+
 	if(user in buckled_mobs)
 		to_chat(user, span_warning("I can't reach the lock!"))
 		return
@@ -89,7 +110,7 @@
 
 	if(istype(P, /obj/item/roguekey))
 		var/obj/item/roguekey/K = P
-		if(K.lockid in lockid)
+		if((K.lockid in lockid) || (K.lockhash == lockhash)) // CC edit. Allows using custom keys in the pillories
 			togglelock(user)
 			return
 		else if(makeshift == TRUE)
@@ -106,7 +127,7 @@
 			return
 		var/list/keys = R.contents.Copy()
 		for(var/obj/item/roguekey/KE in keys)
-			if(KE.lockid in lockid)
+			if((KE.lockid in lockid) || (KE.lockhash == lockhash)) // CC edit. Allows using custom keys in the pillories
 				togglelock(user)
 				return
 
