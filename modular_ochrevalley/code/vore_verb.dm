@@ -29,7 +29,6 @@
 			continue
 		potential_targets |= L
 
-	// CC does not have micro content yet
 	// for(var/thing in contents)
 	// 	if(!istype(thing,/obj/item/micro))	//U can also eat players in your hand
 	// 		continue
