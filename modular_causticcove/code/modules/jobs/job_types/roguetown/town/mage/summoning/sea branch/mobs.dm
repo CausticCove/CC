@@ -161,7 +161,7 @@
 	..()
 	var/turf/deathspot = get_turf(src)
 	for(var/i =1 to 3)
-		new /obj/item/magic/deepsea/tierone(deathspot)
+		new /obj/item/magic/deepsea/tiertwo(deathspot)
 	update_icon()
 	spill_embedded_objects()
 	qdel(src)
