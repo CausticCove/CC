@@ -390,6 +390,7 @@
 		/datum/sprite_accessory/breasts/pair,
 		/datum/sprite_accessory/breasts/quad,
 		/datum/sprite_accessory/breasts/sextuple,
+		/datum/sprite_accessory/breasts/quadalt, //cc addition
 		)
 
 /datum/customizer/organ/vagina

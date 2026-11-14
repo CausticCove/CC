@@ -197,7 +197,12 @@
 	preview_states = list("quad_2_FRONT_1")
 	name = "Quad"
 	color_key_defaults = list(KEY_CHEST_COLOR, KEY_CHEST_COLOR)
-
+//cc addition start
+/datum/sprite_accessory/breasts/quadalt
+	icon_state = "quadalt"
+	name = "Quad (ALT)"
+	color_key_defaults = list(KEY_CHEST_COLOR, KEY_CHEST_COLOR)
+//cc addition end
 /datum/sprite_accessory/breasts/sextuple
 	icon_state = "sextuple"
 	preview_states = list("sextuple_2_FRONT_1")
