@@ -1,7 +1,7 @@
 /mob/living/carbon/human/proc/on_examine_face(mob/living/carbon/human/user)
 	if(!istype(user))
 		return
-	if(user.mind)
+	if(user.mind && !is_npc(src)) // CC edit. Prevents NPCs from getting added to the known people list. Avoids clutter
 		user.mind.i_know_person(src)
 	if(HAS_TRAIT(user, TRAIT_JESTERPHOBIA) && job == "Jester")
 		user.add_stress(/datum/stressevent/jesterphobia)
