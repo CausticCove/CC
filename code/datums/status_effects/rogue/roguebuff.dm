@@ -1,5 +1,8 @@
 /datum/status_effect/buff
 	status_type = STATUS_EFFECT_REFRESH
+
+/* / CC edit. Comments out this block, re-allows buff tea stacking. Uncomment it to re-enable it.
+
 	/// Buffs sharing this group are mutually exclusive; only the highest exclusive_priority stays.
 	var/exclusive_group = null
 	/// Higher wins within a group; on a tie the newcomer replaces the incumbent.
@@ -10,19 +13,18 @@
 
 /datum/status_effect/buff/on_apply()
 	if(exclusive_group && owner)
-		var/list/outranked = list()
+		var/list/replaced = list()
 		for(var/datum/status_effect/buff/rival in owner.status_effects)
 			if(rival == src || rival.exclusive_group != exclusive_group)
 				continue
-			if(rival.exclusive_priority > exclusive_priority)
-				rejected_by_exclusion = TRUE
-				if(!exclusive_quiet)
-					owner.balloon_alert_to_viewers("superseded!")
-				return FALSE
-			outranked += rival
-		for(var/datum/status_effect/buff/loser in outranked)
+			/// CC edit. Fixes this, frankly, mess. Now, the newest buff overwrites the older ones
+			replaced += rival
+			rival.rejected_by_exclusion = TRUE
+		for(var/datum/status_effect/buff/loser in replaced)
 			qdel(loser) // Destroy() handles list cleanup + on_remove
 	return ..()
+
+*/
 
 /datum/status_effect/buff/drunk
 	id = "drunk"

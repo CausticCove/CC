@@ -1,3 +1,4 @@
+/* CC edit. Duplicates. Commenting out, but the exact same ones are in `modular/neu_brews/code/recipes/blend_recipes.dm`
 /datum/crafting_recipe/roguetown/cooking/raneshenbitters
 	name = "Raneshen bitters blend"
 	reqs = list(
@@ -157,3 +158,4 @@
 	craftdiff = 3
 	structurecraft = /obj/structure/table
 	req_table = TRUE
+*/

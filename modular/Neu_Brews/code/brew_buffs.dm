@@ -1,12 +1,14 @@
 /datum/status_effect/buff/brew
-	exclusive_group = "brew"
-	exclusive_quiet = TRUE
+	// exclusive_group = "brew"
+	// exclusive_quiet = TRUE
 	duration = 10 MINUTES
 
+/*
 /datum/status_effect/buff/brew/on_creation(mob/living/new_owner, ...)
 	for(var/S in effectedstats)
 		exclusive_priority += effectedstats[S]
 	return ..()
+*/
 
 /datum/status_effect/buff/brew/vigorized
 	id = "vigorized"
@@ -20,8 +22,8 @@
 
 /datum/status_effect/buff/brew/vigorized/on_remove()
 	. = ..()
-	if(!rejected_by_exclusion)
-		to_chat(owner, span_warning("The surge of energy inside me fades..."))
+	// if(!rejected_by_exclusion)
+	to_chat(owner, span_warning("The surge of energy inside me fades..."))
 
 /atom/movable/screen/alert/status_effect/vigorized
 	name = "Vigorized"
