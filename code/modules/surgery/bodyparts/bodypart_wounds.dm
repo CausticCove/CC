@@ -112,7 +112,9 @@
 	if(bandage && !HAS_BLOOD_DNA(bandage))
 		process_bandage(bleed_rate)
 		var/obj/item/natural/cloth/cloth = bandage
-		bleed_rate *= cloth.bandage_effectiveness
+		//CC Edit - Because I hate unclear math for decimal reductions that are just (bleed_rate *= cloth.bandage_effectiveness) ...
+		bleed_rate = (bleed_rate - (bleed_rate * cloth.bandage_effectiveness))
+		//CC Edit End - Now if you do 0.25 it's actually 25% of the total.
 		if(bleed_rate <= 1) //if the bleeding is below this after being bandaged, bleeding stops completely, but the bandage still takes damage
 			return 0
 		return bleed_rate

@@ -23,6 +23,9 @@
 	icon1step = 3
 	icon2 = "bandageroll2"
 	icon2step = 4
+	//CC Edit - Bandage Speeds for bundles.
+	bandage_speed = 4 SECONDS
+	//CC Edit End
 
 /obj/item/natural/bundle/cloth/bandage/full
 	icon_state = "bandageroll2"

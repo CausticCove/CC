@@ -26,6 +26,8 @@
 		/obj/item/rogueweapon/surgery/cautery,
 		/obj/item/rogueweapon/surgery/hammer,
 		/obj/item/natural/bundle/cloth/bandage/full,
+		/obj/item/reagent_containers/glass/bottle/alchemical/oziumvial, //CC Edit - So people can apply pain meds to folk.
+		/obj/item/reagent_containers/glass/bottle/alchemical/oziumvial, //CC Edit - So people can apply pain meds to folk.
 		/obj/item/needle
 	)
 
@@ -64,6 +66,8 @@
 	/obj/item/rogueweapon/surgery/cautery,
 	/obj/item/natural/bundle/cloth/bandage/full,
 	/obj/item/rogueweapon/surgery/hammer,
+	/obj/item/reagent_containers/glass/bottle/alchemical/oziumvial, //CC Edit - So people can apply pain meds to folk.
+	/obj/item/reagent_containers/glass/bottle/alchemical/oziumvial, //CC Edit - So people can apply pain meds to folk.
 	/obj/item/needle/pestra //Gets the special needle!
 	)
 
