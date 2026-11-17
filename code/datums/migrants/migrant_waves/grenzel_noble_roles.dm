@@ -5,7 +5,7 @@
 /datum/migrant_role/grenzel/envoy
 	name = "Envoy"
 	allowed_sexes = list(MALE, FEMALE)
-	forbidden_races = list(RACES_CONSTRUCT) //Caustic Edit - Just a global tweak to remove 'races_despised' from this check everywhere
+	forbidden_races = list(RACES_CONSTRUCT, RACES_STONE) //Caustic Edit - Just a global tweak to remove 'races_despised' from this check everywhere
 	greet_text = "You are a Grenzelhoftian envoy, traveling with bodyguards and a priest to represent your homeland.\
 	 What exactly you have been sent here to speak about- only you know."
 	advclass_cat_rolls = list(CTAG_GRENZEL_ENVOY = 20)
@@ -151,7 +151,7 @@
 	name = "Envoy Priest"
 	greet_text = "Nominally the envoy's spiritual advisor, your real power extends beyond religious matters. Protect interests of the Holy See of the Ten."
 	allowed_sexes = list(MALE, FEMALE)
-	forbidden_races = list(RACES_CONSTRUCT) //Caustic Edit - Just a global tweak to remove 'races_despised' from this check everywhere
+	forbidden_races = list(RACES_CONSTRUCT, RACES_STONE) //Caustic Edit - Just a global tweak to remove 'races_despised' from this check everywhere
 	advclass_cat_rolls = list(CTAG_GRENZEL_PRIEST = 20)
 
 /datum/advclass/grenzel_priest

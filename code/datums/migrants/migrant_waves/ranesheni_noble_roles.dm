@@ -6,7 +6,7 @@
 /datum/migrant_role/ranesheni/emir
 	name = "Emir"
 	allowed_sexes = list(MALE, FEMALE)
-	forbidden_races = list(RACES_CONSTRUCT) //Caustic Edit - Just a global tweak to remove 'races_despised' from this check everywhere
+	forbidden_races = list(RACES_CONSTRUCT, RACES_STONE) //Caustic Edit - Just a global tweak to remove 'races_despised' from this check everywhere
 	advclass_cat_rolls = list(CTAG_RANESHENI_EMIR = 20)
 	greet_text = "You are an envoy from the Empire, traveling with bodyguards and a priest to represent your homeland.\
 	 What exactly you have been sent here to speak about- only you know."
@@ -71,7 +71,7 @@
 /datum/migrant_role/ranesheni/amirah
 	name = "Amirah"
 	allowed_sexes = list(FEMALE)
-	forbidden_races = list(RACES_CONSTRUCT) //Caustic Edit - Just a global tweak to remove 'races_despised' from this check everywhere
+	forbidden_races = list(RACES_CONSTRUCT, RACES_STONE) //Caustic Edit - Just a global tweak to remove 'races_despised' from this check everywhere
 	advclass_cat_rolls = list(CTAG_RANESHENI_AMIRAH = 20)
 
 /datum/advclass/ranesheni_amirah

@@ -5,7 +5,7 @@
 	However, with the increase in banditry, necromancy, deadite risings, and increasing sea raider raids, there are rumors abound that Heartfelt is not what it used to be. \
 	Travellers often warn of Heartfelt having fallen already, and words of secretive cultists isn't unheard of."
 	allowed_sexes = list(MALE, FEMALE)
-	forbidden_races = list(RACES_CONSTRUCT) //Caustic Edit - Just a global tweak to remove 'races_despised' from this check everywhere
+	forbidden_races = list(RACES_CONSTRUCT RACES_STONE) //Caustic Edit - Just a global tweak to remove 'races_despised' from this check everywhere
 	outfit = null
 	total_positions = 1
 	spawn_positions = 0

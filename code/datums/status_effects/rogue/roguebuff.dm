@@ -588,7 +588,7 @@
 /datum/status_effect/buff/healing/tick()
 	if(block_combat_mode && owner.cmode)
 		return
-	if(HAS_TRAIT(owner, TRAIT_NOHEAL) || HAS_TRAIT(owner, TRAIT_IRONMAN))
+	if(HAS_TRAIT(owner, TRAIT_NOHEAL) || HAS_TRAIT(owner, TRAIT_IRONMAN) || HAS_TRAIT(owner, TRAIT_STONEMAN)) //CAUSTIC EDIT
 		return
 	var/obj/effect/temp_visual/heal/H = new /obj/effect/temp_visual/heal_rogue(get_turf(owner))
 	H.color = "#FF0000"
@@ -768,7 +768,7 @@
 /datum/status_effect/buff/campfire_stamina/tick()
 	//Caustic Edit - Move the temp increasing up here, since it would warm regardless of Combat Modo, but don't continue if we have not been toggled to actually give Stamina.
 	owner.adjust_bodytemperature(8)
-	if(HAS_TRAIT(owner, TRAIT_NOREGEN) || HAS_TRAIT(owner, TRAIT_IRONMAN))
+	if(HAS_TRAIT(owner, TRAIT_NOREGEN) || HAS_TRAIT(owner, TRAIT_IRONMAN) || HAS_TRAIT(owner, TRAIT_STONEMAN)) //CAUSTIC EDIT
 		return
 	if(owner.has_status_effect(/datum/status_effect/combat_tag))
 		return
@@ -791,7 +791,7 @@
 /datum/status_effect/buff/campfire/tick()
 	if(owner.has_status_effect(/datum/status_effect/combat_tag))
 		return
-	if(HAS_TRAIT(owner, TRAIT_NOHEAL) || HAS_TRAIT(owner, TRAIT_IRONMAN))
+	if(HAS_TRAIT(owner, TRAIT_NOHEAL) || HAS_TRAIT(owner, TRAIT_IRONMAN) || HAS_TRAIT(owner, TRAIT_STONEMAN)) //CAUSTIC EDIT
 		return
 	if(HAS_TRAIT(owner, TRAIT_HALFHEAL))
 		healing_on_tick /= 2
@@ -863,7 +863,7 @@
 	owner.remove_filter(MIRACLE_BLOODHEAL_FILTER)
 
 /datum/status_effect/buff/bloodheal/tick()
-	if(HAS_TRAIT(owner, TRAIT_IRONMAN))
+	if(HAS_TRAIT(owner, TRAIT_IRONMAN) || HAS_TRAIT(owner, TRAIT_STONEMAN)) //CAUSTIC EDIT
 		return
 	var/obj/effect/temp_visual/heal/H = new /obj/effect/temp_visual/heal_blood(get_turf(owner))
 	H.color = "#FF0000"
@@ -892,7 +892,7 @@
 	return TRUE
 
 /datum/status_effect/buff/healing/necras_vow/tick()
-	if(HAS_TRAIT(owner, TRAIT_NOHEAL) || HAS_TRAIT(owner, TRAIT_IRONMAN))
+	if(HAS_TRAIT(owner, TRAIT_NOHEAL) || HAS_TRAIT(owner, TRAIT_IRONMAN) || HAS_TRAIT(owner, TRAIT_STONEMAN)) //CAUSTIC EDIT
 		return
 	if(HAS_TRAIT(owner, TRAIT_HALFHEAL))
 		healing_on_tick /= 2
@@ -944,7 +944,7 @@
 	return TRUE
 
 /datum/status_effect/buff/psyhealing/tick()
-	if(HAS_TRAIT(owner, TRAIT_NOHEAL) || HAS_TRAIT(owner, TRAIT_IRONMAN))
+	if(HAS_TRAIT(owner, TRAIT_NOHEAL) || HAS_TRAIT(owner, TRAIT_IRONMAN) || HAS_TRAIT(owner, TRAIT_STONEMAN)) //CAUSTIC EDIT
 		return
 	if(HAS_TRAIT(owner, TRAIT_HALFHEAL))
 		healing_on_tick /= 2
@@ -1011,7 +1011,7 @@
 	return ..()
 
 /datum/status_effect/buff/oremuncher/tick()
-	if(HAS_TRAIT(owner, TRAIT_NOHEAL) || !HAS_TRAIT(owner, TRAIT_IRONMAN))
+	if(HAS_TRAIT(owner, TRAIT_NOHEAL) || !HAS_TRAIT(owner, TRAIT_IRONMAN) || !HAS_TRAIT(owner, TRAIT_STONEMAN)) //CAUSTIC EDIT
 		return
 	if(HAS_TRAIT(owner, TRAIT_HALFHEAL))
 		healing_on_tick /= 2
@@ -1042,7 +1042,7 @@
 	return ..()
 
 /datum/status_effect/buff/ingotmuncher/tick()
-	if(HAS_TRAIT(owner, TRAIT_NOHEAL) || !HAS_TRAIT(owner, TRAIT_IRONMAN))
+	if(HAS_TRAIT(owner, TRAIT_NOHEAL) || !HAS_TRAIT(owner, TRAIT_IRONMAN) || !HAS_TRAIT(owner, TRAIT_STONEMAN)) //CAUSTIC EDIT
 		return
 	if(HAS_TRAIT(owner, TRAIT_HALFHEAL))
 		healing_on_tick /= 2
@@ -1083,7 +1083,7 @@
 	return ..()
 
 /datum/status_effect/buff/gemmuncher/tick()
-	if(HAS_TRAIT(owner, TRAIT_NOHEAL) || !HAS_TRAIT(owner, TRAIT_IRONMAN))
+	if(HAS_TRAIT(owner, TRAIT_NOHEAL) || !HAS_TRAIT(owner, TRAIT_IRONMAN) || !HAS_TRAIT(owner, TRAIT_STONEMAN)) //CAUSTIC EDIT
 		return
 	if(HAS_TRAIT(owner, TRAIT_HALFHEAL))
 		healing_on_tick /= 2

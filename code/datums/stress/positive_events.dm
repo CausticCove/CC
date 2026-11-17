@@ -251,6 +251,12 @@
 	stressadd = -1
 	desc = span_green("My core has been successfully recalibrated. It feels invigorating.")
 
+//cc edit start
+/datum/stressevent/meditation_stoneman
+	timer = 10 MINUTES
+	stressadd = -1
+	desc = span_green("The magic powering my life is refreshed. It feels invigorating.")
+//cc edit end
 /datum/stressevent/bathcleaned
     timer = 20 MINUTES
     stressadd = -3

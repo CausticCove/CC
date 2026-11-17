@@ -16,7 +16,7 @@
 		if(act in nobreath_blocked)
 			return FALSE
 
-	if(HAS_TRAIT(src, TRAIT_IRONMAN))
+	if(HAS_TRAIT(src, TRAIT_IRONMAN) || HAS_TRAIT(src, TRAIT_STONEMAN)) //cc edit
 		var/static/list/ironman_blocked = list(
 			"pain",
 			"painmoan",

@@ -57,8 +57,8 @@
 		TRAIT_LIMBATTACHMENT, // this interacts with trait_ironman, making this take a while to reattach
 		TRAIT_NOPAINSTUN, // look into this later, just remembered Ryan merged NoPainSlow (cur. TRAIT_IGNOREDAMAGESLOWDOWN) into NoPainStun, might be good to separate them again for situations where I want my character to collapse from total pain, but not flinch when being hit
 		TRAIT_NOHUNGER,
-		TRAIT_NOBREATH, 
-		TRAIT_TOXIMMUNE, 
+		TRAIT_NOBREATH,
+		TRAIT_TOXIMMUNE,
 		TRAIT_ZOMBIE_IMMUNE,
 		)
 	changesource_flags = MIRROR_BADMIN | WABBAJACK | MIRROR_MAGIC | MIRROR_PRIDE | RACE_SWAP | SLIME_EXTRACT
@@ -259,7 +259,7 @@
 		if(M == user)
 			if(!do_after(user, 4 SECONDS))
 				return
-		
+
 		if(M.has_status_effect(/datum/status_effect/debuff/integrity_rig))
 			to_chat(user, span_warning("The jury rigged integrity repairs are still holding, for now..."))
 			return
@@ -326,7 +326,7 @@
 		to_chat(user, span_warning("That material cannot stabilize exposed integrity damage."))
 		return TRUE
 
-	// === INGOT === 
+	// === INGOT ===
 	if(istype(I, /obj/item/ingot))
 		if(M == user)
 			if(!do_after(user, 12 SECONDS, M))
@@ -387,7 +387,7 @@
 		qdel(I)
 		return TRUE
 
-	// === SCRAP === 
+	// === SCRAP ===
 	if(I.type == /obj/item/scrap)
 		var/obj/item/scrap/L = I
 		user.visible_message(
@@ -402,7 +402,7 @@
 		new /obj/item/rogueore/iron(get_turf(user))
 		return TRUE
 
-	// === WOOD === 
+	// === WOOD ===
 	if(I.type == /obj/item/grown/log/tree/small)
 		var/obj/item/grown/log/tree/small/L = I
 		user.visible_message(
@@ -421,7 +421,7 @@
 			new /obj/item/ash(get_turf(user))
 		return TRUE
 
-	// === LOG === 
+	// === LOG ===
 	if(I.type == /obj/item/grown/log/tree)
 		var/obj/item/grown/log/tree/L = I
 		user.visible_message(
@@ -437,7 +437,7 @@
 		new /obj/effect/decal/cleanable/debris/woody(get_turf(user))
 		return TRUE
 
-	// === ROCK === 
+	// === ROCK ===
 	if(istype(I, /obj/item/natural/rock))
 		var/obj/item/natural/rock/S = I
 		user.visible_message(
@@ -452,7 +452,7 @@
 		new /obj/effect/decal/cleanable/debris/stony(get_turf(user))
 		return TRUE
 
-	// === ORE === 
+	// === ORE ===
 	if(istype(I, /obj/item/rogueore))
 		power = 5 + I.sellprice * 1.25
 		M.apply_status_effect(/datum/status_effect/buff/oremuncher, power)
@@ -764,7 +764,7 @@
 /datum/status_effect/debuff/integrity_rig/on_apply()
 	owner.add_stress(/datum/stressevent/integrity_rig)
 	. = ..()
-	
+
 /datum/status_effect/debuff/integrity_rig/on_remove()
 	owner.remove_stress(/datum/stressevent/integrity_rig)
 	. = ..()

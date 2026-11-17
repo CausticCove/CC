@@ -197,7 +197,7 @@
 	ui_fa_icon = "biohazard"
 	max_choices = 1
 	restricted = TRUE
-	races = list(/datum/species/construct/metal, /datum/species/gnoll)
+	races = list(/datum/species/construct/metal, /datum/species/gnoll, /datum/species/construct/stone) //cc edit
 
 	choice_costs = list(0, 0, 0, 0)
 

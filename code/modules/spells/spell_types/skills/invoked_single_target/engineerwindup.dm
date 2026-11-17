@@ -22,7 +22,7 @@
 
 
 	//winding up only works on constructs
-	if(ishuman(targets[1]) && (is_species(targets[1], /datum/species/construct)||is_species(targets[1], /datum/species/construct/metal)))
+	if(ishuman(targets[1]) && (is_species(targets[1], /datum/species/construct)||is_species(targets[1], /datum/species/construct/metal)||is_species(targets[1], /datum/species/construct/stone))) //CC EDIT: stone constructs need to be here or they will be unrevivable. this should be fine if i flavor it right, but feel free to remove and replace with something better and more on theme (revival via mage or something)
 		var/mob/living/carbon/human/human_target = targets[1]
 		if(human_target in range(1, user))
 			if(user.get_skill_level(/datum/skill/craft/engineering) < 4)
@@ -73,6 +73,23 @@
 								I.current_charge -= 300
 
 					// Revive process
+					if(!is_species(targets[1], /datum/species/construct/stone))
+						human_target.adjustOxyLoss(-human_target.getOxyLoss())
+
+					if(human_target.revive(full_heal = FALSE))
+						// Restore consciousness
+						human_target.grab_ghost(force = TRUE)
+						human_target.emote("gasp")
+						human_target.Jitter(100)
+						human_target.electrocute_act(25, src, 1)//slight damage
+						human_target.visible_message(span_notice("[human_target] jerks awake with a buzz!"),
+													 span_userdanger("You awaken with a jolt as your core is spun!"))
+
+						// Apply debuffs
+						human_target.mind.remove_antag_datum(/datum/antagonist/zombie)
+						human_target.apply_status_effect(/datum/status_effect/debuff/revived)
+						return
+
 					human_target.adjustOxyLoss(-human_target.getOxyLoss())
 					if(human_target.revive(full_heal = FALSE))
 						// Restore consciousness

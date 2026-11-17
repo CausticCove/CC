@@ -116,6 +116,9 @@ Balloon Alert / Floating Text defines
 #define RACES_CONSTRUCT \
 	/datum/species/construct/metal,\
 
+#define RACES_STONE \
+	/datum/species/construct/stone,\
+
 #define RACES_OOZE \
 	/datum/species/ooze,\
 
@@ -305,6 +308,7 @@ Balloon Alert / Floating Text defines
 	/datum/species/kobold,\
 	/datum/species/goblinp,\
 	/datum/species/construct/metal,\
+	/datum/species/construct/stone,\
 	/datum/species/dullahan,\
 	/datum/species/dwarf/gnome,\
 	/datum/species/ooze\
@@ -331,6 +335,7 @@ Balloon Alert / Floating Text defines
 	/datum/species/halforc,\
 	/datum/species/harpy,\
 	/datum/species/construct/metal,\
+	/datum/species/construct/stone,\
 	/datum/species/dullahan,\
 	/datum/species/ooze,\
 )
@@ -350,6 +355,7 @@ Balloon Alert / Floating Text defines
 	/datum/species/demihuman,\
 	/datum/species/harpy,\
 	/datum/species/construct/metal,\
+	/datum/species/construct/stone,\
 	/datum/species/dullahan,\
 	/datum/species/ooze,\
 )
