@@ -1,3 +1,7 @@
+/area
+	//Add in Anti-Scry protection to areas. If you are within one, you cannot be scry'd.
+	var/block_scry = FALSE
+
 //Returns True if the Scry succeeds, otherwise it failed for some reason.
 // Requires a user, a target, and the name of whatever is being used, but everything else is technically optional if expected to be setup and sent to run properly.
 /proc/scry_on_mob(mob/living/carbon/human/user, mob/living/carbon/human/target, eyetype = /mob/dead/observer/eye/screye, scry_length = 8 SECONDS, used_item = "something unhandled", notify_target = TRUE, on_use_vismessage = null, on_use_tochat = null, datum/client_colour/apply_color_filter = null)
@@ -81,21 +85,4 @@
 
 /proc/is_in_denyscry_area(mob/living/carbon/human/target) //This probably could be done a bit better, but ugh.
 	var/area/target_area = get_area(target)
-
-	switch(target_area.type)
-		if(/area/rogue/outdoors/woods/wretch_lair)
-			return TRUE
-		if(/area/rogue/under/cave/inhumen)
-			return TRUE
-		if(/area/rogue/indoors/vampire_manor)
-			return TRUE
-		if(/area/rogue/outdoors/woods/vampire_lair)
-			return TRUE
-		if(/area/rogue/indoors/shelter/bog_hag)
-			return TRUE
-		if(/area/rogue/indoors/banditcamp)
-			return TRUE
-		if(/area/rogue/outdoors/banditcamp)
-			return TRUE
-		else
-			return FALSE
+	return target_area.block_scry

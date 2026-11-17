@@ -105,6 +105,7 @@
 	deathsight_message = "a nasty wicked place deep betwixt the roots of the bog"
 	var/list/recent_intruders = list()
 	area_sniff_message = "You smell the fey."
+	block_scry = TRUE //Caustic Edit - Block scrys!
 
 /area/rogue/indoors/shelter/bog_hag/root_maze
 	name = "The Deepest Roots"

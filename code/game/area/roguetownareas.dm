@@ -78,10 +78,12 @@ GLOBAL_LIST_INIT(roguetown_areas_typecache, typecacheof(list(/area/rogue/indoors
 	droning_sound = 'sound/music/area/banditcamp.ogg'
 	droning_sound_dusk = 'sound/music/area/banditcamp.ogg'
 	droning_sound_night = 'sound/music/area/banditcamp.ogg'
+	block_scry = TRUE //Caustic Edit - Block scrys!
 
 /area/rogue/indoors/vampire_manor
 	name = "Vampire Manor"
 	droning_sound = 'sound/music/area/manor2.ogg'
+	block_scry = TRUE //Caustic Edit - Block scrys!
 
 /area/rogue/indoors/lich_start //Quieter so our droning noise doesn't cut out the on-spawn stinger, not yet. I want this experience to be thematic
 	name = "Lich Lair"
@@ -138,6 +140,7 @@ GLOBAL_LIST_INIT(roguetown_areas_typecache, typecacheof(list(/area/rogue/indoors
 	droning_sound_dusk = 'sound/music/area/banditcamp.ogg'
 	droning_sound_night = 'sound/music/area/banditcamp.ogg'
 	deathsight_message = "somewhere in the wilds"
+	block_scry = TRUE //Caustic Edit - Block scrys!
 
 /area/rogue/indoors/shelter
 	icon_state = "shelter"

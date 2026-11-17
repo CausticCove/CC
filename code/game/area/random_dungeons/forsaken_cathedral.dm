@@ -7,3 +7,4 @@
 	droning_sound_dusk = 'sound/music/unholy.ogg'
 	droning_sound_night = 'sound/music/unholy.ogg'
 	detail_text = DETAIL_TEXT_FORSAKEN_CATHEDRAL
+	block_scry = TRUE //Caustic Edit - Block scrys!
