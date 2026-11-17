@@ -10,7 +10,7 @@
 	passive_healing = 1 //Heals 1 HP/s.
 
 	healable_by_miracles = FALSE //This will heal on its own. Miracles can reduce pain but cannot heal them as a means to side-step the vice.
-	
+
 	//Internal var handled in reagent_containers for incrementing stages.
 	var/stage = 0
 
@@ -53,7 +53,7 @@
 
 //Stage 5 you cannot bite and your speech is impeded for the time being. This hurts your mouth a lot and makes it hard to articulate words.
 /datum/wound/jaw_abuse/forced_stage
-	name = "severely abused jaw" 
+	name = "severely abused jaw"
 	check_name = "severely abused jaw"
 	whp = 25 //Someone is force feeding you. More than likely doing it for torture or for medical purposes, either way, this hurts a lot and for a good while.
 	passive_healing = 1
@@ -67,8 +67,8 @@
 
 /datum/wound/jaw_abuse/forced_stage/on_mob_loss(mob/living/affected)
 	. = ..()
-	ADD_TRAIT(affected, TRAIT_NO_BITE, "[type]")
-	ADD_TRAIT(affected, TRAIT_GARGLE_SPEECH, "[type]")
+	REMOVE_TRAIT(affected, TRAIT_NO_BITE, "[type]") // Fixes mangled jaw muting you permanently
+	REMOVE_TRAIT(affected, TRAIT_GARGLE_SPEECH, "[type]")
 
 //Resets the whp to its initial value, used for tolerating the pain and refreshing forced feeding.
 /datum/wound/jaw_abuse/proc/refresh()
