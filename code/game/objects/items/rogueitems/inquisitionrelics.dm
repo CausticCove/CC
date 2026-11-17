@@ -1437,7 +1437,7 @@ Inquisitorial armory down here
 		for(var/mob/living/carbon/human/HL in GLOB.player_list)
 		//	to_chat(world, "going through mob: [HL] | real_name: [HL.real_name] | input: [input] | [world.time]") Mirror-bugsplatter. Disregard this.
 			if(HL.real_name == input)
-				if(HAS_TRAIT(HL, TRAIT_ANTISCRYING))
+				if(HAS_TRAIT(HL, TRAIT_ANTISCRYING) || is_in_denyscry_area(HL))
 					to_chat(user, span_warning("They are not within the gaze of the Mirror."))
 					return
 				target = HL
@@ -1461,7 +1461,7 @@ Inquisitorial armory down here
 	else
 		lookat = whofedme
 	playsound(src, 'sound/items/blackmirror_use.ogg', 100, FALSE)
-	ADD_TRAIT(user, TRAIT_NOSSDINDICATOR, "blackmirror")
+	/*ADD_TRAIT(user, TRAIT_NOSSDINDICATOR, "blackmirror") //Caustic Edit - Moving this to a proper global proc call.
 	var/mob/dead/observer/eye/screye/blackmirror/S = user.scry_ghost()
 	if(!S)
 		return
@@ -1470,8 +1470,10 @@ Inquisitorial armory down here
 	user.visible_message(span_warning("[user] stares into [src], their eyes glazing over..."))
 	addtimer(CALLBACK(S, TYPE_PROC_REF(/mob/dead/observer, reenter_corpse)), 4 SECONDS)
 	sleep(41)
-	REMOVE_TRAIT(user, TRAIT_NOSSDINDICATOR, "blackmirror")
-	playsound(user, 'sound/items/blackeye.ogg', 100, FALSE)
+	REMOVE_TRAIT(user, TRAIT_NOSSDINDICATOR, "blackmirror")*/
+	scry_on_mob(user, lookat, /mob/dead/observer/eye/screye/blackmirror, 4 SECONDS, src.name, FALSE, span_warning("[user] stares into [src], their eyes glazing over..."), apply_color_filter = /datum/client_colour/nocshaded)
+	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(playsound), user, 'sound/items/blackeye.ogg', 100, FALSE), (4 SECONDS) + 1)
+	//playsound(user, 'sound/items/blackeye.ogg', 100, FALSE)
 	return
 
 /obj/item/inqarticles/bmirror/attack(mob/living/carbon/human/M, mob/living/carbon/human/user)
@@ -1622,14 +1624,17 @@ Inquisitorial armory down here
 
 /atom/movable/screen/alert/blackmirror/Click()
 	var/mob/living/L = usr
-	var/lookat = null
+	//var/lookat = null
 
 	if(alert(L, "KEEP LOOKING, WHAT WILL YOU FIND?", "BLACK EYED GAZE", "BLOOD", "MIRROR") != "BLOOD")
-		lookat = source
+		playsound(L, 'sound/items/blackmirror_use.ogg', 100, FALSE)
+		scry_on_obj(L, source, /mob/dead/observer/eye/screye/blackmirror, 4 SECONDS, "blackmirror rebound scry (the alert)", span_warning("[L] stares into [src], their eyes glazing over..."), apply_color_filter = /datum/client_colour/nocshaded)
 	else
-		lookat = source.whofedme
-	playsound(L, 'sound/items/blackmirror_use.ogg', 100, FALSE)
-	ADD_TRAIT(L, TRAIT_NOSSDINDICATOR, "blackmirror")
+		playsound(L, 'sound/items/blackmirror_use.ogg', 100, FALSE)
+		scry_on_mob(L, source.whofedme, /mob/dead/observer/eye/screye/blackmirror, 4 SECONDS, "blackmirror rebound scry (the alert)", FALSE, span_warning("[L] stares into [src], their eyes glazing over..."), apply_color_filter = /datum/client_colour/nocshaded)
+
+	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(playsound), L, 'sound/items/blackeye.ogg', 100, FALSE), (4 SECONDS) + 1)
+	/*ADD_TRAIT(L, TRAIT_NOSSDINDICATOR, "blackmirror") //Caustic Edit - Moving this to a proper global proc call.
 	var/mob/dead/observer/eye/screye/blackmirror/S = L.scry_ghost()
 	if(!S)
 		return
@@ -1639,7 +1644,7 @@ Inquisitorial armory down here
 	addtimer(CALLBACK(S, TYPE_PROC_REF(/mob/dead/observer, reenter_corpse)), 4 SECONDS)
 	REMOVE_TRAIT(L, TRAIT_NOSSDINDICATOR, "blackmirror")
 	sleep(41)
-	playsound(L, 'sound/items/blackeye.ogg', 100, FALSE)
+	playsound(L, 'sound/items/blackeye.ogg', 100, FALSE)*/
 	return
 
 // FINISH THIS AT YOUR LEISURE. I'M JUST LEAVING IT HERE UNIMPLEMENTED. IT'S INTENDED TO WORK AS A COMBINATION OF THE NOC FAR-SIGHT AND THE NOCSHADES. HAVE FUN! - YISCHE

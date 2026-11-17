@@ -70,9 +70,11 @@
 	ambush_mobs = null
 	threat_region = ""
 	allow_extreme_weather = FALSE //Caustic Edit - No tornado spawns!
+	block_scry = TRUE //Caustic Edit - Block scrys!
 
 /area/rogue/outdoors/woods/wretch_lair
 	warden_area = FALSE
 	ambush_mobs = null
 	threat_region = ""
 	allow_extreme_weather = FALSE //Caustic Edit - No tornado spawns!
+	block_scry = TRUE //Caustic Edit - Block scrys!

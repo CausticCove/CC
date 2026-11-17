@@ -76,7 +76,7 @@
 	if(!do_after(user, time_to_use, target = user))
 		to_chat(user, span_warning("I need to focus..."))
 		return
-	
+
 	var/success_chance = 0
 
 	var/break_on_fail = FALSE
@@ -135,7 +135,7 @@
 				success_chance = 100
 
 	// fairly rarely, if you look into a telescope at night w/ an arcyne tier, you can get this buff.
-	// ensures your orb doesnt break and gives you a teensy boost. 
+	// ensures your orb doesnt break and gives you a teensy boost.
 	if(user.has_status_effect(/datum/status_effect/buff/transparent_eyeball))
 		break_on_fail = FALSE
 		if(success_chance < 100)
@@ -163,9 +163,11 @@
 		if(break_on_fail)
 			failure_break(user)
 		return
-	
+
 	playsound(src, 'sound/magic/whiteflame.ogg', 100, TRUE)
-	scry(user, target)
+	if(scry_on_mob(user, target, /mob/dead/observer/eye/screye, 8 SECONDS, src.name, TRUE, span_danger("[user] stares into [src], [user.p_their()] eyes rolling back into [user.p_their()] head."))) //Caustic Edit - Moved this to a global proc call instead.
+		last_scry = world.time
+		return
 
 	to_chat(user, span_warning("I peer into the ball, but can't find [input]."))
 	return
@@ -188,8 +190,10 @@
 		index = (index + rand(1, len-1)) % len
 		HL = GLOB.human_list[index]
 
-	scry(user, HL)
+	if(scry_on_mob(user, HL, /mob/dead/observer/eye/screye, 8 SECONDS, src.name, TRUE, span_danger("[user] stares into [src], [user.p_their()] eyes rolling back into [user.p_their()] head."))) //Caustic Edit - Moved this to a global proc call instead.
+		last_scry = world.time
 
+/* //Caustic Edit - Removing this proc to instead use a global helper variant. Why it wasn't the case before now? I don't know and it pains me.
 /obj/item/scrying/proc/scry(mob/living/carbon/human/user, mob/living/carbon/human/target)
 	var/turf/T = get_turf(target)
 	if(!T)
@@ -216,6 +220,7 @@
 		to_chat(target, span_warning("I feel a pair of unknown eyes on me."))
 		target.playsound_local(target, 'sound/magic/scryed_on.ogg', 75, TRUE)
 	return
+*/
 
 /obj/item/scrying/proc/failure_break(mob/living/user)
 	visible_message(span_warning("\The [src] flickers with a sickly light!"))

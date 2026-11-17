@@ -1,3 +1,17 @@
+//Adding in a specific check for 'can_wander_safely' that is a more restrictive version of can_traverse_safely! It's up above where it's actually used just to be sure it's loading fully.
+/turf/proc/can_wander_safely(atom/movable/traveler)
+	return can_traverse_safely(traveler)
+
+//Add in specific turf handling here:
+/turf/open/water/can_wander_safely(atom/movable/traveler)
+	return FALSE
+
+/turf/open/transparent/openspace/can_wander_safely(atom/movable/traveler)
+	return FALSE
+
+/turf/open/lava/can_wander_safely(atom/movable/traveler)
+	return FALSE
+
 // Humanoid NPC idling, ported from Scarlet Reach's /mob/living/carbon/human/proc/npc_idle().
 //
 // SR drives its human NPCs with a hand-rolled process_ai() state machine and has no ai_controller
@@ -13,7 +27,7 @@
 	var/min_delay = 3 SECONDS
 	var/max_delay = 5 SECONDS
 	/// Chance to take a step rather than turn in place.
-	var/step_chance = 50
+	var/step_chance = 30
 	/// Chance of an idle emote on any given idle tick.
 	var/emote_chance = 3
 	/// world.time of the next permitted idle tick.
@@ -38,7 +52,7 @@
 		if(prob(step_chance))
 			var/turf/target_turf = get_step(pawn.loc, pick(GLOB.cardinals))
 			// can_traverse_safely keeps them out of lava and open space.
-			if(target_turf?.can_traverse_safely(pawn))
+			if(target_turf?.can_wander_safely(pawn))
 				step_towards(pawn, target_turf, pawn.cached_multiplicative_slowdown)
 		else
 			pawn.setDir(turn(pawn.dir, pick(90, -90)))
