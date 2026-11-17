@@ -105,8 +105,8 @@ GLOBAL_DATUM_INIT(openspace_backdrop_one_for_all, /atom/movable/openspace_backdr
 		return TRUE
 	return FALSE
 
-/turf/open/transparent/openspace/can_traverse_safely(atom/movable/traveler)
-	return FALSE
+/*/turf/open/transparent/openspace/can_traverse_safely(atom/movable/traveler) //CC Edit - What happened here to dupe this??? It's probably overriding the above?
+	return FALSE*/
 
 /turf/open/transparent/openspace/proc/CanCoverUp()
 	return can_cover_up
