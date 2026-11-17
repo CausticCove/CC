@@ -981,8 +981,11 @@ var/global/mob/_corpse_sort_ref = null
 			)
 		)
 
+	//Caustic Edit - Moving this to a central Scry Proc
+	user.playsound_local(get_turf(user), 'sound/magic/necra_sight.ogg', 80)
+	scry_on_obj(user, spygrave, /mob/dead/observer/eye/screye, 8 SECONDS, "necra's sight spell", span_danger("[user] blinks, [user.p_their()] eyes rolling back into [user.p_their()] head."), target_vismessage = span_warning("[spygrave] shimmers with an eerie glow."))
 	// Create scry eye
-	var/mob/dead/observer/screye/S = user.scry_ghost()
+	/*var/mob/dead/observer/screye/S = user.scry_ghost()
 	if(!S)
 		return FALSE
 
@@ -996,7 +999,8 @@ var/global/mob/_corpse_sort_ref = null
 	user.playsound_local(get_turf(user), 'sound/magic/necra_sight.ogg', 80)
 
 	// Cleanup after duration
-	addtimer(CALLBACK(S, TYPE_PROC_REF(/mob/dead/observer, reenter_corpse)), 8 SECONDS)
+	addtimer(CALLBACK(S, TYPE_PROC_REF(/mob/dead/observer, reenter_corpse)), 8 SECONDS)*/
+	//Caustic Edit End
 
 	addtimer(CALLBACK(spygrave, TYPE_PROC_REF(/datum, remove_filter), GRAVE_SPY), 8 SECONDS)
 

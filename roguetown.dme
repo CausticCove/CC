@@ -328,6 +328,7 @@
 #include "code\__HELPERS\sorts\TimSort.dm"
 
 //Caustic Modular Helpers
+#include "modular_causticcove\code\_helpers\scry_helpers.dm"
 #include "modular_causticcove\code\_helpers\vore.dm"
 //Caustic Modular Helpers End
 

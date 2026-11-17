@@ -216,7 +216,7 @@
 		to_chat(seeker, span_warning("The vision is too faint to manifest..."))
 		return FALSE
 
-	var/turf/target_turf = get_turf(target)
+	/*var/turf/target_turf = get_turf(target) //Caustic Edit - Moving this mess to a global proc for all scrys.
 	if(!target_turf)
 		return FALSE
 
@@ -229,7 +229,10 @@
 	eye.scry_center_turf = target_turf
 
 	to_chat(seeker, span_purple("Your mind pierces the veil to glimpse your target... You have 6 seconds."))
-	addtimer(CALLBACK(eye, TYPE_PROC_REF(/mob/dead/observer/eye/arcane, cancel_scry)), 6 SECONDS)
+	addtimer(CALLBACK(eye, TYPE_PROC_REF(/mob/dead/observer/eye/arcane, cancel_scry)), 6 SECONDS)*/
+	if(scry_on_mob(seeker, target, /mob/dead/observer/eye/arcane/abyssor, 6 SECONDS, "painter vision", FALSE, on_use_tochat = span_purple("Your mind pierces the veil to glimpse your target... You have 6 seconds.")))
+		return FALSE
+
 	return TRUE
 
 /mob/living/carbon/human/proc/recall_vision_quest()

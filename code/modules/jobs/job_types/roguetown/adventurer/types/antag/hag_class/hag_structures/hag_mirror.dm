@@ -70,9 +70,9 @@
 		return
 
 	var/mob/living/carbon/human/target = null
-	for(var/mob/living/carbon/human/HL in GLOB.player_list) 
+	for(var/mob/living/carbon/human/HL in GLOB.player_list)
 		if(HL.real_name == input)
-			if(HAS_TRAIT(HL, TRAIT_ANTISCRYING))
+			if(HAS_TRAIT(HL, TRAIT_ANTISCRYING) || is_in_denyscry_area(HL))
 				to_chat(user, span_warning("They are not within the gaze of the mirror."))
 				return
 			target = HL
@@ -80,8 +80,13 @@
 		to_chat(user, span_warning("They are not within the gaze of the mirror; either they've travelled afar, or they've fallen victim to the fog."))
 		return
 
+	//Caustic Edit Start - Adjusting this to use a global scry proc instead
 	target.throw_alert("hagscry", /atom/movable/screen/alert/hagscry, override = TRUE)
-	message_admins("SCRYING: [user.real_name] ([user.ckey]) has scryed [target.real_name] ([target.ckey]) via the hag hut mirror.")
+	if(target.stat != DEAD && target.stat != UNCONSCIOUS)
+		to_chat(target, span_warning("I feel as though the ground is watching me."))
+	addtimer(CALLBACK(target, TYPE_PROC_REF(/mob/, clear_alert), "hagscry", TRUE), 8 SECONDS)
+	playsound(src, 'sound/hag/hag_cackles_short.ogg', 100, TRUE)
+	/*message_admins("SCRYING: [user.real_name] ([user.ckey]) has scryed [target.real_name] ([target.ckey]) via the hag hut mirror.")
 	log_game("SCRYING: [user.real_name] ([user.ckey]) has scryed [target.real_name] ([target.ckey]) via the hag hut mirror.")
 	playsound(src, 'sound/hag/hag_cackles_short.ogg', 100, TRUE)
 	to_chat(user, span_warning("You peer into the mirror, gazing through the network of roots..."))
@@ -96,9 +101,12 @@
 	addtimer(CALLBACK(S, TYPE_PROC_REF(/mob/dead/observer, reenter_corpse)), 8 SECONDS)
 	addtimer(CALLBACK(target, TYPE_PROC_REF(/mob/, clear_alert), "hagscry", TRUE), 8 SECONDS)
 	sleep(81)
-	REMOVE_TRAIT(user, TRAIT_NOSSDINDICATOR, "hagmirror")
-	last_scry = world.time
-	fed = FALSE
+	REMOVE_TRAIT(user, TRAIT_NOSSDINDICATOR, "hagmirror")*/
+	if(scry_on_mob(user, target, /mob/dead/observer/eye/screye/blackmirror, 8 SECONDS, "hag hut mirror", FALSE, span_warning("[user] stares into [src], [user.p_their()] eyes glazing over..."), span_warning("You peer into the mirror, gazing through the network of roots...")))
+		last_scry = world.time
+		fed = FALSE
+	//Caustic Edit End
+
 	return
 
 /obj/item/handmirror/hag
@@ -134,9 +142,9 @@
 		return
 
 	var/mob/living/carbon/human/target = null
-	for(var/mob/living/carbon/human/HL in GLOB.player_list) 
+	for(var/mob/living/carbon/human/HL in GLOB.player_list)
 		if(HL.real_name == input)
-			if(HAS_TRAIT(HL, TRAIT_ANTISCRYING))
+			if(HAS_TRAIT(HL, TRAIT_ANTISCRYING) || is_in_denyscry_area(HL))
 				to_chat(user, span_warning("The gaze of the roots is rebuffed by a ward!"))
 				return
 			target = HL
@@ -144,8 +152,13 @@
 		to_chat(user, span_warning("They are not within the gaze of the mirror; either they've travelled afar, or they've fallen victim to the fog."))
 		return
 
+	//Caustic Edit Start - Adjusting this to use a global scry proc instead
 	target.throw_alert("hagscry", /atom/movable/screen/alert/hagscry, override = TRUE)
-	message_admins("SCRYING: [user.real_name] ([user.ckey]) has scryed [target.real_name] ([target.ckey]) via a wyrd mirror.")
+	if(target.stat != DEAD && target.stat != UNCONSCIOUS)
+		to_chat(target, span_warning("I feel as though the ground is watching me."))
+	addtimer(CALLBACK(target, TYPE_PROC_REF(/mob/, clear_alert), "hagscry", TRUE), 8 SECONDS)
+	playsound(src, 'sound/hag/hag_cackles_short.ogg', 100, TRUE)
+	/*message_admins("SCRYING: [user.real_name] ([user.ckey]) has scryed [target.real_name] ([target.ckey]) via a wyrd mirror.")
 	log_game("SCRYING: [user.real_name] ([user.ckey]) has scryed [target.real_name] ([target.ckey]) via a wyrd mirror.")
 	playsound(src, 'sound/hag/hag_cackles_short.ogg', 100, TRUE)
 	to_chat(user, span_warning("You peer into the mirror, gazing through the network of roots..."))
@@ -160,8 +173,11 @@
 	addtimer(CALLBACK(S, TYPE_PROC_REF(/mob/dead/observer, reenter_corpse)), 8 SECONDS)
 	addtimer(CALLBACK(target, TYPE_PROC_REF(/mob/, clear_alert), "hagscry", TRUE), 8 SECONDS)
 	sleep(81)
-	REMOVE_TRAIT(user, TRAIT_NOSSDINDICATOR, "hagmirror")
-	last_scry = world.time
+	REMOVE_TRAIT(user, TRAIT_NOSSDINDICATOR, "hagmirror")*/
+	if(scry_on_mob(user, target, /mob/dead/observer/eye/screye/blackmirror, 8 SECONDS, "wyrd mirror", FALSE, span_warning("[user] stares into [src], [user.p_their()] eyes glazing over..."), span_warning("You peer into the mirror, gazing through the network of roots...")))
+		last_scry = world.time
+	//Caustic Edit End
+
 	return
 
 
